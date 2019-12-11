@@ -228,3 +228,7 @@ class ResultPlotter:
         plt.title("Amplitudes lost over turns", fontsize=20)
         plt.xlabel("Number of Turns Survived", fontsize=17)
         plt.ylabel("Initial amplitude [mm]", fontsize=17)
+
+
+if __name__ == "__main__":
+    raise NotImplementedError("This module is meant to be imported.")
