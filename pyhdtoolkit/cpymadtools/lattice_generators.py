@@ -257,3 +257,7 @@ select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
         return mystring
+
+
+if __name__ == "__main__":
+    raise NotImplementedError("This module is meant to be imported.")

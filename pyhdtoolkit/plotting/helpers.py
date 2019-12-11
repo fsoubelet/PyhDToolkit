@@ -31,3 +31,7 @@ def set_arrow_label(ax, label="myLabel", arrow_position=(0, 0), label_position=(
         bbox=dict(boxstyle="round4", fc="w", color=color, lw=2),
         arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2),
     )
+
+
+if __name__ == "__main__":
+    raise NotImplementedError("This module is meant to be imported.")

@@ -46,3 +46,7 @@ class DotDict(dict):
     def __setstate__(self, state):
         self.update(state)
         self.__dict__ = self
+
+
+if __name__ == "__main__":
+    raise NotImplementedError("This module is meant to be imported.")
