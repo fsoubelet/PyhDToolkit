@@ -25,11 +25,18 @@ make install
 
 ## Testing
 
-Forthcomoing.
+Tests are currently a work in progress.
+Testing builds are ensured after each commit through Travis-CI.
+
+You can run tests locally with:
+```bash
+make tests
+```
 
 ## Standards, Tools and VCS
 
 This repository respects the PyCharm docstring format (because it's the tool I use), and uses [Black][black_formatter] as a code formatter.
+The default enforced line length is 120 characters.
 You can lint the code with:
 ```bash
 make black

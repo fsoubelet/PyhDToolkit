@@ -1,12 +1,15 @@
-.PHONY : black clean_pyc install
+.PHONY : black clean_pyc install tests
 
 all: install
-
-clean_pyc:
-	-find . -name '*.py[co]' -exec rm {} \;
 
 black:
 	black -v -l 120 .
 
-install: clean_pyc
-	pip install -e .
+clean_pyc:
+	-find . -name '*.py[co]' -exec rm {} \;
+
+install: tests
+	pip install .
+
+tests: black clean_pyc
+	pytest tests
