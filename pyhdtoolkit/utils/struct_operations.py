@@ -85,6 +85,15 @@ class ListOperations:
         return result
 
     @staticmethod
+    def get_indices(element, list_like) -> list:
+        """
+        Return all array indices at which number is located.
+        Example:
+            get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2]) -> [0, 7, 8]
+        """
+        return [i for (y, i) in zip(list_like, range(len(list_like))) if element == y]
+
+    @staticmethod
     def group_by(lst: list, function) -> dict:
         """
         Groups the elements of a list based on the given function.
