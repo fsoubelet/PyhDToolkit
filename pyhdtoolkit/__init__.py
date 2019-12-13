@@ -20,3 +20,6 @@ import logging
 from logging import NullHandler
 
 logging.getLogger(__name__).addHandler(NullHandler())
+
+# Importing * is a bad practice and you should be punished for using it
+__all__ = []
