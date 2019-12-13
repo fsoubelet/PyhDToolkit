@@ -13,7 +13,9 @@ from .__version__ import __author__, __author_email__, __license__
 
 from . import cpymadtools
 from . import plotting
-from . import utils
+
+# Utils should not be part of the high-level import as pyhdtoolkit.a_util_function. I may change my mind on that.
+# from . import utils
 
 # Set default logging handler to avoid "No handler found" warnings.
 import logging

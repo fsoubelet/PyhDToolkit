@@ -76,9 +76,9 @@ class LaTwiss:
         plt.ylim(-0.08, 0.08)
         plt.title(
             title
-            + ", $\\mu_x$="
+            + ", $\mu_x$="
             + format(cpymad_instance.table.summ.Q1[0] / ncells, "2.3f")
-            + ", $\\mu_y$="
+            + ", $\mu_y$="
             + format(cpymad_instance.table.summ.Q2[0] / ncells, "2.3f"),
             fontsize=15,
         )
@@ -94,7 +94,7 @@ class LaTwiss:
 
         # Plotting the dipoles
         ax2 = ax1.twinx()
-        ax2.set_ylabel("$\\theta$=K0L [rad]", color="blue", fontsize=15)
+        ax2.set_ylabel("$\theta$=K0L [rad]", color="blue", fontsize=15)
         ax2.tick_params(axis="y", labelcolor="blue")
         dipoles_dataframe = twiss_dataframe[(twiss_dataframe["keyword"] == "multipole")]
         for i in range(len(dipoles_dataframe)):
@@ -107,7 +107,7 @@ class LaTwiss:
         plt.plot(twiss_dataframe.s, twiss_dataframe.betx, label="$\\beta_x$")
         plt.plot(twiss_dataframe.s, twiss_dataframe.bety, label="$\\beta_y$")
         plt.legend(loc=2, fontsize=15)
-        plt.ylabel("$\\beta$-functions [m]", fontsize=15)
+        plt.ylabel("$\beta$-functions [m]", fontsize=15)
         plt.xlabel("s [m]", fontsize=15)
         plt.grid()
 
