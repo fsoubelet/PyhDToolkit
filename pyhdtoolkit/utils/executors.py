@@ -74,3 +74,7 @@ class MultiThreader:
         with ThreadPoolExecutor(n_threads) as ex:
             res = ex.map(func, func_args)
         return list(res)
+
+
+if __name__ == "__main__":
+    raise NotImplementedError("This module is meant to be imported.")

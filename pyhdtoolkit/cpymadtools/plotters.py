@@ -14,61 +14,44 @@ BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) fo
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
-class ResultPlotter:
+class DynamicAperturePlotter:
     """
-    A class to plot some of the beam's physical representation.
+    A class to plot the dynamic aperture of your machine.
     """
 
     @staticmethod
-    def farey_sequence(n: int) -> list:
+    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles) -> None:
         """
-        Return the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
-        :param n: the order up to which we want to calculate the sequence.
-        :return: the sequence.
+        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the Y axis,
+        and the turn at which they were lost is in the X axis.
+        :param vx_coords: horizontal coordinates over turns.
+        :param vy_coords: vertical coordinates over turns.
+        :param n_particles: number of particles simulated.
+        :return: nothing, plots the figure.
         """
-        seq = [[0, 1]]
-        a, b, c, d = 0, 1, 1, n
-        while c <= n:
-            k = int((n + b) / d)
-            a, b, c, d = c, d, k * c - a, k * d - b
-            seq.append([a, b])
-        return seq
+        plt.figure(figsize=(12, 7))
+        turn_lost = []
+        x_in_lost = []
 
-    @staticmethod
-    def plot_blank_tune_diagram() -> None:
-        """
-        Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
-        :return: nothing.
-        """
-        fig = plt.figure(figsize=(13, 13))
-        ax = plt.axes()
-        plt.ylim((0, 1))
-        plt.xlim((0, 1))
-        x = np.linspace(0, 1, 1000)
-        for i in range(1, 6):
-            farey_sequences = ResultPlotter.farey_sequence(i)
-            for f in farey_sequences:
-                h, k = f  # Node h/k on the axes
-                for sequence in farey_sequences:
-                    p, q = sequence
-                    c = float(p * h)
-                    a = float(k * p)  # Resonance linea Qx + b*Qy = clinkedtop / q
-                    b = float(q - k * p)
-                    if a > 0:
-                        plt.plot(x, c / a - x * b / a, "b", alpha=0.1)
-                        plt.plot(x, c / a + x * b / a, "b", alpha=0.1)
-                        plt.plot(c / a - x * b / a, x, "b", alpha=0.1)
-                        plt.plot(c / a + x * b / a, x, "b", alpha=0.1)
-                        plt.plot(c / a - x * b / a, 1 - x, "b", alpha=0.1)
-                        plt.plot(c / a + x * b / a, 1 - x, "b", alpha=0.1)
-                    if q == k and p == 1:  # FN elements below 1/k
-                        break
-        plt.title("Tune Diagram", fontsize=20)
-        plt.axis("square")
-        plt.xlim([0, 1])
-        plt.ylim([0, 1])
-        plt.xlabel("$Q_x$", fontsize=17)
-        plt.ylabel("$Q_y$", fontsize=17)
+        for particle in range(n_particles):
+            nb = len(vx_coords[particle]) - max(
+                np.isnan(vx_coords[particle]).sum(), np.isnan(vy_coords[particle]).sum()
+            )
+            turn_lost.append(nb)
+            x_in_lost.append(vx_coords[particle][0] ** 2 + vy_coords[particle][0] ** 2)
+        turn_lost = np.array(turn_lost)
+        x_in_lost = np.array(x_in_lost)
+
+        plt.scatter(turn_lost, x_in_lost * 1000, linewidths=0.7, c="darkblue", marker=".")
+        plt.title("Amplitudes lost over turns", fontsize=20)
+        plt.xlabel("Number of Turns Survived", fontsize=17)
+        plt.ylabel("Initial amplitude [mm]", fontsize=17)
+
+
+class PhaseSpacePlotter:
+    """
+    A class to plot normalized phase space.
+    """
 
     @staticmethod
     def plot_normalized_phase_space(cpymad_instance, u_coordinates, pu_coordinates, **kwargs) -> None:
@@ -102,12 +85,12 @@ class ResultPlotter:
             u_bar = p_matrix_inv @ u
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
             if plane == "Horizontal":
-                plt.xlabel("$\\bar{x}\  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{px}\ [mrad]$", fontsize=17)
+                plt.xlabel("$\bar{x}  [mm]$", fontsize=17)
+                plt.ylabel("$\bar{px} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             elif plane == "Vertical":
-                plt.xlabel("$\\bar{y}\  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{py}\ [mrad]$", fontsize=17)
+                plt.xlabel("$\bar{y}  [mm]$", fontsize=17)
+                plt.ylabel("$\bar{py} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             else:
                 raise ValueError("Plane should be either Horizontal or Vertical")
@@ -153,18 +136,74 @@ class ResultPlotter:
             u_bar = p_matrix_inv @ u
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
             if plane == "Horizontal":
-                plt.xlabel("$\\bar{x}\  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{px}\ [mrad]$", fontsize=17)
+                plt.xlabel("$\bar{x}  [mm]$", fontsize=17)
+                plt.ylabel("$\bar{px} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             elif plane == "Vertical":
-                plt.xlabel("$\\bar{y}\  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{py}\ [mrad]$", fontsize=17)
+                plt.xlabel("$\bar{y}  [mm]$", fontsize=17)
+                plt.ylabel("$\bar{py} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             else:
                 raise ValueError("Plane should be either Horizontal or Vertical")
 
         if savefig:
             plt.savefig("normalized_phase_space_colored", format="png", dpi=300)
+
+
+class TuneDiagramPlotter:
+    """
+    A class to plot a blank tune diagram with Farey sequences, as well as your working points.
+    """
+
+    @staticmethod
+    def farey_sequence(n: int) -> list:
+        """
+        Return the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
+        :param n: the order up to which we want to calculate the sequence.
+        :return: the sequence.
+        """
+        seq = [[0, 1]]
+        a, b, c, d = 0, 1, 1, n
+        while c <= n:
+            k = int((n + b) / d)
+            a, b, c, d = c, d, k * c - a, k * d - b
+            seq.append([a, b])
+        return seq
+
+    @staticmethod
+    def plot_blank_tune_diagram() -> None:
+        """
+        Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
+        :return: nothing.
+        """
+        plt.figure(figsize=(13, 13))
+        plt.ylim((0, 1))
+        plt.xlim((0, 1))
+        x = np.linspace(0, 1, 1000)
+        for i in range(1, 6):
+            farey_sequences = TuneDiagramPlotter.farey_sequence(i)
+            for f in farey_sequences:
+                h, k = f  # Node h/k on the axes
+                for sequence in farey_sequences:
+                    p, q = sequence
+                    c = float(p * h)
+                    a = float(k * p)  # Resonance linea Qx + b*Qy = clinkedtop / q
+                    b = float(q - k * p)
+                    if a > 0:
+                        plt.plot(x, c / a - x * b / a, "b", alpha=0.1)
+                        plt.plot(x, c / a + x * b / a, "b", alpha=0.1)
+                        plt.plot(c / a - x * b / a, x, "b", alpha=0.1)
+                        plt.plot(c / a + x * b / a, x, "b", alpha=0.1)
+                        plt.plot(c / a - x * b / a, 1 - x, "b", alpha=0.1)
+                        plt.plot(c / a + x * b / a, 1 - x, "b", alpha=0.1)
+                    if q == k and p == 1:  # FN elements below 1/k
+                        break
+        plt.title("Tune Diagram", fontsize=20)
+        plt.axis("square")
+        plt.xlim([0, 1])
+        plt.ylim([0, 1])
+        plt.xlabel("$Q_{x}}$", fontsize=17)
+        plt.ylabel("$Q_{y}$", fontsize=17)
 
     @staticmethod
     def plot_tune_diagram(
@@ -183,7 +222,7 @@ class ResultPlotter:
         :param vygood:
         :return: nothing, plots the figure.
         """
-        ResultPlotter.plot_blank_tune_diagram()
+        TuneDiagramPlotter.plot_blank_tune_diagram()
         new_q1 = cpymad_instance.table.summ.dframe().q1[0]
         new_q2 = cpymad_instance.table.summ.dframe().q2[0]
 
@@ -200,34 +239,6 @@ class ResultPlotter:
             tp = np.ones(len(vygood)) * (new_q1 - np.floor(new_q1))
             plt.plot(tp[vygood], v_qy[vygood], ".r")
             plt.plot(new_q1 - np.floor(new_q1), new_q2 - np.floor(new_q2), ".g")
-
-    @staticmethod
-    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles) -> None:
-        """
-        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the Y axis,
-        and the turn at which they were lost is in the X axis.
-        :param vx_coords: horizontal coordinates over turns.
-        :param vy_coords: vertical coordinates over turns.
-        :param n_particles: number of particles simulated.
-        :return: nothing, plots the figure.
-        """
-        plt.figure(figsize=(12, 7))
-        turn_lost = []
-        x_in_lost = []
-
-        for particle in range(n_particles):
-            nb = len(vx_coords[particle]) - max(
-                np.isnan(vx_coords[particle]).sum(), np.isnan(vy_coords[particle]).sum()
-            )
-            turn_lost.append(nb)
-            x_in_lost.append(vx_coords[particle][0] ** 2 + vy_coords[particle][0] ** 2)
-        turn_lost = np.array(turn_lost)
-        x_in_lost = np.array(x_in_lost)
-
-        plt.scatter(turn_lost, x_in_lost * 1000, linewidths=0.7, c="darkblue", marker=".")
-        plt.title("Amplitudes lost over turns", fontsize=20)
-        plt.xlabel("Number of Turns Survived", fontsize=17)
-        plt.ylabel("Initial amplitude [mm]", fontsize=17)
 
 
 if __name__ == "__main__":

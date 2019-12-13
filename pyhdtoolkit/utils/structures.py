@@ -18,7 +18,7 @@ class DotDict(dict):
         d = DotDict()
         d["a"] = 1
         d.b = 2
-        d is now {'a': 1, 'b': 2}
+        d -> {'a': 1, 'b': 2}
     """
 
     def __init__(self, *a, **kw):
