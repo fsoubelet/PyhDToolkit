@@ -1,8 +1,8 @@
-.PHONY : black clean_pyc install tests
+.PHONY : black clean_pyc install isort tests
 
 all: install
 
-black:
+black: isort
 	black -v -l 120 .
 
 clean_pyc:
@@ -11,5 +11,8 @@ clean_pyc:
 install: tests
 	pip install .
 
-tests: black clean_pyc
+isort:
+	isort -rc .
+
+tests: isort black clean_pyc
 	pytest tests
