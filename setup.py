@@ -1,8 +1,5 @@
-"""
-This code is subject to copyright @IBM 2019.
-"""
-
 from pathlib import Path
+
 import setuptools
 
 TOPLEVEL_DIRECTORY = Path(__file__).parent.absolute()
