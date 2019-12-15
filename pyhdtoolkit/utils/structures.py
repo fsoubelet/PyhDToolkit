@@ -6,7 +6,7 @@ Some tidbits structures for Python programming.
 """
 
 
-class DotDict(dict):
+class AttrDict(dict):
     """
     A dict with dot notation.
     Idea and code from:
@@ -15,10 +15,12 @@ class DotDict(dict):
         http://stackoverflow.com/questions/2390827/how-to-properly-subclass-dict-and-override-get-set
     Keys can also be declared with dot notation.
     Example:
-        d = DotDict()
+        d = AttrDict()
         d["a"] = 1
         d.b = 2
         d -> {'a': 1, 'b': 2}
+    If you want this functionality to be nested, you can declare
+    nested_attr_dict = lambda
     """
 
     def __init__(self, *a, **kw):
