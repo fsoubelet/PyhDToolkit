@@ -1,4 +1,4 @@
-.PHONY : black clean_pyc install isort tests
+.PHONY : black clean_pyc install isort lines tests
 
 all: install
 
@@ -8,11 +8,14 @@ black: isort
 clean_pyc:
 	-find . -name '*.py[co]' -exec rm {} \;
 
-install: tests
+install:
 	pip install .
 
 isort:
 	isort -rc .
 
-tests: isort black clean_pyc
+lines: black
+	tokei .
+
+tests: black clean_pyc
 	pytest tests
