@@ -4,16 +4,16 @@
 .PHONY : help black clean condaenv install isort lines pipreq uninstall tests
 
 help:
-	@echo "Please use 'make <target>' where <target> is one of:"
-	@echo "  black         to recursively apply PEP8 formatting through the 'Black' cli tool."
-	@echo "  clean         to recursively remove build, run, and bitecode files/dirs."
-	@echo "  condaenv      to 'conda install' the specific 'PHD' environment I use. Personnal."
-	@echo "  install       to 'pip install' this package into your activated environment."
-	@echo "  isort         to recursively sort import statements. Called by 'make black'."
-	@echo "  lines         to count lines of code with the 'tokei' tool."
-	@echo "  pipreq        to 'pip install' packages listed in 'requirements.txt' into your activated environment."
-	@echo "  uninstall     to uninstall the 'pyhdtoolkit' package from your activated environment."
-	@echo "  tests         to run tests with the the pytest package."
+		@echo "Please use 'make <target>' where <target> is one of:"
+		@echo "  black         to recursively apply PEP8 formatting through the 'Black' cli tool."
+		@echo "  clean         to recursively remove build, run, and bitecode files/dirs."
+		@echo "  condaenv      to 'conda install' the specific 'PHD' environment I use. Personnal."
+		@echo "  install       to 'pip install' this package into your activated environment."
+		@echo "  isort         to recursively sort import statements. Called by 'make black'."
+		@echo "  lines         to count lines of code with the 'tokei' tool."
+		@echo "  pipreq        to 'pip install' packages listed in 'requirements.txt' into your activated environment."
+		@echo "  uninstall     to uninstall the 'pyhdtoolkit' package from your activated environment."
+		@echo "  tests         to run tests with the the pytest package."
 
 all: install
 
