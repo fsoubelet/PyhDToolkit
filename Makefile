@@ -1,48 +1,82 @@
 # Copyright 2019 Felix Soubelet <felix.soubelet@cern.ch>
 # MIT License
 
-.PHONY : help black clean condaenv install isort lines pipreq uninstall tests
+# Documentation for most of what you will see here can be found at the following links:
+# for the GNU make special targets: https://www.gnu.org/software/make/manual/html_node/Special-Targets.html
+# for python packaging: https://docs.python.org/3/distutils/introduction.html
 
-help:
-	@echo "Please use 'make <target>' where <target> is one of:"
-	@echo "  black         to recursively apply PEP8 formatting through the 'Black' cli tool."
-	@echo "  clean         to recursively remove build, run, and bitecode files/dirs."
-	@echo "  condaenv      to 'conda install' the specific 'PHD' environment I use. Personnal."
-	@echo "  install       to 'pip install' this package into your activated environment."
-	@echo "  isort         to recursively sort import statements. Called by 'make black'."
-	@echo "  lines         to count lines of code with the 'tokei' tool."
-	@echo "  pipreq        to 'pip install' packages listed in 'requirements.txt' into your activated environment."
-	@echo "  uninstall     to uninstall the 'pyhdtoolkit' package from your activated environment."
-	@echo "  tests         to run tests with the the pytest package."
+# ANSI escape sequences for bold, cyan, dark blue, end, pink and red.
+B = \033[1m
+C = \033[96m
+D = \033[34m
+E = \033[0m
+P = \033[95m
+R = \033[31m
+
+.PHONY : help archive black checklist clean condaenv install isort lines pipreq uninstall tests
 
 all: install
+
+help:
+	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
+	@echo "  $(R) archive $(E)      to create a tarball of this specific release."
+	@echo "  $(R) black $(E)        to recursively apply PEP8 formatting through the 'Black' cli tool."
+	@echo "  $(R) checklist $(E)    to print a pre-release check-list."
+	@echo "  $(R) clean $(E)        to recursively remove build, run, and bitecode files/dirs."
+	@echo "  $(R) condaenv $(E)     to 'conda install' the specific 'PHD' environment I use. Personnal."
+	@echo "  $(R) install $(E)      to 'pip install' this package into your activated environment."
+	@echo "  $(R) isort $(E)        to recursively sort import statements. Called by 'make black'."
+	@echo "  $(R) lines $(E)        to count lines of code with the 'tokei' tool."
+	@echo "  $(R) pipreq $(E)       to 'pip install' packages listed in 'requirements.txt' into your activated environment."
+	@echo "  $(R) uninstall $(E)    to uninstall the 'pyhdtoolkit' package from your activated environment."
+	@echo "  $(R) tests $(E)        to run tests with the the pytest package."
+
+archive:
+	@echo "$(B)Creating tarball archive of this release.$(E)"
+	@echo ""
+	@python setup.py sdist
+	@echo ""
+	@echo "$(B)Your archive is in the $(C)dist/$(E) $(B)directory. Link it to your release.$(E)"
+	@echo "To install from this archive, unpack it and run '$(D)python setup.py install$(E)' from within its directory."
+	@echo ""
 
 black: isort
 	@echo "Linting code to PEP8, default line length is 120."
 	@black -l 120 .
 
+checklist:
+	@echo "Here is a small pre-release check-list:"
+	@echo "  - Check you are on a tagged $(P)feature/release$(E) branch (see Gitflow workflow)."
+	@echo "  - Check you have updated the version number of $(C)__version__.py$(E) according to semantic versioning."
+	@echo "  - Check the $(P)feature/release$(E) branch tag matches this release's package version."
+	@echo "  - After merging and pushing this release from $(P)master$(E) to $(P)origin/master$(E):"
+	@echo "     - Run 'make $(R)archive$(E)'."
+	@echo "     - Create a Github release and attach the created tarball to it."
+	@echo "     - Run 'make $(R)clean$(E)'."
+
 clean:
+	@echo "Running setup clean."
+	@python setup.py clean
 	@echo "Cleaning up distutils remains."
 	@rm -rf build
 	@rm -rf dist
-	@echo "Cleaning up bitecode files. and python cache."
-	@find ./ -name '*.py[co]' -exec rm -f {} \;
-	@echo "Cleaning up python cache."
-	@find ./ -name '__pycache__' | xargs rm -rf
+	@rm -rf pyhdtoolkit.egg-info
+	@echo "Cleaning up bitecode files and python cache."
+	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+	@echo "Cleaning up pytest cache."
+	@find . -type f -name '*.pytest_cache' -delete -o -type d -name '*.pytest_cache' -delete
 
 condaenv:
-	@echo "Creating conda environment according to 'environment.yml' file."
+	@echo "Creating 'PHD' conda environment according to '$(C)environment.yml$(E)' file."
 	@conda env create -f environment.yml
-	@echo "Adding 'PHD' environment to ipython kernel."
+	@echo "Adding 'PHD' environment to base ipython kernel."
 	@source activate PHD
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
 
-install: black
+install: black clean
 	@echo "Installing local package to your active environment."
 	@pip install .
-	@echo "Logging install date to install_log.txt"
-	@date > install_log.txt
 
 isort:
 	@echo "Sorting import statements."
@@ -60,3 +94,8 @@ uninstall:
 tests: black clean
 	@source activate PHD
 	@pytest tests
+
+# Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
+.DEFAULT:
+	@echo "Make caught an invalid target! See help output below for available targets."
+	@make help

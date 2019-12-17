@@ -20,7 +20,7 @@ If you intend on making actual changes, then you should clone this repository th
 ```bash
 git clone https://github.com/fsoubelet/PyhDToolkit.git
 cd PyhDToolkit
-make install
+make
 ```
 
 ## Testing
