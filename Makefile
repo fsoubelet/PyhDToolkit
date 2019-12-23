@@ -67,15 +67,15 @@ clean:
 	@find . -type f -name '*.pytest_cache' -delete -o -type d -name '*.pytest_cache' -delete
 
 condaenv:
-	@echo "Creating 'PHD' conda environment according to '$(C)environment.yml$(E)' file."
+	@echo "Creating $(D)PHD$(E) conda environment according to '$(C)environment.yml$(E)' file."
 	@conda env create -f environment.yml
-	@echo "Adding 'PHD' environment to base ipython kernel."
+	@echo "Adding $(D)PHD$(E) environment to base ipython kernel."
 	@source activate PHD
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
 
 install: black clean
-	@echo "Installing local package to your active environment."
+	@echo "Installing this package to your active environment."
 	@pip install .
 
 isort:
@@ -86,9 +86,11 @@ lines: black
 	@tokei .
 
 pipreq:
+	@echo "Installing packages from $(C)requirements.txt$(E) throough pip in your active environment."
 	@pip install -r requirements.txt
 
 uninstall:
+	@echo "Uninstalling this package from your active environment."
 	@pip uninstall pyhdtoolkit
 
 tests: black clean
