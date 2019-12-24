@@ -103,10 +103,7 @@ class ListOperations:
             eval_none([0, 0, 1, 0], lambda x: x >= 2) -> True
             eval_none([0, 1, 2, 0], lambda x: x >= 2) -> False
         """
-        for ele in lst:
-            if function(ele):
-                return False
-        return True
+        return not any(map(function, lst))
 
     @staticmethod
     def eval_some(lst: list, function=lambda x: not not x) -> bool:
@@ -118,10 +115,7 @@ class ListOperations:
             eval_some([0, 1, 2, 0], lambda x: x >= 2) -> True
             eval_some([0, 0, 1, 0], lambda x: x >= 2) -> False
         """
-        for ele in lst:
-            if function(ele):
-                return True
-        return False
+        return any(map(function, lst))
 
     @staticmethod
     def get_indices(element, list_like) -> list:
