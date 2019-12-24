@@ -5,6 +5,7 @@ Created on 2019.11.12
 A collection classes with utility functions to perform common / convenient operations on the classic python structures.
 """
 
+import itertools
 import math
 import re
 from copy import deepcopy
@@ -78,20 +79,15 @@ class ListOperations:
     @staticmethod
     def deep_flatten(lst: list) -> list:
         """
-        Deep flattens a list.
-        Use recursion. Define a function, spread, that uses either list.extend() or list.append() on each element in a
-        list to flatten it. Use list.extend() with an empty list and the spread function to flatten a list. Recursively
-        flatten each element that is a list.
+        Deep flattens a list, no matter the nesting levels. This is a recursive approach.
         Example:
-            deep_flatten([["a", "b"], [1, 2], [True, False]]) -> ["a", "b", 1, 2, True, False]
+            deep_flatten([["a", "b"], [1, 2], None, [True, False]]) -> ["a", "b", 1, 2, None True, False]
         """
-        result = []
-        result.extend(
-            ListOperations.spread(
-                list(map(lambda x: ListOperations.deep_flatten(x) if isinstance(x, list) else x, lst))
-            )
+        return (
+            [elem for sublist in lst for elem in ListOperations.deep_flatten(sublist)]
+            if isinstance(lst, list)
+            else [lst]
         )
-        return result
 
     @staticmethod
     def eval_none(lst: list, function=lambda x: not not x) -> bool:
@@ -190,16 +186,11 @@ class ListOperations:
         Flattens a list, by spreading its elements into a new list.
         Loop over elements, use list.extend() if the element is a list, list.append() otherwise.
         This might look like deep_flatten but is a subset of its functionality, and is used in deep_flatten.
+        This only works if all elements in `arg` are iterables!
         Example:
             ListOperations.spread([list(range(5)), list(range(5))]) -> [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
         """
-        ret = []
-        for i in arg:
-            if isinstance(i, list):
-                ret.extend(i)
-            else:
-                ret.append(i)
-        return ret
+        return list(itertools.chain.from_iterable(arg))
 
     @staticmethod
     def symmetric_difference_by(lst_1: list, lst_2: list, function) -> list:
