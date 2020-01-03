@@ -9,6 +9,7 @@ Arguments should be given as options at launch in the command-line. See README f
 """
 
 import argparse
+from copy import deepcopy
 from datetime import datetime, timedelta
 
 import matplotlib
@@ -32,15 +33,19 @@ class GridCompute:
     """
 
     def __init__(self):
+        """
+        Initializing will take some time since the reference script is being ran, to store the reference dframe.
+        Unless you go into PTC it should be a matter of seconds.
+        """
         self.reference_mad = Madx(stdout=False)
         self.errors_mad = Madx(stdout=False)
         self.rms_betabeatings = BetaBeatValues()
         self.standard_deviations = StdevValues()
         self.lost_seeds_tf = []
         self.lost_seeds_miss = []
-        self.nominal_twiss = None
+        self.nominal_twiss = self._get_nominal_twiss()
 
-    def get_nominal_twiss(self) -> None:
+    def _get_nominal_twiss(self) -> pd.DataFrame:
         """
         Run a MAD-X simulation without errors, and extract the nominal Twiss from the results.
         This will be stored in the `nominal_twiss` instance attribute.
@@ -49,7 +54,8 @@ class GridCompute:
         print(f"\n[GridCompute] Simulating reference nominal run")
         ref_script = LatticeGenerator.generate_tripleterrors_study_reference()
         self.reference_mad.input(ref_script)
-        self.nominal_twiss = self.reference_mad.table.twiss.dframe()
+        reference_dframe = deepcopy(self.reference_mad.table.twiss.dframe())
+        return reference_dframe
 
     def run_tf_errors(self, error_values: list, n_seeds: int) -> None:
         """
@@ -60,7 +66,9 @@ class GridCompute:
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
         if self.nominal_twiss is None:
-            raise AttributeError("You should initialize the nominal twiss first. To do so run `self.get_nominal_twiss`")
+            raise AttributeError(
+                "You should initialize the nominal twiss first. To do so run `self._get_nominal_twiss`"
+            )
         start_time = datetime.now()
 
         # Running the errors simulations
@@ -99,7 +107,9 @@ class GridCompute:
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
         if self.nominal_twiss is None:
-            raise AttributeError("You should initialize the nominal twiss first. To do so run `self.get_nominal_twiss`")
+            raise AttributeError(
+                "You should initialize the nominal twiss first. To do so run `self._get_nominal_twiss`"
+            )
         start_time = datetime.now()
 
         # Running the errors simulations
@@ -182,7 +192,6 @@ def main():
     checkup = input("\n[GridCompute] Press any key to launch, otherwise 'ctrl-c'to abort: ")
 
     # Running simulations
-    simulations.get_nominal_twiss()  # don't forget you need to first run a reference scenario.
     simulations.run_tf_errors(errors, seeds)
     simulations.run_miss_errors(errors, seeds)
 
