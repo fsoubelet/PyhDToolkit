@@ -5,11 +5,12 @@ Created on 2019.11.12
 A collection classes with utility functions to perform common / convenient operations on the classic python structures.
 """
 
+import itertools
 import math
 import re
 from copy import deepcopy
 from functools import reduce
-from random import randint
+from random import randint, random
 
 
 class ListOperations:
@@ -55,34 +56,62 @@ class ListOperations:
         belongs to. If the function returns True, the element belongs to the first group; otherwise it belongs to the
         second group.
         Use list comprehension to add elements to groups, based on function.
+        Example:
+            bifurcate_by(list(range(5)), lambda x: x % 2 == 0) -> [[0, 2, 4], [1, 3]]
         """
         return [[x for x in lst if function(x)], [x for x in lst if not function(x)]]
 
     @staticmethod
     def chunk_list(lst: list, size) -> list:
         """
-        Chunks a list into smaller lists of a specified size.
+        Chunks a list into smaller lists of a specified size. If the size is bigger than initial list, return the
+        initial list to avoid unnecessary nesting.
         Use list() and range() to create a list of the desired size.
         Use map() on the list and fill it with splices of the given list.
         Finally, return use created list.
+        Example:
+            chunk_list(list(range(10)), 3) -> [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
         """
+        if size > len(lst):
+            return lst
         return list(map(lambda x: lst[x * size : x * size + size], list(range(0, math.ceil(len(lst) / size)))))
 
     @staticmethod
     def deep_flatten(lst: list) -> list:
         """
-        Deep flattens a list.
-        Use recursion. Define a function, spread, that uses either list.extend() or list.append() on each element in a
-        list to flatten it. Use list.extend() with an empty list and the spread function to flatten a list. Recursively
-        flatten each element that is a list.
+        Deep flattens a list, no matter the nesting levels. This is a recursive approach.
+        Example:
+            deep_flatten([["a", "b"], [1, 2], None, [True, False]]) -> ["a", "b", 1, 2, None True, False]
         """
-        result = []
-        result.extend(
-            ListOperations.spread(
-                list(map(lambda x: ListOperations.deep_flatten(x) if isinstance(x, list) else x, lst))
-            )
+        return (
+            [elem for sublist in lst for elem in ListOperations.deep_flatten(sublist)]
+            if isinstance(lst, list)
+            else [lst]
         )
-        return result
+
+    @staticmethod
+    def eval_none(lst: list, function=lambda x: not not x) -> bool:
+        """
+        Returns False if the provided function returns True for at least one element in the list, True otherwise.
+        Iterate over the elements of the list to test if every element in the list returns False based on function.
+        Omit the seconds argument, function, to check if all elements are False.
+        Example:
+            eval_none([0, 0, 1, 0], lambda x: x >= 2) -> True
+            eval_none([0, 1, 2, 0], lambda x: x >= 2) -> False
+        """
+        return not any(map(function, lst))
+
+    @staticmethod
+    def eval_some(lst: list, function=lambda x: not not x) -> bool:
+        """
+        Returns True if the provided function returns True for at least one element in the list, False otherwise.
+        Iterate over the elements of the list to test if every element in the list returns True based on function.
+        Omit the seconds argument, function, to check if all elements are True.
+        Examples:
+            eval_some([0, 1, 2, 0], lambda x: x >= 2) -> True
+            eval_some([0, 0, 1, 0], lambda x: x >= 2) -> False
+        """
+        return any(map(function, lst))
 
     @staticmethod
     def get_indices(element, list_like) -> list:
@@ -99,6 +128,8 @@ class ListOperations:
         Groups the elements of a list based on the given function.
         Use list() in combination with map() and function to map the values of the list to the keys of an object.
         Use list comprehension to map each element to the appropriate key.
+        Example:
+            group_by(list(range(5)), lambda x: x % 2 == 0) -> {True: [0, 2, 4], False: [1, 3]}
         """
         groups = {}
         for key in list(map(function, lst)):
@@ -110,6 +141,8 @@ class ListOperations:
         """
         Returns True if there are duplicate values in a fast list, False otherwise.
         Use set() on the given list to remove duplicates, then compare its length with the length of the list.
+        Example:
+            has_duplicates([1, 2, 1]) -> True
         """
         return len(lst) != len(set(lst))
 
@@ -127,6 +160,8 @@ class ListOperations:
         """
         Removes falsey values from a list.
         Use filter() to filter out falsey values (False, None, 0, and "").
+        Example:
+            sanitize_list([1, False, "a", 2, "", None, 6, 0]) -> [1, "a", 2, 6]
         """
         return list(filter(bool, lst))
 
@@ -134,56 +169,42 @@ class ListOperations:
     def shuffle(lst: list) -> list:
         """
         Randomizes the order of the values of an list, returning a new list.
-        Uses the Fisher-Yates algorithm (https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) to reorder the
-        elements of the list.
+        Uses an improved version of the Fisher-Yates algorithm (
+        https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) to reorder the elements.
         """
         temp_list = deepcopy(lst)
-        m = len(temp_list)
-        while m:
-            m -= 1
-            temp_list[m], temp_list[(randint(0, m))] = temp_list[(randint(0, m))], temp_list[m]
+        amount_to_shuffle = len(temp_list)
+        while amount_to_shuffle > 1:
+            rand_index = int(math.floor(random() * amount_to_shuffle))
+            amount_to_shuffle -= 1
+            temp_list[rand_index], temp_list[amount_to_shuffle] = temp_list[amount_to_shuffle], temp_list[rand_index]
         return temp_list
 
     @staticmethod
-    def some_eval(lst: list, function=lambda x: not not x) -> bool:
-        """
-        Returns True if the provided function returns True for at least one element in the list, False otherwise.
-        Iterate over the elements of the list to test if every element in the list returns True based on function.
-        Omit the seconds argument, function, to check if all elements are True.
-        Examples:
-            some_eval([0, 1, 2, 0], lambda x: x >= 2 ) # True
-            some_eval([0, 0, 1, 0]) # True
-        """
-        for ele in lst:
-            if function(ele):
-                return True
-        return False
-
-    @staticmethod
-    def spread(arg) -> list:
+    def spread(arg: list) -> list:
         """
         Flattens a list, by spreading its elements into a new list.
         Loop over elements, use list.extend() if the element is a list, list.append() otherwise.
+        This might look like deep_flatten but is a subset of its functionality, and is used in deep_flatten.
+        This only works if all elements in `arg` are iterables!
+        Example:
+            ListOperations.spread([list(range(5)), list(range(5))]) -> [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
         """
-        ret = []
-        for i in arg:
-            if isinstance(i, list):
-                ret.extend(i)
-            else:
-                ret.append(i)
-        return ret
+        return list(itertools.chain.from_iterable(arg))
 
     @staticmethod
     def symmetric_difference_by(lst_1: list, lst_2: list, function) -> list:
         """
-        Returns the symmetric difference between two lists, after applying the provided function to each list element of
-        both.
+        Returns the symmetric difference (https://en.wikipedia.org/wiki/Symmetric_difference) of lists,
+        after applying the provided function to each list element of both.
         Create a set by applying the function to each element in every list, then use list comprehension in combination
         with fn on each one to only keep values not contained in the previously created set of the other.
         Example:
-            symmetric_difference_by([2.1, 1.2], [2.3, 3.4], floor) # [1.2, 3.4]
+            symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor) -> [1.2, 3.4]
+            symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x >= 2) -> [2.1]
         """
         _lst_1, _lst_2 = set(map(function, lst_1)), set(map(function, lst_2))
+
         return [item for item in lst_1 if function(item) not in _lst_2] + [
             item for item in lst_2 if function(item) not in _lst_1
         ]
@@ -192,23 +213,30 @@ class ListOperations:
     def union_by(lst_1: list, lst_2: list, function) -> list:
         """
         Returns every element that exists in any of the two lists once, after applying the provided function to each
-        element of both.
-        Create a set by applying fn to each element in a, then use list comprehension in combination with fn on b to
-        only keep values not contained in the previously created set, _a.
-        Finally, create a set from the previous result and a and transform it into a list.
+        element of both. This is the set theory union (https://en.wikipedia.org/wiki/Union_(set_theory)) of the two
+        lists, but based on the results of applying the function to each list.
+        Python's set() is strange in how is gives output, so this function sorts the final list before returning it,
+        in order to give it predictable behavior.
+        Create a set by applying the function to each element in lst_1, then use list comprehension in combination with
+        function on lst_2 to only keep values not contained in the previously created set, _lst_1.
+        Finally, create a set from the previous result and _lst_1 and transform it into a list.
         Example:
-            union_by([2.1], [1.2, 2.3], floor) # [2.1, 1.2]
+            union_by([2.1], [1.2, 2.3], math.floor) -> [1.2, 2.1]
         """
         _lst_1 = set(map(function, lst_1))
-        return list(set(lst_1 + [item for item in lst_2 if function(item) not in _lst_1]))
+        return sorted(list(set(lst_1 + [item for item in lst_2 if function(item) not in _lst_1])))
 
     @staticmethod
     def zipper(*args, fillvalue=None) -> list:
         """
-        Creates a list of elements, grouped based on the position in the original lists.
+        Creates a list of lists of elements, each internal list being a grouping based on the position of elements in
+        the original lists. Essentially, a list containing: a first list with all first elements, then a second list
+        with all second elements, etc.
         Use max combined with list comprehension to get the length of the longest list in the arguments.
         Loop for max_length times grouping elements.
         If lengths of lists vary, use fill_value (defaults to None).
+        Example:
+            zipper([1, 2, 3], [2, 5, 3, 7], ["a", "b", "c"]) -> [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]
         """
         max_length = max([len(lst) for lst in args])
         result = []
@@ -228,6 +256,8 @@ class MiscellaneousOperations:
         Takes any number of iterable objects or objects with a length property and returns the longest one.
         If multiple objects have the same length, the first one will be returned.
         Use max() with len as the key to return the item with the greatest length.
+        Example:
+            longest_item(list(range(5)), list(range(100)), list(range(50))) -> list(range(100))
         """
         return max(args, key=len)
 
@@ -238,6 +268,9 @@ class MiscellaneousOperations:
         function on the provided dict's values.
         Use dict.keys() to iterate over the object's keys, assigning the values produced by function to each key of
         a new object.
+        Example:
+            map_values({"a": list(range(5)), "b": list(range(10)), "c": list(range(15))}, lambda x: len(x)) ->
+            {"a": 5, "b": 10, "c": 15}
         """
         ret = {}
         for key in obj.keys():
@@ -256,39 +289,55 @@ class NumberOperations:
         Clamps num within the inclusive range specified by the boundary values a and b.
         If num falls within the range, return num.
         Otherwise, return the nearest number in the range.
+        Example:
+            clamp_number(17, 4, 5) -> 5
+            clamp_number(23, 20, 30) -> 23
         """
         return max(min(num, max(a_val, b_val)), min(a_val, b_val))
 
     @staticmethod
-    def degrees_to_radians(deg_value: float) -> float:
+    def degrees_to_radians(deg_value: float, decompose: bool = False):
         """
         Converts an angle from degrees to radians.
         Use math.pi and the degree to radian formula to convert the angle from degrees to radians.
+        Example:
+            degrees_to_radians(160) -> 2.792526803190927
+            degrees_to_radians(360, decompose=True) -> 92, "pi", "rad")
         """
-        return (deg_value * math.pi) / 180.0
+        if decompose:
+            return deg_value / 180, "pi", "rad"
+        else:
+            return (deg_value * math.pi) / 180.0
 
     @staticmethod
-    def greater_common_divisor(numbers_list: list) -> float:
+    def greatest_common_divisor(numbers_list: list) -> float:
         """
         Calculates the greatest common divisor of a list of numbers.
         Use reduce() and math.gcd over the given list.
+        Example:
+            greatest_common_divisor([54, 24]) ->
+            greatest_common_divisor([30, 132, 378, 582, 738]) -> 6
         """
         return reduce(math.gcd, numbers_list)
 
     @staticmethod
-    def is_divisible_by(dividend, divisor) -> bool:
+    def is_divisible_by(dividend: float, divisor: float) -> bool:
         """
         Checks if the first numeric argument is divisible by the second one.
         Use the modulo operator (%) to check if the remainder is equal to 0.
+        Example:
         """
         return dividend % divisor == 0
 
     @staticmethod
-    def least_common_multiple(*args) -> float:
+    def least_common_multiple(*args) -> int:
         """
         Returns the least common multiple of two or more numbers.
         Define a function, spread, that uses either list.extend() or list.append() on each element in a list to
         flatten it. Use math.gcd() and lcm(x,y) = x * y / gcd(x,y) to determine the least common multiple.
+        Example:
+            least_common_multiple(4, 5) -> 20
+            least_common_multiple(2, 5, 17, 632) -> 53720
         """
         numbers = []
         numbers.extend(ListOperations.spread(list(args)))
@@ -303,6 +352,9 @@ class NumberOperations:
         """
         Converts an angle from radians to degrees.
         Use math.pi and the radian to degree formula to convert the angle from radians to degrees.
+        Example:
+            radians_to_degrees(2* math.pi) -> 360
+            radians_to_degrees(2.710) -> 155.2715624804531
         """
         return (rad_value * 180.0) / math.pi
 
@@ -318,6 +370,9 @@ class StringOperations:
         Converts a string to camelCase.
         Break the string into words and combine them capitalizing the first letter of each word, using a regexp,
         title() and lower.
+        Example:
+            camel_case("a_snake_case_name") -> "aSnakeCaseName"
+            camel_case("A Title Case Name") -> "aTitleCaseName"
         """
         string = re.sub(r"(\s|_|-)+", " ", string).title().replace(" ", "")
         return string[0].lower() + string[1:]
@@ -325,23 +380,14 @@ class StringOperations:
     @staticmethod
     def capitalize(string: str, lower_rest: bool = False) -> str:
         """
-        Capitalizes the first letter of a string.
+        Capitalizes the first letter of a string, eventually lowers the rest of it.
         Capitalize the first letter of the string and then add it with rest of the string.
         Omit the lower_rest parameter to keep the rest of the string intact, or set it to True to convert to lowercase.
+        Example:
+            capitalize("astringtocapitalize") -> "Astringtocapitalize"
+            capitalize("astRIngTocApItalizE", lower_rest=True) -> "Astringtocapitalize"
         """
         return string[:1].upper() + (string[1:].lower() if lower_rest else string[1:])
-
-    @staticmethod
-    def eval_none(lst: list, function=lambda x: not not x) -> bool:
-        """
-        Returns False if the provided function returns True for at least one element in the list, True otherwise.
-        Iterate over the elements of the list to test if every element in the list returns False based on function.
-        Omit the seconds argument, function, to check if all elements are False.
-        """
-        for ele in lst:
-            if function(ele):
-                return False
-        return True
 
     @staticmethod
     def is_anagram(str1: str, str2: str) -> bool:
@@ -351,9 +397,12 @@ class StringOperations:
         Use str.replace() to remove spaces from both strings.
         Compare the lengths of the two strings, return False if they are not equal.
         Use sorted() on both strings and compare the results.
-        """
-        _str1, _str2 = str1.replace(" ", ""), str2.replace(" ", "")
-        return False if len(_str1) != len(str2) else sorted(_str1.lower()) == sorted(_str2.lower())
+       Example:
+           is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort") -> True
+           is_anagram("A first string", "Definitely not an anagram") -> False
+       """
+        _str1, _str2 = str1.replace(" ", "").replace("'", ""), str2.replace(" ", "").replace("'", "")
+        return sorted(_str1.lower()) == sorted(_str2.lower())
 
     @staticmethod
     def is_palindrome(string: str) -> bool:
@@ -361,6 +410,9 @@ class StringOperations:
         Returns True if the given string is a palindrome, False otherwise.
         Use str.lower() and re.sub() to convert to lowercase and remove non-alphanumeric
         characters from the given string. Then compare the new string with its reverse.
+        Example:
+            is_palindrome("racecar") -> True
+            is_palindrome("definitelynot") -> False
         """
         s_reverse = re.sub(r"[\W_]", "", string.lower())
         return s_reverse == s_reverse[::-1]
@@ -371,7 +423,8 @@ class StringOperations:
         Converts a string to kebab-case.
         Break the string into words and combine them adding - as a separator, using a regexp.
         Example:
-            kebab_case('camel Case') gives 'camel-case'
+            kebab_case("camel Case") -> "camel-case"
+            kebab_case("snake_case") -> "snake-case"
         """
         return re.sub(
             r"(\s|_|-)+",
@@ -387,34 +440,21 @@ class StringOperations:
     def snake_case(string: str) -> str:
         """
         Converts a string to snake_case.
-        Break the string into words and combine them adding _-_ as a separator, using a regexp.
+        Break the string into words and combine them adding _ as a separator, using a regexp.
+        Example:
+            snake_case("A bunch of words") -> "a_bunch_of_words"
+            snake_case("camelCase") -> "camelcase"
+
         """
         return re.sub(
             r"(\s|_|-)+",
-            "-",
+            "_",
             re.sub(
                 r"[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+",
                 lambda mo: mo.group(0).lower(),
                 string,
             ),
         )
-
-    @staticmethod
-    def zip_up(*args, fill_value=None) -> list:
-        """
-        Creates a list of elements, grouped based on the position in the original lists.
-        Use max combined with list comprehension to get the length of the longest list in the arguments.
-        Loop for max_length times grouping elements. If lengths of lists vary, use fill_value (defaults to None).
-        Examples:
-            zip_up(['a', 'b'], [1, 2], [True, False]) # [['a', 1, True], ['b', 2, False]]
-            zip_up(['a'], [1, 2], [True, False]) # [['a', 1, True], [None, 2, False]]
-            zip_up(['a'], [1, 2], [True, False], fill_value = '_') # [['a', 1, True], ['_', 2, False]]
-        """
-        max_length = max([len(lst) for lst in args])
-        result = []
-        for i in range(max_length):
-            result.append([args[k][i] if i < len(args[k]) else fill_value for k in range(len(args))])
-        return result
 
 
 if __name__ == "__main__":

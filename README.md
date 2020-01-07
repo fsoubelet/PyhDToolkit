@@ -7,7 +7,7 @@ This repository is a package gathering a number of Python utilities for my PhD.
 This code is compatible with `Python 3.6+`.
 If for some reason you have a need for this package, first install the prerequisites with:
 ```bash
-pip install -r requirements.txt
+make pipreq
 ```
 
 Then, you can simply install it with:
@@ -20,7 +20,7 @@ If you intend on making actual changes, then you should clone this repository th
 ```bash
 git clone https://github.com/fsoubelet/PyhDToolkit.git
 cd PyhDToolkit
-make install
+make
 ```
 
 ## Testing

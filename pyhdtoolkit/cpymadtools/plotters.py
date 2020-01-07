@@ -85,12 +85,12 @@ class PhaseSpacePlotter:
             u_bar = p_matrix_inv @ u
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
             if plane == "Horizontal":
-                plt.xlabel("$\bar{x}  [mm]$", fontsize=17)
-                plt.ylabel("$\bar{px} [mrad]$", fontsize=17)
+                plt.xlabel("$\\bar{x}  [mm]$", fontsize=17)
+                plt.ylabel("$\\bar{px} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             elif plane == "Vertical":
-                plt.xlabel("$\bar{y}  [mm]$", fontsize=17)
-                plt.ylabel("$\bar{py} [mrad]$", fontsize=17)
+                plt.xlabel("$\\bar{y}  [mm]$", fontsize=17)
+                plt.ylabel("$\\bar{py} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             else:
                 raise ValueError("Plane should be either Horizontal or Vertical")
@@ -136,12 +136,12 @@ class PhaseSpacePlotter:
             u_bar = p_matrix_inv @ u
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
             if plane == "Horizontal":
-                plt.xlabel("$\bar{x}  [mm]$", fontsize=17)
-                plt.ylabel("$\bar{px} [mrad]$", fontsize=17)
+                plt.xlabel("$\\bar{x}  [mm]$", fontsize=17)
+                plt.ylabel("$\\bar{px} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             elif plane == "Vertical":
-                plt.xlabel("$\bar{y}  [mm]$", fontsize=17)
-                plt.ylabel("$\bar{py} [mrad]$", fontsize=17)
+                plt.xlabel("$\\bar{y}  [mm]$", fontsize=17)
+                plt.ylabel("$\\bar{py} [mrad]$", fontsize=17)
                 plt.axis("Equal")
             else:
                 raise ValueError("Plane should be either Horizontal or Vertical")

@@ -12,7 +12,9 @@ class AnnotationsPlotter:
     """
 
     @staticmethod
-    def set_arrow_label(ax, label="myLabel", arrow_position=(0, 0), label_position=(0, 0), color="k", arrow_arc_rad=-0.2):
+    def set_arrow_label(
+        ax, label="myLabel", arrow_position=(0, 0), label_position=(0, 0), color="k", arrow_arc_rad=-0.2
+    ):
         """
         Add a label box with text and an arrow from the box to a specified position to an existing provided
         matplotlib.axes `Axes` instance. Original code from Guido Sterbini.
@@ -35,7 +37,9 @@ class AnnotationsPlotter:
             va="center",
             ha="center",
             bbox=dict(boxstyle="round4", fc="w", color=color, lw=2),
-            arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2),
+            arrowprops=dict(
+                arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2
+            ),
         )
 
 

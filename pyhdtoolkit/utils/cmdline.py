@@ -6,9 +6,9 @@ Utility script to help run commands and access the commandline.
 """
 
 import os
-import sys
 import signal
-from subprocess import Popen, PIPE, STDOUT
+import sys
+from subprocess import PIPE, STDOUT, Popen
 
 
 class CommandLine:
@@ -17,7 +17,7 @@ class CommandLine:
     """
 
     @staticmethod
-    def run(command, shell: bool = True, env=None, timeout: int = None) -> tuple:
+    def run(command, shell: bool = True, env=None, timeout: float = None) -> tuple:
         """
         Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.
         Note that `stderr` is redirected to `stdout`. `shell` is same to parameter of `Popen`.
