@@ -15,7 +15,7 @@ class LatticeGenerator:
     def generate_base_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your cpymadtools instance.
+        :return: string you can input into your `cpymad.madx.Madx` object.
         """
         mystring = """
 option, -info, -warn;
@@ -86,7 +86,7 @@ twiss;
     def generate_onesext_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your cpymadtools instance.
+        :return: string you can input into your `cpymad.madx.Madx` object.
         """
         mystring = """
 option, -info, -warn;
@@ -174,7 +174,7 @@ twiss;
     def generate_oneoct_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your cpymadtools instance.
+        :return: string you can input into your `cpymad.madx.Madx` object.
         """
         mystring = """
 option, -info, -warn;
@@ -257,6 +257,199 @@ select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
         return mystring
+
+    @staticmethod
+    def generate_tripleterrors_study_reference() -> str:
+        """
+        Generate generic script for reference Twiss, to use in a `cpymad.madx.Madx` object.
+        :return: string you can input into your `cpymad.madx.Madx` object.
+        """
+        script = f"""
+!####################### Make macros available #######################
+
+option, -echo, -warn, -info;
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/lhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/hllhc.macros.madx";
+
+title, "HLLHC Triplet TFErrors to Beta-Beating";
+
+!####################### Call optics files #######################
+
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
+call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
+
+!####################### Calling modifiers for 15cm optics #######################
+
+call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
+
+!####################### Create beam ####################### 
+
+exec, define_nominal_beams();
+
+!####################### Flatten and set START point at ? #######################
+
+exec, cycle_sequences();
+
+!####################### Default crossing scheme ####################### 
+
+exec, set_default_crossing_scheme();
+
+!####################### Selecting to use Beam 1 ####################### 
+
+use, period = LHCB1;
+
+!####################### Tune matching and Twiss nominal #######################
+
+option, echo, warn, info;
+exec, match_tunes(62.31, 60.32, 1);     ! Since we're using beam 1
+twiss;
+"""
+        return script
+
+    @staticmethod
+    def generate_tripleterrors_study_tferror_job(rand_seed: str, tf_error: str) -> str:
+        """
+        Generate generic script for tf_error Twiss, to use in a `cpymad.madx.Madx` object.
+        :param rand_seed: the random seed to provide MAD for the errors distributions.
+        :param tf_error: the misalignment error value (along the s axis).
+        :return: string you can input into your `cpymad.madx.Madx` object.
+        """
+
+        tferror_script = f"""
+!####################### Make macros available #######################
+
+option, -echo, -warn, -info;
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/lhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/hllhc.macros.madx";
+
+title, "HLLHC Triplet TFErrors to Beta-Beating";
+
+!####################### Call optics files #######################
+
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
+call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
+
+!####################### Calling modifiers for 15cm optics #######################
+
+call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
+
+!####################### Create beam ####################### 
+
+exec, define_nominal_beams();
+
+!####################### Flatten and set START point at ? #######################
+
+exec, cycle_sequences();
+
+!####################### Default crossing scheme ####################### 
+
+exec, set_default_crossing_scheme();
+
+!####################### Selecting to use Beam 1 ####################### 
+
+use, period = LHCB1;
+
+!####################### Tune matching and Twiss nominal #######################
+
+option, echo, warn, info;
+exec, match_tunes(62.31, 60.32, 1);     ! Since we're using beam 1
+exec, do_twiss_elements(LHCB1, "./twiss_nominal.dat", 0.0);
+
+!####################### For field errors #######################
+
+eoption, add, seed = {rand_seed};  ! Different seed every time
+select, flag=error, clear;
+select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5
+GCUTR = 3;                 ! Cut gaussians at 3 sigma
+Rr = 0.05;             ! Radius for field errors (??)
+ON_B2R = 1;            ! Activate field errors
+B2r = {tf_error};       ! Set field errors magnitude -> Units of B2 error (will be in 1E-4)
+exec, SetEfcomp_Q;     ! Assign field errors
+
+!####################### Saving errors to file #######################
+
+!esave, file="./errors_file.dat"; ! Will save the errors of chosen type.
+
+!####################### Tune matching and Twiss with errors #######################
+
+exec, match_tunes(62.31, 60.32, 1);
+exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
+"""
+        return tferror_script
+
+    @staticmethod
+    def generate_tripleterrors_study_mserror_job(rand_seed: str, ms_error: str) -> str:
+        """
+        Generate generic script for ms_error Twiss, to use in a `cpymad.madx.Madx` object.
+        :param rand_seed: the random seed to provide MAD for the errors distributions.
+        :param ms_error: the misalignment error value (along the s axis).
+        :return: string you can input into your `cpymad.madx.Madx` object.
+        """
+
+        mserror_script = f"""
+!####################### Make macros available #######################
+
+option, -echo, -warn, -info;
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/lhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/hllhc.macros.madx";
+
+title, "HLLHC Triplet MSErrors to Beta-Beating";
+
+!####################### Call optics files #######################
+
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
+call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
+
+!####################### Calling modifiers for 15cm optics #######################
+
+call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
+
+!####################### Create beam ####################### 
+
+exec, define_nominal_beams();
+
+!####################### Flatten and set START point at ? #######################
+
+exec, cycle_sequences();
+
+!####################### Default crossing scheme ####################### 
+
+exec, set_default_crossing_scheme();
+
+!####################### Selecting to use Beam 1 ####################### 
+
+use, period = LHCB1;
+
+!####################### Tune matching and Twiss nominal #######################
+
+option, echo, warn, info;
+exec, match_tunes(62.31, 60.32, 1);     ! Since we're using beam 1
+exec, do_twiss_elements(LHCB1, "./twiss_nominal.dat", 0.0);
+
+!####################### For longitudinal missalignments #######################
+
+eoption, add, seed = {rand_seed};  ! Different seed every time
+select, flag=error, clear;
+select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5
+GCUTR = 3;                 ! Cut gaussians at 3 sigma
+ealign, ds := {ms_error} * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in meters
+
+!####################### Saving errors to file #######################
+
+!esave, file="./errors_file.dat"; ! Will save the errors of chosen type.
+
+!####################### Tune matching and Twiss with errors #######################
+
+exec, match_tunes(62.31, 60.32, 1);
+exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
+"""
+        return mserror_script
 
 
 if __name__ == "__main__":
