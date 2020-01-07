@@ -190,7 +190,14 @@ class ListOperations:
         Example:
             ListOperations.spread([list(range(5)), list(range(5))]) -> [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
         """
-        return list(itertools.chain.from_iterable(arg))
+        # return list(itertools.chain.from_iterable(arg))
+        ret = []
+        for i in arg:
+            if isinstance(i, list):
+                ret.extend(i)
+            else:
+                ret.append(i)
+        return ret
 
     @staticmethod
     def symmetric_difference_by(lst_1: list, lst_2: list, function) -> list:
