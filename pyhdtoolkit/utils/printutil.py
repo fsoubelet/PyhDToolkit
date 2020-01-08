@@ -9,6 +9,10 @@ END = "\033[0m"
 
 
 class Background:
+    """
+    ANSI color escape sequences for the background of a terminal output.
+    """
+
     black = "\033[40m"
     blue = "\033[44m"
     cyan = "\033[46m"
@@ -20,6 +24,10 @@ class Background:
 
 
 class Foreground:
+    """
+    ANSI color escape sequences for the foreground of a terminal output.
+    """
+
     blue = "\033[94m"
     cyan = "\033[96m"
     dark_blue = "\033[34m"
@@ -38,6 +46,10 @@ class Foreground:
 
 
 class Styles:
+    """
+    ANSI style escape sequences for a terminal output.
+    """
+
     all_off = "\033[0m"
     bold = "\033[1m"
     concealed = "\033[7m"

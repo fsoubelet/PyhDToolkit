@@ -53,12 +53,11 @@ class LaTwiss:
         Provided with an active Cpymad class after having ran a script, will create a plot representing nicely the
         lattice layout and the beta functions along with the horizontal dispertion function. Original code is from
         Guido Sterbini.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
+        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
         :param title: title of your plot.
         :param fig_size: figure size.
         :param ncells: number of cells of your lattice.
-        :param kwargs:
-        :return:
+        :return: nothing, plots and eventually saves the figure as a file.
         """
         # Getting kwargs and instantiating
         x_limits = kwargs.get("xlim", None)
@@ -129,10 +128,9 @@ class LaTwiss:
         """
         Provided with an active Cpymad class after having ran a script, will create a plot representing the machine
         geometry in 2D. Original code is from Guido Sterbini.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
+        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
         :param fig_size: figure size.
-        :param kwargs:
-        :return:
+        :return: nothing, plots and eventually saves the figure as a file.
         """
         savefig = kwargs.get("savefig", False)
         cpymad_instance.input("survey;")
