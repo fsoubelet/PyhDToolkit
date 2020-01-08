@@ -58,7 +58,7 @@ class PhaseSpacePlotter:
         """
         Plots the normalized phase space of a particle distribution when provided by position and momentum coordinates
         for a specific plane.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
+        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
         :param u_coordinates: coordinates of particles.
         :param pu_coordinates: momentum coordinates of particles.
         :param kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
@@ -104,7 +104,7 @@ class PhaseSpacePlotter:
         Plots the normalized phase space of a particle distribution when provided by position and momentum coordinates
         for a specific plane. Each particle trajectory has its own color on the plot, within the limit of pyplot's 156
         named colors. The sequence repeats after the 156th color.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
+        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
         :param u_coordinates: coordinates of particles.
         :param pu_coordinates: momentum coordinates of particles.
         :param kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
@@ -160,7 +160,7 @@ class TuneDiagramPlotter:
         """
         Return the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
         :param n: the order up to which we want to calculate the sequence.
-        :return: the sequence.
+        :return: the sequence as a list.
         """
         seq = [[0, 1]]
         a, b, c, d = 0, 1, 1, n
@@ -215,7 +215,7 @@ class TuneDiagramPlotter:
     ) -> None:
         """
         Plots the evolution of particles' tunes on a Tune Diagram.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
+        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
         :param v_qx: values of the horizontal tune Qx. Can be only one value.
         :param vxgood:
         :param v_qy: values of the vertical tune Qy. Can be only one value.

@@ -28,8 +28,8 @@ class GridCompute:
     """
     Algorithm as a class to run the simulations and analyze the outputs.
 
-    Will prompt error values for confirmation, run MAD-X simulations through a `Cpymad.Madx` object, get beta-beating
-    values from the outputs and return the appropriate structures.
+    Will prompt error values for confirmation, run MAD-X simulations through a `cpymad.madx.Madx` object,
+    get beta-beating values from the outputs and return the appropriate structures.
     """
 
     def __init__(self):
