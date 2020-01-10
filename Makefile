@@ -13,23 +13,25 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help archive black checklist clean condaenv install isort lines pipreq uninstall tests
+.PHONY : help archive black checklist clean condaenv docker-build docker-pull install isort lines pipreq uninstall tests
 
 all: install
 
 help:
 	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
-	@echo "  $(R) archive $(E)      to create a tarball of this specific release."
-	@echo "  $(R) black $(E)        to recursively apply PEP8 formatting through the 'Black' cli tool."
-	@echo "  $(R) checklist $(E)    to print a pre-release check-list."
-	@echo "  $(R) clean $(E)        to recursively remove build, run, and bitecode files/dirs."
-	@echo "  $(R) condaenv $(E)     to 'conda install' the specific 'PHD' environment I use. Personnal."
-	@echo "  $(R) install $(E)      to 'pip install' this package into your activated environment."
-	@echo "  $(R) isort $(E)        to recursively sort import statements. Called by 'make black'."
-	@echo "  $(R) lines $(E)        to count lines of code with the 'tokei' tool."
-	@echo "  $(R) pipreq $(E)       to 'pip install' packages listed in 'requirements.txt' into your activated environment."
-	@echo "  $(R) uninstall $(E)    to uninstall the 'pyhdtoolkit' package from your activated environment."
-	@echo "  $(R) tests $(E)        to run tests with the the pytest package."
+	@echo "  $(R) archive $(E)        to create a tarball of this specific release."
+	@echo "  $(R) black $(E)          to recursively apply PEP8 formatting through the 'Black' cli tool."
+	@echo "  $(R) checklist $(E)      to print a pre-release check-list."
+	@echo "  $(R) clean $(E)          to recursively remove build, run, and bitecode files/dirs."
+	@echo "  $(R) condaenv $(E)       to 'conda install' the specific 'PHD' environment I use. Personnal."
+	@echo "  $(R) docker-build $(E)   to build a container image replicating the 'PHD' environment."
+	@echo "  $(R) docker-pull $(E)    to pull a pre-built image from Dockerhub."
+	@echo "  $(R) install $(E)        to 'pip install' this package into your activated environment."
+	@echo "  $(R) isort $(E)          to recursively sort import statements. Called by 'make black'."
+	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
+	@echo "  $(R) pipreq $(E)         to 'pip install' packages listed in 'requirements.txt' into your activated environment."
+	@echo "  $(R) uninstall $(E)      to uninstall the 'pyhdtoolkit' package from your activated environment."
+	@echo "  $(R) tests $(E)          to run tests with the the pytest package."
 
 archive:
 	@echo "$(B)Creating tarball archive of this release.$(E)"
@@ -73,6 +75,15 @@ condaenv:
 	@source activate PHD
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
+
+docker-build:
+	@echo "Building docker image with $(D)PHD$(E) conda environment, with tag $(P)simenv$(E)."
+	@docker build -t simenv .
+	@echo "Done. You can run this with $(P)docker run -it --init simenv$(E)."
+
+docker-pull:
+	@echo "Pulling docker image $(P)fsoubelet/simenv$(E) from Dockerhub."
+	@docker pull fsoubelet/simenv
 
 install: black clean
 	@echo "Installing this package to your active environment."
