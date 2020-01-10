@@ -25,6 +25,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x
     rm ~/miniconda.sh && \
     /opt/conda/bin/conda clean --all --quiet --yes && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    /opt/conda/bin/conda update -n base -c defaults conda --yes --quiet > /dev/null && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate PHD" >> ~/.bashrc
 
