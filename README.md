@@ -78,13 +78,13 @@ You can then run your container in interactive mode, and use the already activat
 It is highly advised to run with `--init` for zombie processes protection, see [Tini][tini_ref] for details.
 Assuming you pulled the provided image from Dockerhub, the command is then:
 ```bash
-docker run -it --init fsoubelet/simenv
+docker run -it --rm --init fsoubelet/simenv
 ```
 
 If you want to do some exploration through a `jupyter` interface then you need to tell your container to install it first, as it is not bundled in miniconda, then add the custom environment kernelspec.
 The following command will take care of all this:
 ```bash
-docker run -it --init -p 8888:8888 fsoubelet/simenv /bin/bash -c "/opt/conda/bin/conda install -c conda-forge jupyterlab -y --quiet > /dev/null && mkdir /opt/notebooks && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD && /opt/conda/bin/jupyter lab --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+docker run -it --rm --init -p 8888:8888 fsoubelet/simenv /bin/bash -c "/opt/conda/bin/conda install -c conda-forge jupyterlab -y --quiet > /dev/null && mkdir /opt/notebooks && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD && /opt/conda/bin/jupyter lab --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
 ```
 
 You can then copy the provided token and head to `localhost:8888` on your local machine.
