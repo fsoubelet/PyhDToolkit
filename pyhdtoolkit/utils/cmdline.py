@@ -5,6 +5,7 @@ Created on 2019.11.06
 Utility script to help run commands and access the commandline.
 """
 
+import errno
 import os
 import signal
 import sys
@@ -15,6 +16,30 @@ class CommandLine:
     """
     A high-level object to encapsulate the different methods for interacting with the commandline.
     """
+
+    @staticmethod
+    def check_pid_exists(pid: int) -> bool:
+        """
+        Check whether the given PID exists in the current process table.
+        :return: a boolean stating the result.
+        """
+        if pid == 0:
+            # According to "man 2 kill",  PID 0 has a special meaning: it refers to <<every process in the process
+            # group of the calling process>>, so it is best to not go any further.
+            return True
+        try:
+            os.kill(pid, 0)  # sending SIG 0 only checks if process has terminated
+        except OSError as error:
+            if error.errno == errno.ESRCH:  # ERROR "No such process"
+                return False
+            elif error.errno == errno.EPERM:  # ERROR "Operation not permitted" -> there's a process to deny access to.
+                return True
+            else:
+                # According to "man 2 kill" possible error values are (EINVAL, EPERM, ESRCH), therefore we should
+                # never get here. If so let's be explicit in considering this an error.
+                raise error
+        else:
+            return True
 
     @staticmethod
     def run(command, shell: bool = True, env=None, timeout: float = None) -> tuple:
@@ -44,14 +69,18 @@ class CommandLine:
         """
         Terminate process by given pid.
         On Other platforms, using os.kill with signal.SIGTERM to kill.
+        :param pid: the process ID to kill
         """
-        os.kill(pid, signal.SIGTERM)
+        if CommandLine.check_pid_exists(pid):
+            os.kill(pid, signal.SIGTERM)
+        else:
+            raise ValueError("Provided process ID does not correspond to a running process.")
 
     @staticmethod
     def get_cmdline_argv() -> list:
         """
         Get command line argv of self python process.
-        :return: a list wi
+        :return: a list with those arguments.
         """
         return sys.argv
 
