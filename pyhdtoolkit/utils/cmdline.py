@@ -8,8 +8,8 @@ Utility script to help run commands and access the commandline.
 import errno
 import os
 import signal
+import subprocess
 import sys
-from subprocess import PIPE, STDOUT, Popen
 
 
 class CommandLine:
@@ -32,7 +32,7 @@ class CommandLine:
         except OSError as error:
             if error.errno == errno.ESRCH:  # ERROR "No such process"
                 return False
-            elif error.errno == errno.EPERM:  # ERROR "Operation not permitted" -> there's a process to deny access to.
+            if error.errno == errno.EPERM:  # ERROR "Operation not permitted" -> there's a process to deny access to.
                 return True
             else:
                 # According to "man 2 kill" possible error values are (EINVAL, EPERM, ESRCH), therefore we should
@@ -60,9 +60,9 @@ class CommandLine:
         Usage:
             run('echo hello') -> (0, b'hello\r\n')
         """
-        p = Popen(command, shell=shell, stdout=PIPE, stderr=STDOUT, env=env)
-        stdout, _ = p.communicate(timeout=timeout)
-        return p.poll(), stdout
+        process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
+        stdout, _ = process.communicate(timeout=timeout)
+        return process.poll(), stdout
 
     @staticmethod
     def terminate(pid: int) -> None:

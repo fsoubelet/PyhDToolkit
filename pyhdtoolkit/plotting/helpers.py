@@ -13,12 +13,12 @@ class AnnotationsPlotter:
 
     @staticmethod
     def set_arrow_label(
-        ax, label="myLabel", arrow_position=(0, 0), label_position=(0, 0), color="k", arrow_arc_rad=-0.2
+        axis, label="myLabel", arrow_position=(0, 0), label_position=(0, 0), color="k", arrow_arc_rad=-0.2
     ):
         """
         Add a label box with text and an arrow from the box to a specified position to an existing provided
         matplotlib.axes `Axes` instance. Original code from Guido Sterbini.
-        :param ax: a matplotlib axis.
+        :param axis: a matplotlib axis.
         :param label: label to give to your arrow.
         :param arrow_position: where the tip of the arrow points.
         :param label_position: where the text label (and thus start of the arrow) is.
@@ -26,7 +26,7 @@ class AnnotationsPlotter:
         :param arrow_arc_rad: angle value defining the upwards / downwards shape of the arrow.
         :return: nothing, will act on the existing plot.
         """
-        return ax.annotate(
+        return axis.annotate(
             label,
             xy=arrow_position,
             xycoords="data",

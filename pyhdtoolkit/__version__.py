@@ -1,3 +1,13 @@
+"""
+pyhdtoolkit Library
+~~~~~~~~~~~~~~~~~~~
+pyhdtoolkit is a utility library, written in Python, for my PhD needs.
+Mainly particle accelerator physics studies and plotting.
+
+:copyright: (c) 2019 by Felix Soubelet.
+:license: MIT, see LICENSE for more details.
+"""
+
 __title__ = "pyhdtoolkit"
 __description__ = "An all-in-one toolkit package to easy my Python work in my PhD."
 __url__ = "https://github.com/fsoubelet/PyhDToolkit"

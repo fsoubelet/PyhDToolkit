@@ -16,7 +16,7 @@ can tweak on your own. Try many values and choose the one with the best speedup 
 For instance the default value of m in ThreadPoolExecutor is set to 5 I think is quite random.
 """
 
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
+from concurrent import futures
 
 
 class MultiProcessor:
@@ -44,7 +44,7 @@ class MultiProcessor:
         :return: a list of tuples, each tuple being the returned value(s) of your function for the given call,
         for instance [(results, run, one), (results, run, two), (results, run, three)].
         """
-        with ProcessPoolExecutor(n_processes) as ex:
+        with futures.ProcessPoolExecutor(n_processes) as ex:
             results = ex.map(func, func_args)
         return list(results)
 
@@ -76,7 +76,7 @@ class MultiThreader:
         :return: a list of tuples, each tuples being the returned value(s) of your function for the given call,
         for instance [(results, run, one), (results, run, two), (results, run, three)].
         """
-        with ThreadPoolExecutor(n_threads) as ex:
+        with futures.ThreadPoolExecutor(n_threads) as ex:
             results = ex.map(func, func_args)
         return list(results)
 

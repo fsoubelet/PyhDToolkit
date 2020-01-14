@@ -156,16 +156,16 @@ class TuneDiagramPlotter:
     """
 
     @staticmethod
-    def farey_sequence(n: int) -> list:
+    def farey_sequence(order: int) -> list:
         """
         Return the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
-        :param n: the order up to which we want to calculate the sequence.
+        :param order: the order up to which we want to calculate the sequence.
         :return: the sequence as a list.
         """
         seq = [[0, 1]]
-        a, b, c, d = 0, 1, 1, n
-        while c <= n:
-            k = int((n + b) / d)
+        a, b, c, d = 0, 1, 1, order
+        while c <= order:
+            k = int((order + b) / d)
             a, b, c, d = c, d, k * c - a, k * d - b
             seq.append([a, b])
         return seq

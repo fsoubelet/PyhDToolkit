@@ -39,8 +39,8 @@ class AttrDict(dict):
         dict.__setitem__(self, key, value)
 
     def update(self, *args, **kwargs):
-        for k, v in dict(*args, **kwargs).items():
-            self[k] = v
+        for key, value in dict(*args, **kwargs).items():
+            self[key] = value
 
     def __getstate__(self):
         return self

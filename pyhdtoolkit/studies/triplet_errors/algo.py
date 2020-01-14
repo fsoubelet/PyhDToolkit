@@ -12,13 +12,12 @@ import argparse
 from copy import deepcopy
 from datetime import datetime, timedelta
 
-import matplotlib
 import numpy as np
 import pandas as pd
-from tqdm import tqdm
+import tqdm
 
-from cpymad.madx import Madx
-from pyhdtoolkit.cpymadtools.lattice_generators import LatticeGenerator
+import cpymad
+from pyhdtoolkit.cpymadtools import lattice_generators
 
 from .data_classes import BetaBeatValues, StdevValues
 from .plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
@@ -37,8 +36,8 @@ class GridCompute:
         Initializing will take some time since the reference script is being ran, to store the reference dframe.
         Unless you go into PTC it should be a matter of seconds.
         """
-        self.reference_mad = Madx(stdout=False)
-        self.errors_mad = Madx(stdout=False)
+        self.reference_mad = cpymad.madx.Madx(stdout=False)
+        self.errors_mad = cpymad.madx.Madx(stdout=False)
         self.rms_betabeatings = BetaBeatValues()
         self.standard_deviations = StdevValues()
         self.lost_seeds_tf = []
@@ -52,7 +51,7 @@ class GridCompute:
         :return: nothing, directly updates the instance's `nominal_twiss` attribute inplace.
         """
         print(f"\n[GridCompute] Simulating reference nominal run")
-        ref_script = LatticeGenerator.generate_tripleterrors_study_reference()
+        ref_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_reference()
         self.reference_mad.input(ref_script)
         reference_dframe = deepcopy(self.reference_mad.table.twiss.dframe())
         return reference_dframe
@@ -76,9 +75,11 @@ class GridCompute:
             print(f"\n[GridCompute] Relative Field Error : {error}E-4")
             temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
-            for _ in tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
+            for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
                 seed = str(np.random.randint(1e6, 5e6))
-                tferror_script = LatticeGenerator.generate_tripleterrors_study_tferror_job(seed, str(error))
+                tferror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_tferror_job(
+                    seed, str(error)
+                )
                 self.errors_mad.input(tferror_script)
                 tferrors_twiss = self.errors_mad.table.twiss.dframe()
 
@@ -117,9 +118,11 @@ class GridCompute:
             print(f"\n[GridCompute] Longitudinal Missalignment Error : {float(error)}mm")
             temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
-            for _ in tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
+            for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
                 seed = str(np.random.randint(1e6, 5e6))
-                mserror_script = LatticeGenerator.generate_tripleterrors_study_mserror_job(seed, str(error))
+                mserror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_mserror_job(
+                    seed, str(error)
+                )
                 self.errors_mad.input(mserror_script)
                 mserrors_twiss = self.errors_mad.table.twiss.dframe()
 

@@ -36,10 +36,15 @@ make tests
 
 ## Standards, Tools and VCS
 
-This repository respects the PyCharm docstring format, and uses [Black][black_formatter] as a code formatter with a default enforced line length of 120 characters.
-You can lint the code with:
+This repository respects the PyCharm docstring format, uses [Black][black_formatter] as a code formatter with a default enforced line length of 120 characters, and [Pylint][pylint_ref] as a linter.
+You can format the code with:
 ```bash
 make black
+```
+
+You can lint the code with:
+```bash
+make lint
 ```
 
 VCS is done through [git][git_ref] and follows the [Gitflow][gitflow_ref] workflow.
@@ -98,4 +103,5 @@ Copyright &copy; 2019-2020 Felix Soubelet. [MIT License][license]
 [git_ref]: https://git-scm.com/
 [license]: https://github.com/fsoubelet/PyhDToolkit/blob/master/LICENSE
 [oci_ref]: https://www.opencontainers.org/
+[pylint_ref]: https://www.pylint.org/
 [tini_ref]: https://github.com/krallin/tini
