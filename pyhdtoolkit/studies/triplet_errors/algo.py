@@ -18,9 +18,8 @@ import tqdm
 
 import cpymad
 from pyhdtoolkit.cpymadtools import lattice_generators
-
-from .data_classes import BetaBeatValues, StdevValues
-from .plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
+from pyhdtoolkit.studies.triplet_errors.data_classes import BetaBeatValues, StdevValues
+from pyhdtoolkit.studies.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
 
 
 class GridCompute:

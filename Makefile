@@ -13,19 +13,19 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help archive black checklist clean condaenv docker-build docker-pull install isort lines lint pipreq uninstall tests
+.PHONY : help archive checklist clean condaenv docker-build docker-pull format install isort lines lint pipreq uninstall tests
 
 all: install
 
 help:
 	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
 	@echo "  $(R) archive $(E)        to create a tarball of this specific release."
-	@echo "  $(R) black $(E)          to recursively apply PEP8 formatting through the 'Black' cli tool."
 	@echo "  $(R) checklist $(E)      to print a pre-release check-list."
 	@echo "  $(R) clean $(E)          to recursively remove build, run, and bitecode files/dirs."
 	@echo "  $(R) condaenv $(E)       to 'conda install' the specific 'PHD' environment I use. Personnal."
 	@echo "  $(R) docker-build $(E)   to build a container image replicating the 'PHD' environment."
 	@echo "  $(R) docker-pull $(E)    to pull a pre-built image from Dockerhub."
+	@echo "  $(R) format $(E)         to recursively apply PEP8 formatting through the 'Black' cli tool."
 	@echo "  $(R) install $(E)        to 'pip install' this package into your activated environment."
 	@echo "  $(R) isort $(E)          to recursively sort import statements. Called by 'make black'."
 	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
@@ -43,7 +43,7 @@ archive:
 	@echo "To install from this archive, unpack it and run '$(D)python setup.py install$(E)' from within its directory."
 	@echo ""
 
-black: isort
+format: isort
 	@echo "Formatting code to PEP8, default line length is 120.\n"
 	@black -l 120 .
 
@@ -86,7 +86,7 @@ docker-pull:
 	@echo "Pulling docker image $(P)fsoubelet/simenv$(E) from Dockerhub."
 	@docker pull fsoubelet/simenv
 
-install: black clean
+install: format clean
 	@echo "Installing this package to your active environment."
 	@pip install .
 
@@ -94,10 +94,10 @@ isort:
 	@echo "Sorting import statements."
 	@isort -rc -q .
 
-lines: black
+lines: format
 	@tokei .
 
-lint: black
+lint: format
 	@echo "Linting code, ignoring the following message IDs:"
 	@echo "  - $(P)C0330$(E) $(C)'bad-continuation'$(E) since it somehow doesn't play friendly with $(D)Black$(E)."
 	@echo "  - $(P)W0106$(E) $(C)'expression-not-assigned'$(E) since it triggers on class attribute reassignment."
@@ -112,7 +112,7 @@ uninstall:
 	@echo "Uninstalling this package from your active environment."
 	@pip uninstall pyhdtoolkit
 
-tests: black clean
+tests: format clean
 	@source activate PHD
 	@pytest tests
 
