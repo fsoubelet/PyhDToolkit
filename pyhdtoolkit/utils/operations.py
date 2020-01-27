@@ -214,7 +214,7 @@ class ListOperations:
         while amount_to_shuffle > 1:
             rand_index = int(math.floor(random.random() * amount_to_shuffle))
             amount_to_shuffle -= 1
-            temp_list[rand_index], temp_list[amount_to_shuffle] = temp_list[amount_to_shuffle], temp_list[rand_index]
+            temp_list[rand_index], temp_list[amount_to_shuffle] = (temp_list[amount_to_shuffle], temp_list[rand_index])
         return temp_list
 
     @staticmethod
@@ -487,7 +487,7 @@ class StringOperations:
            is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort") -> True
            is_anagram("A first string", "Definitely not an anagram") -> False
        """
-        _str1, _str2 = str_1.replace(" ", "").replace("'", ""), str_2.replace(" ", "").replace("'", "")
+        _str1, _str2 = (str_1.replace(" ", "").replace("'", ""), str_2.replace(" ", "").replace("'", ""))
         return sorted(_str1.lower()) == sorted(_str2.lower())
 
     @staticmethod

@@ -43,10 +43,6 @@ archive:
 	@echo "To install from this archive, unpack it and run '$(D)python setup.py install$(E)' from within its directory."
 	@echo ""
 
-format: isort
-	@echo "Formatting code to PEP8, default line length is 120.\n"
-	@black -l 120 .
-
 checklist:
 	@echo "Here is a small pre-release check-list:"
 	@echo "  - Check you are on a tagged $(P)feature/release$(E) branch (see Gitflow workflow)."
@@ -85,6 +81,10 @@ docker-build:
 docker-pull:
 	@echo "Pulling docker image $(P)fsoubelet/simenv$(E) from Dockerhub."
 	@docker pull fsoubelet/simenv
+
+format: isort
+	@echo "Formatting code to PEP8, default line length is 120.\n"
+	@black -l 120 .
 
 install: format clean
 	@echo "Installing this package to your active environment."
