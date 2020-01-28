@@ -42,6 +42,7 @@ See the `walkthrough.md` file to have an overview of how to use this API.
 """
 
 # import numba
+import matplotlib.pyplot as plt
 import numpy as np
 
 
@@ -187,7 +188,7 @@ class PhaseReconstructor:
         return np.apply_along_axis(np.angle, axis=0, arr=complex_estimator, deg=deg)
 
 
-# ---------- TESTING PURPOSES ---------- #
+# ---------- SIMULATIONS / TESTING PURPOSES ---------- #
 
 
 def create_meas_matrix_from_values_array(values_array: np.ndarray) -> np.ndarray:
@@ -199,60 +200,96 @@ def create_meas_matrix_from_values_array(values_array: np.ndarray) -> np.ndarray
     return np.array([[i - j for i in values_array] for j in values_array], dtype=float)
 
 
-def squared_wgn(existing_signal: np.ndarray, target_snr_db: np.float64) -> np.ndarray:
+def create_random_phase_values(low: float, high: float, n_values: int, dist: str) -> np.ndarray:
     """
-    bleh
+    Returns fake generated phase values. They are ascending by default.
+    :param low: lowest value, first value will always be 0.
+    :param high: highest value.
+    :param n_values: number of values to generate.
+    :param dist: distribution type required. Will be uniform or linspace.
+    :return: a `numpy.ndarray` of shape (n_values,) with the generated values.
     """
-    signal_avg_power = np.sqrt(np.mean(existing_signal) ** 2)
-    signal_avg_db = 10 * np.log10(signal_avg_power)
-
-    # Calculate noise level according to target_snr_db
-    noise_avg_db = signal_avg_db - target_snr_db
-    noise_avg = 10 ** (noise_avg_db / 10)
-
-    # Generate a sample of white noise
-    mean_noise = 0
-    noise_values = np.random.normal(mean_noise, np.sqrt(noise_avg), len(existing_signal))
-    noised_signal = existing_signal + noise_values
-    noised_signal[0] = 0  # Specific to my use case
-    return noised_signal
+    if dist == "linspace":
+        values = np.linspace(low, high, n_values)
+    elif dist == "uniform":
+        values = np.sort(np.random.default_rng().uniform(low, high, n_values))
+    else:
+        raise ValueError("Provided parameter 'dist' should be either 'linspace' or 'uniform'.")
+    values[0] = 0
+    return values
 
 
-def apply_additive_white_gaussian_noise(existing_signal: np.ndarray, target_snr_db: np.float64) -> np.ndarray:
+def create_2d_white_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndarray:
     """
-    Applies 'Additive White Gaussian Noise' to the provided signal, according to the provided ratio.
-    Initial signal is left untouched.
-    For implementation reference, see the answer by user Mohamed Ali JAMAOUI at:
-    https://stackoverflow.com/questions/14058340/adding-noise-to-a-signal-in-python
-    :param existing_signal: the values of your signal at your N BPMs, in a (1, N) shaped
-    `numpy.ndarray`. The measurements are assumed to be real values.
-    :param target_snr_db: the wanted signal-to-noise-ratio, in dB.
-    :return: The noised signal. Does not affect the provided signal, returns a new array.
+    Applies Gaussian noise to the provided measurements matrix. Generates a 2D Gaussian
+    distribution, makes it antisymmetric and returns it.
+    :param mean: mean of the distribution, should be 0 for us (since we add to the ideal M_meas).
+    :param stdev: standard deviation of the distribution, should be in degrees if M_meas is given
+    in degrees, in radians otherwise.
+    :param shape: The shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
+    :return: an Gaussian, anti-symmetric, 2D-shaped `numpy.ndarray`.
     """
-    signal_avg_power = np.sqrt(np.mean(existing_signal) ** 2)
-    signal_avg_db = 10 * np.log10(signal_avg_power)
-
-    # Calculate noise level according to target_snr_db
-    noise_avg_db = signal_avg_db - target_snr_db
-    noise_avg = 10 ** (noise_avg_db / 10)
-
-    # Generate a sample of white noise
-    mean_noise = 0
-    noise_values = np.random.normal(mean_noise, np.sqrt(noise_avg), len(existing_signal))
-    noised_signal = existing_signal + noise_values
-    noised_signal[0] = 0  # Specific to my use case
-    return noised_signal
+    gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
+    upper_triangle = np.triu(gaussian_2d_mat)
+    return upper_triangle - upper_triangle.T
 
 
-def create_random_hermitian_matrix(dim: int) -> np.ndarray:
+def plot_reconstructed_vs_true_signal(signal: np.ndarray, reconstructed: np.ndarray, figsize: tuple) -> None:
     """
-    A mock function that will return a dim-dimensional Hermitian matrix.
-    :param dim: matrix dimension: shape will be (dim, dim)
-    :return: a `numpy.ndarray` dim-dimensional matrix
+    Plots reconstructed vs original.
+    :param signal: true original signal.
+    :param reconstructed: reconstructed signal.
+    :param figsize: size of figure.
+    :return: none, plots the figure.
     """
-    intermediate_matrix_1 = np.random.rand(dim, dim) + 1j * np.random.rand(dim, dim)
-    intermediate_matrix_2 = np.conj(intermediate_matrix_1).T
-    return intermediate_matrix_1 + intermediate_matrix_2
+    plt.figure(figsize=figsize)
+    plt.title("True vs Reconstructed Signal")
+    plt.plot(signal, label="True signal", marker=",", ls="--")
+    plt.plot(reconstructed, label="Reconstructed signal", marker=",", ls=":")
+    plt.ylabel("Phase Value [deg]")
+    plt.xlabel("BPM Number")
+    plt.legend(loc="best")
+
+
+def plot_absolute_difference_to_true_signal(
+    signal: np.ndarray, reconstructed: np.ndarray, noise_stdev: float, figsize: tuple
+) -> None:
+    """
+    Plots the value difference of reconstructed signal to original.
+    :param signal: true original signal.
+    :param reconstructed: reconstructed signal.
+    :param noise_stdev: stdev of the added noise distribution.
+    :param figsize: size of figure.
+    :return: none, plots the figure.
+    """
+    plt.figure(figsize=figsize)
+    plt.title("Absolute Difference to Original Signal")
+    plt.plot(
+        np.abs(signal - reconstructed),
+        color="cornflowerblue",
+        label="Abs. diff. of rec. to original signal",
+        marker=",",
+        ls="--",
+    )
+    plt.hlines(
+        noise_stdev,
+        xmin=0,
+        xmax=len(reconstructed),
+        color="darkorange",
+        label="Standard deviation of noise distribution",
+        ls=":",
+    )
+    plt.hlines(
+        noise_stdev * 0.2,
+        xmin=0,
+        xmax=len(reconstructed),
+        color="mediumseagreen",
+        label="20% of noise distribution stdev",
+        ls=":",
+    )
+    plt.ylabel("Absolute Difference")
+    plt.xlabel("BPM Number")
+    plt.legend(loc="best")
 
 
 if __name__ == "__main__":

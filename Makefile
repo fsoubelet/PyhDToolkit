@@ -108,9 +108,11 @@ pipreq:
 	@echo "Installing packages from $(C)requirements.txt$(E) throough pip in your active environment."
 	@pip install -r requirements.txt
 
+reinstall: uninstall install
+
 uninstall:
 	@echo "Uninstalling this package from your active environment."
-	@pip uninstall pyhdtoolkit
+	@pip uninstall pyhdtoolkit --yes
 
 tests: format clean
 	@source activate PHD
