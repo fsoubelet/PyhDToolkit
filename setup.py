@@ -1,39 +1,53 @@
-from pathlib import Path
+import pathlib
 
 import setuptools
 
-TOPLEVEL_DIRECTORY = Path(__file__).parent.absolute()
-ABOUT = TOPLEVEL_DIRECTORY / "pyhdtoolkit" / "__version__.py"
-README = TOPLEVEL_DIRECTORY / "README.md"
+# The directory containing this file
+TOPLEVEL_DIR = pathlib.Path(__file__).parent.absolute()
+ABOUT_FILE = TOPLEVEL_DIR / "pyhdtoolkit" / "__init__.py"
+README = TOPLEVEL_DIR / "README.md"
 
-about: dict = {}
-with ABOUT.open("r") as f:
-    exec(f.read(), about)
+# Information on the package
+ABOUT_PACKAGE: dict = {}
+with ABOUT_FILE.open("r") as f:
+    exec(f.read(), ABOUT_PACKAGE)
 
 with README.open("r") as docs:
     long_description = docs.read()
 
-# Not really "requires" but I just use them all the time, might as well come with.
-install_requires = ["matplotlib>=3.1.1"]
-
-tests_require = [
-    # Pytest needs to come last: https://bitbucket.org/pypa/setuptools/issue/196/
-    "pytest"
+# Dependencies for the package itself
+DEPENDENCIES = [
+    "numpy>=1.14.1",
+    "pandas>=0.24.0,<1.0",
+    "scipy>=1.0.0",
+    "scikit-learn>=0.20.3",
+    "tfs-pandas>=1.0.3",
+    "generic-parser>=1.0.6",
+    "sdds>=0.1.3",
+    "pytz>=2018.9",
+    "tqdm>=4.41",
 ]
 
+
+# Dependencies that should only be installed for test purposes
+TEST_DEPENDENCIES = ["pytest>=5.2", "pytest-cov>=2.6", "h5py>=2.7.0", "hypothesis>=3.23.0", "attrs>=19.2.0"]
+
+# pytest-runner to be able to run pytest via setuptools
+SETUP_REQUIRES = ["pytest-runner"]
+
+
 setuptools.setup(
-    name=about["__title__"],
-    version=about["__version__"],
-    description=about["__description__"],
+    name=ABOUT_PACKAGE["__title__"],
+    version=ABOUT_PACKAGE["__version__"],
+    description=ABOUT_PACKAGE["__description__"],
     long_description=long_description,
     long_description_content_type="text/markdown",
-    author=about["__author__"],
-    author_email=about["__author_email__"],
-    url=about["__url__"],
-    packages=setuptools.find_packages(),
+    author=ABOUT_PACKAGE["__author__"],
+    author_email=ABOUT_PACKAGE["__author_email__"],
+    url=ABOUT_PACKAGE["__url__"],
+    packages=setuptools.find_packages(exclude=["tests", "doc", "bin"]),
     python_requires=">=3.6",
-    install_requires=install_requires,
-    license=about["__license__"],
+    license=ABOUT_PACKAGE["__license__"],
     classifiers=[
         "Development Status :: 4 - Beta",
         "Intended Audience :: Science/Research",
@@ -50,5 +64,7 @@ setuptools.setup(
         "Topic :: Scientific/Engineering :: Visualization",
         "Topic :: Utilities",
     ],
-    tests_require=tests_require,
+    install_requires=DEPENDENCIES,
+    tests_require=DEPENDENCIES + TEST_DEPENDENCIES,
+    setup_requires=SETUP_REQUIRES,
 )

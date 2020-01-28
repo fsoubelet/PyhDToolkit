@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help archive checklist clean condaenv docker-build docker-pull format install isort lines lint pipreq uninstall tests
+.PHONY : help archive checklist clean condaenv docker-build docker-pull format install isort lines lint reinstall uninstall tests
 
 all: install
 
@@ -30,7 +30,7 @@ help:
 	@echo "  $(R) isort $(E)          to recursively sort import statements. Called by 'make black'."
 	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
 	@echo "  $(R) lint $(E)           to lint your python code though 'pylint'."
-	@echo "  $(R) pipreq $(E)         to 'pip install' packages listed in 'requirements.txt' into your activated environment."
+	@echo "  $(R) reinstall $(E)      to 'pip uninstall' then 'pip install' this package into your activated environment."
 	@echo "  $(R) uninstall $(E)      to uninstall the 'pyhdtoolkit' package from your activated environment."
 	@echo "  $(R) tests $(E)          to run tests with the the pytest package."
 
@@ -103,10 +103,6 @@ lint: format
 	@echo "  - $(P)W0106$(E) $(C)'expression-not-assigned'$(E) since it triggers on class attribute reassignment."
 	@echo "  - $(P)C0103$(E) $(C)'invalid-name'$(E) because there are too many at the moment :(.\n"
 	@pylint --max-line-length=120 --disable=C0330,W0106,C0103 pyhdtoolkit/
-
-pipreq:
-	@echo "Installing packages from $(C)requirements.txt$(E) throough pip in your active environment."
-	@pip install -r requirements.txt
 
 reinstall: uninstall install
 

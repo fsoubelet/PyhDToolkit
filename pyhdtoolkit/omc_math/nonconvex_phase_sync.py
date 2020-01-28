@@ -44,6 +44,7 @@ See the `walkthrough.md` file to have an overview of how to use this API.
 # import numba
 import matplotlib.pyplot as plt
 import numpy as np
+import tfs
 
 
 class PhaseReconstructor:
@@ -191,6 +192,27 @@ class PhaseReconstructor:
 # ---------- SIMULATIONS / TESTING PURPOSES ---------- #
 
 
+def create_combinations_matrices_from_twiss(twiss_file: str) -> tuple:
+    """
+    Create combination matrices indicating, for each element, if it is a 'high-high' or 'high-low' (etc) BPM
+    combination. Done for each plane, and returns each as a `numpy.ndarray`.
+    :param twiss_file: string path to twiss file with BPMs twiss.
+    :return: tuple of two `numpy.ndarray` 2D matrices.
+    """
+    bpms_df = tfs.read(twiss_file)
+    bpms_df["CATX"] = bpms_df["BETX"].apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
+    bpms_df["CATY"] = bpms_df["BETY"].apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
+    combinations_matrix_x = np.array(
+        [[bpm_1_beta_cat + "-" + bpm_2_beta_cat for bpm_1_beta_cat in bpms_df.CATX] for bpm_2_beta_cat in bpms_df.CATX]
+    )
+    combinations_matrix_y = np.array(
+        [[bpm_1_beta_cat + "-" + bpm_2_beta_cat for bpm_1_beta_cat in bpms_df.CATY] for bpm_2_beta_cat in bpms_df.CATY]
+    )
+    combinations_matrix_x = remove_duplicate_combinations(combinations_matrix_x)
+    combinations_matrix_y = remove_duplicate_combinations(combinations_matrix_y)
+    return combinations_matrix_x, combinations_matrix_y
+
+
 def create_meas_matrix_from_values_array(values_array: np.ndarray) -> np.ndarray:
     """
     For testing purposes. Returns the deltas measurements matrix from an array of values.
@@ -272,14 +294,6 @@ def plot_absolute_difference_to_true_signal(
         ls="--",
     )
     plt.hlines(
-        noise_stdev,
-        xmin=0,
-        xmax=len(reconstructed),
-        color="darkorange",
-        label="Standard deviation of noise distribution",
-        ls=":",
-    )
-    plt.hlines(
         noise_stdev * 0.2,
         xmin=0,
         xmax=len(reconstructed),
@@ -290,6 +304,18 @@ def plot_absolute_difference_to_true_signal(
     plt.ylabel("Absolute Difference")
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
+
+
+def remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarray:
+    """
+    Will simply transform 'low-high' in 'high-low' etc so that one case is only one specific string.
+    :param combinations_matrix: your combinations matrix.
+    :return: same, but refactored.
+    """
+    combinations_matrix[combinations_matrix == "low-high"] = "high-low"
+    combinations_matrix[combinations_matrix == "medium-high"] = "high-medium"
+    combinations_matrix[combinations_matrix == "low-medium"] = "medium-low"
+    return combinations_matrix
 
 
 if __name__ == "__main__":
