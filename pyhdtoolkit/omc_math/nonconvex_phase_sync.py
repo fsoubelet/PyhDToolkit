@@ -241,18 +241,29 @@ def create_random_phase_values(low: float, high: float, n_values: int, dist: str
     return values
 
 
-def create_2d_white_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndarray:
+def create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndarray:
     """
-    Applies Gaussian noise to the provided measurements matrix. Generates a 2D Gaussian
-    distribution, makes it antisymmetric and returns it.
+    Generates a 2D Gaussian distribution, makes it antisymmetric and returns it.
     :param mean: mean of the distribution, should be 0 for us (since we add to the ideal M_meas).
     :param stdev: standard deviation of the distribution, should be in degrees if M_meas is given
     in degrees, in radians otherwise.
-    :param shape: The shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
-    :return: an Gaussian, anti-symmetric, 2D-shaped `numpy.ndarray`.
+    :param shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
+    :return: a Gaussian, anti-symmetric, 2D-shaped `numpy.ndarray`.
     """
     gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
     upper_triangle = np.triu(gaussian_2d_mat)
+    return upper_triangle - upper_triangle.T
+
+
+def create_2d_chi_squared_noise(deg_freedom: int, shape: tuple) -> np.ndarray:
+    """
+    Generates a 2D chi-squared distribution, makes it antisymmetric and returns it.
+    :param deg_freedom: the number of degrees of freedom for this distribution.
+    :param shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
+    :return: a chi-squared, anti-symmetric. 2D-shaped `numpy.ndarray`.
+    """
+    chisquare_2d_mat = np.random.default_rng().chisquare(df=deg_freedom, size=shape)
+    upper_triangle = np.triu(chisquare_2d_mat)
     return upper_triangle - upper_triangle.T
 
 
