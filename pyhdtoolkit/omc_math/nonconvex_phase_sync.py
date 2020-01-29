@@ -41,10 +41,13 @@ Note that M_matrix having zeros in its diagonal, c_matrix will have (1 + 0j) on 
 See the `walkthrough.md` file to have an overview of how to use this API.
 """
 
-# import numba
 import matplotlib.pyplot as plt
 import numpy as np
 import tfs
+
+from pyhdtoolkit.plotting.settings import PLOT_PARAMS
+
+plt.rcParams.update(PLOT_PARAMS)
 
 
 class PhaseReconstructor:
@@ -140,6 +143,14 @@ class PhaseReconstructor:
             inf_values_mask = new_step == np.inf
             new_step[inf_values_mask] = precedent_step_vector[inf_values_mask]
         return new_step.reshape((1, self.space_dimension))
+
+    def reconstruct_complex_phases_evm(self) -> np.ndarray:
+        """
+        Reconstruct simplest estimator fom the eigenvector method. The result is in complex form, and will be radians
+        once cast back to real form.
+        :return: the complex form of the result as a 'numpy.ndarray' instance.
+        """
+        return self.get_eigenvector_estimator(self.leading_eigenvector)
 
     def reconstruct_complex_phases_gpm(self, convergence_margin: np.float64) -> np.ndarray:
         """
@@ -263,6 +274,19 @@ def create_2d_chi_squared_noise(deg_freedom: int, shape: tuple) -> np.ndarray:
     :return: a chi-squared, anti-symmetric. 2D-shaped `numpy.ndarray`.
     """
     chisquare_2d_mat = np.random.default_rng().chisquare(df=deg_freedom, size=shape)
+    upper_triangle = np.triu(chisquare_2d_mat)
+    return upper_triangle - upper_triangle.T
+
+
+def create_2d_gamma_noise(dist_shape: int, scale: float, size: tuple) -> np.ndarray:
+    """
+    Generates a 2D gamma distribution, makes it antisymmetric and returns it.
+    :param dist_shape: shape of the gamma distribution, must be non-negative.
+    :param scale: scale of the gamma distribution, must be non-negative
+    :param size: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
+    :return: a chi-squared, anti-symmetric. 2D-shaped `numpy.ndarray`.
+    """
+    chisquare_2d_mat = np.random.default_rng().gamma(shape=dist_shape, scale=scale, size=size)
     upper_triangle = np.triu(chisquare_2d_mat)
     return upper_triangle - upper_triangle.T
 

@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help archive checklist clean condaenv docker-build docker-pull format install isort lines lint reinstall uninstall tests
+.PHONY : help archive checklist clean condaenv docker-build docker-pull format install lines lint reinstall uninstall tests
 
 all: install
 
@@ -27,7 +27,6 @@ help:
 	@echo "  $(R) docker-pull $(E)    to pull a pre-built image from Dockerhub."
 	@echo "  $(R) format $(E)         to recursively apply PEP8 formatting through the 'Black' cli tool."
 	@echo "  $(R) install $(E)        to 'pip install' this package into your activated environment."
-	@echo "  $(R) isort $(E)          to recursively sort import statements. Called by 'make black'."
 	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
 	@echo "  $(R) lint $(E)           to lint your python code though 'pylint'."
 	@echo "  $(R) reinstall $(E)      to 'pip uninstall' then 'pip install' this package into your activated environment."
@@ -83,17 +82,13 @@ docker-pull:
 	@echo "Pulling docker image $(P)fsoubelet/simenv$(E) from Dockerhub."
 	@docker pull fsoubelet/simenv
 
-format: isort
+format:
 	@echo "Formatting code to PEP8, default line length is 120.\n"
 	@black -l 120 .
 
 install: format clean
 	@echo "Installing this package to your active environment."
 	@pip install .
-
-isort:
-	@echo "Sorting import statements."
-	@isort -rc -q .
 
 lines: format
 	@tokei .
