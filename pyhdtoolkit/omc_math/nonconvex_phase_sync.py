@@ -291,12 +291,15 @@ def create_2d_gamma_noise(dist_shape: int, scale: float, size: tuple) -> np.ndar
     return upper_triangle - upper_triangle.T
 
 
-def plot_reconstructed_vs_true_signal(signal: np.ndarray, reconstructed: np.ndarray, figsize: tuple) -> None:
+def plot_reconstructed_vs_true_signal(
+    signal: np.ndarray, reconstructed: np.ndarray, figsize: tuple, savefig: bool = None
+) -> None:
     """
     Plots reconstructed vs original.
     :param signal: true original signal.
     :param reconstructed: reconstructed signal.
     :param figsize: size of figure.
+    :param savefig: boolean, option to save the figure as pdf at 300 dpi.
     :return: none, plots the figure.
     """
     plt.figure(figsize=figsize)
@@ -306,10 +309,12 @@ def plot_reconstructed_vs_true_signal(signal: np.ndarray, reconstructed: np.ndar
     plt.ylabel("Phase Value [deg]")
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
+    if savefig:
+        plt.savefig("EVM_reconstruct.pdf", dpi=300)
 
 
 def plot_absolute_difference_to_true_signal(
-    signal: np.ndarray, reconstructed: np.ndarray, noise_stdev: float, figsize: tuple
+    signal: np.ndarray, reconstructed: np.ndarray, noise_stdev: float, figsize: tuple, savefig: bool = None
 ) -> None:
     """
     Plots the value difference of reconstructed signal to original.
@@ -317,6 +322,7 @@ def plot_absolute_difference_to_true_signal(
     :param reconstructed: reconstructed signal.
     :param noise_stdev: stdev of the added noise distribution.
     :param figsize: size of figure.
+    :param savefig: boolean, option to save the figure as pdf at 300 dpi.
     :return: none, plots the figure.
     """
     plt.figure(figsize=figsize)
@@ -339,6 +345,8 @@ def plot_absolute_difference_to_true_signal(
     plt.ylabel("Absolute Difference")
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
+    if savefig:
+        plt.savefig("reconstruct_to_signal_diff.pdf", dpi=300)
 
 
 def remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarray:
