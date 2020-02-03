@@ -43,9 +43,11 @@ See the `walkthrough.md` file to have an overview of how to use this API.
 
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import tfs
 
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
+from pyhdtoolkit.utils.cmdline import CommandLine
 
 plt.rcParams.update(PLOT_PARAMS)
 
@@ -203,7 +205,7 @@ class PhaseReconstructor:
 # ---------- SIMULATIONS / TESTING PURPOSES ---------- #
 
 
-def create_combinations_matrices_from_twiss(twiss_file: str) -> tuple:
+def create_combinations_matrices_from_twiss(twiss_file: str) -> (np.ndarray, np.ndarray):
     """
     Create combination matrices indicating, for each element, if it is a 'high-high' or 'high-low' (etc) BPM
     combination. Done for each plane, and returns each as a `numpy.ndarray`.
@@ -219,8 +221,8 @@ def create_combinations_matrices_from_twiss(twiss_file: str) -> tuple:
     combinations_matrix_y = np.array(
         [[bpm_1_beta_cat + "-" + bpm_2_beta_cat for bpm_1_beta_cat in bpms_df.CATY] for bpm_2_beta_cat in bpms_df.CATY]
     )
-    combinations_matrix_x = remove_duplicate_combinations(combinations_matrix_x)
-    combinations_matrix_y = remove_duplicate_combinations(combinations_matrix_y)
+    combinations_matrix_x = _remove_duplicate_combinations(combinations_matrix_x)
+    combinations_matrix_y = _remove_duplicate_combinations(combinations_matrix_y)
     return combinations_matrix_x, combinations_matrix_y
 
 
@@ -271,7 +273,7 @@ def create_2d_chi_squared_noise(deg_freedom: int, shape: tuple) -> np.ndarray:
     Generates a 2D chi-squared distribution, makes it antisymmetric and returns it.
     :param deg_freedom: the number of degrees of freedom for this distribution.
     :param shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
-    :return: a chi-squared, anti-symmetric. 2D-shaped `numpy.ndarray`.
+    :return: a chi-squared, anti-symmetric, 2D-shaped `numpy.ndarray`.
     """
     chisquare_2d_mat = np.random.default_rng().chisquare(df=deg_freedom, size=shape)
     upper_triangle = np.triu(chisquare_2d_mat)
@@ -284,11 +286,28 @@ def create_2d_gamma_noise(dist_shape: int, scale: float, size: tuple) -> np.ndar
     :param dist_shape: shape of the gamma distribution, must be non-negative.
     :param scale: scale of the gamma distribution, must be non-negative
     :param size: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
-    :return: a chi-squared, anti-symmetric. 2D-shaped `numpy.ndarray`.
+    :return: a gamma, anti-symmetric, 2D-shaped `numpy.ndarray`.
     """
     chisquare_2d_mat = np.random.default_rng().gamma(shape=dist_shape, scale=scale, size=size)
     upper_triangle = np.triu(chisquare_2d_mat)
     return upper_triangle - upper_triangle.T
+
+
+def get_combinations_matrices_from_madx(madx_file: str) -> (np.ndarray, np.ndarray):
+    """Call the madx file, analyse twiss and give back combinations."""
+    cmd = CommandLine()
+    cmd.run("madx twiss.LHC.BPMs.madx")
+    comb_mat_x, comb_mat_y = create_combinations_matrices_from_twiss("bpms.tfs")
+    cmd.run("rm -f bpms.tfs")
+    return comb_mat_x, comb_mat_y
+
+
+def meas_noise_matrix_to_dataframe(matrix: np.ndarray) -> pd.DataFrame:
+    """Return a DataFrame version of the provided matrix."""
+    headers = [f"BPM{i + 1}" for i in range(matrix.shape[0])]
+    df_form = pd.DataFrame(matrix, columns=headers)
+    df_form.index = headers
+    return df_form
 
 
 def plot_reconstructed_vs_true_signal(
@@ -342,6 +361,14 @@ def plot_absolute_difference_to_true_signal(
         label="20% of noise distribution stdev",
         ls=":",
     )
+    plt.hlines(
+        np.mean(np.abs(signal - reconstructed)),
+        xmin=0,
+        xmax=len(reconstructed),
+        color="darkred",
+        label="Mean of abs. diff.",
+        ls=":",
+    )
     plt.ylabel("Absolute Difference")
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
@@ -349,7 +376,7 @@ def plot_absolute_difference_to_true_signal(
         plt.savefig("reconstruct_to_signal_diff.pdf", dpi=300)
 
 
-def remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarray:
+def _remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarray:
     """
     Will simply transform 'low-high' in 'high-low' etc so that one case is only one specific string.
     :param combinations_matrix: your combinations matrix.
