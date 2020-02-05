@@ -46,10 +46,7 @@ import numpy as np
 import pandas as pd
 import tfs
 
-from pyhdtoolkit.plotting.settings import PLOT_PARAMS
 from pyhdtoolkit.utils.cmdline import CommandLine
-
-plt.rcParams.update(PLOT_PARAMS)
 
 
 class PhaseReconstructor:
@@ -324,7 +321,7 @@ def plot_reconstructed_vs_true_signal(
     plt.figure(figsize=figsize)
     plt.title("True vs Reconstructed Signal")
     plt.plot(signal, label="True signal", marker=",", ls="--")
-    plt.plot(reconstructed, label="Reconstructed signal", marker=",", ls=":")
+    plt.plot(reconstructed, label="Reconstructed signal", marker=",", ls="--")
     plt.ylabel("Phase Value [deg]")
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
@@ -351,15 +348,15 @@ def plot_absolute_difference_to_true_signal(
         color="cornflowerblue",
         label="Abs. diff. of rec. to original signal",
         marker=",",
-        ls="--",
+        ls=":",
     )
     plt.hlines(
         noise_stdev * 0.2,
         xmin=0,
         xmax=len(reconstructed),
-        color="mediumseagreen",
+        color="seagreen",
         label="20% of noise distribution stdev",
-        ls=":",
+        ls="--",
     )
     plt.hlines(
         np.mean(np.abs(signal - reconstructed)),
@@ -367,7 +364,7 @@ def plot_absolute_difference_to_true_signal(
         xmax=len(reconstructed),
         color="darkred",
         label="Mean of abs. diff.",
-        ls=":",
+        ls="--",
     )
     plt.ylabel("Absolute Difference")
     plt.xlabel("BPM Number")
