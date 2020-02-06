@@ -58,7 +58,6 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
 
     # Estimate distribution parameters from data
     for distribution, distname in DISTRIBUTIONS.items():
-
         try:  # Try to fit the distribution
             with warnings.catch_warnings():  # Ignore warnings from data that can't be fit
                 warnings.filterwarnings("ignore")
@@ -84,7 +83,6 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                     best_distribution = distribution
                     best_params = params
                     best_sse = sse
-
         except:
             pass
 
