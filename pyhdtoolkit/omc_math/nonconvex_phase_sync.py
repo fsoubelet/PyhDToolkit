@@ -296,6 +296,26 @@ def meas_noise_matrix_to_dataframe(matrix: np.ndarray) -> pd.DataFrame:
     return df_form
 
 
+def plot_noised_vs_true_signal(signal: np.ndarray, noised: np.ndarray, figsize: tuple, savefig: bool = None) -> None:
+    """
+    Plots reconstructed vs original.
+    :param signal: true original signal.
+    :param noised: original signal with noise applied.
+    :param figsize: size of figure.
+    :param savefig: boolean, option to save the figure as pdf at 300 dpi.
+    :return: none, plots the figure.
+    """
+    plt.figure(figsize=figsize)
+    plt.title("True vs Reconstructed Signal")
+    plt.plot(signal, label="True signal", marker=",", ls="--")
+    plt.ylabel("Phase Value [deg]")
+    plt.plot(noised, c="violet", alpha=1, ls=":", label="Noised Signal")
+    plt.xlabel("BPM Number")
+    plt.legend(loc="best")
+    if savefig:
+        plt.savefig("EVM_reconstruct.pdf", dpi=300)
+
+
 def plot_reconstructed_vs_true_signal(
     signal: np.ndarray, reconstructed: np.ndarray, figsize: tuple, savefig: bool = None
 ) -> None:
