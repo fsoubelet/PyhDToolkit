@@ -12,7 +12,6 @@ import pandas as pd
 import scipy.stats as st
 import tfs
 
-
 # Distributions to check #
 DISTRIBUTIONS = {
     st.chi: "Chi",
