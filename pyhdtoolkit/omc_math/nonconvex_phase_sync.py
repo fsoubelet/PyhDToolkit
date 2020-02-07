@@ -365,12 +365,20 @@ def plot_absolute_difference_to_true_signal(
         marker=",",
         ls=":",
     )
+    # plt.hlines(
+    #     noise_stdev * 0.2,
+    #     xmin=0,
+    #     xmax=len(reconstructed),
+    #     color="seagreen",
+    #     label="20% of noise distribution stdev",
+    #     ls="--",
+    # )
     plt.hlines(
-        noise_stdev * 0.2,
+        noise_stdev * 0.1,
         xmin=0,
         xmax=len(reconstructed),
         color="seagreen",
-        label="20% of noise distribution stdev",
+        label="10% of noise distribution stdev",
         ls="--",
     )
     plt.hlines(
