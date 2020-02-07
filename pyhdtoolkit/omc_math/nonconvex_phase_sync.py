@@ -212,6 +212,12 @@ def create_combinations_matrices_from_twiss(twiss_file: str) -> (np.ndarray, np.
     :return: tuple of two `numpy.ndarray` 2D matrices.
     """
     bpms_df = tfs.read(twiss_file)
+    # bpms_df["CATX"] = bpms_df.BETX.apply(
+    #     lambda x: "low" if x <= 40 else ("small" if 40 < x <= 100 else ("medium" if 100 < x <= 150 else "high"))
+    # )
+    # bpms_df["CATY"] = bpms_df.BETY.apply(
+    #     lambda x: "low" if x <= 40 else ("small" if 40 < x <= 100 else ("medium" if 100 < x <= 150 else "high"))
+    # )
     bpms_df["CATX"] = bpms_df["BETX"].apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
     bpms_df["CATY"] = bpms_df["BETY"].apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
     combinations_matrix_x = np.array(
@@ -306,14 +312,14 @@ def plot_noised_vs_true_signal(signal: np.ndarray, noised: np.ndarray, figsize: 
     :return: none, plots the figure.
     """
     plt.figure(figsize=figsize)
-    plt.title("True vs Reconstructed Signal")
+    plt.title("True vs Noised Signal")
     plt.plot(signal, label="True signal", marker=",", ls="--")
     plt.ylabel("Phase Value [deg]")
     plt.plot(noised, c="violet", alpha=1, ls=":", label="Noised Signal")
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
     if savefig:
-        plt.savefig("EVM_reconstruct.pdf", dpi=300)
+        plt.savefig("plots/noised_vs_true.pdf", dpi=300)
 
 
 def plot_reconstructed_vs_true_signal(
@@ -335,7 +341,7 @@ def plot_reconstructed_vs_true_signal(
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
     if savefig:
-        plt.savefig("EVM_reconstruct.pdf", dpi=300)
+        plt.savefig("plots/evm_reconstruct_vs_true.pdf", dpi=300)
 
 
 def plot_absolute_difference_to_true_signal(
@@ -375,11 +381,11 @@ def plot_absolute_difference_to_true_signal(
         label="Mean of abs. diff.",
         ls="--",
     )
-    plt.ylabel("Absolute Difference")
+    plt.ylabel("Absolute Difference [deg]")
     plt.xlabel("BPM Number")
     plt.legend(loc="best")
     if savefig:
-        plt.savefig("reconstruct_to_signal_diff.pdf", dpi=300)
+        plt.savefig("plots/reconstruct_to_signal_diff.pdf", dpi=300)
 
 
 def _remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarray:
