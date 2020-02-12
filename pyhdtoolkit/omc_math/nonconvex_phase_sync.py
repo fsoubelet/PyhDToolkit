@@ -40,12 +40,12 @@ Note that M_matrix having zeros in its diagonal, c_matrix will have (1 + 0j) on 
 
 See the `walkthrough.md` file to have an overview of how to use this API.
 """
-import warnings
+
+import pathlib
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import scipy.stats as st
 import tfs
 
 from pyhdtoolkit.utils.cmdline import CommandLine
@@ -212,12 +212,6 @@ def create_combinations_matrices_from_twiss(twiss_file: str) -> (np.ndarray, np.
     :return: tuple of two `numpy.ndarray` 2D matrices.
     """
     bpms_df = tfs.read(twiss_file)
-    # bpms_df["CATX"] = bpms_df.BETX.apply(
-    #     lambda x: "low" if x <= 40 else ("small" if 40 < x <= 100 else ("medium" if 100 < x <= 150 else "high"))
-    # )
-    # bpms_df["CATY"] = bpms_df.BETY.apply(
-    #     lambda x: "low" if x <= 40 else ("small" if 40 < x <= 100 else ("medium" if 100 < x <= 150 else "high"))
-    # )
     bpms_df["CATX"] = bpms_df["BETX"].apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
     bpms_df["CATY"] = bpms_df["BETY"].apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
     combinations_matrix_x = np.array(
@@ -270,18 +264,6 @@ def create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndar
     """
     gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
     upper_triangle = np.triu(gaussian_2d_mat)
-    return upper_triangle - upper_triangle.T
-
-
-def create_2d_chi_squared_noise(deg_freedom: int, shape: tuple) -> np.ndarray:
-    """
-    Generates a 2D chi-squared distribution, makes it antisymmetric and returns it.
-    :param deg_freedom: the number of degrees of freedom for this distribution.
-    :param shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
-    :return: a chi-squared, anti-symmetric, 2D-shaped `numpy.ndarray`.
-    """
-    chisquare_2d_mat = np.random.default_rng().chisquare(df=deg_freedom, size=shape)
-    upper_triangle = np.triu(chisquare_2d_mat)
     return upper_triangle - upper_triangle.T
 
 
@@ -402,14 +384,11 @@ def _remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarra
     :param combinations_matrix: your combinations matrix.
     :return: same, but refactored.
     """
+    # TODO: make more generic
     combinations_matrix[combinations_matrix == "low-high"] = "high-low"
     combinations_matrix[combinations_matrix == "medium-high"] = "high-medium"
     combinations_matrix[combinations_matrix == "low-medium"] = "medium-low"
     return combinations_matrix
-
-
-def create_my_gauss_dist(meas_used) -> np.ndarray:
-    return np.random.default_rng().normal(loc=0, scale=1, size=meas_used)
 
 
 def sigmas_square(num, meas_used):
@@ -418,6 +397,29 @@ def sigmas_square(num, meas_used):
         norm_dist = create_my_gauss_dist(meas_used)
         res.append(np.sum(np.square([i - np.mean(norm_dist) for i in norm_dist])))
     return np.array(res)
+
+
+def get_andreas_data():
+    with pathlib.Path("phase_data.txt").open() as phases:
+        data = phases.read().strip().strip("\n").replace("\n", "").split(" ")
+
+    data = [value for value in data if value != ""]
+    for i in range(4, len(data)):
+        data[i] = np.float(data[i])
+
+    headers = np.array(data[:4])
+    andreas_data = np.array(data[4:]).reshape((285156, 4))
+    errors_df = pd.DataFrame(data=andreas_data, columns=headers)
+
+    # Units are in radians and in units of 2pi
+    errors_df["phase"] = errors_df.phase.apply(lambda x: x * 2 * np.pi)
+    errors_df["phase_err"] = errors_df.phase_err.apply(lambda x: x * 2 * np.pi)
+
+    # Creating Combinations
+    errors_df["CAT1"] = errors_df.beta1.apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
+    errors_df["CAT2"] = errors_df.beta2.apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
+    errors_df["Combination"] = errors_df.CAT1 + "-" + errors_df.CAT2
+    return errors_df.copy()
 
 
 if __name__ == "__main__":
