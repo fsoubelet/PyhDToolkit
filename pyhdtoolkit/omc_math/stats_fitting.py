@@ -6,12 +6,12 @@ This is a Python3 module implementing methods to find the best fit of statistica
 """
 import warnings
 
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import scipy.stats as st
-import tfs
+from omc3.utils import logging_tools
 
+LOGGER = logging_tools.getLogger(__name__)
 # Distributions to check #
 DISTRIBUTIONS = {
     st.chi: "Chi",
@@ -25,8 +25,7 @@ DISTRIBUTIONS = {
 
 def set_distributions_dict(dist_dict: dict = None) -> None:
     """
-    Sets the provided dict as DISTRIBUTIONS.
-    This is useful to define only the ones you want to try out.
+    Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to try out.
     :param dist_dict: dictionnary with the wanted distributions, in the format of DISTRIBUTIONS. This should be the
     scipy.stats generator objects as keys, and a string representation of their name as value.
     :return: nothing, modifies the global DISTRIBUTIONS dict called by other functions.
@@ -57,7 +56,7 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
 
     # Estimate distribution parameters from data
     for distribution, distname in DISTRIBUTIONS.items():
-        try:  # Try to fit the distribution
+        try:
             with warnings.catch_warnings():  # Ignore warnings from data that can't be fit
                 warnings.filterwarnings("ignore")
 
@@ -75,7 +74,7 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                     if ax:
                         pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1, lw=2)
                 except:
-                    pass
+                    LOGGER.error(f"Plotting distribution '{distname}' failed.", exc_info=True)
 
                 # identify if this distribution is better
                 if best_sse > sse > 0:
@@ -83,33 +82,35 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                     best_params = params
                     best_sse = sse
         except:
-            pass
+            LOGGER.error(f"Trying to fit distribution '{distname}' failed and was aborted.", exc_info=True)
 
     return best_distribution, best_params
 
 
-def make_pdf(dist, params, size: int = None) -> pd.Series:
+def make_pdf(distribution, params, size: int = None) -> pd.Series:
     """
     Generate a pandas Series for the distributions's Probability Distribution Function.
     This Series will have axis values as index, and PDF values as values.
-    :param dist: a scipy.stats generator object, similar to those found in DISTRIBUTIONS for instance.
+    :param distribution: a scipy.stats generator object, similar to those found in DISTRIBUTIONS for instance.
     :param params: the parameters given back by the fit.
     :param size: the number of points to evaluate.
     :return: a pandas.Series object with the PDF as values, corresponding axis values as index.
     """
     size = 10_000 if size is None else size
     # Separate parts of parameters
-    arg = params[:-2]
+    args = params[:-2]
     loc = params[-2]
     scale = params[-1]
 
     # Get sane start and end points of distribution
-    start = dist.ppf(0.01, *arg, loc=loc, scale=scale) if arg else dist.ppf(0.01, loc=loc, scale=scale)
-    end = dist.ppf(0.99, *arg, loc=loc, scale=scale) if arg else dist.ppf(0.99, loc=loc, scale=scale)
+    start = (
+        distribution.ppf(0.01, *args, loc=loc, scale=scale) if args else distribution.ppf(0.01, loc=loc, scale=scale)
+    )
+    end = distribution.ppf(0.99, *args, loc=loc, scale=scale) if args else distribution.ppf(0.99, loc=loc, scale=scale)
 
     # Build PDF and turn into pandas Series
     x = np.linspace(start, end, size)
-    y = dist.pdf(x, loc=loc, scale=scale, *arg)
+    y = distribution.pdf(x, loc=loc, scale=scale, *args)
     return pd.Series(y, x)
 
 

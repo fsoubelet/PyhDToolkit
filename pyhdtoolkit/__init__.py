@@ -18,4 +18,4 @@ __author__ = "Felix Soubelet"
 __author_email__ = "felix.soubelet@cern.ch"
 __license__ = "MIT"
 
-__all__ = [__version__]
+__all__ = []

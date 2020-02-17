@@ -6,8 +6,6 @@ Some settings for better matplotlib.pyplot plots.
 Work in progress.
 """
 
-import matplotlib.pyplot as plt
-
 # Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS). Will ALWAYS be overwritten by later on definition
 PLOT_PARAMS = {
     # ------ Axes ------ #

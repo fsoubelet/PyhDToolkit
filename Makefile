@@ -97,8 +97,9 @@ lint: format
 	@echo "Linting code, ignoring the following message IDs:"
 	@echo "  - $(P)C0330$(E) $(C)'bad-continuation'$(E) since it somehow doesn't play friendly with $(D)Black$(E)."
 	@echo "  - $(P)W0106$(E) $(C)'expression-not-assigned'$(E) since it triggers on class attribute reassignment."
-	@echo "  - $(P)C0103$(E) $(C)'invalid-name'$(E) because there are too many at the moment :(.\n"
-	@pylint --max-line-length=120 --disable=C0330,W0106,C0103 pyhdtoolkit/
+	@echo "  - $(P)C0103$(E) $(C)'invalid-name'$(E) because there are too many at the moment :(."
+	@echo "  - $(P)W1202$(E) $(C)'logging-format-interpolation'$(E) because on this, PyLint is full of shit.\n"
+	@pylint --max-line-length=120 --disable=C0330,W0106,C0103,W1202,R0903 pyhdtoolkit/
 
 reinstall: uninstall install
 

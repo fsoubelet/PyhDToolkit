@@ -47,8 +47,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import tfs
+from omc3.utils import logging_tools
 
 from pyhdtoolkit.utils.cmdline import CommandLine
+
+LOGGER = logging_tools.getLogger(__name__)
 
 
 class PhaseReconstructor:
@@ -64,7 +67,7 @@ class PhaseReconstructor:
         see top of file comment lines on how to build this matrix.
         """
         # Before anything, check that the provided matrix is indeed Hermitian
-        if np.array_equal(measurements_hermitian_matrix, np.conj(measurements_hermitian_matrix).T):
+        if np.allclose(measurements_hermitian_matrix, np.conj(measurements_hermitian_matrix).T):
             self.c_matrix: np.ndarray = measurements_hermitian_matrix
             self.c_matrix_eigenvalues: np.ndarray = np.linalg.eigvalsh(self.c_matrix)
             # Numpy gives the eigenvectors in column form, so transpose is needed there!
@@ -167,7 +170,7 @@ class PhaseReconstructor:
         phase_reconstruct: np.ndarray = self.get_eigenvector_estimator(self.leading_eigenvector)
         iteration_step = 0
 
-        while not self.assess_convergence(phase_reconstruct, convergence_margin) and iteration_step < 4e4:
+        while not self._assess_convergence(phase_reconstruct, convergence_margin) and iteration_step < 4e4:
             # if iteration_step % 2000 == 0:
             #     print(f"Step - {iteration_step}")
             # Get next iteration
@@ -175,7 +178,7 @@ class PhaseReconstructor:
             iteration_step += 1
         return phase_reconstruct
 
-    def assess_convergence(self, current_iteration: np.ndarray, convergence_margin: np.float64) -> bool:
+    def _assess_convergence(self, current_iteration: np.ndarray, convergence_margin: np.float64) -> bool:
         """
         Assess whether the current iteration result satisfies convergence.
         :param current_iteration: a `numpy.ndarray` instance representing the current result
@@ -248,7 +251,7 @@ def create_random_phase_values(low: float, high: float, n_values: int, dist: str
     elif dist == "uniform":
         values = np.sort(np.random.default_rng().uniform(low, high, n_values))
     else:
-        raise ValueError("Provided parameter 'dist' should be either 'linspace' or 'uniform'.")
+        raise ValueError("Provided parameter 'distribution' should be either 'linspace' or 'uniform'.")
     values[0] = 0
     return values
 
@@ -391,15 +394,26 @@ def _remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarra
     return combinations_matrix
 
 
-def sigmas_square(num, meas_used):
+def sigmas_square(num: int, meas_used: int) -> np.ndarray:
+    """
+    Generate a chi-square distribution of 'num' elements, each computed from a normal distribution of 'meas_used'
+    elements.
+    :param num: Number of elements for the generated distribution.
+    :param meas_used: Number of values for each
+    :return: the result as a `numpy.ndarray`.
+    """
     res = []
     for _ in range(num):
-        norm_dist = create_my_gauss_dist(meas_used)
+        norm_dist = np.random.default_rng().normal(loc=0, scale=1, size=meas_used)
         res.append(np.sum(np.square([i - np.mean(norm_dist) for i in norm_dist])))
     return np.array(res)
 
 
-def get_andreas_data():
+def get_andreas_data() -> pd.DataFrame:
+    """
+    Load the errors distribution data from Andreas as a pandas Dataframe.
+    :return: the file data as a `pandas.DataFrame` object.
+    """
     with pathlib.Path("phase_data.txt").open() as phases:
         data = phases.read().strip().strip("\n").replace("\n", "").split(" ")
 
