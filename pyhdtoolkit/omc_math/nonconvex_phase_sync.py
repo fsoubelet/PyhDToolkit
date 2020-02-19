@@ -74,6 +74,7 @@ class PhaseReconstructor:
             self.c_matrix_eigenvectors: np.ndarray = np.linalg.eigh(self.c_matrix)[-1].T
             self.space_dimension: int = self.c_matrix.shape[0]
         else:
+            LOGGER.error("The provided matrix is not Hermitian, aborting.", exc_info=True)
             raise ValueError("Provided matrix should be Hermitian.")
 
     @property
@@ -350,14 +351,6 @@ def plot_absolute_difference_to_true_signal(
         marker=",",
         ls=":",
     )
-    # plt.hlines(
-    #     noise_stdev * 0.2,
-    #     xmin=0,
-    #     xmax=len(reconstructed),
-    #     color="seagreen",
-    #     label="20% of noise distribution stdev",
-    #     ls="--",
-    # )
     plt.hlines(
         noise_stdev * 0.1,
         xmin=0,
@@ -371,7 +364,7 @@ def plot_absolute_difference_to_true_signal(
         xmin=0,
         xmax=len(reconstructed),
         color="darkred",
-        label="Mean of abs. diff.",
+        label=f"Mean of abs. diff. ({100 * np.mean(np.abs(signal - reconstructed)) / noise_stdev:.2f}% of noise stdev)",
         ls="--",
     )
     plt.ylabel("Absolute Difference [deg]")

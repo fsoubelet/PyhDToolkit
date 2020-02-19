@@ -12,7 +12,7 @@ PLOT_PARAMS = {
     "axes.linewidth": 0.8,  # Linewidth of axes edges
     "axes.grid": False,  # Do not display grid
     "axes.labelsize": 17,  # Fontsize of the x and y axis labels
-    "axes.titlesize": 22,  # Fontsize of the axes title
+    "axes.titlesize": 25,  # Fontsize of the axes title
     # ------ Date Forrmats ------ #
     "date.autoformatter.year": "%Y",  # AutoDateFormatter setting for years display
     "date.autoformatter.month": "%Y-%m",  # AutoDateFormatter setting for months display

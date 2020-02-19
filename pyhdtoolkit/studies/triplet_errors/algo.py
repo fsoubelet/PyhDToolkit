@@ -170,15 +170,14 @@ def main():
     errors, seeds, plotbetas = _parse_args()
     simulations = GridCompute()
 
-    print(f"\n[GridCompute] Here are the error values that will be ran: {errors}")
-    checkup = input("\n[GridCompute] Press any key to launch, otherwise 'ctrl-c'to abort: ")
+    LOGGER.debug(f"Here are the error values that will be ran: {errors}")
 
     # Running simulations
     simulations.run_tf_errors(errors, seeds)
     simulations.run_miss_errors(errors, seeds)
 
     # Getting the results in dataframes and exporting to csv
-    LOGGER.debug(f"Exporting results to csv")
+    LOGGER.debug(f"Exporting results to csv.")
     bbing_df = simulations.rms_betabeatings.export(csvname="beta_beatings.csv")
     std_df = simulations.standard_deviations.export(csvname="standard_deviations.csv")
 
