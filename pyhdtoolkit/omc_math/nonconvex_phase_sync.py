@@ -47,8 +47,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import tfs
-from omc3.utils import logging_tools
 
+from pyhdtoolkit.utils import logging_tools
 from pyhdtoolkit.utils.cmdline import CommandLine
 
 LOGGER = logging_tools.getLogger(__name__)

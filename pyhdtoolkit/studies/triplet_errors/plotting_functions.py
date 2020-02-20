@@ -11,7 +11,8 @@ import pathlib
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
-from omc3.utils import logging_tools
+
+from pyhdtoolkit.utils import logging_tools
 
 LOGGER = logging_tools.getLogger(__name__)
 

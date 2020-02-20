@@ -9,7 +9,8 @@ import warnings
 import numpy as np
 import pandas as pd
 import scipy.stats as st
-from omc3.utils import logging_tools
+
+from pyhdtoolkit.utils import logging_tools
 
 LOGGER = logging_tools.getLogger(__name__)
 # Distributions to check #
@@ -30,6 +31,7 @@ def set_distributions_dict(dist_dict: dict = None) -> None:
     scipy.stats generator objects as keys, and a string representation of their name as value.
     :return: nothing, modifies the global DISTRIBUTIONS dict called by other functions.
     """
+    # pylint: disable=global-statement
     global DISTRIBUTIONS
     DISTRIBUTIONS = dist_dict
 
@@ -44,7 +46,7 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
     :return: a tuple containing the scipy.stats generator corresponding to the best fit candidate, and the
     parameters to give said generator to get this fit.
     """
-
+    # pylint: disable=too-many-locals
     # Get histogram of original data
     y, x = np.histogram(data, bins=bins, density=True)
     x = (x + np.roll(x, -1))[:-1] / 2.0

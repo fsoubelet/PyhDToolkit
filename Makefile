@@ -83,7 +83,7 @@ docker-pull:
 	@docker pull fsoubelet/simenv
 
 format:
-	@echo "Formatting code to PEP8, default line length is 120.\n"
+	@echo "Formatting code to PEP8, default line length is 120."
 	@black -l 120 .
 
 install: format clean
@@ -108,8 +108,8 @@ uninstall:
 	@pip uninstall pyhdtoolkit --yes
 
 tests: format clean
-	@source activate PHD
-	@pytest tests
+	@python setup.py test -n pytest
+	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
 .DEFAULT:

@@ -14,13 +14,13 @@ from copy import deepcopy
 import numpy as np
 import pandas as pd
 import tqdm
-from omc3.utils import logging_tools
-from omc3.utils.contexts import timeit
 
 import cpymad
 from pyhdtoolkit.cpymadtools import lattice_generators
 from pyhdtoolkit.studies.triplet_errors.data_classes import BetaBeatValues, StdevValues
 from pyhdtoolkit.studies.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
+from pyhdtoolkit.utils import logging_tools
+from pyhdtoolkit.utils.contexts import timeit
 
 LOGGER = logging_tools.getLogger(__name__)
 
@@ -167,7 +167,7 @@ def main():
     Will prompt for error grid values for confirmation. Instantiates a GridCompute object and runs for each type of
     errors. The results are stored in the class itself, to be accessed for plotting.
     """
-    errors, seeds, plotbetas = _parse_args()
+    errors, seeds, _ = _parse_args()
     simulations = GridCompute()
 
     LOGGER.debug(f"Here are the error values that will be ran: {errors}")

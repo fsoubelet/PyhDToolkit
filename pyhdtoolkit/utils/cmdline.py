@@ -11,6 +11,11 @@ import signal
 import subprocess
 import sys
 
+from pyhdtoolkit.utils import logging_tools
+from pyhdtoolkit.utils.contexts import timeit
+
+LOGGER = logging_tools.getLogger(__name__)
+
 
 class CommandLine:
     """
@@ -26,9 +31,11 @@ class CommandLine:
         if pid == 0:
             # According to "man 2 kill",  PID 0 has a special meaning: it refers to <<every process in the process
             # group of the calling process>>, so it is best to not go any further.
+            LOGGER.debug(f"PID 0 refers to 'every process in the group of calling processes', and should be untouched.")
             return True
         try:
-            os.kill(pid, 0)  # sending SIG 0 only checks if process has terminated
+            # sending SIG 0 only checks if process has terminated, we're not actually terminating it
+            os.kill(pid, 0)
         except OSError as error:
             if error.errno == errno.ESRCH:  # ERROR "No such process"
                 return False
@@ -38,8 +45,7 @@ class CommandLine:
                 # According to "man 2 kill" possible error values are (EINVAL, EPERM, ESRCH), therefore we should
                 # never get here. If so let's be explicit in considering this an error.
                 raise error
-        else:
-            return True
+        return True
 
     @staticmethod
     def run(command, shell: bool = True, env=None, timeout: float = None) -> tuple:
@@ -60,8 +66,9 @@ class CommandLine:
         Usage:
             run('echo hello') -> (0, b'hello\r\n')
         """
-        process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
-        stdout, _ = process.communicate(timeout=timeout)
+        with timeit(lambda spanned: LOGGER.debug(f"Ran command '{command}' in a subprocess, in: {spanned}s")):
+            process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
+            stdout, _ = process.communicate(timeout=timeout)
         return process.poll(), stdout
 
     @staticmethod
@@ -73,8 +80,9 @@ class CommandLine:
         """
         if CommandLine.check_pid_exists(pid):
             os.kill(pid, signal.SIGTERM)
+            LOGGER.debug(f"Process {pid} has successfully been terminated.")
         else:
-            raise ValueError("Provided process ID does not correspond to a running process.")
+            LOGGER.error(f"Process with ID {pid} could not be terminated.")
 
     @staticmethod
     def get_cmdline_argv() -> list:
