@@ -11,18 +11,18 @@ Arguments should be given as options at launch in the command-line. See README f
 import argparse
 from copy import deepcopy
 
+import cpymad
 import numpy as np
 import pandas as pd
 import tqdm
+from fsbox import logging_tools
+from fsbox.contexts import timeit
 
-import cpymad
 from pyhdtoolkit.cpymadtools import lattice_generators
 from pyhdtoolkit.studies.triplet_errors.data_classes import BetaBeatValues, StdevValues
 from pyhdtoolkit.studies.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
-from pyhdtoolkit.utils import logging_tools
-from pyhdtoolkit.utils.contexts import timeit
 
-LOGGER = logging_tools.getLogger(__name__)
+LOGGER = logging_tools.get_logger(__name__)
 
 
 class GridCompute:
@@ -66,7 +66,7 @@ class GridCompute:
         :param n_seeds: number of simulations to run for each error values.
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        with timeit(lambda spanned: LOGGER.debug(f"Time to simulate field errors: {spanned}")):
+        with timeit(lambda spanned: LOGGER.info(f"Time to simulate field errors: {spanned}")):
             for error in error_values:
                 LOGGER.info(f"Running simulation for Relative Field Error: {error}E-4")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
@@ -100,7 +100,7 @@ class GridCompute:
         :param n_seeds: number of simulations to run for each error values.
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        with timeit(lambda spanned: LOGGER.debug(f"Time to simulate misalignment errors: {spanned}")):
+        with timeit(lambda spanned: LOGGER.info(f"Time to simulate misalignment errors: {spanned}")):
             for error in error_values:
                 LOGGER.info(f"Running for Longitudinal Misalignment Error: {float(error)}mm")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
@@ -170,14 +170,14 @@ def main():
     errors, seeds, _ = _parse_args()
     simulations = GridCompute()
 
-    LOGGER.debug(f"Here are the error values that will be ran: {errors}")
+    LOGGER.info(f"Here are the error values that will be ran: {errors}")
 
     # Running simulations
     simulations.run_tf_errors(errors, seeds)
     simulations.run_miss_errors(errors, seeds)
 
     # Getting the results in dataframes and exporting to csv
-    LOGGER.debug(f"Exporting results to csv.")
+    LOGGER.info(f"Exporting results to csv.")
     bbing_df = simulations.rms_betabeatings.export(csvname="beta_beatings.csv")
     std_df = simulations.standard_deviations.export(csvname="standard_deviations.csv")
 

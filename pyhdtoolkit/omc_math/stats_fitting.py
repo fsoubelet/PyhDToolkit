@@ -10,9 +10,9 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 
-from pyhdtoolkit.utils import logging_tools
+from fsbox import logging_tools
 
-LOGGER = logging_tools.getLogger(__name__)
+LOGGER = logging_tools.get_logger(__name__)
 # Distributions to check #
 DISTRIBUTIONS = {
     st.chi: "Chi",
@@ -75,16 +75,16 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                 try:
                     if ax:
                         pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1, lw=2)
-                except:
-                    LOGGER.error(f"Plotting distribution '{distname}' failed.", exc_info=True)
+                except Exception:
+                    LOGGER.warning(f"Plotting distribution '{distname}' failed.")
 
                 # identify if this distribution is better
                 if best_sse > sse > 0:
                     best_distribution = distribution
                     best_params = params
                     best_sse = sse
-        except:
-            LOGGER.error(f"Trying to fit distribution '{distname}' failed and was aborted.", exc_info=True)
+        except Exception:
+            LOGGER.warning(f"Trying to fit distribution '{distname}' failed and aborted.")
 
     return best_distribution, best_params
 

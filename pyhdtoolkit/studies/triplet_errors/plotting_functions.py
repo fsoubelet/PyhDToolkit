@@ -12,9 +12,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
-from pyhdtoolkit.utils import logging_tools
+from fsbox import logging_tools
 
-LOGGER = logging_tools.getLogger(__name__)
+LOGGER = logging_tools.get_logger(__name__)
 
 
 if os.environ.get("Display", "") == "":
@@ -41,7 +41,7 @@ def plot_betas_across_machine(
     elif error_type == "MISERROR":
         title = f"r'Beta values, hllhc1.3 15cm optics, misalignment: {error_value}[mm]'"
     else:
-        LOGGER.error(f"Invalid error parameter {error_type} provided, aborting plot.")
+        LOGGER.warning(f"Invalid error parameter {error_type} provided, aborting plot.")
         raise ValueError("Invalid error parameter. Should be either `TFERROR` or `MISERROR`.")
 
     output_dir = pathlib.Path("beta_plots") / f"{error_type}" / f"{error_value}"
@@ -129,7 +129,7 @@ def plot_bbing_max_errorbar(
         plt.savefig(figname, format="png", dpi=300)
 
     else:
-        LOGGER.error(f"Invalid plane parameter {plane} provided, aborting plot.")
+        LOGGER.warning(f"Invalid plane parameter {plane} provided, aborting plot.")
         raise ValueError("Invalid plane parameter. Should be either `Horizontal` or `Vertical`.")
     LOGGER.info(f"Plotted beta-beatings with error bars for {plane.lower()} plane.")
 
@@ -237,7 +237,7 @@ def plot_bbing_with_ips_errorbar(
         plt.savefig(figname, format="png", dpi=300)
 
     else:
-        LOGGER.error(f"Invalid plane parameter {plane} provided, aborting plot.")
+        LOGGER.warning(f"Invalid plane parameter {plane} provided, aborting plot.")
         raise ValueError("Invalid plane parameter. Should be either `Horizontal` or `Vertical`.")
     LOGGER.info(f"Plotted beta-beatings (including IPs) with error bars for {plane.lower()} plane.")
 

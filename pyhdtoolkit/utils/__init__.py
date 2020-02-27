@@ -10,7 +10,6 @@ These are mainly wrappers around lower-level tools, or simply just additional ni
 
 from .cmdline import CommandLine
 from .executors import MultiProcessor, MultiThreader
-from .operations import ListOperations, MiscellaneousOperations, NumberOperations, StringOperations
 from .printutil import END, Background, Foreground, Styles
 from .structures import AttrDict
 

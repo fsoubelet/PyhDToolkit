@@ -13,7 +13,7 @@ We consider that from measurements, we can only obtain noisy relative phase adva
 mu_{i} - mu_{j} and want a converging solution to reconstruct the different individual
 mu_{1}, ...., mu_{n} values.
 
-From measurements, we construct a hermitian matrix C, which will be our input, in the shape of:
+From measurements, we construct a hermitian matrix C in the shape of:
 C_{ij} = z_{i} * bar(z_{j}) = exp(i * (mu_{i} - mu_{j}))
 A mock one with random values (500 by 500 as we have 500 BPMs per plane in the LHC) would be:
 c_matrix = np.exp(1j * np.random.rand(500, 500))
@@ -31,14 +31,16 @@ Note two particular properties here:
   - Also note that for all computations, M_matrix needs to be initialised in radians!
 
 
-We can very simply get our c_matrix (see page 1 of referenced paper) with `numpy.exp` which,
+We can very simply get our C_matrix (see page 1 of referenced paper) with `numpy.exp` which,
 applied to a `numpy.ndarray` applies the exponential function element-wise. See reference at
 https://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html
+
 Then follows:  C_matrix = np.exp(1j * M_matrix)
 Note that M_matrix being symmetric, then c_matrix will be Hermitian.
 Note that M_matrix having zeros in its diagonal, c_matrix will have (1 + 0j) on its diagonal.
 
-See the `walkthrough.md` file to have an overview of how to use this API.
+With added noise to those values (noise should be included in M_matrix in the case of measurements),
+we can reconstruct a good estimator of the original values through the EVM method, provided in the class below.
 """
 
 import pathlib
@@ -48,10 +50,10 @@ import numpy as np
 import pandas as pd
 import tfs
 
-from pyhdtoolkit.utils import logging_tools
+from fsbox import logging_tools
 from pyhdtoolkit.utils.cmdline import CommandLine
 
-LOGGER = logging_tools.getLogger(__name__)
+LOGGER = logging_tools.get_logger(__name__)
 
 
 class PhaseReconstructor:
@@ -128,27 +130,6 @@ class PhaseReconstructor:
                 e_vect = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
             return (e_vect @ eigenvector / np.absolute(e_vect @ eigenvector)).reshape((1, self.space_dimension))
 
-    def gpm_reconstructor_function(self, precedent_step_vector: np.ndarray) -> np.ndarray:
-        """
-        The reconstructor function T defined in reference paper (eq 9). It is taken that the
-        divisor in this definition is to be considered as the absolute value norm.
-        :param precedent_step_vector: the precedent result of this function, to iterate on.
-        :return: a `numpy.ndarray` object with the reconstructed vector.
-        """
-        product = self.reconstructor_matrix @ precedent_step_vector.T
-
-        # Ignore division by 0 when computing, it will be taken care of below
-        with np.errstate(divide="ignore"):
-            new_step = product / np.linalg.norm(product)  # This is element-wise, respecting the paper definition
-
-        # If there was a 0-disivion, we will get a `np.inf` value in the resulting vector
-        if np.inf in new_step:
-            # In this case, find the `np.inf` values & replace them with values at same index,
-            # from the previous step.
-            inf_values_mask = new_step == np.inf
-            new_step[inf_values_mask] = precedent_step_vector[inf_values_mask]
-        return new_step.reshape((1, self.space_dimension))
-
     def reconstruct_complex_phases_evm(self) -> np.ndarray:
         """
         Reconstruct simplest estimator fom the eigenvector method. The result is in complex form, and will be radians
@@ -156,42 +137,6 @@ class PhaseReconstructor:
         :return: the complex form of the result as a 'numpy.ndarray' instance.
         """
         return self.get_eigenvector_estimator(self.leading_eigenvector)
-
-    def reconstruct_complex_phases_gpm(self, convergence_margin: np.float64) -> np.ndarray:
-        """
-        Reconstructs a best estimator for the phase values by successive iterations. Convergence is
-        determined by comparing the iteration result to a provided margin. Margin is:
-        x*Cx / manhattan_norm(Cx) >= 1 - convergence_margin.
-        Convergence is almost guaranteed for a noise level σ <= sqrt(n_phases).
-        :param convergence_margin: the margin to 1 you want to set for the convergence criteria.
-        A recommended value (see paper, page 18) is in the order of 1e-7.
-        :return: the complex form of your result as a `numpy.ndarray` instance.
-        """
-        # Initialize first step with the projection of the leading eigenvector
-        phase_reconstruct: np.ndarray = self.get_eigenvector_estimator(self.leading_eigenvector)
-        iteration_step = 0
-
-        while not self._assess_convergence(phase_reconstruct, convergence_margin) and iteration_step < 4e4:
-            # if iteration_step % 2000 == 0:
-            #     print(f"Step - {iteration_step}")
-            # Get next iteration
-            phase_reconstruct = self.gpm_reconstructor_function(phase_reconstruct)
-            iteration_step += 1
-        return phase_reconstruct
-
-    def _assess_convergence(self, current_iteration: np.ndarray, convergence_margin: np.float64) -> bool:
-        """
-        Assess whether the current iteration result satisfies convergence.
-        :param current_iteration: a `numpy.ndarray` instance representing the current result
-        vector computed.
-        :param convergence_margin: a `numpy.float64` representing the convergence margin
-        (to 1) to reach.
-        :return: whether convergence is attained.
-        """
-        convergence_estimator = (current_iteration @ self.reconstructor_matrix @ current_iteration.T) / (
-            np.linalg.norm(self.reconstructor_matrix @ current_iteration.T, ord=1)
-        )
-        return np.linalg.norm(convergence_estimator) >= np.float64(1 - convergence_margin)
 
     @staticmethod
     def convert_complex_result_to_phase_values(complex_estimator: np.ndarray, deg: bool = False) -> np.ndarray:
@@ -380,7 +325,6 @@ def _remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarra
     :param combinations_matrix: your combinations matrix.
     :return: same, but refactored.
     """
-    # TODO: make more generic
     combinations_matrix[combinations_matrix == "low-high"] = "high-low"
     combinations_matrix[combinations_matrix == "medium-high"] = "high-medium"
     combinations_matrix[combinations_matrix == "low-medium"] = "medium-low"

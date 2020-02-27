@@ -63,7 +63,8 @@ clean:
 	@echo "Cleaning up bitecode files and python cache."
 	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	@echo "Cleaning up pytest cache."
-	@find . -type f -name '*.pytest_cache' -delete -o -type d -name '*.pytest_cache' -delete
+	@find . -type d -name '*.pytest_cache'  -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
+	@echo "All cleaned up!\n"
 
 condaenv:
 	@echo "Creating $(D)PHD$(E) conda environment according to '$(C)environment.yml$(E)' file."
