@@ -10,16 +10,19 @@ Arguments should be given as options at launch in the command-line. See README f
 
 import argparse
 from copy import deepcopy
-from datetime import datetime, timedelta
 
+import cpymad
 import numpy as np
 import pandas as pd
 import tqdm
+from fsbox import logging_tools
+from fsbox.contexts import timeit
 
-import cpymad
 from pyhdtoolkit.cpymadtools import lattice_generators
 from pyhdtoolkit.studies.triplet_errors.data_classes import BetaBeatValues, StdevValues
 from pyhdtoolkit.studies.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
+
+LOGGER = logging_tools.get_logger(__name__)
 
 
 class GridCompute:
@@ -49,7 +52,7 @@ class GridCompute:
         This will be stored in the `nominal_twiss` instance attribute.
         :return: nothing, directly updates the instance's `nominal_twiss` attribute inplace.
         """
-        print(f"\n[GridCompute] Simulating reference nominal run")
+        LOGGER.info(f"Running simulation for reference nominal run.")
         ref_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_reference()
         self.reference_mad.input(ref_script)
         reference_dframe = deepcopy(self.reference_mad.table.twiss.dframe())
@@ -63,40 +66,31 @@ class GridCompute:
         :param n_seeds: number of simulations to run for each error values.
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        if self.nominal_twiss is None:
-            raise AttributeError(
-                "You should initialize the nominal twiss first. To do so run `self._get_nominal_twiss`"
-            )
-        start_time = datetime.now()
+        with timeit(lambda spanned: LOGGER.info(f"Time to simulate field errors: {spanned}")):
+            for error in error_values:
+                LOGGER.info(f"Running simulation for Relative Field Error: {error}E-4")
+                temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
-        # Running the errors simulations
-        for error in error_values:
-            print(f"\n[GridCompute] Relative Field Error : {error}E-4")
-            temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
+                for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
+                    seed = str(np.random.randint(1e6, 5e6))
+                    tferror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_tferror_job(
+                        seed, str(error)
+                    )
+                    self.errors_mad.input(tferror_script)
+                    tferrors_twiss = self.errors_mad.table.twiss.dframe()
 
-            for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
-                seed = str(np.random.randint(1e6, 5e6))
-                tferror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_tferror_job(
-                    seed, str(error)
-                )
-                self.errors_mad.input(tferror_script)
-                tferrors_twiss = self.errors_mad.table.twiss.dframe()
+                    # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
+                    betabeatings = _get_betabeatings(self.nominal_twiss, tferrors_twiss)  # this is a pd.DataFrame
+                    temp_data.update_tf_from_cpymad(betabeatings)
 
-                # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                betabeatings = _get_betabeatings(self.nominal_twiss, tferrors_twiss)  # this is a pd.DataFrame
-                temp_data.update_tf_from_cpymad(betabeatings)
+                # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
+                self.rms_betabeatings.update_tf_from_seeds(temp_data)
 
-            # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
-            self.rms_betabeatings.update_tf_from_seeds(temp_data)
+                # Getting stdev of all values for the N computed seeds
+                self.standard_deviations.update_tf(temp_data)
 
-            # Getting stdev of all values for the N computed seeds
-            self.standard_deviations.update_tf(temp_data)
-
-            # Getting the lost seeds if any
-            self.lost_seeds_tf.append(n_seeds - len(temp_data.tferror_bbx))
-
-        end_time = datetime.now()
-        print(f"[GridCompute] Simulated field errors in {end_time - start_time}\n")
+                # Getting the lost seeds if any
+                self.lost_seeds_tf.append(n_seeds - len(temp_data.tferror_bbx))
 
     def run_miss_errors(self, error_values: list, n_seeds: int) -> None:
         """
@@ -106,40 +100,31 @@ class GridCompute:
         :param n_seeds: number of simulations to run for each error values.
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        if self.nominal_twiss is None:
-            raise AttributeError(
-                "You should initialize the nominal twiss first. To do so run `self._get_nominal_twiss`"
-            )
-        start_time = datetime.now()
+        with timeit(lambda spanned: LOGGER.info(f"Time to simulate misalignment errors: {spanned}")):
+            for error in error_values:
+                LOGGER.info(f"Running for Longitudinal Misalignment Error: {float(error)}mm")
+                temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
-        # Running the errors simulations
-        for error in error_values:
-            print(f"\n[GridCompute] Longitudinal Missalignment Error : {float(error)}mm")
-            temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
+                for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
+                    seed = str(np.random.randint(1e6, 5e6))
+                    mserror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_mserror_job(
+                        seed, str(error)
+                    )
+                    self.errors_mad.input(mserror_script)
+                    mserrors_twiss = self.errors_mad.table.twiss.dframe()
 
-            for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
-                seed = str(np.random.randint(1e6, 5e6))
-                mserror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_mserror_job(
-                    seed, str(error)
-                )
-                self.errors_mad.input(mserror_script)
-                mserrors_twiss = self.errors_mad.table.twiss.dframe()
+                    # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
+                    betabeatings = _get_betabeatings(self.nominal_twiss, mserrors_twiss)  # this is a pd.DataFrame
+                    temp_data.update_miss_from_cpymad(betabeatings)
 
-                # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                betabeatings = _get_betabeatings(self.nominal_twiss, mserrors_twiss)  # this is a pd.DataFrame
-                temp_data.update_miss_from_cpymad(betabeatings)
+                # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
+                self.rms_betabeatings.update_miss_from_seeds(temp_data)
 
-            # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
-            self.rms_betabeatings.update_miss_from_seeds(temp_data)
+                # Getting stdev of all values for the N computed seeds
+                self.standard_deviations.update_miss(temp_data)
 
-            # Getting stdev of all values for the N computed seeds
-            self.standard_deviations.update_miss(temp_data)
-
-            # Getting the lost seeds if any
-            self.lost_seeds_miss.append(n_seeds - len(temp_data.misserror_bbx))
-
-        end_time = datetime.now()
-        print(f"[GridCompute] Simulated missalignment errors in {end_time - start_time}\n")
+                # Getting the lost seeds if any
+                self.lost_seeds_miss.append(n_seeds - len(temp_data.misserror_bbx))
 
 
 def _get_betabeatings(nominal_twiss: pd.DataFrame, errors_twiss: pd.DataFrame) -> pd.DataFrame:
@@ -182,22 +167,17 @@ def main():
     Will prompt for error grid values for confirmation. Instantiates a GridCompute object and runs for each type of
     errors. The results are stored in the class itself, to be accessed for plotting.
     """
-    print("\n[GridCompute] Welcome to GridCompute.")
-
-    # Getting commandline arguments and instantiating
-    errors, seeds, plotbetas = _parse_args()
+    errors, seeds, _ = _parse_args()
     simulations = GridCompute()
 
-    print(f"\n[GridCompute] Here are the error values that will be ran: {errors}")
-    print(f"[GridCompute] This will launch {2 * seeds * len(errors)} MAD-X simulations.")
-    print(f"[GridCompute] Estimated time to completion: {str(timedelta(seconds=2*15*seeds*len(errors)))}.")
-    checkup = input("\n[GridCompute] Press any key to launch, otherwise 'ctrl-c'to abort: ")
+    LOGGER.info(f"Here are the error values that will be ran: {errors}")
 
     # Running simulations
     simulations.run_tf_errors(errors, seeds)
     simulations.run_miss_errors(errors, seeds)
 
     # Getting the results in dataframes and exporting to csv
+    LOGGER.info(f"Exporting results to csv.")
     bbing_df = simulations.rms_betabeatings.export(csvname="beta_beatings.csv")
     std_df = simulations.standard_deviations.export(csvname="standard_deviations.csv")
 

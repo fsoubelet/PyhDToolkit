@@ -112,6 +112,7 @@ class PhaseSpacePlotter:
         not to save the figure to file.
         :return: nothing, plots the figure.
         """
+        # pylint: disable=too-many-locals
         size = kwargs.get("size", None)
         plane = kwargs.get("plane", "Horizontal")
         savefig = kwargs.get("savefig", False)

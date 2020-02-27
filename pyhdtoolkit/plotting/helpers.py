@@ -26,6 +26,7 @@ class AnnotationsPlotter:
         :param arrow_arc_rad: angle value defining the upwards / downwards shape of the arrow.
         :return: nothing, will act on the existing plot.
         """
+        # pylint: disable=too-many-arguments
         return axis.annotate(
             label,
             xy=arrow_position,

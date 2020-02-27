@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help archive checklist clean condaenv docker-build docker-pull format install isort lines lint pipreq uninstall tests
+.PHONY : help archive checklist clean condaenv docker-build docker-pull format install lines lint reinstall uninstall tests
 
 all: install
 
@@ -27,10 +27,9 @@ help:
 	@echo "  $(R) docker-pull $(E)    to pull a pre-built image from Dockerhub."
 	@echo "  $(R) format $(E)         to recursively apply PEP8 formatting through the 'Black' cli tool."
 	@echo "  $(R) install $(E)        to 'pip install' this package into your activated environment."
-	@echo "  $(R) isort $(E)          to recursively sort import statements. Called by 'make black'."
 	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
 	@echo "  $(R) lint $(E)           to lint your python code though 'pylint'."
-	@echo "  $(R) pipreq $(E)         to 'pip install' packages listed in 'requirements.txt' into your activated environment."
+	@echo "  $(R) reinstall $(E)      to 'pip uninstall' then 'pip install' this package into your activated environment."
 	@echo "  $(R) uninstall $(E)      to uninstall the 'pyhdtoolkit' package from your activated environment."
 	@echo "  $(R) tests $(E)          to run tests with the the pytest package."
 
@@ -42,10 +41,6 @@ archive:
 	@echo "$(B)Your archive is in the $(C)dist/$(E) $(B)directory. Link it to your release.$(E)"
 	@echo "To install from this archive, unpack it and run '$(D)python setup.py install$(E)' from within its directory."
 	@echo ""
-
-format: isort
-	@echo "Formatting code to PEP8, default line length is 120.\n"
-	@black -l 120 .
 
 checklist:
 	@echo "Here is a small pre-release check-list:"
@@ -64,10 +59,12 @@ clean:
 	@rm -rf build
 	@rm -rf dist
 	@rm -rf pyhdtoolkit.egg-info
+	@rm -rf .eggs
 	@echo "Cleaning up bitecode files and python cache."
 	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	@echo "Cleaning up pytest cache."
-	@find . -type f -name '*.pytest_cache' -delete -o -type d -name '*.pytest_cache' -delete
+	@find . -type d -name '*.pytest_cache'  -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
+	@echo "All cleaned up!\n"
 
 condaenv:
 	@echo "Creating $(D)PHD$(E) conda environment according to '$(C)environment.yml$(E)' file."
@@ -86,13 +83,13 @@ docker-pull:
 	@echo "Pulling docker image $(P)fsoubelet/simenv$(E) from Dockerhub."
 	@docker pull fsoubelet/simenv
 
+format:
+	@echo "Formatting code to PEP8, default line length is 120."
+	@black -l 120 .
+
 install: format clean
 	@echo "Installing this package to your active environment."
 	@pip install .
-
-isort:
-	@echo "Sorting import statements."
-	@isort -rc -q .
 
 lines: format
 	@tokei .
@@ -101,20 +98,19 @@ lint: format
 	@echo "Linting code, ignoring the following message IDs:"
 	@echo "  - $(P)C0330$(E) $(C)'bad-continuation'$(E) since it somehow doesn't play friendly with $(D)Black$(E)."
 	@echo "  - $(P)W0106$(E) $(C)'expression-not-assigned'$(E) since it triggers on class attribute reassignment."
-	@echo "  - $(P)C0103$(E) $(C)'invalid-name'$(E) because there are too many at the moment :(.\n"
-	@pylint --max-line-length=120 --disable=C0330,W0106,C0103 pyhdtoolkit/
+	@echo "  - $(P)C0103$(E) $(C)'invalid-name'$(E) because there are too many at the moment :(."
+	@echo "  - $(P)W1202$(E) $(C)'logging-format-interpolation'$(E) because on this, PyLint is full of shit.\n"
+	@pylint --max-line-length=120 --disable=C0330,W0106,C0103,W1202,R0903 pyhdtoolkit/
 
-pipreq:
-	@echo "Installing packages from $(C)requirements.txt$(E) throough pip in your active environment."
-	@pip install -r requirements.txt
+reinstall: uninstall install
 
 uninstall:
 	@echo "Uninstalling this package from your active environment."
-	@pip uninstall pyhdtoolkit
+	@pip uninstall pyhdtoolkit --yes
 
 tests: format clean
-	@source activate PHD
-	@pytest tests
+	@python setup.py test -n pytest
+	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
 .DEFAULT:

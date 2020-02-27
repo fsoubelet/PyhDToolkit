@@ -6,13 +6,19 @@ A collection of functions that will be useful to plot the results from GridCompu
 """
 
 import os
+import pathlib
 
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from fsbox import logging_tools
+
+LOGGER = logging_tools.get_logger(__name__)
+
+
 if os.environ.get("Display", "") == "":
-    print("Display configuration error found. Using non-interactive Agg backend.")
+    LOGGER.info(f"Display configuration error found. Using non-interactive Agg backend.")
     matplotlib.use("Agg")
 
 
@@ -35,10 +41,13 @@ def plot_betas_across_machine(
     elif error_type == "MISERROR":
         title = f"r'Beta values, hllhc1.3 15cm optics, misalignment: {error_value}[mm]'"
     else:
+        LOGGER.warning(f"Invalid error parameter {error_type} provided, aborting plot.")
         raise ValueError("Invalid error parameter. Should be either `TFERROR` or `MISERROR`.")
 
-    if not os.path.exists(f"beta_plots/{error_type}/{error_value}"):
-        os.mkdir(f"beta_plots/{error_type}/{error_value}")
+    output_dir = pathlib.Path("beta_plots") / f"{error_type}" / f"{error_value}"
+    if not output_dir.is_dir():
+        LOGGER.info(f"Creating directory {output_dir}.")
+        output_dir.mkdir()
 
     plt.figure(figsize=(18, 10))
     plt.title(title, fontsize=21)
@@ -51,6 +60,7 @@ def plot_betas_across_machine(
     plt.plot(s_values, bety_values, label="BETY")
     plt.legend(loc="best", fontsize="xx-large")
     plt.savefig(f"beta_plots/{error_type}/{error_value}/betas_across_machine.png", format="png", dpi=300)
+    LOGGER.info(f"Plotted betas for {error_type} {error_value}.")
 
 
 def plot_bbing_max_errorbar(
@@ -119,7 +129,9 @@ def plot_bbing_max_errorbar(
         plt.savefig(figname, format="png", dpi=300)
 
     else:
+        LOGGER.warning(f"Invalid plane parameter {plane} provided, aborting plot.")
         raise ValueError("Invalid plane parameter. Should be either `Horizontal` or `Vertical`.")
+    LOGGER.info(f"Plotted beta-beatings with error bars for {plane.lower()} plane.")
 
 
 def plot_bbing_with_ips_errorbar(
@@ -225,7 +237,9 @@ def plot_bbing_with_ips_errorbar(
         plt.savefig(figname, format="png", dpi=300)
 
     else:
+        LOGGER.warning(f"Invalid plane parameter {plane} provided, aborting plot.")
         raise ValueError("Invalid plane parameter. Should be either `Horizontal` or `Vertical`.")
+    LOGGER.info(f"Plotted beta-beatings (including IPs) with error bars for {plane.lower()} plane.")
 
 
 def plot_intermediate_beta_histograms(
@@ -245,6 +259,7 @@ def plot_intermediate_beta_histograms(
     plt.legend(loc="best")
     plt.title(title)
     plt.savefig(outputname, format="png", dpi=300)
+    LOGGER.info(f"Plotted intermediate beta histogram, saved as {outputname}.")
 
 
 if __name__ == "__main__":
