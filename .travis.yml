@@ -1,0 +1,26 @@
+stages:
+  - test
+  - name: package
+    if: tag =~ ^v\d+\.\d+\.\d+.*
+
+# Default python version that will be inherited
+# Additional ones can be defined later
+language: python
+python: 3.6
+
+email:
+  on_failure: always
+
+jobs:
+  include:
+    - &test-stage
+      stage: test
+      script:
+       - python setup.py test -n pytest
+
+    # Define additional python versions for tests
+    - <<: *test-stage
+      python: 3.7
+
+    - <<: *test-stage
+      python: 3.8

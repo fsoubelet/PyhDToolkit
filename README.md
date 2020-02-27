@@ -36,10 +36,15 @@ make tests
 
 ## Standards, Tools and VCS
 
-This repository respects the PyCharm docstring format, and uses [Black][black_formatter] as a code formatter with a default enforced line length of 120 characters.
-You can lint the code with:
+This repository respects the PyCharm docstring format, uses [Black][black_formatter] as a code formatter with a default enforced line length of 120 characters, and [Pylint][pylint_ref] as a linter.
+You can format the code with:
 ```bash
 make black
+```
+
+You can lint the code with:
+```bash
+make lint
 ```
 
 VCS is done through [git][git_ref] and follows the [Gitflow][gitflow_ref] workflow.
@@ -78,13 +83,13 @@ You can then run your container in interactive mode, and use the already activat
 It is highly advised to run with `--init` for zombie processes protection, see [Tini][tini_ref] for details.
 Assuming you pulled the provided image from Dockerhub, the command is then:
 ```bash
-docker run -it --init fsoubelet/simenv
+docker run -it --rm --init fsoubelet/simenv
 ```
 
 If you want to do some exploration through a `jupyter` interface then you need to tell your container to install it first, as it is not bundled in miniconda, then add the custom environment kernelspec.
 The following command will take care of all this:
 ```bash
-docker run -it --init -p 8888:8888 fsoubelet/simenv /bin/bash -c "/opt/conda/bin/conda install -c conda-forge jupyterlab -y --quiet > /dev/null && mkdir /opt/notebooks && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD && /opt/conda/bin/jupyter lab --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+docker run -it --rm --init -p 8888:8888 fsoubelet/simenv /bin/bash -c "/opt/conda/bin/conda install -c conda-forge jupyterlab -y --quiet > /dev/null && mkdir /opt/notebooks && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD && /opt/conda/bin/jupyter lab --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
 ```
 
 You can then copy the provided token and head to `localhost:8888` on your local machine.
@@ -98,4 +103,5 @@ Copyright &copy; 2019-2020 Felix Soubelet. [MIT License][license]
 [git_ref]: https://git-scm.com/
 [license]: https://github.com/fsoubelet/PyhDToolkit/blob/master/LICENSE
 [oci_ref]: https://www.opencontainers.org/
+[pylint_ref]: https://www.pylint.org/
 [tini_ref]: https://github.com/krallin/tini

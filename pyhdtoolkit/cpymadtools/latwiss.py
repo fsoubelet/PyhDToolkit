@@ -36,6 +36,7 @@ class LaTwiss:
         :param lw:
         :return: nothing, acts directly on the provided axis.
         """
+        # pylint: disable=too-many-arguments
         ax.add_patch(
             patches.Rectangle(
                 (series.s - series.l, v_offset - height / 2.0),
@@ -59,6 +60,7 @@ class LaTwiss:
         :param ncells: number of cells of your lattice.
         :return: nothing, plots and eventually saves the figure as a file.
         """
+        # pylint: disable=too-many-locals
         # Getting kwargs and instantiating
         x_limits = kwargs.get("xlim", None)
         savefig = kwargs.get("savefig", False)

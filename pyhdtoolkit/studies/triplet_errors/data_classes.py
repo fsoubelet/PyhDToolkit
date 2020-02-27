@@ -11,10 +11,9 @@ import pandas as pd
 
 
 class BetaBeatValues:
-    """
-    Simple class to store and transfer beta-beating values.
-    """
+    """Simple class to store and transfer beta-beating values."""
 
+    # pylint: disable=too-many-instance-attributes
     def __init__(self):
         self.tferror_bbx = []
         self.tferror_bby = []
@@ -119,10 +118,9 @@ class BetaBeatValues:
 
 
 class StdevValues:
-    """
-    Simple class to store and transfer standard deviation values.
-    """
+    """Simple class to store and transfer standard deviation values."""
 
+    # pylint: disable=too-many-instance-attributes
     def __init__(self):
         self.stdev_tf_x = []
         self.stdev_tf_y = []

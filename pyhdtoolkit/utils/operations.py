@@ -5,12 +5,11 @@ Created on 2019.11.12
 A collection classes with utility functions to perform common / convenient operations on the classic python structures.
 """
 
-import itertools
+import copy
 import math
+import random
 import re
-from copy import deepcopy
 from functools import reduce
-from random import randint, random
 
 
 class ListOperations:
@@ -187,7 +186,7 @@ class ListOperations:
         :param lst: a list of elements.
         :return: a random element from `lst` in a list (to manage potentially nested lists as input).
         """
-        return lst[randint(0, len(lst) - 1)]
+        return lst[random.randint(0, len(lst) - 1)]
 
     @staticmethod
     def sanitize_list(lst: list) -> list:
@@ -210,12 +209,12 @@ class ListOperations:
         :param lst: a list of elements.
         :return: `lst` with original elements at a random index.
         """
-        temp_list = deepcopy(lst)
+        temp_list = copy.deepcopy(lst)
         amount_to_shuffle = len(temp_list)
         while amount_to_shuffle > 1:
-            rand_index = int(math.floor(random() * amount_to_shuffle))
+            rand_index = int(math.floor(random.random() * amount_to_shuffle))
             amount_to_shuffle -= 1
-            temp_list[rand_index], temp_list[amount_to_shuffle] = temp_list[amount_to_shuffle], temp_list[rand_index]
+            temp_list[rand_index], temp_list[amount_to_shuffle] = (temp_list[amount_to_shuffle], temp_list[rand_index])
         return temp_list
 
     @staticmethod
@@ -375,8 +374,7 @@ class NumberOperations:
         """
         if decompose:
             return deg_value / 180, "pi", "rad"
-        else:
-            return (deg_value * math.pi) / 180.0
+        return (deg_value * math.pi) / 180.0
 
     @staticmethod
     def greatest_common_divisor(numbers_list: list) -> float:
@@ -489,7 +487,7 @@ class StringOperations:
            is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort") -> True
            is_anagram("A first string", "Definitely not an anagram") -> False
        """
-        _str1, _str2 = str_1.replace(" ", "").replace("'", ""), str_2.replace(" ", "").replace("'", "")
+        _str1, _str2 = (str_1.replace(" ", "").replace("'", ""), str_2.replace(" ", "").replace("'", ""))
         return sorted(_str1.lower()) == sorted(_str2.lower())
 
     @staticmethod
