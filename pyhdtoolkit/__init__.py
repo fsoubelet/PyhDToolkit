@@ -13,7 +13,11 @@ Mainly particle accelerator physics studies and plotting.
 __title__ = "pyhdtoolkit"
 __description__ = "An all-in-one toolkit package to easy my Python work in my PhD."
 __url__ = "https://github.com/fsoubelet/PyhDToolkit"
+<<<<<<< HEAD
 __version__ = "0.1.1"
+=======
+__version__ = "0.2.0"
+>>>>>>> 0.2.0
 __author__ = "Felix Soubelet"
 __author_email__ = "felix.soubelet@cern.ch"
 __license__ = "MIT"
