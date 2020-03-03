@@ -65,7 +65,7 @@ class CommandLine:
         Usage:
             run('echo hello') -> (0, b'hello\r\n')
         """
-        with timeit(lambda spanned: LOGGER.info(f"Ran command '{command}' in a subprocess, in: {spanned:.6f}s")):
+        with timeit(lambda spanned: LOGGER.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
             process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
             stdout, _ = process.communicate(timeout=timeout)
         LOGGER.debug(f"Subprocess command {command} finished with exit code: {process.poll()}")

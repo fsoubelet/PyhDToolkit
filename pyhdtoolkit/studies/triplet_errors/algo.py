@@ -66,7 +66,7 @@ class GridCompute:
         :param n_seeds: number of simulations to run for each error values.
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        with timeit(lambda spanned: LOGGER.info(f"Time to simulate field errors: {spanned}")):
+        with timeit(lambda spanned: LOGGER.info(f"Time to simulate field errors: {spanned:.4f} seconds")):
             for error in error_values:
                 LOGGER.info(f"Running simulation for Relative Field Error: {error}E-4")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
@@ -100,7 +100,7 @@ class GridCompute:
         :param n_seeds: number of simulations to run for each error values.
         :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        with timeit(lambda spanned: LOGGER.info(f"Time to simulate misalignment errors: {spanned}")):
+        with timeit(lambda spanned: LOGGER.info(f"Time to simulate misalignment errors: {spanned:.4f} seconds")):
             for error in error_values:
                 LOGGER.info(f"Running for Longitudinal Misalignment Error: {float(error)}mm")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.

@@ -16,6 +16,7 @@ Should:
 """
 
 import argparse
+import sys
 from pathlib import Path
 
 from fsbox import logging_tools
@@ -44,9 +45,25 @@ class ACDipoleGrid:
         self.mask_files_dir: Path = self.grid_output_dir / "mask_files"
         self.outputdata_dir: Path = self.grid_output_dir / "outputdata_dirs"
         self.trackfiles_dir: Path = self.grid_output_dir / "trackfiles"
-        self.sigmas: list = _parse_args()
+        self.trackfiles_planes: dict = {
+            "horizontal": self.grid_output_dir / "trackfiles" / "X",
+            "vertical": self.grid_output_dir / "trackfiles" / "Y",
+        }
+        self.run_planes: list = _parse_args()[1]
+        self.sigmas: list = _parse_args()[0]
 
-    def _create_output_dirs(self):
+    def _check_input_sanity(self) -> None:
+        """
+        Make sure there are no duplicates in the provided sigma values,
+        because that will mess up in a long time and you will cry.
+        """
+        if len(self.sigmas) != len(set(self.sigmas)):
+            LOGGER.error(
+                f"There is a duplicate in the provided sigma values, which will cause a failure later. Aborting."
+            )
+            sys.exit()
+
+    def _create_output_dirs(self) -> None:
         """Will create the proper output dirs if they don't exist already."""
         if not self.grid_output_dir.is_dir():
             LOGGER.debug(f"Creating directory '{self.grid_output_dir}'")
@@ -60,9 +77,17 @@ class ACDipoleGrid:
         if not self.trackfiles_dir.is_dir():
             LOGGER.debug(f"Creating directory '{self.trackfiles_dir}'")
             self.trackfiles_dir.mkdir()
-        LOGGER.debug(f"Output directories already present, they were not created")
+        if not self.trackfiles_planes["horizontal"].is_dir():
+            LOGGER.debug(f"Creating directory '{self.trackfiles_planes['horizontal']}'")
+            self.trackfiles_planes["horizontal"].mkdir()
+        if not self.trackfiles_planes["vertical"].is_dir():
+            LOGGER.debug(f"Creating directory '{self.trackfiles_planes['vertical']}'")
+            self.trackfiles_planes["vertical"].mkdir()
+        else:
+            LOGGER.debug(f"Output directories already present, they were not created")
+            sys.exit()
 
-    def run_kicks_for_plane(self, kick_plane: str = None):
+    def run_kicks_for_plane(self, kick_plane: str = None) -> None:
         """Run MAD-X simulations for the given plane, and handle outputs."""
         if kick_plane not in ("horizontal", "vertical"):
             raise ValueError(
@@ -70,7 +95,7 @@ class ACDipoleGrid:
             )
         plane_letter = "x" if kick_plane == "horizontal" else "y"
 
-        with timeit(lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane} kicks in {spanned:.6f}")):
+        with timeit(lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f}")):
             for kick_in_sigma in self.sigmas:
                 sigma_dict = (
                     {"%(SIGMAX_VALUE)s": kick_in_sigma, "%(SIGMAY_VALUE)s": 1}
@@ -85,20 +110,27 @@ class ACDipoleGrid:
                     kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter
                 )
                 _convert_trackone_to_sdds()
-                _move_trackone_sdds(kick_in_sigma=kick_in_sigma, trackfiles_dir=self.trackfiles_dir, plane=plane_letter)
+                _move_trackone_sdds(
+                    kick_in_sigma=kick_in_sigma, trackfiles_dir=self.trackfiles_planes[kick_plane], plane=plane_letter
+                )
 
 
-def main():
+def main() -> None:
     """
     Run the whole process: create a class instance, simulate for horizontal and vertical kicks, return.
     :return: nothing.
     """
     simulations = ACDipoleGrid()
     simulations._create_output_dirs()
+    simulations._check_input_sanity()
+    LOGGER.info(f"Planes to track on are: {simulations.run_planes}")
     LOGGER.info(f"Values for AC dipole kicks (in sigmas) are: {simulations.sigmas}")
+    print("=" * 60 + "\n")
 
-    simulations.run_kicks_for_plane(kick_plane="horizontal")
-    simulations.run_kicks_for_plane(kick_plane="vertical")
+    for plane in simulations.run_planes:
+        simulations.run_kicks_for_plane(kick_plane=plane)
+    # simulations.run_kicks_for_plane(kick_plane="horizontal")
+    # simulations.run_kicks_for_plane(kick_plane="vertical")
 
 
 # ---------------------- Public Utilities ---------------------- #
@@ -131,13 +163,13 @@ def create_script_file(values_replacing_dict: dict = None, filename: Path = None
 
 def _convert_trackone_to_sdds() -> None:
     """
-    Run the omc3 tbt_converter script on trackone output of MAD-X. Will also cleanup the `converter` file left
-    by tbt_converter afterwards.
+    Run the omc3 tbt_converter script on trackone output of MAD-X. Will also cleanup the `converter` and
+    'stats' files left by tbt_converter afterwards.
     :return: nothing.
     """
     if not Path("trackone").is_file():
         LOGGER.error(f"Tried to call tbt_converter without a 'trackone' file present, aborting")
-        raise OSError(f"No Trackone file present in current working directory.")
+        sys.exit()
     CommandLine.run(f"{OMC_PYTHON} {TBT_CONVERTER_SCRIPT} --file trackone --outputdir . --tbt_datatype trackone")
     Path("trackone").unlink()
     LOGGER.debug(f"Removed trackone file 'trackone'")
@@ -198,8 +230,17 @@ def _parse_args():
         type=float,
         help="Different amplitude values (in bunch sigma) to which to kick with AC dipole.",
     )
+    parser.add_argument(
+        "-p",
+        "--planes",
+        dest="planes",
+        nargs="+",
+        default=["horizontal"],
+        type=str,
+        help="Planes for which to run the tracking, possible values are 'horizontal' and 'vertical'.",
+    )
     options = parser.parse_args()
-    return options.sigmas
+    return options.sigmas, options.planes
 
 
 def _rename_madx_outputs(kick_in_sigma: str, outputdata_dir: Path, plane: str) -> None:
@@ -230,7 +271,7 @@ def _write_script_to_file(script_as_string: str, filename: str) -> Path:
     return file_path
 
 
-def quick_test():
+def quick_test() -> None:
     # TODO: remove after all is good
     simulations = ACDipoleGrid()
     simulations._create_output_dirs()
@@ -254,6 +295,14 @@ def quick_test():
         )
 
 
+def test2():
+    a = _parse_args()[0]
+    b = _parse_args()[1]
+    print(f"Arg 0 is {a}")
+    print(f"Arg 1 is {b}")
+
+
 if __name__ == "__main__":
     main()
     # quick_test()
+    # test2()
