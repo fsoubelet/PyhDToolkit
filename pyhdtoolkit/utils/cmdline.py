@@ -68,7 +68,7 @@ class CommandLine:
         with timeit(lambda spanned: LOGGER.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
             process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
             stdout, _ = process.communicate(timeout=timeout)
-        LOGGER.debug(f"Subprocess command {command} finished with exit code: {process.poll()}")
+            LOGGER.debug(f"Subprocess command {command} finished with exit code: {process.poll()}")
         return process.poll(), stdout
 
     @staticmethod

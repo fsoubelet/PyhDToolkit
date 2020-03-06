@@ -19,6 +19,12 @@ from pyhdtoolkit.utils import CommandLine
 OMC_ENV_PYTHON = Path().home() / "anaconda3" / "envs" / "OMC" / "bin" / "python"
 TBT_CONVERTER_SCRIPT = Path().home() / "Repositories" / "Work" / "omc3" / "omc3" / "tbt_converter.py"
 
+LEVELS_DICT: dict = {
+    "debug": logging_tools.DEBUG,
+    "info": logging_tools.INFO,
+    "warning": logging_tools.WARNING,
+    "error": logging_tools.ERROR,
+}
 LOGGER = logging_tools.get_logger(__name__)
 
 
@@ -37,7 +43,7 @@ class ACDipoleGrid:
             "vertical": self.grid_output_dir / "trackfiles" / "Y",
         }
         self.run_planes: list = _parse_args()[1]
-        self.sigmas: list = _parse_args()[0]
+        self.sigmas: list = sorted(_parse_args()[0])
         self.template_file: Path = Path(_parse_args()[2])
         with self.template_file.open("r") as template:
             self.template_str: str = template.read()
@@ -85,7 +91,9 @@ class ACDipoleGrid:
             )
         plane_letter = "x" if kick_plane == "horizontal" else "y"
 
-        with timeit(lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f}s")):
+        with timeit(
+            lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f} seconds")
+        ):
             for kick_in_sigma in self.sigmas:
                 print("")
                 sigma_dict = (
@@ -115,15 +123,18 @@ class ACDipoleGrid:
             )
         plane_letter = "x" if kick_plane == "horizontal" else "y"
 
-        with timeit(lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane}  in {spanned:.4f}x")):
+        with timeit(
+            lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane} offsets in {spanned:.4f} seconds")
+        ):
             for kick_in_sigma in self.sigmas:
                 print("")
                 # horrible equivalence I'm doing that is only ok for the case of thisemit := 3.75e-6 / (NRJ / 0.938);
-                amplitude_value = 1e-4 * kick_in_sigma
+                # TODO: figure this out
+                action_var_value = kick_in_sigma  # Maybe thinking in terms of action variables will be better?
                 amplitudes_dict = (
-                    {"%(AMPLX_VALUE)s": amplitude_value, "%(AMPLY_VALUE)s": 0}
+                    {"%(AMPLX_VALUE)s": action_var_value, "%(AMPLY_VALUE)s": 1}
                     if kick_plane == "horizontal"
-                    else {"%(AMPLX_VALUE)s": 0, "%(AMPLY_VALUE)s": amplitude_value}
+                    else {"%(AMPLX_VALUE)s": 1, "%(AMPLY_VALUE)s": action_var_value}
                 )
                 filename_to_write = Path(f"initial_amplitude_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick")
                 mask_file = create_script_file(
@@ -145,6 +156,8 @@ def main() -> None:
     Run the whole process: create a class instance, simulate for horizontal and vertical kicks, return.
     :return: nothing.
     """
+    _set_logger_level()
+
     simulations = ACDipoleGrid()
     simulations._check_input_sanity()
     simulations._create_output_dirs()
@@ -169,10 +182,16 @@ def run_madx_mask(mask_file: Path) -> None:
     """
     Run madx on the provided file.
     :param mask_file: a `pathlib.Path` object with the mask file location.
-    :return:
+    :return: nothing.
     """
-    LOGGER.debug("Running madx on script.")
-    _, _ = CommandLine.run(f"madx {mask_file}")
+    LOGGER.debug(f"Running madx on script: '{mask_file}'")
+    exit_code, std_out = CommandLine.run(f"madx {mask_file}")
+    if exit_code != 0:  # Dump madx log in case of failure so we can see where it went wrong.
+        LOGGER.warning(f"MAD-X command self-killed with exit code: {exit_code}")
+        log_dump = Path(f"failed_madx_returnedcode_{exit_code}.log")
+        with log_dump.open("w") as logfile:
+            logfile.write(std_out)
+        LOGGER.warning(f"The standard output has been dumped to file 'failed_command_{exit_code}.logfile'.")
 
 
 def create_script_file(template_as_str: str = None, values_replacing_dict: dict = None, filename: Path = None) -> Path:
@@ -198,8 +217,10 @@ def _convert_trackone_to_sdds() -> None:
     :return: nothing.
     """
     if not Path("trackone").is_file():
-        LOGGER.error(f"Tried to call tbt_converter without a 'trackone' file present, aborting")
+        LOGGER.error(f"Tried to call 'tbt_converter' without a 'trackone' file present, aborting")
         sys.exit()
+
+    LOGGER.debug(f"Running '{TBT_CONVERTER_SCRIPT}' on 'trackone' file")
     CommandLine.run(f"{OMC_ENV_PYTHON} {TBT_CONVERTER_SCRIPT} --file trackone --outputdir . --tbt_datatype trackone")
     LOGGER.debug(f"Removing trackone file 'trackone'")
     Path("trackone").unlink()
@@ -231,7 +252,7 @@ def _move_mask_file_after_running(mask_file_path: Path, mask_files_dir: Path) ->
     :param mask_files_dir: `pathlib.Path` object to the directory to move it to.
     :return: nothing.
     """
-    LOGGER.debug(f"Moving mask file to 'grid_outputs'.")
+    LOGGER.debug(f"Moving mask file to 'grid_outputs'")
     mask_file_path.rename(f"{mask_files_dir}/{mask_file_path}")
 
 
@@ -246,7 +267,7 @@ def _move_trackone_sdds(kick_in_sigma: str, trackfiles_dir: Path, plane: str) ->
     """
     if str(plane) not in ("x", "y"):
         raise ValueError(f"Plane parameter should be one of 'x', 'y' but {plane} was provided.")
-    LOGGER.debug(f"Moving trackone sdds file to 'grid_outputs'.")
+    LOGGER.debug(f"Moving trackone sdds file to 'grid_outputs'")
     track_sdds_file = Path("trackone.sdds")
     track_sdds_file.rename(f"{trackfiles_dir}/trackone_{kick_in_sigma}_sigma_{plane}.sdds")
 
@@ -290,8 +311,16 @@ def _parse_args():
         help="Type of simulations to run, either 'kick' for AC dipole kick or 'amp' for initial amplitude tracking. "
         "Defaults to 'kick'.",
     )
+    parser.add_argument(
+        "-l",
+        "--logs",
+        dest="log_level",
+        default="info",
+        type=str,
+        help="The base console logging level. Can be 'debug', 'info', 'warning' and 'error'. Defaults to 'info'.",
+    )
     options = parser.parse_args()
-    return options.sigmas, options.planes, options.template, options.type
+    return options.sigmas, options.planes, options.template, options.type, options.log_level
 
 
 def _rename_madx_outputs(kick_in_sigma: str, outputdata_dir: Path, plane: str) -> None:
@@ -305,8 +334,15 @@ def _rename_madx_outputs(kick_in_sigma: str, outputdata_dir: Path, plane: str) -
     if str(plane) not in ("x", "y"):
         raise ValueError(f"Plane parameter should be one of 'x', 'y' but {plane} was provided.")
     madx_outputs = Path("Outputdata")
-    LOGGER.debug(f"Moved MAD-X outputs to 'grid_outputs'.")
+    LOGGER.debug(f"Moving MAD-X outputs to 'grid_outputs'")
     madx_outputs.rename(f"{outputdata_dir}/Outputdata_{kick_in_sigma}_sigma_{plane}")
+
+
+def _set_logger_level():
+    """Simple function to update the logger console base level from commandline arguments."""
+    global LOGGER
+    log_level = _parse_args()[4]
+    LOGGER = logging_tools.get_logger(__name__, level_console=LEVELS_DICT[log_level])
 
 
 def _write_script_to_file(script_as_string: str, filename: str) -> Path:
@@ -317,9 +353,9 @@ def _write_script_to_file(script_as_string: str, filename: str) -> Path:
     :return: the `pathlib.Path` object to the created file.
     """
     file_path = Path(filename + ".mask")
+    LOGGER.debug(f"Creating new mask file '{file_path}'")
     with file_path.open("w") as script:
         script.write(script_as_string)
-    LOGGER.debug(f"Created new mask file '{file_path}'")
     return file_path
 
 
