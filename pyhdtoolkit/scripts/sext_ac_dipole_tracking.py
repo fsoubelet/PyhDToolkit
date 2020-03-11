@@ -5,7 +5,17 @@ Created on 2020.02.27
 This is a Python3 utility to launch a series of MAD-X simlations with the proper parameters,
 call the appropriate python scripts on the outputs and organise the results.
 
-Made to be ran with the OMC conda environment.
+Made to be ran with the OMC conda environment, and ran directly for the commandline.
+
+A pair of examples
+==================
+
+Running with kicks in the horizontal plane only, for two sigma values:
+python path/to/sext_ac_dipole_tracking.py --planes horizontal --mask /path/to/kick/mask.mask --type kick --sigmas 5 10
+
+Running with free oscillations in both planes succesively, for many offset values:
+python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical --mask /path/to/offset/mask.mask --type amp \
+-- sigmas 5 10 15 20
 """
 import argparse
 import sys
@@ -96,14 +106,27 @@ class ACDipoleGrid:
         ):
             for kick_in_sigma in self.sigmas:
                 print("")
-                sigma_dict = (
-                    {"%(SIGMAX_VALUE)s": kick_in_sigma, "%(SIGMAY_VALUE)s": 0.1}
+                # Dict is set to give the wanted kick value (in sigmas) only in the given plane, and a small initial
+                # offset only in the other plane to later on compute the tune (smallest offset so that GUI doesn't cry)
+                # Do NOT kick both planes as cross-terms will mess up the exactitude of the observed detuning!
+                replace_dict = (
+                    {
+                        "%(SIGMAX_VALUE)s": kick_in_sigma,
+                        "%(SIGMAY_VALUE)s": 0,
+                        "%(AMPLX_VALUE)s": 0,
+                        "%(AMPLY_VALUE)s": 0.5,
+                    }
                     if kick_plane == "horizontal"
-                    else {"%(SIGMAX_VALUE)s": 0.1, "%(SIGMAY_VALUE)s": kick_in_sigma}
+                    else {
+                        "%(SIGMAX_VALUE)s": 0,
+                        "%(SIGMAY_VALUE)s": kick_in_sigma,
+                        "%(AMPLX_VALUE)s": 0.5,
+                        "%(AMPLY_VALUE)s": 0,
+                    }
                 )
                 filename_to_write = Path(f"sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick")
                 mask_file = create_script_file(
-                    self.template_str, values_replacing_dict=sigma_dict, filename=str(filename_to_write)
+                    self.template_str, values_replacing_dict=replace_dict, filename=str(filename_to_write)
                 )
                 run_madx_mask(mask_file)
                 _move_mask_file_after_running(mask_file_path=mask_file, mask_files_dir=self.mask_files_dir)
@@ -132,9 +155,9 @@ class ACDipoleGrid:
                 # TODO: figure this out
                 action_var_value = kick_in_sigma  # Maybe thinking in terms of action variables will be better?
                 amplitudes_dict = (
-                    {"%(AMPLX_VALUE)s": action_var_value, "%(AMPLY_VALUE)s": 1}
+                    {"%(AMPLX_VALUE)s": action_var_value, "%(AMPLY_VALUE)s": 0.5}
                     if kick_plane == "horizontal"
-                    else {"%(AMPLX_VALUE)s": 1, "%(AMPLY_VALUE)s": action_var_value}
+                    else {"%(AMPLX_VALUE)s": 0.5, "%(AMPLY_VALUE)s": action_var_value}
                 )
                 filename_to_write = Path(f"initial_amplitude_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick")
                 mask_file = create_script_file(
