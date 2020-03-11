@@ -61,7 +61,10 @@ class CommandLine:
         :param env: same as `Popen` argument, a bit beyond me for now.
         :param timeout: same as `Popen.communicate` argument, number of seconds to wait for a response before raising an
         exception.
-        :return: the tuple of (returncode, stdout).
+        :return: the tuple of (returncode, stdout). Beware, the stdout will be a byte array (i.d b'some returned text').
+        This output, returned as stdout, needs to be decoded properly before you do anything with it, especially if you
+        intend to log it into a file. While it will most likely be 'utf-8', the encoding can vary from system to system
+        so the standard output is returned in bytes format and should be decoded later on.
         Usage:
             run('echo hello') -> (0, b'hello\r\n')
         """

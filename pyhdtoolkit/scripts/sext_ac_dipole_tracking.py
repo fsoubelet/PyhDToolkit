@@ -209,6 +209,7 @@ def run_madx_mask(mask_file: Path) -> None:
     """
     LOGGER.debug(f"Running madx on script: '{mask_file}'")
     exit_code, std_out = CommandLine.run(f"madx {mask_file}")
+    std_out = std_out.decode()  # Default considers 'utf-8', can be different depending on your system.
     if exit_code != 0:  # Dump madx log in case of failure so we can see where it went wrong.
         LOGGER.warning(f"MAD-X command self-killed with exit code: {exit_code}")
         log_dump = Path(f"failed_madx_returnedcode_{exit_code}.log")
