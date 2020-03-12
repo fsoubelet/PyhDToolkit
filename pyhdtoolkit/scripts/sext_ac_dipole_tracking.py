@@ -151,9 +151,9 @@ class ACDipoleGrid:
         ):
             for kick_in_sigma in self.sigmas:
                 print("")
-                # horrible equivalence I'm doing that is only ok for the case of thisemit := 3.75e-6 / (NRJ / 0.938);
-                # TODO: figure this out
-                action_var_value = kick_in_sigma  # Maybe thinking in terms of action variables will be better?
+                # There is not so much guarantee of hitting the same amplitudes than with kicks because I haven't
+                # checked yet, since free oscillations tracking is fast, better do a lot of values.
+                action_var_value = kick_in_sigma
                 amplitudes_dict = (
                     {"%(AMPLX_VALUE)s": action_var_value, "%(AMPLY_VALUE)s": 0.5}
                     if kick_plane == "horizontal"

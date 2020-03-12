@@ -34,7 +34,7 @@ make tests
 
 ## Standards, Tools and VCS
 
-This repository respects the PyCharm docstring format, uses [Black][black_formatter] as a code formatter with a default enforced line length of 120 characters, and [Pylint][pylint_ref] as a linter.
+This repository respects the `reStructuredText` docstring format, uses [Black][black_formatter] as a code formatter with a default enforced line length of 120 characters, and [Pylint][pylint_ref] as a linter.
 You can format the code with:
 ```bash
 make format 
