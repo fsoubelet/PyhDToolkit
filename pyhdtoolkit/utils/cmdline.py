@@ -61,13 +61,17 @@ class CommandLine:
         :param env: same as `Popen` argument, a bit beyond me for now.
         :param timeout: same as `Popen.communicate` argument, number of seconds to wait for a response before raising an
         exception.
-        :return: the tuple of (returncode, stdout).
+        :return: the tuple of (returncode, stdout). Beware, the stdout will be a byte array (i.d b'some returned text').
+        This output, returned as stdout, needs to be decoded properly before you do anything with it, especially if you
+        intend to log it into a file. While it will most likely be 'utf-8', the encoding can vary from system to system
+        so the standard output is returned in bytes format and should be decoded later on.
         Usage:
             run('echo hello') -> (0, b'hello\r\n')
         """
-        with timeit(lambda spanned: LOGGER.info(f"Ran command '{command}' in a subprocess, in: {spanned}s")):
+        with timeit(lambda spanned: LOGGER.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
             process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
             stdout, _ = process.communicate(timeout=timeout)
+            LOGGER.debug(f"Subprocess command {command} finished with exit code: {process.poll()}")
         return process.poll(), stdout
 
     @staticmethod
