@@ -94,6 +94,7 @@ There, you will have access to a kernel named `PHD` with all the goodies of this
 
 Beware though, none of your changes / work will be saved in the image, and re-launching it gets you a clean state everytime.
 To save a file from the container (say a plot, or saved data), you can use the [`docker cp`][docker_cp_doc] command (while the container is active).
+
 A generic use case is:  `docker cp <ContainerID>:/path/to/container/file /path/to/local/copy` and an example would be : `docker cp fsoubelet/simenv:/some_plot_output.jpg .`
 
 ## License

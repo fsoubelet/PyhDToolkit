@@ -5,6 +5,8 @@ Created on 2019.06.15
 A collection of functions for performing different common operations on a cpymad.MadX object..
 """
 
+import numpy as np
+
 
 class LatticeMatcher:
     """
@@ -60,6 +62,66 @@ endmatch;
 twiss;
 """
         )
+
+
+class Parameters:
+    """
+    A class to compute different beam and machine parameters.
+    """
+
+    @staticmethod
+    def beam_parameters(
+        pc_GeV: float, en_x_m: float = 5e-6, en_y_m: float = 5e-6, deltap_p: float = 1e-3, verbose: bool = False
+    ):
+        """Calculate beam parameters from provided values.
+
+        Args:
+            pc_GeV: particle momentum.
+            en_x_m: horizontal emittance, in meters.
+            en_y_m: vertical emittance, in meters.
+            deltap_p: momentum deviation.
+            verbose: bollean to print or not.
+
+        Returns:
+            A dictionnary with the calculated values.
+        """
+        E_0_GeV = 0.9382720813
+        E_tot_GeV = np.sqrt(pc_GeV ** 2 + E_0_GeV ** 2)
+        gamma_r = E_tot_GeV / E_0_GeV
+        beta_r = pc_GeV / np.sqrt(pc_GeV ** 2 + E_0_GeV ** 2)
+
+        parameters: dict = {
+            "pc_GeV": pc_GeV,  # Particle momentum [GeV]
+            "B_rho_Tm": 3.3356 * pc_GeV,  # Beam rigidity [T/m]
+            "E_0_GeV": E_0_GeV,  # Rest mass energy [GeV]
+            "E_tot_GeV": E_tot_GeV,  # Total beam energy [GeV]
+            "E_kin_GeV": E_tot_GeV - E_0_GeV,  # Kinectic beam energy [GeV]
+            "gamma_r": gamma_r,  # Relativistic gamma
+            "beta_r": beta_r,  # Relativistic beta
+            "en_x_m": en_x_m,  # Horizontal emittance [m]
+            "en_y_m": en_y_m,  # Vertical emittance [m]
+            "eg_x_m": en_x_m / gamma_r / beta_r,  # Horizontal geometrical emittance
+            "eg_y_m": en_y_m / gamma_r / beta_r,  # Vertical geometrical emittance
+            "deltap_p": deltap_p,  # Momentum deviation
+        }
+
+        if verbose:
+            print(
+                f"""Particle type: proton
+            Beam momentum= {parameters["pc_GeV"]:2.3f} GeV/c
+            Normalized x-emittance= {parameters["en_x_m"] * 1e6:2.3f} mm mrad
+            Normalized y-emittance= {parameters["en_y_m"] * 1e6:2.3f} mm mrad
+            Momentum deviation deltap/p= {parameters["deltap_p"]} 
+            -> Beam total energy= {parameters["E_tot_GeV"]:2.3f} GeV
+            -> Beam kinetic energy= {parameters["E_kin_GeV"]:2.3f} GeV
+            -> Beam rigidity= {parameters["B_rho_Tm"]:2.3f} Tm
+            -> Relativistic beta= {parameters["beta_r"]:2.5f}
+            -> Relativistic gamma= {parameters["gamma_r"]:2.3f}
+            -> Geometrical x emittance= {parameters["eg_x_m"] * 1e6:2.3f} mm mrad
+            -> Geometrical y emittance= {parameters["eg_y_m"] * 1e6:2.3f} mm mrad
+            """
+            )
+        return parameters
 
 
 if __name__ == "__main__":
