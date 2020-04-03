@@ -9,9 +9,111 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib import colors as mcolors
 
+from pyhdtoolkit.plotting.settings import PLOT_PARAMS
+
+plt.rcParams.update(PLOT_PARAMS)
+
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
 SORTED_COLORS = [name for hsv, name in BY_HSV]
+
+
+class AperturePlotter:
+    """
+    A class to plot the physical aperture of your machine.
+    """
+
+    @staticmethod
+    def plot_aperture(
+        cpymad_instance,
+        beam_params: dict,
+        figsize: tuple = (13, 20),
+        xlimits: tuple = None,
+        hplane_ylim: tuple = (-0.12, 0.12),
+        vplane_ylim: tuple = (-0.12, 0.12),
+    ):
+        """
+        Plot the physical aperture of your machine, already defined into the provided cpymad.Madx object.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.MadX` object.
+            beam_params: a beam_parameters dictionary obtained through cpymadtools.helpers.beam_parameters.
+            figsize: size of the figure, defaults to (15, 15).
+            xlimits: will implement xlim (for the s coordinate) if this is not None, using the tuple passed.
+            hplane_ylim: the y limits for the horizontal plane plot (so that machine geometry doesn't make the  plot
+            look shrinked).
+            vplane_ylim: the y limits for the vertical plane plot (so that machine geometry doesn't make the plot
+            look shrinked).
+
+        Returns:
+            Nothing, just plots.
+        """
+        # We need to interpolate in order to get high resolution along the s direction
+        cpymad_instance.input(
+            """
+        select, flag=interpolate, class=drift, slice=4, range=#s/#e;
+        select, flag=interpolate, class=quadrupole, slice=8, range=#s/#e;
+        select, flag=interpolate, class=sbend, slice=10, range=#s/#e;
+        twiss;
+        """
+        )
+        twiss_hr = cpymad_instance.table.twiss.dframe()
+        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params["eg_y_m"])
+        twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params["eg_y_m"])
+        twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params["deltap_p"]
+        twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params["deltap_p"]
+        twiss_hr["envelope_x"] = np.sqrt(
+            twiss_hr.betatronic_envelope_x ** 2 + (twiss_hr.dx * beam_params["deltap_p"]) ** 2
+        )
+        twiss_hr["envelope_y"] = np.sqrt(
+            twiss_hr.betatronic_envelope_y ** 2 + (twiss_hr.dy * beam_params["deltap_p"]) ** 2
+        )
+        machine = twiss_hr[twiss_hr.apertype == "ellipse"]
+
+        plt.figure(figsize=figsize)
+
+        # Plotting the horizontal aperture
+        axis1 = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
+        axis1.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
+        axis1.plot(twiss_hr.s, -twiss_hr.envelope_x, color="b")
+        axis1.fill_between(twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25)
+        axis1.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25)
+        axis1.fill_between(machine.s, machine.aper_1, machine.aper_1 * 100, color="k", alpha=0.5)
+        axis1.fill_between(machine.s, -machine.aper_1, -machine.aper_1 * 100, color="k", alpha=0.5)
+        axis1.plot(machine.s, machine.aper_1, "k.-")
+        axis1.plot(machine.s, -machine.aper_1, "k.-")
+        axis1.set_xlim(xlimits)
+        axis1.set_ylim(hplane_ylim)
+        axis1.set_ylabel("x [m]")
+        axis1.set_xlabel("s [m]")
+        axis1.set_title(f"Horizontal aperture at {beam_params['pc_GeV']} GeV/c")
+
+        # Plotting the vertical aperture
+        axis2 = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=1, sharex=axis1)
+        axis2.plot(twiss_hr.s, twiss_hr.envelope_y, color="r")
+        axis2.plot(twiss_hr.s, -twiss_hr.envelope_y, color="r")
+        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(machine.s, machine.aper_2, machine.aper_2 * 100, color="k", alpha=0.5)
+        axis2.fill_between(machine.s, -machine.aper_2, -machine.aper_2 * 100, color="k", alpha=0.5)
+        axis2.plot(machine.s, machine.aper_2, "k.-")
+        axis2.plot(machine.s, -machine.aper_2, "k.-")
+        axis2.set_ylim(vplane_ylim)
+        axis2.set_ylabel("y [m]")
+        axis2.set_xlabel("s [m]")
+        axis2.set_title(f"Vertical aperture at {beam_params['pc_GeV']} GeV/c")
+
+        # Plotting the stay-clear envelope
+        axis3 = plt.subplot2grid((3, 3), (2, 0), colspan=3, rowspan=1, sharex=axis1)
+        axis3.plot(machine.s, machine.aper_1 / machine.envelope_x, ".-b", label="Horizontal plane")
+        axis3.plot(machine.s, machine.aper_2 / machine.envelope_y, ".-r", label="Vertical plane")
+        axis3.set_xlim(xlimits)
+        axis3.set_ylabel("n1")
+        axis3.set_xlabel("s [m]")
+        axis3.legend(loc="best")
+        axis3.set_title(f"Stay-clear envelope at {beam_params['pc_GeV']} GeV/c")
 
 
 class DynamicAperturePlotter:
