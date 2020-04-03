@@ -45,7 +45,7 @@ archive:
 checklist:
 	@echo "Here is a small pre-release check-list:"
 	@echo "  - Check you are on a tagged $(P)feature/release$(E) branch (see Gitflow workflow)."
-	@echo "  - Check you have updated the version number of $(C)__version__.py$(E) according to semantic versioning."
+	@echo "  - Check you have updated the version number of $(C)__init__.py$(E) according to semantic versioning."
 	@echo "  - Check the $(P)feature/release$(E) branch tag matches this release's package version."
 	@echo "  - After merging and pushing this release from $(P)master$(E) to $(P)origin/master$(E):"
 	@echo "     - Run 'make $(R)archive$(E)'."
