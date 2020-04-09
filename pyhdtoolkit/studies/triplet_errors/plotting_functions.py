@@ -29,12 +29,16 @@ def plot_betas_across_machine(
     Plot beta functions across the machine. Save according to simulation scenario.
     Creates a plot of the horizontal and vertical beta functions across the whole machine. Gives a title generated
     according to the error type and error value. Saves in dedicated subfolder.
-    :param s_values: the values of the s axis.
-    :param betx_values: horizontal beta values accross the machine.
-    :param bety_values: vertical beta values accross the machine.
-    :param error_type: which error you have simulated too get those results.
-    :param error_value: the value of the error you used in your simulations.
-    :return: nothing, plots and saves the figure.
+
+    Args:
+        s_values: the values of the s axis.
+        betx_values: horizontal beta values accross the machine.
+        bety_values: vertical beta values accross the machine.
+        error_type: which error you have simulated too get those results.
+        error_value: the value of the error you used in your simulations.
+
+    Returns:
+        Nothing, plots and saves the figure.
     """
     if error_type == "TFERROR":
         title = f"r'Beta values, hllhc1.3, 15cm optics, relative field error: {error_value}[$10^{-4}$]'"
@@ -70,12 +74,16 @@ def plot_bbing_max_errorbar(
     Plot beta-beating values, with error bars, as a function of the error values. Save according to plotted plane.
     Creates a plot of the horizontal or vertical beta-beatings across the range of simulated error values. Gives a
     title generated according to the error type and error value. Saves in dedicated subfolder.
-    :param errors: list with different error values simulated.
-    :param beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
-    :param stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
-    :param plane: the name of the plane to plot.
-    :param figname: how to name the file when exporting the plot.
-    :return: nothing, plots and saves the figure.
+
+    Args:
+        errors: list with different error values simulated.
+        beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
+        stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
+        plane: the name of the plane to plot.
+        figname: how to name the file when exporting the plot.
+
+    Returns:
+        Nothing, plots and saves the figure.
     """
 
     if plane == "Horizontal":
@@ -142,12 +150,16 @@ def plot_bbing_with_ips_errorbar(
     Creates a plot of the horizontal or vertical beta-beatings across the range of simulated error values,
     with the addition of the beta-beating value at IPs. Gives a title generated according to the error type and error
     value. Saves in dedicated subfolder.
-    :param errors: list with different error values simulated.
-    :param beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
-    :param stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
-    :param plane: the name of the plane to plot.
-    :param figname: how to name the file when exporting the plot.
-    :return: nothing, plots and saves the figure.
+
+    Args:
+        errors: list with different error values simulated.
+        beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
+        stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
+        plane: the name of the plane to plot.
+        figname: how to name the file when exporting the plot.
+
+    Returns:
+        Nothing, plots and saves the figure.
     """
 
     if plane == "Horizontal":
@@ -247,12 +259,16 @@ def plot_intermediate_beta_histograms(
 ) -> None:
     """
     Plot histogram distribution for betas at seeds.
-    :param betasx: list of all horizontal beta values for all seeds for a specific error value.
-    :param betasy: list of all vertical beta values for all seeds for a specific error value.
-    :param error_val: the error value.
-    :param title: the title to give the figure.
-    :param outputname: the name to give the file saving the figure.
-    :return: nothing, plots and saves the figure.
+
+    Args:
+        betasx: list of all horizontal beta values for all seeds for a specific error value.
+        betasy: list of all vertical beta values for all seeds for a specific error value.
+        error_val: the error value.
+        title: the title to give the figure.
+        outputname: the name to give the file saving the figure.
+
+    Returns:
+        Nothing, plots and saves the figure.
     """
     plt.hist(betasx, bins=50, label=f"{error_val}, horizontal", alpha=0.6, density=True)
     plt.hist(betasy, bins=50, label=f"{error_val}, vertical", alpha=0.6, density=True)

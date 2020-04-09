@@ -33,7 +33,7 @@ class GridCompute:
     get beta-beating values from the outputs and return the appropriate structures.
     """
 
-    def __init__(self):
+    def __init__(self) -> None:
         """
         Initializing will take some time since the reference script is being ran, to store the reference dframe.
         Unless you go into PTC it should be a matter of seconds.
@@ -50,7 +50,9 @@ class GridCompute:
         """
         Run a MAD-X simulation without errors, and extract the nominal Twiss from the results.
         This will be stored in the `nominal_twiss` instance attribute.
-        :return: nothing, directly updates the instance's `nominal_twiss` attribute inplace.
+
+        Returns:
+            Nothing, directly updates the instance's `nominal_twiss` attribute inplace.
         """
         LOGGER.info(f"Running simulation for reference nominal run.")
         ref_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_reference()
@@ -62,9 +64,13 @@ class GridCompute:
         """
         Run simulations for field errors, compute the values from the outputs, and store the final results in the
         class's data structures.
-        :param error_values: a list of the different error values to run simulations for
-        :param n_seeds: number of simulations to run for each error values.
-        :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
+
+        Args:
+            error_values: a list of the different error values to run simulations for
+            n_seeds: number of simulations to run for each error values.
+
+        Returns:
+            Nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
         with timeit(lambda spanned: LOGGER.info(f"Time to simulate field errors: {spanned:.4f} seconds")):
             for error in error_values:
@@ -96,9 +102,13 @@ class GridCompute:
         """
         Run the simulations for misalignment errors, compute the values from the outputs, and store the final results
         in the class's data structures.
-        :param error_values: a list of the different error values to run simulations for
-        :param n_seeds: number of simulations to run for each error values.
-        :return: nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
+
+        Args:
+            error_values: a list of the different error values to run simulations for.
+            n_seeds: number of simulations to run for each error values.
+
+        Returns:
+            Nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
         with timeit(lambda spanned: LOGGER.info(f"Time to simulate misalignment errors: {spanned:.4f} seconds")):
             for error in error_values:
@@ -130,9 +140,13 @@ class GridCompute:
 def _get_betabeatings(nominal_twiss: pd.DataFrame, errors_twiss: pd.DataFrame) -> pd.DataFrame:
     """
     Simple function to get beta-beatings from a `cpymad.madx.Madx`'s Twiss output.
-    :param nominal_twiss: twiss.dframe() results from a reference scenario.
-    :param errors_twiss: twiss.dframe() results from the perturbed scenario.
-    :return: a `pd.DataFrame` with the beta-beat values, in percentage.
+
+    Args:
+        nominal_twiss: a twiss.dframe() results from a reference scenario.
+        errors_twiss: a twiss.dframe() results from the perturbed scenario.
+
+    Returns:
+        A `pd.DataFrame` with the beta-beat values, in percentage.
     """
     betabeat = pd.DataFrame()
     betabeat["NAME"] = nominal_twiss.name
@@ -160,7 +174,7 @@ def _parse_args():
     return options.errors, options.seeds, options.plotbetas
 
 
-def main():
+def main() -> None:
     """
     Run the whole process.
 

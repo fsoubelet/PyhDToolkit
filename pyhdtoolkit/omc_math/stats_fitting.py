@@ -16,7 +16,7 @@ LOGGER = logging_tools.get_logger(__name__)
 # Distributions to check #
 DISTRIBUTIONS = {
     st.chi: "Chi",
-    st.chi2: "ChiSquared",
+    st.chi2: "Chi-Square",
     st.expon: "Exponential",
     st.laplace: "Laplace",
     st.lognorm: "LogNorm",
@@ -27,9 +27,13 @@ DISTRIBUTIONS = {
 def set_distributions_dict(dist_dict: dict = None) -> None:
     """
     Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to try out.
-    :param dist_dict: dictionnary with the wanted distributions, in the format of DISTRIBUTIONS. This should be the
-    scipy.stats generator objects as keys, and a string representation of their name as value.
-    :return: nothing, modifies the global DISTRIBUTIONS dict called by other functions.
+
+    Args:
+        dist_dict: dictionnary with the wanted distributions, in the format of DISTRIBUTIONS. This should be the
+        scipy.stats generator objects as keys, and a string representation of their name as value.
+
+    Returns:
+        Nothing, modifies the global DISTRIBUTIONS dict called by other functions.
     """
     # pylint: disable=global-statement
     global DISTRIBUTIONS
@@ -39,12 +43,16 @@ def set_distributions_dict(dist_dict: dict = None) -> None:
 def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
     """
     Model data by finding best fit candidate distribution among those in DISTRIBUTIONS.
-    :param data: a pandas.Series with your distribution data as values.
-    :param bins: the number of bins to decompose your data in before performing fittings.
-    :param ax: the matplotlib.axes._subplots.AxesSubplot object on which to plot the pdf of tried functions.
-    This should be provided as the ax on which you plotted your distribution.
-    :return: a tuple containing the scipy.stats generator corresponding to the best fit candidate, and the
-    parameters to give said generator to get this fit.
+
+    Args:
+        data: a pandas.Series with your distribution data as values.
+        bins: the number of bins to decompose your data in before performing fittings.
+        ax: the matplotlib.axes._subplots.AxesSubplot object on which to plot the pdf of tried functions.
+        This should be provided as the ax on which you plotted your distribution.
+
+    Returns:
+        A tuple containing the scipy.stats generator corresponding to the best fit candidate, and the
+        parameters to give said generator to get this fit.
     """
     # pylint: disable=too-many-locals
     # Get histogram of original data
@@ -91,12 +99,16 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
 
 def make_pdf(distribution, params, size: int = None) -> pd.Series:
     """
-    Generate a pandas Series for the distributions's Probability Distribution Function.
-    This Series will have axis values as index, and PDF values as values.
-    :param distribution: a scipy.stats generator object, similar to those found in DISTRIBUTIONS for instance.
-    :param params: the parameters given back by the fit.
-    :param size: the number of points to evaluate.
-    :return: a pandas.Series object with the PDF as values, corresponding axis values as index.
+    Generate a pandas Series for the distributions's Probability Distribution Function. This Series will have axis
+    values as index, and PDF values as values.
+
+    Args:
+        distribution: a scipy.stats generator object, similar to those found in DISTRIBUTIONS for instance.
+        params: the parameters given back by the fit.
+        size: the number of points to evaluate.
+
+    Returns:
+        A pandas.Series object with the PDF as values, corresponding axis values as index.
     """
     size = 10_000 if size is None else size
     # Separate parts of parameters

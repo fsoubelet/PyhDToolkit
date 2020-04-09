@@ -26,7 +26,12 @@ class CommandLine:
     def check_pid_exists(pid: int) -> bool:
         """
         Check whether the given PID exists in the current process table.
-        :return: a boolean stating the result.
+
+        Args:
+            pid: the Process ID you want to check.
+
+        Returns:
+            A boolean stating the result.
         """
         if pid == 0:
             # According to "man 2 kill",  PID 0 has a special meaning: it refers to <<every process in the process
@@ -49,22 +54,26 @@ class CommandLine:
     @staticmethod
     def run(command, shell: bool = True, env=None, timeout: float = None) -> tuple:
         """
-        Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.
-        Note that `stderr` is redirected to `stdout`. `shell` is same to parameter of `Popen`.
-        If the process does not terminate after `timeout` seconds, a `TimeoutExpired`
-        exception will be raised.
-        :param command: the command you want to run.
-        :param shell: same as `Popen` argument. Setting the shell argument to a true value causes subprocess to spawn an
-        intermediate shell process, and tell it to run the command. In other words, using an intermediate shell means
-        that variables, glob patterns, and other special shell features in the command string are processed before the
-        command is run.
-        :param env: same as `Popen` argument, a bit beyond me for now.
-        :param timeout: same as `Popen.communicate` argument, number of seconds to wait for a response before raising an
-        exception.
-        :return: the tuple of (returncode, stdout). Beware, the stdout will be a byte array (i.d b'some returned text').
-        This output, returned as stdout, needs to be decoded properly before you do anything with it, especially if you
-        intend to log it into a file. While it will most likely be 'utf-8', the encoding can vary from system to system
-        so the standard output is returned in bytes format and should be decoded later on.
+        Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`. Note that `stderr`
+        is redirected to `stdout`. `shell` is same to parameter of `Popen`. If the process does not terminate after
+        `timeout` seconds, a `TimeoutExpired` exception will be raised.
+
+        Args:
+            command: the command you want to run.
+            shell: same as `Popen` argument. Setting the shell argument to a true value causes subprocess to spawn an
+            intermediate shell process, and tell it to run the command. In other words, using an intermediate shell
+            means that variables, glob patterns, and other special shell features in the command string are processed
+            before the command is ran.
+            env: same as `Popen` argument, a bit beyond me for now.
+            timeout: same as `Popen.communicate` argument, number of seconds to wait for a response before raising an
+            exception.
+
+        Returns:
+            The tuple of (returncode, stdout). Beware, the stdout will be a byte array (i.d b'some returned text').
+            This output, returned as stdout, needs to be decoded properly before you do anything with it, especially
+            if you intend to log it into a file. While it will most likely be 'utf-8', the encoding can vary from
+            system to system so the standard output is returned in bytes format and should be decoded later on.
+
         Usage:
             run('echo hello') -> (0, b'hello\r\n')
         """
@@ -77,9 +86,13 @@ class CommandLine:
     @staticmethod
     def terminate(pid: int) -> None:
         """
-        Terminate process by given pid.
-        On Other platforms, using os.kill with signal.SIGTERM to kill.
-        :param pid: the process ID to kill
+        Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM to kill.
+
+        Args:
+            pid: the process ID to kill
+
+        Returns:
+            Nothing.
         """
         if CommandLine.check_pid_exists(pid):
             os.kill(pid, signal.SIGTERM)
@@ -91,7 +104,9 @@ class CommandLine:
     def get_cmdline_argv() -> list:
         """
         Get command line argv of self python process.
-        :return: a list with those arguments.
+
+        Returns:
+            A list with those arguments.
         """
         return sys.argv
 

@@ -14,7 +14,7 @@ class AttrDict(dict):
         http://code.activestate.com/recipes/52308-the-simple-but-handy-collector-of-a-bunch-of-named/
         http://stackoverflow.com/questions/2390827/how-to-properly-subclass-dict-and-override-get-set
     Keys can also be declared with dot notation.
-    Example:
+    Usage:
         d = AttrDict()
         d["a"] = 1
         d.b = 2

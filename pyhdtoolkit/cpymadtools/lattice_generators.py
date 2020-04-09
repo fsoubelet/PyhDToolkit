@@ -15,16 +15,18 @@ class LatticeGenerator:
     def generate_base_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
         mystring = """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
 ! PARAMETERS
-circum = 1000.0;
+circumference = 1000.0;
 ncell = 24;
-lcell = circum/ncell;
+lcell = circumference/ncell;
 lq = 3.00;
 angleBending = 2.0*pi/(4*ncell);
 
@@ -41,7 +43,7 @@ msf: multipole, knl:={0, 0, ksf};
 msd: multipole, knl:={0, 0, ksd};
 
 ! DECLARE SEQUENCE
-CAS3: sequence, refer=centre, l=circum;
+CAS3: sequence, refer=centre, l=circumference;
    start_machine: marker, at = 0;
    n = 1;
    while (n < ncell+1) {
@@ -56,7 +58,7 @@ CAS3: sequence, refer=centre, l=circum;
     at=(n-1)*lcell;
     n = n + 1;
 }
-end_machine: marker at=circum;
+end_machine: marker at=circumference;
 endsequence;
 
 ! MAKE BEAM
@@ -86,16 +88,18 @@ twiss;
     def generate_onesext_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
         mystring = """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
 ! PARAMETERS
-circum = 1000.0;
+circumference = 1000.0;
 ncell = 24;
-lcell = circum/ncell;
+lcell = circumference/ncell;
 lq = 3.00;
 angleBending = 2.0*pi/(4*ncell);
 
@@ -117,7 +121,7 @@ mof: multipole, knl:={0, 0, ks1, 0};
 mod: multipole, knl:={0, 0, ks2, 0};
 
 ! DECLARE SEQUENCE
-CAS3: sequence, refer=centre, l=circum;
+CAS3: sequence, refer=centre, l=circumference;
    start_machine: marker, at = 0;
    n = 1;
    qf: qf,   at=(n-1)*lcell;
@@ -144,7 +148,7 @@ CAS3: sequence, refer=centre, l=circum;
     at=(n-1)*lcell;
     n = n + 1;
    }
-end_machine: marker at=circum;
+end_machine: marker at=circumference;
 endsequence;
 
 ! MAKE BEAM
@@ -174,16 +178,18 @@ twiss;
     def generate_oneoct_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
         mystring = """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
 ! PARAMETERS
-circum = 1000.0;
+circumference = 1000.0;
 ncell = 24;
-lcell = circum/ncell;
+lcell = circumference/ncell;
 lq = 3.00;
 angleBending = 2.0*pi/(4*ncell);
 
@@ -205,7 +211,7 @@ mof: multipole, knl:={0, 0, 0, koct};
 mod: multipole, knl:={0, 0, 0, 0};
 
 ! DECLARE SEQUENCE
-CAS3: sequence, refer=centre, l=circum;
+CAS3: sequence, refer=centre, l=circumference;
    start_machine: marker, at = 0;
    n = 1;
    qf: qf,   at=(n-1)*lcell;
@@ -232,7 +238,7 @@ CAS3: sequence, refer=centre, l=circum;
     at=(n-1)*lcell;
     n = n + 1;
    }
-end_machine: marker at=circum;
+end_machine: marker at=circumference;
 endsequence;
 
 ! MAKE BEAM
@@ -262,7 +268,9 @@ twiss;
     def generate_tripleterrors_study_reference() -> str:
         """
         Generate generic script for reference Twiss, to use in a `cpymad.madx.Madx` object.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
         script = f"""
 !####################### Make macros available #######################
@@ -312,11 +320,14 @@ twiss;
     def generate_tripleterrors_study_tferror_job(rand_seed: str, tf_error: str) -> str:
         """
         Generate generic script for tf_error Twiss, to use in a `cpymad.madx.Madx` object.
-        :param rand_seed: the random seed to provide MAD for the errors distributions.
-        :param tf_error: the misalignment error value (along the s axis).
-        :return: string you can input into your `cpymad.madx.Madx` object.
-        """
 
+        Args:
+            rand_seed: the random seed to provide MAD for the errors distributions.
+            tf_error: the misalignment error value (along the s axis).
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
+        """
         tferror_script = f"""
 !####################### Make macros available #######################
 
@@ -385,11 +396,14 @@ exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
     def generate_tripleterrors_study_mserror_job(rand_seed: str, ms_error: str) -> str:
         """
         Generate generic script for ms_error Twiss, to use in a `cpymad.madx.Madx` object.
-        :param rand_seed: the random seed to provide MAD for the errors distributions.
-        :param ms_error: the misalignment error value (along the s axis).
-        :return: string you can input into your `cpymad.madx.Madx` object.
-        """
 
+        Args:
+            rand_seed: the random seed to provide MAD for the errors distributions.
+            ms_error: the misalignment error value (along the s axis).
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
+        """
         mserror_script = f"""
 !####################### Make macros available #######################
 

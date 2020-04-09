@@ -122,14 +122,18 @@ class DynamicAperturePlotter:
     """
 
     @staticmethod
-    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles) -> None:
+    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles: int) -> None:
         """
         Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the Y axis,
         and the turn at which they were lost is in the X axis.
-        :param vx_coords: horizontal coordinates over turns.
-        :param vy_coords: vertical coordinates over turns.
-        :param n_particles: number of particles simulated.
-        :return: nothing, plots the figure.
+
+        Args:
+            vx_coords: array-like, horizontal coordinates over turns.
+            vy_coords: array-like, vertical coordinates over turns.
+            n_particles: number of particles simulated.
+
+        Returns:
+            Nothing, plots the figure.
         """
         plt.figure(figsize=(12, 7))
         turn_lost = []
@@ -158,15 +162,19 @@ class PhaseSpacePlotter:
     @staticmethod
     def plot_normalized_phase_space(cpymad_instance, u_coordinates, pu_coordinates, **kwargs) -> None:
         """
-        Plots the normalized phase space of a particle distribution when provided by position and momentum coordinates
-        for a specific plane.
-        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
-        :param u_coordinates: coordinates of particles.
-        :param pu_coordinates: momentum coordinates of particles.
-        :param kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
-        specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether or
-        not to save the figure to file.
-        :return: nothing, plots the figure.
+        Plots the normalized phase space of a particle distribution when provided by position and momentum
+        coordinates for a specific plane.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            u_coordinates: coordinates of particles.
+            pu_coordinates: momentum coordinates of particles.
+            **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
+            specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether
+            or not to save the figure to file.
+
+        Returns:
+            Nothing, plots the figure.
         """
         size = kwargs.get("size", None)
         plane = kwargs.get("plane", "Horizontal")
@@ -203,16 +211,20 @@ class PhaseSpacePlotter:
     @staticmethod
     def plot_normalized_phase_space_colored(cpymad_instance, u_coordinates, pu_coordinates, **kwargs) -> None:
         """
-        Plots the normalized phase space of a particle distribution when provided by position and momentum coordinates
-        for a specific plane. Each particle trajectory has its own color on the plot, within the limit of pyplot's 156
-        named colors. The sequence repeats after the 156th color.
-        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
-        :param u_coordinates: coordinates of particles.
-        :param pu_coordinates: momentum coordinates of particles.
-        :param kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
-        specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether or
-        not to save the figure to file.
-        :return: nothing, plots the figure.
+        Plots the normalized phase space of a particle distribution when provided by position and momentum
+        coordinates for a specific plane. Each particle trajectory has its own color on the plot, within the limit of
+        pyplot's 156 named colors. The sequence repeats after the 156th color.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            u_coordinates: coordinates of particles.
+            pu_coordinates: momentum coordinates of particles.
+            **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
+            specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether
+            or not to save the figure to file.
+
+        Returns:
+            Nothing, plots the figure.
         """
         # pylint: disable=too-many-locals
         size = kwargs.get("size", None)
@@ -261,9 +273,13 @@ class TuneDiagramPlotter:
     @staticmethod
     def farey_sequence(order: int) -> list:
         """
-        Return the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
-        :param order: the order up to which we want to calculate the sequence.
-        :return: the sequence as a list.
+        Returns the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
+
+        Args:
+            order: the order up to which we want to calculate the sequence.
+
+        Returns:
+            The sequence as a list.
         """
         seq = [[0, 1]]
         a, b, c, d = 0, 1, 1, order
@@ -277,7 +293,9 @@ class TuneDiagramPlotter:
     def plot_blank_tune_diagram() -> None:
         """
         Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
-        :return: nothing.
+
+        Returns:
+            Nothing, just plots.
         """
         plt.figure(figsize=(13, 13))
         plt.ylim((0, 1))
@@ -318,12 +336,16 @@ class TuneDiagramPlotter:
     ) -> None:
         """
         Plots the evolution of particles' tunes on a Tune Diagram.
-        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
-        :param v_qx: values of the horizontal tune Qx. Can be only one value.
-        :param vxgood:
-        :param v_qy: values of the vertical tune Qy. Can be only one value.
-        :param vygood:
-        :return: nothing, plots the figure.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            v_qx: values of the horizontal tune Qx. Can be only one value.
+            vxgood: ??
+            v_qy: values of the vertical tune Qy. Can be only one value.
+            vygood: ??
+
+        Returns:
+            Nothing, plots the figure.
         """
         TuneDiagramPlotter.plot_blank_tune_diagram()
         new_q1 = cpymad_instance.table.summ.dframe().q1[0]

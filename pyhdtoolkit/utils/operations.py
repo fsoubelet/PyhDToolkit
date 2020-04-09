@@ -21,9 +21,12 @@ class ListOperations:
     def all_unique(lst: list) -> bool:
         """
         Returns True if all the values in a flat list are unique, False otherwise.
-        Use set() on the given list to remove duplicates, compare its length with that of the list.
-        :param lst: a list of elements.
-        :return: a boolean.
+
+        Args:
+            lst: a list of elements.
+
+        Returns:
+            A boolean.
         """
         return len(lst) == len(set(lst))
 
@@ -33,10 +36,15 @@ class ListOperations:
         Returns the average of lst after mapping each element to a value using the provided function.
         Use map() to map each element to the value returned by function.
         Use sum() to sum all of the mapped values, divide by len(lst).
-        :param lst: a list of elements
-        :param function: function to apply to elements of the list.
-        :return: the average of each element's result through `function`.
-        Example:
+
+        Args:
+            lst: a list of elements
+            function: function to apply to elements of the list.
+
+        Returns:
+            The average of each element's result through `function`.
+
+        Usage:
             average_by([{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']) -> 5.0
         """
         return float(sum(map(function, lst), 0.0) / len(lst))
@@ -44,14 +52,18 @@ class ListOperations:
     @staticmethod
     def bifurcate(lst: list, filters: list) -> list:
         """
-        Splits values into two groups.
-        If an element in filter is True, the corresponding element in the collection belongs to the first group;
-        otherwise, it belongs to the second group.
+        Splits values into two groups. If an element in filter is True, the corresponding element in the collection
+        belongs to the first group; otherwise, it belongs to the second group.
         Use list comprehension and enumerate() to add elements to groups, based on filter.
-        :param lst: a list of elements.
-        :param filters: a list of booleans.
-        :return: a list of two lists, one for each boolean output of the filters
-        Example:
+
+        Args:
+            lst: a list of elements.
+            filters: a list of booleans.
+
+        Returns:
+            A list of two lists, one for each boolean output of the filters
+
+        Usage:
             bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True]) -> [['beep', 'boop', 'bar'], ['foo']]
         """
         return [[x for i, x in enumerate(lst) if filters[i]], [x for i, x in enumerate(lst) if not filters[i]]]
@@ -62,11 +74,16 @@ class ListOperations:
         Splits values into two groups according to a function, which specifies which group an element in the input list
         belongs to. If the function returns True, the element belongs to the first group; otherwise it belongs to the
         second group. Use list comprehension to add elements to groups, based on function.
-        :param lst: a list of elements.
-        :param function: a callable on the elements of lst, that should return a boolean.
-        :return: a list of two lists, as groups of elements of lst classified depending on their result through
-        function.
-        Example:
+
+        Args:
+            lst: a list of elements.
+            function: a callable on the elements of lst, that should return a boolean.
+
+        Returns:
+            A list of two lists, as groups of elements of lst classified depending on their result through
+            function.
+
+        Usage:
             bifurcate_by(list(range(5)), lambda x: x % 2 == 0) -> [[0, 2, 4], [1, 3]]
         """
         return [[x for x in lst if function(x)], [x for x in lst if not function(x)]]
@@ -78,10 +95,15 @@ class ListOperations:
         initial list to avoid unnecessary nesting.
         Use list() and range() to create a list of the desired size. Use map() on the list and fill it with splices
         of the given list. Finally, return use created list.
-        :param lst: a list of elements.
-        :param size: the size of the wanted sublists.
-        :return: a list of lists of length `size` (except maybe the last element), with elements from `lst`.
-        Example:
+
+        Args:
+            lst: a list of elements.
+            size: the size of the wanted sublists.
+
+        Returns:
+            A list of lists of length `size` (except maybe the last element), with elements from `lst`.
+
+        Usage:
             chunk_list(list(range(10)), 3) -> [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
         """
         if size > len(lst):
@@ -92,9 +114,14 @@ class ListOperations:
     def deep_flatten(lst: list) -> list:
         """
         Deep flattens a list, no matter the nesting levels. This is a recursive approach.
-        :param lst: a list of elements.
-        :return: a list with all elements of `lst`, but flattened.
-        Example:
+
+        Args:
+            lst: a list of elements.
+
+        Returns:
+            A list with all elements of `lst`, but flattened.
+
+        Usage:
             deep_flatten([["a", "b"], [1, 2], None, [True, False]]) -> ["a", "b", 1, 2, None True, False]
         """
         return (
@@ -109,10 +136,15 @@ class ListOperations:
         Returns False if the provided function returns True for at least one element in the list, True otherwise.
         Iterate over the elements of the list to test if every element in the list returns False based on function.
         Omit the seconds argument, function, to check if all elements are False.
-        :param lst: a list of elements.
-        :param function: a callable on elements of `lst` that should return a boolean.
-        :return: a boolean. See first line of docstring.
-        Example:
+
+        Args:
+            lst: a list of elements.
+            function: a callable on elements of `lst` that should return a boolean.
+
+        Returns:
+            A boolean. See first line of docstring.
+
+        Usage:
             eval_none([0, 0, 1, 0], lambda x: x >= 2) -> True
             eval_none([0, 1, 2, 0], lambda x: x >= 2) -> False
         """
@@ -124,10 +156,15 @@ class ListOperations:
         Returns True if the provided function returns True for at least one element in the list, False otherwise.
         Iterate over the elements of the list to test if every element in the list returns True based on function.
         Omit the seconds argument, function, to check if all elements are True.
-        :param lst: a list of elements.
-        :param function: a callable on elements of `lst` that should return a boolean.
-        :return: a boolean. See first line of docstring.
-        Examples:
+
+        Args:
+            lst: a list of elements.
+            function: a callable on elements of `lst` that should return a boolean.
+
+        Returns:
+            A boolean. See first line of docstring.
+
+        Usage:
             eval_some([0, 1, 2, 0], lambda x: x >= 2) -> True
             eval_some([0, 0, 1, 0], lambda x: x >= 2) -> False
         """
@@ -137,12 +174,17 @@ class ListOperations:
     def get_indices(element, list_like) -> list:
         """
         Return all array indices at which number is located.
-        :param element: any reference element to check.
-        :param list_like: a list containing objects comparable to `elements`. A string can be compared to an int in
-        Python, custom objects probably won't be comparable.
-        :return: a list of all indices at which `element` is found in `list_like`. Empty list if `element` is not
-        present in `list_like` at all.
-        Example:
+
+        Args:
+            element: any reference element to check.
+            list_like: a list containing objects comparable to `elements`. A string can be compared to an int in
+            Python, custom objects probably won't be comparable.
+
+        Returns:
+            A list of all indices at which `element` is found in `list_like`. Empty list if `element` is not
+            present in `list_like` at all.
+
+        Usage:
             get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2]) -> [0, 7, 8]
         """
         return [i for (y, i) in zip(list_like, range(len(list_like))) if element == y]
@@ -153,11 +195,16 @@ class ListOperations:
         Groups the elements of a list based on the given function.
         Use list() in combination with map() and function to map the values of the list to the keys of an object.
         Use list comprehension to map each element to the appropriate key.
-        :param lst: a list of elements.
-        :param function: a callable on the elements of `lst` that should return a boolean.
-        :return: a dict with keys "True" and "False", each having as value a list of all elements of `lst` that were
-        evaluated to respectively `True` or `False` through `function`.
-        Example:
+
+        Args:
+            lst: a list of elements.
+            function: a callable on the elements of `lst` that should return a boolean.
+
+        Returns:
+            A dict with keys "True" and "False", each having as value a list of all elements of `lst` that were
+            evaluated to respectively `True` or `False` through `function`.
+
+        Usage:
             group_by(list(range(5)), lambda x: x % 2 == 0) -> {True: [0, 2, 4], False: [1, 3]}
         """
         groups = {}
@@ -170,9 +217,14 @@ class ListOperations:
         """
         Returns True if there are duplicate values in a fast list, False otherwise.
         Use set() on the given list to remove duplicates, then compare its length with the length of the list.
-        :param lst: a list of elements.
-        :return: a boolean indicating the presence of duplicates in `lst`.
-        Example:
+
+        Args:
+            lst: a list of elements.
+
+        Returns:
+            A boolean indicating the presence of duplicates in `lst`.
+
+        Usage:
             has_duplicates([1, 2, 1]) -> True
         """
         return len(lst) != len(set(lst))
@@ -181,21 +233,27 @@ class ListOperations:
     def sample(lst: list) -> list:
         """
         Returns a random element from an array.
-        Use randint() to generate a random number that corresponds to an index in the list, return the element at that
-        index.
-        :param lst: a list of elements.
-        :return: a random element from `lst` in a list (to manage potentially nested lists as input).
+
+        Args:
+            lst: a list of elements.
+
+        Returns:
+            A random element from `lst` in a list (to manage potentially nested lists as input).
         """
         return lst[random.randint(0, len(lst) - 1)]
 
     @staticmethod
     def sanitize_list(lst: list) -> list:
         """
-        Removes falsey values from a list.
-        Use filter() to filter out falsey values (False, None, 0, and "").
-        :param lst: a list of elements.
-        :return: `lst` without falsy values.
-        Example:
+        Removes falsey values from a list. Use filter() to filter out falsey values (False, None, 0, and "").
+
+        Args:
+            lst: a list of elements.
+
+        Returns:
+            The `lst` without falsy values.
+
+        Usage:
             sanitize_list([1, False, "a", 2, "", None, 6, 0]) -> [1, "a", 2, 6]
         """
         return list(filter(bool, lst))
@@ -203,11 +261,14 @@ class ListOperations:
     @staticmethod
     def shuffle(lst: list) -> list:
         """
-        Randomizes the order of the values of an list, returning a new list.
-        Uses an improved version of the Fisher-Yates algorithm (
-        https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) to reorder the elements.
-        :param lst: a list of elements.
-        :return: `lst` with original elements at a random index.
+        Randomizes the order of the values of an list, returning a new list. Uses an improved version of the
+        Fisher-Yates algorithm (https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) to reorder the elements.
+
+        Args:
+            lst: a list of elements.
+
+        Returns:
+            The `lst` with original elements at a random index.
         """
         temp_list = copy.deepcopy(lst)
         amount_to_shuffle = len(temp_list)
@@ -224,10 +285,15 @@ class ListOperations:
         Loop over elements, use list.extend() if the element is a list, list.append() otherwise.
         This might look like deep_flatten but is a subset of its functionality, and is used in deep_flatten.
         This only works if all elements in `lst` are iterables!
-        :param lst: a list of elements.
-        :return: `lst` flattened, see first docstring sentence.
-        Example:
-            ListOperations.spread([list(range(5)), list(range(5))]) -> [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
+
+        Args:
+            lst:  a list of elements.
+
+        Returns:
+            The `lst` flattened, see first docstring sentence.
+
+        Usage:
+            spread([list(range(5)), list(range(5))]) -> [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
         """
         # return list(itertools.chain.from_iterable(lst))
         ret = []
@@ -245,11 +311,16 @@ class ListOperations:
         after applying the provided function to each list element of both.
         Create a set by applying the function to each element in every list, then use list comprehension in combination
         with fn on each one to only keep values not contained in the previously created set of the other.
-        :param lst_1: a list of elements.
-        :param lst_2: a list of elements.
-        :param function: a callable on elements of `lst_1` and `lst_2`.
-        :return: a list, see first docstring sentence reference.
-        Example:
+
+        Args:
+            lst_1: a list of elements.
+            lst_2: a list of elements.
+            function: a callable on elements of `lst_1` and `lst_2`.
+
+        Returns:
+            A list, see first docstring sentence reference.
+
+        Usage:
             symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor) -> [1.2, 3.4]
             symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x >= 2) -> [2.1]
         """
@@ -270,11 +341,16 @@ class ListOperations:
         Create a set by applying the function to each element in lst_1, then use list comprehension in combination with
         function on lst_2 to only keep values not contained in the previously created set, _lst_1.
         Finally, create a set from the previous result and _lst_1 and transform it into a list.
-        :param lst_1: a list of elements.
-        :param lst_2: a list of elements.
-        :param function: a callable on elements of `lst_1` and `lst_2`.
-        :return: a list, see first docstring sentence reference.
-        Example:
+
+        Args:
+            lst_1: a list of elements.
+            lst_2: a list of elements.
+            function: a callable on elements of `lst_1` and `lst_2`.
+
+        Returns:
+            A list, see first docstring sentence reference.
+
+        Usage:
             union_by([2.1], [1.2, 2.3], math.floor) -> [1.2, 2.1]
         """
         _lst_1 = set(map(function, lst_1))
@@ -287,12 +363,16 @@ class ListOperations:
         the original lists. Essentially, a list containing: a first list with all first elements, then a second list
         with all second elements, etc.
         Use max combined with list comprehension to get the length of the longest list in the arguments.
-        Loop for max_length times grouping elements.
-        If lengths of lists vary, use fill_value (defaults to None).
-        :param args: a number (>= 2) of different iterables.
-        :param fillvalue: value to use in case of length mismatch.
-        :return: a list with the proper level of nesting, and original elements zipped.
-        Example:
+        Loop for max_length times grouping elements. If lengths of lists vary, use fill_value (defaults to None).
+
+        Args:
+            *args: a number (>= 2) of different iterables.
+            fillvalue: value to use in case of length mismatch.
+
+        Returns:
+            A list with the proper level of nesting, and original elements zipped.
+
+        Usage:
             zipper([1, 2, 3], [2, 5, 3, 7], ["a", "b", "c"]) -> [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]
         """
         max_length = max([len(lst) for lst in args])
@@ -310,12 +390,17 @@ class MiscellaneousOperations:
     @staticmethod
     def longest_item(*args):
         """
-        Takes any number of iterable objects or objects with a length property and returns the longest one.
-        If multiple objects have the same length, the first one will be returned.
+        Takes any number of iterable objects or objects with a length property and returns the longest one. If
+        multiple objects have the same length, the first one will be returned.
         Use max() with len as the key to return the item with the greatest length.
-        :param args: any number (>= 2) of iterables.
-        :return: the longest elements of provided iterables.
-        Example:
+
+        Args:
+            *args: any number (>= 2) of iterables.
+
+        Returns:
+            The longest elements of provided iterables.
+
+        Usage:
             longest_item(list(range(5)), list(range(100)), list(range(50))) -> list(range(100))
         """
         return max(args, key=len)
@@ -327,10 +412,15 @@ class MiscellaneousOperations:
         function on the provided dict's values.
         Use dict.keys() to iterate over the object's keys, assigning the values produced by function to each key of
         a new object.
-        :param obj: a dictionary.
-        :param function: a callable on values of `obj`.
-        :return: new dictionary with the results.
-        Example:
+
+        Args:
+            obj: a dictionary.
+            function: a callable on values of `obj`.
+
+        Returns:
+            A new dictionary with the results.
+
+        Usage:
             map_values({"a": list(range(5)), "b": list(range(10)), "c": list(range(15))}, lambda x: len(x)) ->
             {"a": 5, "b": 10, "c": 15}
         """
@@ -350,11 +440,16 @@ class NumberOperations:
         """
         Clamps num within the inclusive range specified by the boundary values a and b. If num falls within the
         range, return num. Otherwise, return the nearest number in the range.
-        :param num: a number (float  / int)
-        :param a_val: a number (float  / int)
-        :param b_val: a number (float  / int)
-        :return: a number (float  / int), being the nearest to `num` in the range [`a_val`, `b_val`].
-        Example:
+
+        Args:
+            num: a number (float  / int)
+            a_val: a number (float  / int)
+            b_val: a number (float  / int)
+
+        Returns:
+            A number (float  / int), being the nearest to `num` in the range [`a_val`, `b_val`].
+
+        Usage:
             clamp_number(17, 4, 5) -> 5
             clamp_number(23, 20, 30) -> 23
         """
@@ -365,10 +460,15 @@ class NumberOperations:
         """
         Converts an angle from degrees to radians.
         Use math.pi and the degree to radian formula to convert the angle from degrees to radians.
-        :param deg_value: angle value in degrees.
-        :param decompose: boolean option to return a more verbose result.
-        :return: the angle value in radians.
-        Example:
+
+        Args:
+            deg_value: angle value in degrees.
+            decompose: boolean option to return a more verbose result.
+
+        Returns:
+            The angle value in radians.
+
+        Usage:
             degrees_to_radians(160) -> 2.792526803190927
             degrees_to_radians(360, decompose=True) -> (92, "pi", "rad")
         """
@@ -381,10 +481,15 @@ class NumberOperations:
         """
         Calculates the greatest common divisor of a list of numbers.
         Use reduce() and math.gcd over the given list.
-        :param numbers_list: a list of numbers (floats are advised against as this would become a very heavy
-        computation).
-        :return: the greatest common divisor of all elements in `numbers_list`.
-        Example:
+
+        Args:
+            numbers_list: a list of numbers (floats are advised against as this would become a very heavy
+            computation).
+
+        Returns:
+            The greatest common divisor of all elements in `numbers_list`.
+
+        Usage:
             greatest_common_divisor([54, 24]) ->
             greatest_common_divisor([30, 132, 378, 582, 738]) -> 6
         """
@@ -395,10 +500,13 @@ class NumberOperations:
         """
         Checks if the first numeric argument is divisible by the second one.
         Use the modulo operator (%) to check if the remainder is equal to 0.
-        :param dividend: a float.
-        :param divisor: a float.
-        :return: a boolean stating if `dividend` can be divided by `divisor`.
-        Example:
+
+        Args:
+            dividend: a float.
+            divisor: a float.
+
+        Returns:
+            A boolean stating if `dividend` can be divided by `divisor`.
         """
         return dividend % divisor == 0
 
@@ -408,10 +516,15 @@ class NumberOperations:
         Returns the least common multiple of two or more numbers.
         Define a function, spread, that uses either list.extend() or list.append() on each element in a list to
         flatten it. Use math.gcd() and lcm(x,y) = x * y / gcd(x,y) to determine the least common multiple.
-        :param args: any number (>= 2) of numbers (floats are advised against as this would become a very heavy
+
+        Args:
+            *args: any number (>= 2) of numbers (floats are advised against as this would become a very heavy
         computation).
-        :return: the least common multiple of all provided numbers.
-        Example:
+
+        Returns:
+            The least common multiple of all provided numbers.
+
+        Usage:
             least_common_multiple(4, 5) -> 20
             least_common_multiple(2, 5, 17, 632) -> 53720
         """
@@ -428,9 +541,14 @@ class NumberOperations:
         """
         Converts an angle from radians to degrees.
         Use math.pi and the radian to degree formula to convert the angle from radians to degrees.
-        :param rad_value: angle value in degrees.
-        :return: the angle value in degrees.
-        Example:
+
+        Args:
+            rad_value: angle value in degrees.
+
+        Returns:
+            The angle value in degrees.
+
+        Usage:
             radians_to_degrees(2* math.pi) -> 360
             radians_to_degrees(2.710) -> 155.2715624804531
         """
@@ -448,9 +566,14 @@ class StringOperations:
         Converts a string to camelCase.
         Break the string into words and combine them capitalizing the first letter of each word, using a regexp,
         title() and lower.
-        :param string: a string.
-        :return: the same string best adapted to camel_case.
-        Example:
+
+        Args:
+            string: a string.
+
+        Returns:
+            The same string best adapted to camel_case.
+
+        Usage:
             camel_case("a_snake_case_name") -> "aSnakeCaseName"
             camel_case("A Title Case Name") -> "aTitleCaseName"
         """
@@ -463,10 +586,15 @@ class StringOperations:
         Capitalizes the first letter of a string, eventually lowers the rest of it.
         Capitalize the first letter of the string and then add it with rest of the string.
         Omit the lower_rest parameter to keep the rest of the string intact, or set it to True to convert to lowercase.
-        :param string: a string.
-        :param lower_rest: boolean option to lower all elements starting from the second.
-        :return: `string`, capitalized.
-        Example:
+
+        Args:
+            string: a string.
+            lower_rest: boolean option to lower all elements starting from the second.
+
+        Returns:
+            The `string`, capitalized.
+
+        Usage:
             capitalize("astringtocapitalize") -> "Astringtocapitalize"
             capitalize("astRIngTocApItalizE", lower_rest=True) -> "Astringtocapitalize"
         """
@@ -480,13 +608,18 @@ class StringOperations:
         Use str.replace() to remove spaces from both strings.
         Compare the lengths of the two strings, return False if they are not equal.
         Use sorted() on both strings and compare the results.
-        :param str_1: a string.
-        :param str_2: a string.
-        :return: boolean stating whether `str_1` is an anagram of `str_2` or not.
-        Example:
+
+        Args:
+            str_1: a string.
+            str_2: a string.
+
+        Returns:
+            A boolean stating whether `str_1` is an anagram of `str_2` or not.
+
+        Usage:
            is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort") -> True
            is_anagram("A first string", "Definitely not an anagram") -> False
-       """
+        """
         _str1, _str2 = (str_1.replace(" ", "").replace("'", ""), str_2.replace(" ", "").replace("'", ""))
         return sorted(_str1.lower()) == sorted(_str2.lower())
 
@@ -496,9 +629,14 @@ class StringOperations:
         Returns True if the given string is a palindrome, False otherwise.
         Use str.lower() and re.sub() to convert to lowercase and remove non-alphanumeric
         characters from the given string. Then compare the new string with its reverse.
-        :param string: a string.
-        :return: a boolean stating whether `string` is a palindrome or not.
-        Example:
+
+        Args:
+            string: a string.
+
+        Returns:
+            A boolean stating whether `string` is a palindrome or not.
+
+        Usage:
             is_palindrome("racecar") -> True
             is_palindrome("definitelynot") -> False
         """
@@ -510,9 +648,14 @@ class StringOperations:
         """
         Converts a string to kebab-case.
         Break the string into words and combine them adding - as a separator, using a regexp.
-        :param string: a string.
-        :return: the same string best adapted to kebab_case.
-        Example:
+
+        Args:
+            string: a string.
+
+        Returns:
+            The same string best adapted to kebab_case.
+
+        Usage:
             kebab_case("camel Case") -> "camel-case"
             kebab_case("snake_case") -> "snake-case"
         """
@@ -531,12 +674,16 @@ class StringOperations:
         """
         Converts a string to snake_case.
         Break the string into words and combine them adding _ as a separator, using a regexp.
-        :param string: a string.
-        :return: the same string best adapted to snake_case.
-        Example:
+
+        Args:
+            string: a string.
+
+        Returns:
+            The same string best adapted to snake_case.
+
+        Usage:
             snake_case("A bunch of words") -> "a_bunch_of_words"
             snake_case("camelCase") -> "camelcase"
-
         """
         return re.sub(
             r"(\s|_|-)+",

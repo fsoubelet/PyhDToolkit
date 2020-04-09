@@ -16,13 +16,17 @@ class LatticeMatcher:
     @staticmethod
     def perform_tune_matching(cpymad_instance, sequence_name, q1_target, q2_target) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional matching command to reach
-        the provided values for tunes.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
-        :param sequence_name: name of the sequence you want to activate for the tune matching.
-        :param q1_target: horizontal tune to match to.
-        :param q2_target: vertical tune to match to.
-        :return: nothing.
+        Provided with an active Cpymad class after having ran a script, will run an additional matching command to
+        reach the provided values for tunes.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.MadX` object.
+            sequence_name: name of the sequence you want to activate for the tune matching.
+            q1_target: horizontal tune to match to.
+            q2_target: vertical tune to match to.
+
+        Returns:
+            Nothing.
         """
         cpymad_instance.input(
             f"""
@@ -41,13 +45,17 @@ twiss;
     @staticmethod
     def perform_chroma_matching(cpymad_instance, sequence_name, dq1_target, dq2_target) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional matching command to reach
-        the provided values for chromaticities.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
-        :param sequence_name: name of the sequence you want to activate for the tune matching.
-        :param dq1_target: horizontal chromaticity to match to.
-        :param dq2_target: vertical chromaticity to match to.
-        :return:
+        Provided with an active Cpymad class after having ran a script, will run an additional matching command to
+        reach the provided values for chromaticities.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.MadX` object.
+            sequence_name: name of the sequence you want to activate for the tune matching.
+            dq1_target: horizontal chromaticity to match to.
+            dq2_target: vertical chromaticity to match to.
+
+        Returns:
+            Nothing.
         """
         cpymad_instance.input(
             f"""

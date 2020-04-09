@@ -38,7 +38,7 @@ class LaTwiss:
             ax: an existing  matplotlib.axis `Axes` object to act on.
             series: a pandas DataFrame
             height: value to reach for the patch on the y axis.
-            v_offset: offset for the patch center on the x axis compared to its s position.
+            v_offset: vertical offset for the patch.
             color: kwarg to transmit to pyplot.
             alpha: kwarg to transmit to pyplot.
             lw: kwarg to transmit to pyplot.

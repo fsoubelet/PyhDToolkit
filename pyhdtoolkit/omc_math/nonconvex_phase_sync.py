@@ -62,11 +62,13 @@ class PhaseReconstructor:
     Make sure to provide vectors as `numpy.ndarray` with shape (1, N), N being the dimension.
     """
 
-    def __init__(self, measurements_hermitian_matrix: np.ndarray):
+    def __init__(self, measurements_hermitian_matrix: np.ndarray) -> None:
         """
         Initialize your reconstructor object from measurements.
-        :param measurements_hermitian_matrix: a `numpy.ndarray` object built from measurements,
-        see top of file comment lines on how to build this matrix.
+
+        Args:
+            measurements_hermitian_matrix: a `numpy.ndarray` object built from measurements, see top of file comment
+            lines on how to build this matrix.
         """
         # Before anything, check that the provided matrix is indeed Hermitian
         if np.allclose(measurements_hermitian_matrix, np.conj(measurements_hermitian_matrix).T):
@@ -86,18 +88,22 @@ class PhaseReconstructor:
         operator norm of the hermitian noise matrix, or as the max value between 0 and the opposite
         of the min eigenvalue of c_matrix (chosen for implementation, since our noise is included
         in the measurements). See page 8 of the paper for reference.
-        :return: a real scalar value, because c_matrix is Hermitian and the eigenvalues of real
-        ymmetric or complex Hermitian matrices are always real (see G. Strang, Linear Algebra and
-        Its Applications, 2nd Ed., Orlando, FL, Academic Press, Inc., 1980, pg. 222.)
+
+        Returns:
+           A real scalar value, because c_matrix is Hermitian and the eigenvalues of real symmetric or
+           complex Hermitian matrices are always real (see G. Strang, Linear Algebra and Its Applications,
+           2nd Ed., Orlando, FL, Academic Press, Inc., 1980, pg. 222.)
         """
         return np.float64(max(0, np.amin(self.c_matrix_eigenvalues)))
 
     @property
     def leading_eigenvector(self) -> np.ndarray:
         """
-        Return the leading eigenvector of `self.c_matrix`, which is the eigenvector corresponding
-        to the max eigenvalue (in absolute value).
-        :return: a `numpy.ndarray` object, corresponding to said eigenvector.
+        Returns the leading eigenvector of `self.c_matrix`, which is the eigenvector corresponding to the max
+        eigenvalue (in absolute value).
+
+        Returns:
+            A `numpy.ndarray` object, corresponding to said eigenvector.
         """
         return self.c_matrix_eigenvectors[
             np.where(self.c_matrix_eigenvalues == np.amax(np.absolute(self.c_matrix_eigenvalues)))
@@ -108,7 +114,9 @@ class PhaseReconstructor:
         """
         This is the reconstructor matrix built from `self.c_matrix` and the `alpha` property.
         It is the matrix denoted as \widetilde{C} on page 8 of the reference paper.
-        :return: A `numpy.ndarray`, with same dimension as `self.c_matrix`.
+
+        Returns:
+            A `numpy.ndarray`, with same dimension as `self.c_matrix`.
         """
         return self.c_matrix + self.alpha * np.identity(self.c_matrix.shape[0])
 
@@ -117,7 +125,12 @@ class PhaseReconstructor:
         Return the eigenvector estimator of a given eigenvector (id est the component-wise
         projection of said eigenvector onto ℂˆ{n}_{1}, see reference paper at page 7 for
         implementation.
-        :return: a `numpy.ndarray` object of the same dimension as param `eigenvector`.
+
+        Args:
+            eigenvector: a `numpy.ndarray` representing the vector.
+
+        Returns:
+             A `numpy.ndarray` object of the same dimension as param `eigenvector`.
         """
         try:
             return eigenvector / np.absolute(eigenvector)
@@ -134,7 +147,9 @@ class PhaseReconstructor:
         """
         Reconstruct simplest estimator fom the eigenvector method. The result is in complex form, and will be radians
         once cast back to real form.
-        :return: the complex form of the result as a 'numpy.ndarray' instance.
+
+        Returns:
+            The complex form of the result as a 'numpy.ndarray' instance.
         """
         return self.get_eigenvector_estimator(self.leading_eigenvector)
 
@@ -142,10 +157,14 @@ class PhaseReconstructor:
     def convert_complex_result_to_phase_values(complex_estimator: np.ndarray, deg: bool = False) -> np.ndarray:
         """
         Casts back the complex form of your result to real phase values.
-        :param complex_estimator: `numpy.ndarray` instance with the complex form of your result.
-        :param deg: if this is set to `True`, the result is cast to degrees (from radians) before
-        being returned.
-        :return: `numpy.ndarray` with the real phase values of the result.
+
+        Args:
+            complex_estimator: a `numpy.ndarray` object containing the complex form of your result.
+            deg: if this is set to `True`, the result is cast to degrees (from radians) before
+            being returned.
+
+        Returns:
+            A `numpy.ndarray` with the real phase values of the result.
         """
         return np.apply_along_axis(np.angle, axis=0, arr=complex_estimator, deg=deg)
 
@@ -157,8 +176,12 @@ def create_combinations_matrices_from_twiss(twiss_file: str) -> (np.ndarray, np.
     """
     Create combination matrices indicating, for each element, if it is a 'high-high' or 'high-low' (etc) BPM
     combination. Done for each plane, and returns each as a `numpy.ndarray`.
-    :param twiss_file: string path to twiss file with BPMs twiss.
-    :return: tuple of two `numpy.ndarray` 2D matrices.
+
+    Args:
+        twiss_file: string path to twiss file with BPMs twiss.
+
+    Returns:
+        A tuple of two `numpy.ndarray` 2D matrices.
     """
     bpms_df = tfs.read(twiss_file)
     bpms_df["CATX"] = bpms_df["BETX"].apply(lambda x: "low" if x <= 40 else ("medium" if 40 < x <= 200 else "high"))
@@ -177,8 +200,12 @@ def create_combinations_matrices_from_twiss(twiss_file: str) -> (np.ndarray, np.
 def create_meas_matrix_from_values_array(values_array: np.ndarray) -> np.ndarray:
     """
     For testing purposes. Returns the deltas measurements matrix from an array of values.
-    :param values_array: the values of phases at your N BPMs, in a (1, N) shaped `numpy.ndarray`.
-    :return: the matrix, as a `numpy.ndarray`.
+
+    Args:
+        values_array: the values of phases at your N BPMs, in a (1, N) shaped `numpy.ndarray`.
+
+    Returns:
+        The matrix, as a `numpy.ndarray`.
     """
     return np.array([[i - j for i in values_array] for j in values_array], dtype=float)
 
@@ -186,11 +213,15 @@ def create_meas_matrix_from_values_array(values_array: np.ndarray) -> np.ndarray
 def create_random_phase_values(low: float, high: float, n_values: int, dist: str) -> np.ndarray:
     """
     Returns fake generated phase values. They are ascending by default.
-    :param low: lowest value, first value will always be 0.
-    :param high: highest value.
-    :param n_values: number of values to generate.
-    :param dist: distribution type required. Will be uniform or linspace.
-    :return: a `numpy.ndarray` of shape (n_values,) with the generated values.
+
+    Args:
+        low: lowest value, first value will always be 0.
+        high: highest value.
+        n_values: number of values to generate.
+        dist: distribution type required. Will be uniform or linspace.
+
+    Returns:
+        A `numpy.ndarray` of shape (n_values,) with the generated values.
     """
     if dist == "linspace":
         values = np.linspace(low, high, n_values)
@@ -205,11 +236,15 @@ def create_random_phase_values(low: float, high: float, n_values: int, dist: str
 def create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndarray:
     """
     Generates a 2D Gaussian distribution, makes it antisymmetric and returns it.
-    :param mean: mean of the distribution, should be 0 for us (since we add to the ideal M_meas).
-    :param stdev: standard deviation of the distribution, should be in degrees if M_meas is given
-    in degrees, in radians otherwise.
-    :param shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
-    :return: a Gaussian, anti-symmetric, 2D-shaped `numpy.ndarray`.
+
+    Args:
+        mean:  mean of the distribution, should be 0 for us (since we add to the ideal M_meas).
+        stdev:  standard deviation of the distribution, should be in degrees if M_meas is given in degrees,
+        in radians otherwise.
+        shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
+
+    Returns:
+        A  Gaussian, anti-symmetric, 2D-shaped `numpy.ndarray`.
     """
     gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
     upper_triangle = np.triu(gaussian_2d_mat)
@@ -217,16 +252,31 @@ def create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndar
 
 
 def get_combinations_matrices_from_madx(madx_file: str) -> (np.ndarray, np.ndarray):
-    """Call the madx file, analyse twiss and give back combinations."""
-    cmd = CommandLine()
-    cmd.run(f"madx {madx_file}")
+    """
+    Call the madx file, analyse twiss and give back combinations (which is low-high, medium-low, etc).
+
+    Args:
+        madx_file: string path to a madx script.
+
+    Returns:
+        A tuple with two matrixes for BPM combinations as `numpy.ndarray` objects.
+    """
+    CommandLine().run(f"madx {madx_file}")
     comb_mat_x, comb_mat_y = create_combinations_matrices_from_twiss("bpms.tfs")
-    cmd.run("rm -f bpms.tfs")
+    CommandLine().run("rm -f bpms.tfs")
     return comb_mat_x, comb_mat_y
 
 
 def meas_noise_matrix_to_dataframe(matrix: np.ndarray) -> pd.DataFrame:
-    """Return a DataFrame version of the provided matrix."""
+    """
+    Return a DataFrame version of the provided matrix, with proper column names and index.
+
+    Args:
+        matrix: a `numpy.ndarray` of youo combinatino matrix.
+
+    Returns:
+        A `pandas.DataFrame` form of the provided matrix, with BPM numbers as columns and index.
+    """
     headers = [f"BPM{i + 1}" for i in range(matrix.shape[0])]
     df_form = pd.DataFrame(matrix, columns=headers)
     df_form.index = headers
@@ -236,11 +286,15 @@ def meas_noise_matrix_to_dataframe(matrix: np.ndarray) -> pd.DataFrame:
 def plot_noised_vs_true_signal(signal: np.ndarray, noised: np.ndarray, figsize: tuple, savefig: bool = None) -> None:
     """
     Plots reconstructed vs original.
-    :param signal: true original signal.
-    :param noised: original signal with noise applied.
-    :param figsize: size of figure.
-    :param savefig: boolean, option to save the figure as pdf at 300 dpi.
-    :return: none, plots the figure.
+
+    Args:
+        signal: true original signal.
+        noised: original signal with noise applied.
+        figsize: size of figure.
+        savefig: boolean, option to save the figure as pdf at 300 dpi.
+
+    Returns:
+        Nothing, plots the figure.
     """
     plt.figure(figsize=figsize)
     plt.title("True vs Noised Signal")
@@ -258,11 +312,15 @@ def plot_reconstructed_vs_true_signal(
 ) -> None:
     """
     Plots reconstructed vs original.
-    :param signal: true original signal.
-    :param reconstructed: reconstructed signal.
-    :param figsize: size of figure.
-    :param savefig: boolean, option to save the figure as pdf at 300 dpi.
-    :return: none, plots the figure.
+
+    Args:
+        signal: true original signal as a `numpy.ndarray`.
+        reconstructed: reconstructed signal as a `numpy.ndarray`.
+        figsize: size of figure.
+        savefig: boolean, option to save the figure as pdf at 300 dpi.
+
+    Returns:
+        Nothing, plots the figure.
     """
     plt.figure(figsize=figsize)
     plt.title("True vs Reconstructed Signal")
@@ -280,12 +338,16 @@ def plot_absolute_difference_to_true_signal(
 ) -> None:
     """
     Plots the value difference of reconstructed signal to original.
-    :param signal: true original signal.
-    :param reconstructed: reconstructed signal.
-    :param noise_stdev: stdev of the added noise distribution.
-    :param figsize: size of figure.
-    :param savefig: boolean, option to save the figure as pdf at 300 dpi.
-    :return: none, plots the figure.
+
+    Args:
+        signal: true original signal  as a `numpy.ndarray`.
+        reconstructed: reconstructed signal  as a `numpy.ndarray`.
+        noise_stdev: stdev of the added noise distribution.
+        figsize: size of figure.
+        savefig: boolean, option to save the figure as pdf at 300 dpi.
+
+    Returns:
+        Nothing, plots the figure.
     """
     plt.figure(figsize=figsize)
     plt.title("Absolute Difference to Original Signal")
@@ -322,8 +384,12 @@ def plot_absolute_difference_to_true_signal(
 def _remove_duplicate_combinations(combinations_matrix: np.ndarray) -> np.ndarray:
     """
     Will simply transform 'low-high' in 'high-low' etc so that one case is only one specific string.
-    :param combinations_matrix: your combinations matrix.
-    :return: same, but refactored.
+
+    Args:
+        combinations_matrix: your combinations matrix as a `numpy.ndarray`.
+
+    Returns:
+        Refactored version of the matrix without duplicate combinations.
     """
     combinations_matrix[combinations_matrix == "low-high"] = "high-low"
     combinations_matrix[combinations_matrix == "medium-high"] = "high-medium"
@@ -335,9 +401,13 @@ def sigmas_square(num: int, meas_used: int) -> np.ndarray:
     """
     Generate a chi-square distribution of 'num' elements, each computed from a normal distribution of 'meas_used'
     elements.
-    :param num: Number of elements for the generated distribution.
-    :param meas_used: Number of values for each
-    :return: the result as a `numpy.ndarray`.
+
+    Args:
+        num: number of elements for the generated distribution.
+        meas_used: number of values for each
+
+    Returns:
+        The resulting distribution as a `numpy.ndarray`.
     """
     res = []
     for _ in range(num):
@@ -349,7 +419,9 @@ def sigmas_square(num: int, meas_used: int) -> np.ndarray:
 def get_andreas_data() -> pd.DataFrame:
     """
     Load the errors distribution data from Andreas as a pandas Dataframe.
-    :return: the file data as a `pandas.DataFrame` object.
+
+    Returns:
+        The file data as a refactored `pandas.DataFrame` object.
     """
     with pathlib.Path("phase_data.txt").open() as phases:
         data = phases.read().strip().strip("\n").replace("\n", "").split(" ")
