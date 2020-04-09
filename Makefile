@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help archive checklist clean condaenv docker-build docker-pull format install lines lint reinstall uninstall tests
+.PHONY : help archive checklist clean condaenv docker-build format install lines lint reinstall uninstall tests
 
 all: install
 
@@ -24,7 +24,6 @@ help:
 	@echo "  $(R) clean $(E)          to recursively remove build, run, and bitecode files/dirs."
 	@echo "  $(R) condaenv $(E)       to 'conda install' the specific 'PHD' environment I use. Personnal."
 	@echo "  $(R) docker-build $(E)   to build a container image replicating the 'PHD' environment (and other goodies)."
-	@echo "  $(R) docker-pull $(E)    to pull a pre-built image from Dockerhub by default pulled tag will be 'latest'."
 	@echo "  $(R) format $(E)         to recursively apply PEP8 formatting through the 'Black' cli tool."
 	@echo "  $(R) install $(E)        to 'pip install' this package into your current (virtual) environment."
 	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
@@ -78,10 +77,6 @@ docker-build:
 	@echo "Building docker image with $(D)PHD$(E) conda environment, with tag $(P)simenv$(E)."
 	@docker build -t simenv .
 	@echo "Done. You can run this with $(P)docker run -it --rm --init simenv$(E)."
-
-docker-pull:
-	@echo "Pulling docker image $(P)fsoubelet/simenv$(E) from Dockerhub."
-	@docker pull fsoubelet/simenv
 
 format:
 	@echo "Formatting code to PEP8, default line length is 120."

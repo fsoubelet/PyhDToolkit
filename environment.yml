@@ -125,9 +125,8 @@ dependencies:
   - zlib=1.2.11
   - pip:
     - cmmnbuild-dep-manager==2.2.5
-    - fsbox==0.1.1
+    - fsbox==0.2.0
     - generic-parser==1.0.6
-    - omc3==0.1.0
     - pyhdtoolkit==0.3.0
     - pytimber==2.7.0
     - sdds==0.1.3
