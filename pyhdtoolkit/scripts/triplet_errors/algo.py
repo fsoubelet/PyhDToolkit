@@ -19,8 +19,8 @@ from fsbox import logging_tools
 from fsbox.contexts import timeit
 
 from pyhdtoolkit.cpymadtools import lattice_generators
-from pyhdtoolkit.studies.triplet_errors.data_classes import BetaBeatValues, StdevValues
-from pyhdtoolkit.studies.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
+from pyhdtoolkit.scripts.triplet_errors.data_classes import BetaBeatValues, StdevValues
+from pyhdtoolkit.scripts.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
 
 LOGGER = logging_tools.get_logger(__name__)
 
