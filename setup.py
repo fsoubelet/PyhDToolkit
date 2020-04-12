@@ -17,24 +17,22 @@ with README.open("r") as docs:
 
 # Dependencies for the package itself
 DEPENDENCIES = [
+    "numpy",
+    "scipy",
+    "matplotlib>3.0",
     "fsbox>=0.2.0",
-    "numpy>=1.14.1",
-    "pandas>=0.24.0,<1.0",
-    "scipy>=1.0.0",
-    "scikit-learn>=0.20.3",
+    "pandas<1.0",
     "tfs-pandas>=1.0.3",
-    "generic-parser>=1.0.6",
-    "sdds>=0.1.3",
-    "pytz>=2018.9",
-    "tqdm>=4.41",
 ]
 
-
-# Dependencies that should only be installed for test purposes
-TEST_DEPENDENCIES = ["pytest>=5.2", "pytest-cov>=2.6", "h5py>=2.7.0", "hypothesis>=3.23.0", "attrs>=19.2.0"]
-
-# pytest-runner to be able to run pytest via setuptools
-SETUP_REQUIRES = ["pytest-runner"]
+# Extra dependencies
+EXTRA_DEPENDENCIES = {
+    "setup": ["pytest-runner"],
+    "test": ["pytest>=5.2", "pytest-cov>=2.7", "hypothesis>=5.0.0", "attrs>=19.2.0"],
+    "madx": ["cpymad>=1.4"],
+    "tqdm": ["tqdm>4.0"],
+}
+EXTRA_DEPENDENCIES.update({"all": [elem for list_ in EXTRA_DEPENDENCIES.values() for elem in list_]})
 
 
 setuptools.setup(
@@ -66,6 +64,7 @@ setuptools.setup(
         "Topic :: Utilities",
     ],
     install_requires=DEPENDENCIES,
-    tests_require=DEPENDENCIES + TEST_DEPENDENCIES,
-    setup_requires=SETUP_REQUIRES,
+    tests_require=EXTRA_DEPENDENCIES["test"],
+    setup_requires=EXTRA_DEPENDENCIES["setup"],
+    extras_require=EXTRA_DEPENDENCIES,
 )

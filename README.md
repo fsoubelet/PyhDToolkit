@@ -27,14 +27,14 @@
 
   <!-- Docker Build -->
   <a href="https://hub.docker.com/r/fsoubelet/simenv">
-    <img alt="Docker Build" src="https://img.shields.io/docker/cloud/build/fsoubelet/simenv?label=Docker%20Build">
+    <img alt="Docker Build" src="https://img.shields.io/docker/cloud/build/fsoubelet/simenv?label=Docker%20Build&logo=Docker">
   </a>
 
   <br/>
 
   <!-- Code style -->
   <a href="https://github.com/psf/Black">
-    <img alt="Code Style" src="https://img.shields.io/badge/Code%20Style-black-9cf.svg">
+    <img alt="Code Style" src="https://img.shields.io/badge/Code%20Style-Black-9cf.svg">
   </a>
 
   <!-- Linter -->

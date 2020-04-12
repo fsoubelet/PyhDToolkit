@@ -1,36 +1,45 @@
+language: python
+
+dist: bionic
+
+python:
+  - "3.6"
+  - "3.7"
+#  - "3.8"  # Somehow cpymad does not work on Python 3.8
+
+cache:
+  - pip
+
+services:
+  - docker
+
 env:
   global:
     - CC_TEST_REPORTER_ID=a05b1f0da35f0716b773caf151b460f457b0e407e5ff164b061752e1555ef9d1
 
-stages:
-  - name: test
-  - name: package  # not yet used
-    if: tag =~ \d+\.\d+\.\d+.*
+notifications:
+  email:
+    on_success: always
+    on_failure: always
 
-# Default python version that will be inherited. Additional ones can be defined later
-language: python
-python: 3.6
+install:
+  - pip install ".[all]"
+  - pip list
 
-email:
-  on_success: always
-  on_failure: always
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
 
-jobs:
-  include:
-    - &test-stage
-      stage: test
-      before_script:
-        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-        - chmod +x ./cc-test-reporter
-        - ./cc-test-reporter before-build
-      script:
-       - python setup.py test -n pytest
-      after_script:
-        - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+script:
+  - python --version
+  - pytest --cov=pyhdtoolkit tests/
 
-    # Define additional python versions for tests
-    - <<: *test-stage
-      python: 3.7
+# Not needed yet
+#after_success:
+#  - docker build -t simenv .
+#  - docker images
 
-    - <<: *test-stage
-      python: 3.8
+# Taking out for now as I can't get it to work
+#after_script:
+#  - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT
