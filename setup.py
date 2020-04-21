@@ -19,7 +19,7 @@ with README.open("r") as docs:
 DEPENDENCIES = [
     "fsbox>=0.1.0",
     "numpy>=1.14.1",
-    "pandas>=0.24.0,<1.0",
+    "pandas>=0.24.0,<2.0",
     "scipy>=1.0.0",
     "scikit-learn>=0.20.3",
     "tfs-pandas>=1.0.3",
