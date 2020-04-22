@@ -51,6 +51,7 @@ import pandas as pd
 import tfs
 
 from fsbox import logging_tools
+
 from pyhdtoolkit.utils.cmdline import CommandLine
 
 LOGGER = logging_tools.get_logger(__name__)
@@ -334,7 +335,7 @@ def plot_reconstructed_vs_true_signal(
 
 
 def plot_absolute_difference_to_true_signal(
-    signal: np.ndarray, reconstructed: np.ndarray, noise_stdev: float, figsize: tuple, savefig: bool = None
+    signal: np.ndarray, reconstructed: np.ndarray, noise_stdev: float, figsize: tuple, savefig: bool = None,
 ) -> None:
     """
     Plots the value difference of reconstructed signal to original.

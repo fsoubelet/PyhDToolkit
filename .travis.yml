@@ -23,8 +23,9 @@ notifications:
     on_failure: always
 
 install:
-  - pip install ".[all]"
-  - pip list
+  - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+  - $HOME/.poetry/bin/poetry config virtualenvs.in-project true
+  - $HOME/.poetry/bin/poetry install -v -E tqdm -E madx
 
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
@@ -32,8 +33,7 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - python --version
-  - pytest --cov=pyhdtoolkit tests/
+  - $HOME/.poetry/bin/poetry run pytest --no-flaky-report --verbose -p no:sugar --cov-report=xml --cov=pyhdtoolkit/ tests
 
 # Not needed yet
 #after_success:
@@ -41,5 +41,5 @@ script:
 #  - docker images
 
 # Taking out for now as I can't get it to work
-#after_script:
-#  - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT
+after_script:
+  - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT

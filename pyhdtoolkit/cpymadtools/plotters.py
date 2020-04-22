@@ -7,6 +7,7 @@ A collection of functions to plot different output results from a cpymad.MadX ob
 
 import matplotlib.pyplot as plt
 import numpy as np
+
 from matplotlib import colors as mcolors
 
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
@@ -31,6 +32,7 @@ class AperturePlotter:
         xlimits: tuple = None,
         hplane_ylim: tuple = (-0.12, 0.12),
         vplane_ylim: tuple = (-0.12, 0.12),
+        savefig: str = None,
     ):
         """
         Plot the physical aperture of your machine, already defined into the provided cpymad.Madx object.
@@ -44,6 +46,7 @@ class AperturePlotter:
             look shrinked).
             vplane_ylim: the y limits for the vertical plane plot (so that machine geometry doesn't make the plot
             look shrinked).
+            savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
             Nothing, just plots.
@@ -54,6 +57,7 @@ class AperturePlotter:
         select, flag=interpolate, class=drift, slice=4, range=#s/#e;
         select, flag=interpolate, class=quadrupole, slice=8, range=#s/#e;
         select, flag=interpolate, class=sbend, slice=10, range=#s/#e;
+        select, flag=interpolate, class=rbend, slice=10, range=#s/#e;
         twiss;
         """
         )
@@ -115,6 +119,9 @@ class AperturePlotter:
         axis3.legend(loc="best")
         axis3.set_title(f"Stay-clear envelope at {beam_params['pc_GeV']} GeV/c")
 
+        if savefig:
+            plt.savefig(savefig, format="png", dpi=500)
+
 
 class DynamicAperturePlotter:
     """
@@ -122,7 +129,7 @@ class DynamicAperturePlotter:
     """
 
     @staticmethod
-    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles: int) -> None:
+    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles: int, savefig: str = None) -> None:
         """
         Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the Y axis,
         and the turn at which they were lost is in the X axis.
@@ -131,6 +138,7 @@ class DynamicAperturePlotter:
             vx_coords: array-like, horizontal coordinates over turns.
             vy_coords: array-like, vertical coordinates over turns.
             n_particles: number of particles simulated.
+            savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
             Nothing, plots the figure.
@@ -153,6 +161,9 @@ class DynamicAperturePlotter:
         plt.xlabel("Number of Turns Survived", fontsize=17)
         plt.ylabel("Initial amplitude [mm]", fontsize=17)
 
+        if savefig:
+            plt.savefig(savefig, format="png", dpi=500)
+
 
 class PhaseSpacePlotter:
     """
@@ -160,7 +171,9 @@ class PhaseSpacePlotter:
     """
 
     @staticmethod
-    def plot_normalized_phase_space(cpymad_instance, u_coordinates, pu_coordinates, **kwargs) -> None:
+    def plot_normalized_phase_space(
+        cpymad_instance, u_coordinates, pu_coordinates, savefig: str = None, **kwargs
+    ) -> None:
         """
         Plots the normalized phase space of a particle distribution when provided by position and momentum
         coordinates for a specific plane.
@@ -172,13 +185,13 @@ class PhaseSpacePlotter:
             **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
             specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether
             or not to save the figure to file.
+            savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
             Nothing, plots the figure.
         """
         size = kwargs.get("size", None)
         plane = kwargs.get("plane", "Horizontal")
-        savefig = kwargs.get("savefig", False)
 
         plt.figure(figsize=size) if size else plt.figure(figsize=(16, 8))
         plt.title("Normalized Phase Space", fontsize=20)
@@ -206,10 +219,12 @@ class PhaseSpacePlotter:
                 raise ValueError("Plane should be either Horizontal or Vertical")
 
         if savefig:
-            plt.savefig("normalized_phase_space", format="png", dpi=300)
+            plt.savefig(savefig, format="png", dpi=500)
 
     @staticmethod
-    def plot_normalized_phase_space_colored(cpymad_instance, u_coordinates, pu_coordinates, **kwargs) -> None:
+    def plot_normalized_phase_space_colored(
+        cpymad_instance, u_coordinates, pu_coordinates, savefig: str = None, **kwargs
+    ) -> None:
         """
         Plots the normalized phase space of a particle distribution when provided by position and momentum
         coordinates for a specific plane. Each particle trajectory has its own color on the plot, within the limit of
@@ -222,6 +237,7 @@ class PhaseSpacePlotter:
             **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
             specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether
             or not to save the figure to file.
+            savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
             Nothing, plots the figure.
@@ -229,7 +245,6 @@ class PhaseSpacePlotter:
         # pylint: disable=too-many-locals
         size = kwargs.get("size", None)
         plane = kwargs.get("plane", "Horizontal")
-        savefig = kwargs.get("savefig", False)
 
         # Getting a sufficiently long array of colors to use
         colors = int(np.floor(len(u_coordinates) / 100)) * SORTED_COLORS
@@ -262,7 +277,7 @@ class PhaseSpacePlotter:
                 raise ValueError("Plane should be either Horizontal or Vertical")
 
         if savefig:
-            plt.savefig("normalized_phase_space_colored", format="png", dpi=300)
+            plt.savefig(savefig, format="png", dpi=500)
 
 
 class TuneDiagramPlotter:
@@ -333,6 +348,7 @@ class TuneDiagramPlotter:
         vxgood: np.array = np.array([False]),
         v_qy: np.array = np.array([0]),
         vygood: np.array = np.array([False]),
+        savefig: str = None,
     ) -> None:
         """
         Plots the evolution of particles' tunes on a Tune Diagram.
@@ -343,6 +359,7 @@ class TuneDiagramPlotter:
             vxgood: ??
             v_qy: values of the vertical tune Qy. Can be only one value.
             vygood: ??
+            savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
             Nothing, plots the figure.
@@ -364,6 +381,9 @@ class TuneDiagramPlotter:
             tp = np.ones(len(vygood)) * (new_q1 - np.floor(new_q1))
             plt.plot(tp[vygood], v_qy[vygood], ".r")
             plt.plot(new_q1 - np.floor(new_q1), new_q2 - np.floor(new_q2), ".g")
+
+        if savefig:
+            plt.savefig(savefig, format="png", dpi=500)
 
 
 if __name__ == "__main__":

@@ -79,7 +79,7 @@ class Parameters:
 
     @staticmethod
     def beam_parameters(
-        pc_GeV: float, en_x_m: float = 5e-6, en_y_m: float = 5e-6, deltap_p: float = 1e-3, verbose: bool = False
+        pc_GeV: float, en_x_m: float = 5e-6, en_y_m: float = 5e-6, deltap_p: float = 1e-3, verbose: bool = False,
     ):
         """Calculate beam parameters from provided values.
 

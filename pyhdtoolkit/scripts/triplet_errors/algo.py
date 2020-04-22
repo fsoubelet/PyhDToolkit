@@ -9,18 +9,29 @@ Arguments should be given as options at launch in the command-line. See README f
 """
 
 import argparse
+
 from copy import deepcopy
 
-import cpymad
 import numpy as np
 import pandas as pd
-import tqdm
+
 from fsbox import logging_tools
 from fsbox.contexts import timeit
 
+import cpymad
+
 from pyhdtoolkit.cpymadtools import lattice_generators
 from pyhdtoolkit.scripts.triplet_errors.data_classes import BetaBeatValues, StdevValues
-from pyhdtoolkit.scripts.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
+from pyhdtoolkit.scripts.triplet_errors.plotting_functions import (
+    plot_bbing_max_errorbar,
+    plot_bbing_with_ips_errorbar,
+)
+
+try:
+    import tqdm
+except ImportError:
+    pass
+
 
 LOGGER = logging_tools.get_logger(__name__)
 
@@ -77,17 +88,18 @@ class GridCompute:
                 LOGGER.info(f"Running simulation for Relative Field Error: {error}E-4")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
-                for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
-                    seed = str(np.random.randint(1e6, 5e6))
-                    tferror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_tferror_job(
-                        seed, str(error)
-                    )
-                    self.errors_mad.input(tferror_script)
-                    tferrors_twiss = self.errors_mad.table.twiss.dframe()
-
-                    # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                    betabeatings = _get_betabeatings(self.nominal_twiss, tferrors_twiss)  # this is a pd.DataFrame
-                    temp_data.update_tf_from_cpymad(betabeatings)
+                try:
+                    for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
+                        # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
+                        tferrors_twiss = self._track_tf_errors(error)
+                        betabeatings = _get_betabeatings(self.nominal_twiss, tferrors_twiss)  # this is a pd.DataFrame
+                        temp_data.update_tf_from_cpymad(betabeatings)
+                except NameError:  # if tqdm not installed
+                    for _ in range(n_seeds):
+                        # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
+                        tferrors_twiss = self._track_tf_errors(error)
+                        betabeatings = _get_betabeatings(self.nominal_twiss, tferrors_twiss)  # this is a pd.DataFrame
+                        temp_data.update_tf_from_cpymad(betabeatings)
 
                 # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
                 self.rms_betabeatings.update_tf_from_seeds(temp_data)
@@ -97,6 +109,21 @@ class GridCompute:
 
                 # Getting the lost seeds if any
                 self.lost_seeds_tf.append(n_seeds - len(temp_data.tferror_bbx))
+
+    def _track_tf_errors(self, error: float) -> pd.DataFrame:
+        """
+        Run tferror tracking for a given seed, which is randomly assigned at function call.
+
+        Args:
+            error: the error value to input in the madx script.
+
+        Returns:
+            The twiss dframe from cpymad.
+        """
+        seed = str(np.random.randint(1e6, 5e6))
+        tferror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_tferror_job(seed, str(error))
+        self.errors_mad.input(tferror_script)
+        return self.errors_mad.table.twiss.dframe()
 
     def run_miss_errors(self, error_values: list, n_seeds: int) -> None:
         """
@@ -115,17 +142,18 @@ class GridCompute:
                 LOGGER.info(f"Running for Longitudinal Misalignment Error: {float(error)}mm")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
-                for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
-                    seed = str(np.random.randint(1e6, 5e6))
-                    mserror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_mserror_job(
-                        seed, str(error)
-                    )
-                    self.errors_mad.input(mserror_script)
-                    mserrors_twiss = self.errors_mad.table.twiss.dframe()
-
-                    # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                    betabeatings = _get_betabeatings(self.nominal_twiss, mserrors_twiss)  # this is a pd.DataFrame
-                    temp_data.update_miss_from_cpymad(betabeatings)
+                try:
+                    for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
+                        # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
+                        mserrors_twiss = self._track_miss_errors(error)
+                        betabeatings = _get_betabeatings(self.nominal_twiss, mserrors_twiss)  # this is a pd.DataFrame
+                        temp_data.update_miss_from_cpymad(betabeatings)
+                except NameError:  # if tqdm not installed
+                    for _ in range(n_seeds):
+                        # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
+                        mserrors_twiss = self._track_miss_errors(error)
+                        betabeatings = _get_betabeatings(self.nominal_twiss, mserrors_twiss)  # this is a pd.DataFrame
+                        temp_data.update_miss_from_cpymad(betabeatings)
 
                 # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
                 self.rms_betabeatings.update_miss_from_seeds(temp_data)
@@ -135,6 +163,21 @@ class GridCompute:
 
                 # Getting the lost seeds if any
                 self.lost_seeds_miss.append(n_seeds - len(temp_data.misserror_bbx))
+
+    def _track_miss_errors(self, error: float) -> pd.DataFrame:
+        """
+        Run misserror tracking for a given seed, which is randomly assigned at function call.
+
+        Args:
+            error: the error value to input in the madx script.
+
+        Returns:
+            The twiss dframe from cpymad.
+        """
+        seed = str(np.random.randint(1e6, 5e6))
+        mserror_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_mserror_job(seed, str(error))
+        self.errors_mad.input(mserror_script)
+        return self.errors_mad.table.twiss.dframe()
 
 
 def _get_betabeatings(nominal_twiss: pd.DataFrame, errors_twiss: pd.DataFrame) -> pd.DataFrame:
@@ -162,13 +205,13 @@ def _parse_args():
     """
     parser = argparse.ArgumentParser(description="Running the beta-beating script.")
     parser.add_argument(
-        "-e", "--errors", dest="errors", nargs="+", default=[1, 3, 5], type=int, help="Error values to simulate"
+        "-e", "--errors", dest="errors", nargs="+", default=[1, 3, 5], type=int, help="Error values to simulate",
     )
     parser.add_argument(
-        "-s", "--seeds", dest="seeds", default=50, type=int, help="Number of seeds to simulate per error."
+        "-s", "--seeds", dest="seeds", default=50, type=int, help="Number of seeds to simulate per error.",
     )
     parser.add_argument(
-        "-p", "--plotbetas", dest="plotbetas", default=False, help="Option for plotting betas at each error."
+        "-p", "--plotbetas", dest="plotbetas", default=False, help="Option for plotting betas at each error.",
     )
     options = parser.parse_args()
     return options.errors, options.seeds, options.plotbetas
@@ -197,16 +240,16 @@ def main() -> None:
 
     # Plotting the results
     plot_bbing_max_errorbar(
-        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Horizontal", figname="miss_vs_tf_max_hor.png"
+        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Horizontal", figname="miss_vs_tf_max_hor.png",
     )
     plot_bbing_max_errorbar(
-        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Vertical", figname="miss_vs_tf_max_ver.png"
+        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Vertical", figname="miss_vs_tf_max_ver.png",
     )
     plot_bbing_with_ips_errorbar(
-        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Horizontal", figname="miss_vs_tf_ips_hor.png"
+        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Horizontal", figname="miss_vs_tf_ips_hor.png",
     )
     plot_bbing_with_ips_errorbar(
-        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Vertical", figname="miss_vs_tf_ips_ver.png"
+        errors, beta_beatings_df=bbing_df, stdev_df=std_df, plane="Vertical", figname="miss_vs_tf_ips_ver.png",
     )
 
 

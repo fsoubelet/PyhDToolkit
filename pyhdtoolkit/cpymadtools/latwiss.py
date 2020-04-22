@@ -60,7 +60,7 @@ class LaTwiss:
 
     @staticmethod
     def plot_latwiss(
-        cpymad_instance, title: str, figsize: tuple = (16, 10), savefig: str = None, xlimits: tuple = None, **kwargs
+        cpymad_instance, title: str, figsize: tuple = (16, 10), savefig: str = None, xlimits: tuple = None, **kwargs,
     ) -> None:
         """
         Provided with an active Cpymad class after having ran a script, will create a plot representing nicely the
@@ -204,12 +204,18 @@ class LaTwiss:
                 cmap="copper",
                 label="Dipoles",
             )
-            plt.scatter(element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF")
-            plt.scatter(element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD")
+            plt.scatter(
+                element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF",
+            )
+            plt.scatter(
+                element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD",
+            )
             if high_orders:
-                plt.scatter(element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS")
                 plt.scatter(
-                    element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO"
+                    element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS",
+                )
+                plt.scatter(
+                    element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO",
                 )
             plt.legend(loc=2)
 

@@ -59,12 +59,12 @@ class CommandLine:
         `timeout` seconds, a `TimeoutExpired` exception will be raised.
 
         Args:
-            command: the command you want to run.
+            command: string, the command you want to run.
             shell: same as `Popen` argument. Setting the shell argument to a true value causes subprocess to spawn an
             intermediate shell process, and tell it to run the command. In other words, using an intermediate shell
             means that variables, glob patterns, and other special shell features in the command string are processed
             before the command is ran.
-            env: same as `Popen` argument, a bit beyond me for now.
+            env: same as `Popen` argument, if you need to modify environment variables only for this command run..
             timeout: same as `Popen.communicate` argument, number of seconds to wait for a response before raising an
             exception.
 
@@ -75,7 +75,11 @@ class CommandLine:
             system to system so the standard output is returned in bytes format and should be decoded later on.
 
         Usage:
-            run('echo hello') -> (0, b'hello\r\n')
+            CommandLine.run('echo hello') -> (0, b'hello\r\n')
+
+            modified_env = os.environ.copy()
+            modified_env['ENV_VAR'] = new_value
+            CommandLine.run('echo $ENV_VAR', env=modified_env) -> (0, b'new_value')
         """
         with timeit(lambda spanned: LOGGER.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
             process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
@@ -84,7 +88,7 @@ class CommandLine:
         return process.poll(), stdout
 
     @staticmethod
-    def terminate(pid: int) -> None:
+    def terminate(pid: int) -> bool:
         """
         Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM to kill.
 
@@ -92,13 +96,15 @@ class CommandLine:
             pid: the process ID to kill
 
         Returns:
-            Nothing.
+            A boolean stating the success of the operation.
         """
         if CommandLine.check_pid_exists(pid):
             os.kill(pid, signal.SIGTERM)
             LOGGER.info(f"Process {pid} has successfully been terminated.")
+            return True
         else:
             LOGGER.error(f"Process with ID {pid} could not be terminated.")
+            return False
 
     @staticmethod
     def get_cmdline_argv() -> list:

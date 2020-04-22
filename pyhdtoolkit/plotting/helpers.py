@@ -50,7 +50,7 @@ class AnnotationsPlotter:
             ha="center",
             bbox=dict(boxstyle="round4", fc="w", color=color, lw=2),
             arrowprops=dict(
-                arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2
+                arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2,
             ),
         )
 

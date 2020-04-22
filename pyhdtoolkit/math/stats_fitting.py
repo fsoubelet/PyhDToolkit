@@ -45,7 +45,7 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
     Model data by finding best fit candidate distribution among those in DISTRIBUTIONS.
 
     Args:
-        data: a pandas.Series with your distribution data as values.
+        data: a pandas.Series or numpy.ndarray with your distribution data as values.
         bins: the number of bins to decompose your data in before performing fittings.
         ax: the matplotlib.axes._subplots.AxesSubplot object on which to plot the pdf of tried functions.
         This should be provided as the ax on which you plotted your distribution.

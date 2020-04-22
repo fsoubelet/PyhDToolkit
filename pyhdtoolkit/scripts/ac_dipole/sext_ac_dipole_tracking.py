@@ -19,6 +19,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical --mask /p
 """
 import argparse
 import sys
+
 from pathlib import Path
 
 from fsbox import logging_tools
@@ -136,16 +137,16 @@ class ACDipoleGrid:
                 )
                 filename_to_write = Path(f"sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick")
                 mask_file = create_script_file(
-                    self.template_str, values_replacing_dict=replace_dict, filename=str(filename_to_write)
+                    self.template_str, values_replacing_dict=replace_dict, filename=str(filename_to_write),
                 )
                 run_madx_mask(mask_file)
                 _move_mask_file_after_running(mask_file_path=mask_file, mask_files_dir=self.mask_files_dir)
                 _rename_madx_outputs(
-                    kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter
+                    kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter,
                 )
                 _convert_trackone_to_sdds()
                 _move_trackone_sdds(
-                    kick_in_sigma=kick_in_sigma, trackfiles_dir=self.trackfiles_planes[kick_plane], plane=plane_letter
+                    kick_in_sigma=kick_in_sigma, trackfiles_dir=self.trackfiles_planes[kick_plane], plane=plane_letter,
                 )
 
     def track_amplitude_for_plane(self, kick_plane: str = None) -> None:
@@ -179,16 +180,16 @@ class ACDipoleGrid:
                 )
                 filename_to_write = Path(f"initial_amplitude_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick")
                 mask_file = create_script_file(
-                    self.template_str, values_replacing_dict=amplitudes_dict, filename=str(filename_to_write)
+                    self.template_str, values_replacing_dict=amplitudes_dict, filename=str(filename_to_write),
                 )
                 run_madx_mask(mask_file)
                 _move_mask_file_after_running(mask_file_path=mask_file, mask_files_dir=self.mask_files_dir)
                 _rename_madx_outputs(
-                    kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter
+                    kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter,
                 )
                 _convert_trackone_to_sdds()
                 _move_trackone_sdds(
-                    kick_in_sigma=kick_in_sigma, trackfiles_dir=self.trackfiles_planes[kick_plane], plane=plane_letter
+                    kick_in_sigma=kick_in_sigma, trackfiles_dir=self.trackfiles_planes[kick_plane], plane=plane_letter,
                 )
 
 

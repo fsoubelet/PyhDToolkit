@@ -9,6 +9,7 @@ import copy
 import math
 import random
 import re
+
 from functools import reduce
 
 
@@ -64,9 +65,12 @@ class ListOperations:
             A list of two lists, one for each boolean output of the filters
 
         Usage:
-            bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True]) -> [['beep', 'boop', 'bar'], ['foo']]
+            bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True]) -> ['beep', 'boop', 'bar'], ['foo']
         """
-        return [[x for i, x in enumerate(lst) if filters[i]], [x for i, x in enumerate(lst) if not filters[i]]]
+        return [
+            [x for i, x in enumerate(lst) if filters[i]],
+            [x for i, x in enumerate(lst) if not filters[i]],
+        ]
 
     @staticmethod
     def bifurcate_by(lst: list, function) -> list:
@@ -108,7 +112,7 @@ class ListOperations:
         """
         if size > len(lst):
             return lst
-        return list(map(lambda x: lst[x * size : x * size + size], list(range(0, math.ceil(len(lst) / size)))))
+        return list(map(lambda x: lst[x * size : x * size + size], list(range(0, math.ceil(len(lst) / size))),))
 
     @staticmethod
     def deep_flatten(lst: list) -> list:
@@ -275,7 +279,10 @@ class ListOperations:
         while amount_to_shuffle > 1:
             rand_index = int(math.floor(random.random() * amount_to_shuffle))
             amount_to_shuffle -= 1
-            temp_list[rand_index], temp_list[amount_to_shuffle] = (temp_list[amount_to_shuffle], temp_list[rand_index])
+            temp_list[rand_index], temp_list[amount_to_shuffle] = (
+                temp_list[amount_to_shuffle],
+                temp_list[rand_index],
+            )
         return temp_list
 
     @staticmethod
@@ -310,7 +317,7 @@ class ListOperations:
         Returns the symmetric difference (https://en.wikipedia.org/wiki/Symmetric_difference) of lists,
         after applying the provided function to each list element of both.
         Create a set by applying the function to each element in every list, then use list comprehension in combination
-        with fn on each one to only keep values not contained in the previously created set of the other.
+        with function on each one to only keep values not contained in the previously created set of the other.
 
         Args:
             lst_1: a list of elements.
@@ -470,7 +477,7 @@ class NumberOperations:
 
         Usage:
             degrees_to_radians(160) -> 2.792526803190927
-            degrees_to_radians(360, decompose=True) -> (92, "pi", "rad")
+            degrees_to_radians(360, decompose=True) -> (2, "pi", "rad")
         """
         if decompose:
             return deg_value / 180, "pi", "rad"
@@ -620,7 +627,10 @@ class StringOperations:
            is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort") -> True
            is_anagram("A first string", "Definitely not an anagram") -> False
         """
-        _str1, _str2 = (str_1.replace(" ", "").replace("'", ""), str_2.replace(" ", "").replace("'", ""))
+        _str1, _str2 = (
+            str_1.replace(" ", "").replace("'", ""),
+            str_2.replace(" ", "").replace("'", ""),
+        )
         return sorted(_str1.lower()) == sorted(_str2.lower())
 
     @staticmethod

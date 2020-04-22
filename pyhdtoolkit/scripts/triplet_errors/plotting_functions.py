@@ -102,8 +102,12 @@ def plot_bbing_max_errorbar(
             color="C1",
             label="Global Beta-Beating from Misalignment Errors",
         )
-        axes.plot(errors, beta_beatings_df.MAX_TFERROR_X, "^", color="C0", label="Max Value from Field Errors")
-        axes.plot(errors, beta_beatings_df.MAX_MISSERROR_X, "^", color="C1", label="Max Value from Misalignment Errors")
+        axes.plot(
+            errors, beta_beatings_df.MAX_TFERROR_X, "^", color="C0", label="Max Value from Field Errors",
+        )
+        axes.plot(
+            errors, beta_beatings_df.MAX_MISSERROR_X, "^", color="C1", label="Max Value from Misalignment Errors",
+        )
         axes.set_xlabel(r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15)
         axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
         plt.tight_layout()
@@ -127,8 +131,12 @@ def plot_bbing_max_errorbar(
             color="C1",
             label="Global Beta-Beating from Misalignment Errors",
         )
-        axes.plot(errors, beta_beatings_df.MAX_TFERROR_Y, "^", color="C0", label="Max Value from Field Errors")
-        axes.plot(errors, beta_beatings_df.MAX_MISSERROR_Y, "^", color="C1", label="Max Value from Misalignment Errors")
+        axes.plot(
+            errors, beta_beatings_df.MAX_TFERROR_Y, "^", color="C0", label="Max Value from Field Errors",
+        )
+        axes.plot(
+            errors, beta_beatings_df.MAX_MISSERROR_Y, "^", color="C1", label="Max Value from Misalignment Errors",
+        )
         axes.set_xlabel(r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15)
         axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
         plt.tight_layout()
@@ -179,7 +187,7 @@ def plot_bbing_with_ips_errorbar(
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP1_TFERROR_X, "^", color="C0", label="IP1 Beta-Beating Value from Field Errors"
+            errors, beta_beatings_df.IP1_TFERROR_X, "^", color="C0", label="IP1 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
@@ -189,7 +197,7 @@ def plot_bbing_with_ips_errorbar(
             label="IP1 Beta-Beating Value from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP5_TFERROR_X, "x", color="C0", label="IP5 Beta-Beating Value from Field Errors"
+            errors, beta_beatings_df.IP5_TFERROR_X, "x", color="C0", label="IP5 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
@@ -222,7 +230,7 @@ def plot_bbing_with_ips_errorbar(
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP1_TFERROR_Y, "^", color="C0", label="IP1 Beta-Beating Value from Field Errors"
+            errors, beta_beatings_df.IP1_TFERROR_Y, "^", color="C0", label="IP1 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
@@ -232,7 +240,7 @@ def plot_bbing_with_ips_errorbar(
             label="IP1 Beta-Beating Value from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP5_TFERROR_Y, "x", color="C0", label="IP5 Beta-Beating Value from Field Errors"
+            errors, beta_beatings_df.IP5_TFERROR_Y, "x", color="C0", label="IP5 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
