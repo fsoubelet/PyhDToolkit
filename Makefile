@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help checklist clean condaenv docker-build format install lines lint tests
+.PHONY : help checklist clean condaenv docker format install lines lint tests
 
 all: install
 
@@ -22,7 +22,7 @@ help:
 	@echo "  $(R) checklist $(E)      to print a pre-release check-list."
 	@echo "  $(R) clean $(E)          to recursively remove build, run, and bitecode files/dirs."
 	@echo "  $(R) condaenv $(E)       to 'conda create' the specific 'PHD' environment I use. Personnal."
-	@echo "  $(R) docker-build $(E)   to build a container image replicating said environment (and other goodies)."
+	@echo "  $(R) docker $(E)   to build a container image replicating said environment (and other goodies)."
 	@echo "  $(R) format $(E)         to recursively apply PEP8 formatting through the 'Black' cli tool."
 	@echo "  $(R) install $(E)        to 'poetry install' this package into the project's virtual environment."
 	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
@@ -60,9 +60,10 @@ condaenv:
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
 
-docker-build:
+docker:
 	@echo "Building docker image with $(D)PHD$(E) conda environment, with tag $(P)simenv$(E)."
-	@docker build -t simenv .
+	@docker build -f ./Dockerfile -t simenv .
+	@docker tag simenv simenv:latest
 	@echo "Done. You can run this with $(P)docker run -it --rm --init simenv$(E)."
 
 format:

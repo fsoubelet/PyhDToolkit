@@ -34,7 +34,7 @@ RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x
 COPY . /pyhdtoolkit
 
 # STEP 7 - Create the PHD conda environment
-RUN conda env create --file /pyhdtoolkit/docker_conda_env.yml --force  > /dev/null \
+RUN conda env create --file /pyhdtoolkit/environment.yml --force  > /dev/null \
     && /opt/conda/bin/conda clean --all --quiet --yes > /dev/null
 
 # STEP 8 - Start a bash shell at runtime

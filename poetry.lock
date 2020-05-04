@@ -140,29 +140,6 @@ version = "0.2.0"
 pandas = ">=0.24.0"
 
 [[package]]
-category = "dev"
-description = "A library for property-based testing"
-name = "hypothesis"
-optional = false
-python-versions = ">=3.5.2"
-version = "5.10.1"
-
-[package.dependencies]
-attrs = ">=19.2.0"
-sortedcontainers = ">=2.1.0,<3.0.0"
-
-[package.extras]
-all = ["django (>=2.2)", "dpcontracts (>=0.4)", "lark-parser (>=0.6.5)", "numpy (>=1.9.0)", "pandas (>=0.19)", "pytest (>=4.3)", "python-dateutil (>=1.4)", "pytz (>=2014.1)"]
-dateutil = ["python-dateutil (>=1.4)"]
-django = ["pytz (>=2014.1)", "django (>=2.2)"]
-dpcontracts = ["dpcontracts (>=0.4)"]
-lark = ["lark-parser (>=0.6.5)"]
-numpy = ["numpy (>=1.9.0)"]
-pandas = ["pandas (>=0.19)"]
-pytest = ["pytest (>=4.3)"]
-pytz = ["pytz (>=2014.1)"]
-
-[[package]]
 category = "main"
 description = "Read metadata from Python packages"
 marker = "python_version < \"3.8\""
@@ -476,14 +453,6 @@ version = "1.14.0"
 
 [[package]]
 category = "dev"
-description = "Sorted Containers -- Sorted List, Sorted Dict, Sorted Set"
-name = "sortedcontainers"
-optional = false
-python-versions = "*"
-version = "2.1.0"
-
-[[package]]
-category = "dev"
 description = "ANSII Color formatting for output in terminal."
 name = "termcolor"
 optional = false
@@ -565,7 +534,7 @@ madx = ["cpymad"]
 tqdm = ["tqdm"]
 
 [metadata]
-content-hash = "56384b330e38478cd5a55796331d0c285f13c7c92261e103ff954277fd8661a2"
+content-hash = "1d425e19ba6bc86d7f8ac2a7f3a0ee56ee06c60c342504cbfe9742e8221b8922"
 python-versions = "^3.6"
 
 [metadata.files]
@@ -668,10 +637,6 @@ flaky = [
 fsbox = [
     {file = "fsbox-0.2.0-py3-none-any.whl", hash = "sha256:21d0f5b24be7b40817dab9c68ae8edcc33481a5bb25ea795aa3ac28e9b693ac7"},
     {file = "fsbox-0.2.0.tar.gz", hash = "sha256:cc913ac4c1358993bca4ff3091c102b7a120d5540d309edbaf4af7100059fdbd"},
-]
-hypothesis = [
-    {file = "hypothesis-5.10.1-py3-none-any.whl", hash = "sha256:2c33b1f50bbe6eaa2d4b45f125c40957fbc479d20b631f9717963eb589974a7a"},
-    {file = "hypothesis-5.10.1.tar.gz", hash = "sha256:790acebcd8445fbc897b0f1a8e1e29ec4f476e6fdb64692c13c14b1e4f3c178d"},
 ]
 importlib-metadata = [
     {file = "importlib_metadata-1.6.0-py2.py3-none-any.whl", hash = "sha256:2a688cbaa90e0cc587f1df48bdc97a6eadccdcd9c35fb3f976a09e3b5016d90f"},
@@ -896,10 +861,6 @@ scipy = [
 six = [
     {file = "six-1.14.0-py2.py3-none-any.whl", hash = "sha256:8f3cd2e254d8f793e7f3d6d9df77b92252b52637291d0f0da013c76ea2724b6c"},
     {file = "six-1.14.0.tar.gz", hash = "sha256:236bdbdce46e6e6a3d61a337c0f8b763ca1e8717c03b369e87a7ec7ce1319c0a"},
-]
-sortedcontainers = [
-    {file = "sortedcontainers-2.1.0-py2.py3-none-any.whl", hash = "sha256:d9e96492dd51fae31e60837736b38fe42a187b5404c16606ff7ee7cd582d4c60"},
-    {file = "sortedcontainers-2.1.0.tar.gz", hash = "sha256:974e9a32f56b17c1bac2aebd9dcf197f3eb9cd30553c5852a3187ad162e1a03a"},
 ]
 termcolor = [
     {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
