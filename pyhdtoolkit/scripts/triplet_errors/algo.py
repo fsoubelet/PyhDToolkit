@@ -15,25 +15,20 @@ from copy import deepcopy
 import numpy as np
 import pandas as pd
 
-from fsbox import logging_tools
-from fsbox.contexts import timeit
+from loguru import logger
 
 import cpymad
 
 from pyhdtoolkit.cpymadtools import lattice_generators
 from pyhdtoolkit.scripts.triplet_errors.data_classes import BetaBeatValues, StdevValues
-from pyhdtoolkit.scripts.triplet_errors.plotting_functions import (
-    plot_bbing_max_errorbar,
-    plot_bbing_with_ips_errorbar,
-)
+from pyhdtoolkit.scripts.triplet_errors.plotting_functions import plot_bbing_max_errorbar, plot_bbing_with_ips_errorbar
+from pyhdtoolkit.utils.contexts import timeit
 
 try:
     import tqdm
 except ImportError:
+    logger.exception("Could not import 'tqdm' package, progress bars are deactivated for this run")
     pass
-
-
-LOGGER = logging_tools.get_logger(__name__)
 
 
 class GridCompute:
@@ -65,9 +60,10 @@ class GridCompute:
         Returns:
             Nothing, directly updates the instance's `nominal_twiss` attribute inplace.
         """
-        LOGGER.info(f"Running simulation for reference nominal run.")
+        logger.info(f"Running simulation for reference nominal run")
         ref_script = lattice_generators.LatticeGenerator.generate_tripleterrors_study_reference()
         self.reference_mad.input(ref_script)
+        logger.debug("Extracting reference Twiss dframe from cpymad")
         reference_dframe = deepcopy(self.reference_mad.table.twiss.dframe())
         return reference_dframe
 
@@ -83,22 +79,22 @@ class GridCompute:
         Returns:
             Nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        with timeit(lambda spanned: LOGGER.info(f"Time to simulate field errors: {spanned:.4f} seconds")):
+        with timeit(lambda spanned: logger.info(f"Simulated field errors in: {spanned:.4f} seconds")):
             for error in error_values:
-                LOGGER.info(f"Running simulation for Relative Field Error: {error}E-4")
+                logger.debug(f"Running simulation for Relative Field Error: {error}E-4")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
                 try:
                     for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
                         # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                        tferrors_twiss = self._track_tf_errors(error)
-                        betabeatings = _get_betabeatings(self.nominal_twiss, tferrors_twiss)  # this is a pd.DataFrame
+                        tferrors_twiss: pd.DataFrame = self._track_tf_error(error)
+                        betabeatings: pd.DataFrame = _get_betabeatings(self.nominal_twiss, tferrors_twiss)
                         temp_data.update_tf_from_cpymad(betabeatings)
                 except NameError:  # if tqdm not installed
                     for _ in range(n_seeds):
                         # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                        tferrors_twiss = self._track_tf_errors(error)
-                        betabeatings = _get_betabeatings(self.nominal_twiss, tferrors_twiss)  # this is a pd.DataFrame
+                        tferrors_twiss: pd.DataFrame = self._track_tf_error(error)
+                        betabeatings: pd.DataFrame = _get_betabeatings(self.nominal_twiss, tferrors_twiss)
                         temp_data.update_tf_from_cpymad(betabeatings)
 
                 # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
@@ -110,7 +106,7 @@ class GridCompute:
                 # Getting the lost seeds if any
                 self.lost_seeds_tf.append(n_seeds - len(temp_data.tferror_bbx))
 
-    def _track_tf_errors(self, error: float) -> pd.DataFrame:
+    def _track_tf_error(self, error: float) -> pd.DataFrame:
         """
         Run tferror tracking for a given seed, which is randomly assigned at function call.
 
@@ -137,22 +133,22 @@ class GridCompute:
         Returns:
             Nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations` attributes.
         """
-        with timeit(lambda spanned: LOGGER.info(f"Time to simulate misalignment errors: {spanned:.4f} seconds")):
+        with timeit(lambda spanned: logger.info(f"Simulated misalignment errors in: {spanned:.4f} seconds")):
             for error in error_values:
-                LOGGER.info(f"Running for Longitudinal Misalignment Error: {float(error)}mm")
+                logger.debug(f"Running for Longitudinal Misalignment Error: {float(error)}mm")
                 temp_data = BetaBeatValues()  # this will hold the beta-beats for all seeds with this error value.
 
                 try:
                     for _ in tqdm.tqdm(range(n_seeds), desc="Simulating", unit="Seeds"):
                         # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                        mserrors_twiss = self._track_miss_errors(error)
-                        betabeatings = _get_betabeatings(self.nominal_twiss, mserrors_twiss)  # this is a pd.DataFrame
+                        mserrors_twiss: pd.DataFrame = self._track_miss_error(error)
+                        betabeatings: pd.DataFrame = _get_betabeatings(self.nominal_twiss, mserrors_twiss)
                         temp_data.update_miss_from_cpymad(betabeatings)
                 except NameError:  # if tqdm not installed
                     for _ in range(n_seeds):
                         # Getting the beta-beatings and appending to temporary BetaBeatValues defined earlier
-                        mserrors_twiss = self._track_miss_errors(error)
-                        betabeatings = _get_betabeatings(self.nominal_twiss, mserrors_twiss)  # this is a pd.DataFrame
+                        mserrors_twiss: pd.DataFrame = self._track_miss_error(error)
+                        betabeatings: pd.DataFrame = _get_betabeatings(self.nominal_twiss, mserrors_twiss)
                         temp_data.update_miss_from_cpymad(betabeatings)
 
                 # Append RMS of all computed seeds for this error value in `rms_betabeatings` instance attribute.
@@ -164,7 +160,7 @@ class GridCompute:
                 # Getting the lost seeds if any
                 self.lost_seeds_miss.append(n_seeds - len(temp_data.misserror_bbx))
 
-    def _track_miss_errors(self, error: float) -> pd.DataFrame:
+    def _track_miss_error(self, error: float) -> pd.DataFrame:
         """
         Run misserror tracking for a given seed, which is randomly assigned at function call.
 
@@ -227,14 +223,14 @@ def main() -> None:
     errors, seeds, _ = _parse_args()
     simulations = GridCompute()
 
-    LOGGER.info(f"Here are the error values that will be ran: {errors}")
+    logger.info(f"Here are the error values that will be ran: \n\t {errors}")
 
     # Running simulations
     simulations.run_tf_errors(errors, seeds)
     simulations.run_miss_errors(errors, seeds)
 
     # Getting the results in dataframes and exporting to csv
-    LOGGER.info(f"Exporting results to csv.")
+    logger.info(f"Exporting results to csv")
     bbing_df = simulations.rms_betabeatings.export(csvname="beta_beatings.csv")
     std_df = simulations.standard_deviations.export(csvname="standard_deviations.csv")
 

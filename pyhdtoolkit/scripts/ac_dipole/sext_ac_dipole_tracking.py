@@ -22,21 +22,13 @@ import sys
 
 from pathlib import Path
 
-from fsbox import logging_tools
-from fsbox.contexts import timeit
+from loguru import logger
 
-from pyhdtoolkit.utils import CommandLine
+from pyhdtoolkit.utils.cmdline import CommandLine
+from pyhdtoolkit.utils.contexts import timeit
 
 OMC_ENV_PYTHON = Path().home() / "anaconda3" / "envs" / "OMC" / "bin" / "python"
 TBT_CONVERTER_SCRIPT = Path().home() / "Repositories" / "Work" / "omc3" / "omc3" / "tbt_converter.py"
-
-LEVELS_DICT: dict = {
-    "debug": logging_tools.DEBUG,
-    "info": logging_tools.INFO,
-    "warning": logging_tools.WARNING,
-    "error": logging_tools.ERROR,
-}
-LOGGER = logging_tools.get_logger(__name__)
 
 
 class ACDipoleGrid:
@@ -65,8 +57,8 @@ class ACDipoleGrid:
         launch and you will cry.
         """
         if len(self.sigmas) != len(set(self.sigmas)):
-            LOGGER.error(
-                f"There is a duplicate in the provided sigma values, which will cause a failure later. Aborting."
+            logger.error(
+                f"There is a duplicate in the provided sigma values, which would cause a failure later. Aborting."
             )
             sys.exit()
 
@@ -75,28 +67,28 @@ class ACDipoleGrid:
         Will create the proper output dirs if they don't exist already.
         """
         if not self.grid_output_dir.is_dir():
-            LOGGER.debug(f"Creating directory '{self.grid_output_dir}'")
+            logger.debug(f"Creating directory '{self.grid_output_dir}'")
             self.grid_output_dir.mkdir()
         if not self.mask_files_dir.is_dir():
-            LOGGER.debug(f"Creating directory '{self.mask_files_dir}'")
+            logger.debug(f"Creating directory '{self.mask_files_dir}'")
             self.mask_files_dir.mkdir()
         if not self.outputdata_dir.is_dir():
-            LOGGER.debug(f"Creating directory '{self.outputdata_dir}'")
+            logger.debug(f"Creating directory '{self.outputdata_dir}'")
             self.outputdata_dir.mkdir()
         if not self.trackfiles_dir.is_dir():
-            LOGGER.debug(f"Creating directory '{self.trackfiles_dir}'")
+            logger.debug(f"Creating directory '{self.trackfiles_dir}'")
             self.trackfiles_dir.mkdir()
         if not self.trackfiles_planes["horizontal"].is_dir():
-            LOGGER.debug(f"Creating directory '{self.trackfiles_planes['horizontal']}'")
+            logger.debug(f"Creating directory '{self.trackfiles_planes['horizontal']}'")
             self.trackfiles_planes["horizontal"].mkdir()
         if not self.trackfiles_planes["vertical"].is_dir():
-            LOGGER.debug(f"Creating directory '{self.trackfiles_planes['vertical']}'")
+            logger.debug(f"Creating directory '{self.trackfiles_planes['vertical']}'")
             self.trackfiles_planes["vertical"].mkdir()
         else:
-            LOGGER.error(f"Output directories already present, you may want to move those.")
+            logger.error(f"Output directories already present, you may want to move those.")
             sys.exit()
 
-    def track_kicks_for_plane(self, kick_plane: str = None) -> None:
+    def track_forced_oscillations_for_plane(self, kick_plane: str = None) -> None:
         """
         Run MAD-X simulations with AC dipole tracking for the given plane, and handle outputs.
 
@@ -107,13 +99,12 @@ class ACDipoleGrid:
             Nothing, runs simulations and orders the outputs properly.
         """
         if kick_plane not in ("horizontal", "vertical"):
-            raise ValueError(
-                f"Plane parameter should be one of 'horizontal', 'vertical' but {kick_plane} was provided."
-            )
+            logger.error(f"Plane parameter {kick_plane} is not a valid value")
+            raise ValueError("Plane parameter should be one of 'horizontal' or 'vertical'")
         plane_letter = "x" if kick_plane == "horizontal" else "y"
 
         with timeit(
-            lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f} seconds")
+            lambda spanned: logger.info(f"Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f} seconds")
         ):
             for kick_in_sigma in self.sigmas:
                 print("")
@@ -149,7 +140,7 @@ class ACDipoleGrid:
                     kick_in_sigma=kick_in_sigma, trackfiles_dir=self.trackfiles_planes[kick_plane], plane=plane_letter,
                 )
 
-    def track_amplitude_for_plane(self, kick_plane: str = None) -> None:
+    def track_free_oscillations_for_plane(self, kick_plane: str = None) -> None:
         """
         Run MAD-X simulations with amplitude offset tracking for the given plane, and handle outputs.
 
@@ -160,13 +151,12 @@ class ACDipoleGrid:
             Nothing, runs simulations and orders the outputs properly.
         """
         if kick_plane not in ("horizontal", "vertical"):
-            raise ValueError(
-                f"Plane parameter should be one of 'horizontal', 'vertical' but {kick_plane} was provided."
-            )
+            logger.error(f"Plane parameter {kick_plane} is not a valid value")
+            raise ValueError("Plane parameter should be one of 'horizontal' or 'vertical'")
         plane_letter = "x" if kick_plane == "horizontal" else "y"
 
         with timeit(
-            lambda spanned: LOGGER.info(f"Tracked all amplitudes for {kick_plane} offsets in {spanned:.4f} seconds")
+            lambda spanned: logger.info(f"Tracked all amplitudes for {kick_plane} offsets in {spanned:.4f} seconds")
         ):
             for kick_in_sigma in self.sigmas:
                 print("")
@@ -208,15 +198,18 @@ def main() -> None:
 
     sim_type = _parse_args()[3]
     if sim_type == "kick":
-        LOGGER.info(f"Planes to kick then track on are: {simulations.run_planes}")
-        LOGGER.info(f"Kick values to compute are (in bunch sigmas): {simulations.sigmas}")
+        logger.info(f"Planes to kick then track on are: {simulations.run_planes}")
+        logger.info(f"Kick values to compute are (in bunch sigmas): {simulations.sigmas}")
         for plane in simulations.run_planes:
-            simulations.track_kicks_for_plane(kick_plane=plane)
-    if sim_type == "amp":
-        LOGGER.info(f"Planes to offset then track on are: {simulations.run_planes}")
-        LOGGER.info(f"Registered initial amplitudes for tracking are (in bunch sigmas): {simulations.sigmas}")
+            simulations.track_forced_oscillations_for_plane(kick_plane=plane)
+    elif sim_type == "amp":
+        logger.info(f"Planes to offset then track on are: {simulations.run_planes}")
+        logger.info(f"Registered initial amplitudes for tracking are (in bunch sigmas): {simulations.sigmas}")
         for plane in simulations.run_planes:
-            simulations.track_amplitude_for_plane(kick_plane=plane)
+            simulations.track_free_oscillations_for_plane(kick_plane=plane)
+    else:
+        logger.error(f"Simulation type {sim_type} is not a valid value")
+        raise ValueError("Simulation type should be one of 'kick' or 'amp'")
 
 
 # ---------------------- Public Utilities ---------------------- #
@@ -232,15 +225,15 @@ def run_madx_mask(mask_file: Path) -> None:
     Returns:
         Nothing.
     """
-    LOGGER.debug(f"Running madx on script: '{mask_file}'")
+    logger.debug(f"Running madx on script: '{mask_file}'")
     exit_code, std_out = CommandLine.run(f"madx {mask_file}")
     std_out = std_out.decode()  # Default considers 'utf-8', can be different depending on your system.
     if exit_code != 0:  # Dump madx log in case of failure so we can see where it went wrong.
-        LOGGER.warning(f"MAD-X command self-killed with exit code: {exit_code}")
+        logger.warning(f"MAD-X command self-killed with exit code: {exit_code}")
         log_dump = Path(f"failed_madx_returnedcode_{exit_code}.log")
         with log_dump.open("w") as logfile:
             logfile.write(std_out)
-        LOGGER.warning(f"The standard output has been dumped to file 'failed_command_{exit_code}.logfile'.")
+        logger.warning(f"The standard output has been dumped to file 'failed_command_{exit_code}.logfile'.")
 
 
 def create_script_file(template_as_str: str = None, values_replacing_dict: dict = None, filename: Path = None) -> Path:
@@ -272,15 +265,15 @@ def _convert_trackone_to_sdds() -> None:
         Nothing.
     """
     if not Path("trackone").is_file():
-        LOGGER.error(f"Tried to call 'tbt_converter' without a 'trackone' file present, aborting")
+        logger.error(f"Tried to call 'tbt_converter' without a 'trackone' file present, aborting")
         sys.exit()
 
-    LOGGER.debug(f"Running '{TBT_CONVERTER_SCRIPT}' on 'trackone' file")
+    logger.debug(f"Running '{TBT_CONVERTER_SCRIPT}' on 'trackone' file")
     CommandLine.run(f"{OMC_ENV_PYTHON} {TBT_CONVERTER_SCRIPT} --file trackone --outputdir . --tbt_datatype trackone")
-    LOGGER.debug(f"Removing trackone file 'trackone'")
+    logger.debug(f"Removing trackone file 'trackone'")
     Path("trackone").unlink()
 
-    LOGGER.debug(f"Removing outputs of 'tbt_converter'")
+    logger.debug(f"Removing outputs of 'tbt_converter'")
     Path("stats.txt").unlink()
     for tbt_output_file in list(Path(".").glob("converter_*")):
         tbt_output_file.unlink()
@@ -315,7 +308,7 @@ def _move_mask_file_after_running(mask_file_path: Path, mask_files_dir: Path) ->
     Returns:
         Nothing.
     """
-    LOGGER.debug(f"Moving mask file to 'grid_outputs'")
+    logger.debug(f"Moving mask file '{mask_file_path}' to directory '{mask_files_dir}'")
     mask_file_path.rename(f"{mask_files_dir}/{mask_file_path}")
 
 
@@ -333,8 +326,9 @@ def _move_trackone_sdds(kick_in_sigma: str, trackfiles_dir: Path, plane: str) ->
         Nothing.
     """
     if str(plane) not in ("x", "y"):
-        raise ValueError(f"Plane parameter should be one of 'x', 'y' but {plane} was provided.")
-    LOGGER.debug(f"Moving trackone sdds file to 'grid_outputs'")
+        logger.error(f"Plane parameter {plane} is not a valid value")
+        raise ValueError("Plane parameter should be one of 'x' or 'y'")
+    logger.debug(f"Moving trackone sdds file to directory '{trackfiles_dir}'")
     track_sdds_file = Path("trackone.sdds")
     track_sdds_file.rename(f"{trackfiles_dir}/trackone_{kick_in_sigma}_sigma_{plane}.sdds")
 
@@ -408,17 +402,20 @@ def _rename_madx_outputs(kick_in_sigma: str, outputdata_dir: Path, plane: str) -
     if str(plane) not in ("x", "y"):
         raise ValueError(f"Plane parameter should be one of 'x', 'y' but {plane} was provided.")
     madx_outputs = Path("Outputdata")
-    LOGGER.debug(f"Moving MAD-X outputs to 'grid_outputs'")
+    logger.debug(f"Moving MAD-X outputs to directory '{outputdata_dir}'")
     madx_outputs.rename(f"{outputdata_dir}/Outputdata_{kick_in_sigma}_sigma_{plane}")
 
 
 def _set_logger_level() -> None:
     """
-    Simple function to update the logger console base level from commandline arguments.
+    Sets the logger level to the one provided at the commandline.
+
+    Default loguru handler will have DEBUG level and ID 0.
+    We need to first remove this default handler and add ours with the wanted level.
     """
-    global LOGGER
-    log_level = _parse_args()[4]
-    LOGGER = logging_tools.get_logger(__name__, level_console=LEVELS_DICT[log_level])
+    log_level = _parse_args()[4].upper()
+    logger.remove(0)
+    logger.add(sys.stderr, level=log_level)
 
 
 def _write_script_to_file(script_as_string: str, filename: str) -> Path:
@@ -433,7 +430,7 @@ def _write_script_to_file(script_as_string: str, filename: str) -> Path:
         The `pathlib.Path` object to the created file.
     """
     file_path = Path(filename + ".mask")
-    LOGGER.debug(f"Creating new mask file '{file_path}'")
+    logger.debug(f"Creating new mask file '{file_path}'")
     with file_path.open("w") as script:
         script.write(script_as_string)
     return file_path

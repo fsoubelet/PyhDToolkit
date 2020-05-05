@@ -7,6 +7,8 @@ A collection of functions for performing different common operations on a cpymad
 
 import numpy as np
 
+from loguru import logger
+
 
 class LatticeMatcher:
     """
@@ -28,6 +30,7 @@ class LatticeMatcher:
         Returns:
             Nothing.
         """
+        logger.debug(f"Starting matching sequence for target tunes {q1_target} and {q2_target}")
         cpymad_instance.input(
             f"""
 !MATCHING SEQUENCE
@@ -57,6 +60,7 @@ twiss;
         Returns:
             Nothing.
         """
+        logger.debug(f"Starting matching sequence for target chromaticities {dq1_target} and {dq2_target}")
         cpymad_instance.input(
             f"""
 !MATCHING SEQUENCE
@@ -114,6 +118,7 @@ class Parameters:
         }
 
         if verbose:
+            logger.debug("Outputing computed values")
             print(
                 f"""Particle type: proton
             Beam momentum= {parameters["pc_GeV"]:2.3f} GeV/c

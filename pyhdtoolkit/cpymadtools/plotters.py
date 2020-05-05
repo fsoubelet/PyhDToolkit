@@ -8,6 +8,7 @@ A collection of functions to plot different output results from a cpymad.MadX ob
 import matplotlib.pyplot as plt
 import numpy as np
 
+from loguru import logger
 from matplotlib import colors as mcolors
 
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
@@ -52,6 +53,7 @@ class AperturePlotter:
             Nothing, just plots.
         """
         # We need to interpolate in order to get high resolution along the s direction
+        logger.debug("Running interpolation in cpymad")
         cpymad_instance.input(
             """
         select, flag=interpolate, class=drift, slice=4, range=#s/#e;
@@ -61,6 +63,8 @@ class AperturePlotter:
         twiss;
         """
         )
+
+        logger.debug("Getting Twiss dframe from cpymad")
         twiss_hr = cpymad_instance.table.twiss.dframe()
         twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params["eg_y_m"])
         twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params["eg_y_m"])
@@ -76,7 +80,7 @@ class AperturePlotter:
 
         plt.figure(figsize=figsize)
 
-        # Plotting the horizontal aperture
+        logger.debug("Plotting the horizontal aperture")
         axis1 = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
         axis1.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
         axis1.plot(twiss_hr.s, -twiss_hr.envelope_x, color="b")
@@ -92,7 +96,7 @@ class AperturePlotter:
         axis1.set_xlabel("s [m]")
         axis1.set_title(f"Horizontal aperture at {beam_params['pc_GeV']} GeV/c")
 
-        # Plotting the vertical aperture
+        logger.debug("Plotting the vertical aperture")
         axis2 = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=1, sharex=axis1)
         axis2.plot(twiss_hr.s, twiss_hr.envelope_y, color="r")
         axis2.plot(twiss_hr.s, -twiss_hr.envelope_y, color="r")
@@ -109,7 +113,7 @@ class AperturePlotter:
         axis2.set_xlabel("s [m]")
         axis2.set_title(f"Vertical aperture at {beam_params['pc_GeV']} GeV/c")
 
-        # Plotting the stay-clear envelope
+        logger.debug("Plotting the stay-clear envelope")
         axis3 = plt.subplot2grid((3, 3), (2, 0), colspan=3, rowspan=1, sharex=axis1)
         axis3.plot(machine.s, machine.aper_1 / machine.envelope_x, ".-b", label="Horizontal plane")
         axis3.plot(machine.s, machine.aper_2 / machine.envelope_y, ".-r", label="Vertical plane")
@@ -120,6 +124,7 @@ class AperturePlotter:
         axis3.set_title(f"Stay-clear envelope at {beam_params['pc_GeV']} GeV/c")
 
         if savefig:
+            logger.info(f"Saving aperture plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
 
 
@@ -162,6 +167,7 @@ class DynamicAperturePlotter:
         plt.ylabel("Initial amplitude [mm]", fontsize=17)
 
         if savefig:
+            logger.info(f"Saving dynamic aperture plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
 
 
@@ -197,12 +203,15 @@ class PhaseSpacePlotter:
         plt.title("Normalized Phase Space", fontsize=20)
 
         # Getting the P matrix to compute normalized coordinates
+        logger.debug("Getting Twiss functions from cpymad")
         alpha = cpymad_instance.table.twiss.alfx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.alfy[0]
         beta = cpymad_instance.table.twiss.betx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.bety[0]
+
+        logger.debug("Computing P-matrix to get normalized coordinates")
         p_matrix = np.array([[np.sqrt(beta), 0], [-alpha / np.sqrt(beta), 1 / np.sqrt(beta)]])
         p_matrix_inv = np.linalg.inv(p_matrix)
 
-        # Plotting phase space
+        logger.debug(f"Plotting normalised phase space for {plane.lower()}")
         for index, u_particle in enumerate(u_coordinates):
             u = np.array([u_coordinates[index], pu_coordinates[index]])
             u_bar = p_matrix_inv @ u
@@ -219,6 +228,7 @@ class PhaseSpacePlotter:
                 raise ValueError("Plane should be either Horizontal or Vertical")
 
         if savefig:
+            logger.info(f"Saving normalized phase space plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
 
     @staticmethod
@@ -254,13 +264,15 @@ class PhaseSpacePlotter:
         plt.figure(figsize=size) if size else plt.figure(figsize=(16, 8))
         plt.title("Normalized Phase Space", fontsize=20)
 
-        # Getting the P matrix to compute normalized coordinates
+        logger.debug("Getting Twiss functions from cpymad")
         alpha = cpymad_instance.table.twiss.alfx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.alfy[0]
         beta = cpymad_instance.table.twiss.betx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.bety[0]
+
+        logger.debug("Computing P-matrix to get normalized coordinates")
         p_matrix = np.array([[np.sqrt(beta), 0], [-alpha / np.sqrt(beta), 1 / np.sqrt(beta)]])
         p_matrix_inv = np.linalg.inv(p_matrix)
 
-        # Plotting
+        logger.debug(f"Plotting colored normalised phase space for {plane.lower()}")
         for index, u_particle in enumerate(u_coordinates):
             u = np.array([u_coordinates[index], pu_coordinates[index]])
             u_bar = p_matrix_inv @ u
@@ -277,6 +289,7 @@ class PhaseSpacePlotter:
                 raise ValueError("Plane should be either Horizontal or Vertical")
 
         if savefig:
+            logger.info(f"Saving colored normalized phase space plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
 
 
@@ -312,9 +325,12 @@ class TuneDiagramPlotter:
         Returns:
             Nothing, just plots.
         """
+        logger.debug(f"Plotting resonance lines from Farey sequence")
+
         plt.figure(figsize=(13, 13))
         plt.ylim((0, 1))
         plt.xlim((0, 1))
+
         x = np.linspace(0, 1, 1000)
         for i in range(1, 6):
             farey_sequences = TuneDiagramPlotter.farey_sequence(i)
@@ -365,6 +381,8 @@ class TuneDiagramPlotter:
             Nothing, plots the figure.
         """
         TuneDiagramPlotter.plot_blank_tune_diagram()
+
+        logger.debug("Getting Tunes from cpymad")
         new_q1 = cpymad_instance.table.summ.dframe().q1[0]
         new_q2 = cpymad_instance.table.summ.dframe().q2[0]
 
@@ -383,6 +401,7 @@ class TuneDiagramPlotter:
             plt.plot(new_q1 - np.floor(new_q1), new_q2 - np.floor(new_q2), ".g")
 
         if savefig:
+            logger.info(f"Saving Tune diagram plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
 
 

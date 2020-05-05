@@ -10,9 +10,8 @@ import numpy as np
 import pandas as pd
 import scipy.stats as st
 
-from fsbox import logging_tools
+from loguru import logger
 
-LOGGER = logging_tools.get_logger(__name__)
 # Distributions to check #
 DISTRIBUTIONS = {
     st.chi: "Chi",
@@ -36,6 +35,7 @@ def set_distributions_dict(dist_dict: dict = None) -> None:
         Nothing, modifies the global DISTRIBUTIONS dict called by other functions.
     """
     # pylint: disable=global-statement
+    logger.debug("Setting tested distributions")
     global DISTRIBUTIONS
     DISTRIBUTIONS = dist_dict
 
@@ -55,11 +55,11 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
         parameters to give said generator to get this fit.
     """
     # pylint: disable=too-many-locals
-    # Get histogram of original data
+    logger.debug(f"Getting histogram of original data, in {bins} bins")
     y, x = np.histogram(data, bins=bins, density=True)
     x = (x + np.roll(x, -1))[:-1] / 2.0
 
-    # Best holders
+    logger.debug("Creating initial guess")
     best_distribution = st.norm
     best_params = (0.0, 1.0)
     best_sse = np.inf
@@ -70,30 +70,31 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
             with warnings.catch_warnings():  # Ignore warnings from data that can't be fit
                 warnings.filterwarnings("ignore")
 
-                # Fit distribution to data and separate parts of returned parameters
+                logger.debug(f"Trying to fit distribution '{distname}'")
                 params = distribution.fit(data)
                 arg = params[:-2]
                 loc = params[-2]
                 scale = params[-1]
 
-                # Calculate fitted PDF and error with fit in distribution
+                logger.debug(f"Calculating PDF goodness of fit and error for distribution '{distname}'")
                 pdf = distribution.pdf(x, loc=loc, scale=scale, *arg)
                 sse = np.sum(np.power(y - pdf, 2.0))
 
                 try:
                     if ax:
+                        logger.debug(f"Plotting fitted PDF for distribution '{distname}'")
                         pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1, lw=2)
                 except Exception:
-                    LOGGER.warning(f"Plotting distribution '{distname}' failed.")
+                    logger.exception(f"Plotting distribution '{distname}' failed, moving on.")
 
-                # identify if this distribution is better
+                logger.debug(f"Identifying if distribution '{distname}' is a better fit than previous tries")
                 if best_sse > sse > 0:
                     best_distribution = distribution
                     best_params = params
                     best_sse = sse
         except Exception:
-            LOGGER.warning(f"Trying to fit distribution '{distname}' failed and aborted.")
-
+            logger.exception(f"Trying to fit distribution '{distname}' failed and aborted")
+    logger.info(f"Found a best fit: '{DISTRIBUTIONS[best_distribution]}' distribution. Now ending")
     return best_distribution, best_params
 
 
@@ -116,15 +117,17 @@ def make_pdf(distribution, params, size: int = None) -> pd.Series:
     loc = params[-2]
     scale = params[-1]
 
-    # Get sane start and end points of distribution
+    logger.debug("Getting sane start and end points of distribution")
     start = (
         distribution.ppf(0.01, *args, loc=loc, scale=scale) if args else distribution.ppf(0.01, loc=loc, scale=scale)
     )
     end = distribution.ppf(0.99, *args, loc=loc, scale=scale) if args else distribution.ppf(0.99, loc=loc, scale=scale)
 
-    # Build PDF and turn into pandas Series
+    logger.debug("Building PDF.")
     x = np.linspace(start, end, size)
     y = distribution.pdf(x, loc=loc, scale=scale, *args)
+
+    logger.debug("Casting to pandas.Series object")
     return pd.Series(y, x)
 
 

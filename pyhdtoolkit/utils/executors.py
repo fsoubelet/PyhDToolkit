@@ -18,6 +18,8 @@ For instance the default value of m in ThreadPoolExecutor is set to 5 I think is
 
 from concurrent import futures
 
+from loguru import logger
+
 
 class MultiProcessor:
     """
@@ -49,8 +51,10 @@ class MultiProcessor:
             A list of tuples, each tuple being the returned value(s) of your function for the given call,
             for instance [(results, run, one), (results, run, two), (results, run, three)].
         """
+        logger.debug(f"Starting multiprocessing with {n_processes} processes")
         with futures.ProcessPoolExecutor(n_processes) as ex:
             results = ex.map(func, func_args)
+        logger.debug(f"All {n_processes} processes finished")
         return list(results)
 
 
@@ -86,8 +90,10 @@ class MultiThreader:
             A list of tuples, each tuples being the returned value(s) of your function for the given call,
             for instance [(results, run, one), (results, run, two), (results, run, three)].
         """
+        logger.debug(f"Starting multithreading with {n_threads} threads")
         with futures.ThreadPoolExecutor(n_threads) as ex:
             results = ex.map(func, func_args)
+        logger.debug(f"All {n_threads} threads finished")
         return list(results)
 
 

@@ -9,6 +9,8 @@ calculated from the results of the GridCompute Algorithm.
 import numpy as np
 import pandas as pd
 
+from loguru import logger
+
 
 class BetaBeatValues:
     """
@@ -57,7 +59,7 @@ class BetaBeatValues:
         self.tferror_bby.append(_get_rms(cpymad_betabeatings.BETY))
         self.max_tferror_bbx.append(cpymad_betabeatings.BETX.max())
         self.max_tferror_bby.append(cpymad_betabeatings.BETY.max())
-        # cpymad naming: lowercase and :beam
+        # cpymad naming: lowercase and appended with :beam_number
         self.ip1_tferror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]).iloc[0]
         self.ip1_tferror_bby.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]).iloc[0]
         self.ip5_tferror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]).iloc[0]
@@ -99,7 +101,7 @@ class BetaBeatValues:
         self.misserror_bby.append(_get_rms(cpymad_betabeatings.BETY))
         self.max_misserror_bbx.append(cpymad_betabeatings.BETX.max())
         self.max_misserror_bby.append(cpymad_betabeatings.BETY.max())
-        # cpymad naming: lowercase and :beam
+        # cpymad naming: lowercase and appended with :beam_number
         self.ip1_misserror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]).iloc[0]
         self.ip1_misserror_bby.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]).iloc[0]
         self.ip5_misserror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]).iloc[0]
@@ -124,7 +126,7 @@ class BetaBeatValues:
         self.ip5_misserror_bbx.append(_get_rms(temp_data.ip5_misserror_bbx))
         self.ip5_misserror_bby.append(_get_rms(temp_data.ip5_misserror_bby))
 
-    def export(self, csvname: str = None) -> pd.DataFrame:
+    def export(self, csvname: str = "betabeatings.csv") -> pd.DataFrame:
         """
         Exports stored values as a pandas DataFrame, potentially saving them as a csv file.
 
@@ -135,8 +137,7 @@ class BetaBeatValues:
             A `pandas.DataFrame` object with the instance's attributes as columns.
         """
         betabeatings_df = pd.DataFrame(self.__dict__)
-        if csvname is not None:
-            betabeatings_df.to_csv(csvname, index=False)
+        betabeatings_df.to_csv(csvname, index=False)
         return betabeatings_df
 
 
@@ -209,7 +210,7 @@ class StdevValues:
         self.ip5_stdev_miss_x.append(np.std(temp_data.ip5_misserror_bbx))
         self.ip5_stdev_miss_y.append(np.std(temp_data.ip5_misserror_bby))
 
-    def export(self, csvname: str = None) -> pd.DataFrame:
+    def export(self, csvname: str = "stdev.csv") -> pd.DataFrame:
         """
         Simple function to export stored values as a pandas dataframe, potentially saving them as a csv file.
 
@@ -220,8 +221,7 @@ class StdevValues:
             A `pandas.DataFrame` object with the instance's attributes as columns.
         """
         stdev_df = pd.DataFrame(self.__dict__)
-        if csvname is not None:
-            stdev_df.to_csv(csvname, index=False)
+        stdev_df.to_csv(csvname, index=False)
         return stdev_df
 
 
@@ -235,7 +235,11 @@ def _get_rms(values_list: list) -> float:
     Returns:
         The root mean square of said distribution.
     """
-    return np.sqrt(np.sum(i ** 2 for i in values_list) / len(values_list))
+    try:
+        return np.sqrt(np.sum(i ** 2 for i in values_list) / len(values_list))
+    except ZeroDivisionError:
+        logger.exception("An empty list was provided, check the simulation logs to understand why.")
+        raise ZeroDivisionError("No values were provided")
 
 
 if __name__ == "__main__":

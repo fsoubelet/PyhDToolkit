@@ -11,10 +11,9 @@ import signal
 import subprocess
 import sys
 
-from fsbox import logging_tools
-from fsbox.contexts import timeit
+from loguru import logger
 
-LOGGER = logging_tools.get_logger(__name__)
+from pyhdtoolkit.utils.contexts import timeit
 
 
 class CommandLine:
@@ -36,19 +35,22 @@ class CommandLine:
         if pid == 0:
             # According to "man 2 kill",  PID 0 has a special meaning: it refers to <<every process in the process
             # group of the calling process>>, so it is best to not go any further.
-            LOGGER.info(f"PID 0 refers to 'every process in the group of calling processes', and should be untouched.")
+            logger.warning(f"PID 0 refers to 'every process in calling processes', and should be untouched")
             return True
         try:
-            # sending SIG 0 only checks if process has terminated, we're not actually terminating it
+            # Sending SIG 0 only checks if process has terminated, we're not actually terminating it
             os.kill(pid, 0)
-        except OSError as error:
-            if error.errno == errno.ESRCH:  # ERROR "No such process"
+        except OSError as pid_checkout_error:
+            if pid_checkout_error.errno == errno.ESRCH:  # ERROR "No such process"
                 return False
-            if error.errno == errno.EPERM:  # ERROR "Operation not permitted" -> there's a process to deny access to.
+            if (
+                pid_checkout_error.errno == errno.EPERM
+            ):  # ERROR "Operation not permitted" -> there's a process to deny access to.
                 return True
             # According to "man 2 kill" possible error values are (EINVAL, EPERM, ESRCH), therefore we should
             # never get here. If so let's be explicit in considering this an error.
-            raise error
+            logger.exception("Could not figure out the provided PID for some reason")
+            raise pid_checkout_error
         return True
 
     @staticmethod
@@ -81,10 +83,10 @@ class CommandLine:
             modified_env['ENV_VAR'] = new_value
             CommandLine.run('echo $ENV_VAR', env=modified_env) -> (0, b'new_value')
         """
-        with timeit(lambda spanned: LOGGER.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
+        with timeit(lambda spanned: logger.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
             process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
             stdout, _ = process.communicate(timeout=timeout)
-            LOGGER.debug(f"Subprocess command {command} finished with exit code: {process.poll()}")
+            logger.debug(f"Subprocess command {command} finished with exit code: {process.poll()}")
         return process.poll(), stdout
 
     @staticmethod
@@ -100,10 +102,10 @@ class CommandLine:
         """
         if CommandLine.check_pid_exists(pid):
             os.kill(pid, signal.SIGTERM)
-            LOGGER.info(f"Process {pid} has successfully been terminated.")
+            logger.debug(f"Process {pid} has successfully been terminated.")
             return True
         else:
-            LOGGER.error(f"Process with ID {pid} could not be terminated.")
+            logger.error(f"Process with ID {pid} could not be terminated.")
             return False
 
     @staticmethod

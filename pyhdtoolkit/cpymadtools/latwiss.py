@@ -10,6 +10,8 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from loguru import logger
+
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
 
 plt.rcParams.update(PLOT_PARAMS)
@@ -90,6 +92,7 @@ class LaTwiss:
         k1l_lim: tuple = kwargs.get("k1l_lim", (-0.08, 0.08))
 
         # Get data from Madx instance
+        logger.debug("Getting Twiss dframe from cpymad")
         twiss_df = cpymad_instance.table.twiss.dframe()
         plt.figure(figsize=figsize)
 
@@ -145,6 +148,7 @@ class LaTwiss:
         axis3.legend(loc=2)
         axis3.set_ylabel("$\\beta$-functions [m]")
         if beta_ylim:
+            logger.debug("Setting pre-defined ylim for beta functions plot")
             axis3.set_ylim(beta_ylim)
         axis3.set_xlabel("s [m]")
 
@@ -157,11 +161,14 @@ class LaTwiss:
         axis4.tick_params(axis="y", labelcolor="brown")
         axis4.grid(False)
         if disp_ylim:
+            logger.debug("Setting pre-defined ylim for dispersion plot")
             axis4.set_ylim(disp_ylim)
 
         if xlimits:
+            logger.debug("Setting pre-defined xlim for longitudinal coordinate")
             plt.xlim(xlimits)
         if savefig:
+            logger.info(f"Saving latwiss plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
 
     @staticmethod
@@ -190,11 +197,13 @@ class LaTwiss:
         Returns:
             Nothing, plots and eventually saves the figure as a file.
         """
+        logger.debug("Getting machine survey from cpymad")
         cpymad_instance.input("survey;")
         survey = cpymad_instance.table.survey.dframe()
         plt.figure(figsize=figsize)
 
         if show_elements:
+            logger.debug("Plotting survey with elements differentiation")
             element_dfs = _make_survey_groups(survey)
             plt.scatter(
                 element_dfs["dipoles"].z,
@@ -211,6 +220,7 @@ class LaTwiss:
                 element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD",
             )
             if high_orders:
+                logger.debug("Plotting high order magnetic elements (up to octupoles)")
                 plt.scatter(
                     element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS",
                 )
@@ -220,6 +230,7 @@ class LaTwiss:
             plt.legend(loc=2)
 
         else:
+            logger.debug("Plotting survey without elements differentiation")
             plt.scatter(survey.z, survey.x, c=survey.s)
 
         plt.axis("equal")
@@ -229,6 +240,7 @@ class LaTwiss:
         plt.title(title)
 
         if savefig:
+            logger.info(f"Saving machine survey plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
 
 
@@ -246,6 +258,7 @@ def _make_survey_groups(survey_df: pd.DataFrame) -> dict:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing quadrupoles, sextupoles and
         octupoles. The keys are self-explanatory.
     """
+    logger.debug("Getting different element groups dframes from MAD-X survey")
     element_groups = {
         "dipoles": survey_df[
             (survey_df.keyword.isin(["multipole", "sbend", "rbend"])) & (survey_df.name.str.contains("B", case=False))

@@ -28,6 +28,7 @@ class TestAnnotationsPlotter:
         )
 
 
+# This is directly from the matplotlib library, surely that should work, right??
 @image_comparison(baseline_images=["contour_uneven"], extensions=["png"], remove_text=True, style="mpl20")
 @pytest.mark.xfail(reason="Can't figure out matplotlib testing yet.")
 def test_contour_uneven():

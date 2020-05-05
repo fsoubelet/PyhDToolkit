@@ -4,9 +4,9 @@ import scipy.stats as st
 
 from pandas.testing import assert_frame_equal
 
-import pyhdtoolkit.math.nonconvex_phase_sync as nps
+import pyhdtoolkit.maths.nonconvex_phase_sync as nps
 
-from pyhdtoolkit.math import stats_fitting
+from pyhdtoolkit.maths import stats_fitting
 
 REF_DISTRIBUTIONS = stats_fitting.DISTRIBUTIONS
 
@@ -23,9 +23,9 @@ class TestPhaseReconstructor:
     @pytest.mark.parametrize("noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1])
     @pytest.mark.parametrize("n_bpms", [50, 250, 500, 569, 750])
     def test_reconstruction(self, noise_stdev_degrees, n_bpms):
-        signal = nps.create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
-        m_meas = nps.create_meas_matrix_from_values_array(signal)
-        m_noise = nps.create_2d_gaussian_noise(mean=0, stdev=noise_stdev_degrees, shape=m_meas.shape)
+        signal = _create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
+        m_meas = _create_meas_matrix_from_values_array(signal)
+        m_noise = _create_2d_gaussian_noise(mean=0, stdev=noise_stdev_degrees, shape=m_meas.shape)
         m_noised_meas = m_meas + m_noise
         c_hermitian = np.exp(1j * np.deg2rad(m_noised_meas))
         PR = nps.PhaseReconstructor(c_hermitian)
@@ -93,7 +93,83 @@ class TestStatsFitting:
         """
         Can test that the generated pdf is good by checking the mode for a chi2 -> happens at df - 2.
         Make it sweat by generating a distribution and having a fit first."""
-        data = nps.sigmas_square(50_000, meas_used=degrees_of_freedom + 1)
+        data = _sigmas_square(50_000, meas_used=degrees_of_freedom + 1)
         best_fit_func, best_fit_params = stats_fitting.best_fit_distribution(data, 200)
         pdf = stats_fitting.make_pdf(best_fit_func, best_fit_params)
         pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
+
+
+# ---------------------- Utilities ---------------------- #
+
+
+def _create_random_phase_values(low: float, high: float, n_values: int, dist: str) -> np.ndarray:
+    """
+    Returns fake generated phase values. They are ascending by default.
+
+    Args:
+        low: lowest value, first value will always be 0.
+        high: highest value.
+        n_values: number of values to generate.
+        dist: distribution type required. Will be uniform or linspace.
+
+    Returns:
+        A `numpy.ndarray` of shape (n_values,) with the generated values.
+    """
+    if dist == "linspace":
+        values = np.linspace(low, high, n_values)
+    elif dist == "uniform":
+        values = np.sort(np.random.default_rng().uniform(low, high, n_values))
+    else:
+        raise ValueError("Provided parameter 'distribution' should be either 'linspace' or 'uniform'.")
+    values[0] = 0
+    return values
+
+
+def _create_meas_matrix_from_values_array(values_array: np.ndarray) -> np.ndarray:
+    """
+    For testing purposes. Returns the deltas measurements matrix from an array of values.
+
+    Args:
+        values_array: the values of phases at your N BPMs, in a (1, N) shaped `numpy.ndarray`.
+
+    Returns:
+        The matrix, as a `numpy.ndarray`.
+    """
+    return np.array([[i - j for i in values_array] for j in values_array], dtype=float)
+
+
+def _create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndarray:
+    """
+    Generates a 2D Gaussian distribution, makes it antisymmetric and returns it.
+
+    Args:
+        mean:  mean of the distribution, should be 0 for us (since we add to the ideal M_meas).
+        stdev:  standard deviation of the distribution, should be in degrees if M_meas is given in degrees,
+        in radians otherwise.
+        shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
+
+    Returns:
+        A  Gaussian, anti-symmetric, 2D-shaped `numpy.ndarray`.
+    """
+    gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
+    upper_triangle = np.triu(gaussian_2d_mat)
+    return upper_triangle - upper_triangle.T
+
+
+def _sigmas_square(num: int, meas_used: int) -> np.ndarray:
+    """
+    Generate a chi-square distribution of 'num' elements, each computed from a normal distribution of 'meas_used'
+    elements.
+
+    Args:
+        num: number of elements for the generated distribution.
+        meas_used: number of values for each
+
+    Returns:
+        The resulting distribution as a `numpy.ndarray`.
+    """
+    res = []
+    for _ in range(num):
+        norm_dist = np.random.default_rng().normal(loc=0, scale=1, size=meas_used)
+        res.append(np.sum(np.square([i - np.mean(norm_dist) for i in norm_dist])))
+    return np.array(res)
