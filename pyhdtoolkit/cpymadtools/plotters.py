@@ -1,8 +1,12 @@
 """
+Module cpymadtools.plotters
+---------------------------
+
 Created on 2019.12.08
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions to plot different output results from a cpymad.MadX object's simulation results.
+A collection of functions to plot different output results from a cpymad.MadX object's
+simulation results.
 """
 
 import matplotlib.pyplot as plt
@@ -16,7 +20,10 @@ from pyhdtoolkit.plotting.settings import PLOT_PARAMS
 plt.rcParams.update(PLOT_PARAMS)
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
-BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
+BY_HSV = sorted(
+    (tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name)
+    for name, color in COLORS_DICT.items()
+)
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
@@ -36,17 +43,20 @@ class AperturePlotter:
         savefig: str = None,
     ):
         """
-        Plot the physical aperture of your machine, already defined into the provided cpymad.Madx object.
+        Plot the physical aperture of your machine, already defined into the provided
+        cpymad.Madx object.
 
         Args:
             cpymad_instance: an instanciated `cpymad.MadX` object.
-            beam_params: a beam_parameters dictionary obtained through cpymadtools.helpers.beam_parameters.
+            beam_params: a beam_parameters dictionary obtained through
+                         cpymadtools.helpers.beam_parameters.
             figsize: size of the figure, defaults to (15, 15).
-            xlimits: will implement xlim (for the s coordinate) if this is not None, using the tuple passed.
-            hplane_ylim: the y limits for the horizontal plane plot (so that machine geometry doesn't make the  plot
-            look shrinked).
-            vplane_ylim: the y limits for the vertical plane plot (so that machine geometry doesn't make the plot
-            look shrinked).
+            xlimits: will implement xlim (for the s coordinate) if this is not None, using the
+                     tuple passed.
+            hplane_ylim: the y limits for the horizontal plane plot (so that machine geometry
+                         doesn't make the  plot look shrinked).
+            vplane_ylim: the y limits for the vertical plane plot (so that machine geometry
+                         doesn't make the plot look shrinked).
             savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
@@ -84,8 +94,12 @@ class AperturePlotter:
         axis1 = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
         axis1.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
         axis1.plot(twiss_hr.s, -twiss_hr.envelope_x, color="b")
-        axis1.fill_between(twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25)
-        axis1.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25)
+        axis1.fill_between(
+            twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25
+        )
+        axis1.fill_between(
+            twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25
+        )
         axis1.fill_between(machine.s, machine.aper_1, machine.aper_1 * 100, color="k", alpha=0.5)
         axis1.fill_between(machine.s, -machine.aper_1, -machine.aper_1 * 100, color="k", alpha=0.5)
         axis1.plot(machine.s, machine.aper_1, "k.-")
@@ -100,10 +114,18 @@ class AperturePlotter:
         axis2 = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=1, sharex=axis1)
         axis2.plot(twiss_hr.s, twiss_hr.envelope_y, color="r")
         axis2.plot(twiss_hr.s, -twiss_hr.envelope_y, color="r")
-        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(
+            twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25
+        )
+        axis2.fill_between(
+            twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25
+        )
+        axis2.fill_between(
+            twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25
+        )
+        axis2.fill_between(
+            twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25
+        )
         axis2.fill_between(machine.s, machine.aper_2, machine.aper_2 * 100, color="k", alpha=0.5)
         axis2.fill_between(machine.s, -machine.aper_2, -machine.aper_2 * 100, color="k", alpha=0.5)
         axis2.plot(machine.s, machine.aper_2, "k.-")
@@ -136,8 +158,8 @@ class DynamicAperturePlotter:
     @staticmethod
     def plot_dynamic_aperture(vx_coords, vy_coords, n_particles: int, savefig: str = None) -> None:
         """
-        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the Y axis,
-        and the turn at which they were lost is in the X axis.
+        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
+        vertical axis, and the turn at which they were lost is in the horizontal axis.
 
         Args:
             vx_coords: array-like, horizontal coordinates over turns.
@@ -181,17 +203,17 @@ class PhaseSpacePlotter:
         cpymad_instance, u_coordinates, pu_coordinates, savefig: str = None, **kwargs
     ) -> None:
         """
-        Plots the normalized phase space of a particle distribution when provided by position and momentum
-        coordinates for a specific plane.
+        Plots the normalized phase space of a particle distribution when provided by position and
+        momentum coordinates for a specific plane.
 
         Args:
             cpymad_instance: an instanciated `cpymad.madx.Madx` object.
             u_coordinates: coordinates of particles.
             pu_coordinates: momentum coordinates of particles.
-            **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
-            specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether
-            or not to save the figure to file.
             savefig: will save the figure if this is not None, using the string value passed.
+            **kwargs: The looked for keywords are `size` and `plane`. They give the possibility of
+                      specifying the size of the plotted figure, the provided physical plane
+                      (horizontal / vertical) and wether or not to save the figure to file.
 
         Returns:
             Nothing, plots the figure.
@@ -204,8 +226,16 @@ class PhaseSpacePlotter:
 
         # Getting the P matrix to compute normalized coordinates
         logger.debug("Getting Twiss functions from cpymad")
-        alpha = cpymad_instance.table.twiss.alfx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.alfy[0]
-        beta = cpymad_instance.table.twiss.betx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.bety[0]
+        alpha = (
+            cpymad_instance.table.twiss.alfx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.alfy[0]
+        )
+        beta = (
+            cpymad_instance.table.twiss.betx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.bety[0]
+        )
 
         logger.debug("Computing P-matrix to get normalized coordinates")
         p_matrix = np.array([[np.sqrt(beta), 0], [-alpha / np.sqrt(beta), 1 / np.sqrt(beta)]])
@@ -236,18 +266,20 @@ class PhaseSpacePlotter:
         cpymad_instance, u_coordinates, pu_coordinates, savefig: str = None, **kwargs
     ) -> None:
         """
-        Plots the normalized phase space of a particle distribution when provided by position and momentum
-        coordinates for a specific plane. Each particle trajectory has its own color on the plot, within the limit of
-        pyplot's 156 named colors. The sequence repeats after the 156th color.
+        Plots the normalized phase space of a particle distribution when provided by position and
+        momentum coordinates for a specific plane. Each particle trajectory has its own color on
+        the plot, within the limit of pyplot's 156 named colors. The sequence repeats after the
+        156th color.
 
         Args:
             cpymad_instance: an instanciated `cpymad.madx.Madx` object.
             u_coordinates: coordinates of particles.
             pu_coordinates: momentum coordinates of particles.
-            **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
-            specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether
-            or not to save the figure to file.
             savefig: will save the figure if this is not None, using the string value passed.
+            **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the
+                      possibility of specifying the size of the plotted figure, the provided
+                      physical plane (horizontal / vertical) and wether or not to save the figure
+                      to file.
 
         Returns:
             Nothing, plots the figure.
@@ -265,8 +297,16 @@ class PhaseSpacePlotter:
         plt.title("Normalized Phase Space", fontsize=20)
 
         logger.debug("Getting Twiss functions from cpymad")
-        alpha = cpymad_instance.table.twiss.alfx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.alfy[0]
-        beta = cpymad_instance.table.twiss.betx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.bety[0]
+        alpha = (
+            cpymad_instance.table.twiss.alfx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.alfy[0]
+        )
+        beta = (
+            cpymad_instance.table.twiss.betx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.bety[0]
+        )
 
         logger.debug("Computing P-matrix to get normalized coordinates")
         p_matrix = np.array([[np.sqrt(beta), 0], [-alpha / np.sqrt(beta), 1 / np.sqrt(beta)]])
@@ -338,10 +378,10 @@ class TuneDiagramPlotter:
                 h, k = f  # Node h/k on the axes
                 for sequence in farey_sequences:
                     p, q = sequence
-                    c = float(p * h)
                     a = float(k * p)  # Resonance linea Qx + b*Qy = clinkedtop / q
-                    b = float(q - k * p)
                     if a > 0:
+                        b = float(q - k * p)
+                        c = float(p * h)
                         plt.plot(x, c / a - x * b / a, "b", alpha=0.1)
                         plt.plot(x, c / a + x * b / a, "b", alpha=0.1)
                         plt.plot(c / a - x * b / a, x, "b", alpha=0.1)

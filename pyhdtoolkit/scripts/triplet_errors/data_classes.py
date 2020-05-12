@@ -1,9 +1,12 @@
 """
+Module scripts.triplet_errors.data_classes
+------------------------------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A few classes that will be useful to store values
-calculated from the results of the GridCompute Algorithm.
+A few classes that will be useful to store values calculated from the results of the GridCompute
+Algorithm.
 """
 
 import numpy as np
@@ -45,12 +48,12 @@ class BetaBeatValues:
 
     def update_tf_from_cpymad(self, cpymad_betabeatings: pd.DataFrame) -> None:
         """
-        This is to update a temporary BetaBeatValues after having ran a simulation for a specific seed.
-        Appends relevant values to the instance's attributes.
+        This is to update a temporary BetaBeatValues after having ran a simulation for a specific
+        seed. Appends relevant values to the instance's attributes.
 
         Args:
-            cpymad_betabeatings: a `pandas.DataFrame` with beta-beatings from the simulation, compared to the
-            nominal twiss from a reference run.
+            cpymad_betabeatings: a `pandas.DataFrame` with beta-beatings from the simulation,
+                                 compared to the nominal twiss from a reference run.
 
         Returns:
             Nothing, updates inplace.
@@ -60,10 +63,18 @@ class BetaBeatValues:
         self.max_tferror_bbx.append(cpymad_betabeatings.BETX.max())
         self.max_tferror_bby.append(cpymad_betabeatings.BETY.max())
         # cpymad naming: lowercase and appended with :beam_number
-        self.ip1_tferror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]).iloc[0]
-        self.ip1_tferror_bby.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]).iloc[0]
-        self.ip5_tferror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]).iloc[0]
-        self.ip5_tferror_bby.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETY"]).iloc[0]
+        self.ip1_tferror_bbx.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]
+        ).iloc[0]
+        self.ip1_tferror_bby.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]
+        ).iloc[0]
+        self.ip5_tferror_bbx.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]
+        ).iloc[0]
+        self.ip5_tferror_bby.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETY"]
+        ).iloc[0]
 
     def update_tf_from_seeds(self, temp_data) -> None:
         """
@@ -91,8 +102,8 @@ class BetaBeatValues:
         Appends relevant values to the instance's attributes.
 
         Args:
-            cpymad_betabeatings: a `pandas.DataFrame` with beta-beatings from the simulation, compared to the
-            nominal twiss from a reference run.
+            cpymad_betabeatings: a `pandas.DataFrame` with beta-beatings from the simulation,
+            compared to the nominal twiss from a reference run.
 
         Returns:
             Nothing, updates inplace.
@@ -102,10 +113,18 @@ class BetaBeatValues:
         self.max_misserror_bbx.append(cpymad_betabeatings.BETX.max())
         self.max_misserror_bby.append(cpymad_betabeatings.BETY.max())
         # cpymad naming: lowercase and appended with :beam_number
-        self.ip1_misserror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]).iloc[0]
-        self.ip1_misserror_bby.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]).iloc[0]
-        self.ip5_misserror_bbx.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]).iloc[0]
-        self.ip5_misserror_bby.append(cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETY"]).iloc[0]
+        self.ip1_misserror_bbx.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]
+        ).iloc[0]
+        self.ip1_misserror_bby.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]
+        ).iloc[0]
+        self.ip5_misserror_bbx.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]
+        ).iloc[0]
+        self.ip5_misserror_bby.append(
+            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETY"]
+        ).iloc[0]
 
     def update_miss_from_seeds(self, temp_data) -> None:
         """
@@ -212,7 +231,8 @@ class StdevValues:
 
     def export(self, csvname: str = "stdev.csv") -> pd.DataFrame:
         """
-        Simple function to export stored values as a pandas dataframe, potentially saving them as a csv file.
+        Simple function to export stored values as a pandas dataframe, potentially saving
+        them as a csv file.
 
         Args:
             csvname: the name to give the csv file.

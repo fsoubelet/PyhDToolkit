@@ -33,13 +33,12 @@ before_script:
   - ./cc-test-reporter before-build
 
 script:
-  - $HOME/.poetry/bin/poetry run pytest --no-flaky-report --verbose -p no:sugar --cov-report=xml --cov=pyhdtoolkit/ tests
+  - $HOME/.poetry/bin/poetry run pytest --verbose --no-flaky-report -p no:sugar --cov-report=xml --cov-report term-missing --cov=pyhdtoolkit/ tests
 
 # Not needed yet
 #after_success:
 #  - docker build -t simenv .
 #  - docker images
 
-# Taking out for now as I can't get it to work
 after_script:
   - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT

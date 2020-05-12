@@ -20,7 +20,7 @@ from pyhdtoolkit.cpymadtools.plotters import (
     TuneDiagramPlotter,
 )
 
-# This will only work on Linux, and we don't want to fail tests because import is not ok on some platforms
+# Will only work on Linux, we don't want failing tests because import is fails on some platforms
 try:
     import cpymad
     from cpymad.madx import Madx
@@ -86,23 +86,35 @@ twiss;
 """
 
 
-@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux.")
+@pytest.mark.skipif(
+    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
+)
 class TestAperturePlotter:
     @image_comparison(
-        baseline_images=["physical_aperture"], remove_text=True, extensions=["png", "pdf"], savefig_kwarg={"dpi": 300},
+        baseline_images=["physical_aperture"],
+        remove_text=True,
+        extensions=["png", "pdf"],
+        savefig_kwarg={"dpi": 300},
     )
     @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
     def test_plot_aperture(self):
-        beam_fb = Parameters.beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True)
+        beam_fb = Parameters.beam_parameters(
+            1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True
+        )
         madx = Madx(stdout=False)
         madx.input(GUIDO_LATTICE)
         AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20))
 
 
-@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux.")
+@pytest.mark.skipif(
+    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
+)
 class TestDynamicAperturePlotter:
     @image_comparison(
-        baseline_images=["dynamic_aperture"], remove_text=True, extensions=["png", "pdf"], savefig_kwarg={"dpi": 300},
+        baseline_images=["dynamic_aperture"],
+        remove_text=True,
+        extensions=["png", "pdf"],
+        savefig_kwarg={"dpi": 300},
     )
     @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
     def test_plot_dynamic_aperture(self):
@@ -114,13 +126,20 @@ class TestDynamicAperturePlotter:
         LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
 
         x_coords_stable, y_coords_stable, _, _ = _perform_tracking_for_coordinates(madx)
-        DynamicAperturePlotter.plot_dynamic_aperture(x_coords_stable, y_coords_stable, n_particles=n_particles)
+        DynamicAperturePlotter.plot_dynamic_aperture(
+            x_coords_stable, y_coords_stable, n_particles=n_particles
+        )
 
 
-@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux.")
+@pytest.mark.skipif(
+    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
+)
 class TestLaTwiss:
     @image_comparison(
-        baseline_images=["latwiss"], remove_text=True, extensions=["png", "pdf"], savefig_kwarg={"dpi": 300},
+        baseline_images=["latwiss"],
+        remove_text=True,
+        extensions=["png", "pdf"],
+        savefig_kwarg={"dpi": 300},
     )
     @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
     def test_plot_latwiss(self):
@@ -132,17 +151,24 @@ class TestLaTwiss:
         LaTwiss.plot_latwiss(cpymad_instance=madx, title="Project 3 Base Lattice")
 
     @image_comparison(
-        baseline_images=["machine_survey"], remove_text=True, extensions=["png", "pdf"], savefig_kwarg={"dpi": 300},
+        baseline_images=["machine_survey"],
+        remove_text=True,
+        extensions=["png", "pdf"],
+        savefig_kwarg={"dpi": 300},
     )
     @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
     def test_plot_machine_survey(self):
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        Latwiss.plot_machine_survey(cpymad_instance=madx, show_elements=True, high_orders=True, figsize=(20, 15))
+        Latwiss.plot_machine_survey(
+            cpymad_instance=madx, show_elements=True, high_orders=True, figsize=(20, 15)
+        )
 
 
-@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux.")
+@pytest.mark.skipif(
+    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
+)
 class TestLatticeMatcher:
     @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
     def test_tune_matching(self, q1_target, q2_target):
@@ -169,13 +195,14 @@ class TestLatticeMatcher:
 
 class TestParameters:
     @pytest.mark.parametrize(
-        "pc_Gev, en_x_m, en_y_m, delta_p, result_dict",
+        "pc_Gev, en_x_m, en_y_m, delta_p, verbosity, result_dict",
         [
             (
                 1.9,
                 5e-6,
                 5e-6,
                 2e-3,
+                False,
                 {
                     "pc_GeV": 1.9,
                     "B_rho_Tm": 6.3376399999999995,
@@ -196,6 +223,7 @@ class TestParameters:
                 5e-6,
                 5e-6,
                 2e-4,
+                True,
                 {
                     "pc_GeV": 19,
                     "B_rho_Tm": 63.3764,
@@ -213,11 +241,13 @@ class TestParameters:
             ),
         ],
     )
-    def test_beam_parameters(self, pc_Gev, en_x_m, en_y_m, delta_p, result_dict):
-        assert Parameters.beam_parameters(pc_Gev, en_x_m, en_y_m, delta_p) == result_dict
+    def test_beam_parameters(self, pc_Gev, en_x_m, en_y_m, delta_p, result_dict, verbosity):
+        assert Parameters.beam_parameters(pc_Gev, en_x_m, en_y_m, delta_p, verbosity) == result_dict
 
 
-@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux.")
+@pytest.mark.skipif(
+    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
+)
 class TestPhaseSpacePlotter:
     @image_comparison(
         baseline_images=["normalized_phase_space"],
@@ -234,7 +264,9 @@ class TestPhaseSpacePlotter:
         LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-        PhaseSpacePlotter.plot_normalized_phase_space(madx, x_coords_stable, px_coords_stable, plane="Horizontal")
+        PhaseSpacePlotter.plot_normalized_phase_space(
+            madx, x_coords_stable, px_coords_stable, plane="Horizontal"
+        )
         plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
         plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
 
@@ -260,10 +292,15 @@ class TestPhaseSpacePlotter:
         plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
 
 
-@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux.")
+@pytest.mark.skipif(
+    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
+)
 class TestTuneDiagramPlotter:
     @image_comparison(
-        baseline_images=["blank_tune_diagram"], remove_text=True, extensions=["png", "pdf"], savefig_kwarg={"dpi": 300},
+        baseline_images=["blank_tune_diagram"],
+        remove_text=True,
+        extensions=["png", "pdf"],
+        savefig_kwarg={"dpi": 300},
     )
     @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
     def test_plot_blank_tune_diagram(self):
@@ -273,7 +310,10 @@ class TestTuneDiagramPlotter:
         plt.ylim(0, 0.5)
 
     @image_comparison(
-        baseline_images=["tune_diagram"], remove_text=True, extensions=["png", "pdf"], savefig_kwarg={"dpi": 300},
+        baseline_images=["tune_diagram"],
+        remove_text=True,
+        extensions=["png", "pdf"],
+        savefig_kwarg={"dpi": 300},
     )
     @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
     def test_plot_tune_diagram(self):
@@ -291,7 +331,6 @@ class TestTuneDiagramPlotter:
 
         for particle in range(n_particles):
             if np.isnan(x_coords_stable[particle]).any():
-                # print(f"Particle {particle} lost!")
                 Qxs_stable.append(0)
                 xgood_stable.append(False)
             else:
@@ -301,7 +340,6 @@ class TestTuneDiagramPlotter:
                     Qxs_stable.append(pnf.naff(signal, n_turns, 1, 0, False)[0][1])
                     xgood_stable.append(True)
                 except:
-                    # print(f"Particle {particle} lost!")
                     Qxs_stable.append(0)
                     xgood_stable.append(False)
 

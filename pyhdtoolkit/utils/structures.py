@@ -1,4 +1,7 @@
 """
+Module utils.structures
+-----------------------
+
 Created on 2019.11.06
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
@@ -10,17 +13,15 @@ class AttrDict(dict):
     """
     A dict with dot notation.
     Idea and code from:
-        http://stackoverflow.com/a/23689767,
-        http://code.activestate.com/recipes/52308-the-simple-but-handy-collector-of-a-bunch-of-named/
-        http://stackoverflow.com/questions/2390827/how-to-properly-subclass-dict-and-override-get-set
+      http://stackoverflow.com/a/23689767,
+      http://code.activestate.com/recipes/52308-the-simple-but-handy-collector-of-a-bunch-of-named/
+      http://stackoverflow.com/questions/2390827/how-to-properly-subclass-dict-and-override-get-set
     Keys can also be declared with dot notation.
     Usage:
         d = AttrDict()
         d["a"] = 1
         d.b = 2
         d -> {'a': 1, 'b': 2}
-    If you want this functionality to be nested, you can declare
-    nested_attr_dict = lambda
     """
 
     def __init__(self, *a, **kw):

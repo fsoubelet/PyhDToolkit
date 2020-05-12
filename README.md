@@ -86,7 +86,7 @@ If you intend on making changes, clone this repository through VCS and set yours
 
 ## Standards, Testing, Tools and VCS
 
-This repository follows the `Google` docstring format, uses [Black][black_formatter] as a code formatter with a default enforced line length of 120 characters, and [Pylint][pylint_ref] as a linter.
+This repository follows the `Google` docstring format, uses [Black][black_formatter] as a code formatter with a default enforced line length of 100 characters, and [Pylint][pylint_ref] as a linter.
 You can format the code with `make format` and lint it (which will format first) with `make lint`.
 
 Testing builds are ensured after each commit through Travis-CI.

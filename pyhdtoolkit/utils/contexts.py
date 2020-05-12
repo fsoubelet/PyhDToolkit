@@ -1,15 +1,12 @@
 """
-Module contexts
-----------------------
+Module utils.contexts
+---------------------
 
 Provides contexts to use functions in.
 """
 import time
-import warnings
 
 from contextlib import contextmanager
-
-from loguru import logger
 
 
 @contextmanager

@@ -49,7 +49,9 @@ clean:
 	@echo "Cleaning up bitecode files and python cache."
 	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
 	@echo "Cleaning up pytest cache."
-	@find . -type d -name '*.pytest_cache'  -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
+	@find . -type d -name '*.pytest_cache' -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
+	@echo "Cleaning up coverage reports."
+	@find . -type f -name '.coverage' -exec rm -rf {} + -o -type f -name 'coverage.xml' -delete
 	@echo "All cleaned up!\n"
 
 condaenv:
@@ -67,7 +69,7 @@ docker:
 	@echo "Done. You can run this with $(P)docker run -it --rm --init simenv$(E)."
 
 format:
-	@echo "Formatting code to PEP8, default line length is 120."
+	@echo "Formatting code to PEP8, default line length is 100 characters."
 	@poetry run black .
 
 install: format clean
@@ -84,10 +86,10 @@ lint: format
 	@echo "  - $(P)C0103$(E) $(C)'invalid-name'$(E) because there are too many at the moment :(."
 	@echo "  - $(P)E0401$(E) $(C)'import error'$(E) because PyLint is confused with the conda environments."
 	@echo "  - $(P)W1202$(E) $(C)'logging-format-interpolation'$(E) because on this, PyLint is full of shit.\n"
-	@poetry run pylint -j 0 --max-line-length=120 --disable=C0330,W0106,C0103,W1202,R0903,E0401 pyhdtoolkit/
+	@poetry run pylint -j 0 --max-line-length=100 --disable=C0330,W0106,C0103,W1202,R0903,E0401 pyhdtoolkit/
 
 tests: format clean
-	@poetry run pytest --no-flaky-report --verbose
+	@poetry run pytest --no-flaky-report --cov-report term-missing --cov=pyhdtoolkit -p no:sugar
 	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.

@@ -1,4 +1,7 @@
 """
+Script scripts.triplet_errors.plotting_functions
+------------------------------------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet
 
@@ -24,8 +27,8 @@ def plot_betas_across_machine(
 ) -> None:
     """
     Plot beta functions across the machine. Save according to simulation scenario.
-    Creates a plot of the horizontal and vertical beta functions across the whole machine. Gives a title generated
-    according to the error type and error value. Saves in dedicated subfolder.
+    Creates a plot of the horizontal and vertical beta functions across the whole machine. Gives a
+    title generated according to the error type and error value. Saves in dedicated subfolder.
 
     Args:
         s_values: the values of the s axis.
@@ -38,7 +41,9 @@ def plot_betas_across_machine(
         Nothing, plots and saves the figure.
     """
     if error_type == "TFERROR":
-        title = f"r'Beta values, hllhc1.3, 15cm optics, relative field error: {error_value}[$10^{-4}$]'"
+        title = (
+            f"r'Beta values, hllhc1.3, 15cm optics, relative field error: {error_value}[$10^{-4}$]'"
+        )
     elif error_type == "MISERROR":
         title = f"r'Beta values, hllhc1.3 15cm optics, misalignment: {error_value}[mm]'"
     else:
@@ -60,7 +65,9 @@ def plot_betas_across_machine(
     plt.plot(s_values, betx_values, label="BETX")
     plt.plot(s_values, bety_values, label="BETY")
     plt.legend(loc="best", fontsize="xx-large")
-    plt.savefig(f"beta_plots/{error_type}/{error_value}/betas_across_machine.png", format="png", dpi=300)
+    plt.savefig(
+        f"beta_plots/{error_type}/{error_value}/betas_across_machine.png", format="png", dpi=300
+    )
     logger.info(f"Plotted betas for {error_type} {error_value}")
 
 
@@ -68,92 +75,9 @@ def plot_bbing_max_errorbar(
     errors: list, beta_beatings_df: pd.DataFrame, stdev_df: pd.DataFrame, plane: str, figname: str
 ) -> None:
     """
-    Plot beta-beating values, with error bars, as a function of the error values. Save according to plotted plane.
-    Creates a plot of the horizontal or vertical beta-beatings across the range of simulated error values. Gives a
-    title generated according to the error type and error value. Saves in dedicated subfolder.
-
-    Args:
-        errors: list with different error values simulated.
-        beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
-        stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
-        plane: the name of the plane to plot.
-        figname: how to name the file when exporting the plot.
-
-    Returns:
-        Nothing, plots and saves the figure.
-    """
-
-    if plane == "Horizontal":
-        _, axes = plt.subplots(1, 1, figsize=(8, 6))
-        axes.errorbar(
-            errors,
-            beta_beatings_df.TFERROR_X,
-            yerr=stdev_df.STD_TF_X,
-            color="C0",
-            label="Global Beta-Beating from Field Errors",
-        )
-        axes.errorbar(
-            errors,
-            beta_beatings_df.MISSERROR_X,
-            yerr=stdev_df.STD_MISS_X,
-            color="C1",
-            label="Global Beta-Beating from Misalignment Errors",
-        )
-        axes.plot(
-            errors, beta_beatings_df.MAX_TFERROR_X, "^", color="C0", label="Max Value from Field Errors",
-        )
-        axes.plot(
-            errors, beta_beatings_df.MAX_MISSERROR_X, "^", color="C1", label="Max Value from Misalignment Errors",
-        )
-        axes.set_xlabel(r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15)
-        axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
-        plt.tight_layout()
-        plt.title(f"Beta-Beating Against Triplet Errors, {plane} Plane", fontsize=15)
-        plt.legend(loc="best")
-        plt.savefig(figname, format="png", dpi=300)
-
-    elif plane == "Vertical":
-        _, axes = plt.subplots(1, 1, figsize=(8, 6))
-        axes.errorbar(
-            errors,
-            beta_beatings_df.TFERROR_Y,
-            yerr=stdev_df.STD_TF_Y,
-            color="C0",
-            label="Global Beta-Beating from Field Errors",
-        )
-        axes.errorbar(
-            errors,
-            beta_beatings_df.MISSERROR_Y,
-            yerr=stdev_df.STD_MISS_Y,
-            color="C1",
-            label="Global Beta-Beating from Misalignment Errors",
-        )
-        axes.plot(
-            errors, beta_beatings_df.MAX_TFERROR_Y, "^", color="C0", label="Max Value from Field Errors",
-        )
-        axes.plot(
-            errors, beta_beatings_df.MAX_MISSERROR_Y, "^", color="C1", label="Max Value from Misalignment Errors",
-        )
-        axes.set_xlabel(r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15)
-        axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
-        plt.tight_layout()
-        plt.title(f"Beta-beating against triplet errors, {plane} plane", fontsize=15)
-        plt.legend(loc="best")
-        plt.savefig(figname, format="png", dpi=300)
-
-    else:
-        logger.warning(f"Invalid plane parameter {plane} provided, aborting plot")
-        raise ValueError("Plane parameter should be either `Horizontal` or `Vertical`")
-    logger.info(f"Plotted beta-beatings with error bars for {plane.lower()} plane")
-
-
-def plot_bbing_with_ips_errorbar(
-    errors: list, beta_beatings_df: pd.DataFrame, stdev_df: pd.DataFrame, plane: str, figname: str
-) -> None:
-    """
-    Plot beta-beating values, with error bars, as a function of the error values. Save according to plotted plane.
-    Creates a plot of the horizontal or vertical beta-beatings across the range of simulated error values,
-    with the addition of the beta-beating value at IPs. Gives a title generated according to the error type and error
+    Plot beta-beating values, with error bars, as a function of the error values. Save according
+    to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range
+    of simulated error values. Gives a title generated according to the error type and error
     value. Saves in dedicated subfolder.
 
     Args:
@@ -184,7 +108,115 @@ def plot_bbing_with_ips_errorbar(
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP1_TFERROR_X, "^", color="C0", label="IP1 Beta-Beating Value from Field Errors",
+            errors,
+            beta_beatings_df.MAX_TFERROR_X,
+            "^",
+            color="C0",
+            label="Max Value from Field Errors",
+        )
+        axes.plot(
+            errors,
+            beta_beatings_df.MAX_MISSERROR_X,
+            "^",
+            color="C1",
+            label="Max Value from Misalignment Errors",
+        )
+        axes.set_xlabel(
+            r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15
+        )
+        axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
+        plt.tight_layout()
+        plt.title(f"Beta-Beating Against Triplet Errors, {plane} Plane", fontsize=15)
+        plt.legend(loc="best")
+        plt.savefig(figname, format="png", dpi=300)
+
+    elif plane == "Vertical":
+        _, axes = plt.subplots(1, 1, figsize=(8, 6))
+        axes.errorbar(
+            errors,
+            beta_beatings_df.TFERROR_Y,
+            yerr=stdev_df.STD_TF_Y,
+            color="C0",
+            label="Global Beta-Beating from Field Errors",
+        )
+        axes.errorbar(
+            errors,
+            beta_beatings_df.MISSERROR_Y,
+            yerr=stdev_df.STD_MISS_Y,
+            color="C1",
+            label="Global Beta-Beating from Misalignment Errors",
+        )
+        axes.plot(
+            errors,
+            beta_beatings_df.MAX_TFERROR_Y,
+            "^",
+            color="C0",
+            label="Max Value from Field Errors",
+        )
+        axes.plot(
+            errors,
+            beta_beatings_df.MAX_MISSERROR_Y,
+            "^",
+            color="C1",
+            label="Max Value from Misalignment Errors",
+        )
+        axes.set_xlabel(
+            r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15
+        )
+        axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
+        plt.tight_layout()
+        plt.title(f"Beta-beating against triplet errors, {plane} plane", fontsize=15)
+        plt.legend(loc="best")
+        plt.savefig(figname, format="png", dpi=300)
+
+    else:
+        logger.warning(f"Invalid plane parameter {plane} provided, aborting plot")
+        raise ValueError("Plane parameter should be either `Horizontal` or `Vertical`")
+    logger.info(f"Plotted beta-beatings with error bars for {plane.lower()} plane")
+
+
+def plot_bbing_with_ips_errorbar(
+    errors: list, beta_beatings_df: pd.DataFrame, stdev_df: pd.DataFrame, plane: str, figname: str
+) -> None:
+    """
+    Plot beta-beating values, with error bars, as a function of the error values. Save according
+    to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range
+    of simulated error values, with the addition of the beta-beating value at IPs. Gives a title
+    generated according to the error type and error value. Saves in dedicated subfolder.
+
+    Args:
+        errors: list with different error values simulated.
+        beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
+        stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
+        plane: the name of the plane to plot.
+        figname: how to name the file when exporting the plot.
+
+    Returns:
+        Nothing, plots and saves the figure.
+    """
+
+    if plane == "Horizontal":
+        _, axes = plt.subplots(1, 1, figsize=(8, 6))
+        axes.errorbar(
+            errors,
+            beta_beatings_df.TFERROR_X,
+            yerr=stdev_df.STD_TF_X,
+            color="C0",
+            label="Global Beta-Beating from Field Errors",
+        )
+        axes.errorbar(
+            errors,
+            beta_beatings_df.MISSERROR_X,
+            yerr=stdev_df.STD_MISS_X,
+            color="C1",
+            label="Global Beta-Beating from Misalignment Errors",
+        )
+        axes.plot(
+            errors,
+            beta_beatings_df.IP1_TFERROR_X,
+            "^",
+            color="C0",
+            label="IP1 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
@@ -194,7 +226,11 @@ def plot_bbing_with_ips_errorbar(
             label="IP1 Beta-Beating Value from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP5_TFERROR_X, "x", color="C0", label="IP5 Beta-Beating Value from Field Errors",
+            errors,
+            beta_beatings_df.IP5_TFERROR_X,
+            "x",
+            color="C0",
+            label="IP5 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
@@ -203,7 +239,9 @@ def plot_bbing_with_ips_errorbar(
             color="C1",
             label="IP5 Beta-Beating Value from Misalignment Errors",
         )
-        axes.set_xlabel(r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15)
+        axes.set_xlabel(
+            r"Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15
+        )
         axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
         plt.tight_layout()
         plt.title(f"Beta-Beating Against Triplet Errors, {plane} Plane", fontsize=15)
@@ -227,7 +265,11 @@ def plot_bbing_with_ips_errorbar(
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP1_TFERROR_Y, "^", color="C0", label="IP1 Beta-Beating Value from Field Errors",
+            errors,
+            beta_beatings_df.IP1_TFERROR_Y,
+            "^",
+            color="C0",
+            label="IP1 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
@@ -237,7 +279,11 @@ def plot_bbing_with_ips_errorbar(
             label="IP1 Beta-Beating Value from Misalignment Errors",
         )
         axes.plot(
-            errors, beta_beatings_df.IP5_TFERROR_Y, "x", color="C0", label="IP5 Beta-Beating Value from Field Errors",
+            errors,
+            beta_beatings_df.IP5_TFERROR_Y,
+            "x",
+            color="C0",
+            label="IP5 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
@@ -246,7 +292,9 @@ def plot_bbing_with_ips_errorbar(
             color="C1",
             label="IP5 Beta-Beating Value from Misalignment Errors",
         )
-        axes.set_xlabel(r"TRelative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15)
+        axes.set_xlabel(
+            r"TRelative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]", fontsize=15
+        )
         axes.set_ylabel(r"$\Delta \beta / \beta$ [%]", fontsize=15)
         plt.tight_layout()
         plt.title(f"Beta-Beating Against Triplet Errors, {plane} Plane", fontsize=15)

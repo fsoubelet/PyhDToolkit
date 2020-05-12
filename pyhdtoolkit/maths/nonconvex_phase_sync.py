@@ -1,10 +1,12 @@
 """
+Module maths.nonconvex_phase_sync
+---------------------------------
+
 Created on 2020.01.13
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
 This is a Python3 implementation of the Nonconvex Phase Synchronisation method found in the
-following paper (https://arxiv.org/abs/1601.06114, the algorithm reproduced is page 8). It is used
-on phase measurements reconstruction at CERN.
+following paper (DOI: 10.1137/16M105808X, the algorithm reproduced is page 8).
 
 
 Methodology and Use Case
@@ -40,19 +42,13 @@ Note that M_matrix being symmetric, then c_matrix will be Hermitian.
 Note that M_matrix having zeros in its diagonal, c_matrix will have (1 + 0j) on its diagonal.
 
 With added noise to those values (noise should be included in M_matrix in the case of measurements),
-we can reconstruct a good estimator of the original values through the EVM method, provided in the class below.
+we can reconstruct a good estimator of the original values through the EVM method, provided in the
+class below.
 """
 
-import pathlib
-
-import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import tfs
 
 from loguru import logger
-
-from pyhdtoolkit.utils.cmdline import CommandLine
 
 
 class PhaseReconstructor:
@@ -66,8 +62,8 @@ class PhaseReconstructor:
         Initialize your reconstructor object from measurements.
 
         Args:
-            measurements_hermitian_matrix: a `numpy.ndarray` object built from measurements, see top of file comment
-            lines on how to build this matrix.
+            measurements_hermitian_matrix: a `numpy.ndarray` object built from measurements, see
+            module docstring on how to build this matrix.
         """
         logger.debug("Checking that the provided matrix is Hermitian")
         if np.allclose(measurements_hermitian_matrix, np.conj(measurements_hermitian_matrix).T):
@@ -89,17 +85,17 @@ class PhaseReconstructor:
         in the measurements). See page 8 of the paper for reference.
 
         Returns:
-           A real scalar value, because c_matrix is Hermitian and the eigenvalues of real symmetric or
-           complex Hermitian matrices are always real (see G. Strang, Linear Algebra and Its Applications,
-           2nd Ed., Orlando, FL, Academic Press, Inc., 1980, pg. 222.)
+           A real scalar value, because c_matrix is Hermitian and the eigenvalues of real symmetric
+           or complex Hermitian matrices are always real (see G. Strang, Linear Algebra and Its
+           Applications, 2nd Ed., Orlando, FL, Academic Press, Inc., 1980, pg. 222.)
         """
         return np.float64(max(0, np.amin(self.c_matrix_eigenvalues)))
 
     @property
     def leading_eigenvector(self) -> np.ndarray:
         """
-        Returns the leading eigenvector of `self.c_matrix`, which is the eigenvector corresponding to the max
-        eigenvalue (in absolute value).
+        Returns the leading eigenvector of `self.c_matrix`, which is the eigenvector corresponding
+        to the max eigenvalue (in absolute value).
 
         Returns:
             A `numpy.ndarray` object, corresponding to said eigenvector.
@@ -139,14 +135,18 @@ class PhaseReconstructor:
             # Remember to initialize a random real and imaginary part.
             logger.exception("Encountered 0-division, trying normalization")
             e_vect = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
-            while np.absolute(e_vect @ eigenvector) == 0:  # Guarantee that we don't fall back to this edge case.
+            while (
+                np.absolute(e_vect @ eigenvector) == 0
+            ):  # Guarantee that we don't fall back to this edge case.
                 e_vect = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
-            return (e_vect @ eigenvector / np.absolute(e_vect @ eigenvector)).reshape((1, self.space_dimension))
+            return (e_vect @ eigenvector / np.absolute(e_vect @ eigenvector)).reshape(
+                (1, self.space_dimension)
+            )
 
     def reconstruct_complex_phases_evm(self) -> np.ndarray:
         """
-        Reconstruct simplest estimator fom the eigenvector method. The result is in complex form, and will be radians
-        once cast back to real form.
+        Reconstruct simplest estimator fom the eigenvector method. The result is in complex form,
+        and will be radians once cast back to real form.
 
         Returns:
             The complex form of the result as a 'numpy.ndarray' instance.
@@ -155,7 +155,9 @@ class PhaseReconstructor:
         return self.get_eigenvector_estimator(self.leading_eigenvector)
 
     @staticmethod
-    def convert_complex_result_to_phase_values(complex_estimator: np.ndarray, deg: bool = False) -> np.ndarray:
+    def convert_complex_result_to_phase_values(
+        complex_estimator: np.ndarray, deg: bool = False
+    ) -> np.ndarray:
         """
         Casts back the complex form of your result to real phase values.
 

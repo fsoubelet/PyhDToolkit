@@ -1,4 +1,7 @@
 """
+Module cpymadtools.lattice_generators
+-------------------------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
@@ -19,7 +22,7 @@ class LatticeGenerator:
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
         """
-        mystring = """
+        return """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
@@ -82,7 +85,6 @@ select,flag=twiss, clear;
 select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
-        return mystring
 
     @staticmethod
     def generate_onesext_cas_lattice() -> str:
@@ -92,7 +94,7 @@ twiss;
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
         """
-        mystring = """
+        return """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
@@ -172,7 +174,6 @@ select,flag=twiss, clear;
 select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
-        return mystring
 
     @staticmethod
     def generate_oneoct_cas_lattice() -> str:
@@ -182,7 +183,7 @@ twiss;
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
         """
-        mystring = """
+        return """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
@@ -262,7 +263,6 @@ select,flag=twiss, clear;
 select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
-        return mystring
 
     @staticmethod
     def generate_tripleterrors_study_reference() -> str:
@@ -272,7 +272,7 @@ twiss;
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
         """
-        script = f"""
+        return f"""
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
@@ -314,7 +314,6 @@ option, echo, warn, info;
 exec, match_tunes(62.31, 60.32, 1);     ! Since we're using beam 1
 twiss;
 """
-        return script
 
     @staticmethod
     def generate_tripleterrors_study_tferror_job(rand_seed: str, tf_error: str) -> str:
@@ -328,7 +327,7 @@ twiss;
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
         """
-        tferror_script = f"""
+        return f"""
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
@@ -390,7 +389,6 @@ exec, SetEfcomp_Q;     ! Assign field errors
 exec, match_tunes(62.31, 60.32, 1);
 exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
 """
-        return tferror_script
 
     @staticmethod
     def generate_tripleterrors_study_mserror_job(rand_seed: str, ms_error: str) -> str:
@@ -404,7 +402,7 @@ exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
         """
-        mserror_script = f"""
+        return f"""
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
@@ -463,7 +461,6 @@ ealign, ds := {ms_error} * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in m
 exec, match_tunes(62.31, 60.32, 1);
 exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
 """
-        return mserror_script
 
 
 if __name__ == "__main__":

@@ -1,8 +1,12 @@
 """
+Module utils.operations
+-----------------------
+
 Created on 2019.11.12
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection classes with utility functions to perform common / convenient operations on the classic python structures.
+A collection classes with utility functions to perform common / convenient operations on the
+classic Python structures.
 """
 
 import copy
@@ -34,8 +38,8 @@ class ListOperations:
     @staticmethod
     def average_by(lst: list, function=lambda x: x) -> float:
         """
-        Returns the average of lst after mapping each element to a value using the provided function.
-        Use map() to map each element to the value returned by function.
+        Returns the average of lst after mapping each element to a value using the
+        provided function. Use map() to map each element to the value returned by function.
         Use sum() to sum all of the mapped values, divide by len(lst).
 
         Args:
@@ -53,8 +57,8 @@ class ListOperations:
     @staticmethod
     def bifurcate(lst: list, filters: list) -> list:
         """
-        Splits values into two groups. If an element in filter is True, the corresponding element in the collection
-        belongs to the first group; otherwise, it belongs to the second group.
+        Splits values into two groups. If an element in filter is True, the corresponding element
+        in the collection belongs to the first group; otherwise, it belongs to the second group.
         Use list comprehension and enumerate() to add elements to groups, based on filter.
 
         Args:
@@ -65,7 +69,8 @@ class ListOperations:
             A list of two lists, one for each boolean output of the filters
 
         Usage:
-            bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True]) -> ['beep', 'boop', 'bar'], ['foo']
+            bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
+            -> ['beep', 'boop', 'bar'], ['foo']
         """
         return [
             [x for i, x in enumerate(lst) if filters[i]],
@@ -75,17 +80,18 @@ class ListOperations:
     @staticmethod
     def bifurcate_by(lst: list, function) -> list:
         """
-        Splits values into two groups according to a function, which specifies which group an element in the input list
-        belongs to. If the function returns True, the element belongs to the first group; otherwise it belongs to the
-        second group. Use list comprehension to add elements to groups, based on function.
+        Splits values into two groups according to a function, which specifies which group an
+        element in the input list belongs to. If the function returns True, the element belongs
+        to the first group; otherwise it belongs to the second group. Use list comprehension to
+        add elements to groups, based on function.
 
         Args:
             lst: a list of elements.
             function: a callable on the elements of lst, that should return a boolean.
 
         Returns:
-            A list of two lists, as groups of elements of lst classified depending on their result through
-            function.
+            A list of two lists, as groups of elements of lst classified depending on their result
+            through function.
 
         Usage:
             bifurcate_by(list(range(5)), lambda x: x % 2 == 0) -> [[0, 2, 4], [1, 3]]
@@ -95,24 +101,27 @@ class ListOperations:
     @staticmethod
     def chunk_list(lst: list, size) -> list:
         """
-        Chunks a list into smaller lists of a specified size. If the size is bigger than initial list, return the
-        initial list to avoid unnecessary nesting.
-        Use list() and range() to create a list of the desired size. Use map() on the list and fill it with splices
-        of the given list. Finally, return use created list.
+        Chunks a list into smaller lists of a specified size. If the size is bigger than initial
+        list, return the initial list to avoid unnecessary nesting.
+        Use list() and range() to create a list of the desired size. Use map() on the list and
+        fill it with splices of the given list. Finally, return use created list.
 
         Args:
             lst: a list of elements.
             size: the size of the wanted sublists.
 
         Returns:
-            A list of lists of length `size` (except maybe the last element), with elements from `lst`.
+            A list of lists of length `size` (except maybe the last element), with elements
+            from `lst`.
 
         Usage:
             chunk_list(list(range(10)), 3) -> [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
         """
         if size > len(lst):
             return lst
-        return list(map(lambda x: lst[x * size : x * size + size], list(range(0, math.ceil(len(lst) / size))),))
+        return list(
+            map(lambda x: lst[x * size : x * size + size], list(range(math.ceil(len(lst) / size))),)
+        )
 
     @staticmethod
     def deep_flatten(lst: list) -> list:
@@ -126,7 +135,8 @@ class ListOperations:
             A list with all elements of `lst`, but flattened.
 
         Usage:
-            deep_flatten([["a", "b"], [1, 2], None, [True, False]]) -> ["a", "b", 1, 2, None True, False]
+            deep_flatten([["a", "b"], [1, 2], None, [True, False]])
+            -> ["a", "b", 1, 2, None True, False]
         """
         return (
             [elem for sublist in lst for elem in ListOperations.deep_flatten(sublist)]
@@ -137,9 +147,10 @@ class ListOperations:
     @staticmethod
     def eval_none(lst: list, function=lambda x: not not x) -> bool:
         """
-        Returns False if the provided function returns True for at least one element in the list, True otherwise.
-        Iterate over the elements of the list to test if every element in the list returns False based on function.
-        Omit the seconds argument, function, to check if all elements are False.
+        Returns False if the provided function returns True for at least one element in the list,
+        True otherwise. Iterate over the elements of the list to test if every element in the
+        list returns False based on function. Omit the seconds argument, function, to check if
+        all elements are False.
 
         Args:
             lst: a list of elements.
@@ -157,9 +168,10 @@ class ListOperations:
     @staticmethod
     def eval_some(lst: list, function=lambda x: not not x) -> bool:
         """
-        Returns True if the provided function returns True for at least one element in the list, False otherwise.
-        Iterate over the elements of the list to test if every element in the list returns True based on function.
-        Omit the seconds argument, function, to check if all elements are True.
+        Returns True if the provided function returns True for at least one element in the list,
+        False otherwise. Iterate over the elements of the list to test if every element in the
+        list returns True based on function. Omit the seconds argument, function, to check if all
+        elements are True.
 
         Args:
             lst: a list of elements.
@@ -181,12 +193,12 @@ class ListOperations:
 
         Args:
             element: any reference element to check.
-            list_like: a list containing objects comparable to `elements`. A string can be compared to an int in
-            Python, custom objects probably won't be comparable.
+            list_like: a list containing objects comparable to `elements`. A string can be
+                       compared to an int in Python, custom objects probably won't be comparable.
 
         Returns:
-            A list of all indices at which `element` is found in `list_like`. Empty list if `element` is not
-            present in `list_like` at all.
+            A list of all indices at which `element` is found in `list_like`. Empty list if
+            `element` is not present in `list_like` at all.
 
         Usage:
             get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2]) -> [0, 7, 8]
@@ -197,16 +209,16 @@ class ListOperations:
     def group_by(lst: list, function) -> dict:
         """
         Groups the elements of a list based on the given function.
-        Use list() in combination with map() and function to map the values of the list to the keys of an object.
-        Use list comprehension to map each element to the appropriate key.
+        Use list() in combination with map() and function to map the values of the list to the
+        keys of an object. Use list comprehension to map each element to the appropriate key.
 
         Args:
             lst: a list of elements.
             function: a callable on the elements of `lst` that should return a boolean.
 
         Returns:
-            A dict with keys "True" and "False", each having as value a list of all elements of `lst` that were
-            evaluated to respectively `True` or `False` through `function`.
+            A dict with keys "True" and "False", each having as value a list of all elements of
+            `lst` that were evaluated to respectively `True` or `False` through `function`.
 
         Usage:
             group_by(list(range(5)), lambda x: x % 2 == 0) -> {True: [0, 2, 4], False: [1, 3]}
@@ -220,7 +232,8 @@ class ListOperations:
     def has_duplicates(lst: list) -> bool:
         """
         Returns True if there are duplicate values in a fast list, False otherwise.
-        Use set() on the given list to remove duplicates, then compare its length with the length of the list.
+        Use set() on the given list to remove duplicates, then compare its length with the length
+        of the list.
 
         Args:
             lst: a list of elements.
@@ -249,7 +262,8 @@ class ListOperations:
     @staticmethod
     def sanitize_list(lst: list) -> list:
         """
-        Removes falsey values from a list. Use filter() to filter out falsey values (False, None, 0, and "").
+        Removes falsey values from a list. Use filter() to filter out falsey values
+        (False, None, 0, and "").
 
         Args:
             lst: a list of elements.
@@ -265,8 +279,9 @@ class ListOperations:
     @staticmethod
     def shuffle(lst: list) -> list:
         """
-        Randomizes the order of the values of an list, returning a new list. Uses an improved version of the
-        Fisher-Yates algorithm (https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) to reorder the elements.
+        Randomizes the order of the values of an list, returning a new list. Uses an improved
+        version of the Fisher-Yates algorithm
+        (https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) to reorder the elements.
 
         Args:
             lst: a list of elements.
@@ -290,8 +305,8 @@ class ListOperations:
         """
         Flattens a list, by spreading its elements into a new list.
         Loop over elements, use list.extend() if the element is a list, list.append() otherwise.
-        This might look like deep_flatten but is a subset of its functionality, and is used in deep_flatten.
-        This only works if all elements in `lst` are iterables!
+        This might look like deep_flatten but is a subset of its functionality, and is used in
+        deep_flatten. This only works if all elements in `lst` are iterables!
 
         Args:
             lst:  a list of elements.
@@ -314,10 +329,11 @@ class ListOperations:
     @staticmethod
     def symmetric_difference_by(lst_1: list, lst_2: list, function) -> list:
         """
-        Returns the symmetric difference (https://en.wikipedia.org/wiki/Symmetric_difference) of lists,
-        after applying the provided function to each list element of both.
-        Create a set by applying the function to each element in every list, then use list comprehension in combination
-        with function on each one to only keep values not contained in the previously created set of the other.
+        Returns the symmetric difference (https://en.wikipedia.org/wiki/Symmetric_difference) of
+        lists, after applying the provided function to each list element of both. Create a set by
+        applying the function to each element in every list, then use list comprehension in
+        combination with function on each one to only keep values not contained in the previously
+        created set of the other.
 
         Args:
             lst_1: a list of elements.
@@ -340,14 +356,15 @@ class ListOperations:
     @staticmethod
     def union_by(lst_1: list, lst_2: list, function) -> list:
         """
-        Returns every element that exists in any of the two lists once, after applying the provided function to each
-        element of both. This is the set theory union (https://en.wikipedia.org/wiki/Union_(set_theory)) of the two
-        lists, but based on the results of applying the function to each list.
-        Python's set() is strange in how is gives output, so this function sorts the final list before returning it,
-        in order to give it predictable behavior.
-        Create a set by applying the function to each element in lst_1, then use list comprehension in combination with
-        function on lst_2 to only keep values not contained in the previously created set, _lst_1.
-        Finally, create a set from the previous result and _lst_1 and transform it into a list.
+        Returns every element that exists in any of the two lists once, after applying the provided
+        function to each element of both. This is the set theory union
+        (https://en.wikipedia.org/wiki/Union_(set_theory)) of the two lists, but based on the
+        results of applying the function to each list. Python's set() is strange in how is gives
+        output, so this function sorts the final list before returning it, in order to give it
+        predictable behavior. Create a set by applying the function to each element in lst_1,
+        then use list comprehension in combination with function on lst_2 to only keep values not
+        contained in the previously created set, _lst_1. Finally, create a set from the previous
+        result and _lst_1 and transform it into a list.
 
         Args:
             lst_1: a list of elements.
@@ -366,11 +383,12 @@ class ListOperations:
     @staticmethod
     def zipper(*args, fillvalue=None) -> list:
         """
-        Creates a list of lists of elements, each internal list being a grouping based on the position of elements in
-        the original lists. Essentially, a list containing: a first list with all first elements, then a second list
-        with all second elements, etc.
-        Use max combined with list comprehension to get the length of the longest list in the arguments.
-        Loop for max_length times grouping elements. If lengths of lists vary, use fill_value (defaults to None).
+        Creates a list of lists of elements, each internal list being a grouping based on the
+        position of elements in the original lists. Essentially, a list containing: a first list
+        with all first elements, then a second list with all second elements, etc. Use max
+        combined with list comprehension to get the length of the longest list in the arguments.
+        Loop for max_length times grouping elements. If lengths of lists vary, use fill_value
+        (defaults to None).
 
         Args:
             *args: a number (>= 2) of different iterables.
@@ -380,13 +398,14 @@ class ListOperations:
             A list with the proper level of nesting, and original elements zipped.
 
         Usage:
-            zipper([1, 2, 3], [2, 5, 3, 7], ["a", "b", "c"]) -> [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]
+            zipper([1, 2, 3], [2, 5, 3, 7], ["a", "b", "c"])
+            -> [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]
         """
-        max_length = max([len(lst) for lst in args])
-        result = []
-        for i in range(max_length):
-            result.append([args[k][i] if i < len(args[k]) else fillvalue for k in range(len(args))])
-        return result
+        max_length = max(len(lst) for lst in args)
+        return [
+            [args[k][i] if i < len(args[k]) else fillvalue for k in range(len(args))]
+            for i in range(max_length)
+        ]
 
 
 class MiscellaneousOperations:
@@ -397,8 +416,8 @@ class MiscellaneousOperations:
     @staticmethod
     def longest_item(*args):
         """
-        Takes any number of iterable objects or objects with a length property and returns the longest one. If
-        multiple objects have the same length, the first one will be returned.
+        Takes any number of iterable objects or objects with a length property and returns the
+        longest one. If multiple objects have the same length, the first one will be returned.
         Use max() with len as the key to return the item with the greatest length.
 
         Args:
@@ -415,10 +434,10 @@ class MiscellaneousOperations:
     @staticmethod
     def map_values(obj: dict, function) -> dict:
         """
-        Creates an new dict with the same keys as the provided dict, and values generated by running the provided
-        function on the provided dict's values.
-        Use dict.keys() to iterate over the object's keys, assigning the values produced by function to each key of
-        a new object.
+        Creates an new dict with the same keys as the provided dict, and values generated by
+        running the provided function on the provided dict's values.
+        Use dict.keys() to iterate over the object's keys, assigning the values produced by
+        function to each key of a new object.
 
         Args:
             obj: a dictionary.
@@ -428,11 +447,13 @@ class MiscellaneousOperations:
             A new dictionary with the results.
 
         Usage:
-            map_values({"a": list(range(5)), "b": list(range(10)), "c": list(range(15))}, lambda x: len(x)) ->
-            {"a": 5, "b": 10, "c": 15}
+            map_values(
+                {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
+                lambda x: len(x)
+            ) -> {"a": 5, "b": 10, "c": 15}
         """
         ret = {}
-        for key in obj.keys():
+        for key in obj:
             ret[key] = function(obj[key])
         return ret
 
@@ -445,8 +466,8 @@ class NumberOperations:
     @staticmethod
     def clamp_number(num, a_val, b_val):
         """
-        Clamps num within the inclusive range specified by the boundary values a and b. If num falls within the
-        range, return num. Otherwise, return the nearest number in the range.
+        Clamps num within the inclusive range specified by the boundary values a and b. If num
+        falls within the range, return num. Otherwise, return the nearest number in the range.
 
         Args:
             num: a number (float  / int)
@@ -490,8 +511,8 @@ class NumberOperations:
         Use reduce() and math.gcd over the given list.
 
         Args:
-            numbers_list: a list of numbers (floats are advised against as this would become a very heavy
-            computation).
+            numbers_list: a list of numbers (floats are advised against as this would become a
+                          very heavy computation).
 
         Returns:
             The greatest common divisor of all elements in `numbers_list`.
@@ -521,12 +542,13 @@ class NumberOperations:
     def least_common_multiple(*args) -> int:
         """
         Returns the least common multiple of two or more numbers.
-        Define a function, spread, that uses either list.extend() or list.append() on each element in a list to
-        flatten it. Use math.gcd() and lcm(x,y) = x * y / gcd(x,y) to determine the least common multiple.
+        Define a function, spread, that uses either list.extend() or list.append() on each element
+        in a list to flatten it. Use math.gcd() and lcm(x,y) = x * y / gcd(x,y) to determine the
+        least common multiple.
 
         Args:
-            *args: any number (>= 2) of numbers (floats are advised against as this would become a very heavy
-        computation).
+            *args: any number (>= 2) of numbers (floats are advised against as this would become a
+                   very heavy computation).
 
         Returns:
             The least common multiple of all provided numbers.
@@ -535,8 +557,7 @@ class NumberOperations:
             least_common_multiple(4, 5) -> 20
             least_common_multiple(2, 5, 17, 632) -> 53720
         """
-        numbers = []
-        numbers.extend(ListOperations.spread(list(args)))
+        numbers = list(ListOperations.spread(list(args)))
 
         def _lcm(number1, number2):
             return int(number1 * number2 / math.gcd(number1, number2))
@@ -571,8 +592,8 @@ class StringOperations:
     def camel_case(string: str) -> str:
         """
         Converts a string to camelCase.
-        Break the string into words and combine them capitalizing the first letter of each word, using a regexp,
-        title() and lower.
+        Break the string into words and combine them capitalizing the first letter of each word,
+        using a regexp, title() and lower.
 
         Args:
             string: a string.
@@ -592,7 +613,8 @@ class StringOperations:
         """
         Capitalizes the first letter of a string, eventually lowers the rest of it.
         Capitalize the first letter of the string and then add it with rest of the string.
-        Omit the lower_rest parameter to keep the rest of the string intact, or set it to True to convert to lowercase.
+        Omit the lower_rest parameter to keep the rest of the string intact, or set it to True
+        to convert to lowercase.
 
         Args:
             string: a string.
@@ -610,11 +632,10 @@ class StringOperations:
     @staticmethod
     def is_anagram(str_1: str, str_2: str) -> bool:
         """
-        Checks if a string is an anagram of another string (case-insensitive, ignores spaces, punctuation and special
-        characters).
-        Use str.replace() to remove spaces from both strings.
-        Compare the lengths of the two strings, return False if they are not equal.
-        Use sorted() on both strings and compare the results.
+        Checks if a string is an anagram of another string (case-insensitive, ignores spaces,
+        punctuation and special characters). Use str.replace() to remove spaces from both strings.
+        Compare the lengths of the two strings, return False if they are not equal. Use sorted()
+        on both strings and compare the results.
 
         Args:
             str_1: a string.

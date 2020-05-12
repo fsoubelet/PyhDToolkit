@@ -1,4 +1,7 @@
 """
+Module plotting.helpers
+-----------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
@@ -22,8 +25,8 @@ class AnnotationsPlotter:
         fontsize: int = 20,
     ):
         """
-        Add a label box with text and an arrow from the box to a specified position to an existing provided
-        matplotlib.axes `Axes` instance. Original code from Guido Sterbini.
+        Add a label box with text and an arrow from the box to a specified position to an existing
+        provided matplotlib.axes `Axes` instance. Original code from Guido Sterbini.
 
         Args:
             axis: a matplotlib axis.
@@ -50,7 +53,11 @@ class AnnotationsPlotter:
             ha="center",
             bbox=dict(boxstyle="round4", fc="w", color=color, lw=2),
             arrowprops=dict(
-                arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2,
+                arrowstyle="-|>",
+                connectionstyle="arc3,rad=" + str(arrow_arc_rad),
+                fc="w",
+                color=color,
+                lw=2,
             ),
         )
 

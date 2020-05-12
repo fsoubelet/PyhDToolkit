@@ -1,8 +1,12 @@
 """
+Module cpymadtools.latwiss
+--------------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions to elegantly plot the Twiss parameters output of a cpymad.MadX instance after it has ran.
+A collection of functions to elegantly plot the Twiss parameters output of a cpymad.MadX instance
+after it has ran.
 """
 
 import matplotlib
@@ -19,7 +23,8 @@ plt.rcParams.update(PLOT_PARAMS)
 
 class LaTwiss:
     """
-    A class to manage plotting the machine survey as well as an elegant plot for elements + Twiss parameters.
+    A class to manage plotting the machine survey as well as an elegant plot for elements as
+    well as Twiss parameters.
     """
 
     @staticmethod
@@ -62,22 +67,29 @@ class LaTwiss:
 
     @staticmethod
     def plot_latwiss(
-        cpymad_instance, title: str, figsize: tuple = (16, 10), savefig: str = None, xlimits: tuple = None, **kwargs,
+        cpymad_instance,
+        title: str,
+        figsize: tuple = (16, 10),
+        savefig: str = None,
+        xlimits: tuple = None,
+        **kwargs,
     ) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will create a plot representing nicely the
-        lattice layout and the beta functions along with the horizontal dispertion function. This is heavily refactored
-        code, but the original is from Guido Sterbini.
+        Provided with an active Cpymad class after having ran a script, will create a plot
+        representing nicely the lattice layout and the beta functions along with the horizontal
+        dispertion function. This is heavily refactored code, but the original is from Guido
+        Sterbini.
 
-        WARNING: This will FAIL if you have not included 'q' or 'Q' in your quadrupoles' names, and 'b' or 'B' in
-        your dipoles' names when defining your MAD-X sequence.
+        WARNING: This will FAIL if you have not included 'q' or 'Q' in your quadrupoles' names,
+        and 'b' or 'B' in your dipoles' names when defining your MAD-X sequence.
 
         Args:
             cpymad_instance: an instanciated `cpymad.madx.Madx` object.
             title: title of your plot.
             figsize: size of the figure, defaults to (16, 10)
             savefig: will save the figure if this is not None, using the string value passed.
-            xlimits: will implement xlim (for the s coordinate) if this is not None, using the tuple passed.
+            xlimits: will implement xlim (for the s coordinate) if this is not None, using the
+                     tuple passed.
 
         Returns:
              Nothing, plots and eventually saves the figure as a file.
@@ -109,28 +121,35 @@ class LaTwiss:
         axis1.set_title(title)
         axis1.plot(twiss_df.s, 0 * twiss_df.s, "k")
 
-        # Getting dataframes for specific elements. All can be defined as a 'multipole', but dipoles can also be
-        # defined as 'rbend' or 'sbend', quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'
+        # All elements can be defined as a 'multipole', but dipoles can also be defined as
+        # 'rbend' or 'sbend', quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'
         quadrupoles_df = twiss_df[
-            (twiss_df.keyword.isin(["multipole", "quadrupole"])) & (twiss_df.name.str.contains("Q", case=False))
+            (twiss_df.keyword.isin(["multipole", "quadrupole"]))
+            & (twiss_df.name.str.contains("Q", case=False))
         ]
         dipoles_df = twiss_df[
-            (twiss_df.keyword.isin(["multipole", "rbend", "sbend"])) & (twiss_df.name.str.contains("B", case=False))
+            (twiss_df.keyword.isin(["multipole", "rbend", "sbend"]))
+            & (twiss_df.name.str.contains("B", case=False))
         ]
         sextupoles_df = twiss_df[
-            (twiss_df.keyword.isin(["multipole", "sextupole"])) & (twiss_df.name.str.contains("S", case=False))
+            (twiss_df.keyword.isin(["multipole", "sextupole"]))
+            & (twiss_df.name.str.contains("S", case=False))
         ]
 
         # Plotting the quadrupole patches
         if plot_quadrupoles:
             for _, quad in quadrupoles_df.iterrows():
-                LaTwiss._plot_lattice_series(axis1, quad, height=quad.k1l, v_offset=quad.k1l / 2, color="r")
+                LaTwiss._plot_lattice_series(
+                    axis1, quad, height=quad.k1l, v_offset=quad.k1l / 2, color="r"
+                )
 
-        # Plotting the dipole patches, careful as 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
+        # Plotting dipole patches, beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         if plot_dipoles:
             for _, dipole in dipoles_df.iterrows():
                 if dipole.k0l != 0:
-                    LaTwiss._plot_lattice_series(axis2, dipole, height=dipole.k0l, v_offset=dipole.k0l / 2, color="b")
+                    LaTwiss._plot_lattice_series(
+                        axis2, dipole, height=dipole.k0l, v_offset=dipole.k0l / 2, color="b"
+                    )
                 if dipole.angle != 0:
                     LaTwiss._plot_lattice_series(
                         axis2, dipole, height=dipole.angle, v_offset=dipole.angle / 2, color="b"
@@ -139,7 +158,9 @@ class LaTwiss:
         # Plotting the sextupole patches
         if plot_sextupoles:
             for _, sext in sextupoles_df.iterrows():
-                LaTwiss._plot_lattice_series(axis2, sext, height=sext.k2l, v_offset=sext.k2l / 2, color="y")
+                LaTwiss._plot_lattice_series(
+                    axis2, sext, height=sext.k2l, v_offset=sext.k2l / 2, color="y"
+                )
 
         # Plotting beta functions on remaining two thirds of the figure
         axis3 = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=axis1)
@@ -182,17 +203,18 @@ class LaTwiss:
         **kwargs,
     ) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will create a plot representing the machine
-        geometry in 2D. Original code is from Guido Sterbini.
+        Provided with an active Cpymad class after having ran a script, will create a plot
+        representing the machine geometry in 2D. Original code is from Guido Sterbini.
 
         Args:
             cpymad_instance: an instanciated `cpymad.madx.Madx` object.
             title: title of your plot.
             figsize: size of the figure, defaults to (16, 10)
             savefig: will save the figure if this is not None, using the string value passed.
-            show_elements: if True, will try to plot by differentiating elements. Experimental, default False.
-            high_orders: if True, plot sextupoles and octupoles when show_elements is True, otherwise only up to
-            quadrupoles. Default False.
+            show_elements: if True, will try to plot by differentiating elements. Experimental,
+                           default False.
+            high_orders: if True, plot sextupoles and octupoles when show_elements is True,
+                         otherwise only up to quadrupoles. Default False.
 
         Returns:
             Nothing, plots and eventually saves the figure as a file.
@@ -214,18 +236,34 @@ class LaTwiss:
                 label="Dipoles",
             )
             plt.scatter(
-                element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF",
+                element_dfs["quad_foc"].z,
+                element_dfs["quad_foc"].x,
+                marker="o",
+                color="blue",
+                label="QF",
             )
             plt.scatter(
-                element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD",
+                element_dfs["quad_defoc"].z,
+                element_dfs["quad_defoc"].x,
+                marker="o",
+                color="red",
+                label="QD",
             )
             if high_orders:
                 logger.debug("Plotting high order magnetic elements (up to octupoles)")
                 plt.scatter(
-                    element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS",
+                    element_dfs["sextupoles"].z,
+                    element_dfs["sextupoles"].x,
+                    marker=".",
+                    color="m",
+                    label="MS",
                 )
                 plt.scatter(
-                    element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO",
+                    element_dfs["octupoles"].z,
+                    element_dfs["octupoles"].x,
+                    marker=".",
+                    color="cyan",
+                    label="MO",
                 )
             plt.legend(loc=2)
 
@@ -249,19 +287,22 @@ class LaTwiss:
 
 def _make_survey_groups(survey_df: pd.DataFrame) -> dict:
     """
-    Gets a survey dataframe and returns different sub-dataframes corresponding to different magnetic elements.
+    Gets a survey dataframe and returns different sub-dataframes corresponding to different
+    magnetic elements.
 
     Args:
-        survey_df: a pandas DataFrame obtained from your Madx instance, with <instance>.table.survey.dframe().
+        survey_df: a pandas DataFrame obtained from your Madx instance, with
+                   <instance>.table.survey.dframe().
 
     Returns:
-        A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing quadrupoles, sextupoles and
-        octupoles. The keys are self-explanatory.
+        A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
+        quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
     """
     logger.debug("Getting different element groups dframes from MAD-X survey")
-    element_groups = {
+    return {
         "dipoles": survey_df[
-            (survey_df.keyword.isin(["multipole", "sbend", "rbend"])) & (survey_df.name.str.contains("B", case=False))
+            (survey_df.keyword.isin(["multipole", "sbend", "rbend"]))
+            & (survey_df.name.str.contains("B", case=False))
         ],
         "quad_foc": survey_df[
             (survey_df.keyword.isin(["multipole", "quadrupole"]))
@@ -274,13 +315,14 @@ def _make_survey_groups(survey_df: pd.DataFrame) -> dict:
             & (survey_df.name.str.contains("D", case=False))
         ],
         "sextupoles": survey_df[
-            (survey_df.keyword.isin(["multipole", "sextupole"])) & (survey_df.name.str.contains("S", case=False))
+            (survey_df.keyword.isin(["multipole", "sextupole"]))
+            & (survey_df.name.str.contains("S", case=False))
         ],
         "octupoles": survey_df[
-            (survey_df.keyword.isin(["multipole", "octupole"])) & (survey_df.name.str.contains("O", case=False))
+            (survey_df.keyword.isin(["multipole", "octupole"]))
+            & (survey_df.name.str.contains("O", case=False))
         ],
     }
-    return element_groups
 
 
 def _synchronise_grids(axis_1: matplotlib.axes, axis_2: matplotlib.axes) -> None:

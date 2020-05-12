@@ -1,8 +1,12 @@
 """
+Module maths.stats_fitting
+--------------------------
+
 Created on 2020.02.06
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-This is a Python3 module implementing methods to find the best fit of statistical distributions to data.
+This is a Python3 module implementing methods to find the best fit of statistical distributions
+to data.
 """
 import warnings
 
@@ -25,10 +29,12 @@ DISTRIBUTIONS = {
 
 def set_distributions_dict(dist_dict: dict = None) -> None:
     """
-    Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to try out.
+    Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to
+    try out.
 
     Args:
-        dist_dict: dictionnary with the wanted distributions, in the format of DISTRIBUTIONS. This should be the
+        dist_dict: dictionnary with the wanted distributions, in the format of DISTRIBUTIONS. This
+                   should be the
         scipy.stats generator objects as keys, and a string representation of their name as value.
 
     Returns:
@@ -47,8 +53,8 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
     Args:
         data: a pandas.Series or numpy.ndarray with your distribution data as values.
         bins: the number of bins to decompose your data in before performing fittings.
-        ax: the matplotlib.axes._subplots.AxesSubplot object on which to plot the pdf of tried functions.
-        This should be provided as the ax on which you plotted your distribution.
+        ax: the matplotlib.axes._subplots.AxesSubplot object on which to plot the pdf of tried
+            functions. This should be provided as the ax on which you plotted your distribution.
 
     Returns:
         A tuple containing the scipy.stats generator corresponding to the best fit candidate, and the
@@ -76,7 +82,9 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                 loc = params[-2]
                 scale = params[-1]
 
-                logger.debug(f"Calculating PDF goodness of fit and error for distribution '{distname}'")
+                logger.debug(
+                    f"Calculating PDF goodness of fit and error for distribution '{distname}'"
+                )
                 pdf = distribution.pdf(x, loc=loc, scale=scale, *arg)
                 sse = np.sum(np.power(y - pdf, 2.0))
 
@@ -87,7 +95,9 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                 except Exception:
                     logger.exception(f"Plotting distribution '{distname}' failed, moving on.")
 
-                logger.debug(f"Identifying if distribution '{distname}' is a better fit than previous tries")
+                logger.debug(
+                    f"Identifying if distribution '{distname}' is a better fit than previous tries"
+                )
                 if best_sse > sse > 0:
                     best_distribution = distribution
                     best_params = params
@@ -100,11 +110,11 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
 
 def make_pdf(distribution, params, size: int = None) -> pd.Series:
     """
-    Generate a pandas Series for the distributions's Probability Distribution Function. This Series will have axis
-    values as index, and PDF values as values.
+    Generate a pandas Series for the distributions's Probability Distribution Function. This Series
+    will have axis values as index, and PDF values as values.
 
     Args:
-        distribution: a scipy.stats generator object, similar to those found in DISTRIBUTIONS for instance.
+        distribution: a scipy.stats generator object, similar to those found in DISTRIBUTIONS.
         params: the parameters given back by the fit.
         size: the number of points to evaluate.
 
@@ -119,9 +129,15 @@ def make_pdf(distribution, params, size: int = None) -> pd.Series:
 
     logger.debug("Getting sane start and end points of distribution")
     start = (
-        distribution.ppf(0.01, *args, loc=loc, scale=scale) if args else distribution.ppf(0.01, loc=loc, scale=scale)
+        distribution.ppf(0.01, *args, loc=loc, scale=scale)
+        if args
+        else distribution.ppf(0.01, loc=loc, scale=scale)
     )
-    end = distribution.ppf(0.99, *args, loc=loc, scale=scale) if args else distribution.ppf(0.99, loc=loc, scale=scale)
+    end = (
+        distribution.ppf(0.99, *args, loc=loc, scale=scale)
+        if args
+        else distribution.ppf(0.99, loc=loc, scale=scale)
+    )
 
     logger.debug("Building PDF.")
     x = np.linspace(start, end, size)

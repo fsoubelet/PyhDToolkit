@@ -1,8 +1,11 @@
 """
+Module cpymadtools.helpers
+--------------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions for performing different common operations on a cpymad.MadX object..
+A collection of functions for performing different common operations on a cpymad.MadX object.
 """
 
 import numpy as np
@@ -18,8 +21,8 @@ class LatticeMatcher:
     @staticmethod
     def perform_tune_matching(cpymad_instance, sequence_name, q1_target, q2_target) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional matching command to
-        reach the provided values for tunes.
+        Provided with an active Cpymad class after having ran a script, will run an additional
+        matching command to reach the provided values for tunes.
 
         Args:
             cpymad_instance: an instanciated `cpymad.MadX` object.
@@ -48,8 +51,8 @@ twiss;
     @staticmethod
     def perform_chroma_matching(cpymad_instance, sequence_name, dq1_target, dq2_target) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional matching command to
-        reach the provided values for chromaticities.
+        Provided with an active Cpymad class after having ran a script, will run an additional
+        matching command to reach the provided values for chromaticities.
 
         Args:
             cpymad_instance: an instanciated `cpymad.MadX` object.
@@ -60,7 +63,9 @@ twiss;
         Returns:
             Nothing.
         """
-        logger.debug(f"Starting matching sequence for target chromaticities {dq1_target} and {dq2_target}")
+        logger.debug(
+            f"Starting matching sequence for target chromaticities {dq1_target} and {dq2_target}"
+        )
         cpymad_instance.input(
             f"""
 !MATCHING SEQUENCE
@@ -83,7 +88,11 @@ class Parameters:
 
     @staticmethod
     def beam_parameters(
-        pc_GeV: float, en_x_m: float = 5e-6, en_y_m: float = 5e-6, deltap_p: float = 1e-3, verbose: bool = False,
+        pc_GeV: float,
+        en_x_m: float = 5e-6,
+        en_y_m: float = 5e-6,
+        deltap_p: float = 1e-3,
+        verbose: bool = False,
     ):
         """Calculate beam parameters from provided values.
 

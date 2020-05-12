@@ -1,4 +1,7 @@
 """
+Module utils.printutil
+----------------------
+
 Created on 2019.12.11
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
