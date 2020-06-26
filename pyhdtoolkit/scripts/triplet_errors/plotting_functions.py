@@ -18,7 +18,7 @@ import pandas as pd
 from loguru import logger
 
 if os.environ.get("Display", "") == "":
-    logger.info(f"Display configuration error found. Using non-interactive Agg backend")
+    logger.info("Display configuration error found. Using non-interactive Agg backend")
     matplotlib.use("Agg")
 
 
@@ -329,7 +329,3 @@ def plot_intermediate_beta_histograms(
     plt.title(title)
     plt.savefig(outputname, format="png", dpi=300)
     logger.info(f"Plotted intermediate beta histogram, saved as {outputname}")
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

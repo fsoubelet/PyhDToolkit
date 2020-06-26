@@ -11,7 +11,6 @@ These are mainly wrappers around lower-level tools, or simply just additional ni
 from .cmdline import CommandLine
 from .executors import MultiProcessor, MultiThreader
 from .printutil import END, Background, Foreground, Styles
-from .structures import AttrDict
 
 # Importing * is a bad practice and you should be punished for using it
 __all__ = []

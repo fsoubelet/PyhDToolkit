@@ -12,6 +12,7 @@ Arguments should be given as options at launch in the command-line. See README f
 """
 
 import argparse
+import sys
 
 from copy import deepcopy
 
@@ -67,7 +68,7 @@ class GridCompute:
         Returns:
             Nothing, directly updates the instance's `nominal_twiss` attribute inplace.
         """
-        logger.info(f"Running simulation for reference nominal run")
+        logger.info("Running simulation for reference nominal run")
         ref_script = LatticeGenerator.generate_tripleterrors_study_reference()
         self.reference_mad.input(ref_script)
         logger.debug("Extracting reference Twiss dframe from cpymad")
@@ -296,7 +297,7 @@ def main() -> None:
     simulations.run_miss_errors(command_line_args.errors, command_line_args.seeds)
 
     # Getting the results in dataframes and exporting to csv
-    logger.info(f"Exporting results to csv")
+    logger.info("Exporting results to csv")
     bbing_df = simulations.rms_betabeatings.export(csvname="beta_beatings.csv")
     std_df = simulations.standard_deviations.export(csvname="standard_deviations.csv")
 

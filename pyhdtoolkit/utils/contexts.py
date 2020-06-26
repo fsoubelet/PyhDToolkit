@@ -32,7 +32,3 @@ def timeit(function: callable) -> None:
     finally:
         time_used = time.time() - start_time
         function(time_used)
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

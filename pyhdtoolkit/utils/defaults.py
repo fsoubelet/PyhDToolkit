@@ -24,6 +24,3 @@ LOGURU_FORMAT = (
     "<cyan>{name}</cyan>:<cyan>{line}</cyan> - "
     "<level>{message}</level>"
 )
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported")

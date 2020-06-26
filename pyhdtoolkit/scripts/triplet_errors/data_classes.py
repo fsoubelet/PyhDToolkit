@@ -260,7 +260,3 @@ def _get_rms(values_list: list) -> float:
     except ZeroDivisionError:
         logger.exception("An empty list was provided, check the simulation logs to understand why.")
         raise ZeroDivisionError("No values were provided")
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

@@ -725,7 +725,3 @@ class StringOperations:
                 string,
             ),
         )
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

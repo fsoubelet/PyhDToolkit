@@ -108,7 +108,7 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
     return best_distribution, best_params
 
 
-def make_pdf(distribution, params, size: int = None) -> pd.Series:
+def make_pdf(distribution, params, size: int = 25_000) -> pd.Series:
     """
     Generate a pandas Series for the distributions's Probability Distribution Function. This Series
     will have axis values as index, and PDF values as values.
@@ -121,7 +121,6 @@ def make_pdf(distribution, params, size: int = None) -> pd.Series:
     Returns:
         A pandas.Series object with the PDF as values, corresponding axis values as index.
     """
-    size = 10_000 if size is None else size
     # Separate parts of parameters
     args = params[:-2]
     loc = params[-2]
@@ -145,7 +144,3 @@ def make_pdf(distribution, params, size: int = None) -> pd.Series:
 
     logger.debug("Casting to pandas.Series object")
     return pd.Series(y, x)
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

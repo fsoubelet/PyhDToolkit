@@ -38,7 +38,7 @@ checks:
     enabled: true
 plugins:
   pep8:
-    enabled: true
+    enabled: false
   sonar-python:
     enabled: true
     config:

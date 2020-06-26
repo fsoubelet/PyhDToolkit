@@ -60,7 +60,3 @@ PLOT_PARAMS = {
     "xtick.labelsize": 20,  # Fontsize of the x axis tick labels
     "ytick.labelsize": 20,  # Fontsize of the y axis tick labels
 }
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

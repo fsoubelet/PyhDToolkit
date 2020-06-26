@@ -108,7 +108,7 @@ class PhaseReconstructor:
     def reconstructor_matrix(self) -> np.ndarray:
         """
         This is the reconstructor matrix built from `self.c_matrix` and the `alpha` property.
-        It is the matrix denoted as \widetilde{C} on page 8 of the reference paper.
+        It is the matrix denoted as \\widetilde{C} on page 8 of the reference paper.
 
         Returns:
             A `numpy.ndarray`, with same dimension as `self.c_matrix`.
@@ -171,7 +171,3 @@ class PhaseReconstructor:
         """
         logger.debug("Casting complex phases to real values")
         return np.apply_along_axis(np.angle, axis=0, arr=complex_estimator, deg=deg)
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

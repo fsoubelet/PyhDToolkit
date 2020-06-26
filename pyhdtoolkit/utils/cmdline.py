@@ -39,7 +39,7 @@ class CommandLine:
             # According to "man 2 kill", PID 0 refers to <<every process in the process group of
             # the calling process>>. Best not to go any further.
             logger.warning(
-                f"PID 0 refers to 'every process in calling processes', and should be untouched"
+                "PID 0 refers to 'every process in calling processes', and should be untouched"
             )
             return True
         try:
@@ -59,7 +59,7 @@ class CommandLine:
         return True
 
     @staticmethod
-    def run(command, shell: bool = True, env=None, timeout: float = None) -> tuple:
+    def run(command: str, shell: bool = True, env=None, timeout: float = None) -> tuple:
         """
         Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.
         Note that `stderr` is redirected to `stdout`. `shell` is same to parameter of `Popen`.
@@ -133,7 +133,3 @@ class CommandLine:
             A list with those arguments.
         """
         return sys.argv
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

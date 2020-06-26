@@ -5,7 +5,7 @@ Module cpymadtools.lattice_generators
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions for generating different lattices for cpymad.MadX input.
+A collection of functions for generating different lattices for cpymad.madx.Madx input.
 """
 
 
@@ -40,7 +40,7 @@ lsex = 0.00001;
 
 ! ELEMENTS
 mb:multipole, knl:={angleBending};
-qf: multipole, knl:={0, kqf}; 
+qf: multipole, knl:={0, kqf};
 qd: multipole, knl:={0, kqd};
 msf: multipole, knl:={0, 0, ksf};
 msd: multipole, knl:={0, 0, ksd};
@@ -114,7 +114,7 @@ ks2 = 0;
 
 ! ELEMENTS
 mb:multipole, knl:={angleBending};
-qf: multipole, knl:={0, kqf}; 
+qf: multipole, knl:={0, kqf};
 qd: multipole, knl:={0, kqd};
 msf: multipole, knl:={0, 0, ksf};
 msd: multipole, knl:={0, 0, ksd};
@@ -203,7 +203,7 @@ ks2 = 0;
 
 ! ELEMENTS
 mb:multipole, knl:={angleBending};
-qf: multipole, knl:={0, kqf}; 
+qf: multipole, knl:={0, kqf};
 qd: multipole, knl:={0, kqd};
 msf: multipole, knl:={0, 0, ksf};
 msd: multipole, knl:={0, 0, ksd};
@@ -272,7 +272,7 @@ twiss;
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
         """
-        return f"""
+        return """
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
@@ -292,7 +292,7 @@ call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
 
-!####################### Create beam ####################### 
+!####################### Create beam #######################
 
 exec, define_nominal_beams();
 
@@ -300,11 +300,11 @@ exec, define_nominal_beams();
 
 exec, cycle_sequences();
 
-!####################### Default crossing scheme ####################### 
+!####################### Default crossing scheme #######################
 
 exec, set_default_crossing_scheme();
 
-!####################### Selecting to use Beam 1 ####################### 
+!####################### Selecting to use Beam 1 #######################
 
 use, period = LHCB1;
 
@@ -347,7 +347,7 @@ call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
 
-!####################### Create beam ####################### 
+!####################### Create beam #######################
 
 exec, define_nominal_beams();
 
@@ -355,11 +355,11 @@ exec, define_nominal_beams();
 
 exec, cycle_sequences();
 
-!####################### Default crossing scheme ####################### 
+!####################### Default crossing scheme #######################
 
 exec, set_default_crossing_scheme();
 
-!####################### Selecting to use Beam 1 ####################### 
+!####################### Selecting to use Beam 1 #######################
 
 use, period = LHCB1;
 
@@ -422,7 +422,7 @@ call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
 
-!####################### Create beam ####################### 
+!####################### Create beam #######################
 
 exec, define_nominal_beams();
 
@@ -430,11 +430,11 @@ exec, define_nominal_beams();
 
 exec, cycle_sequences();
 
-!####################### Default crossing scheme ####################### 
+!####################### Default crossing scheme #######################
 
 exec, set_default_crossing_scheme();
 
-!####################### Selecting to use Beam 1 ####################### 
+!####################### Selecting to use Beam 1 #######################
 
 use, period = LHCB1;
 
@@ -461,7 +461,3 @@ ealign, ds := {ms_error} * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in m
 exec, match_tunes(62.31, 60.32, 1);
 exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
 """
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

@@ -39,7 +39,7 @@ class ACDipoleGrid:
     """
 
     def __init__(self) -> None:
-        self.grid_output_dir: Path = Path(f"grid_outputs")
+        self.grid_output_dir: Path = Path("grid_outputs")
         self.mask_files_dir: Path = self.grid_output_dir / "mask_files"
         self.outputdata_dir: Path = self.grid_output_dir / "outputdata_dirs"
         self.trackfiles_dir: Path = self.grid_output_dir / "trackfiles"
@@ -60,7 +60,7 @@ class ACDipoleGrid:
         """
         if len(self.sigmas) != len(set(self.sigmas)):
             logger.error(
-                f"There is a duplicate in the sigma values, which would cause a failure later."
+                "There is a duplicate in the sigma values, which would cause a failure later."
             )
             sys.exit()
 
@@ -87,7 +87,7 @@ class ACDipoleGrid:
             logger.debug(f"Creating directory '{self.trackfiles_planes['vertical']}'")
             self.trackfiles_planes["vertical"].mkdir()
         else:
-            logger.error(f"Output directories already present, you may want to move those.")
+            logger.error("Output directories already present, you may want to move those.")
             sys.exit()
 
     def track_forced_oscillations_for_plane(self, kick_plane: str = None) -> None:
@@ -301,17 +301,17 @@ def _convert_trackone_to_sdds() -> None:
         Nothing.
     """
     if not Path("trackone").is_file():
-        logger.error(f"Tried to call 'tbt_converter' without a 'trackone' file present, aborting")
+        logger.error("Tried to call 'tbt_converter' without a 'trackone' file present, aborting")
         sys.exit()
 
     logger.debug(f"Running '{TBT_CONVERTER_SCRIPT}' on 'trackone' file")
     CommandLine.run(
         f"{OMC_PYTHON_ENV} {TBT_CONVERTER_SCRIPT} --file trackone --outputdir . --tbt_datatype trackone"
     )
-    logger.debug(f"Removing trackone file 'trackone'")
+    logger.debug("Removing trackone file 'trackone'")
     Path("trackone").unlink()
 
-    logger.debug(f"Removing outputs of 'tbt_converter'")
+    logger.debug("Removing outputs of 'tbt_converter'")
     Path("stats.txt").unlink()
     for tbt_output_file in list(Path(".").glob("converter_*")):
         tbt_output_file.unlink()

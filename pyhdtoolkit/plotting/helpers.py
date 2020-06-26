@@ -60,7 +60,3 @@ class AnnotationsPlotter:
                 lw=2,
             ),
         )
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

@@ -5,10 +5,11 @@ Module cpymadtools.plotters
 Created on 2019.12.08
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions to plot different output results from a cpymad.MadX object's
+A collection of functions to plot different output results from a cpymad.madx.Madx object's
 simulation results.
 """
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -16,6 +17,13 @@ from loguru import logger
 from matplotlib import colors as mcolors
 
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
+
+try:
+    import cpymad
+    from cpymad.madx import Madx
+except ModuleNotFoundError:
+    pass
+
 
 plt.rcParams.update(PLOT_PARAMS)
 
@@ -34,20 +42,20 @@ class AperturePlotter:
 
     @staticmethod
     def plot_aperture(
-        cpymad_instance,
+        cpymad_instance: Madx,
         beam_params: dict,
         figsize: tuple = (13, 20),
         xlimits: tuple = None,
         hplane_ylim: tuple = (-0.12, 0.12),
         vplane_ylim: tuple = (-0.12, 0.12),
         savefig: str = None,
-    ):
+    ) -> matplotlib.figure.Figure:
         """
         Plot the physical aperture of your machine, already defined into the provided
         cpymad.Madx object.
 
         Args:
-            cpymad_instance: an instanciated `cpymad.MadX` object.
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
             beam_params: a beam_parameters dictionary obtained through
                          cpymadtools.helpers.beam_parameters.
             figsize: size of the figure, defaults to (15, 15).
@@ -60,7 +68,8 @@ class AperturePlotter:
             savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
-            Nothing, just plots.
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
         """
         # We need to interpolate in order to get high resolution along the s direction
         logger.debug("Running interpolation in cpymad")
@@ -88,7 +97,7 @@ class AperturePlotter:
         )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
-        plt.figure(figsize=figsize)
+        figure = plt.figure(figsize=figsize)
 
         logger.debug("Plotting the horizontal aperture")
         axis1 = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
@@ -148,6 +157,7 @@ class AperturePlotter:
         if savefig:
             logger.info(f"Saving aperture plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
+        return figure
 
 
 class DynamicAperturePlotter:
@@ -156,7 +166,9 @@ class DynamicAperturePlotter:
     """
 
     @staticmethod
-    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles: int, savefig: str = None) -> None:
+    def plot_dynamic_aperture(
+        vx_coords: np.ndarray, vy_coords: np.ndarray, n_particles: int, savefig: str = None
+    ) -> matplotlib.figure.Figure:
         """
         Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
         vertical axis, and the turn at which they were lost is in the horizontal axis.
@@ -168,9 +180,10 @@ class DynamicAperturePlotter:
             savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
-            Nothing, plots the figure.
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
         """
-        plt.figure(figsize=(12, 7))
+        figure = plt.figure(figsize=(12, 7))
         turn_lost = []
         x_in_lost = []
 
@@ -191,6 +204,7 @@ class DynamicAperturePlotter:
         if savefig:
             logger.info(f"Saving dynamic aperture plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
+        return figure
 
 
 class PhaseSpacePlotter:
@@ -200,8 +214,13 @@ class PhaseSpacePlotter:
 
     @staticmethod
     def plot_normalized_phase_space(
-        cpymad_instance, u_coordinates, pu_coordinates, savefig: str = None, **kwargs
-    ) -> None:
+        cpymad_instance: Madx,
+        u_coordinates: np.ndarray,
+        pu_coordinates: np.ndarray,
+        savefig: str = None,
+        size: tuple = (16, 8),
+        plane: str = "Horizontal",
+    ) -> matplotlib.figure.Figure:
         """
         Plots the normalized phase space of a particle distribution when provided by position and
         momentum coordinates for a specific plane.
@@ -211,17 +230,14 @@ class PhaseSpacePlotter:
             u_coordinates: coordinates of particles.
             pu_coordinates: momentum coordinates of particles.
             savefig: will save the figure if this is not None, using the string value passed.
-            **kwargs: The looked for keywords are `size` and `plane`. They give the possibility of
-                      specifying the size of the plotted figure, the provided physical plane
-                      (horizontal / vertical) and wether or not to save the figure to file.
+            size: tuple with the wanted matplotlib figure size.
+            plane: string with the physical plane to plot.
 
         Returns:
-            Nothing, plots the figure.
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
         """
-        size = kwargs.get("size", None)
-        plane = kwargs.get("plane", "Horizontal")
-
-        plt.figure(figsize=size) if size else plt.figure(figsize=(16, 8))
+        figure = plt.figure(figsize=size)
         plt.title("Normalized Phase Space", fontsize=20)
 
         # Getting the P matrix to compute normalized coordinates
@@ -260,11 +276,17 @@ class PhaseSpacePlotter:
         if savefig:
             logger.info(f"Saving normalized phase space plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
+        return figure
 
     @staticmethod
     def plot_normalized_phase_space_colored(
-        cpymad_instance, u_coordinates, pu_coordinates, savefig: str = None, **kwargs
-    ) -> None:
+        cpymad_instance: Madx,
+        u_coordinates: np.ndarray,
+        pu_coordinates: np.ndarray,
+        savefig: str = None,
+        size: tuple = (16, 8),
+        plane: str = "Horizontal",
+    ) -> matplotlib.figure.Figure:
         """
         Plots the normalized phase space of a particle distribution when provided by position and
         momentum coordinates for a specific plane. Each particle trajectory has its own color on
@@ -276,24 +298,20 @@ class PhaseSpacePlotter:
             u_coordinates: coordinates of particles.
             pu_coordinates: momentum coordinates of particles.
             savefig: will save the figure if this is not None, using the string value passed.
-            **kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the
-                      possibility of specifying the size of the plotted figure, the provided
-                      physical plane (horizontal / vertical) and wether or not to save the figure
-                      to file.
+            size: tuple with the wanted matplotlib figure size.
+            plane: string with the physical plane to plot.
 
         Returns:
-            Nothing, plots the figure.
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
         """
         # pylint: disable=too-many-locals
-        size = kwargs.get("size", None)
-        plane = kwargs.get("plane", "Horizontal")
-
         # Getting a sufficiently long array of colors to use
         colors = int(np.floor(len(u_coordinates) / 100)) * SORTED_COLORS
         while len(colors) > len(u_coordinates):
             colors.pop()
 
-        plt.figure(figsize=size) if size else plt.figure(figsize=(16, 8))
+        figure = plt.figure(figsize=size)
         plt.title("Normalized Phase Space", fontsize=20)
 
         logger.debug("Getting Twiss functions from cpymad")
@@ -331,6 +349,7 @@ class PhaseSpacePlotter:
         if savefig:
             logger.info(f"Saving colored normalized phase space plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
+        return figure
 
 
 class TuneDiagramPlotter:
@@ -358,16 +377,16 @@ class TuneDiagramPlotter:
         return seq
 
     @staticmethod
-    def plot_blank_tune_diagram() -> None:
+    def plot_blank_tune_diagram() -> matplotlib.figure.Figure:
         """
         Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
 
         Returns:
             Nothing, just plots.
         """
-        logger.debug(f"Plotting resonance lines from Farey sequence")
+        logger.debug("Plotting resonance lines from Farey sequence")
 
-        plt.figure(figsize=(13, 13))
+        figure = plt.figure(figsize=(13, 13))
         plt.ylim((0, 1))
         plt.xlim((0, 1))
 
@@ -396,16 +415,17 @@ class TuneDiagramPlotter:
         plt.ylim([0, 1])
         plt.xlabel("$Q_{x}}$", fontsize=17)
         plt.ylabel("$Q_{y}$", fontsize=17)
+        return figure
 
     @staticmethod
     def plot_tune_diagram(
-        cpymad_instance,
+        cpymad_instance: Madx,
         v_qx: np.array = np.array([0]),
         vxgood: np.array = np.array([False]),
         v_qy: np.array = np.array([0]),
         vygood: np.array = np.array([False]),
         savefig: str = None,
-    ) -> None:
+    ) -> matplotlib.figure.Figure:
         """
         Plots the evolution of particles' tunes on a Tune Diagram.
 
@@ -420,7 +440,7 @@ class TuneDiagramPlotter:
         Returns:
             Nothing, plots the figure.
         """
-        TuneDiagramPlotter.plot_blank_tune_diagram()
+        figure = TuneDiagramPlotter.plot_blank_tune_diagram()
 
         logger.debug("Getting Tunes from cpymad")
         new_q1 = cpymad_instance.table.summ.dframe().q1[0]
@@ -443,7 +463,4 @@ class TuneDiagramPlotter:
         if savefig:
             logger.info(f"Saving Tune diagram plot as {savefig}")
             plt.savefig(savefig, format="png", dpi=500)
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")
+        return figure

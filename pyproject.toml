@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhdtoolkit"
-version = "0.3.0"
+version = "0.4.0-alpha.0"
 description = "An all-in-one toolkit package to easy my Python work in my PhD."
 authors = ["Felix Soubelet <felix.soubelet@cern.ch>"]
 license = "MIT"
@@ -53,6 +53,10 @@ black = { version = "^19.10b0", python = "^3.6" }
 pytest-sugar = "^0.9.2"
 pylint = "^2.4.4"
 pytest-randomly = "^3.3.1"
+
+[tool.poetry.scripts]
+ac_dipole = "pyhdtoolkit.scripts.ac_dipole.sext_ac_dipole_tracking:main"
+triplet_errors = "pyhdtoolkit.scripts.triplet_errors.algo:main"
 
 [tool.isort]
 line_length = 100

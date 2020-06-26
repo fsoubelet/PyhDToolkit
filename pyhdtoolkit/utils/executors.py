@@ -41,7 +41,7 @@ class MultiProcessor:
     """
 
     @staticmethod
-    def execute_function(func, func_args: list, n_processes: int) -> list:
+    def execute_function(func: callable, func_args: list, n_processes: int) -> list:
         """
         Executes the function with the provided arguments as multiple processes. Do not fire up
         more processes than you have cores! Never!
@@ -81,7 +81,7 @@ class MultiThreader:
     """
 
     @staticmethod
-    def execute_function(func, func_args, n_threads) -> list:
+    def execute_function(func: callable, func_args: list, n_threads: int) -> list:
         """
         Executes the function with the provided arguments as multiple threads. Remember there is
         no point of having more threads than the number calls to be executed, the excess threads
@@ -107,7 +107,3 @@ class MultiThreader:
             results = ex.map(func, func_args)
         logger.debug(f"All {n_threads} threads finished")
         return list(results)
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")
