@@ -7,10 +7,11 @@ Provides contexts to use functions in.
 import time
 
 from contextlib import contextmanager
+from typing import Callable
 
 
 @contextmanager
-def timeit(function: callable) -> None:
+def timeit(function: Callable) -> None:
     """
     Returns the time elapsed when executing code in the context via `function`.
     Original code from @jaimecp89

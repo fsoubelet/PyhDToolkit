@@ -19,10 +19,9 @@ from matplotlib import colors as mcolors
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
 
 try:
-    import cpymad
     from cpymad.madx import Madx
 except ModuleNotFoundError:
-    pass
+    Madx = None
 
 
 plt.rcParams.update(PLOT_PARAMS)

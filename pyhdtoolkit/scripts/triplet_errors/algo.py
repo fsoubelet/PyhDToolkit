@@ -15,6 +15,7 @@ import argparse
 import sys
 
 from copy import deepcopy
+from typing import List
 
 import numpy as np
 import pandas as pd
@@ -36,7 +37,6 @@ try:
     import tqdm
 except ImportError:
     logger.exception("Could not import 'tqdm' package, progress bars are deactivated for this run")
-    pass
 
 
 class GridCompute:
@@ -56,8 +56,8 @@ class GridCompute:
         self.errors_mad = cpymad.madx.Madx(stdout=False)
         self.rms_betabeatings = BetaBeatValues()
         self.standard_deviations = StdevValues()
-        self.lost_seeds_tf = []
-        self.lost_seeds_miss = []
+        self.lost_seeds_tf: List[int] = []
+        self.lost_seeds_miss: List[int] = []
         self.nominal_twiss = self._get_nominal_twiss()
 
     def _get_nominal_twiss(self) -> pd.DataFrame:
