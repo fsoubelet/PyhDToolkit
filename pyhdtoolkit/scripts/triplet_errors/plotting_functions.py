@@ -18,7 +18,7 @@ import pandas as pd
 from loguru import logger
 
 if os.environ.get("Display", "") == "":
-    logger.info("Display configuration error found. Using non-interactive Agg backend")
+    logger.warning("Display configuration error found. Using non-interactive Agg backend")
     matplotlib.use("Agg")
 
 

@@ -13,10 +13,9 @@ import numpy as np
 from loguru import logger
 
 try:
-    import cpymad
     from cpymad.madx import Madx
 except ModuleNotFoundError:
-    pass
+    Madx = None
 
 
 class LatticeMatcher:

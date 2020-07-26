@@ -137,7 +137,7 @@ class ACDipoleGrid:
                 mask_file = create_script_file(
                     self.template_str,
                     values_replacing_dict=replace_dict,
-                    filename=str(filename_to_write),
+                    filename=Path(str(filename_to_write)),
                 )
                 run_madx_mask(mask_file)
                 _move_mask_file_after_running(
@@ -190,7 +190,7 @@ class ACDipoleGrid:
                 mask_file = create_script_file(
                     self.template_str,
                     values_replacing_dict=amplitudes_dict,
-                    filename=str(filename_to_write),
+                    filename=Path(str(filename_to_write)),
                 )
                 run_madx_mask(mask_file)
                 _move_mask_file_after_running(

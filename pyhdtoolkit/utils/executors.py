@@ -21,6 +21,7 @@ For instance the default value of m in ThreadPoolExecutor is set to 5 which I th
 """
 
 from concurrent import futures
+from typing import Callable
 
 from loguru import logger
 
@@ -41,7 +42,7 @@ class MultiProcessor:
     """
 
     @staticmethod
-    def execute_function(func: callable, func_args: list, n_processes: int) -> list:
+    def execute_function(func: Callable, func_args: list, n_processes: int) -> list:
         """
         Executes the function with the provided arguments as multiple processes. Do not fire up
         more processes than you have cores! Never!
@@ -81,7 +82,7 @@ class MultiThreader:
     """
 
     @staticmethod
-    def execute_function(func: callable, func_args: list, n_threads: int) -> list:
+    def execute_function(func: Callable, func_args: list, n_threads: int) -> list:
         """
         Executes the function with the provided arguments as multiple threads. Remember there is
         no point of having more threads than the number calls to be executed, the excess threads

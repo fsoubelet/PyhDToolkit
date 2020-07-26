@@ -9,6 +9,8 @@ A few classes that will be useful to store values calculated from the results of
 Algorithm.
 """
 
+from typing import List
+
 import numpy as np
 import pandas as pd
 
@@ -22,22 +24,22 @@ class BetaBeatValues:
 
     # pylint: disable=too-many-instance-attributes
     def __init__(self) -> None:
-        self.tferror_bbx = []
-        self.tferror_bby = []
-        self.ip1_tferror_bbx = []
-        self.ip1_tferror_bby = []
-        self.ip5_tferror_bbx = []
-        self.ip5_tferror_bby = []
-        self.max_tferror_bbx = []
-        self.max_tferror_bby = []
-        self.misserror_bbx = []
-        self.misserror_bby = []
-        self.ip1_misserror_bbx = []
-        self.ip1_misserror_bby = []
-        self.ip5_misserror_bbx = []
-        self.ip5_misserror_bby = []
-        self.max_misserror_bbx = []
-        self.max_misserror_bby = []
+        self.tferror_bbx: List[float] = []
+        self.tferror_bby: List[float] = []
+        self.ip1_tferror_bbx: List[float] = []
+        self.ip1_tferror_bby: List[float] = []
+        self.ip5_tferror_bbx: List[float] = []
+        self.ip5_tferror_bby: List[float] = []
+        self.max_tferror_bbx: List[float] = []
+        self.max_tferror_bby: List[float] = []
+        self.misserror_bbx: List[float] = []
+        self.misserror_bby: List[float] = []
+        self.ip1_misserror_bbx: List[float] = []
+        self.ip1_misserror_bby: List[float] = []
+        self.ip5_misserror_bbx: List[float] = []
+        self.ip5_misserror_bby: List[float] = []
+        self.max_misserror_bbx: List[float] = []
+        self.max_misserror_bby: List[float] = []
 
     def describe(self) -> None:
         """
@@ -167,22 +169,22 @@ class StdevValues:
 
     # pylint: disable=too-many-instance-attributes
     def __init__(self) -> None:
-        self.stdev_tf_x = []
-        self.stdev_tf_y = []
-        self.ip1_stdev_tf_x = []
-        self.ip1_stdev_tf_y = []
-        self.ip5_stdev_tf_x = []
-        self.ip5_stdev_tf_y = []
-        self.max_stdev_tf_x = []
-        self.max_stdev_tf_y = []
-        self.stdev_miss_x = []
-        self.stdev_miss_y = []
-        self.ip1_stdev_miss_x = []
-        self.ip1_stdev_miss_y = []
-        self.ip5_stdev_miss_x = []
-        self.ip5_stdev_miss_y = []
-        self.max_stdev_miss_x = []
-        self.max_stdev_miss_y = []
+        self.stdev_tf_x: List[float] = []
+        self.stdev_tf_y: List[float] = []
+        self.ip1_stdev_tf_x: List[float] = []
+        self.ip1_stdev_tf_y: List[float] = []
+        self.ip5_stdev_tf_x: List[float] = []
+        self.ip5_stdev_tf_y: List[float] = []
+        self.max_stdev_tf_x: List[float] = []
+        self.max_stdev_tf_y: List[float] = []
+        self.stdev_miss_x: List[float] = []
+        self.stdev_miss_y: List[float] = []
+        self.ip1_stdev_miss_x: List[float] = []
+        self.ip1_stdev_miss_y: List[float] = []
+        self.ip5_stdev_miss_x: List[float] = []
+        self.ip5_stdev_miss_y: List[float] = []
+        self.max_stdev_miss_x: List[float] = []
+        self.max_stdev_miss_y: List[float] = []
 
     def describe(self) -> None:
         """
