@@ -1,11 +1,22 @@
 """
+Module cpymadtools.helpers
+--------------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions for performing different common operations on a cpymad.MadX object..
+A collection of functions for performing different common operations on a cpymad.madx.Madx object.
 """
 
 import numpy as np
+
+from loguru import logger
+
+try:
+    import cpymad
+    from cpymad.madx import Madx
+except ModuleNotFoundError:
+    pass
 
 
 class LatticeMatcher:
@@ -14,16 +25,23 @@ class LatticeMatcher:
     """
 
     @staticmethod
-    def perform_tune_matching(cpymad_instance, sequence_name, q1_target, q2_target) -> None:
+    def perform_tune_matching(
+        cpymad_instance: Madx, sequence_name: str, q1_target: float, q2_target: float
+    ) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional matching command to reach
-        the provided values for tunes.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
-        :param sequence_name: name of the sequence you want to activate for the tune matching.
-        :param q1_target: horizontal tune to match to.
-        :param q2_target: vertical tune to match to.
-        :return: nothing.
+        Provided with an active Cpymad class after having ran a script, will run an additional
+        matching command to reach the provided values for tunes.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            sequence_name: name of the sequence you want to activate for the tune matching.
+            q1_target: horizontal tune to match to.
+            q2_target: vertical tune to match to.
+
+        Returns:
+            Nothing.
         """
+        logger.debug(f"Starting matching sequence for target tunes {q1_target} and {q2_target}")
         cpymad_instance.input(
             f"""
 !MATCHING SEQUENCE
@@ -39,16 +57,25 @@ twiss;
         )
 
     @staticmethod
-    def perform_chroma_matching(cpymad_instance, sequence_name, dq1_target, dq2_target) -> None:
+    def perform_chroma_matching(
+        cpymad_instance: Madx, sequence_name: str, dq1_target: float, dq2_target: float
+    ) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional matching command to reach
-        the provided values for chromaticities.
-        :param cpymad_instance: an instanciated `cpymad.MadX` object.
-        :param sequence_name: name of the sequence you want to activate for the tune matching.
-        :param dq1_target: horizontal chromaticity to match to.
-        :param dq2_target: vertical chromaticity to match to.
-        :return:
+        Provided with an active Cpymad class after having ran a script, will run an additional
+        matching command to reach the provided values for chromaticities.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            sequence_name: name of the sequence you want to activate for the tune matching.
+            dq1_target: horizontal chromaticity to match to.
+            dq2_target: vertical chromaticity to match to.
+
+        Returns:
+            Nothing.
         """
+        logger.debug(
+            f"Starting matching sequence for target chromaticities {dq1_target} and {dq2_target}"
+        )
         cpymad_instance.input(
             f"""
 !MATCHING SEQUENCE
@@ -71,7 +98,11 @@ class Parameters:
 
     @staticmethod
     def beam_parameters(
-        pc_GeV: float, en_x_m: float = 5e-6, en_y_m: float = 5e-6, deltap_p: float = 1e-3, verbose: bool = False
+        pc_GeV: float,
+        en_x_m: float = 5e-6,
+        en_y_m: float = 5e-6,
+        deltap_p: float = 1e-3,
+        verbose: bool = False,
     ):
         """Calculate beam parameters from provided values.
 
@@ -106,23 +137,20 @@ class Parameters:
         }
 
         if verbose:
+            logger.debug("Outputing computed values")
             print(
                 f"""Particle type: proton
-            Beam momentum= {parameters["pc_GeV"]:2.3f} GeV/c
-            Normalized x-emittance= {parameters["en_x_m"] * 1e6:2.3f} mm mrad
-            Normalized y-emittance= {parameters["en_y_m"] * 1e6:2.3f} mm mrad
-            Momentum deviation deltap/p= {parameters["deltap_p"]} 
-            -> Beam total energy= {parameters["E_tot_GeV"]:2.3f} GeV
-            -> Beam kinetic energy= {parameters["E_kin_GeV"]:2.3f} GeV
-            -> Beam rigidity= {parameters["B_rho_Tm"]:2.3f} Tm
-            -> Relativistic beta= {parameters["beta_r"]:2.5f}
-            -> Relativistic gamma= {parameters["gamma_r"]:2.3f}
-            -> Geometrical x emittance= {parameters["eg_x_m"] * 1e6:2.3f} mm mrad
-            -> Geometrical y emittance= {parameters["eg_y_m"] * 1e6:2.3f} mm mrad
+            Beam momentum = {parameters["pc_GeV"]:2.3f} GeV/c
+            Normalized x-emittance = {parameters["en_x_m"] * 1e6:2.3f} mm mrad
+            Normalized y-emittance = {parameters["en_y_m"] * 1e6:2.3f} mm mrad
+            Momentum deviation deltap/p = {parameters["deltap_p"]}
+            -> Beam total energy = {parameters["E_tot_GeV"]:2.3f} GeV
+            -> Beam kinetic energy = {parameters["E_kin_GeV"]:2.3f} GeV
+            -> Beam rigidity = {parameters["B_rho_Tm"]:2.3f} Tm
+            -> Relativistic beta = {parameters["beta_r"]:2.5f}
+            -> Relativistic gamma = {parameters["gamma_r"]:2.3f}
+            -> Geometrical x emittance = {parameters["eg_x_m"] * 1e6:2.3f} mm mrad
+            -> Geometrical y emittance = {parameters["eg_y_m"] * 1e6:2.3f} mm mrad
             """
             )
         return parameters
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

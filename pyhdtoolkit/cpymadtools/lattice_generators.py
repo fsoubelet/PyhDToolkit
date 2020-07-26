@@ -1,8 +1,11 @@
 """
+Module cpymadtools.lattice_generators
+-------------------------------------
+
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions for generating different lattices for cpymad.MadX input.
+A collection of functions for generating different lattices for cpymad.madx.Madx input.
 """
 
 
@@ -15,16 +18,18 @@ class LatticeGenerator:
     def generate_base_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
-        mystring = """
+        return """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
 ! PARAMETERS
-circum = 1000.0;
+circumference = 1000.0;
 ncell = 24;
-lcell = circum/ncell;
+lcell = circumference/ncell;
 lq = 3.00;
 angleBending = 2.0*pi/(4*ncell);
 
@@ -35,13 +40,13 @@ lsex = 0.00001;
 
 ! ELEMENTS
 mb:multipole, knl:={angleBending};
-qf: multipole, knl:={0, kqf}; 
+qf: multipole, knl:={0, kqf};
 qd: multipole, knl:={0, kqd};
 msf: multipole, knl:={0, 0, ksf};
 msd: multipole, knl:={0, 0, ksd};
 
 ! DECLARE SEQUENCE
-CAS3: sequence, refer=centre, l=circum;
+CAS3: sequence, refer=centre, l=circumference;
    start_machine: marker, at = 0;
    n = 1;
    while (n < ncell+1) {
@@ -56,7 +61,7 @@ CAS3: sequence, refer=centre, l=circum;
     at=(n-1)*lcell;
     n = n + 1;
 }
-end_machine: marker at=circum;
+end_machine: marker at=circumference;
 endsequence;
 
 ! MAKE BEAM
@@ -80,22 +85,23 @@ select,flag=twiss, clear;
 select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
-        return mystring
 
     @staticmethod
     def generate_onesext_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
-        mystring = """
+        return """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
 ! PARAMETERS
-circum = 1000.0;
+circumference = 1000.0;
 ncell = 24;
-lcell = circum/ncell;
+lcell = circumference/ncell;
 lq = 3.00;
 angleBending = 2.0*pi/(4*ncell);
 
@@ -108,7 +114,7 @@ ks2 = 0;
 
 ! ELEMENTS
 mb:multipole, knl:={angleBending};
-qf: multipole, knl:={0, kqf}; 
+qf: multipole, knl:={0, kqf};
 qd: multipole, knl:={0, kqd};
 msf: multipole, knl:={0, 0, ksf};
 msd: multipole, knl:={0, 0, ksd};
@@ -117,7 +123,7 @@ mof: multipole, knl:={0, 0, ks1, 0};
 mod: multipole, knl:={0, 0, ks2, 0};
 
 ! DECLARE SEQUENCE
-CAS3: sequence, refer=centre, l=circum;
+CAS3: sequence, refer=centre, l=circumference;
    start_machine: marker, at = 0;
    n = 1;
    qf: qf,   at=(n-1)*lcell;
@@ -144,7 +150,7 @@ CAS3: sequence, refer=centre, l=circum;
     at=(n-1)*lcell;
     n = n + 1;
    }
-end_machine: marker at=circum;
+end_machine: marker at=circumference;
 endsequence;
 
 ! MAKE BEAM
@@ -168,22 +174,23 @@ select,flag=twiss, clear;
 select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
-        return mystring
 
     @staticmethod
     def generate_oneoct_cas_lattice() -> str:
         """
         Simple function to help unclutter the notebook.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
-        mystring = """
+        return """
 option, -info, -warn;
 TITLE, ’CAS2019 Project Team 3’;
 
 ! PARAMETERS
-circum = 1000.0;
+circumference = 1000.0;
 ncell = 24;
-lcell = circum/ncell;
+lcell = circumference/ncell;
 lq = 3.00;
 angleBending = 2.0*pi/(4*ncell);
 
@@ -196,7 +203,7 @@ ks2 = 0;
 
 ! ELEMENTS
 mb:multipole, knl:={angleBending};
-qf: multipole, knl:={0, kqf}; 
+qf: multipole, knl:={0, kqf};
 qd: multipole, knl:={0, kqd};
 msf: multipole, knl:={0, 0, ksf};
 msd: multipole, knl:={0, 0, ksd};
@@ -205,7 +212,7 @@ mof: multipole, knl:={0, 0, 0, koct};
 mod: multipole, knl:={0, 0, 0, 0};
 
 ! DECLARE SEQUENCE
-CAS3: sequence, refer=centre, l=circum;
+CAS3: sequence, refer=centre, l=circumference;
    start_machine: marker, at = 0;
    n = 1;
    qf: qf,   at=(n-1)*lcell;
@@ -232,7 +239,7 @@ CAS3: sequence, refer=centre, l=circum;
     at=(n-1)*lcell;
     n = n + 1;
    }
-end_machine: marker at=circum;
+end_machine: marker at=circumference;
 endsequence;
 
 ! MAKE BEAM
@@ -256,15 +263,16 @@ select,flag=twiss, clear;
 select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;
 twiss;
     """
-        return mystring
 
     @staticmethod
     def generate_tripleterrors_study_reference() -> str:
         """
         Generate generic script for reference Twiss, to use in a `cpymad.madx.Madx` object.
-        :return: string you can input into your `cpymad.madx.Madx` object.
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
         """
-        script = f"""
+        return """
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
@@ -284,7 +292,7 @@ call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
 
-!####################### Create beam ####################### 
+!####################### Create beam #######################
 
 exec, define_nominal_beams();
 
@@ -292,11 +300,11 @@ exec, define_nominal_beams();
 
 exec, cycle_sequences();
 
-!####################### Default crossing scheme ####################### 
+!####################### Default crossing scheme #######################
 
 exec, set_default_crossing_scheme();
 
-!####################### Selecting to use Beam 1 ####################### 
+!####################### Selecting to use Beam 1 #######################
 
 use, period = LHCB1;
 
@@ -306,18 +314,20 @@ option, echo, warn, info;
 exec, match_tunes(62.31, 60.32, 1);     ! Since we're using beam 1
 twiss;
 """
-        return script
 
     @staticmethod
     def generate_tripleterrors_study_tferror_job(rand_seed: str, tf_error: str) -> str:
         """
         Generate generic script for tf_error Twiss, to use in a `cpymad.madx.Madx` object.
-        :param rand_seed: the random seed to provide MAD for the errors distributions.
-        :param tf_error: the misalignment error value (along the s axis).
-        :return: string you can input into your `cpymad.madx.Madx` object.
-        """
 
-        tferror_script = f"""
+        Args:
+            rand_seed: the random seed to provide MAD for the errors distributions.
+            tf_error: the misalignment error value (along the s axis).
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
+        """
+        return f"""
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
@@ -337,7 +347,7 @@ call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
 
-!####################### Create beam ####################### 
+!####################### Create beam #######################
 
 exec, define_nominal_beams();
 
@@ -345,11 +355,11 @@ exec, define_nominal_beams();
 
 exec, cycle_sequences();
 
-!####################### Default crossing scheme ####################### 
+!####################### Default crossing scheme #######################
 
 exec, set_default_crossing_scheme();
 
-!####################### Selecting to use Beam 1 ####################### 
+!####################### Selecting to use Beam 1 #######################
 
 use, period = LHCB1;
 
@@ -379,18 +389,20 @@ exec, SetEfcomp_Q;     ! Assign field errors
 exec, match_tunes(62.31, 60.32, 1);
 exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
 """
-        return tferror_script
 
     @staticmethod
     def generate_tripleterrors_study_mserror_job(rand_seed: str, ms_error: str) -> str:
         """
         Generate generic script for ms_error Twiss, to use in a `cpymad.madx.Madx` object.
-        :param rand_seed: the random seed to provide MAD for the errors distributions.
-        :param ms_error: the misalignment error value (along the s axis).
-        :return: string you can input into your `cpymad.madx.Madx` object.
-        """
 
-        mserror_script = f"""
+        Args:
+            rand_seed: the random seed to provide MAD for the errors distributions.
+            ms_error: the misalignment error value (along the s axis).
+
+        Returns:
+            A string you can input into your `cpymad.madx.Madx` object.
+        """
+        return f"""
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
@@ -410,7 +422,7 @@ call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 call, file = "/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx";
 
-!####################### Create beam ####################### 
+!####################### Create beam #######################
 
 exec, define_nominal_beams();
 
@@ -418,11 +430,11 @@ exec, define_nominal_beams();
 
 exec, cycle_sequences();
 
-!####################### Default crossing scheme ####################### 
+!####################### Default crossing scheme #######################
 
 exec, set_default_crossing_scheme();
 
-!####################### Selecting to use Beam 1 ####################### 
+!####################### Selecting to use Beam 1 #######################
 
 use, period = LHCB1;
 
@@ -449,8 +461,3 @@ ealign, ds := {ms_error} * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in m
 exec, match_tunes(62.31, 60.32, 1);
 exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
 """
-        return mserror_script
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

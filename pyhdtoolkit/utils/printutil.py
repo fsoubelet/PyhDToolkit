@@ -1,4 +1,7 @@
 """
+Module utils.printutil
+----------------------
+
 Created on 2019.12.11
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
@@ -57,7 +60,3 @@ class Styles:
     reverse = "\033[7m"
     strikethrough = "\033[09m"
     underscore = "\033[4m"
-
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")

@@ -1,26 +1,44 @@
-stages:
-  - test
-  - name: package
-    if: tag =~ ^v\d+\.\d+\.\d+.*
-
-# Default python version that will be inherited
-# Additional ones can be defined later
 language: python
-python: 3.6
 
-email:
-  on_failure: always
+dist: bionic
 
-jobs:
-  include:
-    - &test-stage
-      stage: test
-      script:
-       - python setup.py test -n pytest
+python:
+  - "3.6"
+  - "3.7"
+#  - "3.8"  # Somehow cpymad does not work on Python 3.8
 
-    # Define additional python versions for tests
-    - <<: *test-stage
-      python: 3.7
+cache:
+  - pip
 
-    - <<: *test-stage
-      python: 3.8
+services:
+  - docker
+
+env:
+  global:
+    - CC_TEST_REPORTER_ID=a05b1f0da35f0716b773caf151b460f457b0e407e5ff164b061752e1555ef9d1
+
+notifications:
+  email:
+    on_success: always
+    on_failure: always
+
+install:
+  - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+  - $HOME/.poetry/bin/poetry config virtualenvs.in-project true
+  - $HOME/.poetry/bin/poetry install -v -E tqdm -E madx
+
+before_script:
+  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+  - chmod +x ./cc-test-reporter
+  - ./cc-test-reporter before-build
+
+script:
+  - $HOME/.poetry/bin/poetry run pytest --verbose --no-flaky-report -p no:sugar --cov-report=xml --cov-report term-missing --cov=pyhdtoolkit/ tests
+
+# Not needed yet
+#after_success:
+#  - docker build -t simenv .
+#  - docker images
+
+after_script:
+  - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT

@@ -1,20 +1,37 @@
 """
+Module cpymadtools.plotters
+---------------------------
+
 Created on 2019.12.08
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions to plot different output results from a cpymad.MadX object's simulation results.
+A collection of functions to plot different output results from a cpymad.madx.Madx object's
+simulation results.
 """
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+
+from loguru import logger
 from matplotlib import colors as mcolors
 
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
 
+try:
+    import cpymad
+    from cpymad.madx import Madx
+except ModuleNotFoundError:
+    pass
+
+
 plt.rcParams.update(PLOT_PARAMS)
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
-BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
+BY_HSV = sorted(
+    (tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name)
+    for name, color in COLORS_DICT.items()
+)
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
@@ -25,38 +42,48 @@ class AperturePlotter:
 
     @staticmethod
     def plot_aperture(
-        cpymad_instance,
+        cpymad_instance: Madx,
         beam_params: dict,
         figsize: tuple = (13, 20),
         xlimits: tuple = None,
         hplane_ylim: tuple = (-0.12, 0.12),
         vplane_ylim: tuple = (-0.12, 0.12),
-    ):
+        savefig: str = None,
+    ) -> matplotlib.figure.Figure:
         """
-        Plot the physical aperture of your machine, already defined into the provided cpymad.Madx object.
+        Plot the physical aperture of your machine, already defined into the provided
+        cpymad.Madx object.
 
         Args:
-            cpymad_instance: an instanciated `cpymad.MadX` object.
-            beam_params: a beam_parameters dictionary obtained through cpymadtools.helpers.beam_parameters.
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            beam_params: a beam_parameters dictionary obtained through
+                         cpymadtools.helpers.beam_parameters.
             figsize: size of the figure, defaults to (15, 15).
-            xlimits: will implement xlim (for the s coordinate) if this is not None, using the tuple passed.
-            hplane_ylim: the y limits for the horizontal plane plot (so that machine geometry doesn't make the  plot
-            look shrinked).
-            vplane_ylim: the y limits for the vertical plane plot (so that machine geometry doesn't make the plot
-            look shrinked).
+            xlimits: will implement xlim (for the s coordinate) if this is not None, using the
+                     tuple passed.
+            hplane_ylim: the y limits for the horizontal plane plot (so that machine geometry
+                         doesn't make the  plot look shrinked).
+            vplane_ylim: the y limits for the vertical plane plot (so that machine geometry
+                         doesn't make the plot look shrinked).
+            savefig: will save the figure if this is not None, using the string value passed.
 
         Returns:
-            Nothing, just plots.
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
         """
         # We need to interpolate in order to get high resolution along the s direction
+        logger.debug("Running interpolation in cpymad")
         cpymad_instance.input(
             """
         select, flag=interpolate, class=drift, slice=4, range=#s/#e;
         select, flag=interpolate, class=quadrupole, slice=8, range=#s/#e;
         select, flag=interpolate, class=sbend, slice=10, range=#s/#e;
+        select, flag=interpolate, class=rbend, slice=10, range=#s/#e;
         twiss;
         """
         )
+
+        logger.debug("Getting Twiss dframe from cpymad")
         twiss_hr = cpymad_instance.table.twiss.dframe()
         twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params["eg_y_m"])
         twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params["eg_y_m"])
@@ -70,14 +97,18 @@ class AperturePlotter:
         )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
-        plt.figure(figsize=figsize)
+        figure = plt.figure(figsize=figsize)
 
-        # Plotting the horizontal aperture
+        logger.debug("Plotting the horizontal aperture")
         axis1 = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
         axis1.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
         axis1.plot(twiss_hr.s, -twiss_hr.envelope_x, color="b")
-        axis1.fill_between(twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25)
-        axis1.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25)
+        axis1.fill_between(
+            twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25
+        )
+        axis1.fill_between(
+            twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25
+        )
         axis1.fill_between(machine.s, machine.aper_1, machine.aper_1 * 100, color="k", alpha=0.5)
         axis1.fill_between(machine.s, -machine.aper_1, -machine.aper_1 * 100, color="k", alpha=0.5)
         axis1.plot(machine.s, machine.aper_1, "k.-")
@@ -88,14 +119,22 @@ class AperturePlotter:
         axis1.set_xlabel("s [m]")
         axis1.set_title(f"Horizontal aperture at {beam_params['pc_GeV']} GeV/c")
 
-        # Plotting the vertical aperture
+        logger.debug("Plotting the vertical aperture")
         axis2 = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=1, sharex=axis1)
         axis2.plot(twiss_hr.s, twiss_hr.envelope_y, color="r")
         axis2.plot(twiss_hr.s, -twiss_hr.envelope_y, color="r")
-        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(
+            twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25
+        )
+        axis2.fill_between(
+            twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25
+        )
+        axis2.fill_between(
+            twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25
+        )
+        axis2.fill_between(
+            twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25
+        )
         axis2.fill_between(machine.s, machine.aper_2, machine.aper_2 * 100, color="k", alpha=0.5)
         axis2.fill_between(machine.s, -machine.aper_2, -machine.aper_2 * 100, color="k", alpha=0.5)
         axis2.plot(machine.s, machine.aper_2, "k.-")
@@ -105,7 +144,7 @@ class AperturePlotter:
         axis2.set_xlabel("s [m]")
         axis2.set_title(f"Vertical aperture at {beam_params['pc_GeV']} GeV/c")
 
-        # Plotting the stay-clear envelope
+        logger.debug("Plotting the stay-clear envelope")
         axis3 = plt.subplot2grid((3, 3), (2, 0), colspan=3, rowspan=1, sharex=axis1)
         axis3.plot(machine.s, machine.aper_1 / machine.envelope_x, ".-b", label="Horizontal plane")
         axis3.plot(machine.s, machine.aper_2 / machine.envelope_y, ".-r", label="Vertical plane")
@@ -115,6 +154,11 @@ class AperturePlotter:
         axis3.legend(loc="best")
         axis3.set_title(f"Stay-clear envelope at {beam_params['pc_GeV']} GeV/c")
 
+        if savefig:
+            logger.info(f"Saving aperture plot as {savefig}")
+            plt.savefig(savefig, format="png", dpi=500)
+        return figure
+
 
 class DynamicAperturePlotter:
     """
@@ -122,16 +166,24 @@ class DynamicAperturePlotter:
     """
 
     @staticmethod
-    def plot_dynamic_aperture(vx_coords, vy_coords, n_particles) -> None:
+    def plot_dynamic_aperture(
+        vx_coords: np.ndarray, vy_coords: np.ndarray, n_particles: int, savefig: str = None
+    ) -> matplotlib.figure.Figure:
         """
-        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the Y axis,
-        and the turn at which they were lost is in the X axis.
-        :param vx_coords: horizontal coordinates over turns.
-        :param vy_coords: vertical coordinates over turns.
-        :param n_particles: number of particles simulated.
-        :return: nothing, plots the figure.
+        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
+        vertical axis, and the turn at which they were lost is in the horizontal axis.
+
+        Args:
+            vx_coords: array-like, horizontal coordinates over turns.
+            vy_coords: array-like, vertical coordinates over turns.
+            n_particles: number of particles simulated.
+            savefig: will save the figure if this is not None, using the string value passed.
+
+        Returns:
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
         """
-        plt.figure(figsize=(12, 7))
+        figure = plt.figure(figsize=(12, 7))
         turn_lost = []
         x_in_lost = []
 
@@ -149,6 +201,11 @@ class DynamicAperturePlotter:
         plt.xlabel("Number of Turns Survived", fontsize=17)
         plt.ylabel("Initial amplitude [mm]", fontsize=17)
 
+        if savefig:
+            logger.info(f"Saving dynamic aperture plot as {savefig}")
+            plt.savefig(savefig, format="png", dpi=500)
+        return figure
+
 
 class PhaseSpacePlotter:
     """
@@ -156,32 +213,51 @@ class PhaseSpacePlotter:
     """
 
     @staticmethod
-    def plot_normalized_phase_space(cpymad_instance, u_coordinates, pu_coordinates, **kwargs) -> None:
+    def plot_normalized_phase_space(
+        cpymad_instance: Madx,
+        u_coordinates: np.ndarray,
+        pu_coordinates: np.ndarray,
+        savefig: str = None,
+        size: tuple = (16, 8),
+        plane: str = "Horizontal",
+    ) -> matplotlib.figure.Figure:
         """
-        Plots the normalized phase space of a particle distribution when provided by position and momentum coordinates
-        for a specific plane.
-        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
-        :param u_coordinates: coordinates of particles.
-        :param pu_coordinates: momentum coordinates of particles.
-        :param kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
-        specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether or
-        not to save the figure to file.
-        :return: nothing, plots the figure.
-        """
-        size = kwargs.get("size", None)
-        plane = kwargs.get("plane", "Horizontal")
-        savefig = kwargs.get("savefig", False)
+        Plots the normalized phase space of a particle distribution when provided by position and
+        momentum coordinates for a specific plane.
 
-        plt.figure(figsize=size) if size else plt.figure(figsize=(16, 8))
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            u_coordinates: coordinates of particles.
+            pu_coordinates: momentum coordinates of particles.
+            savefig: will save the figure if this is not None, using the string value passed.
+            size: tuple with the wanted matplotlib figure size.
+            plane: string with the physical plane to plot.
+
+        Returns:
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
+        """
+        figure = plt.figure(figsize=size)
         plt.title("Normalized Phase Space", fontsize=20)
 
         # Getting the P matrix to compute normalized coordinates
-        alpha = cpymad_instance.table.twiss.alfx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.alfy[0]
-        beta = cpymad_instance.table.twiss.betx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.bety[0]
+        logger.debug("Getting Twiss functions from cpymad")
+        alpha = (
+            cpymad_instance.table.twiss.alfx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.alfy[0]
+        )
+        beta = (
+            cpymad_instance.table.twiss.betx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.bety[0]
+        )
+
+        logger.debug("Computing P-matrix to get normalized coordinates")
         p_matrix = np.array([[np.sqrt(beta), 0], [-alpha / np.sqrt(beta), 1 / np.sqrt(beta)]])
         p_matrix_inv = np.linalg.inv(p_matrix)
 
-        # Plotting phase space
+        logger.debug(f"Plotting normalised phase space for {plane.lower()}")
         for index, u_particle in enumerate(u_coordinates):
             u = np.array([u_coordinates[index], pu_coordinates[index]])
             u_bar = p_matrix_inv @ u
@@ -198,42 +274,63 @@ class PhaseSpacePlotter:
                 raise ValueError("Plane should be either Horizontal or Vertical")
 
         if savefig:
-            plt.savefig("normalized_phase_space", format="png", dpi=300)
+            logger.info(f"Saving normalized phase space plot as {savefig}")
+            plt.savefig(savefig, format="png", dpi=500)
+        return figure
 
     @staticmethod
-    def plot_normalized_phase_space_colored(cpymad_instance, u_coordinates, pu_coordinates, **kwargs) -> None:
+    def plot_normalized_phase_space_colored(
+        cpymad_instance: Madx,
+        u_coordinates: np.ndarray,
+        pu_coordinates: np.ndarray,
+        savefig: str = None,
+        size: tuple = (16, 8),
+        plane: str = "Horizontal",
+    ) -> matplotlib.figure.Figure:
         """
-        Plots the normalized phase space of a particle distribution when provided by position and momentum coordinates
-        for a specific plane. Each particle trajectory has its own color on the plot, within the limit of pyplot's 156
-        named colors. The sequence repeats after the 156th color.
-        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
-        :param u_coordinates: coordinates of particles.
-        :param pu_coordinates: momentum coordinates of particles.
-        :param kwargs: The looked for keywords are `size`, `plane`, and `savefig`. They give the possibility of
-        specifying the size of the plotted figure, the provided physical plane (horizontal / vertical) and wether or
-        not to save the figure to file.
-        :return: nothing, plots the figure.
+        Plots the normalized phase space of a particle distribution when provided by position and
+        momentum coordinates for a specific plane. Each particle trajectory has its own color on
+        the plot, within the limit of pyplot's 156 named colors. The sequence repeats after the
+        156th color.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            u_coordinates: coordinates of particles.
+            pu_coordinates: momentum coordinates of particles.
+            savefig: will save the figure if this is not None, using the string value passed.
+            size: tuple with the wanted matplotlib figure size.
+            plane: string with the physical plane to plot.
+
+        Returns:
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
         """
         # pylint: disable=too-many-locals
-        size = kwargs.get("size", None)
-        plane = kwargs.get("plane", "Horizontal")
-        savefig = kwargs.get("savefig", False)
-
         # Getting a sufficiently long array of colors to use
         colors = int(np.floor(len(u_coordinates) / 100)) * SORTED_COLORS
         while len(colors) > len(u_coordinates):
             colors.pop()
 
-        plt.figure(figsize=size) if size else plt.figure(figsize=(16, 8))
+        figure = plt.figure(figsize=size)
         plt.title("Normalized Phase Space", fontsize=20)
 
-        # Getting the P matrix to compute normalized coordinates
-        alpha = cpymad_instance.table.twiss.alfx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.alfy[0]
-        beta = cpymad_instance.table.twiss.betx[0] if plane == "Horizontal" else cpymad_instance.table.twiss.bety[0]
+        logger.debug("Getting Twiss functions from cpymad")
+        alpha = (
+            cpymad_instance.table.twiss.alfx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.alfy[0]
+        )
+        beta = (
+            cpymad_instance.table.twiss.betx[0]
+            if plane == "Horizontal"
+            else cpymad_instance.table.twiss.bety[0]
+        )
+
+        logger.debug("Computing P-matrix to get normalized coordinates")
         p_matrix = np.array([[np.sqrt(beta), 0], [-alpha / np.sqrt(beta), 1 / np.sqrt(beta)]])
         p_matrix_inv = np.linalg.inv(p_matrix)
 
-        # Plotting
+        logger.debug(f"Plotting colored normalised phase space for {plane.lower()}")
         for index, u_particle in enumerate(u_coordinates):
             u = np.array([u_coordinates[index], pu_coordinates[index]])
             u_bar = p_matrix_inv @ u
@@ -250,7 +347,9 @@ class PhaseSpacePlotter:
                 raise ValueError("Plane should be either Horizontal or Vertical")
 
         if savefig:
-            plt.savefig("normalized_phase_space_colored", format="png", dpi=300)
+            logger.info(f"Saving colored normalized phase space plot as {savefig}")
+            plt.savefig(savefig, format="png", dpi=500)
+        return figure
 
 
 class TuneDiagramPlotter:
@@ -261,9 +360,13 @@ class TuneDiagramPlotter:
     @staticmethod
     def farey_sequence(order: int) -> list:
         """
-        Return the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
-        :param order: the order up to which we want to calculate the sequence.
-        :return: the sequence as a list.
+        Returns the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
+
+        Args:
+            order: the order up to which we want to calculate the sequence.
+
+        Returns:
+            The sequence as a list.
         """
         seq = [[0, 1]]
         a, b, c, d = 0, 1, 1, order
@@ -274,14 +377,19 @@ class TuneDiagramPlotter:
         return seq
 
     @staticmethod
-    def plot_blank_tune_diagram() -> None:
+    def plot_blank_tune_diagram() -> matplotlib.figure.Figure:
         """
         Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
-        :return: nothing.
+
+        Returns:
+            Nothing, just plots.
         """
-        plt.figure(figsize=(13, 13))
+        logger.debug("Plotting resonance lines from Farey sequence")
+
+        figure = plt.figure(figsize=(13, 13))
         plt.ylim((0, 1))
         plt.xlim((0, 1))
+
         x = np.linspace(0, 1, 1000)
         for i in range(1, 6):
             farey_sequences = TuneDiagramPlotter.farey_sequence(i)
@@ -289,10 +397,10 @@ class TuneDiagramPlotter:
                 h, k = f  # Node h/k on the axes
                 for sequence in farey_sequences:
                     p, q = sequence
-                    c = float(p * h)
                     a = float(k * p)  # Resonance linea Qx + b*Qy = clinkedtop / q
-                    b = float(q - k * p)
                     if a > 0:
+                        b = float(q - k * p)
+                        c = float(p * h)
                         plt.plot(x, c / a - x * b / a, "b", alpha=0.1)
                         plt.plot(x, c / a + x * b / a, "b", alpha=0.1)
                         plt.plot(c / a - x * b / a, x, "b", alpha=0.1)
@@ -307,25 +415,34 @@ class TuneDiagramPlotter:
         plt.ylim([0, 1])
         plt.xlabel("$Q_{x}}$", fontsize=17)
         plt.ylabel("$Q_{y}$", fontsize=17)
+        return figure
 
     @staticmethod
     def plot_tune_diagram(
-        cpymad_instance,
+        cpymad_instance: Madx,
         v_qx: np.array = np.array([0]),
         vxgood: np.array = np.array([False]),
         v_qy: np.array = np.array([0]),
         vygood: np.array = np.array([False]),
-    ) -> None:
+        savefig: str = None,
+    ) -> matplotlib.figure.Figure:
         """
         Plots the evolution of particles' tunes on a Tune Diagram.
-        :param cpymad_instance: an instanciated `cpymad.madx.Madx` object.
-        :param v_qx: values of the horizontal tune Qx. Can be only one value.
-        :param vxgood:
-        :param v_qy: values of the vertical tune Qy. Can be only one value.
-        :param vygood:
-        :return: nothing, plots the figure.
+
+        Args:
+            cpymad_instance: an instanciated `cpymad.madx.Madx` object.
+            v_qx: values of the horizontal tune Qx. Can be only one value.
+            vxgood: ??
+            v_qy: values of the vertical tune Qy. Can be only one value.
+            vygood: ??
+            savefig: will save the figure if this is not None, using the string value passed.
+
+        Returns:
+            Nothing, plots the figure.
         """
-        TuneDiagramPlotter.plot_blank_tune_diagram()
+        figure = TuneDiagramPlotter.plot_blank_tune_diagram()
+
+        logger.debug("Getting Tunes from cpymad")
         new_q1 = cpymad_instance.table.summ.dframe().q1[0]
         new_q2 = cpymad_instance.table.summ.dframe().q2[0]
 
@@ -343,6 +460,7 @@ class TuneDiagramPlotter:
             plt.plot(tp[vygood], v_qy[vygood], ".r")
             plt.plot(new_q1 - np.floor(new_q1), new_q2 - np.floor(new_q2), ".g")
 
-
-if __name__ == "__main__":
-    raise NotImplementedError("This module is meant to be imported.")
+        if savefig:
+            logger.info(f"Saving Tune diagram plot as {savefig}")
+            plt.savefig(savefig, format="png", dpi=500)
+        return figure
