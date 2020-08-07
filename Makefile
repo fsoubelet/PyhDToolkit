@@ -32,7 +32,8 @@ help:
 checklist:
 	@echo "Here is a small pre-release check-list:"
 	@echo "  - Check you are on a tagged $(P)feature/release$(E) branch (see Gitflow workflow)."
-	@echo "  - Run $(D)poetry bump$(E) with the right argument and update the version number in $(C)__init__.py$(E)."
+	@echo "  - Run $(D)poetry version$(E) with the right argument and update the version number in $(C)__init__.py$(E)."
+	@echo "  - Update the pyhdtoolkit version in the $(C)environment.yml$(E) file."
 	@echo "  - Check the $(P)feature/release$(E) branch tag matches this release's package version."
 	@echo "  - After merging and pushing this release from $(P)master$(E) to $(P)origin/master$(E):"
 	@echo "     - Run $(D)poetry build$(E) to create a tarball of the new version."
@@ -66,7 +67,7 @@ docker:
 	@echo "Building docker image with $(D)PHD$(E) conda environment, with tag $(P)simenv$(E)."
 	@docker build -f ./Dockerfile -t simenv .
 	@docker tag simenv simenv:latest
-	@echo "Done. You can run this with $(P)docker run -it --rm --init simenv$(E)."
+	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 
 format:
 	@echo "Formatting code to PEP8, default line length is 100 characters."

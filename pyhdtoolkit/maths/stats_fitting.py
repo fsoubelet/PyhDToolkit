@@ -10,6 +10,8 @@ to data.
 """
 import warnings
 
+from typing import Any, Dict
+
 import numpy as np
 import pandas as pd
 import scipy.stats as st
@@ -27,7 +29,7 @@ DISTRIBUTIONS = {
 }
 
 
-def set_distributions_dict(dist_dict: dict = None) -> None:
+def set_distributions_dict(dist_dict: Dict[Any, str] = None) -> None:
     """
     Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to
     try out.

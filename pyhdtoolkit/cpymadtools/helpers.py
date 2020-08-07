@@ -136,7 +136,7 @@ class Parameters:
         }
 
         if verbose:
-            logger.debug("Outputing computed values")
+            logger.trace("Outputing computed parameter values")
             print(
                 f"""Particle type: proton
             Beam momentum = {parameters["pc_GeV"]:2.3f} GeV/c

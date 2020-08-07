@@ -17,7 +17,3 @@ try:
     import cpymad
 except ModuleNotFoundError:
     logger.warning("The cpymad tools are unavailable since the cpymad module is not importable")
-
-
-# Importing * is a bad practice and you should be punished for using it
-__all__ = []

@@ -257,7 +257,7 @@ class PhaseSpacePlotter:
         p_matrix_inv = np.linalg.inv(p_matrix)
 
         logger.debug(f"Plotting normalised phase space for {plane.lower()}")
-        for index, u_particle in enumerate(u_coordinates):
+        for index, _ in enumerate(u_coordinates):
             u = np.array([u_coordinates[index], pu_coordinates[index]])
             u_bar = p_matrix_inv @ u
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
@@ -330,7 +330,7 @@ class PhaseSpacePlotter:
         p_matrix_inv = np.linalg.inv(p_matrix)
 
         logger.debug(f"Plotting colored normalised phase space for {plane.lower()}")
-        for index, u_particle in enumerate(u_coordinates):
+        for index, _ in enumerate(u_coordinates):
             u = np.array([u_coordinates[index], pu_coordinates[index]])
             u_bar = p_matrix_inv @ u
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])

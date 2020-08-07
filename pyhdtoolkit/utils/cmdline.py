@@ -120,9 +120,8 @@ class CommandLine:
             os.kill(pid, signal.SIGTERM)
             logger.debug(f"Process {pid} has successfully been terminated.")
             return True
-        else:
-            logger.error(f"Process with ID {pid} could not be terminated.")
-            return False
+        logger.error(f"Process with ID {pid} could not be terminated.")
+        return False
 
     @staticmethod
     def get_cmdline_argv() -> list:
