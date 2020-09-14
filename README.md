@@ -112,17 +112,10 @@ You can directly pull a pre-built image - tag `latest` is an automated build - f
 > docker pull fsoubelet/simenv
 ```
 
-You can then run the container in interactive mode, and make use of the already activated `conda` environment.
-It is highly advised to run with `--init` for zombie processes protection (see [Tini][tini_ref] for details).
+You can then run the container to serve as a jupyter server, binding a local directory of notebooks to work on.
 Assuming you pulled the provided image from Dockerhub, the command is then (remove the `--rm` flag if you wish to preserve it after running):
 ```bash
-> docker run -it --rm --init fsoubelet/simenv
-```
-
-If you want to do some exploration through `jupyter` you will need to install it first as it is not bundled in the image, then add the custom environment kernelspec.
-Run the following command before heading over to `localhost:8888`:
-```bash
-> docker run -it --rm --init -p 8888:8888 fsoubelet/simenv /bin/bash -c "/opt/conda/bin/conda install -c conda-forge jupyterlab -y --quiet > /dev/null && mkdir /opt/notebooks && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD && /opt/conda/bin/jupyter lab --notebook-dir=/opt/notebooks --ip='*' --port=8888 --no-browser --allow-root"
+> docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work fsoubelet/simenv
 ```
 
 ## License

@@ -22,15 +22,17 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical \
        --mask /path/to/offset/mask.mask --type amp -- sigmas 5 10 15 20
 """
 import argparse
+import shutil
 import sys
 
 from pathlib import Path
+from typing import Dict, List, Union
 
 from loguru import logger
 
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.contexts import timeit
-from pyhdtoolkit.utils.defaults import LOGURU_FORMAT, OMC_PYTHON_ENV, TBT_CONVERTER_SCRIPT
+from pyhdtoolkit.utils.defaults import LOGURU_FORMAT, OMC_PYTHON, TBT_CONVERTER_SCRIPT
 
 
 class ACDipoleGrid:
@@ -38,20 +40,31 @@ class ACDipoleGrid:
     Algorithm as a class to run the simulations and organize the outputs.
     """
 
+    __slots__ = {
+        "grid_output_dir": "PosixPath object to the directory for all outputs",
+        "mask_files_dir": "PosixPath object to the directory for simulations' masks",
+        "outputdata_dir": "PosixPath object to the directory for simulation data",
+        "trackfiles_dir": "PosixPath object to the directory for trackone files",
+        "trackfiles_planes": "PosixPath objects to the planes' trackone files",
+        "run_planes": "List of planes for which to run simulations",
+        "sigmas": "List of amplitudes for AC dipole to kick to (in bunch sigma)",
+        "template_file": "PosixPath object to the location of the mask template",
+        "template_str": "Text in the template_file",
+    }
+
     def __init__(self) -> None:
         self.grid_output_dir: Path = Path("grid_outputs")
         self.mask_files_dir: Path = self.grid_output_dir / "mask_files"
         self.outputdata_dir: Path = self.grid_output_dir / "outputdata_dirs"
         self.trackfiles_dir: Path = self.grid_output_dir / "trackfiles"
-        self.trackfiles_planes: dict = {
+        self.trackfiles_planes: Dict[str, Path] = {
             "horizontal": self.grid_output_dir / "trackfiles" / "X",
             "vertical": self.grid_output_dir / "trackfiles" / "Y",
         }
-        self.run_planes: list = _parse_arguments().planes
-        self.sigmas: list = sorted(_parse_arguments().sigmas)
+        self.run_planes: List[str] = _parse_arguments().planes
+        self.sigmas: List[float] = sorted(_parse_arguments().sigmas)
         self.template_file: Path = Path(_parse_arguments().template)
-        with self.template_file.open("r") as template:
-            self.template_str: str = template.read()
+        self.template_str: str = self.template_file.read_text()
 
     def _check_input_sanity(self) -> None:
         """
@@ -96,7 +109,7 @@ class ACDipoleGrid:
 
         Args:
             kick_plane: the name of the plane on which to apply a kick, either 'horizontal'
-                        or 'vertical'.
+            or 'vertical'.
 
         Returns:
             Nothing, runs simulations and orders the outputs properly.
@@ -157,11 +170,12 @@ class ACDipoleGrid:
 
     def track_free_oscillations_for_plane(self, kick_plane: str = None) -> None:
         """
-        Run MAD-X simulations with amplitude offset tracking for the given plane, and handle outputs.
+        Run MAD-X simulations with amplitude offset tracking for the given plane, and handle
+        outputs.
 
         Args:
             kick_plane: the name of the plane on which to apply an offset, either 'horizontal'
-                        or 'vertical'.
+            or 'vertical'.
 
         Returns:
             Nothing, runs simulations and orders the outputs properly.
@@ -226,21 +240,28 @@ def main() -> None:
     simulations._create_output_dirs()
 
     sim_type = command_line_args.simulation_type
-    if sim_type == "kick":
-        logger.info(f"Planes to kick then track on are: {simulations.run_planes}")
-        logger.info(f"Kick values to compute are (in bunch sigmas): {simulations.sigmas}")
-        for plane in simulations.run_planes:
-            simulations.track_forced_oscillations_for_plane(kick_plane=plane)
-    elif sim_type == "amp":
-        logger.info(f"Planes to offset then track on are: {simulations.run_planes}")
-        logger.info(
-            f"Registered initial amplitudes for tracking are (in bunch sigmas): {simulations.sigmas}"
+    try:
+        if sim_type == "kick":
+            logger.info(f"Planes to kick then track on are: {simulations.run_planes}")
+            logger.info(f"Kick values to compute are (in bunch sigmas): {simulations.sigmas}")
+            for plane in simulations.run_planes:
+                simulations.track_forced_oscillations_for_plane(kick_plane=plane)
+        elif sim_type == "amp":
+            logger.info(f"Planes to offset then track on are: {simulations.run_planes}")
+            logger.info(
+                f"Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}"
+            )
+            for plane in simulations.run_planes:
+                simulations.track_free_oscillations_for_plane(kick_plane=plane)
+        else:
+            logger.error(f"Simulation type {sim_type} is not a valid value")
+            raise ValueError("Simulation type should be one of 'kick' or 'amp'")
+    except KeyboardInterrupt:
+        logger.info("Manual interruption, ending processes")
+        _cleanup_madx_residuals()
+        logger.warning(
+            "The 'grid_outputs' folder was left untouched, check for unexpected MADX residuals"
         )
-        for plane in simulations.run_planes:
-            simulations.track_free_oscillations_for_plane(kick_plane=plane)
-    else:
-        logger.error(f"Simulation type {sim_type} is not a valid value")
-        raise ValueError("Simulation type should be one of 'kick' or 'amp'")
 
 
 # ---------------------- Public Utilities ---------------------- #
@@ -251,36 +272,34 @@ def run_madx_mask(mask_file: Path) -> None:
     Run madx on the provided file.
 
     Args:
-        mask_file: a `pathlib.Path` object with the mask file location.
+        mask_file (Path): Path object with the mask file location.
 
     Returns:
         Nothing.
     """
-    logger.debug(f"Running madx on script: '{mask_file}'")
-    exit_code, std_out = CommandLine.run(f"madx {mask_file}")
-    std_out = (
-        std_out.decode()
-    )  # Default considers 'utf-8', can be different depending on your system.
+    logger.debug(f"Running madx on script: '{mask_file.absolute()}'")
+    exit_code, std_out = CommandLine.run(f"madx {mask_file.absolute()}")
     if exit_code != 0:  # Dump madx log in case of failure so we can see where it went wrong.
         logger.warning(f"MAD-X command self-killed with exit code: {exit_code}")
         log_dump = Path(f"failed_madx_returnedcode_{exit_code}.log")
         with log_dump.open("w") as logfile:
-            logfile.write(std_out)
+            logfile.write(std_out.decode())  # Default 'utf-8' encoding, depends on your system.
         logger.warning(
             f"The standard output has been dumped to file 'failed_command_{exit_code}.logfile'"
         )
 
 
 def create_script_file(
-    template_as_str: str = None, values_replacing_dict: dict = None, filename: Path = None
+    template_as_str: str, values_replacing_dict: Dict[str, float], filename: Path,
 ) -> Path:
     """
     Create new script file from template with the appropriate values.
 
     Args:
-        template_as_str: string content of your template mask file.
-        values_replacing_dict: keys to find and values to replace them with in the template.
-        filename: the `pathlib.Path` object for the file in which to write the script.
+        template_as_str (str): string content of your template mask file.
+        values_replacing_dict (Dict[str, float]): keys to find and values to replace them with in
+        the template.
+        filename (Path): Path object for the file in which to write the script.
 
     Returns:
         Nothing.
@@ -306,25 +325,28 @@ def _convert_trackone_to_sdds() -> None:
 
     logger.debug(f"Running '{TBT_CONVERTER_SCRIPT}' on 'trackone' file")
     CommandLine.run(
-        f"{OMC_PYTHON_ENV} {TBT_CONVERTER_SCRIPT} --file trackone --outputdir . --tbt_datatype trackone"
+        f"{OMC_PYTHON.absolute()} {TBT_CONVERTER_SCRIPT.absolute()} "
+        "--files trackone --outputdir . --tbt_datatype trackone"
     )
     logger.debug("Removing trackone file 'trackone'")
     Path("trackone").unlink()
 
     logger.debug("Removing outputs of 'tbt_converter'")
-    Path("stats.txt").unlink()
+    if Path("stats.txt").exists():
+        Path("stats.txt").unlink()
     for tbt_output_file in list(Path(".").glob("converter_*")):
         tbt_output_file.unlink()
 
 
-def _create_script_string(template_as_string: str, values_replacing_dict: dict = None) -> str:
+def _create_script_string(template_as_string: str, values_replacing_dict: Dict[str, float]) -> str:
     """
     For each key in the provided dict, will replace it in the template scripts
     with the corresponding dict value.
 
     Args:
-        template_as_string: the string content of your template mask file.
-        values_replacing_dict: pairs of key, value to find and replace in the template string.
+        template_as_string (str): the string content of your template mask file.
+        values_replacing_dict (Dict[str, float]): pairs of key, value to find and replace in the
+        template string.
 
     Returns:
         The new script string.
@@ -340,8 +362,8 @@ def _move_mask_file_after_running(mask_file_path: Path, mask_files_dir: Path) ->
     Move the mask file after being done running it with MAD-X.
 
     Args:
-        mask_file_path: a `pathlib.Path` object with the file location.
-        mask_files_dir: a `pathlib.Path` object with the directory to move mask to' location.
+        mask_file_path (Path): Path object with the file location.
+        mask_files_dir (Path): Path object with the directory to move mask to' location.
 
     Returns:
         Nothing.
@@ -350,16 +372,17 @@ def _move_mask_file_after_running(mask_file_path: Path, mask_files_dir: Path) ->
     mask_file_path.rename(f"{mask_files_dir}/{mask_file_path}")
 
 
-def _move_trackone_sdds(kick_in_sigma: str, trackfiles_dir: Path, plane: str) -> None:
+def _move_trackone_sdds(kick_in_sigma: Union[str, float], trackfiles_dir: Path, plane: str) -> None:
     """
     Call after running omc3's `tbt_converter` on the `trackone` output by MAD-X, will move the
     resulting `trackone.sdds` file to the `trackfiles_dir`, with a naming reflecting the ac dipole
     kick strength.
 
     Args:
-        kick_in_sigma: the AC dipole kick value (in sigma) for which you ran your simulation.
-        trackfiles_dir: the folder in which to store all sdds trackone files.
-        plane: the plane on which ac dipole provided the kick, should be `x` or `y`.
+        kick_in_sigma (Union[str, float]): the AC dipole kick value (in sigma) for which you ran
+        your simulation.
+        trackfiles_dir (Path): PosixPath to the folder in which to store all sdds trackone files.
+        plane (str): the plane on which ac dipole provided the kick, should be `x` or `y`.
 
     Returns:
         Nothing.
@@ -369,6 +392,9 @@ def _move_trackone_sdds(kick_in_sigma: str, trackfiles_dir: Path, plane: str) ->
         raise ValueError("Plane parameter should be one of 'x' or 'y'")
     logger.debug(f"Moving trackone sdds file to directory '{trackfiles_dir}'")
     track_sdds_file = Path("trackone.sdds")
+    if not track_sdds_file.is_file():
+        logger.error("Conversion to trackone sdds file must have failed, check the omc3 script")
+        sys.exit()
     track_sdds_file.rename(f"{trackfiles_dir}/trackone_{kick_in_sigma}_sigma_{plane}.sdds")
 
 
@@ -402,7 +428,7 @@ def _parse_arguments():
         "-m",
         "--mask",
         dest="template",
-        default="/afs/cern.ch/work/f/fesoubel/public/MADX_scripts/AC_dipole_tracking/ac_kick_track_template.mask",
+        default="/afs/cern.ch/work/f/fesoubel/public/MADX_scripts/AC_dipole_tracking/ac_kick_tracking_template.mask",
         type=str,
         help="Location of your MAD-X template mask file to use, defaults to "
         "'/afs/cern.ch/work/f/fesoubel/public/MADX_scripts/AC_dipole_tracking/ac_kick_track_template.mask'.",
@@ -428,16 +454,19 @@ def _parse_arguments():
     return parser.parse_args()
 
 
-def _rename_madx_outputs(kick_in_sigma: str, outputdata_dir: Path, plane: str) -> None:
+def _rename_madx_outputs(
+    kick_in_sigma: Union[str, float], outputdata_dir: Path, plane: str
+) -> None:
     """
     Call after running MAD-X on your mask, will move the 'Outpudata' created by MAD-X to the
     proper place.
 
     Args:
-        kick_in_sigma: the AC dipole kick value (in sigma) for which you ran your simulation.
-        outputdata_dir: a `pathlib.Path` object with the folder in which to store all successive
-                        `Outputdata`'s location.
-        plane: the plane on which ac dipole provided the kick, should be `x` or `y`.
+        kick_in_sigma (Union[str, float]): the AC dipole kick value (in sigma) for which you ran
+        your simulation.
+        outputdata_dir (Path): PosixPath to the folder in which to store all successive
+        `Outputdata`'s location.
+        plane (str): the plane on which ac dipole provided the kick, should be `x` or `y`.
 
     Returns:
         Nothing.
@@ -457,7 +486,7 @@ def _set_logger_level(log_level: str = "info") -> None:
     We need to first remove this default handler and add ours with the wanted level.
 
     Args:
-        log_level: string, the default logging level to print out.
+        log_level (str): the default logging level to print out.
 
     Returns:
         Nothing, acts in place.
@@ -466,22 +495,59 @@ def _set_logger_level(log_level: str = "info") -> None:
     logger.add(sys.stderr, format=LOGURU_FORMAT, level=log_level.upper())
 
 
-def _write_script_to_file(script_as_string: str, filename: str) -> Path:
+def _write_script_to_file(script_as_string: str, filename: Union[str, Path]) -> Path:
     """
     Create a new file with the provided script, and return the location.
 
     Args:
-        script_as_string:  the script string to write to file.
-        filename: the file name to use.
+        script_as_string (str): the script string to write to file.
+        filename (Union[str, Path]): the file name to use.
 
     Returns:
         The `pathlib.Path` object to the created file.
     """
-    file_path = Path(filename + ".mask")
+    file_path = Path(str(filename) + ".mask")
     logger.debug(f"Creating new mask file '{file_path}'")
     with file_path.open("w") as script:
         script.write(script_as_string)
     return file_path
+
+
+def _cleanup_madx_residuals() -> None:
+    """
+    Will look for specific madx artifacts and remove them. Meant to be called in case of
+    interuption.
+    """
+    expected_residuals: Dict[str, List[str]] = {
+        "symlinks": [
+            "db5",
+            "slhc",
+            "fidel",
+            "wise",
+            "optics2016",
+            "optics2017",
+            "optics2018",
+            "scripts",
+        ],
+        "directories": ["temp", "Outputdata"],
+        "files": ["fort.18"],
+    }
+
+    logger.debug("Cleaning up expected MADX residuals")
+    for residual_type, residual_values in expected_residuals.items():
+        logger.trace(f"Cleaning up MADX residual {residual_type}")
+        for residual in residual_values:
+            if Path(residual).is_symlink() or Path(residual).is_file():
+                Path(residual).unlink()
+            elif Path(residual).is_dir():
+                shutil.rmtree(Path(residual))
+
+    logger.debug("Cleaning up potential residual mask files")
+    for suspect_mask in list(Path(".").glob("*.mask")):
+        if (
+            suspect_mask.stem.startswith("initial_") or suspect_mask.stem.startswith("sext_")
+        ) and suspect_mask.stem.endswith("_kick"):
+            suspect_mask.unlink()
 
 
 if __name__ == "__main__":

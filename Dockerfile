@@ -1,41 +1,15 @@
-# NOTA BENE
-# YOU SHOULD RUN THIS CONTAINER WITH THE --init OPTION
+# Starts automatically with --tiny and with a 'work' folder to mount things into
+# Example for jupyterlab, mounting a local directory:
+# docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work <container_name>
 
 # STEP 1 - Base image
-FROM ubuntu:18.04
+FROM jupyter/base-notebook
 
-# STEP 2 & 3 - Environment variables needed by miniconda install
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
+# STEP 2 & 3 - Label and environment file
+LABEL maintainer="Felix Soubelet <felix.soubelet@cern.ch>"
+COPY environment.yml /home/jovyan/environment.yml
 
-# STEP 4 - Update Ubuntu and install necessary packages
-RUN apt-get -qq update --fix-missing > /dev/null \
-    && apt-get -qq install -y wget \
-    bzip2 \
-    ca-certificates \
-    curl \
-    git \
-    build-essential  > /dev/null \
-    && apt-get clean > /dev/null \
-    && rm -rf /var/lib/apt/lists/*
-
-# STEP 5 - Install miniconda3
-RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-4.7.12.1-Linux-x86_64.sh -O ~/miniconda.sh \
-    && /bin/bash ~/miniconda.sh -b -p /opt/conda >/dev/null \
-    && rm ~/miniconda.sh \
-    && /opt/conda/bin/conda clean --all --quiet --yes \
-    && ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
-    && /opt/conda/bin/conda update -n base -c defaults conda --yes --quiet > /dev/null \
-    && echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc \
-    && echo "conda activate PHD" >> ~/.bashrc
-
-# STEP 6 - Get a copy of this package
-# RUN git clone https://github.com/fsoubelet/PyhDToolkit /pyhdtoolkit
-COPY . /pyhdtoolkit
-
-# STEP 7 - Create the PHD conda environment
-RUN conda env create --file /pyhdtoolkit/environment.yml --force  > /dev/null \
-    && /opt/conda/bin/conda clean --all --quiet --yes > /dev/null
-
-# STEP 8 - Start a bash shell at runtime
-CMD [ "/bin/bash" ]
+# STEP 4 - Create the PHD conda environment
+RUN conda env create --file ./environment.yml --force  > /dev/null \
+    && /opt/conda/bin/conda clean --all --quiet --yes > /dev/null \
+    && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD

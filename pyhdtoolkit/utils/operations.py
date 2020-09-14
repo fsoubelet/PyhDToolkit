@@ -10,11 +10,13 @@ classic Python structures.
 """
 
 import copy
+import itertools
 import math
 import random
 import re
 
 from functools import reduce
+from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 
 class ListOperations:
@@ -23,28 +25,28 @@ class ListOperations:
     """
 
     @staticmethod
-    def all_unique(lst: list) -> bool:
+    def all_unique(sequence: Sequence) -> bool:
         """
         Returns True if all the values in a flat list are unique, False otherwise.
 
         Args:
-            lst: a list of elements.
+            sequence (Sequence): a sequence of elements.
 
         Returns:
-            A boolean.
+            True if all elements are unique, False otherwise.
         """
-        return len(lst) == len(set(lst))
+        return len(sequence) == len(set(sequence))
 
     @staticmethod
-    def average_by(lst: list, function=lambda x: x) -> float:
+    def average_by(sequence: Sequence, function: Callable = lambda x: x) -> float:
         """
         Returns the average of lst after mapping each element to a value using the
         provided function. Use map() to map each element to the value returned by function.
         Use sum() to sum all of the mapped values, divide by len(lst).
 
         Args:
-            lst: a list of elements
-            function: function to apply to elements of the list.
+            sequence (Sequence): a sequence of elements.
+            function (Callable): function to apply to elements of the sequence.
 
         Returns:
             The average of each element's result through `function`.
@@ -52,33 +54,33 @@ class ListOperations:
         Usage:
             average_by([{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']) -> 5.0
         """
-        return float(sum(map(function, lst), 0.0) / len(lst))
+        return float(sum(map(function, sequence), 0.0) / len(sequence))
 
     @staticmethod
-    def bifurcate(lst: list, filters: list) -> list:
+    def bifurcate(sequence: Sequence, filters: List[bool]) -> Sequence:
         """
         Splits values into two groups. If an element in filter is True, the corresponding element
         in the collection belongs to the first group; otherwise, it belongs to the second group.
         Use list comprehension and enumerate() to add elements to groups, based on filter.
 
         Args:
-            lst: a list of elements.
-            filters: a list of booleans.
+            sequence (Sequence): a sequence of elements.
+            filters (List[bool]): a list of booleans.
 
         Returns:
             A list of two lists, one for each boolean output of the filters
 
         Usage:
             bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
-            -> ['beep', 'boop', 'bar'], ['foo']
+            -> [['beep', 'boop', 'bar'], ['foo']]
         """
         return [
-            [x for i, x in enumerate(lst) if filters[i]],
-            [x for i, x in enumerate(lst) if not filters[i]],
+            [x for i, x in enumerate(sequence) if filters[i]],
+            [x for i, x in enumerate(sequence) if not filters[i]],
         ]
 
     @staticmethod
-    def bifurcate_by(lst: list, function) -> list:
+    def bifurcate_by(sequence: Sequence, function: Callable) -> list:
         """
         Splits values into two groups according to a function, which specifies which group an
         element in the input list belongs to. If the function returns True, the element belongs
@@ -86,8 +88,8 @@ class ListOperations:
         add elements to groups, based on function.
 
         Args:
-            lst: a list of elements.
-            function: a callable on the elements of lst, that should return a boolean.
+            sequence (Sequence): a sequence of elements.
+            function (Callable): a callable on the elements of lst, that should return a boolean.
 
         Returns:
             A list of two lists, as groups of elements of lst classified depending on their result
@@ -96,10 +98,10 @@ class ListOperations:
         Usage:
             bifurcate_by(list(range(5)), lambda x: x % 2 == 0) -> [[0, 2, 4], [1, 3]]
         """
-        return [[x for x in lst if function(x)], [x for x in lst if not function(x)]]
+        return [[x for x in sequence if function(x)], [x for x in sequence if not function(x)]]
 
     @staticmethod
-    def chunk_list(lst: list, size) -> list:
+    def chunk_list(sequence: Sequence, size: int) -> Sequence:
         """
         Chunks a list into smaller lists of a specified size. If the size is bigger than initial
         list, return the initial list to avoid unnecessary nesting.
@@ -107,8 +109,8 @@ class ListOperations:
         fill it with splices of the given list. Finally, return use created list.
 
         Args:
-            lst: a list of elements.
-            size: the size of the wanted sublists.
+            sequence (Sequence): a sequence of elements.
+            size (int): the size of the wanted sublists.
 
         Returns:
             A list of lists of length `size` (except maybe the last element), with elements
@@ -117,19 +119,22 @@ class ListOperations:
         Usage:
             chunk_list(list(range(10)), 3) -> [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
         """
-        if size > len(lst):
-            return lst
+        if size > len(sequence):
+            return sequence
         return list(
-            map(lambda x: lst[x * size : x * size + size], list(range(math.ceil(len(lst) / size))),)
+            map(
+                lambda x: sequence[x * size : x * size + size],
+                list(range(math.ceil(len(sequence) / size))),
+            )
         )
 
     @staticmethod
-    def deep_flatten(lst: list) -> list:
+    def deep_flatten(sequence: Sequence) -> list:
         """
         Deep flattens a list, no matter the nesting levels. This is a recursive approach.
 
         Args:
-            lst: a list of elements.
+            sequence (Sequence): a sequence of elements.
 
         Returns:
             A list with all elements of `lst`, but flattened.
@@ -139,13 +144,13 @@ class ListOperations:
             -> ["a", "b", 1, 2, None True, False]
         """
         return (
-            [elem for sublist in lst for elem in ListOperations.deep_flatten(sublist)]
-            if isinstance(lst, list)
-            else [lst]
+            [elem for sublist in sequence for elem in ListOperations.deep_flatten(sublist)]
+            if isinstance(sequence, list)
+            else [sequence]
         )
 
     @staticmethod
-    def eval_none(lst: list, function=lambda x: not not x) -> bool:
+    def eval_none(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
         """
         Returns False if the provided function returns True for at least one element in the list,
         True otherwise. Iterate over the elements of the list to test if every element in the
@@ -153,8 +158,8 @@ class ListOperations:
         all elements are False.
 
         Args:
-            lst: a list of elements.
-            function: a callable on elements of `lst` that should return a boolean.
+            sequence (Sequence): a sequence of elements.
+            function (Callable): a callable on elements of `sequence` that should return a boolean.
 
         Returns:
             A boolean. See first line of docstring.
@@ -163,10 +168,10 @@ class ListOperations:
             eval_none([0, 0, 1, 0], lambda x: x >= 2) -> True
             eval_none([0, 1, 2, 0], lambda x: x >= 2) -> False
         """
-        return not any(map(function, lst))
+        return not any(map(function, sequence))
 
     @staticmethod
-    def eval_some(lst: list, function=lambda x: not not x) -> bool:
+    def eval_some(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
         """
         Returns True if the provided function returns True for at least one element in the list,
         False otherwise. Iterate over the elements of the list to test if every element in the
@@ -174,8 +179,8 @@ class ListOperations:
         elements are True.
 
         Args:
-            lst: a list of elements.
-            function: a callable on elements of `lst` that should return a boolean.
+            sequence (Sequence): a sequence of elements.
+            function (Callable): a callable on elements of `sequence` that should return a boolean.
 
         Returns:
             A boolean. See first line of docstring.
@@ -184,37 +189,38 @@ class ListOperations:
             eval_some([0, 1, 2, 0], lambda x: x >= 2) -> True
             eval_some([0, 0, 1, 0], lambda x: x >= 2) -> False
         """
-        return any(map(function, lst))
+        return any(map(function, sequence))
 
     @staticmethod
-    def get_indices(element, list_like) -> list:
+    def get_indices(element, sequence: Sequence) -> List[int]:
         """
         Return all array indices at which number is located.
 
         Args:
             element: any reference element to check.
-            list_like: a list containing objects comparable to `elements`. A string can be
-                       compared to an int in Python, custom objects probably won't be comparable.
+            sequence (Sequence): a sequence containing objects comparable to `elements`. A string
+            can be compared to an int in Python, custom objects probably won't be comparable.
 
         Returns:
-            A list of all indices at which `element` is found in `list_like`. Empty list if
-            `element` is not present in `list_like` at all.
+            A list of all indices at which `element` is found in `sequence`. Empty list if
+            `element` is not present in `sequence` at all.
 
         Usage:
             get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2]) -> [0, 7, 8]
         """
-        return [i for (y, i) in zip(list_like, range(len(list_like))) if element == y]
+        return [i for (y, i) in zip(sequence, range(len(sequence))) if element == y]
 
     @staticmethod
-    def group_by(lst: list, function) -> dict:
+    def group_by(sequence: Sequence, function: Callable) -> Dict[str, list]:
         """
         Groups the elements of a list based on the given function.
         Use list() in combination with map() and function to map the values of the list to the
         keys of an object. Use list comprehension to map each element to the appropriate key.
 
         Args:
-            lst: a list of elements.
-            function: a callable on the elements of `lst` that should return a boolean.
+            sequence (Sequence): a sequence of elements.
+            function (Callable): a callable on the elements of `sequence` that should return a
+            boolean.
 
         Returns:
             A dict with keys "True" and "False", each having as value a list of all elements of
@@ -224,19 +230,19 @@ class ListOperations:
             group_by(list(range(5)), lambda x: x % 2 == 0) -> {True: [0, 2, 4], False: [1, 3]}
         """
         groups = {}
-        for key in list(map(function, lst)):
-            groups[key] = [item for item in lst if function(item) == key]
+        for key in list(map(function, sequence)):
+            groups[key] = [item for item in sequence if function(item) == key]
         return groups
 
     @staticmethod
-    def has_duplicates(lst: list) -> bool:
+    def has_duplicates(sequence: Sequence) -> bool:
         """
         Returns True if there are duplicate values in a fast list, False otherwise.
         Use set() on the given list to remove duplicates, then compare its length with the length
         of the list.
 
         Args:
-            lst: a list of elements.
+            sequence (Sequence): a sequence of elements.
 
         Returns:
             A boolean indicating the presence of duplicates in `lst`.
@@ -244,52 +250,52 @@ class ListOperations:
         Usage:
             has_duplicates([1, 2, 1]) -> True
         """
-        return len(lst) != len(set(lst))
+        return len(sequence) != len(set(sequence))
 
     @staticmethod
-    def sample(lst: list) -> list:
+    def sample(sequence: Sequence) -> list:
         """
         Returns a random element from an array.
 
         Args:
-            lst: a list of elements.
+            sequence (Sequence): a sequence of elements.
 
         Returns:
             A random element from `lst` in a list (to manage potentially nested lists as input).
         """
-        return lst[random.randint(0, len(lst) - 1)]
+        return sequence[random.randint(0, len(sequence) - 1)]
 
     @staticmethod
-    def sanitize_list(lst: list) -> list:
+    def sanitize_list(sequence: Sequence) -> list:
         """
         Removes falsey values from a list. Use filter() to filter out falsey values
         (False, None, 0, and "").
 
         Args:
-            lst: a list of elements.
+            sequence (Sequence): a sequence of elements.
 
         Returns:
-            The `lst` without falsy values.
+            The sequence without falsy values.
 
         Usage:
             sanitize_list([1, False, "a", 2, "", None, 6, 0]) -> [1, "a", 2, 6]
         """
-        return list(filter(bool, lst))
+        return list(filter(bool, sequence))
 
     @staticmethod
-    def shuffle(lst: list) -> list:
+    def shuffle(sequence: Sequence) -> Sequence:
         """
         Randomizes the order of the values of an list, returning a new list. Uses an improved
         version of the Fisher-Yates algorithm
         (https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle) to reorder the elements.
 
         Args:
-            lst: a list of elements.
+            sequence (Sequence): a sequence of elements.
 
         Returns:
             The `lst` with original elements at a random index.
         """
-        temp_list = copy.deepcopy(lst)
+        temp_list = copy.deepcopy(sequence)
         amount_to_shuffle = len(temp_list)
         while amount_to_shuffle > 1:
             rand_index = int(math.floor(random.random() * amount_to_shuffle))
@@ -301,7 +307,7 @@ class ListOperations:
         return temp_list
 
     @staticmethod
-    def spread(lst: list) -> list:
+    def spread(sequence: Sequence) -> list:
         """
         Flattens a list, by spreading its elements into a new list.
         Loop over elements, use list.extend() if the element is a list, list.append() otherwise.
@@ -309,25 +315,18 @@ class ListOperations:
         deep_flatten. This only works if all elements in `lst` are iterables!
 
         Args:
-            lst:  a list of elements.
+            sequence (Sequence):  a sequence of elements.
 
         Returns:
-            The `lst` flattened, see first docstring sentence.
+            The sequence flattened, see first docstring sentence.
 
         Usage:
             spread([list(range(5)), list(range(5))]) -> [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
         """
-        # return list(itertools.chain.from_iterable(lst))
-        ret = []
-        for i in lst:
-            if isinstance(i, list):
-                ret.extend(i)
-            else:
-                ret.append(i)
-        return ret
+        return list(itertools.chain.from_iterable(sequence))
 
     @staticmethod
-    def symmetric_difference_by(lst_1: list, lst_2: list, function) -> list:
+    def symmetric_difference_by(lst_1: Sequence, lst_2: Sequence, function: Callable) -> list:
         """
         Returns the symmetric difference (https://en.wikipedia.org/wiki/Symmetric_difference) of
         lists, after applying the provided function to each list element of both. Create a set by
@@ -336,9 +335,9 @@ class ListOperations:
         created set of the other.
 
         Args:
-            lst_1: a list of elements.
-            lst_2: a list of elements.
-            function: a callable on elements of `lst_1` and `lst_2`.
+            lst_1 (Sequence): a sequence of elements.
+            lst_2 (Sequence): a sequence of elements.
+            function (Callable): a callable on elements of `lst_1` and `lst_2`.
 
         Returns:
             A list, see first docstring sentence reference.
@@ -354,7 +353,7 @@ class ListOperations:
         ]
 
     @staticmethod
-    def union_by(lst_1: list, lst_2: list, function) -> list:
+    def union_by(lst_1: Sequence, lst_2: Sequence, function: Callable) -> list:
         """
         Returns every element that exists in any of the two lists once, after applying the provided
         function to each element of both. This is the set theory union
@@ -367,9 +366,9 @@ class ListOperations:
         result and _lst_1 and transform it into a list.
 
         Args:
-            lst_1: a list of elements.
-            lst_2: a list of elements.
-            function: a callable on elements of `lst_1` and `lst_2`.
+            lst_1 (Sequence): a sequence of elements.
+            lst_2 (Sequence): a sequence of elements.
+            function (Callable): a callable on elements of `lst_1` and `lst_2`.
 
         Returns:
             A list, see first docstring sentence reference.
@@ -432,7 +431,7 @@ class MiscellaneousOperations:
         return max(args, key=len)
 
     @staticmethod
-    def map_values(obj: dict, function) -> dict:
+    def map_values(obj: dict, function: Callable) -> dict:
         """
         Creates an new dict with the same keys as the provided dict, and values generated by
         running the provided function on the provided dict's values.
@@ -441,7 +440,7 @@ class MiscellaneousOperations:
 
         Args:
             obj: a dictionary.
-            function: a callable on values of `obj`.
+            function (Callable): a callable on values of `obj`.
 
         Returns:
             A new dictionary with the results.
@@ -464,15 +463,17 @@ class NumberOperations:
     """
 
     @staticmethod
-    def clamp_number(num, a_val, b_val):
+    def clamp_number(
+        num: Union[int, float], a_val: Union[int, float], b_val: Union[int, float]
+    ) -> Union[int, float]:
         """
         Clamps num within the inclusive range specified by the boundary values a and b. If num
         falls within the range, return num. Otherwise, return the nearest number in the range.
 
         Args:
-            num: a number (float  / int)
-            a_val: a number (float  / int)
-            b_val: a number (float  / int)
+            num (Union[int, float]): a number (float  / int)
+            a_val (Union[int, float]): a number (float  / int)
+            b_val (Union[int, float]): a number (float  / int)
 
         Returns:
             A number (float  / int), being the nearest to `num` in the range [`a_val`, `b_val`].
@@ -484,14 +485,16 @@ class NumberOperations:
         return max(min(num, max(a_val, b_val)), min(a_val, b_val))
 
     @staticmethod
-    def degrees_to_radians(deg_value: float, decompose: bool = False):
+    def degrees_to_radians(
+        deg_value: Union[int, float], decompose: bool = False
+    ) -> Union[Tuple[float, str, str], int, float]:
         """
         Converts an angle from degrees to radians.
         Use math.pi and the degree to radian formula to convert the angle from degrees to radians.
 
         Args:
-            deg_value: angle value in degrees.
-            decompose: boolean option to return a more verbose result.
+            deg_value (Union[int, float]): angle value in degrees.
+            decompose (bool): boolean option to return a more verbose result. Defaults to False.
 
         Returns:
             The angle value in radians.
@@ -505,14 +508,14 @@ class NumberOperations:
         return (deg_value * math.pi) / 180.0
 
     @staticmethod
-    def greatest_common_divisor(numbers_list: list) -> float:
+    def greatest_common_divisor(numbers_list: Sequence) -> Union[int, float]:
         """
         Calculates the greatest common divisor of a list of numbers.
         Use reduce() and math.gcd over the given list.
 
         Args:
-            numbers_list: a list of numbers (floats are advised against as this would become a
-                          very heavy computation).
+            numbers_list (Sequence): a list of numbers (floats are advised against as this would
+            become a very heavy computation).
 
         Returns:
             The greatest common divisor of all elements in `numbers_list`.
@@ -524,14 +527,14 @@ class NumberOperations:
         return reduce(math.gcd, numbers_list)
 
     @staticmethod
-    def is_divisible_by(dividend: float, divisor: float) -> bool:
+    def is_divisible_by(dividend: Union[int, float], divisor: Union[int, float]) -> bool:
         """
         Checks if the first numeric argument is divisible by the second one.
         Use the modulo operator (%) to check if the remainder is equal to 0.
 
         Args:
-            dividend: a float.
-            divisor: a float.
+            dividend (Union[int, float]): a number.
+            divisor (Union[int, float]): a number.
 
         Returns:
             A boolean stating if `dividend` can be divided by `divisor`.
@@ -548,7 +551,7 @@ class NumberOperations:
 
         Args:
             *args: any number (>= 2) of numbers (floats are advised against as this would become a
-                   very heavy computation).
+            very heavy computation).
 
         Returns:
             The least common multiple of all provided numbers.
@@ -560,18 +563,19 @@ class NumberOperations:
         numbers = list(ListOperations.spread(list(args)))
 
         def _lcm(number1, number2):
+            """A least common multiple method for two numbers only"""
             return int(number1 * number2 / math.gcd(number1, number2))
 
         return reduce(lambda x, y: _lcm(x, y), numbers)
 
     @staticmethod
-    def radians_to_degrees(rad_value: float) -> float:
+    def radians_to_degrees(rad_value: Union[int, float]) -> Union[int, float]:
         """
         Converts an angle from radians to degrees.
         Use math.pi and the radian to degree formula to convert the angle from radians to degrees.
 
         Args:
-            rad_value: angle value in degrees.
+            rad_value (Union[int, float]): angle value in degrees.
 
         Returns:
             The angle value in degrees.
@@ -589,14 +593,14 @@ class StringOperations:
     """
 
     @staticmethod
-    def camel_case(string: str) -> str:
+    def camel_case(text: str) -> str:
         """
         Converts a string to camelCase.
         Break the string into words and combine them capitalizing the first letter of each word,
         using a regexp, title() and lower.
 
         Args:
-            string: a string.
+            text (str): a string.
 
         Returns:
             The same string best adapted to camel_case.
@@ -605,11 +609,11 @@ class StringOperations:
             camel_case("a_snake_case_name") -> "aSnakeCaseName"
             camel_case("A Title Case Name") -> "aTitleCaseName"
         """
-        string = re.sub(r"(\s|_|-)+", " ", string).title().replace(" ", "")
-        return string[0].lower() + string[1:]
+        text = re.sub(r"(\s|_|-)+", " ", text).title().replace(" ", "")
+        return text[0].lower() + text[1:]
 
     @staticmethod
-    def capitalize(string: str, lower_rest: bool = False) -> str:
+    def capitalize(text: str, lower_rest: bool = False) -> str:
         """
         Capitalizes the first letter of a string, eventually lowers the rest of it.
         Capitalize the first letter of the string and then add it with rest of the string.
@@ -617,8 +621,8 @@ class StringOperations:
         to convert to lowercase.
 
         Args:
-            string: a string.
-            lower_rest: boolean option to lower all elements starting from the second.
+            text (str): a string.
+            lower_rest (bool): boolean option to lower all elements starting from the second.
 
         Returns:
             The `string`, capitalized.
@@ -627,7 +631,7 @@ class StringOperations:
             capitalize("astringtocapitalize") -> "Astringtocapitalize"
             capitalize("astRIngTocApItalizE", lower_rest=True) -> "Astringtocapitalize"
         """
-        return string[:1].upper() + (string[1:].lower() if lower_rest else string[1:])
+        return text[:1].upper() + (text[1:].lower() if lower_rest else text[1:])
 
     @staticmethod
     def is_anagram(str_1: str, str_2: str) -> bool:
@@ -638,8 +642,8 @@ class StringOperations:
         on both strings and compare the results.
 
         Args:
-            str_1: a string.
-            str_2: a string.
+            str_1 (str): a string.
+            str_2 (str): a string.
 
         Returns:
             A boolean stating whether `str_1` is an anagram of `str_2` or not.
@@ -655,14 +659,14 @@ class StringOperations:
         return sorted(_str1.lower()) == sorted(_str2.lower())
 
     @staticmethod
-    def is_palindrome(string: str) -> bool:
+    def is_palindrome(text: str) -> bool:
         """
         Returns True if the given string is a palindrome, False otherwise.
         Use str.lower() and re.sub() to convert to lowercase and remove non-alphanumeric
         characters from the given string. Then compare the new string with its reverse.
 
         Args:
-            string: a string.
+            text (str): a string.
 
         Returns:
             A boolean stating whether `string` is a palindrome or not.
@@ -671,17 +675,17 @@ class StringOperations:
             is_palindrome("racecar") -> True
             is_palindrome("definitelynot") -> False
         """
-        s_reverse = re.sub(r"[\W_]", "", string.lower())
+        s_reverse = re.sub(r"[\W_]", "", text.lower())
         return s_reverse == s_reverse[::-1]
 
     @staticmethod
-    def kebab_case(string: str) -> str:
+    def kebab_case(text: str) -> str:
         """
         Converts a string to kebab-case.
         Break the string into words and combine them adding - as a separator, using a regexp.
 
         Args:
-            string: a string.
+            text (str): a string.
 
         Returns:
             The same string best adapted to kebab_case.
@@ -696,18 +700,18 @@ class StringOperations:
             re.sub(
                 r"[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+",
                 lambda mo: mo.group(0).lower(),
-                string,
+                text,
             ),
         )
 
     @staticmethod
-    def snake_case(string: str) -> str:
+    def snake_case(text: str) -> str:
         """
         Converts a string to snake_case.
         Break the string into words and combine them adding _ as a separator, using a regexp.
 
         Args:
-            string: a string.
+            text (str): a string.
 
         Returns:
             The same string best adapted to snake_case.
@@ -722,6 +726,6 @@ class StringOperations:
             re.sub(
                 r"[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+",
                 lambda mo: mo.group(0).lower(),
-                string,
+                text,
             ),
         )

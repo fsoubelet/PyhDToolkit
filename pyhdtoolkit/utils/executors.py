@@ -21,7 +21,7 @@ For instance the default value of m in ThreadPoolExecutor is set to 5 which I th
 """
 
 from concurrent import futures
-from typing import Callable
+from typing import Callable, List
 
 from loguru import logger
 
@@ -42,19 +42,19 @@ class MultiProcessor:
     """
 
     @staticmethod
-    def execute_function(func: Callable, func_args: list, n_processes: int) -> list:
+    def execute_function(func: Callable, func_args: list, n_processes: int) -> List[tuple]:
         """
         Executes the function with the provided arguments as multiple processes. Do not fire up
         more processes than you have cores! Never!
 
         Args:
-            func: the function to call.
-            func_args: list of the different parameters for each call. If you function takes
-                       more than one parameters, wrap them up in tuples, e.g. [(params, run,
-                       one), (params, run, two), (params, run, three)].
-            n_processes: the number of processes to fire up. No more than your number of cores!
-                         If n_processes is `None` or not given, ProcessPoolExecutor will default
-                         it to the number of processors on the machine.
+            func (Callable): the function to call.
+            func_args (list): list of the different parameters for each call. If your function takes
+            more than one parameter, wrap them up in tuples, e.g.:
+            [(params, run, one), (params, run, two), (params, run, three)].
+            n_processes (int): the number of processes to fire up. No more than your number of
+            cores! If n_processes is `None` or not given, ProcessPoolExecutor will default it to
+            the number of processors on the machine.
 
         Returns:
             A list of tuples, each tuple being the returned value(s) of your function for the given
@@ -82,22 +82,21 @@ class MultiThreader:
     """
 
     @staticmethod
-    def execute_function(func: Callable, func_args: list, n_threads: int) -> list:
+    def execute_function(func: Callable, func_args: list, n_threads: int) -> List[tuple]:
         """
         Executes the function with the provided arguments as multiple threads. Remember there is
         no point of having more threads than the number calls to be executed, the excess threads
         would be idle and you'd lose the time spent to fire them up.
 
         Args:
-            func: the function to call.
-            func_args: list of the different parameters for each call. If you function takes more
-                       than one parameters, wrap them up in tuples, e.g. [(params, run, one),
-                       (params, run, two), (params, run, three)].
-            n_threads: the number of threads to fire up. If n_threads is `None` or not given,
-                       ThreadPoolExecutor will default it to the number of processors on the
-                       machine multiplied by 5, assuming that  is often used to overlap I/O
-                       instead of CPU work and the number of workers should be higher than the
-                       number of workers for a ProcessPoolExecutor.
+            func (Callable): the function to call.
+            func_args (list): list of the different parameters for each call. If your function takes
+            more than one parameter, wrap them up in tuples, e.g.:
+            [(params, run, one), (params, run, two), (params, run, three)].
+            n_threads (int): the number of threads to fire up. If n_threads is `None` or not given,
+            ThreadPoolExecutor will default it to the number of processors on the machine multiplied
+            by 5, assuming that  is often used to overlap I/O instead of CPU work and the number of
+            workers should be higher than the number of workers for a ProcessPoolExecutor.
 
         Returns:
             A list of tuples, each tuples being the returned value(s) of your function for the given

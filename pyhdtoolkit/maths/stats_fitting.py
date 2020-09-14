@@ -10,6 +10,9 @@ to data.
 """
 import warnings
 
+from typing import Dict, Tuple, Union
+
+import matplotlib
 import numpy as np
 import pandas as pd
 import scipy.stats as st
@@ -17,7 +20,7 @@ import scipy.stats as st
 from loguru import logger
 
 # Distributions to check #
-DISTRIBUTIONS = {
+DISTRIBUTIONS: Dict[st.rv_continuous, str] = {
     st.chi: "Chi",
     st.chi2: "Chi-Square",
     st.expon: "Exponential",
@@ -27,15 +30,15 @@ DISTRIBUTIONS = {
 }
 
 
-def set_distributions_dict(dist_dict: dict = None) -> None:
+def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
     """
     Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to
     try out.
 
     Args:
-        dist_dict: dictionnary with the wanted distributions, in the format of DISTRIBUTIONS. This
-                   should be the
-        scipy.stats generator objects as keys, and a string representation of their name as value.
+        dist_dict Dict[st.rv_continuous, str]: dictionnary with the wanted distributions,
+        in the format of DISTRIBUTIONS, aka scipy.stats generator objects as keys, and a string
+        representation of their name as value.
 
     Returns:
         Nothing, modifies the global DISTRIBUTIONS dict called by other functions.
@@ -46,19 +49,22 @@ def set_distributions_dict(dist_dict: dict = None) -> None:
     DISTRIBUTIONS = dist_dict
 
 
-def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
+def best_fit_distribution(
+    data: Union[pd.Series, np.ndarray], bins: int = 200, ax: matplotlib.axes.Axes = None
+) -> Tuple[st.rv_continuous, Tuple[float, ...]]:
     """
     Model data by finding best fit candidate distribution among those in DISTRIBUTIONS.
 
     Args:
-        data: a pandas.Series or numpy.ndarray with your distribution data as values.
-        bins: the number of bins to decompose your data in before performing fittings.
-        ax: the matplotlib.axes._subplots.AxesSubplot object on which to plot the pdf of tried
-            functions. This should be provided as the ax on which you plotted your distribution.
+        data (Union[pd.Series, np.ndarray]): a pandas Series or numpy array with your
+        distribution data.
+        bins (int): the number of bins to decompose your data in before performing fittings.
+        ax (matplotlib.axes.Axes): the matplotlib axis object on which to plot the pdf of tried
+        functions. This should be provided as the ax on which you plotted your distribution.
 
     Returns:
-        A tuple containing the scipy.stats generator corresponding to the best fit candidate, and the
-        parameters to give said generator to get this fit.
+        A tuple containing the scipy.stats generator corresponding to the best fit candidate,
+        and the parameters to give said generator to get this fit.
     """
     # pylint: disable=too-many-locals
     logger.debug(f"Getting histogram of original data, in {bins} bins")
@@ -78,14 +84,15 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
 
                 logger.debug(f"Trying to fit distribution '{distname}'")
                 params = distribution.fit(data)
-                arg = params[:-2]
-                loc = params[-2]
-                scale = params[-1]
+                *args, loc, scale = params
+                # args = params[:-2]
+                # loc = params[-2]
+                # scale = params[-1]
 
                 logger.debug(
                     f"Calculating PDF goodness of fit and error for distribution '{distname}'"
                 )
-                pdf = distribution.pdf(x, loc=loc, scale=scale, *arg)
+                pdf = distribution.pdf(x, loc=loc, scale=scale, *args)
                 sse = np.sum(np.power(y - pdf, 2.0))
 
                 try:
@@ -93,7 +100,7 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                         logger.debug(f"Plotting fitted PDF for distribution '{distname}'")
                         pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1, lw=2)
                 except Exception:
-                    logger.exception(f"Plotting distribution '{distname}' failed, moving on.")
+                    logger.exception(f"Plotting distribution '{distname}' failed")
 
                 logger.debug(
                     f"Identifying if distribution '{distname}' is a better fit than previous tries"
@@ -104,27 +111,31 @@ def best_fit_distribution(data: pd.Series, bins: int = 200, ax=None) -> tuple:
                     best_sse = sse
         except Exception:
             logger.exception(f"Trying to fit distribution '{distname}' failed and aborted")
-    logger.info(f"Found a best fit: '{DISTRIBUTIONS[best_distribution]}' distribution. Now ending")
+
+    logger.info(f"Found a best fit: '{DISTRIBUTIONS[best_distribution]}' distribution")
     return best_distribution, best_params
 
 
-def make_pdf(distribution, params, size: int = 25_000) -> pd.Series:
+def make_pdf(
+    distribution: st.rv_continuous, params: Tuple[float, ...], size: int = 25_000
+) -> pd.Series:
     """
     Generate a pandas Series for the distributions's Probability Distribution Function. This Series
     will have axis values as index, and PDF values as values.
 
     Args:
-        distribution: a scipy.stats generator object, similar to those found in DISTRIBUTIONS.
-        params: the parameters given back by the fit.
-        size: the number of points to evaluate.
+        distribution (st.rv_continuous): a scipy.stats generator object
+        params (Tuple[float, ...]): the parameters for this generator given back by the fit.
+        size (int): the number of points to evaluate.
 
     Returns:
-        A pandas.Series object with the PDF as values, corresponding axis values as index.
+        A pandas Series object with the PDF as values, corresponding axis values as index.
     """
     # Separate parts of parameters
-    args = params[:-2]
-    loc = params[-2]
-    scale = params[-1]
+    *args, loc, scale = params
+    # args = params[:-2]
+    # loc = params[-2]
+    # scale = params[-1]
 
     logger.debug("Getting sane start and end points of distribution")
     start = (
@@ -138,9 +149,7 @@ def make_pdf(distribution, params, size: int = 25_000) -> pd.Series:
         else distribution.ppf(0.99, loc=loc, scale=scale)
     )
 
-    logger.debug("Building PDF.")
+    logger.debug("Building PDF")
     x = np.linspace(start, end, size)
     y = distribution.pdf(x, loc=loc, scale=scale, *args)
-
-    logger.debug("Casting to pandas.Series object")
     return pd.Series(y, x)

@@ -1,7 +1,8 @@
 """
 cpymadtools package
 ~~~~~~~~~~~~~~~~~~~
-cpymadtools is a collection of utilities that integrate within my workflow with the `cpymad` library.
+cpymadtools is a collection of utilities that integrate within my workflow with the `cpymad`
+library.
 
 :copyright: (c) 2019 by Felix Soubelet.
 :license: MIT, see LICENSE for more details.
@@ -17,7 +18,3 @@ try:
     import cpymad
 except ModuleNotFoundError:
     logger.warning("The cpymad tools are unavailable since the cpymad module is not importable")
-
-
-# Importing * is a bad practice and you should be punished for using it
-__all__ = []

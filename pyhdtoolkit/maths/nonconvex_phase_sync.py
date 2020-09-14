@@ -57,6 +57,13 @@ class PhaseReconstructor:
     Make sure to provide vectors as `numpy.ndarray` with shape (1, N), N being the dimension.
     """
 
+    __slots__ = {
+        "c_matrix": "Hermitian square matrix from your measurements",
+        "c_matrix_eigenvalues": "Eigenvalues of c_matrix",
+        "c_matrix_eigenvectors": "Eigenvectors of c_matrix",
+        "space_dimension": "Dimension of your measurement space",
+    }
+
     def __init__(self, measurements_hermitian_matrix: np.ndarray) -> None:
         """
         Initialize your reconstructor object from measurements.
@@ -73,7 +80,9 @@ class PhaseReconstructor:
             self.c_matrix_eigenvectors: np.ndarray = np.linalg.eigh(self.c_matrix)[-1].T
             self.space_dimension: int = self.c_matrix.shape[0]
         else:
-            logger.exception("The provided matrix is not Hermitian. Aborting")
+            logger.exception(
+                "Instantiating a PhaseReconstructor with a non hermitian matrix is " "not possible"
+            )
             raise ValueError("Provided matrix should be Hermitian")
 
     @property
@@ -122,7 +131,7 @@ class PhaseReconstructor:
         implementation.
 
         Args:
-            eigenvector: a `numpy.ndarray` representing the vector.
+            eigenvector (np.ndarray): a numpy array representing the vector.
 
         Returns:
              A `numpy.ndarray` object of the same dimension as param `eigenvector`.
@@ -162,9 +171,9 @@ class PhaseReconstructor:
         Casts back the complex form of your result to real phase values.
 
         Args:
-            complex_estimator: a `numpy.ndarray` object containing the complex form of your result.
-            deg: if this is set to `True`, the result is cast to degrees (from radians) before
-            being returned.
+            complex_estimator (np.ndarray): your result's complex form as a numpy array.
+            deg (bool): if this is set to True, the result is cast to degrees (from radians)
+            before being returned. Defaults to False.
 
         Returns:
             A `numpy.ndarray` with the real phase values of the result.

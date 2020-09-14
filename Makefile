@@ -13,26 +13,29 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help checklist clean condaenv docker format install lines lint tests
+.PHONY : help checklist clean condaenv docker format install interrogate lines lint tests type
 
 all: install
 
 help:
 	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
-	@echo "  $(R) checklist $(E)      to print a pre-release check-list."
-	@echo "  $(R) clean $(E)          to recursively remove build, run, and bitecode files/dirs."
-	@echo "  $(R) condaenv $(E)       to 'conda create' the specific 'PHD' environment I use. Personnal."
-	@echo "  $(R) docker $(E)   to build a container image replicating said environment (and other goodies)."
-	@echo "  $(R) format $(E)         to recursively apply PEP8 formatting through the 'Black' cli tool."
-	@echo "  $(R) install $(E)        to 'poetry install' this package into the project's virtual environment."
-	@echo "  $(R) lines $(E)          to count lines of code with the 'tokei' tool."
-	@echo "  $(R) lint $(E)           to lint the code though 'PyLint'."
-	@echo "  $(R) tests $(E)          to run tests with the the pytest package."
+	@echo "  $(R) checklist $(E)  \t  to print a pre-release check-list."
+	@echo "  $(R) clean $(E)  \t  to recursively remove build, run, and bitecode files/dirs."
+	@echo "  $(R) condaenv $(E)  \t  to $(D)conda create$(E) the specific 'PHD' environment I use. Personnal."
+	@echo "  $(R) docker $(E)  \t  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
+	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) cli tool."
+	@echo "  $(R) install $(E)  \t  to $(D)poetry install$(E) this package into the project's virtual environment."
+	@echo "  $(R) interrogate $(E)  \t  to run docstring presence inspection on this package."
+	@echo "  $(R) lines $(E)  \t  to count lines of code with the $(P)tokei$(E) tool."
+	@echo "  $(R) lint $(E)  \t  to lint the code though $(P)Pylint$(E)."
+	@echo "  $(R) tests $(E)  \t  to run tests with the $(P)pytest$(E) package."
+	@echo "  $(R) type $(E)  \t  to run type checking with the $(P)mypy$(E) package."
 
 checklist:
 	@echo "Here is a small pre-release check-list:"
 	@echo "  - Check you are on a tagged $(P)feature/release$(E) branch (see Gitflow workflow)."
-	@echo "  - Run $(D)poetry bump$(E) with the right argument and update the version number in $(C)__init__.py$(E)."
+	@echo "  - Run $(D)poetry version$(E) with the right argument and update the version number in $(C)__init__.py$(E)."
+	@echo "  - Update the pyhdtoolkit version in the $(C)environment.yml$(E) file."
 	@echo "  - Check the $(P)feature/release$(E) branch tag matches this release's package version."
 	@echo "  - After merging and pushing this release from $(P)master$(E) to $(P)origin/master$(E):"
 	@echo "     - Run $(D)poetry build$(E) to create a tarball of the new version."
@@ -66,30 +69,34 @@ docker:
 	@echo "Building docker image with $(D)PHD$(E) conda environment, with tag $(P)simenv$(E)."
 	@docker build -f ./Dockerfile -t simenv .
 	@docker tag simenv simenv:latest
-	@echo "Done. You can run this with $(P)docker run -it --rm --init simenv$(E)."
+	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 
 format:
-	@echo "Formatting code to PEP8, default line length is 100 characters."
-	@poetry run black .
+	@echo "Sorting imports and formatting code to PEP8, default line length is 100 characters."
+	@poetry run isort . && black .
 
 install: format clean
 	@echo "Installing through $(D)poetry$(E), with dev dependencies but no extras."
 	@poetry install -v
 
+interrogate:
+	@echo "Inspecting docstring presence in the package."
+	@interrogate pyhdtoolkit
+
 lines: format
 	@tokei .
 
 lint: format
-	@echo "Linting code, ignoring the following message IDs:"
-	@echo "  - $(P)C0330$(E) $(C)'bad-continuation'$(E) since it somehow doesn't play friendly with $(B)Black$(E)."
-	@echo "  - $(P)W0106$(E) $(C)'expression-not-assigned'$(E) since it triggers on class attribute reassignment."
-	@echo "  - $(P)C0103$(E) $(C)'invalid-name'$(E) because there are too many at the moment :(."
-	@echo "  - $(P)E0401$(E) $(C)'import error'$(E) because PyLint is confused with the conda environments."
-	@echo "  - $(P)W1202$(E) $(C)'logging-format-interpolation'$(E) because on this, PyLint is full of shit.\n"
-	@poetry run pylint -j 0 --max-line-length=100 --disable=C0330,W0106,C0103,W1202,R0903,E0401 pyhdtoolkit/
+	@echo "Linting code"
+	@poetry run pylint pyhdtoolkit/
 
 tests: format clean
-	@poetry run pytest --no-flaky-report --cov-report term-missing --cov=pyhdtoolkit -p no:sugar
+	@poetry run pytest --no-flaky-report -p no:sugar
+	@make clean
+
+type: format
+	@echo "Checking code typing with mypy, ignore $(C)pyhdtoolkit/scripts$(E)"
+	@poetry run mypy --pretty --no-strict-optional --show-error-codes --warn-redundant-casts --ignore-missing-imports --follow-imports skip pyhdtoolkit/scripts/
 	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
