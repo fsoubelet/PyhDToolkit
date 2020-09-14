@@ -2,8 +2,6 @@ import numpy as np
 import pytest
 import scipy.stats as st
 
-from pandas.testing import assert_frame_equal
-
 import pyhdtoolkit.maths.nonconvex_phase_sync as nps
 
 from pyhdtoolkit.maths import stats_fitting
@@ -31,16 +29,31 @@ class TestPhaseReconstructor:
         "noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1]
     )
     @pytest.mark.parametrize("n_bpms", [50, 250, 500, 569, 750])
+    def test_reconstructor_matrix(self, noise_stdev_degrees, n_bpms):
+        signal = _create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
+        m_meas = _create_meas_matrix_from_values_array(signal)
+        m_noise = _create_2d_gaussian_noise(mean=0, stdev=noise_stdev_degrees, shape=m_meas.shape)
+        c_hermitian = np.exp(1j * np.deg2rad(m_meas + m_noise))
+
+        pr = nps.PhaseReconstructor(c_hermitian)
+        assert isinstance(pr.reconstructor_matrix, np.ndarray)
+        assert pr.reconstructor_matrix.shape == c_hermitian.shape
+
+    @pytest.mark.flaky(max_runs=3, min_passes=1)
+    @pytest.mark.parametrize(
+        "noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1]
+    )
+    @pytest.mark.parametrize("n_bpms", [50, 250, 500, 569, 750])
     def test_reconstruction(self, noise_stdev_degrees, n_bpms):
         signal = _create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
         m_meas = _create_meas_matrix_from_values_array(signal)
         m_noise = _create_2d_gaussian_noise(mean=0, stdev=noise_stdev_degrees, shape=m_meas.shape)
         m_noised_meas = m_meas + m_noise
         c_hermitian = np.exp(1j * np.deg2rad(m_noised_meas))
-        PR = nps.PhaseReconstructor(c_hermitian)
-        complex_eigenvector_method_result = PR.get_eigenvector_estimator(PR.leading_eigenvector)
+        pr = nps.PhaseReconstructor(c_hermitian)
+        complex_eigenvector_method_result = pr.reconstruct_complex_phases_evm()
         reconstructed = np.abs(
-            PR.convert_complex_result_to_phase_values(complex_eigenvector_method_result, deg=True)
+            pr.convert_complex_result_to_phase_values(complex_eigenvector_method_result, deg=True)
         ).reshape(n_bpms,)
         assert np.allclose(reconstructed, signal, atol=0.1, rtol=1e-1)
 
@@ -62,7 +75,7 @@ class TestStatsFitting:
         stats_fitting.set_distributions_dict(input_dict)
         assert stats_fitting.DISTRIBUTIONS == input_dict
 
-    @pytest.mark.flaky(max_runs=4, min_passes=2)
+    @pytest.mark.flaky(max_runs=3, min_passes=1)
     @pytest.mark.parametrize("tested_distribution", [st.chi, st.chi2])
     @pytest.mark.parametrize("degrees_of_freedom", list(range(3, 8)))
     def test_best_distribution_fit_with_df(self, tested_distribution, degrees_of_freedom):
@@ -113,7 +126,7 @@ class TestStatsFitting:
         Can test that the generated pdf is good by checking the mode for a chi2
         -> happens at df - 2. Make it sweat by generating a distribution and having a fit first.
         """
-        data = _sigmas_square(25_000, meas_used=degrees_of_freedom + 1)
+        data: np.ndarray = st.chi2(degrees_of_freedom).rvs(50_000)
         best_fit_func, best_fit_params = stats_fitting.best_fit_distribution(data, 200)
         pdf = stats_fitting.make_pdf(best_fit_func, best_fit_params)
         pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
@@ -176,22 +189,3 @@ def _create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.nda
     gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
     upper_triangle = np.triu(gaussian_2d_mat)
     return upper_triangle - upper_triangle.T
-
-
-def _sigmas_square(num: int, meas_used: int) -> np.ndarray:
-    """
-    Generate a chi-square distribution of 'num' elements, each computed from a normal distribution
-    of 'meas_used' elements.
-
-    Args:
-        num: number of elements for the generated distribution.
-        meas_used: number of values for each
-
-    Returns:
-        The resulting distribution as a `numpy.ndarray`.
-    """
-    res = []
-    for _ in range(num):
-        norm_dist = np.random.default_rng().normal(loc=0, scale=1, size=meas_used)
-        res.append(np.sum(np.square([i - np.mean(norm_dist) for i in norm_dist])))
-    return np.array(res)

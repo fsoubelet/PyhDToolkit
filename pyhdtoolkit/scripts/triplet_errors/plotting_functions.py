@@ -11,6 +11,8 @@ A collection of functions that will be useful to plot the results from GridCompu
 import os
 import pathlib
 
+from typing import List
+
 import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -23,7 +25,11 @@ if os.environ.get("Display", "") == "":
 
 
 def plot_betas_across_machine(
-    s_values: list, betx_values: list, bety_values: list, error_type: str, error_value: str
+    s_values: List[float],
+    betx_values: List[float],
+    bety_values: List[float],
+    error_type: str,
+    error_value: str,
 ) -> None:
     """
     Plot beta functions across the machine. Save according to simulation scenario.
@@ -31,11 +37,11 @@ def plot_betas_across_machine(
     title generated according to the error type and error value. Saves in dedicated subfolder.
 
     Args:
-        s_values: the values of the s axis.
-        betx_values: horizontal beta values accross the machine.
-        bety_values: vertical beta values accross the machine.
-        error_type: which error you have simulated too get those results.
-        error_value: the value of the error you used in your simulations.
+        s_values (List[float]): the values of the s axis.
+        betx_values (List[float]): horizontal betatron function values accross the machine.
+        bety_values (List[float]): vertical betatron function values accross the machine.
+        error_type (str): which error you have simulated too get those results.
+        error_value (str): the value of the error you used in your simulations.
 
     Returns:
         Nothing, plots and saves the figure.
@@ -72,7 +78,11 @@ def plot_betas_across_machine(
 
 
 def plot_bbing_max_errorbar(
-    errors: list, beta_beatings_df: pd.DataFrame, stdev_df: pd.DataFrame, plane: str, figname: str
+    errors: List[float],
+    beta_beatings_df: pd.DataFrame,
+    stdev_df: pd.DataFrame,
+    plane: str,
+    figname: str,
 ) -> None:
     """
     Plot beta-beating values, with error bars, as a function of the error values. Save according
@@ -81,11 +91,11 @@ def plot_bbing_max_errorbar(
     value. Saves in dedicated subfolder.
 
     Args:
-        errors: list with different error values simulated.
-        beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
-        stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
-        plane: the name of the plane to plot.
-        figname: how to name the file when exporting the plot.
+        errors (List[float]): the different error values simulated.
+        beta_beatings_df (pd.DataFrame): the resulting beta-beating values.
+        stdev_df (pd.DataFrame): the standard deviations for those values.
+        plane (str): the name of the plane to plot.
+        figname (str): how to name the file when exporting the plot.
 
     Returns:
         Nothing, plots and saves the figure.
@@ -176,7 +186,11 @@ def plot_bbing_max_errorbar(
 
 
 def plot_bbing_with_ips_errorbar(
-    errors: list, beta_beatings_df: pd.DataFrame, stdev_df: pd.DataFrame, plane: str, figname: str
+    errors: List[float],
+    beta_beatings_df: pd.DataFrame,
+    stdev_df: pd.DataFrame,
+    plane: str,
+    figname: str,
 ) -> None:
     """
     Plot beta-beating values, with error bars, as a function of the error values. Save according
@@ -185,11 +199,11 @@ def plot_bbing_with_ips_errorbar(
     generated according to the error type and error value. Saves in dedicated subfolder.
 
     Args:
-        errors: list with different error values simulated.
-        beta_beatings_df: a `pandas.DataFrame` object with the resulting beta-beating values.
-        stdev_df: a `pandas.DataFrame` object with the standard deviations for those values.
-        plane: the name of the plane to plot.
-        figname: how to name the file when exporting the plot.
+        errors (List[float]): list with different error values simulated.
+        beta_beatings_df (pd.DataFrame): the resulting beta-beating values.
+        stdev_df (pd.DataFrame): the standard deviations for those values.
+        plane (str): the name of the plane to plot.
+        figname (str): how to name the file when exporting the plot.
 
     Returns:
         Nothing, plots and saves the figure.
@@ -308,17 +322,17 @@ def plot_bbing_with_ips_errorbar(
 
 
 def plot_intermediate_beta_histograms(
-    betasx: list, betasy: list, error_val: float, title: str, outputname: str
+    betasx: List[float], betasy: List[float], error_val: float, title: str, outputname: str
 ) -> None:
     """
     Plot histogram distribution for betas at seeds.
 
     Args:
-        betasx: list of all horizontal beta values for all seeds for a specific error value.
-        betasy: list of all vertical beta values for all seeds for a specific error value.
-        error_val: the error value.
-        title: the title to give the figure.
-        outputname: the name to give the file saving the figure.
+        betasx (List[float]): horizontal beta values for all seeds for a specific error value.
+        betasy (List[float]): vertical beta values for all seeds for a specific error value.
+        error_val (float): the error value.
+        title (str): the title to give the figure.
+        outputname (str): the name to give the file saving the figure.
 
     Returns:
         Nothing, plots and saves the figure.

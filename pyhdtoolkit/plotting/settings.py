@@ -8,10 +8,11 @@ Created on 2019.12.08
 Some settings for better matplotlib.pyplot plots.
 Work in progress.
 """
+from typing import Dict, Union
 
 # Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS).
 # Will ALWAYS be overwritten by later on definition
-PLOT_PARAMS = {
+PLOT_PARAMS: Dict[str, Union[float, bool, str, tuple]] = {
     # ------ Axes ------ #
     "axes.linewidth": 0.8,  # Linewidth of axes edges
     "axes.grid": False,  # Do not display grid

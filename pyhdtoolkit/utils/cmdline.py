@@ -12,7 +12,8 @@ import errno
 import os
 import signal
 import subprocess
-import sys
+
+from typing import Mapping, Optional, Tuple
 
 from loguru import logger
 
@@ -30,7 +31,7 @@ class CommandLine:
         Check whether the given PID exists in the current process table.
 
         Args:
-            pid: the Process ID you want to check.
+            pid (int): the Process ID you want to check.
 
         Returns:
             A boolean stating the result.
@@ -59,7 +60,9 @@ class CommandLine:
         return True
 
     @staticmethod
-    def run(command: str, shell: bool = True, env=None, timeout: float = None) -> tuple:
+    def run(
+        command: str, shell: bool = True, env: Mapping = None, timeout: float = None
+    ) -> Tuple[Optional[int], bytes]:
         """
         Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.
         Note that `stderr` is redirected to `stdout`. `shell` is same to parameter of `Popen`.
@@ -67,16 +70,15 @@ class CommandLine:
         will be raised.
 
         Args:
-            command: string, the command you want to run.
-            shell: same as `Popen` argument. Setting the shell argument to a true value causes
-                   subprocess to spawn an intermediate shell process, and tell it to run the
-                   command. In other words, using an intermediate shell means that variables,
-                   glob patterns, and other special shell features in the command string are
-                   processed before the command is ran.
-            env: same as `Popen` argument, if you need to modify environment variables only for
-                 this command run..
-            timeout: same as `Popen.communicate` argument, number of seconds to wait for a response
-                     before raising an exception.
+            command (str): string, the command you want to run.
+            shell (bool): same as `Popen` argument. Setting the shell argument to a true value
+            causes subprocess to spawn an intermediate shell process, and tell it to run the
+            command. In other words, using an intermediate shell means that variables, glob
+            patterns, and other special shell features in the command string are processed before
+            the command is ran. Defaults to True.
+            env (Mapping): mapping that defines the environment variables for the new process.
+            timeout (float): same as `Popen.communicate` argument, number of seconds to wait for a
+            response before raising a TimeoutExpired exception.
 
         Returns:
             The tuple of (returncode, stdout). Beware, the stdout will be a byte array (id est
@@ -93,7 +95,7 @@ class CommandLine:
             CommandLine.run('echo $ENV_VAR', env=modified_env) -> (0, b'new_value')
         """
         with timeit(
-            lambda spanned: logger.success(
+            lambda spanned: logger.info(
                 f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds"
             )
         ):
@@ -101,7 +103,14 @@ class CommandLine:
                 command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
             )
             stdout, _ = process.communicate(timeout=timeout)
-            logger.debug(f"Subprocess command {command} finished with exit code: {process.poll()}")
+            if process.poll() != 0:
+                logger.warning(
+                    f"Subprocess command '{command}' finished with exit code: {process.poll()}"
+                )
+            else:
+                logger.success(
+                    f"Subprocess command '{command}' finished with exit code: {process.poll()}"
+                )
         return process.poll(), stdout
 
     @staticmethod
@@ -111,7 +120,7 @@ class CommandLine:
         to kill.
 
         Args:
-            pid: the process ID to kill
+            pid (int): the process ID to kill.
 
         Returns:
             A boolean stating the success of the operation.
@@ -122,13 +131,3 @@ class CommandLine:
             return True
         logger.error(f"Process with ID {pid} could not be terminated.")
         return False
-
-    @staticmethod
-    def get_cmdline_argv() -> list:
-        """
-        Get command line argv of self python process.
-
-        Returns:
-            A list with those arguments.
-        """
-        return sys.argv

@@ -17,7 +17,7 @@ def timeit(function: Callable) -> Iterator[None]:
     Original code from @jaimecp89
 
     Args:
-        function: any callable taking one argument. Was conceived with a lambda in mind.
+        function (Callable): any callable taking one argument. Was conceived with a lambda in mind.
 
     Returns:
         The elapsed time as an argument for the provided function.

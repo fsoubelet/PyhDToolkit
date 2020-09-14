@@ -22,7 +22,25 @@ class BetaBeatValues:
     Simple class to store and transfer beta-beating values.
     """
 
-    # pylint: disable=too-many-instance-attributes
+    __slots__ = {
+        "tferror_bbx": "Horizontal beta-beating values from field errors",
+        "tferror_bby": "Vertical beta-beating values from field errors",
+        "ip1_tferror_bbx": "Horizontal beta-beating values from field errors at IP1",
+        "ip1_tferror_bby": "Vertical beta-beating values from field errors at IP1",
+        "ip5_tferror_bbx": "Horizontal beta-beating values from field errors at IP5",
+        "ip5_tferror_bby": "Vertical beta-beating values from field errors at IP5",
+        "max_tferror_bbx": "Maximal horizontal beta-beating values from field errors",
+        "max_tferror_bby": "Maximal vertical beta-beating values from field errors",
+        "misserror_bbx": "Horizontal beta-beating values from misalignment errors",
+        "misserror_bby": "Horizontal beta-beating values from misalignment errors",
+        "ip1_misserror_bbx": "Horizontal beta-beating values from misalignment errors at IP1",
+        "ip1_misserror_bby": "Vertical beta-beating values from misalignment errors at IP1",
+        "ip5_misserror_bbx": "Horizontal beta-beating values from misalignment errors at IP5",
+        "ip5_misserror_bby": "Vertical beta-beating values from misalignment errors at IP5",
+        "max_misserror_bbx": "Maximal horizontal beta-beating values from misalignment errors",
+        "max_misserror_bby": "Maximal vertical beta-beating values from misalignment errors",
+    }
+
     def __init__(self) -> None:
         self.tferror_bbx: List[float] = []
         self.tferror_bby: List[float] = []
@@ -54,8 +72,8 @@ class BetaBeatValues:
         seed. Appends relevant values to the instance's attributes.
 
         Args:
-            cpymad_betabeatings: a `pandas.DataFrame` with beta-beatings from the simulation,
-                                 compared to the nominal twiss from a reference run.
+            cpymad_betabeatings (pd.DataFrame): the beta-beatings from the simulation, compared to
+            the nominal twiss from a reference run.
 
         Returns:
             Nothing, updates inplace.
@@ -104,8 +122,8 @@ class BetaBeatValues:
         Appends relevant values to the instance's attributes.
 
         Args:
-            cpymad_betabeatings: a `pandas.DataFrame` with beta-beatings from the simulation,
-            compared to the nominal twiss from a reference run.
+            cpymad_betabeatings (pd.DataFrame): the beta-beatings from the simulation, compared to
+            the nominal twiss from a reference run.
 
         Returns:
             Nothing, updates inplace.
@@ -152,7 +170,7 @@ class BetaBeatValues:
         Exports stored values as a pandas DataFrame, potentially saving them as a csv file.
 
         Args:
-            csvname: the name to give the csv file.
+            csvname (str): the name to give the csv file.
 
         Returns:
             A `pandas.DataFrame` object with the instance's attributes as columns.
@@ -167,7 +185,25 @@ class StdevValues:
     Simple class to store and transfer standard deviation values.
     """
 
-    # pylint: disable=too-many-instance-attributes
+    __slots__ = {
+        "stdev_tf_x": "Horizontal standard deviation values from field errors",
+        "stdev_tf_y": "Vertical standard deviation values from field errors",
+        "ip1_stdev_tf_x": "Horizontal standard deviation values from field errors at IP1",
+        "ip1_stdev_tf_y": "Vertical standard deviation values from field errors at IP1",
+        "ip5_stdev_tf_x": "Horizontal standard deviation values from field errors at IP5",
+        "ip5_stdev_tf_y": "Vertical standard deviation values from field errors at IP5",
+        "max_stdev_tf_x": "Maximal horizontal standard deviation values from field errors",
+        "max_stdev_tf_y": "Maximal vertical standard deviation values from field errors",
+        "stdev_miss_x": "Horizontal standard deviation values from misalignment errors",
+        "stdev_miss_y": "Horizontal standard deviation values from misalignment errors",
+        "ip1_stdev_miss_x": "Horizontal standard deviation values from misalignment errors at IP1",
+        "ip1_stdev_miss_y": "Vertical standard deviation values from misalignment errors at IP1",
+        "ip5_stdev_miss_x": "Horizontal standard deviation values from misalignment errors at IP5",
+        "ip5_stdev_miss_y": "Vertical standard deviation values from misalignment errors at IP5",
+        "max_stdev_miss_x": "Maximal horizontal standard deviation values from misalignment errors",
+        "max_stdev_miss_y": "Maximal vertical standard deviation values from misalignment errors",
+    }
+
     def __init__(self) -> None:
         self.stdev_tf_x: List[float] = []
         self.stdev_tf_y: List[float] = []
@@ -237,7 +273,7 @@ class StdevValues:
         them as a csv file.
 
         Args:
-            csvname: the name to give the csv file.
+            csvname (str): the name to give the csv file.
 
         Returns:
             A `pandas.DataFrame` object with the instance's attributes as columns.
@@ -247,18 +283,18 @@ class StdevValues:
         return stdev_df
 
 
-def _get_rms(values_list: list) -> float:
+def _get_rms(values_list: List[float]) -> float:
     """
     Get the root mean square of a list of values.
 
     Args:
-        values_list: a list-like with a distribution of values.
+        values_list (List[float]): a distribution of values.
 
     Returns:
         The root mean square of said distribution.
     """
     try:
         return np.sqrt(np.sum(i ** 2 for i in values_list) / len(values_list))
-    except ZeroDivisionError:
+    except ZeroDivisionError as issue:
         logger.exception("An empty list was provided, check the simulation logs to understand why.")
-        raise ZeroDivisionError("No values were provided")
+        raise ZeroDivisionError("No values were provided") from issue

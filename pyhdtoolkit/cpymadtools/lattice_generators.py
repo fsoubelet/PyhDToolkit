@@ -321,8 +321,8 @@ twiss;
         Generate generic script for tf_error Twiss, to use in a `cpymad.madx.Madx` object.
 
         Args:
-            rand_seed: the random seed to provide MAD for the errors distributions.
-            tf_error: the misalignment error value (along the s axis).
+            rand_seed (str): the random seed to provide MAD for the errors distributions.
+            tf_error (str): the misalignment error value (along the s axis).
 
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.
@@ -396,8 +396,8 @@ exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
         Generate generic script for ms_error Twiss, to use in a `cpymad.madx.Madx` object.
 
         Args:
-            rand_seed: the random seed to provide MAD for the errors distributions.
-            ms_error: the misalignment error value (along the s axis).
+            rand_seed (str): the random seed to provide MAD for the errors distributions.
+            ms_error (str): the misalignment error value (along the s axis).
 
         Returns:
             A string you can input into your `cpymad.madx.Madx` object.

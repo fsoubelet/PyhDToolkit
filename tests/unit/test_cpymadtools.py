@@ -2,15 +2,19 @@
 Considering cpymad only installs on Linux, most test classes have been decorated with a skipif
 and none of those will run unless in a linux environment.
 """
+import random
 import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 
-from matplotlib.testing.decorators import image_comparison
-
-from pyhdtoolkit.cpymadtools.helpers import LatticeMatcher, Parameters
+from pyhdtoolkit.cpymadtools.helpers import (
+    LatticeMatcher,
+    Parameters,
+    _create_chromaticity_matching_routine,
+    _create_tune_matching_routine,
+)
 from pyhdtoolkit.cpymadtools.lattice_generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import LaTwiss
 from pyhdtoolkit.cpymadtools.plotters import (
@@ -23,6 +27,7 @@ from pyhdtoolkit.cpymadtools.plotters import (
 # Will only work on Linux, we don't want failing tests because import is fails on some platforms
 try:
     import cpymad
+
     from cpymad.madx import Madx
 except ModuleNotFoundError:
     pass
@@ -86,39 +91,33 @@ twiss;
 """
 
 
-@pytest.mark.skipif(
-    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
-)
+@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestAperturePlotter:
-    @image_comparison(
-        baseline_images=["physical_aperture"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
-    )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
-    def test_plot_aperture(self):
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_aperture(self, tmp_path):
+        savefig_dir = tmp_path / "test_plot_aperture"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "aperture.png"
+
         beam_fb = Parameters.beam_parameters(
             1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True
         )
         madx = Madx(stdout=False)
         madx.input(GUIDO_LATTICE)
-        AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20))
+        figure = AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
+        assert saved_fig.is_file()
+        return figure
 
 
-@pytest.mark.skipif(
-    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
-)
+@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestDynamicAperturePlotter:
-    @image_comparison(
-        baseline_images=["dynamic_aperture"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
-    )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
-    def test_plot_dynamic_aperture(self):
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_dynamic_aperture(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_aperture"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "dynamic_aperture.png"
+
         n_particles = 100
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
@@ -126,50 +125,147 @@ class TestDynamicAperturePlotter:
         LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
 
         x_coords_stable, y_coords_stable, _, _ = _perform_tracking_for_coordinates(madx)
-        DynamicAperturePlotter.plot_dynamic_aperture(
-            x_coords_stable, y_coords_stable, n_particles=n_particles
+        x_coords_stable = np.array(x_coords_stable)
+        y_coords_stable = np.array(y_coords_stable)
+        figure = DynamicAperturePlotter.plot_dynamic_aperture(
+            x_coords_stable, y_coords_stable, n_particles=n_particles, savefig=saved_fig
         )
+        assert saved_fig.is_file()
+        return figure
 
 
-@pytest.mark.skipif(
-    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
-)
-class TestLaTwiss:
-    @image_comparison(
-        baseline_images=["latwiss"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
+class TestLatticeGenerator:
+    def test_base_cas_lattice_generation(self):
+        base_cas_lattice = LatticeGenerator.generate_base_cas_lattice()
+        assert isinstance(base_cas_lattice, str)
+        assert len(base_cas_lattice) == 1493
+
+    def test_onesext_cas_lattice(self):
+        onesext_cas_lattice = LatticeGenerator.generate_onesext_cas_lattice()
+        assert isinstance(onesext_cas_lattice, str)
+        assert len(onesext_cas_lattice) == 2051
+
+    def test_oneoct_cas_lattice(self):
+        oneoct_cas_lattice = LatticeGenerator.generate_oneoct_cas_lattice()
+        assert isinstance(oneoct_cas_lattice, str)
+        assert len(oneoct_cas_lattice) == 2050
+
+    def test_tripleterrors_study_reference(self):
+        tripleterrors_study_reference = LatticeGenerator.generate_tripleterrors_study_reference()
+        assert isinstance(tripleterrors_study_reference, str)
+        assert len(tripleterrors_study_reference) == 1552
+
+    @pytest.mark.parametrize(
+        "randseed, tferror",
+        [
+            ("", ""),
+            ("95", "195"),
+            ("105038", "0.001"),
+            (str(random.randint(0, 1e7)), str(random.randint(0, 1e7))),
+            (random.randint(0, 1e7), random.randint(0, 1e7)),
+        ],
     )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
-    def test_plot_latwiss(self):
+    def test_tripleterrors_study_tferror_job(self, randseed, tferror):
+        tripleterrors_study_tferror_job = LatticeGenerator.generate_tripleterrors_study_tferror_job(
+            rand_seed=randseed, tf_error=tferror,
+        )
+        assert isinstance(tripleterrors_study_tferror_job, str)
+        assert len(tripleterrors_study_tferror_job) == 2456 + len(str(randseed)) + len(str(tferror))
+        assert f"eoption, add, seed = {randseed};" in tripleterrors_study_tferror_job
+        assert f"B2r = {tferror};" in tripleterrors_study_tferror_job
+
+    @pytest.mark.parametrize(
+        "randseed, mserror",
+        [
+            ("", ""),
+            ("95", "195"),
+            ("105038", "0.001"),
+            (str(random.randint(0, 1e7)), str(random.randint(0, 1e7))),
+            (random.randint(0, 1e7), random.randint(0, 1e7)),
+        ],
+    )
+    def test_tripleterrors_study_mserror_job(self, randseed, mserror):
+        tripleterrors_study_mserror_job = LatticeGenerator.generate_tripleterrors_study_mserror_job(
+            rand_seed=randseed, ms_error=mserror,
+        )
+        assert isinstance(tripleterrors_study_mserror_job, str)
+        assert len(tripleterrors_study_mserror_job) == 2319 + len(str(randseed)) + len(str(mserror))
+        assert f"eoption, add, seed = {randseed};" in tripleterrors_study_mserror_job
+        assert f"ealign, ds := {mserror} * 1E-3 * TGAUSS(GCUTR);" in tripleterrors_study_mserror_job
+
+
+@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
+class TestLaTwiss:
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_latwiss(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_latwiss"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "latwiss.png"
+
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
         LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
         LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
-        LaTwiss.plot_latwiss(cpymad_instance=madx, title="Project 3 Base Lattice")
+        figure = LaTwiss.plot_latwiss(
+            cpymad_instance=madx,
+            title="Project 3 Base Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            plot_sextupoles=True,
+            savefig=saved_fig,
+        )
+        assert saved_fig.is_file()
+        return figure
 
-    @image_comparison(
-        baseline_images=["machine_survey"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
-    )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
-    def test_plot_machine_survey(self):
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_machine_survey_with_elements(self, tmp_path):
+        """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_survey"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "survey.png"
+
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        figure = LaTwiss.plot_machine_survey(
+            cpymad_instance=madx,
+            show_elements=True,
+            high_orders=True,
+            figsize=(20, 15),
+            savefig=saved_fig,
+        )
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_machine_survey_without_elements(self):
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        Latwiss.plot_machine_survey(
-            cpymad_instance=madx, show_elements=True, high_orders=True, figsize=(20, 15)
+        return LaTwiss.plot_machine_survey(
+            cpymad_instance=madx, show_elements=False, high_orders=True, figsize=(20, 15)
         )
 
 
-@pytest.mark.skipif(
-    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
-)
+@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestLatticeMatcher:
+    def test_tune_matching_routine(self):
+        """Test for coverage, it routines are wrong the matching tests will fail anyway."""
+        assert (
+            _create_tune_matching_routine("SEQ", 6.5, 6.5, variables=["kq1", "kq2"])
+            == f"""
+!MATCHING SEQUENCE
+match, sequence=SEQ;
+  vary, name=kq1, step=0.00001;
+  vary, name=kq2, step=0.00001;
+  global, sequence=SEQ, Q1=6.5;
+  global, sequence=SEQ, Q2=6.5;
+  Lmdif, calls=1000, tolerance=1.0e-21;
+endmatch;
+twiss;
+"""
+        )
+
     @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
     def test_tune_matching(self, q1_target, q2_target):
         """Using my CAS 19 project's base lattice."""
@@ -180,6 +276,23 @@ class TestLatticeMatcher:
         LatticeMatcher.perform_tune_matching(madx, "CAS3", q1_target, q2_target)
         assert np.isclose(madx.table.summ.q1[0], q1_target)
         assert np.isclose(madx.table.summ.q2[0], q2_target)
+
+    def test_chromaticity_matching_routine(self):
+        """Test for coverage, it routines are wrong the matching tests will fail anyway."""
+        assert (
+            _create_chromaticity_matching_routine("SEQ", 15, 15, variables=["ks1", "ks2"])
+            == f"""
+!MATCHING SEQUENCE
+match, sequence=SEQ;
+  vary, name=ks1, step=0.00001;
+  vary, name=ks2, step=0.00001;
+  global, sequence=SEQ, dq1=15;
+  global, sequence=SEQ, dq2=15;
+  Lmdif, calls=1000, tolerance=1.0e-21;
+endmatch;
+twiss;
+"""
+        )
 
     @pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
     def test_chroma_matching(self, dq1_target, dq2_target):
@@ -195,7 +308,7 @@ class TestLatticeMatcher:
 
 class TestParameters:
     @pytest.mark.parametrize(
-        "pc_Gev, en_x_m, en_y_m, delta_p, verbosity, result_dict",
+        "pc_gev, en_x_m, en_y_m, delta_p, verbosity, result_dict",
         [
             (
                 1.9,
@@ -241,22 +354,35 @@ class TestParameters:
             ),
         ],
     )
-    def test_beam_parameters(self, pc_Gev, en_x_m, en_y_m, delta_p, result_dict, verbosity):
-        assert Parameters.beam_parameters(pc_Gev, en_x_m, en_y_m, delta_p, verbosity) == result_dict
+    def test_beam_parameters(self, pc_gev, en_x_m, en_y_m, delta_p, result_dict, verbosity):
+        assert Parameters.beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, verbosity) == result_dict
 
 
-@pytest.mark.skipif(
-    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
-)
+@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestPhaseSpacePlotter:
-    @image_comparison(
-        baseline_images=["normalized_phase_space"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
-    )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
-    def test_plot_normalized_phase_space(self):
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_horizontal_courant_snyder_phase_space(self, tmp_path):
+        """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_latwiss"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "phase_space.png"
+
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
+        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+
+        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
+            madx, x_coords_stable, px_coords_stable, plane="Horizontal", savefig=saved_fig
+        )
+        plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
+        plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_vertical_courant_snyder_phase_space(self):
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
@@ -264,20 +390,49 @@ class TestPhaseSpacePlotter:
         LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-        PhaseSpacePlotter.plot_normalized_phase_space(
-            madx, x_coords_stable, px_coords_stable, plane="Horizontal"
+        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
+            madx, x_coords_stable, px_coords_stable, plane="Vertical"
         )
         plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
         plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+        return figure
 
-    @image_comparison(
-        baseline_images=["normalized_phase_space_colored"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
-    )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
-    def test_plot_normalized_phase_space_colored(self):
+    def test_plot_courant_snyder_phase_space_wrong_plane_input(self):
+        """Using my CAS 19 project's base lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
+        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+
+        x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
+        with pytest.raises(ValueError):
+            _ = PhaseSpacePlotter.plot_courant_snyder_phase_space(
+                madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
+            )
+
+    @pytest.mark.mpl_image_compare(tolerance=20)
+    def test_plot_horizontal_courant_snyder_phase_space_colored(self, tmp_path):
+        """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_latwiss"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "colored_phase_space.png"
+
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
+        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+
+        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
+            madx, x_coords_stable, px_coords_stable, plane="Horizontal", savefig=saved_fig
+        )
+        plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
+        plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20)
+    def test_plot_vertical_courant_snyder_phase_space_colored(self):
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
@@ -285,39 +440,44 @@ class TestPhaseSpacePlotter:
         LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-        PhaseSpacePlotter.plot_normalized_phase_space_colored(
-            madx, x_coords_stable, px_coords_stable, plane="Horizontal"
+        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
+            madx, x_coords_stable, px_coords_stable, plane="Vertical"
         )
         plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
         plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+        return figure
+
+    def test_plot_courant_snyder_phase_space_colored_wrong_plane_input(self):
+        """Using my CAS 19 project's base lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
+        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+
+        x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
+        with pytest.raises(ValueError):
+            _ = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
+                madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
+            )
 
 
-@pytest.mark.skipif(
-    not sys.platform.startswith("linux"), reason="The cpymad library will only install on linux."
-)
+@pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestTuneDiagramPlotter:
-    @image_comparison(
-        baseline_images=["blank_tune_diagram"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
-    )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
     def test_plot_blank_tune_diagram(self):
         """Does not need any input."""
-        TuneDiagramPlotter.plot_blank_tune_diagram()
+        figure = TuneDiagramPlotter.plot_blank_tune_diagram()
         plt.xlim(0, 0.5)
         plt.ylim(0, 0.5)
+        return figure
 
-    @image_comparison(
-        baseline_images=["tune_diagram"],
-        remove_text=True,
-        extensions=["png", "pdf"],
-        savefig_kwarg={"dpi": 300},
-    )
-    @pytest.mark.xfail(reason="Not sure this is the way to how to handle this yet.")
-    def test_plot_tune_diagram(self):
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    def test_plot_tune_diagram(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_latwiss"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "tune_diagram.png"
+
         n_particles = 100
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
@@ -327,27 +487,31 @@ class TestTuneDiagramPlotter:
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
 
         x_coords_stable = np.array(x_coords_stable)
-        Qxs_stable, xgood_stable = [], []
+        qxs_stable, xgood_stable = [], []
 
         for particle in range(n_particles):
             if np.isnan(x_coords_stable[particle]).any():
-                Qxs_stable.append(0)
+                qxs_stable.append(0)
                 xgood_stable.append(False)
             else:
                 signal = x_coords_stable[particle]
                 signal = np.array(signal)
                 try:
-                    Qxs_stable.append(pnf.naff(signal, n_turns, 1, 0, False)[0][1])
+                    qxs_stable.append(pnf.naff(signal, n_turns, 1, 0, False)[0][1])
                     xgood_stable.append(True)
                 except:
-                    Qxs_stable.append(0)
+                    qxs_stable.append(0)
                     xgood_stable.append(False)
 
-        Qxs_stable = np.array(Qxs_stable)
+        qxs_stable = np.array(qxs_stable)
         xgood_stable = np.array(xgood_stable)
-        TuneDiagramPlotter.plot_tune_diagram(madx, Qxs_stable, xgood_stable)
+        figure = TuneDiagramPlotter.plot_tune_diagram(
+            madx, qxs_stable, xgood_stable, savefig=saved_fig
+        )
         plt.xlim(0, 0.4)
         plt.ylim(0, 0.4)
+        assert saved_fig.is_file()
+        return figure
 
 
 # ---------------------- Private Utilities ---------------------- #

@@ -6,6 +6,7 @@ import subprocess
 
 import pytest
 
+from pyhdtoolkit.utils import defaults
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.operations import (
@@ -58,8 +59,8 @@ class TestCommandLine:
         "sleep_time", list(range(10, 60))
     )  # each one will spawn a different process
     def test_terminate_pid(self, sleep_time):
-        sacrifice_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
-        assert CommandLine.terminate(sacrifice_process.pid) is True
+        sacrificed_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
+        assert CommandLine.terminate(sacrificed_process.pid) is True
 
 
 class TestListOperations:
@@ -83,7 +84,7 @@ class TestListOperations:
         ],
     )
     def test_average_by(self, inputs, function, result):
-        assert ListOperations.average_by(lst=inputs, function=function) == result
+        assert ListOperations.average_by(sequence=inputs, function=function) == result
 
     @pytest.mark.parametrize(
         "inputs, error", [(None, TypeError), ((list(range(10)), None), TypeError)]
@@ -248,9 +249,9 @@ class TestListOperations:
     @pytest.mark.parametrize(
         "array",
         [
-            ([1, 2, "a", "b", False, True]),
-            ([True, 2, False, ("a", "nested", "tuple")]),
-            ([_square, 1, "a_string", False, None, _to_str]),
+            ([1, 2, 3, "a", "b", "c", False, True, False]),
+            ([True, False, 1, 2, False, ("a", "nested", "tuple")]),
+            ([_square, 1, 2, "a_string", "another_string", False, True, None, _to_str]),
         ],
     )
     def test_shuffle_list(self, array):
@@ -401,9 +402,10 @@ class TestMultiThreaderExecutor:
     )
     @pytest.mark.parametrize("threads", list(range(1, 20)))
     def test_multithreading(self, function, inputs, results, threads):
-        MultiThreader.execute_function(
-            func=function, func_args=inputs, n_threads=threads
-        ) == results
+        assert (
+            MultiThreader.execute_function(func=function, func_args=inputs, n_threads=threads)
+            == results
+        )
 
     def test_multithreading_zero_threads(self):
         with pytest.raises(ValueError):
