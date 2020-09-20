@@ -111,6 +111,7 @@ dependencies:
     - chardet==3.0.4
     - colorama==0.4.3
     - commonmark==0.9.1
+    - cpymad==1.6.0
     - cycler==0.10.0
     - h5py==2.10.0
     - idna==2.10
@@ -131,6 +132,7 @@ dependencies:
     - pyarrow==1.0.1
     - pygments==2.7.0
     - pyhdtoolkit==0.5.0
+    - pynaff==1.1.4
     - pytest==6.0.2
     - requests==2.24.0
     - rich==5.2.1

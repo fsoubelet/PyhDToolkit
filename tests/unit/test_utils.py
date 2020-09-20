@@ -3,6 +3,7 @@ import multiprocessing
 import os
 import random
 import subprocess
+import sys
 
 import pytest
 
@@ -25,6 +26,9 @@ def _to_str(integer: int) -> str:
     return str(integer)
 
 
+@pytest.mark.skipif(
+    sys.platform.startswith("win"), reason="Windows is a shitshow for this.",
+)
 class TestCommandLine:
     def test_check_pid(self):
         assert CommandLine.check_pid_exists(os.getpid()) is True
@@ -245,7 +249,7 @@ class TestListOperations:
     def test_sanitize(self, input_list, result):
         assert ListOperations.sanitize_list(input_list) == result
 
-    @pytest.mark.flaky(max_runs=3, min_passes=2)
+    @pytest.mark.flaky(max_runs=3, min_passes=1)
     @pytest.mark.parametrize(
         "array",
         [
