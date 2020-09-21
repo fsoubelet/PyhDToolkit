@@ -22,24 +22,24 @@ class BetaBeatValues:
     Simple class to store and transfer beta-beating values.
     """
 
-    __slots__ = {
-        "tferror_bbx": "Horizontal beta-beating values from field errors",
-        "tferror_bby": "Vertical beta-beating values from field errors",
-        "ip1_tferror_bbx": "Horizontal beta-beating values from field errors at IP1",
-        "ip1_tferror_bby": "Vertical beta-beating values from field errors at IP1",
-        "ip5_tferror_bbx": "Horizontal beta-beating values from field errors at IP5",
-        "ip5_tferror_bby": "Vertical beta-beating values from field errors at IP5",
-        "max_tferror_bbx": "Maximal horizontal beta-beating values from field errors",
-        "max_tferror_bby": "Maximal vertical beta-beating values from field errors",
-        "misserror_bbx": "Horizontal beta-beating values from misalignment errors",
-        "misserror_bby": "Horizontal beta-beating values from misalignment errors",
-        "ip1_misserror_bbx": "Horizontal beta-beating values from misalignment errors at IP1",
-        "ip1_misserror_bby": "Vertical beta-beating values from misalignment errors at IP1",
-        "ip5_misserror_bbx": "Horizontal beta-beating values from misalignment errors at IP5",
-        "ip5_misserror_bby": "Vertical beta-beating values from misalignment errors at IP5",
-        "max_misserror_bbx": "Maximal horizontal beta-beating values from misalignment errors",
-        "max_misserror_bby": "Maximal vertical beta-beating values from misalignment errors",
-    }
+    # __slots__ = {
+    #     "tferror_bbx": "Horizontal beta-beating values from field errors",
+    #     "tferror_bby": "Vertical beta-beating values from field errors",
+    #     "ip1_tferror_bbx": "Horizontal beta-beating values from field errors at IP1",
+    #     "ip1_tferror_bby": "Vertical beta-beating values from field errors at IP1",
+    #     "ip5_tferror_bbx": "Horizontal beta-beating values from field errors at IP5",
+    #     "ip5_tferror_bby": "Vertical beta-beating values from field errors at IP5",
+    #     "max_tferror_bbx": "Maximal horizontal beta-beating values from field errors",
+    #     "max_tferror_bby": "Maximal vertical beta-beating values from field errors",
+    #     "misserror_bbx": "Horizontal beta-beating values from misalignment errors",
+    #     "misserror_bby": "Horizontal beta-beating values from misalignment errors",
+    #     "ip1_misserror_bbx": "Horizontal beta-beating values from misalignment errors at IP1",
+    #     "ip1_misserror_bby": "Vertical beta-beating values from misalignment errors at IP1",
+    #     "ip5_misserror_bbx": "Horizontal beta-beating values from misalignment errors at IP5",
+    #     "ip5_misserror_bby": "Vertical beta-beating values from misalignment errors at IP5",
+    #     "max_misserror_bbx": "Maximal horizontal beta-beating values from misalignment errors",
+    #     "max_misserror_bby": "Maximal vertical beta-beating values from misalignment errors",
+    # }
 
     def __init__(self) -> None:
         self.tferror_bbx: List[float] = []
@@ -78,23 +78,26 @@ class BetaBeatValues:
         Returns:
             Nothing, updates inplace.
         """
-        self.tferror_bbx.append(_get_rms(cpymad_betabeatings.BETX))
-        self.tferror_bby.append(_get_rms(cpymad_betabeatings.BETY))
-        self.max_tferror_bbx.append(cpymad_betabeatings.BETX.max())
-        self.max_tferror_bby.append(cpymad_betabeatings.BETY.max())
+        logger.trace("Getting rms and max values for betatron functions of provided run")
+        self.tferror_bbx.append(_get_rms(cpymad_betabeatings["BETX"]))
+        self.tferror_bby.append(_get_rms(cpymad_betabeatings["BETY"]))
+        self.max_tferror_bbx.append(cpymad_betabeatings["BETX"].max())
+        self.max_tferror_bby.append(cpymad_betabeatings["BETY"].max())
+
+        logger.trace("Getting betatron functions at IP1 and IP5")
         # cpymad naming: lowercase and appended with :beam_number
         self.ip1_tferror_bbx.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]
-        ).iloc[0]
+            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0]
+        )
         self.ip1_tferror_bby.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]
-        ).iloc[0]
+            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0]
+        )
         self.ip5_tferror_bbx.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]
-        ).iloc[0]
+            cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip5:1"][0]
+        )
         self.ip5_tferror_bby.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETY"]
-        ).iloc[0]
+            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip5:1"][0]
+        )
 
     def update_tf_from_seeds(self, temp_data) -> None:
         """
@@ -128,23 +131,26 @@ class BetaBeatValues:
         Returns:
             Nothing, updates inplace.
         """
-        self.misserror_bbx.append(_get_rms(cpymad_betabeatings.BETX))
-        self.misserror_bby.append(_get_rms(cpymad_betabeatings.BETY))
-        self.max_misserror_bbx.append(cpymad_betabeatings.BETX.max())
-        self.max_misserror_bby.append(cpymad_betabeatings.BETY.max())
+        logger.trace("Getting rms and max values for betatron functions of provided run")
+        self.misserror_bbx.append(_get_rms(cpymad_betabeatings["BETX"]))
+        self.misserror_bby.append(_get_rms(cpymad_betabeatings["BETY"]))
+        self.max_misserror_bbx.append(cpymad_betabeatings["BETX"].max())
+        self.max_misserror_bby.append(cpymad_betabeatings["BETY"].max())
+
+        logger.trace("Getting betatron functions at IP1 and IP5")
         # cpymad naming: lowercase and appended with :beam_number
         self.ip1_misserror_bbx.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETX"]
-        ).iloc[0]
+            cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip1:1"][0]
+        )
         self.ip1_misserror_bby.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip1:1", "BETY"]
-        ).iloc[0]
+            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0]
+        )
         self.ip5_misserror_bbx.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETX"]
-        ).iloc[0]
+            cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip5:1"][0]
+        )
         self.ip5_misserror_bby.append(
-            cpymad_betabeatings.loc[cpymad_betabeatings.NAME == "ip5:1", "BETY"]
-        ).iloc[0]
+            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip5:1"][0]
+        )
 
     def update_miss_from_seeds(self, temp_data) -> None:
         """
@@ -165,19 +171,14 @@ class BetaBeatValues:
         self.ip5_misserror_bbx.append(_get_rms(temp_data.ip5_misserror_bbx))
         self.ip5_misserror_bby.append(_get_rms(temp_data.ip5_misserror_bby))
 
-    def export(self, csvname: str = "betabeatings.csv") -> pd.DataFrame:
+    def to_pandas(self) -> pd.DataFrame:
         """
-        Exports stored values as a pandas DataFrame, potentially saving them as a csv file.
-
-        Args:
-            csvname (str): the name to give the csv file.
+        Exports stored values as a pandas DataFrame.
 
         Returns:
             A `pandas.DataFrame` object with the instance's attributes as columns.
         """
-        betabeatings_df = pd.DataFrame(self.__dict__)
-        betabeatings_df.to_csv(csvname, index=False)
-        return betabeatings_df
+        return pd.DataFrame(self.__dict__)
 
 
 class StdevValues:
@@ -185,24 +186,24 @@ class StdevValues:
     Simple class to store and transfer standard deviation values.
     """
 
-    __slots__ = {
-        "stdev_tf_x": "Horizontal standard deviation values from field errors",
-        "stdev_tf_y": "Vertical standard deviation values from field errors",
-        "ip1_stdev_tf_x": "Horizontal standard deviation values from field errors at IP1",
-        "ip1_stdev_tf_y": "Vertical standard deviation values from field errors at IP1",
-        "ip5_stdev_tf_x": "Horizontal standard deviation values from field errors at IP5",
-        "ip5_stdev_tf_y": "Vertical standard deviation values from field errors at IP5",
-        "max_stdev_tf_x": "Maximal horizontal standard deviation values from field errors",
-        "max_stdev_tf_y": "Maximal vertical standard deviation values from field errors",
-        "stdev_miss_x": "Horizontal standard deviation values from misalignment errors",
-        "stdev_miss_y": "Horizontal standard deviation values from misalignment errors",
-        "ip1_stdev_miss_x": "Horizontal standard deviation values from misalignment errors at IP1",
-        "ip1_stdev_miss_y": "Vertical standard deviation values from misalignment errors at IP1",
-        "ip5_stdev_miss_x": "Horizontal standard deviation values from misalignment errors at IP5",
-        "ip5_stdev_miss_y": "Vertical standard deviation values from misalignment errors at IP5",
-        "max_stdev_miss_x": "Maximal horizontal standard deviation values from misalignment errors",
-        "max_stdev_miss_y": "Maximal vertical standard deviation values from misalignment errors",
-    }
+    # __slots__ = {
+    #     "stdev_tf_x": "Horizontal standard deviation values from field errors",
+    #     "stdev_tf_y": "Vertical standard deviation values from field errors",
+    #     "ip1_stdev_tf_x": "Horizontal standard deviation values from field errors at IP1",
+    #     "ip1_stdev_tf_y": "Vertical standard deviation values from field errors at IP1",
+    #     "ip5_stdev_tf_x": "Horizontal standard deviation values from field errors at IP5",
+    #     "ip5_stdev_tf_y": "Vertical standard deviation values from field errors at IP5",
+    #     "max_stdev_tf_x": "Maximal horizontal standard deviation values from field errors",
+    #     "max_stdev_tf_y": "Maximal vertical standard deviation values from field errors",
+    #     "stdev_miss_x": "Horizontal standard deviation values from misalignment errors",
+    #     "stdev_miss_y": "Horizontal standard deviation values from misalignment errors",
+    #     "ip1_stdev_miss_x": "Horizontal standard deviation values from misalignment errors at IP1",
+    #     "ip1_stdev_miss_y": "Vertical standard deviation values from misalignment errors at IP1",
+    #     "ip5_stdev_miss_x": "Horizontal standard deviation values from misalignment errors at IP5",
+    #     "ip5_stdev_miss_y": "Vertical standard deviation values from misalignment errors at IP5",
+    #     "max_stdev_miss_x": "Maximal horizontal standard deviation values from misalignment errors",
+    #     "max_stdev_miss_y": "Maximal vertical standard deviation values from misalignment errors",
+    # }
 
     def __init__(self) -> None:
         self.stdev_tf_x: List[float] = []
@@ -267,20 +268,14 @@ class StdevValues:
         self.ip5_stdev_miss_x.append(np.std(temp_data.ip5_misserror_bbx))
         self.ip5_stdev_miss_y.append(np.std(temp_data.ip5_misserror_bby))
 
-    def export(self, csvname: str = "stdev.csv") -> pd.DataFrame:
+    def to_pandas(self) -> pd.DataFrame:
         """
-        Simple function to export stored values as a pandas dataframe, potentially saving
-        them as a csv file.
-
-        Args:
-            csvname (str): the name to give the csv file.
+        Simple function to export stored values as a pandas dataframe.
 
         Returns:
             A `pandas.DataFrame` object with the instance's attributes as columns.
         """
-        stdev_df = pd.DataFrame(self.__dict__)
-        stdev_df.to_csv(csvname, index=False)
-        return stdev_df
+        return pd.DataFrame(self.__dict__)
 
 
 def _get_rms(values_list: List[float]) -> float:
