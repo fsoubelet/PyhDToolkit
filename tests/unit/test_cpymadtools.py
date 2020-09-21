@@ -153,7 +153,7 @@ class TestLatticeGenerator:
     def test_tripleterrors_study_reference(self):
         tripleterrors_study_reference = LatticeGenerator.generate_tripleterrors_study_reference()
         assert isinstance(tripleterrors_study_reference, str)
-        assert len(tripleterrors_study_reference) == 1552
+        assert len(tripleterrors_study_reference) == 1617
 
     @pytest.mark.parametrize(
         "randseed, tferror",
@@ -170,7 +170,7 @@ class TestLatticeGenerator:
             rand_seed=randseed, tf_error=tferror,
         )
         assert isinstance(tripleterrors_study_tferror_job, str)
-        assert len(tripleterrors_study_tferror_job) == 2456 + len(str(randseed)) + len(str(tferror))
+        assert len(tripleterrors_study_tferror_job) == 2521 + len(str(randseed)) + len(str(tferror))
         assert f"eoption, add, seed = {randseed};" in tripleterrors_study_tferror_job
         assert f"B2r = {tferror};" in tripleterrors_study_tferror_job
 
@@ -189,7 +189,7 @@ class TestLatticeGenerator:
             rand_seed=randseed, ms_error=mserror,
         )
         assert isinstance(tripleterrors_study_mserror_job, str)
-        assert len(tripleterrors_study_mserror_job) == 2319 + len(str(randseed)) + len(str(mserror))
+        assert len(tripleterrors_study_mserror_job) == 2384 + len(str(randseed)) + len(str(mserror))
         assert f"eoption, add, seed = {randseed};" in tripleterrors_study_mserror_job
         assert f"ealign, ds := {mserror} * 1E-3 * TGAUSS(GCUTR);" in tripleterrors_study_mserror_job
 
