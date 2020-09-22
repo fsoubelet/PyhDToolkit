@@ -1,6 +1,9 @@
 language: python
 
-dist: bionic
+dist:
+  - focal
+  - bionic
+  - xenial
 
 python:
   - "3.6"
