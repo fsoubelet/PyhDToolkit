@@ -82,31 +82,31 @@ matrix:
 #      before_install:
 #        - export PATH=/c/Python37:/c/Python37/Scripts:$PATH
 #        - choco install python --version 3.8
-#
-#     macOS Catalina 64bits builds
-#    - name: CPython 3.6.11 on macOS 10.15 (Catalina)
-#      language: shell
-#      os: osx
-#      osx_image: xcode12u
-#      before_install:
-#        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.6.11
-#        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
-#
-#    - name: CPython 3.7.8 on macOS 10.15 (Catalina)
-#      language: shell
-#      os: osx
-#      osx_image: xcode12u
-#      before_install:
-#        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.7.8
-#        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
 
-#    - name: CPython 3.8.5 on macOS 10.15 (Catalina)
-#      language: shell
-#      os: osx
-#      osx_image: xcode12u
-#      before_install:
-#        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.8.5
-#        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
+#     macOS Catalina 64bits builds
+    - name: CPython 3.6.11 on macOS 10.15 (Catalina)
+      language: shell
+      os: osx
+      osx_image: xcode12u
+      before_install:
+        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.6.11
+        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
+
+    - name: CPython 3.7.8 on macOS 10.15 (Catalina)
+      language: shell
+      os: osx
+      osx_image: xcode12u
+      before_install:
+        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.7.8
+        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
+
+    - name: CPython 3.8.5 on macOS 10.15 (Catalina)
+      language: shell
+      os: osx
+      osx_image: xcode12u
+      before_install:
+        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.8.5
+        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
 
 
 install:
