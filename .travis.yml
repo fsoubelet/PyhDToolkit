@@ -1,20 +1,7 @@
 language: python
 
-dist:
-  - focal
-  - bionic
-  - xenial
-
-python:
-  - "3.6"
-  - "3.7"
-  - "3.8"
-
 cache:
   - pip
-
-services:
-  - docker
 
 env:
   global:
@@ -25,18 +12,107 @@ notifications:
     on_success: always
     on_failure: always
 
+
+matrix:
+
+  include:
+    # Linux (Ubuntu) 64bits builds (amd64 architecture)
+    - name: CPython 3.6 on Ubuntu 20.04 (Focal Fossa)
+      python: 3.6
+      dist: focal
+
+
+    - name: CPython 3.7 on Ubuntu 20.04 (Focal Fossa)
+      python: 3.7
+      dist: focal
+
+    # This one takes care of coverage too
+    - name: CPython 3.8 on Ubuntu 20.04 (Focal Fossa)
+      python: 3.8
+      dist: focal
+      before_script:
+        - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+        - chmod +x ./cc-test-reporter
+        - ./cc-test-reporter before-build
+      after_script:
+        - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT
+
+    - name: CPython 3.6 on Ubuntu 18.04 (Bionic Beaver)
+      python: 3.6
+      dist: bionic
+
+    - name: CPython 3.7 on Ubuntu 18.04 (Bionic Beaver)
+      python: 3.7
+      dist: bionic
+
+    - name: CPython 3.8 on Ubuntu 18.04 (Bionic Beaver)
+      python: 3.8
+      dist: bionic
+
+    - name: CPython 3.6 on Ubuntu 16.04 (Xenial Xerus)
+      python: 3.6
+      dist: xenial
+
+    - name: CPython 3.7 on Ubuntu 16.04 (Xenial Xerus)
+      python: 3.7
+      dist: xenial
+
+    - name: CPython 3.8 on Ubuntu 16.04 (Xenial Xerus)
+      python: 3.8
+      dist: xenial
+
+    # Windows 64bits builds
+#    - name: CPython 3.6 on Windows 10 (64-bit)
+#      language: shell
+#      os: windows
+#      before_install:
+#        - export PATH=/c/Python38:/c/Python38/Scripts:$PATH
+#        - choco install python --version 3.6
+#
+#    - name: CPython 3.7 on Windows 10 (64-bit)
+#      language: shell
+#      os: windows
+#      before_install:
+#        - export PATH=/c/Python38:/c/Python38/Scripts:$PATH
+#        - choco install python --version 3.7
+#
+#    - name: CPython 3.8 on Windows 10 (64-bit)
+#      language: shell
+#      os: windows
+#      before_install:
+#        - export PATH=/c/Python37:/c/Python37/Scripts:$PATH
+#        - choco install python --version 3.8
+#
+#     macOS Catalina 64bits builds
+#    - name: CPython 3.6.11 on macOS 10.15 (Catalina)
+#      language: shell
+#      os: osx
+#      osx_image: xcode12u
+#      before_install:
+#        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.6.11
+#        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
+#
+#    - name: CPython 3.7.8 on macOS 10.15 (Catalina)
+#      language: shell
+#      os: osx
+#      osx_image: xcode12u
+#      before_install:
+#        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.7.8
+#        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
+
+#    - name: CPython 3.8.5 on macOS 10.15 (Catalina)
+#      language: shell
+#      os: osx
+#      osx_image: xcode12u
+#      before_install:
+#        - export PATH=/Users/travis/.pyenv/shims:$PATH PYENV_VERSION=3.8.5
+#        - travis_wait brew upgrade pyenv && pyenv install $PYENV_VERSION
+
+
 install:
   - curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
   - $HOME/.poetry/bin/poetry config virtualenvs.in-project true
   - $HOME/.poetry/bin/poetry install -v -E madx
 
-before_script:
-  - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-  - chmod +x ./cc-test-reporter
-  - ./cc-test-reporter before-build
-
 script:
   - $HOME/.poetry/bin/poetry run pytest --verbose -p no:sugar
-
-after_script:
-  - ./cc-test-reporter after-build -t coverage.py --exit-code $TRAVIS_TEST_RESULT
