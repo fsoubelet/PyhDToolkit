@@ -32,12 +32,12 @@ classifiers = [
 
 # Core dependencies of the package
 [tool.poetry.dependencies]
-python = "^3.6"
-numpy = "^1.18.2"
-pandas = "<1.0"
+python = "^3.6.1"
+numpy = "^1.19"
+pandas = "^1.0"
 matplotlib = "^3.1"
 scipy = "^1.4.1"
-tfs-pandas = "^1.0.3"
+tfs-pandas = "^2.0.0"
 loguru = "^0.5.2"
 numba = "^0.50.1"
 rich = "^7.0.0"
