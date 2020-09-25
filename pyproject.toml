@@ -32,7 +32,7 @@ classifiers = [
 
 # Core dependencies of the package
 [tool.poetry.dependencies]
-python = "^3.6.1"
+python = "^3.7"
 numpy = "^1.19"
 pandas = "^1.0"
 matplotlib = "^3.1"
