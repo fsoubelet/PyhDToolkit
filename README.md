@@ -59,7 +59,7 @@
 </p>
 
 <p align="center">
-  ♻️ An all-in-one package for Python work in my PhD
+  ♻️ An all-in-one package for Python work in my PhD ♻️
 </p>
 
 <p align="center">
