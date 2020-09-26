@@ -99,7 +99,9 @@ class GridCompute:
                 logger.debug(f"Running simulation for Relative Field Error: {error}E-4")
                 temp_data = BetaBeatValues()
 
-                for _ in track(range(n_seeds), description="Simulating Seeds", transient=True):
+                for _ in track(
+                    range(n_seeds), description="Simulating Field Errors Seeds", transient=True
+                ):
                     # Getting beta-beatings & appending to temporary BetaBeatValues
                     tferrors_twiss: pd.DataFrame = self._track_tf_error(error)
                     betabeatings: pd.DataFrame = _get_betabeatings(
@@ -153,7 +155,9 @@ class GridCompute:
                     BetaBeatValues()
                 )  # this will hold the beta-beats for all seeds with this error value.
 
-                for _ in track(range(n_seeds), description="Simulating Seeds", transient=True):
+                for _ in track(
+                    range(n_seeds), description="Simulating Misalignment Seeds", transient=True
+                ):
                     # Getting beta-beatings & appending to temporary BetaBeatValues
                     mserrors_twiss: pd.DataFrame = self._track_miss_error(error)
                     betabeatings: pd.DataFrame = _get_betabeatings(
@@ -205,7 +209,7 @@ def _get_betabeatings(nominal_twiss: pd.DataFrame, errors_twiss: pd.DataFrame) -
     return betabeat
 
 
-def _parse_arguments():
+def _parse_arguments() -> argparse.Namespace:
     """
     Simple argument parser to make life easier in the command-line.
     Returns a NameSpace with arguments as attributes.
@@ -285,8 +289,10 @@ def main() -> None:
 
     # Getting the results in dataframes and exporting to csv
     logger.info("Exporting results to csv")
-    bbing_df = simulations.rms_betabeatings.export(csvname="beta_beatings.csv")
-    std_df = simulations.standard_deviations.export(csvname="standard_deviations.csv")
+    bbing_df: pd.DataFrame = simulations.rms_betabeatings.to_pandas()
+    std_df: pd.DataFrame = simulations.standard_deviations.to_pandas()
+    bbing_df.to_csv("beta_beatings.csv", index=False)
+    std_df.to_csv("standard_deviations.csv", index=False)
 
     # Plotting the results
     plot_bbing_max_errorbar(

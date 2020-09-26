@@ -398,7 +398,7 @@ def _move_trackone_sdds(kick_in_sigma: Union[str, float], trackfiles_dir: Path, 
     track_sdds_file.rename(f"{trackfiles_dir}/trackone_{kick_in_sigma}_sigma_{plane}.sdds")
 
 
-def _parse_arguments():
+def _parse_arguments() -> argparse.Namespace:
     """
     Simple argument parser to make life easier in the command-line.
     Returns a NameSpace with arguments as attributes.

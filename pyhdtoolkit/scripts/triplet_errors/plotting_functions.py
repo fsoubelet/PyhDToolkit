@@ -101,32 +101,32 @@ def plot_bbing_max_errorbar(
         Nothing, plots and saves the figure.
     """
 
-    if plane == "Horizontal":
+    if plane.lower() == "horizontal":
         _, axes = plt.subplots(1, 1, figsize=(8, 6))
         axes.errorbar(
             errors,
-            beta_beatings_df.TFERROR_X,
-            yerr=stdev_df.STD_TF_X,
+            beta_beatings_df.tferror_bbx,
+            yerr=stdev_df.stdev_tf_x,
             color="C0",
             label="Global Beta-Beating from Field Errors",
         )
         axes.errorbar(
             errors,
-            beta_beatings_df.MISSERROR_X,
-            yerr=stdev_df.STD_MISS_X,
+            beta_beatings_df.misserror_bbx,
+            yerr=stdev_df.stdev_miss_x,
             color="C1",
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.MAX_TFERROR_X,
+            beta_beatings_df.max_tferror_bbx,
             "^",
             color="C0",
             label="Max Value from Field Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.MAX_MISSERROR_X,
+            beta_beatings_df.max_misserror_bbx,
             "^",
             color="C1",
             label="Max Value from Misalignment Errors",
@@ -140,32 +140,32 @@ def plot_bbing_max_errorbar(
         plt.legend(loc="best")
         plt.savefig(figname, format="png", dpi=300)
 
-    elif plane == "Vertical":
+    elif plane.lower() == "vertical":
         _, axes = plt.subplots(1, 1, figsize=(8, 6))
         axes.errorbar(
             errors,
-            beta_beatings_df.TFERROR_Y,
-            yerr=stdev_df.STD_TF_Y,
+            beta_beatings_df.tferror_bby,
+            yerr=stdev_df.stdev_tf_y,
             color="C0",
             label="Global Beta-Beating from Field Errors",
         )
         axes.errorbar(
             errors,
-            beta_beatings_df.MISSERROR_Y,
-            yerr=stdev_df.STD_MISS_Y,
+            beta_beatings_df.misserror_bby,
+            yerr=stdev_df.stdev_miss_y,
             color="C1",
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.MAX_TFERROR_Y,
+            beta_beatings_df.max_tferror_bby,
             "^",
             color="C0",
             label="Max Value from Field Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.MAX_MISSERROR_Y,
+            beta_beatings_df.max_misserror_bby,
             "^",
             color="C1",
             label="Max Value from Misalignment Errors",
@@ -209,46 +209,46 @@ def plot_bbing_with_ips_errorbar(
         Nothing, plots and saves the figure.
     """
 
-    if plane == "Horizontal":
+    if plane.lower() == "horizontal":
         _, axes = plt.subplots(1, 1, figsize=(8, 6))
         axes.errorbar(
             errors,
-            beta_beatings_df.TFERROR_X,
-            yerr=stdev_df.STD_TF_X,
+            beta_beatings_df.tferror_bbx,
+            yerr=stdev_df.stdev_tf_x,
             color="C0",
             label="Global Beta-Beating from Field Errors",
         )
         axes.errorbar(
             errors,
-            beta_beatings_df.MISSERROR_X,
-            yerr=stdev_df.STD_MISS_X,
+            beta_beatings_df.misserror_bbx,
+            yerr=stdev_df.stdev_miss_x,
             color="C1",
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP1_TFERROR_X,
+            beta_beatings_df.ip1_tferror_bbx,
             "^",
             color="C0",
             label="IP1 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP1_MISSERROR_X,
+            beta_beatings_df.ip1_misserror_bbx,
             "^",
             color="C1",
             label="IP1 Beta-Beating Value from Misalignment Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP5_TFERROR_X,
+            beta_beatings_df.ip5_tferror_bbx,
             "x",
             color="C0",
             label="IP5 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP5_MISSERROR_X,
+            beta_beatings_df.ip5_misserror_bbx,
             "x",
             color="C1",
             label="IP5 Beta-Beating Value from Misalignment Errors",
@@ -262,46 +262,46 @@ def plot_bbing_with_ips_errorbar(
         plt.legend(loc="best")
         plt.savefig(figname, format="png", dpi=300)
 
-    if plane == "Vertical":
+    elif plane.lower() == "vertical":
         _, axes = plt.subplots(1, 1, figsize=(8, 6))
         axes.errorbar(
             errors,
-            beta_beatings_df.TFERROR_Y,
-            yerr=stdev_df.STD_TF_Y,
+            beta_beatings_df.tferror_bby,
+            yerr=stdev_df.stdev_tf_y,
             color="C0",
             label="Global Beta-Beating from Field Errors",
         )
         axes.errorbar(
             errors,
-            beta_beatings_df.MISSERROR_Y,
-            yerr=stdev_df.STD_MISS_Y,
+            beta_beatings_df.misserror_bby,
+            yerr=stdev_df.stdev_miss_y,
             color="C1",
             label="Global Beta-Beating from Misalignment Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP1_TFERROR_Y,
+            beta_beatings_df.ip1_tferror_bby,
             "^",
             color="C0",
             label="IP1 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP1_MISSERROR_Y,
+            beta_beatings_df.ip1_misserror_bby,
             "^",
             color="C1",
             label="IP1 Beta-Beating Value from Misalignment Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP5_TFERROR_Y,
+            beta_beatings_df.ip5_tferror_bby,
             "x",
             color="C0",
             label="IP5 Beta-Beating Value from Field Errors",
         )
         axes.plot(
             errors,
-            beta_beatings_df.IP5_MISSERROR_Y,
+            beta_beatings_df.ip5_misserror_bby,
             "x",
             color="C1",
             label="IP5 Beta-Beating Value from Misalignment Errors",

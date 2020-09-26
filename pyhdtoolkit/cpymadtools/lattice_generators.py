@@ -276,16 +276,16 @@ twiss;
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/lhc.macros.madx";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/hllhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/lhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/hllhc.macros.madx";
 
 title, "HLLHC Triplet TFErrors to Beta-Beating";
 
 !####################### Call optics files #######################
 
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
 call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 !####################### Calling modifiers for 15cm optics #######################
@@ -331,16 +331,16 @@ twiss;
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/lhc.macros.madx";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/hllhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/lhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/hllhc.macros.madx";
 
 title, "HLLHC Triplet TFErrors to Beta-Beating";
 
 !####################### Call optics files #######################
 
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
 call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 !####################### Calling modifiers for 15cm optics #######################
@@ -406,16 +406,16 @@ exec, do_twiss_elements(LHCB1, "./twiss_errors.dat", 0.0);
 !####################### Make macros available #######################
 
 option, -echo, -warn, -info;
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/lhc.macros.madx";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/madx/lib/hllhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/beta_beat.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/lhc.macros.madx";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/hllhc.macros.madx";
 
 title, "HLLHC Triplet MSErrors to Beta-Beating";
 
 !####################### Call optics files #######################
 
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
-call, file = "/afs/cern.ch/work/f/fesoubel/public/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq";
+call, file = "/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq";
 call, file = "/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx";
 
 !####################### Calling modifiers for 15cm optics #######################
