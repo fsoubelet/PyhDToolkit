@@ -52,7 +52,7 @@ madx = ["cpymad"]
 docs = ["portray"]
 
 [tool.poetry.dev-dependencies]
-pytest = "^6.0"
+pytest = "^6.1"
 pytest-cov = "^2.7"
 flaky = "^3.5"
 black = { version = "^19.10b0", python = "^3.6" }
