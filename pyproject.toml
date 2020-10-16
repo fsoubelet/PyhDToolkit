@@ -41,7 +41,7 @@ tfs-pandas = "^2.0.0"
 pydantic = "^1.6.1"
 loguru = "^0.5.2"
 numba = "^0.50.1"
-rich = "^7.0.0"
+rich = "^8.0.0"
 
 # Defining optional dependencies for extras
 cpymad = { version = "^1.6.0", optional = true }
@@ -113,7 +113,7 @@ repo_name = "PyhDToolkit"
 
 [tool.portray.mkdocs.theme]
 name = "material"
-palette = {scheme = "preference", primary = "amber", accent = "light blue"}
+palette = {scheme = "slate", primary = "teal", accent = "purple"}
 #font = {text = "Ubuntu Mono", code = "Fira Code"}
 
 [[tool.portray.mkdocs.nav]]
@@ -170,7 +170,7 @@ exclude = '''
 
 [tool.pylint]
     [tool.pylint.master]
-    jobs="0"    # Auto-detect the number of processors
+    jobs="1"    # Auto-detect the number of processors
     ignore-patterns='''
         \.eggs
         |\.git
@@ -247,5 +247,5 @@ whitelist-regex = []
 color = true
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
