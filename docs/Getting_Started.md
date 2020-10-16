@@ -47,8 +47,8 @@ You can directly pull a pre-built image from `Dockerhub` (with tag `latest` bein
 > docker pull fsoubelet/simenv
 ```
 
-You can then run the container to serve as a jupyter server, binding a local directory of notebooks to work on.
-Assuming you pulled the provided image from Dockerhub, the command is then (remove the `--rm` flag if you wish to preserve the container after running):
+You can then run a server from within the container and bind a local directory to work on.
+Assuming you pulled the provided image from Dockerhub, run a jupyterlab server on port `8888` with the command:
 ```bash
 > docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work fsoubelet/simenv
 ```
