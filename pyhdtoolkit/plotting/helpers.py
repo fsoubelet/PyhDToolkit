@@ -10,6 +10,7 @@ A collection of functions for more descriptive plots.
 from typing import Tuple
 
 import matplotlib
+import matplotlib.axes
 
 
 class AnnotationsPlotter:
