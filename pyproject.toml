@@ -38,9 +38,10 @@ pandas = "^1.0"
 matplotlib = "^3.1"
 scipy = "^1.4.1"
 tfs-pandas = "^2.0.0"
+pydantic = "^1.6.1"
 loguru = "^0.5.2"
 numba = "^0.50.1"
-rich = "^7.0.0"
+rich = "^8.0.0"
 
 # Defining optional dependencies for extras
 cpymad = { version = "^1.6.0", optional = true }
@@ -64,12 +65,10 @@ coverage = {extras = ["toml"], version = "^5.2.1"}
 pytest-mpl = "^0.11"
 interrogate = "^1.3.1"
 
-[tool.poetry.scripts]
-ac_dipole = "pyhdtoolkit.scripts.ac_dipole.sext_ac_dipole_tracking:main"
-triplet_errors = "pyhdtoolkit.scripts.triplet_errors.algo:main"
+# ----- Testing Configuration ----- #
 
 [tool.pytest.ini_options]
-addopts = "--mpl --no-flaky-report --cov-report=xml --cov-report term-missing --cov-config=pyproject.toml --cov=pyhdtoolkit" # pytest-cov: report missed lines, output as xml, config is pyproject.toml and analyze for pyhdtoolkit directory
+addopts = "--mpl --no-flaky-report --cov-report=xml --cov-report term-missing --cov-config=pyproject.toml --cov=pyhdtoolkit"
 testpaths = ["tests"]
 
 [tool.coverage.run]
@@ -78,6 +77,61 @@ source = ["pyhdtoolkit/"]
 [tool.coverage.report]
 ignore_errors = true
 omit = ["pyhdtoolkit/scripts/*", "pyhdtoolkit/optics/amplitude_detuning.py"]
+
+# ----- Documentation Configuration ----- #
+
+[tool.portray]
+extra_markdown_extensions = [
+    "admonition",
+    "codehilite",
+    "footnotes",
+    "pymdownx.arithmatex",
+    "pymdownx.betterem",
+    "pymdownx.caret",
+    "pymdownx.critic",
+    "pymdownx.details",
+    "pymdownx.inlinehilite",
+    "pymdownx.magiclink",
+    "pymdownx.tabbed",
+    "pymdownx.tasklist",
+    "pymdownx.keys",
+    "pymdownx.mark",
+    "pymdownx.smartsymbols",
+    "pymdownx.superfences",
+    "pymdownx.tasklist",
+    "pymdownx.tilde"
+]
+modules = ["pyhdtoolkit"]
+
+[tool.portray.mkdocs]
+repo_url = "https://github.com/fsoubelet/PyhDToolkit/"
+repo_name = "PyhDToolkit"
+
+[tool.portray.mkdocs.theme]
+name = "material"
+palette = {scheme = "slate", primary = "teal", accent = "purple"}
+#font = {text = "Ubuntu Mono", code = "Fira Code"}
+
+[[tool.portray.mkdocs.nav]]
+Home = "README.md"
+
+[[tool.portray.mkdocs.nav]]
+"About" = "docs/About_PyhDToolkit.md"
+
+[[tool.portray.mkdocs.nav]]
+"Getting Started" = "docs/Getting_Started.md"
+
+#[[tool.portray.mkdocs.nav]]
+    #[[tool.portray.mkdocs.nav.Functionality]]
+    #Blockchain = "docs/Functionality/Blockchain.md"
+
+    #[[tool.portray.mkdocs.nav.Functionality]]
+    #Node = "docs/Functionality/Node.md"
+
+    #[[tool.portray.mkdocs.nav]]
+    #"Example Walkthrough" = "docs/Walkthrough.md"
+
+# ----- Utilities Configuration ----- #
 
 [tool.isort]
 line_length = 100
@@ -112,7 +166,7 @@ exclude = '''
 
 [tool.pylint]
     [tool.pylint.master]
-    jobs="0"    # Auto-detect the number of processors
+    jobs="1"    # Auto-detect the number of processors
     ignore-patterns='''
         \.eggs
         |\.git
@@ -189,5 +243,5 @@ whitelist-regex = []
 color = true
 
 [build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

@@ -21,9 +21,8 @@ from pydantic import BaseModel
 class BetaBeatValues(BaseModel):
     """
     Simple class to store and transfer beta-beating values.
-    """
 
-    __slots__ = {
+    Class attributes are as follows:
         "tferror_bbx": "Horizontal beta-beating values from field errors",
         "tferror_bby": "Vertical beta-beating values from field errors",
         "ip1_tferror_bbx": "Horizontal beta-beating values from field errors at IP1",
@@ -40,7 +39,7 @@ class BetaBeatValues(BaseModel):
         "ip5_misserror_bby": "Vertical beta-beating values from misalignment errors at IP5",
         "max_misserror_bbx": "Maximal horizontal beta-beating values from misalignment errors",
         "max_misserror_bby": "Maximal vertical beta-beating values from misalignment errors",
-    }
+    """
 
     tferror_bbx: List[float] = []
     tferror_bby: List[float] = []
@@ -172,9 +171,8 @@ class BetaBeatValues(BaseModel):
 class StdevValues(BaseModel):
     """
     Simple class to store and transfer standard deviation values.
-    """
 
-    __slots__ = {
+    Class attributes are as follows:
         "stdev_tf_x": "Horizontal standard deviation values from field errors",
         "stdev_tf_y": "Vertical standard deviation values from field errors",
         "ip1_stdev_tf_x": "Horizontal standard deviation values from field errors at IP1",
@@ -191,7 +189,7 @@ class StdevValues(BaseModel):
         "ip5_stdev_miss_y": "Vertical standard deviation values from misalignment errors at IP5",
         "max_stdev_miss_x": "Maximal horizontal standard deviation values from misalignment errors",
         "max_stdev_miss_y": "Maximal vertical standard deviation values from misalignment errors",
-    }
+    """
 
     stdev_tf_x: List[float] = []
     stdev_tf_y: List[float] = []

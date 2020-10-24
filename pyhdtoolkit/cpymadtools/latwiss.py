@@ -11,6 +11,7 @@ instance after it has ran.
 from typing import Dict, Tuple
 
 import matplotlib
+import matplotlib.axes
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import pandas as pd
