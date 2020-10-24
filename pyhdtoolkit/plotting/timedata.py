@@ -1,13 +1,12 @@
 import html.parser
 
 from datetime import date, datetime
-from typing import Dict, List, Tuple
+from typing import List
 
 import dateutil.parser
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import requests
 
 from dateutil.relativedelta import relativedelta
@@ -83,14 +82,14 @@ def calendar_heatmap(
 
 
 @logger.catch
-def _prepare_data(start: datetime, data: np.ndarray) -> np.ndarray:
+def _prepare_data(start: int, data: np.ndarray) -> np.ndarray:
     """
     Prepares a ready-to-use in `calendar_heatmap` data array from the initially provided data. The
     returned data array is guaranteed to have the proper shape for a full year, and includes np.nan
     values wherever the initial data does not provide any.
 
     Args:
-        start (datetime): datetime object for the first day of the year the data is for.
+        start (int): int value of the weekday for the first day of the year the data is for.
         data (np.ndarray): the data to plot, as a number of occurences for each day.
 
     Returns:
@@ -103,13 +102,6 @@ def _prepare_data(start: datetime, data: np.ndarray) -> np.ndarray:
     _data = np.zeros(data.shape) * np.nan
     _data[start : start + len(data)] = data
     return _data.reshape(54, 7).T
-
-    # year = start.year
-    # valid = datetime(year, 1, 1).weekday()
-    # data[:valid, 0] = np.nan
-    # valid = datetime(year, 12, 31).weekday()
-    # data[:,x1+1:] = np.nan
-    # data[valid + 1 :, x1] = np.nan
 
 
 def _prepare_polygon(
