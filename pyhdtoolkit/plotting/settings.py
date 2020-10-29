@@ -30,7 +30,7 @@ PLOT_PARAMS: Dict[str, Union[float, bool, str, tuple]] = {
     "figure.autolayout": True,  # Adjust subplot params to fit the figure (tight_layout)
     "figure.dpi": 300,  # Figure dots per inch
     "figure.figsize": (18, 11),  # Size of the figure
-    "figure.max_open_warning": 5,  # Max number of figures to open before warning
+    "figure.max_open_warning": 10,  # Max number of figures to open before warning
     "figure.titlesize": 30,  # Size of the figure title
     # ------ Fonts ------ #
     "font.family": "sans-serif",  # Font family
