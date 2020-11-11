@@ -13,8 +13,3 @@ from .helpers import LatticeMatcher, Parameters
 from .lattice_generators import LatticeGenerator
 from .latwiss import LaTwiss
 from .plotters import AperturePlotter, DynamicAperturePlotter, PhaseSpacePlotter, TuneDiagramPlotter
-
-try:
-    import cpymad
-except ModuleNotFoundError:
-    logger.warning("The cpymad tools are unavailable since the cpymad module is not importable")
