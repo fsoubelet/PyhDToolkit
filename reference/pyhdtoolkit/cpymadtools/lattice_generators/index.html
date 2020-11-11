@@ -1,0 +1,3411 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Lattice Generators - PyhDToolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009485">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-pyhdtoolkitcpymadtoolslattice_generators" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../.." title="PyhDToolkit" class="md-header-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            PyhDToolkit
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Lattice Generators
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="PyhDToolkit" class="md-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    PyhDToolkit
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/About_PyhDToolkit/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/Getting_Started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Pyhdtoolkit
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Pyhdtoolkit" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        Pyhdtoolkit
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-2" type="checkbox" id="nav-4-1-2" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-2">
+      Cpymadtools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cpymadtools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-2">
+        <span class="md-nav__icon md-icon"></span>
+        Cpymadtools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Lattice Generators
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Lattice Generators" class="md-nav__link md-nav__link--active">
+      Lattice Generators
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-cpymadtoolslattice_generators" class="md-nav__link">
+    Module cpymadtools.lattice_generators
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#latticegenerator" class="md-nav__link">
+    LatticeGenerator
+  </a>
+  
+    <nav class="md-nav" aria-label="LatticeGenerator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Static methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate_base_cas_lattice" class="md-nav__link">
+    generate_base_cas_lattice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_oneoct_cas_lattice" class="md-nav__link">
+    generate_oneoct_cas_lattice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_onesext_cas_lattice" class="md-nav__link">
+    generate_onesext_cas_lattice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_tripleterrors_study_mserror_job" class="md-nav__link">
+    generate_tripleterrors_study_mserror_job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_tripleterrors_study_reference" class="md-nav__link">
+    generate_tripleterrors_study_reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_tripleterrors_study_tferror_job" class="md-nav__link">
+    generate_tripleterrors_study_tferror_job
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plotters/" title="Plotters" class="md-nav__link">
+      Plotters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3">
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Maths
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Maths" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        <span class="md-nav__icon md-icon"></span>
+        Maths
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/nonconvex_phase_sync/" title="Nonconvex Phase Sync" class="md-nav__link">
+      Nonconvex Phase Sync
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/stats_fitting/" title="Stats Fitting" class="md-nav__link">
+      Stats Fitting
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Optics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Optics" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Optics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
+      Amplitude Detuning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/beam/" title="Beam" class="md-nav__link">
+      Beam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-5" type="checkbox" id="nav-4-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-5">
+      Plotting
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Plotting" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-5">
+        <span class="md-nav__icon md-icon"></span>
+        Plotting
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/timedata/" title="Timedata" class="md-nav__link">
+      Timedata
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6" type="checkbox" id="nav-4-1-6">
+    
+    <label class="md-nav__link" for="nav-4-1-6">
+      Scripts
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Scripts" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-6">
+        <span class="md-nav__icon md-icon"></span>
+        Scripts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-2" type="checkbox" id="nav-4-1-6-2">
+    
+    <label class="md-nav__link" for="nav-4-1-6-2">
+      Ac Dipole
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Ac Dipole" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Ac Dipole
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/sext_ac_dipole_tracking/" title="Sext Ac Dipole Tracking" class="md-nav__link">
+      Sext Ac Dipole Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-3" type="checkbox" id="nav-4-1-6-3">
+    
+    <label class="md-nav__link" for="nav-4-1-6-3">
+      Triplet Errors
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Triplet Errors" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Triplet Errors
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/algo/" title="Algo" class="md-nav__link">
+      Algo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/data_classes/" title="Data Classes" class="md-nav__link">
+      Data Classes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/plotting_functions/" title="Plotting Functions" class="md-nav__link">
+      Plotting Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-7" type="checkbox" id="nav-4-1-7">
+    
+    <label class="md-nav__link" for="nav-4-1-7">
+      Tfstools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Tfstools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-7">
+        <span class="md-nav__icon md-icon"></span>
+        Tfstools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-8" type="checkbox" id="nav-4-1-8">
+    
+    <label class="md-nav__link" for="nav-4-1-8">
+      Utils
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Utils" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-8">
+        <span class="md-nav__icon md-icon"></span>
+        Utils
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/cmdline/" title="Cmdline" class="md-nav__link">
+      Cmdline
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/contexts/" title="Contexts" class="md-nav__link">
+      Contexts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/defaults/" title="Defaults" class="md-nav__link">
+      Defaults
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/executors/" title="Executors" class="md-nav__link">
+      Executors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/operations/" title="Operations" class="md-nav__link">
+      Operations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/printutil/" title="Printutil" class="md-nav__link">
+      Printutil
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-cpymadtoolslattice_generators" class="md-nav__link">
+    Module cpymadtools.lattice_generators
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#latticegenerator" class="md-nav__link">
+    LatticeGenerator
+  </a>
+  
+    <nav class="md-nav" aria-label="LatticeGenerator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Static methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#generate_base_cas_lattice" class="md-nav__link">
+    generate_base_cas_lattice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_oneoct_cas_lattice" class="md-nav__link">
+    generate_oneoct_cas_lattice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_onesext_cas_lattice" class="md-nav__link">
+    generate_onesext_cas_lattice
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_tripleterrors_study_mserror_job" class="md-nav__link">
+    generate_tripleterrors_study_mserror_job
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_tripleterrors_study_reference" class="md-nav__link">
+    generate_tripleterrors_study_reference
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generate_tripleterrors_study_tferror_job" class="md-nav__link">
+    generate_tripleterrors_study_tferror_job
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/cpymadtools/lattice_generators.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-pyhdtoolkitcpymadtoolslattice_generators">Module pyhdtoolkit.cpymadtools.lattice_generators</h1>
+<h2 id="module-cpymadtoolslattice_generators">Module cpymadtools.lattice_generators</h2>
+<p>Created on 2019.06.15
+:author: Felix Soubelet (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;">&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;</a>)</p>
+<p>A collection of functions for generating different lattices for cpymad.madx.Madx input.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">Module cpymadtools.lattice_generators</span>
+
+<span class="ss">-------------------------------------</span>
+
+<span class="ss">Created on 2019.06.15</span>
+
+<span class="ss">:author: Felix Soubelet (felix.soubelet@cern.ch)</span>
+
+<span class="ss">A collection of functions for generating different lattices for cpymad.madx.Madx input.</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="k">class</span><span class="w"> </span><span class="nl">LatticeGenerator</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    A simple class to handle said functions.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_base_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">}</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_onesext_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">ks1 = 0;</span>
+
+<span class="ss">ks2 = 0;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">mof: multipole, knl:={0, 0, ks1, 0};</span>
+
+<span class="ss">mod: multipole, knl:={0, 0, ks2, 0};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">   at=(n-1)*lcell;</span>
+
+<span class="ss">   n = n + 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">   }</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_oneoct_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">ks1 = 0;</span>
+
+<span class="ss">ks2 = 0;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">mof: multipole, knl:={0, 0, 0, koct};</span>
+
+<span class="ss">mod: multipole, knl:={0, 0, 0, 0};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">   at=(n-1)*lcell;</span>
+
+<span class="ss">   n = n + 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">   }</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_reference</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for reference Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">TFErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_tferror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">tf_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for tf_error Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            rand_seed (str): the random seed to provide MAD for the errors distributions.</span>
+
+<span class="ss">            tf_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">TFErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_nominal</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">!####################### For field errors #######################</span>
+
+<span class="ss">eoption, add, seed = {rand_seed};  ! Different seed every time</span>
+
+<span class="ss">select, flag=error, clear;</span>
+
+<span class="ss">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+
+<span class="ss">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+
+<span class="ss">Rr = 0.05;             ! Radius for field errors (??)</span>
+
+<span class="ss">ON_B2R = 1;            ! Activate field errors</span>
+
+<span class="ss">B2r = {tf_error};       ! Set field errors magnitude -&gt; Units of B2 error (will be in 1E-4)</span>
+
+<span class="ss">exec, SetEfcomp_Q;     ! Assign field errors</span>
+
+<span class="ss">!####################### Saving errors to file #######################</span>
+
+<span class="ss">!esave, file=&quot;</span><span class="p">.</span><span class="o">/</span><span class="n">errors_file</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="ss">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_errors</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_mserror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">ms_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for ms_error Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            rand_seed (str): the random seed to provide MAD for the errors distributions.</span>
+
+<span class="ss">            ms_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">MSErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_nominal</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">!####################### For longitudinal missalignments #######################</span>
+
+<span class="ss">eoption, add, seed = {rand_seed};  ! Different seed every time</span>
+
+<span class="ss">select, flag=error, clear;</span>
+
+<span class="ss">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+
+<span class="ss">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+
+<span class="ss">ealign, ds := {ms_error} * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in meters</span>
+
+<span class="ss">!####################### Saving errors to file #######################</span>
+
+<span class="ss">!esave, file=&quot;</span><span class="p">.</span><span class="o">/</span><span class="n">errors_file</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="ss">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_errors</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h2 id="classes">Classes</h2>
+<h3 id="latticegenerator">LatticeGenerator</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">LatticeGenerator</span><span class="p">(</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>A simple class to handle said functions.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">LatticeGenerator</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    A simple class to handle said functions.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_base_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">}</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_onesext_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">ks1 = 0;</span>
+
+<span class="ss">ks2 = 0;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">mof: multipole, knl:={0, 0, ks1, 0};</span>
+
+<span class="ss">mod: multipole, knl:={0, 0, ks2, 0};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">   at=(n-1)*lcell;</span>
+
+<span class="ss">   n = n + 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">   }</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_oneoct_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">ks1 = 0;</span>
+
+<span class="ss">ks2 = 0;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">mof: multipole, knl:={0, 0, 0, koct};</span>
+
+<span class="ss">mod: multipole, knl:={0, 0, 0, 0};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">   at=(n-1)*lcell;</span>
+
+<span class="ss">   n = n + 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">   }</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_reference</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for reference Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">TFErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_tferror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">tf_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for tf_error Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            rand_seed (str): the random seed to provide MAD for the errors distributions.</span>
+
+<span class="ss">            tf_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">TFErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_nominal</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">!####################### For field errors #######################</span>
+
+<span class="ss">eoption, add, seed = {rand_seed};  ! Different seed every time</span>
+
+<span class="ss">select, flag=error, clear;</span>
+
+<span class="ss">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+
+<span class="ss">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+
+<span class="ss">Rr = 0.05;             ! Radius for field errors (??)</span>
+
+<span class="ss">ON_B2R = 1;            ! Activate field errors</span>
+
+<span class="ss">B2r = {tf_error};       ! Set field errors magnitude -&gt; Units of B2 error (will be in 1E-4)</span>
+
+<span class="ss">exec, SetEfcomp_Q;     ! Assign field errors</span>
+
+<span class="ss">!####################### Saving errors to file #######################</span>
+
+<span class="ss">!esave, file=&quot;</span><span class="p">.</span><span class="o">/</span><span class="n">errors_file</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="ss">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_errors</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_mserror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">ms_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for ms_error Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            rand_seed (str): the random seed to provide MAD for the errors distributions.</span>
+
+<span class="ss">            ms_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">MSErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_nominal</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">!####################### For longitudinal missalignments #######################</span>
+
+<span class="ss">eoption, add, seed = {rand_seed};  ! Different seed every time</span>
+
+<span class="ss">select, flag=error, clear;</span>
+
+<span class="ss">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+
+<span class="ss">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+
+<span class="ss">ealign, ds := {ms_error} * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in meters</span>
+
+<span class="ss">!####################### Saving errors to file #######################</span>
+
+<span class="ss">!esave, file=&quot;</span><span class="p">.</span><span class="o">/</span><span class="n">errors_file</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="ss">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_errors</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<hr />
+<h4 id="static-methods">Static methods</h4>
+<h5 id="generate_base_cas_lattice">generate_base_cas_lattice</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_base_cas_lattice</span><span class="p">(</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+Simple function to help unclutter the notebook.</p>
+<p>Returns:
+    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_base_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">}</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="generate_oneoct_cas_lattice">generate_oneoct_cas_lattice</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_oneoct_cas_lattice</span><span class="p">(</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+Simple function to help unclutter the notebook.</p>
+<p>Returns:
+    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_oneoct_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">ks1 = 0;</span>
+
+<span class="ss">ks2 = 0;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">mof: multipole, knl:={0, 0, 0, koct};</span>
+
+<span class="ss">mod: multipole, knl:={0, 0, 0, 0};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">   at=(n-1)*lcell;</span>
+
+<span class="ss">   n = n + 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">   }</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="generate_onesext_cas_lattice">generate_onesext_cas_lattice</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_onesext_cas_lattice</span><span class="p">(</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+Simple function to help unclutter the notebook.</p>
+<p>Returns:
+    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_onesext_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Simple function to help unclutter the notebook.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">option, -info, -warn;</span>
+
+<span class="ss">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="ss">! PARAMETERS</span>
+
+<span class="ss">circumference = 1000.0;</span>
+
+<span class="ss">ncell = 24;</span>
+
+<span class="ss">lcell = circumference/ncell;</span>
+
+<span class="ss">lq = 3.00;</span>
+
+<span class="ss">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="ss">! STRENGTHS</span>
+
+<span class="ss">kqf = 0.0228 * lq;</span>
+
+<span class="ss">kqd = -0.0228 * lq;</span>
+
+<span class="ss">lsex = 0.00001;</span>
+
+<span class="ss">ks1 = 0;</span>
+
+<span class="ss">ks2 = 0;</span>
+
+<span class="ss">! ELEMENTS</span>
+
+<span class="ss">mb:multipole, knl:={angleBending};</span>
+
+<span class="ss">qf: multipole, knl:={0, kqf};</span>
+
+<span class="ss">qd: multipole, knl:={0, kqd};</span>
+
+<span class="ss">msf: multipole, knl:={0, 0, ksf};</span>
+
+<span class="ss">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="ss">mof: multipole, knl:={0, 0, ks1, 0};</span>
+
+<span class="ss">mod: multipole, knl:={0, 0, ks2, 0};</span>
+
+<span class="ss">! DECLARE SEQUENCE</span>
+
+<span class="ss">CAS3: sequence, refer=centre, l=circumference;</span>
+
+<span class="ss">   start_machine: marker, at = 0;</span>
+
+<span class="ss">   n = 1;</span>
+
+<span class="ss">   qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">   at=(n-1)*lcell;</span>
+
+<span class="ss">   n = n + 1;</span>
+
+<span class="ss">   while (n &lt; ncell+1) {</span>
+
+<span class="ss">    qf: qf,   at=(n-1)*lcell;</span>
+
+<span class="ss">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+
+<span class="ss">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+
+<span class="ss">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+
+<span class="ss">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+
+<span class="ss">    at=(n-1)*lcell;</span>
+
+<span class="ss">    n = n + 1;</span>
+
+<span class="ss">   }</span>
+
+<span class="ss">end_machine: marker at=circumference;</span>
+
+<span class="ss">endsequence;</span>
+
+<span class="ss">! MAKE BEAM</span>
+
+<span class="ss">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="ss">! ACTIVATE SEQUENCE</span>
+
+<span class="ss">use, sequence=CAS3;</span>
+
+<span class="ss">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="ss">ksf = 0;</span>
+
+<span class="ss">ksd = 0;</span>
+
+<span class="ss">! INTERPOLATE</span>
+
+<span class="ss">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+
+<span class="ss">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="ss">! TWISS</span>
+
+<span class="ss">select,flag=twiss, clear;</span>
+
+<span class="ss">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="generate_tripleterrors_study_mserror_job">generate_tripleterrors_study_mserror_job</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_mserror_job</span><span class="p">(</span>
+    <span class="n">rand_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">ms_error</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+Generate generic script for ms_error Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
+<p>Args:
+    rand_seed (str): the random seed to provide MAD for the errors distributions.
+    ms_error (str): the misalignment error value (along the s axis).</p>
+<p>Returns:
+    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_mserror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">ms_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for ms_error Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            rand_seed (str): the random seed to provide MAD for the errors distributions.</span>
+
+<span class="ss">            ms_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">MSErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_nominal</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">!####################### For longitudinal missalignments #######################</span>
+
+<span class="ss">eoption, add, seed = {rand_seed};  ! Different seed every time</span>
+
+<span class="ss">select, flag=error, clear;</span>
+
+<span class="ss">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+
+<span class="ss">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+
+<span class="ss">ealign, ds := {ms_error} * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in meters</span>
+
+<span class="ss">!####################### Saving errors to file #######################</span>
+
+<span class="ss">!esave, file=&quot;</span><span class="p">.</span><span class="o">/</span><span class="n">errors_file</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="ss">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_errors</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="generate_tripleterrors_study_reference">generate_tripleterrors_study_reference</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_reference</span><span class="p">(</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+Generate generic script for reference Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
+<p>Returns:
+    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_reference</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for reference Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">TFErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">twiss;</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="generate_tripleterrors_study_tferror_job">generate_tripleterrors_study_tferror_job</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_tferror_job</span><span class="p">(</span>
+    <span class="n">rand_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">tf_error</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
+</code></pre></div>
+Generate generic script for tf_error Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
+<p>Args:
+    rand_seed (str): the random seed to provide MAD for the errors distributions.
+    tf_error (str): the misalignment error value (along the s axis).</p>
+<p>Returns:
+    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_tferror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">tf_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Generate generic script for tf_error Twiss, to use in a `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            rand_seed (str): the random seed to provide MAD for the errors distributions.</span>
+
+<span class="ss">            tf_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A string you can input into your `cpymad.madx.Madx` object.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">!####################### Make macros available #######################</span>
+
+<span class="ss">option, -echo, -warn, -info;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">beta_beat</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">lhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">madx</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">hllhc</span><span class="p">.</span><span class="n">macros</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">title, &quot;</span><span class="n">HLLHC</span><span class="w"> </span><span class="n">Triplet</span><span class="w"> </span><span class="n">TFErrors</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">Beta</span><span class="o">-</span><span class="n">Beating</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Call optics files #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">lhcrunIII</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="k">work</span><span class="o">/</span><span class="n">f</span><span class="o">/</span><span class="n">fesoubel</span><span class="o">/</span><span class="k">public</span><span class="o">/</span><span class="n">Repositories</span><span class="o">/</span><span class="n">Beta</span><span class="o">-</span><span class="n">Beat</span><span class="p">.</span><span class="n">src</span><span class="o">/</span><span class="n">model</span><span class="o">/</span><span class="n">accelerators</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">hllhc1</span><span class="mf">.3</span><span class="o">/</span><span class="n">main</span><span class="p">.</span><span class="n">seq</span><span class="ss">&quot;;</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">V6</span><span class="mf">.5</span><span class="o">/</span><span class="n">errors</span><span class="o">/</span><span class="n">Esubroutines</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="ss">call, file = &quot;</span><span class="o">/</span><span class="n">afs</span><span class="o">/</span><span class="n">cern</span><span class="p">.</span><span class="n">ch</span><span class="o">/</span><span class="n">eng</span><span class="o">/</span><span class="n">lhc</span><span class="o">/</span><span class="n">optics</span><span class="o">/</span><span class="n">HLLHCV1</span><span class="mf">.3</span><span class="o">/</span><span class="n">opt_150_150_150_150</span><span class="p">.</span><span class="n">madx</span><span class="ss">&quot;;</span>
+
+<span class="ss">!####################### Create beam #######################</span>
+
+<span class="ss">exec, define_nominal_beams();</span>
+
+<span class="ss">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="ss">exec, cycle_sequences();</span>
+
+<span class="ss">!####################### Default crossing scheme #######################</span>
+
+<span class="ss">exec, set_default_crossing_scheme();</span>
+
+<span class="ss">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="ss">use, period = LHCB1;</span>
+
+<span class="ss">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="ss">option, echo, warn, info;</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_nominal</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">!####################### For field errors #######################</span>
+
+<span class="ss">eoption, add, seed = {rand_seed};  ! Different seed every time</span>
+
+<span class="ss">select, flag=error, clear;</span>
+
+<span class="ss">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+
+<span class="ss">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+
+<span class="ss">Rr = 0.05;             ! Radius for field errors (??)</span>
+
+<span class="ss">ON_B2R = 1;            ! Activate field errors</span>
+
+<span class="ss">B2r = {tf_error};       ! Set field errors magnitude -&gt; Units of B2 error (will be in 1E-4)</span>
+
+<span class="ss">exec, SetEfcomp_Q;     ! Assign field errors</span>
+
+<span class="ss">!####################### Saving errors to file #######################</span>
+
+<span class="ss">!esave, file=&quot;</span><span class="p">.</span><span class="o">/</span><span class="n">errors_file</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="ss">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="ss">exec, match_tunes(62.31, 60.32, 1);</span>
+
+<span class="ss">exec, do_twiss_elements(LHCB1, &quot;</span><span class="p">.</span><span class="o">/</span><span class="n">twiss_errors</span><span class="p">.</span><span class="n">dat</span><span class="ss">&quot;, 0.0);</span>
+
+<span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Index
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../latwiss/" title="Latwiss" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Latwiss
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

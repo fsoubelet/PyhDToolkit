@@ -1,0 +1,1906 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Cmdline - PyhDToolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009485">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-pyhdtoolkitutilscmdline" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../.." title="PyhDToolkit" class="md-header-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            PyhDToolkit
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Cmdline
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="PyhDToolkit" class="md-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    PyhDToolkit
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/About_PyhDToolkit/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/Getting_Started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Pyhdtoolkit
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Pyhdtoolkit" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        Pyhdtoolkit
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-2" type="checkbox" id="nav-4-1-2">
+    
+    <label class="md-nav__link" for="nav-4-1-2">
+      Cpymadtools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cpymadtools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-2">
+        <span class="md-nav__icon md-icon"></span>
+        Cpymadtools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/lattice_generators/" title="Lattice Generators" class="md-nav__link">
+      Lattice Generators
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/plotters/" title="Plotters" class="md-nav__link">
+      Plotters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3">
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Maths
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Maths" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        <span class="md-nav__icon md-icon"></span>
+        Maths
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/nonconvex_phase_sync/" title="Nonconvex Phase Sync" class="md-nav__link">
+      Nonconvex Phase Sync
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/stats_fitting/" title="Stats Fitting" class="md-nav__link">
+      Stats Fitting
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Optics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Optics" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Optics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
+      Amplitude Detuning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/beam/" title="Beam" class="md-nav__link">
+      Beam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-5" type="checkbox" id="nav-4-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-5">
+      Plotting
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Plotting" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-5">
+        <span class="md-nav__icon md-icon"></span>
+        Plotting
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/timedata/" title="Timedata" class="md-nav__link">
+      Timedata
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6" type="checkbox" id="nav-4-1-6">
+    
+    <label class="md-nav__link" for="nav-4-1-6">
+      Scripts
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Scripts" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-6">
+        <span class="md-nav__icon md-icon"></span>
+        Scripts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-2" type="checkbox" id="nav-4-1-6-2">
+    
+    <label class="md-nav__link" for="nav-4-1-6-2">
+      Ac Dipole
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Ac Dipole" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Ac Dipole
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/sext_ac_dipole_tracking/" title="Sext Ac Dipole Tracking" class="md-nav__link">
+      Sext Ac Dipole Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-3" type="checkbox" id="nav-4-1-6-3">
+    
+    <label class="md-nav__link" for="nav-4-1-6-3">
+      Triplet Errors
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Triplet Errors" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Triplet Errors
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/algo/" title="Algo" class="md-nav__link">
+      Algo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/data_classes/" title="Data Classes" class="md-nav__link">
+      Data Classes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/plotting_functions/" title="Plotting Functions" class="md-nav__link">
+      Plotting Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-7" type="checkbox" id="nav-4-1-7">
+    
+    <label class="md-nav__link" for="nav-4-1-7">
+      Tfstools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Tfstools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-7">
+        <span class="md-nav__icon md-icon"></span>
+        Tfstools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-8" type="checkbox" id="nav-4-1-8" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-8">
+      Utils
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Utils" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-8">
+        <span class="md-nav__icon md-icon"></span>
+        Utils
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Cmdline
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Cmdline" class="md-nav__link md-nav__link--active">
+      Cmdline
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-utilscmdline" class="md-nav__link">
+    Module utils.cmdline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commandline" class="md-nav__link">
+    CommandLine
+  </a>
+  
+    <nav class="md-nav" aria-label="CommandLine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Static methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check_pid_exists" class="md-nav__link">
+    check_pid_exists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    run
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminate" class="md-nav__link">
+    terminate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../contexts/" title="Contexts" class="md-nav__link">
+      Contexts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../defaults/" title="Defaults" class="md-nav__link">
+      Defaults
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../executors/" title="Executors" class="md-nav__link">
+      Executors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../operations/" title="Operations" class="md-nav__link">
+      Operations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../printutil/" title="Printutil" class="md-nav__link">
+      Printutil
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-utilscmdline" class="md-nav__link">
+    Module utils.cmdline
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commandline" class="md-nav__link">
+    CommandLine
+  </a>
+  
+    <nav class="md-nav" aria-label="CommandLine">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-methods" class="md-nav__link">
+    Static methods
+  </a>
+  
+    <nav class="md-nav" aria-label="Static methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#check_pid_exists" class="md-nav__link">
+    check_pid_exists
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run" class="md-nav__link">
+    run
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#terminate" class="md-nav__link">
+    terminate
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/utils/cmdline.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-pyhdtoolkitutilscmdline">Module pyhdtoolkit.utils.cmdline</h1>
+<h2 id="module-utilscmdline">Module utils.cmdline</h2>
+<p>Created on 2019.11.06
+:author: Felix Soubelet (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;">&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;</a>)</p>
+<p>Utility script to help run commands and access the commandline.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Module utils.cmdline</span>
+
+<span class="sd">--------------------</span>
+
+<span class="sd">Created on 2019.11.06</span>
+
+<span class="sd">:author: Felix Soubelet (felix.soubelet@cern.ch)</span>
+
+<span class="sd">Utility script to help run commands and access the commandline.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">errno</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">signal</span>
+
+<span class="kn">import</span> <span class="nn">subprocess</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.contexts</span> <span class="kn">import</span> <span class="n">timeit</span>
+
+<span class="k">class</span> <span class="nc">CommandLine</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    A high-level object to encapsulate the different methods for interacting with the commandline.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+
+    <span class="k">def</span> <span class="nf">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Check whether the given PID exists in the current process table.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            pid (int): the Process ID you want to check.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            A boolean stating the result.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+
+            <span class="c1"># According to &quot;man 2 kill&quot;, PID 0 refers to &lt;&lt;every process in the process group of</span>
+
+            <span class="c1"># the calling process&gt;&gt;. Best not to go any further.</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+
+                <span class="s2">&quot;PID 0 refers to &#39;every process in calling processes&#39;, and should be untouched&quot;</span>
+
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="c1"># Sending SIG 0 only checks if process has terminated, we&#39;re not actually terminating it</span>
+
+            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">pid_checkout_error</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">pid_checkout_error</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ESRCH</span><span class="p">:</span>  <span class="c1"># ERROR &quot;No such process&quot;</span>
+
+                <span class="k">return</span> <span class="bp">False</span>
+
+            <span class="k">if</span> <span class="p">(</span>
+
+                <span class="n">pid_checkout_error</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">EPERM</span>
+
+            <span class="p">):</span>  <span class="c1"># ERROR &quot;Operation not permitted&quot; -&gt; there&#39;s a process to deny access to.</span>
+
+                <span class="k">return</span> <span class="bp">True</span>
+
+            <span class="c1"># According to &quot;man 2 kill&quot; possible error values are (EINVAL, EPERM, ESRCH), therefore</span>
+
+            <span class="c1"># we should never get here. If so let&#39;s be explicit in considering this an error.</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not figure out the provided PID for some reason&quot;</span><span class="p">)</span>
+
+            <span class="k">raise</span> <span class="n">pid_checkout_error</span>
+
+        <span class="k">return</span> <span class="bp">True</span>
+
+    <span class="nd">@staticmethod</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+
+        <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">shell</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">True</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">]:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.</span>
+
+<span class="sd">        Note that `stderr` is redirected to `stdout`. `shell` is same to parameter of `Popen`.</span>
+
+<span class="sd">        If the process does not terminate after `timeout` seconds, a `TimeoutExpired` exception</span>
+
+<span class="sd">        will be raised.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            command (str): string, the command you want to run.</span>
+
+<span class="sd">            shell (bool): same as `Popen` argument. Setting the shell argument to a true value</span>
+
+<span class="sd">                causes subprocess to spawn an intermediate shell process, and tell it to run the</span>
+
+<span class="sd">                command. In other words, using an intermediate shell means that variables, glob</span>
+
+<span class="sd">                patterns, and other special shell features in the command string are processed</span>
+
+<span class="sd">                before the command is ran. Defaults to True.</span>
+
+<span class="sd">            env (Mapping): mapping that defines the environment variables for the new process.</span>
+
+<span class="sd">            timeout (float): same as `Popen.communicate` argument, number of seconds to wait for a</span>
+
+<span class="sd">                response before raising a TimeoutExpired exception.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            The tuple of (returncode, stdout). Beware, the stdout will be a byte array (id est</span>
+
+<span class="sd">            b&#39;some returned text&#39;). This output, returned as stdout, needs to be decoded properly</span>
+
+<span class="sd">            before you do anything with it, especially if you intend to log it into a file. While</span>
+
+<span class="sd">            it will most likely be &#39;utf-8&#39;, the encoding can vary from system to system so the</span>
+
+<span class="sd">            standard output is returned in bytes format and should be decoded later on.</span>
+
+<span class="sd">        Usage:</span>
+
+<span class="sd">            CommandLine.run(&#39;echo hello&#39;) -&gt; (0, b&#39;hello\r\n&#39;)</span>
+
+<span class="sd">            modified_env = os.environ.copy()</span>
+
+<span class="sd">            modified_env[&#39;ENV_VAR&#39;] = new_value</span>
+
+<span class="sd">            CommandLine.run(&#39;echo $ENV_VAR&#39;, env=modified_env) -&gt; (0, b&#39;new_value&#39;)</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span>
+
+            <span class="k">lambda</span> <span class="n">spanned</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+
+                <span class="n">f</span><span class="s2">&quot;Ran command &#39;{command}&#39; in a subprocess, in: {spanned:.4f} seconds&quot;</span>
+
+            <span class="p">)</span>
+
+        <span class="p">):</span>
+
+            <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span>
+
+                <span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span>
+
+            <span class="p">)</span>
+
+            <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span>
+
+                <span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">success</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span>
+
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">(),</span> <span class="n">stdout</span>
+
+    <span class="nd">@staticmethod</span>
+
+    <span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM</span>
+
+<span class="sd">        to kill.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            pid (int): the process ID to kill.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            A boolean stating the success of the operation.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
+
+            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process {pid} has successfully been terminated.&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="bp">True</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process with ID {pid} could not be terminated.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="bp">False</span>
+</code></pre></div>
+
+</details>
+<h2 id="classes">Classes</h2>
+<h3 id="commandline">CommandLine</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">CommandLine</span><span class="p">(</span>
+    <span class="o">/</span><span class="p">,</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>A high-level object to encapsulate the different methods for interacting with the commandline.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">CommandLine</span><span class="o">:</span>
+
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    A high-level object to encapsulate the different methods for interacting with the commandline.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+    <span class="nv">@staticmethod</span>
+
+    <span class="n">def</span> <span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="o">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+
+        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">        Check whether the given PID exists in the current process table.</span>
+
+<span class="s2">        Args:</span>
+
+<span class="s2">            pid (int): the Process ID you want to check.</span>
+
+<span class="s2">        Returns:</span>
+
+<span class="s2">            A boolean stating the result.</span>
+
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="o">:</span>
+
+            <span class="c1"># According to &quot;man 2 kill&quot;, PID 0 refers to &lt;&lt;every process in the process group of</span>
+
+            <span class="c1"># the calling process&gt;&gt;. Best not to go any further.</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+
+                <span class="s2">&quot;PID 0 refers to &#39;every process in calling processes&#39;, and should be untouched&quot;</span>
+
+            <span class="p">)</span>
+
+            <span class="k">return</span> <span class="no">True</span>
+
+        <span class="n">try</span><span class="o">:</span>
+
+            <span class="c1"># Sending SIG 0 only checks if process has terminated, we&#39;re not actually terminating it</span>
+
+            <span class="n">os</span><span class="p">.</span><span class="k">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="k">except</span> <span class="n">OSError</span> <span class="k">as</span> <span class="n">pid_checkout_error</span><span class="o">:</span>
+
+            <span class="k">if</span> <span class="n">pid_checkout_error</span><span class="p">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="p">.</span><span class="n">ESRCH</span><span class="o">:</span>  <span class="c1"># ERROR &quot;No such process&quot;</span>
+
+                <span class="k">return</span> <span class="no">False</span>
+
+            <span class="k">if</span> <span class="p">(</span>
+
+                <span class="n">pid_checkout_error</span><span class="p">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="p">.</span><span class="n">EPERM</span>
+
+            <span class="p">)</span><span class="o">:</span>  <span class="c1"># ERROR &quot;Operation not permitted&quot; -&gt; there&#39;s a process to deny access to.</span>
+
+                <span class="k">return</span> <span class="no">True</span>
+
+            <span class="c1"># According to &quot;man 2 kill&quot; possible error values are (EINVAL, EPERM, ESRCH), therefore</span>
+
+            <span class="c1"># we should never get here. If so let&#39;s be explicit in considering this an error.</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not figure out the provided PID for some reason&quot;</span><span class="p">)</span>
+
+            <span class="n">raise</span> <span class="n">pid_checkout_error</span>
+
+        <span class="k">return</span> <span class="no">True</span>
+
+    <span class="nv">@staticmethod</span>
+
+    <span class="n">def</span> <span class="n">run</span><span class="p">(</span>
+
+        <span class="n">command</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">shell</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span> <span class="n">env</span><span class="o">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="k">None</span>
+
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="err">[</span><span class="k">Optional</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="p">,</span> <span class="n">bytes</span><span class="err">]</span><span class="o">:</span>
+
+        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">        Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.</span>
+
+<span class="s2">        Note that `stderr` is redirected to `stdout`. `shell` is same to parameter of `Popen`.</span>
+
+<span class="s2">        If the process does not terminate after `timeout` seconds, a `TimeoutExpired` exception</span>
+
+<span class="s2">        will be raised.</span>
+
+<span class="s2">        Args:</span>
+
+<span class="s2">            command (str): string, the command you want to run.</span>
+
+<span class="s2">            shell (bool): same as `Popen` argument. Setting the shell argument to a true value</span>
+
+<span class="s2">                causes subprocess to spawn an intermediate shell process, and tell it to run the</span>
+
+<span class="s2">                command. In other words, using an intermediate shell means that variables, glob</span>
+
+<span class="s2">                patterns, and other special shell features in the command string are processed</span>
+
+<span class="s2">                before the command is ran. Defaults to True.</span>
+
+<span class="s2">            env (Mapping): mapping that defines the environment variables for the new process.</span>
+
+<span class="s2">            timeout (float): same as `Popen.communicate` argument, number of seconds to wait for a</span>
+
+<span class="s2">                response before raising a TimeoutExpired exception.</span>
+
+<span class="s2">        Returns:</span>
+
+<span class="s2">            The tuple of (returncode, stdout). Beware, the stdout will be a byte array (id est</span>
+
+<span class="s2">            b&#39;some returned text&#39;). This output, returned as stdout, needs to be decoded properly</span>
+
+<span class="s2">            before you do anything with it, especially if you intend to log it into a file. While</span>
+
+<span class="s2">            it will most likely be &#39;utf-8&#39;, the encoding can vary from system to system so the</span>
+
+<span class="s2">            standard output is returned in bytes format and should be decoded later on.</span>
+
+<span class="s2">        Usage:</span>
+
+<span class="s2">            CommandLine.run(&#39;echo hello&#39;) -&gt; (0, b&#39;hello</span><span class="se">\r\n</span><span class="s2">&#39;)</span>
+
+<span class="s2">            modified_env = os.environ.copy()</span>
+
+<span class="s2">            modified_env[&#39;ENV_VAR&#39;] = new_value</span>
+
+<span class="s2">            CommandLine.run(&#39;echo $ENV_VAR&#39;, env=modified_env) -&gt; (0, b&#39;new_value&#39;)</span>
+
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span>
+
+            <span class="n">lambda</span> <span class="n">spanned</span><span class="o">:</span> <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span>
+
+                <span class="n">f</span><span class="s2">&quot;Ran command &#39;{command}&#39; in a subprocess, in: {spanned:.4f} seconds&quot;</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span><span class="o">:</span>
+
+            <span class="k">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span>
+
+                <span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span>
+
+            <span class="p">)</span>
+
+            <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">process</span><span class="p">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">:</span>
+
+                <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span>
+
+                <span class="p">)</span>
+
+            <span class="k">else</span><span class="o">:</span>
+
+                <span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span>
+
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">(),</span> <span class="n">stdout</span>
+
+    <span class="nv">@staticmethod</span>
+
+    <span class="n">def</span> <span class="n">terminate</span><span class="p">(</span><span class="n">pid</span><span class="o">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+
+        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">        Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM</span>
+
+<span class="s2">        to kill.</span>
+
+<span class="s2">        Args:</span>
+
+<span class="s2">            pid (int): the process ID to kill.</span>
+
+<span class="s2">        Returns:</span>
+
+<span class="s2">            A boolean stating the success of the operation.</span>
+
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+        <span class="k">if</span> <span class="n">CommandLine</span><span class="p">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span><span class="o">:</span>
+
+            <span class="n">os</span><span class="p">.</span><span class="k">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="k">signal</span><span class="p">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process {pid} has successfully been terminated.&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="no">True</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="k">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process with ID {pid} could not be terminated.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="no">False</span>
+</code></pre></div>
+
+</details>
+<hr />
+<h4 id="static-methods">Static methods</h4>
+<h5 id="check_pid_exists">check_pid_exists</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">check_pid_exists</span><span class="p">(</span>
+    <span class="n">pid</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</code></pre></div>
+Check whether the given PID exists in the current process table.</p>
+<p>Args:
+    pid (int): the Process ID you want to check.</p>
+<p>Returns:
+    A boolean stating the result.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">check_pid_exists</span><span class="p">(</span><span class="nl">pid</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Check whether the given PID exists in the current process table.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            pid (int): the Process ID you want to check.</span>
+
+<span class="ss">        Returns:</span>
+
+<span class="ss">            A boolean stating the result.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="err">#</span><span class="w"> </span><span class="n">According</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="ss">&quot;man 2 kill&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">PID</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">refers</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="k">every</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="k">group</span><span class="w"> </span><span class="k">of</span><span class="w"></span>
+
+<span class="w">            </span><span class="err">#</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">calling</span><span class="w"> </span><span class="n">process</span><span class="o">&gt;&gt;</span><span class="p">.</span><span class="w"> </span><span class="n">Best</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">go</span><span class="w"> </span><span class="ow">any</span><span class="w"> </span><span class="n">further</span><span class="p">.</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                </span><span class="ss">&quot;PID 0 refers to &#39;every process in calling processes&#39;, and should be untouched&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">try</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="err">#</span><span class="w"> </span><span class="n">Sending</span><span class="w"> </span><span class="n">SIG</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">checks</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">terminated</span><span class="p">,</span><span class="w"> </span><span class="n">we</span><span class="s1">&#39;re not actually terminating it</span>
+
+<span class="s1">            os.kill(pid, 0)</span>
+
+<span class="s1">        except OSError as pid_checkout_error:</span>
+
+<span class="s1">            if pid_checkout_error.errno == errno.ESRCH:  # ERROR &quot;No such process&quot;</span>
+
+<span class="s1">                return False</span>
+
+<span class="s1">            if (</span>
+
+<span class="s1">                pid_checkout_error.errno == errno.EPERM</span>
+
+<span class="s1">            ):  # ERROR &quot;Operation not permitted&quot; -&gt; there&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">deny</span><span class="w"> </span><span class="n">access</span><span class="w"> </span><span class="k">to</span><span class="p">.</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
+
+<span class="w">            </span><span class="err">#</span><span class="w"> </span><span class="n">According</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="ss">&quot;man 2 kill&quot;</span><span class="w"> </span><span class="n">possible</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="p">(</span><span class="n">EINVAL</span><span class="p">,</span><span class="w"> </span><span class="n">EPERM</span><span class="p">,</span><span class="w"> </span><span class="n">ESRCH</span><span class="p">),</span><span class="w"> </span><span class="n">therefore</span><span class="w"></span>
+
+<span class="w">            </span><span class="err">#</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">never</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">here</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">let</span><span class="err">&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">explicit</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">considering</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">error</span><span class="p">.</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="k">exception</span><span class="p">(</span><span class="ss">&quot;Could not figure out the provided PID for some reason&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">raise</span><span class="w"> </span><span class="n">pid_checkout_error</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="run">run</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
+    <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">shell</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">env</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">]</span>
+</code></pre></div>
+Run command based on <code>subprocess.Popen</code> and return the tuple of <code>(returncode, stdout)</code>.
+        Note that <code>stderr</code> is redirected to <code>stdout</code>. <code>shell</code> is same to parameter of <code>Popen</code>.
+        If the process does not terminate after <code>timeout</code> seconds, a <code>TimeoutExpired</code> exception
+        will be raised.</p>
+<div class="codehilite"><pre><span></span><code>    <span class="n">Args</span><span class="o">:</span>
+        <span class="n">command</span> <span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">:</span> <span class="k">string</span><span class="p">,</span> <span class="n">the</span> <span class="n">command</span> <span class="n">you</span> <span class="n">want</span> <span class="k">to</span> <span class="n">run</span><span class="p">.</span>
+        <span class="n">shell</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span><span class="o">:</span> <span class="n">same</span> <span class="k">as</span> <span class="n">`Popen`</span> <span class="n">argument</span><span class="p">.</span> <span class="k">Set</span><span class="n">ting</span> <span class="n">the</span> <span class="n">shell</span> <span class="n">argument</span> <span class="k">to</span> <span class="n">a</span> <span class="no">true</span> <span class="k">value</span>
+            <span class="n">causes</span> <span class="n">subprocess</span> <span class="k">to</span> <span class="n">spawn</span> <span class="n">an</span> <span class="n">intermediate</span> <span class="n">shell</span> <span class="k">process</span><span class="p">,</span> <span class="k">and</span> <span class="n">tell</span> <span class="n">it</span> <span class="k">to</span> <span class="n">run</span> <span class="n">the</span>
+            <span class="n">command</span><span class="p">.</span> <span class="k">In</span> <span class="n">other</span> <span class="n">words</span><span class="p">,</span> <span class="k">using</span> <span class="n">an</span> <span class="n">intermediate</span> <span class="n">shell</span> <span class="n">means</span> <span class="n">that</span> <span class="k">variables</span><span class="p">,</span> <span class="n">glob</span>
+            <span class="n">patterns</span><span class="p">,</span> <span class="k">and</span> <span class="n">other</span> <span class="n">special</span> <span class="n">shell</span> <span class="n">features</span> <span class="k">in</span> <span class="n">the</span> <span class="n">command</span> <span class="k">string</span> <span class="n">are</span> <span class="n">processed</span>
+            <span class="k">before</span> <span class="n">the</span> <span class="n">command</span> <span class="k">is</span> <span class="n">ran</span><span class="p">.</span> <span class="n">Defaults</span> <span class="k">to</span> <span class="no">True</span><span class="p">.</span>
+        <span class="n">env</span> <span class="p">(</span><span class="n">Mapping</span><span class="p">)</span><span class="o">:</span> <span class="n">mapping</span> <span class="n">that</span> <span class="n">defines</span> <span class="n">the</span> <span class="n">environment</span> <span class="k">variables</span> <span class="k">for</span> <span class="n">the</span> <span class="k">new</span> <span class="k">process</span><span class="p">.</span>
+        <span class="n">timeout</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="o">:</span> <span class="n">same</span> <span class="k">as</span> <span class="n">`Popen.communicate`</span> <span class="n">argument</span><span class="p">,</span> <span class="k">number</span> <span class="k">of</span> <span class="n">seconds</span> <span class="k">to</span> <span class="k">wait</span> <span class="k">for</span> <span class="n">a</span>
+            <span class="n">response</span> <span class="k">before</span> <span class="n">raising</span> <span class="n">a</span> <span class="n">TimeoutExpired</span> <span class="n">exception</span><span class="p">.</span>
+
+    <span class="k">Returns</span><span class="o">:</span>
+        <span class="n">The</span> <span class="n">tuple</span> <span class="k">of</span> <span class="p">(</span><span class="n">returncode</span><span class="p">,</span> <span class="n">stdout</span><span class="p">).</span> <span class="n">Beware</span><span class="p">,</span> <span class="n">the</span> <span class="n">stdout</span> <span class="n">will</span> <span class="n">be</span> <span class="n">a</span> <span class="k">byte</span> <span class="k">array</span> <span class="p">(</span><span class="n">id</span> <span class="n">est</span>
+        <span class="n">b</span><span class="s1">&#39;some returned text&#39;</span><span class="p">).</span> <span class="n">This</span> <span class="n">output</span><span class="p">,</span> <span class="n">returned</span> <span class="k">as</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">needs</span> <span class="k">to</span> <span class="n">be</span> <span class="n">decoded</span> <span class="n">properly</span>
+        <span class="k">before</span> <span class="n">you</span> <span class="k">do</span> <span class="n">anything</span> <span class="k">with</span> <span class="n">it</span><span class="p">,</span> <span class="n">especially</span> <span class="k">if</span> <span class="n">you</span> <span class="n">intend</span> <span class="k">to</span> <span class="n">log</span> <span class="n">it</span> <span class="k">into</span> <span class="n">a</span> <span class="k">file</span><span class="p">.</span> <span class="k">While</span>
+        <span class="n">it</span> <span class="n">will</span> <span class="n">most</span> <span class="n">likely</span> <span class="n">be</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">the</span> <span class="n">encoding</span> <span class="n">can</span> <span class="n">vary</span> <span class="k">from</span> <span class="k">system</span> <span class="k">to</span> <span class="k">system</span> <span class="n">so</span> <span class="n">the</span>
+        <span class="n">standard</span> <span class="n">output</span> <span class="k">is</span> <span class="n">returned</span> <span class="k">in</span> <span class="n">bytes</span> <span class="k">format</span> <span class="k">and</span> <span class="n">should</span> <span class="n">be</span> <span class="n">decoded</span> <span class="n">later</span> <span class="k">on</span><span class="p">.</span>
+
+    <span class="k">Usage</span><span class="o">:</span>
+        <span class="n">CommandLine</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;echo hello&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;hello</span>
+</code></pre></div>
+
+<p>')</p>
+<div class="codehilite"><pre><span></span><code><span class="err">        modified_env = os.environ.copy()</span>
+<span class="err">        modified_env[&#39;ENV_VAR&#39;] = new_value</span>
+<span class="err">        CommandLine.run(&#39;echo $ENV_VAR&#39;, env=modified_env) -&gt; (0, b&#39;new_value&#39;)</span>
+</code></pre></div>
+
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+
+    <span class="n">def</span> <span class="n">run</span><span class="p">(</span>
+
+        <span class="n">command</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">shell</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span> <span class="n">env</span><span class="o">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="k">None</span>
+
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="err">[</span><span class="k">Optional</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="p">,</span> <span class="n">bytes</span><span class="err">]</span><span class="o">:</span>
+
+        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">        Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.</span>
+
+<span class="s2">        Note that `stderr` is redirected to `stdout`. `shell` is same to parameter of `Popen`.</span>
+
+<span class="s2">        If the process does not terminate after `timeout` seconds, a `TimeoutExpired` exception</span>
+
+<span class="s2">        will be raised.</span>
+
+<span class="s2">        Args:</span>
+
+<span class="s2">            command (str): string, the command you want to run.</span>
+
+<span class="s2">            shell (bool): same as `Popen` argument. Setting the shell argument to a true value</span>
+
+<span class="s2">                causes subprocess to spawn an intermediate shell process, and tell it to run the</span>
+
+<span class="s2">                command. In other words, using an intermediate shell means that variables, glob</span>
+
+<span class="s2">                patterns, and other special shell features in the command string are processed</span>
+
+<span class="s2">                before the command is ran. Defaults to True.</span>
+
+<span class="s2">            env (Mapping): mapping that defines the environment variables for the new process.</span>
+
+<span class="s2">            timeout (float): same as `Popen.communicate` argument, number of seconds to wait for a</span>
+
+<span class="s2">                response before raising a TimeoutExpired exception.</span>
+
+<span class="s2">        Returns:</span>
+
+<span class="s2">            The tuple of (returncode, stdout). Beware, the stdout will be a byte array (id est</span>
+
+<span class="s2">            b&#39;some returned text&#39;). This output, returned as stdout, needs to be decoded properly</span>
+
+<span class="s2">            before you do anything with it, especially if you intend to log it into a file. While</span>
+
+<span class="s2">            it will most likely be &#39;utf-8&#39;, the encoding can vary from system to system so the</span>
+
+<span class="s2">            standard output is returned in bytes format and should be decoded later on.</span>
+
+<span class="s2">        Usage:</span>
+
+<span class="s2">            CommandLine.run(&#39;echo hello&#39;) -&gt; (0, b&#39;hello</span><span class="se">\r\n</span><span class="s2">&#39;)</span>
+
+<span class="s2">            modified_env = os.environ.copy()</span>
+
+<span class="s2">            modified_env[&#39;ENV_VAR&#39;] = new_value</span>
+
+<span class="s2">            CommandLine.run(&#39;echo $ENV_VAR&#39;, env=modified_env) -&gt; (0, b&#39;new_value&#39;)</span>
+
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span>
+
+            <span class="n">lambda</span> <span class="n">spanned</span><span class="o">:</span> <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span>
+
+                <span class="n">f</span><span class="s2">&quot;Ran command &#39;{command}&#39; in a subprocess, in: {spanned:.4f} seconds&quot;</span>
+
+            <span class="p">)</span>
+
+        <span class="p">)</span><span class="o">:</span>
+
+            <span class="k">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span>
+
+                <span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span>
+
+            <span class="p">)</span>
+
+            <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">process</span><span class="p">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">:</span>
+
+                <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span>
+
+                <span class="p">)</span>
+
+            <span class="k">else</span><span class="o">:</span>
+
+                <span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span>
+
+                <span class="p">)</span>
+
+        <span class="k">return</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">(),</span> <span class="n">stdout</span>
+</code></pre></div>
+
+</details>
+<h5 id="terminate">terminate</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span>
+    <span class="n">pid</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
+</code></pre></div>
+Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM
+to kill.</p>
+<p>Args:
+    pid (int): the process ID to kill.</p>
+<p>Returns:
+    A boolean stating the success of the operation.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="err">@</span><span class="n">staticmethod</span>
+
+    <span class="n">def</span> <span class="n">terminate</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">bool</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM</span>
+
+<span class="sd">        to kill.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            pid (int): the process ID to kill.</span>
+
+<span class="sd">        Returns:</span>
+
+<span class="sd">            A boolean stating the success of the operation.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
+
+            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="k">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process {pid} has successfully been terminated.&quot;</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">True</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process with ID {pid} could not be terminated.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">False</span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../../tfstools/latwiss/" title="Latwiss" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Latwiss
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../contexts/" title="Contexts" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Contexts
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

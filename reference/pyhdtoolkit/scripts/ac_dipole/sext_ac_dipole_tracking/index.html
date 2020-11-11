@@ -1,0 +1,2780 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Sext Ac Dipole Tracking - PyhDToolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009485">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-pyhdtoolkitscriptsac_dipolesext_ac_dipole_tracking" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../../.." title="PyhDToolkit" class="md-header-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            PyhDToolkit
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Sext Ac Dipole Tracking
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="PyhDToolkit" class="md-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    PyhDToolkit
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../docs/About_PyhDToolkit/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../docs/Getting_Started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Pyhdtoolkit
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Pyhdtoolkit" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        Pyhdtoolkit
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-2" type="checkbox" id="nav-4-1-2">
+    
+    <label class="md-nav__link" for="nav-4-1-2">
+      Cpymadtools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cpymadtools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-2">
+        <span class="md-nav__icon md-icon"></span>
+        Cpymadtools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/lattice_generators/" title="Lattice Generators" class="md-nav__link">
+      Lattice Generators
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/plotters/" title="Plotters" class="md-nav__link">
+      Plotters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3">
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Maths
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Maths" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        <span class="md-nav__icon md-icon"></span>
+        Maths
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../maths/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../maths/nonconvex_phase_sync/" title="Nonconvex Phase Sync" class="md-nav__link">
+      Nonconvex Phase Sync
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../maths/stats_fitting/" title="Stats Fitting" class="md-nav__link">
+      Stats Fitting
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Optics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Optics" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Optics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
+      Amplitude Detuning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/beam/" title="Beam" class="md-nav__link">
+      Beam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-5" type="checkbox" id="nav-4-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-5">
+      Plotting
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Plotting" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-5">
+        <span class="md-nav__icon md-icon"></span>
+        Plotting
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/timedata/" title="Timedata" class="md-nav__link">
+      Timedata
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6" type="checkbox" id="nav-4-1-6" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-6">
+      Scripts
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Scripts" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-6">
+        <span class="md-nav__icon md-icon"></span>
+        Scripts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-2" type="checkbox" id="nav-4-1-6-2" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-6-2">
+      Ac Dipole
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Ac Dipole" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Ac Dipole
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Sext Ac Dipole Tracking
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Sext Ac Dipole Tracking" class="md-nav__link md-nav__link--active">
+      Sext Ac Dipole Tracking
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#script-scriptsac_dipolesext_ac_dipole_tracking" class="md-nav__link">
+    Script scripts.ac_dipole.sext_ac_dipole_tracking
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-3" type="checkbox" id="nav-4-1-6-3">
+    
+    <label class="md-nav__link" for="nav-4-1-6-3">
+      Triplet Errors
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Triplet Errors" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Triplet Errors
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../triplet_errors/algo/" title="Algo" class="md-nav__link">
+      Algo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../triplet_errors/data_classes/" title="Data Classes" class="md-nav__link">
+      Data Classes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../triplet_errors/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../triplet_errors/plotting_functions/" title="Plotting Functions" class="md-nav__link">
+      Plotting Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-7" type="checkbox" id="nav-4-1-7">
+    
+    <label class="md-nav__link" for="nav-4-1-7">
+      Tfstools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Tfstools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-7">
+        <span class="md-nav__icon md-icon"></span>
+        Tfstools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tfstools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tfstools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-8" type="checkbox" id="nav-4-1-8">
+    
+    <label class="md-nav__link" for="nav-4-1-8">
+      Utils
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Utils" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-8">
+        <span class="md-nav__icon md-icon"></span>
+        Utils
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/cmdline/" title="Cmdline" class="md-nav__link">
+      Cmdline
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/contexts/" title="Contexts" class="md-nav__link">
+      Contexts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/defaults/" title="Defaults" class="md-nav__link">
+      Defaults
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/executors/" title="Executors" class="md-nav__link">
+      Executors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/operations/" title="Operations" class="md-nav__link">
+      Operations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/printutil/" title="Printutil" class="md-nav__link">
+      Printutil
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#script-scriptsac_dipolesext_ac_dipole_tracking" class="md-nav__link">
+    Script scripts.ac_dipole.sext_ac_dipole_tracking
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/scripts/ac_dipole/sext_ac_dipole_tracking.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-pyhdtoolkitscriptsac_dipolesext_ac_dipole_tracking">Module pyhdtoolkit.scripts.ac_dipole.sext_ac_dipole_tracking</h1>
+<h2 id="script-scriptsac_dipolesext_ac_dipole_tracking">Script scripts.ac_dipole.sext_ac_dipole_tracking</h2>
+<p>Created on 2020.02.27
+:author: Felix Soubelet (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;">&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;</a>)</p>
+<p>This is a Python3 utility to launch a series of MAD-X simlations with the proper parameters,
+call the appropriate python scripts on the outputs and organise the results.</p>
+<p>Made to be ran with the OMC conda environment, and ran directly for the commandline.</p>
+<h1 id="a-pair-of-examples">A pair of examples</h1>
+<p>Running with kicks in the horizontal plane only, for two sigma values:
+python path/to/sext_ac_dipole_tracking.py --planes horizontal --mask /path/to/kick/mask.mask        --type kick --sigmas 5 10</p>
+<p>Running with free oscillations in both planes succesively, for many offset values:
+python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --mask /path/to/offset/mask.mask --type amp -- sigmas 5 10 15 20</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Script scripts.ac_dipole.sext_ac_dipole_tracking</span>
+
+<span class="sd">------------------------------------------------</span>
+
+<span class="sd">Created on 2020.02.27</span>
+
+<span class="sd">:author: Felix Soubelet (felix.soubelet@cern.ch)</span>
+
+<span class="sd">This is a Python3 utility to launch a series of MAD-X simlations with the proper parameters,</span>
+
+<span class="sd">call the appropriate python scripts on the outputs and organise the results.</span>
+
+<span class="sd">Made to be ran with the OMC conda environment, and ran directly for the commandline.</span>
+
+<span class="sd">A pair of examples</span>
+
+<span class="sd">==================</span>
+
+<span class="sd">Running with kicks in the horizontal plane only, for two sigma values:</span>
+
+<span class="sd">python path/to/sext_ac_dipole_tracking.py --planes horizontal --mask /path/to/kick/mask.mask \</span>
+
+<span class="sd">       --type kick --sigmas 5 10</span>
+
+<span class="sd">Running with free oscillations in both planes succesively, for many offset values:</span>
+
+<span class="sd">python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical \</span>
+
+<span class="sd">       --mask /path/to/offset/mask.mask --type amp -- sigmas 5 10 15 20</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">argparse</span>
+
+<span class="kn">import</span> <span class="nn">shutil</span>
+
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.cmdline</span> <span class="kn">import</span> <span class="n">CommandLine</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.contexts</span> <span class="kn">import</span> <span class="n">timeit</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.defaults</span> <span class="kn">import</span> <span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">OMC_PYTHON</span><span class="p">,</span> <span class="n">TBT_CONVERTER_SCRIPT</span>
+
+<span class="k">class</span> <span class="nc">ACDipoleGrid</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Algorithm as a class to run the simulations and organize the outputs.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">{</span>
+
+        <span class="s2">&quot;grid_output_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;PosixPath object to the directory for all outputs&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;mask_files_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;PosixPath object to the directory for simulations&#39; masks&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;outputdata_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;PosixPath object to the directory for simulation data&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;trackfiles_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;PosixPath object to the directory for trackone files&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;trackfiles_planes&quot;</span><span class="p">:</span> <span class="s2">&quot;PosixPath objects to the planes&#39; trackone files&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;run_planes&quot;</span><span class="p">:</span> <span class="s2">&quot;List of planes for which to run simulations&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;sigmas&quot;</span><span class="p">:</span> <span class="s2">&quot;List of amplitudes for AC dipole to kick to (in bunch sigma)&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;template_file&quot;</span><span class="p">:</span> <span class="s2">&quot;PosixPath object to the location of the mask template&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;template_str&quot;</span><span class="p">:</span> <span class="s2">&quot;Text in the template_file&quot;</span><span class="p">,</span>
+
+    <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;grid_outputs&quot;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span> <span class="o">/</span> <span class="s2">&quot;mask_files&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span> <span class="o">/</span> <span class="s2">&quot;outputdata_dirs&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span> <span class="o">/</span> <span class="s2">&quot;trackfiles&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_planes</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+
+            <span class="s2">&quot;horizontal&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span> <span class="o">/</span> <span class="s2">&quot;trackfiles&quot;</span> <span class="o">/</span> <span class="s2">&quot;X&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;vertical&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span> <span class="o">/</span> <span class="s2">&quot;trackfiles&quot;</span> <span class="o">/</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span>
+
+        <span class="p">}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">run_planes</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">_parse_arguments</span><span class="p">()</span><span class="o">.</span><span class="n">planes</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_parse_arguments</span><span class="p">()</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">_parse_arguments</span><span class="p">()</span><span class="o">.</span><span class="n">template</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">template_str</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_file</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_check_input_sanity</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Makes sure there are no duplicates in the provided sigma values, because that will mess up</span>
+
+<span class="sd">        a long time after launch and you will cry.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)):</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+
+                <span class="s2">&quot;There is a duplicate in the sigma values, which would cause a failure later.&quot;</span>
+
+            <span class="p">)</span>
+
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_create_output_dirs</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Will create the proper output dirs if they don&#39;t exist already.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating directory &#39;{self.grid_output_dir}&#39;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">grid_output_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating directory &#39;{self.mask_files_dir}&#39;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating directory &#39;{self.outputdata_dir}&#39;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating directory &#39;{self.trackfiles_dir}&#39;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_planes</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating directory &#39;{self.trackfiles_planes[&#39;horizontal&#39;]}&#39;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_planes</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_planes</span><span class="p">[</span><span class="s2">&quot;vertical&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating directory &#39;{self.trackfiles_planes[&#39;vertical&#39;]}&#39;&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_planes</span><span class="p">[</span><span class="s2">&quot;vertical&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Output directories already present, you may want to move those.&quot;</span><span class="p">)</span>
+
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">track_forced_oscillations_for_plane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kick_plane</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Run MAD-X simulations with AC dipole tracking for the given plane, and handle outputs.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            kick_plane: the name of the plane on which to apply a kick, either &#39;horizontal&#39;</span>
+
+<span class="sd">                or &#39;vertical&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">kick_plane</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">):</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plane parameter {kick_plane} is not a valid value&quot;</span><span class="p">)</span>
+
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Plane parameter should be one of &#39;horizontal&#39; or &#39;vertical&#39;&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span>
+
+            <span class="k">lambda</span> <span class="n">spanned</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+
+                <span class="n">f</span><span class="s2">&quot;Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f} seconds&quot;</span>
+
+            <span class="p">)</span>
+
+        <span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">kick_in_sigma</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">:</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="c1"># Set the wanted kick value (in sigmas) in the given plane, and a small initial</span>
+
+                <span class="c1"># offset in the other (small offset so that harpy doesn&#39;t cry and we get tune).</span>
+
+                <span class="c1"># Do NOT kick both planes: cross-terms influence the detuning.</span>
+
+                <span class="n">plane_letter</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span> <span class="k">if</span> <span class="n">kick_plane</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span> <span class="k">else</span> <span class="s2">&quot;y&quot;</span>
+
+                <span class="n">replace_dict</span> <span class="o">=</span> <span class="p">(</span>
+
+                    <span class="p">{</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(SIGMAX_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">kick_in_sigma</span><span class="p">,</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(SIGMAY_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(AMPLX_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(AMPLY_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+
+                    <span class="p">}</span>
+
+                    <span class="k">if</span> <span class="n">kick_plane</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span>
+
+                    <span class="k">else</span> <span class="p">{</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(SIGMAX_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(SIGMAY_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">kick_in_sigma</span><span class="p">,</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(AMPLX_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+
+                        <span class="s2">&quot;</span><span class="si">%(AMPLY_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+
+                    <span class="p">}</span>
+
+                <span class="p">)</span>
+
+                <span class="n">filename_to_write</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span>
+
+                <span class="p">)</span>
+
+                <span class="n">mask_file</span> <span class="o">=</span> <span class="n">create_script_file</span><span class="p">(</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">template_str</span><span class="p">,</span>
+
+                    <span class="n">values_replacing_dict</span><span class="o">=</span><span class="n">replace_dict</span><span class="p">,</span>
+
+                    <span class="n">filename</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename_to_write</span><span class="p">)),</span>
+
+                <span class="p">)</span>
+
+                <span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span>
+
+                <span class="n">_move_mask_file_after_running</span><span class="p">(</span>
+
+                    <span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span> <span class="n">mask_files_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span>
+
+                <span class="p">)</span>
+
+                <span class="n">_rename_madx_outputs</span><span class="p">(</span>
+
+                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span>
+
+                    <span class="n">outputdata_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="p">,</span>
+
+                    <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
+
+                <span class="p">)</span>
+
+                <span class="n">_convert_trackone_to_sdds</span><span class="p">()</span>
+
+                <span class="n">_move_trackone_sdds</span><span class="p">(</span>
+
+                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span>
+
+                    <span class="n">trackfiles_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_planes</span><span class="p">[</span><span class="n">kick_plane</span><span class="p">],</span>
+
+                    <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
+
+                <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">track_free_oscillations_for_plane</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kick_plane</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        Run MAD-X simulations with amplitude offset tracking for the given plane, and handle</span>
+
+<span class="sd">        outputs.</span>
+
+<span class="sd">        Args:</span>
+
+<span class="sd">            kick_plane: the name of the plane on which to apply an offset, either &#39;horizontal&#39;</span>
+
+<span class="sd">                or &#39;vertical&#39;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">kick_plane</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">):</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plane parameter {kick_plane} is not a valid value&quot;</span><span class="p">)</span>
+
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Plane parameter should be one of &#39;horizontal&#39; or &#39;vertical&#39;&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span>
+
+            <span class="k">lambda</span> <span class="n">spanned</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+
+                <span class="n">f</span><span class="s2">&quot;Tracked all amplitudes for {kick_plane} offsets in {spanned:.4f} seconds&quot;</span>
+
+            <span class="p">)</span>
+
+        <span class="p">):</span>
+
+            <span class="k">for</span> <span class="n">kick_in_sigma</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">:</span>
+
+                <span class="k">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+
+                <span class="n">plane_letter</span> <span class="o">=</span> <span class="s2">&quot;x&quot;</span> <span class="k">if</span> <span class="n">kick_plane</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span> <span class="k">else</span> <span class="s2">&quot;y&quot;</span>
+
+                <span class="n">action_var_value</span> <span class="o">=</span> <span class="n">kick_in_sigma</span>
+
+                <span class="n">amplitudes_dict</span> <span class="o">=</span> <span class="p">(</span>
+
+                    <span class="p">{</span><span class="s2">&quot;</span><span class="si">%(AMPLX_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">action_var_value</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%(AMPLY_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">}</span>
+
+                    <span class="k">if</span> <span class="n">kick_plane</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span>
+
+                    <span class="k">else</span> <span class="p">{</span><span class="s2">&quot;</span><span class="si">%(AMPLX_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">%(AMPLY_VALUE)s</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">action_var_value</span><span class="p">}</span>
+
+                <span class="p">)</span>
+
+                <span class="n">filename_to_write</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
+
+                    <span class="n">f</span><span class="s2">&quot;initial_amplitude_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span>
+
+                <span class="p">)</span>
+
+                <span class="n">mask_file</span> <span class="o">=</span> <span class="n">create_script_file</span><span class="p">(</span>
+
+                    <span class="bp">self</span><span class="o">.</span><span class="n">template_str</span><span class="p">,</span>
+
+                    <span class="n">values_replacing_dict</span><span class="o">=</span><span class="n">amplitudes_dict</span><span class="p">,</span>
+
+                    <span class="n">filename</span><span class="o">=</span><span class="n">Path</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename_to_write</span><span class="p">)),</span>
+
+                <span class="p">)</span>
+
+                <span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span>
+
+                <span class="n">_move_mask_file_after_running</span><span class="p">(</span>
+
+                    <span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span> <span class="n">mask_files_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span>
+
+                <span class="p">)</span>
+
+                <span class="n">_rename_madx_outputs</span><span class="p">(</span>
+
+                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span>
+
+                    <span class="n">outputdata_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="p">,</span>
+
+                    <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
+
+                <span class="p">)</span>
+
+                <span class="n">_convert_trackone_to_sdds</span><span class="p">()</span>
+
+                <span class="n">_move_trackone_sdds</span><span class="p">(</span>
+
+                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span>
+
+                    <span class="n">trackfiles_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">trackfiles_planes</span><span class="p">[</span><span class="n">kick_plane</span><span class="p">],</span>
+
+                    <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
+
+                <span class="p">)</span>
+
+<span class="nd">@logger.catch</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Run the whole process: create a class instance, simulate for horizontal and vertical kicks,</span>
+
+<span class="sd">    exit.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">command_line_args</span> <span class="o">=</span> <span class="n">_parse_arguments</span><span class="p">()</span>
+
+    <span class="n">_set_logger_level</span><span class="p">(</span><span class="n">command_line_args</span><span class="o">.</span><span class="n">log_level</span><span class="p">)</span>
+
+    <span class="n">simulations</span> <span class="o">=</span> <span class="n">ACDipoleGrid</span><span class="p">()</span>
+
+    <span class="n">simulations</span><span class="o">.</span><span class="n">_check_input_sanity</span><span class="p">()</span>
+
+    <span class="n">simulations</span><span class="o">.</span><span class="n">_create_output_dirs</span><span class="p">()</span>
+
+    <span class="n">sim_type</span> <span class="o">=</span> <span class="n">command_line_args</span><span class="o">.</span><span class="n">simulation_type</span>
+
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">sim_type</span> <span class="o">==</span> <span class="s2">&quot;kick&quot;</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Planes to kick then track on are: {simulations.run_planes}&quot;</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Kick values to compute are (in bunch sigmas): {simulations.sigmas}&quot;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="n">simulations</span><span class="o">.</span><span class="n">run_planes</span><span class="p">:</span>
+
+                <span class="n">simulations</span><span class="o">.</span><span class="n">track_forced_oscillations_for_plane</span><span class="p">(</span><span class="n">kick_plane</span><span class="o">=</span><span class="n">plane</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">sim_type</span> <span class="o">==</span> <span class="s2">&quot;amp&quot;</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Planes to offset then track on are: {simulations.run_planes}&quot;</span><span class="p">)</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+
+                <span class="n">f</span><span class="s2">&quot;Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}&quot;</span>
+
+            <span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="n">simulations</span><span class="o">.</span><span class="n">run_planes</span><span class="p">:</span>
+
+                <span class="n">simulations</span><span class="o">.</span><span class="n">track_free_oscillations_for_plane</span><span class="p">(</span><span class="n">kick_plane</span><span class="o">=</span><span class="n">plane</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Simulation type {sim_type} is not a valid value&quot;</span><span class="p">)</span>
+
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Simulation type should be one of &#39;kick&#39; or &#39;amp&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Manual interruption, ending processes&quot;</span><span class="p">)</span>
+
+        <span class="n">_cleanup_madx_residuals</span><span class="p">()</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+
+            <span class="s2">&quot;The &#39;grid_outputs&#39; folder was left untouched, check for unexpected MADX residuals&quot;</span>
+
+        <span class="p">)</span>
+
+<span class="c1"># ---------------------- Public Utilities ---------------------- #</span>
+
+<span class="k">def</span> <span class="nf">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Run madx on the provided file.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        mask_file (Path): Path object with the mask file location.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Running madx on script: &#39;{mask_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">exit_code</span><span class="p">,</span> <span class="n">std_out</span> <span class="o">=</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;madx {mask_file.absolute()}&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">exit_code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># Dump madx log in case of failure so we can see where it went wrong.</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;MAD-X command self-killed with exit code: {exit_code}&quot;</span><span class="p">)</span>
+
+        <span class="n">log_dump</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;failed_madx_returnedcode_{exit_code}.log&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">log_dump</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">logfile</span><span class="p">:</span>
+
+            <span class="n">logfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">std_out</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>  <span class="c1"># Default &#39;utf-8&#39; encoding, depends on your system.</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+
+            <span class="n">f</span><span class="s2">&quot;The standard output has been dumped to file &#39;failed_command_{exit_code}.logfile&#39;&quot;</span>
+
+        <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">create_script_file</span><span class="p">(</span>
+
+    <span class="n">template_as_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">values_replacing_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Create new script file from template with the appropriate values.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        template_as_str (str): string content of your template mask file.</span>
+
+<span class="sd">        values_replacing_dict (Dict[str, float]): keys to find and values to replace them with in</span>
+
+<span class="sd">            the template.</span>
+
+<span class="sd">        filename (Path): Path object for the file in which to write the script.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">string_mask</span> <span class="o">=</span> <span class="n">_create_script_string</span><span class="p">(</span><span class="n">template_as_str</span><span class="p">,</span> <span class="n">values_replacing_dict</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_write_script_to_file</span><span class="p">(</span><span class="n">string_mask</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># ---------------------- Private Utilities ---------------------- #</span>
+
+<span class="k">def</span> <span class="nf">_convert_trackone_to_sdds</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Run the omc3 tbt_converter script on trackone output of MAD-X. Will also cleanup the `converter`</span>
+
+<span class="sd">    and &#39;stats&#39; files left by tbt_converter afterwards.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;trackone&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Tried to call &#39;tbt_converter&#39; without a &#39;trackone&#39; file present, aborting&quot;</span><span class="p">)</span>
+
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Running &#39;{TBT_CONVERTER_SCRIPT}&#39; on &#39;trackone&#39; file&quot;</span><span class="p">)</span>
+
+    <span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;{OMC_PYTHON.absolute()} {TBT_CONVERTER_SCRIPT.absolute()} &quot;</span>
+
+        <span class="s2">&quot;--files trackone --outputdir . --tbt_datatype trackone&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Removing trackone file &#39;trackone&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;trackone&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Removing outputs of &#39;tbt_converter&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+
+        <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;stats.txt&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+    <span class="k">for</span> <span class="n">tbt_output_file</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;converter_*&quot;</span><span class="p">)):</span>
+
+        <span class="n">tbt_output_file</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">_create_script_string</span><span class="p">(</span><span class="n">template_as_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">values_replacing_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    For each key in the provided dict, will replace it in the template scripts</span>
+
+<span class="sd">    with the corresponding dict value.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        template_as_string (str): the string content of your template mask file.</span>
+
+<span class="sd">        values_replacing_dict (Dict[str, float]): pairs of key, value to find and replace in the</span>
+
+<span class="sd">            template string.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        The new script string.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">script_string</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">template_as_string</span>
+
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">values_replacing_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="n">script_string</span> <span class="o">=</span> <span class="n">script_string</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">script_string</span>
+
+<span class="k">def</span> <span class="nf">_move_mask_file_after_running</span><span class="p">(</span><span class="n">mask_file_path</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">mask_files_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Move the mask file after being done running it with MAD-X.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        mask_file_path (Path): Path object with the file location.</span>
+
+<span class="sd">        mask_files_dir (Path): Path object with the directory to move mask to&#39; location.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Moving mask file &#39;{mask_file_path}&#39; to directory &#39;{mask_files_dir}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">mask_file_path</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{mask_files_dir}/{mask_file_path}&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_move_trackone_sdds</span><span class="p">(</span><span class="n">kick_in_sigma</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">trackfiles_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Call after running omc3&#39;s `tbt_converter` on the `trackone` output by MAD-X, will move the</span>
+
+<span class="sd">    resulting `trackone.sdds` file to the `trackfiles_dir`, with a naming reflecting the ac dipole</span>
+
+<span class="sd">    kick strength.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        kick_in_sigma (Union[str, float]): the AC dipole kick value (in sigma) for which you ran</span>
+
+<span class="sd">            your simulation.</span>
+
+<span class="sd">        trackfiles_dir (Path): PosixPath to the folder in which to store all sdds trackone files.</span>
+
+<span class="sd">        plane (str): the plane on which ac dipole provided the kick, should be `x` or `y`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">):</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plane parameter {plane} is not a valid value&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Plane parameter should be one of &#39;x&#39; or &#39;y&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Moving trackone sdds file to directory &#39;{trackfiles_dir}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">track_sdds_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;trackone.sdds&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">track_sdds_file</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Conversion to trackone sdds file must have failed, check the omc3 script&quot;</span><span class="p">)</span>
+
+        <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
+
+    <span class="n">track_sdds_file</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{trackfiles_dir}/trackone_{kick_in_sigma}_sigma_{plane}.sdds&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_parse_arguments</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">argparse</span><span class="o">.</span><span class="n">Namespace</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Simple argument parser to make life easier in the command-line.</span>
+
+<span class="sd">    Returns a NameSpace with arguments as attributes.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s2">&quot;Running MAD-X AC dipole trackings for you.&quot;</span><span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+
+        <span class="s2">&quot;-s&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;--sigmas&quot;</span><span class="p">,</span>
+
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;sigmas&quot;</span><span class="p">,</span>
+
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+
+        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+
+        <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
+
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Different amplitude values (in bunch sigma) for the AC dipole kicks.&quot;</span>
+
+        <span class="s2">&quot;Defaults to [1, 2].&quot;</span><span class="p">,</span>
+
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+
+        <span class="s2">&quot;-p&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;--planes&quot;</span><span class="p">,</span>
+
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;planes&quot;</span><span class="p">,</span>
+
+        <span class="n">nargs</span><span class="o">=</span><span class="s2">&quot;+&quot;</span><span class="p">,</span>
+
+        <span class="n">default</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;horizontal&quot;</span><span class="p">],</span>
+
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Planes for which to kick, possible values are &#39;horizontal&#39; and &#39;vertical&#39;,&quot;</span>
+
+        <span class="s2">&quot;Defaults to &#39;horizontal&#39;.&quot;</span><span class="p">,</span>
+
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+
+        <span class="s2">&quot;-m&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;--mask&quot;</span><span class="p">,</span>
+
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;template&quot;</span><span class="p">,</span>
+
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;/afs/cern.ch/work/f/fesoubel/public/MADX_scripts/AC_dipole_tracking/ac_kick_tracking_template.mask&quot;</span><span class="p">,</span>
+
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Location of your MAD-X template mask file to use, defaults to &quot;</span>
+
+        <span class="s2">&quot;&#39;/afs/cern.ch/work/f/fesoubel/public/MADX_scripts/AC_dipole_tracking/ac_kick_track_template.mask&#39;.&quot;</span><span class="p">,</span>
+
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+
+        <span class="s2">&quot;-t&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;--type&quot;</span><span class="p">,</span>
+
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;simulation_type&quot;</span><span class="p">,</span>
+
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;kick&quot;</span><span class="p">,</span>
+
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Type of simulations to run, either &#39;kick&#39; for AC dipole kick or &#39;amp&#39; for free &quot;</span>
+
+        <span class="s2">&quot;oscillations. Defaults to &#39;kick&#39;.&quot;</span><span class="p">,</span>
+
+    <span class="p">)</span>
+
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+
+        <span class="s2">&quot;-l&quot;</span><span class="p">,</span>
+
+        <span class="s2">&quot;--logs&quot;</span><span class="p">,</span>
+
+        <span class="n">dest</span><span class="o">=</span><span class="s2">&quot;log_level&quot;</span><span class="p">,</span>
+
+        <span class="n">default</span><span class="o">=</span><span class="s2">&quot;info&quot;</span><span class="p">,</span>
+
+        <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;The base console logging level. Can be &#39;debug&#39;, &#39;info&#39;, &#39;warning&#39; and &#39;error&#39;.&quot;</span>
+
+        <span class="s2">&quot;Defaults to &#39;info&#39;.&quot;</span><span class="p">,</span>
+
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">_rename_madx_outputs</span><span class="p">(</span>
+
+    <span class="n">kick_in_sigma</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">outputdata_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Call after running MAD-X on your mask, will move the &#39;Outpudata&#39; created by MAD-X to the</span>
+
+<span class="sd">    proper place.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        kick_in_sigma (Union[str, float]): the AC dipole kick value (in sigma) for which you ran</span>
+
+<span class="sd">            your simulation.</span>
+
+<span class="sd">        outputdata_dir (Path): PosixPath to the folder in which to store all successive</span>
+
+<span class="sd">            `Outputdata`&#39;s location.</span>
+
+<span class="sd">        plane (str): the plane on which ac dipole provided the kick, should be `x` or `y`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">plane</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">):</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plane parameter should be one of &#39;x&#39;, &#39;y&#39; but {plane} was provided.&quot;</span><span class="p">)</span>
+
+    <span class="n">madx_outputs</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;Outputdata&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Moving MAD-X outputs to directory &#39;{outputdata_dir}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">madx_outputs</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{outputdata_dir}/Outputdata_{kick_in_sigma}_sigma_{plane}&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_set_logger_level</span><span class="p">(</span><span class="n">log_level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;info&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Sets the logger level to the one provided at the commandline.</span>
+
+<span class="sd">    Default loguru handler will have DEBUG level and ID 0.</span>
+
+<span class="sd">    We need to first remove this default handler and add ours with the wanted level.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        log_level (str): the default logging level to print out.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">log_level</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+
+<span class="k">def</span> <span class="nf">_write_script_to_file</span><span class="p">(</span><span class="n">script_as_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Path</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Create a new file with the provided script, and return the location.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        script_as_string (str): the script string to write to file.</span>
+
+<span class="sd">        filename (Union[str, Path]): the file name to use.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        The `pathlib.Path` object to the created file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.mask&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating new mask file &#39;{file_path}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">file_path</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">script</span><span class="p">:</span>
+
+        <span class="n">script</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">script_as_string</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">file_path</span>
+
+<span class="k">def</span> <span class="nf">_cleanup_madx_residuals</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Will look for specific madx artifacts and remove them. Meant to be called in case of</span>
+
+<span class="sd">    interuption.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">expected_residuals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+
+        <span class="s2">&quot;symlinks&quot;</span><span class="p">:</span> <span class="p">[</span>
+
+            <span class="s2">&quot;db5&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;slhc&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;fidel&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;wise&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;optics2016&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;optics2017&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;optics2018&quot;</span><span class="p">,</span>
+
+            <span class="s2">&quot;scripts&quot;</span><span class="p">,</span>
+
+        <span class="p">],</span>
+
+        <span class="s2">&quot;directories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="s2">&quot;Outputdata&quot;</span><span class="p">],</span>
+
+        <span class="s2">&quot;files&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;fort.18&quot;</span><span class="p">],</span>
+
+    <span class="p">}</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cleaning up expected MADX residuals&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">residual_type</span><span class="p">,</span> <span class="n">residual_values</span> <span class="ow">in</span> <span class="n">expected_residuals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Cleaning up MADX residual {residual_type}&quot;</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">residual</span> <span class="ow">in</span> <span class="n">residual_values</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span><span class="o">.</span><span class="n">is_symlink</span><span class="p">()</span> <span class="ow">or</span> <span class="n">Path</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+
+                <span class="n">Path</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="n">Path</span><span class="p">(</span><span class="n">residual</span><span class="p">)</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+                <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">residual</span><span class="p">))</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cleaning up potential residual mask files&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">suspect_mask</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.mask&quot;</span><span class="p">)):</span>
+
+        <span class="k">if</span> <span class="p">(</span>
+
+            <span class="n">suspect_mask</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;initial_&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">suspect_mask</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;sext_&quot;</span><span class="p">)</span>
+
+        <span class="p">)</span> <span class="ow">and</span> <span class="n">suspect_mask</span><span class="o">.</span><span class="n">stem</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;_kick&quot;</span><span class="p">):</span>
+
+            <span class="n">suspect_mask</span><span class="o">.</span><span class="n">unlink</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">main</span><span class="p">()</span>
+</code></pre></div>
+
+</details>
+<h2 id="variables">Variables</h2>
+<div class="highlight"><pre><span></span><code><span class="n">LOGURU_FORMAT</span>
+</code></pre></div>
+<h2 id="functions">Functions</h2>
+<h3 id="create_script_file">create_script_file</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create_script_file</span><span class="p">(</span>
+    <span class="n">template_as_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">values_replacing_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+</code></pre></div>
+Create new script file from template with the appropriate values.</p>
+<p>Args:
+    template_as_str (str): string content of your template mask file.
+    values_replacing_dict (Dict[str, float]): keys to find and values to replace them with in
+        the template.
+    filename (Path): Path object for the file in which to write the script.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">create_script_file</span><span class="p">(</span>
+
+    <span class="n">template_as_str</span><span class="p">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">values_replacing_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+
+    <span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Create new script file from template with the appropriate values.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        template_as_str (str): string content of your template mask file.</span>
+
+<span class="ss">        values_replacing_dict (Dict[str, float]): keys to find and values to replace them with in</span>
+
+<span class="ss">            the template.</span>
+
+<span class="ss">        filename (Path): Path object for the file in which to write the script.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span>
+
+    <span class="n">string_mask</span> <span class="o">=</span> <span class="n">_create_script_string</span><span class="p">(</span><span class="n">template_as_str</span><span class="p">,</span> <span class="n">values_replacing_dict</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">_write_script_to_file</span><span class="p">(</span><span class="n">string_mask</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h3 id="main">main</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Run the whole process: create a class instance, simulate for horizontal and vertical kicks,
+exit.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="nv">@logger</span><span class="p">.</span><span class="k">catch</span><span class="w"></span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Run the whole process: create a class instance, simulate for horizontal and vertical kicks,</span>
+
+<span class="ss">    exit.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">command_line_args</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_parse_arguments</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">_set_logger_level</span><span class="p">(</span><span class="n">command_line_args</span><span class="p">.</span><span class="n">log_level</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">simulations</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ACDipoleGrid</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">simulations</span><span class="p">.</span><span class="n">_check_input_sanity</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">simulations</span><span class="p">.</span><span class="n">_create_output_dirs</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">sim_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">command_line_args</span><span class="p">.</span><span class="n">simulation_type</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">try</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">sim_type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;kick&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Planes to kick then track on are: {simulations.run_planes}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Kick values to compute are (in bunch sigmas): {simulations.sigmas}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">plane</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">simulations</span><span class="p">.</span><span class="nl">run_planes</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">simulations</span><span class="p">.</span><span class="n">track_forced_oscillations_for_plane</span><span class="p">(</span><span class="n">kick_plane</span><span class="o">=</span><span class="n">plane</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">elif</span><span class="w"> </span><span class="n">sim_type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;amp&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Planes to offset then track on are: {simulations.run_planes}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">f</span><span class="ss">&quot;Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">plane</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">simulations</span><span class="p">.</span><span class="nl">run_planes</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">simulations</span><span class="p">.</span><span class="n">track_free_oscillations_for_plane</span><span class="p">(</span><span class="n">kick_plane</span><span class="o">=</span><span class="n">plane</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Simulation type {sim_type} is not a valid value&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Simulation type should be one of &#39;kick&#39; or &#39;amp&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="ow">except</span><span class="w"> </span><span class="nl">KeyboardInterrupt</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="ss">&quot;Manual interruption, ending processes&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">_cleanup_madx_residuals</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;The &#39;grid_outputs&#39; folder was left untouched, check for unexpected MADX residuals&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="run_madx_mask">run_madx_mask</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run_madx_mask</span><span class="p">(</span>
+    <span class="n">mask_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Run madx on the provided file.</p>
+<p>Args:
+    mask_file (Path): Path object with the mask file location.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="p">:</span>
+
+    <span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Run madx on the provided file.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        mask_file (Path): Path object with the mask file location.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Running madx on script: &#39;{mask_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">exit_code</span><span class="p">,</span> <span class="n">std_out</span> <span class="o">=</span> <span class="n">CommandLine</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;madx {mask_file.absolute()}&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">exit_code</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>  <span class="o">#</span> <span class="n">Dump</span> <span class="n">madx</span> <span class="n">log</span> <span class="k">in</span> <span class="k">case</span> <span class="k">of</span> <span class="n">failure</span> <span class="n">so</span> <span class="n">we</span> <span class="n">can</span> <span class="n">see</span> <span class="k">where</span> <span class="n">it</span> <span class="n">went</span> <span class="n">wrong</span><span class="p">.</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;MAD-X command self-killed with exit code: {exit_code}&quot;</span><span class="p">)</span>
+
+        <span class="n">log_dump</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;failed_madx_returnedcode_{exit_code}.log&quot;</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">log_dump</span><span class="p">.</span><span class="k">open</span><span class="p">(</span><span class="ss">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">logfile</span><span class="p">:</span>
+
+            <span class="n">logfile</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">std_out</span><span class="p">.</span><span class="n">decode</span><span class="p">())</span>  <span class="o">#</span> <span class="k">Default</span> <span class="s1">&#39;utf-8&#39;</span> <span class="k">encoding</span><span class="p">,</span> <span class="n">depends</span> <span class="k">on</span> <span class="n">your</span> <span class="k">system</span><span class="p">.</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+
+            <span class="n">f</span><span class="ss">&quot;The standard output has been dumped to file &#39;failed_command_{exit_code}.logfile&#39;&quot;</span>
+
+        <span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h2 id="classes">Classes</h2>
+<h3 id="acdipolegrid">ACDipoleGrid</h3>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ACDipoleGrid</span><span class="p">(</span>
+
+<span class="p">)</span>
+</code></pre></div>
+<p>Algorithm as a class to run the simulations and organize the outputs.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">ACDipoleGrid</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Algorithm as a class to run the simulations and organize the outputs.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">__slots__</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;grid_output_dir&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;PosixPath object to the directory for all outputs&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;mask_files_dir&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;PosixPath object to the directory for simulations&#39; masks&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;outputdata_dir&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;PosixPath object to the directory for simulation data&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;trackfiles_dir&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;PosixPath object to the directory for trackone files&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;trackfiles_planes&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;PosixPath objects to the planes&#39; trackone files&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;run_planes&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;List of planes for which to run simulations&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;sigmas&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;List of amplitudes for AC dipole to kick to (in bunch sigma)&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;template_file&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;PosixPath object to the location of the mask template&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;template_str&quot;</span><span class="err">:</span><span class="w"> </span><span class="ss">&quot;Text in the template_file&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">grid_output_dir</span><span class="p">:</span><span class="w"> </span><span class="k">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="ss">&quot;grid_outputs&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">mask_files_dir</span><span class="p">:</span><span class="w"> </span><span class="k">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">grid_output_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;mask_files&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">outputdata_dir</span><span class="p">:</span><span class="w"> </span><span class="k">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">grid_output_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;outputdata_dirs&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">trackfiles_dir</span><span class="p">:</span><span class="w"> </span><span class="k">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">grid_output_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;trackfiles&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">trackfiles_planes</span><span class="p">:</span><span class="w"> </span><span class="n">Dict</span><span class="o">[</span><span class="n">str, Path</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;horizontal&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">grid_output_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;trackfiles&quot;</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;X&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;vertical&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">grid_output_dir</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;trackfiles&quot;</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="ss">&quot;Y&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="err">}</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">run_planes</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_parse_arguments</span><span class="p">().</span><span class="n">planes</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">sigmas</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">_parse_arguments</span><span class="p">().</span><span class="n">sigmas</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">template_file</span><span class="p">:</span><span class="w"> </span><span class="k">Path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="n">_parse_arguments</span><span class="p">().</span><span class="n">template</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">self</span><span class="p">.</span><span class="nl">template_str</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">template_file</span><span class="p">.</span><span class="n">read_text</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">_check_input_sanity</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Makes sure there are no duplicates in the provided sigma values, because that will mess up</span>
+
+<span class="ss">        a long time after launch and you will cry.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">sigmas</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="k">set</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">sigmas</span><span class="p">))</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                </span><span class="ss">&quot;There is a duplicate in the sigma values, which would cause a failure later.&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">sys</span><span class="p">.</span><span class="k">exit</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">_create_output_dirs</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Will create the proper output dirs if they don&#39;t exist already.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">grid_output_dir</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating directory &#39;{self.grid_output_dir}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">grid_output_dir</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating directory &#39;{self.mask_files_dir}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating directory &#39;{self.outputdata_dir}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_dir</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating directory &#39;{self.trackfiles_dir}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_dir</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_planes</span><span class="o">[</span><span class="n">&quot;horizontal&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating directory &#39;{self.trackfiles_planes[&#39;horizontal&#39;]}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_planes</span><span class="o">[</span><span class="n">&quot;horizontal&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_planes</span><span class="o">[</span><span class="n">&quot;vertical&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating directory &#39;{self.trackfiles_planes[&#39;vertical&#39;]}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_planes</span><span class="o">[</span><span class="n">&quot;vertical&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="ss">&quot;Output directories already present, you may want to move those.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">sys</span><span class="p">.</span><span class="k">exit</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">track_forced_oscillations_for_plane</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">kick_plane</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Run MAD-X simulations with AC dipole tracking for the given plane, and handle outputs.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            kick_plane: the name of the plane on which to apply a kick, either &#39;horizontal&#39;</span>
+
+<span class="ss">                or &#39;vertical&#39;.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">kick_plane</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;horizontal&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;vertical&quot;</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plane parameter {kick_plane} is not a valid value&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Plane parameter should be one of &#39;horizontal&#39; or &#39;vertical&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">with</span><span class="w"> </span><span class="n">timeit</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">lambda</span><span class="w"> </span><span class="nl">spanned</span><span class="p">:</span><span class="w"> </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">f</span><span class="ss">&quot;Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f} seconds&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">kick_in_sigma</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="nl">sigmas</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="k">Set</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">wanted</span><span class="w"> </span><span class="n">kick</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="p">(</span><span class="ow">in</span><span class="w"> </span><span class="n">sigmas</span><span class="p">)</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">plane</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">small</span><span class="w"> </span><span class="n">initial</span><span class="w"></span>
+
+<span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="p">(</span><span class="n">small</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">harpy</span><span class="w"> </span><span class="n">doesn</span><span class="s1">&#39;t cry and we get tune).</span>
+
+<span class="s1">                # Do NOT kick both planes: cross-terms influence the detuning.</span>
+
+<span class="s1">                plane_letter = &quot;x&quot; if kick_plane == &quot;horizontal&quot; else &quot;y&quot;</span>
+
+<span class="s1">                replace_dict = (</span>
+
+<span class="s1">                    {</span>
+
+<span class="s1">                        &quot;%(SIGMAX_VALUE)s&quot;: kick_in_sigma,</span>
+
+<span class="s1">                        &quot;%(SIGMAY_VALUE)s&quot;: 0,</span>
+
+<span class="s1">                        &quot;%(AMPLX_VALUE)s&quot;: 0,</span>
+
+<span class="s1">                        &quot;%(AMPLY_VALUE)s&quot;: 0.5,</span>
+
+<span class="s1">                    }</span>
+
+<span class="s1">                    if kick_plane == &quot;horizontal&quot;</span>
+
+<span class="s1">                    else {</span>
+
+<span class="s1">                        &quot;%(SIGMAX_VALUE)s&quot;: 0,</span>
+
+<span class="s1">                        &quot;%(SIGMAY_VALUE)s&quot;: kick_in_sigma,</span>
+
+<span class="s1">                        &quot;%(AMPLX_VALUE)s&quot;: 0.5,</span>
+
+<span class="s1">                        &quot;%(AMPLY_VALUE)s&quot;: 0,</span>
+
+<span class="s1">                    }</span>
+
+<span class="s1">                )</span>
+
+<span class="s1">                filename_to_write = Path(</span>
+
+<span class="s1">                    f&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span>
+
+<span class="s1">                )</span>
+
+<span class="s1">                mask_file = create_script_file(</span>
+
+<span class="s1">                    self.template_str,</span>
+
+<span class="s1">                    values_replacing_dict=replace_dict,</span>
+
+<span class="s1">                    filename=Path(str(filename_to_write)),</span>
+
+<span class="s1">                )</span>
+
+<span class="s1">                run_madx_mask(mask_file)</span>
+
+<span class="s1">                _move_mask_file_after_running(</span>
+
+<span class="s1">                    mask_file_path=mask_file, mask_files_dir=self.mask_files_dir</span>
+
+<span class="s1">                )</span>
+
+<span class="s1">                _rename_madx_outputs(</span>
+
+<span class="s1">                    kick_in_sigma=kick_in_sigma,</span>
+
+<span class="s1">                    outputdata_dir=self.outputdata_dir,</span>
+
+<span class="s1">                    plane=plane_letter,</span>
+
+<span class="s1">                )</span>
+
+<span class="s1">                _convert_trackone_to_sdds()</span>
+
+<span class="s1">                _move_trackone_sdds(</span>
+
+<span class="s1">                    kick_in_sigma=kick_in_sigma,</span>
+
+<span class="s1">                    trackfiles_dir=self.trackfiles_planes[kick_plane],</span>
+
+<span class="s1">                    plane=plane_letter,</span>
+
+<span class="s1">                )</span>
+
+<span class="s1">    def track_free_oscillations_for_plane(self, kick_plane: str = None) -&gt; None:</span>
+
+<span class="s1">        &quot;&quot;&quot;</span>
+
+<span class="s1">        Run MAD-X simulations with amplitude offset tracking for the given plane, and handle</span>
+
+<span class="s1">        outputs.</span>
+
+<span class="s1">        Args:</span>
+
+<span class="s1">            kick_plane: the name of the plane on which to apply an offset, either &#39;</span><span class="n">horizontal</span><span class="s1">&#39;</span>
+
+<span class="s1">                or &#39;</span><span class="n">vertical</span><span class="s1">&#39;.</span>
+
+<span class="s1">        &quot;&quot;&quot;</span>
+
+<span class="s1">        if kick_plane not in (&quot;horizontal&quot;, &quot;vertical&quot;):</span>
+
+<span class="s1">            logger.error(f&quot;Plane parameter {kick_plane} is not a valid value&quot;)</span>
+
+<span class="s1">            raise ValueError(&quot;Plane parameter should be one of &#39;</span><span class="n">horizontal</span><span class="s1">&#39; or &#39;</span><span class="n">vertical</span><span class="err">&#39;</span><span class="ss">&quot;)</span>
+
+<span class="ss">        with timeit(</span>
+
+<span class="ss">            lambda spanned: logger.info(</span>
+
+<span class="ss">                f&quot;</span><span class="n">Tracked</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">amplitudes</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="err">{</span><span class="n">kick_plane</span><span class="err">}</span><span class="w"> </span><span class="k">offsets</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="err">{</span><span class="nl">spanned</span><span class="p">:</span><span class="mf">.4</span><span class="n">f</span><span class="err">}</span><span class="w"> </span><span class="n">seconds</span><span class="ss">&quot;</span>
+
+<span class="ss">            )</span>
+
+<span class="ss">        ):</span>
+
+<span class="ss">            for kick_in_sigma in self.sigmas:</span>
+
+<span class="ss">                print(&quot;&quot;)</span>
+
+<span class="ss">                plane_letter = &quot;</span><span class="n">x</span><span class="ss">&quot; if kick_plane == &quot;</span><span class="n">horizontal</span><span class="ss">&quot; else &quot;</span><span class="n">y</span><span class="ss">&quot;</span>
+
+<span class="ss">                action_var_value = kick_in_sigma</span>
+
+<span class="ss">                amplitudes_dict = (</span>
+
+<span class="ss">                    {&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">AMPLX_VALUE</span><span class="p">)</span><span class="n">s</span><span class="ss">&quot;: action_var_value, &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">AMPLY_VALUE</span><span class="p">)</span><span class="n">s</span><span class="ss">&quot;: 0.5}</span>
+
+<span class="ss">                    if kick_plane == &quot;</span><span class="n">horizontal</span><span class="ss">&quot;</span>
+
+<span class="ss">                    else {&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">AMPLX_VALUE</span><span class="p">)</span><span class="n">s</span><span class="ss">&quot;: 0.5, &quot;</span><span class="o">%</span><span class="p">(</span><span class="n">AMPLY_VALUE</span><span class="p">)</span><span class="n">s</span><span class="ss">&quot;: action_var_value}</span>
+
+<span class="ss">                )</span>
+
+<span class="ss">                filename_to_write = Path(</span>
+
+<span class="ss">                    f&quot;</span><span class="n">initial_amplitude_tracking_</span><span class="err">{</span><span class="n">kick_in_sigma</span><span class="err">}</span><span class="n">_sigma_</span><span class="err">{</span><span class="n">plane_letter</span><span class="err">}</span><span class="n">_kick</span><span class="err">&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">mask_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_script_file</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">self</span><span class="p">.</span><span class="n">template_str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">values_replacing_dict</span><span class="o">=</span><span class="n">amplitudes_dict</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">filename</span><span class="o">=</span><span class="k">Path</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">filename_to_write</span><span class="p">)),</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_rename_madx_outputs</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_convert_trackone_to_sdds</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_move_trackone_sdds</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">trackfiles_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_planes</span><span class="o">[</span><span class="n">kick_plane</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<hr />
+<h4 id="instance-variables">Instance variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">grid_output_dir</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">mask_files_dir</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">outputdata_dir</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">run_planes</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">sigmas</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">template_file</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">template_str</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">trackfiles_dir</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">trackfiles_planes</span>
+</code></pre></div>
+<h4 id="methods">Methods</h4>
+<h5 id="track_forced_oscillations_for_plane">track_forced_oscillations_for_plane</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">track_forced_oscillations_for_plane</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">kick_plane</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Run MAD-X simulations with AC dipole tracking for the given plane, and handle outputs.</p>
+<p>Args:
+    kick_plane: the name of the plane on which to apply a kick, either 'horizontal'
+        or 'vertical'.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">track_forced_oscillations_for_plane</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">kick_plane</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Run MAD-X simulations with AC dipole tracking for the given plane, and handle outputs.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            kick_plane: the name of the plane on which to apply a kick, either &#39;horizontal&#39;</span>
+
+<span class="ss">                or &#39;vertical&#39;.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">kick_plane</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;horizontal&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;vertical&quot;</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plane parameter {kick_plane} is not a valid value&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Plane parameter should be one of &#39;horizontal&#39; or &#39;vertical&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">with</span><span class="w"> </span><span class="n">timeit</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">lambda</span><span class="w"> </span><span class="nl">spanned</span><span class="p">:</span><span class="w"> </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">f</span><span class="ss">&quot;Tracked all amplitudes for {kick_plane} kicks in {spanned:.4f} seconds&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">kick_in_sigma</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="nl">sigmas</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="k">Set</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">wanted</span><span class="w"> </span><span class="n">kick</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="p">(</span><span class="ow">in</span><span class="w"> </span><span class="n">sigmas</span><span class="p">)</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">plane</span><span class="p">,</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">small</span><span class="w"> </span><span class="n">initial</span><span class="w"></span>
+
+<span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="p">(</span><span class="n">small</span><span class="w"> </span><span class="n">offset</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">harpy</span><span class="w"> </span><span class="n">doesn</span><span class="err">&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">cry</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">we</span><span class="w"> </span><span class="k">get</span><span class="w"> </span><span class="n">tune</span><span class="p">).</span><span class="w"></span>
+
+<span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="ow">NOT</span><span class="w"> </span><span class="n">kick</span><span class="w"> </span><span class="k">both</span><span class="w"> </span><span class="nl">planes</span><span class="p">:</span><span class="w"> </span><span class="k">cross</span><span class="o">-</span><span class="n">terms</span><span class="w"> </span><span class="n">influence</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">detuning</span><span class="p">.</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">plane_letter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;x&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">kick_plane</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;horizontal&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="ss">&quot;y&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">replace_dict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">{</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(SIGMAX_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(SIGMAY_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(AMPLX_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(AMPLY_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">}</span><span class="w"></span>
+
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="n">kick_plane</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;horizontal&quot;</span><span class="w"></span>
+
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(SIGMAX_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(SIGMAY_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(AMPLX_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                        </span><span class="ss">&quot;%(AMPLY_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">}</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">filename_to_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">f</span><span class="ss">&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">mask_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_script_file</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">self</span><span class="p">.</span><span class="n">template_str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">values_replacing_dict</span><span class="o">=</span><span class="n">replace_dict</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">filename</span><span class="o">=</span><span class="k">Path</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">filename_to_write</span><span class="p">)),</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_rename_madx_outputs</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_convert_trackone_to_sdds</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_move_trackone_sdds</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">trackfiles_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_planes</span><span class="o">[</span><span class="n">kick_plane</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h5 id="track_free_oscillations_for_plane">track_free_oscillations_for_plane</h5>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">track_free_oscillations_for_plane</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span>
+    <span class="n">kick_plane</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Run MAD-X simulations with amplitude offset tracking for the given plane, and handle
+outputs.</p>
+<p>Args:
+    kick_plane: the name of the plane on which to apply an offset, either 'horizontal'
+        or 'vertical'.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">track_free_oscillations_for_plane</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">kick_plane</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">        Run MAD-X simulations with amplitude offset tracking for the given plane, and handle</span>
+
+<span class="ss">        outputs.</span>
+
+<span class="ss">        Args:</span>
+
+<span class="ss">            kick_plane: the name of the plane on which to apply an offset, either &#39;horizontal&#39;</span>
+
+<span class="ss">                or &#39;vertical&#39;.</span>
+
+<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">kick_plane</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;horizontal&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;vertical&quot;</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plane parameter {kick_plane} is not a valid value&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Plane parameter should be one of &#39;horizontal&#39; or &#39;vertical&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">with</span><span class="w"> </span><span class="n">timeit</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">lambda</span><span class="w"> </span><span class="nl">spanned</span><span class="p">:</span><span class="w"> </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">f</span><span class="ss">&quot;Tracked all amplitudes for {kick_plane} offsets in {spanned:.4f} seconds&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">kick_in_sigma</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="nl">sigmas</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">print</span><span class="p">(</span><span class="ss">&quot;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">plane_letter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;x&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">kick_plane</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;horizontal&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="ss">&quot;y&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">action_var_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kick_in_sigma</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">amplitudes_dict</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="err">{</span><span class="ss">&quot;%(AMPLX_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">action_var_value</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;%(AMPLY_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mf">0.5</span><span class="err">}</span><span class="w"></span>
+
+<span class="w">                    </span><span class="k">if</span><span class="w"> </span><span class="n">kick_plane</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;horizontal&quot;</span><span class="w"></span>
+
+<span class="w">                    </span><span class="k">else</span><span class="w"> </span><span class="err">{</span><span class="ss">&quot;%(AMPLX_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;%(AMPLY_VALUE)s&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">action_var_value</span><span class="err">}</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">filename_to_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">f</span><span class="ss">&quot;initial_amplitude_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">mask_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_script_file</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">self</span><span class="p">.</span><span class="n">template_str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">values_replacing_dict</span><span class="o">=</span><span class="n">amplitudes_dict</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">filename</span><span class="o">=</span><span class="k">Path</span><span class="p">(</span><span class="nf">str</span><span class="p">(</span><span class="n">filename_to_write</span><span class="p">)),</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_rename_madx_outputs</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_convert_trackone_to_sdds</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">_move_trackone_sdds</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">trackfiles_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">trackfiles_planes</span><span class="o">[</span><span class="n">kick_plane</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Index
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../triplet_errors/algo/" title="Algo" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Algo
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

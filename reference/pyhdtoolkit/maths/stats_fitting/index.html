@@ -1,0 +1,1664 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Stats Fitting - PyhDToolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009485">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-pyhdtoolkitmathsstats_fitting" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../.." title="PyhDToolkit" class="md-header-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            PyhDToolkit
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Stats Fitting
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="PyhDToolkit" class="md-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    PyhDToolkit
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/About_PyhDToolkit/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/Getting_Started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Pyhdtoolkit
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Pyhdtoolkit" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        Pyhdtoolkit
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-2" type="checkbox" id="nav-4-1-2">
+    
+    <label class="md-nav__link" for="nav-4-1-2">
+      Cpymadtools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cpymadtools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-2">
+        <span class="md-nav__icon md-icon"></span>
+        Cpymadtools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/lattice_generators/" title="Lattice Generators" class="md-nav__link">
+      Lattice Generators
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/plotters/" title="Plotters" class="md-nav__link">
+      Plotters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Maths
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Maths" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        <span class="md-nav__icon md-icon"></span>
+        Maths
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../nonconvex_phase_sync/" title="Nonconvex Phase Sync" class="md-nav__link">
+      Nonconvex Phase Sync
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Stats Fitting
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Stats Fitting" class="md-nav__link md-nav__link--active">
+      Stats Fitting
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-mathsstats_fitting" class="md-nav__link">
+    Module maths.stats_fitting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best_fit_distribution" class="md-nav__link">
+    best_fit_distribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_pdf" class="md-nav__link">
+    make_pdf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_distributions_dict" class="md-nav__link">
+    set_distributions_dict
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Optics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Optics" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Optics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
+      Amplitude Detuning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/beam/" title="Beam" class="md-nav__link">
+      Beam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-5" type="checkbox" id="nav-4-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-5">
+      Plotting
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Plotting" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-5">
+        <span class="md-nav__icon md-icon"></span>
+        Plotting
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/timedata/" title="Timedata" class="md-nav__link">
+      Timedata
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6" type="checkbox" id="nav-4-1-6">
+    
+    <label class="md-nav__link" for="nav-4-1-6">
+      Scripts
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Scripts" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-6">
+        <span class="md-nav__icon md-icon"></span>
+        Scripts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-2" type="checkbox" id="nav-4-1-6-2">
+    
+    <label class="md-nav__link" for="nav-4-1-6-2">
+      Ac Dipole
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Ac Dipole" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Ac Dipole
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/sext_ac_dipole_tracking/" title="Sext Ac Dipole Tracking" class="md-nav__link">
+      Sext Ac Dipole Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-3" type="checkbox" id="nav-4-1-6-3">
+    
+    <label class="md-nav__link" for="nav-4-1-6-3">
+      Triplet Errors
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Triplet Errors" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Triplet Errors
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/algo/" title="Algo" class="md-nav__link">
+      Algo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/data_classes/" title="Data Classes" class="md-nav__link">
+      Data Classes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/plotting_functions/" title="Plotting Functions" class="md-nav__link">
+      Plotting Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-7" type="checkbox" id="nav-4-1-7">
+    
+    <label class="md-nav__link" for="nav-4-1-7">
+      Tfstools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Tfstools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-7">
+        <span class="md-nav__icon md-icon"></span>
+        Tfstools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-8" type="checkbox" id="nav-4-1-8">
+    
+    <label class="md-nav__link" for="nav-4-1-8">
+      Utils
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Utils" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-8">
+        <span class="md-nav__icon md-icon"></span>
+        Utils
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/cmdline/" title="Cmdline" class="md-nav__link">
+      Cmdline
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/contexts/" title="Contexts" class="md-nav__link">
+      Contexts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/defaults/" title="Defaults" class="md-nav__link">
+      Defaults
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/executors/" title="Executors" class="md-nav__link">
+      Executors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/operations/" title="Operations" class="md-nav__link">
+      Operations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/printutil/" title="Printutil" class="md-nav__link">
+      Printutil
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#module-mathsstats_fitting" class="md-nav__link">
+    Module maths.stats_fitting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#best_fit_distribution" class="md-nav__link">
+    best_fit_distribution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_pdf" class="md-nav__link">
+    make_pdf
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set_distributions_dict" class="md-nav__link">
+    set_distributions_dict
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/maths/stats_fitting.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-pyhdtoolkitmathsstats_fitting">Module pyhdtoolkit.maths.stats_fitting</h1>
+<h2 id="module-mathsstats_fitting">Module maths.stats_fitting</h2>
+<p>Created on 2020.02.06
+:author: Felix Soubelet (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;">&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;</a>)</p>
+<p>This is a Python3 module implementing methods to find the best fit of statistical distributions
+to data.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Module maths.stats_fitting</span>
+
+<span class="sd">--------------------------</span>
+
+<span class="sd">Created on 2020.02.06</span>
+
+<span class="sd">:author: Felix Soubelet (felix.soubelet@cern.ch)</span>
+
+<span class="sd">This is a Python3 module implementing methods to find the best fit of statistical distributions</span>
+
+<span class="sd">to data.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="c1"># Distributions to check #</span>
+
+<span class="n">DISTRIBUTIONS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="n">st</span><span class="o">.</span><span class="n">chi</span><span class="p">:</span> <span class="s2">&quot;Chi&quot;</span><span class="p">,</span>
+
+    <span class="n">st</span><span class="o">.</span><span class="n">chi2</span><span class="p">:</span> <span class="s2">&quot;Chi-Square&quot;</span><span class="p">,</span>
+
+    <span class="n">st</span><span class="o">.</span><span class="n">expon</span><span class="p">:</span> <span class="s2">&quot;Exponential&quot;</span><span class="p">,</span>
+
+    <span class="n">st</span><span class="o">.</span><span class="n">laplace</span><span class="p">:</span> <span class="s2">&quot;Laplace&quot;</span><span class="p">,</span>
+
+    <span class="n">st</span><span class="o">.</span><span class="n">lognorm</span><span class="p">:</span> <span class="s2">&quot;LogNorm&quot;</span><span class="p">,</span>
+
+    <span class="n">st</span><span class="o">.</span><span class="n">norm</span><span class="p">:</span> <span class="s2">&quot;Normal&quot;</span><span class="p">,</span>
+
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">set_distributions_dict</span><span class="p">(</span><span class="n">dist_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to</span>
+
+<span class="sd">    try out.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        dist_dict Dict[st.rv_continuous, str]: dictionnary with the wanted distributions,</span>
+
+<span class="sd">            in the format of DISTRIBUTIONS, aka scipy.stats generator objects as keys, and a string</span>
+
+<span class="sd">            representation of their name as value.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        Nothing, but modifies the global DISTRIBUTIONS dict called by other functions.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=global-statement</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting tested distributions&quot;</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">DISTRIBUTIONS</span>
+
+    <span class="n">DISTRIBUTIONS</span> <span class="o">=</span> <span class="n">dist_dict</span>
+
+<span class="k">def</span> <span class="nf">best_fit_distribution</span><span class="p">(</span>
+
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Model data by finding best fit candidate distribution among those in DISTRIBUTIONS.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        data (Union[pd.Series, np.ndarray]): a pandas Series or numpy array with your</span>
+
+<span class="sd">            distribution data.</span>
+
+<span class="sd">        bins (int): the number of bins to decompose your data in before performing fittings.</span>
+
+<span class="sd">        ax (matplotlib.axes.Axes): the matplotlib axis object on which to plot the pdf of tried</span>
+
+<span class="sd">            functions. This should be provided as the ax on which you plotted your distribution.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A tuple containing the scipy.stats generator corresponding to the best fit candidate,</span>
+
+<span class="sd">        and the parameters to give said generator to get this fit.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># pylint: disable=too-many-locals</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting histogram of original data, in </span><span class="si">{</span><span class="n">bins</span><span class="si">}</span><span class="s2"> bins&quot;</span><span class="p">)</span>
+
+    <span class="n">y</span><span class="p">,</span> <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">histogram</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bins</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="kp">roll</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating initial guess&quot;</span><span class="p">)</span>
+
+    <span class="n">best_distribution</span> <span class="o">=</span> <span class="n">st</span><span class="o">.</span><span class="n">norm</span>
+
+    <span class="n">best_params</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="n">best_sse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">inf</span>
+
+    <span class="c1"># Estimate distribution parameters from data</span>
+
+    <span class="k">for</span> <span class="n">distribution</span><span class="p">,</span> <span class="n">distname</span> <span class="ow">in</span> <span class="n">DISTRIBUTIONS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+
+        <span class="k">try</span><span class="p">:</span>
+
+            <span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>  <span class="c1"># Ignore warnings from data that can&#39;t be fit</span>
+
+                <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trying to fit distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+                <span class="n">params</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+                <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">params</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+
+                    <span class="sa">f</span><span class="s2">&quot;Calculating PDF goodness of fit and error for distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+
+                <span class="p">)</span>
+
+                <span class="n">pdf</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+                <span class="n">sse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="kp">power</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pdf</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
+
+                <span class="k">try</span><span class="p">:</span>
+
+                    <span class="k">if</span> <span class="n">ax</span><span class="p">:</span>
+
+                        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting fitted PDF for distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+                        <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2"> fit&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+
+                    <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39; failed&quot;</span><span class="p">)</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+
+                    <span class="sa">f</span><span class="s2">&quot;Identifying if distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39; is a better fit than previous tries&quot;</span>
+
+                <span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">best_sse</span> <span class="o">&gt;</span> <span class="n">sse</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+
+                    <span class="n">best_distribution</span> <span class="o">=</span> <span class="n">distribution</span>
+
+                    <span class="n">best_params</span> <span class="o">=</span> <span class="n">params</span>
+
+                    <span class="n">best_sse</span> <span class="o">=</span> <span class="n">sse</span>
+
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trying to fit distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39; failed and aborted&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found a best fit: &#39;</span><span class="si">{</span><span class="n">DISTRIBUTIONS</span><span class="p">[</span><span class="n">best_distribution</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; distribution&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">best_distribution</span><span class="p">,</span> <span class="n">best_params</span>
+
+<span class="k">def</span> <span class="nf">make_pdf</span><span class="p">(</span>
+
+    <span class="n">distribution</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="kp">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25_000</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Generate a pandas Series for the distributions&#39;s Probability Distribution Function. This Series</span>
+
+<span class="sd">    will have axis values as index, and PDF values as values.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        distribution (st.rv_continuous): a scipy.stats generator object</span>
+
+<span class="sd">        params (Tuple[float, ...]): the parameters for this generator given back by the fit.</span>
+
+<span class="sd">        size (int): the number of points to evaluate.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A pandas Series object with the PDF as values, corresponding axis values as index.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Separate parts of parameters</span>
+
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">params</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting sane start and end points of distribution&quot;</span><span class="p">)</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="p">(</span>
+
+        <span class="n">distribution</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span>
+
+        <span class="k">else</span> <span class="n">distribution</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+
+    <span class="p">)</span>
+
+    <span class="n">end</span> <span class="o">=</span> <span class="p">(</span>
+
+        <span class="n">distribution</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span>
+
+        <span class="k">else</span> <span class="n">distribution</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
+
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Building PDF&quot;</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="kp">size</span><span class="p">)</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h2 id="variables">Variables</h2>
+<div class="highlight"><pre><span></span><code><span class="n">DISTRIBUTIONS</span>
+</code></pre></div>
+<h2 id="functions">Functions</h2>
+<h3 id="best_fit_distribution">best_fit_distribution</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">best_fit_distribution</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">series</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span>
+    <span class="n">ax</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">_axes</span><span class="o">.</span><span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">_distn_infrastructure</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span>
+</code></pre></div>
+Model data by finding best fit candidate distribution among those in DISTRIBUTIONS.</p>
+<p>Args:
+    data (Union[pd.Series, np.ndarray]): a pandas Series or numpy array with your
+        distribution data.
+    bins (int): the number of bins to decompose your data in before performing fittings.
+    ax (matplotlib.axes.Axes): the matplotlib axis object on which to plot the pdf of tried
+        functions. This should be provided as the ax on which you plotted your distribution.</p>
+<p>Returns:
+    A tuple containing the scipy.stats generator corresponding to the best fit candidate,
+    and the parameters to give said generator to get this fit.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">best_fit_distribution</span><span class="p">(</span>
+
+    <span class="nn">data</span><span class="p">:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">pd</span><span class="p">.</span><span class="nv">Series</span><span class="p">,</span> <span class="s s-Atom">np</span><span class="p">.</span><span class="s s-Atom">ndarray</span><span class="p">],</span> <span class="nn">bins</span><span class="p">:</span> <span class="s s-Atom">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="nn">ax</span><span class="p">:</span> <span class="s s-Atom">matplotlib</span><span class="p">.</span><span class="s s-Atom">axes</span><span class="p">.</span><span class="nv">Axes</span> <span class="o">=</span> <span class="nv">None</span>
+
+<span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="nv">Tuple</span><span class="p">[</span><span class="s s-Atom">st</span><span class="p">.</span><span class="s s-Atom">rv_continuous</span><span class="p">,</span> <span class="nv">Tuple</span><span class="p">[</span><span class="s s-Atom">float</span><span class="p">,</span> <span class="p">...]]</span><span class="s s-Atom">:</span>
+
+    <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">    Model data by finding best fit candidate distribution among those in DISTRIBUTIONS.</span>
+
+<span class="s2">    Args:</span>
+
+<span class="s2">        data (Union[pd.Series, np.ndarray]): a pandas Series or numpy array with your</span>
+
+<span class="s2">            distribution data.</span>
+
+<span class="s2">        bins (int): the number of bins to decompose your data in before performing fittings.</span>
+
+<span class="s2">        ax (matplotlib.axes.Axes): the matplotlib axis object on which to plot the pdf of tried</span>
+
+<span class="s2">            functions. This should be provided as the ax on which you plotted your distribution.</span>
+
+<span class="s2">    Returns:</span>
+
+<span class="s2">        A tuple containing the scipy.stats generator corresponding to the best fit candidate,</span>
+
+<span class="s2">        and the parameters to give said generator to get this fit.</span>
+
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="s s-Atom">#</span> <span class="nn">pylint</span><span class="p">:</span> <span class="s s-Atom">disable</span><span class="o">=</span><span class="s s-Atom">too</span><span class="o">-</span><span class="s s-Atom">many</span><span class="o">-</span><span class="s s-Atom">locals</span>
+
+    <span class="s s-Atom">logger</span><span class="p">.</span><span class="nf">debug</span><span class="p">(</span><span class="s s-Atom">f</span><span class="s2">&quot;Getting histogram of original data, in {bins} bins&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">y</span><span class="p">,</span> <span class="s s-Atom">x</span> <span class="o">=</span> <span class="s s-Atom">np</span><span class="p">.</span><span class="nf">histogram</span><span class="p">(</span><span class="s s-Atom">data</span><span class="p">,</span> <span class="s s-Atom">bins</span><span class="o">=</span><span class="s s-Atom">bins</span><span class="p">,</span> <span class="s s-Atom">density</span><span class="o">=</span><span class="nv">True</span><span class="p">)</span>
+
+    <span class="s s-Atom">x</span> <span class="o">=</span> <span class="p">(</span><span class="s s-Atom">x</span> <span class="o">+</span> <span class="s s-Atom">np</span><span class="p">.</span><span class="nf">roll</span><span class="p">(</span><span class="s s-Atom">x</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))[:-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.0</span>
+
+    <span class="s s-Atom">logger</span><span class="p">.</span><span class="nf">debug</span><span class="p">(</span><span class="s2">&quot;Creating initial guess&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">best_distribution</span> <span class="o">=</span> <span class="s s-Atom">st</span><span class="p">.</span><span class="s s-Atom">norm</span>
+
+    <span class="s s-Atom">best_params</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="s s-Atom">best_sse</span> <span class="o">=</span> <span class="s s-Atom">np</span><span class="p">.</span><span class="s s-Atom">inf</span>
+
+    <span class="s s-Atom">#</span> <span class="nv">Estimate</span> <span class="s s-Atom">distribution</span> <span class="s s-Atom">parameters</span> <span class="s s-Atom">from</span> <span class="s s-Atom">data</span>
+
+    <span class="s s-Atom">for</span> <span class="s s-Atom">distribution</span><span class="p">,</span> <span class="s s-Atom">distname</span> <span class="s s-Atom">in</span> <span class="nv">DISTRIBUTIONS</span><span class="p">.</span><span class="nf">items</span><span class="p">()</span><span class="s s-Atom">:</span>
+
+        <span class="nn">try</span><span class="p">:</span>
+
+            <span class="s s-Atom">with</span> <span class="s s-Atom">warnings</span><span class="p">.</span><span class="nf">catch_warnings</span><span class="p">()</span><span class="s s-Atom">:</span>  <span class="s s-Atom">#</span> <span class="nv">Ignore</span> <span class="s s-Atom">warnings</span> <span class="s s-Atom">from</span> <span class="s s-Atom">data</span> <span class="s s-Atom">that</span> <span class="s s-Atom">can&#39;t be fit</span>
+
+<span class="s s-Atom">                warnings.filterwarnings(&quot;ignore&quot;)</span>
+
+<span class="s s-Atom">                logger.debug(f&quot;Trying to fit distribution &#39;</span><span class="p">{</span><span class="s s-Atom">distname</span><span class="p">}</span><span class="s s-Atom">&#39;&quot;)</span>
+
+<span class="s s-Atom">                params = distribution.fit(data)</span>
+
+<span class="s s-Atom">                *args, loc, scale = params</span>
+
+<span class="s s-Atom">                logger.debug(</span>
+
+<span class="s s-Atom">                    f&quot;Calculating PDF goodness of fit and error for distribution &#39;</span><span class="p">{</span><span class="s s-Atom">distname</span><span class="p">}</span><span class="s s-Atom">&#39;&quot;</span>
+
+<span class="s s-Atom">                )</span>
+
+<span class="s s-Atom">                pdf = distribution.pdf(x, loc=loc, scale=scale, *args)</span>
+
+<span class="s s-Atom">                sse = np.sum(np.power(y - pdf, 2.0))</span>
+
+<span class="s s-Atom">                try:</span>
+
+<span class="s s-Atom">                    if ax:</span>
+
+<span class="s s-Atom">                        logger.debug(f&quot;Plotting fitted PDF for distribution &#39;</span><span class="p">{</span><span class="s s-Atom">distname</span><span class="p">}</span><span class="s s-Atom">&#39;&quot;)</span>
+
+<span class="s s-Atom">                        pd.Series(pdf, x).plot(ax=ax, label=f&quot;{distname} fit&quot;, alpha=1, lw=2)</span>
+
+<span class="s s-Atom">                except Exception:</span>
+
+<span class="s s-Atom">                    logger.exception(f&quot;Plotting distribution &#39;</span><span class="p">{</span><span class="s s-Atom">distname</span><span class="p">}</span><span class="s s-Atom">&#39; failed&quot;)</span>
+
+<span class="s s-Atom">                logger.debug(</span>
+
+<span class="s s-Atom">                    f&quot;Identifying if distribution &#39;</span><span class="p">{</span><span class="s s-Atom">distname</span><span class="p">}</span><span class="s s-Atom">&#39; is a better fit than previous tries&quot;</span>
+
+<span class="s s-Atom">                )</span>
+
+<span class="s s-Atom">                if best_sse &gt; sse &gt; 0:</span>
+
+<span class="s s-Atom">                    best_distribution = distribution</span>
+
+<span class="s s-Atom">                    best_params = params</span>
+
+<span class="s s-Atom">                    best_sse = sse</span>
+
+<span class="s s-Atom">        except Exception:</span>
+
+<span class="s s-Atom">            logger.exception(f&quot;Trying to fit distribution &#39;</span><span class="p">{</span><span class="s s-Atom">distname</span><span class="p">}</span><span class="s s-Atom">&#39; failed and aborted&quot;)</span>
+
+<span class="s s-Atom">    logger.info(f&quot;Found a best fit: &#39;</span><span class="p">{</span><span class="nv">DISTRIBUTIONS</span><span class="p">[</span><span class="s s-Atom">best_distribution</span><span class="p">]}</span><span class="err">&#39;</span> <span class="s s-Atom">distribution</span><span class="err">&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">return</span> <span class="s s-Atom">best_distribution</span><span class="p">,</span> <span class="s s-Atom">best_params</span>
+</code></pre></div>
+
+</details>
+<h3 id="make_pdf">make_pdf</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_pdf</span><span class="p">(</span>
+    <span class="n">distribution</span><span class="p">:</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">_distn_infrastructure</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span>
+    <span class="n">params</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+    <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25000</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">series</span><span class="o">.</span><span class="n">Series</span>
+</code></pre></div>
+Generate a pandas Series for the distributions's Probability Distribution Function. This Series
+will have axis values as index, and PDF values as values.</p>
+<p>Args:
+    distribution (st.rv_continuous): a scipy.stats generator object
+    params (Tuple[float, ...]): the parameters for this generator given back by the fit.
+    size (int): the number of points to evaluate.</p>
+<p>Returns:
+    A pandas Series object with the PDF as values, corresponding axis values as index.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_pdf</span><span class="p">(</span>
+
+    <span class="n">distribution</span><span class="p">:</span> <span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="p">...],</span> <span class="k">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25</span><span class="n">_000</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">:</span>
+
+    <span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Generate a pandas Series for the distributions&#39;s Probability Distribution Function. This Series</span>
+
+<span class="ss">    will have axis values as index, and PDF values as values.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        distribution (st.rv_continuous): a scipy.stats generator object</span>
+
+<span class="ss">        params (Tuple[float, ...]): the parameters for this generator given back by the fit.</span>
+
+<span class="ss">        size (int): the number of points to evaluate.</span>
+
+<span class="ss">    Returns:</span>
+
+<span class="ss">        A pandas Series object with the PDF as values, corresponding axis values as index.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span>
+
+    <span class="o">#</span> <span class="n">Separate</span> <span class="n">parts</span> <span class="k">of</span> <span class="k">parameters</span>
+
+    <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="k">scale</span> <span class="o">=</span> <span class="n">params</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting sane start and end points of distribution&quot;</span><span class="p">)</span>
+
+    <span class="k">start</span> <span class="o">=</span> <span class="p">(</span>
+
+        <span class="n">distribution</span><span class="p">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="k">scale</span><span class="o">=</span><span class="k">scale</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span>
+
+        <span class="k">else</span> <span class="n">distribution</span><span class="p">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">01</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="k">scale</span><span class="o">=</span><span class="k">scale</span><span class="p">)</span>
+
+    <span class="p">)</span>
+
+    <span class="k">end</span> <span class="o">=</span> <span class="p">(</span>
+
+        <span class="n">distribution</span><span class="p">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">99</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="k">scale</span><span class="o">=</span><span class="k">scale</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">args</span>
+
+        <span class="k">else</span> <span class="n">distribution</span><span class="p">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">99</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="k">scale</span><span class="o">=</span><span class="k">scale</span><span class="p">)</span>
+
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Building PDF&quot;</span><span class="p">)</span>
+
+    <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linspace</span><span class="p">(</span><span class="k">start</span><span class="p">,</span> <span class="k">end</span><span class="p">,</span> <span class="k">size</span><span class="p">)</span>
+
+    <span class="n">y</span> <span class="o">=</span> <span class="n">distribution</span><span class="p">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="k">scale</span><span class="o">=</span><span class="k">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h3 id="set_distributions_dict">set_distributions_dict</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">set_distributions_dict</span><span class="p">(</span>
+    <span class="n">dist_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">_distn_infrastructure</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to
+try out.</p>
+<p>Args:
+    dist_dict Dict[st.rv_continuous, str]: dictionnary with the wanted distributions,
+        in the format of DISTRIBUTIONS, aka scipy.stats generator objects as keys, and a string
+        representation of their name as value.</p>
+<p>Returns:
+    Nothing, but modifies the global DISTRIBUTIONS dict called by other functions.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">set_distributions_dict</span><span class="p">(</span><span class="n">dist_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="p">:</span>
+
+    <span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to</span>
+
+<span class="ss">    try out.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        dist_dict Dict[st.rv_continuous, str]: dictionnary with the wanted distributions,</span>
+
+<span class="ss">            in the format of DISTRIBUTIONS, aka scipy.stats generator objects as keys, and a string</span>
+
+<span class="ss">            representation of their name as value.</span>
+
+<span class="ss">    Returns:</span>
+
+<span class="ss">        Nothing, but modifies the global DISTRIBUTIONS dict called by other functions.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span>
+
+    <span class="o">#</span> <span class="n">pylint</span><span class="p">:</span> <span class="n">disable</span><span class="o">=</span><span class="k">global</span><span class="o">-</span><span class="k">statement</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Setting tested distributions&quot;</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">DISTRIBUTIONS</span>
+
+    <span class="n">DISTRIBUTIONS</span> <span class="o">=</span> <span class="n">dist_dict</span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../nonconvex_phase_sync/" title="Nonconvex Phase Sync" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Nonconvex Phase Sync
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Amplitude Detuning
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

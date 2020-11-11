@@ -1,0 +1,2441 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Plotting Functions - PyhDToolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009485">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-pyhdtoolkitscriptstriplet_errorsplotting_functions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../../.." title="PyhDToolkit" class="md-header-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            PyhDToolkit
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Plotting Functions
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="PyhDToolkit" class="md-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    PyhDToolkit
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../docs/About_PyhDToolkit/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../../docs/Getting_Started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Pyhdtoolkit
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Pyhdtoolkit" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        Pyhdtoolkit
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-2" type="checkbox" id="nav-4-1-2">
+    
+    <label class="md-nav__link" for="nav-4-1-2">
+      Cpymadtools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cpymadtools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-2">
+        <span class="md-nav__icon md-icon"></span>
+        Cpymadtools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/lattice_generators/" title="Lattice Generators" class="md-nav__link">
+      Lattice Generators
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/plotters/" title="Plotters" class="md-nav__link">
+      Plotters
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3">
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Maths
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Maths" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        <span class="md-nav__icon md-icon"></span>
+        Maths
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../maths/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../maths/nonconvex_phase_sync/" title="Nonconvex Phase Sync" class="md-nav__link">
+      Nonconvex Phase Sync
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../maths/stats_fitting/" title="Stats Fitting" class="md-nav__link">
+      Stats Fitting
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Optics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Optics" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Optics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
+      Amplitude Detuning
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/beam/" title="Beam" class="md-nav__link">
+      Beam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../optics/twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-5" type="checkbox" id="nav-4-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-5">
+      Plotting
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Plotting" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-5">
+        <span class="md-nav__icon md-icon"></span>
+        Plotting
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../plotting/timedata/" title="Timedata" class="md-nav__link">
+      Timedata
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6" type="checkbox" id="nav-4-1-6" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-6">
+      Scripts
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Scripts" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-6">
+        <span class="md-nav__icon md-icon"></span>
+        Scripts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-2" type="checkbox" id="nav-4-1-6-2">
+    
+    <label class="md-nav__link" for="nav-4-1-6-2">
+      Ac Dipole
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Ac Dipole" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Ac Dipole
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ac_dipole/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../ac_dipole/sext_ac_dipole_tracking/" title="Sext Ac Dipole Tracking" class="md-nav__link">
+      Sext Ac Dipole Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-3" type="checkbox" id="nav-4-1-6-3" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-6-3">
+      Triplet Errors
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Triplet Errors" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Triplet Errors
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../algo/" title="Algo" class="md-nav__link">
+      Algo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../data_classes/" title="Data Classes" class="md-nav__link">
+      Data Classes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Plotting Functions
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Plotting Functions" class="md-nav__link md-nav__link--active">
+      Plotting Functions
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#script-scriptstriplet_errorsplotting_functions" class="md-nav__link">
+    Script scripts.triplet_errors.plotting_functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plot_bbing_max_errorbar" class="md-nav__link">
+    plot_bbing_max_errorbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_bbing_with_ips_errorbar" class="md-nav__link">
+    plot_bbing_with_ips_errorbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_betas_across_machine" class="md-nav__link">
+    plot_betas_across_machine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_intermediate_beta_histograms" class="md-nav__link">
+    plot_intermediate_beta_histograms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-7" type="checkbox" id="nav-4-1-7">
+    
+    <label class="md-nav__link" for="nav-4-1-7">
+      Tfstools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Tfstools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-7">
+        <span class="md-nav__icon md-icon"></span>
+        Tfstools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tfstools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../tfstools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-8" type="checkbox" id="nav-4-1-8">
+    
+    <label class="md-nav__link" for="nav-4-1-8">
+      Utils
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Utils" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-8">
+        <span class="md-nav__icon md-icon"></span>
+        Utils
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/cmdline/" title="Cmdline" class="md-nav__link">
+      Cmdline
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/contexts/" title="Contexts" class="md-nav__link">
+      Contexts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/defaults/" title="Defaults" class="md-nav__link">
+      Defaults
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/executors/" title="Executors" class="md-nav__link">
+      Executors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/operations/" title="Operations" class="md-nav__link">
+      Operations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../utils/printutil/" title="Printutil" class="md-nav__link">
+      Printutil
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#script-scriptstriplet_errorsplotting_functions" class="md-nav__link">
+    Script scripts.triplet_errors.plotting_functions
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#plot_bbing_max_errorbar" class="md-nav__link">
+    plot_bbing_max_errorbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_bbing_with_ips_errorbar" class="md-nav__link">
+    plot_bbing_with_ips_errorbar
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_betas_across_machine" class="md-nav__link">
+    plot_betas_across_machine
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#plot_intermediate_beta_histograms" class="md-nav__link">
+    plot_intermediate_beta_histograms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/scripts/triplet_errors/plotting_functions.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-pyhdtoolkitscriptstriplet_errorsplotting_functions">Module pyhdtoolkit.scripts.triplet_errors.plotting_functions</h1>
+<h2 id="script-scriptstriplet_errorsplotting_functions">Script scripts.triplet_errors.plotting_functions</h2>
+<p>Created on 2019.06.15
+:author: Felix Soubelet</p>
+<p>A collection of functions that will be useful to plot the results from GridCompute Algorithm.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Script scripts.triplet_errors.plotting_functions</span>
+
+<span class="sd">------------------------------------------------</span>
+
+<span class="sd">Created on 2019.06.15</span>
+
+<span class="sd">:author: Felix Soubelet</span>
+
+<span class="sd">A collection of functions that will be useful to plot the results from GridCompute Algorithm.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">pathlib</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Display&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Display configuration error found. Using non-interactive Agg backend&quot;</span><span class="p">)</span>
+
+    <span class="n">matplotlib</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;Agg&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_betas_across_machine</span><span class="p">(</span>
+
+    <span class="n">s_values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+
+    <span class="n">betx_values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+
+    <span class="n">bety_values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+
+    <span class="n">error_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+    <span class="n">error_value</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Plot beta functions across the machine. Save according to simulation scenario.</span>
+
+<span class="sd">    Creates a plot of the horizontal and vertical beta functions across the whole machine. Gives a</span>
+
+<span class="sd">    title generated according to the error type and error value. Saves in dedicated subfolder.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        s_values (List[float]): the values of the s axis.</span>
+
+<span class="sd">        betx_values (List[float]): horizontal betatron function values accross the machine.</span>
+
+<span class="sd">        bety_values (List[float]): vertical betatron function values accross the machine.</span>
+
+<span class="sd">        error_type (str): which error you have simulated too get those results.</span>
+
+<span class="sd">        error_value (str): the value of the error you used in your simulations.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">error_type</span> <span class="o">==</span> <span class="s2">&quot;TFERROR&quot;</span><span class="p">:</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="p">(</span>
+
+            <span class="n">f</span><span class="s2">&quot;r&#39;Beta values, hllhc1.3, 15cm optics, relative field error: {error_value}[$10^{-4}$]&#39;&quot;</span>
+
+        <span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">error_type</span> <span class="o">==</span> <span class="s2">&quot;MISERROR&quot;</span><span class="p">:</span>
+
+        <span class="n">title</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;r&#39;Beta values, hllhc1.3 15cm optics, misalignment: {error_value}[mm]&#39;&quot;</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Invalid error parameter {error_type} provided, aborting plot&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Error parameter should be either `TFERROR` or `MISERROR`.&quot;</span><span class="p">)</span>
+
+    <span class="n">output_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;beta_plots&quot;</span><span class="p">)</span> <span class="o">/</span> <span class="n">f</span><span class="s2">&quot;{error_type}&quot;</span> <span class="o">/</span> <span class="n">f</span><span class="s2">&quot;{error_value}&quot;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">output_dir</span><span class="o">.</span><span class="n">is_dir</span><span class="p">():</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating directory {output_dir}&quot;</span><span class="p">)</span>
+
+        <span class="n">output_dir</span><span class="o">.</span><span class="n">mkdir</span><span class="p">()</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">21</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Position alongside s axis [m]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\beta$ value [m]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">6500</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">s_values</span><span class="p">))</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s_values</span><span class="p">,</span> <span class="n">betx_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;BETX&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s_values</span><span class="p">,</span> <span class="n">bety_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;BETY&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;xx-large&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;beta_plots/{error_type}/{error_value}/betas_across_machine.png&quot;</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span>
+
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plotted betas for {error_type} {error_value}&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_bbing_max_errorbar</span><span class="p">(</span>
+
+    <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+
+    <span class="n">beta_beatings_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+    <span class="n">stdev_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+    <span class="n">figname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Plot beta-beating values, with error bars, as a function of the error values. Save according</span>
+
+<span class="sd">    to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range</span>
+
+<span class="sd">    of simulated error values. Gives a title generated according to the error type and error</span>
+
+<span class="sd">    value. Saves in dedicated subfolder.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        errors (List[float]): the different error values simulated.</span>
+
+<span class="sd">        beta_beatings_df (pd.DataFrame): the resulting beta-beating values.</span>
+
+<span class="sd">        stdev_df (pd.DataFrame): the standard deviations for those values.</span>
+
+<span class="sd">        plane (str): the name of the plane to plot.</span>
+
+<span class="sd">        figname (str): how to name the file when exporting the plot.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">:</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">tferror_bbx</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_tf_x</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">misserror_bbx</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_miss_x</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">max_tferror_bbx</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Max Value from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">max_misserror_bbx</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Max Value from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span>
+
+            <span class="sa">r</span><span class="s2">&quot;Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Beta-Beating Against Triplet Errors, {plane} Plane&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;vertical&quot;</span><span class="p">:</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">tferror_bby</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_tf_y</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">misserror_bby</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_miss_y</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">max_tferror_bby</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Max Value from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">max_misserror_bby</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Max Value from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span>
+
+            <span class="sa">r</span><span class="s2">&quot;Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Beta-beating against triplet errors, {plane} plane&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Invalid plane parameter {plane} provided, aborting plot&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Plane parameter should be either `Horizontal` or `Vertical`&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plotted beta-beatings with error bars for {plane.lower()} plane&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_bbing_with_ips_errorbar</span><span class="p">(</span>
+
+    <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+
+    <span class="n">beta_beatings_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+    <span class="n">stdev_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+    <span class="n">figname</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Plot beta-beating values, with error bars, as a function of the error values. Save according</span>
+
+<span class="sd">    to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range</span>
+
+<span class="sd">    of simulated error values, with the addition of the beta-beating value at IPs. Gives a title</span>
+
+<span class="sd">    generated according to the error type and error value. Saves in dedicated subfolder.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        errors (List[float]): list with different error values simulated.</span>
+
+<span class="sd">        beta_beatings_df (pd.DataFrame): the resulting beta-beating values.</span>
+
+<span class="sd">        stdev_df (pd.DataFrame): the standard deviations for those values.</span>
+
+<span class="sd">        plane (str): the name of the plane to plot.</span>
+
+<span class="sd">        figname (str): how to name the file when exporting the plot.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">:</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">tferror_bbx</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_tf_x</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">misserror_bbx</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_miss_x</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip1_tferror_bbx</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP1 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip1_misserror_bbx</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP1 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip5_tferror_bbx</span><span class="p">,</span>
+
+            <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP5 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip5_misserror_bbx</span><span class="p">,</span>
+
+            <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP5 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span>
+
+            <span class="sa">r</span><span class="s2">&quot;Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Beta-Beating Against Triplet Errors, {plane} Plane&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;vertical&quot;</span><span class="p">:</span>
+
+        <span class="n">_</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">tferror_bby</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_tf_y</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">errorbar</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">misserror_bby</span><span class="p">,</span>
+
+            <span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="o">.</span><span class="n">stdev_miss_y</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip1_tferror_bby</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP1 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip1_misserror_bby</span><span class="p">,</span>
+
+            <span class="s2">&quot;^&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP1 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip5_tferror_bby</span><span class="p">,</span>
+
+            <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP5 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+
+            <span class="n">errors</span><span class="p">,</span>
+
+            <span class="n">beta_beatings_df</span><span class="o">.</span><span class="n">ip5_misserror_bby</span><span class="p">,</span>
+
+            <span class="s2">&quot;x&quot;</span><span class="p">,</span>
+
+            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C1&quot;</span><span class="p">,</span>
+
+            <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP5 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span>
+
+            <span class="sa">r</span><span class="s2">&quot;TRelative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span>
+
+        <span class="p">)</span>
+
+        <span class="n">axes</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Beta-Beating Against Triplet Errors, {plane} Plane&quot;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Invalid plane parameter {plane} provided, aborting plot&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Plane parameter should be either `Horizontal` or `Vertical`&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plotted beta-beatings (including IPs) with error bars for {plane.lower()} plane&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">plot_intermediate_beta_histograms</span><span class="p">(</span>
+
+    <span class="n">betasx</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">betasy</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">error_val</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Plot histogram distribution for betas at seeds.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        betasx (List[float]): horizontal beta values for all seeds for a specific error value.</span>
+
+<span class="sd">        betasy (List[float]): vertical beta values for all seeds for a specific error value.</span>
+
+<span class="sd">        error_val (float): the error value.</span>
+
+<span class="sd">        title (str): the title to give the figure.</span>
+
+<span class="sd">        outputname (str): the name to give the file saving the figure.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">betasx</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{error_val}, horizontal&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">betasy</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{error_val}, vertical&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outputname</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="s2">&quot;png&quot;</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Plotted intermediate beta histogram, saved as {outputname}&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h2 id="functions">Functions</h2>
+<h3 id="plot_bbing_max_errorbar">plot_bbing_max_errorbar</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_bbing_max_errorbar</span><span class="p">(</span>
+    <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">beta_beatings_df</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">stdev_df</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">figname</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Plot beta-beating values, with error bars, as a function of the error values. Save according
+to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range
+of simulated error values. Gives a title generated according to the error type and error
+value. Saves in dedicated subfolder.</p>
+<p>Args:
+    errors (List[float]): the different error values simulated.
+    beta_beatings_df (pd.DataFrame): the resulting beta-beating values.
+    stdev_df (pd.DataFrame): the standard deviations for those values.
+    plane (str): the name of the plane to plot.
+    figname (str): how to name the file when exporting the plot.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">plot_bbing_max_errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">errors</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">beta_beatings_df</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">stdev_df</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">plane</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">figname</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Plot beta-beating values, with error bars, as a function of the error values. Save according</span>
+
+<span class="ss">    to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range</span>
+
+<span class="ss">    of simulated error values. Gives a title generated according to the error type and error</span>
+
+<span class="ss">    value. Saves in dedicated subfolder.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        errors (List[float]): the different error values simulated.</span>
+
+<span class="ss">        beta_beatings_df (pd.DataFrame): the resulting beta-beating values.</span>
+
+<span class="ss">        stdev_df (pd.DataFrame): the standard deviations for those values.</span>
+
+<span class="ss">        plane (str): the name of the plane to plot.</span>
+
+<span class="ss">        figname (str): how to name the file when exporting the plot.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;horizontal&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">tferror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_tf_x</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">misserror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_miss_x</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">max_tferror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Max Value from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">max_misserror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Max Value from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">r</span><span class="ss">&quot;Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Beta-Beating Against Triplet Errors, {plane} Plane&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="ss">&quot;best&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span><span class="w"> </span><span class="nf">format</span><span class="o">=</span><span class="ss">&quot;png&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;vertical&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">tferror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_tf_y</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">misserror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_miss_y</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">max_tferror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Max Value from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">max_misserror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Max Value from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">r</span><span class="ss">&quot;Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Beta-beating against triplet errors, {plane} plane&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="ss">&quot;best&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span><span class="w"> </span><span class="nf">format</span><span class="o">=</span><span class="ss">&quot;png&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Invalid plane parameter {plane} provided, aborting plot&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Plane parameter should be either `Horizontal` or `Vertical`&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotted beta-beatings with error bars for {plane.lower()} plane&quot;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="plot_bbing_with_ips_errorbar">plot_bbing_with_ips_errorbar</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_bbing_with_ips_errorbar</span><span class="p">(</span>
+    <span class="n">errors</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">beta_beatings_df</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">stdev_df</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span>
+    <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">figname</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Plot beta-beating values, with error bars, as a function of the error values. Save according
+to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range
+of simulated error values, with the addition of the beta-beating value at IPs. Gives a title
+generated according to the error type and error value. Saves in dedicated subfolder.</p>
+<p>Args:
+    errors (List[float]): list with different error values simulated.
+    beta_beatings_df (pd.DataFrame): the resulting beta-beating values.
+    stdev_df (pd.DataFrame): the standard deviations for those values.
+    plane (str): the name of the plane to plot.
+    figname (str): how to name the file when exporting the plot.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">plot_bbing_with_ips_errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">errors</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">beta_beatings_df</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">stdev_df</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">plane</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">figname</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Plot beta-beating values, with error bars, as a function of the error values. Save according</span>
+
+<span class="ss">    to plotted plane. Creates a plot of the horizontal or vertical beta-beatings across the range</span>
+
+<span class="ss">    of simulated error values, with the addition of the beta-beating value at IPs. Gives a title</span>
+
+<span class="ss">    generated according to the error type and error value. Saves in dedicated subfolder.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        errors (List[float]): list with different error values simulated.</span>
+
+<span class="ss">        beta_beatings_df (pd.DataFrame): the resulting beta-beating values.</span>
+
+<span class="ss">        stdev_df (pd.DataFrame): the standard deviations for those values.</span>
+
+<span class="ss">        plane (str): the name of the plane to plot.</span>
+
+<span class="ss">        figname (str): how to name the file when exporting the plot.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;horizontal&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">tferror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_tf_x</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">misserror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_miss_x</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip1_tferror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP1 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip1_misserror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP1 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip5_tferror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;x&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP5 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip5_misserror_bbx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;x&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP5 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">r</span><span class="ss">&quot;Relative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Beta-Beating Against Triplet Errors, {plane} Plane&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="ss">&quot;best&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span><span class="w"> </span><span class="nf">format</span><span class="o">=</span><span class="ss">&quot;png&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;vertical&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">_</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">tferror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_tf_y</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">errorbar</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">misserror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">yerr</span><span class="o">=</span><span class="n">stdev_df</span><span class="p">.</span><span class="n">stdev_miss_y</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Global Beta-Beating from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip1_tferror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP1 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip1_misserror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;^&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP1 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip5_tferror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;x&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C0&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP5 Beta-Beating Value from Field Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">errors</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">beta_beatings_df</span><span class="p">.</span><span class="n">ip5_misserror_bby</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="ss">&quot;x&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;C1&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;IP5 Beta-Beating Value from Misalignment Errors&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">r</span><span class="ss">&quot;TRelative Field Error [$10^{-4}$] or Longitudinal Misalignment [mm]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">axes</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$\Delta \beta / \beta$ [%]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">tight_layout</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Beta-Beating Against Triplet Errors, {plane} Plane&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">15</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="ss">&quot;best&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">figname</span><span class="p">,</span><span class="w"> </span><span class="nf">format</span><span class="o">=</span><span class="ss">&quot;png&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Invalid plane parameter {plane} provided, aborting plot&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Plane parameter should be either `Horizontal` or `Vertical`&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotted beta-beatings (including IPs) with error bars for {plane.lower()} plane&quot;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="plot_betas_across_machine">plot_betas_across_machine</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_betas_across_machine</span><span class="p">(</span>
+    <span class="n">s_values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">betx_values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">bety_values</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">error_type</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">error_value</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Plot beta functions across the machine. Save according to simulation scenario.
+Creates a plot of the horizontal and vertical beta functions across the whole machine. Gives a
+title generated according to the error type and error value. Saves in dedicated subfolder.</p>
+<p>Args:
+    s_values (List[float]): the values of the s axis.
+    betx_values (List[float]): horizontal betatron function values accross the machine.
+    bety_values (List[float]): vertical betatron function values accross the machine.
+    error_type (str): which error you have simulated too get those results.
+    error_value (str): the value of the error you used in your simulations.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">plot_betas_across_machine</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">s_values</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">betx_values</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">bety_values</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">error_type</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">error_value</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Plot beta functions across the machine. Save according to simulation scenario.</span>
+
+<span class="ss">    Creates a plot of the horizontal and vertical beta functions across the whole machine. Gives a</span>
+
+<span class="ss">    title generated according to the error type and error value. Saves in dedicated subfolder.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        s_values (List[float]): the values of the s axis.</span>
+
+<span class="ss">        betx_values (List[float]): horizontal betatron function values accross the machine.</span>
+
+<span class="ss">        bety_values (List[float]): vertical betatron function values accross the machine.</span>
+
+<span class="ss">        error_type (str): which error you have simulated too get those results.</span>
+
+<span class="ss">        error_value (str): the value of the error you used in your simulations.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">error_type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;TFERROR&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;r&#39;Beta values, hllhc1.3, 15cm optics, relative field error: {error_value}[$10^{-4}$]&#39;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">error_type</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;MISERROR&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;r&#39;Beta values, hllhc1.3 15cm optics, misalignment: {error_value}[mm]&#39;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Invalid error parameter {error_type} provided, aborting plot&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Error parameter should be either `TFERROR` or `MISERROR`.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">output_dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pathlib</span><span class="p">.</span><span class="k">Path</span><span class="p">(</span><span class="ss">&quot;beta_plots&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;{error_type}&quot;</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;{error_value}&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">output_dir</span><span class="p">.</span><span class="n">is_dir</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating directory {output_dir}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">output_dir</span><span class="p">.</span><span class="n">mkdir</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">21</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="ss">&quot;Position alongside s axis [m]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$\beta$ value [m]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="mi">17</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">xticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">yticks</span><span class="p">(</span><span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">6500</span><span class="p">,</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">s_values</span><span class="p">))</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s_values</span><span class="p">,</span><span class="w"> </span><span class="n">betx_values</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;BETX&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">s_values</span><span class="p">,</span><span class="w"> </span><span class="n">bety_values</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;BETY&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="ss">&quot;best&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">fontsize</span><span class="o">=</span><span class="ss">&quot;xx-large&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">f</span><span class="ss">&quot;beta_plots/{error_type}/{error_value}/betas_across_machine.png&quot;</span><span class="p">,</span><span class="w"> </span><span class="nf">format</span><span class="o">=</span><span class="ss">&quot;png&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotted betas for {error_type} {error_value}&quot;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="plot_intermediate_beta_histograms">plot_intermediate_beta_histograms</h3>
+<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_intermediate_beta_histograms</span><span class="p">(</span>
+    <span class="n">betasx</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">betasy</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span>
+    <span class="n">error_val</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">outputname</span><span class="p">:</span> <span class="nb">str</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+Plot histogram distribution for betas at seeds.</p>
+<p>Args:
+    betasx (List[float]): horizontal beta values for all seeds for a specific error value.
+    betasy (List[float]): vertical beta values for all seeds for a specific error value.
+    error_val (float): the error value.
+    title (str): the title to give the figure.
+    outputname (str): the name to give the file saving the figure.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">plot_intermediate_beta_histograms</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">betasx</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nl">betasy</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="nl">error_val</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="p">,</span><span class="w"> </span><span class="nl">title</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">outputname</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Plot histogram distribution for betas at seeds.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        betasx (List[float]): horizontal beta values for all seeds for a specific error value.</span>
+
+<span class="ss">        betasy (List[float]): vertical beta values for all seeds for a specific error value.</span>
+
+<span class="ss">        error_val (float): the error value.</span>
+
+<span class="ss">        title (str): the title to give the figure.</span>
+
+<span class="ss">        outputname (str): the name to give the file saving the figure.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">betasx</span><span class="p">,</span><span class="w"> </span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="ss">&quot;{error_val}, horizontal&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">density</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">hist</span><span class="p">(</span><span class="n">betasy</span><span class="p">,</span><span class="w"> </span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="n">f</span><span class="ss">&quot;{error_val}, vertical&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span><span class="w"> </span><span class="n">density</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="ss">&quot;best&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">outputname</span><span class="p">,</span><span class="w"> </span><span class="nf">format</span><span class="o">=</span><span class="ss">&quot;png&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotted intermediate beta histogram, saved as {outputname}&quot;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Index
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../../tfstools/" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Index
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>
