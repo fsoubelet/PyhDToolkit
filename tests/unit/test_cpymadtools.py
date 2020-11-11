@@ -1,10 +1,7 @@
-"""
-Considering cpymad only installs on Linux, most test classes have been decorated with a skipif
-and none of those will run unless in a linux environment.
-"""
 import random
 import sys
 
+import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
@@ -24,13 +21,8 @@ from pyhdtoolkit.cpymadtools.plotters import (
     TuneDiagramPlotter,
 )
 
-# Will only work on Linux, we don't want failing tests because import is fails on some platforms
-try:
-    import cpymad
-
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    pass
+# Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
+matplotlib.use("Agg")
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 GUIDO_LATTICE = f"""
