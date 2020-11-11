@@ -72,13 +72,13 @@ class CommandLine:
         Args:
             command (str): string, the command you want to run.
             shell (bool): same as `Popen` argument. Setting the shell argument to a true value
-            causes subprocess to spawn an intermediate shell process, and tell it to run the
-            command. In other words, using an intermediate shell means that variables, glob
-            patterns, and other special shell features in the command string are processed before
-            the command is ran. Defaults to True.
+                causes subprocess to spawn an intermediate shell process, and tell it to run the
+                command. In other words, using an intermediate shell means that variables, glob
+                patterns, and other special shell features in the command string are processed
+                before the command is ran. Defaults to True.
             env (Mapping): mapping that defines the environment variables for the new process.
             timeout (float): same as `Popen.communicate` argument, number of seconds to wait for a
-            response before raising a TimeoutExpired exception.
+                response before raising a TimeoutExpired exception.
 
         Returns:
             The tuple of (returncode, stdout). Beware, the stdout will be a byte array (id est
