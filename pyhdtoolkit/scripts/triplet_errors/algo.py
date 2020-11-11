@@ -260,9 +260,6 @@ def _set_logger_level(log_level: str = "info") -> None:
 
     Args:
         log_level (str): string, the default logging level to print out.
-
-    Returns:
-        Nothing, acts in place.
     """
     logger.remove(0)
     logger.add(sys.stderr, format=LOGURU_FORMAT, level=log_level.upper())

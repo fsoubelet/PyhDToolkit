@@ -57,11 +57,7 @@ class LaTwiss:
             color (str): color kwarg to transmit to pyplot.
             alpha (float): alpha kwarg to transmit to pyplot.
             lw (int): linewidth kwarg to transmit to pyplot.
-
-        Returns:
-             Nothing, acts directly on the provided axis.
         """
-        # pylint: disable=too-many-arguments
         ax.add_patch(
             patches.Rectangle(
                 (series.s - series.l, v_offset - height / 2.0),
@@ -103,22 +99,21 @@ class LaTwiss:
             figsize (Tuple[int, int]): size of the figure, defaults to (16, 10).
             savefig (str): will save the figure if this is not None, using the string value passed.
             xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-            not None, using the tuple passed.
+                not None, using the tuple passed.
             plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
-            the figure. Defaults to True. Dipoles are plotted in blue.
+                the figure. Defaults to True. Dipoles are plotted in blue.
             plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
-            subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
+                subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
             plot_sextupoles (bool): if True, sextupole patches will be plotted on the layout subplot
-            of the figure. Defaults to False. Sextupoles are plotted in yellow.
+                of the figure. Defaults to False. Sextupoles are plotted in yellow.
             disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
-            Defaults to (-10, 125).
+                Defaults to (-10, 125).
             beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
-            Defaults to None, to be determined by matplotlib based on the provided beta values.
+                Defaults to None, to be determined by matplotlib based on the provided beta values.
             k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
-            height of dipole patches. Defaults to (-0.25, 0.25).
+                height of dipole patches. Defaults to (-0.25, 0.25).
             k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
-            height of quadrupole patches. Defaults to (-0.08, 0.08).
-
+                height of quadrupole patches. Defaults to (-0.08, 0.08).
 
         Returns:
              The figure on which the plots are drawn. The underlying axes can be accessed with
@@ -252,9 +247,9 @@ class LaTwiss:
             figsize (Tuple[int, int]): size of the figure, defaults to (16, 10).
             savefig (str): will save the figure if this is not None, using the string value passed.
             show_elements (bool): if True, will try to plot by differentiating elements.
-            Experimental, defaults to False.
+                Experimental, defaults to False.
             high_orders (bool): if True, plot sextupoles and octupoles when show_elements is True,
-            otherwise only up to quadrupoles. Defaults to False.
+                otherwise only up to quadrupoles. Defaults to False.
 
         Returns:
              The figure on which the plots are drawn. The underlying axes can be accessed with
@@ -334,7 +329,7 @@ def _make_survey_groups(survey_df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
 
     Args:
         survey_df (pd.DataFrame): machine survey dataframe obtained from your Madx instance, with
-        <instance>.table.survey.dframe().
+            <instance>.table.survey.dframe().
 
     Returns:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing

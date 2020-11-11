@@ -14,6 +14,7 @@ For now, `PyhDToolkit` provides some of the following features:
 - A `plotting` module for my favorite defaults and helpers.
 - An `optics` module for particle accelerator physics related calculations and analysis.
 - A `scripts` module to handle different simulations setups.
+- A `tfstools` module similar to `cpymadtools`, with functionality revolving around handling `tfs` files and plotting their contents.
 - A `utils` module for various utilities.
 
 ## Roadmap
@@ -22,8 +23,8 @@ In addition to developping current modules, more will be added to better incorpo
 Foreseen development includes:
 
 - Expansion of existing modules, particularly the `optics` module to include most simple calculations on beam properties.
-- A `tfstools` modules similar to `cpymadtools`, with functionality revolving around handling `tfs` files.
 - An `omcwrapper` module to handle different usecases of the `omc3` package.
+- A `sixtracklibtools` module for utility functions surrounding the use of `sixtracklib`.
 
 [cpymad]: https://github.com/hibtc/cpymad
 [madx]: https://mad.web.cern.ch/mad/

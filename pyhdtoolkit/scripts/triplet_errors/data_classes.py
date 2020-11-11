@@ -72,7 +72,7 @@ class BetaBeatValues(BaseModel):
 
         Args:
             cpymad_betabeatings (pd.DataFrame): the beta-beatings from the simulation, compared to
-            the nominal twiss from a reference run.
+                the nominal twiss from a reference run.
         """
         logger.trace("Getting rms and max values for betatron functions of provided run")
         self.tferror_bbx.append(_get_rms(cpymad_betabeatings["BETX"]))
@@ -119,7 +119,7 @@ class BetaBeatValues(BaseModel):
 
         Args:
             cpymad_betabeatings (pd.DataFrame): the beta-beatings from the simulation, compared to
-            the nominal twiss from a reference run.
+                the nominal twiss from a reference run.
         """
         logger.trace("Getting rms and max values for betatron functions of provided run")
         self.misserror_bbx.append(_get_rms(cpymad_betabeatings["BETX"]))

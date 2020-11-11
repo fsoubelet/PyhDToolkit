@@ -37,16 +37,15 @@ class AnnotationsPlotter:
             label (str): label text to print on the axis.
             arrow_position (Tuple[float, float]): where on the plot to point the tip of the arrow.
             label_position (Tuple[float, float]): where on the plot the text label (and thus start
-            of the arrow) is.
+                of the arrow) is.
             color (str): color parameter for your arrow and label. Defaults to 'k'.
             arrow_arc_rad (float): angle value defining the upwards / downwards shape of and
-            bending of the arrow.
+                bending of the arrow.
             fontsize (int): text size in the box
 
         Returns:
             A matploblit text annotation object.
         """
-        # pylint: disable=too-many-arguments
         return axis.annotate(
             label,
             xy=arrow_position,

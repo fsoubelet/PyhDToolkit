@@ -109,10 +109,7 @@ class ACDipoleGrid:
 
         Args:
             kick_plane: the name of the plane on which to apply a kick, either 'horizontal'
-            or 'vertical'.
-
-        Returns:
-            Nothing, runs simulations and orders the outputs properly.
+                or 'vertical'.
         """
         if kick_plane not in ("horizontal", "vertical"):
             logger.error(f"Plane parameter {kick_plane} is not a valid value")
@@ -175,10 +172,7 @@ class ACDipoleGrid:
 
         Args:
             kick_plane: the name of the plane on which to apply an offset, either 'horizontal'
-            or 'vertical'.
-
-        Returns:
-            Nothing, runs simulations and orders the outputs properly.
+                or 'vertical'.
         """
         if kick_plane not in ("horizontal", "vertical"):
             logger.error(f"Plane parameter {kick_plane} is not a valid value")
@@ -228,9 +222,6 @@ def main() -> None:
     """
     Run the whole process: create a class instance, simulate for horizontal and vertical kicks,
     exit.
-
-    Returns:
-        Nothing.
     """
     command_line_args = _parse_arguments()
     _set_logger_level(command_line_args.log_level)
@@ -273,9 +264,6 @@ def run_madx_mask(mask_file: Path) -> None:
 
     Args:
         mask_file (Path): Path object with the mask file location.
-
-    Returns:
-        Nothing.
     """
     logger.debug(f"Running madx on script: '{mask_file.absolute()}'")
     exit_code, std_out = CommandLine.run(f"madx {mask_file.absolute()}")
@@ -298,11 +286,8 @@ def create_script_file(
     Args:
         template_as_str (str): string content of your template mask file.
         values_replacing_dict (Dict[str, float]): keys to find and values to replace them with in
-        the template.
+            the template.
         filename (Path): Path object for the file in which to write the script.
-
-    Returns:
-        Nothing.
     """
     string_mask = _create_script_string(template_as_str, values_replacing_dict)
     return _write_script_to_file(string_mask, filename)
@@ -315,9 +300,6 @@ def _convert_trackone_to_sdds() -> None:
     """
     Run the omc3 tbt_converter script on trackone output of MAD-X. Will also cleanup the `converter`
     and 'stats' files left by tbt_converter afterwards.
-
-    Returns:
-        Nothing.
     """
     if not Path("trackone").is_file():
         logger.error("Tried to call 'tbt_converter' without a 'trackone' file present, aborting")
@@ -346,7 +328,7 @@ def _create_script_string(template_as_string: str, values_replacing_dict: Dict[s
     Args:
         template_as_string (str): the string content of your template mask file.
         values_replacing_dict (Dict[str, float]): pairs of key, value to find and replace in the
-        template string.
+            template string.
 
     Returns:
         The new script string.
@@ -364,9 +346,6 @@ def _move_mask_file_after_running(mask_file_path: Path, mask_files_dir: Path) ->
     Args:
         mask_file_path (Path): Path object with the file location.
         mask_files_dir (Path): Path object with the directory to move mask to' location.
-
-    Returns:
-        Nothing.
     """
     logger.debug(f"Moving mask file '{mask_file_path}' to directory '{mask_files_dir}'")
     mask_file_path.rename(f"{mask_files_dir}/{mask_file_path}")
@@ -380,12 +359,9 @@ def _move_trackone_sdds(kick_in_sigma: Union[str, float], trackfiles_dir: Path, 
 
     Args:
         kick_in_sigma (Union[str, float]): the AC dipole kick value (in sigma) for which you ran
-        your simulation.
+            your simulation.
         trackfiles_dir (Path): PosixPath to the folder in which to store all sdds trackone files.
         plane (str): the plane on which ac dipole provided the kick, should be `x` or `y`.
-
-    Returns:
-        Nothing.
     """
     if str(plane) not in ("x", "y"):
         logger.error(f"Plane parameter {plane} is not a valid value")
@@ -463,13 +439,10 @@ def _rename_madx_outputs(
 
     Args:
         kick_in_sigma (Union[str, float]): the AC dipole kick value (in sigma) for which you ran
-        your simulation.
+            your simulation.
         outputdata_dir (Path): PosixPath to the folder in which to store all successive
-        `Outputdata`'s location.
+            `Outputdata`'s location.
         plane (str): the plane on which ac dipole provided the kick, should be `x` or `y`.
-
-    Returns:
-        Nothing.
     """
     if str(plane) not in ("x", "y"):
         raise ValueError(f"Plane parameter should be one of 'x', 'y' but {plane} was provided.")
@@ -487,9 +460,6 @@ def _set_logger_level(log_level: str = "info") -> None:
 
     Args:
         log_level (str): the default logging level to print out.
-
-    Returns:
-        Nothing, acts in place.
     """
     logger.remove(0)
     logger.add(sys.stderr, format=LOGURU_FORMAT, level=log_level.upper())

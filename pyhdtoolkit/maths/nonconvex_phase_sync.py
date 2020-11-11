@@ -70,7 +70,7 @@ class PhaseReconstructor:
 
         Args:
             measurements_hermitian_matrix: a `numpy.ndarray` object built from measurements, see
-            module docstring on how to build this matrix.
+                module docstring on how to build this matrix.
         """
         logger.debug("Checking that the provided matrix is Hermitian")
         if np.allclose(measurements_hermitian_matrix, np.conj(measurements_hermitian_matrix).T):

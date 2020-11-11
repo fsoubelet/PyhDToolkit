@@ -42,7 +42,7 @@ class LatticeMatcher:
             q1_target (float): horizontal tune to match to.
             q2_target (float): vertical tune to match to.
             variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-            ["kqf", "ksd"] as it is a common name for quadrupole strengths (foc / defoc).
+                ["kqf", "ksd"] as it is a common name for quadrupole strengths (foc / defoc).
         """
         matching_routine: str = _create_tune_matching_routine(
             sequence_name, q1_target, q2_target, variables
@@ -68,7 +68,7 @@ class LatticeMatcher:
             dq1_target (float): horizontal tune to match to.
             dq2_target (float): vertical tune to match to.
             variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-            ["ksf", "ksd"] as it is a common name for sextupole strengths (foc / defoc).
+                ["ksf", "ksd"] as it is a common name for sextupole strengths (foc / defoc).
         """
         matching_routine: str = _create_chromaticity_matching_routine(
             sequence_name, dq1_target, dq2_target, variables
@@ -149,7 +149,7 @@ def _create_tune_matching_routine(
         q1_target (float): horizontal tune to match to.
         q2_target (float): vertical tune to match to.
         variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-        ["kqf", "kqd"] as it is a common name for quadrupole strengths (foc / defoc).
+            ["kqf", "kqd"] as it is a common name for quadrupole strengths (foc / defoc).
 
     Returns:
         The string to input in MADX to perform the matching.
@@ -186,7 +186,7 @@ def _create_chromaticity_matching_routine(
         dq1_target (float): horizontal chromaticity to match to.
         dq2_target (float): vertical chromaticity to match to.
         variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-        ["ksf", "ksd"] as it is a common name for sextupole strengths (foc / defoc).
+            ["ksf", "ksd"] as it is a common name for sextupole strengths (foc / defoc).
 
     Returns:
         The string to input in MADX to perform the matching.
