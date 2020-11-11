@@ -6,17 +6,17 @@ They are organised as follows.
 ### Documentation
 
 The `documentation` workflow triggers on any push to master, builds the documentation and pushes it to the `gh-pages` branch (if the build is successful).
-It runs on `ubuntu-latest` and `Python 3.x`.
+It runs on `ubuntu-latest` and the lowest supported Python version, `Python 3.7`.
 
 ### Testing Suite
 
 Tests are ensured in the `tests` workflow, which triggers on all pushes.
-Truns on a matrix of all available operating systems for all supported Python versions (currently `3.6`, `3.7` and `3.8`).
+Truns on a matrix of all available operating systems for all supported Python versions (currently `3.7` and `3.8`).
 
 ### Test Coverage
 
 Test coverage is calculated in the `coverage` wokflow, which triggers on pushes to `master` and any push to a `pull request`.
-It runs on `ubuntu-latest` & `Python 3.x`, and reports the coverage results of the test suite to `CodeClimate`,
+It runs on `ubuntu-latest` & the lowest supported Python version (`Python 3.7`), and reports the coverage results of the test suite to `CodeClimate`.
 
 
 ### Regular Testing
