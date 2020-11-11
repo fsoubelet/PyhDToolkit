@@ -6,6 +6,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 
+from cpymad import Madx
+
 from pyhdtoolkit.cpymadtools.helpers import (
     LatticeMatcher,
     Parameters,
