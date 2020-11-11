@@ -15,9 +15,9 @@
 
   <br/>
 
-  <!-- Travis Build -->
-  <a href="https://travis-ci.org/github/fsoubelet/PyhDToolkit">
-    <img alt="Travis Build" src="https://img.shields.io/travis/fsoubelet/pyhdtoolkit?label=Travis%20CI&logo=Travis">
+  <!-- Github Actions Build -->
+  <a href="https://github.com/fsoubelet/PyhDToolkit/actions?query=workflow%3A%22Cron+Testing%22">
+    <img alt="Github Actions" src="https://github.com/fsoubelet/PyhDToolkit/workflows/Cron%20Testing/badge.svg">
   </a>
 
   <!-- Code Coverage -->
@@ -59,7 +59,7 @@
 </p>
 
 <p align="center">
-  ♻️ An all-in-one package for Python work in my PhD
+  ♻️ An all-in-one package for Python work in my PhD ♻️
 </p>
 
 <p align="center">
@@ -68,67 +68,10 @@
   </a>
 </p>
 
-## Installation
-
-This code is compatible with `Python 3.6+`.
-If for some reason you have a need for it, create & activate a virtual enrivonment, then install with pip:
-```bash
-> pip install pyhdtoolkit
-```
-
-This repository respects the [PEP 518][pep_518_ref] development and build recommandations, and [Poetry][poetry_ref] as a tool to do so.
-If you intend on making changes, clone this repository through VCS and set yourself up with:
-```bash
-> git clone https://github.com/fsoubelet/PyhDToolkit.git
-> cd PyhDToolkit
-> poetry install
-```
-
-## Standards, Testing, Tools and VCS
-
-This repository follows the `Google` docstring format, uses [Black][black_formatter] as a code formatter with a default enforced line length of 100 characters, and [Pylint][pylint_ref] as a linter.
-You can format the code with `make format` and lint it (which will format first) with `make lint`.
-
-Testing builds are ensured after each commit through Travis-CI.
-You can run tests locally with the predefined `make tests`, or through `poetry run pytest <options>` for customized options.
-
-VCS is done through [git][git_ref] and follows the [Gitflow][gitflow_ref] workflow.
-As a consequence, make sure to always install from `master`.
-
-## Miscellaneous
-
-Feel free to explore the `Makefile` for sensible defaults commands.
-You will get an idea of what functionality is available by running `make help`.
-
-### Python Environment
-
-This repository currently comes with an `environment.yml` file to reproduce my work `conda` environment.
-You can install this environment and add it to your ipython kernel by running `make condaenv`.
-
-### Container
-
-You can directly pull a pre-built image - tag `latest` is an automated build - from `Dockerhub` with:
-```bash
-> docker pull fsoubelet/simenv
-```
-
-You can then run the container to serve as a jupyter server, binding a local directory of notebooks to work on.
-Assuming you pulled the provided image from Dockerhub, the command is then (remove the `--rm` flag if you wish to preserve it after running):
-```bash
-> docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work fsoubelet/simenv
-```
+Link to [documentation].
 
 ## License
 
-Copyright &copy; 2019-2020 Felix Soubelet. [MIT License][license]
+Copyright &copy; 2019-2020 Felix Soubelet. [MIT License](LICENSE)
 
-[black_formatter]: https://github.com/psf/black
-[docker_cp_doc]: https://docs.docker.com/engine/reference/commandline/cp/
-[gitflow_ref]: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
-[git_ref]: https://git-scm.com/
-[license]: https://github.com/fsoubelet/PyhDToolkit/blob/master/LICENSE
-[oci_ref]: https://www.opencontainers.org/
-[pep_518_ref]: https://www.python.org/dev/peps/pep-0518/
-[poetry_ref]: https://github.com/python-poetry/poetry
-[pylint_ref]: https://www.pylint.org/
-[tini_ref]: https://github.com/krallin/tini
+[documentation]: https://fsoubelet.github.io/pyhdtoolkit/

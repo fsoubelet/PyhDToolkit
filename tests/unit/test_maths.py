@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 import numpy as np
 import pytest
 import scipy.stats as st
@@ -6,7 +8,7 @@ import pyhdtoolkit.maths.nonconvex_phase_sync as nps
 
 from pyhdtoolkit.maths import stats_fitting
 
-REF_DISTRIBUTIONS = stats_fitting.DISTRIBUTIONS
+REF_DISTRIBUTIONS = deepcopy(stats_fitting.DISTRIBUTIONS)
 
 
 class TestPhaseReconstructor:
@@ -76,7 +78,7 @@ class TestStatsFitting:
         assert stats_fitting.DISTRIBUTIONS == input_dict
 
     @pytest.mark.flaky(max_runs=3, min_passes=1)
-    @pytest.mark.parametrize("tested_distribution", [st.chi, st.chi2])
+    @pytest.mark.parametrize("tested_distribution", [st.chi, st.laplace])
     @pytest.mark.parametrize("degrees_of_freedom", list(range(3, 8)))
     def test_best_distribution_fit_with_df(self, tested_distribution, degrees_of_freedom):
         """
@@ -84,10 +86,13 @@ class TestStatsFitting:
         of freedom input.
         """
         # Don't waste time trying to fit distributions that are very different
-        stats_fitting.set_distributions_dict({st.chi: "Chi", st.chi2: "Chi2"})
+        stats_fitting.set_distributions_dict(
+            {st.chi: "Chi", st.laplace: "Laplace", st.norm: "Normal"}
+        )
         points = tested_distribution.rvs(degrees_of_freedom, size=100_000)
         guessed_distribution, _ = stats_fitting.best_fit_distribution(points)
         assert guessed_distribution == tested_distribution
+        stats_fitting.set_distributions_dict(REF_DISTRIBUTIONS)
 
     @pytest.mark.flaky(max_runs=3, min_passes=1)
     @pytest.mark.parametrize("tested_distribution", [st.lognorm])
@@ -102,6 +107,7 @@ class TestStatsFitting:
         points = tested_distribution.rvs(shape, size=100_000)
         guessed_distribution, _ = stats_fitting.best_fit_distribution(points)
         assert guessed_distribution == tested_distribution
+        stats_fitting.set_distributions_dict(REF_DISTRIBUTIONS)
 
     @pytest.mark.flaky(max_runs=3, min_passes=1)
     @pytest.mark.parametrize("tested_distribution", [st.expon, st.laplace, st.norm])
@@ -118,6 +124,7 @@ class TestStatsFitting:
         points = tested_distribution.rvs(size=100_000)
         guessed_distribution, _ = stats_fitting.best_fit_distribution(points)
         assert guessed_distribution == tested_distribution
+        stats_fitting.set_distributions_dict(REF_DISTRIBUTIONS)
 
     @pytest.mark.flaky(max_runs=3, min_passes=1)
     @pytest.mark.parametrize("degrees_of_freedom", [4, 5, 6, 7])

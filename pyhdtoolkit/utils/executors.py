@@ -49,12 +49,12 @@ class MultiProcessor:
 
         Args:
             func (Callable): the function to call.
-            func_args (list): list of the different parameters for each call. If your function takes
-            more than one parameter, wrap them up in tuples, e.g.:
-            [(params, run, one), (params, run, two), (params, run, three)].
+            func_args (list): list of the different parameters for each call. If your function
+                takes more than one parameter, wrap them up in tuples, e.g.:
+                [(params, run, one), (params, run, two), (params, run, three)].
             n_processes (int): the number of processes to fire up. No more than your number of
-            cores! If n_processes is `None` or not given, ProcessPoolExecutor will default it to
-            the number of processors on the machine.
+                cores! If n_processes is `None` or not given, ProcessPoolExecutor will default it
+                to the number of processors on the machine.
 
         Returns:
             A list of tuples, each tuple being the returned value(s) of your function for the given
@@ -90,13 +90,14 @@ class MultiThreader:
 
         Args:
             func (Callable): the function to call.
-            func_args (list): list of the different parameters for each call. If your function takes
-            more than one parameter, wrap them up in tuples, e.g.:
-            [(params, run, one), (params, run, two), (params, run, three)].
+            func_args (list): list of the different parameters for each call. If your function
+                takes more than one parameter, wrap them up in tuples, e.g.:
+                [(params, run, one), (params, run, two), (params, run, three)].
             n_threads (int): the number of threads to fire up. If n_threads is `None` or not given,
-            ThreadPoolExecutor will default it to the number of processors on the machine multiplied
-            by 5, assuming that  is often used to overlap I/O instead of CPU work and the number of
-            workers should be higher than the number of workers for a ProcessPoolExecutor.
+                ThreadPoolExecutor will default it to the number of processors on the
+                machine multiplied by 5, assuming that  is often used to overlap I/O instead of
+                CPU work and the number of workers should be higher than the number of workers
+                for a ProcessPoolExecutor.
 
         Returns:
             A list of tuples, each tuples being the returned value(s) of your function for the given

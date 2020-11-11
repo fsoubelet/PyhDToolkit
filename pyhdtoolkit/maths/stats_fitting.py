@@ -37,11 +37,11 @@ def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
 
     Args:
         dist_dict Dict[st.rv_continuous, str]: dictionnary with the wanted distributions,
-        in the format of DISTRIBUTIONS, aka scipy.stats generator objects as keys, and a string
-        representation of their name as value.
+            in the format of DISTRIBUTIONS, aka scipy.stats generator objects as keys, and a string
+            representation of their name as value.
 
     Returns:
-        Nothing, modifies the global DISTRIBUTIONS dict called by other functions.
+        Nothing, but modifies the global DISTRIBUTIONS dict called by other functions.
     """
     # pylint: disable=global-statement
     logger.debug("Setting tested distributions")
@@ -57,10 +57,10 @@ def best_fit_distribution(
 
     Args:
         data (Union[pd.Series, np.ndarray]): a pandas Series or numpy array with your
-        distribution data.
+            distribution data.
         bins (int): the number of bins to decompose your data in before performing fittings.
         ax (matplotlib.axes.Axes): the matplotlib axis object on which to plot the pdf of tried
-        functions. This should be provided as the ax on which you plotted your distribution.
+            functions. This should be provided as the ax on which you plotted your distribution.
 
     Returns:
         A tuple containing the scipy.stats generator corresponding to the best fit candidate,
@@ -85,9 +85,6 @@ def best_fit_distribution(
                 logger.debug(f"Trying to fit distribution '{distname}'")
                 params = distribution.fit(data)
                 *args, loc, scale = params
-                # args = params[:-2]
-                # loc = params[-2]
-                # scale = params[-1]
 
                 logger.debug(
                     f"Calculating PDF goodness of fit and error for distribution '{distname}'"
@@ -133,9 +130,6 @@ def make_pdf(
     """
     # Separate parts of parameters
     *args, loc, scale = params
-    # args = params[:-2]
-    # loc = params[-2]
-    # scale = params[-1]
 
     logger.debug("Getting sane start and end points of distribution")
     start = (

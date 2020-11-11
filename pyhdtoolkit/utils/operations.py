@@ -199,7 +199,7 @@ class ListOperations:
         Args:
             element: any reference element to check.
             sequence (Sequence): a sequence containing objects comparable to `elements`. A string
-            can be compared to an int in Python, custom objects probably won't be comparable.
+                can be compared to an int in Python, custom objects probably won't be comparable.
 
         Returns:
             A list of all indices at which `element` is found in `sequence`. Empty list if
@@ -220,7 +220,7 @@ class ListOperations:
         Args:
             sequence (Sequence): a sequence of elements.
             function (Callable): a callable on the elements of `sequence` that should return a
-            boolean.
+                boolean.
 
         Returns:
             A dict with keys "True" and "False", each having as value a list of all elements of

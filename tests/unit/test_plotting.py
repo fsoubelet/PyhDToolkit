@@ -1,7 +1,11 @@
+import matplotlib
 import matplotlib.pyplot as plt
 import pytest
 
 from pyhdtoolkit.plotting.helpers import AnnotationsPlotter
+
+# Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
+matplotlib.use("Agg")
 
 
 class TestAnnotationsPlotter:
