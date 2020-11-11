@@ -23,7 +23,7 @@ def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) ->
 
     Args:
         u_vector (np.ndarray): two-dimentional array of phase-space (spatial and momenta)
-        coordinates, either horizontal or vertical.
+            coordinates, either horizontal or vertical.
         alpha (float): alpha twiss parameter in the appropriate plane.
         beta (float): beta twiss parameter in the appropriate plane.
 

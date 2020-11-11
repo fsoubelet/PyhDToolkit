@@ -49,7 +49,8 @@ class HorizontalAmplitudeDetuning:
 
         Args:
             twiss_filename (Union[Path, str]): location to the twiss file output by MAD, in
-            the tfs format, to be read by the tfs package, which accepts either a Path or a string.
+                the tfs format, to be read by the tfs package, which accepts either a Path or
+                a string.
         """
         logger.debug("Loading twiss file into memory and extracting sub-dataframes")
         self.twiss_file: Path = Path(twiss_filename)
