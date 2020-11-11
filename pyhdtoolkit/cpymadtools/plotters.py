@@ -60,14 +60,14 @@ class AperturePlotter:
         Args:
             cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
             beam_params (Dict[str, float]): a beam_parameters dictionary obtained through
-            cpymadtools.helpers.beam_parameters.
+                cpymadtools.helpers.beam_parameters.
             figsize (str): size of the figure, defaults to (15, 15).
             xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-            not None, using the tuple passed.
+                not None, using the tuple passed.
             hplane_ylim (Tuple[float, float]): the y limits for the horizontal plane plot (so
-            that machine geometry doesn't make the  plot look shrinked). Defaults to (-0.12, 0.12).
+                that machine geometry doesn't make the  plot look shrinked). Defaults to (-0.12, 0.12).
             vplane_ylim (Tuple[float, float]): the y limits for the vertical plane plot (so that
-            machine geometry doesn't make the plot look shrinked). Defaults to (-0.12, 0.12).
+                machine geometry doesn't make the plot look shrinked). Defaults to (-0.12, 0.12).
             savefig (str): will save the figure if this is not None, using the string value passed.
 
         Returns:
@@ -235,7 +235,7 @@ class PhaseSpacePlotter:
             cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
             u_coordinates (np.ndarray): numpy array of particles's coordinates for the given plane.
             pu_coordinates (np.ndarray): numpy array of particles's momentum coordinates for the
-            given plane.
+                given plane.
             savefig (str): will save the figure if this is not None, using the string value passed.
             size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
             plane (str): the physical plane to plot. Defaults to 'Horizontal'.
@@ -301,7 +301,7 @@ class PhaseSpacePlotter:
             cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
             u_coordinates (np.ndarray): numpy array of particles's coordinates for the given plane.
             pu_coordinates (np.ndarray): numpy array of particles's momentum coordinates for the
-            given plane.
+                given plane.
             savefig (str): will save the figure if this is not None, using the string value passed.
             size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
             plane (str): the physical plane to plot. Defaults to 'Horizontal'.
