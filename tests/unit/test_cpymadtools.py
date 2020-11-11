@@ -83,7 +83,6 @@ twiss;
 """
 
 
-# @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestAperturePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
     def test_plot_aperture(self, tmp_path):
@@ -101,7 +100,6 @@ class TestAperturePlotter:
         return figure
 
 
-# @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestDynamicAperturePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
     def test_plot_dynamic_aperture(self, tmp_path):
@@ -186,7 +184,6 @@ class TestLatticeGenerator:
         assert f"ealign, ds := {mserror} * 1E-3 * TGAUSS(GCUTR);" in tripleterrors_study_mserror_job
 
 
-# @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestLaTwiss:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
     def test_plot_latwiss(self, tmp_path):
@@ -239,7 +236,6 @@ class TestLaTwiss:
         )
 
 
-# @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestLatticeMatcher:
     def test_tune_matching_routine(self):
         """Test for coverage, it routines are wrong the matching tests will fail anyway."""
@@ -350,7 +346,6 @@ class TestParameters:
         assert Parameters.beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, verbosity) == result_dict
 
 
-# @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestPhaseSpacePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
     def test_plot_horizontal_courant_snyder_phase_space(self, tmp_path):
@@ -453,7 +448,6 @@ class TestPhaseSpacePlotter:
             )
 
 
-# @pytest.mark.skipif(not sys.platform.startswith("linux"), reason="cpymad only installs on linux.")
 class TestTuneDiagramPlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
     def test_plot_blank_tune_diagram(self):
