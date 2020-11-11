@@ -42,9 +42,6 @@ def plot_betas_across_machine(
         bety_values (List[float]): vertical betatron function values accross the machine.
         error_type (str): which error you have simulated too get those results.
         error_value (str): the value of the error you used in your simulations.
-
-    Returns:
-        Nothing, plots and saves the figure.
     """
     if error_type == "TFERROR":
         title = (
@@ -96,9 +93,6 @@ def plot_bbing_max_errorbar(
         stdev_df (pd.DataFrame): the standard deviations for those values.
         plane (str): the name of the plane to plot.
         figname (str): how to name the file when exporting the plot.
-
-    Returns:
-        Nothing, plots and saves the figure.
     """
 
     if plane.lower() == "horizontal":
@@ -204,9 +198,6 @@ def plot_bbing_with_ips_errorbar(
         stdev_df (pd.DataFrame): the standard deviations for those values.
         plane (str): the name of the plane to plot.
         figname (str): how to name the file when exporting the plot.
-
-    Returns:
-        Nothing, plots and saves the figure.
     """
 
     if plane.lower() == "horizontal":
@@ -333,9 +324,6 @@ def plot_intermediate_beta_histograms(
         error_val (float): the error value.
         title (str): the title to give the figure.
         outputname (str): the name to give the file saving the figure.
-
-    Returns:
-        Nothing, plots and saves the figure.
     """
     plt.hist(betasx, bins=50, label=f"{error_val}, horizontal", alpha=0.6, density=True)
     plt.hist(betasy, bins=50, label=f"{error_val}, vertical", alpha=0.6, density=True)
