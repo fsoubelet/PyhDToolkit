@@ -124,7 +124,7 @@ name = "cpymad"
 version = "1.6.2"
 description = "Cython binding to MAD-X"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7"
 
 [package.dependencies]
@@ -232,7 +232,7 @@ name = "importlib-resources"
 version = "3.3.0"
 description = "Read resources from Python packages"
 category = "main"
-optional = true
+optional = false
 python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,!=3.5.*,>=2.7"
 
 [package.dependencies]
@@ -439,7 +439,7 @@ name = "minrpc"
 version = "0.1.0"
 description = "Minimalistic RPC utility (DO NOT USE!)"
 category = "main"
-optional = true
+optional = false
 python-versions = ">=2.7"
 
 [[package]]
@@ -1018,12 +1018,11 @@ testing = ["pytest (>=3.5,!=3.7.3)", "pytest-checkdocs (>=1.2.3)", "pytest-flake
 
 [extras]
 docs = ["portray"]
-madx = ["cpymad"]
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "42df00c8ebd0d1ba063e99be391c8a05e644d76f7efacb9a6949bf1c90180d7a"
+content-hash = "915b922cdf2d8719ff809607d5b16cc2a72915857c662a41ee550c44c5cd9a6e"
 
 [metadata.files]
 appdirs = [
