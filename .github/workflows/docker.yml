@@ -1,6 +1,8 @@
-name: Build Container and Push to Docker Hub
+# Manually triggered to build image and push
+name: Build Image and Push to Docker Hub
 
 
+# Will ask for tag, defaults to latest, can be left as latest
 on:
   workflow_dispatch:
     inputs:
