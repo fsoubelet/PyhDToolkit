@@ -59,4 +59,4 @@ jobs:
 
       - name: Inspect
         run: |
-          docker image inspect simenv:latest
+          docker image inspect fsoubelet/simenv:latest

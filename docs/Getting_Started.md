@@ -31,8 +31,6 @@ You can now install this simply in a virtual environment with:
     
     Testing builds are ensured after each commit through Github Actions.
     You can run tests locally with the predefined `make tests`, or through `poetry run pytest <options>` for customized options.
-    
-    Please follow the [Gitflow][gitflow_ref] workflow.
 
 ??? question "How can I easily reproduce your research done with this?"
 
