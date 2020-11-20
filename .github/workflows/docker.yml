@@ -56,7 +56,3 @@ jobs:
 
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
-      - name: Inspect
-        run: |
-          docker image inspect fsoubelet/simenv:latest
