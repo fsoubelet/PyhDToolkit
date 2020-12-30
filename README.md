@@ -25,9 +25,9 @@
     <img alt="Code Coverage" src="https://img.shields.io/codeclimate/maintainability/fsoubelet/PyhDToolkit?label=Maintainability&logo=Code%20Climate">
   </a>
 
-  <!-- Docker Build -->
+  <!-- Docker Image -->
   <a href="https://hub.docker.com/r/fsoubelet/simenv">
-    <img alt="Docker Build" src="https://img.shields.io/docker/cloud/build/fsoubelet/simenv?label=Docker%20Build&logo=Docker">
+    <img alt="Docker Image" src="https://img.shields.io/docker/image-size/fsoubelet/simenv?label=Docker%20Image&sort=date">
   </a>
 
   <br/>
@@ -74,4 +74,4 @@ Link to [documentation].
 
 Copyright &copy; 2019-2020 Felix Soubelet. [MIT License](LICENSE)
 
-[documentation]: https://fsoubelet.github.io/pyhdtoolkit/
+[documentation]: https://fsoubelet.github.io/PyhDToolkit/
