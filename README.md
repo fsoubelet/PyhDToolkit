@@ -27,7 +27,7 @@
 
   <!-- Docker Image -->
   <a href="https://hub.docker.com/r/fsoubelet/simenv">
-    <img alt="Docker Image" src="https://img.shields.io/docker/image-size/fsoubelet/simenv?label=Docker%20Image&sort=date">
+    <img alt="Docker Image" src="https://img.shields.io/docker/image-size/fsoubelet/simenv?label=Docker&sort=date">
   </a>
 
   <br/>
