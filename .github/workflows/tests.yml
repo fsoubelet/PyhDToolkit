@@ -48,8 +48,8 @@ jobs:
         if: steps.cache.outputs.cache-hit == 'true'
         run: poetry run pip --version >/dev/null 2>&1 || rm -rf .venv
 
-      - name: Upgrade pip
-        run: poetry run python -m pip install pip -U
+      - name: Upgrade pip, setuptools and wheel
+        run: poetry run python -m pip install --upgrade pip setuptools wheel
 
       - name: Install dependencies
         run: poetry install -v
