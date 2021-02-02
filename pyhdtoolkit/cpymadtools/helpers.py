@@ -7,7 +7,7 @@ Created on 2019.06.15
 
 A collection of functions for performing different common operations on a cpymad.madx.Madx object.
 """
-from typing import Dict, List, Sequence
+from typing import Dict, Sequence, Tuple
 
 import numpy as np
 
@@ -25,31 +25,71 @@ class LatticeMatcher:
     """
 
     @staticmethod
-    def perform_tune_matching(
+    def get_tune_and_chroma_knobs(accelerator: str, beam: int = 1) -> Tuple[str, str, str, str]:
+        """
+        CREDITS GO TO JOSCHUA DILLY.
+        Get names of knobs needed to match tunes and chromaticities as a tuple of strings.
+
+        Args:
+            accelerator (str): Accelerator either 'LHC' (dQ[xy], dQp[xy] knobs) or 'HLLHC'
+                (kqt[fd], ks[fd] knobs).
+            beam (int): Beam to use, for the knob names.
+
+        Returns:
+            Tuple of strings with knobs for `(qx, qy, dqx, dqy)`.
+        """
+        beam = 2 if beam == 4 else beam
+
+        if accelerator.upper() not in ("LHC", "HLLHC"):
+            logger.error("Invalid accelerator name, only 'LHC' and 'HLLHC' implemented")
+            raise NotImplementedError(f"Accelerator '{accelerator}' not implemented.")
+
+        return {
+            "LHC": (f"dQx.b{beam}", f"dQy.b{beam}", f"dQpx.b{beam}", f"dQpy.b{beam}"),
+            "HLLHC": (f"kqtf.b{beam}", f"kqtd.b{beam}", f"ksf.b{beam}", f"ksd.b{beam}"),
+        }[accelerator.upper()]
+
+    @staticmethod
+    def perform_tune_and_chroma_matching(
         cpymad_instance: Madx,
-        sequence_name: str,
-        q1_target: float,
-        q2_target: float,
-        variables: Sequence[str] = ["kqf", "kqd"],
+        accelerator: str = None,
+        sequence_name: str = None,
+        q1_target: float = None,
+        q2_target: float = None,
+        dq1_target: float = None,
+        dq2_target: float = None,
+        varied_knobs: Sequence[str] = None,  # ["kqf", "kqd", "ksf", "ksd"],
         step: float = 1e-7,
         calls: int = 100,
         tolerance: float = 1e-21,
     ) -> None:
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional
-        matching command to reach the provided values for tunes.
+        Provided with an active `cpymad` class after having ran a script, will run an additional
+        matching command to reach the provided values for tunes and chromaticities.
+
+        Tune matching is always performed. If chromaticity target values are given, then a matching is done
+        for them, followed by an additionnal matching for both tunes and chromaticities.
 
         Args:
             cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
+                Automatic determination will only work for LHC and HLLHC.
             sequence_name (str): name of the sequence you want to activate for the tune matching.
             q1_target (float): horizontal tune to match to.
             q2_target (float): vertical tune to match to.
-            variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-                ["kqf", "ksd"] as it is a common name for quadrupole strengths (foc / defoc).
+            dq1_target (float): horizontal chromaticity to match to.
+            dq2_target (float): vertical chromaticity to match to.
+            varied_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine. An input
+                could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
+                sextupole strengths (foc / defoc) in most examples.
             step (float): step size to use when varying knobs.
             calls (int): max number of varying calls to perform.
             tolerance (float): tolerance for successfull matching.
         """
+        if accelerator and not varied_knobs:
+            varied_knobs = LatticeMatcher.get_tune_and_chroma_knobs(
+                accelerator=accelerator, beam=int(sequence_name[-1])
+            )
 
         def match(*args, **kwargs):
             logger.debug("Executing matching commands")
@@ -61,48 +101,50 @@ class LatticeMatcher:
             cpymad_instance.command.endmatch()
 
         logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence_name}'")
-        match(*variables, q1=q1_target, q2=q2_target)
+        match(*varied_knobs[:2], q1=dq1_target, q2=dq2_target)  # first two in varied_knobs are tune knobs
+
+        if (dq1_target is not None) and (dq2_target is not None):
+            logger.info(
+                f"Matching chromaticities to dqx = {dq1_target}, dqy = {dq2_target} for sequence "
+                f"'{sequence_name}'"
+            )
+            match(*varied_knobs[2:], dq1=dq1_target, dq2=dq2_target)  # last two are chroma knobs
+            logger.info(
+                f"Doing additional combined matching to Qx = {q1_target}, Qy = {q2_target}, "
+                f"dqx = {dq1_target}, dqy = {dq2_target} for sequence '{sequence_name}'"
+            )
+            match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
     @staticmethod
-    def perform_chroma_matching(
+    def perform_closest_tune_approach(
         cpymad_instance: Madx,
-        sequence_name: str,
-        dq1_target: float,
-        dq2_target: float,
-        variables: List[str] = ["ksf", "ksd"],
+        accel: str,
+        sequence: str,
+        qx: float,
+        qy: float,
+        dqx: float,
+        dqy: float,
         step: float = 1e-7,
-        calls: int = 100,
+        calls: float = 100,
         tolerance: float = 1e-21,
-    ) -> None:
+    ):
+        """ Tries to match the tunes to their mid-fractional tunes.
+        The difference between this mid-tune and the actual matched tune is the
+        closest tune approach. This distorts the optics.
+        Better save and restore tunes before and after matching (see
+        :fun:`get_tune_and_dispersion_knob_values` and :fun:`re.
         """
-        Provided with an active Cpymad class after having ran a script, will run an additional
-        matching command to reach the provided values for chromaticities.
+        mid_fraction = 0.5 * (fractional_tune(qx) + fractional_tune(qy))
+        qxmid, qymid = int(qx) + mid_fraction, int(qy) + mid_fraction
+        LOG.info("Performing closest tune approach:")
+        LOG.info(f"  q1={qxmid}, q2={qymid}.")
 
-        Args:
-            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            sequence_name (str): name of the sequence you want to activate for the tune matching.
-            dq1_target (float): horizontal tune to match to.
-            dq2_target (float): vertical tune to match to.
-            variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-                ["ksf", "ksd"] as it is a common name for sextupole strengths (foc / defoc).
-            step (float): step size to use when varying knobs.
-            calls (int): max number of varying calls to perform.
-            tolerance (float): tolerance for successfull matching.
-        """
-
-        def match(*args, **kwargs):
-            logger.debug("Executing matching commands")
-            cpymad_instance.command.match(chrom=True)
-            cpymad_instance.command.global_(sequence=sequence_name, **kwargs)
-            for variable_name in args:
-                cpymad_instance.command.vary(name=variable_name, step=step)
-            cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
-            cpymad_instance.command.endmatch()
-
-        logger.info(
-            f"Matching tunes to dqx = {dq1_target}, dqy = {dq2_target} for sequence " f"'{sequence_name}'"
-        )
-        match(*variables, dq1=dq1_target, dq2=dq2_target)
+        cpymad_instance.command.match(chrom=True)
+        cpymad_instance.command.global_(sequence=sequence, q1=qxmid, q2=qymid, dq1=dqx, dq2=dqy)
+        for name in get_tune_and_dispersion_knobs(accel, beam=int(sequence[-1])):
+            cpymad_instance.command.vary(name=name, step=step)
+        cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
+        cpymad_instance.command.endmatch()
 
 
 class Parameters:
@@ -164,77 +206,3 @@ class Parameters:
             """
             )
         return parameters
-
-
-def _create_tune_matching_routine(
-    sequence_name: str, q1_target: float, q2_target: float, variables: List[str] = ["kqf", "kqd"],
-) -> str:
-    """
-    Create the string for a tune matching routine with provided parameters.
-
-    Args:
-        sequence_name (str): name of the sequence you want to activate for the tune matching.
-        q1_target (float): horizontal tune to match to.
-        q2_target (float): vertical tune to match to.
-        variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-            ["kqf", "kqd"] as it is a common name for quadrupole strengths (foc / defoc).
-
-    Returns:
-        The string to input in MADX to perform the matching.
-    """
-    logger.debug(
-        f"Creating tune matching routine with for sequence '{sequence_name}' with target "
-        f"tunes {q1_target} and {q2_target} "
-    )
-    matching_routine_string: str = f"""
-!MATCHING SEQUENCE
-match, sequence={sequence_name};"""
-
-    for variable in variables:
-        matching_routine_string += f"\n  vary, name={variable}, step=0.00001;"
-
-    matching_routine_string += f"""
-  global, sequence={sequence_name}, Q1={q1_target};
-  global, sequence={sequence_name}, Q2={q2_target};
-  Lmdif, calls=1000, tolerance=1.0e-21;
-endmatch;
-twiss;
-"""
-    return matching_routine_string
-
-
-def _create_chromaticity_matching_routine(
-    sequence_name: str, dq1_target: float, dq2_target: float, variables: List[str] = ["ksf", "ksd"],
-) -> str:
-    """
-    Create the string for a chromaticity matching routine with provided parameters.
-
-    Args:
-        sequence_name (str): name of the sequence you want to activate for the tune matching.
-        dq1_target (float): horizontal chromaticity to match to.
-        dq2_target (float): vertical chromaticity to match to.
-        variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
-            ["ksf", "ksd"] as it is a common name for sextupole strengths (foc / defoc).
-
-    Returns:
-        The string to input in MADX to perform the matching.
-    """
-    logger.debug(
-        f"Creating chromaticity matching routine with for sequence '{sequence_name}' with target "
-        f"chromaticities {dq1_target} and {dq2_target} "
-    )
-    matching_routine_string: str = f"""
-!MATCHING SEQUENCE
-match, sequence={sequence_name};"""
-
-    for variable in variables:
-        matching_routine_string += f"\n  vary, name={variable}, step=0.00001;"
-
-    matching_routine_string += f"""
-  global, sequence={sequence_name}, dq1={dq1_target};
-  global, sequence={sequence_name}, dq2={dq2_target};
-  Lmdif, calls=1000, tolerance=1.0e-21;
-endmatch;
-twiss;
-"""
-    return matching_routine_string

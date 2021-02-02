@@ -8,12 +8,7 @@ import pytest
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.helpers import (
-    LatticeMatcher,
-    Parameters,
-    _create_chromaticity_matching_routine,
-    _create_tune_matching_routine,
-)
+from pyhdtoolkit.cpymadtools.helpers import LatticeMatcher, Parameters
 from pyhdtoolkit.cpymadtools.lattice_generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import LaTwiss
 from pyhdtoolkit.cpymadtools.plotters import (
@@ -233,59 +228,50 @@ class TestLaTwiss:
 
 
 class TestLatticeMatcher:
-    def test_tune_matching_routine(self):
-        """Test for coverage, it routines are wrong the matching tests will fail anyway."""
-        assert (
-            _create_tune_matching_routine("SEQ", 6.5, 6.5, variables=["kq1", "kq2"])
-            == f"""
-!MATCHING SEQUENCE
-match, sequence=SEQ;
-  vary, name=kq1, step=0.00001;
-  vary, name=kq2, step=0.00001;
-  global, sequence=SEQ, Q1=6.5;
-  global, sequence=SEQ, Q2=6.5;
-  Lmdif, calls=1000, tolerance=1.0e-21;
-endmatch;
-twiss;
-"""
+    @pytest.mark.parametrize("beam", [1, 2, 3, 4])
+    def test_lhc_tune_and_chroma_knobs(self, beam):
+        expected_beam = 2 if beam == 4 else beam
+        assert LatticeMatcher.get_tune_and_chroma_knobs("LHC", beam) == (
+            f"dQx.b{expected_beam}",
+            f"dQy.b{expected_beam}",
+            f"dQpx.b{expected_beam}",
+            f"dQpy.b{expected_beam}",
+        )
+
+    @pytest.mark.parametrize("beam", [1, 2, 3, 4])
+    def test_hllhc_tune_and_chroma_knobs(self, beam):
+        expected_beam = 2 if beam == 4 else beam
+        assert LatticeMatcher.get_tune_and_chroma_knobs("HLLHC", beam) == (
+            f"kqtf.b{expected_beam}",
+            f"kqtd.b{expected_beam}",
+            f"ksf.b{expected_beam}",
+            f"ksd.b{expected_beam}",
         )
 
     @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
-    def test_tune_matching(self, q1_target, q2_target):
-        """Using my CAS 19 project's base lattice."""
+    @pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
+    def test_tune_and_chroma_matching(self, q1_target, q2_target, dq1_target, dq2_target):
+        """Using my CAS19 project's lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
+
         assert madx.table.summ.q1[0] != q1_target
         assert madx.table.summ.q2[0] != q2_target
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", q1_target, q2_target)
-        assert np.isclose(madx.table.summ.q1[0], q1_target)
-        assert np.isclose(madx.table.summ.q2[0], q2_target)
-
-    def test_chromaticity_matching_routine(self):
-        """Test for coverage, it routines are wrong the matching tests will fail anyway."""
-        assert (
-            _create_chromaticity_matching_routine("SEQ", 15, 15, variables=["ks1", "ks2"])
-            == f"""
-!MATCHING SEQUENCE
-match, sequence=SEQ;
-  vary, name=ks1, step=0.00001;
-  vary, name=ks2, step=0.00001;
-  global, sequence=SEQ, dq1=15;
-  global, sequence=SEQ, dq2=15;
-  Lmdif, calls=1000, tolerance=1.0e-21;
-endmatch;
-twiss;
-"""
-        )
-
-    @pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
-    def test_chroma_matching(self, dq1_target, dq2_target):
-        """Using my CAS 19 project's base lattice."""
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
         assert madx.table.summ.dq1[0] != dq1_target
         assert madx.table.summ.dq2[0] != dq2_target
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", dq1_target, dq2_target)
+
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            cpymad_instance=madx,
+            sequence_name="CAS3",
+            q1_target=q1_target,
+            q2_target=q2_target,
+            dq1_target=dq1_target,
+            dq2_target=dq2_target,
+            varied_knobs=["kqf", "kqd", "ksf", "ksd"],
+        )
+
+        assert np.isclose(madx.table.summ.q1[0], q1_target)
+        assert np.isclose(madx.table.summ.q2[0], q2_target)
         assert np.isclose(madx.table.summ.dq1[0], dq1_target)
         assert np.isclose(madx.table.summ.dq2[0], dq2_target)
 
