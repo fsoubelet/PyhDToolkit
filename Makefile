@@ -56,7 +56,7 @@ clean:
 	@echo "Cleaning up mypy cache."
 	@find . -type d -name "*.mypy_cache" -exec rm -rf {} +
 	@echo "Cleaning up coverage reports."
-	@find . -type f -name '.coverage' -exec rm -rf {} + -o -type f -name 'coverage.xml' -delete
+	@find . -type f -name '.coverage*' -exec rm -rf {} + -o -type f -name 'coverage.xml' -delete
 	@echo "All cleaned up!\n"
 
 condaenv:
