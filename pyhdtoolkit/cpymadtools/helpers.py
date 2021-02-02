@@ -53,7 +53,7 @@ class LatticeMatcher:
     def perform_tune_and_chroma_matching(
         cpymad_instance: Madx,
         accelerator: str = None,
-        sequence_name: str = None,
+        sequence: str = None,
         q1_target: float = None,
         q2_target: float = None,
         dq1_target: float = None,
@@ -74,7 +74,7 @@ class LatticeMatcher:
             cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
             accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
                 Automatic determination will only work for LHC and HLLHC.
-            sequence_name (str): name of the sequence you want to activate for the tune matching.
+            sequence (str): name of the sequence you want to activate for the tune matching.
             q1_target (float): horizontal tune to match to.
             q2_target (float): vertical tune to match to.
             dq1_target (float): horizontal chromaticity to match to.
@@ -88,63 +88,105 @@ class LatticeMatcher:
         """
         if accelerator and not varied_knobs:
             varied_knobs = LatticeMatcher.get_tune_and_chroma_knobs(
-                accelerator=accelerator, beam=int(sequence_name[-1])
+                accelerator=accelerator, beam=int(sequence[-1])
             )
 
         def match(*args, **kwargs):
             logger.debug("Executing matching commands")
             cpymad_instance.command.match(chrom=True)
-            cpymad_instance.command.global_(sequence=sequence_name, **kwargs)
+            cpymad_instance.command.global_(sequence=sequence, **kwargs)
             for variable_name in args:
                 cpymad_instance.command.vary(name=variable_name, step=step)
             cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
             cpymad_instance.command.endmatch()
 
-        logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence_name}'")
+        logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence}'")
         match(*varied_knobs[:2], q1=dq1_target, q2=dq2_target)  # first two in varied_knobs are tune knobs
 
         if (dq1_target is not None) and (dq2_target is not None):
             logger.info(
                 f"Matching chromaticities to dqx = {dq1_target}, dqy = {dq2_target} for sequence "
-                f"'{sequence_name}'"
+                f"'{sequence}'"
             )
             match(*varied_knobs[2:], dq1=dq1_target, dq2=dq2_target)  # last two are chroma knobs
             logger.info(
                 f"Doing additional combined matching to Qx = {q1_target}, Qy = {q2_target}, "
-                f"dqx = {dq1_target}, dqy = {dq2_target} for sequence '{sequence_name}'"
+                f"dqx = {dq1_target}, dqy = {dq2_target} for sequence '{sequence}'"
             )
             match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
     @staticmethod
-    def perform_closest_tune_approach(
+    def get_closest_tune_approach(
         cpymad_instance: Madx,
-        accel: str,
-        sequence: str,
-        qx: float,
-        qy: float,
-        dqx: float,
-        dqy: float,
+        accelerator: str = None,
+        sequence: str = None,
+        varied_knobs: Sequence[str] = None,  # ["kqf", "kqd", "ksf", "ksd"],
         step: float = 1e-7,
         calls: float = 100,
         tolerance: float = 1e-21,
     ):
-        """ Tries to match the tunes to their mid-fractional tunes.
-        The difference between this mid-tune and the actual matched tune is the
-        closest tune approach. This distorts the optics.
-        Better save and restore tunes before and after matching (see
-        :fun:`get_tune_and_dispersion_knob_values` and :fun:`re.
         """
-        mid_fraction = 0.5 * (fractional_tune(qx) + fractional_tune(qy))
-        qxmid, qymid = int(qx) + mid_fraction, int(qy) + mid_fraction
-        LOG.info("Performing closest tune approach:")
-        LOG.info(f"  q1={qxmid}, q2={qymid}.")
+        Provided with an active `cpymad` class after having ran a script, tries to match the tunes to
+        their mid-fractional tunes. The difference between this mid-tune and the actual matched tune is the
+        closest tune approach.
 
-        cpymad_instance.command.match(chrom=True)
-        cpymad_instance.command.global_(sequence=sequence, q1=qxmid, q2=qymid, dq1=dqx, dq2=dqy)
-        for name in get_tune_and_dispersion_knobs(accel, beam=int(sequence[-1])):
-            cpymad_instance.command.vary(name=name, step=step)
-        cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
-        cpymad_instance.command.endmatch()
+        NOTA BENE: This assumes your lattice has previously been matched to desired tunes and
+        chromaticities, as it will determine the appropriate targets from the Madx instance's internal tables.
+
+        Args:
+            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
+                Automatic determination will only work for LHC and HLLHC.
+            sequence (str): name of the sequence you want to activate for the tune matching.
+            varied_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine. An input
+                could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
+                sextupole strengths (foc / defoc) in most examples.
+            step (float): step size to use when varying knobs.
+            calls (int): max number of varying calls to perform.
+            tolerance (float): tolerance for successfull matching.
+
+        Returns:
+            The closest tune approach, in absolute value.
+        """
+        if accelerator and not varied_knobs:
+            varied_knobs = LatticeMatcher.get_tune_and_chroma_knobs(
+                accelerator=accelerator, beam=int(sequence[-1])
+            )
+
+        logger.info("Saving knob values to restore after closest tune approach")
+        saved_knobs: Dict[str, float] = {knob: cpymad_instance.globals[knob] for knob in varied_knobs}
+
+        logger.debug("Retrieving tunes and chromaticities from internal tables")
+        q1, q2 = cpymad_instance.table.summ.q1[0], cpymad_instance.table.summ.q2[0]
+        dq1, dq2 = cpymad_instance.table.summ.dq1[0], cpymad_instance.table.summ.dq2[0]
+
+        logger.debug("Determining target tunes for closest approach")
+        half_fractional_tune_split = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
+        qx_mid = int(q1) + half_fractional_tune_split
+        qy_mid = int(q2) + half_fractional_tune_split
+
+        logger.info("Performing closest tune approach routine, this matching should fail at deltaq = dqmin")
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            cpymad_instance,
+            accelerator,
+            sequence,
+            qx_mid,
+            qy_mid,
+            dq1,
+            dq2,
+            varied_knobs,
+            step,
+            calls,
+            tolerance,
+        )
+
+        dqmin = abs(cpymad_instance.table.summ.q1[0] - cpymad_instance.table.summ.q2[0])
+
+        logger.info("Restoring saved knobs")
+        for knob, knob_value in saved_knobs.items():
+            madx.globals[knob] = knob_value
+
+        return dqmin
 
 
 class Parameters:
@@ -206,3 +248,16 @@ class Parameters:
             """
             )
         return parameters
+
+
+def _fractional_tune(tune: float) -> float:
+    """
+    Return only the fractional part of a tune value.
+
+    Args:
+        tune (float): tune value.
+
+    Returns:
+        The fractional part.
+    """
+    return tune - int(tune)  # ok since int truncates to lower integer
