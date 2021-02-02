@@ -20,7 +20,7 @@ BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
 
 class TestLaTwiss:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_latwiss_from_pandas_frame(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_latwiss"
@@ -29,8 +29,9 @@ class TestLaTwiss:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
         twiss = madx.table.twiss.dframe()
 
         figure = LaTwiss.plot_latwiss(
@@ -44,7 +45,7 @@ class TestLaTwiss:
         assert saved_fig.is_file()
         return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_latwiss_from_tfs_frame(self, tmp_path, _latwiss_tfs_frame):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_latwiss"
@@ -62,7 +63,7 @@ class TestLaTwiss:
         assert saved_fig.is_file()
         return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_latwiss_from_file(self, tmp_path, _latwiss_tfs_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_latwiss"
@@ -93,8 +94,9 @@ class TestLaTwiss:
 def test_assert_columns_fails_on_absent_column(caplog):
     madx = Madx(stdout=False)
     madx.input(BASE_LATTICE)
-    LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-    LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+    LatticeMatcher.perform_tune_and_chroma_matching(
+        madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+    )
     twiss = madx.table.twiss.dframe()
 
     with pytest.raises(KeyError):

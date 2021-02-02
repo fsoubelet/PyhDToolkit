@@ -9,7 +9,7 @@ matplotlib.use("Agg")
 
 
 class TestAnnotationsPlotter:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_set_arrow_label(self):
         figure = plt.figure(figsize=(12, 7))
         ax = figure.add_subplot()

@@ -99,6 +99,8 @@ class LatticeMatcher:
                 cpymad_instance.command.vary(name=variable_name, step=step)
             cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
             cpymad_instance.command.endmatch()
+            logger.trace("Performing routine TWISS")
+            cpymad_instance.twiss()  # prevents errors if the user forget to do so before querying tables
 
         logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence}'")
         match(*varied_knobs[:2], q1=dq1_target, q2=dq2_target)  # first two in varied_knobs are tune knobs
@@ -124,7 +126,7 @@ class LatticeMatcher:
         step: float = 1e-7,
         calls: float = 100,
         tolerance: float = 1e-21,
-    ):
+    ) -> float:
         """
         Provided with an active `cpymad` class after having ran a script, tries to match the tunes to
         their mid-fractional tunes. The difference between this mid-tune and the actual matched tune is the

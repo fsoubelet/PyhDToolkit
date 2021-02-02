@@ -81,7 +81,7 @@ twiss;
 
 
 class TestAperturePlotter:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_aperture(self, tmp_path):
         savefig_dir = tmp_path / "test_plot_aperture"
         savefig_dir.mkdir()
@@ -96,7 +96,7 @@ class TestAperturePlotter:
 
 
 class TestDynamicAperturePlotter:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_dynamic_aperture(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_aperture"
@@ -106,8 +106,9 @@ class TestDynamicAperturePlotter:
         n_particles = 100
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, y_coords_stable, _, _ = _perform_tracking_for_coordinates(madx)
         x_coords_stable = np.array(x_coords_stable)
@@ -180,7 +181,7 @@ class TestLatticeGenerator:
 
 
 class TestLaTwiss:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_latwiss(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_latwiss"
@@ -189,8 +190,9 @@ class TestLaTwiss:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
         figure = LaTwiss.plot_latwiss(
             cpymad_instance=madx,
             title="Project 3 Base Lattice",
@@ -202,7 +204,7 @@ class TestLaTwiss:
         assert saved_fig.is_file()
         return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_machine_survey_with_elements(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_survey"
@@ -217,7 +219,7 @@ class TestLaTwiss:
         assert saved_fig.is_file()
         return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_machine_survey_without_elements(self):
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
@@ -262,7 +264,7 @@ class TestLatticeMatcher:
 
         LatticeMatcher.perform_tune_and_chroma_matching(
             cpymad_instance=madx,
-            sequence_name="CAS3",
+            sequence="CAS3",
             q1_target=q1_target,
             q2_target=q2_target,
             dq1_target=dq1_target,
@@ -270,10 +272,10 @@ class TestLatticeMatcher:
             varied_knobs=["kqf", "kqd", "ksf", "ksd"],
         )
 
-        assert np.isclose(madx.table.summ.q1[0], q1_target)
-        assert np.isclose(madx.table.summ.q2[0], q2_target)
-        assert np.isclose(madx.table.summ.dq1[0], dq1_target)
-        assert np.isclose(madx.table.summ.dq2[0], dq2_target)
+        assert np.isclose(madx.table.summ.q1[0], q1_target, rtol=1e-3)
+        assert np.isclose(madx.table.summ.q2[0], q2_target, rtol=1e-3)
+        assert np.isclose(madx.table.summ.dq1[0], dq1_target, rtol=1e-3)
+        assert np.isclose(madx.table.summ.dq2[0], dq2_target, rtol=1e-3)
 
 
 class TestParameters:
@@ -329,7 +331,7 @@ class TestParameters:
 
 
 class TestPhaseSpacePlotter:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_horizontal_courant_snyder_phase_space(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_latwiss"
@@ -338,8 +340,9 @@ class TestPhaseSpacePlotter:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
         figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
@@ -350,13 +353,14 @@ class TestPhaseSpacePlotter:
         assert saved_fig.is_file()
         return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_vertical_courant_snyder_phase_space(self):
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
         figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
@@ -370,8 +374,9 @@ class TestPhaseSpacePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
         with pytest.raises(ValueError):
@@ -379,7 +384,7 @@ class TestPhaseSpacePlotter:
                 madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
             )
 
-    @pytest.mark.mpl_image_compare(tolerance=20)
+    @pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
     def test_plot_horizontal_courant_snyder_phase_space_colored(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_latwiss"
@@ -388,8 +393,9 @@ class TestPhaseSpacePlotter:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
         figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
@@ -400,13 +406,14 @@ class TestPhaseSpacePlotter:
         assert saved_fig.is_file()
         return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20)
+    @pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
     def test_plot_vertical_courant_snyder_phase_space_colored(self):
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
         figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
@@ -420,8 +427,9 @@ class TestPhaseSpacePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
         with pytest.raises(ValueError):
@@ -431,7 +439,7 @@ class TestPhaseSpacePlotter:
 
 
 class TestTuneDiagramPlotter:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_blank_tune_diagram(self):
         """Does not need any input."""
         figure = TuneDiagramPlotter.plot_blank_tune_diagram()
@@ -439,7 +447,7 @@ class TestTuneDiagramPlotter:
         plt.ylim(0, 0.5)
         return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel")
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_tune_diagram(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
         savefig_dir = tmp_path / "test_plot_latwiss"
@@ -449,8 +457,9 @@ class TestTuneDiagramPlotter:
         n_particles = 100
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_matching(madx, "CAS3", 6.335, 6.29)
-        LatticeMatcher.perform_chroma_matching(madx, "CAS3", 100, 100)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
 
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
 
@@ -501,16 +510,13 @@ def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
     x_coords_stable, px_coords_stable, y_coords_stable, py_coords_stable = [], [], [], []
 
     for _, starting_x in enumerate(initial_x_coordinates):
-        cpymad_instance.input(
-            f"""
-    TRACK;
-    START, X={starting_x}, PX=0, Y=0.0, PY=0, T=0, PT=0;
-    RUN, TURNS={n_turns};
-    ENDTRACK;
-    """
-        )
-        x_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["x"])
-        y_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["y"])
-        px_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["px"])
-        py_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["py"])
+        cpymad_instance.command.track()
+        cpymad_instance.command.start(X=starting_x, PX=0, Y=0, PY=0, T=0, PT=0)
+        cpymad_instance.command.run(turns=n_turns)
+        cpymad_instance.command.endtrack()
+
+        x_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["x"].to_numpy())
+        y_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["y"].to_numpy())
+        px_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["px"].to_numpy())
+        py_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["py"].to_numpy())
     return x_coords_stable, y_coords_stable, px_coords_stable, py_coords_stable
