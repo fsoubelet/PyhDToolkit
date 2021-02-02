@@ -197,6 +197,9 @@ class LatticeMatcher:
 
 
 class OrbitSetup:
+    """
+    A class to setup and manipulate orbit variables for (HL)LHC scripts.
+    """
     @staticmethod
     def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
         """
@@ -379,6 +382,9 @@ class Parameters:
 
 
 class PTCUtils:
+    """
+    A class to manipulate PTC functionality.
+    """
     @staticmethod
     def amplitude_detuning_ptc(
         cpymad_instance: Madx, order: int = 2, file: Union[Path, str] = None
