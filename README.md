@@ -17,7 +17,7 @@
 
   <!-- Github Actions Build -->
   <a href="https://github.com/fsoubelet/PyhDToolkit/actions?query=workflow%3A%22Cron+Testing%22">
-    <img alt="Github Actions" src="https://github.com/fsoubelet/PyhDToolkit/workflows/Cron%20Testing/badge.svg">
+    <img alt="Github Actions" src="https://github.com/fsoubelet/PyhDToolkit/workflows/Tests/badge.svg">
   </a>
 
   <!-- Code Coverage -->
