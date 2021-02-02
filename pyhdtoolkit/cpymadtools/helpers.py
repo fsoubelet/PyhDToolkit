@@ -25,24 +25,6 @@ class LatticeMatcher:
     """
 
     @staticmethod
-    def match(
-        cpymad_instance: Madx,
-        sequence_name: str,
-        step: float = 1e-7,
-        calls: int = 100,
-        tolerance: float = 1e-21,
-        *args,
-        **kwargs,
-    ):
-        logger.debug("Sending matching commands")
-        cpymad_instance.command.match(chrom=True)
-        cpymad_instance.command.global_(sequence=sequence_name, **kwargs)
-        for variable_name in args:
-            cpymad_instance.command.vary(name=variable_name, step=step)
-        cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
-        cpymad_instance.command.endmatch()
-
-    @staticmethod
     def perform_tune_matching(
         cpymad_instance: Madx,
         sequence_name: str,
@@ -68,22 +50,18 @@ class LatticeMatcher:
             calls (int): max number of varying calls to perform.
             tolerance (float): tolerance for successfull matching.
         """
-        logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence_name}'")
-        LatticeMatcher.match(
-            cpymad_instance,
-            *variables,
-            step=step,
-            tolerance=tolerance,
-            calls=calls,
-            q1=q1_target,
-            q2=q2_target,
-        )
 
-        # matching_routine: str = _create_tune_matching_routine(
-        #     sequence_name, q1_target, q2_target, variables
-        # )
-        # logger.debug("Sending matching routine to cpymad")
-        # cpymad_instance.input(matching_routine)
+        def match(*args, **kwargs):
+            logger.debug("Executing matching commands")
+            cpymad_instance.command.match(chrom=True)
+            cpymad_instance.command.global_(sequence=sequence_name, **kwargs)
+            for variable_name in args:
+                cpymad_instance.command.vary(name=variable_name, step=step)
+            cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
+            cpymad_instance.command.endmatch()
+
+        logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence_name}'")
+        match(*variables, q1=q1_target, q2=q2_target)
 
     @staticmethod
     def perform_chroma_matching(
@@ -111,17 +89,20 @@ class LatticeMatcher:
             calls (int): max number of varying calls to perform.
             tolerance (float): tolerance for successfull matching.
         """
-        logger.info(
-            f"Matching chromaticities to dqx = {dq1_target}, dqy = {dq2_target} for sequence "
-            f"'{sequence_name}'"
-        )
-        LatticeMatcher.match(cpymad_instance, *variables, q1=q1_target, q2=q2_target)
 
-        # matching_routine: str = _create_chromaticity_matching_routine(
-        #     sequence_name, dq1_target, dq2_target, variables
-        # )
-        # logger.debug("Sending matching routine to cpymad")
-        # cpymad_instance.input(matching_routine)
+        def match(*args, **kwargs):
+            logger.debug("Executing matching commands")
+            cpymad_instance.command.match(chrom=True)
+            cpymad_instance.command.global_(sequence=sequence_name, **kwargs)
+            for variable_name in args:
+                cpymad_instance.command.vary(name=variable_name, step=step)
+            cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
+            cpymad_instance.command.endmatch()
+
+        logger.info(
+            f"Matching tunes to dqx = {dq1_target}, dqy = {dq2_target} for sequence " f"'{sequence_name}'"
+        )
+        match(*variables, dq1=dq1_target, dq2=dq2_target)
 
 
 class Parameters:
