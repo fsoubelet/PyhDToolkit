@@ -7,7 +7,7 @@ Created on 2020.02.02
 
 Specific constants to be used in cpymadtools functions, to help with consistency.
 """
-CROSSING_SCHEMES = {
+LHC_CROSSING_SCHEMES = {
     "flat": {},
     "lhc_inj": {
         "on_x1": -170,

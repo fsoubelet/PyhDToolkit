@@ -9,7 +9,7 @@ library.
 """
 from loguru import logger
 
-from .helpers import LatticeMatcher, Parameters
+from .helpers import LatticeMatcher, OrbitSetup, Parameters, PTCUtils
 from .lattice_generators import LatticeGenerator
 from .latwiss import LaTwiss
 from .plotters import AperturePlotter, DynamicAperturePlotter, PhaseSpacePlotter, TuneDiagramPlotter
