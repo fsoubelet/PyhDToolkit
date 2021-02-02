@@ -59,9 +59,7 @@ class TestCommandLine:
         """Default max PID is 32768 on linux, 99999 on macOS."""
         assert CommandLine.terminate(pid) is False
 
-    @pytest.mark.parametrize(
-        "sleep_time", list(range(10, 60))
-    )  # each one will spawn a different process
+    @pytest.mark.parametrize("sleep_time", list(range(10, 60)))  # each one will spawn a different process
     def test_terminate_pid(self, sleep_time):
         sacrificed_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
         assert CommandLine.terminate(sacrificed_process.pid) is True
@@ -90,9 +88,7 @@ class TestListOperations:
     def test_average_by(self, inputs, function, result):
         assert ListOperations.average_by(sequence=inputs, function=function) == result
 
-    @pytest.mark.parametrize(
-        "inputs, error", [(None, TypeError), ((list(range(10)), None), TypeError)]
-    )
+    @pytest.mark.parametrize("inputs, error", [(None, TypeError), ((list(range(10)), None), TypeError)])
     def test_average_by_fails(self, inputs, error):
         with pytest.raises(error):
             ListOperations.average_by(inputs)
@@ -100,11 +96,7 @@ class TestListOperations:
     @pytest.mark.parametrize(
         "inputs, filters, results",
         [
-            (
-                ["beep", "boop", "foo", "bar"],
-                [True, True, False, True],
-                [["beep", "boop", "bar"], ["foo"]],
-            ),
+            (["beep", "boop", "foo", "bar"], [True, True, False, True], [["beep", "boop", "bar"], ["foo"]],),
             (
                 [1, _square, _to_str, "string"],
                 [False, True, False, True],
@@ -129,10 +121,7 @@ class TestListOperations:
 
     @pytest.mark.parametrize(
         "inputs, func, results",
-        [
-            (list(range(5)), lambda x: x % 2 == 0, [[0, 2, 4], [1, 3]]),
-            ([], lambda x: x % 2 == 0, [[], []]),
-        ],
+        [(list(range(5)), lambda x: x % 2 == 0, [[0, 2, 4], [1, 3]]), ([], lambda x: x % 2 == 0, [[], []]),],
     )
     def test_bifurcate_by(self, inputs, func, results):
         assert ListOperations.bifurcate_by(inputs, func) == results
@@ -167,10 +156,7 @@ class TestListOperations:
                 [["a", "b", "c"], [1, 2, 3], [], [True, False, False]],
                 ["a", "b", "c", 1, 2, 3, True, False, False],
             ),
-            (
-                [["a", "b", "c"], [1, 2, 3], None, [True, False]],
-                ["a", "b", "c", 1, 2, 3, None, True, False],
-            ),
+            ([["a", "b", "c"], [1, 2, 3], None, [True, False]], ["a", "b", "c", 1, 2, 3, None, True, False],),
         ],
     )
     def test_deep_flatten(self, args, result):
@@ -220,8 +206,7 @@ class TestListOperations:
         assert ListOperations.group_by(array, func) == result
 
     @pytest.mark.parametrize(
-        "array, result",
-        [([1, 2, 1], True), ([list(range(10)), False]), ([], False), ([True, True], True)],
+        "array, result", [([1, 2, 1], True), ([list(range(10)), False]), ([], False), ([True, True], True)],
     )
     def test_has_duplicates(self, array, result):
         assert ListOperations.has_duplicates(array) is result
@@ -231,9 +216,7 @@ class TestListOperations:
         with pytest.raises(error):
             ListOperations.has_duplicates(array)
 
-    @pytest.mark.parametrize(
-        "args", [(["a", "b", 1, 2, False]), ([_square, 1, "string", True, _to_str])]
-    )
+    @pytest.mark.parametrize("args", [(["a", "b", 1, 2, False]), ([_square, 1, "string", True, _to_str])])
     def test_sample(self, args):
         assert ListOperations.sample(args) in args
 
@@ -385,8 +368,7 @@ class TestMultiProcessorExecutor:
     @pytest.mark.parametrize("processes", list(range(1, multiprocessing.cpu_count() + 1)))
     def test_multiprocessor(self, function, inputs, results, processes):
         assert (
-            MultiProcessor.execute_function(func=function, func_args=inputs, n_processes=processes)
-            == results
+            MultiProcessor.execute_function(func=function, func_args=inputs, n_processes=processes) == results
         )
 
     def test_multiprocessing_zero_processes(self):
@@ -406,10 +388,7 @@ class TestMultiThreaderExecutor:
     )
     @pytest.mark.parametrize("threads", list(range(1, 20)))
     def test_multithreading(self, function, inputs, results, threads):
-        assert (
-            MultiThreader.execute_function(func=function, func_args=inputs, n_threads=threads)
-            == results
-        )
+        assert MultiThreader.execute_function(func=function, func_args=inputs, n_threads=threads) == results
 
     def test_multithreading_zero_threads(self):
         with pytest.raises(ValueError):
@@ -454,8 +433,7 @@ class TestNumberOperations:
         assert NumberOperations.degrees_to_radians(degrees, decompose_bool) == result
 
     @pytest.mark.parametrize(
-        "inputs, result",
-        [([54, 24], 6), ([30, 132, 378, 582, 738], 6), ([57, 37, 18], 1), ([0, 0], 0)],
+        "inputs, result", [([54, 24], 6), ([30, 132, 378, 582, 738], 6), ([57, 37, 18], 1), ([0, 0], 0)],
     )
     def test_greatest_common_divisor(self, inputs, result):
         assert NumberOperations.greatest_common_divisor(inputs) == result
@@ -466,8 +444,7 @@ class TestNumberOperations:
             NumberOperations.greatest_common_divisor(inputs)
 
     @pytest.mark.parametrize(
-        "number, divisor, result",
-        [(25, 5, True), (73.4, 2.1, False), (-5, 5, True), (-100, -7, False)],
+        "number, divisor, result", [(25, 5, True), (73.4, 2.1, False), (-5, 5, True), (-100, -7, False)],
     )
     def test_is_divisible(self, number, divisor, result):
         assert NumberOperations.is_divisible_by(number, divisor) is result
@@ -481,15 +458,13 @@ class TestNumberOperations:
             NumberOperations.is_divisible_by(number, divisor)
 
     @pytest.mark.parametrize(
-        "args, result",
-        [([4, 5], 20), ([2, 5, 17, 632], 53720), ([-1, 5, 10], -10), ([0, 10, 50], 0)],
+        "args, result", [([4, 5], 20), ([2, 5, 17, 632], 53720), ([-1, 5, 10], -10), ([0, 10, 50], 0)],
     )
     def test_least_common_multiple(self, args, result):
         assert NumberOperations.least_common_multiple(args) == result
 
     @pytest.mark.parametrize(
-        "args, error",
-        [([0, 0], ZeroDivisionError), ([15, _square], TypeError), ([str(100), 10], TypeError)],
+        "args, error", [([0, 0], ZeroDivisionError), ([15, _square], TypeError), ([str(100), 10], TypeError)],
     )
     def test_least_common_multiple_fails(self, args, error):
         with pytest.raises(error):
@@ -572,9 +547,7 @@ class TestStringOperations:
         with pytest.raises(error):
             StringOperations.is_anagram(string1, string2)
 
-    @pytest.mark.parametrize(
-        "word, result", [("racecar", True), ("definitelynot", False), ("", True)]
-    )
+    @pytest.mark.parametrize("word, result", [("racecar", True), ("definitelynot", False), ("", True)])
     def test_is_palindrome(self, word, result):
         assert StringOperations.is_palindrome(word) is result
 

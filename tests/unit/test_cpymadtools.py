@@ -92,9 +92,7 @@ class TestAperturePlotter:
         savefig_dir.mkdir()
         saved_fig = savefig_dir / "aperture.png"
 
-        beam_fb = Parameters.beam_parameters(
-            1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True
-        )
+        beam_fb = Parameters.beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True)
         madx = Madx(stdout=False)
         madx.input(GUIDO_LATTICE)
         figure = AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
@@ -219,11 +217,7 @@ class TestLaTwiss:
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
         figure = LaTwiss.plot_machine_survey(
-            cpymad_instance=madx,
-            show_elements=True,
-            high_orders=True,
-            figsize=(20, 15),
-            savefig=saved_fig,
+            cpymad_instance=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
         )
         assert saved_fig.is_file()
         return figure
@@ -493,9 +487,7 @@ class TestTuneDiagramPlotter:
 
         qxs_stable = np.array(qxs_stable)
         xgood_stable = np.array(xgood_stable)
-        figure = TuneDiagramPlotter.plot_tune_diagram(
-            madx, qxs_stable, xgood_stable, savefig=saved_fig
-        )
+        figure = TuneDiagramPlotter.plot_tune_diagram(madx, qxs_stable, xgood_stable, savefig=saved_fig)
         plt.xlim(0, 0.4)
         plt.ylim(0, 0.4)
         assert saved_fig.is_file()

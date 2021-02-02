@@ -39,9 +39,7 @@ class CommandLine:
         if pid == 0:
             # According to "man 2 kill", PID 0 refers to <<every process in the process group of
             # the calling process>>. Best not to go any further.
-            logger.warning(
-                "PID 0 refers to 'every process in calling processes', and should be untouched"
-            )
+            logger.warning("PID 0 refers to 'every process in calling processes', and should be untouched")
             return True
         try:
             # Sending SIG 0 only checks if process has terminated, we're not actually terminating it
@@ -95,22 +93,16 @@ class CommandLine:
             CommandLine.run('echo $ENV_VAR', env=modified_env) -> (0, b'new_value')
         """
         with timeit(
-            lambda spanned: logger.info(
-                f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds"
-            )
+            lambda spanned: logger.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")
         ):
             process = subprocess.Popen(
                 command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
             )
             stdout, _ = process.communicate(timeout=timeout)
             if process.poll() != 0:
-                logger.warning(
-                    f"Subprocess command '{command}' finished with exit code: {process.poll()}"
-                )
+                logger.warning(f"Subprocess command '{command}' finished with exit code: {process.poll()}")
             else:
-                logger.success(
-                    f"Subprocess command '{command}' finished with exit code: {process.poll()}"
-                )
+                logger.success(f"Subprocess command '{command}' finished with exit code: {process.poll()}")
         return process.poll(), stdout
 
     @staticmethod

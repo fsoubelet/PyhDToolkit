@@ -21,11 +21,7 @@ WEEKDAYS: List[str] = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 
 @logger.catch
 def calendar_heatmap(
-    axis: matplotlib.axes.Axes,
-    data: np.ndarray,
-    year: int,
-    origin: str = "upper",
-    cmap: str = "RdYlBu",
+    axis: matplotlib.axes.Axes, data: np.ndarray, year: int, origin: str = "upper", cmap: str = "RdYlBu",
 ) -> None:
     """
     Plots the data as a heatmap on a Github-like calendar type of plot.
@@ -104,9 +100,7 @@ def _prepare_data(start: int, data: np.ndarray) -> np.ndarray:
     return _data.reshape(54, 7).T
 
 
-def _prepare_polygon(
-    first_day: datetime, last_day: datetime, origin: str
-) -> matplotlib.patches.Polygon:
+def _prepare_polygon(first_day: datetime, last_day: datetime, origin: str) -> matplotlib.patches.Polygon:
     """
     Make the calculation for the coordinates of the Polygon corners, based on the first and
     last day of a month to plot, and the origin setting.

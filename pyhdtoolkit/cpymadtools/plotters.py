@@ -32,8 +32,7 @@ plt.rcParams.update(PLOT_PARAMS)
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 BY_HSV = sorted(
-    (tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name)
-    for name, color in COLORS_DICT.items()
+    (tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items()
 )
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
@@ -94,12 +93,10 @@ class AperturePlotter:
         twiss_hr["dispersive_envelope_x"] = twiss_hr.dx.values * beam_params["deltap_p"]
         twiss_hr["dispersive_envelope_y"] = twiss_hr.dy.values * beam_params["deltap_p"]
         twiss_hr["envelope_x"] = np.sqrt(
-            twiss_hr.betatronic_envelope_x.values ** 2
-            + (twiss_hr.dx.values * beam_params["deltap_p"]) ** 2
+            twiss_hr.betatronic_envelope_x.values ** 2 + (twiss_hr.dx.values * beam_params["deltap_p"]) ** 2
         )
         twiss_hr["envelope_y"] = np.sqrt(
-            twiss_hr.betatronic_envelope_y.values ** 2
-            + (twiss_hr.dy.values * beam_params["deltap_p"]) ** 2
+            twiss_hr.betatronic_envelope_y.values ** 2 + (twiss_hr.dy.values * beam_params["deltap_p"]) ** 2
         )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
@@ -109,9 +106,7 @@ class AperturePlotter:
         axis1 = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
         axis1.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
         axis1.plot(twiss_hr.s, -twiss_hr.envelope_x, color="b")
-        axis1.fill_between(
-            twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25
-        )
+        axis1.fill_between(twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25)
         axis1.fill_between(
             twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25
         )
@@ -129,12 +124,8 @@ class AperturePlotter:
         axis2 = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=1, sharex=axis1)
         axis2.plot(twiss_hr.s, twiss_hr.envelope_y, color="r")
         axis2.plot(twiss_hr.s, -twiss_hr.envelope_y, color="r")
-        axis2.fill_between(
-            twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25
-        )
-        axis2.fill_between(
-            twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25
-        )
+        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
         axis2.fill_between(
             twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25
         )
@@ -347,9 +338,7 @@ class PhaseSpacePlotter:
                 plt.ylabel("$\\bar{py} [mrad]$", fontsize=17)
             plt.axis("Equal")
         if savefig:
-            logger.info(
-                f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'"
-            )
+            logger.info(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig), format="png", dpi=500)
         return figure
 

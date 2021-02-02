@@ -161,11 +161,7 @@ class LaTwiss:
                 if dipole.k0l != 0:
                     logger.trace("Plotting dipole element")
                     LaTwiss._plot_lattice_series(
-                        dipole_patches_axis,
-                        dipole,
-                        height=dipole.k0l,
-                        v_offset=dipole.k0l / 2,
-                        color="b",
+                        dipole_patches_axis, dipole, height=dipole.k0l, v_offset=dipole.k0l / 2, color="b",
                     )
                 if dipole.angle != 0:
                     logger.trace("Plotting 'sbend' / 'rbend' element")
@@ -195,13 +191,12 @@ class LaTwiss:
 
         # Plotting beta functions on remaining two thirds of the figure
         logger.trace("Setting up betatron functions subplot")
-        betatron_axis = plt.subplot2grid(
-            (3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis
-        )
+        betatron_axis = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis)
         betatron_axis.plot(twiss_df.s, twiss_df.betx, label="$\\beta_x$", lw=1.5)
         betatron_axis.plot(twiss_df.s, twiss_df.bety, label="$\\beta_y$", lw=1.5)
         betatron_axis.legend(loc=2)
         betatron_axis.set_ylabel("$\\beta$-functions [m]")
+
         if beta_ylim:
             logger.debug("Setting ylim for betatron functions plot")
             betatron_axis.set_ylim(beta_ylim)
@@ -216,6 +211,7 @@ class LaTwiss:
         dispertion_axis.set_ylabel("Dispersions [m]", color="brown")
         dispertion_axis.tick_params(axis="y", labelcolor="brown")
         dispertion_axis.grid(False)
+
         if disp_ylim:
             logger.debug("Setting ylim for dispersion plot")
             dispertion_axis.set_ylim(disp_ylim)
@@ -272,19 +268,12 @@ class LaTwiss:
                 label="Dipoles",
             )
             plt.scatter(
-                element_dfs["quad_foc"].z,
-                element_dfs["quad_foc"].x,
-                marker="o",
-                color="blue",
-                label="QF",
+                element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF",
             )
             plt.scatter(
-                element_dfs["quad_defoc"].z,
-                element_dfs["quad_defoc"].x,
-                marker="o",
-                color="red",
-                label="QD",
+                element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD",
             )
+
             if high_orders:
                 logger.debug("Plotting high order magnetic elements (up to octupoles)")
                 plt.scatter(

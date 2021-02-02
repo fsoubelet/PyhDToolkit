@@ -49,9 +49,7 @@ class Beam:
         """
         return self.emittance / (self.beta_rel * self.gamma_rel)
 
-    def revolution_frequency(
-        self, circumference: float = 26658.8832, speed: float = constants.c
-    ) -> float:
+    def revolution_frequency(self, circumference: float = 26658.8832, speed: float = constants.c) -> float:
         """
         Revolution frequency.
 

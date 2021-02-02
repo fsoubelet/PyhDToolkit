@@ -157,11 +157,7 @@ class LaTwiss:
                 if dipole.k0l != 0:
                     logger.trace("Plotting dipole element")
                     LaTwiss._plot_lattice_series(
-                        dipole_patches_axis,
-                        dipole,
-                        height=dipole.k0l,
-                        v_offset=dipole.k0l / 2,
-                        color="b",
+                        dipole_patches_axis, dipole, height=dipole.k0l, v_offset=dipole.k0l / 2, color="b",
                     )
                 elif dipole.angle != 0:
                     logger.trace("Plotting 'sbend' / 'rbend' element")
@@ -195,9 +191,7 @@ class LaTwiss:
 
         # Plotting beta functions on remaining two thirds of the figure
         logger.trace("Setting up betatron functions subplot")
-        betatron_axis = plt.subplot2grid(
-            (3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis
-        )
+        betatron_axis = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis)
         betatron_axis.plot(twiss_df.s, twiss_df.betx, label=r"$\beta_{x}$", lw=1.5)
         betatron_axis.plot(twiss_df.s, twiss_df.bety, label=r"$\beta_{y}$", lw=1.5)
         betatron_axis.legend(loc=2)
@@ -211,9 +205,7 @@ class LaTwiss:
         logger.trace("Setting up dispersion functions subplot")
         dispertion_axis = betatron_axis.twinx()
         dispertion_axis.plot(twiss_df.s, twiss_df.dx, color="brown", label=r"$D_{x}$", lw=2)
-        dispertion_axis.plot(
-            twiss_df.s, twiss_df.dy, ls="-.", color="sienna", label=r"$D_{y}$", lw=2
-        )
+        dispertion_axis.plot(twiss_df.s, twiss_df.dy, ls="-.", color="sienna", label=r"$D_{y}$", lw=2)
         dispertion_axis.legend(loc=1)
         dispertion_axis.set_ylabel("Dispersion [m]", color="brown")
         dispertion_axis.tick_params(axis="y", labelcolor="brown")
@@ -261,9 +253,7 @@ def _get_tfs_dataframe_from_input(
         raise ValueError(f"Invalid input type for argument 'twiss_input': {type(twiss_input)}")
 
 
-def _assert_necessary_columns(
-    dataframe: Union[pd.DataFrame, tfs.TfsDataFrame], columns: List[str]
-) -> None:
+def _assert_necessary_columns(dataframe: Union[pd.DataFrame, tfs.TfsDataFrame], columns: List[str]) -> None:
     """
     Checks the presence of needed inputs for the latwiss plot in the provided dataframe. Will
     raise a KeyError if any of them is missing.

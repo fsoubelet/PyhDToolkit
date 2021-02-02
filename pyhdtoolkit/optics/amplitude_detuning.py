@@ -2837,6 +2837,6 @@ def T(nx, ny, dmux: float, dmuy: float, qx: float, qy: float) -> float:
     Returns:
         T parameter.
     """
-    return np.cos(
-        2 * np.pi * (nx * (np.abs(dmux) - qx / 2) + ny * (np.abs(dmuy) - qy / 2))
-    ) / np.sin(np.pi * (nx * qx + ny * qy))
+    return np.cos(2 * np.pi * (nx * (np.abs(dmux) - qx / 2) + ny * (np.abs(dmuy) - qy / 2))) / np.sin(
+        np.pi * (nx * qx + ny * qy)
+    )

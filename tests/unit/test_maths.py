@@ -27,9 +27,7 @@ class TestPhaseReconstructor:
             _ = nps.PhaseReconstructor(input_matrix)
 
     @pytest.mark.flaky(max_runs=3, min_passes=1)
-    @pytest.mark.parametrize(
-        "noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1]
-    )
+    @pytest.mark.parametrize("noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1])
     @pytest.mark.parametrize("n_bpms", [50, 250, 500, 569, 750])
     def test_reconstructor_matrix(self, noise_stdev_degrees, n_bpms):
         signal = _create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
@@ -42,9 +40,7 @@ class TestPhaseReconstructor:
         assert pr.reconstructor_matrix.shape == c_hermitian.shape
 
     @pytest.mark.flaky(max_runs=3, min_passes=1)
-    @pytest.mark.parametrize(
-        "noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1]
-    )
+    @pytest.mark.parametrize("noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1])
     @pytest.mark.parametrize("n_bpms", [50, 250, 500, 569, 750])
     def test_reconstruction(self, noise_stdev_degrees, n_bpms):
         signal = _create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
@@ -86,9 +82,7 @@ class TestStatsFitting:
         of freedom input.
         """
         # Don't waste time trying to fit distributions that are very different
-        stats_fitting.set_distributions_dict(
-            {st.chi: "Chi", st.laplace: "Laplace", st.norm: "Normal"}
-        )
+        stats_fitting.set_distributions_dict({st.chi: "Chi", st.laplace: "Laplace", st.norm: "Normal"})
         points = tested_distribution.rvs(degrees_of_freedom, size=100_000)
         guessed_distribution, _ = stats_fitting.best_fit_distribution(points)
         assert guessed_distribution == tested_distribution
@@ -160,9 +154,7 @@ def _create_random_phase_values(low: float, high: float, n_values: int, dist: st
     elif dist == "uniform":
         values = np.sort(np.random.default_rng().uniform(low, high, n_values))
     else:
-        raise ValueError(
-            "Provided parameter 'distribution' should be either 'linspace' or 'uniform'."
-        )
+        raise ValueError("Provided parameter 'distribution' should be either 'linspace' or 'uniform'.")
     values[0] = 0
     return values
 

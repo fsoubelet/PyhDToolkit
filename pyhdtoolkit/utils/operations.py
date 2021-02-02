@@ -122,10 +122,7 @@ class ListOperations:
         if size > len(sequence):
             return sequence
         return list(
-            map(
-                lambda x: sequence[x * size : x * size + size],
-                list(range(math.ceil(len(sequence) / size))),
-            )
+            map(lambda x: sequence[x * size : x * size + size], list(range(math.ceil(len(sequence) / size))),)
         )
 
     @staticmethod

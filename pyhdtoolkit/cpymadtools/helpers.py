@@ -7,7 +7,7 @@ Created on 2019.06.15
 
 A collection of functions for performing different common operations on a cpymad.madx.Madx object.
 """
-from typing import Dict, List
+from typing import Dict, List, Sequence
 
 import numpy as np
 
@@ -25,12 +25,33 @@ class LatticeMatcher:
     """
 
     @staticmethod
+    def match(
+        cpymad_instance: Madx,
+        sequence_name: str,
+        step: float = 1e-7,
+        calls: int = 100,
+        tolerance: float = 1e-21,
+        *args,
+        **kwargs,
+    ):
+        logger.debug("Sending matching commands")
+        cpymad_instance.command.match(chrom=True)
+        cpymad_instance.command.global_(sequence=sequence_name, **kwargs)
+        for variable_name in args:
+            cpymad_instance.command.vary(name=variable_name, step=step)
+        cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
+        cpymad_instance.command.endmatch()
+
+    @staticmethod
     def perform_tune_matching(
         cpymad_instance: Madx,
         sequence_name: str,
         q1_target: float,
         q2_target: float,
-        variables: List[str] = ["kqf", "kqd"],
+        variables: Sequence[str] = ["kqf", "kqd"],
+        step: float = 1e-7,
+        calls: int = 100,
+        tolerance: float = 1e-21,
     ) -> None:
         """
         Provided with an active Cpymad class after having ran a script, will run an additional
@@ -43,12 +64,26 @@ class LatticeMatcher:
             q2_target (float): vertical tune to match to.
             variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
                 ["kqf", "ksd"] as it is a common name for quadrupole strengths (foc / defoc).
+            step (float): step size to use when varying knobs.
+            calls (int): max number of varying calls to perform.
+            tolerance (float): tolerance for successfull matching.
         """
-        matching_routine: str = _create_tune_matching_routine(
-            sequence_name, q1_target, q2_target, variables
+        logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence_name}'")
+        LatticeMatcher.match(
+            cpymad_instance,
+            *variables,
+            step=step,
+            tolerance=tolerance,
+            calls=calls,
+            q1=q1_target,
+            q2=q2_target,
         )
-        logger.debug("Sending matching routine to cpymad")
-        cpymad_instance.input(matching_routine)
+
+        # matching_routine: str = _create_tune_matching_routine(
+        #     sequence_name, q1_target, q2_target, variables
+        # )
+        # logger.debug("Sending matching routine to cpymad")
+        # cpymad_instance.input(matching_routine)
 
     @staticmethod
     def perform_chroma_matching(
@@ -57,6 +92,9 @@ class LatticeMatcher:
         dq1_target: float,
         dq2_target: float,
         variables: List[str] = ["ksf", "ksd"],
+        step: float = 1e-7,
+        calls: int = 100,
+        tolerance: float = 1e-21,
     ) -> None:
         """
         Provided with an active Cpymad class after having ran a script, will run an additional
@@ -69,12 +107,21 @@ class LatticeMatcher:
             dq2_target (float): vertical tune to match to.
             variables (List[str]): the variables names to 'vary' in the MADX routine. Defaults to
                 ["ksf", "ksd"] as it is a common name for sextupole strengths (foc / defoc).
+            step (float): step size to use when varying knobs.
+            calls (int): max number of varying calls to perform.
+            tolerance (float): tolerance for successfull matching.
         """
-        matching_routine: str = _create_chromaticity_matching_routine(
-            sequence_name, dq1_target, dq2_target, variables
+        logger.info(
+            f"Matching chromaticities to dqx = {dq1_target}, dqy = {dq2_target} for sequence "
+            f"'{sequence_name}'"
         )
-        logger.debug("Sending matching routine to cpymad")
-        cpymad_instance.input(matching_routine)
+        LatticeMatcher.match(cpymad_instance, *variables, q1=q1_target, q2=q2_target)
+
+        # matching_routine: str = _create_chromaticity_matching_routine(
+        #     sequence_name, dq1_target, dq2_target, variables
+        # )
+        # logger.debug("Sending matching routine to cpymad")
+        # cpymad_instance.input(matching_routine)
 
 
 class Parameters:
