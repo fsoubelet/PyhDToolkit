@@ -8,7 +8,7 @@ Created on 2019.06.15
 A collection of functions for performing different common operations on a cpymad.madx.Madx object.
 """
 from pathlib import Path
-from typing import Dict, Sequence, Tuple, Union
+from typing import Dict, List, Sequence, Tuple, Union
 
 import numpy as np
 import tfs
