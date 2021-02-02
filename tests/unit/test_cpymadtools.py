@@ -1,3 +1,4 @@
+import math
 import random
 import sys
 
@@ -272,10 +273,39 @@ class TestLatticeMatcher:
             varied_knobs=["kqf", "kqd", "ksf", "ksd"],
         )
 
-        assert np.isclose(madx.table.summ.q1[0], q1_target, rtol=1e-3)
-        assert np.isclose(madx.table.summ.q2[0], q2_target, rtol=1e-3)
-        assert np.isclose(madx.table.summ.dq1[0], dq1_target, rtol=1e-3)
-        assert np.isclose(madx.table.summ.dq2[0], dq2_target, rtol=1e-3)
+        assert math.isclose(madx.table.summ.q1[0], q1_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.q2[0], q2_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.dq1[0], dq1_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.dq2[0], dq2_target, rel_tol=1e-3)
+
+    @pytest.mark.parametrize(
+        "q1_target, q2_target, dqmin",
+        [
+            (6.335, 6.29, 4.440892098500626e-15),
+            (6.34, 6.27, 2.6645352591003757e-15),
+            (6.38, 6.27, 2.6645352591003757e-15,),
+        ],
+    )
+    def test_closest_tune_approach(self, q1_target, q2_target, dqmin):
+        """Using my CAS19 project's lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        LatticeMatcher.perform_tune_and_chroma_matching(
+            madx, None, "CAS3", q1_target, q2_target, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        knobs_before = {knob: madx.globals[knob] for knob in ["kqf", "kqd", "ksf", "ksd"]}
+        cminus = LatticeMatcher.get_closest_tune_approach(
+            madx, None, "CAS3", varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+        knobs_after = {knob: madx.globals[knob] for knob in ["kqf", "kqd", "ksf", "ksd"]}
+
+        assert math.isclose(cminus, dqmin, rel_tol=1e-3)
+        assert knobs_after == knobs_before
+        assert math.isclose(madx.table.summ.q1[0], q1_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.q2[0], q2_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.dq1[0], 100, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.dq2[0], 100, rel_tol=1e-3)
 
 
 class TestParameters:

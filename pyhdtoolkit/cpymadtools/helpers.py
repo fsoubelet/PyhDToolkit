@@ -186,7 +186,8 @@ class LatticeMatcher:
 
         logger.info("Restoring saved knobs")
         for knob, knob_value in saved_knobs.items():
-            madx.globals[knob] = knob_value
+            cpymad_instance.globals[knob] = knob_value
+        cpymad_instance.twiss()
 
         return dqmin
 
