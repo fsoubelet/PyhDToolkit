@@ -72,6 +72,6 @@ Link to [documentation].
 
 ## License
 
-Copyright &copy; 2019-2020 Felix Soubelet. [MIT License](LICENSE)
+Copyright &copy; 2019 Felix Soubelet. [MIT License](LICENSE)
 
 [documentation]: https://fsoubelet.github.io/PyhDToolkit/
