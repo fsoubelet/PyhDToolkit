@@ -91,35 +91,36 @@ class LatticeMatcher:
             tolerance (float): tolerance for successfull matching.
         """
         if accelerator and not varied_knobs:
+            logger.trace(f"Getting knobs from default {accelerator.upper()} values")
             varied_knobs = LatticeMatcher.get_tune_and_chroma_knobs(
                 accelerator=accelerator, beam=int(sequence[-1])
             )
 
         def match(*args, **kwargs):
-            logger.debug("Executing matching commands")
+            logger.debug(f"Executing matching commands, using sequence '{sequence}'")
             cpymad_instance.command.match(chrom=True)
+            logger.trace(f"Targets are given as {kwargs}")
             cpymad_instance.command.global_(sequence=sequence, **kwargs)
             for variable_name in args:
+                logger.trace(f"Creating vary command for knob '{variable_name}'")
                 cpymad_instance.command.vary(name=variable_name, step=step)
             cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
             cpymad_instance.command.endmatch()
             logger.trace("Performing routine TWISS")
             cpymad_instance.twiss()  # prevents errors if the user forget to do so before querying tables
 
-        logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence}'")
-        match(*varied_knobs[:2], q1=dq1_target, q2=dq2_target)  # first two in varied_knobs are tune knobs
-
-        if (dq1_target is not None) and (dq2_target is not None):
+        if q1_target and q2_target and dq1_target and dq2_target:
             logger.info(
-                f"Matching chromaticities to dqx = {dq1_target}, dqy = {dq2_target} for sequence "
-                f"'{sequence}'"
-            )
-            match(*varied_knobs[2:], dq1=dq1_target, dq2=dq2_target)  # last two are chroma knobs
-            logger.info(
-                f"Doing additional combined matching to Qx = {q1_target}, Qy = {q2_target}, "
+                f"Doing combined matching to Qx = {q1_target}, Qy = {q2_target}, "
                 f"dqx = {dq1_target}, dqy = {dq2_target} for sequence '{sequence}'"
             )
+            logger.critical(f"Vary knobs sent are {varied_knobs}")
             match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
+
+        elif q1_target and q2_target:
+            logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence}'")
+            logger.critical(f"Vary knobs sent are {varied_knobs[:2]}")
+            match(*varied_knobs[:2], q1=q1_target, q2=q2_target)  # first two in varied_knobs are tune knobs
 
     @staticmethod
     def get_closest_tune_approach(
@@ -155,29 +156,33 @@ class LatticeMatcher:
             The closest tune approach, in absolute value.
         """
         if accelerator and not varied_knobs:
+            logger.trace(f"Getting knobs from default {accelerator.upper()} values")
             varied_knobs = LatticeMatcher.get_tune_and_chroma_knobs(
                 accelerator=accelerator, beam=int(sequence[-1])
             )
 
-        logger.info("Saving knob values to restore after closest tune approach")
+        logger.debug("Saving knob values to restore after closest tune approach")
         saved_knobs: Dict[str, float] = {knob: cpymad_instance.globals[knob] for knob in varied_knobs}
+        logger.trace(f"Saved knobs are {saved_knobs}")
 
         logger.debug("Retrieving tunes and chromaticities from internal tables")
         q1, q2 = cpymad_instance.table.summ.q1[0], cpymad_instance.table.summ.q2[0]
         dq1, dq2 = cpymad_instance.table.summ.dq1[0], cpymad_instance.table.summ.dq2[0]
+        logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}")
 
         logger.debug("Determining target tunes for closest approach")
-        half_fractional_tune_split = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
-        qx_mid = int(q1) + half_fractional_tune_split
-        qy_mid = int(q2) + half_fractional_tune_split
+        middle_of_fractional_tunes = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
+        qx_target = int(q1) + middle_of_fractional_tunes
+        qy_target = int(q2) + middle_of_fractional_tunes
+        logger.trace(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
 
-        logger.info("Performing closest tune approach routine, this matching should fail at deltaq = dqmin")
+        logger.info("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
         LatticeMatcher.perform_tune_and_chroma_matching(
             cpymad_instance,
             accelerator,
             sequence,
-            qx_mid,
-            qy_mid,
+            qx_target,
+            qy_target,
             dq1,
             dq2,
             varied_knobs,
@@ -186,20 +191,22 @@ class LatticeMatcher:
             tolerance,
         )
 
-        dqmin = abs(cpymad_instance.table.summ.q1[0] - cpymad_instance.table.summ.q2[0])
+        logger.debug("Retrieving tune separation from internal tables")
+        dqmin = cpymad_instance.table.summ.q1[0] - cpymad_instance.table.summ.q2[0] - (int(q1) - int(q2))
 
         logger.info("Restoring saved knobs")
         for knob, knob_value in saved_knobs.items():
             cpymad_instance.globals[knob] = knob_value
         cpymad_instance.twiss()
 
-        return dqmin
+        return abs(dqmin)
 
 
 class OrbitSetup:
     """
     A class to setup and manipulate orbit variables for (HL)LHC scripts.
     """
+
     @staticmethod
     def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
         """
@@ -385,6 +392,7 @@ class PTCUtils:
     """
     A class to manipulate PTC functionality.
     """
+
     @staticmethod
     def amplitude_detuning_ptc(
         cpymad_instance: Madx, order: int = 2, file: Union[Path, str] = None
