@@ -78,7 +78,7 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     return variables, special
 
 
-def lhc_orbit_setup(cpymad_instance: Madx, scheme: str = "flat", **kwargs) -> Dict[str, float]:
+def setup_lhc_orbit(cpymad_instance: Madx, scheme: str = "flat", **kwargs) -> Dict[str, float]:
     """
     CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Automated orbit setup for (hl)lhc runs, for some default schemes.
