@@ -107,18 +107,20 @@ def setup_lhc_orbit(cpymad_instance: Madx, scheme: str = "flat", **kwargs) -> Di
     final_scheme = {}
 
     for orbit_variable in variables:
-        logger.trace(f"Setting orbit variable '{orbit_variable}'")
-        # Sets value in MAD-X globals & returned dict, taken from scheme dict or kwargs if provided
-        cpymad_instance.globals[orbit_variable] = final_scheme[var] = kwargs.get(
-            orbit_variable, default=scheme_dict.get(var, 0)
+        variable_value = kwargs.get(
+            orbit_variable, scheme_dict.get(orbit_variable, 0)
         )
+        logger.trace(f"Setting orbit variable '{orbit_variable}' to {variable_value}")
+        # Sets value in MAD-X globals & returned dict, taken from scheme dict or kwargs if provided
+        cpymad_instance.globals[orbit_variable] = final_scheme[orbit_variable] = variable_value
 
     for special_variable, copy_from in special.items():
-        logger.trace(f"Setting special orbit variable '{special_variable}'")
-        # Sets value in MAD-X globals & returned dict, taken from a given global or kwargs if provided
-        cpymad_instance.globals[special_variable] = final_scheme[special_variable] = kwargs.get(
+        special_variable_value = kwargs.get(
             special_variable, cpymad_instance.globals[copy_from]
         )
+        logger.trace(f"Setting special orbit variable '{special_variable}' to {special_variable_value}")
+        # Sets value in MAD-X globals & returned dict, taken from a given global or kwargs if provided
+        cpymad_instance.globals[special_variable] = final_scheme[special_variable] = special_variable_value
 
     return final_scheme
 

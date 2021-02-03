@@ -101,14 +101,14 @@ def match_tunes_and_chromaticities(
     # TODO: add a success / warning logging message stating the success of the matching?
     if q1_target and q2_target and dq1_target and dq2_target:
         logger.info(
-            f"Doing combined matching to Qx = {q1_target}, Qy = {q2_target}, "
-            f"dqx = {dq1_target}, dqy = {dq2_target} for sequence '{sequence}'"
+            f"Doing combined matching to Qx={q1_target}, Qy={q2_target}, "
+            f"dq={dq1_target}, dqy={dq2_target} for sequence '{sequence}'"
         )
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
     elif q1_target and q2_target:
-        logger.info(f"Matching tunes to Qx = {q1_target}, Qy = {q2_target} for sequence '{sequence}'")
+        logger.info(f"Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence '{sequence}'")
         logger.trace(f"Vary knobs sent are {varied_knobs[:2]}")
         match(*varied_knobs[:2], q1=q1_target, q2=q2_target)  # first two in varied_knobs are tune knobs
 
@@ -127,8 +127,8 @@ def get_closest_tune_approach(
     their mid-fractional tunes. The difference between this mid-tune and the actual matched tune is the
     closest tune approach.
 
-    NOTA BENE: This assumes your lattice has previously been matched to desired tunes and
-    chromaticities, as it will determine the appropriate targets from the Madx instance's internal tables.
+    NOTA BENE: This assumes your lattice has previously been matched to desired tunes and chromaticities,
+    as it will determine the appropriate targets from the Madx instance's internal tables.
 
     Args:
         cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -164,7 +164,6 @@ def get_closest_tune_approach(
     qy_target = int(q2) + middle_of_fractional_tunes
     logger.trace(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
 
-    # TODO: should this try to match chromaticities too? Really unsure!
     logger.info("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
     match_tunes_and_chromaticities(
         cpymad_instance,

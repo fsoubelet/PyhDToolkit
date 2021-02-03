@@ -104,7 +104,7 @@ def apply_lhc_colinearity_knob(cpymad_instance: Madx, colinearity_knob_value: fl
 
 
 def apply_lhc_rigidity_waist_shift_knob(
-    cpymad_instance: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = left
+    cpymad_instance: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
 ) -> None:
     """
     Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don't know what
