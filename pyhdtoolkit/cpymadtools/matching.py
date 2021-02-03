@@ -98,6 +98,7 @@ def match_tunes_and_chromaticities(
         logger.trace("Performing routine TWISS")
         cpymad_instance.twiss()  # prevents errors if the user forget to do so before querying tables
 
+    # TODO: add a success / warning logging message stating the success of the matching?
     if q1_target and q2_target and dq1_target and dq2_target:
         logger.info(
             f"Doing combined matching to Qx = {q1_target}, Qy = {q2_target}, "
@@ -163,6 +164,7 @@ def get_closest_tune_approach(
     qy_target = int(q2) + middle_of_fractional_tunes
     logger.trace(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
 
+    # TODO: should this try to match chromaticities too? Really unsure!
     logger.info("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
     match_tunes_and_chromaticities(
         cpymad_instance,
@@ -170,12 +172,12 @@ def get_closest_tune_approach(
         sequence,
         qx_target,
         qy_target,
-        dq1,
-        dq2,
-        varied_knobs,
-        step,
-        calls,
-        tolerance,
+        # dq1,  # remove?
+        # dq2,  # remove?
+        varied_knobs=varied_knobs,
+        step=step,
+        calls=calls,
+        tolerance=tolerance,
     )
 
     logger.debug("Retrieving tune separation from internal tables")

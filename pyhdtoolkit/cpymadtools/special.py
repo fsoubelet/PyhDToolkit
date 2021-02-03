@@ -79,6 +79,81 @@ def deactivate_lhc_arc_sextupoles(cpymad_instance: Madx, beam: int) -> None:
                 cpymad_instance.globals[sextupole] = 0.0
 
 
+def apply_colinearity_knob(cpymad_instance: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
+    """
+    Applies the LHC colinearity knob. If you don't know what this is, you should not be using this
+    function.
+
+    Args:
+        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users
+            don't mess up local coupling by mistake. This should be a positive integer, normally between 1
+            and 10.
+        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
+            Classically 1 or 5.
+    """
+    logger.info(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
+    knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors
+    right_knob, left_knob = knob_variables
+
+    for knob in knob_variables:
+        logger.trace(f"Corrector strength '{knob}' is {cpymad_instance.globals[knob]} before implementation")
+
+    cpymad_instance.globals[right_knob] = colinearity_knob_value * 1e-4
+    cpymad_instance.globals[left_knob] = -colinearity_knob_value * 1e-4
+
+
+def apply_rigidity_waist_shift_knob(
+    cpymad_instance: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = left
+) -> None:
+    """
+    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don't know what
+    this is, you should not be using this function.
+
+    Args:
+        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).
+        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
+            Classically 1 or 5.
+        side (str): which side of the IP to move the waist to, determines a sign in the calculation.
+            CURRENTLY UNUSED.
+    """
+    # TODO: this is what I use currently, would be nice to customize left / right side application (just
+    #  check the signs)
+    logger.info(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
+    knob_variables = (f"kqx.r{ir:d}", f"kqx.l{ir:d}")  # Closest IP triplet
+    right_knob, left_knob = knob_variables
+
+    for knob in knob_variables:
+        logger(f"Corrector strength '{knob}' is {cpymad_instance.globals[knob]} before implementation")
+
+    current_right_knob = cpymad_instance.globals[right_knob]
+    current_left_knob = cpymad_instance.globals[left_knob]
+    cpymad_instance.globals[right_knob] = (1 - rigidity_waist_shift_knob * 0.005) * current_right_knob
+    cpymad_instance.globals[left_knob] = (1 + rigidity_waist_shift_knob * 0.005) * current_left_knob
+
+
+def apply_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, beam: int = 1) -> None:
+    """
+    Applies the LHC coupling knob to reach the desired C- value.
+
+    Args:
+        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0
+        so users don't mess up coupling by mistake
+        beam (int): beam to apply the knob to, defaults to beam 1.
+    """
+    logger.info(f"Applying coupling knob")
+    logger.warning(
+        "Do not forget to match tunes & chromaticities after this to compensate the second order "
+        "contribution of coupling"
+    )
+    knob_name = f"CMRS.b{beam:d}"
+
+    logger.trace(f"Knob '{knob_name}' is {cpymad_instance.globals[knob_name]} before implementation")
+    cpymad_instance.globals[knob_name] = coupling_knob
+
+
 def make_sixtrack_output(cpymad_instance: Madx, energy: int) -> None:
     """
     CREDITS GO TO JOSCHUA DILLY (@JoschD).
@@ -92,7 +167,7 @@ def make_sixtrack_output(cpymad_instance: Madx, energy: int) -> None:
 
     logger.debug("Powering RF cavities")
     cpymad_instance.globals["VRF400"] = 8 if energy < 5000 else 16  # is 6 at injection for protons iirc?
-    cpymad_instance.globals["LAGRF400.B1"] = 0.5
+    cpymad_instance.globals["LAGRF400.B1"] = 0.5  # cavity phase difference in units of 2pi
     cpymad_instance.globals["LAGRF400.B2"] = 0.0
 
     logger.debug("Executing TWISS and SIXTRACK commands")
