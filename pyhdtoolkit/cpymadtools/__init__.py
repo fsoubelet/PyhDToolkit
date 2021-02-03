@@ -9,7 +9,6 @@ library.
 """
 
 from .generators import LatticeGenerator
-from .helpers import LatticeMatcher, OrbitSetup, Parameters, PTCUtils
 from .latwiss import plot_latwiss, plot_machine_survey
 from .matching import get_closest_tune_approach, get_tune_and_chroma_knobs, match_tunes_and_chromaticities
 from .orbit import get_current_orbit_setup, lhc_orbit_setup, lhc_orbit_variables

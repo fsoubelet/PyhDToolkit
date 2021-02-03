@@ -9,7 +9,7 @@ A collection of functions to elegantly plot the Twiss parameters output of a MAD
 either from a file on disk or a loaded TfsDataFrame.
 """
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple, Union
+from typing import Dict, List, Tuple, Union
 
 import matplotlib
 import matplotlib.axes
@@ -19,7 +19,6 @@ import pandas as pd
 import tfs
 
 from loguru import logger
-from pydantic import BaseModel
 
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
 

@@ -10,14 +10,21 @@ import pytest
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.helpers import LatticeMatcher, Parameters
-from pyhdtoolkit.cpymadtools.latwiss import LaTwiss
+from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
+from pyhdtoolkit.cpymadtools.matching import (
+    get_closest_tune_approach,
+    get_tune_and_chroma_knobs,
+    match_tunes_and_chromaticities,
+)
+from pyhdtoolkit.cpymadtools.orbit import get_current_orbit_setup, lhc_orbit_setup, lhc_orbit_variables
+from pyhdtoolkit.cpymadtools.parameters import beam_parameters
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,
     DynamicAperturePlotter,
     PhaseSpacePlotter,
     TuneDiagramPlotter,
 )
+from pyhdtoolkit.cpymadtools.ptc import get_amplitude_detuning, get_rdts
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -88,7 +95,7 @@ class TestAperturePlotter:
         savefig_dir.mkdir()
         saved_fig = savefig_dir / "aperture.png"
 
-        beam_fb = Parameters.beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True)
+        beam_fb = beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True)
         madx = Madx(stdout=False)
         madx.input(GUIDO_LATTICE)
         figure = AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
@@ -107,7 +114,7 @@ class TestDynamicAperturePlotter:
         n_particles = 100
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
@@ -191,10 +198,10 @@ class TestLaTwiss:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
-        figure = LaTwiss.plot_latwiss(
+        figure = plot_latwiss(
             cpymad_instance=madx,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
@@ -214,7 +221,7 @@ class TestLaTwiss:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        figure = LaTwiss.plot_machine_survey(
+        figure = plot_machine_survey(
             cpymad_instance=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
         )
         assert saved_fig.is_file()
@@ -225,16 +232,16 @@ class TestLaTwiss:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        return LaTwiss.plot_machine_survey(
+        return plot_machine_survey(
             cpymad_instance=madx, show_elements=False, high_orders=True, figsize=(20, 15)
         )
 
 
-class TestLatticeMatcher:
+class TestMatching:
     @pytest.mark.parametrize("beam", [1, 2, 3, 4])
     def test_lhc_tune_and_chroma_knobs(self, beam):
         expected_beam = 2 if beam == 4 else beam
-        assert LatticeMatcher.get_tune_and_chroma_knobs("LHC", beam) == (
+        assert get_tune_and_chroma_knobs("LHC", beam) == (
             f"dQx.b{expected_beam}",
             f"dQy.b{expected_beam}",
             f"dQpx.b{expected_beam}",
@@ -244,7 +251,7 @@ class TestLatticeMatcher:
     @pytest.mark.parametrize("beam", [1, 2, 3, 4])
     def test_hllhc_tune_and_chroma_knobs(self, beam):
         expected_beam = 2 if beam == 4 else beam
-        assert LatticeMatcher.get_tune_and_chroma_knobs("HLLHC", beam) == (
+        assert get_tune_and_chroma_knobs("HLLHC", beam) == (
             f"kqtf.b{expected_beam}",
             f"kqtd.b{expected_beam}",
             f"ksf.b{expected_beam}",
@@ -263,7 +270,7 @@ class TestLatticeMatcher:
         assert madx.table.summ.dq1[0] != dq1_target
         assert madx.table.summ.dq2[0] != dq2_target
 
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             cpymad_instance=madx,
             sequence="CAS3",
             q1_target=q1_target,
@@ -281,23 +288,21 @@ class TestLatticeMatcher:
     @pytest.mark.parametrize(
         "q1_target, q2_target, dqmin",
         [
-            (6.335, 6.29, 4.440892098500626e-15),
-            (6.34, 6.27, 2.6645352591003757e-15),
-            (6.38, 6.27, 2.6645352591003757e-15,),
+            (6.335, 6.29, 3.552713678800501e-15),
+            (6.34, 6.27, 3.552713678800501e-15),
+            (6.38, 6.27, 6.217248937900877e-15),
         ],
     )
     def test_closest_tune_approach(self, q1_target, q2_target, dqmin):
         """Using my CAS19 project's lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", q1_target, q2_target, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
         knobs_before = {knob: madx.globals[knob] for knob in ["kqf", "kqd", "ksf", "ksd"]}
-        cminus = LatticeMatcher.get_closest_tune_approach(
-            madx, None, "CAS3", varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
+        cminus = get_closest_tune_approach(madx, None, "CAS3", varied_knobs=["kqf", "kqd", "ksf", "ksd"])
         knobs_after = {knob: madx.globals[knob] for knob in ["kqf", "kqd", "ksf", "ksd"]}
 
         assert math.isclose(cminus, dqmin, rel_tol=1e-3)
@@ -357,7 +362,7 @@ class TestParameters:
         ],
     )
     def test_beam_parameters(self, pc_gev, en_x_m, en_y_m, delta_p, result_dict, verbosity):
-        assert Parameters.beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, verbosity) == result_dict
+        assert beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, verbosity) == result_dict
 
 
 class TestPhaseSpacePlotter:
@@ -370,7 +375,7 @@ class TestPhaseSpacePlotter:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
@@ -388,7 +393,7 @@ class TestPhaseSpacePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
@@ -404,7 +409,7 @@ class TestPhaseSpacePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
@@ -423,7 +428,7 @@ class TestPhaseSpacePlotter:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
@@ -441,7 +446,7 @@ class TestPhaseSpacePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
@@ -457,7 +462,7 @@ class TestPhaseSpacePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
@@ -487,7 +492,7 @@ class TestTuneDiagramPlotter:
         n_particles = 100
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
 
