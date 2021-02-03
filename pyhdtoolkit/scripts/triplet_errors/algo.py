@@ -24,7 +24,7 @@ import pandas as pd
 from loguru import logger
 from rich.progress import track
 
-from pyhdtoolkit.cpymadtools.lattice_generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.scripts.triplet_errors.data_classes import BetaBeatValues, StdevValues
 from pyhdtoolkit.scripts.triplet_errors.plotting_functions import (
     plot_bbing_max_errorbar,

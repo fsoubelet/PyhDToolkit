@@ -1,6 +1,6 @@
 """
-Module cpymadtools.lattice_generators
--------------------------------------
+Module cpymadtools.generators
+-----------------------------
 
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)

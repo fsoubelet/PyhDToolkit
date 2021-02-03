@@ -9,8 +9,8 @@ import pytest
 
 from cpymad.madx import Madx
 
+from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.helpers import LatticeMatcher, Parameters
-from pyhdtoolkit.cpymadtools.lattice_generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import LaTwiss
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,

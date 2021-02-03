@@ -8,8 +8,8 @@ import tfs
 
 from cpymad.madx import Madx
 
+from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.helpers import LatticeMatcher
-from pyhdtoolkit.cpymadtools.lattice_generators import LatticeGenerator
 from pyhdtoolkit.tfstools.latwiss import LaTwiss, _assert_necessary_columns
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
