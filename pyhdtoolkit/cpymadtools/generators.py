@@ -9,6 +9,9 @@ A collection of functions for generating different lattices for cpymad.madx.Madx
 """
 
 
+# ----- Utlites ----- #
+
+
 class LatticeGenerator:
     """
     A simple class to handle said functions.
