@@ -74,10 +74,10 @@ def plot_latwiss(
     plot_dipoles: bool = True,
     plot_quadrupoles: bool = True,
     plot_sextupoles: bool = False,
-    disp_ylim: Tuple[float, float] = None,  # = (-10, 125),
+    disp_ylim: Tuple[float, float] = (-10, 125),
     beta_ylim: Tuple[float, float] = None,
-    k0l_lim: Tuple[float, float] = None,  # = (-0.25, 0.25),
-    k1l_lim: Tuple[float, float] = None,  # = (-0.08, 0.08),
+    k0l_lim: Tuple[float, float] = (-0.25, 0.25),
+    k1l_lim: Tuple[float, float] = (-0.08, 0.08),
 ) -> matplotlib.figure.Figure:
     """
     Provided with an active Cpymad class after having ran a script, will create a plot
