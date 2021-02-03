@@ -79,7 +79,7 @@ def deactivate_lhc_arc_sextupoles(cpymad_instance: Madx, beam: int) -> None:
                 cpymad_instance.globals[sextupole] = 0.0
 
 
-def apply_colinearity_knob(cpymad_instance: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
+def apply_lhc_colinearity_knob(cpymad_instance: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
     """
     Applies the LHC colinearity knob. If you don't know what this is, you should not be using this
     function.
@@ -103,7 +103,7 @@ def apply_colinearity_knob(cpymad_instance: Madx, colinearity_knob_value: float 
     cpymad_instance.globals[left_knob] = -colinearity_knob_value * 1e-4
 
 
-def apply_rigidity_waist_shift_knob(
+def apply_lhc_rigidity_waist_shift_knob(
     cpymad_instance: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = left
 ) -> None:
     """
@@ -133,7 +133,7 @@ def apply_rigidity_waist_shift_knob(
     cpymad_instance.globals[left_knob] = (1 + rigidity_waist_shift_knob * 0.005) * current_left_knob
 
 
-def apply_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, beam: int = 1) -> None:
+def apply_lhc_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, beam: int = 1) -> None:
     """
     Applies the LHC coupling knob to reach the desired C- value.
 
