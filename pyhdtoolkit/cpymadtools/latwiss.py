@@ -206,6 +206,7 @@ def plot_latwiss(
     if xlimits:
         logger.debug("Setting xlim for longitudinal coordinate")
         plt.xlim(xlimits)
+
     if savefig:
         logger.info(f"Saving latwiss plot as {savefig}")
         plt.savefig(savefig, format="png", dpi=500)

@@ -93,6 +93,7 @@ def apply_lhc_colinearity_knob(cpymad_instance: Madx, colinearity_knob_value: fl
             Classically 1 or 5.
     """
     logger.info(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
+    logger.warning("You should re-match tunes & chromaticities after this")
     knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors
     right_knob, left_knob = knob_variables
 
@@ -115,22 +116,30 @@ def apply_lhc_rigidity_waist_shift_knob(
         rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).
         ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
             Classically 1 or 5.
-        side (str): which side of the IP to move the waist to, determines a sign in the calculation.
-            CURRENTLY UNUSED.
+        side (str): Which side of the IP to move the waist to, determines a sign in the calculation.
+            Defaults to 'left', which means s_waist < s_ip (and setting it to 'right' would move the waist
+            to s_waist > s_ip).
     """
-    # TODO: this is what I use currently, would be nice to customize left / right side application (just
-    #  check the signs)
     logger.info(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
+    logger.warning("You should re-match tunes & chromaticities after this")
     knob_variables = (f"kqx.r{ir:d}", f"kqx.l{ir:d}")  # Closest IP triplet
     right_knob, left_knob = knob_variables
 
     for knob in knob_variables:
-        logger(f"Corrector strength '{knob}' is {cpymad_instance.globals[knob]} before implementation")
+        logger.trace(f"Corrector strength '{knob}' is {cpymad_instance.globals[knob]} before implementation")
 
     current_right_knob = cpymad_instance.globals[right_knob]
     current_left_knob = cpymad_instance.globals[left_knob]
-    cpymad_instance.globals[right_knob] = (1 - rigidity_waist_shift_knob * 0.005) * current_right_knob
-    cpymad_instance.globals[left_knob] = (1 + rigidity_waist_shift_knob * 0.005) * current_left_knob
+
+    if side == "left":
+        cpymad_instance.globals[right_knob] = (1 - rigidty_waist_shift_value * 0.005) * current_right_knob
+        cpymad_instance.globals[left_knob] = (1 + rigidty_waist_shift_value * 0.005) * current_left_knob
+    elif side == "right":
+        cpymad_instance.globals[right_knob] = (1 + rigidty_waist_shift_value * 0.005) * current_right_knob
+        cpymad_instance.globals[left_knob] = (1 - rigidty_waist_shift_value * 0.005) * current_left_knob
+    else:
+        logger.error(f"Given side '{side}' invalid, only 'left' and 'right' are accepted values.")
+        raise ValueError("Invalid value for parameter 'side'.")
 
 
 def apply_lhc_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, beam: int = 1) -> None:
@@ -144,10 +153,7 @@ def apply_lhc_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, bea
         beam (int): beam to apply the knob to, defaults to beam 1.
     """
     logger.info(f"Applying coupling knob")
-    logger.warning(
-        "Do not forget to match tunes & chromaticities after this to compensate the second order "
-        "contribution of coupling"
-    )
+    logger.warning("You should re-match tunes & chromaticities after this")
     knob_name = f"CMRS.b{beam:d}"
 
     logger.trace(f"Knob '{knob_name}' is {cpymad_instance.globals[knob_name]} before implementation")
