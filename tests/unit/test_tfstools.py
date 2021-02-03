@@ -9,7 +9,7 @@ import tfs
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.helpers import LatticeMatcher
+from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.tfstools.latwiss import LaTwiss, _assert_necessary_columns
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
@@ -29,7 +29,7 @@ class TestLaTwiss:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        LatticeMatcher.perform_tune_and_chroma_matching(
+        match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
         twiss = madx.table.twiss.dframe()
@@ -94,7 +94,7 @@ class TestLaTwiss:
 def test_assert_columns_fails_on_absent_column(caplog):
     madx = Madx(stdout=False)
     madx.input(BASE_LATTICE)
-    LatticeMatcher.perform_tune_and_chroma_matching(
+    match_tunes_and_chromaticities(
         madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
     )
     twiss = madx.table.twiss.dframe()
