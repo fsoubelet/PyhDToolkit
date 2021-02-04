@@ -698,8 +698,10 @@ def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
 @pytest.fixture()
 def _prepared_lhc_madx() -> Madx:
     madx = Madx(stdout=False)
-    madx.call(str(LHC_SEQUENCE))
-    madx.call(str(LHC_OPTICS))
+    madx.input(LHC_SEQUENCE.read_text())  # could call but fails on Windows with Python 3.7
+    madx.input(LHC_OPTICS.read_text())  # could call but fails on Windows with Python 3.7
+    # madx.call(str(LHC_SEQUENCE))
+    # madx.call(str(LHC_OPTICS))
 
     NRJ = madx.globals["NRJ"] = 6500
     brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
