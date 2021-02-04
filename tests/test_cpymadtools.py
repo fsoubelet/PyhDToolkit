@@ -10,6 +10,13 @@ import pytest
 
 from cpymad.madx import Madx
 
+from pyhdtoolkit.cpymadtools.constants import (
+    CORRECTOR_LIMITS,
+    FD_FAMILIES,
+    LHC_CROSSING_SCHEMES,
+    SPECIAL_FAMILIES,
+    TWO_FAMILIES,
+)
 from pyhdtoolkit.cpymadtools.errors import switch_magnetic_errors
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
@@ -262,26 +269,9 @@ class TestMatching:
         assert math.isclose(madx.table.summ.dq1[0], dq1_target, rel_tol=1e-3)
         assert math.isclose(madx.table.summ.dq2[0], dq2_target, rel_tol=1e-3)
 
-    def test_closest_tune_approach(self):
+    def test_closest_tune_approach(self, _prepared_lhc_madx):
         """Using LHC lattice."""
-        madx = Madx(stdout=False)
-        madx.call(str(LHC_SEQUENCE))
-        madx.call(str(LHC_OPTICS))
-
-        NRJ = madx.globals["NRJ"] = 6500
-        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
-        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
-        madx.command.beam(
-            sequence="lhcb1",
-            bv=1,
-            energy=NRJ,
-            particle="proton",
-            npart=1.0e10,
-            kbunch=1,
-            ex=geometric_emit,
-            ey=geometric_emit,
-        )
-        madx.command.use(sequence="lhcb1")
+        madx = _prepared_lhc_madx
         apply_lhc_coupling_knob(madx, 2e-3)
         match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
 
@@ -295,7 +285,80 @@ class TestMatching:
 
 
 class TestOrbit:
-    pass
+    def test_lhc_orbit_variables(self):
+        assert lhc_orbit_variables() == (
+            [
+                "on_crab1",
+                "on_crab5",
+                "on_x1",
+                "on_sep1",
+                "on_o1",
+                "on_oh1",
+                "on_ov1",
+                "on_x2",
+                "on_sep2",
+                "on_o2",
+                "on_oe2",
+                "on_a2",
+                "on_oh2",
+                "on_ov2",
+                "on_x5",
+                "on_sep5",
+                "on_o5",
+                "on_oh5",
+                "on_ov5",
+                "on_phi_IR5",
+                "on_x8",
+                "on_sep8",
+                "on_o8",
+                "on_a8",
+                "on_sep8h",
+                "on_x8v",
+                "on_oh8",
+                "on_ov8",
+                "on_alice",
+                "on_sol_alice",
+                "on_lhcb",
+                "on_sol_atlas",
+                "on_sol_cms",
+                "phi_IR1",
+                "phi_IR2",
+                "phi_IR5",
+                "phi_IR8",
+            ],
+            {"on_ssep1": "on_sep1", "on_xx1": "on_x1", "on_ssep5": "on_sep5", "on_xx5": "on_x5"},
+        )
+
+    def test_lhc_orbit_setup_fals_on_unknown_scheme(self, _prepared_lhc_madx, caplog):
+        madx = _prepared_lhc_madx
+
+        with pytest.raises(ValueError):
+            setup_lhc_orbit(madx, scheme="unknown")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    @pytest.mark.parametrize("scheme", list(LHC_CROSSING_SCHEMES.keys()))
+    def test_lhc_orbit_setup(self, scheme, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
+        setup_lhc_orbit(madx, scheme=scheme)
+        variables, special = lhc_orbit_variables()
+
+        for orbit_variable in variables:
+            value = LHC_CROSSING_SCHEMES[scheme].get(orbit_variable, 0)
+            assert madx.globals[orbit_variable] == value
+
+        for special_variable, copy_from in special.items():
+            assert madx.globals[special_variable] == madx.globals[copy_from]
+
+    def test_get_orbit_setup(self, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
+        setup_lhc_orbit(madx, scheme="flat")
+        setup = get_current_orbit_setup(madx)
+
+        assert isinstance(setup, dict)
+        assert all(orbit_var in setup.keys() for orbit_var in lhc_orbit_variables()[0])
+        assert all(special_var in setup.keys() for special_var in lhc_orbit_variables()[1])
 
 
 class TestParameters:
@@ -458,6 +521,10 @@ class TestPhaseSpacePlotter:
             )
 
 
+class TestPTC:
+    pass
+
+
 class TestSpecial:
     def test_all_lhc_arcs(self):
         assert _all_lhc_arcs(1) == ["A12B1", "A23B1", "A34B1", "A45B1", "A56B1", "A67B1", "A78B1", "A81B1"]
@@ -482,12 +549,8 @@ class TestSpecial:
             assert record.levelname == "ERROR"
 
     @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
-    def test_landau_powering(self, current):
-        madx = Madx(stdout=False)
-        madx.call(str(LHC_SEQUENCE))
-        madx.call(str(LHC_OPTICS))
-
-        NRJ = madx.globals["NRJ"] = 6500
+    def test_landau_powering(self, current, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
         brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
         strength = current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
         power_landau_octupoles(madx, mo_current=current, beam=1)
@@ -498,6 +561,7 @@ class TestSpecial:
 
     def test_landau_powering_fails_on_missing_nrj(self, caplog):
         madx = Madx(stdout=False)
+
         with pytest.raises(EnvironmentError):
             power_landau_octupoles(madx, 100, 1)
 
@@ -505,10 +569,8 @@ class TestSpecial:
             assert record.levelname == "ERROR"
 
     @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
-    def test_depower_arc_sextupoles(self, current):
-        madx = Madx(stdout=False)
-        madx.call(str(LHC_SEQUENCE))
-        madx.call(str(LHC_OPTICS))
+    def test_depower_arc_sextupoles(self, current, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
         deactivate_lhc_arc_sextupoles(madx, beam=1)
 
         for arc in _all_lhc_arcs(beam=1):
@@ -516,61 +578,25 @@ class TestSpecial:
                 for i in (1, 2):
                     assert madx.globals[f"KS{fd}{i:d}.{arc}"] == 0.0
 
-    def test_prepare_sixtrack_output(self):
-        madx = Madx(stdout=False)
-        madx.call(str(LHC_SEQUENCE))
-        madx.call(str(LHC_OPTICS))
-
-        NRJ = madx.globals["NRJ"] = 6500
-        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
-        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
-        madx.command.beam(
-            sequence="lhcb1",
-            bv=1,
-            energy=NRJ,
-            particle="proton",
-            npart=1.0e10,
-            kbunch=1,
-            ex=geometric_emit,
-            ey=geometric_emit,
-        )
-        madx.command.use(sequence="lhcb1")
-
+    def test_prepare_sixtrack_output(self, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
         make_sixtrack_output(madx, energy=6500)
+
         assert madx.globals["VRF400"] == 16
         assert madx.globals["LAGRF400.B1"] == 0.5
         assert madx.globals["LAGRF400.B2"] == 0.0
 
     @pytest.mark.parametrize("knob_value", list(range(-10, 11, 2)))
     @pytest.mark.parametrize("IR", [1, 2, 5, 8])
-    def test_colinearity_knob(self, knob_value, IR):
-        madx = Madx(stdout=False)
-        madx.call(str(LHC_SEQUENCE))
-        madx.call(str(LHC_OPTICS))
-
-        NRJ = madx.globals["NRJ"] = 6500
-        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
-        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
-        madx.command.beam(
-            sequence="lhcb1",
-            bv=1,
-            energy=NRJ,
-            particle="proton",
-            npart=1.0e10,
-            kbunch=1,
-            ex=geometric_emit,
-            ey=geometric_emit,
-        )
-        madx.command.use(sequence="lhcb1")
-
+    def test_colinearity_knob(self, knob_value, IR, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
         apply_lhc_colinearity_knob(madx, colinearity_knob_value=knob_value, ir=IR)
+
         assert madx.globals[f"KQSX3.R{IR:d}"] == knob_value * 1e-4
         assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * knob_value * 1e-4
 
-    def test_rigidity_knob_fails_on_invalid_side(self, caplog):
-        madx = Madx(stdout=False)
-        madx.call(str(LHC_SEQUENCE))
-        madx.call(str(LHC_OPTICS))
+    def test_rigidity_knob_fails_on_invalid_side(self, caplog, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
 
         with pytest.raises(ValueError):
             apply_lhc_rigidity_waist_shift_knob(madx, 1, 1, "invalid")
@@ -579,26 +605,8 @@ class TestSpecial:
             assert record.levelname == "ERROR"
 
     @pytest.mark.parametrize("knob_value", [1e-3, 3e-3, 5e-5])
-    def test_coupling_knob(self, knob_value):
-        madx = Madx(stdout=False)
-        madx.call(str(LHC_SEQUENCE))
-        madx.call(str(LHC_OPTICS))
-
-        NRJ = madx.globals["NRJ"] = 6500
-        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
-        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
-        madx.command.beam(
-            sequence="lhcb1",
-            bv=1,
-            energy=NRJ,
-            particle="proton",
-            npart=1.0e10,
-            kbunch=1,
-            ex=geometric_emit,
-            ey=geometric_emit,
-        )
-        madx.command.use(sequence="lhcb1")
-
+    def test_coupling_knob(self, knob_value, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
         apply_lhc_coupling_knob(madx, coupling_knob=knob_value, beam=1)
         assert madx.globals[f"CMRS.b1"] == knob_value
 
@@ -685,3 +693,26 @@ def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
         px_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["px"].to_numpy())
         py_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["py"].to_numpy())
     return x_coords_stable, y_coords_stable, px_coords_stable, py_coords_stable
+
+
+@pytest.fixture()
+def _prepared_lhc_madx() -> Madx:
+    madx = Madx(stdout=False)
+    madx.call(str(LHC_SEQUENCE))
+    madx.call(str(LHC_OPTICS))
+
+    NRJ = madx.globals["NRJ"] = 6500
+    brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+    geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
+    madx.command.beam(
+        sequence="lhcb1",
+        bv=1,
+        energy=NRJ,
+        particle="proton",
+        npart=1.0e10,
+        kbunch=1,
+        ex=geometric_emit,
+        ey=geometric_emit,
+    )
+    madx.command.use(sequence="lhcb1")
+    return madx
