@@ -21,7 +21,7 @@ except ModuleNotFoundError:
 
 def switch_magnetic_errors(cpymad_instance: Madx, **kwargs) -> None:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Applies magnetic field orders. This will only work for LHC and HLLHC machines.
 
     Args:

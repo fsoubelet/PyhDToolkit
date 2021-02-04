@@ -25,7 +25,7 @@ except ModuleNotFoundError:
 
 def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Get the variable names used for orbit setup in the (HL)LHC.
 
     Returns:
@@ -80,7 +80,7 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
 
 def setup_lhc_orbit(cpymad_instance: Madx, scheme: str = "flat", **kwargs) -> Dict[str, float]:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Automated orbit setup for (hl)lhc runs, for some default schemes.
     Assumed that at least sequence and optics files have been called.
 
@@ -107,17 +107,13 @@ def setup_lhc_orbit(cpymad_instance: Madx, scheme: str = "flat", **kwargs) -> Di
     final_scheme = {}
 
     for orbit_variable in variables:
-        variable_value = kwargs.get(
-            orbit_variable, scheme_dict.get(orbit_variable, 0)
-        )
+        variable_value = kwargs.get(orbit_variable, scheme_dict.get(orbit_variable, 0))
         logger.trace(f"Setting orbit variable '{orbit_variable}' to {variable_value}")
         # Sets value in MAD-X globals & returned dict, taken from scheme dict or kwargs if provided
         cpymad_instance.globals[orbit_variable] = final_scheme[orbit_variable] = variable_value
 
     for special_variable, copy_from in special.items():
-        special_variable_value = kwargs.get(
-            special_variable, cpymad_instance.globals[copy_from]
-        )
+        special_variable_value = kwargs.get(special_variable, cpymad_instance.globals[copy_from])
         logger.trace(f"Setting special orbit variable '{special_variable}' to {special_variable_value}")
         # Sets value in MAD-X globals & returned dict, taken from a given global or kwargs if provided
         cpymad_instance.globals[special_variable] = final_scheme[special_variable] = special_variable_value
@@ -127,7 +123,7 @@ def setup_lhc_orbit(cpymad_instance: Madx, scheme: str = "flat", **kwargs) -> Di
 
 def get_current_orbit_setup(cpymad_instance: Madx) -> Dict[str, float]:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Get the current values for the (HL)LHC orbit variales.
 
     Args:

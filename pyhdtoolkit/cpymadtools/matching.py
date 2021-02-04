@@ -20,28 +20,43 @@ except ModuleNotFoundError:
 # ----- Utlites ----- #
 
 
-def get_tune_and_chroma_knobs(accelerator: str, beam: int = 1) -> Tuple[str, str, str, str]:
+def get_lhc_tune_and_chroma_knobs(
+    accelerator: str, beam: int = 1, telescopic_squeeze: bool = False
+) -> Tuple[str, str, str, str]:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Get names of knobs needed to match tunes and chromaticities as a tuple of strings.
 
     Args:
         accelerator (str): Accelerator either 'LHC' (dQ[xy], dQp[xy] knobs) or 'HLLHC'
             (kqt[fd], ks[fd] knobs).
         beam (int): Beam to use, for the knob names.
+        telescopic_squeeze (bool): if set to True, returns the knobs for Telescopic Squeeze configuration.
+            Defaults to False.
 
     Returns:
         Tuple of strings with knobs for `(qx, qy, dqx, dqy)`.
     """
     beam = 2 if beam == 4 else beam
+    suffix = "_sq" if telescopic_squeeze else ""
 
     if accelerator.upper() not in ("LHC", "HLLHC"):
         logger.error("Invalid accelerator name, only 'LHC' and 'HLLHC' implemented")
         raise NotImplementedError(f"Accelerator '{accelerator}' not implemented.")
 
     return {
-        "LHC": (f"dQx.b{beam}", f"dQy.b{beam}", f"dQpx.b{beam}", f"dQpy.b{beam}"),
-        "HLLHC": (f"kqtf.b{beam}", f"kqtd.b{beam}", f"ksf.b{beam}", f"ksd.b{beam}"),
+        "LHC": (
+            f"dQx.b{beam}{suffix}",
+            f"dQy.b{beam}{suffix}",
+            f"dQpx.b{beam}{suffix}",
+            f"dQpy.b{beam}{suffix}",
+        ),
+        "HLLHC": (
+            f"kqtf.b{beam}{suffix}",
+            f"kqtd.b{beam}{suffix}",
+            f"ksf.b{beam}{suffix}",
+            f"ksd.b{beam}{suffix}",
+        ),
     }[accelerator.upper()]
 
 
@@ -83,7 +98,7 @@ def match_tunes_and_chromaticities(
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
-        varied_knobs = get_tune_and_chroma_knobs(accelerator=accelerator, beam=int(sequence[-1]))
+        varied_knobs = get_lhc_tune_and_chroma_knobs(accelerator=accelerator, beam=int(sequence[-1]))
 
     def match(*args, **kwargs):
         logger.debug(f"Executing matching commands, using sequence '{sequence}'")
@@ -147,7 +162,7 @@ def get_closest_tune_approach(
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
-        varied_knobs = get_tune_and_chroma_knobs(accelerator=accelerator, beam=int(sequence[-1]))
+        varied_knobs = get_lhc_tune_and_chroma_knobs(accelerator=accelerator, beam=int(sequence[-1]))
 
     logger.debug("Saving knob values to restore after closest tune approach")
     saved_knobs: Dict[str, float] = {knob: cpymad_instance.globals[knob] for knob in varied_knobs}

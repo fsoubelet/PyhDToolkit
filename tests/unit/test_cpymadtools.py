@@ -13,7 +13,7 @@ from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.cpymadtools.matching import (
     get_closest_tune_approach,
-    get_tune_and_chroma_knobs,
+    get_lhc_tune_and_chroma_knobs,
     match_tunes_and_chromaticities,
 )
 from pyhdtoolkit.cpymadtools.orbit import get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
@@ -239,23 +239,27 @@ class TestLaTwiss:
 
 class TestMatching:
     @pytest.mark.parametrize("beam", [1, 2, 3, 4])
-    def test_lhc_tune_and_chroma_knobs(self, beam):
+    @pytest.mark.parametrize("telescopic_squeeze", [False, True])
+    def test_lhc_tune_and_chroma_knobs(self, beam, telescopic_squeeze):
         expected_beam = 2 if beam == 4 else beam
-        assert get_tune_and_chroma_knobs("LHC", beam) == (
-            f"dQx.b{expected_beam}",
-            f"dQy.b{expected_beam}",
-            f"dQpx.b{expected_beam}",
-            f"dQpy.b{expected_beam}",
+        expected_suffix = "_sq" if telescopic_squeeze else ""
+        assert get_lhc_tune_and_chroma_knobs("LHC", beam, telescopic_squeeze) == (
+            f"dQx.b{expected_beam}{expected_suffix}",
+            f"dQy.b{expected_beam}{expected_suffix}",
+            f"dQpx.b{expected_beam}{expected_suffix}",
+            f"dQpy.b{expected_beam}{expected_suffix}",
         )
 
     @pytest.mark.parametrize("beam", [1, 2, 3, 4])
-    def test_hllhc_tune_and_chroma_knobs(self, beam):
+    @pytest.mark.parametrize("telescopic_squeeze", [False, True])
+    def test_hllhc_tune_and_chroma_knobs(self, beam, telescopic_squeeze):
         expected_beam = 2 if beam == 4 else beam
-        assert get_tune_and_chroma_knobs("HLLHC", beam) == (
-            f"kqtf.b{expected_beam}",
-            f"kqtd.b{expected_beam}",
-            f"ksf.b{expected_beam}",
-            f"ksd.b{expected_beam}",
+        expected_suffix = "_sq" if telescopic_squeeze else ""
+        assert get_lhc_tune_and_chroma_knobs("HLLHC", beam, telescopic_squeeze) == (
+            f"kqtf.b{expected_beam}{expected_suffix}",
+            f"kqtd.b{expected_beam}{expected_suffix}",
+            f"ksf.b{expected_beam}{expected_suffix}",
+            f"ksd.b{expected_beam}{expected_suffix}",
         )
 
     @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])

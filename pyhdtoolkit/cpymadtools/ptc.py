@@ -27,7 +27,7 @@ def get_amplitude_detuning(
     cpymad_instance: Madx, order: int = 2, file: Union[Path, str] = None
 ) -> tfs.TfsDataFrame:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Calculate amplitude detuning via PTC_NORMAL.
 
     Args:
@@ -106,7 +106,7 @@ def get_amplitude_detuning(
 
 def get_rdts(cpymad_instance: Madx, order: int = 4, file: Union[Path, str] = None) -> tfs.TfsDataFrame:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Calculate the RDTs via PTC_TWISS.
 
     Args:

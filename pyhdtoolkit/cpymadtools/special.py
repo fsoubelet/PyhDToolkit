@@ -79,7 +79,9 @@ def deactivate_lhc_arc_sextupoles(cpymad_instance: Madx, beam: int) -> None:
                 cpymad_instance.globals[sextupole] = 0.0
 
 
-def apply_lhc_colinearity_knob(cpymad_instance: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
+def apply_lhc_colinearity_knob(
+    cpymad_instance: Madx, colinearity_knob_value: float = 0, ir: int = None
+) -> None:
     """
     Applies the LHC colinearity knob. If you don't know what this is, you should not be using this
     function.
@@ -142,7 +144,9 @@ def apply_lhc_rigidity_waist_shift_knob(
         raise ValueError("Invalid value for parameter 'side'.")
 
 
-def apply_lhc_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, beam: int = 1) -> None:
+def apply_lhc_coupling_knob(
+    cpymad_instance: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = False
+) -> None:
     """
     Applies the LHC coupling knob to reach the desired C- value.
 
@@ -151,10 +155,13 @@ def apply_lhc_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, bea
         coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0
         so users don't mess up coupling by mistake
         beam (int): beam to apply the knob to, defaults to beam 1.
+        telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.
+            Defaults to False.
     """
     logger.info(f"Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this")
-    knob_name = f"CMRS.b{beam:d}"
+    suffix = "_sq" if telescopic_squeeze else ""
+    knob_name = f"CMRS.b{beam:d}{suffix}"
 
     logger.trace(f"Knob '{knob_name}' is {cpymad_instance.globals[knob_name]} before implementation")
     cpymad_instance.globals[knob_name] = coupling_knob
@@ -162,7 +169,7 @@ def apply_lhc_coupling_knob(cpymad_instance: Madx, coupling_knob: float = 0, bea
 
 def make_sixtrack_output(cpymad_instance: Madx, energy: int) -> None:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Prepare output for sixtrack run.
 
     Args:
@@ -186,7 +193,7 @@ def make_sixtrack_output(cpymad_instance: Madx, energy: int) -> None:
 
 def _all_lhc_arcs(beam: int) -> List[str]:
     """
-
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Names of all LHC arcs for a given beam.
 
     Args:
@@ -200,7 +207,7 @@ def _all_lhc_arcs(beam: int) -> List[str]:
 
 def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
     """
-    CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Returns the list of K-strings for various magnets and orders (K1L, K2SL etc strings).
 
     Args:
