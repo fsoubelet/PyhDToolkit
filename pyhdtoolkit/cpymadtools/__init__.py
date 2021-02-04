@@ -16,4 +16,11 @@ from .orbit import get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
 from .parameters import beam_parameters
 from .plotters import AperturePlotter, DynamicAperturePlotter, PhaseSpacePlotter, TuneDiagramPlotter
 from .ptc import get_amplitude_detuning, get_rdts
-from .special import deactivate_lhc_arc_sextupoles, make_sixtrack_output, power_landau_octupoles
+from .special import (
+    apply_lhc_colinearity_knob,
+    apply_lhc_coupling_knob,
+    apply_lhc_rigidity_waist_shift_knob,
+    deactivate_lhc_arc_sextupoles,
+    make_sixtrack_output,
+    power_landau_octupoles,
+)

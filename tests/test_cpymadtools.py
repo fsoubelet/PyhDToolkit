@@ -10,6 +10,7 @@ import pytest
 
 from cpymad.madx import Madx
 
+from pyhdtoolkit.cpymadtools.errors import switch_magnetic_errors
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.cpymadtools.matching import (
@@ -26,7 +27,16 @@ from pyhdtoolkit.cpymadtools.plotters import (
     TuneDiagramPlotter,
 )
 from pyhdtoolkit.cpymadtools.ptc import get_amplitude_detuning, get_rdts
-from pyhdtoolkit.cpymadtools.special import apply_lhc_coupling_knob
+from pyhdtoolkit.cpymadtools.special import (
+    _all_lhc_arcs,
+    _get_k_strings,
+    apply_lhc_colinearity_knob,
+    apply_lhc_coupling_knob,
+    apply_lhc_rigidity_waist_shift_knob,
+    deactivate_lhc_arc_sextupoles,
+    make_sixtrack_output,
+    power_landau_octupoles,
+)
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -78,6 +88,10 @@ class TestDynamicAperturePlotter:
         )
         assert saved_fig.is_file()
         return figure
+
+
+class TestErrors:
+    pass
 
 
 class TestLatticeGenerator:
@@ -280,6 +294,10 @@ class TestMatching:
         assert knobs_after == knobs_before
 
 
+class TestOrbit:
+    pass
+
+
 class TestParameters:
     @pytest.mark.parametrize(
         "pc_gev, en_x_m, en_y_m, delta_p, verbosity, result_dict",
@@ -438,6 +456,151 @@ class TestPhaseSpacePlotter:
             _ = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
                 madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
             )
+
+
+class TestSpecial:
+    def test_all_lhc_arcs(self):
+        assert _all_lhc_arcs(1) == ["A12B1", "A23B1", "A34B1", "A45B1", "A56B1", "A67B1", "A78B1", "A81B1"]
+        assert _all_lhc_arcs(2) == ["A12B2", "A23B2", "A34B2", "A45B2", "A56B2", "A67B2", "A78B2", "A81B2"]
+
+    @pytest.mark.parametrize(
+        "orient, result",
+        [
+            ["straight", ["K0L", "K1L", "K2L", "K3L", "K4L"]],
+            ["skew", ["K0SL", "K1SL", "K2SL", "K3SL", "K4SL"]],
+            ["both", ["K0L", "K0SL", "K1L", "K1SL", "K2L", "K2SL", "K3L", "K3SL", "K4L", "K4SL"]],
+        ],
+    )
+    def test_k_strings(self, orient, result):
+        assert _get_k_strings(stop=5, orientation=orient) == result
+
+    def test_k_strings_fails_on_wront_orient(self, caplog):
+        with pytest.raises(ValueError):
+            _ = _get_k_strings(orientation="qqq")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
+    def test_landau_powering(self, current):
+        madx = Madx(stdout=False)
+        madx.call(str(LHC_SEQUENCE))
+        madx.call(str(LHC_OPTICS))
+
+        NRJ = madx.globals["NRJ"] = 6500
+        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+        strength = current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
+        power_landau_octupoles(madx, mo_current=current, beam=1)
+
+        for arc in _all_lhc_arcs(beam=1):
+            for fd in "FD":
+                assert madx.globals[f"KO{fd}.{arc}"] == strength
+
+    def test_landau_powering_fails_on_missing_nrj(self, caplog):
+        madx = Madx(stdout=False)
+        with pytest.raises(EnvironmentError):
+            power_landau_octupoles(madx, 100, 1)
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
+    def test_depower_arc_sextupoles(self, current):
+        madx = Madx(stdout=False)
+        madx.call(str(LHC_SEQUENCE))
+        madx.call(str(LHC_OPTICS))
+        deactivate_lhc_arc_sextupoles(madx, beam=1)
+
+        for arc in _all_lhc_arcs(beam=1):
+            for fd in "FD":
+                for i in (1, 2):
+                    assert madx.globals[f"KS{fd}{i:d}.{arc}"] == 0.0
+
+    def test_prepare_sixtrack_output(self):
+        madx = Madx(stdout=False)
+        madx.call(str(LHC_SEQUENCE))
+        madx.call(str(LHC_OPTICS))
+
+        NRJ = madx.globals["NRJ"] = 6500
+        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
+        madx.command.beam(
+            sequence="lhcb1",
+            bv=1,
+            energy=NRJ,
+            particle="proton",
+            npart=1.0e10,
+            kbunch=1,
+            ex=geometric_emit,
+            ey=geometric_emit,
+        )
+        madx.command.use(sequence="lhcb1")
+
+        make_sixtrack_output(madx, energy=6500)
+        assert madx.globals["VRF400"] == 16
+        assert madx.globals["LAGRF400.B1"] == 0.5
+        assert madx.globals["LAGRF400.B2"] == 0.0
+
+    @pytest.mark.parametrize("knob_value", list(range(-10, 11, 2)))
+    @pytest.mark.parametrize("IR", [1, 2, 5, 8])
+    def test_colinearity_knob(self, knob_value, IR):
+        madx = Madx(stdout=False)
+        madx.call(str(LHC_SEQUENCE))
+        madx.call(str(LHC_OPTICS))
+
+        NRJ = madx.globals["NRJ"] = 6500
+        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
+        madx.command.beam(
+            sequence="lhcb1",
+            bv=1,
+            energy=NRJ,
+            particle="proton",
+            npart=1.0e10,
+            kbunch=1,
+            ex=geometric_emit,
+            ey=geometric_emit,
+        )
+        madx.command.use(sequence="lhcb1")
+
+        apply_lhc_colinearity_knob(madx, colinearity_knob_value=knob_value, ir=IR)
+        assert madx.globals[f"KQSX3.R{IR:d}"] == knob_value * 1e-4
+        assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * knob_value * 1e-4
+
+    def test_rigidity_knob_fails_on_invalid_side(self, caplog):
+        madx = Madx(stdout=False)
+        madx.call(str(LHC_SEQUENCE))
+        madx.call(str(LHC_OPTICS))
+
+        with pytest.raises(ValueError):
+            apply_lhc_rigidity_waist_shift_knob(madx, 1, 1, "invalid")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    @pytest.mark.parametrize("knob_value", [1e-3, 3e-3, 5e-5])
+    def test_coupling_knob(self, knob_value):
+        madx = Madx(stdout=False)
+        madx.call(str(LHC_SEQUENCE))
+        madx.call(str(LHC_OPTICS))
+
+        NRJ = madx.globals["NRJ"] = 6500
+        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
+        madx.command.beam(
+            sequence="lhcb1",
+            bv=1,
+            energy=NRJ,
+            particle="proton",
+            npart=1.0e10,
+            kbunch=1,
+            ex=geometric_emit,
+            ey=geometric_emit,
+        )
+        madx.command.use(sequence="lhcb1")
+
+        apply_lhc_coupling_knob(madx, coupling_knob=knob_value, beam=1)
+        assert madx.globals[f"CMRS.b1"] == knob_value
 
 
 class TestTuneDiagramPlotter:
