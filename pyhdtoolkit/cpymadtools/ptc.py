@@ -110,9 +110,9 @@ def get_rdts(cpymad_instance: Madx, order: int = 4, file: Union[Path, str] = Non
         file (Union[Path, str]): path to output file. Default `None`
 
     Returns:
-        TfsDataframe with results
+        A TfsDataframe with results.
     """
-    logger.info("Entering PTC to calculate RDTs")
+    logger.info(f"Entering PTC to calculate RDTs up to order {order}")
     cpymad_instance.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
@@ -128,7 +128,7 @@ def get_rdts(cpymad_instance: Madx, order: int = 4, file: Union[Path, str] = Non
     cpymad_instance.ptc_end()
 
     logger.debug("Extracting results to TfsDataFrame")
-    dframe = tfs.TfsDataFrame(madx.table.twissrdt.dframe())
+    dframe = tfs.TfsDataFrame(cpymad_instance.table.twissrdt.dframe())
     dframe.columns = dframe.columns.str.upper()
     dframe.NAME = dframe.NAME.str.upper()
 

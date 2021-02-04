@@ -41,5 +41,6 @@ def switch_magnetic_errors(cpymad_instance: Madx, **kwargs) -> None:
             ab_default = kwargs.get(f"{ab}{order:d}", order_default)
             for sr in "sr":
                 name = f"{ab}{order:d}{sr}"
-                logger.trace(f"Setting global for '{name}'")
-                cpymad_instance.globals[f"ON_{name}"] = int(kwargs.get(name, ab_default))
+                error_value = int(kwargs.get(name, ab_default))
+                logger.trace(f"Setting global for 'ON_{name}' to {error_value}")
+                cpymad_instance.globals[f"ON_{name}"] = error_value

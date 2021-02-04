@@ -98,7 +98,29 @@ class TestDynamicAperturePlotter:
 
 
 class TestErrors:
-    pass
+    def test_magnetic_errors_switch_no_kwargs(self, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
+        switch_magnetic_errors(madx)
+
+        for order in range(1, 16):
+            for ab in "AB":
+                for sr in "sr":
+                    assert madx.globals[f"ON_{ab}{order:d}{sr}"] == 0
+
+    def test_magnetic_errors_switch_with_kwargs(self, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
+        random_kwargs = {}
+
+        for order in range(1, 16):
+            for ab in "AB":
+                random_kwargs[f"{ab}{order:d}"] = random.randint(0, 20)
+
+        switch_magnetic_errors(madx, **random_kwargs)
+
+        for order in range(1, 16):
+            for ab in "AB":
+                for sr in "sr":
+                    assert madx.globals[f"ON_{ab}{order:d}{sr}"] == random_kwargs[f"{ab}{order:d}"]
 
 
 class TestLatticeGenerator:
@@ -586,7 +608,7 @@ class TestSpecial:
         assert madx.globals["LAGRF400.B1"] == 0.5
         assert madx.globals["LAGRF400.B2"] == 0.0
 
-    @pytest.mark.parametrize("knob_value", list(range(-10, 11, 2)))
+    @pytest.mark.parametrize("knob_value", [-5, 0, 10])
     @pytest.mark.parametrize("IR", [1, 2, 5, 8])
     def test_colinearity_knob(self, knob_value, IR, _prepared_lhc_madx):
         madx = _prepared_lhc_madx
@@ -698,10 +720,8 @@ def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
 @pytest.fixture()
 def _prepared_lhc_madx() -> Madx:
     madx = Madx(stdout=False)
-    madx.input(LHC_SEQUENCE.read_text())  # could call but fails on Windows with Python 3.7
-    madx.input(LHC_OPTICS.read_text())  # could call but fails on Windows with Python 3.7
-    # madx.call(str(LHC_SEQUENCE))
-    # madx.call(str(LHC_OPTICS))
+    madx.call(str(LHC_SEQUENCE))
+    madx.call(str(LHC_OPTICS))
 
     NRJ = madx.globals["NRJ"] = 6500
     brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
