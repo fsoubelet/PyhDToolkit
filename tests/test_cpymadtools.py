@@ -1,4 +1,5 @@
 import math
+import pathlib
 import random
 import sys
 
@@ -16,6 +17,7 @@ from pyhdtoolkit.cpymadtools.matching import (
     get_lhc_tune_and_chroma_knobs,
     match_tunes_and_chromaticities,
 )
+from pyhdtoolkit.cpymadtools.special import apply_lhc_coupling_knob
 from pyhdtoolkit.cpymadtools.orbit import get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
 from pyhdtoolkit.cpymadtools.parameters import beam_parameters
 from pyhdtoolkit.cpymadtools.plotters import (
@@ -29,63 +31,13 @@ from pyhdtoolkit.cpymadtools.ptc import get_amplitude_detuning, get_rdts
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
 
+CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR / "inputs"
+
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
-GUIDO_LATTICE = f"""
-circum = 500.0;
-n_cells = 25; ! Number of cells 
-lcell = circum / n_cells;
-lq = 0.5; ! Length of a quadrupole
-ldip = 3.5;
-
-! ELEMENT DEFINITIONS
-! Define bending magnet as multipole, we have 4 bending magnets per cell
-!mb:multipole, knl={{2.0*pi/(4*n_cells)}};
-
-mb: sbend, l=ldip, angle=2.0*pi/(4*n_cells), apertype=ellipse, aperture= {{0.09, 0.065}};
-f = lcell / (2 * sqrt(2));
-
-! Define quadrupoles as multipoles 
-qf: multipole, knl:={{0,1/f+qtrim_f}}; 
-qd: multipole, knl:={{0,-1/f+qtrim_d}};
-qf: quadrupole, l=lq, K1:=1/f/lq  + qtrim_f/lq, apertype=ellipse, aperture={{0.065, 0.065}}; 
-qd: quadrupole, l=lq, K1:=-1/f/lq + qtrim_d/lq, apertype=ellipse, aperture={{0.065, 0.065}};
-
-! Define the sextupoles as multipole
-!ATTENTION: must use knl:= and NOT knl= to match later! 
-lsex = 0.00001; ! dummy length, only used in the sequence
-msf: multipole, knl:={{0,0,ksf}};
-msd: multipole, knl:={{0,0,ksd}};
-
-! SEQUENCE DECLARATION
-! Switch off the warning to limit outputs (use this option with moderation)
-option, warn=false;
-cas19: sequence, refer=centre, l=circum;
-   start_machine: marker, at = 0;
-   n = 1;
-   while (n < n_cells+1) {{
-    qf: qf,   at=(n-1)*lcell+ lq/2.0;
-    msf: msf, at=(n-1)*lcell + lsex/2.0+lq/1.0;
-    mb: mb,   at=(n-1)*lcell + 0.15*lcell;
-    mb: mb,   at=(n-1)*lcell + 0.35*lcell;
-    qd: qd,   at=(n-1)*lcell + 0.50*lcell+ lq/2.0;
-    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0+lq/1.0;
-    mb: mb,   at=(n-1)*lcell + 0.65*lcell;
-    mb: mb,   at=(n-1)*lcell + 0.85*lcell;
-    n = n + 1;
-}}
-end_machine: marker at=circum;
-endsequence;
-option, warn=true;
-
-! DEFINE BEAM PARAMETERS AND PROPERTIES
-beam, particle=proton, sequence=cas19, energy=2.1190456574946737, exn=5e-06, eyn=5e-06,sige=5e-06;
-use, sequence=cas19;
-select, flag=twiss, column=apertype, aper_1, aper_2;
-
-ksf=0;
-ksd=0;
-twiss;
-"""
+GUIDO_LATTICE = INPUTS_DIR / "guido_lattice.madx"
+LHC_SEQUENCE = INPUTS_DIR / "lhc_as-built.seq"
+LHC_OPTICS = INPUTS_DIR / "opticsfile.22"
 
 
 class TestAperturePlotter:
@@ -97,7 +49,7 @@ class TestAperturePlotter:
 
         beam_fb = beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True)
         madx = Madx(stdout=False)
-        madx.input(GUIDO_LATTICE)
+        madx.call(str(GUIDO_LATTICE))
         figure = AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
         assert saved_fig.is_file()
         return figure
@@ -262,6 +214,13 @@ class TestMatching:
             f"ksd.b{expected_beam}{expected_suffix}",
         )
 
+    def test_get_knobs_fails_on_unknown_accelerator(self, caplog):
+        with pytest.raises(NotImplementedError):
+            _ = get_lhc_tune_and_chroma_knobs("not_an_accelerator")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
     @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
     @pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
     def test_tune_and_chroma_matching(self, q1_target, q2_target, dq1_target, dq2_target):
@@ -289,37 +248,30 @@ class TestMatching:
         assert math.isclose(madx.table.summ.dq1[0], dq1_target, rel_tol=1e-3)
         assert math.isclose(madx.table.summ.dq2[0], dq2_target, rel_tol=1e-3)
 
+    def test_closest_tune_approach(self):
+        """Using LHC lattice."""
+        madx = Madx(stdout=False)
+        madx.call(str(LHC_SEQUENCE))
+        madx.call(str(LHC_OPTICS))
 
-# TODO: The Cminus here is too small because this lattice is super stable, which leads to factors 2 in
-#  different runs but the order of magnitude is 10^{-15}, which is inexistent coupling but is enough to
-#  fool the test assertions. Might need to run tests with a simple LHC scenario, when setting the
-#  CMRS.b1_sq knob to a reasonnable value of a few 10^{-3}, and then do the tests.
-# @pytest.mark.parametrize(
-#     "q1_target, q2_target, dqmin",
-#     [
-#         (6.335, 6.29, 3.552713678800501e-15),
-#         (6.34, 6.27, 3.552713678800501e-15),
-#         (6.38, 6.27, 6.217248937900877e-15),
-#     ],
-# )
-# def test_closest_tune_approach(self, q1_target, q2_target, dqmin):
-#     """Using my CAS19 project's lattice."""
-#     madx = Madx(stdout=False)
-#     madx.input(BASE_LATTICE)
-#     match_tunes_and_chromaticities(
-#         madx, None, "CAS3", q1_target, q2_target, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-#     )
-#
-#     knobs_before = {knob: madx.globals[knob] for knob in ["kqf", "kqd", "ksf", "ksd"]}
-#     cminus = get_closest_tune_approach(madx, None, "CAS3", varied_knobs=["kqf", "kqd", "ksf", "ksd"])
-#     knobs_after = {knob: madx.globals[knob] for knob in ["kqf", "kqd", "ksf", "ksd"]}
-#
-#     assert math.isclose(cminus, dqmin, rel_tol=1e-3)
-#     assert knobs_after == knobs_before
-#     assert math.isclose(madx.table.summ.q1[0], q1_target, rel_tol=1e-3)
-#     assert math.isclose(madx.table.summ.q2[0], q2_target, rel_tol=1e-3)
-#     assert math.isclose(madx.table.summ.dq1[0], 100, rel_tol=1e-3)
-#     assert math.isclose(madx.table.summ.dq2[0], 100, rel_tol=1e-3)
+        NRJ = madx.globals["NRJ"] = 6500
+        brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+        geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
+        madx.command.beam(
+            sequence="lhcb1", bv=1, energy=NRJ, particle="proton", npart=1.0e10, kbunch=1,
+            ex=geometric_emit, ey=geometric_emit,
+        )
+        madx.command.use(sequence="lhcb1")
+        apply_lhc_coupling_knob(madx, 2e-3)
+        match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
+
+        knobs = get_lhc_tune_and_chroma_knobs("lhc")
+        knobs_before = {knob: madx.globals[knob] for knob in knobs}
+        cminus = get_closest_tune_approach(madx, "lhc", "lhcb1")
+        knobs_after = {knob: madx.globals[knob] for knob in knobs}
+
+        assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
+        assert knobs_after == knobs_before
 
 
 class TestParameters:

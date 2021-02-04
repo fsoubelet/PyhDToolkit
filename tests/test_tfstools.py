@@ -16,6 +16,7 @@ from pyhdtoolkit.tfstools.latwiss import LaTwiss, _assert_necessary_columns
 matplotlib.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR / "inputs"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
 
@@ -111,10 +112,10 @@ def test_assert_columns_fails_on_absent_column(caplog):
 
 @pytest.fixture()
 def _latwiss_tfs_path() -> pathlib.Path:
-    return pathlib.Path(__file__).parent.parent / "inputs" / "tfstools_latwiss.tfs"
+    return INPUTS_DIR / "tfstools_latwiss.tfs"
 
 
 @pytest.fixture()
 def _latwiss_tfs_frame() -> tfs.TfsDataFrame:
-    tfs_file_path = pathlib.Path(__file__).parent.parent / "inputs" / "tfstools_latwiss.tfs"
+    tfs_file_path = INPUTS_DIR / "tfstools_latwiss.tfs"
     return tfs.read(tfs_file_path)

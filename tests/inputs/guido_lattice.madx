@@ -1,0 +1,54 @@
+circum = 500.0;
+n_cells = 25; ! Number of cells
+lcell = circum / n_cells;
+lq = 0.5; ! Length of a quadrupole
+ldip = 3.5;
+
+! ELEMENT DEFINITIONS
+! Define bending magnet as multipole, we have 4 bending magnets per cell
+!mb:multipole, knl={{2.0*pi/(4*n_cells)}};
+
+mb: sbend, l=ldip, angle=2.0*pi/(4*n_cells), apertype=ellipse, aperture= {0.09, 0.065};
+f = lcell / (2 * sqrt(2));
+
+! Define quadrupoles as multipoles
+qf: multipole, knl:={0,1/f+qtrim_f};
+qd: multipole, knl:={0,-1/f+qtrim_d};
+qf: quadrupole, l=lq, K1:=1/f/lq  + qtrim_f/lq, apertype=ellipse, aperture={0.065, 0.065};
+qd: quadrupole, l=lq, K1:=-1/f/lq + qtrim_d/lq, apertype=ellipse, aperture={0.065, 0.065};
+
+! Define the sextupoles as multipole
+!ATTENTION: must use knl:= and NOT knl= to match later!
+lsex = 0.00001; ! dummy length, only used in the sequence
+msf: multipole, knl:={0,0,ksf};
+msd: multipole, knl:={0,0,ksd};
+
+! SEQUENCE DECLARATION
+! Switch off the warning to limit outputs (use this option with moderation)
+option, warn=false;
+cas19: sequence, refer=centre, l=circum;
+   start_machine: marker, at = 0;
+   n = 1;
+   while (n < n_cells+1) {
+    qf: qf,   at=(n-1)*lcell+ lq/2.0;
+    msf: msf, at=(n-1)*lcell + lsex/2.0+lq/1.0;
+    mb: mb,   at=(n-1)*lcell + 0.15*lcell;
+    mb: mb,   at=(n-1)*lcell + 0.35*lcell;
+    qd: qd,   at=(n-1)*lcell + 0.50*lcell+ lq/2.0;
+    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0+lq/1.0;
+    mb: mb,   at=(n-1)*lcell + 0.65*lcell;
+    mb: mb,   at=(n-1)*lcell + 0.85*lcell;
+    n = n + 1;
+}
+end_machine: marker at=circum;
+endsequence;
+option, warn=true;
+
+! DEFINE BEAM PARAMETERS AND PROPERTIES
+beam, particle=proton, sequence=cas19, energy=2.1190456574946737, exn=5e-06, eyn=5e-06,sige=5e-06;
+use, sequence=cas19;
+select, flag=twiss, column=apertype, aper_1, aper_2;
+
+ksf=0;
+ksd=0;
+twiss;

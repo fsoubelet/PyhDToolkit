@@ -1,8 +1,10 @@
-from pathlib import Path
+import pathlib
 
 from pyhdtoolkit.optics import HorizontalAmplitudeDetuning, VerticalAmplitudeDetuning
 
-TWISS_FILE = Path(__file__).parent.parent / "inputs" / "twiss_for_ampdet.tfs"
+CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR / "inputs"
+TWISS_FILE = INPUTS_DIR / "twiss_for_ampdet.tfs"
 
 
 class TestHorizontalAmpDet:
