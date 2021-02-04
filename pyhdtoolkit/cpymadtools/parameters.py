@@ -13,12 +13,6 @@ import numpy as np
 
 from loguru import logger
 
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
-
 # ----- Utilities ----- #
 
 

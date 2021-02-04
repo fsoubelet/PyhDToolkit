@@ -16,17 +16,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
+from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
 
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
-
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
 
 plt.rcParams.update(PLOT_PARAMS)
 
@@ -153,7 +148,7 @@ class AperturePlotter:
 
         if savefig:
             logger.info(f"Saving aperture plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="png", dpi=500)
+            plt.savefig(Path(savefig), format="pdf", dpi=500)
         return figure
 
 
@@ -200,7 +195,7 @@ class DynamicAperturePlotter:
 
         if savefig:
             logger.info(f"Saving dynamic aperture plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="png", dpi=500)
+            plt.savefig(Path(savefig), format="pdf", dpi=500)
         return figure
 
 
@@ -270,7 +265,7 @@ class PhaseSpacePlotter:
             plt.axis("Equal")
         if savefig:
             logger.info(f"Saving Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="png", dpi=500)
+            plt.savefig(Path(savefig), format="pdf", dpi=500)
         return figure
 
     @staticmethod
@@ -339,7 +334,7 @@ class PhaseSpacePlotter:
             plt.axis("Equal")
         if savefig:
             logger.info(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="png", dpi=500)
+            plt.savefig(Path(savefig), format="pdf", dpi=500)
         return figure
 
 
@@ -453,5 +448,5 @@ class TuneDiagramPlotter:
 
         if savefig:
             logger.info(f"Saving Tune diagram plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="png", dpi=500)
+            plt.savefig(Path(savefig), format="pdf", dpi=500)
         return figure

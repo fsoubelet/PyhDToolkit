@@ -9,13 +9,8 @@ A module with functions to perform MAD-X matchings with a cpymad.madx.Madx objec
 """
 from typing import Dict, Sequence, Tuple
 
+from cpymad.madx import Madx
 from loguru import logger
-
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
 
 # ----- Utlites ----- #
 

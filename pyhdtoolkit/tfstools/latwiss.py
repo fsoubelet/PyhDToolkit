@@ -11,7 +11,6 @@ either from a file on disk or a loaded TfsDataFrame.
 from pathlib import Path
 from typing import Dict, List, Tuple, Union
 
-import matplotlib
 import matplotlib.axes
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
@@ -218,7 +217,7 @@ class LaTwiss:
             plt.xlim(xlimits)
         if savefig:
             logger.info(f"Saving latwiss plot as {savefig}")
-            plt.savefig(savefig, format="png", dpi=350)
+            plt.savefig(savefig, format="pdf", dpi=350)
         return figure
 
 

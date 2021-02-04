@@ -17,7 +17,6 @@ from pyhdtoolkit.cpymadtools.matching import (
     get_lhc_tune_and_chroma_knobs,
     match_tunes_and_chromaticities,
 )
-from pyhdtoolkit.cpymadtools.special import apply_lhc_coupling_knob
 from pyhdtoolkit.cpymadtools.orbit import get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
 from pyhdtoolkit.cpymadtools.parameters import beam_parameters
 from pyhdtoolkit.cpymadtools.plotters import (
@@ -27,6 +26,7 @@ from pyhdtoolkit.cpymadtools.plotters import (
     TuneDiagramPlotter,
 )
 from pyhdtoolkit.cpymadtools.ptc import get_amplitude_detuning, get_rdts
+from pyhdtoolkit.cpymadtools.special import apply_lhc_coupling_knob
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -258,8 +258,14 @@ class TestMatching:
         brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
         geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
         madx.command.beam(
-            sequence="lhcb1", bv=1, energy=NRJ, particle="proton", npart=1.0e10, kbunch=1,
-            ex=geometric_emit, ey=geometric_emit,
+            sequence="lhcb1",
+            bv=1,
+            energy=NRJ,
+            particle="proton",
+            npart=1.0e10,
+            kbunch=1,
+            ex=geometric_emit,
+            ey=geometric_emit,
         )
         madx.command.use(sequence="lhcb1")
         apply_lhc_coupling_knob(madx, 2e-3)

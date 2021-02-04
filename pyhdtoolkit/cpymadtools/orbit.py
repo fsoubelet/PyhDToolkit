@@ -10,15 +10,10 @@ HLLHC machines.
 """
 from typing import Dict, List, Tuple
 
+from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES
-
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
 
 # ----- Utilities ----- #
 

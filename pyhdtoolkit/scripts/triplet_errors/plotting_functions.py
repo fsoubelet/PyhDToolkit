@@ -66,7 +66,7 @@ def plot_betas_across_machine(
     plt.plot(s_values, betx_values, label="BETX")
     plt.plot(s_values, bety_values, label="BETY")
     plt.legend(loc="best", fontsize="xx-large")
-    plt.savefig(f"beta_plots/{error_type}/{error_value}/betas_across_machine.png", format="png", dpi=300)
+    plt.savefig(f"beta_plots/{error_type}/{error_value}/betas_across_machine.png", format="pdf", dpi=300)
     logger.info(f"Plotted betas for {error_type} {error_value}")
 
 
@@ -118,7 +118,7 @@ def plot_bbing_max_errorbar(
         plt.tight_layout()
         plt.title(f"Beta-Beating Against Triplet Errors, {plane} Plane", fontsize=15)
         plt.legend(loc="best")
-        plt.savefig(figname, format="png", dpi=300)
+        plt.savefig(figname, format="pdf", dpi=300)
 
     elif plane.lower() == "vertical":
         _, axes = plt.subplots(1, 1, figsize=(8, 6))
@@ -151,7 +151,7 @@ def plot_bbing_max_errorbar(
         plt.tight_layout()
         plt.title(f"Beta-beating against triplet errors, {plane} plane", fontsize=15)
         plt.legend(loc="best")
-        plt.savefig(figname, format="png", dpi=300)
+        plt.savefig(figname, format="pdf", dpi=300)
 
     else:
         logger.warning(f"Invalid plane parameter {plane} provided, aborting plot")
@@ -225,7 +225,7 @@ def plot_bbing_with_ips_errorbar(
         plt.tight_layout()
         plt.title(f"Beta-Beating Against Triplet Errors, {plane} Plane", fontsize=15)
         plt.legend(loc="best")
-        plt.savefig(figname, format="png", dpi=300)
+        plt.savefig(figname, format="pdf", dpi=300)
 
     elif plane.lower() == "vertical":
         _, axes = plt.subplots(1, 1, figsize=(8, 6))
@@ -276,7 +276,7 @@ def plot_bbing_with_ips_errorbar(
         plt.tight_layout()
         plt.title(f"Beta-Beating Against Triplet Errors, {plane} Plane", fontsize=15)
         plt.legend(loc="best")
-        plt.savefig(figname, format="png", dpi=300)
+        plt.savefig(figname, format="pdf", dpi=300)
 
     else:
         logger.warning(f"Invalid plane parameter {plane} provided, aborting plot")
@@ -301,5 +301,5 @@ def plot_intermediate_beta_histograms(
     plt.hist(betasy, bins=50, label=f"{error_val}, vertical", alpha=0.6, density=True)
     plt.legend(loc="best")
     plt.title(title)
-    plt.savefig(outputname, format="png", dpi=300)
+    plt.savefig(outputname, format="pdf", dpi=300)
     logger.info(f"Plotted intermediate beta histogram, saved as {outputname}")

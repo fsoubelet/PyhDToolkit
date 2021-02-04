@@ -15,15 +15,10 @@ import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.plotting.settings import PLOT_PARAMS
-
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
 
 plt.rcParams.update(PLOT_PARAMS)
 
@@ -209,7 +204,7 @@ def plot_latwiss(
 
     if savefig:
         logger.info(f"Saving latwiss plot as {savefig}")
-        plt.savefig(savefig, format="png", dpi=500)
+        plt.savefig(savefig, format="pdf", dpi=500)
     return figure
 
 
@@ -284,7 +279,7 @@ def plot_machine_survey(
 
     if savefig:
         logger.info(f"Saving machine survey plot as {savefig}")
-        plt.savefig(savefig, format="png", dpi=500)
+        plt.savefig(savefig, format="pdf", dpi=500)
     return figure
 
 
@@ -329,36 +324,3 @@ def _make_survey_groups(survey_df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
             & (survey_df.name.str.contains("O", case=False))
         ],
     }
-
-
-def _synchronise_grids(axis_1: matplotlib.axes.Axes, axis_2: matplotlib.axes.Axes) -> None:
-    """
-    !!! warning
-        Experimental! This is currently not stable and may disappear in a future release.
-
-    Little trick to make both y axis synchronise on their grid lines when plotting in dual axis.
-    Only the second provided axis will be altered.
-    Somehow doesn't work well yet with ticks not starting from 0 up.
-
-    Args:
-        axis_1 (matplotlib.axes.Axes): a matplotlib axis object.
-        axis_2 (matplotlib.axes.Axes): a matplotlib axis object sharing the x axis with axis_1.
-
-    Returns:
-        Nothing, alters the y axis on the provided axis_2.
-    """
-    logger.warning("Grid synchronization is experimental and may mess up your vertical axis")
-    ylim_1 = axis_1.get_ylim()
-    len_1 = ylim_1[1] - ylim_1[0]
-    yticks_1 = axis_1.get_yticks()
-    relative_distance = [(y - ylim_1[0]) / len_1 for y in yticks_1]
-
-    ylim_2 = list(axis_2.get_ylim())
-    ylim_2 = [e - ylim_2[0] for e in ylim_2]  # can be a weird offset, fix this
-    len_2 = ylim_2[1] - ylim_2[0]
-    yticks_2 = [ry * len_2 + ylim_2[0] for ry in relative_distance]
-
-    axis_2.set_yticks(yticks_2)
-    axis_2.set_ylim(ylim_2)
-    axis_1.yaxis.grid(True, which="major")
-    axis_2.yaxis.grid(True, which="major")

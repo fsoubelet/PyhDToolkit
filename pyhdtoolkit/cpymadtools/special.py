@@ -10,13 +10,8 @@ LHC and HLLHC use cases.
 """
 from typing import List
 
+from cpymad.madx import Madx
 from loguru import logger
-
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
 
 # ----- Utlites ----- #
 

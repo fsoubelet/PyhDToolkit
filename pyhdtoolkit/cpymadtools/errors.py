@@ -8,13 +8,8 @@ Created on 2020.02.03
 A module with functions to perform MAD-X errors setups and manipulatioins with a cpymad.madx.Madx object,
 mainly for LHC and HLLHC machines.
 """
+from cpymad.madx import Madx
 from loguru import logger
-
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
 
 # ----- Utlites ----- #
 

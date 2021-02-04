@@ -12,13 +12,8 @@ from typing import Union
 
 import tfs
 
+from cpymad.madx import Madx
 from loguru import logger
-
-try:
-    from cpymad.madx import Madx
-except ModuleNotFoundError:
-    Madx = None
-
 
 # ----- Utilities ----- #
 
