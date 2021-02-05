@@ -1,9 +1,21 @@
+"""
+Module optics.beam
+------------------
+
+Created on 2020.11.11
+:author: Felix Soubelet (felix.soubelet@cern.ch)
+
+This is a Python3 module implementing various functionality for simple beam parameter calculations.
+"""
 import numpy as np
 
 from scipy import constants
 
 
 class Beam:
+    """
+    Class to encompass functionality.
+    """
     def __init__(
         self,
         energy: float,
