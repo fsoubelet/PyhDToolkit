@@ -153,11 +153,7 @@ def plot_latwiss(
             elif dipole.angle != 0:
                 logger.trace("Plotting 'sbend' / 'rbend' element")
                 _plot_lattice_series(
-                    dipole_patches_axis,
-                    dipole,
-                    height=dipole.angle,
-                    v_offset=dipole.angle / 2,
-                    color="b",
+                    dipole_patches_axis, dipole, height=dipole.angle, v_offset=dipole.angle / 2, color="b",
                 )
 
     # Plotting the quadrupole patches
@@ -176,9 +172,7 @@ def plot_latwiss(
         sextupoles_df = elements_df["sextupoles"]
         logger.debug("Plotting sextupole patches")
         for _, sext in sextupoles_df.iterrows():
-            _plot_lattice_series(
-                dipole_patches_axis, sext, height=sext.k2l, v_offset=sext.k2l / 2, color="y"
-            )
+            _plot_lattice_series(dipole_patches_axis, sext, height=sext.k2l, v_offset=sext.k2l / 2, color="y")
 
     # Plotting beta functions on remaining two thirds of the figure
     logger.trace("Setting up betatron functions subplot")
@@ -230,18 +224,17 @@ def _get_tfs_dataframe_from_input(
     Returns:
         A TfsDataFrame or pd.DataFrame with the data.
     """
-    if isinstance(twiss_input, str) or isinstance(twiss_input, Path):
+    if isinstance(twiss_input, (Path, str)):
         logger.trace("Loading Twiss dataframe from disk")
         return tfs.read(Path(twiss_input))
-    elif isinstance(twiss_input, tfs.TfsDataFrame) or isinstance(twiss_input, pd.DataFrame):
+    if isinstance(twiss_input, (pd.DataFrame, tfs.TfsDataFrame)):
         logger.trace("Copying input dataframe")
         return twiss_input.copy()
-    else:
-        logger.error(
-            "Expected either a string, Path object or TfsDataFrame, but provided input "
-            f"was of type '{type(twiss_input)}'"
-        )
-        raise ValueError(f"Invalid input type for argument 'twiss_input': {type(twiss_input)}")
+    logger.error(
+        "Expected either a string, Path object or TfsDataFrame, but provided input "
+        f"was of type '{type(twiss_input)}'"
+    )
+    raise ValueError(f"Invalid input type for argument 'twiss_input': {type(twiss_input)}")
 
 
 def _assert_necessary_columns(dataframe: Union[pd.DataFrame, tfs.TfsDataFrame], columns: List[str]) -> None:

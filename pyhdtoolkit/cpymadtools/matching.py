@@ -109,7 +109,6 @@ def match_tunes_and_chromaticities(
         logger.trace("Performing routine TWISS")
         cpymad_instance.twiss()  # prevents errors if the user forget to do so before querying tables
 
-    # TODO: add a success / warning logging message stating the success of the matching?
     if q1_target and q2_target and dq1_target and dq2_target:
         logger.info(
             f"Doing combined matching to Qx={q1_target}, Qy={q2_target}, "

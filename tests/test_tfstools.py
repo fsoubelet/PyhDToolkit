@@ -10,7 +10,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
-from pyhdtoolkit.tfstools.latwiss import plot_latwiss, _assert_necessary_columns
+from pyhdtoolkit.tfstools.latwiss import _assert_necessary_columns, plot_latwiss
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")

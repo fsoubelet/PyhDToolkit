@@ -16,6 +16,7 @@ class Beam:
     """
     Class to encompass functionality.
     """
+
     def __init__(
         self,
         energy: float,
@@ -80,7 +81,8 @@ class Beam:
         """
         return (1 / (self.gamma_rel ** 2)) - alpha_p
 
-    def gamma_transition(self, alpha_p: float) -> float:
+    @staticmethod
+    def gamma_transition(alpha_p: float) -> float:
         """
         Relativistic gamma corresponding to the transition energy.
 

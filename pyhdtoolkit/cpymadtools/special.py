@@ -30,11 +30,11 @@ def power_landau_octupoles(
     """
     try:
         brho = cpymad_instance.globals.nrj * 1e9 / cpymad_instance.globals.clight  # clight is MAD-X constant
-    except AttributeError:
+    except AttributeError as madx_error:
         logger.error(
             "The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined."
         )
-        raise EnvironmentError("No 'NRJ' variable found in scripts")
+        raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error
 
     logger.info(
         f"Powering Landau Octupoles, beam {beam} @ {cpymad_instance.globals.nrj} GeV with {mo_current} A."
@@ -147,7 +147,7 @@ def apply_lhc_coupling_knob(
         telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.
             Defaults to False.
     """
-    logger.info(f"Applying coupling knob")
+    logger.info("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this")
     suffix = "_sq" if telescopic_squeeze else ""
     knob_name = f"CMRS.b{beam:d}{suffix}"
