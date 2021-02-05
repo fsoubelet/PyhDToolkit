@@ -94,10 +94,6 @@ def apply_lhc_colinearity_knob(
     knob_variables = (f"kqsx3.r{ir:d}", f"kqsx3.l{ir:d}")  # MQSX IP coupling correctors
     right_knob, left_knob = knob_variables
 
-    # for knob in knob_variables:
-    #     current_value = cpymad_instance.globals[knob]
-    #     logger.trace(f"Corrector strength '{knob}' is {current_value} before implementation")
-
     cpymad_instance.globals[right_knob] = colinearity_knob_value * 1e-4
     cpymad_instance.globals[left_knob] = -1 * colinearity_knob_value * 1e-4
 
@@ -122,10 +118,6 @@ def apply_lhc_rigidity_waist_shift_knob(
     logger.warning("You should re-match tunes & chromaticities after this")
     knob_variables = (f"kqx.r{ir:d}", f"kqx.l{ir:d}")  # Closest IP triplet
     right_knob, left_knob = knob_variables
-
-    # for knob in knob_variables:
-    #     current_value = cpymad_instance.globals[knob]
-    #     logger.trace(f"Corrector strength '{knob}' is {current_value} before implementation")
 
     current_right_knob = cpymad_instance.globals[right_knob]
     current_left_knob = cpymad_instance.globals[left_knob]
