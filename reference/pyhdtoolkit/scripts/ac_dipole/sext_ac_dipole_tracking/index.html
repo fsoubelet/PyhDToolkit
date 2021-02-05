@@ -34,8 +34,8 @@
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:300,400,400i,700%7CFira+Code&display=fallback">
+        <style>body,input{font-family:"Ubuntu Mono",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Fira Code",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -302,8 +302,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cpymadtools/helpers/" title="Helpers" class="md-nav__link">
-      Helpers
+    <a href="../../../cpymadtools/constants/" title="Constants" class="md-nav__link">
+      Constants
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/errors/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/generators/" title="Generators" class="md-nav__link">
+      Generators
     </a>
   </li>
 
@@ -326,18 +350,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../cpymadtools/lattice_generators/" title="Lattice Generators" class="md-nav__link">
-      Lattice Generators
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../../cpymadtools/latwiss/" title="Latwiss" class="md-nav__link">
       Latwiss
     </a>
@@ -350,8 +362,68 @@
 
 
   <li class="md-nav__item">
+    <a href="../../../cpymadtools/matching/" title="Matching" class="md-nav__link">
+      Matching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/orbit/" title="Orbit" class="md-nav__link">
+      Orbit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/parameters/" title="Parameters" class="md-nav__link">
+      Parameters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../../cpymadtools/plotters/" title="Plotters" class="md-nav__link">
       Plotters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/ptc/" title="Ptc" class="md-nav__link">
+      Ptc
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../cpymadtools/special/" title="Special" class="md-nav__link">
+      Special
     </a>
   </li>
 
@@ -450,18 +522,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
-      Amplitude Detuning
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../../optics/beam/" title="Beam" class="md-nav__link">
       Beam
     </a>
@@ -550,18 +610,6 @@
   <li class="md-nav__item">
     <a href="../../../plotting/settings/" title="Settings" class="md-nav__link">
       Settings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../../plotting/timedata/" title="Timedata" class="md-nav__link">
-      Timedata
     </a>
   </li>
 
@@ -678,9 +726,97 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#script-scriptsac_dipolesext_ac_dipole_tracking" class="md-nav__link">
-    Script scripts.ac_dipole.sext_ac_dipole_tracking
+  <a href="#variables" class="md-nav__link">
+    Variables
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_script_file" class="md-nav__link">
+    create_script_file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    main
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_madx_mask" class="md-nav__link">
+    run_madx_mask
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acdipolegrid" class="md-nav__link">
+    ACDipoleGrid
+  </a>
+  
+    <nav class="md-nav" aria-label="ACDipoleGrid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#track_forced_oscillations_for_plane" class="md-nav__link">
+    track_forced_oscillations_for_plane
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#track_free_oscillations_for_plane" class="md-nav__link">
+    track_free_oscillations_for_plane
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -969,9 +1105,97 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#script-scriptsac_dipolesext_ac_dipole_tracking" class="md-nav__link">
-    Script scripts.ac_dipole.sext_ac_dipole_tracking
+  <a href="#variables" class="md-nav__link">
+    Variables
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create_script_file" class="md-nav__link">
+    create_script_file
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#main" class="md-nav__link">
+    main
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run_madx_mask" class="md-nav__link">
+    run_madx_mask
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    Classes
+  </a>
+  
+    <nav class="md-nav" aria-label="Classes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#acdipolegrid" class="md-nav__link">
+    ACDipoleGrid
+  </a>
+  
+    <nav class="md-nav" aria-label="ACDipoleGrid">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#methods" class="md-nav__link">
+    Methods
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#track_forced_oscillations_for_plane" class="md-nav__link">
+    track_forced_oscillations_for_plane
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#track_free_oscillations_for_plane" class="md-nav__link">
+    track_free_oscillations_for_plane
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -996,17 +1220,9 @@
                 
                 
                 <h1 id="module-pyhdtoolkitscriptsac_dipolesext_ac_dipole_tracking">Module pyhdtoolkit.scripts.ac_dipole.sext_ac_dipole_tracking</h1>
-<h2 id="script-scriptsac_dipolesext_ac_dipole_tracking">Script scripts.ac_dipole.sext_ac_dipole_tracking</h2>
-<p>Created on 2020.02.27
-:author: Felix Soubelet (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;">&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;</a>)</p>
-<p>This is a Python3 utility to launch a series of MAD-X simlations with the proper parameters,
-call the appropriate python scripts on the outputs and organise the results.</p>
-<p>Made to be ran with the OMC conda environment, and ran directly for the commandline.</p>
-<h1 id="a-pair-of-examples">A pair of examples</h1>
-<p>Running with kicks in the horizontal plane only, for two sigma values:
-python path/to/sext_ac_dipole_tracking.py --planes horizontal --mask /path/to/kick/mask.mask        --type kick --sigmas 5 10</p>
-<p>Running with free oscillations in both planes succesively, for many offset values:
-python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --mask /path/to/offset/mask.mask --type amp -- sigmas 5 10 15 20</p>
+<p>Script scripts.ac_dipole.sext_ac_dipole_tracking</p>
+<hr />
+<p>Created on 2020.02.27</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Script scripts.ac_dipole.sext_ac_dipole_tracking</span>
@@ -1127,11 +1343,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigmas</span><span class="p">)):</span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-
-                <span class="s2">&quot;There is a duplicate in the sigma values, which would cause a failure later.&quot;</span>
-
-            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;There is a duplicate in the sigma values, which would cause a failure later.&quot;</span><span class="p">)</span>
 
             <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
 
@@ -1257,11 +1469,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
                 <span class="p">)</span>
 
-                <span class="n">filename_to_write</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span>
-
-                    <span class="n">f</span><span class="s2">&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span>
-
-                <span class="p">)</span>
+                <span class="n">filename_to_write</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span><span class="p">)</span>
 
                 <span class="n">mask_file</span> <span class="o">=</span> <span class="n">create_script_file</span><span class="p">(</span>
 
@@ -1275,19 +1483,11 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
                 <span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span>
 
-                <span class="n">_move_mask_file_after_running</span><span class="p">(</span>
-
-                    <span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span> <span class="n">mask_files_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span>
-
-                <span class="p">)</span>
+                <span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span> <span class="n">mask_files_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span><span class="p">)</span>
 
                 <span class="n">_rename_madx_outputs</span><span class="p">(</span>
 
-                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span>
-
-                    <span class="n">outputdata_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="p">,</span>
-
-                    <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
+                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span> <span class="n">outputdata_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
 
                 <span class="p">)</span>
 
@@ -1371,19 +1571,11 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
                 <span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span>
 
-                <span class="n">_move_mask_file_after_running</span><span class="p">(</span>
-
-                    <span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span> <span class="n">mask_files_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span>
-
-                <span class="p">)</span>
+                <span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span> <span class="n">mask_files_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask_files_dir</span><span class="p">)</span>
 
                 <span class="n">_rename_madx_outputs</span><span class="p">(</span>
 
-                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span>
-
-                    <span class="n">outputdata_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="p">,</span>
-
-                    <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
+                    <span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span> <span class="n">outputdata_dir</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">outputdata_dir</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span>
 
                 <span class="p">)</span>
 
@@ -1439,11 +1631,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
             <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Planes to offset then track on are: {simulations.run_planes}&quot;</span><span class="p">)</span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-
-                <span class="n">f</span><span class="s2">&quot;Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}&quot;</span>
-
-            <span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}&quot;</span><span class="p">)</span>
 
             <span class="k">for</span> <span class="n">plane</span> <span class="ow">in</span> <span class="n">simulations</span><span class="o">.</span><span class="n">run_planes</span><span class="p">:</span>
 
@@ -1461,11 +1649,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
         <span class="n">_cleanup_madx_residuals</span><span class="p">()</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-
-            <span class="s2">&quot;The &#39;grid_outputs&#39; folder was left untouched, check for unexpected MADX residuals&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;The &#39;grid_outputs&#39; folder was left untouched, check for unexpected MADX residuals&quot;</span><span class="p">)</span>
 
 <span class="c1"># ---------------------- Public Utilities ---------------------- #</span>
 
@@ -1495,11 +1679,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
             <span class="n">logfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">std_out</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span>  <span class="c1"># Default &#39;utf-8&#39; encoding, depends on your system.</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-
-            <span class="n">f</span><span class="s2">&quot;The standard output has been dumped to file &#39;failed_command_{exit_code}.logfile&#39;&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;The standard output has been dumped to file &#39;failed_command_{exit_code}.logfile&#39;&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">create_script_file</span><span class="p">(</span>
 
@@ -1683,9 +1863,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
         <span class="nb">type</span><span class="o">=</span><span class="nb">float</span><span class="p">,</span>
 
-        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Different amplitude values (in bunch sigma) for the AC dipole kicks.&quot;</span>
-
-        <span class="s2">&quot;Defaults to [1, 2].&quot;</span><span class="p">,</span>
+        <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Different amplitude values (in bunch sigma) for the AC dipole kicks.&quot;</span> <span class="s2">&quot;Defaults to [1, 2].&quot;</span><span class="p">,</span>
 
     <span class="p">)</span>
 
@@ -1765,11 +1943,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
     <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
 
-<span class="k">def</span> <span class="nf">_rename_madx_outputs</span><span class="p">(</span>
-
-    <span class="n">kick_in_sigma</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">outputdata_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_rename_madx_outputs</span><span class="p">(</span><span class="n">kick_in_sigma</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">outputdata_dir</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1861,25 +2035,7 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 
     <span class="n">expected_residuals</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
 
-        <span class="s2">&quot;symlinks&quot;</span><span class="p">:</span> <span class="p">[</span>
-
-            <span class="s2">&quot;db5&quot;</span><span class="p">,</span>
-
-            <span class="s2">&quot;slhc&quot;</span><span class="p">,</span>
-
-            <span class="s2">&quot;fidel&quot;</span><span class="p">,</span>
-
-            <span class="s2">&quot;wise&quot;</span><span class="p">,</span>
-
-            <span class="s2">&quot;optics2016&quot;</span><span class="p">,</span>
-
-            <span class="s2">&quot;optics2017&quot;</span><span class="p">,</span>
-
-            <span class="s2">&quot;optics2018&quot;</span><span class="p">,</span>
-
-            <span class="s2">&quot;scripts&quot;</span><span class="p">,</span>
-
-        <span class="p">],</span>
+        <span class="s2">&quot;symlinks&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;db5&quot;</span><span class="p">,</span> <span class="s2">&quot;slhc&quot;</span><span class="p">,</span> <span class="s2">&quot;fidel&quot;</span><span class="p">,</span> <span class="s2">&quot;wise&quot;</span><span class="p">,</span> <span class="s2">&quot;optics2016&quot;</span><span class="p">,</span> <span class="s2">&quot;optics2017&quot;</span><span class="p">,</span> <span class="s2">&quot;optics2018&quot;</span><span class="p">,</span> <span class="s2">&quot;scripts&quot;</span><span class="p">,],</span>
 
         <span class="s2">&quot;directories&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;temp&quot;</span><span class="p">,</span> <span class="s2">&quot;Outputdata&quot;</span><span class="p">],</span>
 
@@ -1926,18 +2082,50 @@ python path/to/sext_ac_dipole_tracking.py --planes horizontal vertical        --
 </code></pre></div>
 <h2 id="functions">Functions</h2>
 <h3 id="create_script_file">create_script_file</h3>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create_script_file</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create_script_file</span><span class="p">(</span>
     <span class="n">template_as_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">values_replacing_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">filename</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
 </code></pre></div>
-Create new script file from template with the appropriate values.</p>
-<p>Args:
-    template_as_str (str): string content of your template mask file.
-    values_replacing_dict (Dict[str, float]): keys to find and values to replace them with in
-        the template.
-    filename (Path): Path object for the file in which to write the script.</p>
+<p>Create new script file from template with the appropriate values.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>template_as_str</td>
+<td>str</td>
+<td>string content of your template mask file.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>values_replacing_dict</td>
+<td>Dict[str, float]</td>
+<td>keys to find and values to replace them with in</td>
+<td></td>
+</tr>
+<tr>
+<td>the template.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>filename</td>
+<td>Path</td>
+<td>Path object for the file in which to write the script.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">create_script_file</span><span class="p">(</span>
 
     <span class="n">template_as_str</span><span class="p">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">values_replacing_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">filename</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span>
@@ -1967,12 +2155,12 @@ Create new script file from template with the appropriate values.</p>
 
 </details>
 <h3 id="main">main</h3>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">main</span><span class="p">(</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
-Run the whole process: create a class instance, simulate for horizontal and vertical kicks,
-exit.</p>
+<p>Run the whole process: create a class instance, simulate for horizontal and vertical kicks,</p>
+<p>exit.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="nv">@logger</span><span class="p">.</span><span class="k">catch</span><span class="w"></span>
 
 <span class="n">def</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
@@ -2013,11 +2201,7 @@ exit.</p>
 
 <span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Planes to offset then track on are: {simulations.run_planes}&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">f</span><span class="ss">&quot;Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">plane</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">simulations</span><span class="p">.</span><span class="nl">run_planes</span><span class="p">:</span><span class="w"></span>
 
@@ -2035,22 +2219,35 @@ exit.</p>
 
 <span class="w">        </span><span class="n">_cleanup_madx_residuals</span><span class="p">()</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="ss">&quot;The &#39;grid_outputs&#39; folder was left untouched, check for unexpected MADX residuals&quot;</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="ss">&quot;The &#39;grid_outputs&#39; folder was left untouched, check for unexpected MADX residuals&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
 <h3 id="run_madx_mask">run_madx_mask</h3>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run_madx_mask</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">run_madx_mask</span><span class="p">(</span>
     <span class="n">mask_file</span><span class="p">:</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
-Run madx on the provided file.</p>
-<p>Args:
-    mask_file (Path): Path object with the mask file location.</p>
+<p>Run madx on the provided file.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mask_file</td>
+<td>Path</td>
+<td>Path object with the mask file location.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="p">:</span>
 
     <span class="ss">&quot;&quot;&quot;</span>
@@ -2077,11 +2274,7 @@ Run madx on the provided file.</p>
 
             <span class="n">logfile</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="n">std_out</span><span class="p">.</span><span class="n">decode</span><span class="p">())</span>  <span class="o">#</span> <span class="k">Default</span> <span class="s1">&#39;utf-8&#39;</span> <span class="k">encoding</span><span class="p">,</span> <span class="n">depends</span> <span class="k">on</span> <span class="n">your</span> <span class="k">system</span><span class="p">.</span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
-
-            <span class="n">f</span><span class="ss">&quot;The standard output has been dumped to file &#39;failed_command_{exit_code}.logfile&#39;&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;The standard output has been dumped to file &#39;failed_command_{exit_code}.logfile&#39;&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 </details>
@@ -2091,7 +2284,6 @@ Run madx on the provided file.</p>
 
 <span class="p">)</span>
 </code></pre></div>
-<p>Algorithm as a class to run the simulations and organize the outputs.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">ACDipoleGrid</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
@@ -2160,11 +2352,7 @@ Run madx on the provided file.</p>
 
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">sigmas</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="k">set</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">sigmas</span><span class="p">))</span><span class="err">:</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                </span><span class="ss">&quot;There is a duplicate in the sigma values, which would cause a failure later.&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="ss">&quot;There is a duplicate in the sigma values, which would cause a failure later.&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">            </span><span class="n">sys</span><span class="p">.</span><span class="k">exit</span><span class="p">()</span><span class="w"></span>
 
@@ -2290,11 +2478,7 @@ Run madx on the provided file.</p>
 
 <span class="s1">                )</span>
 
-<span class="s1">                filename_to_write = Path(</span>
-
-<span class="s1">                    f&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span>
-
-<span class="s1">                )</span>
+<span class="s1">                filename_to_write = Path(f&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;)</span>
 
 <span class="s1">                mask_file = create_script_file(</span>
 
@@ -2308,19 +2492,11 @@ Run madx on the provided file.</p>
 
 <span class="s1">                run_madx_mask(mask_file)</span>
 
-<span class="s1">                _move_mask_file_after_running(</span>
-
-<span class="s1">                    mask_file_path=mask_file, mask_files_dir=self.mask_files_dir</span>
-
-<span class="s1">                )</span>
+<span class="s1">                _move_mask_file_after_running(mask_file_path=mask_file, mask_files_dir=self.mask_files_dir)</span>
 
 <span class="s1">                _rename_madx_outputs(</span>
 
-<span class="s1">                    kick_in_sigma=kick_in_sigma,</span>
-
-<span class="s1">                    outputdata_dir=self.outputdata_dir,</span>
-
-<span class="s1">                    plane=plane_letter,</span>
+<span class="s1">                    kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter,</span>
 
 <span class="s1">                )</span>
 
@@ -2404,19 +2580,11 @@ Run madx on the provided file.</p>
 
 <span class="w">                </span><span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="w"></span>
-
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">                </span><span class="n">_rename_madx_outputs</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"> </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"> </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">                </span><span class="p">)</span><span class="w"></span>
 
@@ -2455,16 +2623,38 @@ Run madx on the provided file.</p>
 <div class="highlight"><pre><span></span><code><span class="n">trackfiles_planes</span>
 </code></pre></div>
 <h4 id="methods">Methods</h4>
-<h5 id="track_forced_oscillations_for_plane">track_forced_oscillations_for_plane</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">track_forced_oscillations_for_plane</span><span class="p">(</span>
+<h4 id="track_forced_oscillations_for_plane">track_forced_oscillations_for_plane</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">track_forced_oscillations_for_plane</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">kick_plane</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
-Run MAD-X simulations with AC dipole tracking for the given plane, and handle outputs.</p>
-<p>Args:
-    kick_plane: the name of the plane on which to apply a kick, either 'horizontal'
-        or 'vertical'.</p>
+<p>Run MAD-X simulations with AC dipole tracking for the given plane, and handle outputs.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kick_plane</td>
+<td>None</td>
+<td>the name of the plane on which to apply a kick, either 'horizontal'</td>
+<td></td>
+</tr>
+<tr>
+<td>or 'vertical'.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">track_forced_oscillations_for_plane</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">kick_plane</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
@@ -2537,11 +2727,7 @@ Run MAD-X simulations with AC dipole tracking for the given plane, and handle ou
 
 <span class="w">                </span><span class="p">)</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">filename_to_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">f</span><span class="ss">&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span><span class="w"></span>
-
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">filename_to_write</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">                </span><span class="n">mask_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">create_script_file</span><span class="p">(</span><span class="w"></span>
 
@@ -2555,19 +2741,11 @@ Run MAD-X simulations with AC dipole tracking for the given plane, and handle ou
 
 <span class="w">                </span><span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="w"></span>
-
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">                </span><span class="n">_rename_madx_outputs</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"> </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"> </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">                </span><span class="p">)</span><span class="w"></span>
 
@@ -2585,17 +2763,39 @@ Run MAD-X simulations with AC dipole tracking for the given plane, and handle ou
 </code></pre></div>
 
 </details>
-<h5 id="track_free_oscillations_for_plane">track_free_oscillations_for_plane</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">track_free_oscillations_for_plane</span><span class="p">(</span>
+<h4 id="track_free_oscillations_for_plane">track_free_oscillations_for_plane</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">track_free_oscillations_for_plane</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span>
     <span class="n">kick_plane</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
-Run MAD-X simulations with amplitude offset tracking for the given plane, and handle
-outputs.</p>
-<p>Args:
-    kick_plane: the name of the plane on which to apply an offset, either 'horizontal'
-        or 'vertical'.</p>
+<p>Run MAD-X simulations with amplitude offset tracking for the given plane, and handle</p>
+<p>outputs.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>kick_plane</td>
+<td>None</td>
+<td>the name of the plane on which to apply an offset, either 'horizontal'</td>
+<td></td>
+</tr>
+<tr>
+<td>or 'vertical'.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">track_free_oscillations_for_plane</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="nl">kick_plane</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
@@ -2664,19 +2864,11 @@ outputs.</p>
 
 <span class="w">                </span><span class="n">run_madx_mask</span><span class="p">(</span><span class="n">mask_file</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="w"></span>
-
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">_move_mask_file_after_running</span><span class="p">(</span><span class="n">mask_file_path</span><span class="o">=</span><span class="n">mask_file</span><span class="p">,</span><span class="w"> </span><span class="n">mask_files_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">mask_files_dir</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">                </span><span class="n">_rename_madx_outputs</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="n">kick_in_sigma</span><span class="o">=</span><span class="n">kick_in_sigma</span><span class="p">,</span><span class="w"> </span><span class="n">outputdata_dir</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">outputdata_dir</span><span class="p">,</span><span class="w"> </span><span class="n">plane</span><span class="o">=</span><span class="n">plane_letter</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">                </span><span class="p">)</span><span class="w"></span>
 

@@ -1,0 +1,2116 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="shortcut icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-5.5.14">
+    
+    
+      
+        <title>Special - PyhDToolkit</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.d3202873.min.css">
+      
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ff0a5ce4.min.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#009485">
+      
+    
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:300,400,400i,700%7CFira+Code&display=fallback">
+        <style>body,input{font-family:"Ubuntu Mono",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Fira Code",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="purple">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#module-pyhdtoolkitcpymadtoolsspecial" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../../../.." title="PyhDToolkit" class="md-header-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            PyhDToolkit
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              Special
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+        
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="PyhDToolkit" class="md-nav__button md-logo" aria-label="PyhDToolkit">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"/></svg>
+
+    </a>
+    PyhDToolkit
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/fsoubelet/PyhDToolkit/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    PyhDToolkit
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/About_PyhDToolkit/" title="About" class="md-nav__link">
+      About
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../../docs/Getting_Started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4" checked>
+    
+    <label class="md-nav__link" for="nav-4">
+      Reference
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Reference" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        Reference
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1" type="checkbox" id="nav-4-1" checked>
+    
+    <label class="md-nav__link" for="nav-4-1">
+      Pyhdtoolkit
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Pyhdtoolkit" data-md-level="2">
+      <label class="md-nav__title" for="nav-4-1">
+        <span class="md-nav__icon md-icon"></span>
+        Pyhdtoolkit
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-2" type="checkbox" id="nav-4-1-2" checked>
+    
+    <label class="md-nav__link" for="nav-4-1-2">
+      Cpymadtools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Cpymadtools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-2">
+        <span class="md-nav__icon md-icon"></span>
+        Cpymadtools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../constants/" title="Constants" class="md-nav__link">
+      Constants
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../errors/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../generators/" title="Generators" class="md-nav__link">
+      Generators
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../matching/" title="Matching" class="md-nav__link">
+      Matching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../orbit/" title="Orbit" class="md-nav__link">
+      Orbit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../parameters/" title="Parameters" class="md-nav__link">
+      Parameters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../plotters/" title="Plotters" class="md-nav__link">
+      Plotters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ptc/" title="Ptc" class="md-nav__link">
+      Ptc
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Special
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" title="Special" class="md-nav__link md-nav__link--active">
+      Special
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apply_lhc_colinearity_knob" class="md-nav__link">
+    apply_lhc_colinearity_knob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply_lhc_coupling_knob" class="md-nav__link">
+    apply_lhc_coupling_knob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply_lhc_rigidity_waist_shift_knob" class="md-nav__link">
+    apply_lhc_rigidity_waist_shift_knob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deactivate_lhc_arc_sextupoles" class="md-nav__link">
+    deactivate_lhc_arc_sextupoles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_sixtrack_output" class="md-nav__link">
+    make_sixtrack_output
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power_landau_octupoles" class="md-nav__link">
+    power_landau_octupoles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-3" type="checkbox" id="nav-4-1-3">
+    
+    <label class="md-nav__link" for="nav-4-1-3">
+      Maths
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Maths" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-3">
+        <span class="md-nav__icon md-icon"></span>
+        Maths
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/nonconvex_phase_sync/" title="Nonconvex Phase Sync" class="md-nav__link">
+      Nonconvex Phase Sync
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/stats_fitting/" title="Stats Fitting" class="md-nav__link">
+      Stats Fitting
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-4" type="checkbox" id="nav-4-1-4">
+    
+    <label class="md-nav__link" for="nav-4-1-4">
+      Optics
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Optics" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-4">
+        <span class="md-nav__icon md-icon"></span>
+        Optics
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/beam/" title="Beam" class="md-nav__link">
+      Beam
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-5" type="checkbox" id="nav-4-1-5">
+    
+    <label class="md-nav__link" for="nav-4-1-5">
+      Plotting
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Plotting" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-5">
+        <span class="md-nav__icon md-icon"></span>
+        Plotting
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/helpers/" title="Helpers" class="md-nav__link">
+      Helpers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
+      Settings
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6" type="checkbox" id="nav-4-1-6">
+    
+    <label class="md-nav__link" for="nav-4-1-6">
+      Scripts
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Scripts" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-6">
+        <span class="md-nav__icon md-icon"></span>
+        Scripts
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-2" type="checkbox" id="nav-4-1-6-2">
+    
+    <label class="md-nav__link" for="nav-4-1-6-2">
+      Ac Dipole
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Ac Dipole" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-2">
+        <span class="md-nav__icon md-icon"></span>
+        Ac Dipole
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/ac_dipole/sext_ac_dipole_tracking/" title="Sext Ac Dipole Tracking" class="md-nav__link">
+      Sext Ac Dipole Tracking
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-6-3" type="checkbox" id="nav-4-1-6-3">
+    
+    <label class="md-nav__link" for="nav-4-1-6-3">
+      Triplet Errors
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Triplet Errors" data-md-level="4">
+      <label class="md-nav__title" for="nav-4-1-6-3">
+        <span class="md-nav__icon md-icon"></span>
+        Triplet Errors
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/algo/" title="Algo" class="md-nav__link">
+      Algo
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/data_classes/" title="Data Classes" class="md-nav__link">
+      Data Classes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../scripts/triplet_errors/plotting_functions/" title="Plotting Functions" class="md-nav__link">
+      Plotting Functions
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-7" type="checkbox" id="nav-4-1-7">
+    
+    <label class="md-nav__link" for="nav-4-1-7">
+      Tfstools
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Tfstools" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-7">
+        <span class="md-nav__icon md-icon"></span>
+        Tfstools
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../tfstools/latwiss/" title="Latwiss" class="md-nav__link">
+      Latwiss
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4-1-8" type="checkbox" id="nav-4-1-8">
+    
+    <label class="md-nav__link" for="nav-4-1-8">
+      Utils
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Utils" data-md-level="3">
+      <label class="md-nav__title" for="nav-4-1-8">
+        <span class="md-nav__icon md-icon"></span>
+        Utils
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/cmdline/" title="Cmdline" class="md-nav__link">
+      Cmdline
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/contexts/" title="Contexts" class="md-nav__link">
+      Contexts
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/defaults/" title="Defaults" class="md-nav__link">
+      Defaults
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/executors/" title="Executors" class="md-nav__link">
+      Executors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/operations/" title="Operations" class="md-nav__link">
+      Operations
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../utils/printutil/" title="Printutil" class="md-nav__link">
+      Printutil
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#apply_lhc_colinearity_knob" class="md-nav__link">
+    apply_lhc_colinearity_knob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply_lhc_coupling_knob" class="md-nav__link">
+    apply_lhc_coupling_knob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#apply_lhc_rigidity_waist_shift_knob" class="md-nav__link">
+    apply_lhc_rigidity_waist_shift_knob
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deactivate_lhc_arc_sextupoles" class="md-nav__link">
+    deactivate_lhc_arc_sextupoles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_sixtrack_output" class="md-nav__link">
+    make_sixtrack_output
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#power_landau_octupoles" class="md-nav__link">
+    power_landau_octupoles
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/cpymadtools/special.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  
+                
+                
+                <h1 id="module-pyhdtoolkitcpymadtoolsspecial">Module pyhdtoolkit.cpymadtools.special</h1>
+<p>Module cpymadtools.special</p>
+<hr />
+<p>Created on 2020.02.03</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">Module cpymadtools.special</span>
+
+<span class="sd">--------------------------</span>
+
+<span class="sd">Created on 2020.02.03</span>
+
+<span class="sd">:author: Felix Soubelet (felix.soubelet@cern.ch)</span>
+
+<span class="sd">A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to</span>
+
+<span class="sd">LHC and HLLHC use cases.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="c1"># ----- Utlites ----- #</span>
+
+<span class="k">def</span> <span class="nf">power_landau_octupoles</span><span class="p">(</span>
+
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Power the Landau octupoles in the (HL)LHC.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        mo_current (float): MO powering in Amps.</span>
+
+<span class="sd">        beam (int): beam to use.</span>
+
+<span class="sd">        defective_arc: If set to `True`, the KOD in Arc 56 are powered for less Imax.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="n">brho</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
+
+    <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+
+            <span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span>
+
+        <span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_error</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;Powering Landau Octupoles, beam {beam} @ {cpymad_instance.globals.nrj} GeV with {mo_current} A.&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
+
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+
+    <span class="k">for</span> <span class="n">arc</span> <span class="ow">in</span> <span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span>
+
+            <span class="n">octupole</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;KO{fd}.{arc}&quot;</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering element &#39;{octupole}&#39; at {strength} Amps&quot;</span><span class="p">)</span>
+
+            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
+
+    <span class="k">if</span> <span class="n">defective_arc</span> <span class="ow">and</span> <span class="p">(</span><span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span>
+
+<span class="k">def</span> <span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Deactivate all arc sextupoles in the (HL)LHC.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        beam (int): beam to use.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56</span>
+
+    <span class="c1"># KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56</span>
+
+    <span class="c1"># Rest: Weak sextupoles in sectors 78/23/34/67</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Deactivating all arc sextupoles for beam {beam}.&quot;</span><span class="p">)</span>
+
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+
+    <span class="k">for</span> <span class="n">arc</span> <span class="ow">in</span> <span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+
+                <span class="n">sextupole</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;KS{fd}{i:d}.{arc}&quot;</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;De-powering element &#39;{sextupole}&#39;&quot;</span><span class="p">)</span>
+
+                <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">sextupole</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+<span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span>
+
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">None</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Applies the LHC colinearity knob. If you don&#39;t know what this is, you should not be using this</span>
+
+<span class="sd">    function.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users</span>
+
+<span class="sd">            don&#39;t mess up local coupling by mistake. This should be a positive integer, normally between 1</span>
+
+<span class="sd">            and 10.</span>
+
+<span class="sd">        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</span>
+
+<span class="sd">            Classically 1 or 5.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Applying Colinearity knob with a unit setting of {colinearity_knob_value}&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span>
+
+    <span class="n">knob_variables</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;kqsx3.r{ir:d}&quot;</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;kqsx3.l{ir:d}&quot;</span><span class="p">)</span>  <span class="c1"># MQSX IP coupling correctors</span>
+
+    <span class="n">right_knob</span><span class="p">,</span> <span class="n">left_knob</span> <span class="o">=</span> <span class="n">knob_variables</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
+
+<span class="k">def</span> <span class="nf">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span>
+
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">rigidty_waist_shift_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don&#39;t know what</span>
+
+<span class="sd">    this is, you should not be using this function.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).</span>
+
+<span class="sd">        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</span>
+
+<span class="sd">            Classically 1 or 5.</span>
+
+<span class="sd">        side (str): Which side of the IP to move the waist to, determines a sign in the calculation.</span>
+
+<span class="sd">            Defaults to &#39;left&#39;, which means s_waist &lt; s_ip (and setting it to &#39;right&#39; would move the waist</span>
+
+<span class="sd">            to s_waist &gt; s_ip).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span>
+
+    <span class="n">knob_variables</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;kqx.r{ir:d}&quot;</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;kqx.l{ir:d}&quot;</span><span class="p">)</span>  <span class="c1"># Closest IP triplet</span>
+
+    <span class="n">right_knob</span><span class="p">,</span> <span class="n">left_knob</span> <span class="o">=</span> <span class="n">knob_variables</span>
+
+    <span class="n">current_right_knob</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span>
+
+    <span class="n">current_left_knob</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
+
+        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
+
+        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
+
+    <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
+
+        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
+
+        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
+
+    <span class="k">else</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Given side &#39;{side}&#39; invalid, only &#39;left&#39; and &#39;right&#39; are accepted values.&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid value for parameter &#39;side&#39;.&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">apply_lhc_coupling_knob</span><span class="p">(</span>
+
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">coupling_knob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Applies the LHC coupling knob to reach the desired C- value.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0</span>
+
+<span class="sd">        so users don&#39;t mess up coupling by mistake</span>
+
+<span class="sd">        beam (int): beam to apply the knob to, defaults to beam 1.</span>
+
+<span class="sd">        telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.</span>
+
+<span class="sd">            Defaults to False.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Applying coupling knob&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span>
+
+    <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="n">knob_name</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;CMRS.b{beam:d}{suffix}&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Knob &#39;{knob_name}&#39; is {cpymad_instance.globals[knob_name]} before implementation&quot;</span><span class="p">)</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">coupling_knob</span>
+
+<span class="k">def</span> <span class="nf">make_sixtrack_output</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+
+<span class="sd">    Prepare output for sixtrack run.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        energy (float): beam energy in GeV.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Preparing outputs for SixTrack&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Powering RF cavities&quot;</span><span class="p">)</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;VRF400&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">if</span> <span class="n">energy</span> <span class="o">&lt;</span> <span class="mi">5000</span> <span class="k">else</span> <span class="mi">16</span>  <span class="c1"># is 6 at injection for protons iirc?</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># cavity phase difference in units of 2pi</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing TWISS and SIXTRACK commands&quot;</span><span class="p">)</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># used by sixtrack</span>
+
+    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">sixtrack</span><span class="p">(</span><span class="n">cavall</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.017</span><span class="p">)</span>  <span class="c1"># this value is only ok for HL(LHC) magnet radius</span>
+
+<span class="c1"># ----- Helpers ----- #</span>
+
+<span class="k">def</span> <span class="nf">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+
+<span class="sd">    Names of all LHC arcs for a given beam.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        beam (int): beam to get names for.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        The list of names.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="s2">&quot;A{i+1}{(i+1)%8+1}B{beam:d}&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+
+<span class="k">def</span> <span class="nf">_get_k_strings</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;both&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+
+<span class="sd">    Returns the list of K-strings for various magnets and orders (K1L, K2SL etc strings).</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        start (int): the starting order, defaults to 0.</span>
+
+<span class="sd">        stop (int): the order to go up to, defaults to 8.</span>
+
+<span class="sd">        orientation (str): magnet orientation, can be &#39;straight&#39;, &#39;skew&#39; or &#39;both&#39;. Defaults to &#39;both&#39;.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        The list of names as strings.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">orientation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;straight&quot;</span><span class="p">,</span> <span class="s2">&quot;skew&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">,):</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+
+            <span class="n">f</span><span class="s2">&quot;Orientation &#39;{orientation}&#39; is not accepted, should be one of &#39;straight&#39;, &#39;skew&#39;, &#39;both&#39;.&quot;</span>
+
+        <span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;orientation&#39; parameter&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;straight&quot;</span><span class="p">:</span>
+
+        <span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,)</span>
+
+    <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;skew&quot;</span><span class="p">:</span>
+
+        <span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,)</span>
+
+    <span class="k">else</span><span class="p">:</span>  <span class="c1"># both</span>
+
+        <span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="s2">&quot;K{i:d}{s:s}L&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">orientation</span><span class="p">]</span>
+</code></pre></div>
+
+</details>
+<h2 id="functions">Functions</h2>
+<h3 id="apply_lhc_colinearity_knob">apply_lhc_colinearity_knob</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span>
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Applies the LHC colinearity knob. If you don't know what this is, you should not be using this</p>
+<p>function.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpymad_instance</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>colinearity_knob_value</td>
+<td>float</td>
+<td>Units of the colinearity knob to apply. Defaults to 0 so users</td>
+<td></td>
+</tr>
+<tr>
+<td>don't mess up local coupling by mistake. This should be a positive integer, normally between 1</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>and 10.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ir</td>
+<td>int</td>
+<td>The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</td>
+<td></td>
+</tr>
+<tr>
+<td>Classically 1 or 5.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">colinearity_knob_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Applies the LHC colinearity knob. If you don&#39;t know what this is, you should not be using this</span>
+
+<span class="ss">    function.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="ss">        colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users</span>
+
+<span class="ss">            don&#39;t mess up local coupling by mistake. This should be a positive integer, normally between 1</span>
+
+<span class="ss">            and 10.</span>
+
+<span class="ss">        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</span>
+
+<span class="ss">            Classically 1 or 5.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Applying Colinearity knob with a unit setting of {colinearity_knob_value}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="ss">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">knob_variables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;kqsx3.r{ir:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;kqsx3.l{ir:d}&quot;</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">MQSX</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">coupling</span><span class="w"> </span><span class="n">correctors</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">right_knob</span><span class="p">,</span><span class="w"> </span><span class="n">left_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">knob_variables</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colinearity_knob_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e-4</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">colinearity_knob_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e-4</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="apply_lhc_coupling_knob">apply_lhc_coupling_knob</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_lhc_coupling_knob</span><span class="p">(</span>
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">coupling_knob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Applies the LHC coupling knob to reach the desired C- value.</p>
+<p>Args:
+    cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0
+    so users don't mess up coupling by mistake
+    beam (int): beam to apply the knob to, defaults to beam 1.
+    telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.
+        Defaults to False.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_coupling_knob</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">coupling_knob</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Applies the LHC coupling knob to reach the desired C- value.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="ss">        coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0</span>
+
+<span class="ss">        so users don&#39;t mess up coupling by mistake</span>
+
+<span class="ss">        beam (int): beam to apply the knob to, defaults to beam 1.</span>
+
+<span class="ss">        telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.</span>
+
+<span class="ss">            Defaults to False.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="ss">&quot;Applying coupling knob&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="ss">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">suffix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;_sq&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">telescopic_squeeze</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">knob_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;CMRS.b{beam:d}{suffix}&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Knob &#39;{knob_name}&#39; is {cpymad_instance.globals[knob_name]} before implementation&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">knob_name</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coupling_knob</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="apply_lhc_rigidity_waist_shift_knob">apply_lhc_rigidity_waist_shift_knob</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span>
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">rigidty_waist_shift_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don't know what</p>
+<p>this is, you should not be using this function.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpymad_instance</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>rigidty_waist_shift_value</td>
+<td>float</td>
+<td>Units of the rigidity waist shift knob (positive values only).</td>
+<td>None</td>
+</tr>
+<tr>
+<td>ir</td>
+<td>int</td>
+<td>The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</td>
+<td></td>
+</tr>
+<tr>
+<td>Classically 1 or 5.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>side</td>
+<td>str</td>
+<td>Which side of the IP to move the waist to, determines a sign in the calculation.</td>
+<td></td>
+</tr>
+<tr>
+<td>Defaults to 'left', which means s_waist &lt; s_ip (and setting it to 'right' would move the waist</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>to s_waist &gt; s_ip).</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">rigidty_waist_shift_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">side</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;left&quot;</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don&#39;t know what</span>
+
+<span class="ss">    this is, you should not be using this function.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="ss">        rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).</span>
+
+<span class="ss">        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</span>
+
+<span class="ss">            Classically 1 or 5.</span>
+
+<span class="ss">        side (str): Which side of the IP to move the waist to, determines a sign in the calculation.</span>
+
+<span class="ss">            Defaults to &#39;left&#39;, which means s_waist &lt; s_ip (and setting it to &#39;right&#39; would move the waist</span>
+
+<span class="ss">            to s_waist &gt; s_ip).</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="ss">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">knob_variables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;kqx.r{ir:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;kqx.l{ir:d}&quot;</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Closest</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">triplet</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">right_knob</span><span class="p">,</span><span class="w"> </span><span class="n">left_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">knob_variables</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">current_right_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">current_left_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;left&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_right_knob</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_left_knob</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;right&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_right_knob</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_left_knob</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Given side &#39;{side}&#39; invalid, only &#39;left&#39; and &#39;right&#39; are accepted values.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Invalid value for parameter &#39;side&#39;.&quot;</span><span class="p">)</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="deactivate_lhc_arc_sextupoles">deactivate_lhc_arc_sextupoles</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span>
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Deactivate all arc sextupoles in the (HL)LHC.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpymad_instance</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>beam</td>
+<td>int</td>
+<td>beam to use.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Deactivate all arc sextupoles in the (HL)LHC.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="ss">        beam (int): beam to use.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">KSF1</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">KSD2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Strong</span><span class="w"> </span><span class="n">sextupoles</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">sectors</span><span class="w"> </span><span class="mi">81</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">45</span><span class="o">/</span><span class="mi">56</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">KSF2</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">KSD1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Weak</span><span class="w"> </span><span class="n">sextupoles</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">sectors</span><span class="w"> </span><span class="mi">81</span><span class="o">/</span><span class="mi">12</span><span class="o">/</span><span class="mi">45</span><span class="o">/</span><span class="mi">56</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="nl">Rest</span><span class="p">:</span><span class="w"> </span><span class="n">Weak</span><span class="w"> </span><span class="n">sextupoles</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sectors</span><span class="w"> </span><span class="mi">78</span><span class="o">/</span><span class="mi">23</span><span class="o">/</span><span class="mi">34</span><span class="o">/</span><span class="mi">67</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Deactivating all arc sextupoles for beam {beam}.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">beam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">beam</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="ss">&quot;FD&quot;</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">sextupole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;KS{fd}{i:d}.{arc}&quot;</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;De-powering element &#39;{sextupole}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">sextupole</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="make_sixtrack_output">make_sixtrack_output</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_sixtrack_output</span><span class="p">(</span>
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</p>
+<p>Prepare output for sixtrack run.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpymad_instance</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>energy</td>
+<td>float</td>
+<td>beam energy in GeV.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_sixtrack_output</span><span class="p">(</span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">energy</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+
+<span class="ss">    Prepare output for sixtrack run.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="ss">        energy (float): beam energy in GeV.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="ss">&quot;Preparing outputs for SixTrack&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Powering RF cavities&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;VRF400&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">16</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">injection</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">protons</span><span class="w"> </span><span class="n">iirc</span><span class="vm">?</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;LAGRF400.B1&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">cavity</span><span class="w"> </span><span class="n">phase</span><span class="w"> </span><span class="nf">difference</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="mi">2</span><span class="nf">pi</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;LAGRF400.B2&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Executing TWISS and SIXTRACK commands&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sixtrack</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">sixtrack</span><span class="p">(</span><span class="n">cavall</span><span class="o">=</span><span class="k">True</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="o">=</span><span class="mf">0.017</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">HL</span><span class="p">(</span><span class="n">LHC</span><span class="p">)</span><span class="w"> </span><span class="n">magnet</span><span class="w"> </span><span class="n">radius</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="power_landau_octupoles">power_landau_octupoles</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">power_landau_octupoles</span><span class="p">(</span>
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Power the Landau octupoles in the (HL)LHC.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cpymad_instance</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>mo_current</td>
+<td>float</td>
+<td>MO powering in Amps.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>beam</td>
+<td>int</td>
+<td>beam to use.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>defective_arc</td>
+<td>None</td>
+<td>If set to <code>True</code>, the KOD in Arc 56 are powered for less Imax.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">power_landau_octupoles</span><span class="p">(</span>
+
+    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb nb-Type">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb nb-Type">bool</span> <span class="o">=</span> <span class="n">False</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Power the Landau octupoles in the (HL)LHC.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        mo_current (float): MO powering in Amps.</span>
+
+<span class="sd">        beam (int): beam to use.</span>
+
+<span class="sd">        defective_arc: If set to `True`, the KOD in Arc 56 are powered for less Imax.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">try</span><span class="p">:</span>
+
+        <span class="n">brho</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
+
+    <span class="n">except</span> <span class="n">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+
+            <span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span>
+
+        <span class="p">)</span>
+
+        <span class="n">raise</span> <span class="n">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="n">from</span> <span class="n">madx_error</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;Powering Landau Octupoles, beam {beam} @ {cpymad_instance.globals.nrj} GeV with {mo_current} A.&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
+
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+
+    <span class="k">for</span> <span class="n">arc</span> <span class="ow">in</span> <span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+
+        <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span>
+
+            <span class="n">octupole</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;KO{fd}.{arc}&quot;</span>
+
+            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering element &#39;{octupole}&#39; at {strength} Amps&quot;</span><span class="p">)</span>
+
+            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
+
+    <span class="k">if</span> <span class="n">defective_arc</span> <span class="ow">and</span> <span class="p">(</span><span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+
+        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span>
+</code></pre></div>
+
+</details>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../ptc/" title="Ptc" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Ptc
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../maths/" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Index
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Powered by
+        <a href="http://timothycrosley.github.io/portray">portray.</a>
+        You too can
+        <a href="http://timothycrosley.github.io/portray">
+          portray</a>
+        your Python project well using automatic documentation.
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../../assets/javascripts/vendor.2d1db4bd.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.6627ddf3.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../../../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../../../assets/javascripts/worker/search.5eca75d3.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
+</html>

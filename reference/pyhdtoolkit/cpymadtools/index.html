@@ -34,8 +34,8 @@
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:300,400,400i,700%7CFira+Code&display=fallback">
+        <style>body,input{font-family:"Ubuntu Mono",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Fira Code",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -304,8 +304,32 @@
 
 
   <li class="md-nav__item">
-    <a href="helpers/" title="Helpers" class="md-nav__link">
-      Helpers
+    <a href="constants/" title="Constants" class="md-nav__link">
+      Constants
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="errors/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="generators/" title="Generators" class="md-nav__link">
+      Generators
     </a>
   </li>
 
@@ -366,18 +390,6 @@
 
 
   <li class="md-nav__item">
-    <a href="lattice_generators/" title="Lattice Generators" class="md-nav__link">
-      Lattice Generators
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="latwiss/" title="Latwiss" class="md-nav__link">
       Latwiss
     </a>
@@ -390,8 +402,68 @@
 
 
   <li class="md-nav__item">
+    <a href="matching/" title="Matching" class="md-nav__link">
+      Matching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="orbit/" title="Orbit" class="md-nav__link">
+      Orbit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="parameters/" title="Parameters" class="md-nav__link">
+      Parameters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="plotters/" title="Plotters" class="md-nav__link">
       Plotters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="ptc/" title="Ptc" class="md-nav__link">
+      Ptc
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="special/" title="Special" class="md-nav__link">
+      Special
     </a>
   </li>
 
@@ -490,18 +562,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
-      Amplitude Detuning
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../optics/beam/" title="Beam" class="md-nav__link">
       Beam
     </a>
@@ -590,18 +650,6 @@
   <li class="md-nav__item">
     <a href="../plotting/settings/" title="Settings" class="md-nav__link">
       Settings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../plotting/timedata/" title="Timedata" class="md-nav__link">
-      Timedata
     </a>
   </li>
 
@@ -994,12 +1042,10 @@
                 
                 
                 <h1 id="module-pyhdtoolkitcpymadtools">Module pyhdtoolkit.cpymadtools</h1>
-<p>cpymadtools package
-<sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub>~
+<p>cpymadtools package</p>
+<p><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub>~
 cpymadtools is a collection of utilities that integrate within my workflow with the <code>cpymad</code>
 library.</p>
-<p>:copyright: &copy; 2019 by Felix Soubelet.
-:license: MIT, see LICENSE for more details.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">cpymadtools package</span>
@@ -1016,24 +1062,52 @@ library.</p>
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">.errors</span> <span class="kn">import</span> <span class="n">switch_magnetic_errors</span>
 
-<span class="kn">from</span> <span class="nn">.helpers</span> <span class="kn">import</span> <span class="n">LatticeMatcher</span><span class="p">,</span> <span class="n">Parameters</span>
+<span class="kn">from</span> <span class="nn">.generators</span> <span class="kn">import</span> <span class="n">LatticeGenerator</span>
 
-<span class="kn">from</span> <span class="nn">.lattice_generators</span> <span class="kn">import</span> <span class="n">LatticeGenerator</span>
+<span class="kn">from</span> <span class="nn">.latwiss</span> <span class="kn">import</span> <span class="n">plot_latwiss</span><span class="p">,</span> <span class="n">plot_machine_survey</span>
 
-<span class="kn">from</span> <span class="nn">.latwiss</span> <span class="kn">import</span> <span class="n">LaTwiss</span>
+<span class="kn">from</span> <span class="nn">.matching</span> <span class="kn">import</span> <span class="n">get_closest_tune_approach</span><span class="p">,</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">,</span> <span class="n">match_tunes_and_chromaticities</span>
+
+<span class="kn">from</span> <span class="nn">.orbit</span> <span class="kn">import</span> <span class="n">get_current_orbit_setup</span><span class="p">,</span> <span class="n">lhc_orbit_variables</span><span class="p">,</span> <span class="n">setup_lhc_orbit</span>
+
+<span class="kn">from</span> <span class="nn">.parameters</span> <span class="kn">import</span> <span class="n">beam_parameters</span>
 
 <span class="kn">from</span> <span class="nn">.plotters</span> <span class="kn">import</span> <span class="n">AperturePlotter</span><span class="p">,</span> <span class="n">DynamicAperturePlotter</span><span class="p">,</span> <span class="n">PhaseSpacePlotter</span><span class="p">,</span> <span class="n">TuneDiagramPlotter</span>
+
+<span class="kn">from</span> <span class="nn">.ptc</span> <span class="kn">import</span> <span class="n">get_amplitude_detuning</span><span class="p">,</span> <span class="n">get_rdts</span>
+
+<span class="kn">from</span> <span class="nn">.special</span> <span class="kn">import</span> <span class="p">(</span>
+
+    <span class="n">apply_lhc_colinearity_knob</span><span class="p">,</span>
+
+    <span class="n">apply_lhc_coupling_knob</span><span class="p">,</span>
+
+    <span class="n">apply_lhc_rigidity_waist_shift_knob</span><span class="p">,</span>
+
+    <span class="n">deactivate_lhc_arc_sextupoles</span><span class="p">,</span>
+
+    <span class="n">make_sixtrack_output</span><span class="p">,</span>
+
+    <span class="n">power_landau_octupoles</span><span class="p">,</span>
+
+<span class="p">)</span>
 </code></pre></div>
 
 </details>
 <h2 id="sub-modules">Sub-modules</h2>
 <ul>
-<li><a href="helpers/">pyhdtoolkit.cpymadtools.helpers</a></li>
-<li><a href="lattice_generators/">pyhdtoolkit.cpymadtools.lattice_generators</a></li>
+<li><a href="constants/">pyhdtoolkit.cpymadtools.constants</a></li>
+<li><a href="errors/">pyhdtoolkit.cpymadtools.errors</a></li>
+<li><a href="generators/">pyhdtoolkit.cpymadtools.generators</a></li>
 <li><a href="latwiss/">pyhdtoolkit.cpymadtools.latwiss</a></li>
+<li><a href="matching/">pyhdtoolkit.cpymadtools.matching</a></li>
+<li><a href="orbit/">pyhdtoolkit.cpymadtools.orbit</a></li>
+<li><a href="parameters/">pyhdtoolkit.cpymadtools.parameters</a></li>
 <li><a href="plotters/">pyhdtoolkit.cpymadtools.plotters</a></li>
+<li><a href="ptc/">pyhdtoolkit.cpymadtools.ptc</a></li>
+<li><a href="special/">pyhdtoolkit.cpymadtools.special</a></li>
 </ul>
                 
               
@@ -1053,7 +1127,7 @@ library.</p>
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="helpers/" title="Helpers" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="generators/" title="Generators" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -1062,19 +1136,19 @@ library.</p>
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Helpers
+                Generators
               </span>
             </div>
           </a>
         
         
-          <a href="lattice_generators/" title="Lattice Generators" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="latwiss/" title="Latwiss" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Lattice Generators
+                Latwiss
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

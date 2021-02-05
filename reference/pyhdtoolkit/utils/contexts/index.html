@@ -34,8 +34,8 @@
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:300,400,400i,700%7CFira+Code&display=fallback">
+        <style>body,input{font-family:"Ubuntu Mono",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Fira Code",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -302,8 +302,32 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cpymadtools/helpers/" title="Helpers" class="md-nav__link">
-      Helpers
+    <a href="../../cpymadtools/constants/" title="Constants" class="md-nav__link">
+      Constants
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/errors/" title="Errors" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/generators/" title="Generators" class="md-nav__link">
+      Generators
     </a>
   </li>
 
@@ -326,18 +350,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cpymadtools/lattice_generators/" title="Lattice Generators" class="md-nav__link">
-      Lattice Generators
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../cpymadtools/latwiss/" title="Latwiss" class="md-nav__link">
       Latwiss
     </a>
@@ -350,8 +362,68 @@
 
 
   <li class="md-nav__item">
+    <a href="../../cpymadtools/matching/" title="Matching" class="md-nav__link">
+      Matching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/orbit/" title="Orbit" class="md-nav__link">
+      Orbit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/parameters/" title="Parameters" class="md-nav__link">
+      Parameters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../cpymadtools/plotters/" title="Plotters" class="md-nav__link">
       Plotters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/ptc/" title="Ptc" class="md-nav__link">
+      Ptc
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../cpymadtools/special/" title="Special" class="md-nav__link">
+      Special
     </a>
   </li>
 
@@ -450,18 +522,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
-      Amplitude Detuning
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../optics/beam/" title="Beam" class="md-nav__link">
       Beam
     </a>
@@ -550,18 +610,6 @@
   <li class="md-nav__item">
     <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
       Settings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../plotting/timedata/" title="Timedata" class="md-nav__link">
-      Timedata
     </a>
   </li>
 
@@ -855,13 +903,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#module-utilscontexts" class="md-nav__link">
-    Module utils.contexts
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     Functions
   </a>
@@ -987,13 +1028,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#module-utilscontexts" class="md-nav__link">
-    Module utils.contexts
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     Functions
   </a>
@@ -1034,7 +1068,8 @@
                 
                 
                 <h1 id="module-pyhdtoolkitutilscontexts">Module pyhdtoolkit.utils.contexts</h1>
-<h2 id="module-utilscontexts">Module utils.contexts</h2>
+<p>Module utils.contexts</p>
+<hr />
 <p>Provides contexts to use functions in.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
@@ -1096,20 +1131,50 @@
 </details>
 <h2 id="functions">Functions</h2>
 <h3 id="timeit">timeit</h3>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">timeit</span><span class="p">(</span>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">timeit</span><span class="p">(</span>
     <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">NoneType</span><span class="p">]</span>
 </code></pre></div>
-Returns the time elapsed when executing code in the context via <code>function</code>.
-Original code from @jaimecp89</p>
-<p>Args:
-    function (Callable): any callable taking one argument. Was conceived with a lambda in mind.</p>
-<p>Returns:
-    The elapsed time as an argument for the provided function.</p>
+<p>Returns the time elapsed when executing code in the context via <code>function</code>.</p>
+<p>Original code from @jaimecp89</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>function</td>
+<td>Callable</td>
+<td>any callable taking one argument. Was conceived with a lambda in mind.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>The elapsed time as an argument for the provided function.</td>
+</tr>
+</tbody>
+</table>
 <p>Usage:
     with timeit(lambda spanned: logger.debug(f'Did some stuff in {spanned} seconds')):
         some_stuff()
-        some_other_stuff()</p>
+        some_other_stuff() |</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="nv">@contextmanager</span><span class="w"></span>
 
 <span class="n">def</span><span class="w"> </span><span class="n">timeit</span><span class="p">(</span><span class="k">function</span><span class="err">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Iterator</span><span class="o">[</span><span class="n">None</span><span class="o">]</span><span class="err">:</span><span class="w"></span>

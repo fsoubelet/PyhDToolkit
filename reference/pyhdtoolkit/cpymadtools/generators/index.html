@@ -16,7 +16,7 @@
     
     
       
-        <title>Lattice Generators - PyhDToolkit</title>
+        <title>Generators - PyhDToolkit</title>
       
     
     
@@ -34,8 +34,8 @@
     
       
         <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
-        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu+Mono:300,400,400i,700%7CFira+Code&display=fallback">
+        <style>body,input{font-family:"Ubuntu Mono",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Fira Code",SFMono-Regular,Consolas,Menlo,monospace}</style>
       
     
     
@@ -59,7 +59,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#module-pyhdtoolkitcpymadtoolslattice_generators" class="md-skip">
+        <a href="#module-pyhdtoolkitcpymadtoolsgenerators" class="md-skip">
           Skip to content
         </a>
       
@@ -87,7 +87,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Lattice Generators
+              Generators
             
           </span>
         </div>
@@ -304,8 +304,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../helpers/" title="Helpers" class="md-nav__link">
-      Helpers
+    <a href="../constants/" title="Constants" class="md-nav__link">
+      Constants
     </a>
   </li>
 
@@ -316,8 +316,8 @@
 
 
   <li class="md-nav__item">
-    <a href="../" title="Index" class="md-nav__link">
-      Index
+    <a href="../errors/" title="Errors" class="md-nav__link">
+      Errors
     </a>
   </li>
 
@@ -337,12 +337,12 @@
     
     
       <label class="md-nav__link md-nav__link--active" for="__toc">
-        Lattice Generators
+        Generators
         <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="Lattice Generators" class="md-nav__link md-nav__link--active">
-      Lattice Generators
+    <a href="./" title="Generators" class="md-nav__link md-nav__link--active">
+      Generators
     </a>
     
       
@@ -357,13 +357,6 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#module-cpymadtoolslattice_generators" class="md-nav__link">
-    Module cpymadtools.lattice_generators
-  </a>
-  
-</li>
       
         <li class="md-nav__item">
   <a href="#classes" class="md-nav__link">
@@ -386,8 +379,7 @@
     Static methods
   </a>
   
-    <nav class="md-nav" aria-label="Static methods">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#generate_base_cas_lattice" class="md-nav__link">
@@ -440,16 +432,23 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
     </ul>
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Index" class="md-nav__link">
+      Index
+    </a>
   </li>
 
         
@@ -471,8 +470,68 @@
 
 
   <li class="md-nav__item">
+    <a href="../matching/" title="Matching" class="md-nav__link">
+      Matching
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../orbit/" title="Orbit" class="md-nav__link">
+      Orbit
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../parameters/" title="Parameters" class="md-nav__link">
+      Parameters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../plotters/" title="Plotters" class="md-nav__link">
       Plotters
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../ptc/" title="Ptc" class="md-nav__link">
+      Ptc
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../special/" title="Special" class="md-nav__link">
+      Special
     </a>
   </li>
 
@@ -571,18 +630,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../optics/amplitude_detuning/" title="Amplitude Detuning" class="md-nav__link">
-      Amplitude Detuning
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../optics/beam/" title="Beam" class="md-nav__link">
       Beam
     </a>
@@ -671,18 +718,6 @@
   <li class="md-nav__item">
     <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
       Settings
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../plotting/timedata/" title="Timedata" class="md-nav__link">
-      Timedata
     </a>
   </li>
 
@@ -1048,13 +1083,6 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#module-cpymadtoolslattice_generators" class="md-nav__link">
-    Module cpymadtools.lattice_generators
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#classes" class="md-nav__link">
     Classes
   </a>
@@ -1075,8 +1103,7 @@
     Static methods
   </a>
   
-    <nav class="md-nav" aria-label="Static methods">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#generate_base_cas_lattice" class="md-nav__link">
@@ -1129,11 +1156,6 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
     </ul>
   
@@ -1147,7 +1169,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/cpymadtools/lattice_generators.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/fsoubelet/PyhDToolkit/edit/master/reference/pyhdtoolkit/cpymadtools/generators.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -1155,16 +1177,15 @@
                   
                 
                 
-                <h1 id="module-pyhdtoolkitcpymadtoolslattice_generators">Module pyhdtoolkit.cpymadtools.lattice_generators</h1>
-<h2 id="module-cpymadtoolslattice_generators">Module cpymadtools.lattice_generators</h2>
-<p>Created on 2019.06.15
-:author: Felix Soubelet (<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;">&#102;&#101;&#108;&#105;&#120;&#46;&#115;&#111;&#117;&#98;&#101;&#108;&#101;&#116;&#64;&#99;&#101;&#114;&#110;&#46;&#99;&#104;</a>)</p>
-<p>A collection of functions for generating different lattices for cpymad.madx.Madx input.</p>
+                <h1 id="module-pyhdtoolkitcpymadtoolsgenerators">Module pyhdtoolkit.cpymadtools.generators</h1>
+<p>Module cpymadtools.generators</p>
+<hr />
+<p>Created on 2019.06.15</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="ss">&quot;&quot;&quot;</span>
 
-<span class="ss">Module cpymadtools.lattice_generators</span>
+<span class="ss">Module cpymadtools.generators</span>
 
-<span class="ss">-------------------------------------</span>
+<span class="ss">-----------------------------</span>
 
 <span class="ss">Created on 2019.06.15</span>
 
@@ -1173,6 +1194,8 @@
 <span class="ss">A collection of functions for generating different lattices for cpymad.madx.Madx input.</span>
 
 <span class="ss">&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="err">#</span><span class="w"> </span><span class="o">-----</span><span class="w"> </span><span class="n">Utlites</span><span class="w"> </span><span class="o">-----</span><span class="w"> </span><span class="err">#</span><span class="w"></span>
 
 <span class="k">class</span><span class="w"> </span><span class="nl">LatticeGenerator</span><span class="p">:</span><span class="w"></span>
 
@@ -1876,7 +1899,6 @@
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>A simple class to handle said functions.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">LatticeGenerator</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
@@ -2573,14 +2595,27 @@
 </details>
 <hr />
 <h4 id="static-methods">Static methods</h4>
-<h5 id="generate_base_cas_lattice">generate_base_cas_lattice</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_base_cas_lattice</span><span class="p">(</span>
+<h4 id="generate_base_cas_lattice">generate_base_cas_lattice</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_base_cas_lattice</span><span class="p">(</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre></div>
-Simple function to help unclutter the notebook.</p>
-<p>Returns:
-    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<p>Simple function to help unclutter the notebook.</p>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A string you can input into your <code>cpymad.madx.Madx</code> object.</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_base_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
@@ -2703,14 +2738,27 @@ Simple function to help unclutter the notebook.</p>
 </code></pre></div>
 
 </details>
-<h5 id="generate_oneoct_cas_lattice">generate_oneoct_cas_lattice</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_oneoct_cas_lattice</span><span class="p">(</span>
+<h4 id="generate_oneoct_cas_lattice">generate_oneoct_cas_lattice</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_oneoct_cas_lattice</span><span class="p">(</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre></div>
-Simple function to help unclutter the notebook.</p>
-<p>Returns:
-    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<p>Simple function to help unclutter the notebook.</p>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A string you can input into your <code>cpymad.madx.Madx</code> object.</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_oneoct_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
@@ -2865,14 +2913,27 @@ Simple function to help unclutter the notebook.</p>
 </code></pre></div>
 
 </details>
-<h5 id="generate_onesext_cas_lattice">generate_onesext_cas_lattice</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_onesext_cas_lattice</span><span class="p">(</span>
+<h4 id="generate_onesext_cas_lattice">generate_onesext_cas_lattice</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_onesext_cas_lattice</span><span class="p">(</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre></div>
-Simple function to help unclutter the notebook.</p>
-<p>Returns:
-    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<p>Simple function to help unclutter the notebook.</p>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A string you can input into your <code>cpymad.madx.Madx</code> object.</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_onesext_cas_lattice</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
@@ -3027,18 +3088,53 @@ Simple function to help unclutter the notebook.</p>
 </code></pre></div>
 
 </details>
-<h5 id="generate_tripleterrors_study_mserror_job">generate_tripleterrors_study_mserror_job</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_mserror_job</span><span class="p">(</span>
+<h4 id="generate_tripleterrors_study_mserror_job">generate_tripleterrors_study_mserror_job</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_mserror_job</span><span class="p">(</span>
     <span class="n">rand_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">ms_error</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre></div>
-Generate generic script for ms_error Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
-<p>Args:
-    rand_seed (str): the random seed to provide MAD for the errors distributions.
-    ms_error (str): the misalignment error value (along the s axis).</p>
-<p>Returns:
-    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<p>Generate generic script for ms_error Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rand_seed</td>
+<td>str</td>
+<td>the random seed to provide MAD for the errors distributions.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>ms_error</td>
+<td>str</td>
+<td>the misalignment error value (along the s axis).</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A string you can input into your <code>cpymad.madx.Madx</code> object.</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_mserror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">ms_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
@@ -3135,14 +3231,27 @@ Generate generic script for ms_error Twiss, to use in a <code>cpymad.madx.Madx</
 </code></pre></div>
 
 </details>
-<h5 id="generate_tripleterrors_study_reference">generate_tripleterrors_study_reference</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_reference</span><span class="p">(</span>
+<h4 id="generate_tripleterrors_study_reference">generate_tripleterrors_study_reference</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_reference</span><span class="p">(</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre></div>
-Generate generic script for reference Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
-<p>Returns:
-    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<p>Generate generic script for reference Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A string you can input into your <code>cpymad.madx.Madx</code> object.</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_reference</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
@@ -3211,18 +3320,53 @@ Generate generic script for reference Twiss, to use in a <code>cpymad.madx.Madx<
 </code></pre></div>
 
 </details>
-<h5 id="generate_tripleterrors_study_tferror_job">generate_tripleterrors_study_tferror_job</h5>
-<p><div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_tferror_job</span><span class="p">(</span>
+<h4 id="generate_tripleterrors_study_tferror_job">generate_tripleterrors_study_tferror_job</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">generate_tripleterrors_study_tferror_job</span><span class="p">(</span>
     <span class="n">rand_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">tf_error</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span>
 </code></pre></div>
-Generate generic script for tf_error Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
-<p>Args:
-    rand_seed (str): the random seed to provide MAD for the errors distributions.
-    tf_error (str): the misalignment error value (along the s axis).</p>
-<p>Returns:
-    A string you can input into your <code>cpymad.madx.Madx</code> object.</p>
+<p>Generate generic script for tf_error Twiss, to use in a <code>cpymad.madx.Madx</code> object.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rand_seed</td>
+<td>str</td>
+<td>the random seed to provide MAD for the errors distributions.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>tf_error</td>
+<td>str</td>
+<td>the misalignment error value (along the s axis).</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A string you can input into your <code>cpymad.madx.Madx</code> object.</td>
+</tr>
+</tbody>
+</table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_tripleterrors_study_tferror_job</span><span class="p">(</span><span class="nl">rand_seed</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">tf_error</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
@@ -3343,7 +3487,7 @@ Generate generic script for tf_error Twiss, to use in a <code>cpymad.madx.Madx</
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid">
         
-          <a href="../" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../errors/" title="Errors" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-flex__cell md-flex__cell--shrink">
               <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
             </div>
@@ -3352,19 +3496,19 @@ Generate generic script for tf_error Twiss, to use in a <code>cpymad.madx.Madx</
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Index
+                Errors
               </span>
             </div>
           </a>
         
         
-          <a href="../latwiss/" title="Latwiss" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Latwiss
+                Index
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
