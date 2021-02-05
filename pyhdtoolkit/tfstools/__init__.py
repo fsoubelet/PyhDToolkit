@@ -8,4 +8,4 @@ files.
 :license: MIT, see LICENSE for more details.
 """
 
-from .latwiss import LaTwiss
+from .latwiss import plot_latwiss

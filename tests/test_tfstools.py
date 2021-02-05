@@ -10,7 +10,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
-from pyhdtoolkit.tfstools.latwiss import LaTwiss, _assert_necessary_columns
+from pyhdtoolkit.tfstools.latwiss import plot_latwiss, _assert_necessary_columns
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -35,7 +35,7 @@ class TestLaTwiss:
         )
         twiss = madx.table.twiss.dframe()
 
-        figure = LaTwiss.plot_latwiss(
+        figure = plot_latwiss(
             twiss_ouptut=twiss,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
@@ -53,7 +53,7 @@ class TestLaTwiss:
         savefig_dir.mkdir()
         saved_fig = savefig_dir / "latwiss.png"
 
-        figure = LaTwiss.plot_latwiss(
+        figure = plot_latwiss(
             twiss_ouptut=_latwiss_tfs_frame,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
@@ -71,7 +71,7 @@ class TestLaTwiss:
         savefig_dir.mkdir()
         saved_fig = savefig_dir / "latwiss.png"
 
-        figure = LaTwiss.plot_latwiss(
+        figure = plot_latwiss(
             twiss_ouptut=_latwiss_tfs_path,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
@@ -86,7 +86,7 @@ class TestLaTwiss:
         wrong_data = np.array([1, 2, 3, 4, 5])
 
         with pytest.raises(ValueError):
-            _ = LaTwiss.plot_latwiss(twiss_ouptut=wrong_data, title="Project 3 Base Lattice",)
+            _ = plot_latwiss(twiss_ouptut=wrong_data, title="Project 3 Base Lattice",)
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
