@@ -74,7 +74,7 @@ source = ["pyhdtoolkit/"]
 
 [tool.coverage.report]
 ignore_errors = true
-omit = ["pyhdtoolkit/scripts/*", "pyhdtoolkit/optics/amplitude_detuning.py"]
+omit = ["pyhdtoolkit/scripts/*"]
 
 # ----- Documentation Configuration ----- #
 

@@ -96,6 +96,7 @@ def match_tunes_and_chromaticities(
         varied_knobs = get_lhc_tune_and_chroma_knobs(accelerator=accelerator, beam=int(sequence[-1]))
 
     def match(*args, **kwargs):
+        """Create matching commands for kwarg targets, varying the given args."""
         logger.debug(f"Executing matching commands, using sequence '{sequence}'")
         cpymad_instance.command.match(chrom=True)
         logger.trace(f"Targets are given as {kwargs}")
