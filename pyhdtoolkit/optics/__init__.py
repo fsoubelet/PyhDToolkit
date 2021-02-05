@@ -7,4 +7,4 @@ These are miscellaneous utilities to perform optics calculation from simulation 
 :license: MIT, see LICENSE for more details.
 """
 
-from .amplitude_detuning import HorizontalAmplitudeDetuning, VerticalAmplitudeDetuning
+from .beam import Beam

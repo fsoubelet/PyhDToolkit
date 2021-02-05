@@ -1,9 +1,22 @@
+"""
+Module optics.beam
+------------------
+
+Created on 2020.11.11
+:author: Felix Soubelet (felix.soubelet@cern.ch)
+
+This is a Python3 module implementing various functionality for simple beam parameter calculations.
+"""
 import numpy as np
 
 from scipy import constants
 
 
 class Beam:
+    """
+    Class to encompass functionality.
+    """
+
     def __init__(
         self,
         energy: float,
@@ -49,9 +62,7 @@ class Beam:
         """
         return self.emittance / (self.beta_rel * self.gamma_rel)
 
-    def revolution_frequency(
-        self, circumference: float = 26658.8832, speed: float = constants.c
-    ) -> float:
+    def revolution_frequency(self, circumference: float = 26658.8832, speed: float = constants.c) -> float:
         """
         Revolution frequency.
 
@@ -70,7 +81,8 @@ class Beam:
         """
         return (1 / (self.gamma_rel ** 2)) - alpha_p
 
-    def gamma_transition(self, alpha_p: float) -> float:
+    @staticmethod
+    def gamma_transition(alpha_p: float) -> float:
         """
         Relativistic gamma corresponding to the transition energy.
 

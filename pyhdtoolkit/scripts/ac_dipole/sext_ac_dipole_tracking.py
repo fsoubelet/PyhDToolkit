@@ -72,9 +72,7 @@ class ACDipoleGrid:
         a long time after launch and you will cry.
         """
         if len(self.sigmas) != len(set(self.sigmas)):
-            logger.error(
-                "There is a duplicate in the sigma values, which would cause a failure later."
-            )
+            logger.error("There is a duplicate in the sigma values, which would cause a failure later.")
             sys.exit()
 
     def _create_output_dirs(self) -> None:
@@ -141,22 +139,16 @@ class ACDipoleGrid:
                         "%(AMPLY_VALUE)s": 0,
                     }
                 )
-                filename_to_write = Path(
-                    f"sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick"
-                )
+                filename_to_write = Path(f"sext_ac_dipole_tracking_{kick_in_sigma}_sigma_{plane_letter}_kick")
                 mask_file = create_script_file(
                     self.template_str,
                     values_replacing_dict=replace_dict,
                     filename=Path(str(filename_to_write)),
                 )
                 run_madx_mask(mask_file)
-                _move_mask_file_after_running(
-                    mask_file_path=mask_file, mask_files_dir=self.mask_files_dir
-                )
+                _move_mask_file_after_running(mask_file_path=mask_file, mask_files_dir=self.mask_files_dir)
                 _rename_madx_outputs(
-                    kick_in_sigma=kick_in_sigma,
-                    outputdata_dir=self.outputdata_dir,
-                    plane=plane_letter,
+                    kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter,
                 )
                 _convert_trackone_to_sdds()
                 _move_trackone_sdds(
@@ -201,13 +193,9 @@ class ACDipoleGrid:
                     filename=Path(str(filename_to_write)),
                 )
                 run_madx_mask(mask_file)
-                _move_mask_file_after_running(
-                    mask_file_path=mask_file, mask_files_dir=self.mask_files_dir
-                )
+                _move_mask_file_after_running(mask_file_path=mask_file, mask_files_dir=self.mask_files_dir)
                 _rename_madx_outputs(
-                    kick_in_sigma=kick_in_sigma,
-                    outputdata_dir=self.outputdata_dir,
-                    plane=plane_letter,
+                    kick_in_sigma=kick_in_sigma, outputdata_dir=self.outputdata_dir, plane=plane_letter,
                 )
                 _convert_trackone_to_sdds()
                 _move_trackone_sdds(
@@ -239,9 +227,7 @@ def main() -> None:
                 simulations.track_forced_oscillations_for_plane(kick_plane=plane)
         elif sim_type == "amp":
             logger.info(f"Planes to offset then track on are: {simulations.run_planes}")
-            logger.info(
-                f"Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}"
-            )
+            logger.info(f"Registered initial tracking amplitudes (in bunch sigmas): {simulations.sigmas}")
             for plane in simulations.run_planes:
                 simulations.track_free_oscillations_for_plane(kick_plane=plane)
         else:
@@ -250,9 +236,7 @@ def main() -> None:
     except KeyboardInterrupt:
         logger.info("Manual interruption, ending processes")
         _cleanup_madx_residuals()
-        logger.warning(
-            "The 'grid_outputs' folder was left untouched, check for unexpected MADX residuals"
-        )
+        logger.warning("The 'grid_outputs' folder was left untouched, check for unexpected MADX residuals")
 
 
 # ---------------------- Public Utilities ---------------------- #
@@ -272,9 +256,7 @@ def run_madx_mask(mask_file: Path) -> None:
         log_dump = Path(f"failed_madx_returnedcode_{exit_code}.log")
         with log_dump.open("w") as logfile:
             logfile.write(std_out.decode())  # Default 'utf-8' encoding, depends on your system.
-        logger.warning(
-            f"The standard output has been dumped to file 'failed_command_{exit_code}.logfile'"
-        )
+        logger.warning(f"The standard output has been dumped to file 'failed_command_{exit_code}.logfile'")
 
 
 def create_script_file(
@@ -387,8 +369,7 @@ def _parse_arguments() -> argparse.Namespace:
         nargs="+",
         default=[1, 2],
         type=float,
-        help="Different amplitude values (in bunch sigma) for the AC dipole kicks."
-        "Defaults to [1, 2].",
+        help="Different amplitude values (in bunch sigma) for the AC dipole kicks." "Defaults to [1, 2].",
     )
     parser.add_argument(
         "-p",
@@ -430,9 +411,7 @@ def _parse_arguments() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def _rename_madx_outputs(
-    kick_in_sigma: Union[str, float], outputdata_dir: Path, plane: str
-) -> None:
+def _rename_madx_outputs(kick_in_sigma: Union[str, float], outputdata_dir: Path, plane: str) -> None:
     """
     Call after running MAD-X on your mask, will move the 'Outpudata' created by MAD-X to the
     proper place.
@@ -489,16 +468,7 @@ def _cleanup_madx_residuals() -> None:
     interuption.
     """
     expected_residuals: Dict[str, List[str]] = {
-        "symlinks": [
-            "db5",
-            "slhc",
-            "fidel",
-            "wise",
-            "optics2016",
-            "optics2017",
-            "optics2018",
-            "scripts",
-        ],
+        "symlinks": ["db5", "slhc", "fidel", "wise", "optics2016", "optics2017", "optics2018", "scripts",],
         "directories": ["temp", "Outputdata"],
         "files": ["fort.18"],
     }

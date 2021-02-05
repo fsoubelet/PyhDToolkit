@@ -82,18 +82,10 @@ class BetaBeatValues(BaseModel):
 
         logger.trace("Getting betatron functions at IP1 and IP5")
         # cpymad naming: lowercase and appended with :beam_number
-        self.ip1_tferror_bbx.append(
-            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0]
-        )
-        self.ip1_tferror_bby.append(
-            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0]
-        )
-        self.ip5_tferror_bbx.append(
-            cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip5:1"][0]
-        )
-        self.ip5_tferror_bby.append(
-            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip5:1"][0]
-        )
+        self.ip1_tferror_bbx.append(cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0])
+        self.ip1_tferror_bby.append(cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0])
+        self.ip5_tferror_bbx.append(cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip5:1"][0])
+        self.ip5_tferror_bby.append(cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip5:1"][0])
 
     def update_tf_from_seeds(self, temp_data) -> None:
         """
@@ -129,18 +121,10 @@ class BetaBeatValues(BaseModel):
 
         logger.trace("Getting betatron functions at IP1 and IP5")
         # cpymad naming: lowercase and appended with :beam_number
-        self.ip1_misserror_bbx.append(
-            cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip1:1"][0]
-        )
-        self.ip1_misserror_bby.append(
-            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0]
-        )
-        self.ip5_misserror_bbx.append(
-            cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip5:1"][0]
-        )
-        self.ip5_misserror_bby.append(
-            cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip5:1"][0]
-        )
+        self.ip1_misserror_bbx.append(cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip1:1"][0])
+        self.ip1_misserror_bby.append(cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip1:1"][0])
+        self.ip5_misserror_bbx.append(cpymad_betabeatings.BETX[cpymad_betabeatings.NAME == "ip5:1"][0])
+        self.ip5_misserror_bby.append(cpymad_betabeatings.BETY[cpymad_betabeatings.NAME == "ip5:1"][0])
 
     def update_miss_from_seeds(self, temp_data) -> None:
         """

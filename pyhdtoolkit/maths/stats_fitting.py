@@ -86,9 +86,7 @@ def best_fit_distribution(
                 params = distribution.fit(data)
                 *args, loc, scale = params
 
-                logger.debug(
-                    f"Calculating PDF goodness of fit and error for distribution '{distname}'"
-                )
+                logger.debug(f"Calculating PDF goodness of fit and error for distribution '{distname}'")
                 pdf = distribution.pdf(x, loc=loc, scale=scale, *args)
                 sse = np.sum(np.power(y - pdf, 2.0))
 
@@ -99,9 +97,7 @@ def best_fit_distribution(
                 except Exception:
                     logger.exception(f"Plotting distribution '{distname}' failed")
 
-                logger.debug(
-                    f"Identifying if distribution '{distname}' is a better fit than previous tries"
-                )
+                logger.debug(f"Identifying if distribution '{distname}' is a better fit than previous tries")
                 if best_sse > sse > 0:
                     best_distribution = distribution
                     best_params = params
@@ -113,9 +109,7 @@ def best_fit_distribution(
     return best_distribution, best_params
 
 
-def make_pdf(
-    distribution: st.rv_continuous, params: Tuple[float, ...], size: int = 25_000
-) -> pd.Series:
+def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: int = 25_000) -> pd.Series:
     """
     Generate a pandas Series for the distributions's Probability Distribution Function. This Series
     will have axis values as index, and PDF values as values.

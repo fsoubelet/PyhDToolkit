@@ -24,7 +24,7 @@ import pandas as pd
 from loguru import logger
 from rich.progress import track
 
-from pyhdtoolkit.cpymadtools.lattice_generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.scripts.triplet_errors.data_classes import BetaBeatValues, StdevValues
 from pyhdtoolkit.scripts.triplet_errors.plotting_functions import (
     plot_bbing_max_errorbar,
@@ -92,21 +92,15 @@ class GridCompute:
             Nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations`
             attributes.
         """
-        with timeit(
-            lambda spanned: logger.info(f"Simulated field errors in: {spanned:.4f} seconds")
-        ):
+        with timeit(lambda spanned: logger.info(f"Simulated field errors in: {spanned:.4f} seconds")):
             for error in error_values:
                 logger.debug(f"Running simulation for Relative Field Error: {error}E-4")
                 temp_data = BetaBeatValues()
 
-                for _ in track(
-                    range(n_seeds), description="Simulating Field Errors Seeds", transient=True
-                ):
+                for _ in track(range(n_seeds), description="Simulating Field Errors Seeds", transient=True):
                     # Getting beta-beatings & appending to temporary BetaBeatValues
                     tferrors_twiss: pd.DataFrame = self._track_tf_error(error)
-                    betabeatings: pd.DataFrame = _get_betabeatings(
-                        self.nominal_twiss, tferrors_twiss
-                    )
+                    betabeatings: pd.DataFrame = _get_betabeatings(self.nominal_twiss, tferrors_twiss)
                     temp_data.update_tf_from_cpymad(betabeatings)
 
                 # Append computed seeds' RMS for this error value in `rms_betabeatings` attribute.
@@ -146,23 +140,17 @@ class GridCompute:
             Nothing, directly updates the instance's `rms_betabeatings` and `standard_deviations`
             attributes.
         """
-        with timeit(
-            lambda spanned: logger.info(f"Simulated misalignment errors in: {spanned:.4f} seconds")
-        ):
+        with timeit(lambda spanned: logger.info(f"Simulated misalignment errors in: {spanned:.4f} seconds")):
             for error in error_values:
                 logger.debug(f"Running for Longitudinal Misalignment Error: {float(error)}mm")
                 temp_data = (
                     BetaBeatValues()
                 )  # this will hold the beta-beats for all seeds with this error value.
 
-                for _ in track(
-                    range(n_seeds), description="Simulating Misalignment Seeds", transient=True
-                ):
+                for _ in track(range(n_seeds), description="Simulating Misalignment Seeds", transient=True):
                     # Getting beta-beatings & appending to temporary BetaBeatValues
                     mserrors_twiss: pd.DataFrame = self._track_miss_error(error)
-                    betabeatings: pd.DataFrame = _get_betabeatings(
-                        self.nominal_twiss, mserrors_twiss
-                    )
+                    betabeatings: pd.DataFrame = _get_betabeatings(self.nominal_twiss, mserrors_twiss)
                     temp_data.update_miss_from_cpymad(betabeatings)
 
                 # Append computed seeds' RMS for this error value in `rms_betabeatings` attribute.
@@ -225,19 +213,10 @@ def _parse_arguments() -> argparse.Namespace:
         help="Error values to simulate",
     )
     parser.add_argument(
-        "-s",
-        "--seeds",
-        dest="seeds",
-        default=50,
-        type=int,
-        help="Number of seeds to simulate per error.",
+        "-s", "--seeds", dest="seeds", default=50, type=int, help="Number of seeds to simulate per error.",
     )
     parser.add_argument(
-        "-p",
-        "--plotbetas",
-        dest="plotbetas",
-        default=False,
-        help="Option for plotting betas at each error.",
+        "-p", "--plotbetas", dest="plotbetas", default=False, help="Option for plotting betas at each error.",
     )
     parser.add_argument(
         "-l",

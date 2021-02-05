@@ -56,7 +56,7 @@ clean:
 	@echo "Cleaning up mypy cache."
 	@find . -type d -name "*.mypy_cache" -exec rm -rf {} +
 	@echo "Cleaning up coverage reports."
-	@find . -type f -name '.coverage' -exec rm -rf {} + -o -type f -name 'coverage.xml' -delete
+	@find . -type f -name '.coverage*' -exec rm -rf {} + -o -type f -name 'coverage.xml' -delete
 	@echo "All cleaned up!\n"
 
 condaenv:
@@ -74,7 +74,7 @@ docker:
 	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 
 format:
-	@echo "Sorting imports and formatting code to PEP8, default line length is 100 characters."
+	@echo "Sorting imports and formatting code to PEP8, default line length is 110 characters."
 	@poetry run isort . && black .
 
 install: format clean
