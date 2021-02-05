@@ -616,6 +616,9 @@ class TestSpecial:
             for fd in "FD":
                 assert madx.globals[f"KO{fd}.{arc}"] == strength
 
+        power_landau_octupoles(madx, mo_current=current, beam=1, defective_arc=True)
+        assert madx.globals["KOD.A56B1"] == strength * 4.65 / 6
+
     def test_landau_powering_fails_on_missing_nrj(self, caplog):
         madx = Madx(stdout=False)
 
@@ -660,6 +663,25 @@ class TestSpecial:
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
+
+    @pytest.mark.parametrize("side", ["left", "right"])
+    @pytest.mark.parametrize("knob_value", [1, 2])
+    @pytest.mark.parametrize("IR", [1, 2, 5, 8])
+    def test_rigidity_knob(self, side, knob_value, IR, _prepared_lhc_madx):
+        madx = _prepared_lhc_madx
+        right_knob, left_knob = (f"kqx.r{IR:d}", f"kqx.l{IR:d}")
+        current_right_knob = madx.globals[right_knob]
+        current_left_knob = madx.globals[left_knob]
+
+        apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=knob_value, ir=IR, side=side)
+
+        if side == "left":
+            assert madx.globals[right_knob] == (1 - knob_value * 0.005) * current_right_knob
+            assert madx.globals[left_knob] == (1 + knob_value * 0.005) * current_left_knob
+
+        elif side == "right":
+            assert madx.globals[right_knob] == (1 + knob_value * 0.005) * current_right_knob
+            assert madx.globals[left_knob] == (1 - knob_value * 0.005) * current_left_knob
 
     @pytest.mark.parametrize("knob_value", [1e-3, 3e-3, 5e-5])
     def test_coupling_knob(self, knob_value, _prepared_lhc_madx):
