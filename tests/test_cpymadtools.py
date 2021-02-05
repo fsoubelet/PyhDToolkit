@@ -7,8 +7,10 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
+import tfs
 
 from cpymad.madx import Madx
+from pandas.testing import assert_frame_equal
 
 from pyhdtoolkit.cpymadtools.constants import (
     CORRECTOR_LIMITS,
@@ -544,7 +546,40 @@ class TestPhaseSpacePlotter:
 
 
 class TestPTC:
-    pass
+    def test_amplitude_detuning_fails_on_high_order(self, caplog):
+        madx = Madx(stdout=False)
+
+        with pytest.raises(NotImplementedError):
+            _ = get_amplitude_detuning(madx, order=5)
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_amplitude_detuning(self, tmp_path, _ampdet_tfs_path):
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        reference_df = tfs.read(_ampdet_tfs_path)
+        ampdet_df = get_amplitude_detuning(madx, file=tmp_path / "here.tfs")
+
+        assert (tmp_path / "here.tfs").is_file()
+        assert_frame_equal(reference_df, ampdet_df)
+
+    def test_rdts(self, tmp_path, _rdts_tfs_path):
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        reference_df = tfs.read(_rdts_tfs_path)
+        rdts_df = get_rdts(madx, file=tmp_path / "here.tfs")
+
+        assert (tmp_path / "here.tfs").is_file()
+        assert_frame_equal(reference_df.set_index("NAME"), rdts_df.set_index("NAME"))
 
 
 class TestSpecial:
@@ -738,3 +773,13 @@ def _prepared_lhc_madx() -> Madx:
     )
     madx.command.use(sequence="lhcb1")
     return madx
+
+
+@pytest.fixture()
+def _ampdet_tfs_path() -> pathlib.Path:
+    return INPUTS_DIR / "ampdet.tfs"
+
+
+@pytest.fixture()
+def _rdts_tfs_path() -> pathlib.Path:
+    return INPUTS_DIR / "rdts.tfs"
