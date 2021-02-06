@@ -14,13 +14,13 @@ from loguru import logger
 # ----- Utlites ----- #
 
 
-def switch_magnetic_errors(cpymad_instance: Madx, **kwargs) -> None:
+def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
     """
     INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Applies magnetic field orders. This will only work for LHC and HLLHC machines.
 
     Args:
-        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
 
     Keyword Args:
         default: sets global default to this value. Defaults to `False`.
@@ -43,4 +43,4 @@ def switch_magnetic_errors(cpymad_instance: Madx, **kwargs) -> None:
                 name = f"{ab}{order:d}{sr}"
                 error_value = int(kwargs.get(name, ab_default))
                 logger.trace(f"Setting global for 'ON_{name}' to {error_value}")
-                cpymad_instance.globals[f"ON_{name}"] = error_value
+                madx.globals[f"ON_{name}"] = error_value

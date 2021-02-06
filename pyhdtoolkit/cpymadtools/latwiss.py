@@ -61,7 +61,7 @@ def _plot_lattice_series(
 
 
 def plot_latwiss(
-    cpymad_instance: Madx,
+    madx: Madx,
     title: str,
     figsize: Tuple[int, int] = (16, 10),
     savefig: str = None,
@@ -84,7 +84,7 @@ def plot_latwiss(
     and 'b' or 'B' in your dipoles' names when defining your MAD-X sequence.
 
     Args:
-        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         title (str): title of your plot.
         figsize (Tuple[int, int]): size of the figure, defaults to (16, 10).
         savefig (str): will save the figure if this is not None, using the string value passed.
@@ -111,7 +111,7 @@ def plot_latwiss(
     """
     # pylint: disable=too-many-arguments
     logger.debug("Getting Twiss dataframe from cpymad")
-    twiss_df = cpymad_instance.table.twiss.dframe()
+    twiss_df = madx.table.twiss.dframe()
     figure = plt.figure(figsize=figsize)
 
     # Create a subplot for the lattice patches (takes a third of figure)
@@ -209,7 +209,7 @@ def plot_latwiss(
 
 
 def plot_machine_survey(
-    cpymad_instance: Madx,
+    madx: Madx,
     title: str = "Machine Layout",
     figsize: Tuple[int, int] = (16, 11),
     savefig: str = None,
@@ -221,7 +221,7 @@ def plot_machine_survey(
     representing the machine geometry in 2D. Original code is from Guido Sterbini.
 
     Args:
-        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         title (str): title of your plot.
         figsize (Tuple[int, int]): size of the figure, defaults to (16, 10).
         savefig (str): will save the figure if this is not None, using the string value passed.
@@ -235,8 +235,8 @@ def plot_machine_survey(
          'fig.get_axes()'. Eventually saves the figure as a file.
     """
     logger.debug("Getting machine survey from cpymad")
-    cpymad_instance.input("survey;")
-    survey = cpymad_instance.table.survey.dframe()
+    madx.input("survey;")
+    survey = madx.table.survey.dframe()
     figure = plt.figure(figsize=figsize)
 
     if show_elements:

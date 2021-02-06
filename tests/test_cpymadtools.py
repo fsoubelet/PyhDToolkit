@@ -199,7 +199,7 @@ class TestLaTwiss:
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
         figure = plot_latwiss(
-            cpymad_instance=madx,
+            madx=madx,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
             beta_ylim=(5, 75),
@@ -219,7 +219,7 @@ class TestLaTwiss:
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
         figure = plot_machine_survey(
-            cpymad_instance=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
+            madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
         )
         assert saved_fig.is_file()
         return figure
@@ -229,9 +229,7 @@ class TestLaTwiss:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        return plot_machine_survey(
-            cpymad_instance=madx, show_elements=False, high_orders=True, figsize=(20, 15)
-        )
+        return plot_machine_survey(madx=madx, show_elements=False, high_orders=True, figsize=(20, 15))
 
 
 class TestMatching:
@@ -279,7 +277,7 @@ class TestMatching:
         assert madx.table.summ.dq2[0] != dq2_target
 
         match_tunes_and_chromaticities(
-            cpymad_instance=madx,
+            madx=madx,
             sequence="CAS3",
             q1_target=q1_target,
             q2_target=q2_target,
@@ -777,8 +775,8 @@ def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
 @pytest.fixture()
 def _prepared_lhc_madx() -> Madx:
     madx = Madx(stdout=False)
-    madx.call(str(LHC_SEQUENCE))
-    madx.call(str(LHC_OPTICS))
+    madx.call(str(LHC_SEQUENCE.absolute()))
+    madx.call(str(LHC_OPTICS.absolute()))
 
     NRJ = madx.globals["NRJ"] = 6500
     brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
