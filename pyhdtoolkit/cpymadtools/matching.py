@@ -56,7 +56,7 @@ def get_lhc_tune_and_chroma_knobs(
 
 
 def match_tunes_and_chromaticities(
-    cpymad_instance: Madx,
+    madx: Madx,
     accelerator: str = None,
     sequence: str = None,
     q1_target: float = None,
@@ -64,6 +64,7 @@ def match_tunes_and_chromaticities(
     dq1_target: float = None,
     dq2_target: float = None,
     varied_knobs: Sequence[str] = None,
+    telescopic_squeeze: bool = False,
     step: float = 1e-7,
     calls: int = 100,
     tolerance: float = 1e-21,
@@ -76,7 +77,7 @@ def match_tunes_and_chromaticities(
     for them, followed by an additionnal matching for both tunes and chromaticities.
 
     Args:
-        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
             Automatic determination will only work for LHC and HLLHC.
         sequence (str): name of the sequence you want to activate for the tune matching.
@@ -87,27 +88,31 @@ def match_tunes_and_chromaticities(
         varied_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine. An input
             could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
             sextupole strengths (foc / defoc) in most examples.
+        telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic
+            Squeeze configuration. Defaults to False.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
-        varied_knobs = get_lhc_tune_and_chroma_knobs(accelerator=accelerator, beam=int(sequence[-1]))
+        varied_knobs = get_lhc_tune_and_chroma_knobs(
+            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
+        )
 
     def match(*args, **kwargs):
         """Create matching commands for kwarg targets, varying the given args."""
         logger.debug(f"Executing matching commands, using sequence '{sequence}'")
-        cpymad_instance.command.match(chrom=True)
+        madx.command.match(chrom=True)
         logger.trace(f"Targets are given as {kwargs}")
-        cpymad_instance.command.global_(sequence=sequence, **kwargs)
+        madx.command.global_(sequence=sequence, **kwargs)
         for variable_name in args:
             logger.trace(f"Creating vary command for knob '{variable_name}'")
-            cpymad_instance.command.vary(name=variable_name, step=step)
-        cpymad_instance.command.lmdif(calls=calls, tolerance=tolerance)
-        cpymad_instance.command.endmatch()
+            madx.command.vary(name=variable_name, step=step)
+        madx.command.lmdif(calls=calls, tolerance=tolerance)
+        madx.command.endmatch()
         logger.trace("Performing routine TWISS")
-        cpymad_instance.twiss()  # prevents errors if the user forget to do so before querying tables
+        madx.twiss()  # prevents errors if the user forget to do so before querying tables
 
     if q1_target and q2_target and dq1_target and dq2_target:
         logger.info(
@@ -124,10 +129,12 @@ def match_tunes_and_chromaticities(
 
 
 def get_closest_tune_approach(
-    cpymad_instance: Madx,
+    madx: Madx,
     accelerator: str = None,
     sequence: str = None,
     varied_knobs: Sequence[str] = None,
+    telescopic_squeeze: bool = False,
+    explicit_targets: Tuple[float, float] = None,
     step: float = 1e-7,
     calls: float = 100,
     tolerance: float = 1e-21,
@@ -141,13 +148,18 @@ def get_closest_tune_approach(
     as it will determine the appropriate targets from the Madx instance's internal tables.
 
     Args:
-        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
             Automatic determination will only work for LHC and HLLHC.
         sequence (str): name of the sequence you want to activate for the tune matching.
         varied_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine. An input
             could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
             sextupole strengths (foc / defoc) in most examples.
+        telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic
+            Squeeze configuration. Defaults to False.
+        explicit_targets (Tuple[float, float]): if given, will be used as matching targets for Qx, Qy.
+            Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to
+            None.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
@@ -157,26 +169,31 @@ def get_closest_tune_approach(
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
-        varied_knobs = get_lhc_tune_and_chroma_knobs(accelerator=accelerator, beam=int(sequence[-1]))
+        varied_knobs = get_lhc_tune_and_chroma_knobs(
+            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
+        )
 
     logger.debug("Saving knob values to restore after closest tune approach")
-    saved_knobs: Dict[str, float] = {knob: cpymad_instance.globals[knob] for knob in varied_knobs}
+    saved_knobs: Dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
     logger.trace(f"Saved knobs are {saved_knobs}")
 
-    logger.debug("Retrieving tunes and chromaticities from internal tables")
-    q1, q2 = cpymad_instance.table.summ.q1[0], cpymad_instance.table.summ.q2[0]
-    dq1, dq2 = cpymad_instance.table.summ.dq1[0], cpymad_instance.table.summ.dq2[0]
-    logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}")
+    if explicit_targets:
+        qx_target, qy_target = explicit_targets
+    else:
+        logger.trace("Retrieving tunes and chromaticities from internal tables")
+        q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
+        dq1, dq2 = madx.table.summ.dq1[0], madx.table.summ.dq2[0]
+        logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}")
 
-    logger.debug("Determining target tunes for closest approach")
-    middle_of_fractional_tunes = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
-    qx_target = int(q1) + middle_of_fractional_tunes
-    qy_target = int(q2) + middle_of_fractional_tunes
-    logger.trace(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
+        logger.trace("Determining target tunes for closest approach")
+        middle_of_fractional_tunes = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
+        qx_target = int(q1) + middle_of_fractional_tunes
+        qy_target = int(q2) + middle_of_fractional_tunes
+    logger.debug(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
 
     logger.info("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
     match_tunes_and_chromaticities(
-        cpymad_instance,
+        madx,
         accelerator,
         sequence,
         qx_target,
@@ -190,12 +207,12 @@ def get_closest_tune_approach(
     )
 
     logger.debug("Retrieving tune separation from internal tables")
-    dqmin = cpymad_instance.table.summ.q1[0] - cpymad_instance.table.summ.q2[0] - (int(q1) - int(q2))
+    dqmin = madx.table.summ.q1[0] - madx.table.summ.q2[0] - (int(q1) - int(q2))
 
     logger.info("Restoring saved knobs")
     for knob, knob_value in saved_knobs.items():
-        cpymad_instance.globals[knob] = knob_value
-    cpymad_instance.twiss()
+        madx.globals[knob] = knob_value
+    madx.twiss()
 
     return abs(dqmin)
 
