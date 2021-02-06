@@ -19,7 +19,7 @@ OMC3_REPO = WORK_REPOSITORIES / "omc3"
 TBT_CONVERTER_SCRIPT = OMC3_REPO / "omc3" / "tbt_converter.py"
 
 LOGURU_FORMAT = (
-    "<green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> | "
+    "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | "
     "<level>{level: <8}</level> | "
     "<cyan>{name}</cyan>:<cyan>{line}</cyan> - "
     "<level>{message}</level>"
