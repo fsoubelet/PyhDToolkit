@@ -10,14 +10,47 @@ LHC and HLLHC use cases.
 """
 from typing import List, Sequence
 
-import pandas as pd
+import numpy as np
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 
-# ----- Utlites ----- #
+# ----- Setup Utlites ----- #
+
+
+def make_lhc_beams(madx: Madx, energy: float = 6500, emittance: float = 3.75e6, **kwargs) -> None:
+    """
+    Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        energy (float): beam energy in GeV. Defaults to 6500.
+        emittance (float): emittance in meters, which will be used to calculate geometric emittance,
+            then fed to the BEAM command.
+
+    Keyword Args:
+        Any keyword argument that can be given to the MAD-X BEAM command.
+    """
+    logger.info("Making default beams for 'lhcb1' and 'lhbc2' sequences")
+    madx.globals["NRJ"] = energy
+    madx.globals["brho"] = energy * 1e9 / madx.globals.clight
+    geometric_emit = madx.globals["geometric_emit"] = emittance / (energy / 0.938)
+
+    for beam in (1, 2):
+        logger.trace(f"Defining beam for sequence 'lhcb{beam:d}'")
+        madx.command.beam(
+            sequence=f"lhcb{beam:d}",
+            particle="proton",
+            bv=1 if beam == 1 else -1,
+            energy=energy,
+            npart=1.0e10,
+            ex=geometric_emit,
+            ey=geometric_emit,
+            **kwargs,
+        )
 
 
 def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_arc: bool = False) -> None:
@@ -179,6 +212,102 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
     logger.debug("Executing TWISS and SIXTRACK commands")
     madx.twiss()  # used by sixtrack
     madx.sixtrack(cavall=True, radius=0.017)  # this value is only ok for HL(LHC) magnet radius
+
+
+# ----- Twiss Utilities ----- #
+
+
+def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
+    """
+    Quickly get the `TWISS` table for certain variables at IP locations only. The `SUMM` table will be
+    included as the TfsDataFrame's header dictionary.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
+
+    Keyword Args:
+        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
+        `centre` or starting coordinates with `betax`, 'betay` etc.
+
+    Returns:
+        A TfsDataFrame of the twiss output.
+    """
+    logger.info("Getting Twiss at IPs")
+    return get_pattern_twiss(madx=madx, patterns=["IP"], columns=columns, **kwargs)
+
+
+def get_ir_twiss(
+    madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs
+) -> tfs.TfsDataFrame:
+    """
+    Quickly get the `TWISS` table for certain variables for one IR, meaning at the IP and Q1 to Q3 both
+    left and right of the IP. The `SUMM` table will be included as the TfsDataFrame's header dictionary.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        ir (int): which interaction region to get the TWISS for.
+        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
+
+    Keyword Args:
+        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
+        `centre` or starting coordinates with `betax`, 'betay` etc.
+
+    Returns:
+        A TfsDataFrame of the twiss output.
+    """
+    logger.info(f"Getting Twiss for IR {ir:d}")
+    return get_pattern_twiss(
+        madx=madx,
+        patterns=[
+            f"IP{ir:d}",
+            f"MQXA.[12345][RL]{ir:d}",
+            f"MQXB.[AB][12345][RL]{ir:d}",
+            f"MQXF[AB].[AB][12345][RL]{ir:d}",  # this is for HLLHC
+        ],
+        columns=columns,
+        **kwargs,
+    )
+
+
+def get_pattern_twiss(
+    madx: Madx, patterns: Sequence[str], columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs
+) -> tfs.TfsDataFrame:
+    """
+    Extract the `TWISS` table for desired variables, and for certain elements matching a pattern.
+    Additionally, the `SUMM` table is also returned in the form of the TfsDataFrame's headers dictionary.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        patterns (Sequence[str]): the different element patterns (such as `MQX` or `BPM`) to be applied to
+            the command, which will determine the rows in the returned DataFrame.
+        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
+
+    Keyword Args:
+        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
+        `centre` or starting coordinates with `betax`, 'betay` etc.
+
+    Returns:
+        A TfsDataFrame with the selected columns for all elements matching the provided patterns,
+        and the internal `summ` table as header dict.
+    """
+    logger.trace("Clearing 'TWISS' flag")
+    madx.select(flag="twiss", clear=True)
+    for pattern in patterns:
+        logger.trace(f"Adding pattern {pattern} to 'TWISS' flag")
+        madx.select(flag="twiss", pattern=pattern, column=columns)
+    madx.twiss(**kwargs)
+
+    logger.trace("Extracting relevant parts of the TWISS table")
+    twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe().copy())
+    twiss_df.headers = {var: madx.table.summ[var][0] for var in madx.table.summ}
+    twiss_df = twiss_df[madx.table.twiss.selected_columns()].iloc[
+        np.array(madx.table.twiss.selected_rows()).astype(bool)
+    ]
+
+    logger.trace("Clearing 'TWISS' flag")
+    madx.select(flag="twiss", clear=True)
+    return twiss_df
 
 
 # ----- Helpers ----- #
