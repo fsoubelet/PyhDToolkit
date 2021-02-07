@@ -89,7 +89,7 @@ def match_tunes_and_chromaticities(
             could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
             sextupole strengths (foc / defoc) in most examples.
         telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic
-            Squeeze configuration. Defaults to False.
+            Squeeze configuration. Defaults to False, but will default to True in a later release.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
