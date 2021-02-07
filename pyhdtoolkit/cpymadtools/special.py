@@ -214,6 +214,122 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
     madx.sixtrack(cavall=True, radius=0.017)  # this value is only ok for HL(LHC) magnet radius
 
 
+def install_ac_dipole(
+    madx: Madx,
+    deltaqx: float,
+    deltaqy: float,
+    sigma_x: float,
+    sigma_y: float,
+    geometric_emit: float = None,
+    start_turn: int = 100,
+    ramp_turns: int = 2000,
+    top_turns: int = 6600,
+) -> None:
+    """
+    Installs an AC dipole for BEAM 1 ONLY.
+    This function assumes that you have already defined lhcb1, made a beam for it (BEAM command or
+    `make_lhc_beams` function) and matched to your desired working point.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.
+        deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.
+        sigma_x (float): the horizontal amplitude to drive the beam to, in bunch sigma.
+        sigma_y (float): the vertical amplitude to drive the beam to, in bunch sigma.
+        geometric_emit (float): the geometric emittance that was used when defining the beam. If not
+            provided, it is assumed that 'geometric_emit' is a defined global in MAD-X, and the value will
+            be directly queried from the internal tables.
+        start_turn (int): the turn at which to start ramping up the AC dipole. Defaults to 100.
+        ramp_turns (int): the number of turns to use for the ramp-up and the ramp-down of the AC dipole.
+            This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000
+            as in the LHC.
+        top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.
+    """
+    if top_turns > 6000:
+        logger.warning(
+            f"Configuring the AC Dipole for {top_turns} of driving is fine for MAD-X but is "
+            "higher than what the device can do in the (HL)LHC! Beware."
+        )
+    ramp1, ramp2 = start_turn, start_turn + ramp_turns
+    ramp3 = ramp2 + top_turns
+    ramp4 = ramp3 + ramp_turns
+
+    logger.debug("Retrieving tunes from internal tables")
+    q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
+    logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}")
+    q1_dipole, q2_dipole = q1 + deltaqx, q2 + deltaqy
+
+    logger.info(f"Installing AC Dipole to drive the tunes to Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}")
+    madx.input(
+        f"MKACH.6L4.B1: hacdipole, l=0, freq:={q1_dipole}, lag=0, volt:=voltx, ramp1={ramp1}, "
+        f"ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};"
+    )
+    madx.input(
+        f"MKACV.6L4.B1: vacdipole, l=0, freq:={q2_dipole}, lag=0, volt:=volty, ramp1={ramp1}, "
+        f"ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};"
+    )
+    madx.command.seqedit(sequence="lhcb1")
+    madx.command.install(element="MKACH.6L4.B1", at="0.0", from_="MKQA.6L4.B1")
+    madx.command.install(element="MKACV.6L4.B1", at="0.0", from_="MKQA.6L4.B1")
+    madx.command.endedit()
+
+    logger.trace("Querying BETX and BETY at AC Dipole location")
+    madx.input("betax_acd = table(twiss, MKQA.6L4.B1, betx);")
+    madx.input("betay_acd = table(twiss, MKQA.6L4.B1, bety);")
+
+    betax_acd = madx.globals["betax_acd"]
+    betay_acd = madx.globals["betay_acd"]
+    brho = madx.sequence.lhcb1.beam.brho
+    voltx = sigma_x * np.sqrt(geometric_emit) * brho * np.abs(deltaqx) * 4 * np.pi / np.sqrt(betax_acd)
+    volty = sigma_y * np.sqrt(geometric_emit) * brho * np.abs(deltaqy) * 4 * np.pi / np.sqrt(betay_acd)
+    madx.globals["voltx"] = voltx
+    madx.globals["volty"] = volty
+
+
+def track_single_particle(
+    madx: Madx,
+    initial_coordinates: Tuple[float, float, float, float, float, float],
+    nturns: int,
+    sequence: str = None,
+) -> Dict[str, np.ndarray]:
+    """
+    Tracks a single particle for nturns, based on its initial coordinates.
+
+    Args:
+        madx (Madx): an instantiated cpymad.madx.Madx object.
+        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,
+            T, PT starting coordinates the particle to track.
+        nturns (int): the number of turns to track for.
+        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a
+            sequence is already defined and in use, and this one will be picked up by MAD-X.
+
+    Returns:
+        A dictionnary with the X, PX, Y, PY keys, each holding these specific coordinates of the
+        particle along the tracking, as a numpy ndarray.
+    """
+    start = initial_coordinates
+    x_coordinates, px_coordinates, y_coordinates, py_coordinates = [], [], [], []
+
+    if isinstance(sequence, str):
+        logger.debug(f"Using sequence '{sequence}' for tracking")
+        madx.use(sequence=sequence)
+
+    logger.debug(f"Tracking coordinates with initial X, PX, Y, PY, T, PT of '{initial_coordinates}'")
+    madx.command.track()
+    madx.command.start(
+        X=start[0], PX=start[1], Y=start[2], PY=start[3], T=start[4], PT=start[5],
+    )
+    madx.command.run(turns=nturns)
+    madx.command.endtrack()
+
+    return {
+        "x": madx.table["track.obs0001.p0001"].dframe()["x"].to_numpy(dtype=float),
+        "px": madx.table["track.obs0001.p0001"].dframe()["px"].to_numpy(dtype=float),
+        "y": madx.table["track.obs0001.p0001"].dframe()["y"].to_numpy(dtype=float),
+        "py": madx.table["track.obs0001.p0001"].dframe()["py"].to_numpy(dtype=float),
+    }
+
+
 # ----- Twiss Utilities ----- #
 
 
