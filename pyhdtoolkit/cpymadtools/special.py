@@ -8,7 +8,7 @@ Created on 2020.02.03
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to
 LHC and HLLHC use cases.
 """
-from typing import List, Sequence
+from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
 import tfs
@@ -21,7 +21,7 @@ from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 # ----- Setup Utlites ----- #
 
 
-def make_lhc_beams(madx: Madx, energy: float = 6500, emittance: float = 3.75e6, **kwargs) -> None:
+def make_lhc_beams(madx: Madx, energy: float = 6500, emittance: float = 3.75e-6, **kwargs) -> None:
     """
     Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.
 
@@ -276,6 +276,11 @@ def get_pattern_twiss(
     """
     Extract the `TWISS` table for desired variables, and for certain elements matching a pattern.
     Additionally, the `SUMM` table is also returned in the form of the TfsDataFrame's headers dictionary.
+
+    Warning:
+        Although the `pattern` parameter should accept a regex, MAD-X does not implement actual regexes.
+        Please refer to the MAD-X manual, section `Regular Expressions` for details on what is implemented
+        in MAD-X itself.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
