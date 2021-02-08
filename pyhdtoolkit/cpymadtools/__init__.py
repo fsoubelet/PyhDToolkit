@@ -26,4 +26,6 @@ from .special import (
     make_lhc_beams,
     make_sixtrack_output,
     power_landau_octupoles,
+    install_ac_dipole,
+    track_single_particle
 )
