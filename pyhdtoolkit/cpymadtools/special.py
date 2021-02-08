@@ -245,7 +245,7 @@ def install_ac_dipole(
             as in the LHC.
         top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.
     """
-    if top_turns > 6000:
+    if top_turns > 6600:
         logger.warning(
             f"Configuring the AC Dipole for {top_turns} of driving is fine for MAD-X but is "
             "higher than what the device can do in the (HL)LHC! Beware."
@@ -258,6 +258,13 @@ def install_ac_dipole(
     q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
     logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}")
     q1_dipole, q2_dipole = q1 + deltaqx, q2 + deltaqy
+
+    if not geometric_emit:
+        logger.debug(
+            f"No value provided for the geometric emittance used when creating the beam, the value will be "
+            f"queried from MAD-X's global 'geometric_emit'"
+        )
+        geometric_emit = madx.globals["geometric_emit"]
 
     logger.info(f"Installing AC Dipole to drive the tunes to Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}")
     madx.input(
