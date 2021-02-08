@@ -9,6 +9,7 @@ A module with functions to maniipulate MAD-X TWISS functionality through a cpyma
 """
 from typing import Sequence
 
+import numpy as np
 import tfs
 
 from cpymad.madx import Madx

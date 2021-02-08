@@ -12,14 +12,14 @@ from cpymad.madx import Madx
 from pandas._testing import assert_dict_equal
 from pandas.testing import assert_frame_equal
 
-from pyhdtoolkit.cpymadtools.constants import (
+from pyhdtoolkit.cpymadtools.constants import (  # coverage
     CORRECTOR_LIMITS,
     DEFAULT_TWISS_COLUMNS,
     FD_FAMILIES,
     LHC_CROSSING_SCHEMES,
     SPECIAL_FAMILIES,
     TWO_FAMILIES,
-)  # coverage
+)
 from pyhdtoolkit.cpymadtools.errors import switch_magnetic_errors
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
