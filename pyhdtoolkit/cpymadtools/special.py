@@ -314,17 +314,17 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     """
     logger.info(f"Slicing sequence '{sequence}'")
     madx.select(flag="makethin", clear=True)
-    four_slices_patterns = ["mbx\.", "mbrb\.", "mbrc\.", "mbrs\."]
+    four_slices_patterns = [r"mbx\.", r"mbrb\.", r"mbrc\.", r"mbrs\."]
     four_slicefactor_patterns = [
-        "mqwa\.",
-        "mqwb\.",
-        "mqy\.",
-        "mqm\.",
-        "mqmc\.",
-        "mqml\.",
-        "mqtlh\.",
-        "mqtli\.",
-        "mqt\.",
+        r"mqwa\.",
+        r"mqwb\.",
+        r"mqy\.",
+        r"mqm\.",
+        r"mqmc\.",
+        r"mqml\.",
+        r"mqtlh\.",
+        r"mqtli\.",
+        r"mqt\.",
     ]
 
     logger.trace("Defining slices for general MB and MQ elements")
@@ -336,12 +336,12 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     madx.select(flag="makethin", class_="mqxb", slice=16 * slicefactor)
 
     logger.trace("Defining slices for various specifc mb elements")
-    for patt in four_slices_patterns:
-        madx.select(flag="makethin", pattern=patt, slice=4)
+    for pattern in four_slices_patterns:
+        madx.select(flag="makethin", pattern=pattern, slice=4)
 
     logger.trace("Defining slices for varous specifc mq elements")
-    for patt in four_slicefactor_patterns:
-        madx.select(flag="makethin", pattern=patt, slice=4 * slicefactor)
+    for pattern in four_slicefactor_patterns:
+        madx.select(flag="makethin", pattern=pattern, slice=4 * slicefactor)
 
     madx.use(sequence=sequence)
     style = kwargs.get("style", "teapot")

@@ -748,8 +748,9 @@ class TestSpecial:
         madx = _matched_lhc_madx
         make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
 
-        tracks = track_single_particle(madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10,
-                                       sequence="lhcb1")
+        tracks = track_single_particle(
+            madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10, sequence="lhcb1"
+        )
         assert isinstance(tracks, dict)
         for key in ["x", "px", "y", "py"]:
             assert key in tracks.keys()
