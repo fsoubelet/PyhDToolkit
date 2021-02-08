@@ -312,6 +312,19 @@ class TestMatching:
         assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
         assert knobs_after == knobs_before
 
+    def test_closest_tune_approach_with_explicit_targets(self, _non_matched_lhc_madx):
+        """Using LHC lattice."""
+        madx = _non_matched_lhc_madx
+        apply_lhc_coupling_knob(madx, 2e-3)
+        match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
+
+        knobs = get_lhc_tune_and_chroma_knobs("lhc")
+        knobs_before = {knob: madx.globals[knob] for knob in knobs}
+        cminus = get_closest_tune_approach(madx, "lhc", "lhcb1", explicit_targets=(62.315, 60.315))
+        knobs_after = {knob: madx.globals[knob] for knob in knobs}
+
+        assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
+        assert knobs_after == knobs_before
 
 class TestOrbit:
     def test_lhc_orbit_variables(self):
