@@ -9,7 +9,7 @@ A module with functions to manipulate MAD-X TRACK functionality through a cpymad
 """
 from typing import Dict, Tuple
 
-import numpy as np
+import pandas as pd
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -22,7 +22,7 @@ def track_single_particle(
     initial_coordinates: Tuple[float, float, float, float, float, float],
     nturns: int,
     sequence: str = None,
-) -> Dict[str, np.ndarray]:
+) -> pd.DataFrame:
     """
     Tracks a single particle for nturns, based on its initial coordinates.
 
@@ -35,11 +35,10 @@ def track_single_particle(
             sequence is already defined and in use, and this one will be picked up by MAD-X.
 
     Returns:
-        A dictionnary with the X, PX, Y, PY keys, each holding these specific coordinates of the
-        particle along the tracking, as a numpy ndarray.
+        A copy of the track table's dataframe, with as columns the coordinates x, px, y, py, t, pt,
+        s and e (energy).
     """
     start = initial_coordinates
-    x_coordinates, px_coordinates, y_coordinates, py_coordinates = [], [], [], []
 
     if isinstance(sequence, str):
         logger.debug(f"Using sequence '{sequence}' for tracking")
@@ -52,10 +51,4 @@ def track_single_particle(
     )
     madx.command.run(turns=nturns)
     madx.command.endtrack()
-
-    return {
-        "x": madx.table["track.obs0001.p0001"].dframe()["x"].to_numpy(dtype=float),
-        "px": madx.table["track.obs0001.p0001"].dframe()["px"].to_numpy(dtype=float),
-        "y": madx.table["track.obs0001.p0001"].dframe()["y"].to_numpy(dtype=float),
-        "py": madx.table["track.obs0001.p0001"].dframe()["py"].to_numpy(dtype=float),
-    }
+    return madx.table["track.obs0001.p0001"].dframe().copy()

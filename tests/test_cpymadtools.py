@@ -11,6 +11,7 @@ import tfs
 from cpymad.madx import Madx
 from pandas._testing import assert_dict_equal
 from pandas.testing import assert_frame_equal
+from pandas import DataFrame
 
 from pyhdtoolkit.cpymadtools.constants import (  # coverage
     CORRECTOR_LIMITS,
@@ -325,6 +326,7 @@ class TestMatching:
 
         assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
         assert knobs_after == knobs_before
+
 
 class TestOrbit:
     def test_lhc_orbit_variables(self):
@@ -764,25 +766,25 @@ class TestSpecial:
         tracks = track_single_particle(
             madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10, sequence="lhcb1"
         )
-        assert isinstance(tracks, dict)
-        for key in ["x", "px", "y", "py"]:
-            assert key in tracks.keys()
-            assert isinstance(tracks[key], np.ndarray)
-            assert len(tracks[key]) == 11  # nturns + 1 because $start coordinates also given by MAD-X
+        assert isinstance(tracks, DataFrame)
+        assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
+        assert all(
+            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+        )
 
 
 class TestTrack:
     def test_single_particle_tracking(self, _matched_base_lattice):
         madx = _matched_base_lattice
-        results = track_single_particle(
+        tracks = track_single_particle(
             madx, initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0), nturns=100, sequence="CAS3"
         )
 
-        assert isinstance(results, dict)
-        for key in ["x", "px", "y", "py"]:
-            assert key in results.keys()
-            assert isinstance(results[key], np.ndarray)
-            assert len(results[key]) == 101  # nturns + 1 because $start coordinates also given by MAD-X
+        assert isinstance(tracks, DataFrame)
+        assert len(tracks) == 101  # nturns + 1 because $start coordinates also given by MAD-X
+        assert all(
+            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+        )
 
 
 class TestTuneDiagramPlotter:
@@ -886,7 +888,7 @@ def _non_matched_lhc_madx() -> Madx:
     madx.call(str(LHC_OPTICS.absolute()))
 
     NRJ = madx.globals["NRJ"] = 6500
-    brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+    madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
     geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
     madx.command.beam(
         sequence="lhcb1",
@@ -910,7 +912,7 @@ def _matched_lhc_madx() -> Madx:
     madx.call(str(LHC_OPTICS.absolute()))
 
     NRJ = madx.globals["NRJ"] = 6500
-    brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+    madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
     geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
     madx.command.beam(
         sequence="lhcb1",
