@@ -22,10 +22,10 @@ from .special import (
     deactivate_lhc_arc_sextupoles,
     get_ips_twiss,
     get_ir_twiss,
-    get_pattern_twiss,
+    install_ac_dipole,
     make_lhc_beams,
     make_sixtrack_output,
     power_landau_octupoles,
-    install_ac_dipole,
-    track_single_particle
+    track_single_particle,
 )
+from .twiss import get_pattern_twiss

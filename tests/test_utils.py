@@ -7,7 +7,7 @@ import sys
 
 import pytest
 
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.utils import defaults  # here for coverage
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.operations import (

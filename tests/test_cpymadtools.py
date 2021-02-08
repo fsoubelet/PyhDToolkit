@@ -1,7 +1,6 @@
 import math
 import pathlib
 import random
-import sys
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -10,8 +9,8 @@ import pytest
 import tfs
 
 from cpymad.madx import Madx
-from pandas.testing import assert_frame_equal
 from pandas._testing import assert_dict_equal
+from pandas.testing import assert_frame_equal
 
 from pyhdtoolkit.cpymadtools.constants import (
     CORRECTOR_LIMITS,
@@ -20,7 +19,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_CROSSING_SCHEMES,
     SPECIAL_FAMILIES,
     TWO_FAMILIES,
-)
+)  # coverage
 from pyhdtoolkit.cpymadtools.errors import switch_magnetic_errors
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
@@ -47,7 +46,6 @@ from pyhdtoolkit.cpymadtools.special import (
     deactivate_lhc_arc_sextupoles,
     get_ips_twiss,
     get_ir_twiss,
-    get_pattern_twiss,
     install_ac_dipole,
     make_lhc_beams,
     make_sixtrack_output,
