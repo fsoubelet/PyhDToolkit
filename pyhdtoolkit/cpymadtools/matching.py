@@ -179,6 +179,7 @@ def get_closest_tune_approach(
 
     if explicit_targets:
         qx_target, qy_target = explicit_targets
+        q1, q2 = qx_target, qy_target  # the integer part is used later on
     else:
         logger.trace("Retrieving tunes and chromaticities from internal tables")
         q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
