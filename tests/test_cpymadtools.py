@@ -647,7 +647,7 @@ class TestSpecial:
         assert madx.globals["LAGRF400.B1"] == 0.5
         assert madx.globals["LAGRF400.B2"] == 0.0
 
-    @pytest.mark.parametrize("knob_value", [-5, 0, 10])
+    @pytest.mark.parametrize("knob_value", [-5, 10])
     @pytest.mark.parametrize("IR", [1, 2, 5, 8])
     def test_colinearity_knob(self, knob_value, IR, _non_matched_lhc_madx):
         madx = _non_matched_lhc_madx
