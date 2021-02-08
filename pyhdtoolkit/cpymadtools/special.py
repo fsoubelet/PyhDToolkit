@@ -277,6 +277,7 @@ def install_ac_dipole(
         f"ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};"
     )
     madx.command.seqedit(sequence="lhcb1")
+    madx.command.flatten()
     madx.command.install(element="MKACH.6L4.B1", at="0.0", from_="MKQA.6L4.B1")
     madx.command.install(element="MKACV.6L4.B1", at="0.0", from_="MKQA.6L4.B1")
     madx.command.endedit()
@@ -292,6 +293,60 @@ def install_ac_dipole(
     volty = sigma_y * np.sqrt(geometric_emit) * brho * np.abs(deltaqy) * 4 * np.pi / np.sqrt(betay_acd)
     madx.globals["voltx"] = voltx
     madx.globals["volty"] = volty
+
+
+# ----- Miscellaneous Utilities ----- #
+
+
+def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
+    """
+    Makethin for the LHC sequence as previously done in MAD-X macros. This will use the `teapot` style and
+    will enforce `makedipedge`.
+
+    Args:
+        madx (Madx): an instantiated cpymad.madx.Madx object.
+        sequence (str): the sequence to use for the MAKETHIN command.
+        slicefactor (int): the slice factor to apply in makethin. Defaults to 1.
+
+    Keyword Args:
+        The keyword arguments for the MAD-X MAKETHN commands, namely `style` (will default to `teapot`) and
+        the `makedipedge` flag (will default to True).
+    """
+    logger.info(f"Slicing sequence '{sequence}'")
+    madx.select(flag="makethin", clear=True)
+    four_slices_patterns = ["mbx\.", "mbrb\.", "mbrc\.", "mbrs\."]
+    four_slicefactor_patterns = [
+        "mqwa\.",
+        "mqwb\.",
+        "mqy\.",
+        "mqm\.",
+        "mqmc\.",
+        "mqml\.",
+        "mqtlh\.",
+        "mqtli\.",
+        "mqt\.",
+    ]
+
+    logger.trace("Defining slices for general MB and MQ elements")
+    madx.select(flag="makethin", class_="MB", slice=2)
+    madx.select(flag="makethin", class_="MQ", slice=2 * slicefactor)
+
+    logger.trace("Defining slices for triplets")
+    madx.select(flag="makethin", class_="mqxa", slice=16 * slicefactor)
+    madx.select(flag="makethin", class_="mqxb", slice=16 * slicefactor)
+
+    logger.trace("Defining slices for various specifc mb elements")
+    for patt in four_slices_patterns:
+        madx.select(flag="makethin", pattern=patt, slice=4)
+
+    logger.trace("Defining slices for varous specifc mq elements")
+    for patt in four_slicefactor_patterns:
+        madx.select(flag="makethin", pattern=patt, slice=4 * slicefactor)
+
+    madx.use(sequence=sequence)
+    style = kwargs.get("style", "teapot")
+    makedipedge = kwargs.get("makedipedge", True)
+    madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
 
 
 # ----- Twiss Utilities ----- #

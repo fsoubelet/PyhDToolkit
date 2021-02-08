@@ -24,6 +24,7 @@ from .special import (
     get_ir_twiss,
     install_ac_dipole,
     make_lhc_beams,
+    make_lhc_thin,
     make_sixtrack_output,
     power_landau_octupoles,
 )

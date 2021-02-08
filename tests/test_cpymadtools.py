@@ -48,6 +48,7 @@ from pyhdtoolkit.cpymadtools.special import (
     get_ir_twiss,
     install_ac_dipole,
     make_lhc_beams,
+    make_lhc_thin,
     make_sixtrack_output,
     power_landau_octupoles,
 )
@@ -718,18 +719,6 @@ class TestSpecial:
         assert math.isclose(madx.elements["MKACH.6L4.B1"].at, 9846.0765, rel_tol=1e-2)
         assert math.isclose(madx.elements["MKACH.6L4.B1"].freq, 62.3, rel_tol=1e-2)
 
-    def test_single_particle_tracking(self, _matched_base_lattice):
-        madx = _matched_base_lattice
-        results = track_single_particle(
-            madx, initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0), nturns=100, sequence="CAS3"
-        )
-
-        assert isinstance(results, dict)
-        for key in ["x", "px", "y", "py"]:
-            assert key in results.keys()
-            assert isinstance(results[key], np.ndarray)
-            assert len(results[key]) == 101  # because there is $start and $end positions given by MAD-Xma
-
     def test_get_ips_twiss(self, _ips_twiss_path, _matched_lhc_madx):
         madx = _matched_lhc_madx
 
@@ -750,6 +739,36 @@ class TestSpecial:
         extra_columns = ["k0l", "k0sl", "k1l", "k1sl", "k2l", "k2sl", "sig11", "sig12", "sig21", "sig22"]
         ir_extra_columns_df = get_ir_twiss(madx, ir=ir, columns=DEFAULT_TWISS_COLUMNS + extra_columns)
         assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
+
+    def test_makethin_lhc(self, _matched_lhc_madx):
+        """
+        Little trick: if we haven't sliced properly, tracking will fail so we can check all is ok by
+        attempting a tracking and seeing that it succeeds.
+        """
+        madx = _matched_lhc_madx
+        make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+
+        tracks = track_single_particle(madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10,
+                                       sequence="lhcb1")
+        assert isinstance(tracks, dict)
+        for key in ["x", "px", "y", "py"]:
+            assert key in tracks.keys()
+            assert isinstance(tracks[key], np.ndarray)
+            assert len(tracks[key]) == 11  # nturns + 1 because $start coordinates also given by MAD-X
+
+
+class TestTrack:
+    def test_single_particle_tracking(self, _matched_base_lattice):
+        madx = _matched_base_lattice
+        results = track_single_particle(
+            madx, initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0), nturns=100, sequence="CAS3"
+        )
+
+        assert isinstance(results, dict)
+        for key in ["x", "px", "y", "py"]:
+            assert key in results.keys()
+            assert isinstance(results[key], np.ndarray)
+            assert len(results[key]) == 101  # nturns + 1 because $start coordinates also given by MAD-X
 
 
 class TestTuneDiagramPlotter:
