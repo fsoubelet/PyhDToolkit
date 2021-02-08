@@ -26,6 +26,6 @@ from .special import (
     make_lhc_beams,
     make_sixtrack_output,
     power_landau_octupoles,
-    track_single_particle,
 )
+from .track import track_single_particle
 from .twiss import get_pattern_twiss

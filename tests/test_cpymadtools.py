@@ -50,8 +50,8 @@ from pyhdtoolkit.cpymadtools.special import (
     make_lhc_beams,
     make_sixtrack_output,
     power_landau_octupoles,
-    track_single_particle,
 )
+from pyhdtoolkit.cpymadtools.track import track_single_particle
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")

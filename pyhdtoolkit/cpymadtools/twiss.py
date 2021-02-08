@@ -5,7 +5,7 @@ Module cpymadtools.twiss
 Created on 2020.02.03
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A module with functions to maniipulate MAD-X TWISS functionality through a cpymad.madx.Madx object.
+A module with functions to manipulate MAD-X TWISS functionality through a cpymad.madx.Madx object.
 """
 from typing import Sequence
 
