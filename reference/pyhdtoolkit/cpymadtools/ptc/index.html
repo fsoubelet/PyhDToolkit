@@ -488,6 +488,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../track/" title="Track" class="md-nav__link">
+      Track
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1111,11 +1135,7 @@
 
 <span class="c1"># ----- Utilities ----- #</span>
 
-<span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span>
-
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nb">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1125,7 +1145,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
 
@@ -1145,7 +1165,7 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Entering PTC to calculate amplitude detuning&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
     <span class="c1"># layout I got with mask (jdilly)</span>
 
@@ -1155,7 +1175,7 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="c1"># alternative layout: model=3, method=6, nst=3</span>
 
@@ -1167,17 +1187,17 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
     <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting tune orders&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">q1</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">q1</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">ii</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>  <span class="c1"># These are d^iQ/ddp^i</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">dq1</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">dq1</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">)</span>
 
     <span class="c1"># ANH = anharmonicities (ex, ey, deltap), works only with parameters as full strings</span>
 
@@ -1191,13 +1211,13 @@
 
         <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 1&#39;)  # dQy/ddp</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dex</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dex</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dey</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dey</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dex</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dex</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dey</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dey</span>
 
     <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
 
@@ -1205,29 +1225,29 @@
 
         <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 2&#39;)  # d^2Qy/ddp^2</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dex^2</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dex^2</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dexdey</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dexdey</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dey^2</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dey^2</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dex^2</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dex^2</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dexdey</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dexdey</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dey^2</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dey^2</span>
 
     <span class="c1"># icase = phase-space dimensionality, no = order of map</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Normal&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">closed_orbit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">icase</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">closed_orbit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">icase</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">normal_results</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">normal_results</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
 
     <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 
@@ -1243,7 +1263,7 @@
 
     <span class="k">return</span> <span class="n">dframe</span>
 
-<span class="k">def</span> <span class="nf">get_rdts</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_rdts</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="nb">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1253,7 +1273,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
 
@@ -1267,29 +1287,29 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Entering PTC to calculate RDTs up to order {order}&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
     <span class="c1"># madx.ptc_create_layout(model=3, method=6, nst=1)  # from Michi</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
     <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twissrdt</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twissrdt</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
 
     <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
 
@@ -1308,7 +1328,7 @@
 <h2 id="functions">Functions</h2>
 <h3 id="get_amplitude_detuning">get_amplitude_detuning</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
     <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
@@ -1327,7 +1347,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -1361,11 +1381,7 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_amplitude_detuning</span><span class="p">(</span>
-
-    <span class="n">cpymad_instance</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_amplitude_detuning</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
 
     <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
@@ -1375,7 +1391,7 @@
 
 <span class="s2">    Args:</span>
 
-<span class="s2">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="s2">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
 
@@ -1395,7 +1411,7 @@
 
     <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Entering PTC to calculate amplitude detuning&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
     <span class="c1"># layout I got with mask (jdilly)</span>
 
@@ -1405,7 +1421,7 @@
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
     <span class="c1"># alternative layout: model=3, method=6, nst=3</span>
 
@@ -1417,17 +1433,17 @@
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
     <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting tune orders&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">q1</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">q1</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">:</span>  <span class="c1"># These are d^iQ/ddp^i</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">dq1</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">dq1</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">)</span>
 
     <span class="c1"># ANH = anharmonicities (ex, ey, deltap), works only with parameters as full strings</span>
 
@@ -1441,13 +1457,13 @@
 
         <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 1&#39;)  # dQy/ddp</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dex</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dex</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dey</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dey</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dex</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dex</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dey</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dey</span>
 
     <span class="k">if</span> <span class="k">order</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="o">:</span>
 
@@ -1455,29 +1471,29 @@
 
         <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 2&#39;)  # d^2Qy/ddp^2</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dex^2</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dex^2</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dexdey</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dexdey</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dey^2</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dey^2</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dex^2</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dex^2</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dexdey</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dexdey</span>
 
-        <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dey^2</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dey^2</span>
 
     <span class="c1"># icase = phase-space dimensionality, no = order of map</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Normal&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">closed_orbit</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">icase</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">closed_orbit</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">icase</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">normal_results</span><span class="p">.</span><span class="n">dframe</span><span class="p">())</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">normal_results</span><span class="p">.</span><span class="n">dframe</span><span class="p">())</span>
 
     <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span><span class="p">.</span><span class="n">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
 
@@ -1497,7 +1513,7 @@
 </details>
 <h3 id="get_rdts">get_rdts</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_rdts</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
     <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
@@ -1516,7 +1532,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -1550,7 +1566,7 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_rdts</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_rdts</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
 
     <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
@@ -1560,7 +1576,7 @@
 
 <span class="s2">    Args:</span>
 
-<span class="s2">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="s2">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
 
@@ -1574,29 +1590,29 @@
 
     <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Entering PTC to calculate RDTs up to order {order}&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
     <span class="c1"># madx.ptc_create_layout(model=3, method=6, nst=1)  # from Michi</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
     <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twissrdt</span><span class="p">.</span><span class="n">dframe</span><span class="p">())</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twissrdt</span><span class="p">.</span><span class="n">dframe</span><span class="p">())</span>
 
     <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span><span class="p">.</span><span class="n">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
 

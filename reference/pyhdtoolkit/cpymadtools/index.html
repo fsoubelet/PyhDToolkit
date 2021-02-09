@@ -468,6 +468,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="track/" title="Track" class="md-nav__link">
+      Track
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1044,17 +1068,14 @@
                 <h1 id="module-pyhdtoolkitcpymadtools">Module pyhdtoolkit.cpymadtools</h1>
 <p>cpymadtools package</p>
 <p><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub><sub>~</sub>~
-cpymadtools is a collection of utilities that integrate within my workflow with the <code>cpymad</code>
-library.</p>
+cpymadtools is a collection of utilities that integrate within my workflow with the <code>cpymad</code> library.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">cpymadtools package</span>
 
 <span class="sd">~~~~~~~~~~~~~~~~~~~</span>
 
-<span class="sd">cpymadtools is a collection of utilities that integrate within my workflow with the `cpymad`</span>
-
-<span class="sd">library.</span>
+<span class="sd">cpymadtools is a collection of utilities that integrate within my workflow with the `cpymad` library.</span>
 
 <span class="sd">:copyright: (c) 2019 by Felix Soubelet.</span>
 
@@ -1088,11 +1109,25 @@ library.</p>
 
     <span class="n">deactivate_lhc_arc_sextupoles</span><span class="p">,</span>
 
+    <span class="n">get_ips_twiss</span><span class="p">,</span>
+
+    <span class="n">get_ir_twiss</span><span class="p">,</span>
+
+    <span class="n">install_ac_dipole</span><span class="p">,</span>
+
+    <span class="n">make_lhc_beams</span><span class="p">,</span>
+
+    <span class="n">make_lhc_thin</span><span class="p">,</span>
+
     <span class="n">make_sixtrack_output</span><span class="p">,</span>
 
     <span class="n">power_landau_octupoles</span><span class="p">,</span>
 
 <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.track</span> <span class="kn">import</span> <span class="n">track_single_particle</span>
+
+<span class="kn">from</span> <span class="nn">.twiss</span> <span class="kn">import</span> <span class="n">get_pattern_twiss</span>
 </code></pre></div>
 
 </details>
@@ -1108,6 +1143,8 @@ library.</p>
 <li><a href="plotters/">pyhdtoolkit.cpymadtools.plotters</a></li>
 <li><a href="ptc/">pyhdtoolkit.cpymadtools.ptc</a></li>
 <li><a href="special/">pyhdtoolkit.cpymadtools.special</a></li>
+<li><a href="track/">pyhdtoolkit.cpymadtools.track</a></li>
+<li><a href="twiss/">pyhdtoolkit.cpymadtools.twiss</a></li>
 </ul>
                 
               

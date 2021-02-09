@@ -610,6 +610,30 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../track/" title="Track" class="md-nav__link">
+      Track
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -1391,7 +1415,7 @@
 
     <span class="k">def</span> <span class="nf">plot_aperture</span><span class="p">(</span>
 
-        <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+        <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
 
         <span class="n">beam_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
 
@@ -1415,7 +1439,7 @@
 
 <span class="sd">        Args:</span>
 
-<span class="sd">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">            beam_params (Dict[str, float]): a beam_parameters dictionary obtained through</span>
 
@@ -1451,7 +1475,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running interpolation in cpymad&quot;</span><span class="p">)</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
 
             <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1471,7 +1495,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss dframe from cpymad&quot;</span><span class="p">)</span>
 
-        <span class="n">twiss_hr</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span>
+        <span class="n">twiss_hr</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span>
 
         <span class="n">twiss_hr</span><span class="p">[</span><span class="s2">&quot;betatronic_envelope_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">betx</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">beam_params</span><span class="p">[</span><span class="s2">&quot;eg_y_m&quot;</span><span class="p">])</span>
 
@@ -1687,7 +1711,7 @@
 
     <span class="k">def</span> <span class="nf">plot_courant_snyder_phase_space</span><span class="p">(</span>
 
-        <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+        <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
 
         <span class="n">u_coordinates</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 
@@ -1709,7 +1733,7 @@
 
 <span class="sd">        Args:</span>
 
-<span class="sd">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">            u_coordinates (np.ndarray): numpy array of particles&#39;s coordinates for the given plane.</span>
 
@@ -1745,25 +1769,9 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss functions from cpymad&quot;</span><span class="p">)</span>
 
-        <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span> <span class="k">else</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span>
-
-            <span class="k">else</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="p">)</span>
-
-        <span class="kp">beta</span> <span class="o">=</span> <span class="p">(</span>
-
-            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">betx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span>
-
-            <span class="k">else</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">bety</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="p">)</span>
+        <span class="kp">beta</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">betx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span> <span class="k">else</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">bety</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting Courant-Snyder phase space for the </span><span class="si">{</span><span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2"> plane&quot;</span><span class="p">)</span>
 
@@ -1803,7 +1811,7 @@
 
     <span class="k">def</span> <span class="nf">plot_courant_snyder_phase_space_colored</span><span class="p">(</span>
 
-        <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+        <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
 
         <span class="n">u_coordinates</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
 
@@ -1829,7 +1837,7 @@
 
 <span class="sd">        Args:</span>
 
-<span class="sd">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">            u_coordinates (np.ndarray): numpy array of particles&#39;s coordinates for the given plane.</span>
 
@@ -1871,25 +1879,9 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss functions from cpymad&quot;</span><span class="p">)</span>
 
-        <span class="n">alpha</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">alpha</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span> <span class="k">else</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span>
-
-            <span class="k">else</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfy</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="p">)</span>
-
-        <span class="kp">beta</span> <span class="o">=</span> <span class="p">(</span>
-
-            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">betx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-            <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span>
-
-            <span class="k">else</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">bety</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-        <span class="p">)</span>
+        <span class="kp">beta</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">betx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;HORIZONTAL&quot;</span> <span class="k">else</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">bety</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting colored normalised phase space for the </span><span class="si">{</span><span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2"> plane&quot;</span><span class="p">)</span>
 
@@ -2043,7 +2035,7 @@
 
     <span class="k">def</span> <span class="nf">plot_tune_diagram</span><span class="p">(</span>
 
-        <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+        <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
 
         <span class="n">v_qx</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span>
 
@@ -2063,7 +2055,7 @@
 
 <span class="sd">        Args:</span>
 
-<span class="sd">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">            v_qx (np.ndarray): horizontal tune value as a numpy array.</span>
 
@@ -2085,9 +2077,9 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Tunes from cpymad&quot;</span><span class="p">)</span>
 
-        <span class="n">new_q1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new_q1</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-        <span class="n">new_q2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">new_q2</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">if</span> <span class="n">vxgood</span><span class="o">.</span><span class="kp">any</span><span class="p">()</span> <span class="ow">and</span> <span class="n">vygood</span><span class="o">.</span><span class="kp">any</span><span class="p">():</span>
 
@@ -2150,7 +2142,7 @@
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_aperture</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">beam_params</span><span class="p">:</span><span class="w"> </span><span class="n">Dict</span><span class="o">[</span><span class="n">str, float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
 
@@ -2174,7 +2166,7 @@
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            beam_params (Dict[str, float]): a beam_parameters dictionary obtained through</span>
 
@@ -2210,7 +2202,7 @@
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Running interpolation in cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="k">input</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">input</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">            </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -2230,7 +2222,7 @@
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Twiss dframe from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">twiss_hr</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="nl">twiss_hr</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">twiss_hr</span><span class="o">[</span><span class="n">&quot;betatronic_envelope_x&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">betx</span><span class="p">.</span><span class="k">values</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">beam_params</span><span class="o">[</span><span class="n">&quot;eg_y_m&quot;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
 
@@ -2362,7 +2354,7 @@
 <h4 id="static-methods">Static methods</h4>
 <h4 id="plot_aperture">plot_aperture</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_aperture</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">beam_params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">13</span><span class="p">,</span> <span class="mi">20</span><span class="p">),</span>
     <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -2385,7 +2377,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -2475,7 +2467,7 @@
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_aperture</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">beam_params</span><span class="p">:</span><span class="w"> </span><span class="n">Dict</span><span class="o">[</span><span class="n">str, float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
 
@@ -2499,7 +2491,7 @@
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            beam_params (Dict[str, float]): a beam_parameters dictionary obtained through</span>
 
@@ -2535,7 +2527,7 @@
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Running interpolation in cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="k">input</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">input</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">            </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -2555,7 +2547,7 @@
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Twiss dframe from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">twiss_hr</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="nl">twiss_hr</span><span class="p">:</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">twiss_hr</span><span class="o">[</span><span class="n">&quot;betatronic_envelope_x&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">betx</span><span class="p">.</span><span class="k">values</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">beam_params</span><span class="o">[</span><span class="n">&quot;eg_y_m&quot;</span><span class="o">]</span><span class="p">)</span><span class="w"></span>
 
@@ -2929,7 +2921,7 @@
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_courant_snyder_phase_space</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">u_coordinates</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"></span>
 
@@ -2951,7 +2943,7 @@
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            u_coordinates (np.ndarray): numpy array of particles&#39;s coordinates for the given plane.</span>
 
@@ -2987,25 +2979,9 @@
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Twiss functions from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotting Courant-Snyder phase space for the {plane.lower()} plane&quot;</span><span class="p">)</span><span class="w"></span>
 
@@ -3045,7 +3021,7 @@
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_courant_snyder_phase_space_colored</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">u_coordinates</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"></span>
 
@@ -3071,7 +3047,7 @@
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            u_coordinates (np.ndarray): numpy array of particles&#39;s coordinates for the given plane.</span>
 
@@ -3113,25 +3089,9 @@
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Twiss functions from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotting colored normalised phase space for the {plane.lower()} plane&quot;</span><span class="p">)</span><span class="w"></span>
 
@@ -3173,7 +3133,7 @@
 <h4 id="static-methods_2">Static methods</h4>
 <h4 id="plot_courant_snyder_phase_space">plot_courant_snyder_phase_space</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_courant_snyder_phase_space</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">u_coordinates</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">pu_coordinates</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">savefig</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3195,7 +3155,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -3261,7 +3221,7 @@
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_courant_snyder_phase_space</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">u_coordinates</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"></span>
 
@@ -3283,7 +3243,7 @@
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            u_coordinates (np.ndarray): numpy array of particles&#39;s coordinates for the given plane.</span>
 
@@ -3319,25 +3279,9 @@
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Twiss functions from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotting Courant-Snyder phase space for the {plane.lower()} plane&quot;</span><span class="p">)</span><span class="w"></span>
 
@@ -3377,7 +3321,7 @@
 </details>
 <h4 id="plot_courant_snyder_phase_space_colored">plot_courant_snyder_phase_space_colored</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_courant_snyder_phase_space_colored</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">u_coordinates</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">pu_coordinates</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">savefig</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -3401,7 +3345,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -3467,7 +3411,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_courant_snyder_phase_space_colored</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">u_coordinates</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"></span>
 
@@ -3493,7 +3437,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            u_coordinates (np.ndarray): numpy array of particles&#39;s coordinates for the given plane.</span>
 
@@ -3535,25 +3479,9 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Twiss functions from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">alpha</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">alfy</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">beta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">betx</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">plane</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;HORIZONTAL&quot;</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">bety</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Plotting colored normalised phase space for the {plane.lower()} plane&quot;</span><span class="p">)</span><span class="w"></span>
 
@@ -3716,7 +3644,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_tune_diagram</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">v_qx</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">),</span><span class="w"></span>
 
@@ -3736,7 +3664,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            v_qx (np.ndarray): horizontal tune value as a numpy array.</span>
 
@@ -3758,9 +3686,9 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Tunes from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">new_q1</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q1</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="nl">new_q1</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q1</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">new_q2</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="nl">new_q2</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">vxgood</span><span class="p">.</span><span class="ow">any</span><span class="p">()</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">vygood</span><span class="p">.</span><span class="ow">any</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
 
@@ -3969,7 +3897,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 </details>
 <h4 id="plot_tune_diagram">plot_tune_diagram</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_tune_diagram</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">v_qx</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span>
     <span class="n">vxgood</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">]),</span>
     <span class="n">v_qy</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">]),</span>
@@ -3990,7 +3918,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -4046,7 +3974,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_tune_diagram</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="nl">v_qx</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">),</span><span class="w"></span>
 
@@ -4066,7 +3994,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="ss">        Args:</span>
 
-<span class="ss">            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">            v_qx (np.ndarray): horizontal tune value as a numpy array.</span>
 
@@ -4088,9 +4016,9 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Tunes from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">new_q1</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q1</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="nl">new_q1</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q1</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">        </span><span class="nl">new_q2</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
+<span class="w">        </span><span class="nl">new_q2</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">q2</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">vxgood</span><span class="p">.</span><span class="ow">any</span><span class="p">()</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">vygood</span><span class="p">.</span><span class="ow">any</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
 

@@ -455,6 +455,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     Functions
   </a>
@@ -491,6 +498,41 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get_ips_twiss" class="md-nav__link">
+    get_ips_twiss
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_ir_twiss" class="md-nav__link">
+    get_ir_twiss
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install_ac_dipole" class="md-nav__link">
+    install_ac_dipole
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_lhc_beams" class="md-nav__link">
+    make_lhc_beams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_lhc_thin" class="md-nav__link">
+    make_lhc_thin
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#make_sixtrack_output" class="md-nav__link">
     make_sixtrack_output
   </a>
@@ -513,6 +555,30 @@
   
 </nav>
     
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../track/" title="Track" class="md-nav__link">
+      Track
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../twiss/" title="Twiss" class="md-nav__link">
+      Twiss
+    </a>
   </li>
 
         
@@ -1063,6 +1129,13 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     Functions
   </a>
@@ -1094,6 +1167,41 @@
           <li class="md-nav__item">
   <a href="#deactivate_lhc_arc_sextupoles" class="md-nav__link">
     deactivate_lhc_arc_sextupoles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_ips_twiss" class="md-nav__link">
+    get_ips_twiss
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_ir_twiss" class="md-nav__link">
+    get_ir_twiss
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install_ac_dipole" class="md-nav__link">
+    install_ac_dipole
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_lhc_beams" class="md-nav__link">
+    make_lhc_beams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#make_lhc_thin" class="md-nav__link">
+    make_lhc_thin
   </a>
   
 </li>
@@ -1157,19 +1265,77 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">tfs</span>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="c1"># ----- Utlites ----- #</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.constants</span> <span class="kn">import</span> <span class="n">DEFAULT_TWISS_COLUMNS</span>
 
-<span class="k">def</span> <span class="nf">power_landau_octupoles</span><span class="p">(</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.twiss</span> <span class="kn">import</span> <span class="n">get_pattern_twiss</span>
 
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="c1"># ----- Setup Utlites ----- #</span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span> <span class="n">emittance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        energy (float): beam energy in GeV. Defaults to 6500.</span>
+
+<span class="sd">        emittance (float): emittance in meters, which will be used to calculate geometric emittance,</span>
+
+<span class="sd">            then fed to the BEAM command.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        Any keyword argument that can be given to the MAD-X BEAM command.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;NRJ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;brho&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>
+
+    <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emittance</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Defining beam for sequence &#39;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">beam</span><span class="p">(</span>
+
+            <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span>
+
+            <span class="n">bv</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+
+            <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
+
+            <span class="n">npart</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span>
+
+            <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+
+            <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">power_landau_octupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1177,7 +1343,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        mo_current (float): MO powering in Amps.</span>
 
@@ -1189,7 +1355,7 @@
 
     <span class="k">try</span><span class="p">:</span>
 
-        <span class="n">brho</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
+        <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
 
     <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
 
@@ -1201,13 +1367,9 @@
 
         <span class="k">raise</span> <span class="ne">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_error</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Powering Landau Octupoles, beam </span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2"> @ </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span><span class="si">}</span><span class="s2"> GeV with </span><span class="si">{</span><span class="n">mo_current</span><span class="si">}</span><span class="s2"> A.&quot;</span><span class="p">)</span>
 
-        <span class="n">f</span><span class="s2">&quot;Powering Landau Octupoles, beam {beam} @ {cpymad_instance.globals.nrj} GeV with {mo_current} A.&quot;</span>
-
-    <span class="p">)</span>
-
-    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
+    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
 
     <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
 
@@ -1215,17 +1377,17 @@
 
         <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span>
 
-            <span class="n">octupole</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;KO{fd}.{arc}&quot;</span>
+            <span class="n">octupole</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;KO</span><span class="si">{</span><span class="n">fd</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">arc</span><span class="si">}</span><span class="s2">&quot;</span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering element &#39;{octupole}&#39; at {strength} Amps&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Powering element &#39;</span><span class="si">{</span><span class="n">octupole</span><span class="si">}</span><span class="s2">&#39; at </span><span class="si">{</span><span class="n">strength</span><span class="si">}</span><span class="s2"> Amps&quot;</span><span class="p">)</span>
 
-            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
+            <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
 
     <span class="k">if</span> <span class="n">defective_arc</span> <span class="ow">and</span> <span class="p">(</span><span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span>
 
-<span class="k">def</span> <span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1233,7 +1395,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        beam (int): beam to use.</span>
 
@@ -1245,7 +1407,7 @@
 
     <span class="c1"># Rest: Weak sextupoles in sectors 78/23/34/67</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Deactivating all arc sextupoles for beam {beam}.&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Deactivating all arc sextupoles for beam </span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 
     <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
 
@@ -1255,17 +1417,13 @@
 
             <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
 
-                <span class="n">sextupole</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;KS{fd}{i:d}.{arc}&quot;</span>
+                <span class="n">sextupole</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;KS</span><span class="si">{</span><span class="n">fd</span><span class="si">}{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">arc</span><span class="si">}</span><span class="s2">&quot;</span>
 
-                <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;De-powering element &#39;{sextupole}&#39;&quot;</span><span class="p">)</span>
+                <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;De-powering element &#39;</span><span class="si">{</span><span class="n">sextupole</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-                <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">sextupole</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+                <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">sextupole</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
-<span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span>
-
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">None</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1275,7 +1433,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users</span>
 
@@ -1289,23 +1447,27 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Applying Colinearity knob with a unit setting of {colinearity_knob_value}&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying Colinearity knob with a unit setting of </span><span class="si">{</span><span class="n">colinearity_knob_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span>
 
-    <span class="n">knob_variables</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;kqsx3.r{ir:d}&quot;</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;kqsx3.l{ir:d}&quot;</span><span class="p">)</span>  <span class="c1"># MQSX IP coupling correctors</span>
+    <span class="n">knob_variables</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KQSX3.R</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;KQSX3.L</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># MQSX IP coupling correctors</span>
 
     <span class="n">right_knob</span><span class="p">,</span> <span class="n">left_knob</span> <span class="o">=</span> <span class="n">knob_variables</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">right_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">left_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span>
 
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">rigidty_waist_shift_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="bp">None</span><span class="p">,</span> <span class="n">side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">rigidty_waist_shift_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1315,7 +1477,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).</span>
 
@@ -1331,41 +1493,45 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying Rigidity Waist Shift knob with a unit setting of </span><span class="si">{</span><span class="n">rigidty_waist_shift_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span>
 
-    <span class="n">knob_variables</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="s2">&quot;kqx.r{ir:d}&quot;</span><span class="p">,</span> <span class="n">f</span><span class="s2">&quot;kqx.l{ir:d}&quot;</span><span class="p">)</span>  <span class="c1"># Closest IP triplet</span>
+    <span class="n">knob_variables</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;kqx.r</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;kqx.l</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># Closest IP triplet</span>
 
     <span class="n">right_knob</span><span class="p">,</span> <span class="n">left_knob</span> <span class="o">=</span> <span class="n">knob_variables</span>
 
-    <span class="n">current_right_knob</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span>
+    <span class="n">current_right_knob</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span>
 
-    <span class="n">current_left_knob</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span>
+    <span class="n">current_left_knob</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span>
 
     <span class="k">if</span> <span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
 
     <span class="k">elif</span> <span class="n">side</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
 
     <span class="k">else</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Given side &#39;{side}&#39; invalid, only &#39;left&#39; and &#39;right&#39; are accepted values.&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Given side &#39;</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">&#39; invalid, only &#39;left&#39; and &#39;right&#39; are accepted values.&quot;</span><span class="p">)</span>
 
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid value for parameter &#39;side&#39;.&quot;</span><span class="p">)</span>
 
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">right_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">left_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
 <span class="k">def</span> <span class="nf">apply_lhc_coupling_knob</span><span class="p">(</span>
 
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">coupling_knob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">coupling_knob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1373,7 +1539,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0</span>
 
@@ -1387,19 +1553,21 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Applying coupling knob&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;Applying coupling knob&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span>
 
     <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
 
-    <span class="n">knob_name</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;CMRS.b{beam:d}{suffix}&quot;</span>
+    <span class="n">knob_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CMRS.b</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Knob &#39;{knob_name}&#39; is {cpymad_instance.globals[knob_name]} before implementation&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Knob &#39;</span><span class="si">{</span><span class="n">knob_name</span><span class="si">}</span><span class="s2">&#39; is </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span><span class="si">}</span><span class="s2"> before implementation&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">coupling_knob</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">coupling_knob</span>
 
-<span class="k">def</span> <span class="nf">make_sixtrack_output</span><span class="p">(</span><span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">knob_name</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">make_sixtrack_output</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1409,27 +1577,345 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        energy (float): beam energy in GeV.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Preparing outputs for SixTrack&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;Preparing outputs for SixTrack&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Powering RF cavities&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;VRF400&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">if</span> <span class="n">energy</span> <span class="o">&lt;</span> <span class="mi">5000</span> <span class="k">else</span> <span class="mi">16</span>  <span class="c1"># is 6 at injection for protons iirc?</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;VRF400&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">if</span> <span class="n">energy</span> <span class="o">&lt;</span> <span class="mi">5000</span> <span class="k">else</span> <span class="mi">16</span>  <span class="c1"># is 6 at injection for protons iirc?</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># cavity phase difference in units of 2pi</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># cavity phase difference in units of 2pi</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing TWISS and SIXTRACK commands&quot;</span><span class="p">)</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># used by sixtrack</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># used by sixtrack</span>
 
-    <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">sixtrack</span><span class="p">(</span><span class="n">cavall</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.017</span><span class="p">)</span>  <span class="c1"># this value is only ok for HL(LHC) magnet radius</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">sixtrack</span><span class="p">(</span><span class="n">cavall</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.017</span><span class="p">)</span>  <span class="c1"># this value is only ok for HL(LHC) magnet radius</span>
+
+<span class="k">def</span> <span class="nf">install_ac_dipole</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+
+    <span class="n">deltaqx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+
+    <span class="n">deltaqy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+
+    <span class="n">sigma_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+
+    <span class="n">sigma_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+
+    <span class="n">geometric_emit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+
+    <span class="n">start_turn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+
+    <span class="n">ramp_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+
+    <span class="n">top_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6600</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Installs an AC dipole for BEAM 1 ONLY.</span>
+
+<span class="sd">    This function assumes that you have already defined lhcb1, made a beam for it (BEAM command or</span>
+
+<span class="sd">    `make_lhc_beams` function) and matched to your desired working point.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.</span>
+
+<span class="sd">        deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.</span>
+
+<span class="sd">        sigma_x (float): the horizontal amplitude to drive the beam to, in bunch sigma.</span>
+
+<span class="sd">        sigma_y (float): the vertical amplitude to drive the beam to, in bunch sigma.</span>
+
+<span class="sd">        geometric_emit (float): the geometric emittance that was used when defining the beam. If not</span>
+
+<span class="sd">            provided, it is assumed that &#39;geometric_emit&#39; is a defined global in MAD-X, and the value will</span>
+
+<span class="sd">            be directly queried from the internal tables.</span>
+
+<span class="sd">        start_turn (int): the turn at which to start ramping up the AC dipole. Defaults to 100.</span>
+
+<span class="sd">        ramp_turns (int): the number of turns to use for the ramp-up and the ramp-down of the AC dipole.</span>
+
+<span class="sd">            This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000</span>
+
+<span class="sd">            as in the LHC.</span>
+
+<span class="sd">        top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">top_turns</span> <span class="o">&gt;</span> <span class="mi">6600</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+
+            <span class="sa">f</span><span class="s2">&quot;Configuring the AC Dipole for </span><span class="si">{</span><span class="n">top_turns</span><span class="si">}</span><span class="s2"> of driving is fine for MAD-X but is &quot;</span>
+
+            <span class="s2">&quot;higher than what the device can do in the (HL)LHC! Beware.&quot;</span>
+
+        <span class="p">)</span>
+
+    <span class="n">ramp1</span><span class="p">,</span> <span class="n">ramp2</span> <span class="o">=</span> <span class="n">start_turn</span><span class="p">,</span> <span class="n">start_turn</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+
+    <span class="n">ramp3</span> <span class="o">=</span> <span class="n">ramp2</span> <span class="o">+</span> <span class="n">top_turns</span>
+
+    <span class="n">ramp4</span> <span class="o">=</span> <span class="n">ramp3</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span>
+
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">geometric_emit</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+
+            <span class="sa">f</span><span class="s2">&quot;No value provided for the geometric emittance used when creating the beam, the value will be &quot;</span>
+
+            <span class="sa">f</span><span class="s2">&quot;queried from MAD-X&#39;s global &#39;geometric_emit&#39;&quot;</span>
+
+        <span class="p">)</span>
+
+        <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing AC Dipole to drive the tunes to Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
+
+        <span class="sa">f</span><span class="s2">&quot;MKACH.6L4.B1: hacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt:=voltx, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
+
+        <span class="sa">f</span><span class="s2">&quot;ramp2=</span><span class="si">{</span><span class="n">ramp2</span><span class="si">}</span><span class="s2">, ramp3=</span><span class="si">{</span><span class="n">ramp3</span><span class="si">}</span><span class="s2">, ramp4=</span><span class="si">{</span><span class="n">ramp4</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
+
+        <span class="sa">f</span><span class="s2">&quot;MKACV.6L4.B1: vacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt:=volty, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
+
+        <span class="sa">f</span><span class="s2">&quot;ramp2=</span><span class="si">{</span><span class="n">ramp2</span><span class="si">}</span><span class="s2">, ramp3=</span><span class="si">{</span><span class="n">ramp3</span><span class="si">}</span><span class="s2">, ramp4=</span><span class="si">{</span><span class="n">ramp4</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="kp">flatten</span><span class="p">()</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;MKACH.6L4.B1&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="s2">&quot;MKQA.6L4.B1&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;MKACV.6L4.B1&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="s2">&quot;MKQA.6L4.B1&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;betax_acd = table(twiss, MKQA.6L4.B1, betx);&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;betay_acd = table(twiss, MKQA.6L4.B1, bety);&quot;</span><span class="p">)</span>
+
+    <span class="n">betax_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;betax_acd&quot;</span><span class="p">]</span>
+
+    <span class="n">betay_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;betay_acd&quot;</span><span class="p">]</span>
+
+    <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">lhcb1</span><span class="o">.</span><span class="n">beam</span><span class="o">.</span><span class="n">brho</span>
+
+    <span class="n">voltx</span> <span class="o">=</span> <span class="n">sigma_x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">abs</span><span class="p">(</span><span class="n">deltaqx</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">betax_acd</span><span class="p">)</span>
+
+    <span class="n">volty</span> <span class="o">=</span> <span class="n">sigma_y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">abs</span><span class="p">(</span><span class="n">deltaqy</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">betay_acd</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;voltx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voltx</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;volty&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">volty</span>
+
+<span class="c1"># ----- Miscellaneous Utilities ----- #</span>
+
+<span class="k">def</span> <span class="nf">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Makethin for the LHC sequence as previously done in MAD-X macros. This will use the `teapot` style and</span>
+
+<span class="sd">    will enforce `makedipedge`.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
+
+<span class="sd">        sequence (str): the sequence to use for the MAKETHIN command.</span>
+
+<span class="sd">        slicefactor (int): the slice factor to apply in makethin. Defaults to 1.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        The keyword arguments for the MAD-X MAKETHN commands, namely `style` (will default to `teapot`) and</span>
+
+<span class="sd">        the `makedipedge` flag (will default to True).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Slicing sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">four_slices_patterns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s2">&quot;mbx\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrb\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrc\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrs\.&quot;</span><span class="p">]</span>
+
+    <span class="n">four_slicefactor_patterns</span> <span class="o">=</span> <span class="p">[</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqwa\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqwb\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqy\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqm\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqmc\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqml\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqtlh\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqtli\.&quot;</span><span class="p">,</span>
+
+        <span class="sa">r</span><span class="s2">&quot;mqt\.&quot;</span><span class="p">,</span>
+
+    <span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for general MB and MQ elements&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">,</span> <span class="nb">slice</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span><span class="p">,</span> <span class="nb">slice</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for triplets&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxa&quot;</span><span class="p">,</span> <span class="nb">slice</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxb&quot;</span><span class="p">,</span> <span class="nb">slice</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for various specifc mb elements&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">four_slices_patterns</span><span class="p">:</span>
+
+        <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="nb">slice</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for varous specifc mq elements&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">four_slicefactor_patterns</span><span class="p">:</span>
+
+        <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="nb">slice</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">)</span>
+
+    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span>
+
+<span class="c1"># ----- Twiss Utilities ----- #</span>
+
+<span class="k">def</span> <span class="nf">get_ips_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Quickly get the `TWISS` table for certain variables at IP locations only. The `SUMM` table will be</span>
+
+<span class="sd">    included as the TfsDataFrame&#39;s header dictionary.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,</span>
+
+<span class="sd">        `centre` or starting coordinates with `betax`, &#39;betay` etc.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A TfsDataFrame of the twiss output.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;Getting Twiss at IPs&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;IP&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">get_ir_twiss</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Quickly get the `TWISS` table for certain variables for one IR, meaning at the IP and Q1 to Q3 both</span>
+
+<span class="sd">    left and right of the IP. The `SUMM` table will be included as the TfsDataFrame&#39;s header dictionary.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        ir (int): which interaction region to get the TWISS for.</span>
+
+<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,</span>
+
+<span class="sd">        `centre` or starting coordinates with `betax`, &#39;betay` etc.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A TfsDataFrame of the twiss output.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting Twiss for IR </span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
+
+        <span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span>
+
+        <span class="n">patterns</span><span class="o">=</span><span class="p">[</span>
+
+            <span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;MQXA.[12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;MQXB.[AB][12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># this is for HLLHC</span>
+
+        <span class="p">],</span>
+
+        <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+    <span class="p">)</span>
 
 <span class="c1"># ----- Helpers ----- #</span>
 
@@ -1451,7 +1937,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="s2">&quot;A{i+1}{(i+1)%8+1}B{beam:d}&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;A</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}{</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">8</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
 
 <span class="k">def</span> <span class="nf">_get_k_strings</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;both&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 
@@ -1479,7 +1965,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
 
-            <span class="n">f</span><span class="s2">&quot;Orientation &#39;{orientation}&#39; is not accepted, should be one of &#39;straight&#39;, &#39;skew&#39;, &#39;both&#39;.&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Orientation &#39;</span><span class="si">{</span><span class="n">orientation</span><span class="si">}</span><span class="s2">&#39; is not accepted, should be one of &#39;straight&#39;, &#39;skew&#39;, &#39;both&#39;.&quot;</span>
 
         <span class="p">)</span>
 
@@ -1497,14 +1983,17 @@
 
         <span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="s2">&quot;K{i:d}{s:s}L&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">orientation</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;K</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}{</span><span class="n">s</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">L&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">orientation</span><span class="p">]</span>
 </code></pre></div>
 
 </details>
+<h2 id="variables">Variables</h2>
+<div class="highlight"><pre><span></span><code><span class="n">DEFAULT_TWISS_COLUMNS</span>
+</code></pre></div>
 <h2 id="functions">Functions</h2>
 <h3 id="apply_lhc_colinearity_knob">apply_lhc_colinearity_knob</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -1523,7 +2012,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -1560,11 +2049,7 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">    </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">colinearity_knob_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="w"></span>
-
-<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">colinearity_knob_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -1574,7 +2059,7 @@
 
 <span class="ss">    Args:</span>
 
-<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">        colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users</span>
 
@@ -1592,19 +2077,23 @@
 
 <span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="ss">&quot;You should re-match tunes &amp; chromaticities after this&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">knob_variables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;kqsx3.r{ir:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;kqsx3.l{ir:d}&quot;</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">MQSX</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">coupling</span><span class="w"> </span><span class="n">correctors</span><span class="w"></span>
+<span class="w">    </span><span class="n">knob_variables</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;KQSX3.R{ir:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;KQSX3.L{ir:d}&quot;</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">MQSX</span><span class="w"> </span><span class="n">IP</span><span class="w"> </span><span class="n">coupling</span><span class="w"> </span><span class="n">correctors</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">right_knob</span><span class="p">,</span><span class="w"> </span><span class="n">left_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">knob_variables</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colinearity_knob_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e-4</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">colinearity_knob_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e-4</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">colinearity_knob_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e-4</span><span class="w"></span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Set &#39;{right_knob}&#39; to {madx.globals[right_knob]}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">colinearity_knob_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e-4</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Set &#39;{left_knob}&#39; to {madx.globals[left_knob]}&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
 <h3 id="apply_lhc_coupling_knob">apply_lhc_coupling_knob</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_lhc_coupling_knob</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">coupling_knob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1612,7 +2101,7 @@
 </code></pre></div>
 <p>Applies the LHC coupling knob to reach the desired C- value.</p>
 <p>Args:
-    cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
     coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0
     so users don't mess up coupling by mistake
     beam (int): beam to apply the knob to, defaults to beam 1.
@@ -1620,7 +2109,7 @@
         Defaults to False.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_coupling_knob</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">coupling_knob</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
+<span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">coupling_knob</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
 
 <span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
@@ -1630,7 +2119,7 @@
 
 <span class="ss">    Args:</span>
 
-<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">        coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0</span>
 
@@ -1652,15 +2141,17 @@
 
 <span class="w">    </span><span class="n">knob_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;CMRS.b{beam:d}{suffix}&quot;</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Knob &#39;{knob_name}&#39; is {cpymad_instance.globals[knob_name]} before implementation&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Knob &#39;{knob_name}&#39; is {madx.globals[knob_name]} before implementation&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">knob_name</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coupling_knob</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">knob_name</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">coupling_knob</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Set &#39;{knob_name}&#39; to {madx.globals[knob_name]}&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
 <h3 id="apply_lhc_rigidity_waist_shift_knob">apply_lhc_rigidity_waist_shift_knob</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">rigidty_waist_shift_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;left&#39;</span>
@@ -1680,7 +2171,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -1725,7 +2216,7 @@
 </table>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">rigidty_waist_shift_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">side</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;left&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">rigidty_waist_shift_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">side</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;left&quot;</span><span class="w"></span>
 
 <span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
@@ -1737,7 +2228,7 @@
 
 <span class="ss">    Args:</span>
 
-<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">        rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).</span>
 
@@ -1761,33 +2252,37 @@
 
 <span class="w">    </span><span class="n">right_knob</span><span class="p">,</span><span class="w"> </span><span class="n">left_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">knob_variables</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">current_right_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">current_right_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">current_left_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="n">current_left_knob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;left&quot;</span><span class="err">:</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_right_knob</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_right_knob</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_left_knob</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_left_knob</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="ss">&quot;right&quot;</span><span class="err">:</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_right_knob</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">right_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_right_knob</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_left_knob</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">left_knob</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">rigidty_waist_shift_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">0.005</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">current_left_knob</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Given side &#39;{side}&#39; invalid, only &#39;left&#39; and &#39;right&#39; are accepted values.&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Invalid value for parameter &#39;side&#39;.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Set &#39;{right_knob}&#39; to {madx.globals[right_knob]}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Set &#39;{left_knob}&#39; to {madx.globals[left_knob]}&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
 <h3 id="deactivate_lhc_arc_sextupoles">deactivate_lhc_arc_sextupoles</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
@@ -1804,7 +2299,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -1817,7 +2312,7 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -1825,7 +2320,7 @@
 
 <span class="ss">    Args:</span>
 
-<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">        beam (int): beam to use.</span>
 
@@ -1851,13 +2346,567 @@
 
 <span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;De-powering element &#39;{sextupole}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">sextupole</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+<span class="w">                </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">sextupole</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="get_ips_twiss">get_ips_twiss</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_ips_twiss</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;betx&#39;</span><span class="p">,</span> <span class="s1">&#39;bety&#39;</span><span class="p">,</span> <span class="s1">&#39;alfx&#39;</span><span class="p">,</span> <span class="s1">&#39;alfy&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;dy&#39;</span><span class="p">,</span> <span class="s1">&#39;mux&#39;</span><span class="p">,</span> <span class="s1">&#39;muy&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">,</span> <span class="s1">&#39;r21&#39;</span><span class="p">,</span> <span class="s1">&#39;r22&#39;</span><span class="p">,</span> <span class="s1">&#39;beta11&#39;</span><span class="p">,</span> <span class="s1">&#39;beta12&#39;</span><span class="p">,</span> <span class="s1">&#39;beta21&#39;</span><span class="p">,</span> <span class="s1">&#39;beta22&#39;</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+</code></pre></div>
+<p>Quickly get the <code>TWISS</code> table for certain variables at IP locations only. The <code>SUMM</code> table will be
+included as the TfsDataFrame's header dictionary.</p>
+<p>Args:
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</p>
+<p>Keyword Args:
+    Any keyword argument that can be given to the MAD-X TWISS command, such as <code>chrom</code>, <code>ripken</code>,
+    <code>centre</code> or starting coordinates with <code>betax</code>, 'betay` etc.</p>
+<p>Returns:
+    A TfsDataFrame of the twiss output.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_ips_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">columns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    Quickly get the `TWISS` table for certain variables at IP locations only. The `SUMM` table will be</span>
+
+<span class="s2">    included as the TfsDataFrame&#39;s header dictionary.</span>
+
+<span class="s2">    Args:</span>
+
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="s2">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
+
+<span class="s2">    Keyword Args:</span>
+
+<span class="s2">        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,</span>
+
+<span class="s2">        `centre` or starting coordinates with `betax`, &#39;betay` etc.</span>
+
+<span class="s2">    Returns:</span>
+
+<span class="s2">        A TfsDataFrame of the twiss output.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Getting Twiss at IPs&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="err">[</span><span class="s2">&quot;IP&quot;</span><span class="err">]</span><span class="p">,</span> <span class="k">columns</span><span class="o">=</span><span class="k">columns</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h3 id="get_ir_twiss">get_ir_twiss</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_ir_twiss</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;betx&#39;</span><span class="p">,</span> <span class="s1">&#39;bety&#39;</span><span class="p">,</span> <span class="s1">&#39;alfx&#39;</span><span class="p">,</span> <span class="s1">&#39;alfy&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;dy&#39;</span><span class="p">,</span> <span class="s1">&#39;mux&#39;</span><span class="p">,</span> <span class="s1">&#39;muy&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">,</span> <span class="s1">&#39;r21&#39;</span><span class="p">,</span> <span class="s1">&#39;r22&#39;</span><span class="p">,</span> <span class="s1">&#39;beta11&#39;</span><span class="p">,</span> <span class="s1">&#39;beta12&#39;</span><span class="p">,</span> <span class="s1">&#39;beta21&#39;</span><span class="p">,</span> <span class="s1">&#39;beta22&#39;</span><span class="p">],</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+</code></pre></div>
+<p>Quickly get the <code>TWISS</code> table for certain variables for one IR, meaning at the IP and Q1 to Q3 both
+left and right of the IP. The <code>SUMM</code> table will be included as the TfsDataFrame's header dictionary.</p>
+<p>Args:
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    ir (int): which interaction region to get the TWISS for.
+    columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</p>
+<p>Keyword Args:
+    Any keyword argument that can be given to the MAD-X TWISS command, such as <code>chrom</code>, <code>ripken</code>,
+    <code>centre</code> or starting coordinates with <code>betax</code>, 'betay` etc.</p>
+<p>Returns:
+    A TfsDataFrame of the twiss output.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_ir_twiss</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Quickly get the `TWISS` table for certain variables for one IR, meaning at the IP and Q1 to Q3 both</span>
+
+<span class="sd">    left and right of the IP. The `SUMM` table will be included as the TfsDataFrame&#39;s header dictionary.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">        ir (int): which interaction region to get the TWISS for.</span>
+
+<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,</span>
+
+<span class="sd">        `centre` or starting coordinates with `betax`, &#39;betay` etc.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A TfsDataFrame of the twiss output.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Getting Twiss for IR {ir:d}&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
+
+        <span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span>
+
+        <span class="n">patterns</span><span class="o">=</span><span class="p">[</span>
+
+            <span class="n">f</span><span class="s2">&quot;IP{ir:d}&quot;</span><span class="p">,</span>
+
+            <span class="n">f</span><span class="s2">&quot;MQXA.[12345][RL]{ir:d}&quot;</span><span class="p">,</span>
+
+            <span class="n">f</span><span class="s2">&quot;MQXB.[AB][12345][RL]{ir:d}&quot;</span><span class="p">,</span>
+
+            <span class="n">f</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]{ir:d}&quot;</span><span class="p">,</span>  <span class="c1"># this is for HLLHC</span>
+
+        <span class="p">],</span>
+
+        <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+    <span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h3 id="install_ac_dipole">install_ac_dipole</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">install_ac_dipole</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">deltaqx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">deltaqy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">sigma_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">sigma_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">geometric_emit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">start_turn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">ramp_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+    <span class="n">top_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6600</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Installs an AC dipole for BEAM 1 ONLY.</p>
+<p>This function assumes that you have already defined lhcb1, made a beam for it (BEAM command or
+<code>make_lhc_beams</code> function) and matched to your desired working point.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>madx</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>deltaqx</td>
+<td>float</td>
+<td>the deltaQx (horizontal tune excitation) used by the AC dipole.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>deltaqy</td>
+<td>float</td>
+<td>the deltaQy (vertical tune excitation) used by the AC dipole.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>sigma_x</td>
+<td>float</td>
+<td>the horizontal amplitude to drive the beam to, in bunch sigma.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>sigma_y</td>
+<td>float</td>
+<td>the vertical amplitude to drive the beam to, in bunch sigma.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>geometric_emit</td>
+<td>float</td>
+<td>the geometric emittance that was used when defining the beam. If not</td>
+<td></td>
+</tr>
+<tr>
+<td>provided, it is assumed that 'geometric_emit' is a defined global in MAD-X, and the value will</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>be directly queried from the internal tables.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>start_turn</td>
+<td>int</td>
+<td>the turn at which to start ramping up the AC dipole. Defaults to 100.</td>
+<td>100</td>
+</tr>
+<tr>
+<td>ramp_turns</td>
+<td>int</td>
+<td>the number of turns to use for the ramp-up and the ramp-down of the AC dipole.</td>
+<td></td>
+</tr>
+<tr>
+<td>This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>as in the LHC.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>top_turns</td>
+<td>int</td>
+<td>the number of turns to drive the beam for. Defaults to 6600 as in the LHC.</td>
+<td>6600 as in the LHC</td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">install_ac_dipole</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+
+    <span class="n">deltaqx</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+
+    <span class="n">deltaqy</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+
+    <span class="n">sigma_x</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+
+    <span class="n">sigma_y</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+
+    <span class="n">geometric_emit</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+
+    <span class="n">start_turn</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+
+    <span class="n">ramp_turns</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+
+    <span class="n">top_turns</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">6600</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    Installs an AC dipole for BEAM 1 ONLY.</span>
+
+<span class="s2">    This function assumes that you have already defined lhcb1, made a beam for it (BEAM command or</span>
+
+<span class="s2">    `make_lhc_beams` function) and matched to your desired working point.</span>
+
+<span class="s2">    Args:</span>
+
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="s2">        deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.</span>
+
+<span class="s2">        deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.</span>
+
+<span class="s2">        sigma_x (float): the horizontal amplitude to drive the beam to, in bunch sigma.</span>
+
+<span class="s2">        sigma_y (float): the vertical amplitude to drive the beam to, in bunch sigma.</span>
+
+<span class="s2">        geometric_emit (float): the geometric emittance that was used when defining the beam. If not</span>
+
+<span class="s2">            provided, it is assumed that &#39;geometric_emit&#39; is a defined global in MAD-X, and the value will</span>
+
+<span class="s2">            be directly queried from the internal tables.</span>
+
+<span class="s2">        start_turn (int): the turn at which to start ramping up the AC dipole. Defaults to 100.</span>
+
+<span class="s2">        ramp_turns (int): the number of turns to use for the ramp-up and the ramp-down of the AC dipole.</span>
+
+<span class="s2">            This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000</span>
+
+<span class="s2">            as in the LHC.</span>
+
+<span class="s2">        top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+    <span class="k">if</span> <span class="n">top_turns</span> <span class="o">&gt;</span> <span class="mi">6600</span><span class="o">:</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+
+            <span class="n">f</span><span class="s2">&quot;Configuring the AC Dipole for {top_turns} of driving is fine for MAD-X but is &quot;</span>
+
+            <span class="s2">&quot;higher than what the device can do in the (HL)LHC! Beware.&quot;</span>
+
+        <span class="p">)</span>
+
+    <span class="n">ramp1</span><span class="p">,</span> <span class="n">ramp2</span> <span class="o">=</span> <span class="n">start_turn</span><span class="p">,</span> <span class="n">start_turn</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+
+    <span class="n">ramp3</span> <span class="o">=</span> <span class="n">ramp2</span> <span class="o">+</span> <span class="n">top_turns</span>
+
+    <span class="n">ramp4</span> <span class="o">=</span> <span class="n">ramp3</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span>
+
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q1</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q2</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1}, q2 = {q2}&quot;</span><span class="p">)</span>
+
+    <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
+
+    <span class="k">if</span> <span class="k">not</span> <span class="n">geometric_emit</span><span class="o">:</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span>
+
+            <span class="n">f</span><span class="s2">&quot;No value provided for the geometric emittance used when creating the beam, the value will be &quot;</span>
+
+            <span class="n">f</span><span class="s2">&quot;queried from MAD-X&#39;s global &#39;geometric_emit&#39;&quot;</span>
+
+        <span class="p">)</span>
+
+        <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="err">]</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole to drive the tunes to Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;MKACH.6L4.B1: hacdipole, l=0, freq:={q1_dipole}, lag=0, volt:=voltx, ramp1={ramp1}, &quot;</span>
+
+        <span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;MKACV.6L4.B1: vacdipole, l=0, freq:={q2_dipole}, lag=0, volt:=volty, ramp1={ramp1}, &quot;</span>
+
+        <span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;MKACH.6L4.B1&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="s2">&quot;MKQA.6L4.B1&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;MKACV.6L4.B1&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;0.0&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="s2">&quot;MKQA.6L4.B1&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endedit</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;betax_acd = table(twiss, MKQA.6L4.B1, betx);&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;betay_acd = table(twiss, MKQA.6L4.B1, bety);&quot;</span><span class="p">)</span>
+
+    <span class="n">betax_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;betax_acd&quot;</span><span class="err">]</span>
+
+    <span class="n">betay_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;betay_acd&quot;</span><span class="err">]</span>
+
+    <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">sequence</span><span class="p">.</span><span class="n">lhcb1</span><span class="p">.</span><span class="n">beam</span><span class="p">.</span><span class="n">brho</span>
+
+    <span class="n">voltx</span> <span class="o">=</span> <span class="n">sigma_x</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">deltaqx</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">betax_acd</span><span class="p">)</span>
+
+    <span class="n">volty</span> <span class="o">=</span> <span class="n">sigma_y</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">deltaqy</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">betay_acd</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;voltx&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">voltx</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;volty&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">volty</span>
+</code></pre></div>
+
+</details>
+<h3 id="make_lhc_beams">make_lhc_beams</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span>
+    <span class="n">emittance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-06</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Define beams with default configuratons for <code>LHCB1</code> and <code>LHCB2</code> sequences.</p>
+<p>Args:
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    energy (float): beam energy in GeV. Defaults to 6500.
+    emittance (float): emittance in meters, which will be used to calculate geometric emittance,
+        then fed to the BEAM command.</p>
+<p>Keyword Args:
+    Any keyword argument that can be given to the MAD-X BEAM command.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span> <span class="n">emittance</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.</span>
+
+<span class="s2">    Args:</span>
+
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="s2">        energy (float): beam energy in GeV. Defaults to 6500.</span>
+
+<span class="s2">        emittance (float): emittance in meters, which will be used to calculate geometric emittance,</span>
+
+<span class="s2">            then fed to the BEAM command.</span>
+
+<span class="s2">    Keyword Args:</span>
+
+<span class="s2">        Any keyword argument that can be given to the MAD-X BEAM command.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;NRJ&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">energy</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;brho&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="p">.</span><span class="n">clight</span>
+
+    <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">emittance</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="k">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">:</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Defining beam for sequence &#39;lhcb{beam:d}&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">beam</span><span class="p">(</span>
+
+            <span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">,</span>
+
+            <span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span>
+
+            <span class="n">bv</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+
+            <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
+
+            <span class="n">npart</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span>
+
+            <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+
+            <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+        <span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h3 id="make_lhc_thin">make_lhc_thin</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_lhc_thin</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Makethin for the LHC sequence as previously done in MAD-X macros. This will use the <code>teapot</code> style and
+will enforce <code>makedipedge</code>.</p>
+<p>Args:
+    madx (Madx): an instantiated cpymad.madx.Madx object.
+    sequence (str): the sequence to use for the MAKETHIN command.
+    slicefactor (int): the slice factor to apply in makethin. Defaults to 1.</p>
+<p>Keyword Args:
+    The keyword arguments for the MAD-X MAKETHN commands, namely <code>style</code> (will default to <code>teapot</code>) and
+    the <code>makedipedge</code> flag (will default to True).</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    Makethin for the LHC sequence as previously done in MAD-X macros. This will use the `teapot` style and</span>
+
+<span class="s2">    will enforce `makedipedge`.</span>
+
+<span class="s2">    Args:</span>
+
+<span class="s2">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
+
+<span class="s2">        sequence (str): the sequence to use for the MAKETHIN command.</span>
+
+<span class="s2">        slicefactor (int): the slice factor to apply in makethin. Defaults to 1.</span>
+
+<span class="s2">    Keyword Args:</span>
+
+<span class="s2">        The keyword arguments for the MAD-X MAKETHN commands, namely `style` (will default to `teapot`) and</span>
+
+<span class="s2">        the `makedipedge` flag (will default to True).</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Slicing sequence &#39;{sequence}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+
+    <span class="n">four_slices_patterns</span> <span class="o">=</span> <span class="err">[</span><span class="n">r</span><span class="s2">&quot;mbx</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">r</span><span class="s2">&quot;mbrb</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">r</span><span class="s2">&quot;mbrc</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">r</span><span class="s2">&quot;mbrs</span><span class="err">\</span><span class="s2">.&quot;</span><span class="err">]</span>
+
+    <span class="n">four_slicefactor_patterns</span> <span class="o">=</span> <span class="err">[</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqwa</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqwb</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqy</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqm</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqmc</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqml</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqtlh</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqtli</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+        <span class="n">r</span><span class="s2">&quot;mqt</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+
+    <span class="err">]</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for general MB and MQ elements&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">,</span> <span class="n">slice</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span><span class="p">,</span> <span class="n">slice</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for triplets&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxa&quot;</span><span class="p">,</span> <span class="n">slice</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxb&quot;</span><span class="p">,</span> <span class="n">slice</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for various specifc mb elements&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">pattern</span> <span class="k">in</span> <span class="n">four_slices_patterns</span><span class="o">:</span>
+
+        <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for varous specifc mq elements&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">pattern</span> <span class="k">in</span> <span class="n">four_slicefactor_patterns</span><span class="o">:</span>
+
+        <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+
+    <span class="n">style</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">)</span>
+
+    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="no">True</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span>
 </code></pre></div>
 
 </details>
 <h3 id="make_sixtrack_output">make_sixtrack_output</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_sixtrack_output</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
@@ -1875,7 +2924,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -1888,7 +2937,7 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_sixtrack_output</span><span class="p">(</span><span class="nl">cpymad_instance</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">energy</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_sixtrack_output</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">energy</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -1898,7 +2947,7 @@
 
 <span class="ss">    Args:</span>
 
-<span class="ss">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="ss">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="ss">        energy (float): beam energy in GeV.</span>
 
@@ -1908,23 +2957,23 @@
 
 <span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Powering RF cavities&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;VRF400&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">16</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">injection</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">protons</span><span class="w"> </span><span class="n">iirc</span><span class="vm">?</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;VRF400&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5000</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mi">16</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="mi">6</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="n">injection</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">protons</span><span class="w"> </span><span class="n">iirc</span><span class="vm">?</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;LAGRF400.B1&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">cavity</span><span class="w"> </span><span class="n">phase</span><span class="w"> </span><span class="nf">difference</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="mi">2</span><span class="nf">pi</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;LAGRF400.B1&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.5</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">cavity</span><span class="w"> </span><span class="n">phase</span><span class="w"> </span><span class="nf">difference</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="mi">2</span><span class="nf">pi</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;LAGRF400.B2&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">&quot;LAGRF400.B2&quot;</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Executing TWISS and SIXTRACK commands&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sixtrack</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">sixtrack</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">cpymad_instance</span><span class="p">.</span><span class="n">sixtrack</span><span class="p">(</span><span class="n">cavall</span><span class="o">=</span><span class="k">True</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="o">=</span><span class="mf">0.017</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">HL</span><span class="p">(</span><span class="n">LHC</span><span class="p">)</span><span class="w"> </span><span class="n">magnet</span><span class="w"> </span><span class="n">radius</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">sixtrack</span><span class="p">(</span><span class="n">cavall</span><span class="o">=</span><span class="k">True</span><span class="p">,</span><span class="w"> </span><span class="n">radius</span><span class="o">=</span><span class="mf">0.017</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">ok</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">HL</span><span class="p">(</span><span class="n">LHC</span><span class="p">)</span><span class="w"> </span><span class="n">magnet</span><span class="w"> </span><span class="n">radius</span><span class="w"></span>
 </code></pre></div>
 
 </details>
 <h3 id="power_landau_octupoles">power_landau_octupoles</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">power_landau_octupoles</span><span class="p">(</span>
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
@@ -1943,7 +2992,7 @@
 </thead>
 <tbody>
 <tr>
-<td>cpymad_instance</td>
+<td>madx</td>
 <td>cpymad.madx.Madx</td>
 <td>an instanciated cpymad Madx object.</td>
 <td>None</td>
@@ -1968,11 +3017,7 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">power_landau_octupoles</span><span class="p">(</span>
-
-    <span class="n">cpymad_instance</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb nb-Type">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb nb-Type">bool</span> <span class="o">=</span> <span class="n">False</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="p">:</span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">power_landau_octupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb nb-Type">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb nb-Type">bool</span> <span class="o">=</span> <span class="n">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1980,7 +3025,7 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">        mo_current (float): MO powering in Amps.</span>
 
@@ -1992,7 +3037,7 @@
 
     <span class="n">try</span><span class="p">:</span>
 
-        <span class="n">brho</span> <span class="o">=</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
+        <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
 
     <span class="n">except</span> <span class="n">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
 
@@ -2004,13 +3049,9 @@
 
         <span class="n">raise</span> <span class="n">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="n">from</span> <span class="n">madx_error</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.&quot;</span><span class="p">)</span>
 
-        <span class="n">f</span><span class="s2">&quot;Powering Landau Octupoles, beam {beam} @ {cpymad_instance.globals.nrj} GeV with {mo_current} A.&quot;</span>
-
-    <span class="p">)</span>
-
-    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
+    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
 
     <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
 
@@ -2022,11 +3063,11 @@
 
             <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering element &#39;{octupole}&#39; at {strength} Amps&quot;</span><span class="p">)</span>
 
-            <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
+            <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
 
     <span class="k">if</span> <span class="n">defective_arc</span> <span class="ow">and</span> <span class="p">(</span><span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
 
-        <span class="n">cpymad_instance</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span>
 </code></pre></div>
 
 </details>
@@ -2063,13 +3104,13 @@
           </a>
         
         
-          <a href="../../maths/" title="Index" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../track/" title="Track" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Index
+                Track
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">
