@@ -39,7 +39,7 @@ class AperturePlotter:
 
     @staticmethod
     def plot_aperture(
-        cpymad_instance: Madx,
+        madx: Madx,
         beam_params: Dict[str, float],
         figsize: Tuple[int, int] = (13, 20),
         xlimits: Tuple[float, float] = None,
@@ -52,7 +52,7 @@ class AperturePlotter:
         cpymad.Madx object.
 
         Args:
-            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
             beam_params (Dict[str, float]): a beam_parameters dictionary obtained through
                 cpymadtools.helpers.beam_parameters.
             figsize (str): size of the figure, defaults to (15, 15).
@@ -71,7 +71,7 @@ class AperturePlotter:
         # pylint: disable=too-many-arguments
         # We need to interpolate in order to get high resolution along the s direction
         logger.debug("Running interpolation in cpymad")
-        cpymad_instance.input(
+        madx.input(
             """
         select, flag=interpolate, class=drift, slice=4, range=#s/#e;
         select, flag=interpolate, class=quadrupole, slice=8, range=#s/#e;
@@ -82,7 +82,7 @@ class AperturePlotter:
         )
 
         logger.debug("Getting Twiss dframe from cpymad")
-        twiss_hr: pd.DataFrame = cpymad_instance.table.twiss.dframe()
+        twiss_hr: pd.DataFrame = madx.table.twiss.dframe()
         twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx.values * beam_params["eg_y_m"])
         twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety.values * beam_params["eg_y_m"])
         twiss_hr["dispersive_envelope_x"] = twiss_hr.dx.values * beam_params["deltap_p"]
@@ -206,7 +206,7 @@ class PhaseSpacePlotter:
 
     @staticmethod
     def plot_courant_snyder_phase_space(
-        cpymad_instance: Madx,
+        madx: Madx,
         u_coordinates: np.ndarray,
         pu_coordinates: np.ndarray,
         savefig: str = None,
@@ -218,7 +218,7 @@ class PhaseSpacePlotter:
         and momentum coordinates for a specific plane.
 
         Args:
-            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
             u_coordinates (np.ndarray): numpy array of particles's coordinates for the given plane.
             pu_coordinates (np.ndarray): numpy array of particles's momentum coordinates for the
                 given plane.
@@ -239,16 +239,8 @@ class PhaseSpacePlotter:
 
         # Getting the P matrix to compute Courant-Snyder coordinates
         logger.debug("Getting Twiss functions from cpymad")
-        alpha = (
-            cpymad_instance.table.twiss.alfx[0]
-            if plane.upper() == "HORIZONTAL"
-            else cpymad_instance.table.twiss.alfy[0]
-        )
-        beta = (
-            cpymad_instance.table.twiss.betx[0]
-            if plane.upper() == "HORIZONTAL"
-            else cpymad_instance.table.twiss.bety[0]
-        )
+        alpha = madx.table.twiss.alfx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.alfy[0]
+        beta = madx.table.twiss.betx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.bety[0]
 
         logger.debug(f"Plotting Courant-Snyder phase space for the {plane.lower()} plane")
         for index, _ in enumerate(u_coordinates):
@@ -270,7 +262,7 @@ class PhaseSpacePlotter:
 
     @staticmethod
     def plot_courant_snyder_phase_space_colored(
-        cpymad_instance: Madx,
+        madx: Madx,
         u_coordinates: np.ndarray,
         pu_coordinates: np.ndarray,
         savefig: str = None,
@@ -284,7 +276,7 @@ class PhaseSpacePlotter:
         156th color.
 
         Args:
-            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
             u_coordinates (np.ndarray): numpy array of particles's coordinates for the given plane.
             pu_coordinates (np.ndarray): numpy array of particles's momentum coordinates for the
                 given plane.
@@ -308,16 +300,8 @@ class PhaseSpacePlotter:
         plt.title("Courant-Snyder Phase Space", fontsize=20)
 
         logger.debug("Getting Twiss functions from cpymad")
-        alpha = (
-            cpymad_instance.table.twiss.alfx[0]
-            if plane.upper() == "HORIZONTAL"
-            else cpymad_instance.table.twiss.alfy[0]
-        )
-        beta = (
-            cpymad_instance.table.twiss.betx[0]
-            if plane.upper() == "HORIZONTAL"
-            else cpymad_instance.table.twiss.bety[0]
-        )
+        alpha = madx.table.twiss.alfx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.alfy[0]
+        beta = madx.table.twiss.betx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.bety[0]
 
         logger.debug(f"Plotting colored normalised phase space for the {plane.lower()} plane")
         for index, _ in enumerate(u_coordinates):
@@ -405,7 +389,7 @@ class TuneDiagramPlotter:
 
     @staticmethod
     def plot_tune_diagram(
-        cpymad_instance: Madx,
+        madx: Madx,
         v_qx: np.ndarray = np.array([0]),
         vxgood: np.ndarray = np.array([False]),
         v_qy: np.ndarray = np.array([0]),
@@ -416,7 +400,7 @@ class TuneDiagramPlotter:
         Plots the evolution of particles' tunes on a Tune Diagram.
 
         Args:
-            cpymad_instance (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
             v_qx (np.ndarray): horizontal tune value as a numpy array.
             vxgood (np.ndarray): ??
             v_qy (np.ndarray): vertical tune value as a numpy array.
@@ -429,8 +413,8 @@ class TuneDiagramPlotter:
         figure = TuneDiagramPlotter.plot_blank_tune_diagram()
 
         logger.debug("Getting Tunes from cpymad")
-        new_q1: float = cpymad_instance.table.summ.dframe().q1[0]
-        new_q2: float = cpymad_instance.table.summ.dframe().q2[0]
+        new_q1: float = madx.table.summ.dframe().q1[0]
+        new_q2: float = madx.table.summ.dframe().q2[0]
 
         if vxgood.any() and vygood.any():
             plt.plot(v_qx[vxgood * vygood], v_qy[vxgood * vygood], ".r")

@@ -7,6 +7,31 @@ Created on 2020.02.02
 
 Specific constants to be used in cpymadtools functions, to help with consistency.
 """
+DEFAULT_TWISS_COLUMNS = [
+    "name",
+    "s",
+    "x",
+    "y",
+    "px",
+    "py",
+    "betx",
+    "bety",
+    "alfx",
+    "alfy",
+    "dx",
+    "dy",
+    "mux",
+    "muy",
+    "r11",
+    "r12",
+    "r21",
+    "r22",
+    "beta11",
+    "beta12",
+    "beta21",
+    "beta22",
+]
+
 LHC_CROSSING_SCHEMES = {
     "flat": {},
     "lhc_inj": {

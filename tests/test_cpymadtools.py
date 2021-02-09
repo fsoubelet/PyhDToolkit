@@ -1,7 +1,6 @@
 import math
 import pathlib
 import random
-import sys
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -10,10 +9,13 @@ import pytest
 import tfs
 
 from cpymad.madx import Madx
+from pandas._testing import assert_dict_equal
 from pandas.testing import assert_frame_equal
+from pandas import DataFrame
 
-from pyhdtoolkit.cpymadtools.constants import (
+from pyhdtoolkit.cpymadtools.constants import (  # coverage
     CORRECTOR_LIMITS,
+    DEFAULT_TWISS_COLUMNS,
     FD_FAMILIES,
     LHC_CROSSING_SCHEMES,
     SPECIAL_FAMILIES,
@@ -43,9 +45,15 @@ from pyhdtoolkit.cpymadtools.special import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
+    get_ips_twiss,
+    get_ir_twiss,
+    install_ac_dipole,
+    make_lhc_beams,
+    make_lhc_thin,
     make_sixtrack_output,
     power_landau_octupoles,
 )
+from pyhdtoolkit.cpymadtools.track import track_single_particle
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -100,8 +108,8 @@ class TestDynamicAperturePlotter:
 
 
 class TestErrors:
-    def test_magnetic_errors_switch_no_kwargs(self, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_magnetic_errors_switch_no_kwargs(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         switch_magnetic_errors(madx)
 
         for order in range(1, 16):
@@ -109,8 +117,8 @@ class TestErrors:
                 for sr in "sr":
                     assert madx.globals[f"ON_{ab}{order:d}{sr}"] == 0
 
-    def test_magnetic_errors_switch_with_kwargs(self, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_magnetic_errors_switch_with_kwargs(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         random_kwargs = {}
 
         for order in range(1, 16):
@@ -199,7 +207,7 @@ class TestLaTwiss:
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
         figure = plot_latwiss(
-            cpymad_instance=madx,
+            madx=madx,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
             beta_ylim=(5, 75),
@@ -219,7 +227,7 @@ class TestLaTwiss:
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
         figure = plot_machine_survey(
-            cpymad_instance=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
+            madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
         )
         assert saved_fig.is_file()
         return figure
@@ -229,9 +237,7 @@ class TestLaTwiss:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        return plot_machine_survey(
-            cpymad_instance=madx, show_elements=False, high_orders=True, figsize=(20, 15)
-        )
+        return plot_machine_survey(madx=madx, show_elements=False, high_orders=True, figsize=(20, 15))
 
 
 class TestMatching:
@@ -279,7 +285,7 @@ class TestMatching:
         assert madx.table.summ.dq2[0] != dq2_target
 
         match_tunes_and_chromaticities(
-            cpymad_instance=madx,
+            madx=madx,
             sequence="CAS3",
             q1_target=q1_target,
             q2_target=q2_target,
@@ -293,15 +299,29 @@ class TestMatching:
         assert math.isclose(madx.table.summ.dq1[0], dq1_target, rel_tol=1e-3)
         assert math.isclose(madx.table.summ.dq2[0], dq2_target, rel_tol=1e-3)
 
-    def test_closest_tune_approach(self, _prepared_lhc_madx):
+    def test_closest_tune_approach(self, _non_matched_lhc_madx):
         """Using LHC lattice."""
-        madx = _prepared_lhc_madx
+        madx = _non_matched_lhc_madx
         apply_lhc_coupling_knob(madx, 2e-3)
         match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
 
         knobs = get_lhc_tune_and_chroma_knobs("lhc")
         knobs_before = {knob: madx.globals[knob] for knob in knobs}
         cminus = get_closest_tune_approach(madx, "lhc", "lhcb1")
+        knobs_after = {knob: madx.globals[knob] for knob in knobs}
+
+        assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
+        assert knobs_after == knobs_before
+
+    def test_closest_tune_approach_with_explicit_targets(self, _non_matched_lhc_madx):
+        """Using LHC lattice."""
+        madx = _non_matched_lhc_madx
+        apply_lhc_coupling_knob(madx, 2e-3)
+        match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
+
+        knobs = get_lhc_tune_and_chroma_knobs("lhc")
+        knobs_before = {knob: madx.globals[knob] for knob in knobs}
+        cminus = get_closest_tune_approach(madx, "lhc", "lhcb1", explicit_targets=(62.315, 60.315))
         knobs_after = {knob: madx.globals[knob] for knob in knobs}
 
         assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
@@ -353,8 +373,8 @@ class TestOrbit:
             {"on_ssep1": "on_sep1", "on_xx1": "on_x1", "on_ssep5": "on_sep5", "on_xx5": "on_x5"},
         )
 
-    def test_lhc_orbit_setup_fals_on_unknown_scheme(self, _prepared_lhc_madx, caplog):
-        madx = _prepared_lhc_madx
+    def test_lhc_orbit_setup_fals_on_unknown_scheme(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
 
         with pytest.raises(ValueError):
             setup_lhc_orbit(madx, scheme="unknown")
@@ -363,8 +383,8 @@ class TestOrbit:
             assert record.levelname == "ERROR"
 
     @pytest.mark.parametrize("scheme", list(LHC_CROSSING_SCHEMES.keys()))
-    def test_lhc_orbit_setup(self, scheme, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_lhc_orbit_setup(self, scheme, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         setup_lhc_orbit(madx, scheme=scheme)
         variables, special = lhc_orbit_variables()
 
@@ -375,8 +395,8 @@ class TestOrbit:
         for special_variable, copy_from in special.items():
             assert madx.globals[special_variable] == madx.globals[copy_from]
 
-    def test_get_orbit_setup(self, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_get_orbit_setup(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         setup_lhc_orbit(madx, scheme="flat")
         setup = get_current_orbit_setup(madx)
 
@@ -555,12 +575,8 @@ class TestPTC:
         for record in caplog.records:
             assert record.levelname == "ERROR"
 
-    def test_amplitude_detuning(self, tmp_path, _ampdet_tfs_path):
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
+    def test_amplitude_detuning(self, tmp_path, _ampdet_tfs_path, _matched_base_lattice):
+        madx = _matched_base_lattice
 
         reference_df = tfs.read(_ampdet_tfs_path)
         ampdet_df = get_amplitude_detuning(madx, file=tmp_path / "here.tfs")
@@ -606,8 +622,8 @@ class TestSpecial:
             assert record.levelname == "ERROR"
 
     @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
-    def test_landau_powering(self, current, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_landau_powering(self, current, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
         strength = current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
         power_landau_octupoles(madx, mo_current=current, beam=1)
@@ -629,8 +645,8 @@ class TestSpecial:
             assert record.levelname == "ERROR"
 
     @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
-    def test_depower_arc_sextupoles(self, current, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_depower_arc_sextupoles(self, current, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         deactivate_lhc_arc_sextupoles(madx, beam=1)
 
         for arc in _all_lhc_arcs(beam=1):
@@ -638,25 +654,25 @@ class TestSpecial:
                 for i in (1, 2):
                     assert madx.globals[f"KS{fd}{i:d}.{arc}"] == 0.0
 
-    def test_prepare_sixtrack_output(self, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_prepare_sixtrack_output(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         make_sixtrack_output(madx, energy=6500)
 
         assert madx.globals["VRF400"] == 16
         assert madx.globals["LAGRF400.B1"] == 0.5
         assert madx.globals["LAGRF400.B2"] == 0.0
 
-    @pytest.mark.parametrize("knob_value", [-5, 0, 10])
+    @pytest.mark.parametrize("knob_value", [-5, 10])
     @pytest.mark.parametrize("IR", [1, 2, 5, 8])
-    def test_colinearity_knob(self, knob_value, IR, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_colinearity_knob(self, knob_value, IR, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         apply_lhc_colinearity_knob(madx, colinearity_knob_value=knob_value, ir=IR)
 
         assert madx.globals[f"KQSX3.R{IR:d}"] == knob_value * 1e-4
         assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * knob_value * 1e-4
 
-    def test_rigidity_knob_fails_on_invalid_side(self, caplog, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_rigidity_knob_fails_on_invalid_side(self, caplog, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
 
         with pytest.raises(ValueError):
             apply_lhc_rigidity_waist_shift_knob(madx, 1, 1, "invalid")
@@ -667,8 +683,8 @@ class TestSpecial:
     @pytest.mark.parametrize("side", ["left", "right"])
     @pytest.mark.parametrize("knob_value", [1, 2])
     @pytest.mark.parametrize("IR", [1, 2, 5, 8])
-    def test_rigidity_knob(self, side, knob_value, IR, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_rigidity_knob(self, side, knob_value, IR, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         right_knob, left_knob = (f"kqx.r{IR:d}", f"kqx.l{IR:d}")
         current_right_knob = madx.globals[right_knob]
         current_left_knob = madx.globals[left_knob]
@@ -684,10 +700,91 @@ class TestSpecial:
             assert madx.globals[left_knob] == (1 - knob_value * 0.005) * current_left_knob
 
     @pytest.mark.parametrize("knob_value", [1e-3, 3e-3, 5e-5])
-    def test_coupling_knob(self, knob_value, _prepared_lhc_madx):
-        madx = _prepared_lhc_madx
+    def test_coupling_knob(self, knob_value, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
         apply_lhc_coupling_knob(madx, coupling_knob=knob_value, beam=1)
         assert madx.globals[f"CMRS.b1"] == knob_value
+
+    @pytest.mark.parametrize("energy", [450, 6500, 7000])
+    def test_make_lhc_beams(self, energy, _bare_lhc_madx):
+        madx = _bare_lhc_madx
+        make_lhc_beams(madx, energy=energy)
+
+        madx.use(sequence="lhcb1")
+        assert madx.sequence.lhcb1.beam
+        assert madx.sequence.lhcb1.beam.energy == energy
+
+        madx.use(sequence="lhcb2")
+        assert madx.sequence.lhcb2.beam
+        assert madx.sequence.lhcb2.beam.energy == energy
+
+    @pytest.mark.parametrize("top_turns", [1000, 6000, 10_000])
+    def test_install_ac_dipole(self, top_turns, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+        install_ac_dipole(madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=3, sigma_y=3, top_turns=top_turns)
+        ramp3 = 2100 + top_turns
+        ramp4 = ramp3 + 2000
+
+        assert "MKACH.6L4.B1" in madx.elements
+        assert madx.elements["MKACH.6L4.B1"].l == 0
+        assert madx.elements["MKACH.6L4.B1"].ramp1 == 100
+        assert madx.elements["MKACH.6L4.B1"].ramp2 == 2100
+        assert madx.elements["MKACH.6L4.B1"].ramp3 == ramp3
+        assert madx.elements["MKACH.6L4.B1"].ramp4 == ramp4
+        assert math.isclose(madx.elements["MKACH.6L4.B1"].at, 9846.0765, rel_tol=1e-2)
+        assert math.isclose(madx.elements["MKACH.6L4.B1"].freq, 62.3, rel_tol=1e-2)
+
+    def test_get_ips_twiss(self, _ips_twiss_path, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+
+        reference_df = tfs.read(_ips_twiss_path)
+        ips_df = get_ips_twiss(madx)
+        assert_dict_equal(reference_df.headers, ips_df.headers)
+        assert_frame_equal(reference_df.set_index("name"), ips_df.set_index("name"))
+
+    @pytest.mark.parametrize("ir", [1, 5])
+    def test_get_irs_twiss(self, ir, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+
+        reference_df = tfs.read(INPUTS_DIR / f"ir{ir:d}_twiss.tfs")
+        ir_df = get_ir_twiss(madx, ir=ir)
+        assert_dict_equal(reference_df.headers, ir_df.headers)
+        assert_frame_equal(reference_df.set_index("name"), ir_df.set_index("name"))
+
+        extra_columns = ["k0l", "k0sl", "k1l", "k1sl", "k2l", "k2sl", "sig11", "sig12", "sig21", "sig22"]
+        ir_extra_columns_df = get_ir_twiss(madx, ir=ir, columns=DEFAULT_TWISS_COLUMNS + extra_columns)
+        assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
+
+    def test_makethin_lhc(self, _matched_lhc_madx):
+        """
+        Little trick: if we haven't sliced properly, tracking will fail so we can check all is ok by
+        attempting a tracking and seeing that it succeeds.
+        """
+        madx = _matched_lhc_madx
+        make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+
+        tracks = track_single_particle(
+            madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10, sequence="lhcb1"
+        )
+        assert isinstance(tracks, DataFrame)
+        assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
+        assert all(
+            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+        )
+
+
+class TestTrack:
+    def test_single_particle_tracking(self, _matched_base_lattice):
+        madx = _matched_base_lattice
+        tracks = track_single_particle(
+            madx, initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0), nturns=100, sequence="CAS3"
+        )
+
+        assert isinstance(tracks, DataFrame)
+        assert len(tracks) == 101  # nturns + 1 because $start coordinates also given by MAD-X
+        assert all(
+            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+        )
 
 
 class TestTuneDiagramPlotter:
@@ -775,13 +872,24 @@ def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
 
 
 @pytest.fixture()
-def _prepared_lhc_madx() -> Madx:
+def _bare_lhc_madx() -> Madx:
+    """Only loading sequence and optics."""
     madx = Madx(stdout=False)
-    madx.call(str(LHC_SEQUENCE))
-    madx.call(str(LHC_OPTICS))
+    madx.call(str(LHC_SEQUENCE.absolute()))
+    madx.call(str(LHC_OPTICS.absolute()))
+    yield madx
+    madx.exit()
+
+
+@pytest.fixture()
+def _non_matched_lhc_madx() -> Madx:
+    """Important properties & beam for lhcb1 declared and in use, NO MATCHING done here."""
+    madx = Madx(stdout=False)
+    madx.call(str(LHC_SEQUENCE.absolute()))
+    madx.call(str(LHC_OPTICS.absolute()))
 
     NRJ = madx.globals["NRJ"] = 6500
-    brho = madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+    madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
     geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
     madx.command.beam(
         sequence="lhcb1",
@@ -793,8 +901,53 @@ def _prepared_lhc_madx() -> Madx:
         ex=geometric_emit,
         ey=geometric_emit,
     )
-    madx.command.use(sequence="lhcb1")
-    return madx
+    madx.use(sequence="lhcb1")
+    yield madx
+    madx.exit()
+
+
+@pytest.fixture()
+def _matched_lhc_madx() -> Madx:
+    """Important properties & beam for lhcb1 declared and in use, WITH matching to working point."""
+    madx = Madx(stdout=False)
+    madx.call(str(LHC_SEQUENCE.absolute()))
+    madx.call(str(LHC_OPTICS.absolute()))
+
+    NRJ = madx.globals["NRJ"] = 6500
+    madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+    geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
+    madx.command.beam(
+        sequence="lhcb1",
+        bv=1,
+        energy=NRJ,
+        particle="proton",
+        npart=1.0e10,
+        kbunch=1,
+        ex=geometric_emit,
+        ey=geometric_emit,
+    )
+    madx.use(sequence="lhcb1")
+    match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
+    yield madx
+    madx.exit()
+
+
+@pytest.fixture()
+def _matched_base_lattice() -> Madx:
+    """Base CAS lattice matched to default working point."""
+    madx = Madx(stdout=False)
+    madx.input(BASE_LATTICE)
+    match_tunes_and_chromaticities(
+        madx=madx,
+        sequence="CAS3",
+        q1_target=6.335,
+        q2_target=6.29,
+        dq1_target=100,
+        dq2_target=100,
+        varied_knobs=["kqf", "kqd", "ksf", "ksd"],
+    )
+    yield madx
+    madx.exit()
 
 
 @pytest.fixture()
@@ -805,3 +958,8 @@ def _ampdet_tfs_path() -> pathlib.Path:
 @pytest.fixture()
 def _rdts_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "rdts.tfs"
+
+
+@pytest.fixture()
+def _ips_twiss_path() -> pathlib.Path:
+    return INPUTS_DIR / "ips_twiss.tfs"
