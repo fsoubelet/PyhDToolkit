@@ -69,7 +69,7 @@ condaenv:
 
 docker:
 	@echo "Building docker image with $(D)PHD$(E) conda environment, with tag $(P)simenv$(E)."
-	@docker build -f ./Dockerfile -t simenv .
+	@docker build -f ./docker/Dockerfile -t simenv .
 	@docker tag simenv simenv:latest
 	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 

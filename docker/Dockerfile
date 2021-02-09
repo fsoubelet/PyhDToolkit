@@ -7,9 +7,9 @@ FROM jupyter/base-notebook
 
 # STEP 2 & 3 - Label and environment file
 LABEL maintainer="Felix Soubelet <felix.soubelet@cern.ch>"
-COPY environment.yml /home/jovyan/environment.yml
+COPY docker/environment.yml /home/jovyan/environment.yml
 
 # STEP 4 - Create the PHD conda environment
-RUN conda env create --file ./environment.yml --force  > /dev/null \
-    && /opt/conda/bin/conda clean --all --quiet --yes > /dev/null \
+RUN conda env create --file ./environment.yml --force \
+    && /opt/conda/bin/conda clean --all --quiet --yes \
     && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD
