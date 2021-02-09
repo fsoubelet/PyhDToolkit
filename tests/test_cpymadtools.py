@@ -877,7 +877,8 @@ def _bare_lhc_madx() -> Madx:
     madx = Madx(stdout=False)
     madx.call(str(LHC_SEQUENCE.absolute()))
     madx.call(str(LHC_OPTICS.absolute()))
-    return madx
+    yield madx
+    madx.exit()
 
 
 @pytest.fixture()
@@ -901,7 +902,8 @@ def _non_matched_lhc_madx() -> Madx:
         ey=geometric_emit,
     )
     madx.use(sequence="lhcb1")
-    return madx
+    yield madx
+    madx.exit()
 
 
 @pytest.fixture()
@@ -926,7 +928,8 @@ def _matched_lhc_madx() -> Madx:
     )
     madx.use(sequence="lhcb1")
     match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
-    return madx
+    yield madx
+    madx.exit()
 
 
 @pytest.fixture()
@@ -943,7 +946,8 @@ def _matched_base_lattice() -> Madx:
         dq2_target=100,
         varied_knobs=["kqf", "kqd", "ksf", "ksd"],
     )
-    return madx
+    yield madx
+    madx.exit()
 
 
 @pytest.fixture()
