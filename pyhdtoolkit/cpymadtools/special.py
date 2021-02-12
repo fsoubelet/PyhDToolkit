@@ -349,6 +349,22 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
 
 
+def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
+    """
+    Re-cycle the provided sequence from a different starting point.
+
+    Args:
+        madx (Madx): an instantiated cpymad.madx.Madx object.
+        sequence (str): the sequence to re cycle.
+        start (str): element to start the new cycle from.
+    """
+    logger.debug(f"Re-cycling sequence '{sequence}' from {start}")
+    madx.command.seqedit(sequence=sequence)
+    madx.command.flatten()
+    madx.command.cycle(start=start)
+    madx.command.endedit()
+
+
 # ----- Twiss Utilities ----- #
 
 
