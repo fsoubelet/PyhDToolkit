@@ -117,7 +117,7 @@ def match_tunes_and_chromaticities(
     if q1_target and q2_target and dq1_target and dq2_target:
         logger.info(
             f"Doing combined matching to Qx={q1_target}, Qy={q2_target}, "
-            f"dq={dq1_target}, dqy={dq2_target} for sequence '{sequence}'"
+            f"dqx={dq1_target}, dqy={dq2_target} for sequence '{sequence}'"
         )
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
