@@ -550,6 +550,24 @@ optional = false
 python-versions = ">=3.7"
 
 [[package]]
+name = "optics-functions"
+version = "0.1.0"
+description = "Calculate optics parameters from TWISS outputs."
+category = "main"
+optional = false
+python-versions = ">=3.6"
+
+[package.dependencies]
+numpy = ">=1.19.0"
+pandas = ">=1.0"
+tfs-pandas = ">=2.0"
+
+[package.extras]
+all = ["pytest (>=5.2)", "pytest-cov (>=2.9)", "sphinx", "sphinx-rtd-theme"]
+doc = ["sphinx", "sphinx-rtd-theme"]
+test = ["pytest (>=5.2)", "pytest-cov (>=2.9)"]
+
+[[package]]
 name = "packaging"
 version = "20.9"
 description = "Core utilities for Python packages"
@@ -984,7 +1002,7 @@ docs = ["portray"]
 [metadata]
 lock-version = "1.1"
 python-versions = ">=3.7,<3.9"  # go back to "^3.7" once numba gets compatible with 3.9
-content-hash = "d64d70e91f451f8835f975156cb9c69d1083e653b0897f298186ef5324913d13"
+content-hash = "93429272e6bfec4c2bf0c0ae991b40a31dc1877a6e54c8e0f5892e93f852e898"
 
 [metadata.files]
 appdirs = [
@@ -1431,6 +1449,10 @@ numpy = [
     {file = "numpy-1.20.1-cp39-cp39-win_amd64.whl", hash = "sha256:9c94cab5054bad82a70b2e77741271790304651d584e2cdfe2041488e753863b"},
     {file = "numpy-1.20.1-pp37-pypy37_pp73-manylinux2010_x86_64.whl", hash = "sha256:9eb551d122fadca7774b97db8a112b77231dcccda8e91a5bc99e79890797175e"},
     {file = "numpy-1.20.1.zip", hash = "sha256:3bc63486a870294683980d76ec1e3efc786295ae00128f9ea38e2c6e74d5a60a"},
+]
+optics-functions = [
+    {file = "optics_functions-0.1.0-py3-none-any.whl", hash = "sha256:560eed825e15e9eae544fb41ed470b9d9d81b8e2303ab962d2cf78d9c729df39"},
+    {file = "optics_functions-0.1.0.tar.gz", hash = "sha256:f308b74096ee7beb6cd2aa8147897056a1c1113f1b1b00d1af2732e1e89f154d"},
 ]
 packaging = [
     {file = "packaging-20.9-py2.py3-none-any.whl", hash = "sha256:67714da7f7bc052e064859c05c595155bd1ee9f69f76557e21f051443c20947a"},

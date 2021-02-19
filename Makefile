@@ -61,7 +61,7 @@ clean:
 
 condaenv:
 	@echo "Creating $(D)PHD$(E) conda environment according to '$(C)environment.yml$(E)' file."
-	@conda env create -f environment.yml
+	@conda env create -f docker/environment.yml
 	@echo "Adding $(D)PHD$(E) environment to base ipython kernel."
 	@source activate PHD
 	@ipython kernel install --user --name=PHD

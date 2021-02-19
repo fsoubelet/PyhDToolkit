@@ -40,6 +40,7 @@ You can now install this simply in a virtual environment with:
 
 ### With Docker
 
+Docker provides an easy way to get access to a fully-fledged environment identical to the one I use, for reproducibility of my results.
 You can directly pull a pre-built image from `Dockerhub` (with tag `latest` being an automated build) with:
 ```bash
 > docker pull fsoubelet/simenv
@@ -50,6 +51,8 @@ Assuming you pulled the provided image from Dockerhub, run a jupyterlab server o
 ```bash
 > docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work fsoubelet/simenv
 ```
+
+Any jupyter notebook or Python files in the mounted directory can then be used / ran with an environment identical to mine.
 
 [virtual_env_primer]: https://realpython.com/python-virtual-environments-a-primer/
 [black_formatter]: https://github.com/psf/black

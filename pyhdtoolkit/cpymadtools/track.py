@@ -7,7 +7,7 @@ Created on 2020.02.03
 
 A module with functions to manipulate MAD-X TRACK functionality through a cpymad.madx.Madx object.
 """
-from typing import Dict, Tuple
+from typing import Tuple
 
 import pandas as pd
 

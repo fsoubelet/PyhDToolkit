@@ -1,5 +1,5 @@
 <h1 align="center">
-  <b>pyhdtoolkit</b>
+  <b>PyhDToolkit</b>
 </h1>
 
 <p align="center">

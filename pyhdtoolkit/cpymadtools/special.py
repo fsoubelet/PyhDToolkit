@@ -8,7 +8,7 @@ Created on 2020.02.03
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to
 LHC and HLLHC use cases.
 """
-from typing import Dict, List, Sequence, Tuple
+from typing import List, Sequence, Tuple
 
 import numpy as np
 import tfs
@@ -262,8 +262,8 @@ def install_ac_dipole(
 
     if not geometric_emit:
         logger.debug(
-            f"No value provided for the geometric emittance used when creating the beam, the value will be "
-            f"queried from MAD-X's global 'geometric_emit'"
+            "No value provided for the geometric emittance used when creating the beam, the value will be "
+            "queried from MAD-X's global 'geometric_emit'"
         )
         geometric_emit = madx.globals["geometric_emit"]
 

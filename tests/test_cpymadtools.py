@@ -9,9 +9,9 @@ import pytest
 import tfs
 
 from cpymad.madx import Madx
+from pandas import DataFrame
 from pandas._testing import assert_dict_equal
 from pandas.testing import assert_frame_equal
-from pandas import DataFrame
 
 from pyhdtoolkit.cpymadtools.constants import (  # coverage
     CORRECTOR_LIMITS,
