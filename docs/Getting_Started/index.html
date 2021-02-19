@@ -428,6 +428,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../reference/pyhdtoolkit/cpymadtools/optics/" title="Optics" class="md-nav__link">
+      Optics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../reference/pyhdtoolkit/cpymadtools/orbit/" title="Orbit" class="md-nav__link">
       Orbit
     </a>
@@ -964,13 +976,15 @@ If you checked out from version control, you can install this environment and ad
 You can also make use of a fully-fetched one through Docker as explained below. </p>
 </details>
 <h3 id="with-docker">With Docker</h3>
-<p>You can directly pull a pre-built image from <code>Dockerhub</code> (with tag <code>latest</code> being an automated build) with:
+<p>Docker provides an easy way to get access to a fully-fledged environment identical to the one I use, for reproducibility of my results.
+You can directly pull a pre-built image from <code>Dockerhub</code> (with tag <code>latest</code> being an automated build) with:
 <div class="highlight"><pre><span></span><code>&gt; docker pull fsoubelet/simenv
 </code></pre></div></p>
 <p>You can then run a server from within the container and bind a local directory to work on.
 Assuming you pulled the provided image from Dockerhub, run a jupyterlab server on port <code>8888</code> with the command:
 <div class="highlight"><pre><span></span><code>&gt; docker run --rm -p <span class="m">8888</span>:8888 -e <span class="nv">JUPYTER_ENABLE_LAB</span><span class="o">=</span>yes -v &lt;host_dir_to_mount&gt;:/home/jovyan/work fsoubelet/simenv
 </code></pre></div></p>
+<p>Any jupyter notebook or Python files in the mounted directory can then be used / ran with an environment identical to mine.</p>
                 
               
               

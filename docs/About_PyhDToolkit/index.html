@@ -422,6 +422,18 @@
 
 
   <li class="md-nav__item">
+    <a href="../../reference/pyhdtoolkit/cpymadtools/optics/" title="Optics" class="md-nav__link">
+      Optics
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
     <a href="../../reference/pyhdtoolkit/cpymadtools/orbit/" title="Orbit" class="md-nav__link">
       Orbit
     </a>
@@ -927,26 +939,25 @@
                 
                 <h1 id="about-pyhdtoolkit">About PyhDToolkit</h1>
 <h2 id="purpose">Purpose</h2>
-<p>This package is meant to be an all-in-one collection of utilities and scripts I use in my PhD work.
+<p>This package is an all-in-one collection of baseline utilities I use in my PhD work.
 Most of the codes here have their use in my day-to-day work, but not necessarily in our team's softwares.</p>
 <h2 id="functionality">Functionality</h2>
 <p>For now, <code>PyhDToolkit</code> provides some of the following features:</p>
 <ul>
-<li>Useful tools to integrate with <a href="https://github.com/hibtc/cpymad"><code>cpymad</code></a>, a Python bindings library for the <a href="https://mad.web.cern.ch/mad/"><code>MAD-X</code></a> code, including generators, matching routines and plotting utilities.</li>
+<li>A <code>cpymadtools</code> module with tools to integrate with <a href="https://github.com/hibtc/cpymad"><code>cpymad</code></a>, a Python bindings library for the <a href="https://mad.web.cern.ch/mad/"><code>MAD-X</code></a> code; including generators, matching routines, plotting utilities etc.</li>
 <li>A <code>maths</code> module to incorporate useful methods used in analysis.</li>
-<li>A <code>plotting</code> module for my favorite defaults and helpers.</li>
 <li>An <code>optics</code> module for particle accelerator physics related calculations and analysis.</li>
-<li>A <code>scripts</code> module to handle different simulations setups.</li>
+<li>A <code>plotting</code> module for my favorite defaults and helpers.</li>
 <li>A <code>tfstools</code> module similar to <code>cpymadtools</code>, with functionality revolving around handling <code>tfs</code> files and plotting their contents.</li>
-<li>A <code>utils</code> module for various utilities.</li>
+<li>A <code>utils</code> module for various Python and UNIX utilities.</li>
 </ul>
 <h2 id="roadmap">Roadmap</h2>
 <p>In addition to developping current modules, more will be added to better incorporate with the workhorse softwares of the OMC team, notably <a href="https://github.com/pylhc/tfs"><code>tfs-pandas</code></a> and <a href="https://github.com/pylhc/omc3"><code>omc3</code></a>.
 Foreseen development includes:</p>
 <ul>
-<li>Expansion of existing modules, particularly the <code>optics</code> module to include most simple calculations on beam properties.</li>
-<li>An <code>omcwrapper</code> module to handle different usecases of the <code>omc3</code> package.</li>
-<li>A <code>sixtracklibtools</code> module for utility functions surrounding the use of <code>sixtracklib</code>.</li>
+<li>Expansion of the <code>optics</code> module to include most simple calculations on beam properties.</li>
+<li>Expansion of the <code>cpymadtools</code> with utilities as their needs arise in my studies.</li>
+<li>A <code>sixtracklibtools</code> module for utility functions surrounding the use of <a href="https://github.com/SixTrack/sixtracklib"><code>sixtracklib</code></a>, eventually.</li>
 </ul>
                 
               
