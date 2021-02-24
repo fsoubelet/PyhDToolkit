@@ -9,8 +9,8 @@ A module with functions to access `optics_functions` functionality directly onto
 """
 from typing import Sequence
 
-import tfs
 import optics_functions
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger

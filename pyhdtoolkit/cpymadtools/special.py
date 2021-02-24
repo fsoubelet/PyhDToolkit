@@ -139,6 +139,11 @@ def apply_lhc_rigidity_waist_shift_knob(
     Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don't know what
     this is, you should not be using this function.
 
+    Warning: Applying the shift will modify your tunes and most likely flip them, making a subsequent
+    matching impossible if your lattice has coupling. To avoid this, match to tunes split further apart
+    before applying the waist shift knob, and then match to the desired working point. For instance for
+    the LHC, match to (62.27, 60.36) before applying, and only then match to (62.31, 60.32).
+
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).

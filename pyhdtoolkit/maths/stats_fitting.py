@@ -13,6 +13,7 @@ import warnings
 from typing import Dict, Tuple, Union
 
 import matplotlib
+import matplotlib.pyplot as plt  # if omitted, get AttributeError: module 'matplotlib' has no attribute 'axes'
 import numpy as np
 import pandas as pd
 import scipy.stats as st

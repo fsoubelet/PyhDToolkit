@@ -55,7 +55,7 @@ def get_pattern_twiss(
 
     logger.trace("Extracting relevant parts of the TWISS table")
     twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe().copy())
-    twiss_df.headers = {var: madx.table.summ[var][0] for var in madx.table.summ}
+    twiss_df.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
     twiss_df = twiss_df[madx.table.twiss.selected_columns()].iloc[
         np.array(madx.table.twiss.selected_rows()).astype(bool)
     ]
