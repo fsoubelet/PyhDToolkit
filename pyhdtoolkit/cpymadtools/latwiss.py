@@ -33,7 +33,7 @@ def _plot_lattice_series(
     v_offset: float = 0.0,
     color: str = "r",
     alpha: float = 0.5,
-    lw: int = 3,
+    lw: int = 1,
 ) -> None:
     """
     Plots the layout of your machine as a patch of rectangles for different element types.
