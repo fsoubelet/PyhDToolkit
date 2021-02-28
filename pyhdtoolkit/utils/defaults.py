@@ -7,7 +7,11 @@ Created on 2019.11.12
 
 Provides defaults to import for different settings.
 """
+import sys
+
 from pathlib import Path
+
+from loguru import logger
 
 ANACONDA_INSTALL = Path().home() / "anaconda3"
 OMC_PYTHON = ANACONDA_INSTALL / "envs" / "OMC" / "bin" / "python"
@@ -24,3 +28,12 @@ LOGURU_FORMAT = (
     "<cyan>{name}</cyan>:<cyan>{line}</cyan> - "
     "<level>{message}</level>"
 )
+
+
+def config_logger(level: str = "INFO") -> None:
+    """
+    Resets the logger object from loguru, with `sys.stdout` as a sink and the aforedefined format.
+    This comes down to personnal preference.
+    """
+    logger.remove()
+    logger.add(sys.stdout, format=LOGURU_FORMAT, level=level.upper())
