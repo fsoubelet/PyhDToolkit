@@ -26,6 +26,7 @@ class AnnotationsPlotter:
         color: str = "k",
         arrow_arc_rad: float = -0.2,
         fontsize: int = 20,
+        **kwargs,
     ) -> matplotlib.text.Annotation:
         """
         Add a label box with text and an arrow from the box to a specified position to an existing
@@ -59,4 +60,5 @@ class AnnotationsPlotter:
             arrowprops=dict(
                 arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2,
             ),
+            **kwargs,
         )
