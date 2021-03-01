@@ -116,6 +116,10 @@ def plot_latwiss(
         Any keyword argument to be transmitted to `_plot_lattice_series`, and later on to
         `matplotlib.patches.Rectangle`, such as lw etc.
 
+    WARNING:
+        Currently the function tries to plot legends for the different layout patches. The position of the
+        different legends has been hardcoded and can lead to messed-up layouts. User beware.
+
     Returns:
          The figure on which the plots are drawn. The underlying axes can be accessed with
          'fig.get_axes()'. Eventually saves the figure as a file.
