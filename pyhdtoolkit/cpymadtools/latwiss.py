@@ -77,7 +77,7 @@ def plot_latwiss(
     k0l_lim: Tuple[float, float] = (-0.25, 0.25),
     k1l_lim: Tuple[float, float] = (-0.08, 0.08),
     k2l_lim: Tuple[float, float] = None,
-    elem_lw: int = 1,
+    **kwargs,
 ) -> matplotlib.figure.Figure:
     """
     Provided with an active Cpymad class after having ran a script, will create a plot
@@ -112,51 +112,54 @@ def plot_latwiss(
         k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
-        elem_lw(int): argument given to `_plot_lattice_series` to determine the width of rectangle patches
-            edge lines when drawing objects for magnetic elements.
+
+    Keyword Args:
+        Any keyword argument to be transmitted to `_plot_lattice_series`, and later on to
+        `matplotlib.patches.Rectangle`, such as lw etc.
 
     Returns:
          The figure on which the plots are drawn. The underlying axes can be accessed with
          'fig.get_axes()'. Eventually saves the figure as a file.
     """
     # pylint: disable=too-many-arguments
+    # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.debug("Getting Twiss dataframe from cpymad")
-    twiss_df = madx.table.twiss.dframe()
+    twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
     figure = plt.figure(figsize=figsize)
 
     # Create a subplot for the lattice patches (takes a third of figure)
     logger.trace("Setting up element patches subplots")
     quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
-    dipole_patches_axis = quadrupole_patches_axis.twinx()
     quadrupole_patches_axis.set_ylabel("1/f=K1L [m$^{-1}$]", color="red")  # quadrupole in red
     quadrupole_patches_axis.tick_params(axis="y", labelcolor="red")
-    dipole_patches_axis.set_ylabel("$\\theta$=K0L [rad]", color="royalblue")  # dipoles in blue
-    dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
     quadrupole_patches_axis.set_ylim(k1l_lim)
-    dipole_patches_axis.set_ylim(k0l_lim)
-    dipole_patches_axis.grid(False)
     quadrupole_patches_axis.set_title(title)
     quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
 
-    # All elements can be defined as a 'multipole', but dipoles can also be defined as
-    # 'rbend' or 'sbend', quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'
-    logger.debug("Extracting element-specific dataframes")
-    # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
-    twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
-    quadrupoles_df = twiss_df[
-        (twiss_df.keyword.isin(["multipole", "quadrupole"])) & (twiss_df.name.str.contains("Q", case=False))
-    ]
-    dipoles_df = twiss_df[
-        (twiss_df.keyword.isin(["multipole", "rbend", "sbend"]))
-        & (twiss_df.name.str.contains("B", case=False))
-    ]
-    sextupoles_df = twiss_df[
-        (twiss_df.keyword.isin(["multipole", "sextupole"])) & (twiss_df.name.str.contains("S", case=False))
-    ]
-    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
+    dipole_patches_axis = quadrupole_patches_axis.twinx()
+    dipole_patches_axis.set_ylabel("$\\theta$=K0L [rad]", color="royalblue")  # dipoles in blue
+    dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
+    dipole_patches_axis.set_ylim(k0l_lim)
+    dipole_patches_axis.grid(False)
 
-    # Plotting dipole patches, beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
-    if plot_dipoles:
+    # All elements can be defined as a 'multipole', but dipoles can also be defined as 'rbend' or 'sbend',
+    # quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'. Function does not handle higher orders.
+    logger.debug("Extracting element-specific dataframes")
+    dipoles_df = twiss_df.loc[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])].loc[
+        twiss_df.name.str.contains("B", case=False)
+    ]
+    quadrupoles_df = twiss_df.loc[twiss_df.keyword.isin(["multipole", "quadrupole"])].loc[
+        twiss_df.name.str.contains("Q", case=False)
+    ]
+    sextupoles_df = twiss_df.loc[twiss_df.keyword.isin(["multipole", "sextupole"])].loc[
+        twiss_df.name.str.contains("S", case=False)
+    ]
+    bpms_df = twiss_df.loc[twiss_df.keyword.isin(["monitor"])].loc[
+        twiss_df.name.str.contains("BPM", case=False)
+    ]
+
+    if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         logger.debug("Plotting dipole patches")
         plotted_elements = 0  # will help us not declare a label for legend at every patch
         for _, dipole in dipoles_df.iterrows():
@@ -168,13 +171,12 @@ def plot_latwiss(
                     height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
                     v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
                     color="royalblue",
-                    lw=elem_lw,
                     label="MB" if plotted_elements == 0 else None,
+                    **kwargs,
                 )
                 plotted_elements += 1
         dipole_patches_axis.legend(loc=1)
 
-    # Plotting the quadrupole patches
     if plot_quadrupoles:
         logger.debug("Plotting quadrupole patches")
         plotted_elements = 0
@@ -185,13 +187,12 @@ def plot_latwiss(
                 height=quad.k1l,
                 v_offset=quad.k1l / 2,
                 color="r",
-                lw=elem_lw,
                 label="MQ" if plotted_elements == 0 else None,
+                **kwargs,
             )
             plotted_elements += 1
         quadrupole_patches_axis.legend(loc=2)
 
-    # Plotting the sextupole patches
     if k2l_lim:
         logger.debug("Plotting sextupole patches")
         sextupoles_patches_axis = quadrupole_patches_axis.twinx()
@@ -207,8 +208,8 @@ def plot_latwiss(
                 height=sext.k2l,
                 v_offset=sext.k2l / 2,
                 color="goldenrod",
-                lw=elem_lw,
                 label="MS" if plotted_elements == 0 else None,
+                **kwargs,
             )
             plotted_elements += 1
         sextupoles_patches_axis.legend(loc="best", bbox_to_anchor=(0.35, 1))
@@ -226,8 +227,8 @@ def plot_latwiss(
                 height=2,
                 v_offset=0,
                 color="dimgrey",
-                lw=elem_lw,
                 label="BPM" if plotted_elements == 0 else None,
+                **kwargs,
             )
             plotted_elements += 1
         bpm_patches_axis.legend(loc="best", bbox_to_anchor=(0.8, 1))
@@ -239,13 +240,8 @@ def plot_latwiss(
     betatron_axis.plot(twiss_df.s, twiss_df.bety, label="$\\beta_y$", lw=1.5)
     betatron_axis.legend(loc=2)
     betatron_axis.set_ylabel("$\\beta$-functions [m]")
-
-    if beta_ylim:
-        logger.debug("Setting ylim for betatron functions plot")
-        betatron_axis.set_ylim(beta_ylim)
     betatron_axis.set_xlabel("s [m]")
 
-    # Plotting the dispersion
     logger.trace("Setting up dispersion functions subplot")
     dispertion_axis = betatron_axis.twinx()
     dispertion_axis.plot(twiss_df.s, twiss_df.dx, color="brown", label="$D_x$", lw=2)
@@ -254,6 +250,10 @@ def plot_latwiss(
     dispertion_axis.set_ylabel("Dispersions [m]", color="brown")
     dispertion_axis.tick_params(axis="y", labelcolor="brown")
     dispertion_axis.grid(False)
+
+    if beta_ylim:
+        logger.debug("Setting ylim for betatron functions plot")
+        betatron_axis.set_ylim(beta_ylim)
 
     if disp_ylim:
         logger.debug("Setting ylim for dispersion plot")
@@ -265,7 +265,7 @@ def plot_latwiss(
 
     if savefig:
         logger.info(f"Saving latwiss plot as {savefig}")
-        plt.savefig(savefig, format="pdf", dpi=500)
+        plt.savefig(savefig)
     return figure
 
 
