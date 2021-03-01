@@ -149,18 +149,17 @@ def plot_latwiss(
     # All elements can be defined as a 'multipole', but dipoles can also be defined as 'rbend' or 'sbend',
     # quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'. Function does not handle higher orders.
     logger.debug("Extracting element-specific dataframes")
-    dipoles_df = twiss_df.loc[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])].loc[
-        twiss_df.name.str.contains("B", case=False)
+    dipoles_df = twiss_df[
+        (twiss_df.keyword.isin(["multipole", "rbend", "sbend"]))
+        & (twiss_df.name.str.contains("B", case=False))
     ]
-    quadrupoles_df = twiss_df.loc[twiss_df.keyword.isin(["multipole", "quadrupole"])].loc[
-        twiss_df.name.str.contains("Q", case=False)
+    quadrupoles_df = twiss_df[
+        (twiss_df.keyword.isin(["multipole", "quadrupole"])) & (twiss_df.name.str.contains("Q", case=False))
     ]
-    sextupoles_df = twiss_df.loc[twiss_df.keyword.isin(["multipole", "sextupole"])].loc[
-        twiss_df.name.str.contains("S", case=False)
+    sextupoles_df = twiss_df[
+        (twiss_df.keyword.isin(["multipole", "sextupole"])) & (twiss_df.name.str.contains("S", case=False))
     ]
-    bpms_df = twiss_df.loc[twiss_df.keyword.isin(["monitor"])].loc[
-        twiss_df.name.str.contains("BPM", case=False)
-    ]
+    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
 
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         logger.debug("Plotting dipole patches")

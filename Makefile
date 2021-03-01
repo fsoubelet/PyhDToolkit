@@ -57,8 +57,9 @@ clean:
 	@rm -rf .eggs
 	@echo "Cleaning up bitecode files and python cache."
 	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
-	@echo "Cleaning up pytest cache."
+	@echo "Cleaning up pytest cache & test artifacts."
 	@find . -type d -name '*.pytest_cache' -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
+	@find . -type f -name 'fc.*' -delete -o -type f -name 'fort.*' -delete
 	@echo "Cleaning up mypy cache."
 	@find . -type d -name "*.mypy_cache" -exec rm -rf {} +
 	@echo "Cleaning up coverage reports."

@@ -211,7 +211,8 @@ class TestLaTwiss:
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
             beta_ylim=(5, 75),
-            plot_sextupoles=True,
+            k2l_lim=(-0.25, 0.25),
+            plot_bpms=True,
             savefig=saved_fig,
         )
         assert saved_fig.is_file()
