@@ -65,7 +65,6 @@ def _plot_lattice_series(
 
 def plot_latwiss(
     madx: Madx,
-    /,
     title: str,
     figsize: Tuple[int, int] = (18, 11),
     savefig: str = None,
