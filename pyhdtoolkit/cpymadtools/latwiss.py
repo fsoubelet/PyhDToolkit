@@ -65,6 +65,7 @@ def _plot_lattice_series(
 
 def plot_latwiss(
     madx: Madx,
+    /,
     title: str,
     figsize: Tuple[int, int] = (18, 11),
     savefig: str = None,
@@ -153,45 +154,31 @@ def plot_latwiss(
     sextupoles_df = twiss_df[
         (twiss_df.keyword.isin(["multipole", "sextupole"])) & (twiss_df.name.str.contains("S", case=False))
     ]
-    bpms_df = twiss_df[
-        (twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))
-    ]
+    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
 
     # Plotting dipole patches, beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
     if plot_dipoles:
         logger.debug("Plotting dipole patches")
-        plotted_element = 0
+        plotted_elements = 0  # will help us not declare a label for legend at every patch
         for _, dipole in dipoles_df.iterrows():
-            if dipole.k0l != 0:
+            if dipole.k0l != 0 or dipole.angle != 0:
                 logger.trace("Plotting dipole element")
                 _plot_lattice_series(
                     dipole_patches_axis,
                     dipole,
-                    height=dipole.k0l,
-                    v_offset=dipole.k0l / 2,
+                    height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
+                    v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
                     color="royalblue",
                     lw=elem_lw,
-                    label="MB" if plotted_element == 0 else None,
+                    label="MB" if plotted_elements == 0 else None,
                 )
-                plotted_element += 1
-            if dipole.angle != 0:
-                logger.trace("Plotting 'sbend' / 'rbend' element")
-                _plot_lattice_series(
-                    dipole_patches_axis,
-                    dipole,
-                    height=dipole.angle,
-                    v_offset=dipole.angle / 2,
-                    color="royalblue",
-                    lw=elem_lw,
-                    label="MB" if plotted_element == 0 else None,
-                )
-                plotted_element += 1
+                plotted_elements += 1
         dipole_patches_axis.legend(loc=1)
 
     # Plotting the quadrupole patches
     if plot_quadrupoles:
         logger.debug("Plotting quadrupole patches")
-        plotted_element = 0
+        plotted_elements = 0
         for _, quad in quadrupoles_df.iterrows():
             _plot_lattice_series(
                 quadrupole_patches_axis,
@@ -200,20 +187,20 @@ def plot_latwiss(
                 v_offset=quad.k1l / 2,
                 color="r",
                 lw=elem_lw,
-                label="MQ" if plotted_element == 0 else None,
+                label="MQ" if plotted_elements == 0 else None,
             )
-            plotted_element += 1
+            plotted_elements += 1
         quadrupole_patches_axis.legend(loc=2)
 
     # Plotting the sextupole patches
     if k2l_lim:
         logger.debug("Plotting sextupole patches")
         sextupoles_patches_axis = quadrupole_patches_axis.twinx()
-        sextupoles_patches_axis.set_ylabel("K2L [m$^{-2}$]", color="darkgoldenrod")  # sextupoles in gold
+        sextupoles_patches_axis.set_ylabel("K2L [m$^{-2}$]", color="darkgoldenrod")
         sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
         sextupoles_patches_axis.spines["right"].set_position(("axes", 1.1))
         sextupoles_patches_axis.set_ylim(k2l_lim)
-        plotted_element = 0
+        plotted_elements = 0
         for _, sext in sextupoles_df.iterrows():
             _plot_lattice_series(
                 sextupoles_patches_axis,
@@ -222,17 +209,17 @@ def plot_latwiss(
                 v_offset=sext.k2l / 2,
                 color="goldenrod",
                 lw=elem_lw,
-                label="MS" if plotted_element == 0 else None,
+                label="MS" if plotted_elements == 0 else None,
             )
-            plotted_element += 1
+            plotted_elements += 1
         sextupoles_patches_axis.legend(loc="best", bbox_to_anchor=(0.35, 1))
 
     if plot_bpms:
         logger.debug("Plotting BPM patches")
         bpm_patches_axis = quadrupole_patches_axis.twinx()
         bpm_patches_axis.set_axis_off()  # hide yticks, labels etc
-        bpm_patches_axis.set_ylim(-1.5, 1.5)
-        plotted_element = 0
+        bpm_patches_axis.set_ylim(-1.6, 1.6)
+        plotted_elements = 0
         for _, bpm in bpms_df.iterrows():
             _plot_lattice_series(
                 bpm_patches_axis,
@@ -241,9 +228,9 @@ def plot_latwiss(
                 v_offset=0,
                 color="dimgrey",
                 lw=elem_lw,
-                label="BPM" if plotted_element == 0 else None,
+                label="BPM" if plotted_elements == 0 else None,
             )
-            plotted_element += 1
+            plotted_elements += 1
         bpm_patches_axis.legend(loc="best", bbox_to_anchor=(0.8, 1))
 
     # Plotting beta functions on remaining two thirds of the figure
