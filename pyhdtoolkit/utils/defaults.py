@@ -73,7 +73,7 @@ PLOT_PARAMS: Dict[str, Union[float, bool, str, tuple]] = {
     # ------ Paths ------ #
     "path.simplify": True,  # Reduce file size by removing "invisible" points
     # ------ Saving ------ #
-    "savefig.dpi": 300,  # Saved figure dots per inch
+    "savefig.dpi": 350,  # Saved figure dots per inch
     "savefig.format": "pdf",  # Saved figure file format
     "savefig.bbox": "tight",  # Careful: incompatible with pipe-based animation backends
     # ------ Text ------ #
