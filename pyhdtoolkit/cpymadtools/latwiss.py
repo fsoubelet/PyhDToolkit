@@ -80,13 +80,12 @@ def plot_latwiss(
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
-    Provided with an active Cpymad class after having ran a script, will create a plot
-    representing nicely the lattice layout and the beta functions along with the horizontal
-    dispertion function. This is heavily refactored code, but the original is from Guido
-    Sterbini.
+    Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
+    the lattice layout and the beta functions along with the horizontal dispertion function. This is very
+    heavily refactored code, inspired by code from Guido Sterbini.
 
-    WARNING: This WILL FAIL if you have not included 'q' or 'Q' in your quadrupoles' names,
-    and 'b' or 'B' in your dipoles' names when defining your MAD-X sequence.
+    WARNING: This WILL FAIL if you have not included 'q' or 'Q' in your quadrupoles' names, and 'b' or 'B'
+    in your dipoles' names when defining your MAD-X sequence.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
