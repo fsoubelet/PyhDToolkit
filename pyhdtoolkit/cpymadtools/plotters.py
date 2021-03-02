@@ -21,7 +21,7 @@ from loguru import logger
 from matplotlib import colors as mcolors
 
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
-from pyhdtoolkit.plotting.settings import PLOT_PARAMS
+from pyhdtoolkit.utils.defaults import PLOT_PARAMS
 
 plt.rcParams.update(PLOT_PARAMS)
 

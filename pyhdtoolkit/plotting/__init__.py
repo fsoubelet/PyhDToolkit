@@ -8,4 +8,3 @@ These are miscellaneous utilities to integrate to my plots.
 """
 
 from .helpers import AnnotationsPlotter
-from .settings import PLOT_PARAMS
