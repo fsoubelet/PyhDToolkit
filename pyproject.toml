@@ -40,7 +40,7 @@ tfs-pandas = "^2.0"
 loguru = "^0"
 numba = ">=0.51,<1.0"
 cpymad = "^1.6"
-optics-functions = "^0"
+#optics-functions = "^0"
 
 # Defining optional dependencies for extras
 portray = { version = "^1.4", optional = true }
