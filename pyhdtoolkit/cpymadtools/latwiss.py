@@ -126,6 +126,7 @@ def plot_latwiss(
     """
     # pylint: disable=too-many-arguments
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
+    logger.info("Plotting optics functions and machine layout")
     logger.debug("Getting Twiss dataframe from cpymad")
     twiss_df = madx.table.twiss.dframe().copy()
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
@@ -164,9 +165,9 @@ def plot_latwiss(
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         logger.debug("Plotting dipole patches")
         plotted_elements = 0  # will help us not declare a label for legend at every patch
-        for _, dipole in dipoles_df.iterrows():
+        for dipole_name, dipole in dipoles_df.iterrows():  # by default twiss.dframe() has names as index
             if dipole.k0l != 0 or dipole.angle != 0:
-                logger.trace("Plotting dipole element")
+                logger.trace(f"Plotting dipole element '{dipole_name}'")
                 _plot_lattice_series(
                     dipole_patches_axis,
                     dipole,
@@ -177,23 +178,24 @@ def plot_latwiss(
                     **kwargs,
                 )
                 plotted_elements += 1
-        dipole_patches_axis.legend(loc=1)
+        dipole_patches_axis.legend(loc=1, fontsize=16)
 
     if plot_quadrupoles:
         logger.debug("Plotting quadrupole patches")
         plotted_elements = 0
-        for _, quad in quadrupoles_df.iterrows():
+        for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
+            logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
             _plot_lattice_series(
                 quadrupole_patches_axis,
-                quad,
-                height=quad.k1l,
-                v_offset=quad.k1l / 2,
+                quadrupole,
+                height=quadrupole.k1l,
+                v_offset=quadrupole.k1l / 2,
                 color="r",
                 label="MQ" if plotted_elements == 0 else None,
                 **kwargs,
             )
             plotted_elements += 1
-        quadrupole_patches_axis.legend(loc=2)
+        quadrupole_patches_axis.legend(loc=2, fontsize=16)
 
     if k2l_lim:
         logger.debug("Plotting sextupole patches")
@@ -203,18 +205,19 @@ def plot_latwiss(
         sextupoles_patches_axis.spines["right"].set_position(("axes", 1.1))
         sextupoles_patches_axis.set_ylim(k2l_lim)
         plotted_elements = 0
-        for _, sext in sextupoles_df.iterrows():
+        for sextupole_name, sextupole in sextupoles_df.iterrows():
+            logger.trace(f"Plotting sextupole element '{sextupole_name}'")
             _plot_lattice_series(
                 sextupoles_patches_axis,
-                sext,
-                height=sext.k2l,
-                v_offset=sext.k2l / 2,
+                sextupole,
+                height=sextupole.k2l,
+                v_offset=sextupole.k2l / 2,
                 color="goldenrod",
                 label="MS" if plotted_elements == 0 else None,
                 **kwargs,
             )
             plotted_elements += 1
-        sextupoles_patches_axis.legend(loc="best", bbox_to_anchor=(0.35, 1))
+        sextupoles_patches_axis.legend(loc=3, fontsize=16)
 
     if plot_bpms:
         logger.debug("Plotting BPM patches")
@@ -222,7 +225,8 @@ def plot_latwiss(
         bpm_patches_axis.set_axis_off()  # hide yticks, labels etc
         bpm_patches_axis.set_ylim(-1.6, 1.6)
         plotted_elements = 0
-        for _, bpm in bpms_df.iterrows():
+        for bpm_name, bpm in bpms_df.iterrows():
+            logger.trace(f"Plotting BPM element '{bpm_name}'")
             _plot_lattice_series(
                 bpm_patches_axis,
                 bpm,
@@ -233,7 +237,7 @@ def plot_latwiss(
                 **kwargs,
             )
             plotted_elements += 1
-        bpm_patches_axis.legend(loc="best", bbox_to_anchor=(0.8, 1))
+        bpm_patches_axis.legend(loc=4, fontsize=16)
 
     # Plotting beta functions on remaining two thirds of the figure
     logger.trace("Setting up betatron functions subplot")
