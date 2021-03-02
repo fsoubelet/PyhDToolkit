@@ -1,3 +1,5 @@
+import pathlib
+
 from copy import deepcopy
 
 import numpy as np
@@ -7,7 +9,10 @@ import scipy.stats as st
 import pyhdtoolkit.maths.nonconvex_phase_sync as nps
 
 from pyhdtoolkit.maths import stats_fitting
+from pyhdtoolkit.maths import utils as mutils
 
+CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR / "inputs"
 REF_DISTRIBUTIONS = deepcopy(stats_fitting.DISTRIBUTIONS)
 
 
@@ -133,6 +138,22 @@ class TestStatsFitting:
         pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
 
 
+class TestMagnitudeUtils:
+    @pytest.mark.parametrize("value, result", [(1, 0), (10, 1), (0.0311, -2), (5e-7, -7)])
+    def test_magnitude(self, value, result):
+        assert mutils.get_magnitude(value) == result
+
+    def test_mag_and_string(self, _to_scale, _scaled):
+        scaled, mag_str = mutils.get_scaled_values_and_magnitude_string(_to_scale)
+        assert np.allclose(scaled, _scaled)
+        assert mag_str == "{-1}"
+
+    def test_mag_and_string_forced_scale(self, _to_scale, _force_scaled):
+        scaled, mag_str = mutils.get_scaled_values_and_magnitude_string(_to_scale, force_magnitude=2)
+        assert np.allclose(scaled, _force_scaled)
+        assert mag_str == "{-2}"
+
+
 # ---------------------- Utilities ---------------------- #
 
 
@@ -188,3 +209,18 @@ def _create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.nda
     gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
     upper_triangle = np.triu(gaussian_2d_mat)
     return upper_triangle - upper_triangle.T
+
+
+@pytest.fixture()
+def _to_scale() -> np.ndarray:
+    return np.load(INPUTS_DIR / "to_scale.npy")
+
+
+@pytest.fixture()
+def _scaled() -> np.ndarray:
+    return np.load(INPUTS_DIR / "scaled.npy")
+
+
+@pytest.fixture()
+def _force_scaled() -> np.ndarray:
+    return np.load(INPUTS_DIR / "force_scaled.npy")

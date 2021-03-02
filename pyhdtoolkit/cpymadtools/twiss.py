@@ -21,7 +21,7 @@ from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 
 
 def get_pattern_twiss(
-    madx: Madx, patterns: Sequence[str], columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs
+    madx: Madx, patterns: Sequence[str] = [""], columns: Sequence[str] = None, **kwargs,
 ) -> tfs.TfsDataFrame:
     """
     Extract the `TWISS` table for desired variables, and for certain elements matching a pattern.
@@ -35,8 +35,10 @@ def get_pattern_twiss(
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         patterns (Sequence[str]): the different element patterns (such as `MQX` or `BPM`) to be applied to
-            the command, which will determine the rows in the returned DataFrame.
-        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
+            the command, which will determine the rows in the returned DataFrame. Defaults to [""] which
+            will select all elements.
+        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame. Defaults to
+            None, which will return all available columns.
 
     Keyword Args:
         Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
@@ -55,7 +57,7 @@ def get_pattern_twiss(
 
     logger.trace("Extracting relevant parts of the TWISS table")
     twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe().copy())
-    twiss_df.headers = {var: madx.table.summ[var][0] for var in madx.table.summ}
+    twiss_df.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
     twiss_df = twiss_df[madx.table.twiss.selected_columns()].iloc[
         np.array(madx.table.twiss.selected_rows()).astype(bool)
     ]

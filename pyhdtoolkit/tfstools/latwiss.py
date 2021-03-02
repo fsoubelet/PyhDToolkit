@@ -19,7 +19,7 @@ import tfs
 
 from loguru import logger
 
-from pyhdtoolkit.plotting.settings import PLOT_PARAMS
+from pyhdtoolkit.utils.defaults import PLOT_PARAMS
 
 plt.rcParams.update(PLOT_PARAMS)
 

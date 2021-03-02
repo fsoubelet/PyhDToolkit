@@ -31,11 +31,17 @@ help:
 	@echo "  $(R) tests $(E)  \t  to run tests with the $(P)pytest$(E) package."
 	@echo "  $(R) type $(E)  \t  to run type checking with the $(P)mypy$(E) package."
 
+build:
+	@echo "Re-building wheel and dist"
+	@rm -rf dist
+	@poetry build
+	@echo "Created build is located in the $(C)dist$(E) folder."
+
 checklist:
 	@echo "Here is a small pre-release check-list:"
 	@echo "  - Check you are on a tagged $(P)feature/release$(E) branch (see Gitflow workflow)."
 	@echo "  - Run $(D)poetry version$(E) with the right argument and update the version number in $(C)__init__.py$(E)."
-	@echo "  - Update the pyhdtoolkit version in the $(C)environment.yml$(E) file."
+	@echo "  - Update the pyhdtoolkit version in the $(C)docker/environment.yml$(E) file."
 	@echo "  - Check the $(P)feature/release$(E) branch tag matches this release's package version."
 	@echo "  - After merging and pushing this release from $(P)master$(E) to $(P)origin/master$(E):"
 	@echo "     - Run $(D)poetry build$(E) to create a tarball of the new version."
@@ -51,8 +57,9 @@ clean:
 	@rm -rf .eggs
 	@echo "Cleaning up bitecode files and python cache."
 	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
-	@echo "Cleaning up pytest cache."
+	@echo "Cleaning up pytest cache & test artifacts."
 	@find . -type d -name '*.pytest_cache' -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
+	@find . -type f -name 'fc.*' -delete -o -type f -name 'fort.*' -delete
 	@echo "Cleaning up mypy cache."
 	@find . -type d -name "*.mypy_cache" -exec rm -rf {} +
 	@echo "Cleaning up coverage reports."

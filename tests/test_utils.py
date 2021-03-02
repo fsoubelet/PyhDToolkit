@@ -7,6 +7,8 @@ import sys
 
 import pytest
 
+from loguru import logger
+
 from pyhdtoolkit.utils import defaults  # here for coverage
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
@@ -24,6 +26,19 @@ def _square(integer: int) -> int:
 
 def _to_str(integer: int) -> str:
     return str(integer)
+
+
+class TestDefaults:
+    def test_logger_config(self, capsys):
+        defaults.config_logger()
+        message = "This should be in stdout now"
+        logger.info(message)
+        captured = capsys.readouterr()
+        assert message in captured.out
+
+        # This is to get it back as it is by defaults for other tests
+        logger.remove()
+        logger.add(sys.stderr)
 
 
 @pytest.mark.skipif(

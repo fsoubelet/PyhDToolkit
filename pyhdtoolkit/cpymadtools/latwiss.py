@@ -18,7 +18,7 @@ import pandas as pd
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.plotting.settings import PLOT_PARAMS
+from pyhdtoolkit.utils.defaults import PLOT_PARAMS
 
 plt.rcParams.update(PLOT_PARAMS)
 
@@ -33,7 +33,7 @@ def _plot_lattice_series(
     v_offset: float = 0.0,
     color: str = "r",
     alpha: float = 0.5,
-    lw: int = 3,
+    **kwargs,
 ) -> None:
     """
     Plots the layout of your machine as a patch of rectangles for different element types.
@@ -46,16 +46,19 @@ def _plot_lattice_series(
         v_offset (float): vertical offset for the patch.
         color (str): color kwarg to transmit to pyplot.
         alpha (float): alpha kwarg to transmit to pyplot.
-        lw (int): linewidth kwarg to transmit to pyplot.
+
+    Keyword Args:
+        Any kwarg that can be given to matplotlib.patches.Rectangle(), for instance `lw` for the edge line
+        width.
     """
     ax.add_patch(
         patches.Rectangle(
-            (series.s - series.l, v_offset - height / 2.0),
+            (series.s - series.l, v_offset - height / 2.0),  # anchor point
             series.l,  # width
             height,  # height
             color=color,
             alpha=alpha,
-            lw=lw,
+            **kwargs,
         )
     )
 
@@ -63,25 +66,26 @@ def _plot_lattice_series(
 def plot_latwiss(
     madx: Madx,
     title: str,
-    figsize: Tuple[int, int] = (16, 10),
+    figsize: Tuple[int, int] = (18, 11),
     savefig: str = None,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
     plot_quadrupoles: bool = True,
-    plot_sextupoles: bool = False,
+    plot_bpms: bool = False,
     disp_ylim: Tuple[float, float] = (-10, 125),
     beta_ylim: Tuple[float, float] = None,
     k0l_lim: Tuple[float, float] = (-0.25, 0.25),
     k1l_lim: Tuple[float, float] = (-0.08, 0.08),
+    k2l_lim: Tuple[float, float] = None,
+    **kwargs,
 ) -> matplotlib.figure.Figure:
     """
-    Provided with an active Cpymad class after having ran a script, will create a plot
-    representing nicely the lattice layout and the beta functions along with the horizontal
-    dispertion function. This is heavily refactored code, but the original is from Guido
-    Sterbini.
+    Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
+    the lattice layout and the beta functions along with the horizontal dispertion function. This is very
+    heavily refactored code, inspired by code from Guido Sterbini.
 
-    WARNING: This will FAIL if you have not included 'q' or 'Q' in your quadrupoles' names,
-    and 'b' or 'B' in your dipoles' names when defining your MAD-X sequence.
+    WARNING: This WILL FAIL if you have not included 'q' or 'Q' in your quadrupoles' names, and 'b' or 'B'
+    in your dipoles' names when defining your MAD-X sequence.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -94,8 +98,8 @@ def plot_latwiss(
             the figure. Defaults to True. Dipoles are plotted in blue.
         plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
             subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
-        plot_sextupoles (bool): if True, sextupole patches will be plotted on the layout subplot
-            of the figure. Defaults to False. Sextupoles are plotted in yellow.
+        plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
+            Beam Position Monitors. BPMs are plotted in dark grey.
         disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
             Defaults to (-10, 125).
         beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
@@ -104,72 +108,136 @@ def plot_latwiss(
             height of dipole patches. Defaults to (-0.25, 0.25).
         k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
             height of quadrupole patches. Defaults to (-0.08, 0.08).
+        k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
+            the figure, and the provided values act as vertical axis limits for the k2l values used for the
+            height of sextupole patches.
+
+    Keyword Args:
+        Any keyword argument to be transmitted to `_plot_lattice_series`, and later on to
+        `matplotlib.patches.Rectangle`, such as lw etc.
+
+    WARNING:
+        Currently the function tries to plot legends for the different layout patches. The position of the
+        different legends has been hardcoded and can lead to messed-up layouts. User beware.
 
     Returns:
          The figure on which the plots are drawn. The underlying axes can be accessed with
          'fig.get_axes()'. Eventually saves the figure as a file.
     """
     # pylint: disable=too-many-arguments
+    # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
+    logger.info("Plotting optics functions and machine layout")
     logger.debug("Getting Twiss dataframe from cpymad")
-    twiss_df = madx.table.twiss.dframe()
+    twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
     figure = plt.figure(figsize=figsize)
 
     # Create a subplot for the lattice patches (takes a third of figure)
     logger.trace("Setting up element patches subplots")
     quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
-    dipole_patches_axis = quadrupole_patches_axis.twinx()
     quadrupole_patches_axis.set_ylabel("1/f=K1L [m$^{-1}$]", color="red")  # quadrupole in red
     quadrupole_patches_axis.tick_params(axis="y", labelcolor="red")
-    dipole_patches_axis.set_ylabel("$\\theta$=K0L [rad]", color="blue")  # dipoles in blue
-    dipole_patches_axis.tick_params(axis="y", labelcolor="blue")
     quadrupole_patches_axis.set_ylim(k1l_lim)
+    quadrupole_patches_axis.set_title(title)
+    quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
+
+    dipole_patches_axis = quadrupole_patches_axis.twinx()
+    dipole_patches_axis.set_ylabel("$\\theta$=K0L [rad]", color="royalblue")  # dipoles in blue
+    dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
     dipole_patches_axis.set_ylim(k0l_lim)
     dipole_patches_axis.grid(False)
-    quadrupole_patches_axis.set_title(title)
-    quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")
 
-    # All elements can be defined as a 'multipole', but dipoles can also be defined as
-    # 'rbend' or 'sbend', quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'
+    # All elements can be defined as a 'multipole', but dipoles can also be defined as 'rbend' or 'sbend',
+    # quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'. Function does not handle higher orders.
     logger.debug("Extracting element-specific dataframes")
-    quadrupoles_df = twiss_df[
-        (twiss_df.keyword.isin(["multipole", "quadrupole"])) & (twiss_df.name.str.contains("Q", case=False))
-    ]
     dipoles_df = twiss_df[
         (twiss_df.keyword.isin(["multipole", "rbend", "sbend"]))
         & (twiss_df.name.str.contains("B", case=False))
     ]
+    quadrupoles_df = twiss_df[
+        (twiss_df.keyword.isin(["multipole", "quadrupole"])) & (twiss_df.name.str.contains("Q", case=False))
+    ]
     sextupoles_df = twiss_df[
         (twiss_df.keyword.isin(["multipole", "sextupole"])) & (twiss_df.name.str.contains("S", case=False))
     ]
+    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
 
-    # Plotting dipole patches, beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
-    if plot_dipoles:
+    if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         logger.debug("Plotting dipole patches")
-        for _, dipole in dipoles_df.iterrows():
-            if dipole.k0l != 0:
-                logger.trace("Plotting dipole element")
+        plotted_elements = 0  # will help us not declare a label for legend at every patch
+        for dipole_name, dipole in dipoles_df.iterrows():  # by default twiss.dframe() has names as index
+            if dipole.k0l != 0 or dipole.angle != 0:
+                logger.trace(f"Plotting dipole element '{dipole_name}'")
                 _plot_lattice_series(
-                    dipole_patches_axis, dipole, height=dipole.k0l, v_offset=dipole.k0l / 2, color="b",
+                    dipole_patches_axis,
+                    dipole,
+                    height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
+                    v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
+                    color="royalblue",
+                    label="MB" if plotted_elements == 0 else None,
+                    **kwargs,
                 )
-            if dipole.angle != 0:
-                logger.trace("Plotting 'sbend' / 'rbend' element")
-                _plot_lattice_series(
-                    dipole_patches_axis, dipole, height=dipole.angle, v_offset=dipole.angle / 2, color="b",
-                )
+                plotted_elements += 1
+        dipole_patches_axis.legend(loc=1, fontsize=16)
 
-    # Plotting the quadrupole patches
     if plot_quadrupoles:
         logger.debug("Plotting quadrupole patches")
-        for _, quad in quadrupoles_df.iterrows():
+        plotted_elements = 0
+        for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
+            logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
             _plot_lattice_series(
-                quadrupole_patches_axis, quad, height=quad.k1l, v_offset=quad.k1l / 2, color="r"
+                quadrupole_patches_axis,
+                quadrupole,
+                height=quadrupole.k1l,
+                v_offset=quadrupole.k1l / 2,
+                color="r",
+                label="MQ" if plotted_elements == 0 else None,
+                **kwargs,
             )
+            plotted_elements += 1
+        quadrupole_patches_axis.legend(loc=2, fontsize=16)
 
-    # Plotting the sextupole patches
-    if plot_sextupoles:
+    if k2l_lim:
         logger.debug("Plotting sextupole patches")
-        for _, sext in sextupoles_df.iterrows():
-            _plot_lattice_series(dipole_patches_axis, sext, height=sext.k2l, v_offset=sext.k2l / 2, color="y")
+        sextupoles_patches_axis = quadrupole_patches_axis.twinx()
+        sextupoles_patches_axis.set_ylabel("K2L [m$^{-2}$]", color="darkgoldenrod")
+        sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
+        sextupoles_patches_axis.spines["right"].set_position(("axes", 1.1))
+        sextupoles_patches_axis.set_ylim(k2l_lim)
+        plotted_elements = 0
+        for sextupole_name, sextupole in sextupoles_df.iterrows():
+            logger.trace(f"Plotting sextupole element '{sextupole_name}'")
+            _plot_lattice_series(
+                sextupoles_patches_axis,
+                sextupole,
+                height=sextupole.k2l,
+                v_offset=sextupole.k2l / 2,
+                color="goldenrod",
+                label="MS" if plotted_elements == 0 else None,
+                **kwargs,
+            )
+            plotted_elements += 1
+        sextupoles_patches_axis.legend(loc=3, fontsize=16)
+
+    if plot_bpms:
+        logger.debug("Plotting BPM patches")
+        bpm_patches_axis = quadrupole_patches_axis.twinx()
+        bpm_patches_axis.set_axis_off()  # hide yticks, labels etc
+        bpm_patches_axis.set_ylim(-1.6, 1.6)
+        plotted_elements = 0
+        for bpm_name, bpm in bpms_df.iterrows():
+            logger.trace(f"Plotting BPM element '{bpm_name}'")
+            _plot_lattice_series(
+                bpm_patches_axis,
+                bpm,
+                height=2,
+                v_offset=0,
+                color="dimgrey",
+                label="BPM" if plotted_elements == 0 else None,
+                **kwargs,
+            )
+            plotted_elements += 1
+        bpm_patches_axis.legend(loc=4, fontsize=16)
 
     # Plotting beta functions on remaining two thirds of the figure
     logger.trace("Setting up betatron functions subplot")
@@ -178,13 +246,8 @@ def plot_latwiss(
     betatron_axis.plot(twiss_df.s, twiss_df.bety, label="$\\beta_y$", lw=1.5)
     betatron_axis.legend(loc=2)
     betatron_axis.set_ylabel("$\\beta$-functions [m]")
-
-    if beta_ylim:
-        logger.debug("Setting ylim for betatron functions plot")
-        betatron_axis.set_ylim(beta_ylim)
     betatron_axis.set_xlabel("s [m]")
 
-    # Plotting the dispersion
     logger.trace("Setting up dispersion functions subplot")
     dispertion_axis = betatron_axis.twinx()
     dispertion_axis.plot(twiss_df.s, twiss_df.dx, color="brown", label="$D_x$", lw=2)
@@ -193,6 +256,10 @@ def plot_latwiss(
     dispertion_axis.set_ylabel("Dispersions [m]", color="brown")
     dispertion_axis.tick_params(axis="y", labelcolor="brown")
     dispertion_axis.grid(False)
+
+    if beta_ylim:
+        logger.debug("Setting ylim for betatron functions plot")
+        betatron_axis.set_ylim(beta_ylim)
 
     if disp_ylim:
         logger.debug("Setting ylim for dispersion plot")
@@ -204,7 +271,7 @@ def plot_latwiss(
 
     if savefig:
         logger.info(f"Saving latwiss plot as {savefig}")
-        plt.savefig(savefig, format="pdf", dpi=500)
+        plt.savefig(savefig)
     return figure
 
 
@@ -235,7 +302,7 @@ def plot_machine_survey(
          'fig.get_axes()'. Eventually saves the figure as a file.
     """
     logger.debug("Getting machine survey from cpymad")
-    madx.input("survey;")
+    madx.command.survey()
     survey = madx.table.survey.dframe()
     figure = plt.figure(figsize=figsize)
 
