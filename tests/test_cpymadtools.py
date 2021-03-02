@@ -52,6 +52,7 @@ from pyhdtoolkit.cpymadtools.special import (
     make_lhc_thin,
     make_sixtrack_output,
     power_landau_octupoles,
+    re_cycle_sequence,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 
@@ -772,6 +773,15 @@ class TestSpecial:
         assert all(
             [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
         )
+
+    def test_re_cycling(self, _bare_lhc_madx):
+        madx = _bare_lhc_madx
+        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        make_lhc_beams(madx)
+        madx.command.use(sequence="lhcb1")
+        madx.twiss()
+        twiss = madx.table.twiss.dframe().copy()
+        assert "ip3" in twiss.name[0].lower()
 
 
 class TestTrack:
