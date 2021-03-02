@@ -374,18 +374,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cpymadtools/optics/" title="Optics" class="md-nav__link">
-      Optics
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../cpymadtools/orbit/" title="Orbit" class="md-nav__link">
       Orbit
     </a>
@@ -526,6 +514,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -572,6 +572,18 @@
   <li class="md-nav__item">
     <a href="../../optics/" title="Index" class="md-nav__link">
       Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/ripken/" title="Ripken" class="md-nav__link">
+      Ripken
     </a>
   </li>
 
@@ -634,18 +646,6 @@
   <li class="md-nav__item">
     <a href="../../plotting/" title="Index" class="md-nav__link">
       Index
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
-      Settings
     </a>
   </li>
 
@@ -795,6 +795,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_logger" class="md-nav__link">
+    config_logger
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -895,6 +915,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#config_logger" class="md-nav__link">
+    config_logger
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -933,7 +973,13 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">sys</span>
+
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="n">ANACONDA_INSTALL</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;anaconda3&quot;</span>
 
@@ -958,6 +1004,128 @@
     <span class="s2">&quot;&lt;level&gt;</span><span class="si">{message}</span><span class="s2">&lt;/level&gt;&quot;</span>
 
 <span class="p">)</span>
+
+<span class="c1"># Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS).</span>
+
+<span class="c1"># Will ALWAYS be overwritten by later on definition</span>
+
+<span class="n">PLOT_PARAMS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="c1"># ------ Axes ------ #</span>
+
+    <span class="s2">&quot;axes.linewidth&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>  <span class="c1"># Linewidth of axes edges</span>
+
+    <span class="s2">&quot;axes.grid&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Do not display grid</span>
+
+    <span class="s2">&quot;axes.labelsize&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Fontsize of the x and y axis labels</span>
+
+    <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="mi">27</span><span class="p">,</span>  <span class="c1"># Fontsize of the axes title</span>
+
+    <span class="s2">&quot;axes.formatter.limits&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># Switch to scientific notations when order of magnitude reaches 1e3</span>
+
+    <span class="c1"># &quot;axes.formatter.useoffset&quot;: False,  # Do not use the annoying offset on top of yticks</span>
+
+    <span class="s2">&quot;axes.formatter.use_mathtext&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Format with i.e 10^{4} instead of 1e4</span>
+
+    <span class="c1"># ------ Date Formats ------ #</span>
+
+    <span class="s2">&quot;date.autoformatter.year&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for years display</span>
+
+    <span class="s2">&quot;date.autoformatter.month&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y-%m&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for months display</span>
+
+    <span class="s2">&quot;date.autoformatter.day&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for days display</span>
+
+    <span class="s2">&quot;date.autoformatter.hour&quot;</span><span class="p">:</span> <span class="s2">&quot;%m-</span><span class="si">%d</span><span class="s2"> %H&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for seconds display</span>
+
+    <span class="s2">&quot;date.autoformatter.minute&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> %H:%M&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for minutes display</span>
+
+    <span class="s2">&quot;date.autoformatter.second&quot;</span><span class="p">:</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for seconds display</span>
+
+    <span class="s2">&quot;date.autoformatter.microsecond&quot;</span><span class="p">:</span> <span class="s2">&quot;%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for microseconds</span>
+
+    <span class="c1"># ------ General Figure ------ #</span>
+
+    <span class="s2">&quot;figure.autolayout&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Adjust subplot params to fit the figure (tight_layout)</span>
+
+    <span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>  <span class="c1"># Figure dots per inch</span>
+
+    <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>  <span class="c1"># Size of the figure</span>
+
+    <span class="s2">&quot;figure.max_open_warning&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>  <span class="c1"># Max number of figures to open before warning</span>
+
+    <span class="s2">&quot;figure.titlesize&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Size of the figure title</span>
+
+    <span class="c1"># ------ Fonts ------ #</span>
+
+    <span class="s2">&quot;font.family&quot;</span><span class="p">:</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span>  <span class="c1"># Font family</span>
+
+    <span class="c1"># &quot;font.sans-serif&quot;: &quot;Helvetica&quot;,  # Sans-Serif font to use</span>
+
+    <span class="s2">&quot;font.style&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>  <span class="c1"># Style to apply to text font</span>
+
+    <span class="c1"># ------- Legend ------ #</span>
+
+    <span class="s2">&quot;legend.fancybox&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use rounded box for legend background</span>
+
+    <span class="s2">&quot;legend.fontsize&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>  <span class="c1"># Legend text font size</span>
+
+    <span class="s2">&quot;legend.loc&quot;</span><span class="p">:</span> <span class="s2">&quot;best&quot;</span><span class="p">,</span>  <span class="c1"># Default legend location</span>
+
+    <span class="c1"># ------ Lines ------ #</span>
+
+    <span class="s2">&quot;lines.linewidth&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># Line width, in points</span>
+
+    <span class="s2">&quot;lines.markersize&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># Marker size, in points</span>
+
+    <span class="s2">&quot;lines.antialiased&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Apply anti-aliasing to lines display</span>
+
+    <span class="c1"># ------ Patches ------ #</span>
+
+    <span class="s2">&quot;patch.linewidth&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># Width of patches edge lines</span>
+
+    <span class="s2">&quot;patch.antialiased&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Apply anti-aliasing to patches display</span>
+
+    <span class="c1"># ------ Paths ------ #</span>
+
+    <span class="s2">&quot;path.simplify&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Reduce file size by removing &quot;invisible&quot; points</span>
+
+    <span class="c1"># ------ Saving ------ #</span>
+
+    <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span> <span class="mi">350</span><span class="p">,</span>  <span class="c1"># Saved figure dots per inch</span>
+
+    <span class="s2">&quot;savefig.format&quot;</span><span class="p">:</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span>  <span class="c1"># Saved figure file format</span>
+
+    <span class="s2">&quot;savefig.bbox&quot;</span><span class="p">:</span> <span class="s2">&quot;tight&quot;</span><span class="p">,</span>  <span class="c1"># Careful: incompatible with pipe-based animation backends</span>
+
+    <span class="c1"># ------ Text ------ #</span>
+
+    <span class="s2">&quot;text.antialiased&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Apply anti-aliasing to text elements</span>
+
+    <span class="s2">&quot;text.color&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>  <span class="c1"># Default text color</span>
+
+    <span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Do not use LaTeX for text handling (I don&#39;t have a local installation)</span>
+
+    <span class="c1"># ------ Ticks ------ #</span>
+
+    <span class="s2">&quot;xtick.labelsize&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>  <span class="c1"># Fontsize of the x axis tick labels</span>
+
+    <span class="s2">&quot;ytick.labelsize&quot;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>  <span class="c1"># Fontsize of the y axis tick labels</span>
+
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span><span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Resets the logger object from loguru, with `sys.stdout` as a sink and the aforedefined format.</span>
+
+<span class="sd">    This comes down to personnal preference.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
 </code></pre></div>
 
 </details>
@@ -972,10 +1140,36 @@
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">OMC_PYTHON</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">PLOT_PARAMS</span>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">TBT_CONVERTER_SCRIPT</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">WORK_REPOSITORIES</span>
 </code></pre></div>
+<h2 id="functions">Functions</h2>
+<h3 id="config_logger">config_logger</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Resets the logger object from loguru, with <code>sys.stdout</code> as a sink and the aforedefined format.</p>
+<p>This comes down to personnal preference.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;INFO&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
+
+    <span class="s">&quot;&quot;&quot;</span>
+
+<span class="s">    Resets the logger object from loguru, with `sys.stdout` as a sink and the aforedefined format.</span>
+
+<span class="s">    This comes down to personnal preference.</span>
+
+<span class="s">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">.</span><span class="n">upper</span><span class="p">())</span>
+</code></pre></div>
+
+</details>
                 
               
               

@@ -376,18 +376,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../optics/" title="Optics" class="md-nav__link">
-      Optics
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../orbit/" title="Orbit" class="md-nav__link">
       Orbit
     </a>
@@ -663,6 +651,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -709,6 +709,18 @@
   <li class="md-nav__item">
     <a href="../../optics/" title="Index" class="md-nav__link">
       Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/ripken/" title="Ripken" class="md-nav__link">
+      Ripken
     </a>
   </li>
 
@@ -771,18 +783,6 @@
   <li class="md-nav__item">
     <a href="../../plotting/" title="Index" class="md-nav__link">
       Index
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
-      Settings
     </a>
   </li>
 
@@ -1338,6 +1338,14 @@
 <span class="sd">    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don&#39;t know what</span>
 
 <span class="sd">    this is, you should not be using this function.</span>
+
+<span class="sd">    Warning: Applying the shift will modify your tunes and most likely flip them, making a subsequent</span>
+
+<span class="sd">    matching impossible if your lattice has coupling. To avoid this, match to tunes split further apart</span>
+
+<span class="sd">    before applying the waist shift knob, and then match to the desired working point. For instance for</span>
+
+<span class="sd">    the LHC, match to (62.27, 60.36) before applying, and only then match to (62.31, 60.32).</span>
 
 <span class="sd">    Args:</span>
 
@@ -2049,6 +2057,10 @@
 </code></pre></div>
 <p>Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don't know what</p>
 <p>this is, you should not be using this function.</p>
+<p>Warning: Applying the shift will modify your tunes and most likely flip them, making a subsequent
+matching impossible if your lattice has coupling. To avoid this, match to tunes split further apart
+before applying the waist shift knob, and then match to the desired working point. For instance for
+the LHC, match to (62.27, 60.36) before applying, and only then match to (62.31, 60.32).</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -2115,6 +2127,14 @@
 <span class="ss">    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don&#39;t know what</span>
 
 <span class="ss">    this is, you should not be using this function.</span>
+
+<span class="ss">    Warning: Applying the shift will modify your tunes and most likely flip them, making a subsequent</span>
+
+<span class="ss">    matching impossible if your lattice has coupling. To avoid this, match to tunes split further apart</span>
+
+<span class="ss">    before applying the waist shift knob, and then match to the desired working point. For instance for</span>
+
+<span class="ss">    the LHC, match to (62.27, 60.36) before applying, and only then match to (62.31, 60.32).</span>
 
 <span class="ss">    Args:</span>
 

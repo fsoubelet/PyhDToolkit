@@ -376,18 +376,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../optics/" title="Optics" class="md-nav__link">
-      Optics
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../orbit/" title="Orbit" class="md-nav__link">
       Orbit
     </a>
@@ -586,6 +574,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -632,6 +632,18 @@
   <li class="md-nav__item">
     <a href="../../optics/" title="Index" class="md-nav__link">
       Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/ripken/" title="Ripken" class="md-nav__link">
+      Ripken
     </a>
   </li>
 
@@ -694,18 +706,6 @@
   <li class="md-nav__item">
     <a href="../../plotting/" title="Index" class="md-nav__link">
       Index
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../../plotting/settings/" title="Settings" class="md-nav__link">
-      Settings
     </a>
   </li>
 
@@ -989,7 +989,7 @@
 
 <span class="k">def</span> <span class="nf">get_pattern_twiss</span><span class="p">(</span>
 
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 
@@ -1013,9 +1013,13 @@
 
 <span class="sd">        patterns (Sequence[str]): the different element patterns (such as `MQX` or `BPM`) to be applied to</span>
 
-<span class="sd">            the command, which will determine the rows in the returned DataFrame.</span>
+<span class="sd">            the command, which will determine the rows in the returned DataFrame. Defaults to [&quot;&quot;] which</span>
 
-<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
+<span class="sd">            will select all elements.</span>
+
+<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame. Defaults to</span>
+
+<span class="sd">            None, which will return all available columns.</span>
 
 <span class="sd">    Keyword Args:</span>
 
@@ -1047,7 +1051,7 @@
 
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="kp">copy</span><span class="p">())</span>
 
-    <span class="n">twiss_df</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="kp">var</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">[</span><span class="kp">var</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="kp">var</span> <span class="ow">in</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">}</span>
+    <span class="n">twiss_df</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="kp">var</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">[</span><span class="kp">var</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="kp">var</span> <span class="ow">in</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">}</span>
 
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">selected_columns</span><span class="p">()]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span>
 
@@ -1070,8 +1074,8 @@
 <h3 id="get_pattern_twiss">get_pattern_twiss</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_pattern_twiss</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
-    <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;betx&#39;</span><span class="p">,</span> <span class="s1">&#39;bety&#39;</span><span class="p">,</span> <span class="s1">&#39;alfx&#39;</span><span class="p">,</span> <span class="s1">&#39;alfy&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;dy&#39;</span><span class="p">,</span> <span class="s1">&#39;mux&#39;</span><span class="p">,</span> <span class="s1">&#39;muy&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">,</span> <span class="s1">&#39;r21&#39;</span><span class="p">,</span> <span class="s1">&#39;r22&#39;</span><span class="p">,</span> <span class="s1">&#39;beta11&#39;</span><span class="p">,</span> <span class="s1">&#39;beta12&#39;</span><span class="p">,</span> <span class="s1">&#39;beta21&#39;</span><span class="p">,</span> <span class="s1">&#39;beta22&#39;</span><span class="p">],</span>
+    <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&#39;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
@@ -1084,8 +1088,10 @@ Additionally, the <code>SUMM</code> table is also returned in the form of the Tf
 <p>Args:
     madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
     patterns (Sequence[str]): the different element patterns (such as <code>MQX</code> or <code>BPM</code>) to be applied to
-        the command, which will determine the rows in the returned DataFrame.
-    columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</p>
+        the command, which will determine the rows in the returned DataFrame. Defaults to [""] which
+        will select all elements.
+    columns (Sequence[str]): the variables to be returned, as columns in the DataFrame. Defaults to
+        None, which will return all available columns.</p>
 <p>Keyword Args:
     Any keyword argument that can be given to the MAD-X TWISS command, such as <code>chrom</code>, <code>ripken</code>,
     <code>centre</code> or starting coordinates with <code>betax</code>, 'betay` etc.</p>
@@ -1094,7 +1100,7 @@ Additionally, the <code>SUMM</code> table is also returned in the form of the Tf
     and the internal <code>summ</code> table as header dict.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="p">,</span> <span class="k">columns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="err">[</span><span class="s2">&quot;&quot;</span><span class="err">]</span><span class="p">,</span> <span class="k">columns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
 
@@ -1118,9 +1124,13 @@ Additionally, the <code>SUMM</code> table is also returned in the form of the Tf
 
 <span class="s2">        patterns (Sequence[str]): the different element patterns (such as `MQX` or `BPM`) to be applied to</span>
 
-<span class="s2">            the command, which will determine the rows in the returned DataFrame.</span>
+<span class="s2">            the command, which will determine the rows in the returned DataFrame. Defaults to [</span><span class="se">&quot;&quot;</span><span class="s2">] which</span>
 
-<span class="s2">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
+<span class="s2">            will select all elements.</span>
+
+<span class="s2">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame. Defaults to</span>
+
+<span class="s2">            None, which will return all available columns.</span>
 
 <span class="s2">    Keyword Args:</span>
 
@@ -1152,7 +1162,7 @@ Additionally, the <code>SUMM</code> table is also returned in the form of the Tf
 
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">())</span>
 
-    <span class="n">twiss_df</span><span class="p">.</span><span class="n">headers</span> <span class="o">=</span> <span class="err">{</span><span class="n">var</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">[</span><span class="n">var</span><span class="err">][</span><span class="mi">0</span><span class="err">]</span> <span class="k">for</span> <span class="n">var</span> <span class="k">in</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">}</span>
+    <span class="n">twiss_df</span><span class="p">.</span><span class="n">headers</span> <span class="o">=</span> <span class="err">{</span><span class="n">var</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">[</span><span class="n">var</span><span class="err">][</span><span class="mi">0</span><span class="err">]</span> <span class="k">for</span> <span class="n">var</span> <span class="k">in</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">}</span>
 
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="err">[</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">selected_columns</span><span class="p">()</span><span class="err">]</span><span class="p">.</span><span class="n">iloc</span><span class="err">[</span>
 

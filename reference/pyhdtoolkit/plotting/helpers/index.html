@@ -374,18 +374,6 @@
 
 
   <li class="md-nav__item">
-    <a href="../../cpymadtools/optics/" title="Optics" class="md-nav__link">
-      Optics
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
     <a href="../../cpymadtools/orbit/" title="Orbit" class="md-nav__link">
       Orbit
     </a>
@@ -526,6 +514,18 @@
   </li>
 
         
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../maths/utils/" title="Utils" class="md-nav__link">
+      Utils
+    </a>
+  </li>
+
+        
       </ul>
     </nav>
   </li>
@@ -572,6 +572,18 @@
   <li class="md-nav__item">
     <a href="../../optics/" title="Index" class="md-nav__link">
       Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../optics/ripken/" title="Ripken" class="md-nav__link">
+      Ripken
     </a>
   </li>
 
@@ -707,18 +719,6 @@
   <li class="md-nav__item">
     <a href="../" title="Index" class="md-nav__link">
       Index
-    </a>
-  </li>
-
-        
-          
-          
-          
-
-
-  <li class="md-nav__item">
-    <a href="../settings/" title="Settings" class="md-nav__link">
-      Settings
     </a>
   </li>
 
@@ -1029,6 +1029,8 @@
 
         <span class="n">fontsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
 
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Annotation</span><span class="p">:</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
@@ -1091,6 +1093,8 @@
 
             <span class="p">),</span>
 
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
         <span class="p">)</span>
 </code></pre></div>
 
@@ -1128,6 +1132,8 @@
         <span class="n">arrow_arc_rad</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span>
 
         <span class="n">fontsize</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="p">.</span><span class="kt">text</span><span class="p">.</span><span class="n">Annotation</span><span class="o">:</span>
 
@@ -1191,6 +1197,8 @@
 
             <span class="p">),</span>
 
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
         <span class="p">)</span>
 </code></pre></div>
 
@@ -1205,7 +1213,8 @@
     <span class="n">label_position</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span>
     <span class="n">arrow_arc_rad</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">,</span>
-    <span class="n">fontsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="n">fontsize</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">text</span><span class="o">.</span><span class="n">Annotation</span>
 </code></pre></div>
 <p>Add a label box with text and an arrow from the box to a specified position to an existing</p>
@@ -1310,6 +1319,8 @@
 
         <span class="n">fontsize</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span>
 
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="p">.</span><span class="kt">text</span><span class="p">.</span><span class="n">Annotation</span><span class="o">:</span>
 
         <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
@@ -1371,6 +1382,8 @@
                 <span class="n">arrowstyle</span><span class="o">=</span><span class="s2">&quot;-|&gt;&quot;</span><span class="p">,</span> <span class="n">connectionstyle</span><span class="o">=</span><span class="s2">&quot;arc3,rad=&quot;</span> <span class="o">+</span> <span class="n">str</span><span class="p">(</span><span class="n">arrow_arc_rad</span><span class="p">),</span> <span class="n">fc</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
 
             <span class="p">),</span>
+
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
         <span class="p">)</span>
 </code></pre></div>
