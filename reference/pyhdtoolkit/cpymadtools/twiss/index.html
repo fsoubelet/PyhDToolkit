@@ -500,6 +500,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get_twiss_tfs" class="md-nav__link">
+    get_twiss_tfs
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -930,6 +937,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#get_twiss_tfs" class="md-nav__link">
+    get_twiss_tfs
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1064,6 +1078,40 @@
     <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">twiss_df</span>
+
+<span class="k">def</span> <span class="nf">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns a tfs.TfsDataFrame from the Madx instance&#39;s twiss dframe, typically in the way we&#39;re used to</span>
+
+<span class="sd">    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers).</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A tfs.TfsDataFrame.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;Exporting internal TWISS and SUMM tables to TfsDataFrame&quot;</span><span class="p">)</span>
+
+    <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
+
+    <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">[</span><span class="n">element</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span> <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">name</span><span class="p">]</span>
+
+    <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">&quot;NAME&quot;</span><span class="p">)</span>
+
+    <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="kp">var</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">[</span><span class="kp">var</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="kp">var</span> <span class="ow">in</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">twiss_tfs</span>
 </code></pre></div>
 
 </details>
@@ -1175,6 +1223,83 @@ Additionally, the <code>SUMM</code> table is also returned in the form of the Tf
     <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">twiss_df</span>
+</code></pre></div>
+
+</details>
+<h3 id="get_twiss_tfs">get_twiss_tfs</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_twiss_tfs</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+</code></pre></div>
+<p>Returns a tfs.TfsDataFrame from the Madx instance's twiss dframe, typically in the way we're used to</p>
+<p>getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers).</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>madx</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A tfs.TfsDataFrame.</td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">get_twiss_tfs</span><span class="p">(</span><span class="nn">madx</span><span class="p">:</span> <span class="nv">Madx</span><span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="s s-Atom">tfs</span><span class="p">.</span><span class="nv">TfsDataFrame</span><span class="s s-Atom">:</span>
+
+    <span class="s2">&quot;&quot;&quot;</span>
+
+<span class="s2">    Returns a tfs.TfsDataFrame from the Madx instance&#39;s twiss dframe, typically in the way we&#39;re used to</span>
+
+<span class="s2">    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers).</span>
+
+<span class="s2">    Args:</span>
+
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="s2">    Returns:</span>
+
+<span class="s2">        A tfs.TfsDataFrame.</span>
+
+<span class="s2">    &quot;&quot;&quot;</span>
+
+    <span class="s s-Atom">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="s2">&quot;Exporting internal TWISS and SUMM tables to TfsDataFrame&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">twiss_tfs</span> <span class="o">=</span> <span class="s s-Atom">tfs</span><span class="p">.</span><span class="nv">TfsDataFrame</span><span class="p">(</span><span class="s s-Atom">madx</span><span class="p">.</span><span class="s s-Atom">table</span><span class="p">.</span><span class="s s-Atom">twiss</span><span class="p">.</span><span class="nf">dframe</span><span class="p">())</span>
+
+    <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="s s-Atom">name</span> <span class="o">=</span> <span class="p">[</span><span class="s s-Atom">element</span><span class="p">[:-</span><span class="mi">2</span><span class="p">]</span> <span class="s s-Atom">for</span> <span class="s s-Atom">element</span> <span class="s s-Atom">in</span> <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="s s-Atom">name</span><span class="p">]</span>
+
+    <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="s s-Atom">columns</span> <span class="o">=</span> <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="s s-Atom">columns</span><span class="p">.</span><span class="s s-Atom">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
+
+    <span class="s s-Atom">twiss_tfs</span> <span class="o">=</span> <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="nf">set_index</span><span class="p">(</span><span class="s2">&quot;NAME&quot;</span><span class="p">)</span>
+
+    <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="s s-Atom">index</span> <span class="o">=</span> <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="s s-Atom">index</span><span class="p">.</span><span class="s s-Atom">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
+
+    <span class="s s-Atom">twiss_tfs</span><span class="p">.</span><span class="s s-Atom">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s s-Atom">var</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="s s-Atom">:</span> <span class="s s-Atom">madx</span><span class="p">.</span><span class="s s-Atom">table</span><span class="p">.</span><span class="s s-Atom">summ</span><span class="p">[</span><span class="s s-Atom">var</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="s s-Atom">for</span> <span class="s s-Atom">var</span> <span class="s s-Atom">in</span> <span class="s s-Atom">madx</span><span class="p">.</span><span class="s s-Atom">table</span><span class="p">.</span><span class="s s-Atom">summ</span><span class="p">}</span>
+
+    <span class="s s-Atom">return</span> <span class="s s-Atom">twiss_tfs</span>
 </code></pre></div>
 
 </details>
