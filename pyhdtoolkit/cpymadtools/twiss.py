@@ -65,3 +65,24 @@ def get_pattern_twiss(
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)
     return twiss_df
+
+
+def get_twiss_tfs(madx: Madx) -> tfs.TfsDataFrame:
+    """
+    Returns a tfs.TfsDataFrame from the Madx instance's twiss dframe, typically in the way we're used to
+    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers).
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+
+    Returns:
+        A tfs.TfsDataFrame.
+    """
+    logger.info("Exporting internal TWISS and SUMM tables to TfsDataFrame")
+    twiss_tfs = tfs.TfsDataFrame(madx.table.twiss.dframe())
+    twiss_tfs.name = [element[:-2] for element in twiss_tfs.name]
+    twiss_tfs.columns = twiss_tfs.columns.str.upper()
+    twiss_tfs = twiss_tfs.set_index("NAME")
+    twiss_tfs.index = twiss_tfs.index.str.upper()
+    twiss_tfs.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
+    return twiss_tfs

@@ -55,6 +55,7 @@ from pyhdtoolkit.cpymadtools.special import (
     re_cycle_sequence,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
+from pyhdtoolkit.cpymadtools.twiss import get_twiss_tfs
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -849,6 +850,14 @@ class TestTuneDiagramPlotter:
         return figure
 
 
+class TestTwiss:
+    def test_twisseee(self, _twiss_export, _matched_base_lattice):
+        madx = _matched_base_lattice
+        twiss_tfs = get_twiss_tfs(madx)
+        from_disk = tfs.read(_twiss_export)  # not index="NAME" because duplicate element names
+        assert_frame_equal(twiss_tfs.reset_index(), from_disk)
+
+
 # ---------------------- Private Utilities ---------------------- #
 
 
@@ -974,3 +983,8 @@ def _rdts_tfs_path() -> pathlib.Path:
 @pytest.fixture()
 def _ips_twiss_path() -> pathlib.Path:
     return INPUTS_DIR / "ips_twiss.tfs"
+
+
+@pytest.fixture()
+def _twiss_export() -> pathlib.Path:
+    return INPUTS_DIR / "twiss_export.tfs"
