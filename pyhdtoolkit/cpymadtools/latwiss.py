@@ -353,6 +353,124 @@ def plot_machine_survey(
 # ----- Helpers ----- #
 
 
+def _make_layout_plot(
+    quadrupole_patches_axis: matplotlib.axes.Axes,
+    twiss_df: pd.DataFrame,
+    title: str,
+    plot_dipoles: bool = True,
+    plot_quadrupoles: bool = True,
+    plot_bpms: bool = False,
+    k0l_lim: Tuple[float, float] = (-0.25, 0.25),
+    k1l_lim: Tuple[float, float] = (-0.08, 0.08),
+    k2l_lim: Tuple[float, float] = None,
+    **kwargs,
+) -> None:
+    logger.info("Setting up machine layout axis")
+    quadrupole_patches_axis.set_ylabel("1/f=K1L [m$^{-1}$]", color="red")  # quadrupole in red
+    quadrupole_patches_axis.tick_params(axis="y", labelcolor="red")
+    quadrupole_patches_axis.set_ylim(k1l_lim)
+    quadrupole_patches_axis.set_title(title)
+    quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
+
+    dipole_patches_axis = quadrupole_patches_axis.twinx()
+    dipole_patches_axis.set_ylabel("$\\theta$=K0L [rad]", color="royalblue")  # dipoles in blue
+    dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
+    dipole_patches_axis.set_ylim(k0l_lim)
+    dipole_patches_axis.grid(False)
+
+    # All elements can be defined as a 'multipole', but dipoles can also be defined as 'rbend' or 'sbend',
+    # quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'. Function does not handle higher orders.
+    logger.debug("Extracting element-specific dataframes")
+    dipoles_df = twiss_df[
+        (twiss_df.keyword.isin(["multipole", "rbend", "sbend"]))
+        & (twiss_df.name.str.contains("B", case=False))
+    ]
+    quadrupoles_df = twiss_df[
+        (twiss_df.keyword.isin(["multipole", "quadrupole"])) & (twiss_df.name.str.contains("Q", case=False))
+    ]
+    sextupoles_df = twiss_df[
+        (twiss_df.keyword.isin(["multipole", "sextupole"])) & (twiss_df.name.str.contains("S", case=False))
+    ]
+    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
+
+    if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
+        logger.debug("Plotting dipole patches")
+        plotted_elements = 0  # will help us not declare a label for legend at every patch
+        for dipole_name, dipole in dipoles_df.iterrows():  # by default twiss.dframe() has names as index
+            if dipole.k0l != 0 or dipole.angle != 0:
+                logger.trace(f"Plotting dipole element '{dipole_name}'")
+                _plot_lattice_series(
+                    dipole_patches_axis,
+                    dipole,
+                    height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
+                    v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
+                    color="royalblue",
+                    label="MB" if plotted_elements == 0 else None,
+                    **kwargs,
+                )
+                plotted_elements += 1
+        dipole_patches_axis.legend(loc=1, fontsize=16)
+
+    if plot_quadrupoles:
+        logger.debug("Plotting quadrupole patches")
+        plotted_elements = 0
+        for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
+            logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
+            _plot_lattice_series(
+                quadrupole_patches_axis,
+                quadrupole,
+                height=quadrupole.k1l,
+                v_offset=quadrupole.k1l / 2,
+                color="r",
+                label="MQ" if plotted_elements == 0 else None,
+                **kwargs,
+            )
+            plotted_elements += 1
+        quadrupole_patches_axis.legend(loc=2, fontsize=16)
+
+    if k2l_lim:
+        logger.debug("Plotting sextupole patches")
+        sextupoles_patches_axis = quadrupole_patches_axis.twinx()
+        sextupoles_patches_axis.set_ylabel("K2L [m$^{-2}$]", color="darkgoldenrod")
+        sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
+        sextupoles_patches_axis.spines["right"].set_position(("axes", 1.1))
+        sextupoles_patches_axis.set_ylim(k2l_lim)
+        plotted_elements = 0
+        for sextupole_name, sextupole in sextupoles_df.iterrows():
+            logger.trace(f"Plotting sextupole element '{sextupole_name}'")
+            _plot_lattice_series(
+                sextupoles_patches_axis,
+                sextupole,
+                height=sextupole.k2l,
+                v_offset=sextupole.k2l / 2,
+                color="goldenrod",
+                label="MS" if plotted_elements == 0 else None,
+                **kwargs,
+            )
+            plotted_elements += 1
+        sextupoles_patches_axis.legend(loc=3, fontsize=16)
+
+    if plot_bpms:
+        logger.debug("Plotting BPM patches")
+        bpm_patches_axis = quadrupole_patches_axis.twinx()
+        bpm_patches_axis.set_axis_off()  # hide yticks, labels etc
+        bpm_patches_axis.set_ylim(-1.6, 1.6)
+        plotted_elements = 0
+        for bpm_name, bpm in bpms_df.iterrows():
+            logger.trace(f"Plotting BPM element '{bpm_name}'")
+            _plot_lattice_series(
+                bpm_patches_axis,
+                bpm,
+                height=2,
+                v_offset=0,
+                color="dimgrey",
+                label="BPM" if plotted_elements == 0 else None,
+                **kwargs,
+            )
+            plotted_elements += 1
+        bpm_patches_axis.legend(loc=4, fontsize=16)
+
+
 def _make_survey_groups(survey_df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
     """
     Gets a survey dataframe and returns different sub-dataframes corresponding to different
