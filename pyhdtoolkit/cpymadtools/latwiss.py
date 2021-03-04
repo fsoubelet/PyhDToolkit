@@ -326,6 +326,7 @@ def _plot_machine_layout(
     quadrupole_patches_axis.set_ylabel("1/f=K1L [m$^{-1}$]", color="red")  # quadrupole in red
     quadrupole_patches_axis.tick_params(axis="y", labelcolor="red")
     quadrupole_patches_axis.set_ylim(k1l_lim)
+    quadrupole_patches_axis.set_xlim(xlimits)
     quadrupole_patches_axis.set_title(title)
     quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
 
