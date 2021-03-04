@@ -30,6 +30,7 @@ def plot_latwiss(
     title: str,
     figsize: Tuple[int, int] = (18, 11),
     savefig: str = None,
+    xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
     plot_quadrupoles: bool = True,
@@ -54,6 +55,9 @@ def plot_latwiss(
         title (str): title of your plot.
         figsize (Tuple[int, int]): size of the figure, defaults to (16, 10).
         savefig (str): will save the figure if this is not None, using the string value passed.
+        xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
+            to center a plot around a specific point or element, which would then become located at s = 0.
+            Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).
         xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
             not None, using the tuple passed.
         plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
@@ -93,6 +97,7 @@ def plot_latwiss(
     logger.info("Plotting optics functions and machine layout")
     logger.debug("Getting Twiss dataframe from cpymad")
     twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
 
     # Create a subplot for the lattice patches (takes a third of figure)
@@ -102,6 +107,7 @@ def plot_latwiss(
         madx,
         quadrupole_patches_axis=quadrupole_patches_axis,
         title=title,
+        xoffset=xoffset,
         xlimits=xlimits,
         plot_dipoles=plot_dipoles,
         plot_quadrupoles=plot_quadrupoles,
@@ -267,6 +273,7 @@ def _plot_machine_layout(
     madx: Madx,
     quadrupole_patches_axis: matplotlib.axes.Axes,
     title: str,
+    xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
     plot_quadrupoles: bool = True,
@@ -289,6 +296,9 @@ def _plot_machine_layout(
         quadrupole_patches_axis (matplotlib.axes.Axes): the axis on which to plot. Will also create the
             appropriate new axes with `twinx()` to plot the element orders asked for.
         title (str): title of your plot.
+        xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
+            to center a plot around a specific point or element, which would then become located at s = 0.
+            Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).
         xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
             not None, using the tuple passed.
         plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
@@ -319,6 +329,7 @@ def _plot_machine_layout(
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.trace("Getting Twiss dataframe from cpymad")
     twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
 
     logger.debug("Plotting machine layout")
