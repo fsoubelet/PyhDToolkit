@@ -75,12 +75,14 @@ def plot_latwiss(
             height of sextupole patches.
 
     Keyword Args:
-        Any keyword argument to be transmitted to `_plot_lattice_series`, and later on to
-        `matplotlib.patches.Rectangle`, such as lw etc.
+        Any keyword argument to be transmitted to `_plot_machine_layout`, later on to `plot_lattice_series`
+        and then `matplotlib.patches.Rectangle`, such as lw etc.
 
     WARNING:
         Currently the function tries to plot legends for the different layout patches. The position of the
-        different legends has been hardcoded and can lead to messed-up layouts. User beware.
+        different legends has been hardcoded in corners and might require users to tweak the axis limits
+        (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don't
+        overlap.
 
     Returns:
          The figure on which the plots are drawn. The underlying axes can be accessed with
@@ -274,6 +276,45 @@ def _plot_machine_layout(
     k2l_lim: Tuple[float, float] = None,
     **kwargs,
 ) -> None:
+    """
+    Provided with an active Cpymad class after having ran a script, will plot the lattice layout and the
+    on a given axis. This is the function that takes care of the machine layout in `plot_latwiss`, and
+    is in theory a private function, though if you know what you are doing you may use it individually.
+
+    WARNING: This WILL FAIL if you have not included 'q' or 'Q' in your quadrupoles' names, and 'b' or 'B'
+    in your dipoles' names when defining your MAD-X sequence.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        quadrupole_patches_axis (matplotlib.axes.Axes): the axis on which to plot. Will also create the
+            appropriate new axes with `twinx()` to plot the element orders asked for.
+        title (str): title of your plot.
+        xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
+            not None, using the tuple passed.
+        plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
+            the figure. Defaults to True. Dipoles are plotted in blue.
+        plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
+            subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
+        plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
+            Beam Position Monitors. BPMs are plotted in dark grey.
+        k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
+            height of dipole patches. Defaults to (-0.25, 0.25).
+        k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
+            height of quadrupole patches. Defaults to (-0.08, 0.08).
+        k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
+            the figure, and the provided values act as vertical axis limits for the k2l values used for the
+            height of sextupole patches.
+
+    Keyword Args:
+        Any keyword argument to be transmitted to `_plot_lattice_series`, and later on to
+        `matplotlib.patches.Rectangle`, such as lw etc.
+
+    WARNING:
+        Currently the function tries to plot legends for the different layout patches. The position of the
+        different legends has been hardcoded in corners and might require users to tweak the axis limits
+        (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don't
+        overlap.
+    """
     # pylint: disable=too-many-arguments
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.trace("Getting Twiss dataframe from cpymad")
