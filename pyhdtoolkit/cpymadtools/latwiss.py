@@ -22,45 +22,7 @@ from pyhdtoolkit.utils.defaults import PLOT_PARAMS
 
 plt.rcParams.update(PLOT_PARAMS)
 
-
-# ----- Utilities ----- #
-
-
-def _plot_lattice_series(
-    ax: matplotlib.axes.Axes,
-    series: pd.DataFrame,
-    height: float = 1.0,
-    v_offset: float = 0.0,
-    color: str = "r",
-    alpha: float = 0.5,
-    **kwargs,
-) -> None:
-    """
-    Plots the layout of your machine as a patch of rectangles for different element types.
-    Original code from Guido Sterbini.
-
-    Args:
-        ax (matplotlib.axes.Axes): an existing  matplotlib.axis `Axes` object to act on.
-        series (pd.DataFrame): a dataframe with your elements' data.
-        height (float): value to reach for the patch on the y axis.
-        v_offset (float): vertical offset for the patch.
-        color (str): color kwarg to transmit to pyplot.
-        alpha (float): alpha kwarg to transmit to pyplot.
-
-    Keyword Args:
-        Any kwarg that can be given to matplotlib.patches.Rectangle(), for instance `lw` for the edge line
-        width.
-    """
-    ax.add_patch(
-        patches.Rectangle(
-            (series.s - series.l, v_offset - height / 2.0),  # anchor point
-            series.l,  # width
-            height,  # height
-            color=color,
-            alpha=alpha,
-            **kwargs,
-        )
-    )
+# ----- Plotters ----- #
 
 
 def plot_latwiss(
@@ -259,7 +221,44 @@ def plot_machine_survey(
     return figure
 
 
-# ----- Helpers ----- #
+# ----- Utility plotters ----- #
+
+
+def _plot_lattice_series(
+    ax: matplotlib.axes.Axes,
+    series: pd.DataFrame,
+    height: float = 1.0,
+    v_offset: float = 0.0,
+    color: str = "r",
+    alpha: float = 0.5,
+    **kwargs,
+) -> None:
+    """
+    Plots the layout of your machine as a patch of rectangles for different element types.
+    Original code from Guido Sterbini.
+
+    Args:
+        ax (matplotlib.axes.Axes): an existing  matplotlib.axis `Axes` object to act on.
+        series (pd.DataFrame): a dataframe with your elements' data.
+        height (float): value to reach for the patch on the y axis.
+        v_offset (float): vertical offset for the patch.
+        color (str): color kwarg to transmit to pyplot.
+        alpha (float): alpha kwarg to transmit to pyplot.
+
+    Keyword Args:
+        Any kwarg that can be given to matplotlib.patches.Rectangle(), for instance `lw` for the edge line
+        width.
+    """
+    ax.add_patch(
+        patches.Rectangle(
+            (series.s - series.l, v_offset - height / 2.0),  # anchor point
+            series.l,  # width
+            height,  # height
+            color=color,
+            alpha=alpha,
+            **kwargs,
+        )
+    )
 
 
 def _plot_machine_layout(
@@ -275,6 +274,8 @@ def _plot_machine_layout(
     k2l_lim: Tuple[float, float] = None,
     **kwargs,
 ) -> None:
+    # pylint: disable=too-many-arguments
+    # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.trace("Getting Twiss dataframe from cpymad")
     twiss_df = madx.table.twiss.dframe().copy()
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
@@ -384,6 +385,9 @@ def _plot_machine_layout(
             )
             plotted_elements += 1
         bpm_patches_axis.legend(loc=4, fontsize=16)
+
+
+# ----- Helpers ----- #
 
 
 def _make_survey_groups(survey_df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
