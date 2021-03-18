@@ -63,6 +63,13 @@
 </p>
 
 <p align="center">
+  <!-- General DOI -->
+  <a href="https://zenodo.org/badge/latestdoi/227081702">
+    <img alt="DOI" src="https://zenodo.org/badge/227081702.svg">
+  </a>
+</p>
+
+<p align="center">
   <a href="https://www.python.org/">
     <img alt="Made With Python" src="https://forthebadge.com/images/badges/made-with-python.svg">
   </a>
