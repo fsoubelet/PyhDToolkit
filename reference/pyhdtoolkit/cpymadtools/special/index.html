@@ -1697,7 +1697,7 @@
 
     <span class="n">style</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">)</span>
 
-    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># defaults to False to compensate default TEAPOT style</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span>
 
@@ -2808,7 +2808,7 @@ will enforce <code>makedipedge</code>.</p>
 
     <span class="n">style</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">)</span>
 
-    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="no">True</span><span class="p">)</span>
+    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="no">False</span><span class="p">)</span>  <span class="c1"># defaults to False to compensate default TEAPOT style</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span>
 </code></pre></div>
