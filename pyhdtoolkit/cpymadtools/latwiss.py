@@ -334,7 +334,7 @@ def _plot_machine_layout(
 
     logger.debug("Plotting machine layout")
     logger.trace(f"Plotting from axis '{quadrupole_patches_axis}'")
-    quadrupole_patches_axis.set_ylabel("1/f=K1L [m$^{-1}$]", color="red")  # quadrupole in red
+    quadrupole_patches_axis.set_ylabel("$1/f=K_{1}L$ [m$^{-1}$]", color="red")  # quadrupole in red
     quadrupole_patches_axis.tick_params(axis="y", labelcolor="red")
     quadrupole_patches_axis.set_ylim(k1l_lim)
     quadrupole_patches_axis.set_xlim(xlimits)
@@ -342,7 +342,7 @@ def _plot_machine_layout(
     quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
 
     dipole_patches_axis = quadrupole_patches_axis.twinx()
-    dipole_patches_axis.set_ylabel("$\\theta$=K0L [rad]", color="royalblue")  # dipoles in blue
+    dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ [rad]", color="royalblue")  # dipoles in blue
     dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
     dipole_patches_axis.set_ylim(k0l_lim)
     dipole_patches_axis.grid(False)

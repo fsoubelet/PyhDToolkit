@@ -350,7 +350,7 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
 
     madx.use(sequence=sequence)
     style = kwargs.get("style", "teapot")
-    makedipedge = kwargs.get("makedipedge", True)
+    makedipedge = kwargs.get("makedipedge", False)  # defaults to False to compensate default TEAPOT style
     madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
 
 
