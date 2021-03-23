@@ -114,7 +114,7 @@ def match_tunes_and_chromaticities(
         logger.trace("Performing routine TWISS")
         madx.twiss()  # prevents errors if the user forget to do so before querying tables
 
-    if q1_target and q2_target and dq1_target and dq2_target:
+    if q1_target is not None and q2_target is not None and dq1_target is not None and dq2_target is not None:
         logger.info(
             f"Doing combined matching to Qx={q1_target}, Qy={q2_target}, "
             f"dqx={dq1_target}, dqy={dq2_target} for sequence '{sequence}'"
@@ -122,7 +122,7 @@ def match_tunes_and_chromaticities(
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
-    elif q1_target and q2_target:
+    elif q1_target is not None and q2_target is not None:
         logger.info(f"Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence '{sequence}'")
         logger.trace(f"Vary knobs sent are {varied_knobs[:2]}")
         match(*varied_knobs[:2], q1=q1_target, q2=q2_target)  # first two in varied_knobs are tune knobs
