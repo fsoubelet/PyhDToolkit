@@ -132,3 +132,34 @@ def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
     return {
         orbit_variable: madx.globals[orbit_variable] for orbit_variable in variables + list(specials.keys())
     }
+
+
+def correct_lhc_orbit(
+    madx: Madx, orbit_tolerance: float = 1e-14, iterations: int = 3, mode: str = "svd", **kwargs
+) -> None:
+    """
+    Routine for orbit correction using 'MCB.*' elements in the LHC.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.
+        iterations (int): the number of iterations of the correction to perform. Defaults to 3.
+        mode (str): the method to use for the correction. Defaults to 'svd'.
+
+    Keyword Args:
+        Any keyword argument that can be given to the MAD-X CORRECT command, such as `mode`, `ncorr`, etc.
+    """
+    logger.info("Starting orbit correction")
+    for default_kicker in ("kicker", "hkicker", "vkicker", "virtualcorrector"):
+        logger.trace(f"Disabling default corrector class '{default_kicker}'")
+        madx.command.usekick(status="off", class_=default_kicker)
+
+    logger.debug("Selecting '^MCB.*' correctors")
+    madx.command.usekick(status="on", pattern="^MCB.*")
+    madx.command.usemonitor(status="on", class_="monitor")
+
+    for _ in iterations:
+        logger.trace("Doing orbit correction for Y then X plane")
+        madx.twiss(chrom=True)
+        madx.command.correct(plane="y", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)
+        madx.command.correct(plane="x", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)
