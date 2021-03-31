@@ -6,7 +6,7 @@ Created on 2020.02.03
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to
-LHC and HLLHC use cases.
+what I do in LHC and HLLHC use cases.
 """
 from typing import List, Sequence, Tuple
 
@@ -137,12 +137,14 @@ def apply_lhc_rigidity_waist_shift_knob(
 ) -> None:
     """
     Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don't know what
-    this is, you should not be using this function.
+    this is, you should not be using this function. The waist shift is done by unbalancing the
+    triplet powering knob of the left and right-hand sides of the IP.
 
     Warning: Applying the shift will modify your tunes and most likely flip them, making a subsequent
     matching impossible if your lattice has coupling. To avoid this, match to tunes split further apart
     before applying the waist shift knob, and then match to the desired working point. For instance for
-    the LHC, match to (62.27, 60.36) before applying, and only then match to (62.31, 60.32).
+    the LHC, matching to (62.27, 60.36) before applying and afterwards rematching to (62.31, 60.32) usually
+    works well.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -155,16 +157,15 @@ def apply_lhc_rigidity_waist_shift_knob(
     """
     logger.info(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
     logger.warning("You should re-match tunes & chromaticities after this")
-    knob_variables = (f"kqx.r{ir:d}", f"kqx.l{ir:d}")  # Closest IP triplet
-    right_knob, left_knob = knob_variables
+    right_knob, left_knob = f"kqx.r{ir:d}", f"kqx.l{ir:d}"  # IP triplet default knob (no trims)
 
     current_right_knob = madx.globals[right_knob]
     current_left_knob = madx.globals[left_knob]
 
-    if side == "left":
+    if side.lower() == "left":
         madx.globals[right_knob] = (1 - rigidty_waist_shift_value * 0.005) * current_right_knob
         madx.globals[left_knob] = (1 + rigidty_waist_shift_value * 0.005) * current_left_knob
-    elif side == "right":
+    elif side.lower() == "right":
         madx.globals[right_knob] = (1 + rigidty_waist_shift_value * 0.005) * current_right_knob
         madx.globals[left_knob] = (1 - rigidty_waist_shift_value * 0.005) * current_left_knob
     else:
@@ -197,27 +198,6 @@ def apply_lhc_coupling_knob(
     logger.trace(f"Knob '{knob_name}' is {madx.globals[knob_name]} before implementation")
     madx.globals[knob_name] = coupling_knob
     logger.trace(f"Set '{knob_name}' to {madx.globals[knob_name]}")
-
-
-def make_sixtrack_output(madx: Madx, energy: int) -> None:
-    """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Prepare output for sixtrack run.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        energy (float): beam energy in GeV.
-    """
-    logger.info("Preparing outputs for SixTrack")
-
-    logger.debug("Powering RF cavities")
-    madx.globals["VRF400"] = 8 if energy < 5000 else 16  # is 6 at injection for protons iirc?
-    madx.globals["LAGRF400.B1"] = 0.5  # cavity phase difference in units of 2pi
-    madx.globals["LAGRF400.B2"] = 0.0
-
-    logger.debug("Executing TWISS and SIXTRACK commands")
-    madx.twiss()  # used by sixtrack
-    madx.sixtrack(cavall=True, radius=0.017)  # this value is only ok for HL(LHC) magnet radius
 
 
 def install_ac_dipole(
@@ -300,6 +280,30 @@ def install_ac_dipole(
     madx.globals["volty"] = volty
 
 
+# ----- Output Utilities ----- #
+
+
+def make_sixtrack_output(madx: Madx, energy: int) -> None:
+    """
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    Prepare output for sixtrack run.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        energy (float): beam energy in GeV.
+    """
+    logger.info("Preparing outputs for SixTrack")
+
+    logger.debug("Powering RF cavities")
+    madx.globals["VRF400"] = 8 if energy < 5000 else 16  # is 6 at injection for protons iirc?
+    madx.globals["LAGRF400.B1"] = 0.5  # cavity phase difference in units of 2pi
+    madx.globals["LAGRF400.B2"] = 0.0
+
+    logger.debug("Executing TWISS and SIXTRACK commands")
+    madx.twiss()  # used by sixtrack
+    madx.sixtrack(cavall=True, radius=0.017)  # this value is only ok for HL(LHC) magnet radius
+
+
 # ----- Miscellaneous Utilities ----- #
 
 
@@ -368,62 +372,6 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
     madx.command.flatten()
     madx.command.cycle(start=start)
     madx.command.endedit()
-
-
-# ----- Twiss Utilities ----- #
-
-
-def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
-    """
-    Quickly get the `TWISS` table for certain variables at IP locations only. The `SUMM` table will be
-    included as the TfsDataFrame's header dictionary.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
-
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
-        `centre` or starting coordinates with `betax`, 'betay` etc.
-
-    Returns:
-        A TfsDataFrame of the twiss output.
-    """
-    logger.info("Getting Twiss at IPs")
-    return get_pattern_twiss(madx=madx, patterns=["IP"], columns=columns, **kwargs)
-
-
-def get_ir_twiss(
-    madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs
-) -> tfs.TfsDataFrame:
-    """
-    Quickly get the `TWISS` table for certain variables for one IR, meaning at the IP and Q1 to Q3 both
-    left and right of the IP. The `SUMM` table will be included as the TfsDataFrame's header dictionary.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        ir (int): which interaction region to get the TWISS for.
-        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
-
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
-        `centre` or starting coordinates with `betax`, 'betay` etc.
-
-    Returns:
-        A TfsDataFrame of the twiss output.
-    """
-    logger.info(f"Getting Twiss for IR {ir:d}")
-    return get_pattern_twiss(
-        madx=madx,
-        patterns=[
-            f"IP{ir:d}",
-            f"MQXA.[12345][RL]{ir:d}",
-            f"MQXB.[AB][12345][RL]{ir:d}",
-            f"MQXF[AB].[AB][12345][RL]{ir:d}",  # this is for HLLHC
-        ],
-        columns=columns,
-        **kwargs,
-    )
 
 
 # ----- Helpers ----- #

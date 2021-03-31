@@ -20,8 +20,6 @@ from .special import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
-    get_ips_twiss,
-    get_ir_twiss,
     install_ac_dipole,
     make_lhc_beams,
     make_lhc_thin,
@@ -29,4 +27,4 @@ from .special import (
     power_landau_octupoles,
 )
 from .track import track_single_particle
-from .twiss import get_pattern_twiss
+from .twiss import get_ips_twiss, get_ir_twiss, get_pattern_twiss

@@ -45,8 +45,6 @@ from pyhdtoolkit.cpymadtools.special import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
-    get_ips_twiss,
-    get_ir_twiss,
     install_ac_dipole,
     make_lhc_beams,
     make_lhc_thin,
@@ -55,7 +53,7 @@ from pyhdtoolkit.cpymadtools.special import (
     re_cycle_sequence,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
-from pyhdtoolkit.cpymadtools.twiss import get_twiss_tfs
+from pyhdtoolkit.cpymadtools.twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -737,27 +735,6 @@ class TestSpecial:
         assert math.isclose(madx.elements["MKACH.6L4.B1"].at, 9846.0765, rel_tol=1e-2)
         assert math.isclose(madx.elements["MKACH.6L4.B1"].freq, 62.3, rel_tol=1e-2)
 
-    def test_get_ips_twiss(self, _ips_twiss_path, _matched_lhc_madx):
-        madx = _matched_lhc_madx
-
-        reference_df = tfs.read(_ips_twiss_path)
-        ips_df = get_ips_twiss(madx)
-        assert_dict_equal(reference_df.headers, ips_df.headers)
-        assert_frame_equal(reference_df.set_index("name"), ips_df.set_index("name"))
-
-    @pytest.mark.parametrize("ir", [1, 5])
-    def test_get_irs_twiss(self, ir, _matched_lhc_madx):
-        madx = _matched_lhc_madx
-
-        reference_df = tfs.read(INPUTS_DIR / f"ir{ir:d}_twiss.tfs")
-        ir_df = get_ir_twiss(madx, ir=ir)
-        assert_dict_equal(reference_df.headers, ir_df.headers)
-        assert_frame_equal(reference_df.set_index("name"), ir_df.set_index("name"))
-
-        extra_columns = ["k0l", "k0sl", "k1l", "k1sl", "k2l", "k2sl", "sig11", "sig12", "sig21", "sig22"]
-        ir_extra_columns_df = get_ir_twiss(madx, ir=ir, columns=DEFAULT_TWISS_COLUMNS + extra_columns)
-        assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
-
     def test_makethin_lhc(self, _matched_lhc_madx):
         """
         Little trick: if we haven't sliced properly, tracking will fail so we can check all is ok by
@@ -851,11 +828,32 @@ class TestTuneDiagramPlotter:
 
 
 class TestTwiss:
-    def test_twisseee(self, _twiss_export, _matched_base_lattice):
+    def test_twiss_tfs(self, _twiss_export, _matched_base_lattice):
         madx = _matched_base_lattice
         twiss_tfs = get_twiss_tfs(madx)
         from_disk = tfs.read(_twiss_export)  # not index="NAME" because duplicate element names
         assert_frame_equal(twiss_tfs.reset_index(), from_disk)
+
+    def test_get_ips_twiss(self, _ips_twiss_path, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+
+        reference_df = tfs.read(_ips_twiss_path)
+        ips_df = get_ips_twiss(madx)
+        assert_dict_equal(reference_df.headers, ips_df.headers)
+        assert_frame_equal(reference_df.set_index("name"), ips_df.set_index("name"))
+
+    @pytest.mark.parametrize("ir", [1, 5])
+    def test_get_irs_twiss(self, ir, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+
+        reference_df = tfs.read(INPUTS_DIR / f"ir{ir:d}_twiss.tfs")
+        ir_df = get_ir_twiss(madx, ir=ir)
+        assert_dict_equal(reference_df.headers, ir_df.headers)
+        assert_frame_equal(reference_df.set_index("name"), ir_df.set_index("name"))
+
+        extra_columns = ["k0l", "k0sl", "k1l", "k1sl", "k2l", "k2sl", "sig11", "sig12", "sig21", "sig22"]
+        ir_extra_columns_df = get_ir_twiss(madx, ir=ir, columns=DEFAULT_TWISS_COLUMNS + extra_columns)
+        assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
 
 
 # ---------------------- Private Utilities ---------------------- #
