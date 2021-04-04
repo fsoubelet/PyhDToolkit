@@ -98,6 +98,7 @@ def plot_latwiss(
     logger.debug("Getting Twiss dataframe from cpymad")
     twiss_df = madx.table.twiss.dframe().copy()
     twiss_df.s = twiss_df.s - xoffset
+    xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
 
     # Create a subplot for the lattice patches (takes a third of figure)
