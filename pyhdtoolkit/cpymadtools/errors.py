@@ -8,6 +8,8 @@ Created on 2020.02.03
 A module with functions to perform MAD-X errors setups and manipulatioins with a cpymad.madx.Madx object,
 mainly for LHC and HLLHC machines.
 """
+from typing import Sequence
+
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -46,40 +48,44 @@ def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
                 madx.globals[f"ON_{name}"] = error_value
 
 
-def misalign_lhc_triplet(madx: Madx, quad_number: int, ip: int, side: str, **kwargs,) -> None:
+def misalign_lhc_triplets(
+    madx: Madx, ip: int, sides: Sequence[str], table: str = "triplet_errors", **kwargs
+) -> None:
     """
-    Apply misalignment errors to a triplet quadrupole on a given side of a given IP. In case of a sliced
+    Apply misalignment errors to triplet quadrupoles on a given side of a given IP. In case of a sliced
     lattice, this will misalign all slices of the magnet together.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        quad_number (int): the numbering of the triplet to apply errors for. Should be on of 1, 2 or 3.
-        side (str): side of the IP to apply error on the triplets, either L or R.
         ip (int): the interaction point around which to apply errors.
+        sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
+        table (str): the name of the internal table that will save the assigned errors. Defaults to
+            'triplet_errors'.
 
     Keyword Args:
         Any keyword argument to give to the EALIGN command, including the error to apply (DX, DY, DPSI etc).
-    """
 
-    if quad_number not in (1, 2, 3):
-        logger.error(f"Quadrupole Q{quad_number} is not a triplet, this function will not have effect.")
+    Example:
+        misalign_lhc_triplets(madx, ip=1, sides="RL", dx="0.001*TGAUSS(2.5)")
+    """
+    if ip not in (1, 2, 5, 8) or not all(side.upper() in ("R", "L") for side in sides):
+        logger.error("Either the IP number of the side provided are invalid, not applying any error.")
         return
 
-    logger.info(f"Applying alignment errors to Q{quad_number:d}")
+    logger.info(f"Applying alignment errors to triplets, with arguments {kwargs}")
     madx.command.select(flag="error", clear=True)
-
-    if quad_number == 1:
+    for side in sides:
+        logger.debug(f"Applying errors on {'right' if side.upper() == 'R' else 'left'} triplet of IP{ip:d}")
         madx.command.select(flag="error", pattern=f"^MQXA.1{side.upper()}{ip:d}")  # Q1 LHC
         madx.command.select(flag="error", pattern=f"^MQXFA.[AB]1{side.upper()}{ip:d}")  # Q1A & Q1B HL-LHC
-
-    elif quad_number == 2:
         madx.command.select(flag="error", pattern=f"^MQXB.[AB]2{side.upper()}{ip:d}")  # Q2A & Q2B LHC
         madx.command.select(flag="error", pattern=f"^MQFXB.[AB]2{side.upper()}{ip:d}")  # Q2A & Q2B HL-LHC
-
-    elif quad_number == 3:
         madx.command.select(flag="error", pattern=f"^MQXA.3{side.upper()}{ip:d}")  # Q3 LHC
         madx.command.select(flag="error", pattern=f"^MQXFA.[AB]3{side.upper()}{ip:d}")  # Q3A & Q3B HL-LHC
-
     madx.command.ealign(**kwargs)
+
+    logger.debug(f"Saving assigned errors in internal table '{table if table else 'etable'}'")
+    madx.command.etable(table=table)
+
     logger.trace("Clearing up error flag")
     madx.command.select(flag="error", clear=True)
