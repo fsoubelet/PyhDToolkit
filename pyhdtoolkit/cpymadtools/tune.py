@@ -19,12 +19,7 @@ from loguru import logger
 
 
 def make_footprint_table(
-    madx: Madx,
-    sigma: float = 5,
-    dense: bool = False,
-    file: str = None,
-    cleanup: bool = True,
-    **kwargs,
+    madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs,
 ) -> pd.DataFrame:
     """
     Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the
