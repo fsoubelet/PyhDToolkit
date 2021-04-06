@@ -31,7 +31,7 @@ classifiers = [
 
 # Core dependencies of the package
 [tool.poetry.dependencies]
-python = ">=3.7,<3.9"  # go back to "^3.7" once numba gets compatible with 3.9
+python = "^3.7"
 numpy = "^1.19"
 pandas = "^1.0"
 matplotlib = "^3.1"
