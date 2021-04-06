@@ -7,7 +7,7 @@ cpymadtools is a collection of utilities that integrate within my workflow with 
 :license: MIT, see LICENSE for more details.
 """
 
-from .errors import switch_magnetic_errors
+from .errors import misalign_lhc_triplets, switch_magnetic_errors
 from .generators import LatticeGenerator
 from .latwiss import plot_latwiss, plot_machine_survey
 from .matching import get_closest_tune_approach, get_lhc_tune_and_chroma_knobs, match_tunes_and_chromaticities
@@ -27,4 +27,5 @@ from .special import (
     power_landau_octupoles,
 )
 from .track import track_single_particle
+from .tune import make_footprint_table
 from .twiss import get_ips_twiss, get_ir_twiss, get_pattern_twiss

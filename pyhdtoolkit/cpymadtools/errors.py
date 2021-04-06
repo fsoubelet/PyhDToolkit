@@ -63,14 +63,16 @@ def misalign_lhc_triplets(
             'triplet_errors'.
 
     Keyword Args:
-        Any keyword argument to give to the EALIGN command, including the error to apply (DX, DY, DPSI etc).
+        Any keyword argument to give to the EALIGN command, including the error to apply (DX, DY,
+        DPSI etc) as a string, like it would be given directly into MAD-X.
 
-    Example:
-        misalign_lhc_triplets(madx, ip=1, sides="RL", dx="0.001*TGAUSS(2.5)")
+    Examples:
+        misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-5 * TGAUSS(2.5)")
+        misalign_lhc_triplets(madx, ip=5, sides="RL", dpsi="0.001 * TGAUSS(2.5)")
     """
-    if ip not in (1, 2, 5, 8) or not all(side.upper() in ("R", "L") for side in sides):
+    if ip not in (1, 2, 5, 8) or any(side.upper() not in ("R", "L") for side in sides):
         logger.error("Either the IP number of the side provided are invalid, not applying any error.")
-        return
+        raise ValueError("Invalid 'ip' or 'sides' argument")
 
     logger.info(f"Applying alignment errors to triplets, with arguments {kwargs}")
     madx.command.select(flag="error", clear=True)

@@ -13,7 +13,7 @@ from pandas import DataFrame
 from pandas._testing import assert_dict_equal
 from pandas.testing import assert_frame_equal
 
-from pyhdtoolkit.cpymadtools.constants import (  # coverage
+from pyhdtoolkit.cpymadtools.constants import (  # for coverage
     CORRECTOR_LIMITS,
     DEFAULT_TWISS_COLUMNS,
     FD_FAMILIES,
@@ -21,7 +21,7 @@ from pyhdtoolkit.cpymadtools.constants import (  # coverage
     SPECIAL_FAMILIES,
     TWO_FAMILIES,
 )
-from pyhdtoolkit.cpymadtools.errors import switch_magnetic_errors
+from pyhdtoolkit.cpymadtools.errors import misalign_lhc_triplets, switch_magnetic_errors
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.cpymadtools.matching import (
@@ -53,6 +53,7 @@ from pyhdtoolkit.cpymadtools.special import (
     re_cycle_sequence,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
+from pyhdtoolkit.cpymadtools.tune import make_footprint_table
 from pyhdtoolkit.cpymadtools.twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
@@ -131,6 +132,37 @@ class TestErrors:
             for ab in "AB":
                 for sr in "sr":
                     assert madx.globals[f"ON_{ab}{order:d}{sr}"] == random_kwargs[f"{ab}{order:d}"]
+
+    @pytest.mark.parametrize("ip", [1, 2, 5, 8])
+    @pytest.mark.parametrize("sides", ["R", "L", "RL", "r", "l", "rl"])
+    def test_misalign_triplets(self, _non_matched_lhc_madx, ip, sides):
+        madx = _non_matched_lhc_madx
+        misalign_lhc_triplets(madx, ip=ip, sides=sides, dx="1E-3 * TGAUSS(2.5)", dpsi="1E-3 * TGAUSS(2.5)")
+        error_table = madx.table["triplet_errors"].dframe().copy()
+        assert all(error_table["dx"] != 0)
+        assert all(error_table["dpsi"] != 0)
+
+    def test_misalign_triplets_specific_value(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
+        misalign_lhc_triplets(madx, ip=1, sides="RL", dy="0.001")
+        error_table = madx.table["triplet_errors"].dframe().copy()
+        assert all(error_table["dy"] == 0.001)
+
+    def test_misalign_triplets_raises_on_wrong_side(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            misalign_lhc_triplets(madx, ip=1, sides="Z")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_misalign_triplets_raises_on_wrong_ip(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            misalign_lhc_triplets(madx, ip=100, sides="R")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
 
 
 class TestLatticeGenerator:
