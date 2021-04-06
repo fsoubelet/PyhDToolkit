@@ -75,8 +75,8 @@ def make_footprint_table(
 
     if cleanup:
         logger.debug("Cleaning up DYNAP output file `fort.69` and `lyapunov.data`")
-        Path("fort.69").unlink(missing_ok=True)
-        Path("lyapunov.data").unlink(missing_ok=True)
+        Path("fort.69").unlink()
+        Path("lyapunov.data").unlink()
 
     if file:
         madx.command.write(table="dynaptune", file=f"{file}")
