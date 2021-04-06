@@ -79,5 +79,5 @@ def make_footprint_table(
         Path("lyapunov.data").unlink(missing_ok=True)
 
     if file:
-        madx.command.write(table="dynaptune", file=f"{file}.tfs")
+        madx.command.write(table="dynaptune", file=f"{file}")
     return madx.table.dynaptune.dframe().copy()

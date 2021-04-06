@@ -808,6 +808,35 @@ class TestTrack:
         )
 
 
+class TestTune:
+    def test_make_footprint_table(self, _non_matched_lhc_madx, tmp_path):
+        export_file = tmp_path / "out.tfs"
+        madx = _non_matched_lhc_madx
+        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        orbit_scheme = setup_lhc_orbit(madx, scheme="flat")
+        madx.use(sequence="lhcb1")
+        match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
+
+        make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+        madx.use(sequence="lhcb1")
+
+        foot = make_footprint_table(madx, sigma=2, file=str(export_file))
+        assert isinstance(foot, DataFrame)
+        assert export_file.exists()
+
+    def test_make_footprint_table_crashes_without_slicing(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        orbit_scheme = setup_lhc_orbit(madx, scheme="flat")
+        madx.use(sequence="lhcb1")
+
+        with pytest.raises(RuntimeError):
+            foot = make_footprint_table(madx, sigma=2)
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+
 class TestTuneDiagramPlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_blank_tune_diagram(self):
