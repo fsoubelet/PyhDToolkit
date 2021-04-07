@@ -9,6 +9,7 @@ A collection of functions to manipulate MAD-X functionality around the tune thro
 object.
 """
 import math
+import sys
 
 from pathlib import Path
 
@@ -73,12 +74,11 @@ def make_footprint_table(
         )
         raise RuntimeError("DYNAP command crashed the MAD-X process") from madx_crash
 
-    if cleanup:
+    if cleanup and sys.platform not in ("win32", "cygwin"):
+        # fails on Windows due to its I/O system, since MAD-X still has "control" of the files
         logger.debug("Cleaning up DYNAP output file `fort.69` and `lyapunov.data`")
-        if Path("fort.90").is_file():
-            Path("fort.69").unlink()
-        if Path("lyapunov.data").is_file():
-            Path("lyapunov.data").unlink()
+        Path("fort.69").unlink()
+        Path("lyapunov.data").unlink()
 
     if file:
         madx.command.write(table="dynaptune", file=f"{file}")
