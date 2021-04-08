@@ -51,6 +51,7 @@ from pyhdtoolkit.cpymadtools.special import (
     make_sixtrack_output,
     power_landau_octupoles,
     re_cycle_sequence,
+    vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.cpymadtools.tune import make_footprint_table
@@ -792,6 +793,37 @@ class TestSpecial:
         madx.twiss()
         twiss = madx.table.twiss.dframe().copy()
         assert "ip3" in twiss.name[0].lower()
+
+    def test_vary_independent_ir_quads(self, _non_matched_lhc_madx):
+        # still need to find how to test MAD-X has done this, but don't think we can test just a VARY
+        madx = _non_matched_lhc_madx
+        vary_independent_ir_quadrupoles(
+            madx, quad_numbers=[4, 5, 6, 7, 8, 9, 10, 11, 12, 13], ip=1, sides=("r", "l")
+        )
+
+    def test_vary_independent_ir_quads_raises_on_wrong_side(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            vary_independent_ir_quadrupoles(madx, quad_numbers=[4], ip=1, sides="Z")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_vary_independent_ir_quads_raises_on_wrong_ip(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            vary_independent_ir_quadrupoles(madx, quad_numbers=[4], ip=100, sides="R")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_vary_independent_ir_quads_raises_on_wrong_quads(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            vary_independent_ir_quadrupoles(madx, quad_numbers=[5, 20, 100], ip=1, sides="R")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
 
 
 class TestTrack:

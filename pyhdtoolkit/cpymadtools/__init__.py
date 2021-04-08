@@ -25,6 +25,7 @@ from .special import (
     make_lhc_thin,
     make_sixtrack_output,
     power_landau_octupoles,
+    vary_independent_ir_quadrupoles,
 )
 from .track import track_single_particle
 from .tune import make_footprint_table

@@ -280,6 +280,58 @@ def install_ac_dipole(
     madx.globals["volty"] = volty
 
 
+def vary_independent_ir_quadrupoles(
+    madx: Madx, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
+) -> None:
+    """
+    Send the `vary` commands for the desired quadrupoles in the IRs. The independent quadrupoles for which
+    this is implemented are Q4 to Q13 included. This is useful to setup some specific matching involving
+    these elements.
+
+    It is necessary to have defined a 'brho' variable when creating your beams.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).
+        ip (int): the IP around which to apply the instructions. Defaults to 1.
+        sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left.
+            Defaults to both sides of the IP.
+        beam (int): the beam for which to apply the instructions. Defaults to 1.
+    """
+    if (
+        ip not in (1, 2, 5, 8)
+        or any(side.upper() not in ("R", "L") for side in sides)
+        or any(quad not in (4, 5, 6, 7, 8, 9, 10, 11, 12, 13) for quad in quad_numbers)
+    ):
+        logger.error("Either the IP number of the side provided are invalid, not applying any error.")
+        raise ValueError("Invalid 'quad_numbers', 'ip', 'sides' argument")
+
+    logger.debug(f"Preparing a knob involving quadrupoles {quad_numbers}")
+    # Each quad has a specific power circuit used for their k1 boundaries
+    power_circuits: Dict[int, str] = {
+        4: "mqy",
+        5: "mqml",
+        6: "mqml",
+        7: "mqm",
+        8: "mqml",
+        9: "mqm",
+        10: "mqml",
+        11: "mqtli",
+        12: "mqt",
+        13: "mqt",
+    }
+    for quad in quad_numbers:
+        circuit = power_circuits[quad]
+        for side in sides:
+            logger.trace(f"Sending vary command for Q{quad}{side.upper()}{ip}")
+            madx.command.vary(
+                name=f"kq{'t' if quad >= 11 else ''}{'l' if quad == 11 else ''}{quad}.{side}{ip}b{beam}",
+                step=1e-7,
+                lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+                upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+            )
+
+
 # ----- Output Utilities ----- #
 
 

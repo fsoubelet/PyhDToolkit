@@ -49,7 +49,7 @@ def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
 
 
 def misalign_lhc_triplets(
-    madx: Madx, ip: int, sides: Sequence[str], table: str = "triplet_errors", **kwargs
+    madx: Madx, ip: int, sides: Sequence[str] = ("r", "l"), table: str = "triplet_errors", **kwargs
 ) -> None:
     """
     Apply misalignment errors to triplet quadrupoles on a given side of a given IP. In case of a sliced
@@ -59,6 +59,7 @@ def misalign_lhc_triplets(
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         ip (int): the interaction point around which to apply errors.
         sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
+            Defaults to both.
         table (str): the name of the internal table that will save the assigned errors. Defaults to
             'triplet_errors'.
 
