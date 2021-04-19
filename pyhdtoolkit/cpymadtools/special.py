@@ -8,16 +8,12 @@ Created on 2020.02.03
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to
 what I do in LHC and HLLHC use cases.
 """
-from typing import List, Sequence, Tuple
+from typing import List, Sequence
 
 import numpy as np
-import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
-
-from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
-from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
 
 # ----- Setup Utlites ----- #
 
