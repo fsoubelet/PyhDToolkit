@@ -133,7 +133,7 @@ def misalign_lhc_ir_quadrupoles(
 
     sides = [side.upper() for side in sides]
     logger.trace("Clearing error flag")
-    madx.command.select(flag="error", clear=True)
+    madx.select(flag="error", clear=True)
 
     logger.info(f"Applying alignment errors to IR quads '{quadrupoles}', with arguments {kwargs}")
     for side in sides:
@@ -141,11 +141,9 @@ def misalign_lhc_ir_quadrupoles(
             for quad_pattern in IR_QUADS_PATTERNS[quad_number]:
                 # Triplets are single aperture and don't need beam information, others do
                 if quad_number <= 3:
-                    madx.command.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip))
+                    madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip))
                 else:
-                    madx.command.select(
-                        flag="error", pattern=quad_pattern.format(side=side, ip=ip, beam=beam)
-                    )
+                    madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip, beam=beam))
     madx.command.ealign(**kwargs)
 
     table = table if table else "etable"  # guarantee etable command won't fail if someone gives `table=None`
@@ -153,7 +151,7 @@ def misalign_lhc_ir_quadrupoles(
     madx.command.etable(table=table)
 
     logger.trace("Clearing up error flag")
-    madx.command.select(flag="error", clear=True)
+    madx.select(flag="error", clear=True)
 
 
 def misalign_lhc_triplets(
