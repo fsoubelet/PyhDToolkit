@@ -7,14 +7,16 @@ import pendulum
 
 from pendulum import DateTime
 from pydantic import BaseModel
-from rich.box import ROUNDED, SIMPLE
 from rich import box
 from rich.console import Console, RenderGroup
+from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
 
 from pyhdtoolkit.utils import defaults
 from pyhdtoolkit.utils.cmdline import CommandLine
+
+defaults.config_logger(level="ERROR")
 
 # ----- Data ----- #
 
@@ -57,8 +59,9 @@ CLUSTER_COLUMNS_SETTINGS = {
     ),
     "IDLE": dict(justify="right", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
     "HELD": dict(justify="right", header_style="bold gold1", style="bold gold1", no_wrap=True),
-    "SUSPENDED": dict(justify="right", header_style="bold slate_blue1", style="bold slate_blue1",
-                      no_wrap=True),
+    "SUSPENDED": dict(
+        justify="right", header_style="bold slate_blue1", style="bold slate_blue1", no_wrap=True
+    ),
     "REMOVED": dict(justify="right", header_style="bold red3", style="bold red3", no_wrap=True),
 }
 
@@ -258,24 +261,20 @@ def _default_cluster_table() -> Table:
 
 
 if __name__ == "__main__":
-    console = Console()
 
-    with console.status("Querying HTCondor") as condor_q_status:
+    def generate_renderable() -> RenderGroup:
+        """
+        Function called to update the live display, fetches data from htcondor, does the processing and
+        returns a RenderGroup with both Panels.
+        """
         # condor_string = query_condor_q()
-        time.sleep(0.5)
+        user_tasks, cluster_info = read_condor_q(EXAMPLE)  # TODO: replace with condor_string
+        # TODO: handle crash case where there are no tasks, and we can't get owner
+        owner = user_tasks[0].owner if user_tasks else "User"
 
-    user_tasks, cluster_info = read_condor_q(EXAMPLE)  # TODO: replace with condor_string
-    tasks_table = make_tasks_table(user_tasks)
-    owner = user_tasks[0].owner if user_tasks else "User"
-    cluster_table = make_cluster_table(owner, cluster_info)  # TODO: handle crash case where
-    # there are no tasks, and we can't get
-
-    display = Table.grid(padding=1, pad_edge=True)
-    display.add_column("")
-    display.add_row(tasks_table)
-    display.add_row(cluster_table)
-
-    console.print(
+        tasks_table = make_tasks_table(user_tasks)
+        cluster_table = make_cluster_table(owner, cluster_info)
+        return RenderGroup(
             Panel(
                 tasks_table,
                 title=f"Scheduler: {cluster_info.scheduler_id}.cern.ch",
@@ -288,6 +287,10 @@ if __name__ == "__main__":
                 expand=False,
                 border_style="scope.border",
             ),
+        )
 
-    )
-    # TODO: make it Live?
+    with Live(generate_renderable(), refresh_per_second=1) as live:
+        while True:
+            live.console.log("Querying HTCondor Queue")
+            live.update(generate_renderable())
+            time.sleep(60)
