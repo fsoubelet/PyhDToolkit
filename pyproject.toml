@@ -40,11 +40,12 @@ tfs-pandas = "^2.0"
 loguru = "<1.0"
 numba = ">=0.51,<1.0"
 cpymad = "^1.6"
+rich = "^10.1.0"
+pydantic = "^1.8.1"
+pendulum = "^2.1.2"
 
 # Defining optional dependencies for extras
 portray = { version = "^1.4", optional = true }
-rich = "^10.1.0"
-pydantic = "^1.8.1"
 
 # Defining the extras
 [tool.poetry.extras]
