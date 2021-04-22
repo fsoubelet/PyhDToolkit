@@ -6,6 +6,7 @@ import pendulum
 
 from pendulum import DateTime
 from pydantic import BaseModel
+from rich.box import ROUNDED
 from rich.console import Console
 from rich.table import Table
 
@@ -13,6 +14,36 @@ from pyhdtoolkit.utils import defaults
 from pyhdtoolkit.utils.cmdline import CommandLine
 
 # ----- Data ----- #
+
+EXAMPLE = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
+OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+fesoubel ID: 8489182   4/21 21:04      7     14      _     21 8489182.0-20
+fesoubel ID: 8489183   4/21 21:04      2     19      _     21 8489183.0-20
+fesoubel ID: 8489185   4/21 21:05      _     21      _     21 8489185.0-20
+fesoubel ID: 8489185   4/21 21:05      _     18      3     21 8489187.0-20
+fesoubel ID: 8489185   4/21 21:05      _     13      8     21 8489188.0-20
+fesoubel ID: 8489185   4/21 21:06      _      8     13     21 8489191.0-20
+fesoubel ID: 8489185   4/21 21:06      _      3     18     21 8489193.0-20
+
+Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended
+"""
+
+TASK_COLUMNS_SETTINGS = {
+    "OWNER": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
+    "BATCH_NAME": dict(justify="center", header_style="magenta", style="magenta", no_wrap=True),
+    "SUBMITTED": dict(
+        justify="center", header_style="medium_turquoise", style="medium_turquoise", no_wrap=True
+    ),
+    "DONE": dict(justify="right", header_style="bold green3", style="bold green3", no_wrap=True),
+    "RUNNING": dict(
+        justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True
+    ),
+    "IDLE": dict(justify="right", header_style="bold #d75f00", style="bold #d75f00", no_wrap=True),
+    "TOTAL": dict(justify="right", style="bold", no_wrap=True),
+    "JOB_IDS": dict(justify="right", no_wrap=True),
+}
 
 
 class BaseSummary(BaseModel):
@@ -167,41 +198,18 @@ def _process_cluster_summary_line(line: str, querying_owner: str = None) -> Base
 
 def _default_tasks_table() -> Table:
     """Create the default structure for the Tasks Table, hard coded columns and no rows added."""
-    table = Table(width=120)
-    table.pad_edge = False
-    table.add_column("OWNER", justify="left", no_wrap=True)
-    table.add_column("BATCH_NAME", justify="center", header_style="magenta", style="magenta", no_wrap=True)
-    table.add_column("SUBMITTED", justify="center", no_wrap=True)
-    table.add_column("DONE", justify="right", header_style="bold green", style="green", no_wrap=True)
-    table.add_column("RUNNING", justify="right", header_style="bold cyan", style="bold cyan", no_wrap=True)
-    table.add_column("IDLE", justify="right", header_style="bold red", style="red", no_wrap=True)
-    table.add_column("TOTAL", justify="right", style="bold", no_wrap=True)
-    table.add_column("JOB_IDS", justify="right", no_wrap=True)
+    table = Table(width=120, box=ROUNDED)
+    for header, header_col_settings in TASK_COLUMNS_SETTINGS.items():
+        table.add_column(header, **header_col_settings)
     return table
 
 
 # ----- Executable ----- #
 
 
-def main() -> None:
-    """Query 'condor_q', process the output and nicely format it to the terminal."""
-    defaults.config_logger()
-
-
-# ----- Storage ----- #
-
-
-EXAMPLE = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
-OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-fesoubel ID: 8489182   4/21 21:04      7     14      _     21 8489182.0-20
-fesoubel ID: 8489183   4/21 21:04      2     19      _     21 8489183.0-20
-fesoubel ID: 8489185   4/21 21:05      _     21      _     21 8489185.0-20
-fesoubel ID: 8489185   4/21 21:05      _     18      3     21 8489187.0-20
-fesoubel ID: 8489185   4/21 21:05      _     13      8     21 8489188.0-20
-fesoubel ID: 8489185   4/21 21:06      _      8     13     21 8489191.0-20
-fesoubel ID: 8489185   4/21 21:06      _      3     18     21 8489193.0-20
-
-Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
-Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
-Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended
-"""
+if __name__ == "__main__":
+    console = Console()
+    # condor_string = query_condor_q()
+    tasks, cluster = read_condor_q(EXAMPLE)  # replace with condor_string when done here
+    tasks_table = make_tasks_table(tasks, cluster)
+    console.print(tasks_table)
