@@ -50,15 +50,16 @@ TASK_COLUMNS_SETTINGS = {
 
 CLUSTER_COLUMNS_SETTINGS = {
     "SOURCE": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
-    "JOBS": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
-    "COMPLETED": dict(justify="center", header_style="bold green3", style="bold green3", no_wrap=True),
+    "JOBS": dict(justify="right", header_style="bold", style="bold", no_wrap=True),
+    "COMPLETED": dict(justify="right", header_style="bold green3", style="bold green3", no_wrap=True),
     "RUNNING": dict(
-        justify="center", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True
+        justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True
     ),
-    "IDLE": dict(justify="center", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
-    "HELD": dict(justify="center", header_style="bold"),
-    "SUSPENDED": dict(justify="right", style="bold", no_wrap=True),
-    "REMOVED": dict(justify="right", header_style="red", style="red", no_wrap=True),
+    "IDLE": dict(justify="right", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
+    "HELD": dict(justify="right", header_style="bold gold1", style="bold gold1", no_wrap=True),
+    "SUSPENDED": dict(justify="right", header_style="bold slate_blue1", style="bold slate_blue1",
+                      no_wrap=True),
+    "REMOVED": dict(justify="right", header_style="bold red3", style="bold red3", no_wrap=True),
 }
 
 
@@ -138,7 +139,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
                 next_line_is_task_report = False
 
         else:  # extract cluster information
-            querying_owner = tasks[0].owner
+            querying_owner = tasks[0].owner if tasks else ""
             if querying_owner in line:
                 owner_summary = _process_cluster_summary_line(line, querying_owner)
             elif "all users" in line:
