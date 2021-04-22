@@ -43,6 +43,7 @@ cpymad = "^1.6"
 
 # Defining optional dependencies for extras
 portray = { version = "^1.4", optional = true }
+rich = "^10.1.0"
 
 # Defining the extras
 [tool.poetry.extras]
