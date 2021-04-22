@@ -1,4 +1,5 @@
 import re
+import time
 
 from typing import List, Tuple, Union
 
@@ -6,8 +7,10 @@ import pendulum
 
 from pendulum import DateTime
 from pydantic import BaseModel
-from rich.box import ROUNDED
-from rich.console import Console
+from rich.box import ROUNDED, SIMPLE
+from rich import box
+from rich.console import Console, RenderGroup
+from rich.panel import Panel
 from rich.table import Table
 
 from pyhdtoolkit.utils import defaults
@@ -40,9 +43,22 @@ TASK_COLUMNS_SETTINGS = {
     "RUNNING": dict(
         justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True
     ),
-    "IDLE": dict(justify="right", header_style="bold #d75f00", style="bold #d75f00", no_wrap=True),
+    "IDLE": dict(justify="right", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
     "TOTAL": dict(justify="right", style="bold", no_wrap=True),
     "JOB_IDS": dict(justify="right", no_wrap=True),
+}
+
+CLUSTER_COLUMNS_SETTINGS = {
+    "SOURCE": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
+    "JOBS": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
+    "COMPLETED": dict(justify="center", header_style="bold green3", style="bold green3", no_wrap=True),
+    "RUNNING": dict(
+        justify="center", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True
+    ),
+    "IDLE": dict(justify="center", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
+    "HELD": dict(justify="center", header_style="bold"),
+    "SUSPENDED": dict(justify="right", style="bold", no_wrap=True),
+    "REMOVED": dict(justify="right", header_style="red", style="red", no_wrap=True),
 }
 
 
@@ -58,7 +74,7 @@ class BaseSummary(BaseModel):
 
 class ClusterSummary(BaseModel):
     scheduler_id: str
-    owner: BaseSummary
+    user: BaseSummary
     cluster: BaseSummary
 
 
@@ -98,7 +114,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
     Returns:
         A tuple of:
             - A list of each task summary given by 'condor_q', each as a validated HTCTaskSummary object,
-            - A validated ClusterSummary object with scheduler identification and summaries of the owner
+            - A validated ClusterSummary object with scheduler identification and summaries of the user
                 as well as all users' statistics on this scheduler cluster.
 
     Example Usage:
@@ -127,13 +143,13 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
                 owner_summary = _process_cluster_summary_line(line, querying_owner)
             elif "all users" in line:
                 full_summary = _process_cluster_summary_line(line)
-    return tasks, ClusterSummary(scheduler_id=scheduler_id, owner=owner_summary, cluster=full_summary)
+    return tasks, ClusterSummary(scheduler_id=scheduler_id, user=owner_summary, cluster=full_summary)
 
 
 # ----- Output Formating ----- #
 
 
-def make_tasks_table(tasks: List[HTCTaskSummary], cluster_info: ClusterSummary) -> Table:
+def make_tasks_table(tasks: List[HTCTaskSummary]) -> Table:
     table = _default_tasks_table()
     date_display_format = "dddd, D MMM YY at LT (zz)"  # example: Wednesday, 21 Apr 21 9:04 PM (CEST)
     for task in tasks:
@@ -147,6 +163,31 @@ def make_tasks_table(tasks: List[HTCTaskSummary], cluster_info: ClusterSummary) 
             str(task.total),
             task.job_ids,
         )
+    return table
+
+
+def make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
+    table = _default_cluster_table()
+    table.add_row(
+        owner_name,
+        str(cluster.user.jobs),
+        str(cluster.user.completed),
+        str(cluster.user.running),
+        str(cluster.user.idle),
+        str(cluster.user.held),
+        str(cluster.user.suspended),
+        str(cluster.user.removed),
+    )
+    table.add_row(
+        "All Users",
+        str(cluster.cluster.jobs),
+        str(cluster.cluster.completed),
+        str(cluster.cluster.running),
+        str(cluster.cluster.idle),
+        str(cluster.cluster.held),
+        str(cluster.cluster.suspended),
+        str(cluster.cluster.removed),
+    )
     return table
 
 
@@ -198,8 +239,16 @@ def _process_cluster_summary_line(line: str, querying_owner: str = None) -> Base
 
 def _default_tasks_table() -> Table:
     """Create the default structure for the Tasks Table, hard coded columns and no rows added."""
-    table = Table(width=120, box=ROUNDED)
+    table = Table(width=120, box=box.SIMPLE_HEAVY)
     for header, header_col_settings in TASK_COLUMNS_SETTINGS.items():
+        table.add_column(header, **header_col_settings)
+    return table
+
+
+def _default_cluster_table() -> Table:
+    """Create the default structure for the Cluster Table, hard coded columns and no rows added."""
+    table = Table(width=120, box=box.HORIZONTALS)
+    for header, header_col_settings in CLUSTER_COLUMNS_SETTINGS.items():
         table.add_column(header, **header_col_settings)
     return table
 
@@ -209,7 +258,35 @@ def _default_tasks_table() -> Table:
 
 if __name__ == "__main__":
     console = Console()
-    # condor_string = query_condor_q()
-    tasks, cluster = read_condor_q(EXAMPLE)  # replace with condor_string when done here
-    tasks_table = make_tasks_table(tasks, cluster)
-    console.print(tasks_table)
+
+    with console.status("Querying HTCondor") as condor_q_status:
+        # condor_string = query_condor_q()
+        time.sleep(0.5)
+
+    user_tasks, cluster_info = read_condor_q(EXAMPLE)  # TODO: replace with condor_string
+    tasks_table = make_tasks_table(user_tasks)
+    owner = user_tasks[0].owner if user_tasks else "User"
+    cluster_table = make_cluster_table(owner, cluster_info)  # TODO: handle crash case where
+    # there are no tasks, and we can't get
+
+    display = Table.grid(padding=1, pad_edge=True)
+    display.add_column("")
+    display.add_row(tasks_table)
+    display.add_row(cluster_table)
+
+    console.print(
+            Panel(
+                tasks_table,
+                title=f"Scheduler: {cluster_info.scheduler_id}.cern.ch",
+                expand=False,
+                border_style="scope.border",
+            ),
+            Panel(
+                cluster_table,
+                title=f"{cluster_info.scheduler_id} Statistics",
+                expand=False,
+                border_style="scope.border",
+            ),
+
+    )
+    # TODO: make it Live?
