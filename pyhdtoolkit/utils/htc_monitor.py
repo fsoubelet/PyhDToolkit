@@ -1,18 +1,18 @@
 import re
 
-from typing import List, Union, Tuple
+from typing import List, Tuple, Union
 
+import pendulum
+
+from pendulum import DateTime
 from pydantic import BaseModel
+from rich.console import Console
+from rich.table import Table
 
 from pyhdtoolkit.utils import defaults
 from pyhdtoolkit.utils.cmdline import CommandLine
-from rich.table import Table
-defaults.config_logger()
 
 # ----- Data ----- #
-
-HTC_TASK_HEADERS: List[str] = ["OWNER", "BATCH_NAME", "SUBMITTED", "DONE", "RUN", "IDLE", "TOTAL", "JOB_IDS"]
-HTC_CLUSTER_HEADERS: List[str] = ["JOBS", "COMPLETED", "REMOVED", "IDLE", "RUNNING", "HELD", "SUSPENDED"]
 
 
 class BaseSummary(BaseModel):
@@ -34,7 +34,7 @@ class ClusterSummary(BaseModel):
 class HTCTaskSummary(BaseModel):
     owner: str
     batch_name: int
-    submitted: str
+    submitted: DateTime
     done: Union[int, str]
     run: Union[int, str]
     idle: Union[int, str]
@@ -103,7 +103,20 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
 
 
 def make_tasks_table(tasks: List[HTCTaskSummary], cluster_info: ClusterSummary) -> Table:
-    pass
+    table = _default_tasks_table()
+    date_display_format = "dddd, D MMM YY at LT (zz)"  # example: Wednesday, 21 Apr 21 9:04 PM (CEST)
+    for task in tasks:
+        table.add_row(
+            task.owner,
+            str(task.batch_name),
+            task.submitted.format(fmt=date_display_format),
+            str(task.done),
+            str(task.run),
+            str(task.idle),
+            str(task.total),
+            task.job_ids,
+        )
+    return table
 
 
 # ----- Helpers ----- #
@@ -112,7 +125,7 @@ def make_tasks_table(tasks: List[HTCTaskSummary], cluster_info: ClusterSummary) 
 def _process_scheduler_information_line(line: str) -> str:
     """Extract only the 'Schedd: <cluster>.cern.ch' part oof the scheduler information line"""
     result = re.search(r"Schedd: (.*).cern.ch", line)
-    return result.group(0)
+    return result.group(1)
 
 
 def _process_task_summary_line(line: str) -> HTCTaskSummary:
@@ -124,7 +137,9 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
     return HTCTaskSummary(
         owner=line_elements[0],
         batch_name=line_elements[2],  # line_elements[1] is the 'ID:' part, we don't need it
-        submitted=f"{line_elements[3]} {line_elements[4]}",  # 'day/month' and 'hour:minute'
+        submitted=pendulum.from_format(
+            f"{line_elements[3]} {line_elements[4]}", fmt="MM/D HH:mm", tz="Europe/Paris"
+        ),  # Geneva timezone is Paris timezone,
         done=line_elements[5],
         run=line_elements[6],
         idle=line_elements[7],
@@ -150,19 +165,27 @@ def _process_cluster_summary_line(line: str, querying_owner: str = None) -> Base
     )
 
 
+def _default_tasks_table() -> Table:
+    """Create the default structure for the Tasks Table, hard coded columns and no rows added."""
+    table = Table(width=120)
+    table.pad_edge = False
+    table.add_column("OWNER", justify="left", no_wrap=True)
+    table.add_column("BATCH_NAME", justify="center", header_style="magenta", style="magenta", no_wrap=True)
+    table.add_column("SUBMITTED", justify="center", no_wrap=True)
+    table.add_column("DONE", justify="right", header_style="bold green", style="green", no_wrap=True)
+    table.add_column("RUNNING", justify="right", header_style="bold cyan", style="bold cyan", no_wrap=True)
+    table.add_column("IDLE", justify="right", header_style="bold red", style="red", no_wrap=True)
+    table.add_column("TOTAL", justify="right", style="bold", no_wrap=True)
+    table.add_column("JOB_IDS", justify="right", no_wrap=True)
+    return table
+
+
 # ----- Executable ----- #
+
 
 def main() -> None:
     """Query 'condor_q', process the output and nicely format it to the terminal."""
-
-
-
-
-
-
-
-
-
+    defaults.config_logger()
 
 
 # ----- Storage ----- #
