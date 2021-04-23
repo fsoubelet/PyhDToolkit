@@ -271,9 +271,7 @@ def _default_cluster_table() -> Table:
 
 # ----- Executable ----- #
 
-
-if __name__ == "__main__":
-
+def main():
     def generate_renderable() -> RenderGroup:
         """
         Function called to update the live display, fetches data from htcondor, does the processing and
@@ -309,3 +307,7 @@ if __name__ == "__main__":
             except KeyboardInterrupt:
                 live.console.log("Exiting Program")
                 break
+
+
+if __name__ == "__main__":
+    main()
