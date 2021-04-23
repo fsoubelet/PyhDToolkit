@@ -17,7 +17,7 @@ import pendulum
 from pendulum import DateTime
 from pydantic import BaseModel
 from rich import box
-from rich.console import Console, RenderGroup
+from rich.console import RenderGroup
 from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
@@ -29,6 +29,7 @@ defaults.config_logger(level="ERROR")
 
 # ----- Data ----- #
 
+# TODO: take this out and into tests
 EXAMPLE = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
 OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
 fesoubel ID: 8489182   4/21 21:04      7     14      _     21 8489182.0-20
@@ -41,8 +42,7 @@ fesoubel ID: 8489185   4/21 21:06      _      3     18     21 8489193.0-20
 
 Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
 Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
-Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended
-"""
+Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended"""
 
 TASK_COLUMNS_SETTINGS = {
     "OWNER": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
@@ -87,6 +87,7 @@ class BaseSummary(BaseModel):
 
 class ClusterSummary(BaseModel):
     scheduler_id: str
+    query: BaseSummary
     user: BaseSummary
     cluster: BaseSummary
 
@@ -150,13 +151,18 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
             else:  # an empty line denotes the end of the task report(s)
                 next_line_is_task_report = False
 
-        else:  # extract cluster information
-            querying_owner = tasks[0].owner if tasks else ""
-            if querying_owner in line:
+        else:  # extract cluster information, only 3 lines here
+            querying_owner = tasks[0].owner if tasks else "(\D+)"
+            if "query" in line:  # first line
+                query_summary = _process_cluster_summary_line(line, "query")
+            elif "all users" in line:  # last line
+                full_summary = _process_cluster_summary_line(line, "all users")
+            elif line != "\n" and line != "":  # user line, whoever the user is
                 owner_summary = _process_cluster_summary_line(line, querying_owner)
-            elif "all users" in line:
-                full_summary = _process_cluster_summary_line(line)
-    return tasks, ClusterSummary(scheduler_id=scheduler_id, user=owner_summary, cluster=full_summary)
+    cluster_summary = ClusterSummary(
+        scheduler_id=scheduler_id, query=query_summary, user=owner_summary, cluster=full_summary
+    )
+    return tasks, cluster_summary
 
 
 # ----- Output Formating ----- #
@@ -181,26 +187,17 @@ def make_tasks_table(tasks: List[HTCTaskSummary]) -> Table:
 
 def make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
     table = _default_cluster_table()
-    table.add_row(
-        owner_name,
-        str(cluster.user.jobs),
-        str(cluster.user.completed),
-        str(cluster.user.running),
-        str(cluster.user.idle),
-        str(cluster.user.held),
-        str(cluster.user.suspended),
-        str(cluster.user.removed),
-    )
-    table.add_row(
-        "All Users",
-        str(cluster.cluster.jobs),
-        str(cluster.cluster.completed),
-        str(cluster.cluster.running),
-        str(cluster.cluster.idle),
-        str(cluster.cluster.held),
-        str(cluster.cluster.suspended),
-        str(cluster.cluster.removed),
-    )
+    for i, source in enumerate(["query", "user", "cluster"]):
+        table.add_row(
+            "Query" if i == 0 else ("All Users" if i == 2 else owner_name),
+            str(cluster.dict()[source]["jobs"]),
+            str(cluster.dict()[source]["completed"]),
+            str(cluster.dict()[source]["running"]),
+            str(cluster.dict()[source]["idle"]),
+            str(cluster.dict()[source]["held"]),
+            str(cluster.dict()[source]["suspended"]),
+            str(cluster.dict()[source]["removed"]),
+        )
     return table
 
 
@@ -233,20 +230,26 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
     )
 
 
-def _process_cluster_summary_line(line: str, querying_owner: str = None) -> BaseSummary:
+def _process_cluster_summary_line(line: str, query: str = None) -> BaseSummary:
+    """
+    Beware if no jobs are running we can't have taken querying_owner info from tasks summaries,
+    so we need to match a wildcard word by giving querying_owner=(\D+). This would add a match to the regex
+    search, and we need to look one match further for the wanted information.
+    """
     result = re.search(
-        rf"Total for {querying_owner if querying_owner else 'all users'}: (\d+) jobs; (\d+) completed, "
+        rf"Total for {query}: (\d+) jobs; (\d+) completed, "
         "(\d+) removed, (\d+) idle, (\d+) running, (\d+) held, (\d+) suspended",
         line,
     )
+    first_interesting_match_index = 1 if query != "(\D+)" else 2
     return BaseSummary(
-        jobs=result.group(1),
-        completed=result.group(2),
-        removed=result.group(3),
-        idle=result.group(4),
-        running=result.group(5),
-        held=result.group(6),
-        suspended=result.group(7),
+        jobs=result.group(first_interesting_match_index),
+        completed=result.group(first_interesting_match_index + 1),
+        removed=result.group(first_interesting_match_index + 2),
+        idle=result.group(first_interesting_match_index + 3),
+        running=result.group(first_interesting_match_index + 4),
+        held=result.group(first_interesting_match_index + 5),
+        suspended=result.group(first_interesting_match_index + 6),
     )
 
 
@@ -278,7 +281,6 @@ if __name__ == "__main__":
         """
         # condor_string = query_condor_q()
         user_tasks, cluster_info = read_condor_q(EXAMPLE)  # TODO: replace with condor_string
-        # TODO: handle crash case where there are no tasks, and we can't get owner
         owner = user_tasks[0].owner if user_tasks else "User"
 
         tasks_table = make_tasks_table(user_tasks)
@@ -298,8 +300,12 @@ if __name__ == "__main__":
             ),
         )
 
-    with Live(generate_renderable(), refresh_per_second=1) as live:
+    with Live(generate_renderable(), refresh_per_second=0.5) as live:
         while True:
-            live.console.log("Querying HTCondor Queue")
-            live.update(generate_renderable())
-            time.sleep(60)
+            try:
+                live.console.log("Querying HTCondor Queue")
+                live.update(generate_renderable())
+                time.sleep(60)
+            except KeyboardInterrupt:
+                live.console.log("Exiting Program")
+                break
