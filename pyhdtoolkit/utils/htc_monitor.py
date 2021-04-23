@@ -29,21 +29,6 @@ defaults.config_logger(level="ERROR")
 
 # ----- Data ----- #
 
-# TODO: take this out and into tests
-EXAMPLE = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
-OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
-fesoubel ID: 8489182   4/21 21:04      7     14      _     21 8489182.0-20
-fesoubel ID: 8489183   4/21 21:04      2     19      _     21 8489183.0-20
-fesoubel ID: 8489185   4/21 21:05      _     21      _     21 8489185.0-20
-fesoubel ID: 8489185   4/21 21:05      _     18      3     21 8489187.0-20
-fesoubel ID: 8489185   4/21 21:05      _     13      8     21 8489188.0-20
-fesoubel ID: 8489185   4/21 21:06      _      8     13     21 8489191.0-20
-fesoubel ID: 8489185   4/21 21:06      _      3     18     21 8489193.0-20
-
-Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
-Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
-Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended"""
-
 TASK_COLUMNS_SETTINGS = {
     "OWNER": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
     "BATCH_NAME": dict(justify="center", header_style="magenta", style="magenta", no_wrap=True),
@@ -271,14 +256,15 @@ def _default_cluster_table() -> Table:
 
 # ----- Executable ----- #
 
+
 def main():
     def generate_renderable() -> RenderGroup:
         """
         Function called to update the live display, fetches data from htcondor, does the processing and
         returns a RenderGroup with both Panels.
         """
-        # condor_string = query_condor_q()
-        user_tasks, cluster_info = read_condor_q(EXAMPLE)  # TODO: replace with condor_string
+        condor_string = query_condor_q()
+        user_tasks, cluster_info = read_condor_q(condor_string)
         owner = user_tasks[0].owner if user_tasks else "User"
 
         tasks_table = make_tasks_table(user_tasks)
@@ -298,7 +284,7 @@ def main():
             ),
         )
 
-    with Live(generate_renderable(), refresh_per_second=0.5) as live:
+    with Live(generate_renderable(), refresh_per_second=0.25) as live:
         live.console.log("Querying HTCondor Queue - Refreshed Every 5 Minutes\n")
         while True:
             try:
