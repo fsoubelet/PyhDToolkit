@@ -56,7 +56,6 @@ pytest = "^6.0"
 pytest-cov = "^2.7"
 flaky = "^3.5"
 black = { version = "^19.10b0", python = "^3.6" }
-pytest-sugar = "^0.9"
 pylint = "^2.4"
 pytest-randomly = "^3.3"
 mypy = "<1.0"

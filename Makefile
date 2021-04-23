@@ -100,7 +100,7 @@ lint: format
 	@poetry run pylint pyhdtoolkit/
 
 tests: format clean
-	@poetry run pytest --no-flaky-report -p no:sugar
+	@poetry run pytest --no-flaky-report # -p no:sugar
 	@make clean
 
 type: format

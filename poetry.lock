@@ -795,19 +795,6 @@ importlib-metadata = {version = ">=3.6.0", markers = "python_version < \"3.10\""
 pytest = "*"
 
 [[package]]
-name = "pytest-sugar"
-version = "0.9.4"
-description = "pytest-sugar is a plugin for pytest that changes the default look and feel of pytest (e.g. progressbar, show tests that fail instantly)."
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-packaging = ">=14.1"
-pytest = ">=2.9"
-termcolor = ">=1.1.0"
-
-[[package]]
 name = "python-dateutil"
 version = "2.8.1"
 description = "Extensions to the standard Python datetime module"
@@ -922,14 +909,6 @@ python-versions = "*"
 
 [package.extras]
 widechars = ["wcwidth"]
-
-[[package]]
-name = "termcolor"
-version = "1.1.0"
-description = "ANSII Color formatting for output in terminal."
-category = "dev"
-optional = false
-python-versions = "*"
 
 [[package]]
 name = "tfs-pandas"
@@ -1051,7 +1030,7 @@ docs = ["portray"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "514b06a2b667cb56f0ed008659aa67f6fd2777a44b4cdbd29922f6bd3d1a50a4"
+content-hash = "96ac9169d9c53beb5865f53fd4bed7c44df3b03f1350ebb711817f4c907dddd8"
 
 [metadata.files]
 appdirs = [
@@ -1666,9 +1645,6 @@ pytest-randomly = [
     {file = "pytest-randomly-3.7.0.tar.gz", hash = "sha256:89a4f98aed1753c447a3927b66571a796e53cdecbf671e7318f6c57d79c7f6a3"},
     {file = "pytest_randomly-3.7.0-py3-none-any.whl", hash = "sha256:cd68c1da7d152509f59fec725f5314437727937fad31a50028693269c9261d90"},
 ]
-pytest-sugar = [
-    {file = "pytest-sugar-0.9.4.tar.gz", hash = "sha256:b1b2186b0a72aada6859bea2a5764145e3aaa2c1cfbb23c3a19b5f7b697563d3"},
-]
 python-dateutil = [
     {file = "python-dateutil-2.8.1.tar.gz", hash = "sha256:73ebfe9dbf22e832286dafa60473e4cd239f8592f699aa5adaf10050e6e1823c"},
     {file = "python_dateutil-2.8.1-py2.py3-none-any.whl", hash = "sha256:75bb3f31ea686f1197762692a9ee6a7550b59fc6ca3a1f4b5d7e32fb98e2da2a"},
@@ -1787,9 +1763,6 @@ smmap = [
 tabulate = [
     {file = "tabulate-0.8.9-py3-none-any.whl", hash = "sha256:d7c013fe7abbc5e491394e10fa845f8f32fe54f8dc60c6622c6cf482d25d47e4"},
     {file = "tabulate-0.8.9.tar.gz", hash = "sha256:eb1d13f25760052e8931f2ef80aaf6045a6cceb47514db8beab24cded16f13a7"},
-]
-termcolor = [
-    {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
 ]
 tfs-pandas = [
     {file = "tfs-pandas-2.0.2.tar.gz", hash = "sha256:b773dac07919616662296fdd76bd178a92205ebb9e2c33c5f265026ab4850b73"},
