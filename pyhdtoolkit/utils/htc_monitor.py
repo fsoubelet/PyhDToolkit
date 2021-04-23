@@ -110,7 +110,7 @@ def query_condor_q() -> str:
     Returns a decoded string with the result of the 'condor_q' command, to get status on your jobs.
     """
     return_code, raw_result = CommandLine.run("condor_q")
-    condor_status = raw_result.decode()
+    condor_status = raw_result.decode().strip()
     if return_code == 0:
         return condor_status
     else:
