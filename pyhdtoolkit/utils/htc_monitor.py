@@ -299,9 +299,9 @@ def main():
         )
 
     with Live(generate_renderable(), refresh_per_second=0.5) as live:
+        live.console.log("Querying HTCondor Queue - Refreshed Every 60 Seconds")
         while True:
             try:
-                live.console.log("Querying HTCondor Queue")
                 live.update(generate_renderable())
                 time.sleep(60)
             except KeyboardInterrupt:
