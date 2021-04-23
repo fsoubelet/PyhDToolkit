@@ -1,23 +1,38 @@
 import math
 import multiprocessing
 import os
+import pathlib
+import pickle
 import random
 import subprocess
 import sys
 
+from typing import List
+
 import pytest
 
 from loguru import logger
+from rich.table import Table
 
-from pyhdtoolkit.utils import defaults  # here for coverage
+from pyhdtoolkit.utils import defaults
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
+from pyhdtoolkit.utils.htc_monitor import (
+    ClusterSummary,
+    HTCTaskSummary,
+    make_cluster_table,
+    make_tasks_table,
+    read_condor_q,
+)
 from pyhdtoolkit.utils.operations import (
     ListOperations,
     MiscellaneousOperations,
     NumberOperations,
     StringOperations,
 )
+
+CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR / "inputs"
 
 
 def _square(integer: int) -> int:
@@ -26,19 +41,6 @@ def _square(integer: int) -> int:
 
 def _to_str(integer: int) -> str:
     return str(integer)
-
-
-class TestDefaults:
-    def test_logger_config(self, capsys):
-        defaults.config_logger()
-        message = "This should be in stdout now"
-        logger.info(message)
-        captured = capsys.readouterr()
-        assert message in captured.out
-
-        # This is to get it back as it is by defaults for other tests
-        logger.remove()
-        logger.add(sys.stderr)
 
 
 @pytest.mark.skipif(
@@ -78,6 +80,56 @@ class TestCommandLine:
     def test_terminate_pid(self, sleep_time):
         sacrificed_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
         assert CommandLine.terminate(sacrificed_process.pid) is True
+
+
+class TestDefaults:
+    def test_logger_config(self, capsys):
+        defaults.config_logger()
+        message = "This should be in stdout now"
+        logger.info(message)
+        captured = capsys.readouterr()
+        assert message in captured.out
+
+        # This is to get it back as it is by defaults for other tests
+        logger.remove()
+        logger.add(sys.stderr)
+
+
+class TestHTCMonitor:
+    def test_read_condor_q(self, _condor_q_output, _correct_user_tasks, _correct_cluster_summary):
+        user_tasks, cluster_info = read_condor_q(_condor_q_output)
+        assert isinstance(user_tasks, list)
+        for task in user_tasks:
+            assert isinstance(task, HTCTaskSummary)
+        assert user_tasks == _correct_user_tasks
+
+        assert isinstance(cluster_info, ClusterSummary)
+        assert cluster_info == _correct_cluster_summary
+
+    def test_read_taskless_condor_q(self, _taskless_condor_q_output, _correct_cluster_summary):
+        user_tasks, cluster_info = read_condor_q(_taskless_condor_q_output)
+
+        assert isinstance(user_tasks, list)
+        assert user_tasks == []
+
+        assert isinstance(cluster_info, ClusterSummary)
+        assert cluster_info == _correct_cluster_summary
+
+    def test_cluster_table_creation(self, _condor_q_output):
+        user_tasks, cluster_info = read_condor_q(_condor_q_output)
+        owner = user_tasks[0].owner if user_tasks else "User"
+
+        cluster_table = make_cluster_table(owner, cluster_info)
+        assert isinstance(cluster_table, Table)
+
+    def test_tasks_table_creation(self, _condor_q_output, _taskless_condor_q_output):
+        user_tasks, cluster_info = read_condor_q(_condor_q_output)
+        tasks_table = make_tasks_table(user_tasks)
+        assert isinstance(tasks_table, Table)
+
+        user_tasks, cluster_info = read_condor_q(_taskless_condor_q_output)
+        tasks_table = make_tasks_table(user_tasks)
+        assert isinstance(tasks_table, Table)
 
 
 class TestListOperations:
@@ -606,3 +658,46 @@ class TestStringOperations:
     def test_snake_case_fails(self, word, error):
         with pytest.raises(error):
             StringOperations.snake_case(word)
+
+
+@pytest.fixture()
+def _condor_q_output() -> str:
+    condor_q_output = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
+OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+fesoubel ID: 8489182   4/21 21:04      7     14      _     21 8489182.0-20
+fesoubel ID: 8489183   4/21 21:04      2     19      _     21 8489183.0-20
+fesoubel ID: 8489185   4/21 21:05      _     21      _     21 8489185.0-20
+fesoubel ID: 8489185   4/21 21:05      _     18      3     21 8489187.0-20
+fesoubel ID: 8489185   4/21 21:05      _     13      8     21 8489188.0-20
+fesoubel ID: 8489185   4/21 21:06      _      8     13     21 8489191.0-20
+fesoubel ID: 8489185   4/21 21:06      _      3     18     21 8489193.0-20
+
+Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended"""
+    return condor_q_output
+
+
+@pytest.fixture()
+def _taskless_condor_q_output() -> str:
+    taskless_condor_q_output = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
+OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
+
+Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
+Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended"""
+    return taskless_condor_q_output
+
+
+@pytest.fixture()
+def _correct_user_tasks() -> List[HTCTaskSummary]:
+    pickle_file_path = INPUTS_DIR / "correct_user_tasks.pkl"
+    with pickle_file_path.open("rb") as file:
+        return pickle.load(file)
+
+
+@pytest.fixture()
+def _correct_cluster_summary() -> ClusterSummary:
+    pickle_file_path = INPUTS_DIR / "correct_cluster_summary.pkl"
+    with pickle_file_path.open("rb") as file:
+        return pickle.load(file)
