@@ -14,6 +14,7 @@ from typing import List, Tuple, Union
 
 import pendulum
 
+from loguru import logger
 from pendulum import DateTime
 from pydantic import BaseModel
 from rich import box
@@ -257,6 +258,7 @@ def _default_cluster_table() -> Table:
 # ----- Executable ----- #
 
 
+@logger.catch()
 def main():
     def generate_renderable() -> RenderGroup:
         """
