@@ -31,7 +31,7 @@ classifiers = [
 
 # Core dependencies of the package
 [tool.poetry.dependencies]
-python = "^3.7"
+python = "^3.7, <3.10"
 numpy = "^1.19"
 pandas = "^1.0"
 matplotlib = "^3.0"
@@ -47,6 +47,7 @@ pendulum = "^2.0"
 
 # Defining optional dependencies for extras
 portray = { version = "^1.4", optional = true }
+llvmlite = "^0.36"
 
 # Defining the extras
 [tool.poetry.extras]
