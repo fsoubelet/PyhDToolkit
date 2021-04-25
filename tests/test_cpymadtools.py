@@ -13,7 +13,7 @@ from pandas import DataFrame
 from pandas._testing import assert_dict_equal
 from pandas.testing import assert_frame_equal
 
-from pyhdtoolkit.cpymadtools.constants import (  # coverage
+from pyhdtoolkit.cpymadtools.constants import (  # for coverage
     CORRECTOR_LIMITS,
     DEFAULT_TWISS_COLUMNS,
     FD_FAMILIES,
@@ -21,7 +21,11 @@ from pyhdtoolkit.cpymadtools.constants import (  # coverage
     SPECIAL_FAMILIES,
     TWO_FAMILIES,
 )
-from pyhdtoolkit.cpymadtools.errors import switch_magnetic_errors
+from pyhdtoolkit.cpymadtools.errors import (
+    misalign_lhc_ir_quadrupoles,
+    misalign_lhc_triplets,
+    switch_magnetic_errors,
+)
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.cpymadtools.matching import (
@@ -29,7 +33,12 @@ from pyhdtoolkit.cpymadtools.matching import (
     get_lhc_tune_and_chroma_knobs,
     match_tunes_and_chromaticities,
 )
-from pyhdtoolkit.cpymadtools.orbit import get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
+from pyhdtoolkit.cpymadtools.orbit import (
+    correct_lhc_orbit,
+    get_current_orbit_setup,
+    lhc_orbit_variables,
+    setup_lhc_orbit,
+)
 from pyhdtoolkit.cpymadtools.parameters import beam_parameters
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,
@@ -45,17 +54,17 @@ from pyhdtoolkit.cpymadtools.special import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
-    get_ips_twiss,
-    get_ir_twiss,
     install_ac_dipole,
     make_lhc_beams,
     make_lhc_thin,
     make_sixtrack_output,
     power_landau_octupoles,
     re_cycle_sequence,
+    vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
-from pyhdtoolkit.cpymadtools.twiss import get_twiss_tfs
+from pyhdtoolkit.cpymadtools.tune import make_footprint_table
+from pyhdtoolkit.cpymadtools.twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -133,6 +142,64 @@ class TestErrors:
             for ab in "AB":
                 for sr in "sr":
                     assert madx.globals[f"ON_{ab}{order:d}{sr}"] == random_kwargs[f"{ab}{order:d}"]
+
+    @pytest.mark.parametrize("ip", [1, 2, 5, 8])
+    @pytest.mark.parametrize("sides", ["R", "L", "RL", "r", "l", "rl"])
+    @pytest.mark.parametrize("quadrupoles", [[1, 3, 5, 7, 9], list(range(1, 11))])
+    def test_misalign_lhc_ir_quadrupoles(self, _non_matched_lhc_madx, ip, sides, quadrupoles):
+        madx = _non_matched_lhc_madx
+        misalign_lhc_ir_quadrupoles(
+            madx,
+            ip=ip,
+            quadrupoles=quadrupoles,
+            beam=1,
+            sides=sides,
+            dx="1E-3 * TGAUSS(2.5)",
+            dpsi="1E-3 * TGAUSS(2.5)",
+        )
+        error_table = madx.table["ir_quads_errors"].dframe().copy()
+        assert all(error_table["dx"] != 0)
+        assert all(error_table["dpsi"] != 0)
+
+    def test_misalign_lhc_ir_quadrupoles_specific_value(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
+        misalign_lhc_ir_quadrupoles(
+            madx, ip=1, quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001"
+        )
+        error_table = madx.table["ir_quads_errors"].dframe().copy()
+        assert all(error_table["dy"] == 0.001)
+
+    def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_side(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            misalign_lhc_ir_quadrupoles(madx, ip=8, quadrupoles=[1], beam=2, sides="Z", dy="0.001")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_ip(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            misalign_lhc_ir_quadrupoles(madx, ip=100, quadrupoles=[1], beam=2, sides="R", dy="0.001")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_beam(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            misalign_lhc_ir_quadrupoles(madx, ip=2, quadrupoles=[1], beam=10, sides="L", dy="0.001")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_misalign_lhc_triplets(self, _non_matched_lhc_madx):
+        # for coverage as this calls `misalign_lhc_ir_quadrupoles` tested above
+        madx = _non_matched_lhc_madx
+        misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-3 * TGAUSS(2.5)", dpsi="1E-3 * TGAUSS(2.5)")
+        error_table = madx.table["triplet_errors"].dframe().copy()
+        assert all(error_table["dx"] != 0)
+        assert all(error_table["dpsi"] != 0)
 
 
 class TestLatticeGenerator:
@@ -406,6 +473,23 @@ class TestOrbit:
         assert isinstance(setup, dict)
         assert all(orbit_var in setup.keys() for orbit_var in lhc_orbit_variables()[0])
         assert all(special_var in setup.keys() for special_var in lhc_orbit_variables()[1])
+
+    def test_orbit_correction(self, _bare_lhc_madx):
+        madx = _bare_lhc_madx
+        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        _ = setup_lhc_orbit(madx, scheme="flat")
+        make_lhc_beams(madx)
+        madx.use(sequence="lhcb1")
+        match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
+        assert madx.table.summ["xcorms"][0] == 0  # rms of horizontal CO
+
+        madx.select(flag="error", pattern="MQ.13R3.B1")  # arc quad in sector 34
+        madx.command.ealign(dx="1E-3")
+        madx.twiss()
+        assert madx.table.summ["xcorms"][0] > 1e-3
+
+        correct_lhc_orbit(madx)
+        assert math.isclose(madx.table.summ["xcorms"], 0, abs_tol=1e-5)
 
 
 class TestParameters:
@@ -737,27 +821,6 @@ class TestSpecial:
         assert math.isclose(madx.elements["MKACH.6L4.B1"].at, 9846.0765, rel_tol=1e-2)
         assert math.isclose(madx.elements["MKACH.6L4.B1"].freq, 62.3, rel_tol=1e-2)
 
-    def test_get_ips_twiss(self, _ips_twiss_path, _matched_lhc_madx):
-        madx = _matched_lhc_madx
-
-        reference_df = tfs.read(_ips_twiss_path)
-        ips_df = get_ips_twiss(madx)
-        assert_dict_equal(reference_df.headers, ips_df.headers)
-        assert_frame_equal(reference_df.set_index("name"), ips_df.set_index("name"))
-
-    @pytest.mark.parametrize("ir", [1, 5])
-    def test_get_irs_twiss(self, ir, _matched_lhc_madx):
-        madx = _matched_lhc_madx
-
-        reference_df = tfs.read(INPUTS_DIR / f"ir{ir:d}_twiss.tfs")
-        ir_df = get_ir_twiss(madx, ir=ir)
-        assert_dict_equal(reference_df.headers, ir_df.headers)
-        assert_frame_equal(reference_df.set_index("name"), ir_df.set_index("name"))
-
-        extra_columns = ["k0l", "k0sl", "k1l", "k1sl", "k2l", "k2sl", "sig11", "sig12", "sig21", "sig22"]
-        ir_extra_columns_df = get_ir_twiss(madx, ir=ir, columns=DEFAULT_TWISS_COLUMNS + extra_columns)
-        assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
-
     def test_makethin_lhc(self, _matched_lhc_madx):
         """
         Little trick: if we haven't sliced properly, tracking will fail so we can check all is ok by
@@ -784,6 +847,37 @@ class TestSpecial:
         twiss = madx.table.twiss.dframe().copy()
         assert "ip3" in twiss.name[0].lower()
 
+    def test_vary_independent_ir_quads(self, _non_matched_lhc_madx):
+        # still need to find how to test MAD-X has done this, but don't think we can test just a VARY
+        madx = _non_matched_lhc_madx
+        vary_independent_ir_quadrupoles(
+            madx, quad_numbers=[4, 5, 6, 7, 8, 9, 10, 11, 12, 13], ip=1, sides=("r", "l")
+        )
+
+    def test_vary_independent_ir_quads_raises_on_wrong_side(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            vary_independent_ir_quadrupoles(madx, quad_numbers=[4], ip=1, sides="Z")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_vary_independent_ir_quads_raises_on_wrong_ip(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            vary_independent_ir_quadrupoles(madx, quad_numbers=[4], ip=100, sides="R")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    def test_vary_independent_ir_quads_raises_on_wrong_quads(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        with pytest.raises(ValueError):
+            vary_independent_ir_quadrupoles(madx, quad_numbers=[5, 20, 100], ip=1, sides="R")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
 
 class TestTrack:
     def test_single_particle_tracking(self, _matched_base_lattice):
@@ -797,6 +891,35 @@ class TestTrack:
         assert all(
             [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
         )
+
+
+class TestTune:
+    def test_make_footprint_table(self, _non_matched_lhc_madx, tmp_path):
+        export_file = tmp_path / "out.tfs"
+        madx = _non_matched_lhc_madx
+        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        orbit_scheme = setup_lhc_orbit(madx, scheme="flat")
+        madx.use(sequence="lhcb1")
+        match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
+
+        make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+        madx.use(sequence="lhcb1")
+
+        foot = make_footprint_table(madx, sigma=2, file=str(export_file))
+        assert isinstance(foot, DataFrame)
+        assert export_file.exists()
+
+    def test_make_footprint_table_crashes_without_slicing(self, _non_matched_lhc_madx, caplog):
+        madx = _non_matched_lhc_madx
+        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        orbit_scheme = setup_lhc_orbit(madx, scheme="flat")
+        madx.use(sequence="lhcb1")
+
+        with pytest.raises(RuntimeError):
+            foot = make_footprint_table(madx, sigma=2)
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
 
 
 class TestTuneDiagramPlotter:
@@ -851,11 +974,32 @@ class TestTuneDiagramPlotter:
 
 
 class TestTwiss:
-    def test_twisseee(self, _twiss_export, _matched_base_lattice):
+    def test_twiss_tfs(self, _twiss_export, _matched_base_lattice):
         madx = _matched_base_lattice
         twiss_tfs = get_twiss_tfs(madx)
         from_disk = tfs.read(_twiss_export)  # not index="NAME" because duplicate element names
         assert_frame_equal(twiss_tfs.reset_index(), from_disk)
+
+    def test_get_ips_twiss(self, _ips_twiss_path, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+
+        reference_df = tfs.read(_ips_twiss_path)
+        ips_df = get_ips_twiss(madx)
+        assert_dict_equal(reference_df.headers, ips_df.headers)
+        assert_frame_equal(reference_df.set_index("name"), ips_df.set_index("name"))
+
+    @pytest.mark.parametrize("ir", [1, 5])
+    def test_get_irs_twiss(self, ir, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+
+        reference_df = tfs.read(INPUTS_DIR / f"ir{ir:d}_twiss.tfs")
+        ir_df = get_ir_twiss(madx, ir=ir)
+        assert_dict_equal(reference_df.headers, ir_df.headers)
+        assert_frame_equal(reference_df.set_index("name"), ir_df.set_index("name"))
+
+        extra_columns = ["k0l", "k0sl", "k1l", "k1sl", "k2l", "k2sl", "sig11", "sig12", "sig21", "sig22"]
+        ir_extra_columns_df = get_ir_twiss(madx, ir=ir, columns=DEFAULT_TWISS_COLUMNS + extra_columns)
+        assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
 
 
 # ---------------------- Private Utilities ---------------------- #
