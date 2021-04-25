@@ -134,7 +134,6 @@ def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
     }
 
 
-# TODO: tests for this (how do I assert?)
 def correct_lhc_orbit(
     madx: Madx, orbit_tolerance: float = 1e-14, iterations: int = 3, mode: str = "svd", **kwargs
 ) -> None:

@@ -33,7 +33,12 @@ from pyhdtoolkit.cpymadtools.matching import (
     get_lhc_tune_and_chroma_knobs,
     match_tunes_and_chromaticities,
 )
-from pyhdtoolkit.cpymadtools.orbit import get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
+from pyhdtoolkit.cpymadtools.orbit import (
+    correct_lhc_orbit,
+    get_current_orbit_setup,
+    lhc_orbit_variables,
+    setup_lhc_orbit,
+)
 from pyhdtoolkit.cpymadtools.parameters import beam_parameters
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,
@@ -468,6 +473,23 @@ class TestOrbit:
         assert isinstance(setup, dict)
         assert all(orbit_var in setup.keys() for orbit_var in lhc_orbit_variables()[0])
         assert all(special_var in setup.keys() for special_var in lhc_orbit_variables()[1])
+
+    def test_orbit_correction(self, _bare_lhc_madx):
+        madx = _bare_lhc_madx
+        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        _ = setup_lhc_orbit(madx, scheme="flat")
+        make_lhc_beams(madx)
+        madx.use(sequence="lhcb1")
+        match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
+        assert madx.table.summ["xcorms"][0] == 0  # rms of horizontal CO
+
+        madx.select(flag="error", pattern="MQ.13R3.B1")  # arc quad in sector 34
+        madx.command.ealign(dx="1E-3")
+        madx.twiss()
+        assert madx.table.summ["xcorms"][0] > 1e-3
+
+        correct_lhc_orbit(madx)
+        assert math.isclose(madx.table.summ["xcorms"], 0, abs_tol=1e-5)
 
 
 class TestParameters:
