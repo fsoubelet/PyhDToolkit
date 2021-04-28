@@ -56,7 +56,7 @@ jobs:
         run: poetry install -v
 
       - name: Run Tests
-        run: poetry run python -m pytest -k "not test_cpymadtools" # -p no:sugar
+        run: poetry run python -m pytest -k "not test_cpymadtools"
 
   cpymad_tests:
     needs: quick_tests
@@ -108,4 +108,4 @@ jobs:
         run: poetry install -v
 
       - name: Run Tests
-        run: poetry run python -m pytest -k "test_cpymadtools" # -p no:sugar
+        run: poetry run python -m pytest -k "test_cpymadtools"
