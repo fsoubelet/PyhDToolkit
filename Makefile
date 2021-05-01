@@ -19,7 +19,6 @@ all: install
 
 help:
 	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
-	@echo "  $(R) checklist $(E)  \t  to print a pre-release check-list."
 	@echo "  $(R) clean $(E)  \t  to recursively remove build, run, and bitecode files/dirs."
 	@echo "  $(R) condaenv $(E)  \t  to $(D)conda create$(E) the specific 'PHD' environment I use. Personnal."
 	@echo "  $(R) docker $(E)  \t  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
@@ -37,19 +36,9 @@ build:
 	@poetry build
 	@echo "Created build is located in the $(C)dist$(E) folder."
 
-checklist:
-	@echo "Here is a small pre-release check-list:"
-	@echo "  - Check you are on a tagged $(P)feature/release$(E) branch (see Gitflow workflow)."
-	@echo "  - Run $(D)poetry version$(E) with the right argument and update the version number in $(C)__init__.py$(E)."
-	@echo "  - Update the pyhdtoolkit version in the $(C)docker/environment.yml$(E) file."
-	@echo "  - Check the $(P)feature/release$(E) branch tag matches this release's package version."
-	@echo "  - After merging and pushing this release from $(P)master$(E) to $(P)origin/master$(E):"
-	@echo "     - Run $(D)poetry build$(E) to create a tarball of the new version."
-	@echo "     - Run $(D)poetry publish$(E) to push the new version to PyPI."
-	@echo "     - Create a Github release and upload the created tarball."
-	@echo "     - Run 'make $(R)clean$(E)'."
-
 clean:
+	@echo "Cleaning up documentation pages."
+	@rm -rf doc_build
 	@echo "Cleaning up distutils remains."
 	@rm -rf build
 	@rm -rf dist
@@ -74,8 +63,12 @@ condaenv:
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
 
+documentation: clean
+	@echo "Building static pages with $(D)Portray$(E)."
+	@poetry run portray in_browser -v
+
 docker:
-	@echo "Building docker image with $(D)PHD$(E) conda environment, with tag $(P)simenv$(E)."
+	@echo "Building $(P)simenv$(E) Docker image with $(D)PHD$(E) conda environment, with tag $(P)latest$(E)."
 	@docker build -f ./docker/Dockerfile -t simenv .
 	@docker tag simenv simenv:latest
 	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
@@ -85,7 +78,7 @@ format:
 	@poetry run isort . && black .
 
 install: format clean
-	@echo "Installing through $(D)poetry$(E), with dev dependencies but no extras."
+	@echo "Installing through $(D)Poetry$(E), with dev dependencies but no extras."
 	@poetry install -v
 
 interrogate:
