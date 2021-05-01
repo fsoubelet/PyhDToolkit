@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
     
     
       
@@ -18,7 +18,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.6f955dcd.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.e35208c4.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ef6f36e2.min.css">
@@ -266,25 +266,19 @@
     Installation
   </a>
   
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-pip" class="md-nav__link">
-    With pip
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-with-docker" class="md-nav__link">
+    Using With Docker
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#with-docker" class="md-nav__link">
-    With Docker
+      
+        <li class="md-nav__item">
+  <a href="#citing" class="md-nav__link">
+    Citing
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -760,62 +754,11 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_6" type="checkbox" id="__nav_4_1_6" >
       
       <label class="md-nav__link" for="__nav_4_1_6">
-        Tfstools
-        <span class="md-nav__icon md-icon"></span>
-      </label>
-      <nav class="md-nav" aria-label="Tfstools" data-md-level="3">
-        <label class="md-nav__title" for="__nav_4_1_6">
-          <span class="md-nav__icon md-icon"></span>
-          Tfstools
-        </label>
-        <ul class="md-nav__list" data-md-scrollfix>
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/pyhdtoolkit/tfstools/" class="md-nav__link">
-        Index
-      </a>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../reference/pyhdtoolkit/tfstools/latwiss/" class="md-nav__link">
-        Latwiss
-      </a>
-    </li>
-  
-
-          
-        </ul>
-      </nav>
-    </li>
-  
-
-          
-            
-  
-  
-  
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-      
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4_1_7" type="checkbox" id="__nav_4_1_7" >
-      
-      <label class="md-nav__link" for="__nav_4_1_7">
         Utils
         <span class="md-nav__icon md-icon"></span>
       </label>
       <nav class="md-nav" aria-label="Utils" data-md-level="3">
-        <label class="md-nav__title" for="__nav_4_1_7">
+        <label class="md-nav__title" for="__nav_4_1_6">
           <span class="md-nav__icon md-icon"></span>
           Utils
         </label>
@@ -965,25 +908,19 @@
     Installation
   </a>
   
-    <nav class="md-nav" aria-label="Installation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#with-pip" class="md-nav__link">
-    With pip
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-with-docker" class="md-nav__link">
+    Using With Docker
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#with-docker" class="md-nav__link">
-    With Docker
+      
+        <li class="md-nav__item">
+  <a href="#citing" class="md-nav__link">
+    Citing
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1006,18 +943,16 @@
                 
                 <h1 id="getting-started">Getting Started</h1>
 <h2 id="installation">Installation</h2>
-<p>This code is compatible with <code>Python 3.7+</code>.
-There are two possible methods for using this package: either as a Python package with <a href="https://pip.pypa.io/en/stable/" target="_blank">pip</a>, or as a <a href="https://www.docker.com/" target="_blank">Docker</a> image.</p>
-<h3 id="with-pip">With pip</h3>
-<p>You can now install this simply in a virtual environment with:</p>
-<div class="highlight"><pre><span></span><code>&gt; pip install pyhdtoolkit
+<p>This package is tested for and supports <code>Python 3.7+</code>, although it should be compatible with <code>Python 3.6</code>.
+You can install it simply in a virtual environment with:</p>
+<div class="highlight"><pre><span></span><code>pip install pyhdtoolkit
 </code></pre></div>
 <div class="admonition tip">
 <p class="admonition-title">Installation in a virtual environment</p>
 <p>Don't know what a <strong>virtual environment</strong> is or how to set it up? Here is a good
-<a href="https://realpython.com/python-virtual-environments-a-primer/" target="_blank">primer on virtual environments</a> by RealPython.</p>
+<a href="https://realpython.com/python-virtual-environments-a-primer/">primer on virtual environments</a> by RealPython.</p>
 </div>
-<details class="question"><summary>How about a development environment?</summary><p>Sure thing. This repository uses <a href="https://python-poetry.org/" target="_blank">Poetry</a> as a packaging and build tool. To set yourself 
+<details class="question"><summary>How about a development environment?</summary><p>Sure thing. This repository uses <a href="https://python-poetry.org/">Poetry</a> as a packaging and build tool. To set yourself 
 up, get a local copy through VCS and run:</p>
 <div class="highlight"><pre><span></span><code>poetry install
 </code></pre></div>
@@ -1027,19 +962,31 @@ You can format the code with <code>make format</code> and lint it (which will fo
 You can run tests locally with the predefined <code>make tests</code>, or through <code>poetry run pytest &lt;options&gt;</code> for customized options.</p>
 </details>
 <details class="question"><summary>How can I easily reproduce your research done with this?</summary><p>This repository comes with an <code>environment.yml</code> file to reproduce my work <code>conda</code> environment, feel free to use it.
-If you checked out from version control, you can install this environment and add it to your ipython kernel by running <code>make condaenv</code>.
-You can also make use of a fully-fetched one through Docker as explained below. </p>
+If you checked out from version control, you can install this environment and add it to your ipython kernel by running <code>make condaenv</code>.</p>
+<p>If you are comfortable with containers, a fully-fetched one is provided and accessible through Docker as explained below. </p>
 </details>
-<h3 id="with-docker">With Docker</h3>
+<h2 id="using-with-docker">Using With Docker</h2>
 <p>Docker provides an easy way to get access to a fully-fledged environment identical to the one I use, for reproducibility of my results.
-You can directly pull a pre-built image from <code>Dockerhub</code> (with tag <code>latest</code> being an automated build) with:
-<div class="highlight"><pre><span></span><code>&gt; docker pull fsoubelet/simenv
+You can directly pull a pre-built image from <code>Dockerhub</code> with:
+<div class="highlight"><pre><span></span><code>docker pull fsoubelet/simenv
 </code></pre></div></p>
 <p>You can then run a server from within the container and bind a local directory to work on.
 Assuming you pulled the provided image from Dockerhub, run a jupyterlab server on port <code>8888</code> with the command:
-<div class="highlight"><pre><span></span><code>&gt; docker run --rm -p <span class="m">8888</span>:8888 -e <span class="nv">JUPYTER_ENABLE_LAB</span><span class="o">=</span>yes -v &lt;host_dir_to_mount&gt;:/home/jovyan/work fsoubelet/simenv
+<div class="highlight"><pre><span></span><code>docker run --rm -p <span class="m">8888</span>:8888 -e <span class="nv">JUPYTER_ENABLE_LAB</span><span class="o">=</span>yes -v &lt;host_dir_to_mount&gt;:/home/jovyan/work fsoubelet/simenv
 </code></pre></div></p>
 <p>Any jupyter notebook or Python files in the mounted directory can then be used / ran with an environment identical to mine.</p>
+<h2 id="citing">Citing</h2>
+<p>If you have a use of these codes, please consider citing them.
+The repository has a <a href="https://zenodo.org/badge/latestdoi/227081702">DOI</a> provided by <a href="https://zenodo.org">Zenodo</a>, and all versions can be cited with the following BibTeX entry:
+<div class="highlight"><pre><span></span><code><span class="nc">@software</span><span class="p">{</span><span class="nl">pyhdtoolkit</span><span class="p">,</span>
+  <span class="na">author</span>       <span class="p">=</span> <span class="s">{Felix Soubelet}</span><span class="p">,</span>
+  <span class="na">title</span>        <span class="p">=</span> <span class="s">{fsoubelet/PyhDToolkit}</span><span class="p">,</span>
+  <span class="na">publisher</span>    <span class="p">=</span> <span class="s">{Zenodo}</span><span class="p">,</span>
+  <span class="na">doi</span>          <span class="p">=</span> <span class="s">{10.5281/zenodo.4268804}</span><span class="p">,</span>
+  <span class="na">url</span>          <span class="p">=</span> <span class="s">{https://doi.org/10.5281/zenodo.4268804}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>To cite a specific version, select the version on the package's page on Zotero and export the BibTex entry at the bottom right of the page.</p>
                 
               
               
