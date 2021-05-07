@@ -74,13 +74,13 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     "grid.linewidth": 1.3,  # Width of the grid lines
     # ------- Legend ------ #
     "legend.fancybox": True,  # Use rounded box for legend background
-    "legend.title_fontsize": 25,  # Legend title text font size
-    "legend.fontsize": 25,  # Legend text font size
+    "legend.title_fontsize": 23,  # Legend title text font size
+    "legend.fontsize": 22,  # Legend text font size
     "legend.frameon": True,  # Make a dedicated patch for the legend
     "legend.loc": "best",  # Default legend location
     # ------ Lines ------ #
-    "lines.linewidth": 2,  # Line width, in points
-    "lines.markersize": 5,  # Marker size, in points
+    "lines.linewidth": 1.5,  # Line width, in points
+    "lines.markersize": 3,  # Marker size, in points
     "lines.antialiased": True,  # Apply anti-aliasing to lines display
     # ----- Mathtext ----- #
     "mathtext.default": "bf",  # default font for math
