@@ -10,7 +10,7 @@ import sys
 from typing import List
 
 import pytest
-
+import matplotlib
 from loguru import logger
 from rich.table import Table
 
@@ -93,6 +93,10 @@ class TestDefaults:
         # This is to get it back as it is by defaults for other tests
         logger.remove()
         logger.add(sys.stderr)
+
+    def test_mplstyle_install(self, capsys):
+        defaults.install_mpl_style()
+        assert (pathlib.Path(matplotlib.get_configdir()) / "stylelib" / "phd.mplstyle").is_file()
 
 
 class TestHTCMonitor:
