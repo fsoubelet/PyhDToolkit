@@ -10,7 +10,9 @@ Provides defaults to import for different settings.
 import sys
 
 from pathlib import Path
-from typing import Dict, Union
+from typing import Dict, NewType, Union
+
+import matplotlib
 
 from loguru import logger
 
@@ -30,17 +32,33 @@ LOGURU_FORMAT = (
     "<level>{message}</level>"
 )
 
+PlotSetting = NewType("PlotSetting", Union[float, bool, str, tuple])
+
 # Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS).
 # Will ALWAYS be overwritten by later on definition
-PLOT_PARAMS: Dict[str, Union[float, bool, str, tuple]] = {
+PLOT_PARAMS: Dict[str, PlotSetting] = {
+    # ------ Patches ------ #
+    "patch.linewidth": 3,  # Width of patches edge lines
+    # ------ Fonts ------ #
+    "font.family": "sans-serif",  # Font family
+    "font.style": "normal",  # Style to apply to text font
+    "font.weight": "bold",  # Bold font
+    "font.size": 25,  # Default font size of elements
+    "font.sans-serif": "Helvetica",  # Sans-Serif font to use
+    # ----- Mathtext ----- #
+    "mathtext.default": "bf",  # default font for math
+    # ------ Text ------ #
+    "text.usetex": True,  # Use LaTeX for text handling (Set to False if you don't have a local installation)
+    "text.latex.preamble": r"\usepackage{amsmath}",  # \boldmath",  # Be careful with the preamble
     # ------ Axes ------ #
-    "axes.linewidth": 0.8,  # Linewidth of axes edges
-    "axes.grid": False,  # Do not display grid
-    "axes.labelsize": 30,  # Fontsize of the x and y axis labels
+    "axes.linewidth": 2,  # Linewidth of axes edges
+    "axes.grid": True,  # Do display grid
     "axes.titlesize": 30,  # Fontsize of the axes title
+    "axes.labelsize": 30,  # Fontsize of the x and y axis labels
+    "axes.labelweight": "bold",  # Bold labels
     "axes.formatter.limits": (-4, 5),  # Switch to scientific notations when order of magnitude reaches 1e3
-    # "axes.formatter.useoffset": False,  # Do not use the annoying offset on top of yticks
     "axes.formatter.use_mathtext": True,  # Format with i.e 10^{4} instead of 1e4
+    "axes.formatter.useoffset": False,  # Do not use the annoying offset on top of yticks
     # ------ Date Formats ------ #
     "date.autoformatter.year": "%Y",  # AutoDateFormatter setting for years display
     "date.autoformatter.month": "%Y-%m",  # AutoDateFormatter setting for months display
@@ -49,47 +67,71 @@ PLOT_PARAMS: Dict[str, Union[float, bool, str, tuple]] = {
     "date.autoformatter.minute": "%d %H:%M",  # AutoDateFormatter setting for minutes display
     "date.autoformatter.second": "%H:%M:%S",  # AutoDateFormatter setting for seconds display
     "date.autoformatter.microsecond": "%M:%S.%f",  # AutoDateFormatter setting for microseconds
-    # ------ General Figure ------ #
-    "figure.autolayout": True,  # Adjust subplot params to fit the figure (tight_layout)
-    "figure.dpi": 300,  # Figure dots per inch
-    "figure.figsize": (18, 11),  # Size of the figure
-    "figure.max_open_warning": 10,  # Max number of figures to open before warning
-    "figure.titlesize": 30,  # Size of the figure title
-    # ------ Fonts ------ #
-    "font.family": "sans-serif",  # Font family
-    # "font.sans-serif": "Helvetica",  # Sans-Serif font to use
-    "font.style": "normal",  # Style to apply to text font
+    # ------ Horizontal Ticks ------ #
+    "xtick.major.size": 8,  # Size (length) of the major xtick locators
+    "xtick.minor.size": 5,  # Size (length) of the minor xtick locators
+    "xtick.major.width": 1.5,  # Width of the major xtick locators
+    "xtick.minor.width": 0.6,  # Width of the minor xtick locators
+    "xtick.labelsize": 25,  # Fontsize of the x axis tick labels
+    "xtick.direction": "in",  # Show xticks towards inside of figure
+    "xtick.minor.visible": True,  # Show minor xtick locators
+    # ------ Vertical Ticks ------ #
+    "ytick.major.size": 8,  # Size (length) of the major ytick locators
+    "ytick.minor.size": 5,  # Size (length) of the minor ytick locators
+    "ytick.major.width": 1.5,  # Width of the major ytick locators
+    "ytick.minor.width": 0.6,  # Width of the minor ytick locators
+    "ytick.labelsize": 25,  # Fontsize of the y axis tick labels
+    "ytick.direction": "in",  # Show yticks towards inside of figure
+    "ytick.minor.visible": True,  # Show minor ytick locators
+    # ----- Grid ----- #
+    "grid.linestyle": "--",  # Which linestyle for grid lines
+    "grid.linewidth": 1.3,  # Width of the grid lines
     # ------- Legend ------ #
+    "legend.loc": "best",  # Default legend location
+    "legend.frameon": True,  # Make a dedicated patch for the legend
     "legend.fancybox": True,  # Use rounded box for legend background
     "legend.fontsize": 22,  # Legend text font size
-    "legend.loc": "best",  # Default legend location
-    # ------ Lines ------ #
-    "lines.linewidth": 1,  # Line width, in points
-    "lines.markersize": 5,  # Marker size, in points
-    "lines.antialiased": True,  # Apply anti-aliasing to lines display
-    # ------ Patches ------ #
-    "patch.linewidth": 1,  # Width of patches edge lines
-    "patch.antialiased": True,  # Apply anti-aliasing to patches display
-    # ------ Paths ------ #
-    "path.simplify": True,  # Reduce file size by removing "invisible" points
+    "legend.title_fontsize": 23,  # Legend title text font size
+    # ------ Figure ------ #
+    "figure.titlesize": 35,  # Size of the figure title
+    "figure.figsize": (16, 10),  # Default size of the figures
+    "figure.dpi": 300,  # Figure dots per inch
+    "figure.subplot.left": 0.15,  # Left side of the subplots of the figure
+    "figure.subplot.right": 0.90,  # Right side of the subplots of the figure
+    "figure.subplot.bottom": 0.15,  # Bottom side of the subplots of the figure
+    "figure.subplot.top": 0.90,  # Top side of the subplots of the figure
+    "figure.autolayout": True,  # Adjust subplot params to fit the figure (tight_layout)
     # ------ Saving ------ #
     "savefig.dpi": 1000,  # Saved figure dots per inch
     "savefig.format": "pdf",  # Saved figure file format
     "savefig.bbox": "tight",  # Careful: incompatible with pipe-based animation backends
-    # ------ Text ------ #
-    "text.antialiased": True,  # Apply anti-aliasing to text elements
-    "text.color": "black",  # Default text color
-    "text.usetex": False,  # Do not use LaTeX for text handling (I don't have a local installation)
-    # ------ Ticks ------ #
-    "xtick.labelsize": 25,  # Fontsize of the x axis tick labels
-    "ytick.labelsize": 25,  # Fontsize of the y axis tick labels
 }
 
 
-def config_logger(level: str = "INFO") -> None:
+def config_logger(level: str = "INFO", **kwargs) -> None:
     """
     Resets the logger object from loguru, with `sys.stdout` as a sink and the aforedefined format.
     This comes down to personnal preference.
+    Any additional keyword argument used is transmitted to the `logger.add` call.
     """
     logger.remove()
-    logger.add(sys.stdout, format=LOGURU_FORMAT, level=level.upper())
+    logger.add(sys.stdout, format=LOGURU_FORMAT, level=level.upper(), **kwargs)
+
+
+def install_mpl_style() -> None:
+    """
+    Will create a `phd.mplstyle` file in the appropriate directory from the `PLOT_PARAMS` defined in this
+    module. This enables one to use the style without importing `PLOT_PARAMS` and updating the rcParams,
+    but instead simply using `plt.style.use("phd")`.
+    """
+    logger.info("Installing matplotlib style")
+    style_content = "\n".join(f"{option} : {setting}" for option, setting in PLOT_PARAMS.items())
+    mpl_stylelib = Path(matplotlib.get_configdir()) / "stylelib"
+
+    logger.debug("Ensuring matplotlib 'stylelib' directory exists")
+    mpl_stylelib.mkdir(parents=True, exist_ok=True)
+    style_file = mpl_stylelib / "phd.mplstyle"
+
+    logger.debug(f"Creating style file at '{style_file.absolute()}'")
+    style_file.write_text(style_content.replace("(", "").replace(")", ""))
+    logger.success("You can now use it with 'plt.style.use(\"phd\")'")

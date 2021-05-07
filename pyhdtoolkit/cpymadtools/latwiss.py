@@ -21,6 +21,7 @@ from loguru import logger
 from pyhdtoolkit.utils.defaults import PLOT_PARAMS
 
 plt.rcParams.update(PLOT_PARAMS)
+plt.rcParams.update({"xtick.direction": "in", "ytick.direction": "in"})  # need to reiterate these somehow
 
 # ----- Plotters ----- #
 
@@ -341,6 +342,7 @@ def _plot_machine_layout(
     quadrupole_patches_axis.set_xlim(xlimits)
     quadrupole_patches_axis.set_title(title)
     quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
+    quadrupole_patches_axis.grid(False)
 
     dipole_patches_axis = quadrupole_patches_axis.twinx()
     dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ [rad]", color="royalblue")  # dipoles in blue
@@ -419,6 +421,7 @@ def _plot_machine_layout(
             )
             plotted_elements += 1
         sextupoles_patches_axis.legend(loc=3, fontsize=16)
+        sextupoles_patches_axis.grid(False)
 
     if plot_bpms:
         logger.debug("Plotting BPM patches")
@@ -439,6 +442,7 @@ def _plot_machine_layout(
             )
             plotted_elements += 1
         bpm_patches_axis.legend(loc=4, fontsize=16)
+        bpm_patches_axis.grid(False)
 
 
 # ----- Helpers ----- #

@@ -60,17 +60,15 @@ class TestBeamCalculations:
 
 class TestRipken:
     def test_beam_size(self, _fake_coordinates):
-        # Test uses the dispatcher's 'py_func' object for coverage integrity, packaged implementation
-        # is still JIT compiled, and a JIT failure will fail the test.
-        assert np.allclose(ripken._beam_size.py_func(_fake_coordinates), _fake_coordinates.std())
+        assert np.allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())
         assert np.allclose(
-            ripken._beam_size.py_func(_fake_coordinates, method="rms"),
+            ripken._beam_size(_fake_coordinates, method="rms"),
             np.sqrt(np.mean(np.square(_fake_coordinates))),
         )
 
     def test_beam_size_raises(self, _fake_coordinates):
         with pytest.raises(NotImplementedError):
-            _ = ripken._beam_size.py_func(_fake_coordinates, method="not_real")
+            _ = ripken._beam_size(_fake_coordinates, method="not_real")
 
     @pytest.mark.parametrize("beta11", [0.3312])
     @pytest.mark.parametrize("beta21", [1])
@@ -82,23 +80,12 @@ class TestRipken:
         ) == np.sqrt(emit_x * beta11 + emit_y * beta21)
 
 
-# TODO: fix this one
-#     def test_levedev_size_arrays(self):
-# beta_11_array = np.load(INPUT_PATHS["beta11"])
-# beta_21_array = np.load(INPUT_PATHS["beta21"])
-# lebedev_sizes = np.load(INPUT_PATHS["lebedev"])
-# calculated = ripken.lebedev_beam_size(beta_11_array, beta_21_array, 3.75e-6, 3.75e-6)
-# assert np.allclose(calculated, lebedev_sizes)
-
-
 class TestTwiss:
     def test_courant_snyder_transform(self):
-        # Test uses the dispatcher's 'py_func' object for coverage integrity, packaged implementation
-        # is still JIT compiled, and a JIT failure will fail the test.
         alpha_beta = np.load(INPUT_PATHS["alpha_beta"])
         u_vector = np.load(INPUT_PATHS["u_vector"])
         u_bar_result = np.load(INPUT_PATHS["u_bar"])
-        u_transform = twiss.courant_snyder_transform.py_func(u_vector, alpha_beta[0], alpha_beta[1])
+        u_transform = twiss.courant_snyder_transform(u_vector, alpha_beta[0], alpha_beta[1])
         np.testing.assert_array_almost_equal(u_transform, u_bar_result)
 
 
