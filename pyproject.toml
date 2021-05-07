@@ -31,15 +31,13 @@ classifiers = [
 
 # Core dependencies of the package
 [tool.poetry.dependencies]
-python = "^3.7, <3.10"  # specified to help with llvm dependency
+python = "^3.7"
 numpy = "^1.19"
 pandas = "^1.0"
 matplotlib = "^3.0"
 scipy = "^1.4"
 tfs-pandas = "^2.0"
 loguru = "<1.0"
-numba = "<1.0"
-llvmlite = "^0.36"  # dependency of numba, version specified here to guarantee Python 3.9 compatibility
 cpymad = "^1.6"
 rich = "^10.0"
 pydantic = "^1.0"

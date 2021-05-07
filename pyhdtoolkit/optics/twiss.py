@@ -8,11 +8,9 @@ Created on 2020.09.07
 This is a Python3 module implementing various functionality for optics calculations from / to
 twiss parameters.
 """
-import numba
 import numpy as np
 
 
-@numba.njit()
 def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) -> np.ndarray:
     """
     Perform the Courant-Snyder transform on rergular (nonchaotic) phase-space coordinatess.

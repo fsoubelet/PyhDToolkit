@@ -1,6 +1,5 @@
 from typing import Union
 
-import numba
 import numpy as np
 
 from loguru import logger
@@ -33,7 +32,6 @@ def lebedev_beam_size(
 # ----- JITed Calculations ----- #
 
 
-@numba.njit()
 def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> float:
     """
     Compute beam size from particle coordinates.

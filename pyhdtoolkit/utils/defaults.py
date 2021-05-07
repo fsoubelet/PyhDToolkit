@@ -10,9 +10,10 @@ Provides defaults to import for different settings.
 import sys
 
 from pathlib import Path
-from typing import Dict, Union, NewType
+from typing import Dict, NewType, Union
 
 import matplotlib
+
 from loguru import logger
 
 ANACONDA_INSTALL = Path().home() / "anaconda3"
