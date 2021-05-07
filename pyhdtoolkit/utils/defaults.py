@@ -125,9 +125,12 @@ def install_mpl_style() -> None:
     but instead simply using `plt.style.use("phd")`.
     """
     logger.info("Installing matplotlib style")
-    mpl_config = Path(matplotlib.get_configdir())
-    style_file = mpl_config / "stylelib" / "phd.mplstyle"
     style_content = "\n".join(f"{option} : {setting}" for option, setting in PLOT_PARAMS.items())
+    mpl_stylelib = Path(matplotlib.get_configdir()) / "stylelib"
+
+    logger.debug("Ensuring matplotlib 'stylelib' directory exists")
+    mpl_stylelib.mkdir(parents=True, exist_ok=True)
+    style_file = mpl_stylelib / "phd.mplstyle"
 
     logger.debug(f"Creating style file at '{style_file.absolute()}'")
     style_file.write_text(style_content.replace("(", "").replace(")", ""))
