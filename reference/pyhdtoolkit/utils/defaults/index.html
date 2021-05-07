@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.3">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
     
     
       
@@ -18,7 +18,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.e35208c4.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.bde7dde4.min.css">
       
         
         <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ef6f36e2.min.css">
@@ -793,8 +793,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#plotsetting" class="md-nav__link">
+    PlotSetting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#config_logger" class="md-nav__link">
     config_logger
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install_mpl_style" class="md-nav__link">
+    install_mpl_style
   </a>
   
 </li>
@@ -931,8 +945,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#plotsetting" class="md-nav__link">
+    PlotSetting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#config_logger" class="md-nav__link">
     config_logger
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install_mpl_style" class="md-nav__link">
+    install_mpl_style
   </a>
   
 </li>
@@ -981,7 +1009,9 @@
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">NewType</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
@@ -1009,27 +1039,57 @@
 
 <span class="p">)</span>
 
+<span class="n">PlotSetting</span> <span class="o">=</span> <span class="n">NewType</span><span class="p">(</span><span class="s2">&quot;PlotSetting&quot;</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">])</span>
+
 <span class="c1"># Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS).</span>
 
 <span class="c1"># Will ALWAYS be overwritten by later on definition</span>
 
-<span class="n">PLOT_PARAMS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">PLOT_PARAMS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="c1"># ------ Patches ------ #</span>
+
+    <span class="s2">&quot;patch.linewidth&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>  <span class="c1"># Width of patches edge lines</span>
+
+    <span class="c1"># ------ Fonts ------ #</span>
+
+    <span class="s2">&quot;font.family&quot;</span><span class="p">:</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span>  <span class="c1"># Font family</span>
+
+    <span class="s2">&quot;font.style&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>  <span class="c1"># Style to apply to text font</span>
+
+    <span class="s2">&quot;font.weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>  <span class="c1"># Bold font</span>
+
+    <span class="s2">&quot;font.size&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Default font size of elements</span>
+
+    <span class="s2">&quot;font.sans-serif&quot;</span><span class="p">:</span> <span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span>  <span class="c1"># Sans-Serif font to use</span>
+
+    <span class="c1"># ----- Mathtext ----- #</span>
+
+    <span class="s2">&quot;mathtext.default&quot;</span><span class="p">:</span> <span class="s2">&quot;bf&quot;</span><span class="p">,</span>  <span class="c1"># default font for math</span>
+
+    <span class="c1"># ------ Text ------ #</span>
+
+    <span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use LaTeX for text handling (Set to False if you don&#39;t have a local installation)</span>
+
+    <span class="s2">&quot;text.latex.preamble&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;\usepackage</span><span class="si">{amsmath}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># \boldmath&quot;,  # Be careful with the preamble</span>
 
     <span class="c1"># ------ Axes ------ #</span>
 
-    <span class="s2">&quot;axes.linewidth&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>  <span class="c1"># Linewidth of axes edges</span>
+    <span class="s2">&quot;axes.linewidth&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># Linewidth of axes edges</span>
 
-    <span class="s2">&quot;axes.grid&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Do not display grid</span>
-
-    <span class="s2">&quot;axes.labelsize&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Fontsize of the x and y axis labels</span>
+    <span class="s2">&quot;axes.grid&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Do display grid</span>
 
     <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Fontsize of the axes title</span>
 
+    <span class="s2">&quot;axes.labelsize&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Fontsize of the x and y axis labels</span>
+
+    <span class="s2">&quot;axes.labelweight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>  <span class="c1"># Bold labels</span>
+
     <span class="s2">&quot;axes.formatter.limits&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># Switch to scientific notations when order of magnitude reaches 1e3</span>
 
-    <span class="c1"># &quot;axes.formatter.useoffset&quot;: False,  # Do not use the annoying offset on top of yticks</span>
-
     <span class="s2">&quot;axes.formatter.use_mathtext&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Format with i.e 10^{4} instead of 1e4</span>
+
+    <span class="s2">&quot;axes.formatter.useoffset&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Do not use the annoying offset on top of yticks</span>
 
     <span class="c1"># ------ Date Formats ------ #</span>
 
@@ -1047,51 +1107,73 @@
 
     <span class="s2">&quot;date.autoformatter.microsecond&quot;</span><span class="p">:</span> <span class="s2">&quot;%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for microseconds</span>
 
-    <span class="c1"># ------ General Figure ------ #</span>
+    <span class="c1"># ------ Horizontal Ticks ------ #</span>
 
-    <span class="s2">&quot;figure.autolayout&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Adjust subplot params to fit the figure (tight_layout)</span>
+    <span class="s2">&quot;xtick.major.size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># Size (length) of the major xtick locators</span>
 
-    <span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>  <span class="c1"># Figure dots per inch</span>
+    <span class="s2">&quot;xtick.minor.size&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># Size (length) of the minor xtick locators</span>
 
-    <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>  <span class="c1"># Size of the figure</span>
+    <span class="s2">&quot;xtick.major.width&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>  <span class="c1"># Width of the major xtick locators</span>
 
-    <span class="s2">&quot;figure.max_open_warning&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>  <span class="c1"># Max number of figures to open before warning</span>
+    <span class="s2">&quot;xtick.minor.width&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>  <span class="c1"># Width of the minor xtick locators</span>
 
-    <span class="s2">&quot;figure.titlesize&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Size of the figure title</span>
+    <span class="s2">&quot;xtick.labelsize&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Fontsize of the x axis tick labels</span>
 
-    <span class="c1"># ------ Fonts ------ #</span>
+    <span class="s2">&quot;xtick.direction&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>  <span class="c1"># Show xticks towards inside of figure</span>
 
-    <span class="s2">&quot;font.family&quot;</span><span class="p">:</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span>  <span class="c1"># Font family</span>
+    <span class="s2">&quot;xtick.minor.visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Show minor xtick locators</span>
 
-    <span class="c1"># &quot;font.sans-serif&quot;: &quot;Helvetica&quot;,  # Sans-Serif font to use</span>
+    <span class="c1"># ------ Vertical Ticks ------ #</span>
 
-    <span class="s2">&quot;font.style&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>  <span class="c1"># Style to apply to text font</span>
+    <span class="s2">&quot;ytick.major.size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># Size (length) of the major ytick locators</span>
+
+    <span class="s2">&quot;ytick.minor.size&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># Size (length) of the minor ytick locators</span>
+
+    <span class="s2">&quot;ytick.major.width&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>  <span class="c1"># Width of the major ytick locators</span>
+
+    <span class="s2">&quot;ytick.minor.width&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>  <span class="c1"># Width of the minor ytick locators</span>
+
+    <span class="s2">&quot;ytick.labelsize&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Fontsize of the y axis tick labels</span>
+
+    <span class="s2">&quot;ytick.direction&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>  <span class="c1"># Show yticks towards inside of figure</span>
+
+    <span class="s2">&quot;ytick.minor.visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Show minor ytick locators</span>
+
+    <span class="c1"># ----- Grid ----- #</span>
+
+    <span class="s2">&quot;grid.linestyle&quot;</span><span class="p">:</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span>  <span class="c1"># Which linestyle for grid lines</span>
+
+    <span class="s2">&quot;grid.linewidth&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">,</span>  <span class="c1"># Width of the grid lines</span>
 
     <span class="c1"># ------- Legend ------ #</span>
+
+    <span class="s2">&quot;legend.loc&quot;</span><span class="p">:</span> <span class="s2">&quot;best&quot;</span><span class="p">,</span>  <span class="c1"># Default legend location</span>
+
+    <span class="s2">&quot;legend.frameon&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Make a dedicated patch for the legend</span>
 
     <span class="s2">&quot;legend.fancybox&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use rounded box for legend background</span>
 
     <span class="s2">&quot;legend.fontsize&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>  <span class="c1"># Legend text font size</span>
 
-    <span class="s2">&quot;legend.loc&quot;</span><span class="p">:</span> <span class="s2">&quot;best&quot;</span><span class="p">,</span>  <span class="c1"># Default legend location</span>
+    <span class="s2">&quot;legend.title_fontsize&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>  <span class="c1"># Legend title text font size</span>
 
-    <span class="c1"># ------ Lines ------ #</span>
+    <span class="c1"># ------ Figure ------ #</span>
 
-    <span class="s2">&quot;lines.linewidth&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># Line width, in points</span>
+    <span class="s2">&quot;figure.titlesize&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>  <span class="c1"># Size of the figure title</span>
 
-    <span class="s2">&quot;lines.markersize&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># Marker size, in points</span>
+    <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>  <span class="c1"># Default size of the figures</span>
 
-    <span class="s2">&quot;lines.antialiased&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Apply anti-aliasing to lines display</span>
+    <span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>  <span class="c1"># Figure dots per inch</span>
 
-    <span class="c1"># ------ Patches ------ #</span>
+    <span class="s2">&quot;figure.subplot.left&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>  <span class="c1"># Left side of the subplots of the figure</span>
 
-    <span class="s2">&quot;patch.linewidth&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># Width of patches edge lines</span>
+    <span class="s2">&quot;figure.subplot.right&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>  <span class="c1"># Right side of the subplots of the figure</span>
 
-    <span class="s2">&quot;patch.antialiased&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Apply anti-aliasing to patches display</span>
+    <span class="s2">&quot;figure.subplot.bottom&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>  <span class="c1"># Bottom side of the subplots of the figure</span>
 
-    <span class="c1"># ------ Paths ------ #</span>
+    <span class="s2">&quot;figure.subplot.top&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>  <span class="c1"># Top side of the subplots of the figure</span>
 
-    <span class="s2">&quot;path.simplify&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Reduce file size by removing &quot;invisible&quot; points</span>
+    <span class="s2">&quot;figure.autolayout&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Adjust subplot params to fit the figure (tight_layout)</span>
 
     <span class="c1"># ------ Saving ------ #</span>
 
@@ -1101,23 +1183,9 @@
 
     <span class="s2">&quot;savefig.bbox&quot;</span><span class="p">:</span> <span class="s2">&quot;tight&quot;</span><span class="p">,</span>  <span class="c1"># Careful: incompatible with pipe-based animation backends</span>
 
-    <span class="c1"># ------ Text ------ #</span>
-
-    <span class="s2">&quot;text.antialiased&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Apply anti-aliasing to text elements</span>
-
-    <span class="s2">&quot;text.color&quot;</span><span class="p">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>  <span class="c1"># Default text color</span>
-
-    <span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Do not use LaTeX for text handling (I don&#39;t have a local installation)</span>
-
-    <span class="c1"># ------ Ticks ------ #</span>
-
-    <span class="s2">&quot;xtick.labelsize&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Fontsize of the x axis tick labels</span>
-
-    <span class="s2">&quot;ytick.labelsize&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Fontsize of the y axis tick labels</span>
-
 <span class="p">}</span>
 
-<span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span><span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span><span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1125,11 +1193,43 @@
 
 <span class="sd">    This comes down to personnal preference.</span>
 
+<span class="sd">    Any additional keyword argument used is transmitted to the `logger.add` call.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">())</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">install_mpl_style</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Will create a `phd.mplstyle` file in the appropriate directory from the `PLOT_PARAMS` defined in this</span>
+
+<span class="sd">    module. This enables one to use the style without importing `PLOT_PARAMS` and updating the rcParams,</span>
+
+<span class="sd">    but instead simply using `plt.style.use(&quot;phd&quot;)`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span>
+
+    <span class="n">style_content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">PLOT_PARAMS</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+
+    <span class="n">mpl_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl_stylelib</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">style_file</span> <span class="o">=</span> <span class="n">mpl_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating style file at &#39;</span><span class="si">{</span><span class="n">style_file</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">style_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="s2">phd</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 </details>
@@ -1151,14 +1251,27 @@
 <div class="highlight"><pre><span></span><code><span class="n">WORK_REPOSITORIES</span>
 </code></pre></div>
 <h2 id="functions">Functions</h2>
+<h3 id="plotsetting">PlotSetting</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">PlotSetting</span><span class="p">(</span>
+    <span class="n">x</span>
+<span class="p">)</span>
+</code></pre></div>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">def</span> <span class="nv">new_type</span><span class="ss">(</span><span class="nv">x</span><span class="ss">)</span>:
+
+        <span class="k">return</span> <span class="nv">x</span>
+</code></pre></div>
+
+</details>
 <h3 id="config_logger">config_logger</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span>
-    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span>
+    <span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;INFO&#39;</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 <p>Resets the logger object from loguru, with <code>sys.stdout</code> as a sink and the aforedefined format.</p>
-<p>This comes down to personnal preference.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;INFO&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
+<p>This comes down to personnal preference.
+Any additional keyword argument used is transmitted to the <code>logger.add</code> call.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;INFO&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
 
     <span class="s">&quot;&quot;&quot;</span>
 
@@ -1166,11 +1279,53 @@
 
 <span class="s">    This comes down to personnal preference.</span>
 
+<span class="s">    Any additional keyword argument used is transmitted to the `logger.add` call.</span>
+
 <span class="s">    &quot;&quot;&quot;</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">.</span><span class="n">upper</span><span class="p">())</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">.</span><span class="n">upper</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h3 id="install_mpl_style">install_mpl_style</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">install_mpl_style</span><span class="p">(</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Will create a <code>phd.mplstyle</code> file in the appropriate directory from the <code>PLOT_PARAMS</code> defined in this</p>
+<p>module. This enables one to use the style without importing <code>PLOT_PARAMS</code> and updating the rcParams,
+but instead simply using <code>plt.style.use("phd")</code>.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">install_mpl_style</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    Will create a `phd.mplstyle` file in the appropriate directory from the `PLOT_PARAMS` defined in this</span>
+
+<span class="s2">    module. This enables one to use the style without importing `PLOT_PARAMS` and updating the rcParams,</span>
+
+<span class="s2">    but instead simply using `plt.style.use(&quot;</span><span class="n">phd</span><span class="s2">&quot;)`.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span>
+
+    <span class="n">style_content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{option} : {setting}&quot;</span> <span class="k">for</span> <span class="k">option</span><span class="p">,</span> <span class="k">set</span><span class="n">ting</span> <span class="k">in</span> <span class="n">PLOT_PARAMS</span><span class="p">.</span><span class="n">items</span><span class="p">())</span>
+
+    <span class="n">mpl_stylelib</span> <span class="o">=</span> <span class="k">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span>
+
+    <span class="n">mpl_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+
+    <span class="n">style_file</span> <span class="o">=</span> <span class="n">mpl_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{style_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="s2">phd</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span>
 </code></pre></div>
 
 </details>
@@ -1245,10 +1400,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.fe42c31b.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.4ea5477f.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
       
     
   </body>
