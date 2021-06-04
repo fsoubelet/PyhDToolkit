@@ -199,8 +199,6 @@ def get_closest_tune_approach(
         sequence,
         qx_target,
         qy_target,
-        # dq1,  # remove?
-        # dq2,  # remove?
         varied_knobs=varied_knobs,
         step=step,
         calls=calls,
