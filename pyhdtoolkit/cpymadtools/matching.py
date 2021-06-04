@@ -211,8 +211,8 @@ def get_closest_tune_approach(
     dqmin = madx.table.summ.q1[0] - madx.table.summ.q2[0] - (int(q1) - int(q2))
 
     logger.info("Restoring saved knobs")
-    for knob, knob_value in saved_knobs.items():
-        madx.globals[knob] = knob_value
+    with madx.batch():
+        madx.globals.update(saved_knobs)
     madx.twiss()
 
     return abs(dqmin)
