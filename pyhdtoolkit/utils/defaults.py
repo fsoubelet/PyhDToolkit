@@ -47,10 +47,10 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     "font.size": 25,  # Default font size of elements
     "font.sans-serif": "Helvetica",  # Sans-Serif font to use
     # ----- Mathtext ----- #
-    "mathtext.default": "bf",  # default font for math
+    "mathtext.default": "regular",  # default font for math
     # ------ Text ------ #
     "text.usetex": True,  # Use LaTeX for text handling (Set to False if you don't have a local installation)
-    "text.latex.preamble": r"\usepackage{amsmath}",  # \boldmath",  # Be careful with the preamble
+    "text.latex.preamble": r"\usepackage{amsmath, amssymb}",  # \boldmath",  # Be careful with the preamble
     # ------ Axes ------ #
     "axes.linewidth": 2,  # Linewidth of axes edges
     "axes.grid": True,  # Do display grid
