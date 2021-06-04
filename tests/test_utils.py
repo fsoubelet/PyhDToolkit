@@ -9,8 +9,10 @@ import sys
 
 from typing import List
 
-import pytest
 import matplotlib
+import matplotlib.pyplot as plt
+import pytest
+
 from loguru import logger
 from rich.table import Table
 
@@ -97,6 +99,7 @@ class TestDefaults:
     def test_mplstyle_install(self, capsys):
         defaults.install_mpl_style()
         assert (pathlib.Path(matplotlib.get_configdir()) / "stylelib" / "phd.mplstyle").is_file()
+        assert (pathlib.Path(plt.style.core.BASE_LIBRARY_PATH) / "phd.mplstyle").is_file()
 
 
 class TestHTCMonitor:
