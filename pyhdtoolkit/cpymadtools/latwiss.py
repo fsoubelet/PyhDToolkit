@@ -126,15 +126,15 @@ def plot_latwiss(
     betatron_axis.plot(twiss_df.s, twiss_df.betx, label="$\\beta_x$", lw=1.5)
     betatron_axis.plot(twiss_df.s, twiss_df.bety, label="$\\beta_y$", lw=1.5)
     betatron_axis.legend(loc=2)
-    betatron_axis.set_ylabel("$\\beta$-functions [m]")
-    betatron_axis.set_xlabel("s [m]")
+    betatron_axis.set_ylabel("$\\beta_{x,y}$ $[m]$")
+    betatron_axis.set_xlabel("$S$ $[m]$")
 
     logger.trace("Setting up dispersion functions subplot")
     dispertion_axis = betatron_axis.twinx()
     dispertion_axis.plot(twiss_df.s, twiss_df.dx, color="brown", label="$D_x$", lw=2)
     dispertion_axis.plot(twiss_df.s, twiss_df.dy, ls="-.", color="sienna", label="$D_y$", lw=2)
     dispertion_axis.legend(loc=1)
-    dispertion_axis.set_ylabel("Dispersions [m]", color="brown")
+    dispertion_axis.set_ylabel("$D_{x,y}$ $[m]$", color="brown")
     dispertion_axis.tick_params(axis="y", labelcolor="brown")
     dispertion_axis.grid(False)
 
@@ -220,9 +220,9 @@ def plot_machine_survey(
         plt.scatter(survey.z, survey.x, c=survey.s)
 
     plt.axis("equal")
-    plt.colorbar().set_label("s [m]")
-    plt.xlabel("z [m]")
-    plt.ylabel("x [m]")
+    plt.colorbar().set_label("$S$ $[m]$")
+    plt.xlabel("$Z$ $[m]$")
+    plt.ylabel("$X$ $[m]$")
     plt.title(title)
 
     if savefig:
@@ -336,7 +336,7 @@ def _plot_machine_layout(
 
     logger.debug("Plotting machine layout")
     logger.trace(f"Plotting from axis '{quadrupole_patches_axis}'")
-    quadrupole_patches_axis.set_ylabel("$1/f=K_{1}L$ [m$^{-1}$]", color="red")  # quadrupole in red
+    quadrupole_patches_axis.set_ylabel("$1/f=K_{1}L$ $[m^{-1}]$", color="red")  # quadrupole in red
     quadrupole_patches_axis.tick_params(axis="y", labelcolor="red")
     quadrupole_patches_axis.set_ylim(k1l_lim)
     quadrupole_patches_axis.set_xlim(xlimits)
@@ -345,7 +345,7 @@ def _plot_machine_layout(
     quadrupole_patches_axis.grid(False)
 
     dipole_patches_axis = quadrupole_patches_axis.twinx()
-    dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ [rad]", color="royalblue")  # dipoles in blue
+    dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ $[rad]$", color="royalblue")  # dipoles in blue
     dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
     dipole_patches_axis.set_ylim(k0l_lim)
     dipole_patches_axis.grid(False)
