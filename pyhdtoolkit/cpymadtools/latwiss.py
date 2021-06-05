@@ -123,8 +123,8 @@ def plot_latwiss(
     # Plotting beta functions on remaining two thirds of the figure
     logger.debug("Setting up betatron functions subplot")
     betatron_axis = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis)
-    betatron_axis.plot(twiss_df.s, twiss_df.betx, label="$\\beta_x$", lw=1.5)
-    betatron_axis.plot(twiss_df.s, twiss_df.bety, label="$\\beta_y$", lw=1.5)
+    betatron_axis.plot(twiss_df.s, twiss_df.betx, label="$\\beta_x$", lw=2)
+    betatron_axis.plot(twiss_df.s, twiss_df.bety, label="$\\beta_y$", lw=2)
     betatron_axis.legend(loc=2)
     betatron_axis.set_ylabel("$\\beta_{x,y}$ $[m]$")
     betatron_axis.set_xlabel("$S$ $[m]$")
