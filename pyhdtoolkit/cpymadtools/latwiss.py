@@ -226,7 +226,7 @@ def plot_machine_survey(
 
     if savefig:
         logger.info(f"Saving machine survey plot as {savefig}")
-        plt.savefig(savefig, format="pdf", dpi=500)
+        plt.savefig(savefig)
     return figure
 
 
