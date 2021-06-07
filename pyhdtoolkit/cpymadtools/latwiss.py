@@ -195,7 +195,6 @@ def plot_machine_survey(
             element_dfs["dipoles"].x,
             marker=".",
             c=element_dfs["dipoles"].s,
-            cmap="copper",
             label="Dipoles",
         )
         plt.scatter(
@@ -217,7 +216,7 @@ def plot_machine_survey(
 
     else:
         logger.debug("Plotting survey without elements differentiation")
-        plt.scatter(survey.z, survey.x, c=survey.s)
+        plt.scatter(survey.z, survey.x, c=survey.s, marker=".")
 
     plt.axis("equal")
     plt.colorbar().set_label("$S$ $[m]$")
