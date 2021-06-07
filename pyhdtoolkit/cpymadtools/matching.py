@@ -216,6 +216,28 @@ def get_closest_tune_approach(
     return abs(dqmin)
 
 
+def match_no_coupling_through_ripkens(
+    madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
+) -> None:
+    """
+    Matching commands to get cross-term Ripken parameters beta_12 and beta_21 to be 0 at a given location,
+    using skew quad correctors independently.
+    """
+    logger.info(f"Matching Ripken parameters for no coupling at location {location}")
+    logger.debug("Creating macro tu update Ripkens")
+    madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
+
+    logger.debug("Matching Parameters")
+    madx.command.match(sequence=sequence, use_macro=True, chrom=True)
+    for knob in vary_knobs:
+        madx.command.vary(name=knob)
+    madx.command.use_macro(name="do_ripken")
+    madx.input(f"constraint, expr=table(twiss, {location}, beta12)=0")  # need input else includes " and fails
+    madx.input(f"constraint, expr=table(twiss, {location}, beta21)=0")
+    madx.command.lmdif(calls=500, tolerance=1e-21)
+    madx.command.endmatch()
+
+
 # ----- Helpers ----- #
 
 
