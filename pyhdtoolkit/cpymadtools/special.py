@@ -422,6 +422,32 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
     madx.command.endedit()
 
 
+def match_no_coupling_through_ripkens(
+    madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
+) -> None:
+    """
+    Matching routine to get cross-term Ripken parameters beta_12 and beta_21 to be 0 at a given location.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        sequence (str): name of the sequence to activate for the matching.
+        location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
+        vary_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine.
+    """
+    logger.info(f"Matching Ripken parameters for no coupling at location {location}")
+    logger.debug("Creating macro tu update Ripkens")
+    madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
+
+    logger.debug("Matching Parameters")
+    madx.command.match(sequence=sequence, use_macro=True, chrom=True)
+    for knob in vary_knobs:
+        madx.command.vary(name=knob)
+    madx.command.use_macro(name="do_ripken")
+    madx.input(f"constraint, expr=table(twiss, {location}, beta12)=0")  # need input else includes " and fails
+    madx.input(f"constraint, expr=table(twiss, {location}, beta21)=0")  # need input else includes " and fails
+    madx.command.lmdif(calls=500, tolerance=1e-21)
+    madx.command.endmatch()
+
 # ----- Helpers ----- #
 
 
