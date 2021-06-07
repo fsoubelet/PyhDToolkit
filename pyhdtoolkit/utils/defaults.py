@@ -13,6 +13,7 @@ from pathlib import Path
 from typing import Dict, NewType, Union
 
 import matplotlib
+import matplotlib.pyplot as plt
 
 from loguru import logger
 
@@ -46,10 +47,10 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     "font.size": 25,  # Default font size of elements
     "font.sans-serif": "Helvetica",  # Sans-Serif font to use
     # ----- Mathtext ----- #
-    "mathtext.default": "bf",  # default font for math
+    "mathtext.default": "regular",  # default font for math
     # ------ Text ------ #
     "text.usetex": True,  # Use LaTeX for text handling (Set to False if you don't have a local installation)
-    "text.latex.preamble": r"\usepackage{amsmath}",  # \boldmath",  # Be careful with the preamble
+    "text.latex.preamble": r"\usepackage{amsmath, amssymb}",  # \boldmath",  # Be careful with the preamble
     # ------ Axes ------ #
     "axes.linewidth": 2,  # Linewidth of axes edges
     "axes.grid": True,  # Do display grid
@@ -120,18 +121,25 @@ def config_logger(level: str = "INFO", **kwargs) -> None:
 
 def install_mpl_style() -> None:
     """
-    Will create a `phd.mplstyle` file in the appropriate directory from the `PLOT_PARAMS` defined in this
+    Will create a `phd.mplstyle` file in the appropriate directories from the `PLOT_PARAMS` defined in this
     module. This enables one to use the style without importing `PLOT_PARAMS` and updating the rcParams,
     but instead simply using `plt.style.use("phd")`.
+    Sometimes, matplotlib will not look for the file in its global config directory, but in the activated
+    environment's site-packages data. The file is installed in both places.
     """
     logger.info("Installing matplotlib style")
-    style_content = "\n".join(f"{option} : {setting}" for option, setting in PLOT_PARAMS.items())
-    mpl_stylelib = Path(matplotlib.get_configdir()) / "stylelib"
+    style_content: str = "\n".join(f"{option} : {setting}" for option, setting in PLOT_PARAMS.items())
+    mpl_config_stylelib = Path(matplotlib.get_configdir()) / "stylelib"
+    mpl_env_stylelib = Path(plt.style.core.BASE_LIBRARY_PATH)
 
     logger.debug("Ensuring matplotlib 'stylelib' directory exists")
-    mpl_stylelib.mkdir(parents=True, exist_ok=True)
-    style_file = mpl_stylelib / "phd.mplstyle"
+    mpl_config_stylelib.mkdir(parents=True, exist_ok=True)
+    mpl_env_stylelib.mkdir(parents=True, exist_ok=True)
+    config_style_file = mpl_config_stylelib / "phd.mplstyle"
+    env_style_file = mpl_env_stylelib / "phd.mplstyle"
 
-    logger.debug(f"Creating style file at '{style_file.absolute()}'")
-    style_file.write_text(style_content.replace("(", "").replace(")", ""))
+    logger.debug(f"Creating style file at '{config_style_file.absolute()}'")
+    config_style_file.write_text(style_content.replace("(", "").replace(")", ""))
+    logger.debug(f"Creating style file at '{env_style_file.absolute()}'")
+    env_style_file.write_text(style_content.replace("(", "").replace(")", ""))
     logger.success("You can now use it with 'plt.style.use(\"phd\")'")
