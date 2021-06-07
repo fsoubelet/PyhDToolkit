@@ -1013,6 +1013,8 @@
 
 <span class="kn">import</span> <span class="nn">matplotlib</span>
 
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="n">ANACONDA_INSTALL</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;anaconda3&quot;</span>
@@ -1065,13 +1067,13 @@
 
     <span class="c1"># ----- Mathtext ----- #</span>
 
-    <span class="s2">&quot;mathtext.default&quot;</span><span class="p">:</span> <span class="s2">&quot;bf&quot;</span><span class="p">,</span>  <span class="c1"># default font for math</span>
+    <span class="s2">&quot;mathtext.default&quot;</span><span class="p">:</span> <span class="s2">&quot;regular&quot;</span><span class="p">,</span>  <span class="c1"># default font for math</span>
 
     <span class="c1"># ------ Text ------ #</span>
 
     <span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use LaTeX for text handling (Set to False if you don&#39;t have a local installation)</span>
 
-    <span class="s2">&quot;text.latex.preamble&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;\usepackage</span><span class="si">{amsmath}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># \boldmath&quot;,  # Be careful with the preamble</span>
+    <span class="s2">&quot;text.latex.preamble&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;\usepackage{amsmath, amssymb}&quot;</span><span class="p">,</span>  <span class="c1"># \boldmath&quot;,  # Be careful with the preamble</span>
 
     <span class="c1"># ------ Axes ------ #</span>
 
@@ -1205,29 +1207,43 @@
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Will create a `phd.mplstyle` file in the appropriate directory from the `PLOT_PARAMS` defined in this</span>
+<span class="sd">    Will create a `phd.mplstyle` file in the appropriate directories from the `PLOT_PARAMS` defined in this</span>
 
 <span class="sd">    module. This enables one to use the style without importing `PLOT_PARAMS` and updating the rcParams,</span>
 
 <span class="sd">    but instead simply using `plt.style.use(&quot;phd&quot;)`.</span>
 
+<span class="sd">    Sometimes, matplotlib will not look for the file in its global config directory, but in the activated</span>
+
+<span class="sd">    environment&#39;s site-packages data. The file is installed in both places.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span>
 
-    <span class="n">style_content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">PLOT_PARAMS</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">style_content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">PLOT_PARAMS</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
 
-    <span class="n">mpl_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+    <span class="n">mpl_config_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+
+    <span class="n">mpl_env_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">BASE_LIBRARY_PATH</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span>
 
-    <span class="n">mpl_stylelib</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">mpl_config_stylelib</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">style_file</span> <span class="o">=</span> <span class="n">mpl_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+    <span class="n">mpl_env_stylelib</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating style file at &#39;</span><span class="si">{</span><span class="n">style_file</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">config_style_file</span> <span class="o">=</span> <span class="n">mpl_config_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
 
-    <span class="n">style_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+    <span class="n">env_style_file</span> <span class="o">=</span> <span class="n">mpl_env_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating style file at &#39;</span><span class="si">{</span><span class="n">config_style_file</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">config_style_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating style file at &#39;</span><span class="si">{</span><span class="n">env_style_file</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">env_style_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="s2">phd</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span>
 </code></pre></div>
@@ -1294,36 +1310,52 @@ Any additional keyword argument used is transmitted to the <code>logger.add</cod
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
-<p>Will create a <code>phd.mplstyle</code> file in the appropriate directory from the <code>PLOT_PARAMS</code> defined in this</p>
+<p>Will create a <code>phd.mplstyle</code> file in the appropriate directories from the <code>PLOT_PARAMS</code> defined in this</p>
 <p>module. This enables one to use the style without importing <code>PLOT_PARAMS</code> and updating the rcParams,
-but instead simply using <code>plt.style.use("phd")</code>.</p>
+but instead simply using <code>plt.style.use("phd")</code>.
+Sometimes, matplotlib will not look for the file in its global config directory, but in the activated
+environment's site-packages data. The file is installed in both places.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">install_mpl_style</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
 
     <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
-<span class="s2">    Will create a `phd.mplstyle` file in the appropriate directory from the `PLOT_PARAMS` defined in this</span>
+<span class="s2">    Will create a `phd.mplstyle` file in the appropriate directories from the `PLOT_PARAMS` defined in this</span>
 
 <span class="s2">    module. This enables one to use the style without importing `PLOT_PARAMS` and updating the rcParams,</span>
 
 <span class="s2">    but instead simply using `plt.style.use(&quot;</span><span class="n">phd</span><span class="s2">&quot;)`.</span>
 
+<span class="s2">    Sometimes, matplotlib will not look for the file in its global config directory, but in the activated</span>
+
+<span class="s2">    environment&#39;s site-packages data. The file is installed in both places.</span>
+
 <span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span>
 
-    <span class="n">style_content</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{option} : {setting}&quot;</span> <span class="k">for</span> <span class="k">option</span><span class="p">,</span> <span class="k">set</span><span class="n">ting</span> <span class="k">in</span> <span class="n">PLOT_PARAMS</span><span class="p">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">style_content</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{option} : {setting}&quot;</span> <span class="k">for</span> <span class="k">option</span><span class="p">,</span> <span class="k">set</span><span class="n">ting</span> <span class="k">in</span> <span class="n">PLOT_PARAMS</span><span class="p">.</span><span class="n">items</span><span class="p">())</span>
 
-    <span class="n">mpl_stylelib</span> <span class="o">=</span> <span class="k">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+    <span class="n">mpl_config_stylelib</span> <span class="o">=</span> <span class="k">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+
+    <span class="n">mpl_env_stylelib</span> <span class="o">=</span> <span class="k">Path</span><span class="p">(</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">BASE_LIBRARY_PATH</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span>
 
-    <span class="n">mpl_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+    <span class="n">mpl_config_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
-    <span class="n">style_file</span> <span class="o">=</span> <span class="n">mpl_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+    <span class="n">mpl_env_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{style_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+    <span class="n">config_style_file</span> <span class="o">=</span> <span class="n">mpl_config_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
 
-    <span class="n">style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+    <span class="n">env_style_file</span> <span class="o">=</span> <span class="n">mpl_env_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{config_style_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">config_style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{env_style_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+
+    <span class="n">env_style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="s2">phd</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span>
 </code></pre></div>
