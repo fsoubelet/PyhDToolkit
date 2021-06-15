@@ -5,6 +5,7 @@ import random
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 import pytest
 import tfs
 
@@ -880,17 +881,24 @@ class TestSpecial:
 
 
 class TestTrack:
-    def test_single_particle_tracking(self, _matched_base_lattice):
+    @pytest.mark.parametrize("obs_points", [[], ["qf", "mb", "msf"]])
+    def test_single_particle_tracking(self, _matched_base_lattice, obs_points):
         madx = _matched_base_lattice
-        tracks = track_single_particle(
-            madx, initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0), nturns=100, sequence="CAS3"
+        tracks_dict = track_single_particle(
+            madx,
+            initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0),
+            nturns=100,
+            sequence="CAS3",
+            observation_points=obs_points,
         )
 
-        assert isinstance(tracks, DataFrame)
-        assert len(tracks) == 101  # nturns + 1 because $start coordinates also given by MAD-X
-        assert all(
-            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
-        )
+        assert isinstance(tracks_dict, dict)
+        assert len(tracks_dict.keys()) == len(obs_points) + 1
+        for tracks in tracks_dict.values():
+            assert isinstance(tracks, pd.DataFrame)
+            assert all(
+                [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+            )
 
 
 class TestTune:
