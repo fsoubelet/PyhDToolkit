@@ -5,7 +5,6 @@ import random
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 import pytest
 import tfs
 
@@ -830,10 +829,11 @@ class TestSpecial:
         madx = _matched_lhc_madx
         make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
 
-        tracks = track_single_particle(
+        tracks_dict = track_single_particle(
             madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10, sequence="lhcb1"
         )
-        assert isinstance(tracks, DataFrame)
+        assert isinstance(tracks_dict, dict)
+        tracks = tracks_dict["observation_point_1"]
         assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
         assert all(
             [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
@@ -895,7 +895,7 @@ class TestTrack:
         assert isinstance(tracks_dict, dict)
         assert len(tracks_dict.keys()) == len(obs_points) + 1
         for tracks in tracks_dict.values():
-            assert isinstance(tracks, pd.DataFrame)
+            assert isinstance(tracks, DataFrame)
             assert all(
                 [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
             )
@@ -910,7 +910,7 @@ class TestTrack:
         assert len(tracks_dict.keys()) == 1  # should be only one because of ONETABLE option
         assert "trackone" in tracks_dict.keys()
         tracks = tracks_dict["trackone"]
-        assert isinstance(tracks, pd.DataFrame)
+        assert isinstance(tracks, DataFrame)
         assert all(
             [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
         )
