@@ -52,7 +52,7 @@ def track_single_particle(
         If the user has provided the TRACKONE option, only one entry is in the dictionary under the key
         'trackone' and it has the combine table as a pandas DataFrame for value.
     """
-    trackone = kwargs.get("onetable", False) if "trackone" in kwargs else kwargs.get("ONETABLE", False)
+    onetable = kwargs.get("onetable", False) if "onetable" in kwargs else kwargs.get("ONETABLE", False)
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
     observation_points = observation_points if observation_points else []
 
@@ -70,8 +70,8 @@ def track_single_particle(
     )
     madx.command.run(turns=nturns)
     madx.command.endtrack()
-    if trackone:  # user asked for TRACKONE, there will only be one table given back
-        logger.debug("Because of option TRACKONE oonly one table exists to be returned.")
+    if onetable:  # user asked for ONETABLE, there will only be one table 'trackone' given back by MAD-X
+        logger.debug("Because of option ONETABLE only one table 'TRACKONE' exists to be returned.")
         return {"trackone": madx.table.trackone.dframe().copy()}
     return {
         f"observation_point_{point:d}": madx.table[f"track.obs{point:04d}.p0001"].dframe().copy()

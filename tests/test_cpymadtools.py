@@ -886,9 +886,9 @@ class TestTrack:
         madx = _matched_base_lattice
         tracks_dict = track_single_particle(
             madx,
-            initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0),
-            nturns=100,
             sequence="CAS3",
+            nturns=100,
+            initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0),
             observation_points=obs_points,
         )
 
@@ -899,6 +899,21 @@ class TestTrack:
             assert all(
                 [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
             )
+
+    def test_single_particle_tracking_with_onepass(self, _matched_base_lattice):
+        madx = _matched_base_lattice
+        tracks_dict = track_single_particle(
+            madx, sequence="CAS3", nturns=100, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0), ONETABLE=True,
+        )
+
+        assert isinstance(tracks_dict, dict)
+        assert len(tracks_dict.keys()) == 1  # should be only one because of ONETABLE option
+        assert "trackone" in tracks_dict.keys()
+        tracks = tracks_dict["trackone"]
+        assert isinstance(tracks, pd.DataFrame)
+        assert all(
+            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+        )
 
 
 class TestTune:
