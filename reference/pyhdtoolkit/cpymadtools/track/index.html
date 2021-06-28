@@ -963,7 +963,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -983,7 +983,11 @@
 
     <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+    <span class="n">observation_points</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -995,7 +999,7 @@
 
 <span class="sd">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,</span>
 
-<span class="sd">            T, PT starting coordinates the particle to track.</span>
+<span class="sd">            T, PT starting coordinates the particle to track. Defaults to all 0 if none given.</span>
 
 <span class="sd">        nturns (int): the number of turns to track for.</span>
 
@@ -1003,15 +1007,39 @@
 
 <span class="sd">            sequence is already defined and in use, and this one will be picked up by MAD-X.</span>
 
+<span class="sd">        observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the</span>
+
+<span class="sd">            tracking.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        Any keyword argument to be given to the TRACK command like it would be given directly into MAD-X,</span>
+
+<span class="sd">        for instance ONETABLE etc. Refer to the MAD-X manual for options.</span>
+
 <span class="sd">    Returns:</span>
 
-<span class="sd">        A copy of the track table&#39;s dataframe, with as columns the coordinates x, px, y, py, t, pt,</span>
+<span class="sd">        A dictionary with a copy of the track table&#39;s dataframe for each defined observation point,</span>
 
-<span class="sd">        s and e (energy).</span>
+<span class="sd">        with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary</span>
+
+<span class="sd">        are simply numbered &#39;observation_point_1&#39;, &#39;observation_point_2&#39; etc. The first observation point</span>
+
+<span class="sd">        always corresponds to the start of machine, the others correspond to the ones manually defined,</span>
+
+<span class="sd">        in the order they are defined in.</span>
+
+<span class="sd">        If the user has provided the TRACKONE option, only one entry is in the dictionary under the key</span>
+
+<span class="sd">        &#39;trackone&#39; and it has the combine table as a pandas DataFrame for value.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">start</span> <span class="o">=</span> <span class="n">initial_coordinates</span>
+    <span class="n">onetable</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;onetable&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;onetable&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ONETABLE&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">start</span> <span class="o">=</span> <span class="n">initial_coordinates</span> <span class="k">if</span> <span class="n">initial_coordinates</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+    <span class="n">observation_points</span> <span class="o">=</span> <span class="n">observation_points</span> <span class="k">if</span> <span class="n">observation_points</span> <span class="k">else</span> <span class="p">[]</span>
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 
@@ -1021,7 +1049,13 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;</span><span class="si">{</span><span class="n">initial_coordinates</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">track</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">observation_points</span><span class="p">:</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting observation point for tracking with OBSERVE at element &#39;</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="n">element</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">start</span><span class="p">(</span>
 
@@ -1033,7 +1067,21 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endtrack</span><span class="p">()</span>
 
-    <span class="k">return</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="s2">&quot;track.obs0001.p0001&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">onetable</span><span class="p">:</span>  <span class="c1"># user asked for ONETABLE, there will only be one table &#39;trackone&#39; given back by MAD-X</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;trackone&quot;</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">trackone</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+
+        <span class="sa">f</span><span class="s2">&quot;observation_point_</span><span class="si">{</span><span class="n">point</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;track.obs</span><span class="si">{</span><span class="n">point</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">.p0001&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># len(observation_points) + 1 for start of</span>
+
+        <span class="c1"># machine + 1 because MAD-X starts indexing these at 1</span>
+
+    <span class="p">}</span>
 </code></pre></div>
 
 </details>
@@ -1043,139 +1091,143 @@
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">initial_coordinates</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">nturns</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observation_points</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>
 </code></pre></div>
 <p>Tracks a single particle for nturns, based on its initial coordinates.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>madx</td>
-<td>Madx</td>
-<td>an instantiated cpymad.madx.Madx object.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>initial_coordinates</td>
-<td>Tuple[float, float, float, float, float, float]</td>
-<td>a tuple with the X, PX, Y, PY,</td>
-<td></td>
-</tr>
-<tr>
-<td>T, PT starting coordinates the particle to track.</td>
-<td>None</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>nturns</td>
-<td>int</td>
-<td>the number of turns to track for.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>sequence</td>
-<td>str</td>
-<td>the sequence to use for tracking. If no value is provided, it is assumed that a</td>
-<td></td>
-</tr>
-<tr>
-<td>sequence is already defined and in use, and this one will be picked up by MAD-X.</td>
-<td>None</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>None</td>
-<td>A copy of the track table's dataframe, with as columns the coordinates x, px, y, py, t, pt,</td>
-</tr>
-<tr>
-<td>s and e (energy).</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">track_single_particle</span><span class="p">(</span>
+<p>Args:
+    madx (Madx): an instantiated cpymad.madx.Madx object.
+    initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,
+        T, PT starting coordinates the particle to track. Defaults to all 0 if none given.
+    nturns (int): the number of turns to track for.
+    sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a
+        sequence is already defined and in use, and this one will be picked up by MAD-X.
+    observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the
+        tracking.</p>
+<p>Keyword Args:
+    Any keyword argument to be given to the TRACK command like it would be given directly into MAD-X,
+    for instance ONETABLE etc. Refer to the MAD-X manual for options.</p>
+<p>Returns:
+    A dictionary with a copy of the track table's dataframe for each defined observation point,
+    with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary
+    are simply numbered 'observation_point_1', 'observation_point_2' etc. The first observation point
+    always corresponds to the start of machine, the others correspond to the ones manually defined,
+    in the order they are defined in.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">If</span> <span class="nv">the</span> <span class="nv">user</span> <span class="nv">has</span> <span class="nv">provided</span> <span class="nv">the</span> <span class="nv">TRACKONE</span> <span class="nv">option</span>, <span class="nv">only</span> <span class="nv">one</span> <span class="nv">entry</span> <span class="nv">is</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">dictionary</span> <span class="nv">under</span> <span class="nv">the</span> <span class="nv">key</span>
+<span class="s1">&#39;</span><span class="s">trackone</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="nv">it</span> <span class="nv">has</span> <span class="nv">the</span> <span class="nv">combine</span> <span class="nv">table</span> <span class="nv">as</span> <span class="nv">a</span> <span class="nv">pandas</span> <span class="nv">DataFrame</span> <span class="k">for</span> <span class="nv">value</span>.
+</code></pre></div>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">track_single_particle</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">initial_coordinates</span><span class="o">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">float</span><span class="p">,</span> <span class="n">float</span><span class="p">,</span> <span class="n">float</span><span class="p">,</span> <span class="n">float</span><span class="p">,</span> <span class="n">float</span><span class="p">,</span> <span class="n">float</span><span class="p">],</span>
+<span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">nturns</span><span class="o">:</span> <span class="n">int</span><span class="p">,</span>
+<span class="w">    </span><span class="nl">initial_coordinates</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float, float, float, float, float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="n">None</span><span class="p">,</span>
+<span class="w">    </span><span class="nl">nturns</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="o">:</span>
+<span class="w">    </span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="nl">observation_points</span><span class="p">:</span><span class="w"> </span><span class="k">Sequence</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="s">    Tracks a single particle for nturns, based on its initial coordinates.</span>
+<span class="w">    </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
 
-<span class="s">    Args:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="o">[</span><span class="n">str, pd.DataFrame</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
 
-<span class="s">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
-<span class="s">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,</span>
+<span class="ss">    Tracks a single particle for nturns, based on its initial coordinates.</span>
 
-<span class="s">            T, PT starting coordinates the particle to track.</span>
+<span class="ss">    Args:</span>
 
-<span class="s">        nturns (int): the number of turns to track for.</span>
+<span class="ss">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
 
-<span class="s">        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a</span>
+<span class="ss">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,</span>
 
-<span class="s">            sequence is already defined and in use, and this one will be picked up by MAD-X.</span>
+<span class="ss">            T, PT starting coordinates the particle to track. Defaults to all 0 if none given.</span>
 
-<span class="s">    Returns:</span>
+<span class="ss">        nturns (int): the number of turns to track for.</span>
 
-<span class="s">        A copy of the track table&#39;</span><span class="n">s</span> <span class="n">dataframe</span><span class="p">,</span> <span class="n">with</span> <span class="kr">as</span> <span class="n">columns</span> <span class="n">the</span> <span class="n">coordinates</span> <span class="n">x</span><span class="p">,</span> <span class="n">px</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">py</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">pt</span><span class="p">,</span>
+<span class="ss">        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a</span>
 
-        <span class="n">s</span> <span class="kr">and</span> <span class="n">e</span> <span class="p">(</span><span class="n">energy</span><span class="p">).</span>
+<span class="ss">            sequence is already defined and in use, and this one will be picked up by MAD-X.</span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="ss">        observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the</span>
 
-<span class="s">    start = initial_coordinates</span>
+<span class="ss">            tracking.</span>
 
-<span class="s">    if isinstance(sequence, str):</span>
+<span class="ss">    Keyword Args:</span>
 
-<span class="s">        logger.debug(f&quot;</span><span class="n">Using</span> <span class="n">sequence</span> <span class="s">&#39;{sequence}&#39;</span> <span class="n">for</span> <span class="n">tracking</span><span class="s">&quot;)</span>
+<span class="ss">        Any keyword argument to be given to the TRACK command like it would be given directly into MAD-X,</span>
 
-<span class="s">        madx.use(sequence=sequence)</span>
+<span class="ss">        for instance ONETABLE etc. Refer to the MAD-X manual for options.</span>
 
-<span class="s">    logger.debug(f&quot;</span><span class="n">Tracking</span> <span class="n">coordinates</span> <span class="n">with</span> <span class="n">initial</span> <span class="n">X</span><span class="p">,</span> <span class="n">PX</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">PY</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="n">PT</span> <span class="kr">of</span> <span class="s">&#39;{initial_coordinates}&#39;&quot;)</span>
+<span class="ss">    Returns:</span>
 
-<span class="s">    madx.command.track()</span>
+<span class="ss">        A dictionary with a copy of the track table&#39;s dataframe for each defined observation point,</span>
 
-<span class="s">    madx.command.start(</span>
+<span class="ss">        with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary</span>
 
-<span class="s">        X=start[0], PX=start[1], Y=start[2], PY=start[3], T=start[4], PT=start[5],</span>
+<span class="ss">        are simply numbered &#39;observation_point_1&#39;, &#39;observation_point_2&#39; etc. The first observation point</span>
 
-<span class="s">    )</span>
+<span class="ss">        always corresponds to the start of machine, the others correspond to the ones manually defined,</span>
 
-<span class="s">    madx.command.run(turns=nturns)</span>
+<span class="ss">        in the order they are defined in.</span>
 
-<span class="s">    madx.command.endtrack()</span>
+<span class="ss">        If the user has provided the TRACKONE option, only one entry is in the dictionary under the key</span>
 
-<span class="s">    return madx.table[&quot;</span><span class="n">track</span><span class="p">.</span><span class="n">obs0001</span><span class="p">.</span><span class="n">p0001</span><span class="s">&quot;].dframe().copy()</span>
+<span class="ss">        &#39;trackone&#39; and it has the combine table as a pandas DataFrame for value.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">onetable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;onetable&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">False</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="ss">&quot;onetable&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">kwargs</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;ONETABLE&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">False</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">initial_coordinates</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">initial_coordinates</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">[</span><span class="n">0, 0, 0, 0, 0, 0</span><span class="o">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">observation_points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">observation_points</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">observation_points</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">[]</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">isinstance</span><span class="p">(</span><span class="k">sequence</span><span class="p">,</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Using sequence &#39;{sequence}&#39; for tracking&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="k">sequence</span><span class="o">=</span><span class="k">sequence</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;{initial_coordinates}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">track</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="k">element</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">observation_points</span><span class="p">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Setting observation point for tracking with OBSERVE at element &#39;{element}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="k">element</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">X</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">PX</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">PY</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">3</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">4</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">PT</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">5</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">turns</span><span class="o">=</span><span class="n">nturns</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endtrack</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nl">onetable</span><span class="p">:</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">asked</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">ONETABLE</span><span class="p">,</span><span class="w"> </span><span class="n">there</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="nc">table</span><span class="w"> </span><span class="s1">&#39;trackone&#39;</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">back</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">MAD</span><span class="o">-</span><span class="n">X</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="ss">&quot;trackone&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">trackone</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="err">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">f</span><span class="ss">&quot;observation_point_{point:d}&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="o">[</span><span class="n">f&quot;track.obs{point:04d}.p0001&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="k">of</span><span class="w"></span>
+
+<span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="n">machine</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">because</span><span class="w"> </span><span class="n">MAD</span><span class="o">-</span><span class="n">X</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="n">indexing</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">}</span><span class="w"></span>
 </code></pre></div>
 
 </details>
