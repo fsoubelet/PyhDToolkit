@@ -16,7 +16,7 @@ Tests run on a matrix of all supported operating systems for all supported Pytho
 ### Test Coverage
 
 Test coverage is calculated in the `coverage` wokflow, which triggers on pushes to `master` and any push to a `pull request`.
-It runs on `ubuntu-latest` & the lowest supported Python version (`Python 3.7`), and reports the coverage results of the test suite to `CodeClimate`.
+It runs on `ubuntu-latest` & the lowest supported Python version (`Python 3.7`), and reports the coverage results of the test suite to `Codecov`.
 
 
 ### Regular Testing
