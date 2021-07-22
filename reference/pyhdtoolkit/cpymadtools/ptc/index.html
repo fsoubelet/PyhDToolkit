@@ -548,6 +548,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../utils/" class="md-nav__link">
+        Utils
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -987,27 +999,61 @@
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.utils</span> <span class="kn">import</span> <span class="n">get_table_tfs</span>
+
 <span class="c1"># ----- Utilities ----- #</span>
 
-<span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.</span>
 
-<span class="sd">    Calculate amplitude detuning via PTC_NORMAL.</span>
+<span class="sd">    Calculate amplitude detuning via `PTC_NORMAL`, with sensible defaults set for other relevant `PTC`</span>
+
+<span class="sd">    commands. The result table is returned as a `TfsDataFrame`, the headers of which are the contents of the</span>
+
+<span class="sd">    internal `SUMM` table.</span>
+
+<span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
+
+<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+
+<span class="sd">    exact Hamiltonian, not an approximated one).</span>
+
+<span class="sd">    The `PTC_NORMAL` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`</span>
+
+<span class="sd">    manual for details), `no=5` (map order for derivative evaluation of Twiss parameters) and</span>
+
+<span class="sd">    `closedorbit=True` (triggers closed orbit calculation) and `normal=True` (activate calculation of the</span>
+
+<span class="sd">    Normal Form).</span>
 
 <span class="sd">    Args:</span>
 
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="sd">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
+<span class="sd">        order (int): maximum derivative order coefficient (only 0, 1 or 2 implemented in `PTC`).</span>
+
+<span class="sd">            Defaults to `2`.</span>
 
 <span class="sd">        file (Union[Path, str]): path to output file. Default `None`</span>
 
+<span class="sd">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        Any keyword argument is transmitted to the `PTC_NORMAL` command. See above which arguments are</span>
+
+<span class="sd">        already set for `PTC_NORMAL` to avoid trying to override them.</span>
+
 <span class="sd">    Returns:</span>
 
-<span class="sd">        A TfsDataframe with results.</span>
+<span class="sd">        A `TfsDataframe` with results.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1021,29 +1067,15 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
-    <span class="c1"># layout I got with mask (jdilly)</span>
-
-    <span class="c1"># model=3 (Sixtrack code model: Delta-Matrix-Kick-Matrix)</span>
-
-    <span class="c1"># method=4 (integration order), nst=3 (integration steps), exact=True (exact Hamiltonian)</span>
-
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="c1"># alternative layout: model=3, method=6, nst=3</span>
-
-    <span class="c1"># resplit=True (adaptive splitting of magnets), thin=0.0005 (splitting of quads),</span>
-
-    <span class="c1"># xbend=0.0005 (splitting of dipoles)</span>
-
-    <span class="c1"># madx.ptc_create_layout(model=3, method=6, nst=3, resplit=True, thin=0.0005, xbend=0.0005)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
-    <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting tune orders&quot;</span><span class="p">)</span>
 
@@ -1091,21 +1123,13 @@
 
         <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dey^2</span>
 
-    <span class="c1"># icase = phase-space dimensionality, no = order of map</span>
-
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Normal&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">closed_orbit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">icase</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">closed_orbit</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
-
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">normal_results</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
-
-    <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-
-    <span class="n">dframe</span><span class="o">.</span><span class="n">NAME</span> <span class="o">=</span> <span class="n">dframe</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;normal_results&quot;</span><span class="p">)</span>
 
     <span class="n">dframe</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">dframe</span><span class="o">.</span><span class="n">NAME</span><span class="p">))</span>  <span class="c1"># table has a weird index</span>
 
@@ -1117,25 +1141,55 @@
 
     <span class="k">return</span> <span class="n">dframe</span>
 
-<span class="k">def</span> <span class="nf">get_rdts</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_rdts</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.</span>
 
-<span class="sd">    Calculate the RDTs via PTC_TWISS.</span>
+<span class="sd">    Calculate the `RDTs` via `PTC_TWISS`, with sensible defaults set for other relevant `PTC` commands.</span>
+
+<span class="sd">    The result table is returned as a `TfsDataFrame`, the headers of which are the contents of the</span>
+
+<span class="sd">    internal `SUMM` table.</span>
+
+<span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
+
+<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+
+<span class="sd">    exact Hamiltonian, not an approximated one).</span>
+
+<span class="sd">    The `PTC_TWISS` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`</span>
+
+<span class="sd">    manual for details), `trackrdts=True` (for this function to fullfill its purpose) and `normal=True` to</span>
+
+<span class="sd">    trigger saving the normal form analysis results in a table called `NONLIN` which will then be available</span>
+
+<span class="sd">    through the provided `Madx` instance.</span>
 
 <span class="sd">    Args:</span>
 
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="sd">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
+<span class="sd">        order (int): map order for derivative evaluation of Twiss parameters. Defaults to `4`.</span>
 
 <span class="sd">        file (Union[Path, str]): path to output file. Default `None`</span>
 
+<span class="sd">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
+
+<span class="sd">    Keyword Args:</span>
+
+<span class="sd">        Any keyword argument is transmitted to the `PTC_TWISS` command. See above which arguments are</span>
+
+<span class="sd">        already set for `PTC_TWISS` to avoid trying to override them.</span>
+
 <span class="sd">    Returns:</span>
 
-<span class="sd">        A TfsDataframe with results.</span>
+<span class="sd">        A `TfsDataframe` with results.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1147,27 +1201,19 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="c1"># madx.ptc_create_layout(model=3, method=6, nst=1)  # from Michi</span>
-
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
-    <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
-
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twissrdt</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
-
-    <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-
-    <span class="n">dframe</span><span class="o">.</span><span class="n">NAME</span> <span class="o">=</span> <span class="n">dframe</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">file</span><span class="p">:</span>
 
@@ -1184,76 +1230,84 @@
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span>
-    <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
-<p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</p>
-<p>Calculate amplitude detuning via PTC_NORMAL.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>madx</td>
-<td>cpymad.madx.Madx</td>
-<td>an instanciated cpymad Madx object.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>order</td>
-<td>int</td>
-<td>maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to <code>2</code>.</td>
-<td><code>2</code></td>
-</tr>
-<tr>
-<td>file</td>
-<td>Union[Path, str]</td>
-<td>path to output file. Default <code>None</code></td>
-<td>None</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>None</td>
-<td>A TfsDataframe with results.</td>
-</tr>
-</tbody>
-</table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_amplitude_detuning</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.
+Calculate amplitude detuning via <code>PTC_NORMAL</code>, with sensible defaults set for other relevant <code>PTC</code>
+commands. The result table is returned as a <code>TfsDataFrame</code>, the headers of which are the contents of the
+internal <code>SUMM</code> table.</p>
+<p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
+order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
+exact Hamiltonian, not an approximated one).</p>
+<p>The <code>PTC_NORMAL</code> command is explicitely given <code>icase=6</code> to enforce 6D calculations (see the <code>MAD-X</code>
+manual for details), <code>no=5</code> (map order for derivative evaluation of Twiss parameters) and
+<code>closedorbit=True</code> (triggers closed orbit calculation) and <code>normal=True</code> (activate calculation of the
+Normal Form).</p>
+<p>Args:
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    order (int): maximum derivative order coefficient (only 0, 1 or 2 implemented in <code>PTC</code>).
+        Defaults to <code>2</code>.
+    file (Union[Path, str]): path to output file. Default <code>None</code>
+    fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to <code>False</code>.</p>
+<p>Keyword Args:
+    Any keyword argument is transmitted to the <code>PTC_NORMAL</code> command. See above which arguments are
+    already set for <code>PTC_NORMAL</code> to avoid trying to override them.</p>
+<p>Returns:
+    A <code>TfsDataframe</code> with results.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_amplitude_detuning</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
 
     <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
-<span class="s2">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+<span class="s2">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.</span>
 
-<span class="s2">    Calculate amplitude detuning via PTC_NORMAL.</span>
+<span class="s2">    Calculate amplitude detuning via `PTC_NORMAL`, with sensible defaults set for other relevant `PTC`</span>
+
+<span class="s2">    commands. The result table is returned as a `TfsDataFrame`, the headers of which are the contents of the</span>
+
+<span class="s2">    internal `SUMM` table.</span>
+
+<span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
+
+<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+
+<span class="s2">    exact Hamiltonian, not an approximated one).</span>
+
+<span class="s2">    The `PTC_NORMAL` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`</span>
+
+<span class="s2">    manual for details), `no=5` (map order for derivative evaluation of Twiss parameters) and</span>
+
+<span class="s2">    `closedorbit=True` (triggers closed orbit calculation) and `normal=True` (activate calculation of the</span>
+
+<span class="s2">    Normal Form).</span>
 
 <span class="s2">    Args:</span>
 
 <span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="s2">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
+<span class="s2">        order (int): maximum derivative order coefficient (only 0, 1 or 2 implemented in `PTC`).</span>
+
+<span class="s2">            Defaults to `2`.</span>
 
 <span class="s2">        file (Union[Path, str]): path to output file. Default `None`</span>
 
+<span class="s2">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
+
+<span class="s2">    Keyword Args:</span>
+
+<span class="s2">        Any keyword argument is transmitted to the `PTC_NORMAL` command. See above which arguments are</span>
+
+<span class="s2">        already set for `PTC_NORMAL` to avoid trying to override them.</span>
+
 <span class="s2">    Returns:</span>
 
-<span class="s2">        A TfsDataframe with results.</span>
+<span class="s2">        A `TfsDataframe` with results.</span>
 
 <span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
@@ -1267,29 +1321,15 @@
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
-    <span class="c1"># layout I got with mask (jdilly)</span>
-
-    <span class="c1"># model=3 (Sixtrack code model: Delta-Matrix-Kick-Matrix)</span>
-
-    <span class="c1"># method=4 (integration order), nst=3 (integration steps), exact=True (exact Hamiltonian)</span>
-
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
-
-    <span class="c1"># alternative layout: model=3, method=6, nst=3</span>
-
-    <span class="c1"># resplit=True (adaptive splitting of magnets), thin=0.0005 (splitting of quads),</span>
-
-    <span class="c1"># xbend=0.0005 (splitting of dipoles)</span>
-
-    <span class="c1"># madx.ptc_create_layout(model=3, method=6, nst=3, resplit=True, thin=0.0005, xbend=0.0005)</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
-    <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting tune orders&quot;</span><span class="p">)</span>
 
@@ -1337,21 +1377,13 @@
 
         <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dey^2</span>
 
-    <span class="c1"># icase = phase-space dimensionality, no = order of map</span>
-
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Normal&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">closed_orbit</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">icase</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">closed_orbit</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
-
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">normal_results</span><span class="p">.</span><span class="n">dframe</span><span class="p">())</span>
-
-    <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span><span class="p">.</span><span class="n">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
-
-    <span class="n">dframe</span><span class="p">.</span><span class="k">NAME</span> <span class="o">=</span> <span class="n">dframe</span><span class="p">.</span><span class="k">NAME</span><span class="p">.</span><span class="n">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;normal_results&quot;</span><span class="p">)</span>
 
     <span class="n">dframe</span><span class="p">.</span><span class="k">index</span> <span class="o">=</span> <span class="k">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">dframe</span><span class="p">.</span><span class="k">NAME</span><span class="p">))</span>  <span class="c1"># table has a weird index</span>
 
@@ -1369,76 +1401,81 @@
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_rdts</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
-<p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</p>
-<p>Calculate the RDTs via PTC_TWISS.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>madx</td>
-<td>cpymad.madx.Madx</td>
-<td>an instanciated cpymad Madx object.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>order</td>
-<td>int</td>
-<td>maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to <code>2</code>.</td>
-<td><code>2</code></td>
-</tr>
-<tr>
-<td>file</td>
-<td>Union[Path, str]</td>
-<td>path to output file. Default <code>None</code></td>
-<td>None</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>None</td>
-<td>A TfsDataframe with results.</td>
-</tr>
-</tbody>
-</table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_rdts</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.
+Calculate the <code>RDTs</code> via <code>PTC_TWISS</code>, with sensible defaults set for other relevant <code>PTC</code> commands.
+The result table is returned as a <code>TfsDataFrame</code>, the headers of which are the contents of the
+internal <code>SUMM</code> table.</p>
+<p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
+order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
+exact Hamiltonian, not an approximated one).</p>
+<p>The <code>PTC_TWISS</code> command is explicitely given <code>icase=6</code> to enforce 6D calculations (see the <code>MAD-X</code>
+manual for details), <code>trackrdts=True</code> (for this function to fullfill its purpose) and <code>normal=True</code> to
+trigger saving the normal form analysis results in a table called <code>NONLIN</code> which will then be available
+through the provided <code>Madx</code> instance.</p>
+<p>Args:
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    order (int): map order for derivative evaluation of Twiss parameters. Defaults to <code>4</code>.
+    file (Union[Path, str]): path to output file. Default <code>None</code>
+    fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to <code>False</code>.</p>
+<p>Keyword Args:
+    Any keyword argument is transmitted to the <code>PTC_TWISS</code> command. See above which arguments are
+    already set for <code>PTC_TWISS</code> to avoid trying to override them.</p>
+<p>Returns:
+    A <code>TfsDataframe</code> with results.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_rdts</span><span class="p">(</span>
+
+    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
 
     <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
-<span class="s2">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+<span class="s2">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.</span>
 
-<span class="s2">    Calculate the RDTs via PTC_TWISS.</span>
+<span class="s2">    Calculate the `RDTs` via `PTC_TWISS`, with sensible defaults set for other relevant `PTC` commands.</span>
+
+<span class="s2">    The result table is returned as a `TfsDataFrame`, the headers of which are the contents of the</span>
+
+<span class="s2">    internal `SUMM` table.</span>
+
+<span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
+
+<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+
+<span class="s2">    exact Hamiltonian, not an approximated one).</span>
+
+<span class="s2">    The `PTC_TWISS` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`</span>
+
+<span class="s2">    manual for details), `trackrdts=True` (for this function to fullfill its purpose) and `normal=True` to</span>
+
+<span class="s2">    trigger saving the normal form analysis results in a table called `NONLIN` which will then be available</span>
+
+<span class="s2">    through the provided `Madx` instance.</span>
 
 <span class="s2">    Args:</span>
 
 <span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="s2">        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.</span>
+<span class="s2">        order (int): map order for derivative evaluation of Twiss parameters. Defaults to `4`.</span>
 
 <span class="s2">        file (Union[Path, str]): path to output file. Default `None`</span>
 
+<span class="s2">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
+
+<span class="s2">    Keyword Args:</span>
+
+<span class="s2">        Any keyword argument is transmitted to the `PTC_TWISS` command. See above which arguments are</span>
+
+<span class="s2">        already set for `PTC_TWISS` to avoid trying to override them.</span>
+
 <span class="s2">    Returns:</span>
 
-<span class="s2">        A TfsDataframe with results.</span>
+<span class="s2">        A `TfsDataframe` with results.</span>
 
 <span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
@@ -1450,27 +1487,19 @@
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
-    <span class="c1"># madx.ptc_create_layout(model=3, method=6, nst=1)  # from Michi</span>
-
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
 
-    <span class="c1"># madx.ptc_setswitch(fringe=True)  # include fringe effects</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting results to TfsDataFrame&quot;</span><span class="p">)</span>
-
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twissrdt</span><span class="p">.</span><span class="n">dframe</span><span class="p">())</span>
-
-    <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span> <span class="o">=</span> <span class="n">dframe</span><span class="p">.</span><span class="k">columns</span><span class="p">.</span><span class="n">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
-
-    <span class="n">dframe</span><span class="p">.</span><span class="k">NAME</span> <span class="o">=</span> <span class="n">dframe</span><span class="p">.</span><span class="k">NAME</span><span class="p">.</span><span class="n">str</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="k">file</span><span class="o">:</span>
 
