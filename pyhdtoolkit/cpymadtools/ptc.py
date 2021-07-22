@@ -15,6 +15,8 @@ import tfs
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit.cpymadtools.utils import get_table_tfs
+
 # ----- Utilities ----- #
 
 
@@ -84,10 +86,7 @@ def get_amplitude_detuning(madx: Madx, order: int = 2, file: Union[Path, str] = 
     madx.ptc_normal(closed_orbit=True, normal=True, icase=5, no=5)
     madx.ptc_end()
 
-    logger.debug("Extracting results to TfsDataFrame")
-    dframe = tfs.TfsDataFrame(madx.table.normal_results.dframe())
-    dframe.columns = dframe.columns.str.upper()
-    dframe.NAME = dframe.NAME.str.upper()
+    dframe = get_table_tfs(madx, table_name="normal_results")
     dframe.index = range(len(dframe.NAME))  # table has a weird index
 
     if file:
@@ -142,11 +141,7 @@ def get_rdts(
     madx.ptc_twiss(icase=6, no=order, normal=True, trackrdts=True, **kwargs)
     madx.ptc_end()
 
-    logger.debug("Extracting results to TfsDataFrame")
-    dframe = tfs.TfsDataFrame(madx.table.twissrdt.dframe())
-    dframe.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
-    dframe.columns = dframe.columns.str.upper()
-    dframe.NAME = dframe.NAME.str.upper()
+    dframe = get_table_tfs(madx, table_name="twissrdt")
 
     if file:
         logger.debug(f"Exporting results to disk at '{Path(file).absolute()}'")
