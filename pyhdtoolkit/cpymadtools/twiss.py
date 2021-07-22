@@ -50,6 +50,7 @@ def get_pattern_twiss(
     """
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)
+
     for pattern in patterns:
         logger.trace(f"Adding pattern {pattern} to 'TWISS' flag")
         madx.select(flag="twiss", pattern=pattern, column=columns)

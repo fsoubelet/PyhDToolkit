@@ -15,21 +15,42 @@ import tfs
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit.cpymadtools.utils import get_table_tfs
+
 # ----- Utilities ----- #
 
 
-def get_amplitude_detuning(madx: Madx, order: int = 2, file: Union[Path, str] = None) -> tfs.TfsDataFrame:
+def get_amplitude_detuning(
+    madx: Madx, order: int = 2, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+) -> tfs.TfsDataFrame:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Calculate amplitude detuning via PTC_NORMAL.
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.
+    Calculate amplitude detuning via `PTC_NORMAL`, with sensible defaults set for other relevant `PTC`
+    commands. The result table is returned as a `TfsDataFrame`, the headers of which are the contents of the
+    internal `SUMM` table.
+
+    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration
+    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use
+    exact Hamiltonian, not an approximated one).
+
+    The `PTC_NORMAL` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`
+    manual for details), `no=5` (map order for derivative evaluation of Twiss parameters) and
+    `closedorbit=True` (triggers closed orbit calculation) and `normal=True` (activate calculation of the
+    Normal Form).
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.
+        order (int): maximum derivative order coefficient (only 0, 1 or 2 implemented in `PTC`).
+            Defaults to `2`.
         file (Union[Path, str]): path to output file. Default `None`
+        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
+
+    Keyword Args:
+        Any keyword argument is transmitted to the `PTC_NORMAL` command. See above which arguments are
+        already set for `PTC_NORMAL` to avoid trying to override them.
 
     Returns:
-        A TfsDataframe with results.
+        A `TfsDataframe` with results.
     """
     if order >= 3:
         logger.error(f"Maximum amplitude detuning order in PTC is 2, but {order:d} was requested")
@@ -38,20 +59,12 @@ def get_amplitude_detuning(madx: Madx, order: int = 2, file: Union[Path, str] = 
     logger.info("Entering PTC to calculate amplitude detuning")
     madx.ptc_create_universe()
 
-    # layout I got with mask (jdilly)
-    # model=3 (Sixtrack code model: Delta-Matrix-Kick-Matrix)
-    # method=4 (integration order), nst=3 (integration steps), exact=True (exact Hamiltonian)
     logger.trace("Creating PTC layout")
     madx.ptc_create_layout(model=3, method=4, nst=3, exact=True)
 
-    # alternative layout: model=3, method=6, nst=3
-    # resplit=True (adaptive splitting of magnets), thin=0.0005 (splitting of quads),
-    # xbend=0.0005 (splitting of dipoles)
-    # madx.ptc_create_layout(model=3, method=6, nst=3, resplit=True, thin=0.0005, xbend=0.0005)
-
     logger.trace("Incorporating MAD-X alignment errors")
     madx.ptc_align()  # use madx alignment errors
-    # madx.ptc_setswitch(fringe=True)  # include fringe effects
+    madx.ptc_setswitch(fringe=fringe)
 
     logger.trace("Selecting tune orders")
     madx.select_ptc_normal(q1="0", q2="0")
@@ -79,15 +92,11 @@ def get_amplitude_detuning(madx: Madx, order: int = 2, file: Union[Path, str] = 
         madx.select_ptc_normal("anhy=1, 1, 0")  # d^2Qy/dexdey
         madx.select_ptc_normal("anhy=0, 2, 0")  # d^2Qy/dey^2
 
-    # icase = phase-space dimensionality, no = order of map
     logger.debug("Executing PTC Normal")
-    madx.ptc_normal(closed_orbit=True, normal=True, icase=5, no=5)
+    madx.ptc_normal(icase=6, no=5, closed_orbit=True, normal=True, **kwargs)
     madx.ptc_end()
 
-    logger.debug("Extracting results to TfsDataFrame")
-    dframe = tfs.TfsDataFrame(madx.table.normal_results.dframe())
-    dframe.columns = dframe.columns.str.upper()
-    dframe.NAME = dframe.NAME.str.upper()
+    dframe = get_table_tfs(madx, table_name="normal_results")
     dframe.index = range(len(dframe.NAME))  # table has a weird index
 
     if file:
@@ -97,38 +106,52 @@ def get_amplitude_detuning(madx: Madx, order: int = 2, file: Union[Path, str] = 
     return dframe
 
 
-def get_rdts(madx: Madx, order: int = 4, file: Union[Path, str] = None) -> tfs.TfsDataFrame:
+def get_rdts(
+    madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+) -> tfs.TfsDataFrame:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Calculate the RDTs via PTC_TWISS.
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.
+    Calculate the `RDTs` via `PTC_TWISS`, with sensible defaults set for other relevant `PTC` commands.
+    The result table is returned as a `TfsDataFrame`, the headers of which are the contents of the
+    internal `SUMM` table.
+
+    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration
+    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use
+    exact Hamiltonian, not an approximated one).
+
+    The `PTC_TWISS` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`
+    manual for details), `trackrdts=True` (for this function to fullfill its purpose) and `normal=True` to
+    trigger saving the normal form analysis results in a table called `NONLIN` which will then be available
+    through the provided `Madx` instance.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        order (int): maximum derivative order (only 0, 1 or 2 implemented in PTC). Defaults to `2`.
+        order (int): map order for derivative evaluation of Twiss parameters. Defaults to `4`.
         file (Union[Path, str]): path to output file. Default `None`
+        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
+
+    Keyword Args:
+        Any keyword argument is transmitted to the `PTC_TWISS` command. See above which arguments are
+        already set for `PTC_TWISS` to avoid trying to override them.
 
     Returns:
-        A TfsDataframe with results.
+        A `TfsDataframe` with results.
     """
     logger.info(f"Entering PTC to calculate RDTs up to order {order}")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
     madx.ptc_create_layout(model=3, method=4, nst=3, exact=True)
-    # madx.ptc_create_layout(model=3, method=6, nst=1)  # from Michi
 
     logger.trace("Incorporating MAD-X alignment errors")
     madx.ptc_align()  # use madx alignment errors
-    # madx.ptc_setswitch(fringe=True)  # include fringe effects
+    madx.ptc_setswitch(fringe=fringe)
 
     logger.debug("Executing PTC Twiss")
-    madx.ptc_twiss(icase=6, no=order, normal=True, trackrdts=True)
+    madx.ptc_twiss(icase=6, no=order, normal=True, trackrdts=True, **kwargs)
     madx.ptc_end()
 
-    logger.debug("Extracting results to TfsDataFrame")
-    dframe = tfs.TfsDataFrame(madx.table.twissrdt.dframe())
-    dframe.columns = dframe.columns.str.upper()
-    dframe.NAME = dframe.NAME.str.upper()
+    dframe = get_table_tfs(madx, table_name="twissrdt")
 
     if file:
         logger.debug(f"Exporting results to disk at '{Path(file).absolute()}'")

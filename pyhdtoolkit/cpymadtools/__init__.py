@@ -31,3 +31,4 @@ from .special import (
 from .track import track_single_particle
 from .tune import make_footprint_table
 from .twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
+from .utils import get_table_tfs
