@@ -62,9 +62,11 @@ def track_single_particle(
 
     logger.debug(f"Tracking coordinates with initial X, PX, Y, PY, T, PT of '{initial_coordinates}'")
     madx.command.track(**kwargs)
+
     for element in observation_points:
         logger.trace(f"Setting observation point for tracking with OBSERVE at element '{element}'")
         madx.command.observe(place=element)
+
     madx.command.start(
         X=start[0], PX=start[1], Y=start[2], PY=start[3], T=start[4], PT=start[5],
     )
