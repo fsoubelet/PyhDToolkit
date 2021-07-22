@@ -97,7 +97,9 @@ def get_amplitude_detuning(madx: Madx, order: int = 2, file: Union[Path, str] = 
     return dframe
 
 
-def get_rdts(madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs) -> tfs.TfsDataFrame:
+def get_rdts(
+    madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+) -> tfs.TfsDataFrame:
     """
     INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.
     Calculate the `RDTs` via `PTC_TWISS`, with sensible defaults set for other relevant `PTC` commands.
