@@ -10,19 +10,18 @@ A module with utility to query the HTCondor queue, process the returned data and
 import re
 import time
 
-from typing import List, Tuple, Union
+from typing import List, Tuple
 
 import pendulum
 
 from loguru import logger
-from pendulum import DateTime
-from pydantic import BaseModel
 from rich import box
 from rich.console import RenderGroup
 from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
 
+from pyhdtoolkit.models.htc import BaseSummary, ClusterSummary, HTCTaskSummary
 from pyhdtoolkit.utils import defaults
 from pyhdtoolkit.utils.cmdline import CommandLine
 
@@ -59,34 +58,6 @@ CLUSTER_COLUMNS_SETTINGS = {
     ),
     "REMOVED": dict(justify="right", header_style="bold red3", style="bold red3", no_wrap=True),
 }
-
-
-class BaseSummary(BaseModel):
-    jobs: int
-    completed: int
-    removed: int
-    idle: int
-    running: int
-    held: int
-    suspended: int
-
-
-class ClusterSummary(BaseModel):
-    scheduler_id: str
-    query: BaseSummary
-    user: BaseSummary
-    cluster: BaseSummary
-
-
-class HTCTaskSummary(BaseModel):
-    owner: str
-    batch_name: int
-    submitted: DateTime
-    done: Union[int, str]
-    run: Union[int, str]
-    idle: Union[int, str]
-    total: int
-    job_ids: str
 
 
 # ----- HTCondor Querying / Processing ----- #
