@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
     
     
       
@@ -18,10 +18,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.bde7dde4.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ef6f36e2.min.css">
         
           
           
@@ -42,8 +42,6 @@
     
     
       
-
-
     
     
   </head>
@@ -112,18 +110,14 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-        </button>
-      </nav>
-      
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -1094,9 +1088,9 @@
 
 <span class="sd">    Keyword Args:</span>
 
-<span class="sd">        Any keyword argument to be given to the `TRACK` command like it would be given directly into `MAD-X`,</span>
+<span class="sd">        Any keyword argument to be given to the TRACK command like it would be given directly into MAD-X,</span>
 
-<span class="sd">        for instance `ONETABLE` etc. Refer to the `MAD-X` manual for options.</span>
+<span class="sd">        for instance ONETABLE etc. Refer to the MAD-X manual for options.</span>
 
 <span class="sd">    Returns:</span>
 
@@ -1110,9 +1104,9 @@
 
 <span class="sd">        in the order they are defined in.</span>
 
-<span class="sd">        If the user has set `onetable` to `True`, only one entry is in the dictionary under the key</span>
+<span class="sd">        If the user has provided the TRACKONE option, only one entry is in the dictionary under the key</span>
 
-<span class="sd">        &#39;trackone&#39; and it has the combined table as a pandas DataFrame for value.</span>
+<span class="sd">        &#39;trackone&#39; and it has the combine table as a pandas DataFrame for value.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -1188,127 +1182,127 @@
     observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the
         tracking.</p>
 <p>Keyword Args:
-    Any keyword argument to be given to the <code>TRACK</code> command like it would be given directly into <code>MAD-X</code>,
-    for instance <code>ONETABLE</code> etc. Refer to the <code>MAD-X</code> manual for options.</p>
+    Any keyword argument to be given to the TRACK command like it would be given directly into MAD-X,
+    for instance ONETABLE etc. Refer to the MAD-X manual for options.</p>
 <p>Returns:
     A dictionary with a copy of the track table's dataframe for each defined observation point,
     with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary
     are simply numbered 'observation_point_1', 'observation_point_2' etc. The first observation point
     always corresponds to the start of machine, the others correspond to the ones manually defined,
     in the order they are defined in.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">If</span> <span class="n">the</span> <span class="k">user</span> <span class="n">has</span> <span class="k">set</span> <span class="n n-Quoted">`onetable`</span> <span class="k">to</span> <span class="n n-Quoted">`True`</span><span class="p">,</span> <span class="k">only</span> <span class="k">one</span> <span class="n">entry</span> <span class="k">is</span> <span class="k">in</span> <span class="n">the</span> <span class="n">dictionary</span> <span class="n">under</span> <span class="n">the</span> <span class="k">key</span>
-<span class="s1">&#39;trackone&#39;</span> <span class="k">and</span> <span class="n">it</span> <span class="n">has</span> <span class="n">the</span> <span class="n">combined</span> <span class="k">table</span> <span class="k">as</span> <span class="n">a</span> <span class="n">pandas</span> <span class="n">DataFrame</span> <span class="k">for</span> <span class="k">value</span><span class="p">.</span>
+<div class="codehilite"><pre><span></span><code><span class="k">If</span> <span class="nv">the</span> <span class="nv">user</span> <span class="nv">has</span> <span class="nv">provided</span> <span class="nv">the</span> <span class="nv">TRACKONE</span> <span class="nv">option</span>, <span class="nv">only</span> <span class="nv">one</span> <span class="nv">entry</span> <span class="nv">is</span> <span class="nv">in</span> <span class="nv">the</span> <span class="nv">dictionary</span> <span class="nv">under</span> <span class="nv">the</span> <span class="nv">key</span>
+<span class="s1">&#39;</span><span class="s">trackone</span><span class="s1">&#39;</span> <span class="nv">and</span> <span class="nv">it</span> <span class="nv">has</span> <span class="nv">the</span> <span class="nv">combine</span> <span class="nv">table</span> <span class="nv">as</span> <span class="nv">a</span> <span class="nv">pandas</span> <span class="nv">DataFrame</span> <span class="k">for</span> <span class="nv">value</span>.
 </code></pre></div>
 
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">track_single_particle</span><span class="p">(</span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">track_single_particle</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+<span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">initial_coordinates</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span>
+<span class="w">    </span><span class="nl">initial_coordinates</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float, float, float, float, float</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">nturns</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+<span class="w">    </span><span class="nl">nturns</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+<span class="w">    </span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">observation_points</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+<span class="w">    </span><span class="nl">observation_points</span><span class="p">:</span><span class="w"> </span><span class="k">Sequence</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="w">    </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="err">[</span><span class="n">str</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="err">]</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="o">[</span><span class="n">str, pd.DataFrame</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
-<span class="s2">    Tracks a single particle for nturns, based on its initial coordinates.</span>
+<span class="ss">    Tracks a single particle for nturns, based on its initial coordinates.</span>
 
-<span class="s2">    Args:</span>
+<span class="ss">    Args:</span>
 
-<span class="s2">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
+<span class="ss">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
 
-<span class="s2">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,</span>
+<span class="ss">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,</span>
 
-<span class="s2">            T, PT starting coordinates the particle to track. Defaults to all 0 if none given.</span>
+<span class="ss">            T, PT starting coordinates the particle to track. Defaults to all 0 if none given.</span>
 
-<span class="s2">        nturns (int): the number of turns to track for.</span>
+<span class="ss">        nturns (int): the number of turns to track for.</span>
 
-<span class="s2">        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a</span>
+<span class="ss">        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a</span>
 
-<span class="s2">            sequence is already defined and in use, and this one will be picked up by MAD-X.</span>
+<span class="ss">            sequence is already defined and in use, and this one will be picked up by MAD-X.</span>
 
-<span class="s2">        observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the</span>
+<span class="ss">        observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the</span>
 
-<span class="s2">            tracking.</span>
+<span class="ss">            tracking.</span>
 
-<span class="s2">    Keyword Args:</span>
+<span class="ss">    Keyword Args:</span>
 
-<span class="s2">        Any keyword argument to be given to the `TRACK` command like it would be given directly into `MAD-X`,</span>
+<span class="ss">        Any keyword argument to be given to the TRACK command like it would be given directly into MAD-X,</span>
 
-<span class="s2">        for instance `ONETABLE` etc. Refer to the `MAD-X` manual for options.</span>
+<span class="ss">        for instance ONETABLE etc. Refer to the MAD-X manual for options.</span>
 
-<span class="s2">    Returns:</span>
+<span class="ss">    Returns:</span>
 
-<span class="s2">        A dictionary with a copy of the track table&#39;s dataframe for each defined observation point,</span>
+<span class="ss">        A dictionary with a copy of the track table&#39;s dataframe for each defined observation point,</span>
 
-<span class="s2">        with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary</span>
+<span class="ss">        with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary</span>
 
-<span class="s2">        are simply numbered &#39;observation_point_1&#39;, &#39;observation_point_2&#39; etc. The first observation point</span>
+<span class="ss">        are simply numbered &#39;observation_point_1&#39;, &#39;observation_point_2&#39; etc. The first observation point</span>
 
-<span class="s2">        always corresponds to the start of machine, the others correspond to the ones manually defined,</span>
+<span class="ss">        always corresponds to the start of machine, the others correspond to the ones manually defined,</span>
 
-<span class="s2">        in the order they are defined in.</span>
+<span class="ss">        in the order they are defined in.</span>
 
-<span class="s2">        If the user has set `onetable` to `True`, only one entry is in the dictionary under the key</span>
+<span class="ss">        If the user has provided the TRACKONE option, only one entry is in the dictionary under the key</span>
 
-<span class="s2">        &#39;trackone&#39; and it has the combined table as a pandas DataFrame for value.</span>
+<span class="ss">        &#39;trackone&#39; and it has the combine table as a pandas DataFrame for value.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">onetable</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;onetable&quot;</span><span class="p">,</span> <span class="no">False</span><span class="p">)</span> <span class="k">if</span> <span class="s2">&quot;onetable&quot;</span> <span class="k">in</span> <span class="n">kwargs</span> <span class="k">else</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;ONETABLE&quot;</span><span class="p">,</span> <span class="no">False</span><span class="p">)</span>
+<span class="w">    </span><span class="n">onetable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;onetable&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">False</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="ss">&quot;onetable&quot;</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">kwargs</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="ss">&quot;ONETABLE&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">False</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">start</span> <span class="o">=</span> <span class="n">initial_coordinates</span> <span class="k">if</span> <span class="n">initial_coordinates</span> <span class="k">else</span> <span class="err">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="err">]</span>
+<span class="w">    </span><span class="k">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">initial_coordinates</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">initial_coordinates</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">[</span><span class="n">0, 0, 0, 0, 0, 0</span><span class="o">]</span><span class="w"></span>
 
-    <span class="n">observation_points</span> <span class="o">=</span> <span class="n">observation_points</span> <span class="k">if</span> <span class="n">observation_points</span> <span class="k">else</span> <span class="err">[]</span>
+<span class="w">    </span><span class="n">observation_points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">observation_points</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">observation_points</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">[]</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">str</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">isinstance</span><span class="p">(</span><span class="k">sequence</span><span class="p">,</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Using sequence &#39;{sequence}&#39; for tracking&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Using sequence &#39;{sequence}&#39; for tracking&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="k">sequence</span><span class="o">=</span><span class="k">sequence</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;{initial_coordinates}&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;{initial_coordinates}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">track</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">track</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="n">observation_points</span><span class="o">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="k">element</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">observation_points</span><span class="p">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting observation point for tracking with OBSERVE at element &#39;{element}&#39;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Setting observation point for tracking with OBSERVE at element &#39;{element}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="n">element</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="k">element</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">X</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">PX</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">1</span><span class="err">]</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">2</span><span class="err">]</span><span class="p">,</span> <span class="n">PY</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">3</span><span class="err">]</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">4</span><span class="err">]</span><span class="p">,</span> <span class="n">PT</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">5</span><span class="err">]</span><span class="p">,</span>
+<span class="w">        </span><span class="n">X</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">0</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">PX</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">1</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">2</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">PY</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">3</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">4</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">PT</span><span class="o">=</span><span class="k">start</span><span class="o">[</span><span class="n">5</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">turns</span><span class="o">=</span><span class="n">nturns</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="n">turns</span><span class="o">=</span><span class="n">nturns</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endtrack</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endtrack</span><span class="p">()</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">onetable</span><span class="o">:</span>  <span class="c1"># user asked for ONETABLE, there will only be one table &#39;trackone&#39; given back by MAD-X</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nl">onetable</span><span class="p">:</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">asked</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">ONETABLE</span><span class="p">,</span><span class="w"> </span><span class="n">there</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">one</span><span class="w"> </span><span class="nc">table</span><span class="w"> </span><span class="s1">&#39;trackone&#39;</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">back</span><span class="w"> </span><span class="k">by</span><span class="w"> </span><span class="n">MAD</span><span class="o">-</span><span class="n">X</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="err">{</span><span class="s2">&quot;trackone&quot;</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">trackone</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="err">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="ss">&quot;trackone&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">trackone</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="err">}</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="err">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;observation_point_{point:d}&quot;</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="err">[</span><span class="n">f</span><span class="s2">&quot;track.obs{point:04d}.p0001&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span>
+<span class="w">        </span><span class="n">f</span><span class="ss">&quot;observation_point_{point:d}&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="o">[</span><span class="n">f&quot;track.obs{point:04d}.p0001&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="w"></span>
 
-        <span class="k">for</span> <span class="kt">point</span> <span class="k">in</span> <span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># len(observation_points) + 1 for start of</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">point</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">start</span><span class="w"> </span><span class="k">of</span><span class="w"></span>
 
-        <span class="c1"># machine + 1 because MAD-X starts indexing these at 1</span>
+<span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="n">machine</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">because</span><span class="w"> </span><span class="n">MAD</span><span class="o">-</span><span class="n">X</span><span class="w"> </span><span class="n">starts</span><span class="w"> </span><span class="n">indexing</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 
-    <span class="err">}</span>
+<span class="w">    </span><span class="err">}</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1383,10 +1377,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.2b46852b.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
       
     
   </body>

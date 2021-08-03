@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-7.1.4">
     
     
       
@@ -18,10 +18,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.bde7dde4.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ef6f36e2.min.css">
         
           
           
@@ -42,8 +42,6 @@
     
     
       
-
-
     
     
   </head>
@@ -112,18 +110,14 @@
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
     <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
       <label class="md-search__icon md-icon" for="__search">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
       </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
-        </button>
-      </nav>
-      
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
     </form>
     <div class="md-search__output">
       <div class="md-search__scrollwrap" data-md-scrollfix>
@@ -489,20 +483,6 @@
           <li class="md-nav__item">
   <a href="#get_rdts" class="md-nav__link">
     get_rdts
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ptc_track_particle" class="md-nav__link">
-    ptc_track_particle
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ptc_twiss" class="md-nav__link">
-    ptc_twiss
   </a>
   
 </li>
@@ -1032,20 +1012,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#ptc_track_particle" class="md-nav__link">
-    ptc_track_particle
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ptc_twiss" class="md-nav__link">
-    ptc_twiss
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1088,9 +1054,7 @@
 
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">tfs</span>
 
@@ -1099,6 +1063,8 @@
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.utils</span> <span class="kn">import</span> <span class="n">get_table_tfs</span>
+
+<span class="c1"># ----- Utilities ----- #</span>
 
 <span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span>
 
@@ -1160,7 +1126,7 @@
 
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;PTC amplitude detuning is not implemented for order &gt; 2&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Entering PTC to calculate amplitude detuning&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
@@ -1290,7 +1256,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Entering PTC to calculate RDTs up to order </span><span class="si">{</span><span class="n">order</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
@@ -1310,7 +1276,7 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">,</span> <span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">file</span><span class="p">:</span>
 
@@ -1319,238 +1285,6 @@
         <span class="n">tfs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dframe</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">dframe</span>
-
-<span class="k">def</span> <span class="nf">ptc_twiss</span><span class="p">(</span>
-
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
-
-    <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-
-    <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-
-    <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-
-    <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ptc_twiss&quot;</span><span class="p">,</span>
-
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
-
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Calculate the TWISS parameters according to G. Ripken&#39;s formalism via `PTC_TWISS`, with sensible defaults</span>
-
-<span class="sd">    set for other relevant `PTC` commands. The result table is returned as a `TfsDataFrame`, the headers of</span>
-
-<span class="sd">    which are the contents of the internal `SUMM` table.</span>
-
-<span class="sd">    This is very similar to the `get_rdts` function as both use `ptc_twiss` internally, however this function</span>
-
-<span class="sd">    does not track RDTs which makes the calculations significantly faster.</span>
-
-<span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
-
-<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
-
-<span class="sd">    exact Hamiltonian, not an approximated one).</span>
-
-<span class="sd">    The `PTC_TWISS` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`</span>
-
-<span class="sd">    manual for details) `normal=True` to trigger saving the normal form analysis results in a table called</span>
-
-<span class="sd">    `NONLIN` which will then be available through the provided `Madx` instance.</span>
-
-<span class="sd">    Args:</span>
-
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
-
-<span class="sd">        order (int): map order for derivative evaluation of Twiss parameters. Defaults to `4`.</span>
-
-<span class="sd">        file (Union[Path, str]): path to output file. Default `None`</span>
-
-<span class="sd">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
-
-<span class="sd">        table (str): the name of the internal table in which to save the results. Defaults to &#39;ptc_twiss&#39;.</span>
-
-<span class="sd">    Keyword Args:</span>
-
-<span class="sd">        Any keyword argument is transmitted to the `PTC_TWISS` command. See above which arguments are</span>
-
-<span class="sd">        already set for `PTC_TWISS` to avoid trying to override them.</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">        A `TfsDataframe` with results.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">no</span><span class="o">=</span><span class="n">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
-
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">file</span><span class="p">:</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exporting results to disk at &#39;</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">file</span><span class="p">)</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-
-        <span class="n">tfs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">dframe</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">dframe</span>
-
-<span class="k">def</span> <span class="nf">ptc_track_particle</span><span class="p">(</span>
-
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
-
-    <span class="n">initial_coordinates</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-
-    <span class="n">nturns</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-
-    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-
-    <span class="n">observation_points</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-
-    <span class="n">onetable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-
-    <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
-
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    Tracks a single particle for nturns through PTC_TRACK, based on its initial coordinates.</span>
-
-<span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
-
-<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
-
-<span class="sd">    exact Hamiltonian, not an approximated one).</span>
-
-<span class="sd">    The `PTC_TRACK` command is explicitely given `ELEMENT_BY_ELEMENT=True` to force element by element</span>
-
-<span class="sd">    tracking mode.</span>
-
-<span class="sd">    Args:</span>
-
-<span class="sd">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
-
-<span class="sd">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,</span>
-
-<span class="sd">            T, PT starting coordinates the particle to track. Defaults to all 0 if none given.</span>
-
-<span class="sd">        nturns (int): the number of turns to track for.</span>
-
-<span class="sd">        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a</span>
-
-<span class="sd">            sequence is already defined and in use, and this one will be picked up by MAD-X.</span>
-
-<span class="sd">        observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the</span>
-
-<span class="sd">            tracking.</span>
-
-<span class="sd">        onetable (bool): flag to combine all observation points data into a single table. Defaults to `False`.</span>
-
-<span class="sd">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
-
-<span class="sd">    Keyword Args:</span>
-
-<span class="sd">        Any keyword argument to be given to the `PTC_TRACK` command, such as the `CLOSED_ORBIT` flag to</span>
-
-<span class="sd">        activate closed orbit calculation before tracking. Refer to the `MAD-X` manual for options.</span>
-
-<span class="sd">    Returns:</span>
-
-<span class="sd">        A dictionary with a copy of the track table&#39;s dataframe for each defined observation point,</span>
-
-<span class="sd">        with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary</span>
-
-<span class="sd">        are simply numbered &#39;observation_point_1&#39;, &#39;observation_point_2&#39; etc. The first observation point</span>
-
-<span class="sd">        always corresponds to the start of machine, the others correspond to the ones manually defined,</span>
-
-<span class="sd">        in the order they are defined in.</span>
-
-<span class="sd">        If the user has set `onetable` to `True`, only one entry is in the dictionary under the key</span>
-
-<span class="sd">        &#39;trackone&#39; and it has the combined table as a pandas DataFrame for value.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">start</span> <span class="o">=</span> <span class="n">initial_coordinates</span> <span class="k">if</span> <span class="n">initial_coordinates</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
-
-    <span class="n">observation_points</span> <span class="o">=</span> <span class="n">observation_points</span> <span class="k">if</span> <span class="n">observation_points</span> <span class="k">else</span> <span class="p">[]</span>
-
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39; for tracking&quot;</span><span class="p">)</span>
-
-        <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;</span><span class="si">{</span><span class="n">initial_coordinates</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">ptc_start</span><span class="p">(</span>
-
-        <span class="n">X</span><span class="o">=</span><span class="n">start</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">PX</span><span class="o">=</span><span class="n">start</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">Y</span><span class="o">=</span><span class="n">start</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">PY</span><span class="o">=</span><span class="n">start</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">T</span><span class="o">=</span><span class="n">start</span><span class="p">[</span><span class="mi">4</span><span class="p">],</span> <span class="n">PT</span><span class="o">=</span><span class="n">start</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
-
-    <span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">element</span> <span class="ow">in</span> <span class="n">observation_points</span><span class="p">:</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting observation point for tracking with OBSERVE at element &#39;</span><span class="si">{</span><span class="n">element</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">ptc_observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="n">element</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">ptc_track</span><span class="p">(</span><span class="n">turns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span> <span class="n">element_by_element</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">onetable</span><span class="o">=</span><span class="n">onetable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">ptc_end</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">onetable</span><span class="p">:</span>  <span class="c1"># user asked for ONETABLE, there will only be one table &#39;trackone&#39; given back by MAD-X</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;trackone&quot;</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">trackone</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()}</span>
-
-    <span class="k">return</span> <span class="p">{</span>
-
-        <span class="sa">f</span><span class="s2">&quot;observation_point_</span><span class="si">{</span><span class="n">point</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;track.obs</span><span class="si">{</span><span class="n">point</span><span class="si">:</span><span class="s2">04d</span><span class="si">}</span><span class="s2">.p0001&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-
-        <span class="k">for</span> <span class="n">point</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># len(observation_points) + 1 for start of</span>
-
-        <span class="c1"># machine + 1 because MAD-X starts indexing these at 1</span>
-
-    <span class="p">}</span>
 </code></pre></div>
 
 </details>
@@ -1646,7 +1380,7 @@ Normal Form).</p>
 
         <span class="n">raise</span> <span class="n">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;PTC amplitude detuning is not implemented for order &gt; 2&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Entering PTC to calculate amplitude detuning&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
@@ -1808,7 +1542,7 @@ through the provided <code>Madx</code> instance.</p>
 
 <span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Entering PTC to calculate RDTs up to order {order}&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
 
@@ -1828,317 +1562,7 @@ through the provided <code>Madx</code> instance.</p>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">,</span> <span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="k">file</span><span class="o">:</span>
-
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exporting results to disk at &#39;{Path(file).absolute()}&#39;&quot;</span><span class="p">)</span>
-
-        <span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">file</span><span class="p">,</span> <span class="n">dframe</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">dframe</span>
-</code></pre></div>
-
-</details>
-<h3 id="ptc_track_particle">ptc_track_particle</h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ptc_track_particle</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
-    <span class="n">initial_coordinates</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
-    <span class="n">nturns</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">observation_points</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">onetable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>
-</code></pre></div>
-<p>Tracks a single particle for nturns through PTC_TRACK, based on its initial coordinates.</p>
-<p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
-order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
-exact Hamiltonian, not an approximated one).</p>
-<p>The <code>PTC_TRACK</code> command is explicitely given <code>ELEMENT_BY_ELEMENT=True</code> to force element by element
-tracking mode.</p>
-<p>Args:
-    madx (Madx): an instantiated cpymad.madx.Madx object.
-    initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,
-        T, PT starting coordinates the particle to track. Defaults to all 0 if none given.
-    nturns (int): the number of turns to track for.
-    sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a
-        sequence is already defined and in use, and this one will be picked up by MAD-X.
-    observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the
-        tracking.
-    onetable (bool): flag to combine all observation points data into a single table. Defaults to <code>False</code>.
-    fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to <code>False</code>.</p>
-<p>Keyword Args:
-    Any keyword argument to be given to the <code>PTC_TRACK</code> command, such as the <code>CLOSED_ORBIT</code> flag to
-    activate closed orbit calculation before tracking. Refer to the <code>MAD-X</code> manual for options.</p>
-<p>Returns:
-    A dictionary with a copy of the track table's dataframe for each defined observation point,
-    with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary
-    are simply numbered 'observation_point_1', 'observation_point_2' etc. The first observation point
-    always corresponds to the start of machine, the others correspond to the ones manually defined,
-    in the order they are defined in.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">If</span> <span class="n">the</span> <span class="k">user</span> <span class="n">has</span> <span class="k">set</span> <span class="n n-Quoted">`onetable`</span> <span class="k">to</span> <span class="n n-Quoted">`True`</span><span class="p">,</span> <span class="k">only</span> <span class="k">one</span> <span class="n">entry</span> <span class="k">is</span> <span class="k">in</span> <span class="n">the</span> <span class="n">dictionary</span> <span class="n">under</span> <span class="n">the</span> <span class="k">key</span>
-<span class="s1">&#39;trackone&#39;</span> <span class="k">and</span> <span class="n">it</span> <span class="n">has</span> <span class="n">the</span> <span class="n">combined</span> <span class="k">table</span> <span class="k">as</span> <span class="n">a</span> <span class="n">pandas</span> <span class="n">DataFrame</span> <span class="k">for</span> <span class="k">value</span><span class="p">.</span>
-</code></pre></div>
-
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">ptc_track_particle</span><span class="p">(</span>
-
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
-
-    <span class="n">initial_coordinates</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span>
-
-    <span class="n">nturns</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
-
-    <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
-
-    <span class="n">observation_points</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
-
-    <span class="n">onetable</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
-
-    <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
-
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="err">[</span><span class="n">str</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="err">]</span><span class="o">:</span>
-
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
-
-<span class="s2">    Tracks a single particle for nturns through PTC_TRACK, based on its initial coordinates.</span>
-
-<span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
-
-<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
-
-<span class="s2">    exact Hamiltonian, not an approximated one).</span>
-
-<span class="s2">    The `PTC_TRACK` command is explicitely given `ELEMENT_BY_ELEMENT=True` to force element by element</span>
-
-<span class="s2">    tracking mode.</span>
-
-<span class="s2">    Args:</span>
-
-<span class="s2">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
-
-<span class="s2">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,</span>
-
-<span class="s2">            T, PT starting coordinates the particle to track. Defaults to all 0 if none given.</span>
-
-<span class="s2">        nturns (int): the number of turns to track for.</span>
-
-<span class="s2">        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a</span>
-
-<span class="s2">            sequence is already defined and in use, and this one will be picked up by MAD-X.</span>
-
-<span class="s2">        observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the</span>
-
-<span class="s2">            tracking.</span>
-
-<span class="s2">        onetable (bool): flag to combine all observation points data into a single table. Defaults to `False`.</span>
-
-<span class="s2">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
-
-<span class="s2">    Keyword Args:</span>
-
-<span class="s2">        Any keyword argument to be given to the `PTC_TRACK` command, such as the `CLOSED_ORBIT` flag to</span>
-
-<span class="s2">        activate closed orbit calculation before tracking. Refer to the `MAD-X` manual for options.</span>
-
-<span class="s2">    Returns:</span>
-
-<span class="s2">        A dictionary with a copy of the track table&#39;s dataframe for each defined observation point,</span>
-
-<span class="s2">        with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary</span>
-
-<span class="s2">        are simply numbered &#39;observation_point_1&#39;, &#39;observation_point_2&#39; etc. The first observation point</span>
-
-<span class="s2">        always corresponds to the start of machine, the others correspond to the ones manually defined,</span>
-
-<span class="s2">        in the order they are defined in.</span>
-
-<span class="s2">        If the user has set `onetable` to `True`, only one entry is in the dictionary under the key</span>
-
-<span class="s2">        &#39;trackone&#39; and it has the combined table as a pandas DataFrame for value.</span>
-
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
-
-    <span class="k">start</span> <span class="o">=</span> <span class="n">initial_coordinates</span> <span class="k">if</span> <span class="n">initial_coordinates</span> <span class="k">else</span> <span class="err">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="err">]</span>
-
-    <span class="n">observation_points</span> <span class="o">=</span> <span class="n">observation_points</span> <span class="k">if</span> <span class="n">observation_points</span> <span class="k">else</span> <span class="err">[]</span>
-
-    <span class="k">if</span> <span class="n">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">str</span><span class="p">)</span><span class="o">:</span>
-
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Using sequence &#39;{sequence}&#39; for tracking&quot;</span><span class="p">)</span>
-
-        <span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;{initial_coordinates}&#39;&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_start</span><span class="p">(</span>
-
-        <span class="n">X</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">PX</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">1</span><span class="err">]</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">2</span><span class="err">]</span><span class="p">,</span> <span class="n">PY</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">3</span><span class="err">]</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">4</span><span class="err">]</span><span class="p">,</span> <span class="n">PT</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">5</span><span class="err">]</span><span class="p">,</span>
-
-    <span class="p">)</span>
-
-    <span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="n">observation_points</span><span class="o">:</span>
-
-        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting observation point for tracking with OBSERVE at element &#39;{element}&#39;&quot;</span><span class="p">)</span>
-
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="n">element</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_track</span><span class="p">(</span><span class="n">turns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span> <span class="n">element_by_element</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">onetable</span><span class="o">=</span><span class="n">onetable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
-
-    <span class="k">if</span> <span class="n">onetable</span><span class="o">:</span>  <span class="c1"># user asked for ONETABLE, there will only be one table &#39;trackone&#39; given back by MAD-X</span>
-
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="err">{</span><span class="s2">&quot;trackone&quot;</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">trackone</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="err">}</span>
-
-    <span class="k">return</span> <span class="err">{</span>
-
-        <span class="n">f</span><span class="s2">&quot;observation_point_{point:d}&quot;</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="err">[</span><span class="n">f</span><span class="s2">&quot;track.obs{point:04d}.p0001&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span>
-
-        <span class="k">for</span> <span class="kt">point</span> <span class="k">in</span> <span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># len(observation_points) + 1 for start of</span>
-
-        <span class="c1"># machine + 1 because MAD-X starts indexing these at 1</span>
-
-    <span class="err">}</span>
-</code></pre></div>
-
-</details>
-<h3 id="ptc_twiss">ptc_twiss</h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">ptc_twiss</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
-    <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ptc_twiss&#39;</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
-</code></pre></div>
-<p>Calculate the TWISS parameters according to G. Ripken's formalism via <code>PTC_TWISS</code>, with sensible defaults
-set for other relevant <code>PTC</code> commands. The result table is returned as a <code>TfsDataFrame</code>, the headers of
-which are the contents of the internal <code>SUMM</code> table.</p>
-<p>This is very similar to the <code>get_rdts</code> function as both use <code>ptc_twiss</code> internally, however this function
-does not track RDTs which makes the calculations significantly faster.</p>
-<p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
-order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
-exact Hamiltonian, not an approximated one).</p>
-<p>The <code>PTC_TWISS</code> command is explicitely given <code>icase=6</code> to enforce 6D calculations (see the <code>MAD-X</code>
-manual for details) <code>normal=True</code> to trigger saving the normal form analysis results in a table called
-<code>NONLIN</code> which will then be available through the provided <code>Madx</code> instance.</p>
-<p>Args:
-    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-    order (int): map order for derivative evaluation of Twiss parameters. Defaults to <code>4</code>.
-    file (Union[Path, str]): path to output file. Default <code>None</code>
-    fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to <code>False</code>.
-    table (str): the name of the internal table in which to save the results. Defaults to 'ptc_twiss'.</p>
-<p>Keyword Args:
-    Any keyword argument is transmitted to the <code>PTC_TWISS</code> command. See above which arguments are
-    already set for <code>PTC_TWISS</code> to avoid trying to override them.</p>
-<p>Returns:
-    A <code>TfsDataframe</code> with results.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">ptc_twiss</span><span class="p">(</span>
-
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
-
-    <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-
-    <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
-
-    <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
-
-    <span class="k">table</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;ptc_twiss&quot;</span><span class="p">,</span>
-
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
-
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
-
-<span class="s2">    Calculate the TWISS parameters according to G. Ripken&#39;s formalism via `PTC_TWISS`, with sensible defaults</span>
-
-<span class="s2">    set for other relevant `PTC` commands. The result table is returned as a `TfsDataFrame`, the headers of</span>
-
-<span class="s2">    which are the contents of the internal `SUMM` table.</span>
-
-<span class="s2">    This is very similar to the `get_rdts` function as both use `ptc_twiss` internally, however this function</span>
-
-<span class="s2">    does not track RDTs which makes the calculations significantly faster.</span>
-
-<span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
-
-<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
-
-<span class="s2">    exact Hamiltonian, not an approximated one).</span>
-
-<span class="s2">    The `PTC_TWISS` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`</span>
-
-<span class="s2">    manual for details) `normal=True` to trigger saving the normal form analysis results in a table called</span>
-
-<span class="s2">    `NONLIN` which will then be available through the provided `Madx` instance.</span>
-
-<span class="s2">    Args:</span>
-
-<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
-
-<span class="s2">        order (int): map order for derivative evaluation of Twiss parameters. Defaults to `4`.</span>
-
-<span class="s2">        file (Union[Path, str]): path to output file. Default `None`</span>
-
-<span class="s2">        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.</span>
-
-<span class="s2">        table (str): the name of the internal table in which to save the results. Defaults to &#39;ptc_twiss&#39;.</span>
-
-<span class="s2">    Keyword Args:</span>
-
-<span class="s2">        Any keyword argument is transmitted to the `PTC_TWISS` command. See above which arguments are</span>
-
-<span class="s2">        already set for `PTC_TWISS` to avoid trying to override them.</span>
-
-<span class="s2">    Returns:</span>
-
-<span class="s2">        A `TfsDataframe` with results.</span>
-
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="k">table</span><span class="o">=</span><span class="k">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
-
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="k">table</span><span class="p">,</span> <span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="k">file</span><span class="o">:</span>
 
@@ -2221,10 +1645,10 @@ manual for details) <code>normal=True</code> to trigger saving the normal form a
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}, "search": "../../../../assets/javascripts/workers/search.4fa0e4ee.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.2b46852b.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.1d3bfcf1.min.js"></script>
       
     
   </body>
