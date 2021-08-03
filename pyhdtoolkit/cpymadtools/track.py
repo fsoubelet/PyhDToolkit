@@ -39,8 +39,8 @@ def track_single_particle(
             tracking.
 
     Keyword Args:
-        Any keyword argument to be given to the TRACK command like it would be given directly into MAD-X,
-        for instance ONETABLE etc. Refer to the MAD-X manual for options.
+        Any keyword argument to be given to the `TRACK` command like it would be given directly into `MAD-X`,
+        for instance `ONETABLE` etc. Refer to the `MAD-X` manual for options.
 
     Returns:
         A dictionary with a copy of the track table's dataframe for each defined observation point,
@@ -49,8 +49,8 @@ def track_single_particle(
         always corresponds to the start of machine, the others correspond to the ones manually defined,
         in the order they are defined in.
 
-        If the user has provided the TRACKONE option, only one entry is in the dictionary under the key
-        'trackone' and it has the combine table as a pandas DataFrame for value.
+        If the user has set `onetable` to `True`, only one entry is in the dictionary under the key
+        'trackone' and it has the combined table as a pandas DataFrame for value.
     """
     onetable = kwargs.get("onetable", False) if "onetable" in kwargs else kwargs.get("ONETABLE", False)
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]

@@ -46,7 +46,7 @@ from pyhdtoolkit.cpymadtools.plotters import (
     PhaseSpacePlotter,
     TuneDiagramPlotter,
 )
-from pyhdtoolkit.cpymadtools.ptc import get_amplitude_detuning, get_rdts
+from pyhdtoolkit.cpymadtools.ptc import get_amplitude_detuning, get_rdts, ptc_track_particle, ptc_twiss
 from pyhdtoolkit.cpymadtools.special import (
     _all_lhc_arcs,
     _get_k_strings,
@@ -684,6 +684,48 @@ class TestPTC:
         assert (tmp_path / "here.tfs").is_file()
         assert_frame_equal(reference_df.set_index("NAME"), rdts_df.set_index("NAME"))
 
+    def test_ptc_twiss(self, tmp_path, _matched_base_lattice, _ptc_twiss_tfs_path):
+        madx = _matched_base_lattice
+        ptc_twiss_df = ptc_twiss(madx, file=tmp_path / "here.tfs").reset_index(drop=True)
+        reference_df = tfs.read(_ptc_twiss_tfs_path)
+
+        assert (tmp_path / "here.tfs").is_file()
+        assert_frame_equal(reference_df.drop(columns=["COMMENTS"]), ptc_twiss_df.drop(columns=["COMMENTS"]))
+
+    @pytest.mark.parametrize("obs_points", [[], ["qf", "mb", "msf"]])
+    def test_single_particle_ptc_track(self, _matched_base_lattice, obs_points):
+        madx = _matched_base_lattice
+        tracks_dict = ptc_track_particle(
+            madx,
+            sequence="CAS3",
+            nturns=100,
+            initial_coordinates=(1e-4, 0, 2e-4, 0, 0, 0),
+            observation_points=obs_points,
+        )
+
+        assert isinstance(tracks_dict, dict)
+        assert len(tracks_dict.keys()) == len(obs_points) + 1
+        for tracks in tracks_dict.values():
+            assert isinstance(tracks, DataFrame)
+            assert all(
+                [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+            )
+
+    def test_single_particle_ptc_track_with_onepass(self, _matched_base_lattice):
+        madx = _matched_base_lattice
+        tracks_dict = ptc_track_particle(
+            madx, sequence="CAS3", nturns=100, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0), onetable=True,
+        )
+
+        assert isinstance(tracks_dict, dict)
+        assert len(tracks_dict.keys()) == 1  # should be only one because of ONETABLE option
+        assert "trackone" in tracks_dict.keys()
+        tracks = tracks_dict["trackone"]
+        assert isinstance(tracks, DataFrame)
+        assert all(
+            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
+        )
+
 
 class TestSpecial:
     def test_all_lhc_arcs(self):
@@ -999,9 +1041,9 @@ class TestTuneDiagramPlotter:
 class TestTwiss:
     def test_twiss_tfs(self, _twiss_export, _matched_base_lattice):
         madx = _matched_base_lattice
-        twiss_tfs = get_twiss_tfs(madx)
-        from_disk = tfs.read(_twiss_export)  # not index="NAME" because duplicate element names
-        assert_frame_equal(twiss_tfs.reset_index(), from_disk)
+        twiss_tfs = get_twiss_tfs(madx).drop(columns=["COMMENTS"])
+        from_disk = tfs.read(_twiss_export, index="NAME").drop(columns=["COMMENTS"])
+        assert_frame_equal(twiss_tfs, from_disk)
 
     def test_get_ips_twiss(self, _ips_twiss_path, _matched_lhc_madx):
         madx = _matched_lhc_madx
@@ -1145,6 +1187,11 @@ def _ampdet_tfs_path() -> pathlib.Path:
 @pytest.fixture()
 def _rdts_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "rdts.tfs"
+
+
+@pytest.fixture()
+def _ptc_twiss_tfs_path() -> pathlib.Path:
+    return INPUTS_DIR / "ptc_twiss.tfs"
 
 
 @pytest.fixture()
