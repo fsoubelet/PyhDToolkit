@@ -684,18 +684,13 @@ class TestPTC:
         assert (tmp_path / "here.tfs").is_file()
         assert_frame_equal(reference_df.set_index("NAME"), rdts_df.set_index("NAME"))
 
-    def test_ptc_twiss(self, tmp_path, _ptc_twiss_tfs_path):
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
-
-        ptc_twiss_df = ptc_twiss(madx, file=tmp_path / "here.tfs").drop(columns=["COMMENTS"])
-        reference_df = tfs.read(_ptc_twiss_tfs_path, index="NAME").drop(columns=["COMMENTS"])
+    def test_ptc_twiss(self, tmp_path, _matched_base_lattice, _ptc_twiss_tfs_path):
+        madx = _matched_base_lattice
+        ptc_twiss_df = ptc_twiss(madx, file=tmp_path / "here.tfs").reset_index(drop=True)
+        reference_df = tfs.read(_ptc_twiss_tfs_path)
 
         assert (tmp_path / "here.tfs").is_file()
-        assert_frame_equal(reference_df, ptc_twiss_df)
+        assert_frame_equal(reference_df.drop(columns=["COMMENTS"]), ptc_twiss_df.drop(columns=["COMMENTS"]))
 
     @pytest.mark.parametrize("obs_points", [[], ["qf", "mb", "msf"]])
     def test_single_particle_ptc_track(self, _matched_base_lattice, obs_points):
