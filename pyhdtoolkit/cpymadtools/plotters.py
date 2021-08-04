@@ -9,7 +9,7 @@ A collection of functions to plot different output results from a cpymad.madx.Ma
 simulation results.
 """
 from pathlib import Path
-from typing import Dict, Tuple
+from typing import Tuple
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -20,6 +20,7 @@ from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
 
+from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.utils.defaults import PLOT_PARAMS
 
@@ -40,7 +41,7 @@ class AperturePlotter:
     @staticmethod
     def plot_aperture(
         madx: Madx,
-        beam_params: Dict[str, float],
+        beam_params: BeamParameters,
         figsize: Tuple[int, int] = (13, 20),
         xlimits: Tuple[float, float] = None,
         hplane_ylim: Tuple[float, float] = (-0.12, 0.12),
@@ -53,8 +54,8 @@ class AperturePlotter:
 
         Args:
             madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            beam_params (Dict[str, float]): a beam_parameters dictionary obtained through
-                cpymadtools.helpers.beam_parameters.
+            beam_params (BeamParameters): a validated BeamParameters object from
+                `pyhdtoolkit.optics.beam.compute_beam_parameters`.
             figsize (str): size of the figure, defaults to (15, 15).
             xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
                 not None, using the tuple passed.
@@ -83,15 +84,15 @@ class AperturePlotter:
 
         logger.debug("Getting Twiss dframe from cpymad")
         twiss_hr: pd.DataFrame = madx.table.twiss.dframe()
-        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx.values * beam_params["eg_y_m"])
-        twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety.values * beam_params["eg_y_m"])
-        twiss_hr["dispersive_envelope_x"] = twiss_hr.dx.values * beam_params["deltap_p"]
-        twiss_hr["dispersive_envelope_y"] = twiss_hr.dy.values * beam_params["deltap_p"]
+        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx.values * beam_params.eg_y_m)
+        twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety.values * beam_params.eg_y_m)
+        twiss_hr["dispersive_envelope_x"] = twiss_hr.dx.values * beam_params.deltap_p
+        twiss_hr["dispersive_envelope_y"] = twiss_hr.dy.values * beam_params.deltap_p
         twiss_hr["envelope_x"] = np.sqrt(
-            twiss_hr.betatronic_envelope_x.values ** 2 + (twiss_hr.dx.values * beam_params["deltap_p"]) ** 2
+            twiss_hr.betatronic_envelope_x.values ** 2 + (twiss_hr.dx.values * beam_params.deltap_p) ** 2
         )
         twiss_hr["envelope_y"] = np.sqrt(
-            twiss_hr.betatronic_envelope_y.values ** 2 + (twiss_hr.dy.values * beam_params["deltap_p"]) ** 2
+            twiss_hr.betatronic_envelope_y.values ** 2 + (twiss_hr.dy.values * beam_params.deltap_p) ** 2
         )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
@@ -113,7 +114,7 @@ class AperturePlotter:
         axis1.set_ylim(hplane_ylim)
         axis1.set_ylabel("x [m]")
         axis1.set_xlabel("s [m]")
-        axis1.set_title(f"Horizontal aperture at {beam_params['pc_GeV']} GeV/c")
+        axis1.set_title(f"Horizontal aperture at {beam_params.pc_GeV} GeV/c")
 
         logger.debug("Plotting the vertical aperture")
         axis2 = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=1, sharex=axis1)
@@ -134,7 +135,7 @@ class AperturePlotter:
         axis2.set_ylim(vplane_ylim)
         axis2.set_ylabel("y [m]")
         axis2.set_xlabel("s [m]")
-        axis2.set_title(f"Vertical aperture at {beam_params['pc_GeV']} GeV/c")
+        axis2.set_title(f"Vertical aperture at {beam_params.pc_GeV} GeV/c")
 
         logger.debug("Plotting the stay-clear envelope")
         axis3 = plt.subplot2grid((3, 3), (2, 0), colspan=3, rowspan=1, sharex=axis1)
@@ -144,7 +145,7 @@ class AperturePlotter:
         axis3.set_ylabel("n1")
         axis3.set_xlabel("s [m]")
         axis3.legend(loc="best")
-        axis3.set_title(f"Stay-clear envelope at {beam_params['pc_GeV']} GeV/c")
+        axis3.set_title(f"Stay-clear envelope at {beam_params.pc_GeV} GeV/c")
 
         if savefig:
             logger.info(f"Saving aperture plot at '{Path(savefig).absolute()}'")

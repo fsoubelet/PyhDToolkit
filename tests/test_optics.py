@@ -3,8 +3,9 @@ import pathlib
 import numpy as np
 import pytest
 
+from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.optics import ripken, twiss
-from pyhdtoolkit.optics.beam import Beam
+from pyhdtoolkit.optics.beam import Beam, compute_beam_parameters
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
@@ -56,6 +57,54 @@ class TestBeamCalculations:
     def test_gamma_transition_raises(self):
         with pytest.raises(ZeroDivisionError):
             Beam(6500, 2.5e-6).gamma_transition(0)
+
+    @pytest.mark.parametrize(
+        "pc_gev, en_x_m, en_y_m, delta_p, result",
+        [
+            (
+                1.9,
+                5e-6,
+                5e-6,
+                2e-3,
+                BeamParameters(
+                    pc_GeV=1.9,
+                    B_rho_Tm=6.3376399999999995,
+                    E_0_GeV=0.9382720813,
+                    E_tot_GeV=2.1190456574946737,
+                    E_kin_GeV=1.1807735761946736,
+                    gamma_r=2.258455409393277,
+                    beta_r=0.8966300434726596,
+                    en_x_m=5e-06,
+                    en_y_m=5e-06,
+                    eg_x_m=2.469137056052632e-06,
+                    eg_y_m=2.469137056052632e-06,
+                    deltap_p=0.002,
+                ),
+            ),
+            (
+                19,
+                5e-6,
+                5e-6,
+                2e-4,
+                BeamParameters(
+                    pc_GeV=19,
+                    B_rho_Tm=63.3764,
+                    E_0_GeV=0.9382720813,
+                    E_tot_GeV=19.023153116624673,
+                    E_kin_GeV=18.084881035324674,
+                    gamma_r=20.274666054506927,
+                    beta_r=0.9987828980567665,
+                    en_x_m=5e-06,
+                    en_y_m=5e-06,
+                    eg_x_m=2.4691370560526314e-07,
+                    eg_y_m=2.4691370560526314e-07,
+                    deltap_p=0.0002,
+                ),
+            ),
+        ],
+    )
+    def test_beam_parameters(self, pc_gev, en_x_m, en_y_m, delta_p, result):
+        assert compute_beam_parameters(pc_gev, en_x_m, en_y_m, delta_p) == result
 
 
 class TestRipken:

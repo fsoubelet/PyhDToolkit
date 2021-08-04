@@ -11,6 +11,42 @@ import numpy as np
 
 from scipy import constants
 
+from pyhdtoolkit.models.beam import BeamParameters
+
+
+def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_p: float) -> BeamParameters:
+    """
+    Calculate beam parameters from provided values, for proton particles.
+
+    Args:
+        pc_gev (float): particle momentum.
+        en_x_m (float): horizontal emittance, in meters.
+        en_y_m (float): vertical emittance, in meters.
+        deltap_p (float): momentum deviation.
+
+    Returns:
+        A `BeamParameters` object with the calculated values.
+    """
+    e0_gev = 0.9382720813
+    e_tot_gev = np.sqrt(pc_gev ** 2 + e0_gev ** 2)
+    gamma_r = e_tot_gev / e0_gev
+    beta_r = pc_gev / np.sqrt(pc_gev ** 2 + e0_gev ** 2)
+
+    return BeamParameters(
+        pc_GeV=pc_gev,
+        B_rho_Tm=3.3356 * pc_gev,
+        E_0_GeV=e0_gev,
+        E_tot_GeV=e_tot_gev,
+        E_kin_GeV=e_tot_gev - e0_gev,
+        gamma_r=gamma_r,
+        beta_r=beta_r,
+        en_x_m=en_x_m,
+        en_y_m=en_y_m,
+        eg_x_m=en_x_m / gamma_r / beta_r,
+        eg_y_m=en_y_m / gamma_r / beta_r,
+        deltap_p=deltap_p,
+    )
+
 
 class Beam:
     """

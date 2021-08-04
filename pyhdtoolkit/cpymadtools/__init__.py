@@ -12,7 +12,7 @@ from .generators import LatticeGenerator
 from .latwiss import plot_latwiss, plot_machine_survey
 from .matching import get_closest_tune_approach, get_lhc_tune_and_chroma_knobs, match_tunes_and_chromaticities
 from .orbit import correct_lhc_orbit, get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
-from .parameters import beam_parameters
+from .parameters import query_beam_attributes
 from .plotters import AperturePlotter, DynamicAperturePlotter, PhaseSpacePlotter, TuneDiagramPlotter
 from .ptc import get_amplitude_detuning, get_rdts
 from .special import (

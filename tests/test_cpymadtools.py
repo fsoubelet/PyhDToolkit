@@ -39,7 +39,7 @@ from pyhdtoolkit.cpymadtools.orbit import (
     lhc_orbit_variables,
     setup_lhc_orbit,
 )
-from pyhdtoolkit.cpymadtools.parameters import beam_parameters
+from pyhdtoolkit.cpymadtools.parameters import query_beam_attributes
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,
     DynamicAperturePlotter,
@@ -65,6 +65,8 @@ from pyhdtoolkit.cpymadtools.special import (
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.cpymadtools.tune import make_footprint_table
 from pyhdtoolkit.cpymadtools.twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
+from pyhdtoolkit.models.madx import MADXBeam
+from pyhdtoolkit.optics.beam import compute_beam_parameters
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -85,7 +87,7 @@ class TestAperturePlotter:
         savefig_dir.mkdir()
         saved_fig = savefig_dir / "aperture.png"
 
-        beam_fb = beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3, verbose=True)
+        beam_fb = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
         madx = Madx(stdout=False)
         madx.call(str(GUIDO_LATTICE))
         figure = AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
@@ -493,55 +495,21 @@ class TestOrbit:
 
 
 class TestParameters:
-    @pytest.mark.parametrize(
-        "pc_gev, en_x_m, en_y_m, delta_p, verbosity, result_dict",
-        [
-            (
-                1.9,
-                5e-6,
-                5e-6,
-                2e-3,
-                False,
-                {
-                    "pc_GeV": 1.9,
-                    "B_rho_Tm": 6.3376399999999995,
-                    "E_0_GeV": 0.9382720813,
-                    "E_tot_GeV": 2.1190456574946737,
-                    "E_kin_GeV": 1.1807735761946736,
-                    "gamma_r": 2.258455409393277,
-                    "beta_r": 0.8966300434726596,
-                    "en_x_m": 5e-06,
-                    "en_y_m": 5e-06,
-                    "eg_x_m": 2.469137056052632e-06,
-                    "eg_y_m": 2.469137056052632e-06,
-                    "deltap_p": 0.002,
-                },
-            ),
-            (
-                19,
-                5e-6,
-                5e-6,
-                2e-4,
-                True,
-                {
-                    "pc_GeV": 19,
-                    "B_rho_Tm": 63.3764,
-                    "E_0_GeV": 0.9382720813,
-                    "E_tot_GeV": 19.023153116624673,
-                    "E_kin_GeV": 18.084881035324674,
-                    "gamma_r": 20.274666054506927,
-                    "beta_r": 0.9987828980567665,
-                    "en_x_m": 5e-06,
-                    "en_y_m": 5e-06,
-                    "eg_x_m": 2.4691370560526314e-07,
-                    "eg_y_m": 2.4691370560526314e-07,
-                    "deltap_p": 0.0002,
-                },
-            ),
-        ],
-    )
-    def test_beam_parameters(self, pc_gev, en_x_m, en_y_m, delta_p, result_dict, verbosity):
-        assert beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, verbosity) == result_dict
+    def test_query_default_madx_beam(self):
+        madx = Madx(stdout=False)
+        beam = query_beam_attributes(madx)
+
+        assert isinstance(beam, MADXBeam)
+        for attribute in beam.dict():
+            assert getattr(beam, attribute) == madx.beam[attribute]
+
+    def test_query_lhc_madx_beam(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
+        beam = query_beam_attributes(madx)
+
+        assert isinstance(beam, MADXBeam)
+        for attribute in beam.dict():
+            assert getattr(beam, attribute) == madx.beam[attribute]
 
 
 class TestPhaseSpacePlotter:

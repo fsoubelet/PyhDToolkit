@@ -1,0 +1,52 @@
+version: "2"
+checks:
+  argument-count:
+    enabled: true
+    config:
+      threshold: 6
+  complex-logic:
+    enabled: true
+    config:
+      threshold: 10
+  file-lines:
+    enabled: true
+    config:
+      threshold: 1000
+  method-complexity:
+    enabled: true
+    config:
+      threshold: 10
+  method-count:
+    enabled: true
+    config:
+      threshold: 20
+  method-lines:
+    enabled: true
+    config:
+      threshold: 50
+  nested-control-flow:
+    enabled: true
+    config:
+      threshold: 5
+  return-statements:
+    enabled: true
+    config:
+      threshold: 5
+  similar-code:
+    enabled: true
+  identical-code:
+    enabled: true
+plugins:
+  pep8:
+    enabled: false
+  sonar-python:
+    enabled: true
+    config:
+      tests_patterns:
+        - tests/**
+exclude_patterns:
+- "config/"
+- "dist/"
+- "sdist"
+- "**/test/"
+- "**/tests/"

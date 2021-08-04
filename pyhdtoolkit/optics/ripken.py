@@ -29,9 +29,6 @@ def lebedev_beam_size(
     return np.sqrt(geom_emit_x * beta1_ + geom_emit_y * beta2_)
 
 
-# ----- JITed Calculations ----- #
-
-
 def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> float:
     """
     Compute beam size from particle coordinates.

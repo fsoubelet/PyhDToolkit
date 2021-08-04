@@ -67,9 +67,7 @@ def track_single_particle(
         logger.trace(f"Setting observation point for tracking with OBSERVE at element '{element}'")
         madx.command.observe(place=element)
 
-    madx.command.start(
-        X=start[0], PX=start[1], Y=start[2], PY=start[3], T=start[4], PT=start[5],
-    )
+    madx.command.start(X=start[0], PX=start[1], Y=start[2], PY=start[3], T=start[4], PT=start[5])
     madx.command.run(turns=nturns)
     madx.command.endtrack()
     if onetable:  # user asked for ONETABLE, there will only be one table 'trackone' given back by MAD-X
