@@ -112,7 +112,7 @@ def match_tunes_and_chromaticities(
         madx.command.lmdif(calls=calls, tolerance=tolerance)
         madx.command.endmatch()
         logger.trace("Performing routine TWISS")
-        madx.twiss()  # prevents errors if the user forget to do so before querying tables
+        madx.twiss()  # prevents errors if the user forgets to TWISS before querying tables
 
     if q1_target is not None and q2_target is not None and dq1_target is not None and dq2_target is not None:
         logger.info(
