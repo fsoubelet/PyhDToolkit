@@ -680,6 +680,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../models/beam/" class="md-nav__link">
+        Beam
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../models/htc/" class="md-nav__link">
         Htc
       </a>
@@ -1256,7 +1268,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Performing routine TWISS&quot;</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># prevents errors if the user forget to do so before querying tables</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># prevents errors if the user forgets to TWISS before querying tables</span>
 
     <span class="k">if</span> <span class="n">q1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">q2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
@@ -2119,7 +2131,7 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="ss">&quot;Performing routine TWISS&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">prevents</span><span class="w"> </span><span class="n">errors</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">forget</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">querying</span><span class="w"> </span><span class="n">tables</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">prevents</span><span class="w"> </span><span class="n">errors</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">forgets</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">TWISS</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">querying</span><span class="w"> </span><span class="n">tables</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">q1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">q2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">dq1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">dq2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 

@@ -456,8 +456,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#beam_parameters" class="md-nav__link">
-    beam_parameters
+  <a href="#query_beam_attributes" class="md-nav__link">
+    query_beam_attributes
   </a>
   
 </li>
@@ -660,6 +660,18 @@
           Models
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../models/beam/" class="md-nav__link">
+        Beam
+      </a>
+    </li>
+  
+
           
             
   
@@ -998,8 +1010,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#beam_parameters" class="md-nav__link">
-    beam_parameters
+  <a href="#query_beam_attributes" class="md-nav__link">
+    query_beam_attributes
   </a>
   
 </li>
@@ -1044,125 +1056,49 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span>
-
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.models.madx</span> <span class="kn">import</span> <span class="n">MADXBeam</span>
+
 <span class="c1"># ----- Utilities ----- #</span>
 
-<span class="k">def</span> <span class="nf">beam_parameters</span><span class="p">(</span>
+<span class="k">def</span> <span class="nf">query_beam_attributes</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MADXBeam</span><span class="p">:</span>
 
-    <span class="n">pc_gev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">en_x_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">en_y_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">deltap_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="sd">    Returns all `BEAM` attributes from the `MAD-X` process based on the currently defined beam. If no beam</span>
 
-    <span class="sd">&quot;&quot;&quot;Calculate beam parameters from provided values.</span>
+<span class="sd">    has been defined at function call, then `MAD-X` will return all the default values. See the `MAD-X`</span>
+
+<span class="sd">    manual for details.</span>
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        pc_gev (float): particle momentum.</span>
-
-<span class="sd">        en_x_m (float): horizontal emittance, in meters.</span>
-
-<span class="sd">        en_y_m (float): vertical emittance, in meters.</span>
-
-<span class="sd">        deltap_p (float): momentum deviation.</span>
-
-<span class="sd">        verbose (bool): bolean, whether to print out a summary of parameters or not.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">    Returns:</span>
 
-<span class="sd">        A dictionnary with the calculated values.</span>
+<span class="sd">        A validated `MADXBeam` object.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">e0_gev</span> <span class="o">=</span> <span class="mf">0.9382720813</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrieving BEAM attributes from the MAD-X process&quot;</span><span class="p">)</span>
 
-    <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-
-    <span class="n">gamma_r</span> <span class="o">=</span> <span class="n">e_tot_gev</span> <span class="o">/</span> <span class="n">e0_gev</span>
-
-    <span class="n">beta_r</span> <span class="o">=</span> <span class="n">pc_gev</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
-
-    <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-
-        <span class="s2">&quot;pc_GeV&quot;</span><span class="p">:</span> <span class="n">pc_gev</span><span class="p">,</span>  <span class="c1"># Particle momentum [GeV]</span>
-
-        <span class="s2">&quot;B_rho_Tm&quot;</span><span class="p">:</span> <span class="mf">3.3356</span> <span class="o">*</span> <span class="n">pc_gev</span><span class="p">,</span>  <span class="c1"># Beam rigidity [T/m]</span>
-
-        <span class="s2">&quot;E_0_GeV&quot;</span><span class="p">:</span> <span class="n">e0_gev</span><span class="p">,</span>  <span class="c1"># Rest mass energy [GeV]</span>
-
-        <span class="s2">&quot;E_tot_GeV&quot;</span><span class="p">:</span> <span class="n">e_tot_gev</span><span class="p">,</span>  <span class="c1"># Total beam energy [GeV]</span>
-
-        <span class="s2">&quot;E_kin_GeV&quot;</span><span class="p">:</span> <span class="n">e_tot_gev</span> <span class="o">-</span> <span class="n">e0_gev</span><span class="p">,</span>  <span class="c1"># Kinectic beam energy [GeV]</span>
-
-        <span class="s2">&quot;gamma_r&quot;</span><span class="p">:</span> <span class="n">gamma_r</span><span class="p">,</span>  <span class="c1"># Relativistic gamma</span>
-
-        <span class="s2">&quot;beta_r&quot;</span><span class="p">:</span> <span class="n">beta_r</span><span class="p">,</span>  <span class="c1"># Relativistic beta</span>
-
-        <span class="s2">&quot;en_x_m&quot;</span><span class="p">:</span> <span class="n">en_x_m</span><span class="p">,</span>  <span class="c1"># Horizontal emittance [m]</span>
-
-        <span class="s2">&quot;en_y_m&quot;</span><span class="p">:</span> <span class="n">en_y_m</span><span class="p">,</span>  <span class="c1"># Vertical emittance [m]</span>
-
-        <span class="s2">&quot;eg_x_m&quot;</span><span class="p">:</span> <span class="n">en_x_m</span> <span class="o">/</span> <span class="n">gamma_r</span> <span class="o">/</span> <span class="n">beta_r</span><span class="p">,</span>  <span class="c1"># Horizontal geometrical emittance</span>
-
-        <span class="s2">&quot;eg_y_m&quot;</span><span class="p">:</span> <span class="n">en_y_m</span> <span class="o">/</span> <span class="n">gamma_r</span> <span class="o">/</span> <span class="n">beta_r</span><span class="p">,</span>  <span class="c1"># Vertical geometrical emittance</span>
-
-        <span class="s2">&quot;deltap_p&quot;</span><span class="p">:</span> <span class="n">deltap_p</span><span class="p">,</span>  <span class="c1"># Momentum deviation</span>
-
-    <span class="p">}</span>
-
-    <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
-
-        <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Outputing computed parameter values&quot;</span><span class="p">)</span>
-
-        <span class="nb">print</span><span class="p">(</span>
-
-            <span class="sa">f</span><span class="s2">&quot;&quot;&quot;Particle type: proton</span>
-
-<span class="s2">        Beam momentum = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;pc_GeV&quot;</span><span class="p">]</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> GeV/c</span>
-
-<span class="s2">        Normalized x-emittance = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;en_x_m&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad</span>
-
-<span class="s2">        Normalized y-emittance = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;en_y_m&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad</span>
-
-<span class="s2">        Momentum deviation deltap/p = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;deltap_p&quot;</span><span class="p">]</span><span class="si">}</span><span class="s2"></span>
-
-<span class="s2">        -&gt; Beam total energy = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;E_tot_GeV&quot;</span><span class="p">]</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> GeV</span>
-
-<span class="s2">        -&gt; Beam kinetic energy = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;E_kin_GeV&quot;</span><span class="p">]</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> GeV</span>
-
-<span class="s2">        -&gt; Beam rigidity = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;B_rho_Tm&quot;</span><span class="p">]</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> Tm</span>
-
-<span class="s2">        -&gt; Relativistic beta = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;beta_r&quot;</span><span class="p">]</span><span class="si">:</span><span class="s2">2.5f</span><span class="si">}</span><span class="s2"></span>
-
-<span class="s2">        -&gt; Relativistic gamma = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;gamma_r&quot;</span><span class="p">]</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"></span>
-
-<span class="s2">        -&gt; Geometrical x emittance = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;eg_x_m&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad</span>
-
-<span class="s2">        -&gt; Geometrical y emittance = </span><span class="si">{</span><span class="n">parameters</span><span class="p">[</span><span class="s2">&quot;eg_y_m&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad</span>
-
-<span class="s2">        &quot;&quot;&quot;</span>
-
-        <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">parameters</span>
+    <span class="k">return</span> <span class="n">MADXBeam</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">beam</span><span class="p">))</span>
 </code></pre></div>
 
 </details>
 <h2 id="functions">Functions</h2>
-<h3 id="beam_parameters">beam_parameters</h3>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">beam_parameters</span><span class="p">(</span>
-    <span class="n">pc_gev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">en_x_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">en_y_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">deltap_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">verbose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span>
+<h3 id="query_beam_attributes">query_beam_attributes</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">query_beam_attributes</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyhdtoolkit</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">MADXBeam</span>
 </code></pre></div>
-<p>Calculate beam parameters from provided values.</p>
+<p>Returns all <code>BEAM</code> attributes from the <code>MAD-X</code> process based on the currently defined beam. If no beam</p>
+<p>has been defined at function call, then <code>MAD-X</code> will return all the default values. See the <code>MAD-X</code>
+manual for details.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -1175,33 +1111,9 @@
 </thead>
 <tbody>
 <tr>
-<td>pc_gev</td>
-<td>float</td>
-<td>particle momentum.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>en_x_m</td>
-<td>float</td>
-<td>horizontal emittance, in meters.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>en_y_m</td>
-<td>float</td>
-<td>vertical emittance, in meters.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>deltap_p</td>
-<td>float</td>
-<td>momentum deviation.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>verbose</td>
-<td>bool</td>
-<td>bolean, whether to print out a summary of parameters or not.</td>
+<td>madx</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
 <td>None</td>
 </tr>
 </tbody>
@@ -1217,107 +1129,33 @@
 <tbody>
 <tr>
 <td>None</td>
-<td>A dictionnary with the calculated values.</td>
+<td>A validated <code>MADXBeam</code> object.</td>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">beam_parameters</span><span class="p">(</span><span class="w"></span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">query_beam_attributes</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MADXBeam</span><span class="o">:</span>
 
-<span class="w">    </span><span class="nl">pc_gev</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="p">,</span><span class="w"> </span><span class="nl">en_x_m</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="p">,</span><span class="w"> </span><span class="nl">en_y_m</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="p">,</span><span class="w"> </span><span class="nl">deltap_p</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="p">,</span><span class="w"> </span><span class="nl">verbose</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">,</span><span class="w"></span>
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
-<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="o">[</span><span class="n">str, float</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
+<span class="s2">    Returns all `BEAM` attributes from the `MAD-X` process based on the currently defined beam. If no beam</span>
 
-<span class="w">    </span><span class="ss">&quot;&quot;&quot;Calculate beam parameters from provided values.</span>
+<span class="s2">    has been defined at function call, then `MAD-X` will return all the default values. See the `MAD-X`</span>
 
-<span class="ss">    Args:</span>
+<span class="s2">    manual for details.</span>
 
-<span class="ss">        pc_gev (float): particle momentum.</span>
+<span class="s2">    Args:</span>
 
-<span class="ss">        en_x_m (float): horizontal emittance, in meters.</span>
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="ss">        en_y_m (float): vertical emittance, in meters.</span>
+<span class="s2">    Returns:</span>
 
-<span class="ss">        deltap_p (float): momentum deviation.</span>
+<span class="s2">        A validated `MADXBeam` object.</span>
 
-<span class="ss">        verbose (bool): bolean, whether to print out a summary of parameters or not.</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
-<span class="ss">    Returns:</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrieving BEAM attributes from the MAD-X process&quot;</span><span class="p">)</span>
 
-<span class="ss">        A dictionnary with the calculated values.</span>
-
-<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">e0_gev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.9382720813</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">e_tot_gev</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">pc_gev</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e0_gev</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">gamma_r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">e_tot_gev</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">e0_gev</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">beta_r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pc_gev</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">pc_gev</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">e0_gev</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">parameters</span><span class="err">:</span><span class="w"> </span><span class="n">Dict</span><span class="o">[</span><span class="n">str, float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;pc_GeV&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">pc_gev</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Particle</span><span class="w"> </span><span class="n">momentum</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;B_rho_Tm&quot;</span><span class="err">:</span><span class="w"> </span><span class="mf">3.3356</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pc_gev</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Beam</span><span class="w"> </span><span class="n">rigidity</span><span class="w"> </span><span class="o">[</span><span class="n">T/m</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;E_0_GeV&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">e0_gev</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Rest</span><span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;E_tot_GeV&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">e_tot_gev</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;E_kin_GeV&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">e_tot_gev</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">e0_gev</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Kinectic</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;gamma_r&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">gamma_r</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Relativistic</span><span class="w"> </span><span class="n">gamma</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;beta_r&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">beta_r</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Relativistic</span><span class="w"> </span><span class="n">beta</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;en_x_m&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">en_x_m</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Horizontal</span><span class="w"> </span><span class="n">emittance</span><span class="w"> </span><span class="o">[</span><span class="n">m</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;en_y_m&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">en_y_m</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Vertical</span><span class="w"> </span><span class="n">emittance</span><span class="w"> </span><span class="o">[</span><span class="n">m</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;eg_x_m&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">en_x_m</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">gamma_r</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">beta_r</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Horizontal</span><span class="w"> </span><span class="n">geometrical</span><span class="w"> </span><span class="n">emittance</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;eg_y_m&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">en_y_m</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">gamma_r</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">beta_r</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Vertical</span><span class="w"> </span><span class="n">geometrical</span><span class="w"> </span><span class="n">emittance</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;deltap_p&quot;</span><span class="err">:</span><span class="w"> </span><span class="n">deltap_p</span><span class="p">,</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Momentum</span><span class="w"> </span><span class="n">deviation</span><span class="w"></span>
-
-<span class="w">    </span><span class="err">}</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nl">verbose</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="ss">&quot;Outputing computed parameter values&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">print</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">f</span><span class="ss">&quot;&quot;&quot;Particle type: proton</span>
-
-<span class="ss">        Beam momentum = {parameters[&quot;</span><span class="n">pc_GeV</span><span class="ss">&quot;]:2.3f} GeV/c</span>
-
-<span class="ss">        Normalized x-emittance = {parameters[&quot;</span><span class="n">en_x_m</span><span class="ss">&quot;] * 1e6:2.3f} mm mrad</span>
-
-<span class="ss">        Normalized y-emittance = {parameters[&quot;</span><span class="n">en_y_m</span><span class="ss">&quot;] * 1e6:2.3f} mm mrad</span>
-
-<span class="ss">        Momentum deviation deltap/p = {parameters[&quot;</span><span class="n">deltap_p</span><span class="ss">&quot;]}</span>
-
-<span class="ss">        -&gt; Beam total energy = {parameters[&quot;</span><span class="n">E_tot_GeV</span><span class="ss">&quot;]:2.3f} GeV</span>
-
-<span class="ss">        -&gt; Beam kinetic energy = {parameters[&quot;</span><span class="n">E_kin_GeV</span><span class="ss">&quot;]:2.3f} GeV</span>
-
-<span class="ss">        -&gt; Beam rigidity = {parameters[&quot;</span><span class="n">B_rho_Tm</span><span class="ss">&quot;]:2.3f} Tm</span>
-
-<span class="ss">        -&gt; Relativistic beta = {parameters[&quot;</span><span class="n">beta_r</span><span class="ss">&quot;]:2.5f}</span>
-
-<span class="ss">        -&gt; Relativistic gamma = {parameters[&quot;</span><span class="n">gamma_r</span><span class="ss">&quot;]:2.3f}</span>
-
-<span class="ss">        -&gt; Geometrical x emittance = {parameters[&quot;</span><span class="n">eg_x_m</span><span class="ss">&quot;] * 1e6:2.3f} mm mrad</span>
-
-<span class="ss">        -&gt; Geometrical y emittance = {parameters[&quot;</span><span class="n">eg_y_m</span><span class="ss">&quot;] * 1e6:2.3f} mm mrad</span>
-
-<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="k">parameters</span><span class="w"></span>
+    <span class="k">return</span> <span class="n">MADXBeam</span><span class="p">(</span><span class="o">**</span><span class="n">dict</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="n">beam</span><span class="p">))</span>
 </code></pre></div>
 
 </details>

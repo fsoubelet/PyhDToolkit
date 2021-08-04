@@ -611,6 +611,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../models/beam/" class="md-nav__link">
+        Beam
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../models/htc/" class="md-nav__link">
         Htc
       </a>
@@ -1018,7 +1030,11 @@ These are miscellaneous utilities to perform optics calculation from simulation 
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">.beam</span> <span class="kn">import</span> <span class="n">Beam</span>
+<span class="kn">from</span> <span class="nn">.beam</span> <span class="kn">import</span> <span class="n">Beam</span><span class="p">,</span> <span class="n">compute_beam_parameters</span>
+
+<span class="kn">from</span> <span class="nn">.ripken</span> <span class="kn">import</span> <span class="n">lebedev_beam_size</span>
+
+<span class="kn">from</span> <span class="nn">.twiss</span> <span class="kn">import</span> <span class="n">courant_snyder_transform</span>
 </code></pre></div>
 
 </details>

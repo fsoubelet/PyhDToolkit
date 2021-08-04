@@ -611,6 +611,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../models/beam/" class="md-nav__link">
+        Beam
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../models/htc/" class="md-nav__link">
         Htc
       </a>
@@ -707,6 +719,26 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute_beam_parameters" class="md-nav__link">
+    compute_beam_parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#classes" class="md-nav__link">
@@ -1038,6 +1070,26 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compute_beam_parameters" class="md-nav__link">
+    compute_beam_parameters
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#classes" class="md-nav__link">
     Classes
   </a>
@@ -1143,6 +1195,66 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">constants</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.models.beam</span> <span class="kn">import</span> <span class="n">BeamParameters</span>
+
+<span class="k">def</span> <span class="nf">compute_beam_parameters</span><span class="p">(</span><span class="n">pc_gev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">en_x_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">en_y_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">deltap_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BeamParameters</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Calculate beam parameters from provided values, for proton particles.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        pc_gev (float): particle momentum.</span>
+
+<span class="sd">        en_x_m (float): horizontal emittance, in meters.</span>
+
+<span class="sd">        en_y_m (float): vertical emittance, in meters.</span>
+
+<span class="sd">        deltap_p (float): momentum deviation.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A `BeamParameters` object with the calculated values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">e0_gev</span> <span class="o">=</span> <span class="mf">0.9382720813</span>
+
+    <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">gamma_r</span> <span class="o">=</span> <span class="n">e_tot_gev</span> <span class="o">/</span> <span class="n">e0_gev</span>
+
+    <span class="n">beta_r</span> <span class="o">=</span> <span class="n">pc_gev</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">BeamParameters</span><span class="p">(</span>
+
+        <span class="n">pc_GeV</span><span class="o">=</span><span class="n">pc_gev</span><span class="p">,</span>
+
+        <span class="n">B_rho_Tm</span><span class="o">=</span><span class="mf">3.3356</span> <span class="o">*</span> <span class="n">pc_gev</span><span class="p">,</span>
+
+        <span class="n">E_0_GeV</span><span class="o">=</span><span class="n">e0_gev</span><span class="p">,</span>
+
+        <span class="n">E_tot_GeV</span><span class="o">=</span><span class="n">e_tot_gev</span><span class="p">,</span>
+
+        <span class="n">E_kin_GeV</span><span class="o">=</span><span class="n">e_tot_gev</span> <span class="o">-</span> <span class="n">e0_gev</span><span class="p">,</span>
+
+        <span class="n">gamma_r</span><span class="o">=</span><span class="n">gamma_r</span><span class="p">,</span>
+
+        <span class="n">beta_r</span><span class="o">=</span><span class="n">beta_r</span><span class="p">,</span>
+
+        <span class="n">en_x_m</span><span class="o">=</span><span class="n">en_x_m</span><span class="p">,</span>
+
+        <span class="n">en_y_m</span><span class="o">=</span><span class="n">en_y_m</span><span class="p">,</span>
+
+        <span class="n">eg_x_m</span><span class="o">=</span><span class="n">en_x_m</span> <span class="o">/</span> <span class="n">gamma_r</span> <span class="o">/</span> <span class="n">beta_r</span><span class="p">,</span>
+
+        <span class="n">eg_y_m</span><span class="o">=</span><span class="n">en_y_m</span> <span class="o">/</span> <span class="n">gamma_r</span> <span class="o">/</span> <span class="n">beta_r</span><span class="p">,</span>
+
+        <span class="n">deltap_p</span><span class="o">=</span><span class="n">deltap_p</span><span class="p">,</span>
+
+    <span class="p">)</span>
 
 <span class="k">class</span> <span class="nc">Beam</span><span class="p">:</span>
 
@@ -1275,6 +1387,128 @@
 <span class="sd">        &quot;&quot;&quot;</span>
 
         <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">alpha_p</span><span class="p">)</span>
+</code></pre></div>
+
+</details>
+<h2 id="functions">Functions</h2>
+<h3 id="compute_beam_parameters">compute_beam_parameters</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">compute_beam_parameters</span><span class="p">(</span>
+    <span class="n">pc_gev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">en_x_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">en_y_m</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">deltap_p</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pyhdtoolkit</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">beam</span><span class="o">.</span><span class="n">BeamParameters</span>
+</code></pre></div>
+<p>Calculate beam parameters from provided values, for proton particles.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pc_gev</td>
+<td>float</td>
+<td>particle momentum.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>en_x_m</td>
+<td>float</td>
+<td>horizontal emittance, in meters.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>en_y_m</td>
+<td>float</td>
+<td>vertical emittance, in meters.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>deltap_p</td>
+<td>float</td>
+<td>momentum deviation.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>A <code>BeamParameters</code> object with the calculated values.</td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">compute_beam_parameters</span><span class="p">(</span><span class="n">pc_gev</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span> <span class="n">en_x_m</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span> <span class="n">en_y_m</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span> <span class="n">deltap_p</span><span class="o">:</span> <span class="kt">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BeamParameters</span><span class="o">:</span>
+
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    Calculate beam parameters from provided values, for proton particles.</span>
+
+<span class="s2">    Args:</span>
+
+<span class="s2">        pc_gev (float): particle momentum.</span>
+
+<span class="s2">        en_x_m (float): horizontal emittance, in meters.</span>
+
+<span class="s2">        en_y_m (float): vertical emittance, in meters.</span>
+
+<span class="s2">        deltap_p (float): momentum deviation.</span>
+
+<span class="s2">    Returns:</span>
+
+<span class="s2">        A `BeamParameters` object with the calculated values.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+    <span class="n">e0_gev</span> <span class="o">=</span> <span class="mf">0.9382720813</span>
+
+    <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">gamma_r</span> <span class="o">=</span> <span class="n">e_tot_gev</span> <span class="o">/</span> <span class="n">e0_gev</span>
+
+    <span class="n">beta_r</span> <span class="o">=</span> <span class="n">pc_gev</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">BeamParameters</span><span class="p">(</span>
+
+        <span class="n">pc_GeV</span><span class="o">=</span><span class="n">pc_gev</span><span class="p">,</span>
+
+        <span class="n">B_rho_Tm</span><span class="o">=</span><span class="mf">3.3356</span> <span class="o">*</span> <span class="n">pc_gev</span><span class="p">,</span>
+
+        <span class="n">E_0_GeV</span><span class="o">=</span><span class="n">e0_gev</span><span class="p">,</span>
+
+        <span class="n">E_tot_GeV</span><span class="o">=</span><span class="n">e_tot_gev</span><span class="p">,</span>
+
+        <span class="n">E_kin_GeV</span><span class="o">=</span><span class="n">e_tot_gev</span> <span class="o">-</span> <span class="n">e0_gev</span><span class="p">,</span>
+
+        <span class="n">gamma_r</span><span class="o">=</span><span class="n">gamma_r</span><span class="p">,</span>
+
+        <span class="n">beta_r</span><span class="o">=</span><span class="n">beta_r</span><span class="p">,</span>
+
+        <span class="n">en_x_m</span><span class="o">=</span><span class="n">en_x_m</span><span class="p">,</span>
+
+        <span class="n">en_y_m</span><span class="o">=</span><span class="n">en_y_m</span><span class="p">,</span>
+
+        <span class="n">eg_x_m</span><span class="o">=</span><span class="n">en_x_m</span> <span class="o">/</span> <span class="n">gamma_r</span> <span class="o">/</span> <span class="n">beta_r</span><span class="p">,</span>
+
+        <span class="n">eg_y_m</span><span class="o">=</span><span class="n">en_y_m</span> <span class="o">/</span> <span class="n">gamma_r</span> <span class="o">/</span> <span class="n">beta_r</span><span class="p">,</span>
+
+        <span class="n">deltap_p</span><span class="o">=</span><span class="n">deltap_p</span><span class="p">,</span>
+
+    <span class="p">)</span>
 </code></pre></div>
 
 </details>
