@@ -63,7 +63,7 @@ from pyhdtoolkit.cpymadtools.special import (
     vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
-from pyhdtoolkit.cpymadtools.tune import make_footprint_table
+from pyhdtoolkit.cpymadtools.tune import make_footprint_table, get_footprint_lines
 from pyhdtoolkit.cpymadtools.twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
 from pyhdtoolkit.models.madx import MADXBeam
 from pyhdtoolkit.optics.beam import compute_beam_parameters
@@ -973,6 +973,16 @@ class TestTune:
         for record in caplog.records:
             assert record.levelname == "ERROR"
 
+    def test_get_footprint_lines(self, _dynap_tfs_path, _plottable_footprint_path):
+        dynap_tfs = tfs.read(_dynap_tfs_path)  # obtained from make_footprint_table and written to disk
+        npzfile = np.load(_plottable_footprint_path)
+        ref_qxs, ref_qys = npzfile["qx"], npzfile["qy"]
+        npzfile.close()
+
+        qxs, qys = get_footprint_lines(dynap_tfs)
+        assert np.allclose(qxs, ref_qxs)
+        assert np.allclose(qys, ref_qys)
+
 
 class TestTuneDiagramPlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
@@ -1189,3 +1199,13 @@ def _ips_twiss_path() -> pathlib.Path:
 @pytest.fixture()
 def _twiss_export() -> pathlib.Path:
     return INPUTS_DIR / "twiss_export.tfs"
+
+
+@pytest.fixture()
+def _dynap_tfs_path() -> pathlib.Path:
+    return INPUTS_DIR / "dynap.tfs"
+
+
+@pytest.fixture()
+def _plottable_footprint_path() -> pathlib.Path:
+    return INPUTS_DIR / "plottable_footprint.npz"
