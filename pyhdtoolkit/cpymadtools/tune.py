@@ -13,7 +13,7 @@ import sys
 
 from pathlib import Path
 
-import pandas as pd
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -21,13 +21,14 @@ from loguru import logger
 
 def make_footprint_table(
     madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs,
-) -> pd.DataFrame:
+) -> tfs.TfsDataFrame:
     """
     Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the
     DYNAP command, letting MAD-X infer their tunes. Particules are instantiated for different angle
     variables for each amplitude, creating an ensemble able to represent the tune footprint.
 
-    Beware: since DYNAP makes use of tracking, your sequence needs to be sliced first.s
+    Beware: since the `DYNAP` command makes use of tracking, your sequence needs to be sliced before calling
+    this function.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -76,10 +77,27 @@ def make_footprint_table(
 
     if cleanup and sys.platform not in ("win32", "cygwin"):
         # fails on Windows due to its I/O system, since MAD-X still has "control" of the files
-        logger.debug("Cleaning up DYNAP output file `fort.69` and `lyapunov.data`")
+        logger.debug("Cleaning up DYNAP output files `fort.69` and `lyapunov.data`")
         Path("fort.69").unlink()
         Path("lyapunov.data").unlink()
 
     if file:
         madx.command.write(table="dynaptune", file=f"{file}")
-    return madx.table.dynaptune.dframe().copy()
+
+    tfs_dframe = tfs.TfsDataFrame(
+        data=madx.table.dynaptune.dframe(),
+        headers=dict(
+            NAME="DYNAPTUNE",
+            TYPE="DYNAPTUNE",
+            TITLE="FOOTPRINT TABLE",
+            MADX_VERSION=str(madx.version).upper(),
+            ORIGIN="pyhdtoolkit.cpymadtools.tune.make_footprint_table function",
+            ANGLE=7,  # default of the function
+            AMPLITUDE=sigma,
+            DSIGMA=1 if not dense else 0.5,
+            ANGLE_MEANING="Number of different starting angles used for each starting amplitude",
+            AMPLITUDE_MEANING="Up to which bunch sigma the starting amplitudes were ramped up",
+            DSIGMA_MEANING="Increment value of 'AMPLITUDE' at each new starting amplitude",
+        ),
+    )
+    return tfs_dframe.reset_index(drop=True)

@@ -927,7 +927,9 @@ class TestTrack:
 
 
 class TestTune:
-    def test_make_footprint_table(self, _non_matched_lhc_madx, tmp_path):
+    @pytest.mark.parametrize("sigma", [2, 5])
+    @pytest.mark.parametrize("dense", [True, False])
+    def test_make_footprint_table(self, _non_matched_lhc_madx, tmp_path, sigma, dense):
         export_file = tmp_path / "out.tfs"
         madx = _non_matched_lhc_madx
         re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
@@ -938,8 +940,25 @@ class TestTune:
         make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
         madx.use(sequence="lhcb1")
 
-        foot = make_footprint_table(madx, sigma=2, file=str(export_file))
-        assert isinstance(foot, DataFrame)
+        expected_headers = [
+            "NAME",
+            "TYPE",
+            "TITLE",
+            "MADX_VERSION",
+            "ORIGIN",
+            "ANGLE",
+            "AMPLITUDE",
+            "DSIGMA",
+            "ANGLE_MEANING",
+            "AMPLITUDE_MEANING",
+            "DSIGMA_MEANING",
+        ]
+        foot = make_footprint_table(madx, sigma=sigma, file=str(export_file))
+        assert isinstance(foot, tfs.TfsDataFrame)
+        assert all(header in foot.headers for header in expected_headers)
+        assert foot.headers["ANGLE"] == 7  # hard-coded in the function
+        assert foot.headers["AMPLITUDE"] == sigma
+        assert foot.headers["DSIGMA"] == 1 if not dense else 0.5
         assert export_file.exists()
 
     def test_make_footprint_table_crashes_without_slicing(self, _non_matched_lhc_madx, caplog):
