@@ -15,15 +15,15 @@ from pathlib import Path
 from typing import Dict, List, Tuple
 
 import numpy as np
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
-from tfs import TfsDataFrame
 
 
 def make_footprint_table(
     madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs,
-) -> TfsDataFrame:
+) -> tfs.TfsDataFrame:
     """
     Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the
     DYNAP command, letting MAD-X infer their tunes. Particules are instantiated for different angle
@@ -86,10 +86,7 @@ def make_footprint_table(
         except FileNotFoundError:
             logger.error("Could not cleanup DYNAP output files, they might have not been created")
 
-    if file:
-        madx.command.write(table="dynaptune", file=f"{file}")
-
-    tfs_dframe = TfsDataFrame(
+    tfs_dframe = tfs.TfsDataFrame(
         data=madx.table.dynaptune.dframe(),
         headers=dict(
             NAME="DYNAPTUNE",
@@ -105,10 +102,15 @@ def make_footprint_table(
             DSIGMA_MEANING="Increment value of AMPLITUDE at each new starting amplitude",
         ),
     )
-    return tfs_dframe.reset_index(drop=True)
+    tfs_dframe = tfs_dframe.reset_index(drop=True)
+
+    if file:
+        tfs.write(Path(file).absolute(), tfs_dframe)
+
+    return tfs_dframe
 
 
-def get_footprint_lines(dynap_dframe: TfsDataFrame) -> Tuple[np.ndarray, np.ndarray]:
+def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.ndarray]:
     """
     Provided with the `TfsDataFrame` returned by `make_footprint_table()`, determines the various (Qx, Qy)
     points needed to plot the footprint data with lines representing the different amplitudes and angles
@@ -125,7 +127,7 @@ def get_footprint_lines(dynap_dframe: TfsDataFrame) -> Tuple[np.ndarray, np.ndar
         ```
 
     Args:
-        dynap_dframe (TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
+        dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
 
     Returns:
 		The Qx and Qy data points to plot directly, both as numpy.ndarrays.
@@ -145,13 +147,13 @@ def get_footprint_lines(dynap_dframe: TfsDataFrame) -> Tuple[np.ndarray, np.ndar
 # ----- Arcane Private Utilities ----- #
 
 
-def _get_dynap_string_rep(dynap_dframe: TfsDataFrame) -> str:
+def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
     """
     This is a weird dusty function to get a specific useful string representation from the `TfsDataFrame`
     returned by `make_footprint_table()`. This specific dataframe contains important information.
 
     Args:
-        dynap_dframe (TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
+        dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
 
     Returns:
 		A weird string representation gathering tune points split according to the number of angles and
