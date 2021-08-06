@@ -14,9 +14,7 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
-import matplotlib.pyplot as plt
 import numpy as np
-import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -25,7 +23,7 @@ from tfs import TfsDataFrame
 
 def make_footprint_table(
     madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs,
-) -> tfs.TfsDataFrame:
+) -> TfsDataFrame:
     """
     Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the
     DYNAP command, letting MAD-X infer their tunes. Particules are instantiated for different angle
@@ -91,7 +89,7 @@ def make_footprint_table(
     if file:
         madx.command.write(table="dynaptune", file=f"{file}")
 
-    tfs_dframe = tfs.TfsDataFrame(
+    tfs_dframe = TfsDataFrame(
         data=madx.table.dynaptune.dframe(),
         headers=dict(
             NAME="DYNAPTUNE",

@@ -63,7 +63,7 @@ from pyhdtoolkit.cpymadtools.special import (
     vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
-from pyhdtoolkit.cpymadtools.tune import make_footprint_table, get_footprint_lines
+from pyhdtoolkit.cpymadtools.tune import get_footprint_lines, make_footprint_table
 from pyhdtoolkit.cpymadtools.twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
 from pyhdtoolkit.models.madx import MADXBeam
 from pyhdtoolkit.optics.beam import compute_beam_parameters
