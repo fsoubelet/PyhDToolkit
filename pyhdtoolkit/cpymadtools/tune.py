@@ -160,26 +160,11 @@ def _get_dynap_string_rep(dynap_dframe: TfsDataFrame) -> str:
     logger.trace("Retrieving AMPLITUDE and ANGLE data from TfsDataFrame headers")
     amplitude = dynap_dframe.headers["AMPLITUDE"]
     angle = dynap_dframe.headers["ANGLE"]
-    string_rep = (
-        "TMPNAME,"
-        + str(amplitude)
-        + ",1,<"
-        + str(dynap_dframe.tunx[0])
-        + ";"
-        + str(dynap_dframe.tuny[0])
-        + ">"
-    )
+    string_rep = f"TMPNAME,{amplitude},1,<{dynap_dframe.tunx[0]};{dynap_dframe.tuny[0]}>"
     for n in range(1, amplitude):
-        string_rep = string_rep + "," + str(angle)
+        string_rep += f",{angle}"
         for m in range(angle):
-            string_rep = (
-                string_rep
-                + ",<"
-                + str(dynap_dframe.tunx[1 + (n - 1) * angle + m])
-                + ";"
-                + str(dynap_dframe.tuny[1 + (n - 1) * angle + m])
-                + ">"
-            )
+            string_rep += f",<{dynap_dframe.tunx[1 + (n - 1) * angle + m]};{dynap_dframe.tuny[1 + (n - 1) * angle + m]}>"
     return string_rep
 
 
@@ -241,7 +226,6 @@ class _Footprint:
 
     def get_plottable(self) -> Tuple[List[float], List[float]]:
         qxs, qys = [], []
-        lines = [[], []]
         for i in np.arange(0, self._nampl - 1, 2):
             for j in np.arange(self._maxnangl):
                 qxs.append(self.get_h_tune(i, j))
