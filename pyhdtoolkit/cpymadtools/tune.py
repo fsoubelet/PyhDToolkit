@@ -77,9 +77,12 @@ def make_footprint_table(
 
     if cleanup and sys.platform not in ("win32", "cygwin"):
         # fails on Windows due to its I/O system, since MAD-X still has "control" of the files
-        logger.debug("Cleaning up DYNAP output files `fort.69` and `lyapunov.data`")
-        Path("fort.69").unlink()
-        Path("lyapunov.data").unlink()
+        try:
+            logger.debug("Cleaning up DYNAP output files `fort.69` and `lyapunov.data`")
+            Path("fort.69").unlink()
+            Path("lyapunov.data").unlink()
+        except FileNotFoundError:
+            logger.error("Could not cleanup DYNAP output files, they might have not been created")
 
     if file:
         madx.command.write(table="dynaptune", file=f"{file}")
@@ -91,7 +94,7 @@ def make_footprint_table(
             TYPE="DYNAPTUNE",
             TITLE="FOOTPRINT TABLE",
             MADX_VERSION=str(madx.version).upper(),
-            ORIGIN="pyhdtoolkit.cpymadtools.tune.make_footprint_table function",
+            ORIGIN="pyhdtoolkit.cpymadtools.tune.make_footprint_table() function",
             ANGLE=7,  # default of the function
             AMPLITUDE=sigma,
             DSIGMA=1 if not dense else 0.5,
