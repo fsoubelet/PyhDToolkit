@@ -97,7 +97,7 @@ def make_footprint_table(
             DSIGMA=1 if not dense else 0.5,
             ANGLE_MEANING="Number of different starting angles used for each starting amplitude",
             AMPLITUDE_MEANING="Up to which bunch sigma the starting amplitudes were ramped up",
-            DSIGMA_MEANING="Increment value of 'AMPLITUDE' at each new starting amplitude",
+            DSIGMA_MEANING="Increment value of AMPLITUDE at each new starting amplitude",
         ),
     )
     return tfs_dframe.reset_index(drop=True)
