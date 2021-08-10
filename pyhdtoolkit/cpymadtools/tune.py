@@ -14,6 +14,8 @@ import sys
 from pathlib import Path
 from typing import Dict, List, Tuple
 
+import matplotlib.collections
+import matplotlib.patches
 import numpy as np
 import tfs
 
@@ -114,7 +116,7 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
     """
     Provided with the `TfsDataFrame` returned by `make_footprint_table()`, determines the various (Qx, Qy)
     points needed to plot the footprint data with lines representing the different amplitudes and angles
-    from starting particles, and return these in immediately plottable numpy arrays.
+    from starting particles, and returns these in immediately plottable numpy arrays.
 
 	WARNING: This function is some DARK MAGIC stuff I have taken out of very dusty drawers, and I cannot
 	explain exactly how it works. I also do not know who wrote this initially. Results are not guaranteed
@@ -143,6 +145,69 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
     footprint = _Footprint(tune_groups, amplitude, angle, dsigma)
     qxs, qys = footprint.get_plottable()
     return np.array(qxs, dtype=float), np.array(qys, dtype=float)
+
+
+def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame,) -> matplotlib.collections.PatchCollection:
+    """
+    INITIAL IMPLEMENTATION CREDITS GO TO KONSTANTINOS PARASCHOU (@kparasch).
+	Provided with the `TfsDataFrame` returned by `make_footprint_table()`, computes the polygon patches
+	needed to plot the footprint data, with lines representing the different amplitudes and angles
+	from starting particles, and returns the `PatchCollection` with the computed polygons.
+
+    The polygons will have blue edges, except the ones corresponding to the last starting angle particles (
+    in red) and the last starting amplitude particles (in green).
+
+	WARNING: The internal construction of polygons can be tricky, and you might need to change the `ANGLE`
+	or `AMPLITUDE` values in `dynap_dframe`'s headers.
+
+	Usage:
+		```python
+		fig, axis = plt.subplots()
+		dynap_tfs = make_footprint_table(madx)
+		footprint_polygons = get_footprint_patches(dynap_tfs)
+		axis.add_collection(footprint_polygons)
+		```
+
+    Args:
+		dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
+
+    Returns:
+		The `matplotlib.collections.PatchCollection` with the created polygons.
+	"""
+    logger.info("Determining footprint polygons")
+    angle = dynap_dframe.headers["ANGLE"]
+    amplitude = dynap_dframe.headers["AMPLITUDE"]
+
+    logger.debug("Grouping tune points according to starting angles and amplitudes")
+    try:
+        A = np.zeros([amplitude, angle, 2])
+        A[0, :, 0] = dynap_dframe["tunx"].to_numpy()[0]
+        A[0, :, 1] = dynap_dframe["tuny"].to_numpy()[0]
+        A[1:, :, 0] = dynap_dframe["tunx"].to_numpy()[1:].reshape(-1, angle)
+        A[1:, :, 1] = dynap_dframe["tuny"].to_numpy()[1:].reshape(-1, angle)
+    except ValueError as tune_grouping_error:
+        logger.error(
+            "Cannot group tune points according to starting angles and amplitudes. Try changing "
+            "the 'AMPLITUDE' value in the provided TfsDataFrame's headers."
+        )
+        raise tune_grouping_error
+
+    logger.debug("Determining polygon vertices")
+    sx = A.shape[0] - 1
+    sy = A.shape[1] - 1
+    p1 = A[:-1, :-1, :].reshape(sx * sy, 2)[:, :]
+    p2 = A[1:, :-1, :].reshape(sx * sy, 2)[:]
+    p3 = A[1:, 1:, :].reshape(sx * sy, 2)[:]
+    p4 = A[:-1, 1:, :].reshape(sx * sy, 2)[:]
+    polygons = np.stack((p1, p2, p3, p4))  # Stack endpoints to form polygons
+    polygons = np.transpose(polygons, (1, 0, 2))  # transpose polygons
+
+    logger.debug("Creating PatchCollection of Polygons")
+    patches = list(map(matplotlib.patches.Polygon, polygons))
+    patch_colors = [(0, 0, 1) for _ in polygons]
+    patch_colors[(sx - 1) * sy :] = [(0, 1, 0)] * sy  # differentiate first angle in green
+    patch_colors[(sy - 1) :: sy] = [(1, 0, 0)] * sx  # differentiate last amplitude in red
+    return matplotlib.collections.PatchCollection(patches, facecolors=[], edgecolor=patch_colors)
 
 
 # ----- Arcane Private Utilities ----- #
