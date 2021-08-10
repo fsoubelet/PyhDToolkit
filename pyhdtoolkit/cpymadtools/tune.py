@@ -117,7 +117,8 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
     from starting particles, and return these in immediately plottable numpy arrays.
 
 	WARNING: This function is some DARK MAGIC stuff I have taken out of very dusty drawers, and I cannot
-	explain exactly how it works. I also do not know who wrote this initially.
+	explain exactly how it works. I also do not know who wrote this initially. Results are not guaranteed
+	to be correct and should be checked with a quick plot.
 
     Usage:
         ```python
