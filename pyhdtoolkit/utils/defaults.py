@@ -39,7 +39,7 @@ PlotSetting = NewType("PlotSetting", Union[float, bool, str, tuple])
 # Will ALWAYS be overwritten by later on definition
 PLOT_PARAMS: Dict[str, PlotSetting] = {
     # ------ Patches ------ #
-    "patch.linewidth": 3,  # Width of patches edge lines
+    "patch.linewidth": 1.5,  # Width of patches edge lines
     # ------ Fonts ------ #
     "font.family": "sans-serif",  # Font family
     "font.style": "normal",  # Style to apply to text font

@@ -18,7 +18,7 @@ from loguru import logger
 # ----- Setup Utlites ----- #
 
 
-def make_lhc_beams(madx: Madx, energy: float = 6500, emittance: float = 3.75e-6, **kwargs) -> None:
+def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6, **kwargs) -> None:
     """
     Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.
 
@@ -43,9 +43,10 @@ def make_lhc_beams(madx: Madx, energy: float = 6500, emittance: float = 3.75e-6,
             particle="proton",
             bv=1 if beam == 1 else -1,
             energy=energy,
-            npart=1.0e10,
+            npart=1.15e11,
             ex=geometric_emit,
             ey=geometric_emit,
+            sige=4.5e-4,
             **kwargs,
         )
 
