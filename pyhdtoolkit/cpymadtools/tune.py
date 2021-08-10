@@ -137,8 +137,8 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
     amplitude = dynap_dframe.headers["AMPLITUDE"]
     angle = dynap_dframe.headers["ANGLE"]
     dsigma = dynap_dframe.headers["DSIGMA"]
-    tune_groups = _make_tune_groups(dynap_string_rep=_get_dynap_string_rep(dynap_dframe), dsigma=dsigma)
 
+    tune_groups = _make_tune_groups(dynap_string_rep=_get_dynap_string_rep(dynap_dframe), dsigma=dsigma)
     footprint = _Footprint(tune_groups, amplitude, angle, dsigma)
     qxs, qys = footprint.get_plottable()
     return np.array(qxs, dtype=float), np.array(qys, dtype=float)
