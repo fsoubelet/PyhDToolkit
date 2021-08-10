@@ -63,7 +63,7 @@ from pyhdtoolkit.cpymadtools.special import (
     vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
-from pyhdtoolkit.cpymadtools.tune import get_footprint_lines, make_footprint_table
+from pyhdtoolkit.cpymadtools.tune import get_footprint_lines, get_footprint_patches, make_footprint_table
 from pyhdtoolkit.cpymadtools.twiss import get_ips_twiss, get_ir_twiss, get_twiss_tfs
 from pyhdtoolkit.models.madx import MADXBeam
 from pyhdtoolkit.optics.beam import compute_beam_parameters
@@ -982,6 +982,30 @@ class TestTune:
         qxs, qys = get_footprint_lines(dynap_tfs)
         assert np.allclose(qxs, ref_qxs)
         assert np.allclose(qys, ref_qys)
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_get_footprint_patches(self, _dynap_tfs_path):
+        dynap_dframe = tfs.read(_dynap_tfs_path)
+        dynap_dframe.headers["AMPLITUDE"] = 6
+
+        plt.rcParams.update({"patch.linewidth": 1.5})
+        figure, axis = plt.subplots(figsize=(18, 11))
+        polygons = get_footprint_patches(dynap_dframe)
+        assert isinstance(polygons, matplotlib.collections.PatchCollection)
+
+        axis.add_collection(polygons)
+        axis.set_xlim(0.3095, 0.311)
+        axis.set_ylim(0.31925, 0.3208)
+        return figure
+
+    def test_get_footprint_patches_raises_wrong_shape(self, _dynap_tfs_path, caplog):
+        dynap_dframe = tfs.read(_dynap_tfs_path)
+
+        with pytest.raises(ValueError):
+            polygons = get_footprint_patches(dynap_dframe)
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
 
 
 class TestTuneDiagramPlotter:
