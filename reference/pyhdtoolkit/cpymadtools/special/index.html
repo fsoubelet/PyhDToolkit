@@ -1222,7 +1222,7 @@
 
 <span class="c1"># ----- Setup Utlites ----- #</span>
 
-<span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span> <span class="n">emittance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span> <span class="n">emittance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
@@ -1266,11 +1266,13 @@
 
             <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
 
-            <span class="n">npart</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span>
+            <span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span>
 
             <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
 
             <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+
+            <span class="n">sige</span><span class="o">=</span><span class="mf">4.5e-4</span><span class="p">,</span>
 
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
@@ -2650,7 +2652,7 @@ works well.</p>
 <h3 id="make_lhc_beams">make_lhc_beams</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
-    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span>
+    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span>
     <span class="n">emittance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-06</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
@@ -2663,7 +2665,7 @@ works well.</p>
         then fed to the BEAM command.</p>
 <p>Keyword Args:
     Any keyword argument that can be given to the MAD-X BEAM command.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span> <span class="n">emittance</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span> <span class="n">emittance</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
 
     <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
@@ -2707,11 +2709,13 @@ works well.</p>
 
             <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
 
-            <span class="n">npart</span><span class="o">=</span><span class="mf">1.0e10</span><span class="p">,</span>
+            <span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span>
 
             <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
 
             <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+
+            <span class="n">sige</span><span class="o">=</span><span class="mf">4.5e-4</span><span class="p">,</span>
 
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
