@@ -55,6 +55,7 @@ from pyhdtoolkit.cpymadtools.special import (
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
     install_ac_dipole,
+    install_ac_dipole_matrix,
     make_lhc_beams,
     make_lhc_thin,
     make_sixtrack_output,
@@ -830,6 +831,19 @@ class TestSpecial:
         assert madx.elements["MKACH.6L4.B1"].ramp4 == ramp4
         assert math.isclose(madx.elements["MKACH.6L4.B1"].at, 9846.0765, rel_tol=1e-2)
         assert math.isclose(madx.elements["MKACH.6L4.B1"].freq, 62.3, rel_tol=1e-2)
+
+    def test_install_ac_dipole_matrix(self, _matched_lhc_madx):
+        madx = _matched_lhc_madx
+        twiss_before = madx.twiss().dframe().copy()
+        install_ac_dipole_matrix(madx, deltaqx=-0.01, deltaqy=0.012)
+        twiss_after = madx.twiss().dframe().copy()
+
+        for acd_name in ("hacmap", "vacmap"):
+            assert acd_name in madx.elements
+            assert math.isclose(madx.elements[acd_name].at, 9846.0765, rel_tol=1e-2)
+
+        with pytest.raises(AssertionError):
+            assert_frame_equal(twiss_before, twiss_after)  # they should be different!
 
     def test_makethin_lhc(self, _matched_lhc_madx):
         """
