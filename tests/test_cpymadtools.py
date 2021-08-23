@@ -54,8 +54,8 @@ from pyhdtoolkit.cpymadtools.special import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
-    install_ac_dipole,
-    install_ac_dipole_matrix,
+    install_ac_dipole_as_kicker,
+    install_ac_dipole_as_matrix,
     make_lhc_beams,
     make_lhc_thin,
     make_sixtrack_output,
@@ -817,9 +817,9 @@ class TestSpecial:
         assert madx.sequence.lhcb2.beam.energy == energy
 
     @pytest.mark.parametrize("top_turns", [1000, 6000, 10_000])
-    def test_install_ac_dipole(self, top_turns, _matched_lhc_madx):
+    def test_install_ac_dipole_as_kicker(self, top_turns, _matched_lhc_madx):
         madx = _matched_lhc_madx
-        install_ac_dipole(madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=3, sigma_y=3, top_turns=top_turns)
+        install_ac_dipole_as_kicker(madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=3, sigma_y=3, top_turns=top_turns)
         ramp3 = 2100 + top_turns
         ramp4 = ramp3 + 2000
 
@@ -835,7 +835,7 @@ class TestSpecial:
     def test_install_ac_dipole_matrix(self, _matched_lhc_madx):
         madx = _matched_lhc_madx
         twiss_before = madx.twiss().dframe().copy()
-        install_ac_dipole_matrix(madx, deltaqx=-0.01, deltaqy=0.012)
+        install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012)
         twiss_after = madx.twiss().dframe().copy()
 
         for acd_name in ("hacmap", "vacmap"):

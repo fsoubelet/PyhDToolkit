@@ -197,7 +197,7 @@ def apply_lhc_coupling_knob(
     logger.trace(f"Set '{knob_name}' to {madx.globals[knob_name]}")
 
 
-def install_ac_dipole(
+def install_ac_dipole_as_kicker(
     madx: Madx,
     deltaqx: float,
     deltaqy: float,
@@ -296,7 +296,7 @@ def install_ac_dipole(
     madx.use(sequence=f"lhcb{beam:d}")
 
 
-def install_ac_dipole_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: int = 1) -> None:
+def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: int = 1) -> None:
     """
     Installs an AC dipole as a matrix element for (HL)LHC BEAM 1 OR 2 ONLY.
     The AC Dipole does impact the orbit as well as the betatron functions when turned on. Unfortunately in
