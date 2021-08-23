@@ -269,10 +269,10 @@ def install_ac_dipole(
     )
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
-    madx.command.install(  # same position as in model_creator macros
+    madx.command.install(  # same position as in model_creator macros to avoid negative drift
         element=f"MKACH.6L4.B{beam:d}", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}"
     )
-    madx.command.install(  # same position as in model_creator macros
+    madx.command.install(  # same position as in model_creator macros to avoid negative drift
         element=f"MKACV.6L4.B{beam:d}", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}"
     )
     madx.command.endedit()
@@ -329,10 +329,10 @@ def install_ac_dipole_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: i
 
     logger.trace("Calculating AC Dipole matrix terms")
     hacmap21 = (
-        2 * (np.cos(2 * np.pi * q1_dipole) - np.cos(2 * np.pi * q1)) / (betx_acd * np.sin(2 * np.pi * q1))
+        2 * (np.cos(2 * np.pi * q1_dipole) - np.cos(2 * np.pi * q1)) / (betax_acd * np.sin(2 * np.pi * q1))
     )
     vacmap43 = (
-        2 * (np.cos(2 * np.pi * q2_dipole) - np.cos(2 * np.pi * q2)) / (bety_acd * np.sin(2 * np.pi * q2))
+        2 * (np.cos(2 * np.pi * q2_dipole) - np.cos(2 * np.pi * q2)) / (betay_acd * np.sin(2 * np.pi * q2))
     )
     madx.input(f"hacmap: matrix, l=0, rm21={hacmap21};")
     madx.input(f"vacmap: matrix, l=0, rm43={vacmap43};")
@@ -340,12 +340,8 @@ def install_ac_dipole_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: i
     logger.info(f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}")
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
-    madx.command.install(  # same position as in model_creator macros
-        element="hacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}"
-    )
-    madx.command.install(  # same position as in model_creator macros
-        element="vacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}"
-    )
+    madx.command.install(element="hacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}")  # no negative drift
+    madx.command.install(element="vacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}")  # no negative drift
     madx.command.endedit()
 
     logger.warning(
