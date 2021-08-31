@@ -204,7 +204,6 @@ def install_ac_dipole_as_kicker(
     sigma_x: float,
     sigma_y: float,
     beam: int = 1,
-    geometric_emit: float = None,
     start_turn: int = 100,
     ramp_turns: int = 2000,
     top_turns: int = 6600,
@@ -226,9 +225,6 @@ def install_ac_dipole_as_kicker(
         sigma_x (float): the horizontal amplitude to drive the beam to, in bunch sigma.
         sigma_y (float): the vertical amplitude to drive the beam to, in bunch sigma.
         beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.
-        geometric_emit (float): the geometric emittance that was used when defining the beam. If not
-            provided, it is assumed that 'geometric_emit' is a defined global in MAD-X, and the value will
-            be directly queried from the internal tables.
         start_turn (int): the turn at which to start ramping up the AC dipole. Defaults to 100.
         ramp_turns (int): the number of turns to use for the ramp-up and the ramp-down of the AC dipole.
             This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000
@@ -251,12 +247,6 @@ def install_ac_dipole_as_kicker(
     q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
     logger.trace(f"Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}")
     q1_dipole, q2_dipole = q1 + deltaqx, q2 + deltaqy
-
-    if not geometric_emit:
-        logger.debug("No value provided for the geometric emittance used when creating the beam")
-        logger.debug("The value will be queried from MAD-X's global 'geometric_emit'")
-        logger.trace("This has been defined if you used the 'make_lhc_beams' function")
-        geometric_emit = madx.globals["geometric_emit"]
 
     logger.trace("Querying BETX and BETY at AC Dipole location")
     # All below is done as model_creator macros with `.input()` calls
