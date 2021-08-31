@@ -307,7 +307,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
 
     logger.debug("Retrieving tunes from internal tables")
     q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
-    logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}")
+    logger.trace(f"Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}")
     q1_dipole, q2_dipole = q1 + deltaqx, q2 + deltaqy
 
     logger.trace("Querying BETX and BETY at AC Dipole location")
@@ -316,8 +316,8 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     madx.input(f"betyac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);")
 
     logger.trace("Calculating AC Dipole matrix terms")
-    madx.input("hacmap21 = 2 * (cos(2*pi*Qxd) - cos(2*pi*Qx)) / (betxac * sin(2*pi*Qx));")
-    madx.input("vacmap43 = 2 * (cos(2*pi*Qyd) - cos(2*pi*Qy)) / (betyac * sin(2*pi*Qy));")
+    madx.input(f"hacmap21 = 2 * (cos(2*pi*{q1_dipole}) - cos(2*pi*{q1})) / (betxac * sin(2*pi*{q1}));")
+    madx.input(f"vacmap43 = 2 * (cos(2*pi*{q2_dipole}) - cos(2*pi*{q2})) / (betyac * sin(2*pi*{q2}));")
 
     logger.trace("Defining matrix elements for transverse planes")
     madx.input(f"hacmap: matrix, l=0, rm21=hacmap21;")
