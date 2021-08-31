@@ -819,7 +819,9 @@ class TestSpecial:
     @pytest.mark.parametrize("top_turns", [1000, 6000, 10_000])
     def test_install_ac_dipole_as_kicker(self, top_turns, _matched_lhc_madx):
         madx = _matched_lhc_madx
-        install_ac_dipole_as_kicker(madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=3, sigma_y=3, top_turns=top_turns)
+        install_ac_dipole_as_kicker(
+            madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=3, sigma_y=3, top_turns=top_turns
+        )
         ramp3 = 2100 + top_turns
         ramp4 = ramp3 + 2000
 

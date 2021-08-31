@@ -239,7 +239,7 @@ def install_ac_dipole_as_kicker(
     logger.info("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam.")
     if top_turns > 6600:
         logger.warning(
-            f"Configuring the AC Dipole for {top_turns} of driving is fine for MAD-X but is "
+            f"Configuring the AC Dipole for {top_turns:d} of driving is fine for MAD-X but is "
             "higher than what the device can do in the (HL)LHC! Beware."
         )
     ramp1, ramp2 = start_turn, start_turn + ramp_turns
@@ -248,17 +248,18 @@ def install_ac_dipole_as_kicker(
 
     logger.debug("Retrieving tunes from internal tables")
     q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
-    logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}")
+    logger.trace(f"Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}")
     q1_dipole, q2_dipole = q1 + deltaqx, q2 + deltaqy
 
     if not geometric_emit:
-        logger.debug(
-            "No value provided for the geometric emittance used when creating the beam, the value will be "
-            "queried from MAD-X's global 'geometric_emit'"
-        )
+        logger.debug("No value provided for the geometric emittance used when creating the beam")
+        logger.debug("The value will be queried from MAD-X's global 'geometric_emit'")
+        logger.trace("This has been defined if you used the 'make_lhc_beams' function")
         geometric_emit = madx.globals["geometric_emit"]
 
-    logger.info(f"Installing AC Dipole to drive the tunes to Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}")
+    logger.info(
+        f"Installing AC Dipole to drive the tunes to Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}"
+    )
     madx.input(
         f"MKACH.6L4.B{beam:d}: hacdipole, l=0, freq:={q1_dipole}, lag=0, volt:=voltx, ramp1={ramp1}, "
         f"ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};"
@@ -322,31 +323,31 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     q1_dipole, q2_dipole = q1 + deltaqx, q2 + deltaqy
 
     logger.trace("Querying BETX and BETY at AC Dipole location")
-    madx.input(f"betax_acd = table(twiss, MKQA.6L4.B{beam:d}, betx);")
-    madx.input(f"betay_acd = table(twiss, MKQA.6L4.B{beam:d}, bety);")
-    betax_acd = madx.globals["betax_acd"]
-    betay_acd = madx.globals["betay_acd"]
+    # All below is done as model_creator macros with `.input()` calls
+    madx.input(f"betax_acd = table(twiss, MKQA.6L4.B{beam:d}, BEAM, betx);")
+    madx.input(f"betay_acd = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);")
 
     logger.trace("Calculating AC Dipole matrix terms")
-    hacmap21 = (
-        2 * (np.cos(2 * np.pi * q1_dipole) - np.cos(2 * np.pi * q1)) / (betax_acd * np.sin(2 * np.pi * q1))
-    )
-    vacmap43 = (
-        2 * (np.cos(2 * np.pi * q2_dipole) - np.cos(2 * np.pi * q2)) / (betay_acd * np.sin(2 * np.pi * q2))
-    )
-    madx.input(f"hacmap: matrix, l=0, rm21={hacmap21};")
-    madx.input(f"vacmap: matrix, l=0, rm43={vacmap43};")
+    madx.input("hacmap21 = 2 * (cos(2*pi*Qxd) - cos(2*pi*Qx)) / (betxac * sin(2*pi*Qx));")
+    madx.input("vacmap43 = 2 * (cos(2*pi*Qyd) - cos(2*pi*Qy)) / (betyac * sin(2*pi*Qy));")
 
-    logger.info(f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}")
+    logger.trace("Defining matrix elements for horizontal planes")
+    madx.input(f"hacmap: matrix, l=0, rm21=hacmap21;")
+    madx.input(f"vacmap: matrix, l=0, rm43=vacmap43;")
+
+    logger.info(
+        f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}"
+    )
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
-    madx.command.install(element="hacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}")  # no negative drift
-    madx.command.install(element="vacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}")  # no negative drift
+    # The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]
+    madx.command.install(element="hacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}")
+    madx.command.install(element="vacmap", at="1.583 / 2", from_=f"MKQA.6L4.B{beam:d}")
     madx.command.endedit()
 
     logger.warning(
-        f"Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it "
-        "to its default state, remove errors etc."
+        f"Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, "
+        "remove errors etc."
     )
     madx.use(sequence=f"lhcb{beam:d}")
 
