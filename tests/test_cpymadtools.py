@@ -819,7 +819,10 @@ class TestSpecial:
     @pytest.mark.parametrize("top_turns", [1000, 6000, 10_000])
     def test_install_ac_dipole_as_kicker(self, top_turns, _matched_lhc_madx):
         madx = _matched_lhc_madx
-        install_ac_dipole_as_kicker(madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=3, sigma_y=3, top_turns=top_turns)
+        make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+        install_ac_dipole_as_kicker(
+            madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=1, sigma_y=1, top_turns=top_turns
+        )
         ramp3 = 2100 + top_turns
         ramp4 = ramp3 + 2000
 
@@ -841,6 +844,9 @@ class TestSpecial:
         for acd_name in ("hacmap", "vacmap"):
             assert acd_name in madx.elements
             assert math.isclose(madx.elements[acd_name].at, 9846.0765, rel_tol=1e-2)
+
+        assert math.isclose(madx.sequence.lhcb1.elements["hacmap"].rm21, 0.00044955222, rel_tol=1e-3)
+        assert math.isclose(madx.sequence.lhcb1.elements["vacmap"].rm43, -0.00039327690, rel_tol=1e-3)
 
         with pytest.raises(AssertionError):
             assert_frame_equal(twiss_before, twiss_after)  # they should be different!
