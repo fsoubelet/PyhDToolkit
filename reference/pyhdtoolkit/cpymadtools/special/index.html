@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.2">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.5">
     
     
       
@@ -18,10 +18,10 @@
       
     
     
-      <link rel="stylesheet" href="../../../../assets/stylesheets/main.1118c9be.min.css">
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.be71726b.min.css">
       
         
-        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.ba0d045b.min.css">
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.3f5d1f46.min.css">
         
           
           
@@ -1548,8 +1548,6 @@
 
     <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 
-    <span class="n">geometric_emit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-
     <span class="n">start_turn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
 
     <span class="n">ramp_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
@@ -1588,12 +1586,6 @@
 
 <span class="sd">        beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.</span>
 
-<span class="sd">        geometric_emit (float): the geometric emittance that was used when defining the beam. If not</span>
-
-<span class="sd">            provided, it is assumed that &#39;geometric_emit&#39; is a defined global in MAD-X, and the value will</span>
-
-<span class="sd">            be directly queried from the internal tables.</span>
-
 <span class="sd">        start_turn (int): the turn at which to start ramping up the AC dipole. Defaults to 100.</span>
 
 <span class="sd">        ramp_turns (int): the number of turns to use for the ramp-up and the ramp-down of the AC dipole.</span>
@@ -1608,13 +1600,13 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a kicker and will not affect TWISS functions!&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam.&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">top_turns</span> <span class="o">&gt;</span> <span class="mi">6600</span><span class="p">:</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
 
-            <span class="sa">f</span><span class="s2">&quot;Configuring the AC Dipole for </span><span class="si">{</span><span class="n">top_turns</span><span class="si">}</span><span class="s2"> of driving is fine for MAD-X but is &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;Configuring the AC Dipole for </span><span class="si">{</span><span class="n">top_turns</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> of driving is fine for MAD-X but is &quot;</span>
 
             <span class="s2">&quot;higher than what the device can do in the (HL)LHC! Beware.&quot;</span>
 
@@ -1630,27 +1622,31 @@
 
     <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
 
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">geometric_emit</span><span class="p">:</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
 
-            <span class="s2">&quot;No value provided for the geometric emittance used when creating the beam, the value will be &quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pbeam = beam%lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">-&gt;pc;&quot;</span><span class="p">)</span>
 
-            <span class="s2">&quot;queried from MAD-X&#39;s global &#39;geometric_emit&#39;&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, betx);&quot;</span><span class="p">)</span>
 
-        <span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, bety);&quot;</span><span class="p">)</span>
 
-        <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole voltage values&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing AC Dipole to drive the tunes to Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;voltx = 0.042 * pbeam * ABS(</span><span class="si">{</span><span class="n">deltaqx</span><span class="si">}</span><span class="s2">) / SQRT(180.0 * betxac) * </span><span class="si">{</span><span class="n">sigma_x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;volty = 0.042 * pbeam * ABS(</span><span class="si">{</span><span class="n">deltaqy</span><span class="si">}</span><span class="s2">) / SQRT(177.0 * betyac) * </span><span class="si">{</span><span class="n">sigma_y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Defining kicker elements for transverse planes&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
 
-        <span class="sa">f</span><span class="s2">&quot;MKACH.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">: hacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt:=voltx, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;MKACH.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">: hacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt=voltx, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
 
         <span class="sa">f</span><span class="s2">&quot;ramp2=</span><span class="si">{</span><span class="n">ramp2</span><span class="si">}</span><span class="s2">, ramp3=</span><span class="si">{</span><span class="n">ramp3</span><span class="si">}</span><span class="s2">, ramp4=</span><span class="si">{</span><span class="n">ramp4</span><span class="si">}</span><span class="s2">;&quot;</span>
 
@@ -1658,9 +1654,15 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
 
-        <span class="sa">f</span><span class="s2">&quot;MKACV.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">: vacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt:=volty, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;MKACV.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">: vacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt=volty, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
 
         <span class="sa">f</span><span class="s2">&quot;ramp2=</span><span class="si">{</span><span class="n">ramp2</span><span class="si">}</span><span class="s2">, ramp3=</span><span class="si">{</span><span class="n">ramp3</span><span class="si">}</span><span class="s2">, ramp4=</span><span class="si">{</span><span class="n">ramp4</span><span class="si">}</span><span class="s2">;&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span>
+
+        <span class="sa">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="p">)</span>
 
@@ -1668,45 +1670,19 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="kp">flatten</span><span class="p">()</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span>  <span class="c1"># same position as in model_creator macros to avoid negative drift</span>
+    <span class="c1"># The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)</span>
 
-        <span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKACH.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKACH.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span>  <span class="c1"># same position as in model_creator macros to avoid negative drift</span>
-
-        <span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKACV.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKACV.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betax_acd = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, betx);&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betay_acd = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, bety);&quot;</span><span class="p">)</span>
-
-    <span class="n">betax_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;betax_acd&quot;</span><span class="p">]</span>
-
-    <span class="n">betay_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;betay_acd&quot;</span><span class="p">]</span>
-
-    <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">sequence</span><span class="o">.</span><span class="n">lhcb1</span><span class="o">.</span><span class="n">beam</span><span class="o">.</span><span class="n">brho</span>
-
-    <span class="n">voltx</span> <span class="o">=</span> <span class="n">sigma_x</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">abs</span><span class="p">(</span><span class="n">deltaqx</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">betax_acd</span><span class="p">)</span>
-
-    <span class="n">volty</span> <span class="o">=</span> <span class="n">sigma_y</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">abs</span><span class="p">(</span><span class="n">deltaqy</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="kp">sqrt</span><span class="p">(</span><span class="n">betay_acd</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;voltx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">voltx</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;volty&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">volty</span>
-
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
 
-        <span class="sa">f</span><span class="s2">&quot;Sequence LHCB</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> is now re-used for changes to take effect. Beware that this will reset it &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Sequence LHCB</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> is now re-used for changes to take effect. Beware that this will reset it, &quot;</span>
 
-        <span class="s2">&quot;to its default state, remove errors etc.&quot;</span>
+        <span class="s2">&quot;remove errors etc.&quot;</span>
 
     <span class="p">)</span>
 
@@ -1750,55 +1726,53 @@
 
     <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betax_acd = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, betx);&quot;</span><span class="p">)</span>
+    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betay_acd = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, bety);&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, betx);&quot;</span><span class="p">)</span>
 
-    <span class="n">betax_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;betax_acd&quot;</span><span class="p">]</span>
-
-    <span class="n">betay_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;betay_acd&quot;</span><span class="p">]</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, bety);&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole matrix terms&quot;</span><span class="p">)</span>
 
-    <span class="n">hacmap21</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;hacmap21 = 2 * (cos(2*pi*</span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">) - cos(2*pi*</span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">)) / (betxac * sin(2*pi*</span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">));&quot;</span><span class="p">)</span>
 
-        <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q1_dipole</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">betax_acd</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q1</span><span class="p">))</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vacmap43 = 2 * (cos(2*pi*</span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">) - cos(2*pi*</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">)) / (betyac * sin(2*pi*</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">));&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Defining matrix elements for transverse planes&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;hacmap: matrix, l=0, rm21=hacmap21;&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=vacmap43;&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span>
+
+        <span class="sa">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="p">)</span>
-
-    <span class="n">vacmap43</span> <span class="o">=</span> <span class="p">(</span>
-
-        <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q2_dipole</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="kp">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">betay_acd</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="kp">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q2</span><span class="p">))</span>
-
-    <span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;hacmap: matrix, l=0, rm21=</span><span class="si">{</span><span class="n">hacmap21</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=</span><span class="si">{</span><span class="n">vacmap43</span><span class="si">}</span><span class="s2">;&quot;</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="kp">flatten</span><span class="p">()</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;hacmap&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># no negative drift</span>
+    <span class="c1"># The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;vacmap&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># no negative drift</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;hacmap&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;vacmap&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
 
-        <span class="sa">f</span><span class="s2">&quot;Sequence LHCB</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> is now re-used for changes to take effect. Beware that this will reset it &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;Sequence LHCB</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> is now re-used for changes to take effect. Beware that this will reset it, &quot;</span>
 
-        <span class="s2">&quot;to its default state, remove errors etc.&quot;</span>
+        <span class="s2">&quot;remove errors etc.&quot;</span>
 
     <span class="p">)</span>
 
@@ -2544,7 +2518,6 @@ works well.</p>
     <span class="n">sigma_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">sigma_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">geometric_emit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">start_turn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
     <span class="n">ramp_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
     <span class="n">top_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6600</span>
@@ -2605,24 +2578,6 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 <td>1</td>
 </tr>
 <tr>
-<td>geometric_emit</td>
-<td>float</td>
-<td>the geometric emittance that was used when defining the beam. If not</td>
-<td></td>
-</tr>
-<tr>
-<td>provided, it is assumed that 'geometric_emit' is a defined global in MAD-X, and the value will</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>be directly queried from the internal tables.</td>
-<td>None</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
 <td>start_turn</td>
 <td>int</td>
 <td>the turn at which to start ramping up the AC dipole. Defaults to 100.</td>
@@ -2668,8 +2623,6 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
     <span class="n">beam</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 
-    <span class="n">geometric_emit</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
-
     <span class="n">start_turn</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
 
     <span class="n">ramp_turns</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
@@ -2708,12 +2661,6 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
 <span class="s2">        beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.</span>
 
-<span class="s2">        geometric_emit (float): the geometric emittance that was used when defining the beam. If not</span>
-
-<span class="s2">            provided, it is assumed that &#39;geometric_emit&#39; is a defined global in MAD-X, and the value will</span>
-
-<span class="s2">            be directly queried from the internal tables.</span>
-
 <span class="s2">        start_turn (int): the turn at which to start ramping up the AC dipole. Defaults to 100.</span>
 
 <span class="s2">        ramp_turns (int): the number of turns to use for the ramp-up and the ramp-down of the AC dipole.</span>
@@ -2728,13 +2675,13 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
     <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a kicker and will not affect TWISS functions!&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam.&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">top_turns</span> <span class="o">&gt;</span> <span class="mi">6600</span><span class="o">:</span>
 
         <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
 
-            <span class="n">f</span><span class="s2">&quot;Configuring the AC Dipole for {top_turns} of driving is fine for MAD-X but is &quot;</span>
+            <span class="n">f</span><span class="s2">&quot;Configuring the AC Dipole for {top_turns:d} of driving is fine for MAD-X but is &quot;</span>
 
             <span class="s2">&quot;higher than what the device can do in the (HL)LHC! Beware.&quot;</span>
 
@@ -2750,27 +2697,31 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
     <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q1</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q2</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1}, q2 = {q2}&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}&quot;</span><span class="p">)</span>
 
     <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
 
-    <span class="k">if</span> <span class="k">not</span> <span class="n">geometric_emit</span><span class="o">:</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span>
+    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
 
-            <span class="s2">&quot;No value provided for the geometric emittance used when creating the beam, the value will be &quot;</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;pbeam = beam%lhcb{beam:d}-&gt;pc;&quot;</span><span class="p">)</span>
 
-            <span class="s2">&quot;queried from MAD-X&#39;s global &#39;geometric_emit&#39;&quot;</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, betx);&quot;</span><span class="p">)</span>
 
-        <span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);&quot;</span><span class="p">)</span>
 
-        <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="err">]</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole voltage values&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole to drive the tunes to Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;voltx = 0.042 * pbeam * ABS({deltaqx}) / SQRT(180.0 * betxac) * {sigma_x}&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;volty = 0.042 * pbeam * ABS({deltaqy}) / SQRT(177.0 * betyac) * {sigma_y}&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining kicker elements for transverse planes&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span>
 
-        <span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}: hacdipole, l=0, freq:={q1_dipole}, lag=0, volt:=voltx, ramp1={ramp1}, &quot;</span>
+        <span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}: hacdipole, l=0, freq:={q1_dipole}, lag=0, volt=voltx, ramp1={ramp1}, &quot;</span>
 
         <span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span>
 
@@ -2778,9 +2729,15 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
     <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span>
 
-        <span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}: vacdipole, l=0, freq:={q2_dipole}, lag=0, volt:=volty, ramp1={ramp1}, &quot;</span>
+        <span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}: vacdipole, l=0, freq:={q2_dipole}, lag=0, volt=volty, ramp1={ramp1}, &quot;</span>
 
         <span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span>
+
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span>
 
     <span class="p">)</span>
 
@@ -2788,45 +2745,19 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span>  <span class="c1"># same position as in model_creator macros to avoid negative drift</span>
+    <span class="c1"># The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)</span>
 
-        <span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
 
-    <span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span>  <span class="c1"># same position as in model_creator macros to avoid negative drift</span>
-
-        <span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span>
-
-    <span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endedit</span><span class="p">()</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betax_acd = table(twiss, MKQA.6L4.B{beam:d}, betx);&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betay_acd = table(twiss, MKQA.6L4.B{beam:d}, bety);&quot;</span><span class="p">)</span>
-
-    <span class="n">betax_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;betax_acd&quot;</span><span class="err">]</span>
-
-    <span class="n">betay_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;betay_acd&quot;</span><span class="err">]</span>
-
-    <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">sequence</span><span class="p">.</span><span class="n">lhcb1</span><span class="p">.</span><span class="n">beam</span><span class="p">.</span><span class="n">brho</span>
-
-    <span class="n">voltx</span> <span class="o">=</span> <span class="n">sigma_x</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">deltaqx</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">betax_acd</span><span class="p">)</span>
-
-    <span class="n">volty</span> <span class="o">=</span> <span class="n">sigma_y</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">geometric_emit</span><span class="p">)</span> <span class="o">*</span> <span class="n">brho</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">abs</span><span class="p">(</span><span class="n">deltaqy</span><span class="p">)</span> <span class="o">*</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">betay_acd</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;voltx&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">voltx</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;volty&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">volty</span>
-
     <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
 
-        <span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it &quot;</span>
+        <span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, &quot;</span>
 
-        <span class="s2">&quot;to its default state, remove errors etc.&quot;</span>
+        <span class="s2">&quot;remove errors etc.&quot;</span>
 
     <span class="p">)</span>
 
@@ -2924,55 +2855,53 @@ See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.08400
 
     <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q1</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q2</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1}, q2 = {q2}&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}&quot;</span><span class="p">)</span>
 
     <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betax_acd = table(twiss, MKQA.6L4.B{beam:d}, betx);&quot;</span><span class="p">)</span>
+    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betay_acd = table(twiss, MKQA.6L4.B{beam:d}, bety);&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, betx);&quot;</span><span class="p">)</span>
 
-    <span class="n">betax_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;betax_acd&quot;</span><span class="err">]</span>
-
-    <span class="n">betay_acd</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;betay_acd&quot;</span><span class="err">]</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole matrix terms&quot;</span><span class="p">)</span>
 
-    <span class="n">hacmap21</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;hacmap21 = 2 * (cos(2*pi*{q1_dipole}) - cos(2*pi*{q1})) / (betxac * sin(2*pi*{q1}));&quot;</span><span class="p">)</span>
 
-        <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q1_dipole</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">betax_acd</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q1</span><span class="p">))</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap43 = 2 * (cos(2*pi*{q2_dipole}) - cos(2*pi*{q2})) / (betyac * sin(2*pi*{q2}));&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining matrix elements for transverse planes&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;hacmap: matrix, l=0, rm21=hacmap21;&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=vacmap43;&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span>
+
+        <span class="n">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span>
 
     <span class="p">)</span>
-
-    <span class="n">vacmap43</span> <span class="o">=</span> <span class="p">(</span>
-
-        <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q2_dipole</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q2</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">betay_acd</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nf">sin</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">q2</span><span class="p">))</span>
-
-    <span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;hacmap: matrix, l=0, rm21={hacmap21};&quot;</span><span class="p">)</span>
-
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43={vacmap43};&quot;</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole}  |  Qy_D = {q2_dipole}&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;hacmap&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>  <span class="c1"># no negative drift</span>
+    <span class="c1"># The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;vacmap&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>  <span class="c1"># no negative drift</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;hacmap&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;vacmap&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endedit</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
 
-        <span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it &quot;</span>
+        <span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, &quot;</span>
 
-        <span class="s2">&quot;to its default state, remove errors etc.&quot;</span>
+        <span class="s2">&quot;remove errors etc.&quot;</span>
 
     <span class="p">)</span>
 
@@ -3714,10 +3643,10 @@ these elements.</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": [], "translations": {"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../../assets/javascripts/workers/search.409db549.min.js", "version": null}</script>
     
     
-      <script src="../../../../assets/javascripts/bundle.2b46852b.min.js"></script>
+      <script src="../../../../assets/javascripts/bundle.56a63758.min.js"></script>
       
     
   </body>
