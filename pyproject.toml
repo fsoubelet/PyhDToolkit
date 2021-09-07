@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhdtoolkit"
-version = "0.13.1"
+version = "0.13.2"
 description = "An all-in-one toolkit package to easy my Python work in my PhD."
 authors = ["Felix Soubelet <felix.soubelet@cern.ch>"]
 license = "MIT"
@@ -38,7 +38,7 @@ matplotlib = "^3.0"
 scipy = "^1.4"
 tfs-pandas = "^2.0"
 loguru = "<1.0"
-cpymad = "^1.6"
+cpymad = "^1.9"
 rich = "^10.0"
 pydantic = "^1.0"
 pendulum = "^2.0"
@@ -67,6 +67,8 @@ source = ["pyhdtoolkit/"]
 
 [tool.coverage.report]
 ignore_errors = true
+omit = ["pyhdtoolkit/utils/htc_monitor.py"]
+precision = 2
 
 # ----- Documentation Configuration ----- #
 
