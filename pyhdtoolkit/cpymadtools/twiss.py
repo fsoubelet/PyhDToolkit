@@ -26,6 +26,7 @@ def get_pattern_twiss(
     """
     Extract the `TWISS` table for desired variables, and for certain elements matching a pattern.
     Additionally, the `SUMM` table is also returned in the form of the TfsDataFrame's headers dictionary.
+    The TWISS flag will be fully cleared after running this command.
 
     Warning:
         Although the `pattern` parameter should accept a regex, MAD-X does not implement actual regexes.
@@ -38,7 +39,7 @@ def get_pattern_twiss(
             the command, which will determine the rows in the returned DataFrame. Defaults to [""] which
             will select all elements.
         columns (Sequence[str]): the variables to be returned, as columns in the DataFrame. Defaults to
-            None, which will return all available columns.
+            `None`, which will return all available columns.
 
     Keyword Args:
         Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
@@ -59,9 +60,7 @@ def get_pattern_twiss(
     logger.trace("Extracting relevant parts of the TWISS table")
     twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe().copy())
     twiss_df.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
-    twiss_df = twiss_df[madx.table.twiss.selected_columns()].iloc[
-        np.array(madx.table.twiss.selected_rows()).astype(bool)
-    ]
+    twiss_df = twiss_df[madx.table.twiss.selected_columns()].iloc[madx.table.twiss.selected_rows()]
 
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)
@@ -128,7 +127,7 @@ def get_ir_twiss(
     Returns:
         A TfsDataFrame of the twiss output.
     """
-    logger.info(f"Getting Twiss for IR {ir:d}")
+    logger.info(f"Getting Twiss for IR{ir:d}")
     return get_pattern_twiss(
         madx=madx,
         patterns=[
