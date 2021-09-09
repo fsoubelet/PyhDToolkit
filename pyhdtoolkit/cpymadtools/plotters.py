@@ -56,7 +56,7 @@ class AperturePlotter:
             madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
             beam_params (BeamParameters): a validated BeamParameters object from
                 `pyhdtoolkit.optics.beam.compute_beam_parameters`.
-            figsize (str): size of the figure, defaults to (15, 15).
+            figsize (Tuple[int, int]): size of the figure, defaults to (13, 20).
             xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
                 not None, using the tuple passed.
             hplane_ylim (Tuple[float, float]): the y limits for the horizontal plane plot (so
@@ -343,16 +343,19 @@ class TuneDiagramPlotter:
         return seq
 
     @staticmethod
-    def plot_blank_tune_diagram() -> matplotlib.figure.Figure:
+    def plot_blank_tune_diagram(figsize: Tuple[float, float] = (12, 12)) -> matplotlib.figure.Figure:
         """
         Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
+
+        Args:
+            figsize (Tuple[int, int]): size of the figure, defaults to (12, 12).
 
         Returns:
              The figure on which resonance lines from farey sequences are drawn.
         """
         logger.debug("Plotting resonance lines from Farey sequence, up to 5th order")
 
-        figure = plt.figure(figsize=(13, 13))
+        figure = plt.figure(figsize=figsize)
         plt.ylim((0, 1))
         plt.xlim((0, 1))
 
