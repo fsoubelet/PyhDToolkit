@@ -80,16 +80,16 @@ class AperturePlotter:
 
         logger.trace("Getting Twiss dframe from cpymad")
         twiss_hr: pd.DataFrame = madx.table.twiss.dframe().copy()
-        twiss_hr["betatronic_envelope_x"] = (twiss_hr.betx * beam_params.eg_y_m).sqrt()
-        twiss_hr["betatronic_envelope_y"] = (twiss_hr.bety * beam_params.eg_y_m).sqrt()
+        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params.eg_y_m)
+        twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params.eg_y_m)
         twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params.deltap_p
         twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params.deltap_p
-        twiss_hr["envelope_x"] = (
+        twiss_hr["envelope_x"] = np.sqrt(
             twiss_hr.betatronic_envelope_x ** 2 + (twiss_hr.dx * beam_params.deltap_p) ** 2
-        ).sqrt()
-        twiss_hr["envelope_y"] = (
+        )
+        twiss_hr["envelope_y"] = np.sqrt(
             twiss_hr.betatronic_envelope_y ** 2 + (twiss_hr.dy * beam_params.deltap_p) ** 2
-        ).sqrt()
+        )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
         figure = plt.figure(figsize=figsize)
