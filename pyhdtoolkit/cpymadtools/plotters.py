@@ -93,7 +93,6 @@ class AperturePlotter:
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
         figure = plt.figure(figsize=figsize)
-
         logger.debug("Plotting the horizontal aperture")
         axis1 = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
         axis1.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
@@ -109,7 +108,7 @@ class AperturePlotter:
         axis1.set_xlim(xlimits)
         axis1.set_ylim(hplane_ylim)
         axis1.set_ylabel("$x [m]$")
-        axis1.set_xlabel("$s [m]$")
+        axis1.set_xlabel("$S [m]$")
         axis1.set_title(f"Horizontal aperture at {beam_params.pc_GeV} GeV/c")
 
         logger.debug("Plotting the vertical aperture")
@@ -129,8 +128,8 @@ class AperturePlotter:
         axis2.plot(machine.s, machine.aper_2, "k.-")
         axis2.plot(machine.s, -machine.aper_2, "k.-")
         axis2.set_ylim(vplane_ylim)
-        axis2.set_ylabel("y [m]")
-        axis2.set_xlabel("s [m]")
+        axis2.set_ylabel("$Y [m]$")
+        axis2.set_xlabel("$S [m]$")
         axis2.set_title(f"Vertical aperture at {beam_params.pc_GeV} GeV/c")
 
         logger.debug("Plotting the stay-clear envelope")
@@ -138,14 +137,14 @@ class AperturePlotter:
         axis3.plot(machine.s, machine.aper_1 / machine.envelope_x, ".-b", label="Horizontal plane")
         axis3.plot(machine.s, machine.aper_2 / machine.envelope_y, ".-r", label="Vertical plane")
         axis3.set_xlim(xlimits)
-        axis3.set_ylabel("n1")
-        axis3.set_xlabel("s [m]")
+        axis3.set_ylabel("$n1$")
+        axis3.set_xlabel("$S [m]$")
         axis3.legend(loc="best")
         axis3.set_title(f"Stay-clear envelope at {beam_params.pc_GeV} GeV/c")
 
         if savefig:
             logger.info(f"Saving aperture plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="pdf", dpi=500)
+            plt.savefig(Path(savefig))
         return figure
 
 
