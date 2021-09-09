@@ -80,7 +80,7 @@ class AperturePlotter:
         madx.twiss()
 
         logger.debug("Getting Twiss dframe from cpymad")
-        twiss_hr: pd.DataFrame = madx.table.twiss.dframe()
+        twiss_hr: pd.DataFrame = madx.table.twiss.dframe().copy()
         twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx.values * beam_params.eg_y_m)
         twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety.values * beam_params.eg_y_m)
         twiss_hr["dispersive_envelope_x"] = twiss_hr.dx.values * beam_params.deltap_p
