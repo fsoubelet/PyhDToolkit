@@ -449,20 +449,20 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     ]
 
     logger.trace("Defining slices for general MB and MQ elements")
-    madx.select(flag="makethin", class_="MB", slice=2)
-    madx.select(flag="makethin", class_="MQ", slice=2 * slicefactor)
+    madx.select(flag="makethin", class_="MB", slice_=2)
+    madx.select(flag="makethin", class_="MQ", slice_=2 * slicefactor)
 
     logger.trace("Defining slices for triplets")
-    madx.select(flag="makethin", class_="mqxa", slice=16 * slicefactor)
-    madx.select(flag="makethin", class_="mqxb", slice=16 * slicefactor)
+    madx.select(flag="makethin", class_="mqxa", slice_=16 * slicefactor)
+    madx.select(flag="makethin", class_="mqxb", slice_=16 * slicefactor)
 
     logger.trace("Defining slices for various specifc mb elements")
     for pattern in four_slices_patterns:
-        madx.select(flag="makethin", pattern=pattern, slice=4)
+        madx.select(flag="makethin", pattern=pattern, slice_=4)
 
     logger.trace("Defining slices for varous specifc mq elements")
     for pattern in four_slicefactor_patterns:
-        madx.select(flag="makethin", pattern=pattern, slice=4 * slicefactor)
+        madx.select(flag="makethin", pattern=pattern, slice_=4 * slicefactor)
 
     madx.use(sequence=sequence)
     style = kwargs.get("style", "teapot")
