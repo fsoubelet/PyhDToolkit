@@ -70,8 +70,7 @@ class AperturePlotter:
              'fig.get_axes()'. Eventually saves the figure as a file.
         """
         # pylint: disable=too-many-arguments
-        # We need to interpolate in order to get high resolution along the s direction
-        logger.debug("Running interpolation in cpymad")
+        # We need to interpolate in order to get high resolution along the S direction
         logger.debug("Running interpolation in cpymad")
         madx.command.select(flag="interpolate", class_="drift", slice=4, range_="#s/#e")
         madx.command.select(flag="interpolate", class_="quadrupole", slice=8, range_="#s/#e")
@@ -79,17 +78,19 @@ class AperturePlotter:
         madx.command.select(flag="interpolate", class_="rbend", slice=10, range_="#s/#e")
         madx.twiss()
 
-        logger.debug("Getting Twiss dframe from cpymad")
+        logger.trace("Getting Twiss dframe from cpymad")
         twiss_hr: pd.DataFrame = madx.table.twiss.dframe().copy()
-        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx.values * beam_params.eg_y_m)
-        twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety.values * beam_params.eg_y_m)
-        twiss_hr["dispersive_envelope_x"] = twiss_hr.dx.values * beam_params.deltap_p
-        twiss_hr["dispersive_envelope_y"] = twiss_hr.dy.values * beam_params.deltap_p
+        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx.to_numpy() * beam_params.eg_y_m)
+        twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety.to_numpy() * beam_params.eg_y_m)
+        twiss_hr["dispersive_envelope_x"] = twiss_hr.dx.to_numpy() * beam_params.deltap_p
+        twiss_hr["dispersive_envelope_y"] = twiss_hr.dy.to_numpy() * beam_params.deltap_p
         twiss_hr["envelope_x"] = np.sqrt(
-            twiss_hr.betatronic_envelope_x.values ** 2 + (twiss_hr.dx.values * beam_params.deltap_p) ** 2
+            twiss_hr.betatronic_envelope_x.to_numpy() ** 2
+            + (twiss_hr.dx.to_numpy() * beam_params.deltap_p) ** 2
         )
         twiss_hr["envelope_y"] = np.sqrt(
-            twiss_hr.betatronic_envelope_y.values ** 2 + (twiss_hr.dy.values * beam_params.deltap_p) ** 2
+            twiss_hr.betatronic_envelope_y.to_numpy() ** 2
+            + (twiss_hr.dy.to_numpy() * beam_params.deltap_p) ** 2
         )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
@@ -109,8 +110,8 @@ class AperturePlotter:
         axis1.plot(machine.s, -machine.aper_1, "k.-")
         axis1.set_xlim(xlimits)
         axis1.set_ylim(hplane_ylim)
-        axis1.set_ylabel("x [m]")
-        axis1.set_xlabel("s [m]")
+        axis1.set_ylabel("$x [m]$")
+        axis1.set_xlabel("$s [m]$")
         axis1.set_title(f"Horizontal aperture at {beam_params.pc_GeV} GeV/c")
 
         logger.debug("Plotting the vertical aperture")
