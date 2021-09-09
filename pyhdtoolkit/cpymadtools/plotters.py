@@ -107,8 +107,8 @@ class AperturePlotter:
         axis1.plot(machine.s, -machine.aper_1, "k.-")
         axis1.set_xlim(xlimits)
         axis1.set_ylim(hplane_ylim)
-        axis1.set_ylabel("$x [m]$")
-        axis1.set_xlabel("$S [m]$")
+        axis1.set_ylabel(r"$X \ [m]$")
+        axis1.set_xlabel(r"$S \ [m]$")
         axis1.set_title(f"Horizontal aperture at {beam_params.pc_GeV} GeV/c")
 
         logger.debug("Plotting the vertical aperture")
@@ -128,8 +128,8 @@ class AperturePlotter:
         axis2.plot(machine.s, machine.aper_2, "k.-")
         axis2.plot(machine.s, -machine.aper_2, "k.-")
         axis2.set_ylim(vplane_ylim)
-        axis2.set_ylabel("$Y [m]$")
-        axis2.set_xlabel("$S [m]$")
+        axis2.set_ylabel(r"$Y \ [m]$")
+        axis2.set_xlabel(r"$S \ [m]$")
         axis2.set_title(f"Vertical aperture at {beam_params.pc_GeV} GeV/c")
 
         logger.debug("Plotting the stay-clear envelope")
@@ -138,7 +138,7 @@ class AperturePlotter:
         axis3.plot(machine.s, machine.aper_2 / machine.envelope_y, ".-r", label="Vertical plane")
         axis3.set_xlim(xlimits)
         axis3.set_ylabel("$n1$")
-        axis3.set_xlabel("$S [m]$")
+        axis3.set_xlabel(r"$S \ [m]$")
         axis3.legend(loc="best")
         axis3.set_title(f"Stay-clear envelope at {beam_params.pc_GeV} GeV/c")
 
@@ -191,7 +191,7 @@ class DynamicAperturePlotter:
 
         if savefig:
             logger.info(f"Saving dynamic aperture plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="pdf", dpi=500)
+            plt.savefig(Path(savefig))
         return figure
 
 
@@ -245,15 +245,15 @@ class PhaseSpacePlotter:
             u_bar = courant_snyder_transform(u, alpha, beta)
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
             if plane.upper() == "HORIZONTAL":
-                plt.xlabel("$\\bar{x}  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{px} [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{x} \ [mm]$", fontsize=17)
+                plt.ylabel(r"$\bar{px} \ [mrad]$", fontsize=17)
             else:
-                plt.xlabel("$\\bar{y}  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{py} [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{y} \ [mm]$", fontsize=17)
+                plt.ylabel(r"$\bar{py} \ [mrad]$", fontsize=17)
             plt.axis("Equal")
         if savefig:
             logger.info(f"Saving Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="pdf", dpi=500)
+            plt.savefig(Path(savefig))
         return figure
 
     @staticmethod
@@ -306,15 +306,15 @@ class PhaseSpacePlotter:
             u_bar = courant_snyder_transform(u, alpha, beta)
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
             if plane.upper() == "HORIZONTAL":
-                plt.xlabel("$\\bar{x}  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{px} [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{x} \ [mm]$", fontsize=17)
+                plt.ylabel(r"$\bar{px} \ [mrad]$", fontsize=17)
             else:
-                plt.xlabel("$\\bar{y}  [mm]$", fontsize=17)
-                plt.ylabel("$\\bar{py} [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{y} \ [mm]$", fontsize=17)
+                plt.ylabel(r"$\bar{py} \ [mrad]$", fontsize=17)
             plt.axis("Equal")
         if savefig:
             logger.info(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="pdf", dpi=500)
+            plt.savefig(Path(savefig))
         return figure
 
 
@@ -431,5 +431,5 @@ class TuneDiagramPlotter:
 
         if savefig:
             logger.info(f"Saving Tune diagram plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig), format="pdf", dpi=500)
+            plt.savefig(Path(savefig))
         return figure
