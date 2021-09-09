@@ -384,7 +384,7 @@ class TuneDiagramPlotter:
         plt.axis("square")
         plt.xlim([0, 1])
         plt.ylim([0, 1])
-        plt.xlabel("$Q_{x}}$", fontsize=17)
+        plt.xlabel("$Q_{x}$", fontsize=17)
         plt.ylabel("$Q_{y}$", fontsize=17)
         return figure
 
@@ -414,8 +414,8 @@ class TuneDiagramPlotter:
         figure = TuneDiagramPlotter.plot_blank_tune_diagram()
 
         logger.debug("Getting Tunes from cpymad")
-        new_q1: float = madx.table.summ.dframe().q1[0]
-        new_q2: float = madx.table.summ.dframe().q2[0]
+        new_q1: float = madx.table.summ.q1[0]
+        new_q2: float = madx.table.summ.q2[0]
 
         if vxgood.any() and vygood.any():
             plt.plot(v_qx[vxgood * vygood], v_qy[vxgood * vygood], ".r")
