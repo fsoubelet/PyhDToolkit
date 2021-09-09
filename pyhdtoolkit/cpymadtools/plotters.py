@@ -72,10 +72,10 @@ class AperturePlotter:
         # pylint: disable=too-many-arguments
         # We need to interpolate in order to get high resolution along the S direction
         logger.debug("Running interpolation in cpymad")
-        madx.command.select(flag="interpolate", class_="drift", slice=4, range_="#s/#e")
-        madx.command.select(flag="interpolate", class_="quadrupole", slice=8, range_="#s/#e")
-        madx.command.select(flag="interpolate", class_="sbend", slice=10, range_="#s/#e")
-        madx.command.select(flag="interpolate", class_="rbend", slice=10, range_="#s/#e")
+        madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
+        madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
+        madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e")
+        madx.command.select(flag="interpolate", class_="rbend", slice_=10, range_="#s/#e")
         madx.twiss()
 
         logger.trace("Getting Twiss dframe from cpymad")
