@@ -334,17 +334,11 @@ def _plot_machine_layout(
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
 
     logger.debug("Extracting element-specific dataframes")
-    # Elements are detected by their keyword being multipole or their element type, and having a non-zero
-    # compenent in their order (knl / knsl)
-    dipoles_df = twiss_df[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])].query(
-        "k0l != 0 or k0sl != 0 or angle != 0"
-    )
-    quadrupoles_df = twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query(
-        "k1l != 0 or k1sl != 0"
-    )
-    sextupoles_df = twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])].query("k2l != 0 or k2sl != 0")
-    # This is a bit LHC-specific but we assume BPM elements have 'BPM' in their names
-    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
+    element_dfs = _make_elements_groups(madx)
+    dipoles_df = element_dfs["dipoles"]
+    quadrupoles_df = element_dfs["quadrupoles"]
+    sextupoles_df = element_dfs["sextupoles"]
+    bpms_df = element_dfs["bpms"]
 
     logger.debug("Plotting machine layout")
     logger.trace(f"Plotting from axis '{quadrupole_patches_axis}'")
@@ -444,10 +438,10 @@ def _plot_machine_layout(
 # ----- Helpers ----- #
 
 
-def _make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
+def _make_elements_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     """
     Provided with an active `cpymad` instance after having ran a script, will returns different portions of
-    the survey table's dataframe to different magnetic elements in a dictionary.
+    the twiss table's dataframe for different magnetic elements.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -456,38 +450,56 @@ def _make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
         quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
     """
-    logger.debug("Getting TWISS and SURVEY tables from MAD-X")
+    logger.debug("Getting TWISS table from MAD-X")
     madx.command.twiss()
-    madx.command.survey()
     twiss_df = madx.table.twiss.dframe().copy()
-    survey_df = madx.table.survey.dframe().copy()
+
+    logger.debug("Getting different element groups dframes from MAD-X twiss table")
+    # Elements are detected by their keyword being either 'multipole' or their specific element type,
+    # and having a non-zero component (knl / knsl) in their given order (or 'angle' for dipoles)
+    return {
+        "dipoles": twiss_df[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])].query(
+            "k0l != 0 or k0sl != 0 or angle != 0"
+        ),
+        "quadrupoles": twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query(
+            "k1l != 0 or k1sl != 0"
+        ),
+        "sextupoles": twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])].query(
+            "k2l != 0 or k2sl " "!= 0"
+        ),
+        "octupoles": twiss_df[twiss_df.keyword.isin(["multipole", "octupole"])].query(
+            "k3l != 0 or k3sl != " "0"
+        ),
+        "bpms": twiss_df[
+            (twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))
+        ],
+    }
+
+
+def _make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
+    """
+    Provided with an active `cpymad` instance after having ran a script, will returns different portions of
+    the survey table's dataframe for different magnetic elements.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+
+    Returns:
+        A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
+        quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
+    """
+    element_dfs = _make_elements_groups(madx)
+    quadrupoles_focusing_df = element_dfs["quadrupoles"].query("k1l > 0")
+    quadrupoles_defocusing_df = element_dfs["quadrupoles"].query("k1l < 0")
 
     logger.debug("Getting different element groups dframes from MAD-X survey")
-    dipoles_names = (
-        twiss_df[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])]
-        .query("k0l != 0 or k0sl != 0 or angle != 0")
-        .index.tolist()
-    )
-    quadrupoles_focusing_names = (
-        twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query("k1l > 0").index.tolist()
-    )
-    quadrupoles_defocusing_names = (
-        twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query("k1l < 0").index.tolist()
-    )
-    sextupoles_names = (
-        twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])]
-        .query("k2l != 0 or k2sl != 0")
-        .index.tolist()
-    )
-    octupoles_names = (
-        twiss_df[twiss_df.keyword.isin(["multipole", "octupole"])]
-        .query("k3l != 0 or k3sl != 0")
-        .index.tolist()
-    )
+    madx.command.survey()
+
+    survey_df = madx.table.survey.dframe().copy()
     return {
-        "dipoles": survey_df[survey_df.index.isin(dipoles_names)],
-        "quad_foc": survey_df[survey_df.index.isin(quadrupoles_focusing_names)],
-        "quad_defoc": survey_df[survey_df.index.isin(quadrupoles_defocusing_names)],
-        "sextupoles": survey_df[survey_df.index.isin(sextupoles_names)],
-        "octupoles": survey_df[survey_df.index.isin(octupoles_names)],
+        "dipoles": survey_df[survey_df.index.isin(element_dfs["dipoles"].index.tolist())],
+        "quad_foc": survey_df[survey_df.index.isin(quadrupoles_focusing_df.index.tolist())],
+        "quad_defoc": survey_df[survey_df.index.isin(quadrupoles_defocusing_df.index.tolist())],
+        "sextupoles": survey_df[survey_df.index.isin(element_dfs["sextupoles"].index.tolist())],
+        "octupoles": survey_df[survey_df.index.isin(element_dfs["octupoles"].index.tolist())],
     }
