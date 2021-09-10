@@ -45,11 +45,8 @@ def plot_latwiss(
 ) -> matplotlib.figure.Figure:
     """
     Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
-    the lattice layout and the beta functions along with the horizontal dispertion function. This is very
-    heavily refactored code, inspired by code from Guido Sterbini.
-
-    WARNING: This WILL FAIL if you have not included 'q' or 'Q' in your quadrupoles' names, and 'b' or 'B'
-    in your dipoles' names when defining your MAD-X sequence.
+    the lattice layout and the beta functions along with the horizontal dispertion function. This is very,
+    very heavily reworked code, inspired by code from Guido Sterbini.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -97,6 +94,7 @@ def plot_latwiss(
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.info("Plotting optics functions and machine layout")
     logger.debug("Getting Twiss dataframe from cpymad")
+    madx.command.twiss()
     twiss_df = madx.table.twiss.dframe().copy()
     twiss_df.s = twiss_df.s - xoffset
     xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
@@ -156,6 +154,7 @@ def plot_latwiss(
     return figure
 
 
+# TODO: fix the colormap which goes to 1 and not the full machine length
 def plot_machine_survey(
     madx: Madx,
     title: str = "Machine Layout",
@@ -285,12 +284,10 @@ def _plot_machine_layout(
     **kwargs,
 ) -> None:
     """
-    Provided with an active Cpymad class after having ran a script, will plot the lattice layout and the
-    on a given axis. This is the function that takes care of the machine layout in `plot_latwiss`, and
+    Provided with an active `cpymad` class after having ran a script, will plot the lattice layout on a
+    given axis. This is the function that takes care of the machine layout in `plot_latwiss`, and
     is in theory a private function, though if you know what you are doing you may use it individually.
-
-    WARNING: This WILL FAIL if you have not included 'q' or 'Q' in your quadrupoles' names, and 'b' or 'B'
-    in your dipoles' names when defining your MAD-X sequence.
+    The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -328,10 +325,24 @@ def _plot_machine_layout(
     """
     # pylint: disable=too-many-arguments
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
-    logger.trace("Getting Twiss dataframe from cpymad")
+    logger.trace("Getting Twiss table from MAD-X")
+    madx.command.twiss()
     twiss_df = madx.table.twiss.dframe().copy()
     twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
+
+    logger.debug("Extracting element-specific dataframes")
+    # Elements are detected by their keyword being multipole or their element type, and having a non-zero
+    # compenent in their order (knl / knsl)
+    dipoles_df = twiss_df[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])].query(
+        "k0l != 0 or k0sl != 0 or angle != 0"
+    )
+    quadrupoles_df = twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query(
+        "k1l != 0 or k1sl != 0"
+    )
+    sextupoles_df = twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])].query("k2l != 0 or k2sl != 0")
+    # This is a bit LHC-specific but we assume BPM elements have 'BPM' in their names
+    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
 
     logger.debug("Plotting machine layout")
     logger.trace(f"Plotting from axis '{quadrupole_patches_axis}'")
@@ -349,37 +360,21 @@ def _plot_machine_layout(
     dipole_patches_axis.set_ylim(k0l_lim)
     dipole_patches_axis.grid(False)
 
-    # All elements can be defined as a 'multipole', but dipoles can also be defined as 'rbend' or 'sbend',
-    # quadrupoles as 'quadrupoles' and sextupoles as 'sextupoles'. Function does not handle higher orders.
-    logger.debug("Extracting element-specific dataframes")
-    dipoles_df = twiss_df[
-        (twiss_df.keyword.isin(["multipole", "rbend", "sbend"]))
-        & (twiss_df.name.str.contains("B", case=False))
-    ]
-    quadrupoles_df = twiss_df[
-        (twiss_df.keyword.isin(["multipole", "quadrupole"])) & (twiss_df.name.str.contains("Q", case=False))
-    ]
-    sextupoles_df = twiss_df[
-        (twiss_df.keyword.isin(["multipole", "sextupole"])) & (twiss_df.name.str.contains("S", case=False))
-    ]
-    bpms_df = twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))]
-
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
         logger.debug("Plotting dipole patches")
         plotted_elements = 0  # will help us not declare a label for legend at every patch
-        for dipole_name, dipole in dipoles_df.iterrows():  # by default twiss.dframe() has names as index
-            if dipole.k0l != 0 or dipole.angle != 0:
-                logger.trace(f"Plotting dipole element '{dipole_name}'")
-                _plot_lattice_series(
-                    dipole_patches_axis,
-                    dipole,
-                    height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
-                    v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
-                    color="royalblue",
-                    label="MB" if plotted_elements == 0 else None,
-                    **kwargs,
-                )
-                plotted_elements += 1
+        for dipole_name, dipole in dipoles_df.iterrows():
+            logger.trace(f"Plotting dipole element '{dipole_name}'")
+            _plot_lattice_series(
+                dipole_patches_axis,
+                dipole,
+                height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
+                v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
+                color="royalblue",
+                label="MB" if plotted_elements == 0 else None,  # avoid duplicating legend labels
+                **kwargs,
+            )
+            plotted_elements += 1
         dipole_patches_axis.legend(loc=1, fontsize=16)
 
     if plot_quadrupoles:
@@ -393,7 +388,7 @@ def _plot_machine_layout(
                 height=quadrupole.k1l,
                 v_offset=quadrupole.k1l / 2,
                 color="r",
-                label="MQ" if plotted_elements == 0 else None,
+                label="MQ" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
             plotted_elements += 1
@@ -415,7 +410,7 @@ def _plot_machine_layout(
                 height=sextupole.k2l,
                 v_offset=sextupole.k2l / 2,
                 color="goldenrod",
-                label="MS" if plotted_elements == 0 else None,
+                label="MS" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
             plotted_elements += 1
@@ -436,7 +431,7 @@ def _plot_machine_layout(
                 height=2,
                 v_offset=0,
                 color="dimgrey",
-                label="BPM" if plotted_elements == 0 else None,
+                label="BPM" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
             plotted_elements += 1
@@ -450,7 +445,8 @@ def _plot_machine_layout(
 def _make_survey_groups(survey_df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
     """
     Gets a survey dataframe and returns different sub-dataframes corresponding to different
-    magnetic elements.
+    magnetic elements. The differentiation is very simplistic and specific to the survey table, which does
+    not provide k0l, k0sl etc values like the TWISS table.
 
     Args:
         survey_df (pd.DataFrame): machine survey dataframe obtained from your Madx instance, with
