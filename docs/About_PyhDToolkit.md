@@ -11,11 +11,11 @@ For now, `PyhDToolkit` provides some of the following features:
 
 - A `cpymadtools` module with tools building on [`cpymad`][cpymad], a Python bindings library for the [`MAD-X`][madx] code; including generators, matching routines, plotting utilities etc.
 - A `maths` module for useful methods used in analysis.
+- A `models` module for useful [`pydantic`][pydantic]-validated models used in the package.
 - An `optics` module for particle accelerator physics related calculations and analysis.
 - A `plotting` module for various `matplotlib` helpers.
 - A `utils` module for various Python and UNIX utilities.
 
 [cpymad]: https://github.com/hibtc/cpymad
 [madx]: https://mad.web.cern.ch/mad/
-[omc3]: https://github.com/pylhc/omc3
-[tfs]: https://github.com/pylhc/tfs
+[pydantic]: https://pydantic-docs.helpmanual.io/

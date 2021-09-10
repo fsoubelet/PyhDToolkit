@@ -51,6 +51,10 @@ docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/h
 
 Any jupyter notebook or Python files in the mounted directory can then be used / ran with an environment identical to mine.
 
+## Examples
+
+One can find some example notebooks showcasing use of `pyhdtoolkit` in the following [repository][workflows_repo].
+
 ## Citing
 
 If you have a use of these codes, please consider citing them.
@@ -74,5 +78,6 @@ To cite a specific version, select the version on the package's page on Zotero a
 [pip]: https://pip.pypa.io/en/stable/
 [Poetry]: https://python-poetry.org/
 [pylint_ref]: https://www.pylint.org/
+[workflows_repo]: https://github.com/fsoubelet/Workflows
 [DOI]: https://zenodo.org/badge/latestdoi/227081702
 [Zenodo]: https://zenodo.org
