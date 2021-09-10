@@ -828,10 +828,12 @@ class TestSpecial:
             assert madx.globals[left_knob] == (1 - knob_value * 0.005) * current_left_knob
 
     @pytest.mark.parametrize("knob_value", [1e-3, 3e-3, 5e-5])
-    def test_coupling_knob(self, knob_value, _non_matched_lhc_madx):
+    @pytest.mark.parametrize("telescopic_squeeze", [False, True])
+    def test_coupling_knob(self, knob_value, _non_matched_lhc_madx, telescopic_squeeze):
         madx = _non_matched_lhc_madx
-        apply_lhc_coupling_knob(madx, coupling_knob=knob_value, beam=1)
-        assert madx.globals[f"CMRS.b1"] == knob_value
+        apply_lhc_coupling_knob(madx, coupling_knob=knob_value, beam=1, telescopic_squeeze=telescopic_squeeze)
+        knob_suffix = "_sq" if telescopic_squeeze else ""
+        assert madx.globals[f"CMRS.b1{knob_suffix}"] == knob_value
 
     @pytest.mark.parametrize("energy", [450, 6500, 7000])
     def test_make_lhc_beams(self, energy, _bare_lhc_madx):
