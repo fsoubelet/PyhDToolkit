@@ -16,7 +16,7 @@ from loguru import logger
 
 
 def get_lhc_tune_and_chroma_knobs(
-    accelerator: str, beam: int = 1, telescopic_squeeze: bool = False
+    accelerator: str, beam: int = 1, telescopic_squeeze: bool = True
 ) -> Tuple[str, str, str, str]:
     """
     INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
@@ -27,7 +27,7 @@ def get_lhc_tune_and_chroma_knobs(
             (kqt[fd], ks[fd] knobs).
         beam (int): Beam to use, for the knob names.
         telescopic_squeeze (bool): if set to True, returns the knobs for Telescopic Squeeze configuration.
-            Defaults to False.
+            Defaults to `True`.
 
     Returns:
         Tuple of strings with knobs for `(qx, qy, dqx, dqy)`.
@@ -122,12 +122,12 @@ def match_tunes_and_chromaticities(
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
-    elif q1_target is not None and q2_target is not None and dq1_target is None and dq2_target is None:
+    elif q1_target is not None and q2_target is not None:
         logger.info(f"Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence '{sequence}'")
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, q1=q1_target, q2=q2_target)  # sent varied_knobs should be tune knobs
 
-    elif dq1_target is not None and dq2_target is not None and q1_target is None and q2_target is None:
+    elif dq1_target is not None and dq2_target is not None:
         logger.info(f"Matching chromaticities to dq1={dq1_target}, dq2={dq2_target} for sequence {sequence}")
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, dq1=dq1_target, dq2=dq2_target)  # sent varied_knobs should be chromaticity knobs
@@ -138,7 +138,7 @@ def get_closest_tune_approach(
     accelerator: str = None,
     sequence: str = None,
     varied_knobs: Sequence[str] = None,
-    telescopic_squeeze: bool = False,
+    telescopic_squeeze: bool = True,
     explicit_targets: Tuple[float, float] = None,
     step: float = 1e-7,
     calls: float = 100,
@@ -161,7 +161,7 @@ def get_closest_tune_approach(
             could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
             sextupole strengths (foc / defoc) in most examples.
         telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic
-            Squeeze configuration. Defaults to False.
+            Squeeze configuration. Defaults to `True`.
         explicit_targets (Tuple[float, float]): if given, will be used as matching targets for Qx, Qy.
             Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to
             None.
@@ -178,6 +178,9 @@ def get_closest_tune_approach(
             accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
         )
 
+    logger.debug("Running TWISS to update SUMM and TWISS tables")
+    madx.command.twiss()
+
     logger.debug("Saving knob values to restore after closest tune approach")
     saved_knobs: Dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
     logger.trace(f"Saved knobs are {saved_knobs}")
@@ -188,13 +191,13 @@ def get_closest_tune_approach(
     else:
         logger.trace("Retrieving tunes and chromaticities from internal tables")
         q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
-        dq1, dq2 = madx.table.summ.dq1[0], madx.table.summ.dq2[0]
-        logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}")
+    dq1, dq2 = madx.table.summ.dq1[0], madx.table.summ.dq2[0]
+    logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}")
 
-        logger.trace("Determining target tunes for closest approach")
-        middle_of_fractional_tunes = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
-        qx_target = int(q1) + middle_of_fractional_tunes
-        qy_target = int(q2) + middle_of_fractional_tunes
+    logger.trace("Determining target tunes for closest approach")
+    middle_of_fractional_tunes = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
+    qx_target = int(q1) + middle_of_fractional_tunes
+    qy_target = int(q2) + middle_of_fractional_tunes
     logger.debug(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
 
     logger.info("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
@@ -202,8 +205,10 @@ def get_closest_tune_approach(
         madx,
         accelerator,
         sequence,
-        qx_target,
-        qy_target,
+        q1_target=qx_target,
+        q2_target=qy_target,
+        dq1_target=dq1,
+        dq2_target=dq2,
         varied_knobs=varied_knobs,
         step=step,
         calls=calls,
@@ -212,13 +217,15 @@ def get_closest_tune_approach(
 
     logger.debug("Retrieving tune separation from internal tables")
     dqmin = madx.table.summ.q1[0] - madx.table.summ.q2[0] - (int(q1) - int(q2))
+    cminus = abs(dqmin)
+    logger.debug(f"Matching got to a Closest Tune Approach of {cminus:.4f}")
 
     logger.info("Restoring saved knobs")
     with madx.batch():
         madx.globals.update(saved_knobs)
     madx.twiss()
 
-    return abs(dqmin)
+    return cminus
 
 
 # ----- Helpers ----- #
