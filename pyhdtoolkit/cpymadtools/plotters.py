@@ -155,15 +155,15 @@ class DynamicAperturePlotter:
 
     @staticmethod
     def plot_dynamic_aperture(
-        vx_coords: np.ndarray, vy_coords: np.ndarray, n_particles: int, savefig: str = None
+        x_coords: np.ndarray, y_coords: np.ndarray, n_particles: int, savefig: str = None
     ) -> matplotlib.figure.Figure:
         """
         Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
         vertical axis, and the turn at which they were lost is in the horizontal axis.
 
         Args:
-            vx_coords (np.ndarray): numpy array of horizontal coordinates over turns.
-            vy_coords (np.ndarray): numpy array of vertical coordinates over turns.
+            x_coords (np.ndarray): numpy array of horizontal coordinates over turns.
+            y_coords (np.ndarray): numpy array of vertical coordinates over turns.
             n_particles (int): number of particles simulated.
             savefig (str): will save the figure if this is not None, using the string value passed.
 
@@ -176,11 +176,11 @@ class DynamicAperturePlotter:
         x_in_lost = []
 
         for particle in range(n_particles):
-            nb = len(vx_coords[particle]) - max(
-                np.isnan(vx_coords[particle]).sum(), np.isnan(vy_coords[particle]).sum()
+            nb = len(x_coords[particle]) - max(
+                np.isnan(x_coords[particle]).sum(), np.isnan(y_coords[particle]).sum()
             )
             turn_lost.append(nb)
-            x_in_lost.append(vx_coords[particle][0] ** 2 + vy_coords[particle][0] ** 2)
+            x_in_lost.append(x_coords[particle][0] ** 2 + y_coords[particle][0] ** 2)
         turn_lost = np.array(turn_lost)
         x_in_lost = np.array(x_in_lost)
 
@@ -285,8 +285,9 @@ class PhaseSpacePlotter:
              'fig.get_axes()'. Eventually saves the figure as a file.
         """
         if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
-            logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
+            logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
             raise ValueError("Invalid plane value")
+
         # Getting a sufficiently long array of colors to use
         colors = int(np.floor(len(u_coordinates) / 100)) * SORTED_COLORS
         while len(colors) > len(u_coordinates):
