@@ -29,7 +29,7 @@ def get_amplitude_detuning(
     internal `SUMM` table.
 
     The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration
-    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use
+    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use
     exact Hamiltonian, not an approximated one).
 
     The `PTC_NORMAL` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`
@@ -115,7 +115,7 @@ def get_rdts(
     internal `SUMM` table.
 
     The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration
-    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use
+    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use
     exact Hamiltonian, not an approximated one).
 
     The `PTC_TWISS` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`
@@ -176,7 +176,7 @@ def ptc_twiss(
     does not track RDTs which makes the calculations significantly faster.
 
     The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration
-    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use
+    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use
     exact Hamiltonian, not an approximated one).
 
     The `PTC_TWISS` command is explicitely given `icase=6` to enforce 6D calculations (see the `MAD-X`
@@ -234,7 +234,7 @@ def ptc_track_particle(
     Tracks a single particle for nturns through PTC_TRACK, based on its initial coordinates.
 
     The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration
-    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use
+    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use
     exact Hamiltonian, not an approximated one).
 
     The `PTC_TRACK` command is explicitely given `ELEMENT_BY_ELEMENT=True` to force element by element
