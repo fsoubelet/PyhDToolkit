@@ -351,7 +351,6 @@ class TestMatching:
         """Using my CAS19 project's lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-
         assert madx.table.summ.q1[0] != q1_target
         assert madx.table.summ.q2[0] != q2_target
         assert madx.table.summ.dq1[0] != dq1_target
@@ -366,9 +365,40 @@ class TestMatching:
             dq2_target=dq2_target,
             varied_knobs=["kqf", "kqd", "ksf", "ksd"],
         )
-
         assert math.isclose(madx.table.summ.q1[0], q1_target, rel_tol=1e-3)
         assert math.isclose(madx.table.summ.q2[0], q2_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.dq1[0], dq1_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.dq2[0], dq2_target, rel_tol=1e-3)
+
+    @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
+    def test_tune_only_matching(self, q1_target, q2_target):
+        """Using my CAS19 project's lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        assert madx.table.summ.q1[0] != q1_target
+        assert madx.table.summ.q2[0] != q2_target
+
+        match_tunes_and_chromaticities(
+            madx=madx, sequence="CAS3", q1_target=q1_target, q2_target=q2_target, varied_knobs=["kqf", "kqd"],
+        )
+        assert math.isclose(madx.table.summ.q1[0], q1_target, rel_tol=1e-3)
+        assert math.isclose(madx.table.summ.q2[0], q2_target, rel_tol=1e-3)
+
+    @pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
+    def test_chroma_only_matching(self, dq1_target, dq2_target):
+        """Using my CAS19 project's lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        assert madx.table.summ.dq1[0] != dq1_target
+        assert madx.table.summ.dq2[0] != dq2_target
+
+        match_tunes_and_chromaticities(
+            madx=madx,
+            sequence="CAS3",
+            dq1_target=dq1_target,
+            dq2_target=dq2_target,
+            varied_knobs=["ksf", "ksd"],
+        )
         assert math.isclose(madx.table.summ.dq1[0], dq1_target, rel_tol=1e-3)
         assert math.isclose(madx.table.summ.dq2[0], dq2_target, rel_tol=1e-3)
 
@@ -381,7 +411,7 @@ class TestMatching:
         knobs = get_lhc_tune_and_chroma_knobs("lhc")
         knobs_before = {knob: madx.globals[knob] for knob in knobs}
         cminus = get_closest_tune_approach(madx, "lhc", "lhcb1")
-        knobs_after = {knob: madx.globals[knob] for knob in knobs}
+        knobs_after = {knob: madx.globals[knob] for knob in knobs}  # should be put back
 
         assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
         assert knobs_after == knobs_before
@@ -395,7 +425,7 @@ class TestMatching:
         knobs = get_lhc_tune_and_chroma_knobs("lhc")
         knobs_before = {knob: madx.globals[knob] for knob in knobs}
         cminus = get_closest_tune_approach(madx, "lhc", "lhcb1", explicit_targets=(62.315, 60.315))
-        knobs_after = {knob: madx.globals[knob] for knob in knobs}
+        knobs_after = {knob: madx.globals[knob] for knob in knobs}  # should be put back
 
         assert math.isclose(cminus, 2e-3, rel_tol=5e-2)
         assert knobs_after == knobs_before
