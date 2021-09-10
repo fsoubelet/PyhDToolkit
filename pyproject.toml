@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhdtoolkit"
-version = "0.13.3"
+version = "0.14.0"
 description = "An all-in-one toolkit package to easy my Python work in my PhD."
 authors = ["Felix Soubelet <felix.soubelet@cern.ch>"]
 license = "MIT"
@@ -22,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Physics",
