@@ -154,7 +154,6 @@ def plot_latwiss(
     return figure
 
 
-# TODO: fix the colormap which goes to 1 and not the full machine length
 def plot_machine_survey(
     madx: Madx,
     title: str = "Machine Layout",
@@ -165,7 +164,7 @@ def plot_machine_survey(
 ) -> matplotlib.figure.Figure:
     """
     Provided with an active Cpymad class after having ran a script, will create a plot
-    representing the machine geometry in 2D. Original code is from Guido Sterbini.
+    representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -188,7 +187,7 @@ def plot_machine_survey(
 
     if show_elements:
         logger.debug("Plotting survey with elements differentiation")
-        element_dfs = _make_survey_groups(survey)
+        element_dfs = _make_survey_groups(madx)
         plt.scatter(
             element_dfs["dipoles"].z,
             element_dfs["dipoles"].x,
@@ -217,10 +216,13 @@ def plot_machine_survey(
         logger.debug("Plotting survey without elements differentiation")
         plt.scatter(survey.z, survey.x, c=survey.s, marker=".")
 
+    # Trying a trick to ensure the colorbar scales values properly up to the max S value and not 1
+    plt.scatter(survey.z, survey.x, c=survey.s, marker="")
+    plt.colorbar(label=r"$S \ [m]$")
+
     plt.axis("equal")
-    plt.colorbar().set_label("$S$ $[m]$")
-    plt.xlabel("$Z$ $[m]$")
-    plt.ylabel("$X$ $[m]$")
+    plt.xlabel(r"$Z \ [m]$")
+    plt.ylabel(r"$X \ [m]$")
     plt.title(title)
 
     if savefig:
@@ -284,7 +286,7 @@ def _plot_machine_layout(
     **kwargs,
 ) -> None:
     """
-    Provided with an active `cpymad` class after having ran a script, will plot the lattice layout on a
+    Provided with an active `cpymad` instance after having ran a script, will plot the lattice layout on a
     given axis. This is the function that takes care of the machine layout in `plot_latwiss`, and
     is in theory a private function, though if you know what you are doing you may use it individually.
     The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.
@@ -442,42 +444,50 @@ def _plot_machine_layout(
 # ----- Helpers ----- #
 
 
-def _make_survey_groups(survey_df: pd.DataFrame) -> Dict[str, pd.DataFrame]:
+def _make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     """
-    Gets a survey dataframe and returns different sub-dataframes corresponding to different
-    magnetic elements. The differentiation is very simplistic and specific to the survey table, which does
-    not provide k0l, k0sl etc values like the TWISS table.
+    Provided with an active `cpymad` instance after having ran a script, will returns different portions of
+    the survey table's dataframe to different magnetic elements in a dictionary.
 
     Args:
-        survey_df (pd.DataFrame): machine survey dataframe obtained from your Madx instance, with
-            <instance>.table.survey.dframe().
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
 
     Returns:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
         quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
     """
+    logger.debug("Getting TWISS and SURVEY tables from MAD-X")
+    madx.command.twiss()
+    madx.command.survey()
+    twiss_df = madx.table.twiss.dframe().copy()
+    survey_df = madx.table.survey.dframe().copy()
+
     logger.debug("Getting different element groups dframes from MAD-X survey")
+    dipoles_names = (
+        twiss_df[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])]
+        .query("k0l != 0 or k0sl != 0 or angle != 0")
+        .index.tolist()
+    )
+    quadrupoles_focusing_names = (
+        twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query("k1l > 0").index.tolist()
+    )
+    quadrupoles_defocusing_names = (
+        twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query("k1l < 0").index.tolist()
+    )
+    sextupoles_names = (
+        twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])]
+        .query("k2l != 0 or k2sl != 0")
+        .index.tolist()
+    )
+    octupoles_names = (
+        twiss_df[twiss_df.keyword.isin(["multipole", "octupole"])]
+        .query("k3l != 0 or k3sl != 0")
+        .index.tolist()
+    )
     return {
-        "dipoles": survey_df[
-            (survey_df.keyword.isin(["multipole", "sbend", "rbend"]))
-            & (survey_df.name.str.contains("B", case=False))
-        ],
-        "quad_foc": survey_df[
-            (survey_df.keyword.isin(["multipole", "quadrupole"]))
-            & (survey_df.name.str.contains("Q", case=False))
-            & (survey_df.name.str.contains("F", case=False))
-        ],
-        "quad_defoc": survey_df[
-            (survey_df.keyword.isin(["multipole", "quadrupole"]))
-            & (survey_df.name.str.contains("Q", case=False))
-            & (survey_df.name.str.contains("D", case=False))
-        ],
-        "sextupoles": survey_df[
-            (survey_df.keyword.isin(["multipole", "sextupole"]))
-            & (survey_df.name.str.contains("S", case=False))
-        ],
-        "octupoles": survey_df[
-            (survey_df.keyword.isin(["multipole", "octupole"]))
-            & (survey_df.name.str.contains("O", case=False))
-        ],
+        "dipoles": survey_df[survey_df.index.isin(dipoles_names)],
+        "quad_foc": survey_df[survey_df.index.isin(quadrupoles_focusing_names)],
+        "quad_defoc": survey_df[survey_df.index.isin(quadrupoles_defocusing_names)],
+        "sextupoles": survey_df[survey_df.index.isin(sextupoles_names)],
+        "octupoles": survey_df[survey_df.index.isin(octupoles_names)],
     }
