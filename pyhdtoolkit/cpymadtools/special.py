@@ -174,7 +174,7 @@ def apply_lhc_rigidity_waist_shift_knob(
 
 
 def apply_lhc_coupling_knob(
-    madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = False
+    madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
 ) -> None:
     """
     Applies the LHC coupling knob to reach the desired C- value.
@@ -185,7 +185,7 @@ def apply_lhc_coupling_knob(
         so users don't mess up coupling by mistake
         beam (int): beam to apply the knob to, defaults to beam 1.
         telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.
-            Defaults to False.
+            Defaults to `True`.
     """
     logger.info("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this")
