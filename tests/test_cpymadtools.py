@@ -539,7 +539,7 @@ class TestOrbit:
         madx.twiss()
         assert madx.table.summ["xcorms"][0] > 1e-3
 
-        correct_lhc_orbit(madx)
+        correct_lhc_orbit(madx, sequence="lhcb1")
         assert math.isclose(madx.table.summ["xcorms"], 0, abs_tol=1e-5)
 
 
