@@ -161,6 +161,7 @@ def plot_machine_survey(
     savefig: str = None,
     show_elements: bool = False,
     high_orders: bool = False,
+    **kwargs,
 ) -> matplotlib.figure.Figure:
     """
     Provided with an active Cpymad class after having ran a script, will create a plot
@@ -175,6 +176,9 @@ def plot_machine_survey(
             Experimental, defaults to False.
         high_orders (bool): if True, plot sextupoles and octupoles when show_elements is True,
             otherwise only up to quadrupoles. Defaults to False.
+
+    Keyword Arguments:
+        Any keyword argument is transmiitted to `matplotlib.pyplot.scatter` calls later on.
 
     Returns:
          The figure on which the plots are drawn. The underlying axes can be accessed with
@@ -194,6 +198,7 @@ def plot_machine_survey(
             marker=".",
             c=element_dfs["dipoles"].s,
             label="Dipoles",
+            **kwargs,
         )
         plt.scatter(
             element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF",
@@ -214,10 +219,10 @@ def plot_machine_survey(
 
     else:
         logger.debug("Plotting survey without elements differentiation")
-        plt.scatter(survey.z, survey.x, c=survey.s, marker=".")
+        plt.scatter(survey.z, survey.x, c=survey.s, marker=".", **kwargs)
 
     # Trying a trick to ensure the colorbar scales values properly up to the max S value and not 1
-    plt.scatter(survey.z, survey.x, c=survey.s, marker="")
+    plt.scatter(survey.z, survey.x, c=survey.s, marker="", **kwargs)
     plt.colorbar(label=r"$S \ [m]$")
 
     plt.axis("equal")
