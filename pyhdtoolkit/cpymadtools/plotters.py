@@ -174,20 +174,22 @@ class DynamicAperturePlotter:
              The figure on which the plots are drawn. The underlying axes can be accessed with
              'fig.get_axes()'. Eventually saves the figure as a file.
         """
+        logger.info(f"Plotting the '{len(x_coords)} turns' aperture")
         figure = plt.figure(figsize=(12, 7))
-        turn_lost = []
-        x_in_lost = []
+        turn_lost_at = []
+        x_lost = []
 
+        logger.trace("Determining turns at which particles have been lost")
         for particle in range(n_particles):
-            nb = len(x_coords[particle]) - max(
-                np.isnan(x_coords[particle]).sum(), np.isnan(y_coords[particle]).sum()
-            )
-            turn_lost.append(nb)
-            x_in_lost.append(x_coords[particle][0] ** 2 + y_coords[particle][0] ** 2)
-        turn_lost = np.array(turn_lost)
-        x_in_lost = np.array(x_in_lost)
+            x_lost.append(x_coords[particle][0] ** 2 + y_coords[particle][0] ** 2)  # which initial x
+            turn_lost_at.append(min(
+                pd.Series(x_coords[particle]).last_valid_index() + 2,
+                pd.Series(y_coords[particle]).last_valid_index() + 2,
+            ))
+        turn_lost_at = np.array(turn_lost_at)
+        x_lost = np.array(x_lost)
 
-        plt.scatter(turn_lost, x_in_lost * 1000, linewidths=0.7, c="darkblue", marker=".")
+        plt.scatter(turn_lost_at, x_lost * 1000, linewidths=0.7, c="darkblue", marker=".")
         plt.title("Amplitudes lost over turns", fontsize=20)
         plt.xlabel("Number of Turns Survived", fontsize=17)
         plt.ylabel("Initial amplitude [mm]", fontsize=17)
