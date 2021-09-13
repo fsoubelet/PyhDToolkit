@@ -119,7 +119,7 @@ def plot_latwiss(
     )
 
     # Plotting beta functions on remaining two thirds of the figure
-    logger.debug("Setting up betatron functions subplot")
+    logger.debug("Plotting beta functions")
     betatron_axis = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis)
     betatron_axis.plot(twiss_df.s, twiss_df.betx, label="$\\beta_x$", lw=2)
     betatron_axis.plot(twiss_df.s, twiss_df.bety, label="$\\beta_y$", lw=2)
@@ -127,7 +127,7 @@ def plot_latwiss(
     betatron_axis.set_ylabel("$\\beta_{x,y}$ $[m]$")
     betatron_axis.set_xlabel("$S$ $[m]$")
 
-    logger.trace("Setting up dispersion functions subplot")
+    logger.debug("Plotting dispersion functions")
     dispertion_axis = betatron_axis.twinx()
     dispertion_axis.plot(twiss_df.s, twiss_df.dx, color="brown", label="$D_x$", lw=2)
     dispertion_axis.plot(twiss_df.s, twiss_df.dy, ls="-.", color="sienna", label="$D_y$", lw=2)
@@ -184,7 +184,8 @@ def plot_machine_survey(
          The figure on which the plots are drawn. The underlying axes can be accessed with
          'fig.get_axes()'. Eventually saves the figure as a file.
     """
-    logger.debug("Getting machine survey from cpymad")
+    logger.info("Plotting machine survey")
+    logger.trace("Getting machine survey from cpymad")
     madx.command.survey()
     survey = madx.table.survey.dframe()
     figure = plt.figure(figsize=figsize)
@@ -222,6 +223,7 @@ def plot_machine_survey(
         plt.scatter(survey.z, survey.x, c=survey.s, marker=".", **kwargs)
 
     # Trying a trick to ensure the colorbar scales values properly up to the max S value and not 1
+    logger.trace("Plotting trick invisible data to re-scale colorbar")
     plt.scatter(survey.z, survey.x, c=survey.s, marker="", **kwargs)
     plt.colorbar(label=r"$S \ [m]$")
 
@@ -338,7 +340,7 @@ def _plot_machine_layout(
     twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
 
-    logger.debug("Extracting element-specific dataframes")
+    logger.trace("Extracting element-specific dataframes")
     element_dfs = _make_elements_groups(madx)
     dipoles_df = element_dfs["dipoles"]
     quadrupoles_df = element_dfs["quadrupoles"]
@@ -362,7 +364,7 @@ def _plot_machine_layout(
     dipole_patches_axis.grid(False)
 
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
-        logger.debug("Plotting dipole patches")
+        logger.trace("Plotting dipole patches")
         plotted_elements = 0  # will help us not declare a label for legend at every patch
         for dipole_name, dipole in dipoles_df.iterrows():
             logger.trace(f"Plotting dipole element '{dipole_name}'")
@@ -379,7 +381,7 @@ def _plot_machine_layout(
         dipole_patches_axis.legend(loc=1, fontsize=16)
 
     if plot_quadrupoles:
-        logger.debug("Plotting quadrupole patches")
+        logger.trace("Plotting quadrupole patches")
         plotted_elements = 0
         for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
             logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
@@ -396,7 +398,7 @@ def _plot_machine_layout(
         quadrupole_patches_axis.legend(loc=2, fontsize=16)
 
     if k2l_lim:
-        logger.debug("Plotting sextupole patches")
+        logger.trace("Plotting sextupole patches")
         sextupoles_patches_axis = quadrupole_patches_axis.twinx()
         sextupoles_patches_axis.set_ylabel("K2L [m$^{-2}$]", color="darkgoldenrod")
         sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
@@ -419,7 +421,7 @@ def _plot_machine_layout(
         sextupoles_patches_axis.grid(False)
 
     if plot_bpms:
-        logger.debug("Plotting BPM patches")
+        logger.trace("Plotting BPM patches")
         bpm_patches_axis = quadrupole_patches_axis.twinx()
         bpm_patches_axis.set_axis_off()  # hide yticks, labels etc
         bpm_patches_axis.set_ylim(-1.6, 1.6)
@@ -455,7 +457,7 @@ def _make_elements_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
         quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
     """
-    logger.debug("Getting TWISS table from MAD-X")
+    logger.trace("Getting TWISS table from MAD-X")
     madx.command.twiss()
     twiss_df = madx.table.twiss.dframe().copy()
 
