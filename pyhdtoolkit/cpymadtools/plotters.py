@@ -190,9 +190,9 @@ class DynamicAperturePlotter:
         amp_lost = np.array(amp_lost)
 
         plt.scatter(turn_lost_at, amp_lost * 1000, linewidths=0.7, c="darkblue", marker=".")
-        plt.title("Amplitudes lost over turns", fontsize=20)
-        plt.xlabel("Number of Turns Survived", fontsize=17)
-        plt.ylabel("Initial amplitude [mm]", fontsize=17)
+        plt.title("Amplitudes lost over turns")
+        plt.xlabel("Number of Turns Survived")
+        plt.ylabel("Initial amplitude $[mm]$")
 
         if savefig:
             logger.info(f"Saving dynamic aperture plot at '{Path(savefig).absolute()}'")
@@ -237,7 +237,7 @@ class PhaseSpacePlotter:
 
         logger.info("Plotting phase space for normalized Courant-Snyder coordinates")
         figure = plt.figure(figsize=size)
-        plt.title("Courant-Snyder Phase Space", fontsize=20)
+        plt.title("Courant-Snyder Phase Space")
 
         # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
         logger.debug("Getting Twiss functions from MAD-X")
@@ -251,11 +251,11 @@ class PhaseSpacePlotter:
             u_bar = courant_snyder_transform(u, alpha, beta)
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
             if plane.upper() == "HORIZONTAL":
-                plt.xlabel(r"$\bar{x} \ [mm]$", fontsize=17)
-                plt.ylabel(r"$\bar{px} \ [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{x} \ [mm]$")
+                plt.ylabel(r"$\bar{px} \ [mrad]$")
             else:
-                plt.xlabel(r"$\bar{y} \ [mm]$", fontsize=17)
-                plt.ylabel(r"$\bar{py} \ [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{y} \ [mm]$")
+                plt.ylabel(r"$\bar{py} \ [mrad]$")
             plt.axis("Equal")
 
         if savefig:
@@ -302,7 +302,7 @@ class PhaseSpacePlotter:
 
         logger.info("Plotting colored phase space for normalized Courant-Snyder coordinates")
         figure = plt.figure(figsize=size)
-        plt.title("Courant-Snyder Phase Space", fontsize=20)
+        plt.title("Courant-Snyder Phase Space")
 
         # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
         logger.debug("Getting Twiss functions from MAD-X")
@@ -316,11 +316,11 @@ class PhaseSpacePlotter:
             u_bar = courant_snyder_transform(u, alpha, beta)
             plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
             if plane.upper() == "HORIZONTAL":
-                plt.xlabel(r"$\bar{x} \ [mm]$", fontsize=17)
-                plt.ylabel(r"$\bar{px} \ [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{x} \ [mm]$")
+                plt.ylabel(r"$\bar{px} \ [mrad]$")
             else:
-                plt.xlabel(r"$\bar{y} \ [mm]$", fontsize=17)
-                plt.ylabel(r"$\bar{py} \ [mrad]$", fontsize=17)
+                plt.xlabel(r"$\bar{y} \ [mm]$")
+                plt.ylabel(r"$\bar{py} \ [mrad]$")
             plt.axis("Equal")
 
         if savefig:
@@ -389,12 +389,12 @@ class TuneDiagramPlotter:
                         plt.plot(c / a + x * b / a, 1 - x, "b", alpha=0.1)
                     if q == k and p == 1:  # FN elements below 1/k
                         break
-        plt.title("Tune Diagram", fontsize=20)
+        plt.title("Tune Diagram")
         plt.axis("square")
         plt.xlim([0, 1])
         plt.ylim([0, 1])
-        plt.xlabel("$Q_{x}$", fontsize=17)
-        plt.ylabel("$Q_{y}$", fontsize=17)
+        plt.xlabel("$Q_{x}$")
+        plt.ylabel("$Q_{y}$")
         return figure
 
     @staticmethod
