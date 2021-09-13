@@ -235,15 +235,16 @@ class PhaseSpacePlotter:
             logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
             raise ValueError("Invalid plane value")
 
+        logger.info("Plotting phase space for normalized Courant-Snyder coordinates")
         figure = plt.figure(figsize=size)
         plt.title("Courant-Snyder Phase Space", fontsize=20)
 
-        # Getting the P matrix to compute Courant-Snyder coordinates
-        logger.debug("Getting Twiss functions from cpymad")
+        # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
+        logger.debug("Getting Twiss functions from MAD-X")
         alpha = madx.table.twiss.alfx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.alfy[0]
         beta = madx.table.twiss.betx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.bety[0]
 
-        logger.debug(f"Plotting Courant-Snyder phase space for the {plane.lower()} plane")
+        logger.debug(f"Plotting phase space for the {plane.lower()} plane")
         for index, _ in enumerate(u_coordinates):
             logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
             u = np.array([u_coordinates[index], pu_coordinates[index]])
@@ -256,6 +257,7 @@ class PhaseSpacePlotter:
                 plt.xlabel(r"$\bar{y} \ [mm]$", fontsize=17)
                 plt.ylabel(r"$\bar{py} \ [mrad]$", fontsize=17)
             plt.axis("Equal")
+
         if savefig:
             logger.info(f"Saving Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
@@ -298,14 +300,16 @@ class PhaseSpacePlotter:
         while len(colors) > len(u_coordinates):
             colors.pop()
 
+        logger.info("Plotting colored phase space for normalized Courant-Snyder coordinates")
         figure = plt.figure(figsize=size)
         plt.title("Courant-Snyder Phase Space", fontsize=20)
 
-        logger.debug("Getting Twiss functions from cpymad")
+        # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
+        logger.debug("Getting Twiss functions from MAD-X")
         alpha = madx.table.twiss.alfx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.alfy[0]
         beta = madx.table.twiss.betx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.bety[0]
 
-        logger.debug(f"Plotting colored normalised phase space for the {plane.lower()} plane")
+        logger.debug(f"Plotting colored phase space for the {plane.lower()} plane")
         for index, _ in enumerate(u_coordinates):
             logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
             u = np.array([u_coordinates[index], pu_coordinates[index]])
@@ -318,6 +322,7 @@ class PhaseSpacePlotter:
                 plt.xlabel(r"$\bar{y} \ [mm]$", fontsize=17)
                 plt.ylabel(r"$\bar{py} \ [mrad]$", fontsize=17)
             plt.axis("Equal")
+
         if savefig:
             logger.info(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
