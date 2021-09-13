@@ -9,7 +9,7 @@ A collection of functions to plot different output results from a cpymad.madx.Ma
 simulation results.
 """
 from pathlib import Path
-from typing import Tuple
+from typing import List, Tuple
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -335,7 +335,7 @@ class TuneDiagramPlotter:
     """
 
     @staticmethod
-    def farey_sequence(order: int) -> list:
+    def farey_sequence(order: int) -> List[Tuple[int, int]]:
         """
         Returns the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
 
@@ -343,14 +343,15 @@ class TuneDiagramPlotter:
             order (int): the order up to which we want to calculate the sequence.
 
         Returns:
-            The sequence as a list.
+            The sequence as a list of plottable 2D points.
         """
+        logger.trace(f"Computing Farey sequence for order {order}")
         seq = [[0, 1]]
         a, b, c, d = 0, 1, 1, order
         while c <= order:
             k = int((order + b) / d)
             a, b, c, d = c, d, k * c - a, k * d - b
-            seq.append([a, b])
+            seq.append((a, b))
         return seq
 
     @staticmethod
