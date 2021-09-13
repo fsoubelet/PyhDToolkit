@@ -366,7 +366,6 @@ class TuneDiagramPlotter:
              The figure on which resonance lines from farey sequences are drawn.
         """
         logger.debug("Plotting resonance lines from Farey sequence, up to 5th order")
-
         figure = plt.figure(figsize=figsize)
         plt.ylim((0, 1))
         plt.xlim((0, 1))
@@ -423,7 +422,8 @@ class TuneDiagramPlotter:
         """
         figure = TuneDiagramPlotter.plot_blank_tune_diagram()
 
-        logger.debug("Getting Tunes from cpymad")
+        logger.debug("Getting Tunes from MAD-X")
+        madx.command.twiss()
         new_q1: float = madx.table.summ.q1[0]
         new_q2: float = madx.table.summ.q2[0]
 
