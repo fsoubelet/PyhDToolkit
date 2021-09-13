@@ -378,7 +378,7 @@ def _plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        dipole_patches_axis.legend(loc=1, fontsize=16)
+        dipole_patches_axis.legend(loc=1)
 
     if plot_quadrupoles:
         logger.trace("Plotting quadrupole patches")
@@ -395,7 +395,7 @@ def _plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        quadrupole_patches_axis.legend(loc=2, fontsize=16)
+        quadrupole_patches_axis.legend(loc=2)
 
     if k2l_lim:
         logger.trace("Plotting sextupole patches")
@@ -417,7 +417,7 @@ def _plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        sextupoles_patches_axis.legend(loc=3, fontsize=16)
+        sextupoles_patches_axis.legend(loc=3)
         sextupoles_patches_axis.grid(False)
 
     if plot_bpms:
@@ -438,7 +438,7 @@ def _plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        bpm_patches_axis.legend(loc=4, fontsize=16)
+        bpm_patches_axis.legend(loc=4)
         bpm_patches_axis.grid(False)
 
 
