@@ -184,8 +184,8 @@ class DynamicAperturePlotter:
             amp_lost.append(x_coords[particle][0] ** 2 + y_coords[particle][0] ** 2)  # initial amplitude
             # this is ok since once coordinates go to `nan` they don't come back, particle is lost
             turn_lost_at.append(min(
-                pd.Series(x_coords[particle]).last_valid_index() + 2,
-                pd.Series(y_coords[particle]).last_valid_index() + 2,
+                pd.Series(x_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid
+                pd.Series(y_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid
             ))
         turn_lost_at = np.array(turn_lost_at)
         amp_lost = np.array(amp_lost)
