@@ -400,7 +400,7 @@ def _plot_machine_layout(
     if k2l_lim:
         logger.trace("Plotting sextupole patches")
         sextupoles_patches_axis = quadrupole_patches_axis.twinx()
-        sextupoles_patches_axis.set_ylabel("K2L [m$^{-2}$]", color="darkgoldenrod")
+        sextupoles_patches_axis.set_ylabel("$K_{2}L$ $[m^{-2}]$", color="darkgoldenrod")
         sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
         sextupoles_patches_axis.spines["right"].set_position(("axes", 1.1))
         sextupoles_patches_axis.set_ylim(k2l_lim)
