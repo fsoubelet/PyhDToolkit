@@ -32,6 +32,8 @@ BY_HSV = sorted(
 )
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
+# TODO: increase logging in this module
+
 
 class AperturePlotter:
     """
@@ -71,14 +73,15 @@ class AperturePlotter:
         """
         # pylint: disable=too-many-arguments
         # We need to interpolate in order to get high resolution along the S direction
-        logger.debug("Running interpolation in cpymad")
+        logger.info("Plotting estimated machine aperture and beam envelope")
+        logger.debug("Running interpolation in MAD-X")
         madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
         madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
         madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e")
         madx.command.select(flag="interpolate", class_="rbend", slice_=10, range_="#s/#e")
-        madx.twiss()
+        madx.command.twiss()
 
-        logger.trace("Getting Twiss dframe from cpymad")
+        logger.trace("Getting Twiss dframe from MAD-X")
         twiss_hr: pd.DataFrame = madx.table.twiss.dframe().copy()
         twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params.eg_y_m)
         twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params.eg_y_m)
