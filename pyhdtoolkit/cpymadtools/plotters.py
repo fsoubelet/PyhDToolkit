@@ -220,9 +220,11 @@ class PhaseSpacePlotter:
 
         Args:
             madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            u_coordinates (np.ndarray): numpy array of particles's coordinates for the given plane.
-            pu_coordinates (np.ndarray): numpy array of particles's momentum coordinates for the
-                given plane.
+            u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
+                u_coordinates[0] should be all tracked coordinates for the first particle and so on.
+            pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
+                given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
+                and so on.
             savefig (str): will save the figure if this is not None, using the string value passed.
             size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
             plane (str): the physical plane to plot. Defaults to 'Horizontal'.
@@ -280,9 +282,11 @@ class PhaseSpacePlotter:
 
         Args:
             madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            u_coordinates (np.ndarray): numpy array of particles's coordinates for the given plane.
-            pu_coordinates (np.ndarray): numpy array of particles's momentum coordinates for the
-                given plane.
+            u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
+                u_coordinates[0] should be all tracked coordinates for the first particle and so on.
+            pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
+                given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
+                and so on.
             savefig (str): will save the figure if this is not None, using the string value passed.
             size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
             plane (str): the physical plane to plot. Defaults to 'Horizontal'.
