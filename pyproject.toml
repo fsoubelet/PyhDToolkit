@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhdtoolkit"
-version = "0.13.2"
+version = "0.13.3"
 description = "An all-in-one toolkit package to easy my Python work in my PhD."
 authors = ["Felix Soubelet <felix.soubelet@cern.ch>"]
 license = "MIT"
@@ -22,6 +22,7 @@ classifiers = [
     "Programming Language :: Python :: 3 :: Only",
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Physics",
@@ -36,7 +37,7 @@ numpy = "^1.19"
 pandas = "^1.0"
 matplotlib = "^3.0"
 scipy = "^1.4"
-tfs-pandas = "^2.0"
+tfs-pandas = "^3.0"
 loguru = "<1.0"
 cpymad = "^1.9"
 rich = "^10.0"

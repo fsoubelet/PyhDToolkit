@@ -174,7 +174,7 @@ def apply_lhc_rigidity_waist_shift_knob(
 
 
 def apply_lhc_coupling_knob(
-    madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = False
+    madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
 ) -> None:
     """
     Applies the LHC coupling knob to reach the desired C- value.
@@ -185,7 +185,7 @@ def apply_lhc_coupling_knob(
         so users don't mess up coupling by mistake
         beam (int): beam to apply the knob to, defaults to beam 1.
         telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.
-            Defaults to False.
+            Defaults to `True`.
     """
     logger.info("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this")
@@ -449,20 +449,20 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     ]
 
     logger.trace("Defining slices for general MB and MQ elements")
-    madx.select(flag="makethin", class_="MB", slice=2)
-    madx.select(flag="makethin", class_="MQ", slice=2 * slicefactor)
+    madx.select(flag="makethin", class_="MB", slice_=2)
+    madx.select(flag="makethin", class_="MQ", slice_=2 * slicefactor)
 
     logger.trace("Defining slices for triplets")
-    madx.select(flag="makethin", class_="mqxa", slice=16 * slicefactor)
-    madx.select(flag="makethin", class_="mqxb", slice=16 * slicefactor)
+    madx.select(flag="makethin", class_="mqxa", slice_=16 * slicefactor)
+    madx.select(flag="makethin", class_="mqxb", slice_=16 * slicefactor)
 
     logger.trace("Defining slices for various specifc mb elements")
     for pattern in four_slices_patterns:
-        madx.select(flag="makethin", pattern=pattern, slice=4)
+        madx.select(flag="makethin", pattern=pattern, slice_=4)
 
     logger.trace("Defining slices for varous specifc mq elements")
     for pattern in four_slicefactor_patterns:
-        madx.select(flag="makethin", pattern=pattern, slice=4 * slicefactor)
+        madx.select(flag="makethin", pattern=pattern, slice_=4 * slicefactor)
 
     madx.use(sequence=sequence)
     style = kwargs.get("style", "teapot")
