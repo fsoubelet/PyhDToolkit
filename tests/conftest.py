@@ -46,3 +46,29 @@ def _non_matched_lhc_madx() -> Madx:
     madx.use(sequence="lhcb1")
     yield madx
     madx.exit()
+
+
+@pytest.fixture()
+def _matched_lhc_madx() -> Madx:
+    """Important properties & beam for lhcb1 declared and in use, WITH matching to working point."""
+    madx = Madx(stdout=False)
+    madx.call(str(LHC_SEQUENCE.absolute()))
+    madx.call(str(LHC_OPTICS.absolute()))
+
+    NRJ = madx.globals["NRJ"] = 6500
+    madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
+    geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
+    madx.command.beam(
+        sequence="lhcb1",
+        bv=1,
+        energy=NRJ,
+        particle="proton",
+        npart=1.0e10,
+        kbunch=1,
+        ex=geometric_emit,
+        ey=geometric_emit,
+    )
+    madx.use(sequence="lhcb1")
+    match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
+    yield madx
+    madx.exit()
