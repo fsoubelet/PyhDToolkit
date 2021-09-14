@@ -4,6 +4,8 @@ import pytest
 
 from cpymad.madx import Madx
 
+from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
+
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
 LHC_SEQUENCE = INPUTS_DIR / "lhc_as-built.seq"
