@@ -96,24 +96,6 @@ class TestPTC:
 
 
 @pytest.fixture()
-def _matched_base_lattice() -> Madx:
-    """Base CAS lattice matched to default working point."""
-    madx = Madx(stdout=False)
-    madx.input(BASE_LATTICE)
-    match_tunes_and_chromaticities(
-        madx=madx,
-        sequence="CAS3",
-        q1_target=6.335,
-        q2_target=6.29,
-        dq1_target=100,
-        dq2_target=100,
-        varied_knobs=["kqf", "kqd", "ksf", "ksd"],
-    )
-    yield madx
-    madx.exit()
-
-
-@pytest.fixture()
 def _ampdet_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "ampdet.tfs"
 

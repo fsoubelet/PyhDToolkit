@@ -4,8 +4,10 @@ import pytest
 
 from cpymad.madx import Madx
 
+from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
+BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
 LHC_SEQUENCE = INPUTS_DIR / "lhc_as-built.seq"
@@ -13,6 +15,24 @@ LHC_OPTICS = INPUTS_DIR / "opticsfile.22"
 
 
 # ----- Fixtures for cpymadtools tests ----- #
+
+
+@pytest.fixture()
+def _matched_base_lattice() -> Madx:
+    """Base CAS lattice matched to default working point."""
+    madx = Madx(stdout=False)
+    madx.input(BASE_LATTICE)
+    match_tunes_and_chromaticities(
+        madx=madx,
+        sequence="CAS3",
+        q1_target=6.335,
+        q2_target=6.29,
+        dq1_target=100,
+        dq2_target=100,
+        varied_knobs=["kqf", "kqd", "ksf", "ksd"],
+    )
+    yield madx
+    madx.exit()
 
 
 @pytest.fixture()
