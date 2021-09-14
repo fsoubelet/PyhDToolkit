@@ -10,7 +10,20 @@ LHC_SEQUENCE = INPUTS_DIR / "lhc_as-built.seq"
 LHC_OPTICS = INPUTS_DIR / "opticsfile.22"
 
 
-@pytest.fixture(scope="function")
+# ----- Fixtures for cpymadtools tests ----- #
+
+
+@pytest.fixture()
+def _bare_lhc_madx() -> Madx:
+    """Only loading sequence and optics."""
+    madx = Madx(stdout=False)
+    madx.call(str(LHC_SEQUENCE.absolute()))
+    madx.call(str(LHC_OPTICS.absolute()))
+    yield madx
+    madx.exit()
+
+
+@pytest.fixture()
 def _non_matched_lhc_madx() -> Madx:
     """Important properties & beam for lhcb1 declared and in use, NO MATCHING done here."""
     madx = Madx(stdout=False)
