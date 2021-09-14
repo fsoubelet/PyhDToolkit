@@ -1,20 +1,12 @@
-import pathlib
 import random
 
 import pytest
-from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.errors import (
     misalign_lhc_ir_quadrupoles,
     misalign_lhc_triplets,
     switch_magnetic_errors,
 )
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-
-CURRENT_DIR = pathlib.Path(__file__).parent
-INPUTS_DIR = CURRENT_DIR.parent / "inputs"
-LHC_SEQUENCE = INPUTS_DIR / "lhc_as-built.seq"
-LHC_OPTICS = INPUTS_DIR / "opticsfile.22"
 
 
 class TestErrors:
@@ -99,5 +91,3 @@ class TestErrors:
         error_table = madx.table["triplet_errors"].dframe().copy()
         assert all(error_table["dx"] != 0)
         assert all(error_table["dpsi"] != 0)
-
-

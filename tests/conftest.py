@@ -1,6 +1,7 @@
 import pathlib
 
 import pytest
+
 from cpymad.madx import Madx
 
 CURRENT_DIR = pathlib.Path(__file__).parent
