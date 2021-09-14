@@ -746,6 +746,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -1220,6 +1227,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#instance-variables" class="md-nav__link">
+    Instance variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#methods" class="md-nav__link">
     Methods
   </a>
@@ -1292,6 +1306,8 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sqrt</span>
+
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span>
 
 <span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
@@ -1306,29 +1322,105 @@
 
     <span class="n">pc_GeV</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Beam momentum [GeV]</span>
 
-    <span class="n">B_rho_Tm</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Beam rigidity [T/m]</span>
+    <span class="n">E_0_GeV</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.9382720813</span>  <span class="c1"># Particle rest mass energy [GeV], defaults to that of a proton</span>
 
-    <span class="n">E_0_GeV</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Particle rest mass energy [GeV]</span>
-
-    <span class="n">charge</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Particle charge in [e]</span>
-
-    <span class="n">E_tot_GeV</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Total beam energy [GeV]</span>
-
-    <span class="n">E_kin_GeV</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Kinectic beam energy [GeV]</span>
-
-    <span class="n">gamma_r</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Relativistic gamma</span>
-
-    <span class="n">beta_r</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Relativistic beta</span>
+    <span class="n">charge</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Particle charge in [e], defaults to that of a proton</span>
 
     <span class="n">en_x_m</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Horizontal normalized emittance [m]</span>
 
     <span class="n">en_y_m</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Vertical normalized emittance [m]</span>
 
-    <span class="n">eg_x_m</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Horizontal geometrical emittance</span>
-
-    <span class="n">eg_y_m</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Vertical geometrical emittance</span>
-
     <span class="n">deltap_p</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">float</span><span class="p">]</span>  <span class="c1"># Momentum deviation</span>
+
+    <span class="nd">@property</span>
+
+    <span class="k">def</span> <span class="nf">B_rho_Tm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Beam rigidity [T/m]&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc_GeV</span> <span class="o">/</span> <span class="mf">0.3</span>
+
+    <span class="nd">@property</span>
+
+    <span class="k">def</span> <span class="nf">E_tot_GeV</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Total beam energy [GeV]&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pc_GeV</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">E_0_GeV</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+
+    <span class="k">def</span> <span class="nf">E_kin_GeV</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Total beam energy [GeV]&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">E_tot_GeV</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">E_0_GeV</span>
+
+    <span class="nd">@property</span>
+
+    <span class="k">def</span> <span class="nf">gamma_r</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Relativistic gamma&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">E_tot_GeV</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">E_0_GeV</span>
+
+    <span class="nd">@property</span>
+
+    <span class="k">def</span> <span class="nf">beta_r</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Relativistic beta&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pc_GeV</span> <span class="o">/</span> <span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pc_GeV</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">E_0_GeV</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+
+    <span class="k">def</span> <span class="nf">eg_x_m</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Horizontal geometrical emittance&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">en_x_m</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_r</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_r</span>
+
+    <span class="nd">@property</span>
+
+    <span class="k">def</span> <span class="nf">eg_y_m</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+
+        <span class="sd">&quot;&quot;&quot;Vertical geometrical emittance&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">en_y_m</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">gamma_r</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">beta_r</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+        <span class="k">return</span> <span class="p">(</span>
+
+            <span class="sa">f</span><span class="s2">&quot;Beam Parameters for particle of charge </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">charge</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;Beam momentum = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">pc_GeV</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> GeV/c </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;Normalized x-emittance = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">en_x_m</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;Normalized y-emittance = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">en_y_m</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;Momentum deviation deltap/p = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">deltap_p</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;  -&gt; Beam total energy = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">E_tot_GeV</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> GeV </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;  -&gt; Beam kinetic energy = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">E_kin_GeV</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> GeV </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;  -&gt; Beam rigidity = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">B_rho_Tm</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> Tm </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;  -&gt; Relativistic beta = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">beta_r</span><span class="si">:</span><span class="s2">2.5f</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;  -&gt; Relativistic gamma = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_r</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;  -&gt; Geometrical x emittance = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">eg_x_m</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+            <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;  -&gt; Geometrical y emittance = </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">eg_y_m</span> <span class="o">*</span> <span class="mf">1e6</span><span class="si">:</span><span class="s2">2.3f</span><span class="si">}</span><span class="s2"> mm mrad </span><span class="se">\n</span><span class="s2">&quot;</span>
+
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;</span>
 </code></pre></div>
 
 </details>
@@ -1349,29 +1441,105 @@
 
 <span class="w">    </span><span class="nl">pc_GeV</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Beam</span><span class="w"> </span><span class="n">momentum</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">B_rho_Tm</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Beam</span><span class="w"> </span><span class="n">rigidity</span><span class="w"> </span><span class="o">[</span><span class="n">T/m</span><span class="o">]</span><span class="w"></span>
+<span class="w">    </span><span class="nl">E_0_GeV</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.9382720813</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Particle</span><span class="w"> </span><span class="n">rest</span><span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">defaults</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">proton</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">E_0_GeV</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Particle</span><span class="w"> </span><span class="n">rest</span><span class="w"> </span><span class="n">mass</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">    </span><span class="nl">charge</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Particle</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">[</span><span class="n">e</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">    </span><span class="nl">E_tot_GeV</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Total</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">    </span><span class="nl">E_kin_GeV</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Kinectic</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">[</span><span class="n">GeV</span><span class="o">]</span><span class="w"></span>
-
-<span class="w">    </span><span class="nl">gamma_r</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Relativistic</span><span class="w"> </span><span class="n">gamma</span><span class="w"></span>
-
-<span class="w">    </span><span class="nl">beta_r</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Relativistic</span><span class="w"> </span><span class="n">beta</span><span class="w"></span>
+<span class="w">    </span><span class="nl">charge</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Particle</span><span class="w"> </span><span class="n">charge</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="o">[</span><span class="n">e</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">defaults</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">proton</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">en_x_m</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Horizontal</span><span class="w"> </span><span class="n">normalized</span><span class="w"> </span><span class="n">emittance</span><span class="w"> </span><span class="o">[</span><span class="n">m</span><span class="o">]</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">en_y_m</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Vertical</span><span class="w"> </span><span class="n">normalized</span><span class="w"> </span><span class="n">emittance</span><span class="w"> </span><span class="o">[</span><span class="n">m</span><span class="o">]</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">eg_x_m</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Horizontal</span><span class="w"> </span><span class="n">geometrical</span><span class="w"> </span><span class="n">emittance</span><span class="w"></span>
-
-<span class="w">    </span><span class="nl">eg_y_m</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Vertical</span><span class="w"> </span><span class="n">geometrical</span><span class="w"> </span><span class="n">emittance</span><span class="w"></span>
-
 <span class="w">    </span><span class="nl">deltap_p</span><span class="p">:</span><span class="w"> </span><span class="n">Optional</span><span class="o">[</span><span class="n">float</span><span class="o">]</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">Momentum</span><span class="w"> </span><span class="n">deviation</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">B_rho_Tm</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;Beam rigidity [T/m]&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">pc_GeV</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0.3</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">E_tot_GeV</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;Total beam energy [GeV]&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">pc_GeV</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">E_0_GeV</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">E_kin_GeV</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;Total beam energy [GeV]&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">E_tot_GeV</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">E_0_GeV</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">gamma_r</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;Relativistic gamma&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">E_tot_GeV</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">E_0_GeV</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">beta_r</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;Relativistic beta&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">pc_GeV</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sqrt</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">pc_GeV</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">E_0_GeV</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">eg_x_m</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;Horizontal geometrical emittance&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">en_x_m</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">gamma_r</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">beta_r</span><span class="w"></span>
+
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">eg_y_m</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">float</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;&quot;&quot;Vertical geometrical emittance&quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">en_y_m</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">gamma_r</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">beta_r</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">__repr__</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;Beam Parameters for particle of charge {self.charge} \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;Beam momentum = {self.pc_GeV:2.3f} GeV/c \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;Normalized x-emittance = {self.en_x_m * 1e6:2.3f} mm mrad \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;Normalized y-emittance = {self.en_y_m * 1e6:2.3f} mm mrad \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;Momentum deviation deltap/p = {self.deltap_p} \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;  -&gt; Beam total energy = {self.E_tot_GeV:2.3f} GeV \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;  -&gt; Beam kinetic energy = {self.E_kin_GeV:2.3f} GeV \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;  -&gt; Beam rigidity = {self.B_rho_Tm:2.3f} Tm \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;  -&gt; Relativistic beta = {self.beta_r:2.5f} \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;  -&gt; Relativistic gamma = {self.gamma_r:2.3f} \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;  -&gt; Geometrical x emittance = {self.eg_x_m * 1e6:2.3f} mm mrad \n&quot;</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">+</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;  -&gt; Geometrical y emittance = {self.eg_y_m * 1e6:2.3f} mm mrad \n&quot;</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">__str__</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">f</span><span class="ss">&quot;&quot;</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1449,6 +1617,28 @@ Behaves as if <code>Config.extra = 'allow'</code> was set since it adds all pass
     <span class="n">value</span><span class="p">:</span> <span class="n">Any</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Model&#39;</span>
 </code></pre></div>
+<h4 id="instance-variables">Instance variables</h4>
+<div class="highlight"><pre><span></span><code><span class="n">B_rho_Tm</span>
+</code></pre></div>
+<p>Beam rigidity [T/m]</p>
+<div class="highlight"><pre><span></span><code><span class="n">E_kin_GeV</span>
+</code></pre></div>
+<p>Total beam energy [GeV]</p>
+<div class="highlight"><pre><span></span><code><span class="n">E_tot_GeV</span>
+</code></pre></div>
+<p>Total beam energy [GeV]</p>
+<div class="highlight"><pre><span></span><code><span class="n">beta_r</span>
+</code></pre></div>
+<p>Relativistic beta</p>
+<div class="highlight"><pre><span></span><code><span class="n">eg_x_m</span>
+</code></pre></div>
+<p>Horizontal geometrical emittance</p>
+<div class="highlight"><pre><span></span><code><span class="n">eg_y_m</span>
+</code></pre></div>
+<p>Vertical geometrical emittance</p>
+<div class="highlight"><pre><span></span><code><span class="n">gamma_r</span>
+</code></pre></div>
+<p>Relativistic gamma</p>
 <h4 id="methods">Methods</h4>
 <h4 id="copy">copy</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">copy</span><span class="p">(</span>

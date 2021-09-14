@@ -1324,7 +1324,17 @@
 
 <span class="k">def</span> <span class="nf">correct_lhc_orbit</span><span class="p">(</span>
 
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">orbit_tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-14</span><span class="p">,</span> <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;svd&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+
+    <span class="n">orbit_tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-14</span><span class="p">,</span>
+
+    <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;micado&quot;</span><span class="p">,</span>
+
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 
@@ -1336,11 +1346,13 @@
 
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
+<span class="sd">        sequence (str): which sequence to use the routine on.</span>
+
 <span class="sd">        orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.</span>
 
 <span class="sd">        iterations (int): the number of iterations of the correction to perform. Defaults to 3.</span>
 
-<span class="sd">        mode (str): the method to use for the correction. Defaults to &#39;svd&#39;.</span>
+<span class="sd">        mode (str): the method to use for the correction. Defaults to `micado` as in the CORRECT command.</span>
 
 <span class="sd">    Keyword Args:</span>
 
@@ -1354,13 +1366,13 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Disabling default corrector class &#39;</span><span class="si">{</span><span class="n">default_kicker</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">usekick</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">default_kicker</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">usekick</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">default_kicker</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Selecting &#39;^MCB.*&#39; correctors&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">usekick</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;^MCB.*&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">usekick</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;^MCB.*&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">usemonitor</span><span class="p">(</span><span class="n">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;monitor&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">usemonitor</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;monitor&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
 
@@ -1368,9 +1380,17 @@
 
         <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+        <span class="p">)</span>
+
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span>
+
+            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+        <span class="p">)</span>
 </code></pre></div>
 
 </details>
@@ -1381,23 +1401,35 @@
 <h3 id="correct_lhc_orbit">correct_lhc_orbit</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">correct_lhc_orbit</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">orbit_tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-14</span><span class="p">,</span>
     <span class="n">iterations</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;svd&#39;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;micado&#39;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 <p>Routine for orbit correction using 'MCB.*' elements in the LHC.</p>
 <p>Args:
     madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    sequence (str): which sequence to use the routine on.
     orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.
     iterations (int): the number of iterations of the correction to perform. Defaults to 3.
-    mode (str): the method to use for the correction. Defaults to 'svd'.</p>
+    mode (str): the method to use for the correction. Defaults to <code>micado</code> as in the CORRECT command.</p>
 <p>Keyword Args:
     Any keyword argument that can be given to the MAD-X CORRECT command, such as <code>mode</code>, <code>ncorr</code>, etc.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">correct_lhc_orbit</span><span class="p">(</span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">orbit_tolerance</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mf">1e-14</span><span class="p">,</span> <span class="n">iterations</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span> <span class="k">mode</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;svd&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+
+    <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span>
+
+    <span class="n">orbit_tolerance</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mf">1e-14</span><span class="p">,</span>
+
+    <span class="n">iterations</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+
+    <span class="k">mode</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;micado&quot;</span><span class="p">,</span>
+
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
 
@@ -1409,11 +1441,13 @@
 
 <span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
+<span class="s2">        sequence (str): which sequence to use the routine on.</span>
+
 <span class="s2">        orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.</span>
 
 <span class="s2">        iterations (int): the number of iterations of the correction to perform. Defaults to 3.</span>
 
-<span class="s2">        mode (str): the method to use for the correction. Defaults to &#39;svd&#39;.</span>
+<span class="s2">        mode (str): the method to use for the correction. Defaults to `micado` as in the CORRECT command.</span>
 
 <span class="s2">    Keyword Args:</span>
 
@@ -1427,13 +1461,13 @@
 
         <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Disabling default corrector class &#39;{default_kicker}&#39;&quot;</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">usekick</span><span class="p">(</span><span class="k">status</span><span class="o">=</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">default_kicker</span><span class="p">)</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">usekick</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="k">status</span><span class="o">=</span><span class="s2">&quot;off&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="n">default_kicker</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Selecting &#39;^MCB.*&#39; correctors&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">usekick</span><span class="p">(</span><span class="k">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;^MCB.*&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">usekick</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="k">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="s2">&quot;^MCB.*&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">usemonitor</span><span class="p">(</span><span class="k">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;monitor&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">usemonitor</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="k">status</span><span class="o">=</span><span class="s2">&quot;on&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;monitor&quot;</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">_</span> <span class="k">in</span> <span class="k">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">)</span><span class="o">:</span>
 
@@ -1441,9 +1475,17 @@
 
         <span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span><span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span><span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+        <span class="p">)</span>
+
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span>
+
+            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+
+        <span class="p">)</span>
 </code></pre></div>
 
 </details>

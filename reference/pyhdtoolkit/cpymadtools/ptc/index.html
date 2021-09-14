@@ -1130,7 +1130,7 @@
 
 <span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="sd">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="sd">    exact Hamiltonian, not an approximated one).</span>
 
@@ -1268,7 +1268,7 @@
 
 <span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="sd">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="sd">    exact Hamiltonian, not an approximated one).</span>
 
@@ -1362,7 +1362,7 @@
 
 <span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="sd">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="sd">    exact Hamiltonian, not an approximated one).</span>
 
@@ -1452,7 +1452,7 @@
 
 <span class="sd">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="sd">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="sd">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="sd">    exact Hamiltonian, not an approximated one).</span>
 
@@ -1574,14 +1574,14 @@
     <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
 <p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.
 Calculate amplitude detuning via <code>PTC_NORMAL</code>, with sensible defaults set for other relevant <code>PTC</code>
 commands. The result table is returned as a <code>TfsDataFrame</code>, the headers of which are the contents of the
 internal <code>SUMM</code> table.</p>
 <p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
-order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
+order), <code>nst=3</code> (number of integration steps, aka body slices for elements) and <code>exact=True</code> (use
 exact Hamiltonian, not an approximated one).</p>
 <p>The <code>PTC_NORMAL</code> command is explicitely given <code>icase=6</code> to enforce 6D calculations (see the <code>MAD-X</code>
 manual for details), <code>no=5</code> (map order for derivative evaluation of Twiss parameters) and
@@ -1616,7 +1616,7 @@ Normal Form).</p>
 
 <span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="s2">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="s2">    exact Hamiltonian, not an approximated one).</span>
 
@@ -1745,14 +1745,14 @@ Normal Form).</p>
     <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
 <p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.
 Calculate the <code>RDTs</code> via <code>PTC_TWISS</code>, with sensible defaults set for other relevant <code>PTC</code> commands.
 The result table is returned as a <code>TfsDataFrame</code>, the headers of which are the contents of the
 internal <code>SUMM</code> table.</p>
 <p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
-order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
+order), <code>nst=3</code> (number of integration steps, aka body slices for elements) and <code>exact=True</code> (use
 exact Hamiltonian, not an approximated one).</p>
 <p>The <code>PTC_TWISS</code> command is explicitely given <code>icase=6</code> to enforce 6D calculations (see the <code>MAD-X</code>
 manual for details), <code>trackrdts=True</code> (for this function to fullfill its purpose) and <code>normal=True</code> to
@@ -1786,7 +1786,7 @@ through the provided <code>Madx</code> instance.</p>
 
 <span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="s2">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="s2">    exact Hamiltonian, not an approximated one).</span>
 
@@ -1866,7 +1866,7 @@ through the provided <code>Madx</code> instance.</p>
 </code></pre></div>
 <p>Tracks a single particle for nturns through PTC_TRACK, based on its initial coordinates.</p>
 <p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
-order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
+order), <code>nst=3</code> (number of integration steps, aka body slices for elements) and <code>exact=True</code> (use
 exact Hamiltonian, not an approximated one).</p>
 <p>The <code>PTC_TRACK</code> command is explicitely given <code>ELEMENT_BY_ELEMENT=True</code> to force element by element
 tracking mode.</p>
@@ -1920,7 +1920,7 @@ tracking mode.</p>
 
 <span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="s2">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="s2">    exact Hamiltonian, not an approximated one).</span>
 
@@ -2042,7 +2042,7 @@ tracking mode.</p>
     <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;ptc_twiss&#39;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
 <p>Calculate the TWISS parameters according to G. Ripken's formalism via <code>PTC_TWISS</code>, with sensible defaults
 set for other relevant <code>PTC</code> commands. The result table is returned as a <code>TfsDataFrame</code>, the headers of
@@ -2050,7 +2050,7 @@ which are the contents of the internal <code>SUMM</code> table.</p>
 <p>This is very similar to the <code>get_rdts</code> function as both use <code>ptc_twiss</code> internally, however this function
 does not track RDTs which makes the calculations significantly faster.</p>
 <p>The <code>PTC_CREATE_LAYOUT</code> command is issued with <code>model=3</code> (<code>SixTrack</code> model), <code>method=4</code> (integration
-order), <code>nst=3</code> (number of integratioin steps, aka body slices for elements) and <code>exact=True</code> (use
+order), <code>nst=3</code> (number of integration steps, aka body slices for elements) and <code>exact=True</code> (use
 exact Hamiltonian, not an approximated one).</p>
 <p>The <code>PTC_TWISS</code> command is explicitely given <code>icase=6</code> to enforce 6D calculations (see the <code>MAD-X</code>
 manual for details) <code>normal=True</code> to trigger saving the normal form analysis results in a table called
@@ -2096,7 +2096,7 @@ manual for details) <code>normal=True</code> to trigger saving the normal form a
 
 <span class="s2">    The `PTC_CREATE_LAYOUT` command is issued with `model=3` (`SixTrack` model), `method=4` (integration</span>
 
-<span class="s2">    order), `nst=3` (number of integratioin steps, aka body slices for elements) and `exact=True` (use</span>
+<span class="s2">    order), `nst=3` (number of integration steps, aka body slices for elements) and `exact=True` (use</span>
 
 <span class="s2">    exact Hamiltonian, not an approximated one).</span>
 

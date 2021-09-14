@@ -1146,13 +1146,9 @@
 
 <span class="sd">    Provided with an active Cpymad class after having ran a script, will create a plot representing nicely</span>
 
-<span class="sd">    the lattice layout and the beta functions along with the horizontal dispertion function. This is very</span>
+<span class="sd">    the lattice layout and the beta functions along with the horizontal dispertion function. This is very,</span>
 
-<span class="sd">    heavily refactored code, inspired by code from Guido Sterbini.</span>
-
-<span class="sd">    WARNING: This WILL FAIL if you have not included &#39;q&#39; or &#39;Q&#39; in your quadrupoles&#39; names, and &#39;b&#39; or &#39;B&#39;</span>
-
-<span class="sd">    in your dipoles&#39; names when defining your MAD-X sequence.</span>
+<span class="sd">    very heavily reworked code, inspired by code from Guido Sterbini.</span>
 
 <span class="sd">    Args:</span>
 
@@ -1240,13 +1236,15 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss dataframe from cpymad&quot;</span><span class="p">)</span>
 
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
+
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
     <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">xoffset</span>
 
     <span class="n">xlimits</span> <span class="o">=</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">max</span><span class="p">())</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">xlimits</span>
 
-    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">xlimits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlimits</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">twiss_df</span>
+    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="o">*</span><span class="n">xlimits</span><span class="p">)]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">twiss_df</span>
 
     <span class="c1"># Create a subplot for the lattice patches (takes a third of figure)</span>
 
@@ -1284,7 +1282,7 @@
 
     <span class="c1"># Plotting beta functions on remaining two thirds of the figure</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting up betatron functions subplot&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting beta functions&quot;</span><span class="p">)</span>
 
     <span class="n">betatron_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">)</span>
 
@@ -1298,7 +1296,7 @@
 
     <span class="n">betatron_axis</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s2">&quot;$S$ $[m]$&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Setting up dispersion functions subplot&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting dispersion functions&quot;</span><span class="p">)</span>
 
     <span class="n">dispertion_axis</span> <span class="o">=</span> <span class="n">betatron_axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
 
@@ -1354,13 +1352,15 @@
 
     <span class="n">high_orders</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span><span class="p">:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Provided with an active Cpymad class after having ran a script, will create a plot</span>
 
-<span class="sd">    representing the machine geometry in 2D. Original code is from Guido Sterbini.</span>
+<span class="sd">    representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.</span>
 
 <span class="sd">    Args:</span>
 
@@ -1380,6 +1380,10 @@
 
 <span class="sd">            otherwise only up to quadrupoles. Defaults to False.</span>
 
+<span class="sd">    Keyword Arguments:</span>
+
+<span class="sd">        Any keyword argument is transmiitted to `matplotlib.pyplot.scatter` calls later on.</span>
+
 <span class="sd">    Returns:</span>
 
 <span class="sd">         The figure on which the plots are drawn. The underlying axes can be accessed with</span>
@@ -1388,7 +1392,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Plotting machine survey&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">survey</span><span class="p">()</span>
 
@@ -1400,7 +1406,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting survey with elements differentiation&quot;</span><span class="p">)</span>
 
-        <span class="n">element_dfs</span> <span class="o">=</span> <span class="n">_make_survey_groups</span><span class="p">(</span><span class="n">survey</span><span class="p">)</span>
+        <span class="n">element_dfs</span> <span class="o">=</span> <span class="n">_make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
 
         <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
 
@@ -1413,6 +1419,8 @@
             <span class="n">c</span><span class="o">=</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;dipoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">s</span><span class="p">,</span>
 
             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Dipoles&quot;</span><span class="p">,</span>
+
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
         <span class="p">)</span>
 
@@ -1450,15 +1458,21 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting survey without elements differentiation&quot;</span><span class="p">)</span>
 
-        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">survey</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">survey</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="c1"># Trying a trick to ensure the colorbar scales values properly up to the max S value and not 1</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting trick invisible data to re-scale colorbar&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">survey</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;$S \ [m]$&quot;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s2">&quot;$S$ $[m]$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$Z \ [m]$&quot;</span><span class="p">)</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;$Z$ $[m]$&quot;</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;$X$ $[m]$&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$X \ [m]$&quot;</span><span class="p">)</span>
 
     <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
 
@@ -1568,15 +1582,13 @@
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Provided with an active Cpymad class after having ran a script, will plot the lattice layout and the</span>
+<span class="sd">    Provided with an active `cpymad` instance after having ran a script, will plot the lattice layout on a</span>
 
-<span class="sd">    on a given axis. This is the function that takes care of the machine layout in `plot_latwiss`, and</span>
+<span class="sd">    given axis. This is the function that takes care of the machine layout in `plot_latwiss`, and</span>
 
 <span class="sd">    is in theory a private function, though if you know what you are doing you may use it individually.</span>
 
-<span class="sd">    WARNING: This WILL FAIL if you have not included &#39;q&#39; or &#39;Q&#39; in your quadrupoles&#39; names, and &#39;b&#39; or &#39;B&#39;</span>
-
-<span class="sd">    in your dipoles&#39; names when defining your MAD-X sequence.</span>
+<span class="sd">    The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.</span>
 
 <span class="sd">    Args:</span>
 
@@ -1646,13 +1658,27 @@
 
     <span class="c1"># Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting Twiss dataframe from cpymad&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting Twiss table from MAD-X&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
 
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 
     <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">xoffset</span>
 
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="n">xlimits</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlimits</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">twiss_df</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Extracting element-specific dataframes&quot;</span><span class="p">)</span>
+
+    <span class="n">element_dfs</span> <span class="o">=</span> <span class="n">_make_elements_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+
+    <span class="n">dipoles_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;dipoles&quot;</span><span class="p">]</span>
+
+    <span class="n">quadrupoles_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quadrupoles&quot;</span><span class="p">]</span>
+
+    <span class="n">sextupoles_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span>
+
+    <span class="n">bpms_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;bpms&quot;</span><span class="p">]</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting machine layout&quot;</span><span class="p">)</span>
 
@@ -1682,71 +1708,41 @@
 
     <span class="n">dipole_patches_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="c1"># All elements can be defined as a &#39;multipole&#39;, but dipoles can also be defined as &#39;rbend&#39; or &#39;sbend&#39;,</span>
-
-    <span class="c1"># quadrupoles as &#39;quadrupoles&#39; and sextupoles as &#39;sextupoles&#39;. Function does not handle higher orders.</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting element-specific dataframes&quot;</span><span class="p">)</span>
-
-    <span class="n">dipoles_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span>
-
-        <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;rbend&quot;</span><span class="p">,</span> <span class="s2">&quot;sbend&quot;</span><span class="p">]))</span>
-
-        <span class="o">&amp;</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-
-    <span class="p">]</span>
-
-    <span class="n">quadrupoles_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span>
-
-        <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-
-    <span class="p">]</span>
-
-    <span class="n">sextupoles_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span>
-
-        <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;sextupole&quot;</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-
-    <span class="p">]</span>
-
-    <span class="n">bpms_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;monitor&quot;</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;BPM&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))]</span>
-
     <span class="k">if</span> <span class="n">plot_dipoles</span><span class="p">:</span>  <span class="c1"># beware &#39;sbend&#39; and &#39;rbend&#39; have an &#39;angle&#39; value and not a &#39;k0l&#39;</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting dipole patches&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting dipole patches&quot;</span><span class="p">)</span>
 
         <span class="n">plotted_elements</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># will help us not declare a label for legend at every patch</span>
 
-        <span class="k">for</span> <span class="n">dipole_name</span><span class="p">,</span> <span class="n">dipole</span> <span class="ow">in</span> <span class="n">dipoles_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>  <span class="c1"># by default twiss.dframe() has names as index</span>
+        <span class="k">for</span> <span class="n">dipole_name</span><span class="p">,</span> <span class="n">dipole</span> <span class="ow">in</span> <span class="n">dipoles_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
 
-            <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">dipole</span><span class="o">.</span><span class="n">angle</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting dipole element &#39;</span><span class="si">{</span><span class="n">dipole_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-                <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting dipole element &#39;</span><span class="si">{</span><span class="n">dipole_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="n">_plot_lattice_series</span><span class="p">(</span>
 
-                <span class="n">_plot_lattice_series</span><span class="p">(</span>
+                <span class="n">dipole_patches_axis</span><span class="p">,</span>
 
-                    <span class="n">dipole_patches_axis</span><span class="p">,</span>
+                <span class="n">dipole</span><span class="p">,</span>
 
-                    <span class="n">dipole</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span>
 
-                    <span class="n">height</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="n">angle</span><span class="p">,</span>
+                <span class="n">v_offset</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
 
-                    <span class="n">v_offset</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="n">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="n">color</span><span class="o">=</span><span class="s2">&quot;royalblue&quot;</span><span class="p">,</span>
 
-                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;royalblue&quot;</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># avoid duplicating legend labels</span>
 
-                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
-                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
 
-                <span class="p">)</span>
+            <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
 
-                <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="n">dipole_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="n">dipole_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">plot_quadrupoles</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting quadrupole patches&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting quadrupole patches&quot;</span><span class="p">)</span>
 
         <span class="n">plotted_elements</span> <span class="o">=</span> <span class="mi">0</span>
 
@@ -1766,7 +1762,7 @@
 
                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
 
-                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># avoid duplicating legend labels</span>
 
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
@@ -1774,15 +1770,15 @@
 
             <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
 
-        <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">k2l_lim</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting sextupole patches&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting sextupole patches&quot;</span><span class="p">)</span>
 
         <span class="n">sextupoles_patches_axis</span> <span class="o">=</span> <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
 
-        <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;K2L [m$^{-2}$]&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkgoldenrod&quot;</span><span class="p">)</span>
+        <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$K_</span><span class="si">{2}</span><span class="s2">L$ $[m^{-2}]$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkgoldenrod&quot;</span><span class="p">)</span>
 
         <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">&quot;darkgoldenrod&quot;</span><span class="p">)</span>
 
@@ -1808,7 +1804,7 @@
 
                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;goldenrod&quot;</span><span class="p">,</span>
 
-                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># avoid duplicating legend labels</span>
 
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
@@ -1816,13 +1812,13 @@
 
             <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
 
-        <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 
         <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">plot_bpms</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting BPM patches&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting BPM patches&quot;</span><span class="p">)</span>
 
         <span class="n">bpm_patches_axis</span> <span class="o">=</span> <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
 
@@ -1848,7 +1844,7 @@
 
                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;dimgrey&quot;</span><span class="p">,</span>
 
-                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;BPM&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;BPM&quot;</span> <span class="k">if</span> <span class="n">plotted_elements</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>  <span class="c1"># avoid duplicating legend labels</span>
 
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
@@ -1856,25 +1852,23 @@
 
             <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
 
-        <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 
         <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
 <span class="c1"># ----- Helpers ----- #</span>
 
-<span class="k">def</span> <span class="nf">_make_survey_groups</span><span class="p">(</span><span class="n">survey_df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">_make_elements_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Gets a survey dataframe and returns different sub-dataframes corresponding to different</span>
+<span class="sd">    Provided with an active `cpymad` instance after having ran a script, will returns different portions of</span>
 
-<span class="sd">    magnetic elements.</span>
+<span class="sd">    the twiss table&#39;s dataframe for different magnetic elements.</span>
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        survey_df (pd.DataFrame): machine survey dataframe obtained from your Madx instance, with</span>
-
-<span class="sd">            &lt;instance&gt;.table.survey.dframe().</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
 <span class="sd">    Returns:</span>
 
@@ -1884,53 +1878,95 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting different element groups dframes from MAD-X survey&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting TWISS table from MAD-X&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
+
+    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting different element groups dframes from MAD-X twiss table&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Elements are detected by their keyword being either &#39;multipole&#39; or their specific element type,</span>
+
+    <span class="c1"># and having a non-zero component (knl / knsl) in their given order (or &#39;angle&#39; for dipoles)</span>
 
     <span class="k">return</span> <span class="p">{</span>
 
-        <span class="s2">&quot;dipoles&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span>
+        <span class="s2">&quot;dipoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;rbend&quot;</span><span class="p">,</span> <span class="s2">&quot;sbend&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
 
-            <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;sbend&quot;</span><span class="p">,</span> <span class="s2">&quot;rbend&quot;</span><span class="p">]))</span>
+            <span class="s2">&quot;k0l != 0 or k0sl != 0 or angle != 0&quot;</span>
 
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="p">),</span>
 
-        <span class="p">],</span>
+        <span class="s2">&quot;quadrupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
 
-        <span class="s2">&quot;quad_foc&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span>
+            <span class="s2">&quot;k1l != 0 or k1sl != 0&quot;</span>
 
-            <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">]))</span>
+        <span class="p">),</span>
 
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="s2">&quot;sextupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;sextupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
 
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;F&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="s2">&quot;k2l != 0 or k2sl &quot;</span> <span class="s2">&quot;!= 0&quot;</span>
 
-        <span class="p">],</span>
+        <span class="p">),</span>
 
-        <span class="s2">&quot;quad_defoc&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span>
+        <span class="s2">&quot;octupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;octupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
 
-            <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">]))</span>
+            <span class="s2">&quot;k3l != 0 or k3sl != &quot;</span> <span class="s2">&quot;0&quot;</span>
 
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;Q&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="p">),</span>
 
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;D&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+        <span class="s2">&quot;bpms&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span>
 
-        <span class="p">],</span>
-
-        <span class="s2">&quot;sextupoles&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span>
-
-            <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;sextupole&quot;</span><span class="p">]))</span>
-
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+            <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;monitor&quot;</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;BPM&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
 
         <span class="p">],</span>
 
-        <span class="s2">&quot;octupoles&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span>
+    <span class="p">}</span>
 
-            <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;octupole&quot;</span><span class="p">]))</span>
+<span class="k">def</span> <span class="nf">_make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 
-            <span class="o">&amp;</span> <span class="p">(</span><span class="n">survey_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;O&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
+    <span class="sd">&quot;&quot;&quot;</span>
 
-        <span class="p">],</span>
+<span class="sd">    Provided with an active `cpymad` instance after having ran a script, will returns different portions of</span>
+
+<span class="sd">    the survey table&#39;s dataframe for different magnetic elements.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing</span>
+
+<span class="sd">        quadrupoles, sextupoles and octupoles. The keys are self-explanatory.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">element_dfs</span> <span class="o">=</span> <span class="n">_make_elements_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+
+    <span class="n">quadrupoles_focusing_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quadrupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;k1l &gt; 0&quot;</span><span class="p">)</span>
+
+    <span class="n">quadrupoles_defocusing_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quadrupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;k1l &lt; 0&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting different element groups dframes from MAD-X survey&quot;</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">survey</span><span class="p">()</span>
+
+    <span class="n">survey_df</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">survey</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+
+        <span class="s2">&quot;dipoles&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span><span class="n">survey_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;dipoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())],</span>
+
+        <span class="s2">&quot;quad_foc&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span><span class="n">survey_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">quadrupoles_focusing_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())],</span>
+
+        <span class="s2">&quot;quad_defoc&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span><span class="n">survey_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">quadrupoles_defocusing_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())],</span>
+
+        <span class="s2">&quot;sextupoles&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span><span class="n">survey_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())],</span>
+
+        <span class="s2">&quot;octupoles&quot;</span><span class="p">:</span> <span class="n">survey_df</span><span class="p">[</span><span class="n">survey_df</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">tolist</span><span class="p">())],</span>
 
     <span class="p">}</span>
 </code></pre></div>
@@ -1960,10 +1996,8 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span>
 </code></pre></div>
 <p>Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
-the lattice layout and the beta functions along with the horizontal dispertion function. This is very
-heavily refactored code, inspired by code from Guido Sterbini.</p>
-<p>WARNING: This WILL FAIL if you have not included 'q' or 'Q' in your quadrupoles' names, and 'b' or 'B'
-in your dipoles' names when defining your MAD-X sequence.</p>
+the lattice layout and the beta functions along with the horizontal dispertion function. This is very,
+very heavily reworked code, inspired by code from Guido Sterbini.</p>
 <p>Args:
     madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
     title (str): title of your plot.
@@ -2040,13 +2074,9 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
 <span class="s2">    Provided with an active Cpymad class after having ran a script, will create a plot representing nicely</span>
 
-<span class="s2">    the lattice layout and the beta functions along with the horizontal dispertion function. This is very</span>
+<span class="s2">    the lattice layout and the beta functions along with the horizontal dispertion function. This is very,</span>
 
-<span class="s2">    heavily refactored code, inspired by code from Guido Sterbini.</span>
-
-<span class="s2">    WARNING: This WILL FAIL if you have not included &#39;q&#39; or &#39;Q&#39; in your quadrupoles&#39; names, and &#39;b&#39; or &#39;B&#39;</span>
-
-<span class="s2">    in your dipoles&#39; names when defining your MAD-X sequence.</span>
+<span class="s2">    very heavily reworked code, inspired by code from Guido Sterbini.</span>
 
 <span class="s2">    Args:</span>
 
@@ -2134,13 +2164,15 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
     <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss dataframe from cpymad&quot;</span><span class="p">)</span>
 
+    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span>
+
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span>
 
     <span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">xoffset</span>
 
     <span class="n">xlimits</span> <span class="o">=</span> <span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="nf">min</span><span class="p">(),</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="nf">max</span><span class="p">())</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">is</span> <span class="k">None</span> <span class="k">else</span> <span class="n">xlimits</span>
 
-    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="err">[</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="k">between</span><span class="p">(</span><span class="n">xlimits</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">xlimits</span><span class="err">[</span><span class="mi">1</span><span class="err">]</span><span class="p">)</span><span class="err">]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">twiss_df</span>
+    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="err">[</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="k">between</span><span class="p">(</span><span class="o">*</span><span class="n">xlimits</span><span class="p">)</span><span class="err">]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">twiss_df</span>
 
     <span class="c1"># Create a subplot for the lattice patches (takes a third of figure)</span>
 
@@ -2178,7 +2210,7 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
     <span class="c1"># Plotting beta functions on remaining two thirds of the figure</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting up betatron functions subplot&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting beta functions&quot;</span><span class="p">)</span>
 
     <span class="n">betatron_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">)</span>
 
@@ -2192,7 +2224,7 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
     <span class="n">betatron_axis</span><span class="p">.</span><span class="k">set</span><span class="n">_xlabel</span><span class="p">(</span><span class="s2">&quot;$S$ $[m]$&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Setting up dispersion functions subplot&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting dispersion functions&quot;</span><span class="p">)</span>
 
     <span class="n">dispertion_axis</span> <span class="o">=</span> <span class="n">betatron_axis</span><span class="p">.</span><span class="n">twinx</span><span class="p">()</span>
 
@@ -2243,91 +2275,26 @@ in your dipoles' names when defining your MAD-X sequence.</p>
     <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
     <span class="n">savefig</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">show_elements</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">high_orders</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">high_orders</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span>
 </code></pre></div>
-<p>Provided with an active Cpymad class after having ran a script, will create a plot</p>
-<p>representing the machine geometry in 2D. Original code is from Guido Sterbini.</p>
-<p><strong>Parameters:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Description</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>madx</td>
-<td>cpymad.madx.Madx</td>
-<td>an instanciated cpymad Madx object.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>title</td>
-<td>str</td>
-<td>title of your plot.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>figsize</td>
-<td>Tuple[int, int]</td>
-<td>size of the figure, defaults to (16, 10).</td>
-<td>None</td>
-</tr>
-<tr>
-<td>savefig</td>
-<td>str</td>
-<td>will save the figure if this is not None, using the string value passed.</td>
-<td>None</td>
-</tr>
-<tr>
-<td>show_elements</td>
-<td>bool</td>
-<td>if True, will try to plot by differentiating elements.</td>
-<td></td>
-</tr>
-<tr>
-<td>Experimental, defaults to False.</td>
-<td>None</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>high_orders</td>
-<td>bool</td>
-<td>if True, plot sextupoles and octupoles when show_elements is True,</td>
-<td></td>
-</tr>
-<tr>
-<td>otherwise only up to quadrupoles. Defaults to False.</td>
-<td>None</td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p><strong>Returns:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>None</td>
-<td>The figure on which the plots are drawn. The underlying axes can be accessed with</td>
-</tr>
-<tr>
-<td>'fig.get_axes()'. Eventually saves the figure as a file.</td>
-<td></td>
-</tr>
-</tbody>
-</table>
+<p>Provided with an active Cpymad class after having ran a script, will create a plot
+representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.</p>
+<p>Args:
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    title (str): title of your plot.
+    figsize (Tuple[int, int]): size of the figure, defaults to (16, 10).
+    savefig (str): will save the figure if this is not None, using the string value passed.
+    show_elements (bool): if True, will try to plot by differentiating elements.
+        Experimental, defaults to False.
+    high_orders (bool): if True, plot sextupoles and octupoles when show_elements is True,
+        otherwise only up to quadrupoles. Defaults to False.</p>
+<p>Keyword Arguments:
+    Any keyword argument is transmiitted to <code>matplotlib.pyplot.scatter</code> calls later on.</p>
+<p>Returns:
+     The figure on which the plots are drawn. The underlying axes can be accessed with
+     'fig.get_axes()'. Eventually saves the figure as a file.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">plot_machine_survey</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
@@ -2342,13 +2309,15 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
 <span class="w">    </span><span class="nl">high_orders</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">,</span><span class="w"></span>
 
+<span class="w">    </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
+
 <span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">matplotlib</span><span class="p">.</span><span class="n">figure</span><span class="p">.</span><span class="nl">Figure</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
 <span class="ss">    Provided with an active Cpymad class after having ran a script, will create a plot</span>
 
-<span class="ss">    representing the machine geometry in 2D. Original code is from Guido Sterbini.</span>
+<span class="ss">    representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.</span>
 
 <span class="ss">    Args:</span>
 
@@ -2368,6 +2337,10 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
 <span class="ss">            otherwise only up to quadrupoles. Defaults to False.</span>
 
+<span class="ss">    Keyword Arguments:</span>
+
+<span class="ss">        Any keyword argument is transmiitted to `matplotlib.pyplot.scatter` calls later on.</span>
+
 <span class="ss">    Returns:</span>
 
 <span class="ss">         The figure on which the plots are drawn. The underlying axes can be accessed with</span>
@@ -2376,7 +2349,9 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
 <span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="ss">&quot;Plotting machine survey&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="ss">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">survey</span><span class="p">()</span><span class="w"></span>
 
@@ -2388,7 +2363,7 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting survey with elements differentiation&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">element_dfs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_make_survey_groups</span><span class="p">(</span><span class="n">survey</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">element_dfs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
 
@@ -2401,6 +2376,8 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 <span class="w">            </span><span class="n">c</span><span class="o">=</span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;dipoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">            </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Dipoles&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="p">)</span><span class="w"></span>
 
@@ -2438,15 +2415,21 @@ in your dipoles' names when defining your MAD-X sequence.</p>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting survey without elements differentiation&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">survey</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">survey</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">Trying</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">trick</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">ensure</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">colorbar</span><span class="w"> </span><span class="n">scales</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">properly</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nf">max</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="ss">&quot;Plotting trick invisible data to re-scale colorbar&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">survey</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="ss">&quot;$S \ [m]$&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="ss">&quot;equal&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">colorbar</span><span class="p">().</span><span class="n">set_label</span><span class="p">(</span><span class="ss">&quot;$S$ $[m]$&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$Z \ [m]$&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="ss">&quot;$Z$ $[m]$&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="ss">&quot;$X$ $[m]$&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$X \ [m]$&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span><span class="w"></span>
 

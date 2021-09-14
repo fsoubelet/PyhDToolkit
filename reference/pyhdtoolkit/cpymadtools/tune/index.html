@@ -1633,7 +1633,7 @@
 <h2 id="functions">Functions</h2>
 <h3 id="get_footprint_lines">get_footprint_lines</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_footprint_lines</span><span class="p">(</span>
-    <span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+    <span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span>
 </code></pre></div>
 <p>Provided with the <code>TfsDataFrame</code> returned by <code>make_footprint_table()</code>, determines the various (Qx, Qy)</p>
@@ -1743,7 +1743,7 @@ from starting particles, and returns these in immediately plottable numpy arrays
 </details>
 <h3 id="get_footprint_patches">get_footprint_patches</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_footprint_patches</span><span class="p">(</span>
-    <span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+    <span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">collections</span><span class="o">.</span><span class="n">PatchCollection</span>
 </code></pre></div>
 <p>INITIAL IMPLEMENTATION CREDITS GO TO KONSTANTINOS PARASCHOU (@kparasch).</p>
@@ -1918,7 +1918,7 @@ in red) and the last starting amplitude particles (in green).</p>
     <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">cleanup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">handler</span><span class="o">.</span><span class="n">TfsDataFrame</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
 <p>Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the</p>
 <p>DYNAP command, letting MAD-X infer their tunes. Particules are instantiated for different angle
