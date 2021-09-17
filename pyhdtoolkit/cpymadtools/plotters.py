@@ -33,13 +33,67 @@ BY_HSV = sorted(
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
-class AperturePlotter:
+class DynamicAperturePlotter:
+    """
+    A class to plot the dynamic aperture of your machine.
+    """
+
+    @staticmethod
+    def plot_dynamic_aperture(
+        x_coords: np.ndarray, y_coords: np.ndarray, n_particles: int, savefig: str = None
+    ) -> matplotlib.figure.Figure:
+        """
+        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
+        vertical axis, and the turn at which they were lost is in the horizontal axis.
+
+        Args:
+            x_coords (np.ndarray): numpy array of horizontal coordinates over turns.
+            y_coords (np.ndarray): numpy array of vertical coordinates over turns.
+            n_particles (int): number of particles simulated.
+            savefig (str): will save the figure if this is not None, using the string value passed.
+
+        Returns:
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
+        """
+        logger.info(f"Plotting the '{len(x_coords)} turns' aperture")
+        figure = plt.figure(figsize=(12, 7))
+        turn_lost_at = []
+        amp_lost = []
+
+        logger.trace("Determining turns at which particles have been lost")
+        for particle in range(n_particles):
+            amp_lost.append(x_coords[particle][0] ** 2 + y_coords[particle][0] ** 2)  # initial amplitude
+            # this is ok since once coordinates go to `nan` they don't come back, particle is lost
+            turn_lost_at.append(
+                min(
+                    pd.Series(x_coords[particle]).last_valid_index()
+                    + 2,  # starts at 0, lost after last valid
+                    pd.Series(y_coords[particle]).last_valid_index()
+                    + 2,  # starts at 0, lost after last valid
+                )
+            )
+        turn_lost_at = np.array(turn_lost_at)
+        amp_lost = np.array(amp_lost)
+
+        plt.scatter(turn_lost_at, amp_lost * 1000, linewidths=0.7, c="darkblue", marker=".")
+        plt.title("Amplitudes lost over turns")
+        plt.xlabel("Number of Turns Survived")
+        plt.ylabel("Initial amplitude $[mm]$")
+
+        if savefig:
+            logger.info(f"Saving dynamic aperture plot at '{Path(savefig).absolute()}'")
+            plt.savefig(Path(savefig))
+        return figure
+
+
+class EnvelopePlotter:
     """
     A class to plot the physical aperture of your machine.
     """
 
     @staticmethod
-    def plot_aperture(
+    def plot_envelope(
         madx: Madx,
         beam_params: BeamParameters,
         figsize: Tuple[int, int] = (13, 20),
@@ -49,8 +103,8 @@ class AperturePlotter:
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
-        Plot the physical aperture of your machine, already defined into the provided
-        cpymad.Madx object.
+        Provided with an active `cpymad` instance after having ran a script, plots an estimation of the beam
+        stay-clear enveloppe in your machine, as well as an estimation of the aperture limits.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -145,60 +199,6 @@ class AperturePlotter:
 
         if savefig:
             logger.info(f"Saving aperture plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig))
-        return figure
-
-
-class DynamicAperturePlotter:
-    """
-    A class to plot the dynamic aperture of your machine.
-    """
-
-    @staticmethod
-    def plot_dynamic_aperture(
-        x_coords: np.ndarray, y_coords: np.ndarray, n_particles: int, savefig: str = None
-    ) -> matplotlib.figure.Figure:
-        """
-        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
-        vertical axis, and the turn at which they were lost is in the horizontal axis.
-
-        Args:
-            x_coords (np.ndarray): numpy array of horizontal coordinates over turns.
-            y_coords (np.ndarray): numpy array of vertical coordinates over turns.
-            n_particles (int): number of particles simulated.
-            savefig (str): will save the figure if this is not None, using the string value passed.
-
-        Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
-        """
-        logger.info(f"Plotting the '{len(x_coords)} turns' aperture")
-        figure = plt.figure(figsize=(12, 7))
-        turn_lost_at = []
-        amp_lost = []
-
-        logger.trace("Determining turns at which particles have been lost")
-        for particle in range(n_particles):
-            amp_lost.append(x_coords[particle][0] ** 2 + y_coords[particle][0] ** 2)  # initial amplitude
-            # this is ok since once coordinates go to `nan` they don't come back, particle is lost
-            turn_lost_at.append(
-                min(
-                    pd.Series(x_coords[particle]).last_valid_index()
-                    + 2,  # starts at 0, lost after last valid
-                    pd.Series(y_coords[particle]).last_valid_index()
-                    + 2,  # starts at 0, lost after last valid
-                )
-            )
-        turn_lost_at = np.array(turn_lost_at)
-        amp_lost = np.array(amp_lost)
-
-        plt.scatter(turn_lost_at, amp_lost * 1000, linewidths=0.7, c="darkblue", marker=".")
-        plt.title("Amplitudes lost over turns")
-        plt.xlabel("Number of Turns Survived")
-        plt.ylabel("Initial amplitude $[mm]$")
-
-        if savefig:
-            logger.info(f"Saving dynamic aperture plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
         return figure
 
