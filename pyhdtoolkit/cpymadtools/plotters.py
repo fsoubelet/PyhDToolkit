@@ -461,9 +461,9 @@ class TuneDiagramPlotter:
              The figure on which resonance lines from farey sequences are drawn, up to the specified max
              order.
         """
-        if max_order > 6:
-            logger.error("Plotting is not supported above 6th order (and not recommended)")
-            raise ValueError("The 'max_order' argument should be at most 6")
+        if max_order > 6 or max_order < 1:
+            logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
+            raise ValueError("The 'max_order' argument should be between 1 and 6 included")
 
         logger.info(f"Plotting resonance lines up to {TuneDiagramPlotter.order_to_label[max_order]}")
         figure, axis = plt.subplots(figsize=figsize)
@@ -488,54 +488,4 @@ class TuneDiagramPlotter:
         if legend_title is not None:
             logger.debug("Adding legend with given title")
             plt.legend(title=legend_title)
-        return figure
-
-    @staticmethod
-    # TODO: accept kwargs to give to plot_blank_tune_diagram
-    def plot_tune_diagram(
-        madx: Madx,
-        v_qx: np.ndarray = np.array([0]),
-        vxgood: np.ndarray = np.array([False]),
-        v_qy: np.ndarray = np.array([0]),
-        vygood: np.ndarray = np.array([False]),
-        savefig: str = None,
-    ) -> matplotlib.figure.Figure:
-        """
-        Plots the evolution of particles' tunes on a Tune Diagram.
-
-        Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            v_qx (np.ndarray): horizontal tune value as a numpy array.
-            vxgood (np.ndarray): ??
-            v_qy (np.ndarray): vertical tune value as a numpy array.
-            vygood (np.ndarray): ??
-            savefig: will save the figure if this is not None, using the string value passed.
-
-        Returns:
-             The figure on which the diagram is drawn.
-        """
-        figure = TuneDiagramPlotter.plot_blank_tune_diagram()
-
-        logger.debug("Getting Tunes from MAD-X")
-        madx.command.twiss()
-        new_q1: float = madx.table.summ.q1[0]
-        new_q2: float = madx.table.summ.q2[0]
-
-        if vxgood.any() and vygood.any():
-            plt.plot(v_qx[vxgood * vygood], v_qy[vxgood * vygood], ".r")
-            plt.plot(new_q1 - np.floor(new_q1), new_q2 - np.floor(new_q2), ".g")
-
-        elif vxgood.any() and ~vygood.any():
-            tp = np.ones(len(vxgood)) * (new_q2 - np.floor(new_q2))
-            plt.plot(v_qx[vxgood], tp[vxgood], ".r")
-            plt.plot(new_q1 - np.floor(new_q1), new_q2 - np.floor(new_q2), ".g")
-
-        elif ~vxgood.any() and vygood.any():
-            tp = np.ones(len(vygood)) * (new_q1 - np.floor(new_q1))
-            plt.plot(tp[vygood], v_qy[vygood], ".r")
-            plt.plot(new_q1 - np.floor(new_q1), new_q2 - np.floor(new_q2), ".g")
-
-        if savefig:
-            logger.info(f"Saving Tune diagram plot at '{Path(savefig).absolute()}'")
-            plt.savefig(Path(savefig))
         return figure
