@@ -175,84 +175,33 @@ class TestPhaseSpacePlotter:
 
 
 class TestTuneDiagramPlotter:
+    @pytest.mark.parametrize("max_order", [0, 10, -5])
+    def test_plot_blank_tune_diagram_fails_on_too_high_order(self, max_order, caplog):
+        with pytest.raises(ValueError):
+            _ = TuneDiagramPlotter.plot_blank_tune_diagram(max_order=max_order)
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_blank_tune_diagram(self):
         """Does not need any input."""
-        figure = TuneDiagramPlotter.plot_blank_tune_diagram()
-        plt.xlim(0, 0.5)
-        plt.ylim(0, 0.5)
-        return figure
+        return TuneDiagramPlotter.plot_blank_tune_diagram()
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_tune_diagram(self, tmp_path):
-        """Using my CAS 19 project's base lattice."""
-        savefig_dir = tmp_path / "test_plot_latwiss"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "tune_diagram.png"
+    def test_plot_blank_tune_diagram_colored_by_resonance_order(self):
+        return TuneDiagramPlotter.plot_blank_tune_diagram(differentiate_orders=True)
 
-        n_particles = 100
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+    @pytest.mark.parametrize("figure_title", ["", "Tune Diagram"])
+    @pytest.mark.parametrize("legend_title", ["Resonance Lines"])
+    @pytest.mark.parametrize("max_order", [2, 3, 4, 5])
+    @pytest.mark.parametrize("differentiate", [False, True])
+    def test_plot_blank_tune_diagram_arguments(self, figure_title, legend_title, max_order, differentiate):
+        figure = TuneDiagramPlotter.plot_blank_tune_diagram(
+            title=figure_title,
+            legend_title=legend_title,
+            max_order=max_order,
+            differentiate_orders=differentiate,
         )
-
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-
-        x_coords_stable = np.array(x_coords_stable)
-        qxs_stable, xgood_stable = [], []
-
-        for particle in range(n_particles):
-            if np.isnan(x_coords_stable[particle]).any():
-                qxs_stable.append(0)
-                xgood_stable.append(False)
-            else:
-                signal = x_coords_stable[particle]
-                signal = np.array(signal)
-                try:
-                    qxs_stable.append(pnf.naff(signal, n_turns, 1, 0, False)[0][1])
-                    xgood_stable.append(True)
-                except:
-                    qxs_stable.append(0)
-                    xgood_stable.append(False)
-
-        qxs_stable = np.array(qxs_stable)
-        xgood_stable = np.array(xgood_stable)
-        figure = TuneDiagramPlotter.plot_tune_diagram(madx, qxs_stable, xgood_stable, savefig=saved_fig)
-        plt.xlim(0, 0.4)
-        plt.ylim(0, 0.4)
-        assert saved_fig.is_file()
-        return figure
-
-
-# ----- Fixtures ----- #
-
-
-def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
-    """
-    Tracks 100 particles on 500 turns.
-    This modifies inplace the state of the provided cpymad_instance.
-
-    Args:
-        cpymad_instance: an instantiated cpymad.madx.Madx object
-
-    Returns:
-        The x, y, px, py coordinates along the tracking.
-    """
-    # Toning the tracking down in particles / turns so it doesn't take too long (~20s?)
-    n_particles = 100
-    n_turns = 500
-    initial_x_coordinates = np.linspace(1e-4, 0.05, n_particles)
-    x_coords_stable, px_coords_stable, y_coords_stable, py_coords_stable = [], [], [], []
-
-    for _, starting_x in enumerate(initial_x_coordinates):
-        cpymad_instance.command.track()
-        cpymad_instance.command.start(X=starting_x, PX=0, Y=0, PY=0, T=0, PT=0)
-        cpymad_instance.command.run(turns=n_turns)
-        cpymad_instance.command.endtrack()
-
-        x_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["x"].to_numpy())
-        y_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["y"].to_numpy())
-        px_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["px"].to_numpy())
-        py_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["py"].to_numpy())
-    return x_coords_stable, y_coords_stable, px_coords_stable, py_coords_stable
+        assert figure.axes[0].get_title() == figure_title
+        assert isinstance(figure.axes[0].legend().get_title(), matplotlib.text.Text)
