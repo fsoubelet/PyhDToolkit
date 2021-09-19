@@ -344,7 +344,8 @@ class TuneDiagramPlotter:
     @staticmethod
     def farey_sequence(order: int) -> List[Tuple[int, int]]:
         """
-        Returns the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás.
+        Returns the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás (see Numerical
+        Methods 2018 CAS proceedings: https://arxiv.org/abs/2006.10661).
 
         Args:
             order (int): the order up to which we want to calculate the sequence.
@@ -362,49 +363,86 @@ class TuneDiagramPlotter:
         return seq
 
     @staticmethod
-    def plot_blank_tune_diagram(figsize: Tuple[float, float] = (12, 12)) -> matplotlib.figure.Figure:
-        """
-        Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
-
-        Args:
-            figsize (Tuple[int, int]): size of the figure, defaults to (12, 12).
-
-        Returns:
-             The figure on which resonance lines from farey sequences are drawn.
-        """
-        logger.debug("Plotting resonance lines from Farey sequence, up to 5th order")
+    # TODO: propagate kwargs to plot method
+    # TODO: give option to choose max order to plot
+    # TODO: give option to differentiate each order by color when plotting
+    def plot_blank_tune_diagram(
+        title: str = "", max_order: int = 6, figsize: Tuple[float, float] = (12, 12), **kwargs
+    ) -> matplotlib.figure.Figure:
         figure = plt.figure(figsize=figsize)
-        plt.ylim((0, 1))
-        plt.xlim((0, 1))
+        already_plotted_coeffs = []
+        x, y = np.linspace(0, 1, 1000), np.linspace(0, 1, 1000)
 
-        x = np.linspace(0, 1, 1000)
-        for i in range(1, 6):
-            farey_sequences = TuneDiagramPlotter.farey_sequence(i)
+        for order in range(1, max_order + 1):
+            alpha, ls, lw, rgb, label = (
+                order_to_alpha[order],
+                order_to_linestyle[order],
+                order_to_linewidth[order],
+                order_to_rgb[order],
+                order_to_label[order],
+            )
+            logger.debug(f"Plotting resonance lines for order {order}")
+            farey_sequences = TuneDiagramPlotter.farey_sequence(order)
+            plt.plot([], [], alpha=alpha, ls=ls, lw=lw, color=rgb, label=label, **kwargs)  # for legend
             for f in farey_sequences:
                 h, k = f  # Node h/k on the axes
                 for sequence in farey_sequences:
                     p, q = sequence
-                    a = float(k * p)  # Resonance linea Qx + b*Qy = clinkedtop / q
+                    a = float(k * p)  # Resonance line a*Qx + b*Qy = c (linked to p/q)
                     if a > 0:
                         b = float(q - k * p)
                         c = float(p * h)
-                        plt.plot(x, c / a - x * b / a, "b", alpha=0.1)
-                        plt.plot(x, c / a + x * b / a, "b", alpha=0.1)
-                        plt.plot(c / a - x * b / a, x, "b", alpha=0.1)
-                        plt.plot(c / a + x * b / a, x, "b", alpha=0.1)
-                        plt.plot(c / a - x * b / a, 1 - x, "b", alpha=0.1)
-                        plt.plot(c / a + x * b / a, 1 - x, "b", alpha=0.1)
+                        if (1, c / a, 1, b / a) not in already_plotted_coeffs:
+                            plt.plot(
+                                x, c / a - x * b / a, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
+                            )
+                            already_plotted_coeffs.append((c / a, 1, b / a))
+                        else:
+                            print("passed first")
+                        if (1, c / a, -1, b / a) not in already_plotted_coeffs:
+                            plt.plot(
+                                x, c / a + x * b / a, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
+                            )
+                            already_plotted_coeffs.append((c / a, 1, b / a))
+                        else:
+                            print("passed second")
+                        if (c / a, -1, b / a, 1) not in already_plotted_coeffs:
+                            plt.plot(c / a - x * b / a, y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs)
+                            already_plotted_coeffs.append((c / a, -1, b / a, 1))
+                        else:
+                            print("passed third")
+                        if (c / a, 1, b / a, 1) not in already_plotted_coeffs:
+                            plt.plot(
+                                c / a + x * b / a, y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
+                            )
+                            already_plotted_coeffs.append((c / a, 1, b / a, 1))
+                        else:
+                            print("passed fourth")
+                        if (c / a, -1, b / a, -1) not in already_plotted_coeffs:
+                            plt.plot(
+                                c / a - x * b / a, 1 - y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
+                            )
+                            already_plotted_coeffs.append((c / a, -1, b / a, -1))
+                        else:
+                            print("passed fifth")
+                        if (c / a, 1, b / a, -1) not in already_plotted_coeffs:
+                            plt.plot(
+                                c / a + x * b / a, 1 - y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
+                            )
+                            already_plotted_coeffs.append((c / a, 1, b / a, -1))
                     if q == k and p == 1:  # FN elements below 1/k
                         break
-        plt.title("Tune Diagram")
-        plt.axis("square")
+        plt.title(title)
         plt.xlim([0, 1])
         plt.ylim([0, 1])
         plt.xlabel("$Q_{x}$")
         plt.ylabel("$Q_{y}$")
+        plt.legend(title="Resonance Lines", loc="best", ncol=2, title_fontsize=22, fontsize=20)
+        plt.grid(False)
         return figure
 
     @staticmethod
+    # TODO: accept kwargs to give to plot_blank_tune_diagram
     def plot_tune_diagram(
         madx: Madx,
         v_qx: np.ndarray = np.array([0]),
