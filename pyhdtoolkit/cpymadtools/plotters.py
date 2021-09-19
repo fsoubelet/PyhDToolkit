@@ -8,8 +8,9 @@ Created on 2019.12.08
 A collection of functions to plot different output results from a cpymad.madx.Madx object's
 simulation results.
 """
+from functools import partial
 from pathlib import Path
-from typing import List, Tuple
+from typing import Dict, List, Tuple
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -341,6 +342,33 @@ class TuneDiagramPlotter:
     A class to plot a blank tune diagram with Farey sequences, as well as your working points.
     """
 
+    order_to_alpha: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
+    order_to_rgb: Dict[int, np.ndarray] = {
+        1: np.array([152, 52, 48]) / 255,  # a brown
+        2: np.array([57, 119, 175]) / 255,  # a blue
+        3: np.array([239, 133, 54]) / 255,  # an orange
+        4: np.array([82, 157, 62]) / 255,  # a green
+        5: np.array([197, 57, 50]) / 255,  # a red
+        6: np.array([141, 107, 184]) / 255,  # a purple
+    }
+    order_to_linestyle: Dict[int, str] = {
+        1: "solid",
+        2: "solid",
+        3: "solid",
+        4: "dashed",
+        5: "dashed",
+        6: "dashed",
+    }
+    order_to_linewidth: Dict[int, float] = {1: 2, 2: 1.75, 3: 1.5, 4: 1.25, 5: 1, 6: 0.75}
+    order_to_label: Dict[int, str] = {
+        1: "1st order",
+        2: "2nd order",
+        3: "3rd order",
+        4: "4th order",
+        5: "5th order",
+        6: "6th order",
+    }
+
     @staticmethod
     def farey_sequence(order: int) -> List[Tuple[int, int]]:
         """
@@ -363,82 +391,103 @@ class TuneDiagramPlotter:
         return seq
 
     @staticmethod
-    # TODO: propagate kwargs to plot method
-    # TODO: give option to choose max order to plot
-    # TODO: give option to differentiate each order by color when plotting
-    def plot_blank_tune_diagram(
-        title: str = "", max_order: int = 6, figsize: Tuple[float, float] = (12, 12), **kwargs
-    ) -> matplotlib.figure.Figure:
-        figure = plt.figure(figsize=figsize)
-        already_plotted_coeffs = []
-        x, y = np.linspace(0, 1, 1000), np.linspace(0, 1, 1000)
+    def _plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwargs) -> None:
+        """
+        Plot resonance lines from farey sequences of the given order on the current figure.
 
-        for order in range(1, max_order + 1):
-            alpha, ls, lw, rgb, label = (
-                order_to_alpha[order],
-                order_to_linestyle[order],
-                order_to_linewidth[order],
-                order_to_rgb[order],
-                order_to_label[order],
+        Args:
+            order (int): the order of the resonance.
+            axis (matplotlib.axes.Axes): the axis on which to plot the resonance lines.
+
+        Keyword Args:
+            Any keyword argument is given to plt.plot().
+        """
+        order_label = TuneDiagramPlotter.order_to_label[order]
+        logger.debug(f"Plotting {order_label} resonance lines")
+        axis.plot([], [], label=order_label, **kwargs)  # to avoid legend duplication in loops below
+
+        x, y = np.linspace(0, 1, 1000), np.linspace(0, 1, 1000)
+        farey_sequences = TuneDiagramPlotter.farey_sequence(order)
+        clip = partial(np.clip, a_min=0, a_max=1)  # clip all values to plot to [0, 1]
+
+        for node in farey_sequences:
+            h, k = node  # Node h/k on the axes
+            for sequence in farey_sequences:
+                p, q = sequence
+                a = float(k * p)  # Resonance line a*Qx + b*Qy = c (linked to p/q)
+                if a > 0:
+                    b, c = float(q - k * p), float(p * h)
+                    axis.plot(x, clip(c / a - x * b / a), **kwargs)
+                    axis.plot(x, clip(c / a + x * b / a), **kwargs)
+                    axis.plot(clip(c / a - x * b / a), y, **kwargs)
+                    axis.plot(clip(c / a + x * b / a), y, **kwargs)
+                    axis.plot(clip(c / a - x * b / a), 1 - y, **kwargs)
+                    axis.plot(clip(c / a + x * b / a), 1 - y, **kwargs)
+                if q == k and p == 1:  # FN elements below 1/k
+                    break
+
+    @staticmethod
+    def plot_blank_tune_diagram(
+        title: str = "",
+        legend_title: str = None,
+        max_order: int = 6,
+        differentiate_orders: bool = False,
+        figsize: Tuple[float, float] = (12, 12),
+        **kwargs,
+    ) -> matplotlib.figure.Figure:
+        """
+        Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
+        The first order lines make up the [(0, 0), (0, 1), (1, 1), (1, 0)] square and will only be seen
+        when redefining the limits of the figure, which are by default [0, 1] on each axis.
+
+        Args:
+            title (str): title of your plot, to be given to the figure. Defaults to an empty string.
+            legend_title (str): if given, will be used as the title of the plot's legend. If set to `None`,
+                then creating a legend for the figure will not be done by this function and left up to the
+                user's care (a call to `pyplot.legend` will do). Defaults to `None`.
+            max_order (int): the order up to which to plot resonance lines for, should not exceed 6.
+                Defaults to 6.
+            differentiate_orders (bool): if `True`, the lines for each order will be of a different color.
+                When set to False, there is still minimal differentation through alpha, linewidth and
+                linestyle. Defaults to `False`.
+            figsize (Tuple[int, int]): size of the figure, defaults to (12, 12).
+
+        Keyword Args:
+            Any keyword argument will be transmitted to the `_plot_resonance_lines_for_order` functino
+            and later on to `pyplot.plot`. Be aware that `alpha`, `ls`, `lw`, `color` and `label` are
+            already set by this function and providing them as kwargs might lead to errors.
+
+        Returns:
+             The figure on which resonance lines from farey sequences are drawn, up to the specified max
+             order.
+        """
+        if max_order > 6:
+            logger.error("Plotting is not supported above 6th order (and not recommended)")
+            raise ValueError("The 'max_order' argument should be at most 6")
+
+        logger.info(f"Plotting resonance lines up to {TuneDiagramPlotter.order_to_label[max_order]}")
+        figure, axis = plt.subplots(figsize=figsize)
+
+        for order in range(max_order, 0, -1):  # high -> low so most importants ones (low) are plotted on top
+            alpha, ls, lw, rgb = (
+                TuneDiagramPlotter.order_to_alpha[order],
+                TuneDiagramPlotter.order_to_linestyle[order],
+                TuneDiagramPlotter.order_to_linewidth[order],
+                TuneDiagramPlotter.order_to_rgb[order] if differentiate_orders is True else "blue",
             )
-            logger.debug(f"Plotting resonance lines for order {order}")
-            farey_sequences = TuneDiagramPlotter.farey_sequence(order)
-            plt.plot([], [], alpha=alpha, ls=ls, lw=lw, color=rgb, label=label, **kwargs)  # for legend
-            for f in farey_sequences:
-                h, k = f  # Node h/k on the axes
-                for sequence in farey_sequences:
-                    p, q = sequence
-                    a = float(k * p)  # Resonance line a*Qx + b*Qy = c (linked to p/q)
-                    if a > 0:
-                        b = float(q - k * p)
-                        c = float(p * h)
-                        if (1, c / a, 1, b / a) not in already_plotted_coeffs:
-                            plt.plot(
-                                x, c / a - x * b / a, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
-                            )
-                            already_plotted_coeffs.append((c / a, 1, b / a))
-                        else:
-                            print("passed first")
-                        if (1, c / a, -1, b / a) not in already_plotted_coeffs:
-                            plt.plot(
-                                x, c / a + x * b / a, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
-                            )
-                            already_plotted_coeffs.append((c / a, 1, b / a))
-                        else:
-                            print("passed second")
-                        if (c / a, -1, b / a, 1) not in already_plotted_coeffs:
-                            plt.plot(c / a - x * b / a, y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs)
-                            already_plotted_coeffs.append((c / a, -1, b / a, 1))
-                        else:
-                            print("passed third")
-                        if (c / a, 1, b / a, 1) not in already_plotted_coeffs:
-                            plt.plot(
-                                c / a + x * b / a, y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
-                            )
-                            already_plotted_coeffs.append((c / a, 1, b / a, 1))
-                        else:
-                            print("passed fourth")
-                        if (c / a, -1, b / a, -1) not in already_plotted_coeffs:
-                            plt.plot(
-                                c / a - x * b / a, 1 - y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
-                            )
-                            already_plotted_coeffs.append((c / a, -1, b / a, -1))
-                        else:
-                            print("passed fifth")
-                        if (c / a, 1, b / a, -1) not in already_plotted_coeffs:
-                            plt.plot(
-                                c / a + x * b / a, 1 - y, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
-                            )
-                            already_plotted_coeffs.append((c / a, 1, b / a, -1))
-                    if q == k and p == 1:  # FN elements below 1/k
-                        break
+            TuneDiagramPlotter._plot_resonance_lines_for_order(
+                order, axis, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
+            )
+
         plt.title(title)
-        plt.xlim([0, 1])
-        plt.ylim([0, 1])
+        axis.set_xlim([0, 1])
+        axis.set_ylim([0, 1])
         plt.xlabel("$Q_{x}$")
         plt.ylabel("$Q_{y}$")
-        plt.legend(title="Resonance Lines", loc="best", ncol=2, title_fontsize=22, fontsize=20)
-        plt.grid(False)
+
+        if legend_title is not None:
+            logger.debug("Adding legend with given title")
+            plt.legend(title=legend_title)
         return figure
 
     @staticmethod
