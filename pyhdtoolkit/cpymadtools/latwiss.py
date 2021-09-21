@@ -5,8 +5,8 @@ Module cpymadtools.latwiss
 Created on 2019.06.15
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A collection of functions to elegantly plot the Twiss parameters output of a cpymad.madx.Madx
-instance after it has ran, or machine survey.
+A collection of functions to elegantly plot the Twiss parameters output of a cpymad.madx.Madx instance
+after it has ran, or machine survey.
 """
 from typing import Dict, Tuple
 
