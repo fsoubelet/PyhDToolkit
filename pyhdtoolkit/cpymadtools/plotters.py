@@ -10,12 +10,13 @@ simulation results.
 """
 from functools import partial
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Union
 
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -147,6 +148,226 @@ class BeamEnvelopePlotter:
         if savefig:
             logger.info(f"Saving aperture plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
+        return figure
+
+
+class CrossingSchemePlotter:
+    """
+    A class to plot LHC crossing schemes at provided IPs.
+    """
+
+    @staticmethod
+    def _highlight_mbx_and_mqx(
+        axis: matplotlib.axes.Axes, plot_df: Union[pd.DataFrame, tfs.TfsDataFrame], ip: int, **kwargs
+    ) -> None:
+        """
+        Plot colored pacthes highlighting zones with MBX and MQX elements in a twin of the given axis.
+        Assumes that the plot_df s already centered at 0 on the IP point!
+
+        Args:
+            axis (matplotlib.axes.Axes): the axis to twin and then on which to add patches.
+            plot_df (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone, centered on 0
+                at IP position (simply done with `df.s = df.s - ip_s`).
+            ip (int): the IP number of the given IR.
+
+        Keyword Args:
+            Any keyword argument is given to the `axis.axvspan` method called for each patch.
+        """
+        left_ir = plot_df.query("s < 0")  # no need to copy, we don't touch data
+        right_ir = plot_df.query("s > 0")  # no need to copy, we don't touch data
+
+        logger.trace("Determining MBX areas left and right of IP")
+        left_mbx_lim = (
+            left_ir[left_ir.name.str.contains("mbx")].s.min(),
+            left_ir[left_ir.name.str.contains("mbx")].s.max(),
+        )
+        right_mbx_lim = (
+            right_ir[right_ir.name.str.contains("mbx")].s.min(),
+            right_ir[right_ir.name.str.contains("mbx")].s.max(),
+        )
+
+        logger.trace("Determining MQX areas left and right of IP")
+        left_mqx_lim = (
+            left_ir[left_ir.name.str.contains("mqx")].s.min(),
+            left_ir[left_ir.name.str.contains("mqx")].s.max(),
+        )
+        right_mqx_lim = (
+            right_ir[right_ir.name.str.contains("mqx")].s.min(),
+            right_ir[right_ir.name.str.contains("mqx")].s.max(),
+        )
+
+        logger.trace("Highlighting MBX and MQX areas on a twin axis")
+        patches_axis = axis.twinx()
+        patches_axis.get_yaxis().set_visible(False)
+        patches_axis.axvspan(*left_mbx_lim, color="orange", lw=2, alpha=0.2, label="MBX")
+        patches_axis.axvspan(*left_mqx_lim, color="grey", lw=2, alpha=0.2, label="MQX")
+        patches_axis.axvline(x=0, color="grey", ls="--", label=f"IP{ip}")
+        patches_axis.axvspan(*right_mqx_lim, color="grey", lw=2, alpha=0.2)  # no label duplication
+        patches_axis.axvspan(*right_mbx_lim, color="orange", lw=2, alpha=0.2)  # no label duplication
+        patches_axis.legend(loc=4)
+
+    @staticmethod
+    def _plot_crossing_in_ir(
+        axis: matplotlib.axes.Axes,
+        plot_df_b1: pd.DataFrame,
+        plot_df_b2: pd.DataFrame,
+        plot_column: str,
+        scaling: float = 1,
+        ylabel: str = None,
+        xlabel: str = None,
+        title: str = None,
+    ) -> None:
+        """
+        Plot the X or Y orbit for the IR on the given axis. Assumes that the plot_df_b1 and plot_df_b2
+        are already centered at 0 on the IP point!
+
+        Args:
+            axis (matplotlib.axes.Axes): the axis on which to plot.
+            plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 1
+            of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
+            plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 2
+            of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
+            plot_column (str): which column (should be `x` or `y`) to plot for the orbit.
+            scaling (float): scaling factor to apply to the plotted data. Defaults to 1 (no change of data).
+            xlabel (str): if given, will be used for the `xlabel` of the axis. Defaults to `None`.
+            ylabel (str): if given, will be used for the `ylabel` of the axis. Defaults to `None`.
+            title (str): if given, will be used for the `title` of the axis. Defaults to `None`.
+        """
+        logger.trace(f"Plotting orbit '{plot_column}'")
+        axis.plot(
+            plot_df_b1.s,
+            plot_df_b1[plot_column] * scaling,
+            "bo",
+            ls="-",
+            mfc="none",
+            alpha=0.8,
+            label="Beam 1",
+        )
+        axis.plot(
+            plot_df_b2.s,
+            plot_df_b2[plot_column] * scaling,
+            "ro",
+            ls="-",
+            mfc="none",
+            alpha=0.8,
+            label="Beam 2",
+        )
+        axis.set_ylabel(ylabel)
+        axis.set_xlabel(xlabel)
+        axis.set_title(title)
+        axis.legend()
+
+    @staticmethod
+    def plot_two_lhc_ips_crossings(
+        madx: Madx,
+        first_ip: int,
+        second_ip: int,
+        figsize: Tuple[int, int] = (18, 12),
+        ir_limit: float = 275,
+        savefig: str = None,
+    ) -> matplotlib.figure.Figure:
+        """
+        Provided with an active `cpymad.madx.Madx` instance after having ran a script, will create a plot
+        representing nicely the crossing schemes at two provided IPs. This assumes the appropriate LHC
+        sequence and opticsfile have been loaded, and both `lhcb1` and `lhcb2` beams are defined. It is
+        very recommended to re-cycle the sequences from a point which is not an IP
+
+        WARNING: This function will get TWISS tables for both beams, which means it will `USE` both the
+        `lhcb1` and `lhcb2` sequences, erasing previously defined errors or orbit corrections. The second
+        sequence `USE` will be called on is `lhcb2`, which may not be the one you were using before. Please
+        re-`use` your wanted sequence after calling this function!
+
+        Args:
+            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            first_ip (int): the first of the two IPs to plot crossing schemes for.
+            second_ip (int): the second of the two IPs to plot crossing schemes for.
+            figsize (Tuple[int, int]): size of the figure, defaults to (18, 12).
+            ir_limit (float): the amount of meters to keep left and right of the IP point. Will also
+                determine the xlimits of the plots. Defaults to 275.
+            savefig (str): will save the figure if this is not `None`, using the string value passed.
+                Defaults to `None`.
+
+        Returns:
+            The figure on which the crossing schemes are drawn. One crossing scheme is plotted per IP and
+            per plane (orbit X and orbit Y). The underlying axes can be accessed with 'fig.get_axes()'.
+            Eventually saves the figure as a file.
+        """
+        logger.warning("You should re-call the 'USE' command on your wanted sequence after this!")
+        # ----- Getting Twiss table dframe for each beam ----- #
+        logger.debug("Getting TWISS table for LHCB1")
+        madx.use(sequence="lhcb1")
+        madx.command.twiss(centre=True)
+        twiss_df_b1 = madx.table.twiss.dframe().copy()
+
+        logger.debug("Getting TWISS table for LHCB2")
+        madx.use(sequence="lhcb2")
+        madx.command.twiss(centre=True)
+        twiss_df_b2 = madx.table.twiss.dframe().copy()
+
+        logger.trace("Determining exact locations of IP points")
+        first_ip_s = twiss_df_b1.s[f"ip{first_ip}"]
+        second_ip_s = twiss_df_b1.s[f"ip{second_ip}"]
+
+        # ----- Plotting figure ----- #
+        logger.info(f"Plotting crossing schemes for IP{first_ip} and IP{second_ip}")
+        figure, axes = plt.subplots(2, 2, figsize=figsize)
+
+        logger.debug(f"Plotting for IP{first_ip}")
+        b1_plot = twiss_df_b1[twiss_df_b1.s.between(first_ip_s - ir_limit, first_ip_s + ir_limit)].copy()
+        b2_plot = twiss_df_b2[twiss_df_b2.s.between(first_ip_s - ir_limit, first_ip_s + ir_limit)].copy()
+        b1_plot.s = b1_plot.s - first_ip_s
+        b2_plot.s = b2_plot.s - first_ip_s
+
+        CrossingSchemePlotter._plot_crossing_in_ir(
+            axes[0][0],
+            b1_plot,
+            b2_plot,
+            plot_column="x",
+            scaling=1e3,
+            ylabel="Orbit X $[mm]$",
+            title=f"IP{first_ip} Crossing Schemes",
+        )
+        CrossingSchemePlotter._plot_crossing_in_ir(
+            axes[1][0],
+            b1_plot,
+            b2_plot,
+            plot_column="y",
+            scaling=1e3,
+            ylabel="Orbit Y $[mm]$",
+            xlabel=f"Distance to IP{first_ip} $[m]$",
+        )
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][0], b1_plot, f"IP{first_ip}")
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][0], b1_plot, f"IP{first_ip}")
+
+        logger.debug(f"Plotting for IP{second_ip}")
+        b1_plot = twiss_df_b1[twiss_df_b1.s.between(second_ip_s - ir_limit, second_ip_s + ir_limit)].copy()
+        b2_plot = twiss_df_b2[twiss_df_b2.s.between(second_ip_s - ir_limit, second_ip_s + ir_limit)].copy()
+        b1_plot.s = b1_plot.s - second_ip_s
+        b2_plot.s = b2_plot.s - second_ip_s
+
+        CrossingSchemePlotter._plot_crossing_in_ir(
+            axes[0][1],
+            b1_plot,
+            b2_plot,
+            plot_column="x",
+            scaling=1e3,
+            title=f"IP{second_ip} Crossing Schemes",
+        )
+        CrossingSchemePlotter._plot_crossing_in_ir(
+            axes[1][1],
+            b1_plot,
+            b2_plot,
+            plot_column="y",
+            scaling=1e3,
+            xlabel=f"Distance to IP{second_ip} $[m]$",
+        )
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][1], b1_plot, f"IP{second_ip}")
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][1], b1_plot, f"IP{second_ip}")
+        plt.tight_layout()
+
+        if savefig:
+            logger.info(f"Saving crossing schemes for IP{first_ip} and IP{second_ip} plot as '{savefig}'")
+            figure.savefig(savefig)
         return figure
 
 
