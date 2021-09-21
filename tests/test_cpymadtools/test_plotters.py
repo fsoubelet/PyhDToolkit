@@ -10,8 +10,8 @@ from cpymad.madx import Madx
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.plotters import (
+    BeamEnvelopePlotter,
     DynamicAperturePlotter,
-    EnvelopePlotter,
     PhaseSpacePlotter,
     TuneDiagramPlotter,
 )
@@ -24,6 +24,21 @@ CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 GUIDO_LATTICE = INPUTS_DIR / "guido_lattice.madx"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
+
+
+class TestBeamEnvelopePlotter:
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_envelope(self, tmp_path):
+        savefig_dir = tmp_path / "test_plot_envelope"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "envelope.png"
+
+        beam_fb = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
+        madx = Madx(stdout=False)
+        madx.call(str(GUIDO_LATTICE))
+        figure = BeamEnvelopePlotter.plot_envelope(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
+        assert saved_fig.is_file()
+        return figure
 
 
 class TestDynamicAperturePlotter:
@@ -47,21 +62,6 @@ class TestDynamicAperturePlotter:
         figure = DynamicAperturePlotter.plot_dynamic_aperture(
             x_coords_stable, y_coords_stable, n_particles=n_particles, savefig=saved_fig
         )
-        assert saved_fig.is_file()
-        return figure
-
-
-class TestEnvelopePlotter:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_envelope(self, tmp_path):
-        savefig_dir = tmp_path / "test_plot_envelope"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "envelope.png"
-
-        beam_fb = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
-        madx = Madx(stdout=False)
-        madx.call(str(GUIDO_LATTICE))
-        figure = EnvelopePlotter.plot_envelope(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
         assert saved_fig.is_file()
         return figure
 
