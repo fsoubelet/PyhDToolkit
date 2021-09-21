@@ -6,6 +6,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
+from pyhdtoolkit.cpymadtools import special
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 CURRENT_DIR = pathlib.Path(__file__).parent
@@ -94,3 +95,17 @@ def _matched_lhc_madx() -> Madx:
     match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
     yield madx
     madx.exit()
+
+
+@pytest.fixture()
+def _cycled_lhc_sequences() -> Madx:
+    """Important properties & beam for lhcb1 and lhcb1 declared and in use, WITH matching to working point."""
+    with Madx(stdout=False) as madx:
+        madx.call(str(LHC_SEQUENCE.absolute()))
+        madx.call(str(LHC_OPTICS.absolute()))
+
+        special.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        special.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
+        special.make_lhc_beams(madx, energy=6500)
+
+        yield madx
