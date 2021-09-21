@@ -11,6 +11,7 @@ from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.plotters import (
     BeamEnvelopePlotter,
+    CrossingSchemePlotter,
     DynamicAperturePlotter,
     PhaseSpacePlotter,
     TuneDiagramPlotter,
@@ -37,6 +38,22 @@ class TestBeamEnvelopePlotter:
         madx = Madx(stdout=False)
         madx.call(str(GUIDO_LATTICE))
         figure = BeamEnvelopePlotter.plot_envelope(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
+        assert saved_fig.is_file()
+        return figure
+
+
+class TestCrossingSchemePlotter:
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_crossing_schemes(self, tmp_path, _cycled_lhc_sequences):
+        savefig_dir = tmp_path / "test_plot_envelope"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "crossings.png"
+
+        madx = _cycled_lhc_sequences
+        figure = CrossingSchemePlotter.plot_two_lhc_ips_crossings(
+            madx, first_ip=1, second_ip=5, figsize=(18, 11), ir_limit=250, savefig=saved_fig
+        )
+
         assert saved_fig.is_file()
         return figure
 
