@@ -9,11 +9,18 @@ cpymadtools is a collection of utilities that integrate within my workflow with 
 
 from .errors import misalign_lhc_ir_quadrupoles, misalign_lhc_triplets, switch_magnetic_errors
 from .generators import LatticeGenerator
-from .latwiss import plot_latwiss, plot_machine_survey
 from .matching import get_closest_tune_approach, get_lhc_tune_and_chroma_knobs, match_tunes_and_chromaticities
 from .orbit import correct_lhc_orbit, get_current_orbit_setup, lhc_orbit_variables, setup_lhc_orbit
 from .parameters import query_beam_attributes
-from .plotters import AperturePlotter, DynamicAperturePlotter, PhaseSpacePlotter, TuneDiagramPlotter
+from .plotters import (
+    AperturePlotter,
+    BeamEnvelopePlotter,
+    CrossingSchemePlotter,
+    DynamicAperturePlotter,
+    LatticePlotter,
+    PhaseSpacePlotter,
+    TuneDiagramPlotter,
+)
 from .ptc import get_amplitude_detuning, get_rdts
 from .special import (
     apply_lhc_colinearity_knob,

@@ -1,5 +1,7 @@
 import pathlib
 
+from typing import Tuple
+
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,10 +13,14 @@ from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,
+    BeamEnvelopePlotter,
+    CrossingSchemePlotter,
     DynamicAperturePlotter,
+    LatticePlotter,
     PhaseSpacePlotter,
     TuneDiagramPlotter,
 )
+from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.optics.beam import compute_beam_parameters
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
@@ -28,15 +34,84 @@ BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
 class TestAperturePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_aperture(self, tmp_path):
-        savefig_dir = tmp_path / "test_plot_aperture"
+    def test_plot_aperture_cell_injection(self, tmp_path, _injection_aperture_tolerances_lhc_madx):
+        savefig_dir = tmp_path / "test_plot_envelope"
         savefig_dir.mkdir()
         saved_fig = savefig_dir / "aperture.png"
+
+        madx = _injection_aperture_tolerances_lhc_madx
+        madx.command.twiss(centre=True)
+        twiss_df = madx.table.twiss.dframe().copy()
+        ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
+        figure = AperturePlotter.plot_aperture(
+            madx,
+            title="Arc 56 Cell, Injection Optics Aperture Tolerance",
+            plot_bpms=True,
+            xlimits=(14_084.5, 14_191.3),  # cell somewhere in arc 56
+            aperture_ylim=(0, 25),
+            k0l_lim=(-3e-2, 3e-2),
+            k1l_lim=(-4e-2, 4e-2),
+            k2l_lim=(-5e-2, 5e-2),
+            color="brown",
+            savefig=saved_fig,
+        )
+
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_aperture_ir5_collision(self, tmp_path, _collision_aperture_tolerances_lhc_madx):
+        savefig_dir = tmp_path / "test_plot_envelope"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "aperture.png"
+
+        madx = _collision_aperture_tolerances_lhc_madx
+        madx.command.twiss(centre=True)
+        twiss_df = madx.table.twiss.dframe().copy()
+        ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
+
+        figure = AperturePlotter.plot_aperture(
+            madx,
+            title="IR 5, Injection Optics Aperture Tolerance",
+            plot_bpms=True,
+            xlimits=(ip5s - 80, ip5s + 80),
+            aperture_ylim=(0, 25),
+            k0l_lim=(-4e-4, 4e-4),
+            color="brown",
+            savefig=saved_fig,
+        )
+
+        assert saved_fig.is_file()
+        return figure
+
+
+class TestBeamEnvelopePlotter:
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_envelope(self, tmp_path):
+        savefig_dir = tmp_path / "test_plot_envelope"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "envelope.png"
 
         beam_fb = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
         madx = Madx(stdout=False)
         madx.call(str(GUIDO_LATTICE))
-        figure = AperturePlotter.plot_aperture(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
+        figure = BeamEnvelopePlotter.plot_envelope(madx, beam_fb, xlimits=(0, 20), savefig=saved_fig)
+        assert saved_fig.is_file()
+        return figure
+
+
+class TestCrossingSchemePlotter:
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_crossing_schemes(self, tmp_path, _cycled_lhc_sequences):
+        savefig_dir = tmp_path / "test_plot_envelope"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "crossings.png"
+
+        madx = _cycled_lhc_sequences
+        figure = CrossingSchemePlotter.plot_two_lhc_ips_crossings(
+            madx, first_ip=1, second_ip=5, figsize=(18, 11), ir_limit=250, savefig=saved_fig
+        )
+
         assert saved_fig.is_file()
         return figure
 
@@ -64,6 +139,56 @@ class TestDynamicAperturePlotter:
         )
         assert saved_fig.is_file()
         return figure
+
+
+class TestLatticePlotter:
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_latwiss(self, tmp_path):
+        """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_latwiss"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "latwiss.png"
+
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+        figure = LatticePlotter.plot_latwiss(
+            madx=madx,
+            title="Project 3 Base Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            k2l_lim=(-0.25, 0.25),
+            plot_bpms=True,
+            savefig=saved_fig,
+        )
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_machine_survey_with_elements(self, tmp_path):
+        """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_survey"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "survey.png"
+
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        figure = LatticePlotter.plot_machine_survey(
+            madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
+        )
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_machine_survey_without_elements(self):
+        """Using my CAS 19 project's base lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        return LatticePlotter.plot_machine_survey(
+            madx=madx, show_elements=False, high_orders=True, figsize=(20, 15)
+        )
 
 
 class TestPhaseSpacePlotter:
@@ -175,67 +300,47 @@ class TestPhaseSpacePlotter:
 
 
 class TestTuneDiagramPlotter:
+    @pytest.mark.parametrize("max_order", [0, 10, -5])
+    def test_plot_tune_diagram_fails_on_too_high_order(self, max_order, caplog):
+        with pytest.raises(ValueError):
+            _ = TuneDiagramPlotter.plot_tune_diagram(max_order=max_order)
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_blank_tune_diagram(self):
+    def test_plot_tune_diagram(self):
         """Does not need any input."""
-        figure = TuneDiagramPlotter.plot_blank_tune_diagram()
-        plt.xlim(0, 0.5)
-        plt.ylim(0, 0.5)
-        return figure
+        return TuneDiagramPlotter.plot_tune_diagram()
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_tune_diagram(self, tmp_path):
-        """Using my CAS 19 project's base lattice."""
-        savefig_dir = tmp_path / "test_plot_latwiss"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "tune_diagram.png"
+    def test_plot_tune_diagram_colored_by_resonance_order(self):
+        return TuneDiagramPlotter.plot_tune_diagram(differentiate_orders=True)
 
-        n_particles = 100
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+    @pytest.mark.parametrize("figure_title", ["", "Tune Diagram"])
+    @pytest.mark.parametrize("legend_title", ["Resonance Lines"])
+    @pytest.mark.parametrize("max_order", [2, 3, 4, 5])
+    @pytest.mark.parametrize("differentiate", [False, True])
+    def test_plot_tune_diagram_arguments(self, figure_title, legend_title, max_order, differentiate):
+        figure = TuneDiagramPlotter.plot_tune_diagram(
+            title=figure_title,
+            legend_title=legend_title,
+            max_order=max_order,
+            differentiate_orders=differentiate,
         )
-
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-
-        x_coords_stable = np.array(x_coords_stable)
-        qxs_stable, xgood_stable = [], []
-
-        for particle in range(n_particles):
-            if np.isnan(x_coords_stable[particle]).any():
-                qxs_stable.append(0)
-                xgood_stable.append(False)
-            else:
-                signal = x_coords_stable[particle]
-                signal = np.array(signal)
-                try:
-                    qxs_stable.append(pnf.naff(signal, n_turns, 1, 0, False)[0][1])
-                    xgood_stable.append(True)
-                except:
-                    qxs_stable.append(0)
-                    xgood_stable.append(False)
-
-        qxs_stable = np.array(qxs_stable)
-        xgood_stable = np.array(xgood_stable)
-        figure = TuneDiagramPlotter.plot_tune_diagram(madx, qxs_stable, xgood_stable, savefig=saved_fig)
-        plt.xlim(0, 0.4)
-        plt.ylim(0, 0.4)
-        assert saved_fig.is_file()
-        return figure
+        assert figure.axes[0].get_title() == figure_title
+        assert isinstance(figure.axes[0].legend().get_title(), matplotlib.text.Text)
 
 
 # ----- Fixtures ----- #
 
 
-def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
+def _perform_tracking_for_coordinates(madx: Madx) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Tracks 100 particles on 500 turns.
     This modifies inplace the state of the provided cpymad_instance.
-
     Args:
         cpymad_instance: an instantiated cpymad.madx.Madx object
-
     Returns:
         The x, y, px, py coordinates along the tracking.
     """
@@ -243,16 +348,14 @@ def _perform_tracking_for_coordinates(cpymad_instance) -> tuple:
     n_particles = 100
     n_turns = 500
     initial_x_coordinates = np.linspace(1e-4, 0.05, n_particles)
-    x_coords_stable, px_coords_stable, y_coords_stable, py_coords_stable = [], [], [], []
+    x_coords, px_coords, y_coords, py_coords = [], [], [], []
 
-    for _, starting_x in enumerate(initial_x_coordinates):
-        cpymad_instance.command.track()
-        cpymad_instance.command.start(X=starting_x, PX=0, Y=0, PY=0, T=0, PT=0)
-        cpymad_instance.command.run(turns=n_turns)
-        cpymad_instance.command.endtrack()
-
-        x_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["x"].to_numpy())
-        y_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["y"].to_numpy())
-        px_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["px"].to_numpy())
-        py_coords_stable.append(cpymad_instance.table["track.obs0001.p0001"].dframe()["py"].to_numpy())
-    return x_coords_stable, y_coords_stable, px_coords_stable, py_coords_stable
+    for starting_x in initial_x_coordinates:
+        tracks_df: dict = track_single_particle(
+            madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns, sequence="CAS3"
+        )
+        x_coords.append(tracks_df["observation_point_1"].x.to_numpy())
+        y_coords.append(tracks_df["observation_point_1"].y.to_numpy())
+        px_coords.append(tracks_df["observation_point_1"].px.to_numpy())
+        py_coords.append(tracks_df["observation_point_1"].py.to_numpy())
+    return x_coords, y_coords, px_coords, py_coords

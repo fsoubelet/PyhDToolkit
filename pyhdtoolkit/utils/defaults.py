@@ -50,7 +50,7 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     "mathtext.default": "regular",  # default font for math
     # ------ Text ------ #
     "text.usetex": True,  # Use LaTeX for text handling (Set to False if you don't have a local installation)
-    "text.latex.preamble": r"\usepackage{amsmath, amssymb}",  # \boldmath",  # Be careful with the preamble
+    "text.latex.preamble": r"\usepackage{amsmath, amssymb}",  # Be careful with the preamble
     # ------ Axes ------ #
     "axes.linewidth": 2,  # Linewidth of axes edges
     "axes.grid": True,  # Do display grid
@@ -90,6 +90,7 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     # ------- Legend ------ #
     "legend.loc": "best",  # Default legend location
     "legend.frameon": True,  # Make a dedicated patch for the legend
+    "legend.framealpha": 0.9,  # Legend patch transparency factor
     "legend.fancybox": True,  # Use rounded box for legend background
     "legend.fontsize": 22,  # Legend text font size
     "legend.title_fontsize": 23,  # Legend title text font size
