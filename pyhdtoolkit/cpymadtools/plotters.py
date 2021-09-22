@@ -467,8 +467,8 @@ class CrossingSchemePlotter:
             ylabel="Orbit Y $[mm]$",
             xlabel=f"Distance to IP{first_ip} $[m]$",
         )
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][0], b1_plot, f"IP{first_ip}")
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][0], b1_plot, f"IP{first_ip}")
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][0], plot_df=b1_plot, ip=first_ip)
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][0], plot_df=b1_plot, ip=first_ip)
 
         logger.debug(f"Plotting for IP{second_ip}")
         b1_plot = twiss_df_b1[twiss_df_b1.s.between(second_ip_s - ir_limit, second_ip_s + ir_limit)].copy()
@@ -492,8 +492,8 @@ class CrossingSchemePlotter:
             scaling=1e3,
             xlabel=f"Distance to IP{second_ip} $[m]$",
         )
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][1], b1_plot, f"IP{second_ip}")
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][1], b1_plot, f"IP{second_ip}")
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][1], plot_df=b1_plot, ip=second_ip)
+        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][1], plot_df=b1_plot, ip=second_ip)
         plt.tight_layout()
 
         if savefig:
