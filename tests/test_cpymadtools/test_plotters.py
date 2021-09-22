@@ -10,13 +10,13 @@ import pytest
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,
     BeamEnvelopePlotter,
     CrossingSchemePlotter,
     DynamicAperturePlotter,
+    LatticePlotter,
     PhaseSpacePlotter,
     TuneDiagramPlotter,
 )
@@ -154,7 +154,7 @@ class TestLatticePlotter:
         match_tunes_and_chromaticities(
             madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
         )
-        figure = plot_latwiss(
+        figure = LatticePlotter.plot_latwiss(
             madx=madx,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
@@ -175,7 +175,7 @@ class TestLatticePlotter:
 
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        figure = plot_machine_survey(
+        figure = LatticePlotter.plot_machine_survey(
             madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
         )
         assert saved_fig.is_file()
@@ -186,7 +186,9 @@ class TestLatticePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        return plot_machine_survey(madx=madx, show_elements=False, high_orders=True, figsize=(20, 15))
+        return LatticePlotter.plot_machine_survey(
+            madx=madx, show_elements=False, high_orders=True, figsize=(20, 15)
+        )
 
 
 class TestPhaseSpacePlotter:
