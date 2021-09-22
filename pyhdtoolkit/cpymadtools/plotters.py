@@ -22,6 +22,7 @@ from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
 
+from pyhdtoolkit.cpymadtools.latwiss import _plot_machine_layout
 from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.utils.defaults import PLOT_PARAMS
@@ -35,9 +36,137 @@ BY_HSV = sorted(
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
+class AperturePlotter:
+    """A class to plot the aperture of your machine as determined by `MAD-X`'s `APERTURE` command.
+    """
+
+    @staticmethod
+    def plot_aperture(
+        madx: Madx,
+        title: str,
+        figsize: Tuple[int, int] = (18, 11),
+        savefig: str = None,
+        xoffset: float = 0,
+        xlimits: Tuple[float, float] = None,
+        plot_dipoles: bool = True,
+        plot_quadrupoles: bool = True,
+        plot_bpms: bool = False,
+        aperture_ylim: Tuple[float, float] = None,
+        k0l_lim: Tuple[float, float] = (-0.25, 0.25),
+        k1l_lim: Tuple[float, float] = (-0.08, 0.08),
+        k2l_lim: Tuple[float, float] = None,
+        color: str = None,
+        **kwargs,
+    ) -> matplotlib.figure.Figure:
+        """
+        Provided with an active `cpymad` instance after having ran a script, will create a plot representing
+        nicely the lattice layout and the aperture tolerance across the machine. Beware: this function
+        assumes the user has previously made a call to the `APERTURE` command in `MAD-X`.
+
+        Args:
+            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            title (str): title of your plot.
+            figsize (Tuple[int, int]): size of the figure, defaults to (18, 1).
+            savefig (str): will save the figure if this is not None, using the string value passed.
+            xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
+                to center a plot around a specific point or element, which would then become located at s = 0.
+                Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).
+            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
+                not None, using the tuple passed.
+            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
+                the figure. Defaults to True. Dipoles are plotted in blue.
+            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
+                subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
+            plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
+                Beam Position Monitors. BPMs are plotted in dark grey.
+            aperture_ylim (Tuple[float, float]): vertical axis limits for the aperture values. Defaults to
+                `None`, to be determined by matplotlib based on the provided values.
+            k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
+                height of dipole patches. Defaults to (-0.25, 0.25).
+            k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
+                height of quadrupole patches. Defaults to (-0.08, 0.08).
+            k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
+                the figure, and the provided values act as vertical axis limits for the k2l values used for the
+                height of sextupole patches.
+            color (str): the color argument given to the aperture lines. Defaults to `None`, and should be
+                the first color in your `rcParams`'s cycler.
+
+        Keyword Args:
+            Any keyword argument to be transmitted to `_plot_machine_layout`, later on to `plot_lattice_series`
+            and then `matplotlib.patches.Rectangle`, such as lw etc.
+
+        WARNING:
+            Currently the function tries to plot legends for the different layout patches. The position of the
+            different legends has been hardcoded in corners and might require users to tweak the axis limits
+            (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don't
+            overlap.
+
+        Returns:
+             The figure on which the plots are drawn. The underlying axes can be accessed with
+             'fig.get_axes()'. Eventually saves the figure as a file.
+        """
+        # pylint: disable=too-many-arguments
+        logger.info("Plotting aperture limits and machine layout")
+        logger.debug("Getting Twiss dataframe from cpymad")
+        madx.command.twiss(centre=True)
+        twiss_df: pd.DataFrame = madx.table.twiss.dframe().copy()
+        aperture_df = pd.DataFrame.from_dict(dict(madx.table.aperture))  # slicing -> issues with .dframe()
+
+        # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
+        twiss_df.s = twiss_df.s - xoffset
+        aperture_df.s = aperture_df.s - xoffset
+        xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
+        twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
+        aperture_df = aperture_df[aperture_df.s.between(*xlimits)] if xlimits else aperture_df
+
+        # Create a subplot for the lattice patches (takes a third of figure)
+        figure = plt.figure(figsize=figsize)
+        quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
+        _plot_machine_layout(
+            madx,
+            quadrupole_patches_axis=quadrupole_patches_axis,
+            title=title,
+            xoffset=xoffset,
+            xlimits=xlimits,
+            plot_dipoles=plot_dipoles,
+            plot_quadrupoles=plot_quadrupoles,
+            plot_bpms=plot_bpms,
+            k0l_lim=k0l_lim,
+            k1l_lim=k1l_lim,
+            k2l_lim=k2l_lim,
+            **kwargs,
+        )
+
+        # Plotting aperture values on remaining two thirds of the figure
+        logger.debug("Plotting aperture values")
+        aperture_axis = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis)
+        aperture_axis.plot(
+            aperture_df.s, aperture_df.n1, marker=".", ls="-", lw=0.5, color=color, label="Aperture Limits"
+        )
+        aperture_axis.fill_between(
+            aperture_df.s, aperture_df.n1, aperture_df.n1.max(), interpolate=True, color=color
+        )
+        aperture_axis.legend
+        aperture_axis.set_ylabel(r"$n_{1} \ [\sigma]$")
+        aperture_axis.set_xlabel("$S \ [m]$")
+
+        if aperture_ylim:
+            logger.debug("Setting ylim for aperture plot")
+            aperture_axis.set_ylim(aperture_ylim)
+
+        if xlimits:
+            logger.debug("Setting xlim for longitudinal coordinate")
+            plt.xlim(xlimits)
+
+        if savefig:
+            logger.info(f"Saving latwiss plot as {savefig}")
+            plt.savefig(savefig)
+        return figure
+
+
 class BeamEnvelopePlotter:
     """
-    A class to plot the physical aperture of your machine.
+    A class to plot the estimated beam envelope of your machine.
     """
 
     @staticmethod
@@ -373,7 +502,7 @@ class CrossingSchemePlotter:
 
 class DynamicAperturePlotter:
     """
-    A class to plot the dynamic aperture of your machine.
+    This is currently badly named, and will change in the future.
     """
 
     @staticmethod
