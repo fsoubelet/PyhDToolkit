@@ -1,5 +1,7 @@
 import pathlib
 
+from typing import Tuple
+
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -8,6 +10,7 @@ import pytest
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools.latwiss import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.plotters import (
     AperturePlotter,
@@ -17,6 +20,7 @@ from pyhdtoolkit.cpymadtools.plotters import (
     PhaseSpacePlotter,
     TuneDiagramPlotter,
 )
+from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.optics.beam import compute_beam_parameters
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
@@ -135,6 +139,54 @@ class TestDynamicAperturePlotter:
         )
         assert saved_fig.is_file()
         return figure
+
+
+class TestLatticePlotter:
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_latwiss(self, tmp_path):
+        """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_latwiss"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "latwiss.png"
+
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+        figure = plot_latwiss(
+            madx=madx,
+            title="Project 3 Base Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            k2l_lim=(-0.25, 0.25),
+            plot_bpms=True,
+            savefig=saved_fig,
+        )
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_machine_survey_with_elements(self, tmp_path):
+        """Using my CAS 19 project's base lattice."""
+        savefig_dir = tmp_path / "test_plot_survey"
+        savefig_dir.mkdir()
+        saved_fig = savefig_dir / "survey.png"
+
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        figure = plot_machine_survey(
+            madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
+        )
+        assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_machine_survey_without_elements(self):
+        """Using my CAS 19 project's base lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+        return plot_machine_survey(madx=madx, show_elements=False, high_orders=True, figsize=(20, 15))
 
 
 class TestPhaseSpacePlotter:
@@ -276,3 +328,32 @@ class TestTuneDiagramPlotter:
         )
         assert figure.axes[0].get_title() == figure_title
         assert isinstance(figure.axes[0].legend().get_title(), matplotlib.text.Text)
+
+
+# ----- Fixtures ----- #
+
+
+def _perform_tracking_for_coordinates(madx: Madx) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """
+    Tracks 100 particles on 500 turns.
+    This modifies inplace the state of the provided cpymad_instance.
+    Args:
+        cpymad_instance: an instantiated cpymad.madx.Madx object
+    Returns:
+        The x, y, px, py coordinates along the tracking.
+    """
+    # Toning the tracking down in particles / turns so it doesn't take too long (~20s?)
+    n_particles = 100
+    n_turns = 500
+    initial_x_coordinates = np.linspace(1e-4, 0.05, n_particles)
+    x_coords, px_coords, y_coords, py_coords = [], [], [], []
+
+    for starting_x in initial_x_coordinates:
+        tracks_df: dict = track_single_particle(
+            madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns, sequence="CAS3"
+        )
+        x_coords.append(tracks_df["observation_point_1"].x.to_numpy())
+        y_coords.append(tracks_df["observation_point_1"].y.to_numpy())
+        px_coords.append(tracks_df["observation_point_1"].px.to_numpy())
+        py_coords.append(tracks_df["observation_point_1"].py.to_numpy())
+    return x_coords, y_coords, px_coords, py_coords
