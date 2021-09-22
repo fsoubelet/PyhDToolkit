@@ -111,7 +111,7 @@ def _cycled_lhc_sequences() -> Madx:
 
 @pytest.fixture()
 def _injection_aperture_tolerances_lhc_madx() -> Madx:
-    with Madx(stdout=None) as madx:
+    with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_INJ_OPTICS.absolute()))  # opticsfile.1
 
@@ -128,7 +128,7 @@ def _injection_aperture_tolerances_lhc_madx() -> Madx:
 
 @pytest.fixture()
 def _collision_aperture_tolerances_lhc_madx() -> Madx:
-    with Madx(stdout=None) as madx:
+    with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
