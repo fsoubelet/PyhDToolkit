@@ -24,7 +24,6 @@ from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
 
-from pyhdtoolkit.cpymadtools.latwiss import _plot_machine_layout
 from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.utils.defaults import PLOT_PARAMS
@@ -1127,8 +1126,8 @@ def _plot_machine_layout(
 ) -> None:
     """
     Provided with an active `cpymad` instance after having ran a script, will plot the lattice layout on a
-    given axis. This is the function that takes care of the machine layout in `plot_latwiss`, and
-    is in theory a private function, though if you know what you are doing you may use it individually.
+    given axis. This is the function that takes care of the machine layout in `LatticePlotter.plot_latwiss`,
+    and is in theory a private function, though if you know what you are doing you may use it individually.
     The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.
 
     Args:
