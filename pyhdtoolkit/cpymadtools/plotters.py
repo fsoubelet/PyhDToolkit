@@ -395,6 +395,7 @@ class CrossingSchemePlotter:
         second_ip: int,
         figsize: Tuple[int, int] = (18, 12),
         ir_limit: float = 275,
+        highlight_mqx_and_mbx: bool = True,
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
@@ -415,6 +416,8 @@ class CrossingSchemePlotter:
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 12).
             ir_limit (float): the amount of meters to keep left and right of the IP point. Will also
                 determine the xlimits of the plots. Defaults to 275.
+            highlight_mqx_and_mbx (bool): if `True`, will add patches highlighting the zones corresponding
+                to MBX and MQX elements. Defaults to `True`.
             savefig (str): will save the figure if this is not `None`, using the string value passed.
                 Defaults to `None`.
 
@@ -467,8 +470,6 @@ class CrossingSchemePlotter:
             ylabel="Orbit Y $[mm]$",
             xlabel=f"Distance to IP{first_ip} $[m]$",
         )
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][0], plot_df=b1_plot, ip=first_ip)
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][0], plot_df=b1_plot, ip=first_ip)
 
         logger.debug(f"Plotting for IP{second_ip}")
         b1_plot = twiss_df_b1[twiss_df_b1.s.between(second_ip_s - ir_limit, second_ip_s + ir_limit)].copy()
@@ -492,8 +493,13 @@ class CrossingSchemePlotter:
             scaling=1e3,
             xlabel=f"Distance to IP{second_ip} $[m]$",
         )
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][1], plot_df=b1_plot, ip=second_ip)
-        CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][1], plot_df=b1_plot, ip=second_ip)
+
+        if highlight_mqx_and_mbx:
+            logger.debug("Highlighting MQX and MBX areas near IPs")
+            CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][0], plot_df=b1_plot, ip=first_ip)
+            CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][0], plot_df=b1_plot, ip=first_ip)
+            CrossingSchemePlotter._highlight_mbx_and_mqx(axes[0][1], plot_df=b1_plot, ip=second_ip)
+            CrossingSchemePlotter._highlight_mbx_and_mqx(axes[1][1], plot_df=b1_plot, ip=second_ip)
         plt.tight_layout()
 
         if savefig:
