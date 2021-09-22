@@ -1006,7 +1006,7 @@ class TuneDiagramPlotter:
                     break
 
     @staticmethod
-    def plot_blank_tune_diagram(
+    def plot_tune_diagram(
         title: str = "",
         legend_title: str = None,
         max_order: int = 6,

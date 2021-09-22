@@ -301,28 +301,28 @@ class TestPhaseSpacePlotter:
 
 class TestTuneDiagramPlotter:
     @pytest.mark.parametrize("max_order", [0, 10, -5])
-    def test_plot_blank_tune_diagram_fails_on_too_high_order(self, max_order, caplog):
+    def test_plot_tune_diagram_fails_on_too_high_order(self, max_order, caplog):
         with pytest.raises(ValueError):
-            _ = TuneDiagramPlotter.plot_blank_tune_diagram(max_order=max_order)
+            _ = TuneDiagramPlotter.plot_tune_diagram(max_order=max_order)
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_blank_tune_diagram(self):
+    def test_plot_tune_diagram(self):
         """Does not need any input."""
-        return TuneDiagramPlotter.plot_blank_tune_diagram()
+        return TuneDiagramPlotter.plot_tune_diagram()
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_blank_tune_diagram_colored_by_resonance_order(self):
-        return TuneDiagramPlotter.plot_blank_tune_diagram(differentiate_orders=True)
+    def test_plot_tune_diagram_colored_by_resonance_order(self):
+        return TuneDiagramPlotter.plot_tune_diagram(differentiate_orders=True)
 
     @pytest.mark.parametrize("figure_title", ["", "Tune Diagram"])
     @pytest.mark.parametrize("legend_title", ["Resonance Lines"])
     @pytest.mark.parametrize("max_order", [2, 3, 4, 5])
     @pytest.mark.parametrize("differentiate", [False, True])
-    def test_plot_blank_tune_diagram_arguments(self, figure_title, legend_title, max_order, differentiate):
-        figure = TuneDiagramPlotter.plot_blank_tune_diagram(
+    def test_plot_tune_diagram_arguments(self, figure_title, legend_title, max_order, differentiate):
+        figure = TuneDiagramPlotter.plot_tune_diagram(
             title=figure_title,
             legend_title=legend_title,
             max_order=max_order,
