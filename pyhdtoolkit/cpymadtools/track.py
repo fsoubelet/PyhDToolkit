@@ -28,13 +28,21 @@ def track_single_particle(
     """
     Tracks a single particle for nturns, based on its initial coordinates.
 
+    Warnings:
+        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided
+        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously
+        defined errors, orbits corrections etc. In this case a warning will be logged but the function will
+        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking
+        is performed on.
+
     Args:
         madx (Madx): an instantiated cpymad.madx.Madx object.
         initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,
             T, PT starting coordinates the particle to track. Defaults to all 0 if none given.
         nturns (int): the number of turns to track for.
         sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a
-            sequence is already defined and in use, and this one will be picked up by MAD-X.
+            sequence is already defined and in use, and this one will be picked up by MAD-X. BEWARE of the
+            dangers of giving a sequence that will be `use`d by `MAD-X`, see function warning docstring.
         observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the
             tracking.
 
@@ -52,11 +60,15 @@ def track_single_particle(
         If the user has set `onetable` to `True`, only one entry is in the dictionary under the key
         'trackone' and it has the combined table as a pandas DataFrame for value.
     """
+    logger.info("Performing single particle MAD-X (thin) tracking")
     onetable = kwargs.get("onetable", False) if "onetable" in kwargs else kwargs.get("ONETABLE", False)
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
     observation_points = observation_points if observation_points else []
 
     if isinstance(sequence, str):
+        logger.warning(
+            f"Sequence '{sequence}' was provided and will be used, beware that this will erase errors etc."
+        )
         logger.debug(f"Using sequence '{sequence}' for tracking")
         madx.use(sequence=sequence)
 
