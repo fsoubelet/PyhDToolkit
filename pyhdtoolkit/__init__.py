@@ -8,7 +8,7 @@ Mainly particle accelerator physics studies and plotting.
 :license: MIT, see LICENSE for more details.
 """
 
-# Set default logging handler to avoid "No handler found" warnings.
+from . import cpymadtools, maths, models, optics, plotting, utils
 
 __title__ = "pyhdtoolkit"
 __description__ = "An all-in-one toolkit package to easy my Python work in my PhD."
