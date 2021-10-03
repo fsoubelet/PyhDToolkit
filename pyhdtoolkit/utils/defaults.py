@@ -43,11 +43,14 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     # ------ Fonts ------ #
     "font.family": "sans-serif",  # Font family
     "font.style": "normal",  # Style to apply to text font
-    "font.weight": "bold",  # Bold font
+    "font.weight": "normal",  # Weight to apply to text font
     "font.size": 25,  # Default font size of elements
+    "font.serif": "DejaVu Serif",  # Serif font to use
+    "font.monospace":  "DejaVu Sans Mono",  # Monospace font to use
     "font.sans-serif": "Helvetica",  # Sans-Serif font to use
     # ----- Mathtext ----- #
-    "mathtext.default": "regular",  # default font for math
+    "mathtext.default": "dejavuserif",  # default font for math
+    "mathtext.fontset": "dejavuserif",  # cm?
     # ------ Text ------ #
     "text.usetex": True,  # Use LaTeX for text handling (Set to False if you don't have a local installation)
     "text.latex.preamble": r"\usepackage{amsmath, amssymb}",  # Be careful with the preamble
