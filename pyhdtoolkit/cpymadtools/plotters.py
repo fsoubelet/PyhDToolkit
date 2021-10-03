@@ -1206,15 +1206,29 @@ def _plot_machine_layout(
         plotted_elements = 0  # will help us not declare a label for legend at every patch
         for dipole_name, dipole in dipoles_df.iterrows():
             logger.trace(f"Plotting dipole element '{dipole_name}'")
+            bend_value = dipole.k0l if dipole.k0l != 0 else dipole.angle
             _plot_lattice_series(
                 dipole_patches_axis,
                 dipole,
-                height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
-                v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
+                height=bend_value,
+                v_offset=bend_value / 2,
                 color="royalblue",
                 label="MB" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
+            if dipole.k1l != 0:  # the dipole element has a quadrupolar gradient component
+                logger.trace(f"Plotting quadrupolar gradient of dipole element '{dipole_name}'")
+                # if the patch would be on the same side as the dipole patch, reduce the alpha
+                alpha = 0.25 if np.sign(bend_value) == np.sign() else None  # None -> default like everywhere
+                _plot_lattice_series(
+                    quadrupole_patches_axis,
+                    dipole,
+                    height=dipole.k1l,
+                    v_offset=dipole.k1l / 2,
+                    color="r",
+                    alpha=alpha,
+                    **kwargs,
+                )
             plotted_elements += 1
         dipole_patches_axis.legend(loc=1)
 
