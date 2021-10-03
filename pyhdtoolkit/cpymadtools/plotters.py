@@ -1123,6 +1123,7 @@ def _plot_machine_layout(
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
+    plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
     k0l_lim: Tuple[float, float] = (-0.25, 0.25),
@@ -1148,6 +1149,8 @@ def _plot_machine_layout(
             not None, using the tuple passed.
         plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
             the figure. Defaults to True. Dipoles are plotted in blue.
+        plot_dipole_k1 (bool): if True, dipole elements with a quadrupolar gradient will have this
+            gradient plotted as a quadrupole patch. Defaults to False.
         plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
             subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
         plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
@@ -1216,10 +1219,10 @@ def _plot_machine_layout(
                 label="MB" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
-            if dipole.k1l != 0:  # the dipole element has a quadrupolar gradient component
+            if dipole.k1l != 0 and plot_dipole_k1:  # plot the dipole element's quadrupolar gradient
                 logger.trace(f"Plotting quadrupolar gradient of dipole element '{dipole_name}'")
                 # if the patch would be on the same side as the dipole patch, reduce the alpha
-                alpha = 0.25 if np.sign(bend_value) == np.sign() else None  # None -> default like everywhere
+                alpha = 0.25 if np.sign(bend_value) == np.sign(dipole.k1l) else None
                 _plot_lattice_series(
                     quadrupole_patches_axis,
                     dipole,
