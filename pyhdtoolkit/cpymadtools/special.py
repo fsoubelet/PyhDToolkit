@@ -64,7 +64,7 @@ def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_a
     try:
         brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
     except AttributeError as madx_error:
-        logger.error(
+        logger.exception(
             "The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined."
         )
         raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error

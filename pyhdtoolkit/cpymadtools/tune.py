@@ -73,7 +73,7 @@ def make_footprint_table(
         madx.command.dynap(fastune=True, turns=1024, **kwargs)
         madx.command.endtrack()
     except RuntimeError as madx_crash:
-        logger.error(
+        logger.exception(
             "Remote MAD-X process crashed, most likely because you did not slice the sequence "
             "before running DYNAP. Restart and slice before calling this function."
         )
@@ -86,7 +86,7 @@ def make_footprint_table(
             Path("fort.69").unlink()
             Path("lyapunov.data").unlink()
         except FileNotFoundError:
-            logger.error("Could not cleanup DYNAP output files, they might have not been created")
+            logger.exception("Could not cleanup DYNAP output files, they might have not been created")
 
     tfs_dframe = tfs.TfsDataFrame(
         data=madx.table.dynaptune.dframe(),
@@ -186,7 +186,7 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame,) -> matplotlib.collect
         A[1:, :, 0] = dynap_dframe["tunx"].to_numpy()[1:].reshape(-1, angle)
         A[1:, :, 1] = dynap_dframe["tuny"].to_numpy()[1:].reshape(-1, angle)
     except ValueError as tune_grouping_error:
-        logger.error(
+        logger.exception(
             "Cannot group tune points according to starting angles and amplitudes. Try changing "
             "the 'AMPLITUDE' value in the provided TfsDataFrame's headers."
         )
