@@ -46,10 +46,10 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     "font.weight": "normal",  # Weight to apply to text font
     "font.size": 25,  # Default font size of elements
     "font.serif": "DejaVu Serif",  # Serif font to use
-    "font.monospace":  "DejaVu Sans Mono",  # Monospace font to use
+    "font.monospace": "DejaVu Sans Mono",  # Monospace font to use
     "font.sans-serif": "Helvetica",  # Sans-Serif font to use
     # ----- Mathtext ----- #
-    "mathtext.default": "dejavuserif",  # default font for math
+    # "mathtext.default": "default",  # default font for math
     "mathtext.fontset": "dejavuserif",  # cm?
     # ------ Text ------ #
     "text.usetex": True,  # Use LaTeX for text handling (Set to False if you don't have a local installation)
