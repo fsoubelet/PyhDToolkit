@@ -1222,14 +1222,14 @@ def _plot_machine_layout(
             if dipole.k1l != 0 and plot_dipole_k1:  # plot the dipole element's quadrupolar gradient
                 logger.trace(f"Plotting quadrupolar gradient of dipole element '{dipole_name}'")
                 # if the patch would be on the same side as the dipole patch, reduce the alpha
-                alpha = 0.25 if np.sign(bend_value) == np.sign(dipole.k1l) else None
+                # alpha = 0.25 if np.sign(bend_value) == np.sign(dipole.k1l) else None
                 _plot_lattice_series(
                     quadrupole_patches_axis,
                     dipole,
                     height=dipole.k1l,
                     v_offset=dipole.k1l / 2,
                     color="r",
-                    alpha=alpha,
+                    alpha=0.25,
                     **kwargs,
                 )
             plotted_elements += 1
