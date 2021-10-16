@@ -5,7 +5,7 @@ Module cpymadtools.errors
 Created on 2020.02.03
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A module with functions to perform MAD-X errors setups and manipulatioins with a cpymad.madx.Madx object,
+A module with functions to perform MAD-X errors setups and manipulations with a cpymad.madx.Madx object,
 mainly for LHC and HLLHC machines.
 """
 from typing import Dict, List, Sequence
@@ -181,3 +181,77 @@ def misalign_lhc_triplets(
     misalign_lhc_ir_quadrupoles(
         madx, ip=ip, beam=None, quadrupoles=(1, 2, 3), sides=sides, table=table, **kwargs
     )
+
+
+def create_realistic_lhc_coupling_sources(madx: Madx, sequence: str = None):
+    """
+    Values taken from https://cds.cern.ch/record/2778887/files/CERN-ACC-NOTE-2021-0022.pdf, appendix C.
+
+    Args:
+        madx:
+        sequence:
+
+    Returns:
+
+    """
+    logger.info("Applying realistic coupling sources to LHC sequence")
+
+    if sequence:
+        logger.info("Using provided sequence, beware this will remove existing errors & corrections")
+        madx.use(sequence)
+
+    # ----- Source 1 in linked paper, appendix C ----- #
+    logger.trace("Applying field errors to R5 quadrupoles")
+    madx.command.select(flag="error", clear=True)
+    madx.command.select(flag="error", class_="quadrupole", pattern="R5")
+    madx.command.select(flag="error", class_="quadrupole", pattern="R5")  # duplicated? check with Eirik
+    madx.command.efcomp(order=2, dks="{0, 0.001 * tgauss(3)}")
+
+    # ----- Source 2 in linked paper, appendix C ----- #
+    logger.trace("Applying field errors to R4 and R8 quadrupoles")
+    madx.command.select(flag="error", clear=True)
+    madx.command.select(flag="error", class_="quadrupole", pattern="R4")
+    madx.command.select(flag="error", class_="quadrupole", pattern="R8")
+    madx.command.efcomp(order=2, dks="{0, 0.0001 * tgauss(3)}")
+
+    logger.trace("Applying alignment errors to MCS elements")
+    empirical_mcs_values = {
+        "kcs.a12b1": 0.163,
+        "kcs.a23b1": 0.194,
+        "kcs.a34b1": 0.237,
+        "kcs.a45b1": 0.161,
+        "kcs.a56b1": 0.177,
+        "kcs.a67b1": 0.188,
+        "kcs.a81b1": 0.169,
+    }
+    with madx.batch():
+        madx.globals.update(empirical_mcs_values)
+
+    logger.trace("Applying skew quadrupolar error to MCS elements")
+    madx.command.select(flag="error", clear=True)
+    madx.command.select(flag="error", class_="MCS")
+    madx.command.ealign(dx=0, dy="0.003 * tgauss(3)")
+
+    # ----- Source 3 in linked paper, appendix C ----- #
+    logger.trace("Applying field errors to all quadrupoles")
+    madx.command.select(flag="error", clear=True)
+    madx.command.select(flag="error", class_="quadrupole", pattern=" .")
+    madx.command.select(flag="error", class_="quadrupole", pattern=" .")
+    madx.command.efcomp(order=2, dks="{0, 0.00003 * tgauss (3)}")
+
+    # ----- Source 4 in linked paper, appendix C ----- #
+    logger.trace("Applying field errors to all quadrupoles")
+    madx.command.select(flag="error", clear=True)
+    madx.command.select(flag="error", class_="quadrupole", pattern=" .")
+    madx.command.select(flag="error", class_="quadrupole", pattern=" .")
+    madx.command.efcomp(order=2, dks="{0, 0.0003 * tgauss (3)}")
+
+    # ----- Source 5 in linked paper, appendix C ----- #
+    logger.trace("Applying field errors to R5 and R7 quadrupoles")
+    madx.command.select(flag="error", clear=True)
+    madx.command.select(flag="error", class_="quadrupole", pattern="R5")
+    madx.command.select(flag="error", class_="quadrupole", pattern="R5")
+    madx.command.efcomp(order=2, dks="{0, 0.00001 * tgauss (3)}")
+
+    logger.trace("Clearing error flag")
+    madx.command.select(flag="error", clear=True)
