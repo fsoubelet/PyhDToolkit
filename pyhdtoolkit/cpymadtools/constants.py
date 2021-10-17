@@ -81,7 +81,54 @@ LHC_KCOSX_KNOBS: List[str] = [f"kcosx3.{side}{ip}" for side in ("r", "l") for ip
 LHC_KCTX_KNOBS: List[str] = [f"kctx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # decapole
 
 # ----- LHC Arc Correctors Knobs ----- #
-
+LHC_KQTF_KNOBS: List[str] = [  # tune trims, focusing and defocusing families, for each beam
+    f"kqt{family}.a{sector}{sector+1 if sector < 8 else 1}.b{beam}"
+    for beam in [1, 2]
+    for family in ["f", "d"]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+]
+# fmt: off
+LHC_KQS_KNOBS: List[str] = [  # skew quadrupoles in arc short straight sections
+    f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
+    [f"kqs.l{ip}b1" for ip in [2, 4, 6, 8]] + \
+    [f"kqs.a{sector}{sector+1 if sector < 8 else 1}b1" for sector in [2, 4, 6, 8]] + \
+    [f"kqs.r{ip}b2" for ip in [2, 4, 6, 8]] + \
+    [f"kqs.l" f"{ip}b2" for ip in [3, 5, 7, 1]] + \
+    [f"kqs.a{sector}{sector+1 if sector < 8 else 1}b2" for sector in [1, 3, 5, 7]]
+# fmt: on
+LHC_KSF_KNOBS: List[str] = [  # sextupole correctors
+    f"ks{family}{id}.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    for beam in [1, 2]
+    for id in [1, 2]
+    for family in ["f", "d"]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+]
+LHC_KSS_KNOBS: List[str] = [  # skew sextupole correctors
+    f"kss.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+]
+LHC_KCS_KNOBS: List[str] = [  # spool piece (skew) sextupoles
+    f"kcs.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+]
+LHC_KCO_KNOBS: List[str] = [  # spool piece (skew) octupoles
+    f"kco.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+]
+LHC_KCD_KNOBS: List[str] = [  # spool piece (skew) decapoles
+    f"kcd.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+]
+LHC_KO_KNOBS: List[str] = [  # octupoles in arc short straight sections
+    f"ko{family}.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    for beam in [1, 2]
+    for family in ["f", "d"]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+]
 
 HLLHC_CORRECTOR_LIMITS: Dict[str, float] = {  # All values are defined as multiples of 0.3/Energy
     "MQSX1": 0.600 / 0.050,  # 0.6 T.m @ 50 mm in IR1&IR5
