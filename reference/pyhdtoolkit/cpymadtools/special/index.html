@@ -367,6 +367,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../correctors/" class="md-nav__link">
+        Correctors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../errors/" class="md-nav__link">
         Errors
       </a>
@@ -512,6 +526,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     Functions
   </a>
@@ -599,6 +620,13 @@
           <li class="md-nav__item">
   <a href="#re_cycle_sequence" class="md-nav__link">
     re_cycle_sequence
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset_lhc_bump_flags" class="md-nav__link">
+    reset_lhc_bump_flags
   </a>
   
 </li>
@@ -1199,6 +1227,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#variables" class="md-nav__link">
+    Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functions" class="md-nav__link">
     Functions
   </a>
@@ -1291,6 +1326,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#reset_lhc_bump_flags" class="md-nav__link">
+    reset_lhc_bump_flags
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#vary_independent_ir_quadrupoles" class="md-nav__link">
     vary_independent_ir_quadrupoles
   </a>
@@ -1346,6 +1388,22 @@
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.constants</span> <span class="kn">import</span> <span class="p">(</span>
+
+    <span class="n">LHC_ANGLE_FLAGS</span><span class="p">,</span>
+
+    <span class="n">LHC_CROSSING_ANGLE_FLAGS</span><span class="p">,</span>
+
+    <span class="n">LHC_EXPERIMENT_STATE_FLAGS</span><span class="p">,</span>
+
+    <span class="n">LHC_IP2_SPECIAL_FLAG</span><span class="p">,</span>
+
+    <span class="n">LHC_IP_OFFSET_FLAGS</span><span class="p">,</span>
+
+    <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span><span class="p">,</span>
+
+<span class="p">)</span>
 
 <span class="c1"># ----- Setup Utlites ----- #</span>
 
@@ -1429,7 +1487,7 @@
 
     <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
 
             <span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span>
 
@@ -1985,6 +2043,40 @@
 
             <span class="p">)</span>
 
+<span class="k">def</span> <span class="nf">reset_lhc_bump_flags</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Resets all LHC IP bump flags to 0.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="s2">&quot;Resetting all LHC IP bump flags&quot;</span><span class="p">)</span>
+
+    <span class="n">ALL_BUMPS</span> <span class="o">=</span> <span class="p">(</span>
+
+        <span class="n">LHC_ANGLE_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_CROSSING_ANGLE_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_EXPERIMENT_STATE_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_IP2_SPECIAL_FLAG</span>
+
+        <span class="o">+</span> <span class="n">LHC_IP_OFFSET_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span>
+
+    <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">madx</span><span class="o">.</span><span class="n">batch</span><span class="p">():</span>
+
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">bump</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">bump</span> <span class="ow">in</span> <span class="n">ALL_BUMPS</span><span class="p">})</span>
+
 <span class="c1"># ----- Output Utilities ----- #</span>
 
 <span class="k">def</span> <span class="nf">make_sixtrack_output</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -2247,6 +2339,19 @@
 </code></pre></div>
 
 </details>
+<h2 id="variables">Variables</h2>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_ANGLE_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_CROSSING_ANGLE_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_EXPERIMENT_STATE_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_IP2_SPECIAL_FLAG</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_IP_OFFSET_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span>
+</code></pre></div>
 <h2 id="functions">Functions</h2>
 <h3 id="apply_lhc_colinearity_knob">apply_lhc_colinearity_knob</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span>
@@ -3430,7 +3535,7 @@ will enforce <code>makedipedge</code>.</p>
 
     <span class="n">except</span> <span class="n">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
 
             <span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span>
 
@@ -3524,6 +3629,67 @@ will enforce <code>makedipedge</code>.</p>
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="kd">ende</span><span class="n">dit</span><span class="p">()</span>
+</code></pre></div>
+
+</details>
+<h3 id="reset_lhc_bump_flags">reset_lhc_bump_flags</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">reset_lhc_bump_flags</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
+</code></pre></div>
+<p>Resets all LHC IP bump flags to 0.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>madx</td>
+<td>cpymad.madx.Madx</td>
+<td>an instanciated cpymad Madx object.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">reset_lhc_bump_flags</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
+
+    <span class="s">&quot;&quot;&quot;</span>
+
+<span class="s">    Resets all LHC IP bump flags to 0.</span>
+
+<span class="s">    Args:</span>
+
+<span class="s">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="s">    &quot;&quot;&quot;</span>
+
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Resetting all LHC IP bump flags&quot;</span><span class="p">)</span>
+
+    <span class="n">ALL_BUMPS</span> <span class="o">=</span> <span class="p">(</span>
+
+        <span class="n">LHC_ANGLE_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_CROSSING_ANGLE_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_EXPERIMENT_STATE_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_IP2_SPECIAL_FLAG</span>
+
+        <span class="o">+</span> <span class="n">LHC_IP_OFFSET_FLAGS</span>
+
+        <span class="o">+</span> <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span>
+
+    <span class="p">)</span>
+
+    <span class="n">with</span> <span class="n">madx</span><span class="p">.</span><span class="n">batch</span><span class="p">()</span><span class="o">:</span>
+
+        <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="p">.</span><span class="n">update</span><span class="p">({</span><span class="n">bump</span><span class="o">:</span> <span class="mi">0</span> <span class="n">for</span> <span class="n">bump</span> <span class="kr">in</span> <span class="n">ALL_BUMPS</span><span class="p">})</span>
 </code></pre></div>
 
 </details>

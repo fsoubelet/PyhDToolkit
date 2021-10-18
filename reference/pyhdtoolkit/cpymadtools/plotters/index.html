@@ -367,6 +367,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../correctors/" class="md-nav__link">
+        Correctors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../errors/" class="md-nav__link">
         Errors
       </a>
@@ -3581,6 +3595,8 @@
 
     <span class="n">plot_dipoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 
+    <span class="n">plot_dipole_k1</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+
     <span class="n">plot_quadrupoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 
     <span class="n">plot_bpms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -3628,6 +3644,10 @@
 <span class="sd">        plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of</span>
 
 <span class="sd">            the figure. Defaults to True. Dipoles are plotted in blue.</span>
+
+<span class="sd">        plot_dipole_k1 (bool): if True, dipole elements with a quadrupolar gradient will have this</span>
+
+<span class="sd">            gradient plotted as a quadrupole patch. Defaults to False.</span>
 
 <span class="sd">        plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout</span>
 
@@ -3733,15 +3753,17 @@
 
             <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting dipole element &#39;</span><span class="si">{</span><span class="n">dipole_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
+            <span class="n">bend_value</span> <span class="o">=</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="kp">angle</span>
+
             <span class="n">_plot_lattice_series</span><span class="p">(</span>
 
                 <span class="n">dipole_patches_axis</span><span class="p">,</span>
 
                 <span class="n">dipole</span><span class="p">,</span>
 
-                <span class="n">height</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="kp">angle</span><span class="p">,</span>
+                <span class="n">height</span><span class="o">=</span><span class="n">bend_value</span><span class="p">,</span>
 
-                <span class="n">v_offset</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="kp">angle</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+                <span class="n">v_offset</span><span class="o">=</span><span class="n">bend_value</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
 
                 <span class="n">color</span><span class="o">=</span><span class="s2">&quot;royalblue&quot;</span><span class="p">,</span>
 
@@ -3750,6 +3772,28 @@
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
             <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k1l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">plot_dipole_k1</span><span class="p">:</span>  <span class="c1"># plot dipole quadrupolar gradient (with reduced alpha)</span>
+
+                <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting quadrupolar gradient of dipole element &#39;</span><span class="si">{</span><span class="n">dipole_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+
+                <span class="n">_plot_lattice_series</span><span class="p">(</span>
+
+                    <span class="n">quadrupole_patches_axis</span><span class="p">,</span>
+
+                    <span class="n">dipole</span><span class="p">,</span>
+
+                    <span class="n">height</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k1l</span><span class="p">,</span>
+
+                    <span class="n">v_offset</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k1l</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
+
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span>
+
+                    <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
+
+                    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+                <span class="p">)</span>
 
             <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
 

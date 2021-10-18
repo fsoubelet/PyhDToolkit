@@ -407,6 +407,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../correctors/" class="md-nav__link">
+        Correctors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../errors/" class="md-nav__link">
         Errors
       </a>
@@ -1129,262 +1143,424 @@
 <p>Module cpymadtools.constants</p>
 <hr />
 <p>Created on 2020.02.02</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s">&quot;&quot;&quot;</span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="s">Module cpymadtools.constants</span>
+<span class="sd">Module cpymadtools.constants</span>
 
-<span class="s">----------------------------</span>
+<span class="sd">----------------------------</span>
 
-<span class="s">Created on 2020.02.02</span>
+<span class="sd">Created on 2020.02.02</span>
 
-<span class="s">:author: Felix Soubelet (felix.soubelet@cern.ch)</span>
+<span class="sd">:author: Felix Soubelet (felix.soubelet@cern.ch)</span>
 
-<span class="s">Specific constants to be used in cpymadtools functions, to help with consistency.</span>
+<span class="sd">Specific constants to be used in cpymadtools functions, to help with consistency.</span>
 
-<span class="s">&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;</span>
 
-<span class="n">DEFAULT_TWISS_COLUMNS</span> <span class="o">=</span> <span class="o">[</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Set</span>
 
-    <span class="s">&quot;name&quot;</span><span class="p">,</span>
+<span class="c1"># fmt: off</span>
 
-    <span class="s">&quot;s&quot;</span><span class="p">,</span>
+<span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;px&quot;</span><span class="p">,</span> <span class="s2">&quot;py&quot;</span><span class="p">,</span> <span class="s2">&quot;betx&quot;</span><span class="p">,</span> <span class="s2">&quot;bety&quot;</span><span class="p">,</span> <span class="s2">&quot;alfx&quot;</span><span class="p">,</span> <span class="s2">&quot;alfy&quot;</span><span class="p">,</span>
 
-    <span class="s">&quot;x&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;dx&quot;</span><span class="p">,</span> <span class="s2">&quot;dy&quot;</span><span class="p">,</span> <span class="s2">&quot;mux&quot;</span><span class="p">,</span> <span class="s2">&quot;muy&quot;</span><span class="p">,</span> <span class="s2">&quot;r11&quot;</span><span class="p">,</span> <span class="s2">&quot;r12&quot;</span><span class="p">,</span> <span class="s2">&quot;r21&quot;</span><span class="p">,</span> <span class="s2">&quot;r22&quot;</span><span class="p">,</span> <span class="s2">&quot;beta11&quot;</span><span class="p">,</span> <span class="s2">&quot;beta12&quot;</span><span class="p">,</span>
 
-    <span class="s">&quot;y&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;beta21&quot;</span><span class="p">,</span> <span class="s2">&quot;beta22&quot;</span><span class="p">]</span>
 
-    <span class="s">&quot;px&quot;</span><span class="p">,</span>
+<span class="n">MONITOR_TWISS_COLUMNS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">,</span> <span class="s2">&quot;betx&quot;</span><span class="p">,</span> <span class="s2">&quot;bety&quot;</span><span class="p">,</span> <span class="s2">&quot;alfx&quot;</span><span class="p">,</span> <span class="s2">&quot;alfy&quot;</span><span class="p">,</span> <span class="s2">&quot;mux&quot;</span><span class="p">,</span> <span class="s2">&quot;muy&quot;</span><span class="p">,</span> <span class="s2">&quot;dx&quot;</span><span class="p">,</span> <span class="s2">&quot;dy&quot;</span><span class="p">,</span>
 
-    <span class="s">&quot;py&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;dpx&quot;</span><span class="p">,</span> <span class="s2">&quot;dpy&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;ddx&quot;</span><span class="p">,</span> <span class="s2">&quot;ddy&quot;</span><span class="p">,</span> <span class="s2">&quot;k1l&quot;</span><span class="p">,</span> <span class="s2">&quot;k1sl&quot;</span><span class="p">,</span> <span class="s2">&quot;k2l&quot;</span><span class="p">,</span> <span class="s2">&quot;k3l&quot;</span><span class="p">,</span> <span class="s2">&quot;k4l&quot;</span><span class="p">,</span>
 
-    <span class="s">&quot;betx&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;wx&quot;</span><span class="p">,</span> <span class="s2">&quot;wy&quot;</span><span class="p">,</span> <span class="s2">&quot;phix&quot;</span><span class="p">,</span> <span class="s2">&quot;phiy&quot;</span><span class="p">,</span> <span class="s2">&quot;dmux&quot;</span><span class="p">,</span> <span class="s2">&quot;dmuy&quot;</span><span class="p">,</span> <span class="s2">&quot;keyword&quot;</span><span class="p">,</span> <span class="s2">&quot;dbx&quot;</span><span class="p">,</span> <span class="s2">&quot;dby&quot;</span><span class="p">,</span>
 
-    <span class="s">&quot;bety&quot;</span><span class="p">,</span>
+                                    <span class="s2">&quot;r11&quot;</span><span class="p">,</span> <span class="s2">&quot;r12&quot;</span><span class="p">,</span> <span class="s2">&quot;r21&quot;</span><span class="p">,</span> <span class="s2">&quot;r22&quot;</span><span class="p">]</span>
 
-    <span class="s">&quot;alfx&quot;</span><span class="p">,</span>
+<span class="c1"># fmt: on</span>
 
-    <span class="s">&quot;alfy&quot;</span><span class="p">,</span>
+<span class="n">LHC_CROSSING_SCHEMES</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]</span> <span class="o">=</span> <span class="p">{</span>
 
-    <span class="s">&quot;dx&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;flat&quot;</span><span class="p">:</span> <span class="p">{},</span>
 
-    <span class="s">&quot;dy&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;lhc_inj&quot;</span><span class="p">:</span> <span class="p">{</span>
 
-    <span class="s">&quot;mux&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_x1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">170</span><span class="p">,</span>
 
-    <span class="s">&quot;muy&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
 
-    <span class="s">&quot;r11&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
 
-    <span class="s">&quot;r12&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span>
 
-    <span class="s">&quot;r21&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
 
-    <span class="s">&quot;r22&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
 
-    <span class="s">&quot;beta11&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">170</span><span class="p">,</span>
 
-    <span class="s">&quot;beta12&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">,</span>
 
-    <span class="s">&quot;beta21&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;phi_IR1&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
 
-    <span class="s">&quot;beta22&quot;</span><span class="p">,</span>
-
-<span class="o">]</span>
-
-<span class="n">LHC_CROSSING_SCHEMES</span> <span class="o">=</span> <span class="p">{</span>
-
-    <span class="s">&quot;flat&quot;</span><span class="p">:</span> <span class="p">{},</span>
-
-    <span class="s">&quot;lhc_inj&quot;</span><span class="p">:</span> <span class="p">{</span>
-
-        <span class="s">&quot;on_x1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">170</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
-
-        <span class="s">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span>
-
-        <span class="s">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-
-        <span class="s">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">170</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">,</span>
-
-        <span class="s">&quot;phi_IR1&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
-
-        <span class="s">&quot;phi_IR5&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;phi_IR5&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 
     <span class="p">},</span>
 
-    <span class="s">&quot;lhc_top&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;lhc_top&quot;</span><span class="p">:</span> <span class="p">{</span>
 
-        <span class="s">&quot;on_x1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">160</span><span class="p">,</span>
+        <span class="s2">&quot;on_x1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">160</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.55</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.55</span><span class="p">,</span>
 
-        <span class="s">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
+        <span class="s2">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">200</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mf">1.4</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mf">1.4</span><span class="p">,</span>
 
-        <span class="s">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">160</span><span class="p">,</span>
+        <span class="s2">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">160</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span>
 
-        <span class="s">&quot;on_oh5&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.8</span><span class="p">,</span>
+        <span class="s2">&quot;on_oh5&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">1.8</span><span class="p">,</span>
 
-        <span class="s">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">250</span><span class="p">,</span>
+        <span class="s2">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">250</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
 
-        <span class="s">&quot;phi_IR1&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+        <span class="s2">&quot;phi_IR1&quot;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
 
-        <span class="s">&quot;phi_IR5&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-
-    <span class="p">},</span>
-
-    <span class="s">&quot;hllhc_inj&quot;</span><span class="p">:</span> <span class="p">{</span>
-
-        <span class="s">&quot;on_x1&quot;</span><span class="p">:</span> <span class="mi">295</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
-
-        <span class="s">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span>
-
-        <span class="s">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">295</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
-
-        <span class="s">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">170</span><span class="p">,</span>
-
-        <span class="s">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">,</span>
-
-        <span class="p">#</span> <span class="n">phis</span> <span class="n">should</span> <span class="n">be</span> <span class="k">set</span> <span class="n">by</span> <span class="n">optics</span>
+        <span class="s2">&quot;phi_IR5&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
 
     <span class="p">},</span>
 
-    <span class="s">&quot;hllhc_top&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;hllhc_inj&quot;</span><span class="p">:</span> <span class="p">{</span>
 
-        <span class="s">&quot;on_x1&quot;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+        <span class="s2">&quot;on_x1&quot;</span><span class="p">:</span> <span class="mi">295</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.75</span><span class="p">,</span>  <span class="p">#</span> <span class="mf">0.55</span>
+        <span class="s2">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">2</span><span class="p">,</span>
 
-        <span class="s">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
+        <span class="s2">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="p">#</span> <span class="mf">1.4</span>
+        <span class="s2">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mf">3.5</span><span class="p">,</span>
 
-        <span class="s">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+        <span class="s2">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">295</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>  <span class="p">#</span> <span class="mf">0.55</span> <span class="p">#</span><span class="c">&#39;on_oh5&#39;: -1.8,</span>
+        <span class="s2">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
 
-        <span class="s">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span>  <span class="p">#</span> <span class="o">-</span><span class="mi">250</span>
+        <span class="s2">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">170</span><span class="p">,</span>
 
-        <span class="s">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+        <span class="s2">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">3.5</span><span class="p">,</span>
 
-        <span class="s">&quot;on_crab1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">190</span><span class="p">,</span>
+        <span class="c1"># phis should be set by optics</span>
 
-        <span class="s">&quot;on_crab5&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">190</span><span class="p">,</span>
+    <span class="p">},</span>
 
-        <span class="p">#</span> <span class="n">phis</span> <span class="n">should</span> <span class="n">be</span> <span class="k">set</span> <span class="n">by</span> <span class="n">optics</span>
+    <span class="s2">&quot;hllhc_top&quot;</span><span class="p">:</span> <span class="p">{</span>
+
+        <span class="s2">&quot;on_x1&quot;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+
+        <span class="s2">&quot;on_sep1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.75</span><span class="p">,</span>  <span class="c1"># 0.55</span>
+
+        <span class="s2">&quot;on_x2&quot;</span><span class="p">:</span> <span class="mi">170</span><span class="p">,</span>
+
+        <span class="s2">&quot;on_sep2&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>  <span class="c1"># 1.4</span>
+
+        <span class="s2">&quot;on_x5&quot;</span><span class="p">:</span> <span class="mi">250</span><span class="p">,</span>
+
+        <span class="s2">&quot;on_sep5&quot;</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>  <span class="c1"># 0.55 #&#39;on_oh5&#39;: -1.8,</span>
+
+        <span class="s2">&quot;on_x8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">200</span><span class="p">,</span>  <span class="c1"># -250</span>
+
+        <span class="s2">&quot;on_sep8&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+
+        <span class="s2">&quot;on_crab1&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">190</span><span class="p">,</span>
+
+        <span class="s2">&quot;on_crab5&quot;</span><span class="p">:</span> <span class="o">-</span><span class="mi">190</span><span class="p">,</span>
+
+        <span class="c1"># phis should be set by optics</span>
 
     <span class="p">},</span>
 
 <span class="p">}</span>
 
-<span class="p">#</span> <span class="n">All</span> <span class="n">values</span> <span class="n">are</span> <span class="n">defined</span> <span class="ow">as</span> <span class="n">multiples</span> <span class="k">of</span> <span class="mf">0.3</span><span class="o">/</span><span class="n">Energy</span>
+<span class="c1"># ----- LHC IP bump flags ----- #</span>
 
-<span class="n">CORRECTOR_LIMITS</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">LHC_CROSSING_ANGLE_FLAGS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;on_x</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span>
 
-    <span class="s">&quot;HLLHC&quot;</span><span class="p">:</span> <span class="n">dict</span><span class="p">(</span>
+    <span class="s2">&quot;on_x1h&quot;</span><span class="p">,</span>
 
-        <span class="p">#</span> <span class="n">MQSX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MQSXF&#39;],</span>
+    <span class="s2">&quot;on_x5v&quot;</span><span class="p">,</span>
 
-        <span class="n">MQSX1</span><span class="o">=</span><span class="mf">0.600</span> <span class="o">/</span> <span class="mf">0.050</span><span class="p">,</span>  <span class="p">#</span> <span class="mf">0.6</span> <span class="n">T</span><span class="p">.</span><span class="n">m</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+    <span class="s2">&quot;on_s_x1h&quot;</span><span class="p">,</span>
 
-        <span class="n">MQSX2</span><span class="o">=</span><span class="mf">1.360</span> <span class="o">/</span> <span class="mf">0.017</span><span class="p">,</span>  <span class="p">#</span> <span class="mf">1.36</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR2&amp;IR8</span>
+    <span class="s2">&quot;on_s_x5v&quot;</span><span class="p">,</span>
 
-        <span class="p">#</span> <span class="n">MCSX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCSXF&#39;],</span>
+<span class="p">]</span>
 
-        <span class="n">MCSX1</span><span class="o">=</span><span class="mf">0.050</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.050</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;on_sep</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span>
 
-        <span class="n">MCSX2</span><span class="o">=</span><span class="mf">0.028</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.028</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR2&amp;IR8</span>
+    <span class="s2">&quot;on_sep1v&quot;</span><span class="p">,</span>
 
-        <span class="p">#</span> <span class="n">MCSSX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCSSXF&#39;],</span>
+    <span class="s2">&quot;on_sep5h&quot;</span><span class="p">,</span>
 
-        <span class="n">MCSSX1</span><span class="o">=</span><span class="mf">0.050</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.050</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+    <span class="s2">&quot;on_s_sep1v&quot;</span><span class="p">,</span>
 
-        <span class="n">MCSSX2</span><span class="o">=</span><span class="mf">0.11</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.11</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR2&amp;IR8</span>
+    <span class="s2">&quot;on_s_sep5h&quot;</span><span class="p">,</span>
 
-        <span class="p">#</span> <span class="n">MCOX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCOXF&#39;],</span>
+<span class="p">]</span>
 
-        <span class="n">MCOX1</span><span class="o">=</span><span class="mf">0.030</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.030</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="c1"># Offset is in the plane of the crossing angle</span>
 
-        <span class="n">MCOX2</span><span class="o">=</span><span class="mf">0.045</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.045</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR2&amp;IR8</span>
+<span class="n">LHC_IP_OFFSET_FLAGS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;on_o</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;on_o1h&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
 
-        <span class="p">#</span> <span class="n">MCOSX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCOSXF&#39;],</span>
+    <span class="sa">f</span><span class="s2">&quot;on_oh</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
 
-        <span class="n">MCOSX1</span><span class="o">=</span><span class="mf">0.030</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.030</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;on_ov</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]</span>
 
-        <span class="n">MCOSX2</span><span class="o">=</span><span class="mf">0.048</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.048</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR2&amp;IR8</span>
+<span class="c1"># Angle is in the same plane as the separation</span>
 
-        <span class="p">#</span> <span class="n">MCDX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCDXF&#39;],</span>
+<span class="n">LHC_ANGLE_FLAGS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;on_a</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="o">+</span> <span class="p">[</span><span class="s2">&quot;on_a1v&quot;</span><span class="p">]</span>
 
-        <span class="n">MCDX1</span><span class="o">=</span><span class="mf">0.030</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">4</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.030</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="c1"># Magnetic fields or solenoids powering status</span>
 
-        <span class="p">#</span> <span class="n">MCDSX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCDSXF&#39;],</span>
+<span class="n">LHC_EXPERIMENT_STATE_FLAGS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;on_alice&quot;</span><span class="p">,</span> <span class="s2">&quot;on_lhcb&quot;</span><span class="p">,</span> <span class="s2">&quot;on_sol_atlas&quot;</span><span class="p">,</span> <span class="s2">&quot;on_sol_cms&quot;</span><span class="p">,</span> <span class="s2">&quot;on_sol_alice&quot;</span><span class="p">]</span>
 
-        <span class="n">MCDSX1</span><span class="o">=</span><span class="mf">0.030</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">4</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.030</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="n">LHC_IP2_SPECIAL_FLAG</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;on_oe2&quot;</span><span class="p">]</span>  <span class="c1"># TODO: ask Tobias or Stephane F.</span>
 
-        <span class="p">#</span> <span class="n">MCTX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCTXF&#39;],</span>
+<span class="c1"># ----- LHC Triplet Correctors Knobs ----- #</span>
 
-        <span class="n">MCTX1</span><span class="o">=</span><span class="mf">0.07</span> <span class="o">*</span> <span class="mi">120</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">5</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.070</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="n">LHC_KQSX_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kqsx3.</span><span class="si">{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>  <span class="c1"># skew quad</span>
 
-        <span class="n">MCTX2</span><span class="o">=</span><span class="mf">0.01</span> <span class="o">*</span> <span class="mi">120</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">5</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.010</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="n">LHC_KCSX_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kcsx3.</span><span class="si">{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>  <span class="c1"># sextupole</span>
 
-        <span class="p">#</span> <span class="n">MCTSX1</span><span class="o">=</span><span class="n">mvars</span><span class="o">[</span><span class="c">&#39;kmax_MCTSXF&#39;],</span>
+<span class="n">LHC_KCSSX_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kcssx3.</span><span class="si">{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>  <span class="c1"># skew sext</span>
 
-        <span class="n">MCTSX1</span><span class="o">=</span><span class="mf">0.07</span> <span class="o">*</span> <span class="mi">120</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">5</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.070</span> <span class="n">Tm</span> <span class="err">@</span> <span class="mi">50</span> <span class="n">mm</span> <span class="ow">in</span> <span class="n">IR1&amp;IR5</span>
+<span class="n">LHC_KCOX_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kcox3.</span><span class="si">{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>  <span class="c1"># octupole</span>
 
-        <span class="n">MQT</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span>  <span class="p">#</span> <span class="mi">120</span> <span class="n">T</span><span class="o">/</span><span class="n">m</span>
+<span class="n">LHC_KCOSX_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kcosx3.</span><span class="si">{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>  <span class="c1"># skew oct</span>
 
-        <span class="n">MQS</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span>  <span class="p">#</span> <span class="mi">120</span> <span class="n">T</span><span class="o">/</span><span class="n">m</span>
+<span class="n">LHC_KCTX_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kctx3.</span><span class="si">{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>  <span class="c1"># decapole</span>
 
-        <span class="n">MS</span><span class="o">=</span><span class="mf">1.280</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">1.28</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span>
+<span class="c1"># ----- LHC Arc Correctors Knobs ----- #</span>
 
-        <span class="n">MSS</span><span class="o">=</span><span class="mf">1.280</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">1.28</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span>
+<span class="n">LHC_KQTF_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># tune trims, focusing and defocusing families, for each beam</span>
 
-        <span class="n">MCS</span><span class="o">=</span><span class="mf">0.471</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.471</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span>
+    <span class="sa">f</span><span class="s2">&quot;kqt</span><span class="si">{</span><span class="n">family</span><span class="si">}</span><span class="s2">.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span>
 
-        <span class="n">MCO</span><span class="o">=</span><span class="mf">0.040</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.04</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span>
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
 
-        <span class="n">MCD</span><span class="o">=</span><span class="mf">0.100</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">4</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.1</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span>
+    <span class="k">for</span> <span class="n">family</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
 
-        <span class="n">MO</span><span class="o">=</span><span class="mf">0.29</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="p">#</span> <span class="mf">0.29</span> <span class="n">T</span> <span class="err">@</span> <span class="mi">17</span> <span class="n">mm</span>
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
 
-    <span class="p">)</span>
+<span class="p">]</span>
+
+<span class="c1"># fmt: off</span>
+
+<span class="c1"># skew quadrupoles in arc short straight sections</span>
+
+<span class="n">LHC_KQS_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kqs.r</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">b1&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span> <span class="o">+</span> \
+
+    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kqs.l</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">b1&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="o">+</span> \
+
+    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kqs.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b1&quot;</span> <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="o">+</span> \
+
+    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kqs.r</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">b2&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">]]</span> <span class="o">+</span> \
+
+    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kqs.l&quot;</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">b2&quot;</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]</span> <span class="o">+</span> \
+
+    <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;kqs.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b2&quot;</span> <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">]]</span>
+
+<span class="c1"># fmt: on</span>
+
+<span class="n">LHC_KSF_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># sextupole correctors</span>
+
+    <span class="sa">f</span><span class="s2">&quot;ks</span><span class="si">{</span><span class="n">family</span><span class="si">}{</span><span class="nb">id</span><span class="si">}</span><span class="s2">.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="nb">id</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">family</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="p">]</span>
+
+<span class="n">LHC_KSS_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># skew sextupole correctors</span>
+
+    <span class="sa">f</span><span class="s2">&quot;kss.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="p">]</span>
+
+<span class="n">LHC_KCS_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># spool piece (skew) sextupoles</span>
+
+    <span class="sa">f</span><span class="s2">&quot;kcs.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="p">]</span>
+
+<span class="n">LHC_KCO_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># spool piece (skew) octupoles</span>
+
+    <span class="sa">f</span><span class="s2">&quot;kco.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="p">]</span>
+
+<span class="n">LHC_KCD_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># spool piece (skew) decapoles</span>
+
+    <span class="sa">f</span><span class="s2">&quot;kcd.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="p">]</span>
+
+<span class="n">LHC_KO_KNOBS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>  <span class="c1"># octupoles in arc short straight sections</span>
+
+    <span class="sa">f</span><span class="s2">&quot;ko</span><span class="si">{</span><span class="n">family</span><span class="si">}</span><span class="s2">.a</span><span class="si">{</span><span class="n">sector</span><span class="si">}{</span><span class="n">sector</span><span class="o">+</span><span class="mi">1</span> <span class="k">if</span> <span class="n">sector</span> <span class="o">&lt;</span> <span class="mi">8</span> <span class="k">else</span> <span class="mi">1</span><span class="si">}</span><span class="s2">b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">family</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">sector</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+
+<span class="p">]</span>
+
+<span class="n">HLLHC_CORRECTOR_LIMITS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># All values are defined as multiples of 0.3/Energy</span>
+
+    <span class="s2">&quot;MQSX1&quot;</span><span class="p">:</span> <span class="mf">0.600</span> <span class="o">/</span> <span class="mf">0.050</span><span class="p">,</span>  <span class="c1"># 0.6 T.m @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="s2">&quot;MQSX2&quot;</span><span class="p">:</span> <span class="mf">1.360</span> <span class="o">/</span> <span class="mf">0.017</span><span class="p">,</span>  <span class="c1"># 1.36 T @ 17 mm in IR2&amp;IR8</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCSX1&quot;</span><span class="p">:</span> <span class="mf">0.050</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 0.050 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="s2">&quot;MCSX2&quot;</span><span class="p">:</span> <span class="mf">0.028</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 0.028 T @ 17 mm in IR2&amp;IR8</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCSSX1&quot;</span><span class="p">:</span> <span class="mf">0.050</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 0.050 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="s2">&quot;MCSSX2&quot;</span><span class="p">:</span> <span class="mf">0.11</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 0.11 T @ 17 mm in IR2&amp;IR8</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCOX1&quot;</span><span class="p">:</span> <span class="mf">0.030</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># 0.030 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="s2">&quot;MCOX2&quot;</span><span class="p">:</span> <span class="mf">0.045</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># 0.045 T @ 17 mm in IR2&amp;IR8</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCOSX1&quot;</span><span class="p">:</span> <span class="mf">0.030</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># 0.030 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="s2">&quot;MCOSX2&quot;</span><span class="p">:</span> <span class="mf">0.048</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># 0.048 T @ 17 mm in IR2&amp;IR8</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCDX1&quot;</span><span class="p">:</span> <span class="mf">0.030</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">4</span><span class="p">),</span>  <span class="c1"># 0.030 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCDSX1&quot;</span><span class="p">:</span> <span class="mf">0.030</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">4</span><span class="p">),</span>  <span class="c1"># 0.030 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCTX1&quot;</span><span class="p">:</span> <span class="mf">0.07</span> <span class="o">*</span> <span class="mi">120</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># 0.070 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="s2">&quot;MCTX2&quot;</span><span class="p">:</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="mi">120</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># 0.010 Tm @ 17 mm in IR1&amp;IR5</span>
+
+    <span class="c1"># ------------- #</span>
+
+    <span class="s2">&quot;MCTSX1&quot;</span><span class="p">:</span> <span class="mf">0.07</span> <span class="o">*</span> <span class="mi">120</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.050</span> <span class="o">**</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># 0.070 Tm @ 50 mm in IR1&amp;IR5</span>
+
+    <span class="s2">&quot;MQT&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>  <span class="c1"># 120 T/m</span>
+
+    <span class="s2">&quot;MQS&quot;</span><span class="p">:</span> <span class="mi">120</span><span class="p">,</span>  <span class="c1"># 120 T/m</span>
+
+    <span class="s2">&quot;MS&quot;</span><span class="p">:</span> <span class="mf">1.280</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 1.28 T @ 17 mm</span>
+
+    <span class="s2">&quot;MSS&quot;</span><span class="p">:</span> <span class="mf">1.280</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 1.28 T @ 17 mm</span>
+
+    <span class="s2">&quot;MCS&quot;</span><span class="p">:</span> <span class="mf">0.471</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>  <span class="c1"># 0.471 T @ 17 mm</span>
+
+    <span class="s2">&quot;MCO&quot;</span><span class="p">:</span> <span class="mf">0.040</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># 0.04 T @ 17 mm</span>
+
+    <span class="s2">&quot;MCD&quot;</span><span class="p">:</span> <span class="mf">0.100</span> <span class="o">*</span> <span class="mi">24</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">4</span><span class="p">),</span>  <span class="c1"># 0.1 T @ 17 mm</span>
+
+    <span class="s2">&quot;MO&quot;</span><span class="p">:</span> <span class="mf">0.29</span> <span class="o">*</span> <span class="mi">6</span> <span class="o">/</span> <span class="p">(</span><span class="mf">0.017</span> <span class="o">**</span> <span class="mi">3</span><span class="p">),</span>  <span class="c1"># 0.29 T @ 17 mm</span>
 
 <span class="p">}</span>
 
-<span class="n">FD_FAMILIES</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;MO&quot;</span><span class="p">,</span> <span class="s">&quot;MS&quot;</span><span class="p">,</span> <span class="s">&quot;MQT&quot;</span><span class="p">}</span>  <span class="p">#</span> <span class="n">Magnets</span> <span class="n">that</span> <span class="n">have</span> <span class="n">F</span> <span class="ow">and</span> <span class="n">D</span> <span class="n">families</span>
+<span class="n">FD_FAMILIES</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MO&quot;</span><span class="p">,</span> <span class="s2">&quot;MS&quot;</span><span class="p">,</span> <span class="s2">&quot;MQT&quot;</span><span class="p">}</span>  <span class="c1"># Magnets that have F and D families</span>
 
-<span class="n">TWO_FAMILIES</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;MS&quot;</span><span class="p">}</span>  <span class="p">#</span> <span class="n">Magnets</span> <span class="n">that</span> <span class="n">have</span> <span class="mi">1</span> <span class="ow">and</span> <span class="mi">2</span> <span class="n">families</span>
+<span class="n">TWO_FAMILIES</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MS&quot;</span><span class="p">}</span>  <span class="c1"># Magnets that have 1 and 2 families</span>
 
-<span class="n">SPECIAL_FAMILIES</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;MQS&quot;</span><span class="p">}</span>  <span class="p">#</span> <span class="n">Magnets</span> <span class="ow">in</span> <span class="n">every</span> <span class="n">second</span> <span class="n">arc</span>
+<span class="n">SPECIAL_FAMILIES</span><span class="p">:</span> <span class="n">Set</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;MQS&quot;</span><span class="p">}</span>  <span class="c1"># Magnets in every second arc</span>
 </code></pre></div>
 
 </details>
 <h2 id="variables">Variables</h2>
-<div class="highlight"><pre><span></span><code><span class="n">CORRECTOR_LIMITS</span>
-</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">DEFAULT_TWISS_COLUMNS</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">FD_FAMILIES</span>
 </code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">HLLHC_CORRECTOR_LIMITS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_ANGLE_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_CROSSING_ANGLE_FLAGS</span>
+</code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">LHC_CROSSING_SCHEMES</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_EXPERIMENT_STATE_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_IP2_SPECIAL_FLAG</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_IP_OFFSET_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCD_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCOSX_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCOX_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCO_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCSSX_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCSX_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCS_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KCTX_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KO_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KQSX_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KQS_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KQTF_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KSF_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_KSS_KNOBS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">MONITOR_TWISS_COLUMNS</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="n">SPECIAL_FAMILIES</span>
 </code></pre></div>
@@ -1424,13 +1600,13 @@
           </a>
         
         
-          <a href="../errors/" title="Errors" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../correctors/" title="Correctors" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
               <span class="md-flex__ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Errors
+                Correctors
               </span>
             </div>
             <div class="md-flex__cell md-flex__cell--shrink">

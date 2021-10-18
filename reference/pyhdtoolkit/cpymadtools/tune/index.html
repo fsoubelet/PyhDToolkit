@@ -367,6 +367,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../correctors/" class="md-nav__link">
+        Correctors
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../errors/" class="md-nav__link">
         Errors
       </a>
@@ -1307,7 +1321,7 @@
 
     <span class="k">except</span> <span class="ne">RuntimeError</span> <span class="k">as</span> <span class="n">madx_crash</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
 
             <span class="s2">&quot;Remote MAD-X process crashed, most likely because you did not slice the sequence &quot;</span>
 
@@ -1331,7 +1345,7 @@
 
         <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Could not cleanup DYNAP output files, they might have not been created&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not cleanup DYNAP output files, they might have not been created&quot;</span><span class="p">)</span>
 
     <span class="n">tfs_dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span>
 
@@ -1495,7 +1509,7 @@
 
     <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">tune_grouping_error</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
 
             <span class="s2">&quot;Cannot group tune points according to starting angles and amplitudes. Try changing &quot;</span>
 
@@ -1503,7 +1517,7 @@
 
         <span class="p">)</span>
 
-        <span class="k">raise</span> <span class="n">tune_grouping_error</span>
+        <span class="k">raise</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Determining polygon vertices&quot;</span><span class="p">)</span>
 
@@ -1981,7 +1995,7 @@ in red) and the last starting amplitude particles (in green).</p>
 
     <span class="s s-Atom">except</span> <span class="nv">ValueError</span> <span class="s s-Atom">as</span> <span class="s s-Atom">tune_grouping_error:</span>
 
-        <span class="s s-Atom">logger</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span>
+        <span class="s s-Atom">logger</span><span class="p">.</span><span class="nf">exception</span><span class="p">(</span>
 
             <span class="s2">&quot;Cannot group tune points according to starting angles and amplitudes. Try changing &quot;</span>
 
@@ -1989,7 +2003,7 @@ in red) and the last starting amplitude particles (in green).</p>
 
         <span class="p">)</span>
 
-        <span class="s s-Atom">raise</span> <span class="s s-Atom">tune_grouping_error</span>
+        <span class="s s-Atom">raise</span>
 
     <span class="s s-Atom">logger</span><span class="p">.</span><span class="nf">debug</span><span class="p">(</span><span class="s2">&quot;Determining polygon vertices&quot;</span><span class="p">)</span>
 
@@ -2196,7 +2210,7 @@ this function.</p>
 
     <span class="k">except</span> <span class="n">RuntimeError</span> <span class="k">as</span> <span class="n">madx_crash</span><span class="o">:</span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="k">error</span><span class="p">(</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span>
 
             <span class="s2">&quot;Remote MAD-X process crashed, most likely because you did not slice the sequence &quot;</span>
 
@@ -2220,7 +2234,7 @@ this function.</p>
 
         <span class="k">except</span> <span class="n">FileNotFoundError</span><span class="o">:</span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="k">error</span><span class="p">(</span><span class="s2">&quot;Could not cleanup DYNAP output files, they might have not been created&quot;</span><span class="p">)</span>
+            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not cleanup DYNAP output files, they might have not been created&quot;</span><span class="p">)</span>
 
     <span class="n">tfs_dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span>
 
