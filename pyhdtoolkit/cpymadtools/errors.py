@@ -5,7 +5,7 @@ Module cpymadtools.errors
 Created on 2020.02.03
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-A module with functions to perform MAD-X errors setups and manipulatioins with a cpymad.madx.Madx object,
+A module with functions to perform MAD-X errors setups and manipulations with a cpymad.madx.Madx object,
 mainly for LHC and HLLHC machines.
 """
 from typing import Dict, List, Sequence

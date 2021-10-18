@@ -15,6 +15,15 @@ import numpy as np
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit.cpymadtools.constants import (
+    LHC_ANGLE_FLAGS,
+    LHC_CROSSING_ANGLE_FLAGS,
+    LHC_EXPERIMENT_STATE_FLAGS,
+    LHC_IP2_SPECIAL_FLAG,
+    LHC_IP_OFFSET_FLAGS,
+    LHC_PARALLEL_SEPARATION_FLAGS,
+)
+
 # ----- Setup Utlites ----- #
 
 
@@ -64,7 +73,7 @@ def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_a
     try:
         brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
     except AttributeError as madx_error:
-        logger.error(
+        logger.exception(
             "The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined."
         )
         raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error
@@ -390,6 +399,26 @@ def vary_independent_ir_quadrupoles(
                 lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
                 upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
             )
+
+
+def reset_lhc_bump_flags(madx: Madx) -> None:
+    """
+    Resets all LHC IP bump flags to 0.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    """
+    logger.info("Resetting all LHC IP bump flags")
+    ALL_BUMPS = (
+        LHC_ANGLE_FLAGS
+        + LHC_CROSSING_ANGLE_FLAGS
+        + LHC_EXPERIMENT_STATE_FLAGS
+        + LHC_IP2_SPECIAL_FLAG
+        + LHC_IP_OFFSET_FLAGS
+        + LHC_PARALLEL_SEPARATION_FLAGS
+    )
+    with madx.batch():
+        madx.globals.update({bump: 0 for bump in ALL_BUMPS})
 
 
 # ----- Output Utilities ----- #

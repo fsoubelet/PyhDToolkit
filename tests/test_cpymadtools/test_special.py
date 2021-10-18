@@ -1,10 +1,19 @@
 import math
+import random
 
 import pytest
 
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
 
+from pyhdtoolkit.cpymadtools.constants import (
+    LHC_ANGLE_FLAGS,
+    LHC_CROSSING_ANGLE_FLAGS,
+    LHC_EXPERIMENT_STATE_FLAGS,
+    LHC_IP2_SPECIAL_FLAG,
+    LHC_IP_OFFSET_FLAGS,
+    LHC_PARALLEL_SEPARATION_FLAGS,
+)
 from pyhdtoolkit.cpymadtools.special import (
     _all_lhc_arcs,
     _get_k_strings,
@@ -19,6 +28,7 @@ from pyhdtoolkit.cpymadtools.special import (
     make_sixtrack_output,
     power_landau_octupoles,
     re_cycle_sequence,
+    reset_lhc_bump_flags,
     vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
@@ -199,14 +209,33 @@ class TestSpecial:
             [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
         )
 
-    def test_re_cycling(self, _bare_lhc_madx):
+    @pytest.mark.parametrize("start_point", ["IP3", "MSIA.EXIT.B1"])
+    def test_re_cycling(self, _bare_lhc_madx, start_point):
         madx = _bare_lhc_madx
-        re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        re_cycle_sequence(madx, sequence="lhcb1", start=start_point)
         make_lhc_beams(madx)
         madx.command.use(sequence="lhcb1")
         madx.twiss()
         twiss = madx.table.twiss.dframe().copy()
-        assert "ip3" in twiss.name[0].lower()
+        assert start_point.lower() in twiss.name[0].lower()
+
+    def test_resetting_lhc_bump_flags(self, _bare_lhc_madx):
+        madx = _bare_lhc_madx
+        make_lhc_beams(madx)
+        ALL_BUMPS = (
+                LHC_ANGLE_FLAGS
+                + LHC_CROSSING_ANGLE_FLAGS
+                + LHC_EXPERIMENT_STATE_FLAGS
+                + LHC_IP2_SPECIAL_FLAG
+                + LHC_IP_OFFSET_FLAGS
+                + LHC_PARALLEL_SEPARATION_FLAGS
+        )
+        with madx.batch():
+            madx.globals.update({bump: random.random() for bump in ALL_BUMPS})
+        assert all([madx.globals[bump] != 0 for bump in ALL_BUMPS])
+
+        reset_lhc_bump_flags(madx)
+        assert all([madx.globals[bump] == 0 for bump in ALL_BUMPS])
 
     def test_vary_independent_ir_quads(self, _non_matched_lhc_madx):
         # still need to find how to test MAD-X has done this, but don't think we can test just a VARY

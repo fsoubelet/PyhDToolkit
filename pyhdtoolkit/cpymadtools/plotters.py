@@ -1123,6 +1123,7 @@ def _plot_machine_layout(
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
+    plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
     k0l_lim: Tuple[float, float] = (-0.25, 0.25),
@@ -1148,6 +1149,8 @@ def _plot_machine_layout(
             not None, using the tuple passed.
         plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
             the figure. Defaults to True. Dipoles are plotted in blue.
+        plot_dipole_k1 (bool): if True, dipole elements with a quadrupolar gradient will have this
+            gradient plotted as a quadrupole patch. Defaults to False.
         plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
             subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
         plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
@@ -1206,15 +1209,27 @@ def _plot_machine_layout(
         plotted_elements = 0  # will help us not declare a label for legend at every patch
         for dipole_name, dipole in dipoles_df.iterrows():
             logger.trace(f"Plotting dipole element '{dipole_name}'")
+            bend_value = dipole.k0l if dipole.k0l != 0 else dipole.angle
             _plot_lattice_series(
                 dipole_patches_axis,
                 dipole,
-                height=dipole.k0l if dipole.k0l != 0 else dipole.angle,
-                v_offset=dipole.k0l / 2 if dipole.k0l != 0 else dipole.angle / 2,
+                height=bend_value,
+                v_offset=bend_value / 2,
                 color="royalblue",
                 label="MB" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
+            if dipole.k1l != 0 and plot_dipole_k1:  # plot dipole quadrupolar gradient (with reduced alpha)
+                logger.trace(f"Plotting quadrupolar gradient of dipole element '{dipole_name}'")
+                _plot_lattice_series(
+                    quadrupole_patches_axis,
+                    dipole,
+                    height=dipole.k1l,
+                    v_offset=dipole.k1l / 2,
+                    color="r",
+                    alpha=0.3,
+                    **kwargs,
+                )
             plotted_elements += 1
         dipole_patches_axis.legend(loc=1)
 

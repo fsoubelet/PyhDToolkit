@@ -54,7 +54,7 @@ class CommandLine:
             # According to "man 2 kill" possible error values are (EINVAL, EPERM, ESRCH), therefore
             # we should never get here. If so let's be explicit in considering this an error.
             logger.exception("Could not figure out the provided PID for some reason")
-            raise pid_checkout_error
+            raise
         return True
 
     @staticmethod
