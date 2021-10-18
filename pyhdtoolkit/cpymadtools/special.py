@@ -11,6 +11,10 @@ contents have for now been duplicated into the `lhc` module and should be used f
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to
 what I do in LHC and HLLHC use cases.
 """
+import functools
+import inspect
+import warnings
+
 from typing import List, Sequence
 
 import numpy as np
@@ -27,9 +31,31 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_PARALLEL_SEPARATION_FLAGS,
 )
 
+
+# ----- Utility deprecation decorator ----- #
+def special_deprecated(func):
+    """
+    Decorator to mark functions in this module as deprecated. It will result in an informative
+    DeprecationWarning being issued when the function is used."""
+
+    @functools.wraps(func)
+    def new_func(*args, **kwargs):
+        warnings.simplefilter("always", DeprecationWarning)  # turn off filter
+        warnings.warn(
+            "This function is deprecated. Please use its equivalent from the 'cpymadtools.lhc' module",
+            category=DeprecationWarning,
+            stacklevel=2,
+        )
+        warnings.simplefilter("default", DeprecationWarning)  # reset filter
+        return func(*args, **kwargs)
+
+    return new_func
+
+
 # ----- Setup Utlites ----- #
 
 
+@special_deprecated
 def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6, **kwargs) -> None:
     """
     Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.
@@ -63,6 +89,7 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
         )
 
 
+@special_deprecated
 def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_arc: bool = False) -> None:
     """
     Power the Landau octupoles in the (HL)LHC.
@@ -95,6 +122,7 @@ def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_a
         madx.globals["KOD.A56B1"] = strength * 4.65 / 6  # defective MO group
 
 
+@special_deprecated
 def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
     """
     Deactivate all arc sextupoles in the (HL)LHC.
@@ -117,6 +145,7 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
                 madx.globals[sextupole] = 0.0
 
 
+@special_deprecated
 def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
     """
     Applies the LHC colinearity knob. If you don't know what this is, you should not be using this
@@ -141,6 +170,7 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     logger.trace(f"Set '{left_knob}' to {madx.globals[left_knob]}")
 
 
+@special_deprecated
 def apply_lhc_rigidity_waist_shift_knob(
     madx: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
 ) -> None:
@@ -185,6 +215,7 @@ def apply_lhc_rigidity_waist_shift_knob(
     logger.trace(f"Set '{left_knob}' to {madx.globals[left_knob]}")
 
 
+@special_deprecated
 def apply_lhc_coupling_knob(
     madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
 ) -> None:
@@ -209,6 +240,7 @@ def apply_lhc_coupling_knob(
     logger.trace(f"Set '{knob_name}' to {madx.globals[knob_name]}")
 
 
+@special_deprecated
 def install_ac_dipole_as_kicker(
     madx: Madx,
     deltaqx: float,
@@ -297,6 +329,7 @@ def install_ac_dipole_as_kicker(
     madx.use(sequence=f"lhcb{beam:d}")
 
 
+@special_deprecated
 def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: int = 1) -> None:
     """
     Installs an AC dipole as a matrix element for (HL)LHC BEAM 1 OR 2 ONLY.
@@ -352,6 +385,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     madx.use(sequence=f"lhcb{beam:d}")
 
 
+@special_deprecated
 def vary_independent_ir_quadrupoles(
     madx: Madx, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
 ) -> None:
@@ -404,6 +438,7 @@ def vary_independent_ir_quadrupoles(
             )
 
 
+@special_deprecated
 def reset_lhc_bump_flags(madx: Madx) -> None:
     """
     Resets all LHC IP bump flags to 0.
@@ -427,6 +462,7 @@ def reset_lhc_bump_flags(madx: Madx) -> None:
 # ----- Output Utilities ----- #
 
 
+@special_deprecated
 def make_sixtrack_output(madx: Madx, energy: int) -> None:
     """
     INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
@@ -451,6 +487,7 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
 # ----- Miscellaneous Utilities ----- #
 
 
+@special_deprecated
 def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
     """
     Makethin for the LHC sequence as previously done in MAD-X macros. This will use the `teapot` style and
@@ -502,6 +539,7 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
 
 
+@special_deprecated
 def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
     """
     Re-cycle the provided sequence from a different starting point.
@@ -518,6 +556,7 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
     madx.command.endedit()
 
 
+@special_deprecated
 def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
@@ -548,6 +587,7 @@ def match_no_coupling_through_ripkens(
 # ----- Helpers ----- #
 
 
+@special_deprecated
 def _all_lhc_arcs(beam: int) -> List[str]:
     """
     INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
@@ -562,6 +602,7 @@ def _all_lhc_arcs(beam: int) -> List[str]:
     return [f"A{i+1}{(i+1)%8+1}B{beam:d}" for i in range(8)]
 
 
+@special_deprecated
 def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
     """
     INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
