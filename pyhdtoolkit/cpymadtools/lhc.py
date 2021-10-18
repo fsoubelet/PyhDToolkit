@@ -5,11 +5,8 @@ Module cpymadtools.special
 Created on 2020.02.03
 :author: Felix Soubelet (felix.soubelet@cern.ch)
 
-NOTE: This module is to be considered deprecated, and will be removed when version 1.0 is reached. Its
-contents have for now been duplicated into the `lhc` module and should be used from there.
-
-A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to
-what I do in LHC and HLLHC use cases.
+A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are specific to LHC
+and HLLHC machines.
 """
 from typing import List, Sequence
 
