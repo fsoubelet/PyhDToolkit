@@ -223,12 +223,12 @@ class TestSpecial:
         madx = _bare_lhc_madx
         make_lhc_beams(madx)
         ALL_BUMPS = (
-                LHC_ANGLE_FLAGS
-                + LHC_CROSSING_ANGLE_FLAGS
-                + LHC_EXPERIMENT_STATE_FLAGS
-                + LHC_IP2_SPECIAL_FLAG
-                + LHC_IP_OFFSET_FLAGS
-                + LHC_PARALLEL_SEPARATION_FLAGS
+            LHC_ANGLE_FLAGS
+            + LHC_CROSSING_ANGLE_FLAGS
+            + LHC_EXPERIMENT_STATE_FLAGS
+            + LHC_IP2_SPECIAL_FLAG
+            + LHC_IP_OFFSET_FLAGS
+            + LHC_PARALLEL_SEPARATION_FLAGS
         )
         with madx.batch():
             madx.globals.update({bump: random.random() for bump in ALL_BUMPS})
