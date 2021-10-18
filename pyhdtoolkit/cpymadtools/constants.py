@@ -72,6 +72,29 @@ LHC_CROSSING_SCHEMES: Dict[str, Dict[str, float]] = {
     },
 }
 
+# ----- LHC IP bump flags ----- #
+LHC_CROSSING_ANGLE_FLAGS: List[str] = [f"on_x{ip}" for ip in [1, 2, 5, 8]] + [
+    "on_x1h",
+    "on_x5v",
+    "on_s_x1h",
+    "on_s_x5v",
+]
+LHC_PARALLEL_SEPARATION_FLAGS: List[str] = [f"on_sep{ip}" for ip in [1, 2, 5, 8]] + [
+    "on_sep1v",
+    "on_sep5h",
+    "on_s_sep1v",
+    "on_s_sep5h",
+]
+# Offset is in the plane of the crossing angle
+LHC_IP_OFFSET_FLAGS: List[str] = [f"on_o{ip}" for ip in [1, 2, 5, 8]] + ["on_o1h"] + [
+    f"on_oh{ip}" for ip in [1, 5]
+] + [f"on_ov{ip}" for ip in [1, 2, 5]]
+# Angle is in the same plane as the separation
+LHC_ANGLE_FLAGS: List[str] = [f"on_a{ip}" for ip in [1, 2, 5, 8]] + ["on_a1v"]
+# Magnetic fields or solenoids powering status
+LHC_EXPERIMENT_STATE_FLAGS: List[str] = ["on_alice", "on_lhcb", "on_sol_atlas", "on_sol_cms", "on_sol_alice"]
+LHC_IP2_SPECIAL_FLAG: List[str] = ["on_oe2"]  # TODO: ask Tobias or Stephane F.
+
 # ----- LHC Triplet Correctors Knobs ----- #
 LHC_KQSX_KNOBS: List[str] = [f"kqsx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # skew quad
 LHC_KCSX_KNOBS: List[str] = [f"kcsx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # sextupole
@@ -88,8 +111,8 @@ LHC_KQTF_KNOBS: List[str] = [  # tune trims, focusing and defocusing families, f
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 # fmt: off
-LHC_KQS_KNOBS: List[str] = [  # skew quadrupoles in arc short straight sections
-    f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
+# skew quadrupoles in arc short straight sections
+LHC_KQS_KNOBS: List[str] = [f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
     [f"kqs.l{ip}b1" for ip in [2, 4, 6, 8]] + \
     [f"kqs.a{sector}{sector+1 if sector < 8 else 1}b1" for sector in [2, 4, 6, 8]] + \
     [f"kqs.r{ip}b2" for ip in [2, 4, 6, 8]] + \
