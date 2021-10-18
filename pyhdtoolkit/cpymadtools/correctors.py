@@ -15,12 +15,14 @@ from loguru import logger
 
 from pyhdtoolkit.cpymadtools.constants import (
     LHC_KCD_KNOBS,
+    LHC_KCO_KNOBS,
     LHC_KCOSX_KNOBS,
     LHC_KCOX_KNOBS,
     LHC_KCS_KNOBS,
     LHC_KCSSX_KNOBS,
     LHC_KCSX_KNOBS,
     LHC_KCTX_KNOBS,
+    LHC_KO_KNOBS,
     LHC_KQS_KNOBS,
     LHC_KQSX_KNOBS,
     LHC_KQTF_KNOBS,
