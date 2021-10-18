@@ -53,7 +53,7 @@ def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
 
     logger.debug("Querying triplet skew sextupole correctors (MCSSXs) powering")
     k_mcssx_max = 0.11 * 2 / 0.017 ** 2 / madx.globals.brho  # 0.11 T @ 17 mm
-    result.update({knob: 100 * _knob_value(madx, knob) / k_mcssx_max for knob in LHC_KCSX_KNOBS})
+    result.update({knob: 100 * _knob_value(madx, knob) / k_mcssx_max for knob in LHC_KCSSX_KNOBS})
 
     logger.debug("Querying triplet octupole correctors (MCOXs) powering")
     k_mcox_max = 0.045 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.045 T @ 17 mm
@@ -69,14 +69,13 @@ def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
     return result
 
 
-def query_arc_correctors_powering(madx: Madx, beam: int) -> Dict[str, float]:
+def query_arc_correctors_powering(madx: Madx) -> Dict[str, float]:
     """
     This is a port of one of the `corr_value.madx` file's macros. It queries for the arc corrector strengths
     and returns their values as a percentage of their max powering.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object with an active (HL)LHC sequence.
-        beam(int): the beam to get corrector strengths for, either 1 or 2.
 
     Returns:
         A dict with the percentage for each corrector.
@@ -113,12 +112,13 @@ def query_arc_correctors_powering(madx: Madx, beam: int) -> Dict[str, float]:
     result.update({knob: 100 * _knob_value(madx, knob) / k_mcd_max for knob in LHC_KCD_KNOBS})
 
     logger.debug("Querying arc short straight sections octupole correctors (MOs) powering")
-    k_mo_max = 0.29 * 6 / 0.017**3 / madx.globals.brho  # 0.29 T @ 17 mm
+    k_mo_max = 0.29 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.29 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mo_max for knob in LHC_KO_KNOBS})
     return result
 
 
 # ----- Helpers ----- #
+
 
 def _knob_value(madx: Madx, knob: str) -> float:
     """
