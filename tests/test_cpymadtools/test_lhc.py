@@ -14,7 +14,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_IP_OFFSET_FLAGS,
     LHC_PARALLEL_SEPARATION_FLAGS,
 )
-from pyhdtoolkit.cpymadtools.special import (
+from pyhdtoolkit.cpymadtools.lhc import (
     _all_lhc_arcs,
     _get_k_strings,
     apply_lhc_colinearity_knob,
