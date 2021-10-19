@@ -577,6 +577,7 @@ class LatticePlotter:
         xoffset: float = 0,
         xlimits: Tuple[float, float] = None,
         plot_dipoles: bool = True,
+        plot_dipole_k1: bool = False,
         plot_quadrupoles: bool = True,
         plot_bpms: bool = False,
         disp_ylim: Tuple[float, float] = (-10, 125),
@@ -603,6 +604,8 @@ class LatticePlotter:
                 not None, using the tuple passed.
             plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
                 the figure. Defaults to True. Dipoles are plotted in blue.
+            plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this
+                gradient plotted as a quadrupole patch. Defaults to `False`.
             plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
                 subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
             plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
@@ -653,6 +656,7 @@ class LatticePlotter:
             xoffset=xoffset,
             xlimits=xlimits,
             plot_dipoles=plot_dipoles,
+            plot_dipole_k1=plot_dipole_k1,
             plot_quadrupoles=plot_quadrupoles,
             plot_bpms=plot_bpms,
             k0l_lim=k0l_lim,
@@ -1149,8 +1153,8 @@ def _plot_machine_layout(
             not None, using the tuple passed.
         plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
             the figure. Defaults to True. Dipoles are plotted in blue.
-        plot_dipole_k1 (bool): if True, dipole elements with a quadrupolar gradient will have this
-            gradient plotted as a quadrupole patch. Defaults to False.
+        plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this
+            gradient plotted as a quadrupole patch. Defaults to `False`.
         plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
             subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
         plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
