@@ -2647,6 +2647,8 @@
 
         <span class="n">plot_dipoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 
+        <span class="n">plot_dipole_k1</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+
         <span class="n">plot_quadrupoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 
         <span class="n">plot_bpms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
@@ -2696,6 +2698,10 @@
 <span class="sd">            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of</span>
 
 <span class="sd">                the figure. Defaults to True. Dipoles are plotted in blue.</span>
+
+<span class="sd">            plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this</span>
+
+<span class="sd">                gradient plotted as a quadrupole patch. Defaults to `False`.</span>
 
 <span class="sd">            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout</span>
 
@@ -2788,6 +2794,8 @@
             <span class="n">xlimits</span><span class="o">=</span><span class="n">xlimits</span><span class="p">,</span>
 
             <span class="n">plot_dipoles</span><span class="o">=</span><span class="n">plot_dipoles</span><span class="p">,</span>
+
+            <span class="n">plot_dipole_k1</span><span class="o">=</span><span class="n">plot_dipole_k1</span><span class="p">,</span>
 
             <span class="n">plot_quadrupoles</span><span class="o">=</span><span class="n">plot_quadrupoles</span><span class="p">,</span>
 
@@ -3659,9 +3667,9 @@
 
 <span class="sd">            the figure. Defaults to True. Dipoles are plotted in blue.</span>
 
-<span class="sd">        plot_dipole_k1 (bool): if True, dipole elements with a quadrupolar gradient will have this</span>
+<span class="sd">        plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this</span>
 
-<span class="sd">            gradient plotted as a quadrupole patch. Defaults to False.</span>
+<span class="sd">            gradient plotted as a quadrupole patch. Defaults to `False`.</span>
 
 <span class="sd">        plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout</span>
 
@@ -6130,477 +6138,17 @@ re-<code>use</code> your wanted sequence after calling this function!</p>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">LatticePlotter</span><span class="p">:</span><span class="w"></span>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">LatticePlotter</span><span class="o">:</span>
 
-<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
-<span class="ss">    A class to elegantly plot the Twiss parameters layout of a machine from a `cpymad.madx.Madx` instance</span>
+<span class="s2">    A class to elegantly plot the Twiss parameters layout of a machine from a `cpymad.madx.Madx` instance</span>
 
-<span class="ss">    after it has ran, or the machine survey.</span>
+<span class="s2">    after it has ran, or the machine survey.</span>
 
-<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
-<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_latwiss</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">title</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">figsize</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">int, int</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">18</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">),</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">savefig</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">xoffset</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">xlimits</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">plot_dipoles</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">plot_quadrupoles</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">plot_bpms</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">disp_ylim</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">125</span><span class="p">),</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">beta_ylim</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">k0l_lim</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span><span class="w"> </span><span class="mf">0.25</span><span class="p">),</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">k1l_lim</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mf">0.08</span><span class="p">,</span><span class="w"> </span><span class="mf">0.08</span><span class="p">),</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">k2l_lim</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">float, float</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">matplotlib</span><span class="p">.</span><span class="n">figure</span><span class="p">.</span><span class="nl">Figure</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
-
-<span class="ss">        Provided with an active Cpymad class after having ran a script, will create a plot representing nicely</span>
-
-<span class="ss">        the lattice layout and the beta functions along with the horizontal dispertion function. This is very,</span>
-
-<span class="ss">        very heavily reworked code, inspired by code from Guido Sterbini.</span>
-
-<span class="ss">        Args:</span>
-
-<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
-
-<span class="ss">            title (str): title of your plot.</span>
-
-<span class="ss">            figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).</span>
-
-<span class="ss">            savefig (str): will save the figure if this is not None, using the string value passed.</span>
-
-<span class="ss">            xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want</span>
-
-<span class="ss">                to center a plot around a specific point or element, which would then become located at s = 0.</span>
-
-<span class="ss">                Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).</span>
-
-<span class="ss">            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is</span>
-
-<span class="ss">                not None, using the tuple passed.</span>
-
-<span class="ss">            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of</span>
-
-<span class="ss">                the figure. Defaults to True. Dipoles are plotted in blue.</span>
-
-<span class="ss">            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout</span>
-
-<span class="ss">                subplot of the figure. Defaults to True. Quadrupoles are plotted in red.</span>
-
-<span class="ss">            plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent</span>
-
-<span class="ss">                Beam Position Monitors. BPMs are plotted in dark grey.</span>
-
-<span class="ss">            disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.</span>
-
-<span class="ss">                Defaults to (-10, 125).</span>
-
-<span class="ss">            beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.</span>
-
-<span class="ss">                Defaults to None, to be determined by matplotlib based on the provided beta values.</span>
-
-<span class="ss">            k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the</span>
-
-<span class="ss">                height of dipole patches. Defaults to (-0.25, 0.25).</span>
-
-<span class="ss">            k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the</span>
-
-<span class="ss">                height of quadrupole patches. Defaults to (-0.08, 0.08).</span>
-
-<span class="ss">            k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of</span>
-
-<span class="ss">                the figure, and the provided values act as vertical axis limits for the k2l values used for the</span>
-
-<span class="ss">                height of sextupole patches.</span>
-
-<span class="ss">        Keyword Args:</span>
-
-<span class="ss">            Any keyword argument to be transmitted to `_plot_machine_layout`, later on to `plot_lattice_series`</span>
-
-<span class="ss">            and then `matplotlib.patches.Rectangle`, such as lw etc.</span>
-
-<span class="ss">        WARNING:</span>
-
-<span class="ss">            Currently the function tries to plot legends for the different layout patches. The position of the</span>
-
-<span class="ss">            different legends has been hardcoded in corners and might require users to tweak the axis limits</span>
-
-<span class="ss">            (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don&#39;t</span>
-
-<span class="ss">            overlap.</span>
-
-<span class="ss">        Returns:</span>
-
-<span class="ss">             The figure on which the plots are drawn. The underlying axes can be accessed with</span>
-
-<span class="ss">             &#39;fig.get_axes()&#39;. Eventually saves the figure as a file.</span>
-
-<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
-
-<span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="nl">pylint</span><span class="p">:</span><span class="w"> </span><span class="n">disable</span><span class="o">=</span><span class="n">too</span><span class="o">-</span><span class="n">many</span><span class="o">-</span><span class="n">arguments</span><span class="w"></span>
-
-<span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="k">Restrict</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">span</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">twiss_df</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">avoid</span><span class="w"> </span><span class="n">plotting</span><span class="w"> </span><span class="ow">all</span><span class="w"> </span><span class="n">elements</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">cropping</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">xlimits</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">given</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="ss">&quot;Plotting optics functions and machine layout&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Getting Twiss dataframe from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">twiss_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">xoffset</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">xlimits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="nf">min</span><span class="p">(),</span><span class="w"> </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="nf">max</span><span class="p">())</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">xlimits</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">xlimits</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">twiss_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">twiss_df</span><span class="o">[</span><span class="n">twiss_df.s.between(*xlimits)</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">xlimits</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">twiss_df</span><span class="w"></span>
-
-<span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="k">Create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">subplot</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">lattice</span><span class="w"> </span><span class="n">patches</span><span class="w"> </span><span class="p">(</span><span class="n">takes</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">third</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">figure</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">figure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">quadrupole_patches_axis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">_plot_machine_layout</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">madx</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">quadrupole_patches_axis</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">xoffset</span><span class="o">=</span><span class="n">xoffset</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">xlimits</span><span class="o">=</span><span class="n">xlimits</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plot_dipoles</span><span class="o">=</span><span class="n">plot_dipoles</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plot_quadrupoles</span><span class="o">=</span><span class="n">plot_quadrupoles</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plot_bpms</span><span class="o">=</span><span class="n">plot_bpms</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">k0l_lim</span><span class="o">=</span><span class="n">k0l_lim</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">k1l_lim</span><span class="o">=</span><span class="n">k1l_lim</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">k2l_lim</span><span class="o">=</span><span class="n">k2l_lim</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="n">Plotting</span><span class="w"> </span><span class="n">beta</span><span class="w"> </span><span class="n">functions</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">remaining</span><span class="w"> </span><span class="n">two</span><span class="w"> </span><span class="n">thirds</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">figure</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting beta functions&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">betatron_axis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">),</span><span class="w"> </span><span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">rowspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">sharex</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">betatron_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">betx</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;$\\beta_x$&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">betatron_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">bety</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;$\\beta_y$&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">betatron_axis</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">betatron_axis</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="ss">&quot;$\\beta_{x,y}$ $[m]$&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">betatron_axis</span><span class="p">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="ss">&quot;$S$ $[m]$&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting dispersion functions&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dispertion_axis</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">betatron_axis</span><span class="p">.</span><span class="n">twinx</span><span class="p">()</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dispertion_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">dx</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;brown&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;$D_x$&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dispertion_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">dy</span><span class="p">,</span><span class="w"> </span><span class="n">ls</span><span class="o">=</span><span class="ss">&quot;-.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;sienna&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;$D_y$&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dispertion_axis</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dispertion_axis</span><span class="p">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="ss">&quot;$D_{x,y}$ $[m]$&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;brown&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dispertion_axis</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="ss">&quot;y&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">labelcolor</span><span class="o">=</span><span class="ss">&quot;brown&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dispertion_axis</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="k">False</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">beta_ylim</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Setting ylim for betatron functions plot&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">betatron_axis</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">beta_ylim</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">disp_ylim</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Setting ylim for dispersion plot&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">dispertion_axis</span><span class="p">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">disp_ylim</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">xlimits</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Setting xlim for longitudinal coordinate&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlimits</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">savefig</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Saving latwiss plot as {savefig}&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">figure</span><span class="w"></span>
-
-<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">plot_machine_survey</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">title</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;Machine Layout&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">figsize</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">int, int</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">),</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">savefig</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">show_elements</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">high_orders</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">matplotlib</span><span class="p">.</span><span class="n">figure</span><span class="p">.</span><span class="nl">Figure</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
-
-<span class="ss">        Provided with an active Cpymad class after having ran a script, will create a plot</span>
-
-<span class="ss">        representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.</span>
-
-<span class="ss">        Args:</span>
-
-<span class="ss">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
-
-<span class="ss">            title (str): title of your plot.</span>
-
-<span class="ss">            figsize (Tuple[int, int]): size of the figure, defaults to (16, 11).</span>
-
-<span class="ss">            savefig (str): will save the figure if this is not None, using the string value passed.</span>
-
-<span class="ss">            show_elements (bool): if True, will try to plot by differentiating elements.</span>
-
-<span class="ss">                Experimental, defaults to False.</span>
-
-<span class="ss">            high_orders (bool): if True, plot sextupoles and octupoles when show_elements is True,</span>
-
-<span class="ss">                otherwise only up to quadrupoles. Defaults to False.</span>
-
-<span class="ss">        Keyword Arguments:</span>
-
-<span class="ss">            Any keyword argument is transmiitted to `matplotlib.pyplot.scatter` calls later on.</span>
-
-<span class="ss">        Returns:</span>
-
-<span class="ss">             The figure on which the plots are drawn. The underlying axes can be accessed with</span>
-
-<span class="ss">             &#39;fig.get_axes()&#39;. Eventually saves the figure as a file.</span>
-
-<span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="ss">&quot;Plotting machine survey&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="ss">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">survey</span><span class="p">()</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">survey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="nc">table</span><span class="p">.</span><span class="n">survey</span><span class="p">.</span><span class="n">dframe</span><span class="p">()</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">figure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">show_elements</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting survey with elements differentiation&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">element_dfs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;dipoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;dipoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">c</span><span class="o">=</span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;dipoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;Dipoles&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_foc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_foc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;QF&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_defoc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_defoc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;red&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;QD&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nl">high_orders</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting high order magnetic elements (up to octupoles)&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;sextupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;sextupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;MS&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;octupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;octupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;cyan&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;MO&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">else</span><span class="err">:</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting survey without elements differentiation&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">survey</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="err">#</span><span class="w"> </span><span class="n">Trying</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">trick</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">ensure</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">colorbar</span><span class="w"> </span><span class="n">scales</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">properly</span><span class="w"> </span><span class="n">up</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="nf">max</span><span class="w"> </span><span class="n">S</span><span class="w"> </span><span class="k">value</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="ss">&quot;Plotting trick invisible data to re-scale colorbar&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">survey</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="ss">&quot;$S \ [m]$&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="ss">&quot;equal&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$Z \ [m]$&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">r</span><span class="ss">&quot;$X \ [m]$&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nl">savefig</span><span class="p">:</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Saving machine survey plot as {savefig}&quot;</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">figure</span><span class="w"></span>
-</code></pre></div>
-
-</details>
-<hr />
-<h4 id="static-methods_4">Static methods</h4>
-<h4 id="plot_latwiss">plot_latwiss</h4>
-<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_latwiss</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
-    <span class="n">savefig</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">plot_dipoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">plot_quadrupoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">plot_bpms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">disp_ylim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">125</span><span class="p">),</span>
-    <span class="n">beta_ylim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k0l_lim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
-    <span class="n">k1l_lim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">),</span>
-    <span class="n">k2l_lim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span>
-</code></pre></div>
-<p>Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
-the lattice layout and the beta functions along with the horizontal dispertion function. This is very,
-very heavily reworked code, inspired by code from Guido Sterbini.</p>
-<p>Args:
-    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-    title (str): title of your plot.
-    figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
-    savefig (str): will save the figure if this is not None, using the string value passed.
-    xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
-        to center a plot around a specific point or element, which would then become located at s = 0.
-        Beware this offset is applied before applying the <code>xlimits</code>. Offset defaults to 0 (no change).
-    xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-        not None, using the tuple passed.
-    plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
-        the figure. Defaults to True. Dipoles are plotted in blue.
-    plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
-        subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
-    plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
-        Beam Position Monitors. BPMs are plotted in dark grey.
-    disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
-        Defaults to (-10, 125).
-    beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
-        Defaults to None, to be determined by matplotlib based on the provided beta values.
-    k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
-        height of dipole patches. Defaults to (-0.25, 0.25).
-    k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
-        height of quadrupole patches. Defaults to (-0.08, 0.08).
-    k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
-        the figure, and the provided values act as vertical axis limits for the k2l values used for the
-        height of sextupole patches.</p>
-<p>Keyword Args:
-    Any keyword argument to be transmitted to <code>_plot_machine_layout</code>, later on to <code>plot_lattice_series</code>
-    and then <code>matplotlib.patches.Rectangle</code>, such as lw etc.</p>
-<p>WARNING:
-    Currently the function tries to plot legends for the different layout patches. The position of the
-    different legends has been hardcoded in corners and might require users to tweak the axis limits
-    (through <code>k0l_lim</code>, <code>k1l_lim</code> and <code>k2l_lim</code>) to ensure legend labels and plotted elements don't
-    overlap.</p>
-<p>Returns:
-     The figure on which the plots are drawn. The underlying axes can be accessed with
-     'fig.get_axes()'. Eventually saves the figure as a file.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+    <span class="nv">@staticmethod</span>
 
     <span class="n">def</span> <span class="n">plot_latwiss</span><span class="p">(</span>
 
@@ -6617,6 +6165,8 @@ very heavily reworked code, inspired by code from Guido Sterbini.</p>
         <span class="n">xlimits</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
 
         <span class="n">plot_dipoles</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span>
+
+        <span class="n">plot_dipole_k1</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
 
         <span class="n">plot_quadrupoles</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span>
 
@@ -6667,6 +6217,10 @@ very heavily reworked code, inspired by code from Guido Sterbini.</p>
 <span class="s2">            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of</span>
 
 <span class="s2">                the figure. Defaults to True. Dipoles are plotted in blue.</span>
+
+<span class="s2">            plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this</span>
+
+<span class="s2">                gradient plotted as a quadrupole patch. Defaults to `False`.</span>
 
 <span class="s2">            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout</span>
 
@@ -6759,6 +6313,479 @@ very heavily reworked code, inspired by code from Guido Sterbini.</p>
             <span class="n">xlimits</span><span class="o">=</span><span class="n">xlimits</span><span class="p">,</span>
 
             <span class="n">plot_dipoles</span><span class="o">=</span><span class="n">plot_dipoles</span><span class="p">,</span>
+
+            <span class="n">plot_dipole_k1</span><span class="o">=</span><span class="n">plot_dipole_k1</span><span class="p">,</span>
+
+            <span class="n">plot_quadrupoles</span><span class="o">=</span><span class="n">plot_quadrupoles</span><span class="p">,</span>
+
+            <span class="n">plot_bpms</span><span class="o">=</span><span class="n">plot_bpms</span><span class="p">,</span>
+
+            <span class="n">k0l_lim</span><span class="o">=</span><span class="n">k0l_lim</span><span class="p">,</span>
+
+            <span class="n">k1l_lim</span><span class="o">=</span><span class="n">k1l_lim</span><span class="p">,</span>
+
+            <span class="n">k2l_lim</span><span class="o">=</span><span class="n">k2l_lim</span><span class="p">,</span>
+
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+        <span class="p">)</span>
+
+        <span class="c1"># Plotting beta functions on remaining two thirds of the figure</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting beta functions&quot;</span><span class="p">)</span>
+
+        <span class="n">betatron_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">)</span>
+
+        <span class="n">betatron_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">betx</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">beta_x$&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">betatron_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">bety</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">beta_y$&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">betatron_axis</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">betatron_axis</span><span class="p">.</span><span class="k">set</span><span class="n">_ylabel</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">beta_{x,y}$ $[m]$&quot;</span><span class="p">)</span>
+
+        <span class="n">betatron_axis</span><span class="p">.</span><span class="k">set</span><span class="n">_xlabel</span><span class="p">(</span><span class="s2">&quot;$S$ $[m]$&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting dispersion functions&quot;</span><span class="p">)</span>
+
+        <span class="n">dispertion_axis</span> <span class="o">=</span> <span class="n">betatron_axis</span><span class="p">.</span><span class="n">twinx</span><span class="p">()</span>
+
+        <span class="n">dispertion_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">dx</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;brown&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$D_x$&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">dispertion_axis</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">dy</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;sienna&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;$D_y$&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="n">dispertion_axis</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">dispertion_axis</span><span class="p">.</span><span class="k">set</span><span class="n">_ylabel</span><span class="p">(</span><span class="s2">&quot;$D_{x,y}$ $[m]$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;brown&quot;</span><span class="p">)</span>
+
+        <span class="n">dispertion_axis</span><span class="p">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">&quot;brown&quot;</span><span class="p">)</span>
+
+        <span class="n">dispertion_axis</span><span class="p">.</span><span class="n">grid</span><span class="p">(</span><span class="no">False</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">beta_ylim</span><span class="o">:</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting ylim for betatron functions plot&quot;</span><span class="p">)</span>
+
+            <span class="n">betatron_axis</span><span class="p">.</span><span class="k">set</span><span class="n">_ylim</span><span class="p">(</span><span class="n">beta_ylim</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">disp_ylim</span><span class="o">:</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting ylim for dispersion plot&quot;</span><span class="p">)</span>
+
+            <span class="n">dispertion_axis</span><span class="p">.</span><span class="k">set</span><span class="n">_ylim</span><span class="p">(</span><span class="n">disp_ylim</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">xlimits</span><span class="o">:</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting xlim for longitudinal coordinate&quot;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">xlim</span><span class="p">(</span><span class="n">xlimits</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">savefig</span><span class="o">:</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Saving latwiss plot as {savefig}&quot;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">figure</span>
+
+    <span class="nv">@staticmethod</span>
+
+    <span class="n">def</span> <span class="n">plot_machine_survey</span><span class="p">(</span>
+
+        <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+
+        <span class="n">title</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;Machine Layout&quot;</span><span class="p">,</span>
+
+        <span class="n">figsize</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="err">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+
+        <span class="n">savefig</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+
+        <span class="n">show_elements</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
+
+        <span class="n">high_orders</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
+
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">figure</span><span class="p">.</span><span class="n">Figure</span><span class="o">:</span>
+
+        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">        Provided with an active Cpymad class after having ran a script, will create a plot</span>
+
+<span class="s2">        representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.</span>
+
+<span class="s2">        Args:</span>
+
+<span class="s2">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="s2">            title (str): title of your plot.</span>
+
+<span class="s2">            figsize (Tuple[int, int]): size of the figure, defaults to (16, 11).</span>
+
+<span class="s2">            savefig (str): will save the figure if this is not None, using the string value passed.</span>
+
+<span class="s2">            show_elements (bool): if True, will try to plot by differentiating elements.</span>
+
+<span class="s2">                Experimental, defaults to False.</span>
+
+<span class="s2">            high_orders (bool): if True, plot sextupoles and octupoles when show_elements is True,</span>
+
+<span class="s2">                otherwise only up to quadrupoles. Defaults to False.</span>
+
+<span class="s2">        Keyword Arguments:</span>
+
+<span class="s2">            Any keyword argument is transmiitted to `matplotlib.pyplot.scatter` calls later on.</span>
+
+<span class="s2">        Returns:</span>
+
+<span class="s2">             The figure on which the plots are drawn. The underlying axes can be accessed with</span>
+
+<span class="s2">             &#39;fig.get_axes()&#39;. Eventually saves the figure as a file.</span>
+
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Plotting machine survey&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span>
+
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">survey</span><span class="p">()</span>
+
+        <span class="n">survey</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">survey</span><span class="p">.</span><span class="n">dframe</span><span class="p">()</span>
+
+        <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">show_elements</span><span class="o">:</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting survey with elements differentiation&quot;</span><span class="p">)</span>
+
+            <span class="n">element_dfs</span> <span class="o">=</span> <span class="n">_make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+
+                <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;dipoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
+
+                <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;dipoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+
+                <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+
+                <span class="n">c</span><span class="o">=</span><span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;dipoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">s</span><span class="p">,</span>
+
+                <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Dipoles&quot;</span><span class="p">,</span>
+
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+            <span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+
+                <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QF&quot;</span><span class="p">,</span>
+
+            <span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+
+                <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QD&quot;</span><span class="p">,</span>
+
+            <span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">high_orders</span><span class="o">:</span>
+
+                <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting high order magnetic elements (up to octupoles)&quot;</span><span class="p">)</span>
+
+                <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+
+                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
+
+                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+
+                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
+
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span>
+
+                <span class="p">)</span>
+
+                <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+
+                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;octupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
+
+                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;octupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
+
+                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
+
+                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span>
+
+                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MO&quot;</span><span class="p">,</span>
+
+                <span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="o">:</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting survey without elements differentiation&quot;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">survey</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="c1"># Trying a trick to ensure the colorbar scales values properly up to the max S value and not 1</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting trick invisible data to re-scale colorbar&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">survey</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">survey</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="n">survey</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="p">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="n">r</span><span class="s2">&quot;$S </span><span class="err">\</span><span class="s2"> [m]$&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="p">.</span><span class="n">axis</span><span class="p">(</span><span class="s2">&quot;equal&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="n">r</span><span class="s2">&quot;$Z </span><span class="err">\</span><span class="s2"> [m]$&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="n">r</span><span class="s2">&quot;$X </span><span class="err">\</span><span class="s2"> [m]$&quot;</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">savefig</span><span class="o">:</span>
+
+            <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Saving machine survey plot as {savefig}&quot;</span><span class="p">)</span>
+
+            <span class="n">plt</span><span class="p">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">savefig</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">figure</span>
+</code></pre></div>
+
+</details>
+<hr />
+<h4 id="static-methods_4">Static methods</h4>
+<h4 id="plot_latwiss">plot_latwiss</h4>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">plot_latwiss</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">figsize</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+    <span class="n">savefig</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">plot_dipoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_dipole_k1</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">plot_quadrupoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">plot_bpms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">disp_ylim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">125</span><span class="p">),</span>
+    <span class="n">beta_ylim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k0l_lim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+    <span class="n">k1l_lim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">),</span>
+    <span class="n">k2l_lim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">figure</span><span class="o">.</span><span class="n">Figure</span>
+</code></pre></div>
+<p>Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
+the lattice layout and the beta functions along with the horizontal dispertion function. This is very,
+very heavily reworked code, inspired by code from Guido Sterbini.</p>
+<p>Args:
+    madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+    title (str): title of your plot.
+    figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
+    savefig (str): will save the figure if this is not None, using the string value passed.
+    xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
+        to center a plot around a specific point or element, which would then become located at s = 0.
+        Beware this offset is applied before applying the <code>xlimits</code>. Offset defaults to 0 (no change).
+    xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
+        not None, using the tuple passed.
+    plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
+        the figure. Defaults to True. Dipoles are plotted in blue.
+    plot_dipole_k1 (bool): if <code>True</code>, dipole elements with a quadrupolar gradient will have this
+        gradient plotted as a quadrupole patch. Defaults to <code>False</code>.
+    plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
+        subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
+    plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
+        Beam Position Monitors. BPMs are plotted in dark grey.
+    disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
+        Defaults to (-10, 125).
+    beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
+        Defaults to None, to be determined by matplotlib based on the provided beta values.
+    k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
+        height of dipole patches. Defaults to (-0.25, 0.25).
+    k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
+        height of quadrupole patches. Defaults to (-0.08, 0.08).
+    k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
+        the figure, and the provided values act as vertical axis limits for the k2l values used for the
+        height of sextupole patches.</p>
+<p>Keyword Args:
+    Any keyword argument to be transmitted to <code>_plot_machine_layout</code>, later on to <code>plot_lattice_series</code>
+    and then <code>matplotlib.patches.Rectangle</code>, such as lw etc.</p>
+<p>WARNING:
+    Currently the function tries to plot legends for the different layout patches. The position of the
+    different legends has been hardcoded in corners and might require users to tweak the axis limits
+    (through <code>k0l_lim</code>, <code>k1l_lim</code> and <code>k2l_lim</code>) to ensure legend labels and plotted elements don't
+    overlap.</p>
+<p>Returns:
+     The figure on which the plots are drawn. The underlying axes can be accessed with
+     'fig.get_axes()'. Eventually saves the figure as a file.</p>
+<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+
+    <span class="n">def</span> <span class="n">plot_latwiss</span><span class="p">(</span>
+
+        <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+
+        <span class="n">title</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span>
+
+        <span class="n">figsize</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="err">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
+
+        <span class="n">savefig</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+
+        <span class="n">xoffset</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+
+        <span class="n">xlimits</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+
+        <span class="n">plot_dipoles</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span>
+
+        <span class="n">plot_dipole_k1</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
+
+        <span class="n">plot_quadrupoles</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span>
+
+        <span class="n">plot_bpms</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
+
+        <span class="n">disp_ylim</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">125</span><span class="p">),</span>
+
+        <span class="n">beta_ylim</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+
+        <span class="n">k0l_lim</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">),</span>
+
+        <span class="n">k1l_lim</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">),</span>
+
+        <span class="n">k2l_lim</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="p">.</span><span class="n">figure</span><span class="p">.</span><span class="n">Figure</span><span class="o">:</span>
+
+        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">        Provided with an active Cpymad class after having ran a script, will create a plot representing nicely</span>
+
+<span class="s2">        the lattice layout and the beta functions along with the horizontal dispertion function. This is very,</span>
+
+<span class="s2">        very heavily reworked code, inspired by code from Guido Sterbini.</span>
+
+<span class="s2">        Args:</span>
+
+<span class="s2">            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+
+<span class="s2">            title (str): title of your plot.</span>
+
+<span class="s2">            figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).</span>
+
+<span class="s2">            savefig (str): will save the figure if this is not None, using the string value passed.</span>
+
+<span class="s2">            xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want</span>
+
+<span class="s2">                to center a plot around a specific point or element, which would then become located at s = 0.</span>
+
+<span class="s2">                Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).</span>
+
+<span class="s2">            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is</span>
+
+<span class="s2">                not None, using the tuple passed.</span>
+
+<span class="s2">            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of</span>
+
+<span class="s2">                the figure. Defaults to True. Dipoles are plotted in blue.</span>
+
+<span class="s2">            plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this</span>
+
+<span class="s2">                gradient plotted as a quadrupole patch. Defaults to `False`.</span>
+
+<span class="s2">            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout</span>
+
+<span class="s2">                subplot of the figure. Defaults to True. Quadrupoles are plotted in red.</span>
+
+<span class="s2">            plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent</span>
+
+<span class="s2">                Beam Position Monitors. BPMs are plotted in dark grey.</span>
+
+<span class="s2">            disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.</span>
+
+<span class="s2">                Defaults to (-10, 125).</span>
+
+<span class="s2">            beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.</span>
+
+<span class="s2">                Defaults to None, to be determined by matplotlib based on the provided beta values.</span>
+
+<span class="s2">            k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the</span>
+
+<span class="s2">                height of dipole patches. Defaults to (-0.25, 0.25).</span>
+
+<span class="s2">            k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the</span>
+
+<span class="s2">                height of quadrupole patches. Defaults to (-0.08, 0.08).</span>
+
+<span class="s2">            k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of</span>
+
+<span class="s2">                the figure, and the provided values act as vertical axis limits for the k2l values used for the</span>
+
+<span class="s2">                height of sextupole patches.</span>
+
+<span class="s2">        Keyword Args:</span>
+
+<span class="s2">            Any keyword argument to be transmitted to `_plot_machine_layout`, later on to `plot_lattice_series`</span>
+
+<span class="s2">            and then `matplotlib.patches.Rectangle`, such as lw etc.</span>
+
+<span class="s2">        WARNING:</span>
+
+<span class="s2">            Currently the function tries to plot legends for the different layout patches. The position of the</span>
+
+<span class="s2">            different legends has been hardcoded in corners and might require users to tweak the axis limits</span>
+
+<span class="s2">            (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don&#39;t</span>
+
+<span class="s2">            overlap.</span>
+
+<span class="s2">        Returns:</span>
+
+<span class="s2">             The figure on which the plots are drawn. The underlying axes can be accessed with</span>
+
+<span class="s2">             &#39;fig.get_axes()&#39;. Eventually saves the figure as a file.</span>
+
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+
+        <span class="c1"># pylint: disable=too-many-arguments</span>
+
+        <span class="c1"># Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Plotting optics functions and machine layout&quot;</span><span class="p">)</span>
+
+        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss dataframe from cpymad&quot;</span><span class="p">)</span>
+
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span>
+
+        <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span>
+
+        <span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span> <span class="o">-</span> <span class="n">xoffset</span>
+
+        <span class="n">xlimits</span> <span class="o">=</span> <span class="p">(</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="nf">min</span><span class="p">(),</span> <span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="nf">max</span><span class="p">())</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">is</span> <span class="k">None</span> <span class="k">else</span> <span class="n">xlimits</span>
+
+        <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="err">[</span><span class="n">twiss_df</span><span class="p">.</span><span class="n">s</span><span class="p">.</span><span class="k">between</span><span class="p">(</span><span class="o">*</span><span class="n">xlimits</span><span class="p">)</span><span class="err">]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">twiss_df</span>
+
+        <span class="c1"># Create a subplot for the lattice patches (takes a third of figure)</span>
+
+        <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
+
+        <span class="n">quadrupole_patches_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="p">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="n">_plot_machine_layout</span><span class="p">(</span>
+
+            <span class="n">madx</span><span class="p">,</span>
+
+            <span class="n">quadrupole_patches_axis</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">,</span>
+
+            <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+
+            <span class="n">xoffset</span><span class="o">=</span><span class="n">xoffset</span><span class="p">,</span>
+
+            <span class="n">xlimits</span><span class="o">=</span><span class="n">xlimits</span><span class="p">,</span>
+
+            <span class="n">plot_dipoles</span><span class="o">=</span><span class="n">plot_dipoles</span><span class="p">,</span>
+
+            <span class="n">plot_dipole_k1</span><span class="o">=</span><span class="n">plot_dipole_k1</span><span class="p">,</span>
 
             <span class="n">plot_quadrupoles</span><span class="o">=</span><span class="n">plot_quadrupoles</span><span class="p">,</span>
 
