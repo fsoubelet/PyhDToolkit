@@ -76,10 +76,11 @@ def misalign_lhc_ir_quadrupoles(
 ) -> None:
     """
     Apply misalignment errors to IR quadrupoles on a given side of a given IP. In case of a sliced
-    lattice, this will misalign all slices of the magnet together.
+    lattice, this will misalign all slices of the magnet together. According to the equipment codes main
+    system, those are Q1 to Q10 included, quads beyond are MQ or MQT which are considered arc elements.
 
-    According to the equipment codes main system, those are Q1 to Q10 included, quads beyond are MQ or MQT
-    which are considered arc elements.
+    Beware: this implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have
+    different layouts incompatible with this function.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
