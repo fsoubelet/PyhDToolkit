@@ -1331,7 +1331,7 @@
 
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
 
-    <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">ips</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
 
     <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
 
@@ -1349,17 +1349,19 @@
 
 <span class="sd">    Apply misalignment errors to IR quadrupoles on a given side of a given IP. In case of a sliced</span>
 
-<span class="sd">    lattice, this will misalign all slices of the magnet together.</span>
+<span class="sd">    lattice, this will misalign all slices of the magnet together. According to the equipment codes main</span>
 
-<span class="sd">    According to the equipment codes main system, those are Q1 to Q10 included, quads beyond are MQ or MQT</span>
+<span class="sd">    system, those are Q1 to Q10 included, quads beyond are MQ or MQT which are considered arc elements.</span>
 
-<span class="sd">    which are considered arc elements.</span>
+<span class="sd">    Beware: this implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have</span>
+
+<span class="sd">    different layouts incompatible with this function.</span>
 
 <span class="sd">    Args:</span>
 
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="sd">        ip (int): the interaction point around which to apply errors.</span>
+<span class="sd">        ips (Sequence[int]): the interaction point(s) around which to apply errors.</span>
 
 <span class="sd">        beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single</span>
 
@@ -1395,7 +1397,7 @@
 
 <span class="sd">            misalign_lhc_ir_quadrupoles(</span>
 
-<span class="sd">                madx, ip=1, quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides=&quot;RL&quot;, dx=&quot;1E-5&quot;</span>
+<span class="sd">                madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides=&quot;RL&quot;, dx=&quot;1E-5&quot;</span>
 
 <span class="sd">            )</span>
 
@@ -1403,7 +1405,7 @@
 
 <span class="sd">            misalign_lhc_ir_quadrupoles(</span>
 
-<span class="sd">                madx, ip=5, quadrupoles=[7, 8, 9, 10], beam=1, sides=&quot;RL&quot;, dpsi=&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;</span>
+<span class="sd">                madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides=&quot;RL&quot;, dpsi=&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;</span>
 
 <span class="sd">            )</span>
 
@@ -1413,7 +1415,7 @@
 
 <span class="sd">                madx,</span>
 
-<span class="sd">                ip=1,</span>
+<span class="sd">                ips=[1, 5],</span>
 
 <span class="sd">                quadrupoles=list(range(1, 11)),</span>
 
@@ -1429,11 +1431,11 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">ips</span><span class="p">):</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The IP number provided is invalid, not applying any error.&quot;</span><span class="p">)</span>
 
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;ip&#39;parameter&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;ips&#39; parameter&quot;</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">beam</span> <span class="ow">and</span> <span class="n">beam</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span>
 
@@ -1455,21 +1457,25 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying alignment errors to IR quads &#39;</span><span class="si">{</span><span class="n">quadrupoles</span><span class="si">}</span><span class="s2">&#39;, with arguments </span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">ips</span><span class="p">:</span>
 
-        <span class="k">for</span> <span class="n">quad_number</span> <span class="ow">in</span> <span class="n">quadrupoles</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying errors for IR</span><span class="si">{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-            <span class="k">for</span> <span class="n">quad_pattern</span> <span class="ow">in</span> <span class="n">IR_QUADS_PATTERNS</span><span class="p">[</span><span class="n">quad_number</span><span class="p">]:</span>
+        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
 
-                <span class="c1"># Triplets are single aperture and don&#39;t need beam information, others do</span>
+            <span class="k">for</span> <span class="n">quad_number</span> <span class="ow">in</span> <span class="n">quadrupoles</span><span class="p">:</span>
 
-                <span class="k">if</span> <span class="n">quad_number</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
+                <span class="k">for</span> <span class="n">quad_pattern</span> <span class="ow">in</span> <span class="n">IR_QUADS_PATTERNS</span><span class="p">[</span><span class="n">quad_number</span><span class="p">]:</span>
 
-                    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">quad_pattern</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">))</span>
+                    <span class="c1"># Triplets are single aperture and don&#39;t need beam information, others do</span>
 
-                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">quad_number</span> <span class="o">&lt;=</span> <span class="mi">3</span><span class="p">:</span>
 
-                    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">quad_pattern</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="n">beam</span><span class="p">))</span>
+                        <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">quad_pattern</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">))</span>
+
+                    <span class="k">else</span><span class="p">:</span>
+
+                        <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">quad_pattern</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">side</span><span class="o">=</span><span class="n">side</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="n">beam</span><span class="p">))</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">ealign</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
@@ -1527,7 +1533,7 @@
 
     <span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span>
 
-        <span class="n">madx</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quadrupoles</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sides</span><span class="o">=</span><span class="n">sides</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+        <span class="n">madx</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="p">[</span><span class="n">ip</span><span class="p">],</span> <span class="n">beam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quadrupoles</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sides</span><span class="o">=</span><span class="n">sides</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 
     <span class="p">)</span>
 </code></pre></div>
@@ -1540,7 +1546,7 @@
 <h3 id="misalign_lhc_ir_quadrupoles">misalign_lhc_ir_quadrupoles</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">misalign_lhc_ir_quadrupoles</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
-    <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">ips</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
     <span class="n">quadrupoles</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
     <span class="n">sides</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">),</span>
@@ -1549,12 +1555,13 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
 <p>Apply misalignment errors to IR quadrupoles on a given side of a given IP. In case of a sliced
-lattice, this will misalign all slices of the magnet together.</p>
-<p>According to the equipment codes main system, those are Q1 to Q10 included, quads beyond are MQ or MQT
-which are considered arc elements.</p>
+lattice, this will misalign all slices of the magnet together. According to the equipment codes main
+system, those are Q1 to Q10 included, quads beyond are MQ or MQT which are considered arc elements.</p>
+<p>Beware: this implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have
+different layouts incompatible with this function.</p>
 <p>Args:
     madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-    ip (int): the interaction point around which to apply errors.
+    ips (Sequence[int]): the interaction point(s) around which to apply errors.
     beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single
         aperture, Q4 to Q10 are not and will need this information.
     quadrupoles (Sequence[int]): the number of quadrupoles to apply errors to.
@@ -1572,16 +1579,16 @@ which are considered arc elements.</p>
 <p>Examples:
     For systematic DX misalignment:
         misalign_lhc_ir_quadrupoles(
-            madx, ip=1, quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
+            madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
         )
     For a tilt distribution centered on 1mrad:
         misalign_lhc_ir_quadrupoles(
-            madx, ip=5, quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+            madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
         )
     For several error types on the elements, here DY and DPSI:
         misalign_lhc_ir_quadrupoles(
             madx,
-            ip=1,
+            ips=[1, 5],
             quadrupoles=list(range(1, 11)),
             beam=1,
             sides="RL",
@@ -1592,7 +1599,7 @@ which are considered arc elements.</p>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">ip</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="nl">ips</span><span class="p">:</span><span class="w"> </span><span class="k">Sequence</span><span class="o">[</span><span class="n">int</span><span class="o">]</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"></span>
 
@@ -1610,17 +1617,19 @@ which are considered arc elements.</p>
 
 <span class="ss">    Apply misalignment errors to IR quadrupoles on a given side of a given IP. In case of a sliced</span>
 
-<span class="ss">    lattice, this will misalign all slices of the magnet together.</span>
+<span class="ss">    lattice, this will misalign all slices of the magnet together. According to the equipment codes main</span>
 
-<span class="ss">    According to the equipment codes main system, those are Q1 to Q10 included, quads beyond are MQ or MQT</span>
+<span class="ss">    system, those are Q1 to Q10 included, quads beyond are MQ or MQT which are considered arc elements.</span>
 
-<span class="ss">    which are considered arc elements.</span>
+<span class="ss">    Beware: this implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have</span>
+
+<span class="ss">    different layouts incompatible with this function.</span>
 
 <span class="ss">    Args:</span>
 
 <span class="ss">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="ss">        ip (int): the interaction point around which to apply errors.</span>
+<span class="ss">        ips (Sequence[int]): the interaction point(s) around which to apply errors.</span>
 
 <span class="ss">        beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single</span>
 
@@ -1656,7 +1665,7 @@ which are considered arc elements.</p>
 
 <span class="ss">            misalign_lhc_ir_quadrupoles(</span>
 
-<span class="ss">                madx, ip=1, quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides=&quot;</span><span class="n">RL</span><span class="ss">&quot;, dx=&quot;</span><span class="mf">1E-5</span><span class="ss">&quot;</span>
+<span class="ss">                madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides=&quot;</span><span class="n">RL</span><span class="ss">&quot;, dx=&quot;</span><span class="mf">1E-5</span><span class="ss">&quot;</span>
 
 <span class="ss">            )</span>
 
@@ -1664,7 +1673,7 @@ which are considered arc elements.</p>
 
 <span class="ss">            misalign_lhc_ir_quadrupoles(</span>
 
-<span class="ss">                madx, ip=5, quadrupoles=[7, 8, 9, 10], beam=1, sides=&quot;</span><span class="n">RL</span><span class="ss">&quot;, dpsi=&quot;</span><span class="mf">1E-3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">8E-4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TGAUSS</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span><span class="ss">&quot;</span>
+<span class="ss">                madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides=&quot;</span><span class="n">RL</span><span class="ss">&quot;, dpsi=&quot;</span><span class="mf">1E-3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">8E-4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">TGAUSS</span><span class="p">(</span><span class="mf">2.5</span><span class="p">)</span><span class="ss">&quot;</span>
 
 <span class="ss">            )</span>
 
@@ -1674,7 +1683,7 @@ which are considered arc elements.</p>
 
 <span class="ss">                madx,</span>
 
-<span class="ss">                ip=1,</span>
+<span class="ss">                ips=[1, 5],</span>
 
 <span class="ss">                quadrupoles=list(range(1, 11)),</span>
 
@@ -1690,11 +1699,11 @@ which are considered arc elements.</p>
 
 <span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="ow">any</span><span class="p">(</span><span class="n">ip</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">ips</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="ss">&quot;The IP number provided is invalid, not applying any error.&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Invalid &#39;ip&#39;parameter&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="ss">&quot;Invalid &#39;ips&#39; parameter&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
 
@@ -1716,21 +1725,25 @@ which are considered arc elements.</p>
 
 <span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Applying alignment errors to IR quads &#39;{quadrupoles}&#39;, with arguments {kwargs}&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">sides</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">ips</span><span class="p">:</span><span class="w"></span>
 
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">quad_number</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">quadrupoles</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Applying errors for IR{ip}&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">quad_pattern</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">IR_QUADS_PATTERNS</span><span class="o">[</span><span class="n">quad_number</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">sides</span><span class="p">:</span><span class="w"></span>
 
-<span class="w">                </span><span class="err">#</span><span class="w"> </span><span class="n">Triplets</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">aperture</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">don</span><span class="s1">&#39;t need beam information, others do</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">quad_number</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">quadrupoles</span><span class="p">:</span><span class="w"></span>
 
-<span class="s1">                if quad_number &lt;= 3:</span>
+<span class="w">                </span><span class="k">for</span><span class="w"> </span><span class="n">quad_pattern</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">IR_QUADS_PATTERNS</span><span class="o">[</span><span class="n">quad_number</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
 
-<span class="s1">                    madx.select(flag=&quot;error&quot;, pattern=quad_pattern.format(side=side, ip=ip))</span>
+<span class="w">                    </span><span class="err">#</span><span class="w"> </span><span class="n">Triplets</span><span class="w"> </span><span class="k">are</span><span class="w"> </span><span class="n">single</span><span class="w"> </span><span class="n">aperture</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">don</span><span class="s1">&#39;t need beam information, others do</span>
 
-<span class="s1">                else:</span>
+<span class="s1">                    if quad_number &lt;= 3:</span>
 
-<span class="s1">                    madx.select(flag=&quot;error&quot;, pattern=quad_pattern.format(side=side, ip=ip, beam=beam))</span>
+<span class="s1">                        madx.select(flag=&quot;error&quot;, pattern=quad_pattern.format(side=side, ip=ip))</span>
+
+<span class="s1">                    else:</span>
+
+<span class="s1">                        madx.select(flag=&quot;error&quot;, pattern=quad_pattern.format(side=side, ip=ip, beam=beam))</span>
 
 <span class="s1">    madx.command.ealign(**kwargs)</span>
 
@@ -1815,7 +1828,7 @@ lattice, this will misalign all slices of the magnet together. This is a conveni
 
 <span class="w">    </span><span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">madx</span><span class="p">,</span><span class="w"> </span><span class="n">ip</span><span class="o">=</span><span class="n">ip</span><span class="p">,</span><span class="w"> </span><span class="n">beam</span><span class="o">=</span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">quadrupoles</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">sides</span><span class="o">=</span><span class="n">sides</span><span class="p">,</span><span class="w"> </span><span class="nc">table</span><span class="o">=</span><span class="nc">table</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">,</span><span class="w"> </span><span class="n">ips</span><span class="o">=[</span><span class="n">ip</span><span class="o">]</span><span class="p">,</span><span class="w"> </span><span class="n">beam</span><span class="o">=</span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">quadrupoles</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">),</span><span class="w"> </span><span class="n">sides</span><span class="o">=</span><span class="n">sides</span><span class="p">,</span><span class="w"> </span><span class="nc">table</span><span class="o">=</span><span class="nc">table</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
 
 <span class="w">    </span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
