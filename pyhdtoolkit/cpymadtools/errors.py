@@ -67,7 +67,7 @@ def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
 
 def misalign_lhc_ir_quadrupoles(
     madx: Madx,
-    ip: int,
+    ips: Sequence[int],
     beam: int,
     quadrupoles: Sequence[int],
     sides: Sequence[str] = ("r", "l"),
@@ -76,14 +76,15 @@ def misalign_lhc_ir_quadrupoles(
 ) -> None:
     """
     Apply misalignment errors to IR quadrupoles on a given side of a given IP. In case of a sliced
-    lattice, this will misalign all slices of the magnet together.
+    lattice, this will misalign all slices of the magnet together. According to the equipment codes main
+    system, those are Q1 to Q10 included, quads beyond are MQ or MQT which are considered arc elements.
 
-    According to the equipment codes main system, those are Q1 to Q10 included, quads beyond are MQ or MQT
-    which are considered arc elements.
+    Beware: this implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have
+    different layouts incompatible with this function.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        ip (int): the interaction point around which to apply errors.
+        ips (Sequence[int]): the interaction point(s) around which to apply errors.
         beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single
             aperture, Q4 to Q10 are not and will need this information.
         quadrupoles (Sequence[int]): the number of quadrupoles to apply errors to.
@@ -104,16 +105,16 @@ def misalign_lhc_ir_quadrupoles(
     Examples:
         For systematic DX misalignment:
             misalign_lhc_ir_quadrupoles(
-                madx, ip=1, quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
+                madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
             )
         For a tilt distribution centered on 1mrad:
             misalign_lhc_ir_quadrupoles(
-                madx, ip=5, quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+                madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
             )
         For several error types on the elements, here DY and DPSI:
             misalign_lhc_ir_quadrupoles(
                 madx,
-                ip=1,
+                ips=[1, 5],
                 quadrupoles=list(range(1, 11)),
                 beam=1,
                 sides="RL",
@@ -121,9 +122,9 @@ def misalign_lhc_ir_quadrupoles(
                 dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
             )
     """
-    if ip not in (1, 2, 5, 8):
+    if any(ip not in (1, 2, 5, 8) for ip in ips):
         logger.error("The IP number provided is invalid, not applying any error.")
-        raise ValueError("Invalid 'ip'parameter")
+        raise ValueError("Invalid 'ips' parameter")
     if beam and beam not in (1, 2, 3, 4):
         logger.error("The beam number provided is invalid, not applying any error.")
         raise ValueError("Invalid 'beam' parameter")
@@ -136,14 +137,16 @@ def misalign_lhc_ir_quadrupoles(
     madx.select(flag="error", clear=True)
 
     logger.info(f"Applying alignment errors to IR quads '{quadrupoles}', with arguments {kwargs}")
-    for side in sides:
-        for quad_number in quadrupoles:
-            for quad_pattern in IR_QUADS_PATTERNS[quad_number]:
-                # Triplets are single aperture and don't need beam information, others do
-                if quad_number <= 3:
-                    madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip))
-                else:
-                    madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip, beam=beam))
+    for ip in ips:
+        logger.debug(f"Applying errors for IR{ip}")
+        for side in sides:
+            for quad_number in quadrupoles:
+                for quad_pattern in IR_QUADS_PATTERNS[quad_number]:
+                    # Triplets are single aperture and don't need beam information, others do
+                    if quad_number <= 3:
+                        madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip))
+                    else:
+                        madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip, beam=beam))
     madx.command.ealign(**kwargs)
 
     table = table if table else "etable"  # guarantee etable command won't fail if someone gives `table=None`
@@ -179,5 +182,5 @@ def misalign_lhc_triplets(
         misalign_lhc_triplets(madx, ip=5, sides="RL", dpsi="0.001 * TGAUSS(2.5)")
     """
     misalign_lhc_ir_quadrupoles(
-        madx, ip=ip, beam=None, quadrupoles=(1, 2, 3), sides=sides, table=table, **kwargs
+        madx, ips=[ip], beam=None, quadrupoles=(1, 2, 3), sides=sides, table=table, **kwargs
     )

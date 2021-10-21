@@ -34,14 +34,14 @@ class TestErrors:
                 for sr in "sr":
                     assert madx.globals[f"ON_{ab}{order:d}{sr}"] == random_kwargs[f"{ab}{order:d}"]
 
-    @pytest.mark.parametrize("ip", [1, 2, 5, 8])
+    @pytest.mark.parametrize("ips", [[1], [2], [5], [8], [1, 5], [1, 2, 5, 8]])  # also test sequences
     @pytest.mark.parametrize("sides", ["R", "L", "RL", "r", "l", "rl"])
     @pytest.mark.parametrize("quadrupoles", [[1, 3, 5, 7, 9], list(range(1, 11))])
-    def test_misalign_lhc_ir_quadrupoles(self, _non_matched_lhc_madx, ip, sides, quadrupoles):
+    def test_misalign_lhc_ir_quadrupoles(self, _non_matched_lhc_madx, ips, sides, quadrupoles):
         madx = _non_matched_lhc_madx
         misalign_lhc_ir_quadrupoles(
             madx,
-            ip=ip,
+            ips=ips,
             quadrupoles=quadrupoles,
             beam=1,
             sides=sides,
@@ -55,7 +55,7 @@ class TestErrors:
     def test_misalign_lhc_ir_quadrupoles_specific_value(self, _non_matched_lhc_madx):
         madx = _non_matched_lhc_madx
         misalign_lhc_ir_quadrupoles(
-            madx, ip=1, quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001"
+            madx, ips=[1, 5], quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001"
         )
         error_table = madx.table["ir_quads_errors"].dframe().copy()
         assert all(error_table["dy"] == 0.001)
@@ -63,7 +63,7 @@ class TestErrors:
     def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_side(self, _non_matched_lhc_madx, caplog):
         madx = _non_matched_lhc_madx
         with pytest.raises(ValueError):
-            misalign_lhc_ir_quadrupoles(madx, ip=8, quadrupoles=[1], beam=2, sides="Z", dy="0.001")
+            misalign_lhc_ir_quadrupoles(madx, ips=[8], quadrupoles=[1], beam=2, sides="Z", dy="0.001")
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
@@ -71,7 +71,7 @@ class TestErrors:
     def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_ip(self, _non_matched_lhc_madx, caplog):
         madx = _non_matched_lhc_madx
         with pytest.raises(ValueError):
-            misalign_lhc_ir_quadrupoles(madx, ip=100, quadrupoles=[1], beam=2, sides="R", dy="0.001")
+            misalign_lhc_ir_quadrupoles(madx, ips=[100], quadrupoles=[1], beam=2, sides="R", dy="0.001")
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
@@ -79,7 +79,7 @@ class TestErrors:
     def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_beam(self, _non_matched_lhc_madx, caplog):
         madx = _non_matched_lhc_madx
         with pytest.raises(ValueError):
-            misalign_lhc_ir_quadrupoles(madx, ip=2, quadrupoles=[1], beam=10, sides="L", dy="0.001")
+            misalign_lhc_ir_quadrupoles(madx, ips=[2], quadrupoles=[1], beam=10, sides="L", dy="0.001")
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
