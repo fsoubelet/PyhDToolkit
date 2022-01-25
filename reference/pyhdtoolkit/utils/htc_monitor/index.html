@@ -1281,7 +1281,7 @@
 
 <span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">box</span>
 
-<span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">RenderGroup</span>
+<span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">Group</span>
 
 <span class="kn">from</span> <span class="nn">rich.live</span> <span class="kn">import</span> <span class="n">Live</span>
 
@@ -1615,13 +1615,13 @@
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
 
-    <span class="k">def</span> <span class="nf">generate_renderable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">RenderGroup</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">generate_renderable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">RGroup</span><span class="p">:</span>
 
         <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Function called to update the live display, fetches data from htcondor, does the processing and</span>
 
-<span class="sd">        returns a RenderGroup with both Panels.</span>
+<span class="sd">        returns a Group with both Panels.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
 
@@ -1635,7 +1635,7 @@
 
         <span class="n">cluster_table</span> <span class="o">=</span> <span class="n">make_cluster_table</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">cluster_info</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">RenderGroup</span><span class="p">(</span>
+        <span class="k">return</span> <span class="n">Group</span><span class="p">(</span>
 
             <span class="n">Panel</span><span class="p">(</span>
 
@@ -1704,13 +1704,13 @@
 
 <span class="n">def</span><span class="w"> </span><span class="n">main</span><span class="p">()</span><span class="err">:</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_renderable</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">RenderGroup</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">generate_renderable</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">RGroup</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
 
 <span class="ss">        Function called to update the live display, fetches data from htcondor, does the processing and</span>
 
-<span class="ss">        returns a RenderGroup with both Panels.</span>
+<span class="ss">        returns a Group with both Panels.</span>
 
 <span class="ss">        &quot;&quot;&quot;</span><span class="w"></span>
 
@@ -1724,7 +1724,7 @@
 
 <span class="w">        </span><span class="n">cluster_table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">make_cluster_table</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span><span class="w"> </span><span class="n">cluster_info</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">RenderGroup</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">Group</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">            </span><span class="n">Panel</span><span class="p">(</span><span class="w"></span>
 
