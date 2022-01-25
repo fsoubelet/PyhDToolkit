@@ -16,7 +16,7 @@ import pendulum
 
 from loguru import logger
 from rich import box
-from rich.console import RenderGroup
+from rich.console import Group
 from rich.live import Live
 from rich.panel import Panel
 from rich.table import Table
@@ -223,10 +223,10 @@ def _default_cluster_table() -> Table:
 
 @logger.catch()
 def main():
-    def generate_renderable() -> RenderGroup:
+    def generate_renderable() -> RGroup:
         """
         Function called to update the live display, fetches data from htcondor, does the processing and
-        returns a RenderGroup with both Panels.
+        returns a Group with both Panels.
         """
         condor_string = query_condor_q()
         user_tasks, cluster_info = read_condor_q(condor_string)
@@ -234,7 +234,7 @@ def main():
 
         tasks_table = make_tasks_table(user_tasks)
         cluster_table = make_cluster_table(owner, cluster_info)
-        return RenderGroup(
+        return Group(
             Panel(
                 tasks_table,
                 title=f"Scheduler: {cluster_info.scheduler_id}.cern.ch",
