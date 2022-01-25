@@ -21,9 +21,7 @@ from pyhdtoolkit.utils.contexts import timeit
 
 
 class CommandLine:
-    """
-    A high-level object to encapsulate the different methods for interacting with the commandline.
-    """
+    """A high-level object to encapsulate the different methods for interacting with the commandline."""
 
     @staticmethod
     def check_pid_exists(pid: int) -> bool:
@@ -92,12 +90,8 @@ class CommandLine:
             modified_env['ENV_VAR'] = new_value
             CommandLine.run('echo $ENV_VAR', env=modified_env) -> (0, b'new_value')
         """
-        with timeit(
-            lambda spanned: logger.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")
-        ):
-            process = subprocess.Popen(
-                command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env
-            )
+        with timeit(lambda spanned: logger.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
+            process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
             stdout, _ = process.communicate(timeout=timeout)
             if process.poll() != 0:
                 logger.warning(f"Subprocess command '{command}' finished with exit code: {process.poll()}")

@@ -129,9 +129,10 @@ line_length = 110
 lines_between_types = 1
 multi_line_output = 3
 use_parentheses = true
+profile = "black"
 
 [tool.black]
-line-length = 110
+line-length = 120
 include = '\.pyi?$'
 exclude = '''
 /(

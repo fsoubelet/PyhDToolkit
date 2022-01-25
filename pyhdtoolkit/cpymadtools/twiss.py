@@ -21,17 +21,16 @@ from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 
 
 def get_pattern_twiss(
-    madx: Madx, patterns: Sequence[str] = [""], columns: Sequence[str] = None, **kwargs,
+    madx: Madx, patterns: Sequence[str] = [""], columns: Sequence[str] = None, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     Extract the `TWISS` table for desired variables, and for certain elements matching a pattern.
     Additionally, the `SUMM` table is also returned in the form of the TfsDataFrame's headers dictionary.
     The TWISS flag will be fully cleared after running this command.
 
-    Warning:
-        Although the `pattern` parameter should accept a regex, MAD-X does not implement actual regexes.
-        Please refer to the MAD-X manual, section `Regular Expressions` for details on what is implemented
-        in MAD-X itself.
+    Warning: Although the `pattern` parameter should accept a regex, MAD-X does not implement actual regexes.
+    Please refer to the MAD-X manual, section `Regular Expressions` for details on what is implemented in MAD-X
+    itself.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -55,7 +54,7 @@ def get_pattern_twiss(
     for pattern in patterns:
         logger.trace(f"Adding pattern {pattern} to 'TWISS' flag")
         madx.select(flag="twiss", pattern=pattern, column=columns)
-    madx.twiss(**kwargs)
+    madx.command.twiss(**kwargs)
 
     logger.trace("Extracting relevant parts of the TWISS table")
     twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe().copy())
@@ -67,17 +66,26 @@ def get_pattern_twiss(
     return twiss_df
 
 
-def get_twiss_tfs(madx: Madx) -> tfs.TfsDataFrame:
+def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     """
     Returns a tfs.TfsDataFrame from the Madx instance's twiss dframe, typically in the way we're used to
-    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers).
+    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers). This
+    will call the TWISS command first before returning the dframe to you.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
 
+    Keyword Args:
+        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
+        `centre` or starting coordinates with `betax`, 'betay` etc.
+
     Returns:
         A tfs.TfsDataFrame.
     """
+    logger.trace("Clearing 'TWISS' flag")
+    madx.select(flag="twiss", clear=True)
+    madx.command.twiss(**kwargs)
+
     logger.info("Exporting internal TWISS and SUMM tables to TfsDataFrame")
     twiss_tfs = tfs.TfsDataFrame(madx.table.twiss.dframe())
     twiss_tfs.name = [element[:-2] for element in twiss_tfs.name]
@@ -108,9 +116,7 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
     return get_pattern_twiss(madx=madx, patterns=["IP"], columns=columns, **kwargs)
 
 
-def get_ir_twiss(
-    madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs
-) -> tfs.TfsDataFrame:
+def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
     Quickly get the `TWISS` table for certain variables for one IR, meaning at the IP and Q1 to Q3 both
     left and right of the IP. The `SUMM` table will be included as the TfsDataFrame's header dictionary.

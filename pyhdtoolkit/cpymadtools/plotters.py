@@ -32,15 +32,12 @@ plt.rcParams.update(PLOT_PARAMS)
 plt.rcParams.update({"xtick.direction": "in", "ytick.direction": "in"})  # need to reiterate these somehow
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
-BY_HSV = sorted(
-    (tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items()
-)
+BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
 class AperturePlotter:
-    """A class to plot the aperture of your machine as determined by `MAD-X`'s `APERTURE` command.
-    """
+    """A class to plot the aperture of your machine as determined by `MAD-X`'s `APERTURE` command."""
 
     @staticmethod
     def plot_aperture(
@@ -145,9 +142,7 @@ class AperturePlotter:
         aperture_axis.plot(
             aperture_df.s, aperture_df.n1, marker=".", ls="-", lw=0.5, color=color, label="Aperture Limits"
         )
-        aperture_axis.fill_between(
-            aperture_df.s, aperture_df.n1, aperture_df.n1.max(), interpolate=True, color=color
-        )
+        aperture_axis.fill_between(aperture_df.s, aperture_df.n1, aperture_df.n1.max(), interpolate=True, color=color)
         aperture_axis.legend
         aperture_axis.set_ylabel(r"$n_{1} \ [\sigma]$")
         aperture_axis.set_xlabel(r"$S \ [m]$")
@@ -167,9 +162,7 @@ class AperturePlotter:
 
 
 class BeamEnvelopePlotter:
-    """
-    A class to plot the estimated beam envelope of your machine.
-    """
+    """A class to plot the estimated beam envelope of your machine."""
 
     @staticmethod
     def plot_envelope(
@@ -232,9 +225,7 @@ class BeamEnvelopePlotter:
         axis1.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
         axis1.plot(twiss_hr.s, -twiss_hr.envelope_x, color="b")
         axis1.fill_between(twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25)
-        axis1.fill_between(
-            twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25
-        )
+        axis1.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25)
         axis1.fill_between(machine.s, machine.aper_1, machine.aper_1 * 100, color="k", alpha=0.5)
         axis1.fill_between(machine.s, -machine.aper_1, -machine.aper_1 * 100, color="k", alpha=0.5)
         axis1.plot(machine.s, machine.aper_1, "k.-")
@@ -251,12 +242,8 @@ class BeamEnvelopePlotter:
         axis2.plot(twiss_hr.s, -twiss_hr.envelope_y, color="r")
         axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
         axis2.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis2.fill_between(
-            twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25
-        )
-        axis2.fill_between(
-            twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25
-        )
+        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
+        axis2.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
         axis2.fill_between(machine.s, machine.aper_2, machine.aper_2 * 100, color="k", alpha=0.5)
         axis2.fill_between(machine.s, -machine.aper_2, -machine.aper_2 * 100, color="k", alpha=0.5)
         axis2.plot(machine.s, machine.aper_2, "k.-")
@@ -283,9 +270,7 @@ class BeamEnvelopePlotter:
 
 
 class CrossingSchemePlotter:
-    """
-    A class to plot LHC crossing schemes at provided IPs.
-    """
+    """A class to plot LHC crossing schemes at provided IPs."""
 
     @staticmethod
     def _highlight_mbx_and_mqx(
@@ -509,9 +494,7 @@ class CrossingSchemePlotter:
 
 
 class DynamicAperturePlotter:
-    """
-    This is currently badly named, and will change in the future.
-    """
+    """This is currently badly named, and will change in the future."""
 
     @staticmethod
     def plot_dynamic_aperture(
@@ -542,10 +525,8 @@ class DynamicAperturePlotter:
             # this is ok since once coordinates go to `nan` they don't come back, particle is lost
             turn_lost_at.append(
                 min(
-                    pd.Series(x_coords[particle]).last_valid_index()
-                    + 2,  # starts at 0, lost after last valid
-                    pd.Series(y_coords[particle]).last_valid_index()
-                    + 2,  # starts at 0, lost after last valid
+                    pd.Series(x_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid
+                    pd.Series(y_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid
                 )
             )
         turn_lost_at = np.array(turn_lost_at)
@@ -748,28 +729,14 @@ class LatticePlotter:
                 label="Dipoles",
                 **kwargs,
             )
-            plt.scatter(
-                element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF",
-            )
-            plt.scatter(
-                element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD",
-            )
+            plt.scatter(element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF")
+            plt.scatter(element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD")
 
             if high_orders:
                 logger.debug("Plotting high order magnetic elements (up to octupoles)")
+                plt.scatter(element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS")
                 plt.scatter(
-                    element_dfs["sextupoles"].z,
-                    element_dfs["sextupoles"].x,
-                    marker=".",
-                    color="m",
-                    label="MS",
-                )
-                plt.scatter(
-                    element_dfs["octupoles"].z,
-                    element_dfs["octupoles"].x,
-                    marker=".",
-                    color="cyan",
-                    label="MO",
+                    element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO"
                 )
             plt.legend(loc=2)
 
@@ -794,9 +761,7 @@ class LatticePlotter:
 
 
 class PhaseSpacePlotter:
-    """
-    A class to plot Courant-Snyder coordinates phase space.
-    """
+    """A class to plot Courant-Snyder coordinates phase space."""
 
     @staticmethod
     def plot_courant_snyder_phase_space(
@@ -927,9 +892,7 @@ class PhaseSpacePlotter:
 
 
 class TuneDiagramPlotter:
-    """
-    A class to plot a blank tune diagram with Farey sequences, as well as your working points.
-    """
+    """A class to plot a blank tune diagram with Farey sequences, as well as your working points."""
 
     order_to_alpha: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
     order_to_rgb: Dict[int, np.ndarray] = {
@@ -1065,7 +1028,7 @@ class TuneDiagramPlotter:
                 TuneDiagramPlotter.order_to_rgb[order] if differentiate_orders is True else "blue",
             )
             TuneDiagramPlotter._plot_resonance_lines_for_order(
-                order, axis, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs,
+                order, axis, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs
             )
 
         plt.title(title)
@@ -1325,18 +1288,10 @@ def _make_elements_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
         "dipoles": twiss_df[twiss_df.keyword.isin(["multipole", "rbend", "sbend"])].query(
             "k0l != 0 or k0sl != 0 or angle != 0"
         ),
-        "quadrupoles": twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query(
-            "k1l != 0 or k1sl != 0"
-        ),
-        "sextupoles": twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])].query(
-            "k2l != 0 or k2sl " "!= 0"
-        ),
-        "octupoles": twiss_df[twiss_df.keyword.isin(["multipole", "octupole"])].query(
-            "k3l != 0 or k3sl != " "0"
-        ),
-        "bpms": twiss_df[
-            (twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))
-        ],
+        "quadrupoles": twiss_df[twiss_df.keyword.isin(["multipole", "quadrupole"])].query("k1l != 0 or k1sl != 0"),
+        "sextupoles": twiss_df[twiss_df.keyword.isin(["multipole", "sextupole"])].query("k2l != 0 or k2sl " "!= 0"),
+        "octupoles": twiss_df[twiss_df.keyword.isin(["multipole", "octupole"])].query("k3l != 0 or k3sl != " "0"),
+        "bpms": twiss_df[(twiss_df.keyword.isin(["monitor"])) & (twiss_df.name.str.contains("BPM", case=False))],
     }
 
 

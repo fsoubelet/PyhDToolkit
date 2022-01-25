@@ -86,9 +86,12 @@ LHC_PARALLEL_SEPARATION_FLAGS: List[str] = [f"on_sep{ip}" for ip in [1, 2, 5, 8]
     "on_s_sep5h",
 ]
 # Offset is in the plane of the crossing angle
-LHC_IP_OFFSET_FLAGS: List[str] = [f"on_o{ip}" for ip in [1, 2, 5, 8]] + ["on_o1h"] + [
-    f"on_oh{ip}" for ip in [1, 5]
-] + [f"on_ov{ip}" for ip in [1, 2, 5]]
+LHC_IP_OFFSET_FLAGS: List[str] = (
+    [f"on_o{ip}" for ip in [1, 2, 5, 8]]
+    + ["on_o1h"]
+    + [f"on_oh{ip}" for ip in [1, 5]]
+    + [f"on_ov{ip}" for ip in [1, 2, 5]]
+)
 # Angle is in the same plane as the separation
 LHC_ANGLE_FLAGS: List[str] = [f"on_a{ip}" for ip in [1, 2, 5, 8]] + ["on_a1v"]
 # Magnetic fields or solenoids powering status
@@ -127,24 +130,16 @@ LHC_KSF_KNOBS: List[str] = [  # sextupole correctors
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KSS_KNOBS: List[str] = [  # skew sextupole correctors
-    f"kss.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
-    for beam in [1, 2]
-    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kss.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCS_KNOBS: List[str] = [  # spool piece (skew) sextupoles
-    f"kcs.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
-    for beam in [1, 2]
-    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kcs.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCO_KNOBS: List[str] = [  # spool piece (skew) octupoles
-    f"kco.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
-    for beam in [1, 2]
-    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kco.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCD_KNOBS: List[str] = [  # spool piece (skew) decapoles
-    f"kcd.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
-    for beam in [1, 2]
-    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kcd.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KO_KNOBS: List[str] = [  # octupoles in arc short straight sections
     f"ko{family}.a{sector}{sector+1 if sector < 8 else 1}b{beam}"

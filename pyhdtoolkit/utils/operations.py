@@ -20,9 +20,7 @@ from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 
 class ListOperations:
-    """
-    A class to group some common / useful operations on lists.
-    """
+    """A class to group some common / useful operations on lists."""
 
     @staticmethod
     def all_unique(sequence: Sequence) -> bool:
@@ -121,9 +119,7 @@ class ListOperations:
         """
         if size > len(sequence):
             return sequence
-        return list(
-            map(lambda x: sequence[x * size : x * size + size], list(range(math.ceil(len(sequence) / size))),)
-        )
+        return list(map(lambda x: sequence[x * size : x * size + size], list(range(math.ceil(len(sequence) / size)))))
 
     @staticmethod
     def deep_flatten(sequence: Sequence) -> list:
@@ -398,16 +394,11 @@ class ListOperations:
             -> [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]
         """
         max_length = max(len(lst) for lst in args)
-        return [
-            [args[k][i] if i < len(args[k]) else fillvalue for k in range(len(args))]
-            for i in range(max_length)
-        ]
+        return [[args[k][i] if i < len(args[k]) else fillvalue for k in range(len(args))] for i in range(max_length)]
 
 
 class MiscellaneousOperations:
-    """
-    A class to group some misc. operations that don't pertain to classic structures.
-    """
+    """A class to group some misc. operations that don't pertain to classic structures."""
 
     @staticmethod
     def longest_item(*args):
@@ -455,14 +446,10 @@ class MiscellaneousOperations:
 
 
 class NumberOperations:
-    """
-    A class to group some common / useful operations on numbers.
-    """
+    """A class to group some common / useful operations on numbers."""
 
     @staticmethod
-    def clamp_number(
-        num: Union[int, float], a_val: Union[int, float], b_val: Union[int, float]
-    ) -> Union[int, float]:
+    def clamp_number(num: Union[int, float], a_val: Union[int, float], b_val: Union[int, float]) -> Union[int, float]:
         """
         Clamps num within the inclusive range specified by the boundary values a and b. If num
         falls within the range, return num. Otherwise, return the nearest number in the range.
@@ -585,9 +572,7 @@ class NumberOperations:
 
 
 class StringOperations:
-    """
-    A class to group some common / useful operations on strings.
-    """
+    """A class to group some common / useful operations on strings."""
 
     @staticmethod
     def camel_case(text: str) -> str:

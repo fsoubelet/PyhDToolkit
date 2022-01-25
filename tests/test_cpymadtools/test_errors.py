@@ -54,9 +54,7 @@ class TestErrors:
 
     def test_misalign_lhc_ir_quadrupoles_specific_value(self, _non_matched_lhc_madx):
         madx = _non_matched_lhc_madx
-        misalign_lhc_ir_quadrupoles(
-            madx, ips=[1, 5], quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001"
-        )
+        misalign_lhc_ir_quadrupoles(madx, ips=[1, 5], quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001")
         error_table = madx.table["ir_quads_errors"].dframe().copy()
         assert all(error_table["dy"] == 0.001)
 

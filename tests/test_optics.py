@@ -48,9 +48,7 @@ class TestBeamCalculations:
     def test_eta(self, alpha_p, result):
         assert Beam(6500, 2.5e-6).eta(alpha_p) == result
 
-    @pytest.mark.parametrize(
-        "alpha_p, result", [(1e-5, 316.2277660168379), (500, 0.044721359549995794)],
-    )
+    @pytest.mark.parametrize("alpha_p, result", [(1e-5, 316.2277660168379), (500, 0.044721359549995794)])
     def test_gamma_transition(self, alpha_p, result):
         assert Beam(6500, 2.5e-6).gamma_transition(alpha_p) == result
 

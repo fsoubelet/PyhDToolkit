@@ -57,7 +57,7 @@ class TestPhaseReconstructor:
         complex_eigenvector_method_result = pr.reconstruct_complex_phases_evm()
         reconstructed = np.abs(
             pr.convert_complex_result_to_phase_values(complex_eigenvector_method_result, deg=True)
-        ).reshape(n_bpms,)
+        ).reshape(n_bpms)
         assert np.allclose(reconstructed, signal, atol=0.1, rtol=1e-1)
 
 
@@ -117,9 +117,7 @@ class TestStatsFitting:
         parameter input.
         """
         # Don't waste time trying to fit distributions that are very different
-        stats_fitting.set_distributions_dict(
-            {st.expon: "Exponential", st.laplace: "Laplace", st.norm: "Normal"}
-        )
+        stats_fitting.set_distributions_dict({st.expon: "Exponential", st.laplace: "Laplace", st.norm: "Normal"})
         points = tested_distribution.rvs(size=100_000)
         guessed_distribution, _ = stats_fitting.best_fit_distribution(points)
         assert guessed_distribution == tested_distribution

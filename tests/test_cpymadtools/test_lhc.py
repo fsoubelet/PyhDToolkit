@@ -160,9 +160,7 @@ class TestSpecial:
     def test_install_ac_dipole_as_kicker(self, top_turns, _matched_lhc_madx):
         madx = _matched_lhc_madx
         make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
-        install_ac_dipole_as_kicker(
-            madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=1, sigma_y=1, top_turns=top_turns
-        )
+        install_ac_dipole_as_kicker(madx, deltaqx=-0.01, deltaqy=0.012, sigma_x=1, sigma_y=1, top_turns=top_turns)
         ramp3 = 2100 + top_turns
         ramp4 = ramp3 + 2000
 
@@ -205,9 +203,7 @@ class TestSpecial:
         assert isinstance(tracks_dict, dict)
         tracks = tracks_dict["observation_point_1"]
         assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
-        assert all(
-            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
-        )
+        assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
 
     @pytest.mark.parametrize("start_point", ["IP3", "MSIA.EXIT.B1"])
     def test_re_cycling(self, _bare_lhc_madx, start_point):
@@ -240,9 +236,7 @@ class TestSpecial:
     def test_vary_independent_ir_quads(self, _non_matched_lhc_madx):
         # still need to find how to test MAD-X has done this, but don't think we can test just a VARY
         madx = _non_matched_lhc_madx
-        vary_independent_ir_quadrupoles(
-            madx, quad_numbers=[4, 5, 6, 7, 8, 9, 10, 11, 12, 13], ip=1, sides=("r", "l")
-        )
+        vary_independent_ir_quadrupoles(madx, quad_numbers=[4, 5, 6, 7, 8, 9, 10, 11, 12, 13], ip=1, sides=("r", "l"))
 
     def test_vary_independent_ir_quads_raises_on_wrong_side(self, _non_matched_lhc_madx, caplog):
         madx = _non_matched_lhc_madx

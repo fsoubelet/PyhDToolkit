@@ -28,13 +28,6 @@ def track_single_particle(
     """
     Tracks a single particle for nturns, based on its initial coordinates.
 
-    Warnings:
-        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided
-        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously
-        defined errors, orbits corrections etc. In this case a warning will be logged but the function will
-        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking
-        is performed on.
-
     Args:
         madx (Madx): an instantiated cpymad.madx.Madx object.
         initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,
@@ -49,6 +42,13 @@ def track_single_particle(
     Keyword Args:
         Any keyword argument to be given to the `TRACK` command like it would be given directly into `MAD-X`,
         for instance `ONETABLE` etc. Refer to the `MAD-X` manual for options.
+
+    Warnings:
+        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided
+        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously
+        defined errors, orbits corrections etc. In this case a warning will be logged but the function will
+        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking
+        is performed on.
 
     Returns:
         A dictionary with a copy of the track table's dataframe for each defined observation point,
@@ -66,9 +66,7 @@ def track_single_particle(
     observation_points = observation_points if observation_points else []
 
     if isinstance(sequence, str):
-        logger.warning(
-            f"Sequence '{sequence}' was provided and will be used, beware that this will erase errors etc."
-        )
+        logger.warning(f"Sequence '{sequence}' was provided and will be used, beware that this will erase errors etc.")
         logger.debug(f"Using sequence '{sequence}' for tracking")
         madx.use(sequence=sequence)
 

@@ -32,13 +32,9 @@ defaults.config_logger(level="ERROR")
 TASK_COLUMNS_SETTINGS = {
     "OWNER": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
     "BATCH_NAME": dict(justify="center", header_style="magenta", style="magenta", no_wrap=True),
-    "SUBMITTED": dict(
-        justify="center", header_style="medium_turquoise", style="medium_turquoise", no_wrap=True
-    ),
+    "SUBMITTED": dict(justify="center", header_style="medium_turquoise", style="medium_turquoise", no_wrap=True),
     "DONE": dict(justify="right", header_style="bold green3", style="bold green3", no_wrap=True),
-    "RUNNING": dict(
-        justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True
-    ),
+    "RUNNING": dict(justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True),
     "IDLE": dict(justify="right", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
     "TOTAL": dict(justify="right", style="bold", no_wrap=True),
     "JOB_IDS": dict(justify="right", no_wrap=True),
@@ -48,14 +44,10 @@ CLUSTER_COLUMNS_SETTINGS = {
     "SOURCE": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
     "JOBS": dict(justify="right", header_style="bold", style="bold", no_wrap=True),
     "COMPLETED": dict(justify="right", header_style="bold green3", style="bold green3", no_wrap=True),
-    "RUNNING": dict(
-        justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True
-    ),
+    "RUNNING": dict(justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True),
     "IDLE": dict(justify="right", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
     "HELD": dict(justify="right", header_style="bold gold1", style="bold gold1", no_wrap=True),
-    "SUSPENDED": dict(
-        justify="right", header_style="bold slate_blue1", style="bold slate_blue1", no_wrap=True
-    ),
+    "SUSPENDED": dict(justify="right", header_style="bold slate_blue1", style="bold slate_blue1", no_wrap=True),
     "REMOVED": dict(justify="right", header_style="bold red3", style="bold red3", no_wrap=True),
 }
 

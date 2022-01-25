@@ -128,15 +128,9 @@ def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: in
 
     logger.debug("Getting sane start and end points of distribution")
     start = (
-        distribution.ppf(0.01, *args, loc=loc, scale=scale)
-        if args
-        else distribution.ppf(0.01, loc=loc, scale=scale)
+        distribution.ppf(0.01, *args, loc=loc, scale=scale) if args else distribution.ppf(0.01, loc=loc, scale=scale)
     )
-    end = (
-        distribution.ppf(0.99, *args, loc=loc, scale=scale)
-        if args
-        else distribution.ppf(0.99, loc=loc, scale=scale)
-    )
+    end = distribution.ppf(0.99, *args, loc=loc, scale=scale) if args else distribution.ppf(0.99, loc=loc, scale=scale)
 
     logger.debug("Building PDF")
     x = np.linspace(start, end, size)

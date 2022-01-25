@@ -72,14 +72,12 @@ class TestPTC:
         assert len(tracks_dict.keys()) == len(obs_points) + 1
         for tracks in tracks_dict.values():
             assert isinstance(tracks, DataFrame)
-            assert all(
-                [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
-            )
+            assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
 
     def test_single_particle_ptc_track_with_onepass(self, _matched_base_lattice):
         madx = _matched_base_lattice
         tracks_dict = ptc_track_particle(
-            madx, sequence="CAS3", nturns=100, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0), onetable=True,
+            madx, sequence="CAS3", nturns=100, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0), onetable=True
         )
 
         assert isinstance(tracks_dict, dict)
@@ -87,9 +85,7 @@ class TestPTC:
         assert "trackone" in tracks_dict.keys()
         tracks = tracks_dict["trackone"]
         assert isinstance(tracks, DataFrame)
-        assert all(
-            [coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")]
-        )
+        assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
 
 
 # ----- Fixtures ----- #

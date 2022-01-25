@@ -176,7 +176,7 @@ class TestLatticePlotter:
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
         figure = LatticePlotter.plot_machine_survey(
-            madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig,
+            madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig
         )
         assert saved_fig.is_file()
         return figure
@@ -186,9 +186,7 @@ class TestLatticePlotter:
         """Using my CAS 19 project's base lattice."""
         madx = Madx(stdout=False)
         madx.input(BASE_LATTICE)
-        return LatticePlotter.plot_machine_survey(
-            madx=madx, show_elements=False, high_orders=True, figsize=(20, 15)
-        )
+        return LatticePlotter.plot_machine_survey(madx=madx, show_elements=False, high_orders=True, figsize=(20, 15))
 
 
 class TestPhaseSpacePlotter:

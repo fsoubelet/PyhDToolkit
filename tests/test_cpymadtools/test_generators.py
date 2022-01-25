@@ -38,7 +38,7 @@ class TestLatticeGenerator:
     )
     def test_tripleterrors_study_tferror_job(self, randseed, tferror):
         tripleterrors_study_tferror_job = LatticeGenerator.generate_tripleterrors_study_tferror_job(
-            rand_seed=randseed, tf_error=tferror,
+            rand_seed=randseed, tf_error=tferror
         )
         assert isinstance(tripleterrors_study_tferror_job, str)
         assert len(tripleterrors_study_tferror_job) == 2521 + len(str(randseed)) + len(str(tferror))
@@ -57,7 +57,7 @@ class TestLatticeGenerator:
     )
     def test_tripleterrors_study_mserror_job(self, randseed, mserror):
         tripleterrors_study_mserror_job = LatticeGenerator.generate_tripleterrors_study_mserror_job(
-            rand_seed=randseed, ms_error=mserror,
+            rand_seed=randseed, ms_error=mserror
         )
         assert isinstance(tripleterrors_study_mserror_job, str)
         assert len(tripleterrors_study_mserror_job) == 2384 + len(str(randseed)) + len(str(mserror))

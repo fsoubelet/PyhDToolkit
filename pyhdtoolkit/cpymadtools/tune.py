@@ -24,7 +24,7 @@ from loguru import logger
 
 
 def make_footprint_table(
-    madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs,
+    madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the
@@ -42,11 +42,11 @@ def make_footprint_table(
         cleanup (bool): If True, the `fort.69` and `lyapunov.data` files are cleared before returning the
             dynap table. Defaults to True.
 
-	Keyword Args:
-		Any keyword argument that will be transmitted to the DYNAP command in MAD-X.
+    Keyword Args:
+            Any keyword argument that will be transmitted to the DYNAP command in MAD-X.
 
     Returns:
-		The resulting `dynaptune` table, as a pandas DataFrame.
+        The resulting `dynaptune` table, as a pandas DataFrame.
     """
     logger.info(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
     small, big = 0.05, math.sqrt(1 - 0.05 ** 2)
@@ -118,9 +118,9 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
     points needed to plot the footprint data with lines representing the different amplitudes and angles
     from starting particles, and returns these in immediately plottable numpy arrays.
 
-	WARNING: This function is some DARK MAGIC stuff I have taken out of very dusty drawers, and I cannot
-	explain exactly how it works. I also do not know who wrote this initially. Results are not guaranteed
-	to be correct and should be checked with a quick plot.
+    WARNING: This function is some DARK MAGIC stuff I have taken out of very dusty drawers, and I cannot
+    explain exactly how it works. I also do not know who wrote this initially. Results are not guaranteed
+    to be correct and should be checked with a quick plot.
 
     Usage:
         ```python
@@ -133,7 +133,7 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
         dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
 
     Returns:
-		The Qx and Qy data points to plot directly, both as numpy.ndarrays.
+        The Qx and Qy data points to plot directly, both as numpy.ndarrays.
     """
     logger.info("Determining footprint plottable")
     logger.debug("Retrieving AMPLITUDE, ANGLE and DSIGMA data from TfsDataFrame headers")
@@ -147,33 +147,33 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
     return np.array(qxs, dtype=float), np.array(qys, dtype=float)
 
 
-def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame,) -> matplotlib.collections.PatchCollection:
+def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collections.PatchCollection:
     """
     INITIAL IMPLEMENTATION CREDITS GO TO KONSTANTINOS PARASCHOU (@kparasch).
-	Provided with the `TfsDataFrame` returned by `make_footprint_table()`, computes the polygon patches
-	needed to plot the footprint data, with lines representing the different amplitudes and angles
-	from starting particles, and returns the `PatchCollection` with the computed polygons.
+    Provided with the `TfsDataFrame` returned by `make_footprint_table()`, computes the polygon patches
+    needed to plot the footprint data, with lines representing the different amplitudes and angles
+    from starting particles, and returns the `PatchCollection` with the computed polygons.
 
     The polygons will have blue edges, except the ones corresponding to the last starting angle particles (
     in red) and the last starting amplitude particles (in green).
 
-	WARNING: The internal construction of polygons can be tricky, and you might need to change the `ANGLE`
-	or `AMPLITUDE` values in `dynap_dframe`'s headers.
+    WARNING: The internal construction of polygons can be tricky, and you might need to change the `ANGLE`
+    or `AMPLITUDE` values in `dynap_dframe`'s headers.
 
-	Usage:
-		```python
-		fig, axis = plt.subplots()
-		dynap_tfs = make_footprint_table(madx)
-		footprint_polygons = get_footprint_patches(dynap_tfs)
-		axis.add_collection(footprint_polygons)
-		```
+    Usage:
+        ```python
+        fig, axis = plt.subplots()
+        dynap_tfs = make_footprint_table(madx)
+        footprint_polygons = get_footprint_patches(dynap_tfs)
+        axis.add_collection(footprint_polygons)
+        ```
 
     Args:
-		dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
+        dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
 
     Returns:
-		The `matplotlib.collections.PatchCollection` with the created polygons.
-	"""
+        The `matplotlib.collections.PatchCollection` with the created polygons.
+    """
     logger.info("Determining footprint polygons")
     angle = dynap_dframe.headers["ANGLE"]
     amplitude = dynap_dframe.headers["AMPLITUDE"]
@@ -222,8 +222,8 @@ def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
         dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
 
     Returns:
-		A weird string representation gathering tune points split according to the number of angles and
-		amplitudes used in `make_footprint_table()`.
+        A weird string representation gathering tune points split according to the number of angles and
+        amplitudes used in `make_footprint_table()`.
     """
     logger.trace("Retrieving AMPLITUDE and ANGLE data from TfsDataFrame headers")
     amplitude = dynap_dframe.headers["AMPLITUDE"]
@@ -232,7 +232,9 @@ def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
     for n in range(1, amplitude):
         string_rep += f",{angle}"
         for m in range(angle):
-            string_rep += f",<{dynap_dframe.tunx[1 + (n - 1) * angle + m]};{dynap_dframe.tuny[1 + (n - 1) * angle + m]}>"
+            string_rep += (
+                f",<{dynap_dframe.tunx[1 + (n - 1) * angle + m]};{dynap_dframe.tuny[1 + (n - 1) * angle + m]}>"
+            )
     return string_rep
 
 

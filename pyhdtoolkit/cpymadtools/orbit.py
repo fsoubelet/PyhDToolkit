@@ -129,9 +129,7 @@ def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
     """
     logger.debug("Extracting orbit variables from global table")
     variables, specials = lhc_orbit_variables()
-    return {
-        orbit_variable: madx.globals[orbit_variable] for orbit_variable in variables + list(specials.keys())
-    }
+    return {orbit_variable: madx.globals[orbit_variable] for orbit_variable in variables + list(specials.keys())}
 
 
 def correct_lhc_orbit(
@@ -167,9 +165,5 @@ def correct_lhc_orbit(
     for _ in range(iterations):
         logger.trace("Doing orbit correction for Y then X plane")
         madx.twiss(chrom=True)
-        madx.command.correct(
-            sequence=sequence, plane="y", flag="ring", error=orbit_tolerance, mode=mode, **kwargs
-        )
-        madx.command.correct(
-            sequence=sequence, plane="x", flag="ring", error=orbit_tolerance, mode=mode, **kwargs
-        )
+        madx.command.correct(sequence=sequence, plane="y", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)
+        madx.command.correct(sequence=sequence, plane="x", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)

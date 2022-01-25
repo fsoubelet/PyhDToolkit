@@ -80,9 +80,7 @@ class PhaseReconstructor:
             self.c_matrix_eigenvectors: np.ndarray = np.linalg.eigh(self.c_matrix)[-1].T
             self.space_dimension: int = self.c_matrix.shape[0]
         else:
-            logger.exception(
-                "Instantiating a PhaseReconstructor with a non hermitian matrix is " "not possible"
-            )
+            logger.exception("Instantiating a PhaseReconstructor with a non hermitian matrix is not possible")
             raise ValueError("Provided matrix should be Hermitian")
 
     @property
@@ -144,13 +142,9 @@ class PhaseReconstructor:
             # Remember to initialize a random real and imaginary part.
             logger.exception("Encountered 0-division, trying normalization")
             e_vect = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
-            while (
-                np.absolute(e_vect @ eigenvector) == 0
-            ):  # Guarantee that we don't fall back to this edge case.
+            while np.absolute(e_vect @ eigenvector) == 0:  # Guarantee that we don't fall back to this edge case.
                 e_vect = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
-            return (e_vect @ eigenvector / np.absolute(e_vect @ eigenvector)).reshape(
-                (1, self.space_dimension)
-            )
+            return (e_vect @ eigenvector / np.absolute(e_vect @ eigenvector)).reshape((1, self.space_dimension))
 
     def reconstruct_complex_phases_evm(self) -> np.ndarray:
         """
@@ -164,9 +158,7 @@ class PhaseReconstructor:
         return self.get_eigenvector_estimator(self.leading_eigenvector)
 
     @staticmethod
-    def convert_complex_result_to_phase_values(
-        complex_estimator: np.ndarray, deg: bool = False
-    ) -> np.ndarray:
+    def convert_complex_result_to_phase_values(complex_estimator: np.ndarray, deg: bool = False) -> np.ndarray:
         """
         Casts back the complex form of your result to real phase values.
 

@@ -160,12 +160,7 @@ def get_rdts(
 
 
 def ptc_twiss(
-    madx: Madx,
-    order: int = 4,
-    file: Union[Path, str] = None,
-    fringe: bool = False,
-    table: str = "ptc_twiss",
-    **kwargs,
+    madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, table: str = "ptc_twiss", **kwargs
 ) -> tfs.TfsDataFrame:
     """
     Calculate the TWISS parameters according to G. Ripken's formalism via `PTC_TWISS`, with sensible defaults
@@ -279,9 +274,7 @@ def ptc_track_particle(
     observation_points = observation_points if observation_points else []
 
     if isinstance(sequence, str):
-        logger.warning(
-            f"Sequence '{sequence}' was provided and will be used, beware that this will erase errors etc."
-        )
+        logger.warning(f"Sequence '{sequence}' was provided and will be used, beware that this will erase errors etc.")
         logger.debug(f"Using sequence '{sequence}' for tracking")
         madx.use(sequence=sequence)
 
@@ -296,9 +289,7 @@ def ptc_track_particle(
     madx.ptc_setswitch(fringe=fringe)
 
     logger.debug(f"Tracking coordinates with initial X, PX, Y, PY, T, PT of '{initial_coordinates}'")
-    madx.command.ptc_start(
-        X=start[0], PX=start[1], Y=start[2], PY=start[3], T=start[4], PT=start[5],
-    )
+    madx.command.ptc_start(X=start[0], PX=start[1], Y=start[2], PY=start[3], T=start[4], PT=start[5])
 
     for element in observation_points:
         logger.trace(f"Setting observation point for tracking with OBSERVE at element '{element}'")

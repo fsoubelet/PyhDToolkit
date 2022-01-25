@@ -10,6 +10,8 @@ contents have for now been duplicated into the `lhc` module and should be used f
 
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are very specific to
 what I do in LHC and HLLHC use cases.
+
+TODO: Remove for 1.0 release.
 """
 import functools
 import inspect
@@ -103,9 +105,7 @@ def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_a
     try:
         brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
     except AttributeError as madx_error:
-        logger.exception(
-            "The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined."
-        )
+        logger.exception("The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined.")
         raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error
 
     logger.info(f"Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.")
@@ -312,9 +312,7 @@ def install_ac_dipole_as_kicker(
         f"ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};"
     )
 
-    logger.info(
-        f"Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}"
-    )
+    logger.info(f"Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
     # The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)
@@ -368,9 +366,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     madx.input(f"hacmap: matrix, l=0, rm21=hacmap21;")
     madx.input(f"vacmap: matrix, l=0, rm43=vacmap43;")
 
-    logger.info(
-        f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}"
-    )
+    logger.info(f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
     # The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]
@@ -616,10 +612,8 @@ def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> 
     Returns:
         The list of names as strings.
     """
-    if orientation not in ("straight", "skew", "both",):
-        logger.error(
-            f"Orientation '{orientation}' is not accepted, should be one of 'straight', 'skew', 'both'."
-        )
+    if orientation not in ("straight", "skew", "both"):
+        logger.error(f"Orientation '{orientation}' is not accepted, should be one of 'straight', 'skew', 'both'.")
         raise ValueError("Invalid 'orientation' parameter")
 
     if orientation == "straight":
