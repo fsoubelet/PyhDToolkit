@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1379,7 +1379,9 @@
 <p>Module cpymadtools.special</p>
 <hr />
 <p>Created on 2020.02.03</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.special</span>
 
@@ -2409,7 +2411,9 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">colinearity_knob_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">colinearity_knob_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -2467,7 +2471,9 @@
     beam (int): beam to apply the knob to, defaults to beam 1.
     telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.
         Defaults to <code>True</code>.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_coupling_knob</span><span class="p">(</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_coupling_knob</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">coupling_knob</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
 
@@ -2580,7 +2586,9 @@ works well.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">rigidty_waist_shift_value</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nl">ir</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">side</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;left&quot;</span><span class="w"></span>
 
@@ -2688,7 +2696,9 @@ works well.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -2825,29 +2835,31 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">install_ac_dipole_as_kicker</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">install_ac_dipole_as_kicker</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">deltaqx</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+<span class="w">    </span><span class="n">deltaqx</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">deltaqy</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+<span class="w">    </span><span class="n">deltaqy</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">sigma_x</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sigma_x</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">sigma_y</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sigma_y</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">beam</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+<span class="w">    </span><span class="n">beam</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">start_turn</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">start_turn</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">ramp_turns</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+<span class="w">    </span><span class="n">ramp_turns</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2000</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">top_turns</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">6600</span><span class="p">,</span>
+<span class="w">    </span><span class="n">top_turns</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6600</span><span class="p">,</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Installs an AC dipole for (HL)LHC BEAM 1 OR 2 ONLY.</span>
 
@@ -2887,93 +2899,93 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
 <span class="s2">        top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a kicker and will not affect TWISS functions!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a kicker and will not affect TWISS functions!&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">top_turns</span> <span class="o">&gt;</span> <span class="mi">6600</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">top_turns</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">6600</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="w"></span>
 
-            <span class="n">f</span><span class="s2">&quot;Configuring the AC Dipole for {top_turns:d} of driving is fine for MAD-X but is &quot;</span>
+<span class="w">            </span><span class="n">f</span><span class="s2">&quot;Configuring the AC Dipole for {top_turns:d} of driving is fine for MAD-X but is &quot;</span><span class="w"></span>
 
-            <span class="s2">&quot;higher than what the device can do in the (HL)LHC! Beware.&quot;</span>
+<span class="w">            </span><span class="s2">&quot;higher than what the device can do in the (HL)LHC! Beware.&quot;</span><span class="w"></span>
 
-        <span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">ramp1</span><span class="p">,</span> <span class="n">ramp2</span> <span class="o">=</span> <span class="n">start_turn</span><span class="p">,</span> <span class="n">start_turn</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+<span class="w">    </span><span class="n">ramp1</span><span class="p">,</span><span class="w"> </span><span class="n">ramp2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">start_turn</span><span class="p">,</span><span class="w"> </span><span class="n">start_turn</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ramp_turns</span><span class="w"></span>
 
-    <span class="n">ramp3</span> <span class="o">=</span> <span class="n">ramp2</span> <span class="o">+</span> <span class="n">top_turns</span>
+<span class="w">    </span><span class="n">ramp3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ramp2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">top_turns</span><span class="w"></span>
 
-    <span class="n">ramp4</span> <span class="o">=</span> <span class="n">ramp3</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+<span class="w">    </span><span class="n">ramp4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ramp3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ramp_turns</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q1</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q2</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span>
+<span class="w">    </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q1</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q2</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
+<span class="w">    </span><span class="n">q1_dipole</span><span class="p">,</span><span class="w"> </span><span class="n">q2_dipole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">deltaqx</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">deltaqy</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
+<span class="w">    </span><span class="c1"># All below is done as model_creator macros with `.input()` calls</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;pbeam = beam%lhcb{beam:d}-&gt;pc;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;pbeam = beam%lhcb{beam:d}-&gt;pc;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, betx);&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, betx);&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole voltage values&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole voltage values&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;voltx = 0.042 * pbeam * ABS({deltaqx}) / SQRT(180.0 * betxac) * {sigma_x}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;voltx = 0.042 * pbeam * ABS({deltaqx}) / SQRT(180.0 * betxac) * {sigma_x}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;volty = 0.042 * pbeam * ABS({deltaqy}) / SQRT(177.0 * betyac) * {sigma_y}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;volty = 0.042 * pbeam * ABS({deltaqy}) / SQRT(177.0 * betyac) * {sigma_y}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining kicker elements for transverse planes&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining kicker elements for transverse planes&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}: hacdipole, l=0, freq:={q1_dipole}, lag=0, volt=voltx, ramp1={ramp1}, &quot;</span>
+<span class="w">        </span><span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}: hacdipole, l=0, freq:={q1_dipole}, lag=0, volt=voltx, ramp1={ramp1}, &quot;</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span>
+<span class="w">        </span><span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}: vacdipole, l=0, freq:={q2_dipole}, lag=0, volt=volty, ramp1={ramp1}, &quot;</span>
+<span class="w">        </span><span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}: vacdipole, l=0, freq:={q2_dipole}, lag=0, volt=volty, ramp1={ramp1}, &quot;</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span>
+<span class="w">        </span><span class="n">f</span><span class="s2">&quot;ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};&quot;</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1"># The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)</span>
+<span class="w">    </span><span class="c1"># The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACH.6L4.B{beam:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKACV.6L4.B{beam:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endedit</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endedit</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, &quot;</span>
+<span class="w">        </span><span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, &quot;</span><span class="w"></span>
 
-        <span class="s2">&quot;remove errors etc.&quot;</span>
+<span class="w">        </span><span class="s2">&quot;remove errors etc.&quot;</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3029,9 +3041,11 @@ See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.08400
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">install_ac_dipole_as_matrix</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">deltaqx</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span> <span class="n">deltaqy</span><span class="o">:</span> <span class="kt">float</span><span class="p">,</span> <span class="n">beam</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">install_ac_dipole_as_matrix</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">deltaqx</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">deltaqy</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">beam</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Installs an AC dipole as a matrix element for (HL)LHC BEAM 1 OR 2 ONLY.</span>
 
@@ -3057,63 +3071,63 @@ See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.08400
 
 <span class="s2">        beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a matrix and will not affect particle tracking!&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a matrix and will not affect particle tracking!&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam.&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q1</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q2</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span>
+<span class="w">    </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q1</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="p">.</span><span class="n">q2</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1:.5f}, q2 = {q2:.5f}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
+<span class="w">    </span><span class="n">q1_dipole</span><span class="p">,</span><span class="w"> </span><span class="n">q2_dipole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">q1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">deltaqx</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">deltaqy</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
+<span class="w">    </span><span class="c1"># All below is done as model_creator macros with `.input()` calls</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, betx);&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, betx);&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B{beam:d}, BEAM, bety);&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole matrix terms&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole matrix terms&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;hacmap21 = 2 * (cos(2*pi*{q1_dipole}) - cos(2*pi*{q1})) / (betxac * sin(2*pi*{q1}));&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;hacmap21 = 2 * (cos(2*pi*{q1_dipole}) - cos(2*pi*{q1})) / (betxac * sin(2*pi*{q1}));&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap43 = 2 * (cos(2*pi*{q2_dipole}) - cos(2*pi*{q2})) / (betyac * sin(2*pi*{q2}));&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap43 = 2 * (cos(2*pi*{q2_dipole}) - cos(2*pi*{q2})) / (betyac * sin(2*pi*{q2}));&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining matrix elements for transverse planes&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining matrix elements for transverse planes&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;hacmap: matrix, l=0, rm21=hacmap21;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;hacmap: matrix, l=0, rm21=hacmap21;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=vacmap43;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=vacmap43;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span><span class="w"></span>
 
-    <span class="c1"># The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]</span>
+<span class="w">    </span><span class="c1"># The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;hacmap&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;hacmap&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;vacmap&quot;</span><span class="p">,</span> <span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;vacmap&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">from_</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;MKQA.6L4.B{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endedit</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endedit</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, &quot;</span>
+<span class="w">        </span><span class="n">f</span><span class="s2">&quot;Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, &quot;</span><span class="w"></span>
 
-        <span class="s2">&quot;remove errors etc.&quot;</span>
+<span class="w">        </span><span class="s2">&quot;remove errors etc.&quot;</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3133,9 +3147,11 @@ See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.08400
         then fed to the BEAM command.</p>
 <p>Keyword Args:
     Any keyword argument that can be given to the MAD-X BEAM command.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span> <span class="n">emittance</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">energy</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7000</span><span class="p">,</span><span class="w"> </span><span class="n">emittance</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.75e-6</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.</span>
 
@@ -3153,41 +3169,41 @@ See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.08400
 
 <span class="s2">        Any keyword argument that can be given to the MAD-X BEAM command.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;NRJ&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">energy</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;NRJ&quot;</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">energy</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;brho&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="p">.</span><span class="n">clight</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;brho&quot;</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">energy</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e9</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="p">.</span><span class="n">clight</span><span class="w"></span>
 
-    <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">emittance</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+<span class="w">    </span><span class="n">geometric_emit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">emittance</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="p">(</span><span class="n">energy</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">0.938</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">beam</span> <span class="k">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Defining beam for sequence &#39;lhcb{beam:d}&#39;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Defining beam for sequence &#39;lhcb{beam:d}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">beam</span><span class="p">(</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">beam</span><span class="p">(</span><span class="w"></span>
 
-            <span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">bv</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+<span class="w">            </span><span class="n">bv</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
+<span class="w">            </span><span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span>
+<span class="w">            </span><span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">sige</span><span class="o">=</span><span class="mf">4.5e-4</span><span class="p">,</span>
+<span class="w">            </span><span class="n">sige</span><span class="o">=</span><span class="mf">4.5e-4</span><span class="p">,</span><span class="w"></span>
 
-            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="w">            </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
 
-        <span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3208,9 +3224,11 @@ will enforce <code>makedipedge</code>.</p>
 <p>Keyword Args:
     The keyword arguments for the MAD-X MAKETHN commands, namely <code>style</code> (will default to <code>teapot</code>) and
     the <code>makedipedge</code> flag (will default to True).</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">slicefactor</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Makethin for the LHC sequence as previously done in MAD-X macros. This will use the `teapot` style and</span>
 
@@ -3230,67 +3248,67 @@ will enforce <code>makedipedge</code>.</p>
 
 <span class="s2">        the `makedipedge` flag (will default to True).</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Slicing sequence &#39;{sequence}&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Slicing sequence &#39;{sequence}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">four_slices_patterns</span> <span class="o">=</span> <span class="err">[</span><span class="n">r</span><span class="s2">&quot;mbx</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">r</span><span class="s2">&quot;mbrb</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">r</span><span class="s2">&quot;mbrc</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span> <span class="n">r</span><span class="s2">&quot;mbrs</span><span class="err">\</span><span class="s2">.&quot;</span><span class="err">]</span>
+<span class="w">    </span><span class="n">four_slices_patterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[</span><span class="n">r</span><span class="s2">&quot;mbx</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="s2">&quot;mbrb</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="s2">&quot;mbrc</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="s2">&quot;mbrs</span><span class="err">\</span><span class="s2">.&quot;</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">four_slicefactor_patterns</span> <span class="o">=</span> <span class="err">[</span>
+<span class="w">    </span><span class="n">four_slicefactor_patterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqwa</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqwa</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqwb</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqwb</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqy</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqy</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqm</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqm</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqmc</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqmc</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqml</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqml</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqtlh</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqtlh</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqtli</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqtli</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">r</span><span class="s2">&quot;mqt</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="n">r</span><span class="s2">&quot;mqt</span><span class="err">\</span><span class="s2">.&quot;</span><span class="p">,</span><span class="w"></span>
 
-    <span class="err">]</span>
+<span class="w">    </span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for general MB and MQ elements&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for general MB and MQ elements&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">slice_</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">slice_</span><span class="o">=</span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">slicefactor</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for triplets&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for triplets&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxa&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxa&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">slice_</span><span class="o">=</span><span class="mi">16</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">slicefactor</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxb&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxb&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">slice_</span><span class="o">=</span><span class="mi">16</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">slicefactor</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for various specifc mb elements&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for various specifc mb elements&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">pattern</span> <span class="k">in</span> <span class="n">four_slices_patterns</span><span class="o">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">four_slices_patterns</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="n">slice_</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for varous specifc mq elements&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for varous specifc mq elements&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">pattern</span> <span class="k">in</span> <span class="n">four_slicefactor_patterns</span><span class="o">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">four_slicefactor_patterns</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="n">slice_</span><span class="o">=</span><span class="mi">4</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">slicefactor</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">style</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;teapot&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="no">False</span><span class="p">)</span>  <span class="c1"># defaults to False to compensate default TEAPOT style</span>
+<span class="w">    </span><span class="n">makedipedge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">False</span><span class="p">)</span><span class="w">  </span><span class="c1"># defaults to False to compensate default TEAPOT style</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span><span class="w"> </span><span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span><span class="w"> </span><span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3327,7 +3345,9 @@ will enforce <code>makedipedge</code>.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_sixtrack_output</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">energy</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_sixtrack_output</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">energy</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -3407,7 +3427,9 @@ will enforce <code>makedipedge</code>.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">match_no_coupling_through_ripkens</span><span class="p">(</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">match_no_coupling_through_ripkens</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">location</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">vary_knobs</span><span class="p">:</span><span class="w"> </span><span class="k">Sequence</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="w"></span>
 
@@ -3501,9 +3523,11 @@ will enforce <code>makedipedge</code>.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">power_landau_octupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb nb-Type">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb nb-Type">bool</span> <span class="o">=</span> <span class="n">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="p">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">power_landau_octupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">mo_current</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">,</span><span class="w"> </span><span class="n">beam</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">defective_arc</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">False</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="p">:</span><span class="w"></span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Power the Landau octupoles in the (HL)LHC.</span>
 
@@ -3517,37 +3541,37 @@ will enforce <code>makedipedge</code>.</p>
 
 <span class="sd">        defective_arc: If set to `True`, the KOD in Arc 56 are powered for less Imax.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">try</span><span class="p">:</span>
+<span class="w">    </span><span class="n">try</span><span class="p">:</span><span class="w"></span>
 
-        <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
+<span class="w">        </span><span class="n">brho</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">1e9</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span><span class="w">  </span><span class="c1"># clight is MAD-X constant</span><span class="w"></span>
 
-    <span class="n">except</span> <span class="n">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
+<span class="w">    </span><span class="n">except</span><span class="w"> </span><span class="n">AttributeError</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">madx_error</span><span class="p">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">raise</span> <span class="n">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="n">from</span> <span class="n">madx_error</span>
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">madx_error</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
+<span class="w">    </span><span class="n">strength</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mo_current</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">brho</span><span class="w"></span>
 
-    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+<span class="w">    </span><span class="n">beam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">beam</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">arc</span> <span class="ow">in</span> <span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span><span class="w"></span>
 
-        <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">fd</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="s2">&quot;FD&quot;</span><span class="p">:</span><span class="w"></span>
 
-            <span class="n">octupole</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;KO{fd}.{arc}&quot;</span>
+<span class="w">            </span><span class="n">octupole</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="s2">&quot;KO{fd}.{arc}&quot;</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering element &#39;{octupole}&#39; at {strength} Amps&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Powering element &#39;{octupole}&#39; at {strength} Amps&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
+<span class="w">            </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strength</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">defective_arc</span> <span class="ow">and</span> <span class="p">(</span><span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">defective_arc</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="p">(</span><span class="n">beam</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">):</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span>
+<span class="w">        </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">strength</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">4.65</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">6</span><span class="w">  </span><span class="c1"># defective MO group</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3590,9 +3614,11 @@ will enforce <code>makedipedge</code>.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;IP3&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;lhcb1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">start</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;IP3&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    Re-cycle the provided sequence from a different starting point.</span>
 
@@ -3604,17 +3630,17 @@ will enforce <code>makedipedge</code>.</p>
 
 <span class="s">        start (str): element to start the new cycle from.</span>
 
-<span class="s">    &quot;&quot;&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s">&quot;Re-cycling sequence &#39;</span><span class="p">{</span><span class="n">sequence</span><span class="p">}</span><span class="s">&#39; from {start}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s">&quot;Re-cycling sequence &#39;</span><span class="p">{</span><span class="n">sequence</span><span class="p">}</span><span class="s">&#39; from {start}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">flatten</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="kd">ende</span><span class="n">dit</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="kd">ende</span><span class="n">dit</span><span class="p">()</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3643,9 +3669,11 @@ will enforce <code>makedipedge</code>.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">reset_lhc_bump_flags</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">reset_lhc_bump_flags</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    Resets all LHC IP bump flags to 0.</span>
 
@@ -3653,29 +3681,29 @@ will enforce <code>makedipedge</code>.</p>
 
 <span class="s">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="s">    &quot;&quot;&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Resetting all LHC IP bump flags&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s">&quot;Resetting all LHC IP bump flags&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">ALL_BUMPS</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">    </span><span class="n">ALL_BUMPS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">LHC_ANGLE_FLAGS</span>
+<span class="w">        </span><span class="n">LHC_ANGLE_FLAGS</span><span class="w"></span>
 
-        <span class="o">+</span> <span class="n">LHC_CROSSING_ANGLE_FLAGS</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">LHC_CROSSING_ANGLE_FLAGS</span><span class="w"></span>
 
-        <span class="o">+</span> <span class="n">LHC_EXPERIMENT_STATE_FLAGS</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">LHC_EXPERIMENT_STATE_FLAGS</span><span class="w"></span>
 
-        <span class="o">+</span> <span class="n">LHC_IP2_SPECIAL_FLAG</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">LHC_IP2_SPECIAL_FLAG</span><span class="w"></span>
 
-        <span class="o">+</span> <span class="n">LHC_IP_OFFSET_FLAGS</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">LHC_IP_OFFSET_FLAGS</span><span class="w"></span>
 
-        <span class="o">+</span> <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span>
+<span class="w">        </span><span class="o">+</span><span class="w"> </span><span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">with</span> <span class="n">madx</span><span class="p">.</span><span class="n">batch</span><span class="p">()</span><span class="o">:</span>
+<span class="w">    </span><span class="n">with</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="n">batch</span><span class="p">()</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="p">.</span><span class="n">update</span><span class="p">({</span><span class="n">bump</span><span class="o">:</span> <span class="mi">0</span> <span class="n">for</span> <span class="n">bump</span> <span class="kr">in</span> <span class="n">ALL_BUMPS</span><span class="p">})</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="p">.</span><span class="n">update</span><span class="p">({</span><span class="n">bump</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">bump</span><span class="w"> </span><span class="kr">in</span><span class="w"> </span><span class="n">ALL_BUMPS</span><span class="p">})</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3741,13 +3769,15 @@ these elements.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">vary_independent_ir_quadrupoles</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">vary_independent_ir_quadrupoles</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">quad_numbers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb nb-Type">int</span><span class="p">],</span> <span class="n">ip</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">,</span> <span class="n">sides</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">),</span> <span class="n">beam</span><span class="p">:</span> <span class="nb nb-Type">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">quad_numbers</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">[</span><span class="nb nb-Type">int</span><span class="p">],</span><span class="w"> </span><span class="n">ip</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">sides</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;l&quot;</span><span class="p">),</span><span class="w"> </span><span class="n">beam</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="p">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="p">:</span><span class="w"></span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Send the `vary` commands for the desired quadrupoles in the IRs. The independent quadrupoles for which</span>
 
@@ -3771,69 +3801,69 @@ these elements.</p>
 
 <span class="sd">        beam (int): the beam for which to apply the instructions. Defaults to 1.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="p">(</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+<span class="w">        </span><span class="n">ip</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"></span>
 
-        <span class="ow">or</span> <span class="n">any</span><span class="p">(</span><span class="n">side</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">)</span>
+<span class="w">        </span><span class="ow">or</span><span class="w"> </span><span class="n">any</span><span class="p">(</span><span class="n">side</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;L&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sides</span><span class="p">)</span><span class="w"></span>
 
-        <span class="ow">or</span> <span class="n">any</span><span class="p">(</span><span class="n">quad</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="k">for</span> <span class="n">quad</span> <span class="ow">in</span> <span class="n">quad_numbers</span><span class="p">)</span>
+<span class="w">        </span><span class="ow">or</span><span class="w"> </span><span class="n">any</span><span class="p">(</span><span class="n">quad</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">9</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w"> </span><span class="mi">11</span><span class="p">,</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="mi">13</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">quad</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">quad_numbers</span><span class="p">)</span><span class="w"></span>
 
-    <span class="p">):</span>
+<span class="w">    </span><span class="p">):</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Either the IP number of the side provided are invalid, not applying any error.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Either the IP number of the side provided are invalid, not applying any error.&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">raise</span> <span class="n">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;quad_numbers&#39;, &#39;ip&#39;, &#39;sides&#39; argument&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;quad_numbers&#39;, &#39;ip&#39;, &#39;sides&#39; argument&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Preparing a knob involving quadrupoles {quad_numbers}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Preparing a knob involving quadrupoles {quad_numbers}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1"># Each quad has a specific power circuit used for their k1 boundaries</span>
+<span class="w">    </span><span class="c1"># Each quad has a specific power circuit used for their k1 boundaries</span><span class="w"></span>
 
-    <span class="n">power_circuits</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb nb-Type">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="w">    </span><span class="n">power_circuits</span><span class="p">:</span><span class="w"> </span><span class="n">Dict</span><span class="p">[</span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="nb">str</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
-        <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;mqy&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">4</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqy&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">5</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqml&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">6</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqml&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">7</span><span class="p">:</span> <span class="s2">&quot;mqm&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">7</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqm&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">8</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">8</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqml&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">9</span><span class="p">:</span> <span class="s2">&quot;mqm&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">9</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqm&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">10</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">10</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqml&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">11</span><span class="p">:</span> <span class="s2">&quot;mqtli&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">11</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqtli&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">12</span><span class="p">:</span> <span class="s2">&quot;mqt&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">12</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqt&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="mi">13</span><span class="p">:</span> <span class="s2">&quot;mqt&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="mi">13</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mqt&quot;</span><span class="p">,</span><span class="w"></span>
 
-    <span class="p">}</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">quad</span> <span class="ow">in</span> <span class="n">quad_numbers</span><span class="p">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">quad</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">quad_numbers</span><span class="p">:</span><span class="w"></span>
 
-        <span class="n">circuit</span> <span class="o">=</span> <span class="n">power_circuits</span><span class="p">[</span><span class="n">quad</span><span class="p">]</span>
+<span class="w">        </span><span class="n">circuit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">power_circuits</span><span class="p">[</span><span class="n">quad</span><span class="p">]</span><span class="w"></span>
 
-        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">side</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sides</span><span class="p">:</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Sending vary command for Q{quad}{side.upper()}{ip}&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Sending vary command for Q{quad}{side.upper()}{ip}&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">vary</span><span class="p">(</span>
+<span class="w">            </span><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">vary</span><span class="p">(</span><span class="w"></span>
 
-                <span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;kq{&#39;t&#39; if quad &gt;= 11 else &#39;&#39;}{&#39;l&#39; if quad == 11 else &#39;&#39;}{quad}.{side}{ip}b{beam}&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">name</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;kq{&#39;t&#39; if quad &gt;= 11 else &#39;&#39;}{&#39;l&#39; if quad == 11 else &#39;&#39;}{quad}.{side}{ip}b{beam}&quot;</span><span class="p">,</span><span class="w"></span>
 
-                <span class="n">step</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
+<span class="w">                </span><span class="n">step</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span><span class="w"></span>
 
-                <span class="n">lower</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;-{circuit}.{&#39;b&#39; if quad == 7 else &#39;&#39;}{quad}{side}{ip}.b{beam}-&gt;kmax/brho&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">lower</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;-{circuit}.{&#39;b&#39; if quad == 7 else &#39;&#39;}{quad}{side}{ip}.b{beam}-&gt;kmax/brho&quot;</span><span class="p">,</span><span class="w"></span>
 
-                <span class="n">upper</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;+{circuit}.{&#39;b&#39; if quad == 7 else &#39;&#39;}{quad}{side}{ip}.b{beam}-&gt;kmax/brho&quot;</span><span class="p">,</span>
+<span class="w">                </span><span class="n">upper</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;+{circuit}.{&#39;b&#39; if quad == 7 else &#39;&#39;}{quad}{side}{ip}.b{beam}-&gt;kmax/brho&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="p">)</span>
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>

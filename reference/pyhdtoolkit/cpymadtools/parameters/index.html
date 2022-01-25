@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1183,7 +1183,9 @@
 <p>Module cpymadtools.parameters</p>
 <hr />
 <p>Created on 2020.02.03</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.parameters</span>
 
@@ -1274,9 +1276,11 @@ manual for details.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">query_beam_attributes</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MADXBeam</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">query_beam_attributes</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">MADXBeam</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Returns all `BEAM` attributes from the `MAD-X` process based on the currently defined beam. If no beam</span>
 
@@ -1292,11 +1296,11 @@ manual for details.</p>
 
 <span class="s2">        A validated `MADXBeam` object.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrieving BEAM attributes from the MAD-X process&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Retrieving BEAM attributes from the MAD-X process&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">MADXBeam</span><span class="p">(</span><span class="o">**</span><span class="n">dict</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="n">beam</span><span class="p">))</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">MADXBeam</span><span class="p">(</span><span class="o">**</span><span class="n">dict</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="n">beam</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>

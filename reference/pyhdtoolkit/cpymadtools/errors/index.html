@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1225,7 +1225,9 @@
 <p>Module cpymadtools.errors</p>
 <hr />
 <p>Created on 2020.02.03</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.errors</span>
 
@@ -1591,7 +1593,9 @@ different layouts incompatible with this function.</p>
             dy=1e-5,  # ok too as cpymad converts this to a string first
             dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
         )</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
@@ -1780,7 +1784,9 @@ lattice, this will misalign all slices of the magnet together. This is a conveni
 <p>Examples:
     misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-5 * TGAUSS(2.5)")
     misalign_lhc_triplets(madx, ip=5, sides="RL", dpsi="0.001 * TGAUSS(2.5)")</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">misalign_lhc_triplets</span><span class="p">(</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">misalign_lhc_triplets</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="nl">ip</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">,</span><span class="w"> </span><span class="nl">sides</span><span class="p">:</span><span class="w"> </span><span class="k">Sequence</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;l&quot;</span><span class="p">),</span><span class="w"> </span><span class="nc">table</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;triplet_errors&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
 
@@ -1889,9 +1895,11 @@ lattice, this will misalign all slices of the magnet together. This is a conveni
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">switch_magnetic_errors</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">switch_magnetic_errors</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
 
@@ -1913,31 +1921,31 @@ lattice, this will misalign all slices of the magnet together. This is a conveni
 
 <span class="s2">    In all kwargs, the order # should be in the range (1...15), where 1 == dipolar field.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting magnetic errors&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting magnetic errors&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">global_default</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="no">False</span><span class="p">)</span>
+<span class="w">    </span><span class="n">global_default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span><span class="w"> </span><span class="no">False</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="k">order</span> <span class="k">in</span> <span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">16</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting up for order {order}&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting up for order {order}&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">order_default</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;AB{order:d}&quot;</span><span class="p">,</span> <span class="n">global_default</span><span class="p">)</span>
+<span class="w">        </span><span class="n">order_default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;AB{order:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">global_default</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">for</span> <span class="n">ab</span> <span class="k">in</span> <span class="s2">&quot;AB&quot;</span><span class="o">:</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">ab</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;AB&quot;</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">ab_default</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{ab}{order:d}&quot;</span><span class="p">,</span> <span class="n">order_default</span><span class="p">)</span>
+<span class="w">            </span><span class="n">ab_default</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{ab}{order:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">order_default</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">for</span> <span class="n">sr</span> <span class="k">in</span> <span class="s2">&quot;sr&quot;</span><span class="o">:</span>
+<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">sr</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="s2">&quot;sr&quot;</span><span class="o">:</span><span class="w"></span>
 
-                <span class="k">name</span> <span class="o">=</span> <span class="n">f</span><span class="s2">&quot;{ab}{order:d}{sr}&quot;</span>
+<span class="w">                </span><span class="k">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="s2">&quot;{ab}{order:d}{sr}&quot;</span><span class="w"></span>
 
-                <span class="n">error_value</span> <span class="o">=</span> <span class="kt">int</span><span class="p">(</span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="k">name</span><span class="p">,</span> <span class="n">ab_default</span><span class="p">))</span>
+<span class="w">                </span><span class="n">error_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="n">kwargs</span><span class="p">.</span><span class="k">get</span><span class="p">(</span><span class="k">name</span><span class="p">,</span><span class="w"> </span><span class="n">ab_default</span><span class="p">))</span><span class="w"></span>
 
-                <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting global for &#39;ON_{name}&#39; to {error_value}&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting global for &#39;ON_{name}&#39; to {error_value}&quot;</span><span class="p">)</span><span class="w"></span>
 
-                <span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="n">f</span><span class="s2">&quot;ON_{name}&quot;</span><span class="err">]</span> <span class="o">=</span> <span class="n">error_value</span>
+<span class="w">                </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="err">[</span><span class="n">f</span><span class="s2">&quot;ON_{name}&quot;</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">error_value</span><span class="w"></span>
 </code></pre></div>
 
 </details>

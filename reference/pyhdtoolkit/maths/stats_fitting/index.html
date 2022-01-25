@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1225,7 +1225,9 @@
 <p>Module maths.stats_fitting</p>
 <hr />
 <p>Created on 2020.02.06</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module maths.stats_fitting</span>
 
@@ -1523,7 +1525,9 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">best_fit_distribution</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">best_fit_distribution</span><span class="p">(</span>
 
     <span class="nn">data</span><span class="p">:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">pd</span><span class="p">.</span><span class="nv">Series</span><span class="p">,</span> <span class="s s-Atom">np</span><span class="p">.</span><span class="s s-Atom">ndarray</span><span class="p">],</span> <span class="nn">bins</span><span class="p">:</span> <span class="s s-Atom">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="nn">ax</span><span class="p">:</span> <span class="s s-Atom">matplotlib</span><span class="p">.</span><span class="s s-Atom">axes</span><span class="p">.</span><span class="nv">Axes</span> <span class="o">=</span> <span class="nv">None</span>
 
@@ -1678,33 +1682,35 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_pdf</span><span class="p">(</span><span class="nf">distribution</span><span class="o">:</span> <span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">params</span><span class="o">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">float</span><span class="p">,</span> <span class="p">...],</span> <span class="n">size</span><span class="o">:</span> <span class="n">int</span> <span class="o">=</span> <span class="mi">25</span><span class="n">_000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_pdf</span><span class="p">(</span><span class="nf">distribution</span><span class="o">:</span><span class="w"> </span><span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">,</span><span class="w"> </span><span class="n">params</span><span class="o">:</span><span class="w"> </span><span class="n">Tuple</span><span class="p">[</span><span class="n">float</span><span class="p">,</span><span class="w"> </span><span class="p">...],</span><span class="w"> </span><span class="n">size</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="n">_000</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">Series</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
-<span class="s">    Generate a pandas Series for the distributions&#39;</span><span class="n">s</span> <span class="n">Probability</span> <span class="nf">Distribution</span> <span class="kr">Function</span><span class="p">.</span> <span class="n">This</span> <span class="n">Series</span>
+<span class="s">    Generate a pandas Series for the distributions&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">Probability</span><span class="w"> </span><span class="nf">Distribution</span><span class="w"> </span><span class="kr">Function</span><span class="p">.</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">Series</span><span class="w"></span>
 
-    <span class="n">will</span> <span class="n">have</span> <span class="n">axis</span> <span class="n">values</span> <span class="kr">as</span> <span class="nf">index</span><span class="p">,</span> <span class="kr">and</span> <span class="n">PDF</span> <span class="n">values</span> <span class="kr">as</span> <span class="n">values</span><span class="p">.</span>
+<span class="w">    </span><span class="n">will</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="n">axis</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nf">index</span><span class="p">,</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">PDF</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">values</span><span class="p">.</span><span class="w"></span>
 
-    <span class="n">Args</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Args</span><span class="o">:</span><span class="w"></span>
 
-        <span class="nf">distribution</span> <span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">)</span><span class="o">:</span> <span class="n">a</span> <span class="n">scipy</span><span class="p">.</span><span class="n">stats</span> <span class="n">generator</span> <span class="n">object</span>
+<span class="w">        </span><span class="nf">distribution</span><span class="w"> </span><span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">scipy</span><span class="p">.</span><span class="n">stats</span><span class="w"> </span><span class="n">generator</span><span class="w"> </span><span class="n">object</span><span class="w"></span>
 
-        <span class="n">params</span> <span class="p">(</span><span class="n">Tuple</span><span class="p">[</span><span class="n">float</span><span class="p">,</span> <span class="p">...])</span><span class="o">:</span> <span class="n">the</span> <span class="n">parameters</span> <span class="n">for</span> <span class="n">this</span> <span class="n">generator</span> <span class="n">given</span> <span class="n">back</span> <span class="n">by</span> <span class="n">the</span> <span class="n">fit</span><span class="p">.</span>
+<span class="w">        </span><span class="n">params</span><span class="w"> </span><span class="p">(</span><span class="n">Tuple</span><span class="p">[</span><span class="n">float</span><span class="p">,</span><span class="w"> </span><span class="p">...])</span><span class="o">:</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">parameters</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">generator</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">back</span><span class="w"> </span><span class="n">by</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">fit</span><span class="p">.</span><span class="w"></span>
 
-        <span class="n">size</span> <span class="p">(</span><span class="n">int</span><span class="p">)</span><span class="o">:</span> <span class="n">the</span> <span class="n">number</span> <span class="kr">of</span> <span class="n">points</span> <span class="n">to</span> <span class="kr">evaluate</span><span class="p">.</span>
+<span class="w">        </span><span class="n">size</span><span class="w"> </span><span class="p">(</span><span class="n">int</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">points</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="kr">evaluate</span><span class="p">.</span><span class="w"></span>
 
-    <span class="n">Returns</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Returns</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">A</span> <span class="n">pandas</span> <span class="n">Series</span> <span class="n">object</span> <span class="n">with</span> <span class="n">the</span> <span class="n">PDF</span> <span class="kr">as</span> <span class="n">values</span><span class="p">,</span> <span class="n">corresponding</span> <span class="n">axis</span> <span class="n">values</span> <span class="kr">as</span> <span class="nf">index</span><span class="p">.</span>
+<span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="n">pandas</span><span class="w"> </span><span class="n">Series</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">PDF</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">values</span><span class="p">,</span><span class="w"> </span><span class="n">corresponding</span><span class="w"> </span><span class="n">axis</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="nf">index</span><span class="p">.</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    # Separate parts of parameters</span>
 
 <span class="s">    *args, loc, scale = params</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Getting</span> <span class="n">sane</span> <span class="n">start</span> <span class="kr">and</span> <span class="kd">end </span><span class="n">points</span> <span class="kr">of</span> <span class="nf">distribution</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Getting</span><span class="w"> </span><span class="n">sane</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="kd">end </span><span class="n">points</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="nf">distribution</span><span class="s">&quot;)</span>
 
 <span class="s">    start = (</span>
 
@@ -1714,7 +1720,7 @@
 
 <span class="s">    end = distribution.ppf(0.99, *args, loc=loc, scale=scale) if args else distribution.ppf(0.99, loc=loc, scale=scale)</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Building</span> <span class="n">PDF</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Building</span><span class="w"> </span><span class="n">PDF</span><span class="s">&quot;)</span>
 
 <span class="s">    x = np.linspace(start, end, size)</span>
 
@@ -1777,9 +1783,11 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">set_distributions_dict</span><span class="p">(</span><span class="n">dist_dict</span><span class="o">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">set_distributions_dict</span><span class="p">(</span><span class="n">dist_dict</span><span class="o">:</span><span class="w"> </span><span class="n">Dict</span><span class="p">[</span><span class="n">st</span><span class="p">.</span><span class="n">rv_continuous</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to</span>
 
@@ -1797,15 +1805,15 @@
 
 <span class="s">        Nothing, but modifies the global DISTRIBUTIONS dict called by other functions.</span>
 
-<span class="s">    &quot;&quot;&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="err">#</span> <span class="n">pylint</span><span class="o">:</span> <span class="n">disable</span><span class="o">=</span><span class="kr">global</span><span class="o">-</span><span class="n">statement</span>
+<span class="w">    </span><span class="err">#</span><span class="w"> </span><span class="n">pylint</span><span class="o">:</span><span class="w"> </span><span class="n">disable</span><span class="o">=</span><span class="kr">global</span><span class="o">-</span><span class="n">statement</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Setting tested distributions&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Setting tested distributions&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="kr">global</span> <span class="n">DISTRIBUTIONS</span>
+<span class="w">    </span><span class="kr">global</span><span class="w"> </span><span class="n">DISTRIBUTIONS</span><span class="w"></span>
 
-    <span class="n">DISTRIBUTIONS</span> <span class="o">=</span> <span class="n">dist_dict</span>
+<span class="w">    </span><span class="n">DISTRIBUTIONS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dist_dict</span><span class="w"></span>
 </code></pre></div>
 
 </details>

@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1225,7 +1225,9 @@
 <p>Module cpymadtools.ptc</p>
 <hr />
 <p>Created on 2020.02.03</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.ptc</span>
 
@@ -1743,13 +1745,15 @@ Normal Form).</p>
     already set for <code>PTC_NORMAL</code> to avoid trying to override them.</p>
 <p>Returns:
     A <code>TfsDataframe</code> with results.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_amplitude_detuning</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_amplitude_detuning</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="k">order</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">fringe</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.</span>
 
@@ -1795,91 +1799,91 @@ Normal Form).</p>
 
 <span class="s2">        A `TfsDataframe` with results.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="k">order</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">3</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="k">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Maximum amplitude detuning order in PTC is 2, but {order:d} was requested&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="k">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Maximum amplitude detuning order in PTC is 2, but {order:d} was requested&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">raise</span> <span class="n">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;PTC amplitude detuning is not implemented for order &gt; 2&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;PTC amplitude detuning is not implemented for order &gt; 2&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span><span class="w">  </span><span class="c1"># use madx alignment errors</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting tune orders&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting tune orders&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">q1</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">q1</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">ii</span> <span class="k">in</span> <span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="k">order</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">:</span>  <span class="c1"># These are d^iQ/ddp^i</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">ii</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="o">:</span><span class="w">  </span><span class="c1"># These are d^iQ/ddp^i</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">dq1</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="n">dq1</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">dq2</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;{ii:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="c1"># ANH = anharmonicities (ex, ey, deltap), works only with parameters as full strings</span>
+<span class="w">    </span><span class="c1"># ANH = anharmonicities (ex, ey, deltap), works only with parameters as full strings</span><span class="w"></span>
 
-    <span class="c1"># could be done nicer with permutations ...</span>
+<span class="w">    </span><span class="c1"># could be done nicer with permutations ...</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting anharmonicities&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting anharmonicities&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="k">order</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
 
-        <span class="c1"># madx.select_ptc_normal(&#39;anhx=0, 0, 1&#39;)  # dQx/ddp</span>
+<span class="w">        </span><span class="c1"># madx.select_ptc_normal(&#39;anhx=0, 0, 1&#39;)  # dQx/ddp</span><span class="w"></span>
 
-        <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 1&#39;)  # dQy/ddp</span>
+<span class="w">        </span><span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 1&#39;)  # dQy/ddp</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dex</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 0, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># dQx/dex</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dey</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 1, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># dQx/dey</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dex</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 0, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># dQy/dex</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dey</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 1, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># dQy/dey</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="k">order</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">order</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="w"></span>
 
-        <span class="c1"># madx.select_ptc_normal(&#39;anhx=0, 0, 2&#39;)  # d^2Qx/ddp^2</span>
+<span class="w">        </span><span class="c1"># madx.select_ptc_normal(&#39;anhx=0, 0, 2&#39;)  # d^2Qx/ddp^2</span><span class="w"></span>
 
-        <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 2&#39;)  # d^2Qy/ddp^2</span>
+<span class="w">        </span><span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 2&#39;)  # d^2Qy/ddp^2</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dex^2</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=2, 0, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># d^2Qx/dex^2</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dexdey</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 1, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># d^2Qx/dexdey</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dey^2</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=0, 2, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># d^2Qx/dey^2</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dex^2</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=2, 0, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># d^2Qy/dex^2</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dexdey</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 1, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># d^2Qy/dexdey</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qy/dey^2</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 2, 0&quot;</span><span class="p">)</span><span class="w">  </span><span class="c1"># d^2Qy/dey^2</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Normal&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Normal&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">closed_orbit</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_normal</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="k">no</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">closed_orbit</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;normal_results&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span><span class="w"> </span><span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;normal_results&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">dframe</span><span class="p">.</span><span class="k">index</span> <span class="o">=</span> <span class="k">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">dframe</span><span class="p">.</span><span class="k">NAME</span><span class="p">))</span>  <span class="c1"># table has a weird index</span>
+<span class="w">    </span><span class="n">dframe</span><span class="p">.</span><span class="k">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">dframe</span><span class="p">.</span><span class="k">NAME</span><span class="p">))</span><span class="w">  </span><span class="c1"># table has a weird index</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="k">file</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exporting results to disk at &#39;{Path(file).absolute()}&#39;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exporting results to disk at &#39;{Path(file).absolute()}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">file</span><span class="p">,</span> <span class="n">dframe</span><span class="p">)</span>
+<span class="w">        </span><span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">file</span><span class="p">,</span><span class="w"> </span><span class="n">dframe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">dframe</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dframe</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1913,13 +1917,15 @@ through the provided <code>Madx</code> instance.</p>
     already set for <code>PTC_TWISS</code> to avoid trying to override them.</p>
 <p>Returns:
     A <code>TfsDataframe</code> with results.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_rdts</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_rdts</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="k">order</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">fringe</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD), but this has been heavily refactored.</span>
 
@@ -1963,37 +1969,37 @@ through the provided <code>Madx</code> instance.</p>
 
 <span class="s2">        A `TfsDataframe` with results.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span><span class="w">  </span><span class="c1"># use madx alignment errors</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">trackrdts</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span><span class="w"> </span><span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">trackrdts</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">,</span> <span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span><span class="w"> </span><span class="k">table_name</span><span class="o">=</span><span class="s2">&quot;twissrdt&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="k">file</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exporting results to disk at &#39;{Path(file).absolute()}&#39;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exporting results to disk at &#39;{Path(file).absolute()}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">file</span><span class="p">,</span> <span class="n">dframe</span><span class="p">)</span>
+<span class="w">        </span><span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">file</span><span class="p">,</span><span class="w"> </span><span class="n">dframe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">dframe</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dframe</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -2042,31 +2048,33 @@ tracking mode.</p>
     are simply numbered 'observation_point_1', 'observation_point_2' etc. The first observation point
     always corresponds to the start of machine, the others correspond to the ones manually defined,
     in the order they are defined in.</p>
-<div class="codehilite"><pre><span></span><code><span class="k">If</span> <span class="n">the</span> <span class="k">user</span> <span class="n">has</span> <span class="k">set</span> <span class="n n-Quoted">`onetable`</span> <span class="k">to</span> <span class="n n-Quoted">`True`</span><span class="p">,</span> <span class="k">only</span> <span class="k">one</span> <span class="n">entry</span> <span class="k">is</span> <span class="k">in</span> <span class="n">the</span> <span class="n">dictionary</span> <span class="n">under</span> <span class="n">the</span> <span class="k">key</span>
-<span class="s1">&#39;trackone&#39;</span> <span class="k">and</span> <span class="n">it</span> <span class="n">has</span> <span class="n">the</span> <span class="n">combined</span> <span class="k">table</span> <span class="k">as</span> <span class="n">a</span> <span class="n">pandas</span> <span class="n">DataFrame</span> <span class="k">for</span> <span class="k">value</span><span class="p">.</span>
+<div class="codehilite"><pre><span></span><code><span class="k">If</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="k">set</span><span class="w"> </span><span class="n n-Quoted">`onetable`</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n n-Quoted">`True`</span><span class="p">,</span><span class="w"> </span><span class="k">only</span><span class="w"> </span><span class="k">one</span><span class="w"> </span><span class="n">entry</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">dictionary</span><span class="w"> </span><span class="n">under</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">key</span><span class="w"></span>
+<span class="s1">&#39;trackone&#39;</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">combined</span><span class="w"> </span><span class="k">table</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">pandas</span><span class="w"> </span><span class="n">DataFrame</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">value</span><span class="p">.</span><span class="w"></span>
 </code></pre></div>
 
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">ptc_track_particle</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">ptc_track_particle</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">initial_coordinates</span><span class="o">:</span> <span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span>
+<span class="w">    </span><span class="n">initial_coordinates</span><span class="o">:</span><span class="w"> </span><span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">nturns</span><span class="o">:</span> <span class="kt">int</span><span class="p">,</span>
+<span class="w">    </span><span class="n">nturns</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">sequence</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">observation_points</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span>
+<span class="w">    </span><span class="n">observation_points</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">onetable</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
+<span class="w">    </span><span class="n">onetable</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span>
+<span class="w">    </span><span class="n">fringe</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">,</span><span class="w"></span>
 
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="w">    </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="err">[</span><span class="n">str</span><span class="p">,</span> <span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="err">]</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="err">[</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">pd</span><span class="p">.</span><span class="n">DataFrame</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Tracks a single particle for nturns through PTC_TRACK, based on its initial coordinates.</span>
 
@@ -2138,65 +2146,65 @@ tracking mode.</p>
 
 <span class="s2">        &#39;trackone&#39; and it has the combined table as a pandas DataFrame for value.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Performing single particle PTC (thick) tracking&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Performing single particle PTC (thick) tracking&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">start</span> <span class="o">=</span> <span class="n">initial_coordinates</span> <span class="k">if</span> <span class="n">initial_coordinates</span> <span class="k">else</span> <span class="err">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="err">]</span>
+<span class="w">    </span><span class="k">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">initial_coordinates</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">initial_coordinates</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">[</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">observation_points</span> <span class="o">=</span> <span class="n">observation_points</span> <span class="k">if</span> <span class="n">observation_points</span> <span class="k">else</span> <span class="err">[]</span>
+<span class="w">    </span><span class="n">observation_points</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">observation_points</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">observation_points</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="err">[]</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">str</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Sequence &#39;{sequence}&#39; was provided and will be used, beware that this will erase errors etc.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Sequence &#39;{sequence}&#39; was provided and will be used, beware that this will erase errors etc.&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Using sequence &#39;{sequence}&#39; for tracking&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Using sequence &#39;{sequence}&#39; for tracking&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span><span class="w">  </span><span class="c1"># use madx alignment errors</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;{initial_coordinates}&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Tracking coordinates with initial X, PX, Y, PY, T, PT of &#39;{initial_coordinates}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_start</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span> <span class="n">PX</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">1</span><span class="err">]</span><span class="p">,</span> <span class="n">Y</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">2</span><span class="err">]</span><span class="p">,</span> <span class="n">PY</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">3</span><span class="err">]</span><span class="p">,</span> <span class="n">T</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">4</span><span class="err">]</span><span class="p">,</span> <span class="n">PT</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">5</span><span class="err">]</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_start</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">PX</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">1</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">Y</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">2</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">PY</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">3</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">T</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">4</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">PT</span><span class="o">=</span><span class="k">start</span><span class="err">[</span><span class="mi">5</span><span class="err">]</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">element</span> <span class="k">in</span> <span class="n">observation_points</span><span class="o">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">observation_points</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting observation point for tracking with OBSERVE at element &#39;{element}&#39;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Setting observation point for tracking with OBSERVE at element &#39;{element}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="n">element</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_observe</span><span class="p">(</span><span class="n">place</span><span class="o">=</span><span class="n">element</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_track</span><span class="p">(</span><span class="n">turns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span> <span class="n">element_by_element</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">onetable</span><span class="o">=</span><span class="n">onetable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">ptc_track</span><span class="p">(</span><span class="n">turns</span><span class="o">=</span><span class="n">nturns</span><span class="p">,</span><span class="w"> </span><span class="n">element_by_element</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">onetable</span><span class="o">=</span><span class="n">onetable</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">onetable</span><span class="o">:</span>  <span class="c1"># user asked for ONETABLE, there will only be one table &#39;trackone&#39; given back by MAD-X</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">onetable</span><span class="o">:</span><span class="w">  </span><span class="c1"># user asked for ONETABLE, there will only be one table &#39;trackone&#39; given back by MAD-X</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Because of option ONETABLE only one table &#39;TRACKONE&#39; exists to be returned.&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="err">{</span><span class="s2">&quot;trackone&quot;</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">trackone</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="err">}</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="s2">&quot;trackone&quot;</span><span class="o">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">trackone</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="err">}</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="err">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
 
-        <span class="n">f</span><span class="s2">&quot;observation_point_{point:d}&quot;</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="err">[</span><span class="n">f</span><span class="s2">&quot;track.obs{point:04d}.p0001&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span>
+<span class="w">        </span><span class="n">f</span><span class="s2">&quot;observation_point_{point:d}&quot;</span><span class="o">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="err">[</span><span class="n">f</span><span class="s2">&quot;track.obs{point:04d}.p0001&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">()</span><span class="w"></span>
 
-        <span class="k">for</span> <span class="kt">point</span> <span class="k">in</span> <span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>  <span class="c1"># len(observation_points) + 1 for start of</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="kt">point</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">observation_points</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1"># len(observation_points) + 1 for start of</span><span class="w"></span>
 
-        <span class="c1"># machine + 1 because MAD-X starts indexing these at 1</span>
+<span class="w">        </span><span class="c1"># machine + 1 because MAD-X starts indexing these at 1</span><span class="w"></span>
 
-    <span class="err">}</span>
+<span class="w">    </span><span class="err">}</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -2232,13 +2240,15 @@ manual for details) <code>normal=True</code> to trigger saving the normal form a
     already set for <code>PTC_TWISS</code> to avoid trying to override them.</p>
 <p>Returns:
     A <code>TfsDataframe</code> with results.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">ptc_twiss</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">ptc_twiss</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">order</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">fringe</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span> <span class="k">table</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;ptc_twiss&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="k">order</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="k">Path</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">fringe</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">,</span><span class="w"> </span><span class="k">table</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;ptc_twiss&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Calculate the TWISS parameters according to G. Ripken&#39;s formalism via `PTC_TWISS`, with sensible defaults</span>
 
@@ -2284,37 +2294,37 @@ manual for details) <code>normal=True</code> to trigger saving the normal form a
 
 <span class="s2">        A `TfsDataframe` with results.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating PTC universe&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_universe</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Creating PTC layout&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_create_layout</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="n">nst</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">exact</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Incorporating MAD-X alignment errors&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span>  <span class="c1"># use madx alignment errors</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_align</span><span class="p">()</span><span class="w">  </span><span class="c1"># use madx alignment errors</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_setswitch</span><span class="p">(</span><span class="n">fringe</span><span class="o">=</span><span class="n">fringe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing PTC Twiss&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="k">table</span><span class="o">=</span><span class="k">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_twiss</span><span class="p">(</span><span class="n">icase</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="k">no</span><span class="o">=</span><span class="k">order</span><span class="p">,</span><span class="w"> </span><span class="n">normal</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="k">table</span><span class="o">=</span><span class="k">table</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">ptc_end</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="k">table_name</span><span class="o">=</span><span class="k">table</span><span class="p">,</span> <span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span><span class="w"> </span><span class="k">table_name</span><span class="o">=</span><span class="k">table</span><span class="p">,</span><span class="w"> </span><span class="n">headers_table</span><span class="o">=</span><span class="s2">&quot;ptc_twiss_summary&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="k">file</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exporting results to disk at &#39;{Path(file).absolute()}&#39;&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Exporting results to disk at &#39;{Path(file).absolute()}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">file</span><span class="p">,</span> <span class="n">dframe</span><span class="p">)</span>
+<span class="w">        </span><span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">file</span><span class="p">,</span><span class="w"> </span><span class="n">dframe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">dframe</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">dframe</span><span class="w"></span>
 </code></pre></div>
 
 </details>

@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1211,7 +1211,9 @@
 <p>Module cpymadtools.matching</p>
 <hr />
 <p>Created on 2020.02.03</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.matching</span>
 
@@ -1423,7 +1425,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">varied_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>
 
     <span class="k">elif</span> <span class="n">q1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">q2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
@@ -1431,7 +1433,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">varied_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be tune knobs</span>
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be tune knobs</span>
 
     <span class="k">elif</span> <span class="n">dq1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
@@ -1439,7 +1441,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">varied_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be chromaticity knobs</span>
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be chromaticity knobs</span>
 
 <span class="k">def</span> <span class="nf">get_closest_tune_approach</span><span class="p">(</span>
 
@@ -1764,29 +1766,31 @@ as it will determine the appropriate targets from the Madx instance's internal t
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_closest_tune_approach</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_closest_tune_approach</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">None</span><span class="p">,</span>
+<span class="w">    </span><span class="n">accelerator</span><span class="p">:</span><span class="w"> </span><span class="nb">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">None</span><span class="p">,</span>
+<span class="w">    </span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="nb">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">varied_knobs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">None</span><span class="p">,</span>
+<span class="w">    </span><span class="n">varied_knobs</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb nb-Type">bool</span> <span class="o">=</span> <span class="n">True</span><span class="p">,</span>
+<span class="w">    </span><span class="n">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">True</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">explicit_targets</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb nb-Type">float</span><span class="p">,</span> <span class="nb nb-Type">float</span><span class="p">]</span> <span class="o">=</span> <span class="n">None</span><span class="p">,</span>
+<span class="w">    </span><span class="n">explicit_targets</span><span class="p">:</span><span class="w"> </span><span class="n">Tuple</span><span class="p">[</span><span class="nb nb-Type">float</span><span class="p">,</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">step</span><span class="p">:</span> <span class="nb nb-Type">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span>
+<span class="w">    </span><span class="n">step</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-7</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">calls</span><span class="p">:</span> <span class="nb nb-Type">float</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+<span class="w">    </span><span class="n">calls</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
 
-    <span class="n">tolerance</span><span class="p">:</span> <span class="nb nb-Type">float</span> <span class="o">=</span> <span class="mf">1e-21</span><span class="p">,</span>
+<span class="w">    </span><span class="n">tolerance</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-21</span><span class="p">,</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">float</span><span class="p">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">:</span><span class="w"></span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Provided with an active `cpymad` class after having ran a script, tries to match the tunes to</span>
 
@@ -1834,99 +1838,99 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="sd">        The closest tune approach, in absolute value.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">accelerator</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">varied_knobs</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">accelerator</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">varied_knobs</span><span class="p">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Getting knobs from default {accelerator.upper()} values&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Getting knobs from default {accelerator.upper()} values&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">varied_knobs</span> <span class="o">=</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+<span class="w">        </span><span class="n">varied_knobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
 
-            <span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">telescopic_squeeze</span><span class="o">=</span><span class="n">telescopic_squeeze</span>
+<span class="w">            </span><span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span><span class="w"> </span><span class="n">beam</span><span class="o">=</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span><span class="w"> </span><span class="n">telescopic_squeeze</span><span class="o">=</span><span class="n">telescopic_squeeze</span><span class="w"></span>
 
-        <span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running TWISS to update SUMM and TWISS tables&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running TWISS to update SUMM and TWISS tables&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving knob values to restore after closest tune approach&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving knob values to restore after closest tune approach&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">saved_knobs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb nb-Type">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">knob</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob</span><span class="p">]</span> <span class="k">for</span> <span class="n">knob</span> <span class="ow">in</span> <span class="n">varied_knobs</span><span class="p">}</span>
+<span class="w">    </span><span class="n">saved_knobs</span><span class="p">:</span><span class="w"> </span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">knob</span><span class="p">:</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob</span><span class="p">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">knob</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">varied_knobs</span><span class="p">}</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Saved knobs are {saved_knobs}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Saved knobs are {saved_knobs}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">explicit_targets</span><span class="p">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">explicit_targets</span><span class="p">:</span><span class="w"></span>
 
-        <span class="n">qx_target</span><span class="p">,</span> <span class="n">qy_target</span> <span class="o">=</span> <span class="n">explicit_targets</span>
+<span class="w">        </span><span class="n">qx_target</span><span class="p">,</span><span class="w"> </span><span class="n">qy_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">explicit_targets</span><span class="w"></span>
 
-        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">qx_target</span><span class="p">,</span> <span class="n">qy_target</span>  <span class="c1"># the integer part is used later on</span>
+<span class="w">        </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qx_target</span><span class="p">,</span><span class="w"> </span><span class="n">qy_target</span><span class="w">  </span><span class="c1"># the integer part is used later on</span><span class="w"></span>
 
-    <span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="k">else</span><span class="p">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes and chromaticities from internal tables&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes and chromaticities from internal tables&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">        </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
 
-    <span class="n">dq1</span><span class="p">,</span> <span class="n">dq2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="w">    </span><span class="n">dq1</span><span class="p">,</span><span class="w"> </span><span class="n">dq2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Determining target tunes for closest approach&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Determining target tunes for closest approach&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">middle_of_fractional_tunes</span> <span class="o">=</span> <span class="p">(</span><span class="n">_fractional_tune</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="o">+</span> <span class="n">_fractional_tune</span><span class="p">(</span><span class="n">q2</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="w">    </span><span class="n">middle_of_fractional_tunes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">_fractional_tune</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">_fractional_tune</span><span class="p">(</span><span class="n">q2</span><span class="p">))</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span><span class="w"></span>
 
-    <span class="n">qx_target</span> <span class="o">=</span> <span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="o">+</span> <span class="n">middle_of_fractional_tunes</span>
+<span class="w">    </span><span class="n">qx_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">middle_of_fractional_tunes</span><span class="w"></span>
 
-    <span class="n">qy_target</span> <span class="o">=</span> <span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span> <span class="o">+</span> <span class="n">middle_of_fractional_tunes</span>
+<span class="w">    </span><span class="n">qy_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">middle_of_fractional_tunes</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Performing closest tune approach routine, matching should fail at DeltaQ = dqmin&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Performing closest tune approach routine, matching should fail at DeltaQ = dqmin&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">match_tunes_and_chromaticities</span><span class="p">(</span>
+<span class="w">    </span><span class="n">match_tunes_and_chromaticities</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">,</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">accelerator</span><span class="p">,</span>
+<span class="w">        </span><span class="n">accelerator</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">sequence</span><span class="p">,</span>
+<span class="w">        </span><span class="n">sequence</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">q1_target</span><span class="o">=</span><span class="n">qx_target</span><span class="p">,</span>
+<span class="w">        </span><span class="n">q1_target</span><span class="o">=</span><span class="n">qx_target</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">q2_target</span><span class="o">=</span><span class="n">qy_target</span><span class="p">,</span>
+<span class="w">        </span><span class="n">q2_target</span><span class="o">=</span><span class="n">qy_target</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">dq1_target</span><span class="o">=</span><span class="n">dq1</span><span class="p">,</span>
+<span class="w">        </span><span class="n">dq1_target</span><span class="o">=</span><span class="n">dq1</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">dq2_target</span><span class="o">=</span><span class="n">dq2</span><span class="p">,</span>
+<span class="w">        </span><span class="n">dq2_target</span><span class="o">=</span><span class="n">dq2</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">varied_knobs</span><span class="o">=</span><span class="n">varied_knobs</span><span class="p">,</span>
+<span class="w">        </span><span class="n">varied_knobs</span><span class="o">=</span><span class="n">varied_knobs</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+<span class="w">        </span><span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">calls</span><span class="o">=</span><span class="n">calls</span><span class="p">,</span>
+<span class="w">        </span><span class="n">calls</span><span class="o">=</span><span class="n">calls</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">,</span>
+<span class="w">        </span><span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">,</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tune separation from internal tables&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tune separation from internal tables&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">dqmin</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="o">-</span> <span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q2</span><span class="p">))</span>
+<span class="w">    </span><span class="n">dqmin</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">q2</span><span class="p">))</span><span class="w"></span>
 
-    <span class="n">cminus</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dqmin</span><span class="p">)</span>
+<span class="w">    </span><span class="n">cminus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">dqmin</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Matching got to a Closest Tune Approach of {cminus:.4f}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Matching got to a Closest Tune Approach of {cminus:.4f}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Restoring saved knobs&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Restoring saved knobs&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">with</span> <span class="n">madx</span><span class="o">.</span><span class="n">batch</span><span class="p">():</span>
+<span class="w">    </span><span class="n">with</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">batch</span><span class="p">():</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_knobs</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_knobs</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">cminus</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cminus</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1997,7 +2001,9 @@ as it will determine the appropriate targets from the Madx instance's internal t
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">accelerator</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
 
@@ -2196,7 +2202,9 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">match_tunes_and_chromaticities</span><span class="p">(</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">match_tunes_and_chromaticities</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 

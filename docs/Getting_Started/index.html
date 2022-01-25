@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1200,7 +1200,9 @@ You can install it simply in a virtual environment with:</p>
 <p>Don't know what a <strong>virtual environment</strong> is or how to set it up? Here is a good
 <a href="https://realpython.com/python-virtual-environments-a-primer/">primer on virtual environments</a> by RealPython.</p>
 </div>
-<details class="question"><summary>How about a development environment?</summary><p>Sure thing. This repository uses <a href="https://python-poetry.org/">Poetry</a> as a packaging and build tool. To set yourself 
+<details class="question">
+<summary>How about a development environment?</summary>
+<p>Sure thing. This repository uses <a href="https://python-poetry.org/">Poetry</a> as a packaging and build tool. To set yourself 
 up, get a local copy through VCS and run:</p>
 <div class="highlight"><pre><span></span><code>poetry install
 </code></pre></div>
@@ -1209,7 +1211,9 @@ You can format the code with <code>make format</code> and lint it (which will fo
 <p>Testing builds are ensured after each commit through Github Actions.
 You can run tests locally with the predefined <code>make tests</code>, or through <code>poetry run pytest &lt;options&gt;</code> for customized options.</p>
 </details>
-<details class="question"><summary>How can I easily reproduce your research done with this?</summary><p>This repository comes with an <code>environment.yml</code> file to reproduce my work <code>conda</code> environment, feel free to use it.
+<details class="question">
+<summary>How can I easily reproduce your research done with this?</summary>
+<p>This repository comes with an <code>environment.yml</code> file to reproduce my work <code>conda</code> environment, feel free to use it.
 If you checked out from version control, you can install this environment and add it to your ipython kernel by running <code>make condaenv</code>.</p>
 <p>If you are comfortable with containers, a fully-fetched one is provided and accessible through Docker as explained below. </p>
 </details>
@@ -1228,13 +1232,13 @@ Assuming you pulled the provided image from Dockerhub, run a jupyterlab server o
 <h2 id="citing">Citing</h2>
 <p>If you have a use of these codes, please consider citing them.
 The repository has a <a href="https://zenodo.org/badge/latestdoi/227081702">DOI</a> provided by <a href="https://zenodo.org">Zenodo</a>, and all versions can be cited with the following BibTeX entry:
-<div class="highlight"><pre><span></span><code><span class="nc">@software</span><span class="p">{</span><span class="nl">pyhdtoolkit</span><span class="p">,</span>
-  <span class="na">author</span>       <span class="p">=</span> <span class="s">{Felix Soubelet}</span><span class="p">,</span>
-  <span class="na">title</span>        <span class="p">=</span> <span class="s">{fsoubelet/PyhDToolkit}</span><span class="p">,</span>
-  <span class="na">publisher</span>    <span class="p">=</span> <span class="s">{Zenodo}</span><span class="p">,</span>
-  <span class="na">doi</span>          <span class="p">=</span> <span class="s">{10.5281/zenodo.4268804}</span><span class="p">,</span>
-  <span class="na">url</span>          <span class="p">=</span> <span class="s">{https://doi.org/10.5281/zenodo.4268804}</span>
-<span class="p">}</span>
+<div class="highlight"><pre><span></span><code><span class="nc">@software</span><span class="p">{</span><span class="nl">pyhdtoolkit</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">author</span><span class="w">       </span><span class="p">=</span><span class="w"> </span><span class="s">{Felix Soubelet}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">title</span><span class="w">        </span><span class="p">=</span><span class="w"> </span><span class="s">{fsoubelet/PyhDToolkit}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">publisher</span><span class="w">    </span><span class="p">=</span><span class="w"> </span><span class="s">{Zenodo}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">doi</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="s">{10.5281/zenodo.4268804}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">url</span><span class="w">          </span><span class="p">=</span><span class="w"> </span><span class="s">{https://doi.org/10.5281/zenodo.4268804}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </code></pre></div></p>
 <p>To cite a specific version, select the version on the package's page on Zotero and export the BibTex entry at the bottom right of the page.</p>
                 

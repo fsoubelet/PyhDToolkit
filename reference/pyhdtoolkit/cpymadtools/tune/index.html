@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1211,7 +1211,9 @@
 <p>Module cpymadtools.tune</p>
 <hr />
 <p>Created on 2021.04.01</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.tune</span>
 
@@ -1826,9 +1828,11 @@ to be correct and should be checked with a quick plot.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_footprint_lines</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="o">:</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="err">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="err">]</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_footprint_lines</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="o">:</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Tuple</span><span class="err">[</span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Provided with the `TfsDataFrame` returned by `make_footprint_table()`, determines the various (Qx, Qy)</span>
 
@@ -1850,7 +1854,7 @@ to be correct and should be checked with a quick plot.</p>
 
 <span class="s2">        qxs, qys = get_footprint_lines(dynap_tfs)</span>
 
-<span class="s2">        plt.plot(qxs, qys, &quot;</span><span class="n">o</span><span class="o">--</span><span class="s2">&quot;, label=&quot;</span><span class="n">Tune</span> <span class="n">Footprint</span> <span class="k">from</span> <span class="n">DYNAP</span> <span class="k">Table</span><span class="s2">&quot;)</span>
+<span class="s2">        plt.plot(qxs, qys, &quot;</span><span class="n">o</span><span class="o">--</span><span class="s2">&quot;, label=&quot;</span><span class="n">Tune</span><span class="w"> </span><span class="n">Footprint</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">DYNAP</span><span class="w"> </span><span class="k">Table</span><span class="s2">&quot;)</span>
 
 <span class="s2">        ```</span>
 
@@ -1862,25 +1866,25 @@ to be correct and should be checked with a quick plot.</p>
 
 <span class="s2">        The Qx and Qy data points to plot directly, both as numpy.ndarrays.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Determining footprint plottable&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Determining footprint plottable&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving AMPLITUDE, ANGLE and DSIGMA data from TfsDataFrame headers&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving AMPLITUDE, ANGLE and DSIGMA data from TfsDataFrame headers&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">amplitude</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">.</span><span class="n">headers</span><span class="err">[</span><span class="s2">&quot;AMPLITUDE&quot;</span><span class="err">]</span>
+<span class="w">    </span><span class="n">amplitude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dynap_dframe</span><span class="p">.</span><span class="n">headers</span><span class="err">[</span><span class="s2">&quot;AMPLITUDE&quot;</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">angle</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">.</span><span class="n">headers</span><span class="err">[</span><span class="s2">&quot;ANGLE&quot;</span><span class="err">]</span>
+<span class="w">    </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dynap_dframe</span><span class="p">.</span><span class="n">headers</span><span class="err">[</span><span class="s2">&quot;ANGLE&quot;</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">dsigma</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">.</span><span class="n">headers</span><span class="err">[</span><span class="s2">&quot;DSIGMA&quot;</span><span class="err">]</span>
+<span class="w">    </span><span class="n">dsigma</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dynap_dframe</span><span class="p">.</span><span class="n">headers</span><span class="err">[</span><span class="s2">&quot;DSIGMA&quot;</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">tune_groups</span> <span class="o">=</span> <span class="n">_make_tune_groups</span><span class="p">(</span><span class="n">dynap_string_rep</span><span class="o">=</span><span class="n">_get_dynap_string_rep</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">),</span> <span class="n">dsigma</span><span class="o">=</span><span class="n">dsigma</span><span class="p">)</span>
+<span class="w">    </span><span class="n">tune_groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_make_tune_groups</span><span class="p">(</span><span class="n">dynap_string_rep</span><span class="o">=</span><span class="n">_get_dynap_string_rep</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">),</span><span class="w"> </span><span class="n">dsigma</span><span class="o">=</span><span class="n">dsigma</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">footprint</span> <span class="o">=</span> <span class="n">_Footprint</span><span class="p">(</span><span class="n">tune_groups</span><span class="p">,</span> <span class="n">amplitude</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">)</span>
+<span class="w">    </span><span class="n">footprint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_Footprint</span><span class="p">(</span><span class="n">tune_groups</span><span class="p">,</span><span class="w"> </span><span class="n">amplitude</span><span class="p">,</span><span class="w"> </span><span class="n">angle</span><span class="p">,</span><span class="w"> </span><span class="n">dsigma</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">qxs</span><span class="p">,</span> <span class="n">qys</span> <span class="o">=</span> <span class="n">footprint</span><span class="p">.</span><span class="n">get_plottable</span><span class="p">()</span>
+<span class="w">    </span><span class="n">qxs</span><span class="p">,</span><span class="w"> </span><span class="n">qys</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">footprint</span><span class="p">.</span><span class="n">get_plottable</span><span class="p">()</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">qxs</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kt">float</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">qys</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kt">float</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">qxs</span><span class="p">,</span><span class="w"> </span><span class="n">dtype</span><span class="o">=</span><span class="kt">float</span><span class="p">),</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">array</span><span class="p">(</span><span class="n">qys</span><span class="p">,</span><span class="w"> </span><span class="n">dtype</span><span class="o">=</span><span class="kt">float</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1937,7 +1941,9 @@ or <code>AMPLITUDE</code> values in <code>dynap_dframe</code>'s headers.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">get_footprint_patches</span><span class="p">(</span><span class="s s-Atom">dynap_dframe:</span> <span class="s s-Atom">tfs</span><span class="p">.</span><span class="nv">TfsDataFrame</span><span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="s s-Atom">matplotlib</span><span class="p">.</span><span class="s s-Atom">collections</span><span class="p">.</span><span class="nv">PatchCollection</span><span class="s s-Atom">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">get_footprint_patches</span><span class="p">(</span><span class="s s-Atom">dynap_dframe:</span> <span class="s s-Atom">tfs</span><span class="p">.</span><span class="nv">TfsDataFrame</span><span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="s s-Atom">matplotlib</span><span class="p">.</span><span class="s s-Atom">collections</span><span class="p">.</span><span class="nv">PatchCollection</span><span class="s s-Atom">:</span>
 
     <span class="s2">&quot;&quot;&quot;</span>
 
@@ -2126,13 +2132,15 @@ this function.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">make_footprint_table</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">make_footprint_table</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sigma</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dense</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">,</span> <span class="k">file</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">cleanup</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">sigma</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">dense</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">,</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">cleanup</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the</span>
 
@@ -2166,119 +2174,119 @@ this function.</p>
 
 <span class="s2">        The resulting `dynaptune` table, as a pandas DataFrame.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">small</span><span class="p">,</span> <span class="n">big</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+<span class="w">    </span><span class="n">small</span><span class="p">,</span><span class="w"> </span><span class="n">big</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.05</span><span class="p">,</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">0.05</span><span class="w"> </span><span class="o">**</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">sigma_multiplier</span><span class="p">,</span> <span class="n">angle_multiplier</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">0</span>
+<span class="w">    </span><span class="n">sigma_multiplier</span><span class="p">,</span><span class="w"> </span><span class="n">angle_multiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.1</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initializing particles&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initializing particles&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">track</span><span class="p">()</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">track</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">small</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">small</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">small</span><span class="p">,</span><span class="w"> </span><span class="n">fy</span><span class="o">=</span><span class="n">small</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">while</span> <span class="n">sigma_multiplier</span> <span class="o">&lt;=</span> <span class="n">sigma</span> <span class="o">+</span> <span class="mi">1</span><span class="o">:</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">sigma</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">angle</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">angle_multiplier</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
+<span class="w">        </span><span class="n">angle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">angle_multiplier</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="n">pi</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">180</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">angle_multiplier</span> <span class="o">==</span> <span class="mi">0</span><span class="o">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">angle_multiplier</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">big</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">small</span><span class="p">)</span>
+<span class="w">            </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">big</span><span class="p">,</span><span class="w"> </span><span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">small</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">elif</span> <span class="n">angle_multiplier</span> <span class="o">==</span> <span class="mi">6</span><span class="o">:</span>
+<span class="w">        </span><span class="n">elif</span><span class="w"> </span><span class="n">angle_multiplier</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">6</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">small</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">big</span><span class="p">)</span>
+<span class="w">            </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">small</span><span class="p">,</span><span class="w"> </span><span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">big</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">else</span><span class="o">:</span>
+<span class="w">        </span><span class="k">else</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="nf">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+<span class="w">            </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="nf">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span><span class="w"> </span><span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="nf">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span><span class="w"></span>
 
-        <span class="n">angle_multiplier</span> <span class="o">+=</span> <span class="mf">0.5</span>
+<span class="w">        </span><span class="n">angle_multiplier</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mf">0.5</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="kt">int</span><span class="p">(</span><span class="n">angle_multiplier</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="o">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="n">angle_multiplier</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">7</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">angle_multiplier</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">            </span><span class="n">angle_multiplier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 
-            <span class="n">sigma_multiplier</span> <span class="o">+=</span> <span class="mi">1</span> <span class="k">if</span> <span class="k">not</span> <span class="n">dense</span> <span class="k">else</span> <span class="mf">0.5</span>
+<span class="w">            </span><span class="n">sigma_multiplier</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">dense</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mf">0.5</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting DYNAP tracking with initialized particles&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting DYNAP tracking with initialized particles&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">try</span><span class="o">:</span>
+<span class="w">    </span><span class="n">try</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">dynap</span><span class="p">(</span><span class="n">fastune</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">turns</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">dynap</span><span class="p">(</span><span class="n">fastune</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">turns</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endtrack</span><span class="p">()</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endtrack</span><span class="p">()</span><span class="w"></span>
 
-    <span class="k">except</span> <span class="n">RuntimeError</span> <span class="k">as</span> <span class="n">madx_crash</span><span class="o">:</span>
+<span class="w">    </span><span class="k">except</span><span class="w"> </span><span class="n">RuntimeError</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">madx_crash</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="w"></span>
 
-            <span class="s2">&quot;Remote MAD-X process crashed, most likely because you did not slice the sequence &quot;</span>
+<span class="w">            </span><span class="s2">&quot;Remote MAD-X process crashed, most likely because you did not slice the sequence &quot;</span><span class="w"></span>
 
-            <span class="s2">&quot;before running DYNAP. Restart and slice before calling this function.&quot;</span>
+<span class="w">            </span><span class="s2">&quot;before running DYNAP. Restart and slice before calling this function.&quot;</span><span class="w"></span>
 
-        <span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">raise</span> <span class="n">RuntimeError</span><span class="p">(</span><span class="s2">&quot;DYNAP command crashed the MAD-X process&quot;</span><span class="p">)</span> <span class="k">from</span> <span class="n">madx_crash</span>
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">RuntimeError</span><span class="p">(</span><span class="s2">&quot;DYNAP command crashed the MAD-X process&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">madx_crash</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="n">cleanup</span> <span class="k">and</span> <span class="n">sys</span><span class="p">.</span><span class="n">platform</span> <span class="k">not</span> <span class="k">in</span> <span class="p">(</span><span class="s2">&quot;win32&quot;</span><span class="p">,</span> <span class="s2">&quot;cygwin&quot;</span><span class="p">)</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">cleanup</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">sys</span><span class="p">.</span><span class="n">platform</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="p">(</span><span class="s2">&quot;win32&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;cygwin&quot;</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-        <span class="c1"># fails on Windows due to its I/O system, since MAD-X still has &quot;control&quot; of the files</span>
+<span class="w">        </span><span class="c1"># fails on Windows due to its I/O system, since MAD-X still has &quot;control&quot; of the files</span><span class="w"></span>
 
-        <span class="n">try</span><span class="o">:</span>
+<span class="w">        </span><span class="n">try</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cleaning up DYNAP output files `fort.69` and `lyapunov.data`&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Cleaning up DYNAP output files `fort.69` and `lyapunov.data`&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">Path</span><span class="p">(</span><span class="s2">&quot;fort.69&quot;</span><span class="p">).</span><span class="n">unlink</span><span class="p">()</span>
+<span class="w">            </span><span class="k">Path</span><span class="p">(</span><span class="s2">&quot;fort.69&quot;</span><span class="p">).</span><span class="n">unlink</span><span class="p">()</span><span class="w"></span>
 
-            <span class="k">Path</span><span class="p">(</span><span class="s2">&quot;lyapunov.data&quot;</span><span class="p">).</span><span class="n">unlink</span><span class="p">()</span>
+<span class="w">            </span><span class="k">Path</span><span class="p">(</span><span class="s2">&quot;lyapunov.data&quot;</span><span class="p">).</span><span class="n">unlink</span><span class="p">()</span><span class="w"></span>
 
-        <span class="k">except</span> <span class="n">FileNotFoundError</span><span class="o">:</span>
+<span class="w">        </span><span class="k">except</span><span class="w"> </span><span class="n">FileNotFoundError</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not cleanup DYNAP output files, they might have not been created&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not cleanup DYNAP output files, they might have not been created&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">tfs_dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span>
+<span class="w">    </span><span class="n">tfs_dframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="w"></span>
 
-        <span class="k">data</span><span class="o">=</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">dynaptune</span><span class="p">.</span><span class="n">dframe</span><span class="p">(),</span>
+<span class="w">        </span><span class="k">data</span><span class="o">=</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">dynaptune</span><span class="p">.</span><span class="n">dframe</span><span class="p">(),</span><span class="w"></span>
 
-        <span class="n">headers</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span>
+<span class="w">        </span><span class="n">headers</span><span class="o">=</span><span class="n">dict</span><span class="p">(</span><span class="w"></span>
 
-            <span class="k">NAME</span><span class="o">=</span><span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="k">NAME</span><span class="o">=</span><span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="k">TYPE</span><span class="o">=</span><span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="k">TYPE</span><span class="o">=</span><span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">TITLE</span><span class="o">=</span><span class="s2">&quot;FOOTPRINT TABLE&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">TITLE</span><span class="o">=</span><span class="s2">&quot;FOOTPRINT TABLE&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">MADX_VERSION</span><span class="o">=</span><span class="n">str</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="n">version</span><span class="p">).</span><span class="nf">upper</span><span class="p">(),</span>
+<span class="w">            </span><span class="n">MADX_VERSION</span><span class="o">=</span><span class="n">str</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="n">version</span><span class="p">).</span><span class="nf">upper</span><span class="p">(),</span><span class="w"></span>
 
-            <span class="n">ORIGIN</span><span class="o">=</span><span class="s2">&quot;pyhdtoolkit.cpymadtools.tune.make_footprint_table() function&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ORIGIN</span><span class="o">=</span><span class="s2">&quot;pyhdtoolkit.cpymadtools.tune.make_footprint_table() function&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">ANGLE</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>  <span class="c1"># default of the function</span>
+<span class="w">            </span><span class="n">ANGLE</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span><span class="w">  </span><span class="c1"># default of the function</span><span class="w"></span>
 
-            <span class="n">AMPLITUDE</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
+<span class="w">            </span><span class="n">AMPLITUDE</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">DSIGMA</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="k">not</span> <span class="n">dense</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">,</span>
+<span class="w">            </span><span class="n">DSIGMA</span><span class="o">=</span><span class="mi">1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">dense</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">ANGLE_MEANING</span><span class="o">=</span><span class="s2">&quot;Number of different starting angles used for each starting amplitude&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">ANGLE_MEANING</span><span class="o">=</span><span class="s2">&quot;Number of different starting angles used for each starting amplitude&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">AMPLITUDE_MEANING</span><span class="o">=</span><span class="s2">&quot;Up to which bunch sigma the starting amplitudes were ramped up&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">AMPLITUDE_MEANING</span><span class="o">=</span><span class="s2">&quot;Up to which bunch sigma the starting amplitudes were ramped up&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">DSIGMA_MEANING</span><span class="o">=</span><span class="s2">&quot;Increment value of AMPLITUDE at each new starting amplitude&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">DSIGMA_MEANING</span><span class="o">=</span><span class="s2">&quot;Increment value of AMPLITUDE at each new starting amplitude&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="p">),</span>
+<span class="w">        </span><span class="p">),</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">tfs_dframe</span> <span class="o">=</span> <span class="n">tfs_dframe</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="k">drop</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">tfs_dframe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tfs_dframe</span><span class="p">.</span><span class="n">reset_index</span><span class="p">(</span><span class="k">drop</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">if</span> <span class="k">file</span><span class="o">:</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="k">file</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">Path</span><span class="p">(</span><span class="k">file</span><span class="p">).</span><span class="n">absolute</span><span class="p">(),</span> <span class="n">tfs_dframe</span><span class="p">)</span>
+<span class="w">        </span><span class="n">tfs</span><span class="p">.</span><span class="k">write</span><span class="p">(</span><span class="k">Path</span><span class="p">(</span><span class="k">file</span><span class="p">).</span><span class="n">absolute</span><span class="p">(),</span><span class="w"> </span><span class="n">tfs_dframe</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">tfs_dframe</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tfs_dframe</span><span class="w"></span>
 </code></pre></div>
 
 </details>

@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1225,7 +1225,9 @@
 <p>Module utils.defaults</p>
 <hr />
 <p>Created on 2019.11.12</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module utils.defaults</span>
 
@@ -1508,7 +1510,9 @@
     <span class="n">x</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">def</span> <span class="nv">new_type</span><span class="ss">(</span><span class="nv">x</span><span class="ss">)</span>:
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code>    <span class="nv">def</span> <span class="nv">new_type</span><span class="ss">(</span><span class="nv">x</span><span class="ss">)</span>:
 
         <span class="k">return</span> <span class="nv">x</span>
 </code></pre></div>
@@ -1523,9 +1527,11 @@
 <p>Resets the logger object from loguru, with <code>sys.stdout</code> as a sink and the aforedefined format.</p>
 <p>This comes down to personnal preference.
 Any additional keyword argument used is transmitted to the <code>logger.add</code> call.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s">&quot;INFO&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;INFO&quot;</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    Resets the logger object from loguru, with `sys.stdout` as a sink and the aforedefined format.</span>
 
@@ -1533,11 +1539,11 @@ Any additional keyword argument used is transmitted to the <code>logger.add</cod
 
 <span class="s">    Any additional keyword argument used is transmitted to the `logger.add` call.</span>
 
-<span class="s">    &quot;&quot;&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">remove</span><span class="p">()</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">.</span><span class="n">upper</span><span class="p">(),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="p">.</span><span class="n">stdout</span><span class="p">,</span><span class="w"> </span><span class="n">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">.</span><span class="n">upper</span><span class="p">(),</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1551,9 +1557,11 @@ Any additional keyword argument used is transmitted to the <code>logger.add</cod
 but instead simply using <code>plt.style.use("phd")</code>.
 Sometimes, matplotlib will not look for the file in its global config directory, but in the activated
 environment's site-packages data. The file is installed in both places.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">install_mpl_style</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">install_mpl_style</span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Will create a `phd.mplstyle` file in the appropriate directories from the `PLOT_PARAMS` defined in this</span>
 
@@ -1565,35 +1573,35 @@ environment's site-packages data. The file is installed in both places.</p>
 
 <span class="s2">    environment&#39;s site-packages data. The file is installed in both places.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">style_content</span><span class="o">:</span> <span class="n">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{option} : {setting}&quot;</span> <span class="k">for</span> <span class="k">option</span><span class="p">,</span> <span class="k">set</span><span class="n">ting</span> <span class="k">in</span> <span class="n">PLOT_PARAMS</span><span class="p">.</span><span class="n">items</span><span class="p">())</span>
+<span class="w">    </span><span class="n">style_content</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;{option} : {setting}&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="k">option</span><span class="p">,</span><span class="w"> </span><span class="k">set</span><span class="n">ting</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">PLOT_PARAMS</span><span class="p">.</span><span class="n">items</span><span class="p">())</span><span class="w"></span>
 
-    <span class="n">mpl_config_stylelib</span> <span class="o">=</span> <span class="k">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+<span class="w">    </span><span class="n">mpl_config_stylelib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="p">.</span><span class="n">get_configdir</span><span class="p">())</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s2">&quot;stylelib&quot;</span><span class="w"></span>
 
-    <span class="n">mpl_env_stylelib</span> <span class="o">=</span> <span class="k">Path</span><span class="p">(</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">BASE_LIBRARY_PATH</span><span class="p">)</span>
+<span class="w">    </span><span class="n">mpl_env_stylelib</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">Path</span><span class="p">(</span><span class="n">plt</span><span class="p">.</span><span class="n">style</span><span class="p">.</span><span class="n">core</span><span class="p">.</span><span class="n">BASE_LIBRARY_PATH</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">mpl_config_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">mpl_config_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">mpl_env_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">mpl_env_stylelib</span><span class="p">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">exist_ok</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">config_style_file</span> <span class="o">=</span> <span class="n">mpl_config_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+<span class="w">    </span><span class="n">config_style_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpl_config_stylelib</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s2">&quot;phd.mplstyle&quot;</span><span class="w"></span>
 
-    <span class="n">env_style_file</span> <span class="o">=</span> <span class="n">mpl_env_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+<span class="w">    </span><span class="n">env_style_file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">mpl_env_stylelib</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="s2">&quot;phd.mplstyle&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{config_style_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{config_style_file.absolute()}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">config_style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">config_style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">))</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{env_style_file.absolute()}&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating style file at &#39;{env_style_file.absolute()}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">env_style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
+<span class="w">    </span><span class="n">env_style_file</span><span class="p">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">))</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="s2">phd</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="s2">phd</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>

@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1279,7 +1279,9 @@
 <p>Module maths.nonconvex_phase_sync</p>
 <hr />
 <p>Created on 2020.01.13</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">Module maths.nonconvex_phase_sync</span>
 
@@ -1571,31 +1573,33 @@
     <span class="n">measurements_hermitian_matrix</span><span class="p">:</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">PhaseReconstructor</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">class</span><span class="w"> </span><span class="n">PhaseReconstructor</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Class algorithm to reconstruct your phase values.</span>
 
 <span class="s2">    Make sure to provide vectors as `numpy.ndarray` with shape (1, N), N being the dimension.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">__slots__</span> <span class="o">=</span> <span class="err">{</span>
+<span class="w">    </span><span class="n">__slots__</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
 
-        <span class="s2">&quot;c_matrix&quot;</span><span class="o">:</span> <span class="s2">&quot;Hermitian square matrix from your measurements&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;c_matrix&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Hermitian square matrix from your measurements&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="s2">&quot;c_matrix_eigenvalues&quot;</span><span class="o">:</span> <span class="s2">&quot;Eigenvalues of c_matrix&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;c_matrix_eigenvalues&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Eigenvalues of c_matrix&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="s2">&quot;c_matrix_eigenvectors&quot;</span><span class="o">:</span> <span class="s2">&quot;Eigenvectors of c_matrix&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;c_matrix_eigenvectors&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Eigenvectors of c_matrix&quot;</span><span class="p">,</span><span class="w"></span>
 
-        <span class="s2">&quot;space_dimension&quot;</span><span class="o">:</span> <span class="s2">&quot;Dimension of your measurement space&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;space_dimension&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Dimension of your measurement space&quot;</span><span class="p">,</span><span class="w"></span>
 
-    <span class="err">}</span>
+<span class="w">    </span><span class="err">}</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">measurements_hermitian_matrix</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">None</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">measurements_hermitian_matrix</span><span class="o">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Initialize your reconstructor object from measurements.</span>
 
@@ -1605,33 +1609,33 @@
 
 <span class="s2">                module docstring on how to build this matrix.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Checking that the provided matrix is Hermitian&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Checking that the provided matrix is Hermitian&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">np</span><span class="p">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">measurements_hermitian_matrix</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">conj</span><span class="p">(</span><span class="n">measurements_hermitian_matrix</span><span class="p">).</span><span class="n">T</span><span class="p">)</span><span class="o">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">measurements_hermitian_matrix</span><span class="p">,</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">conj</span><span class="p">(</span><span class="n">measurements_hermitian_matrix</span><span class="p">).</span><span class="n">T</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">measurements_hermitian_matrix</span>
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="o">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">measurements_hermitian_matrix</span><span class="w"></span>
 
-            <span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">)</span>
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span><span class="o">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">eigvalsh</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">)</span><span class="w"></span>
 
-            <span class="c1"># Numpy gives the eigenvectors in column form, so transpose is needed there!</span>
+<span class="w">            </span><span class="c1"># Numpy gives the eigenvectors in column form, so transpose is needed there!</span><span class="w"></span>
 
-            <span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvectors</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">)</span><span class="err">[</span><span class="o">-</span><span class="mi">1</span><span class="err">]</span><span class="p">.</span><span class="n">T</span>
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvectors</span><span class="o">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">)</span><span class="err">[</span><span class="o">-</span><span class="mi">1</span><span class="err">]</span><span class="p">.</span><span class="n">T</span><span class="w"></span>
 
-            <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="o">:</span> <span class="kt">int</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">.</span><span class="n">shape</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span>
+<span class="w">            </span><span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">.</span><span class="n">shape</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="w"></span>
 
-        <span class="k">else</span><span class="o">:</span>
+<span class="w">        </span><span class="k">else</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Instantiating a PhaseReconstructor with a non hermitian matrix is not possible&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Instantiating a PhaseReconstructor with a non hermitian matrix is not possible&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">raise</span> <span class="n">ValueError</span><span class="p">(</span><span class="s2">&quot;Provided matrix should be Hermitian&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">raise</span><span class="w"> </span><span class="n">ValueError</span><span class="p">(</span><span class="s2">&quot;Provided matrix should be Hermitian&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="nv">@property</span>
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">alpha</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">float64</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">alpha</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">float64</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        This is a factor used to define the new reconstruction matrix. It is taken either as the</span>
 
@@ -1649,15 +1653,15 @@
 
 <span class="s2">           Applications, 2nd Ed., Orlando, FL, Academic Press, Inc., 1980, pg. 222.)</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">float64</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span><span class="p">)))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">float64</span><span class="p">(</span><span class="nf">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">amin</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span><span class="p">)))</span><span class="w"></span>
 
-    <span class="nv">@property</span>
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">leading_eigenvector</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">leading_eigenvector</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns the leading eigenvector of `self.c_matrix`, which is the eigenvector corresponding</span>
 
@@ -1667,19 +1671,19 @@
 
 <span class="s2">            A `numpy.ndarray` object, corresponding to said eigenvector.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvectors</span><span class="err">[</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvectors</span><span class="err">[</span><span class="w"></span>
 
-            <span class="n">np</span><span class="p">.</span><span class="k">where</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span> <span class="o">==</span> <span class="n">np</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span><span class="p">)))</span>
+<span class="w">            </span><span class="n">np</span><span class="p">.</span><span class="k">where</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">amax</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix_eigenvalues</span><span class="p">)))</span><span class="w"></span>
 
-        <span class="err">]</span><span class="p">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span>
+<span class="w">        </span><span class="err">]</span><span class="p">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span><span class="w"></span>
 
-    <span class="nv">@property</span>
+<span class="w">    </span><span class="nv">@property</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">reconstructor_matrix</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">reconstructor_matrix</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        This is the reconstructor matrix built from `self.c_matrix` and the `alpha` property.</span>
 
@@ -1689,13 +1693,13 @@
 
 <span class="s2">            A `numpy.ndarray`, with same dimension as `self.c_matrix`.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">alpha</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">identity</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">.</span><span class="n">shape</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">alpha</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">identity</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">c_matrix</span><span class="p">.</span><span class="n">shape</span><span class="err">[</span><span class="mi">0</span><span class="err">]</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">eigenvector</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">eigenvector</span><span class="o">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Return the eigenvector estimator of a given eigenvector (id est the component-wise</span>
 
@@ -1711,33 +1715,33 @@
 
 <span class="s2">             A `numpy.ndarray` object of the same dimension as param `eigenvector`.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">try</span><span class="o">:</span>
+<span class="w">        </span><span class="n">try</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">eigenvector</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">except</span> <span class="n">RuntimeWarning</span><span class="o">:</span>  <span class="c1"># In case of 0-division, we don&#39;t want `inf` values from numpy</span>
+<span class="w">        </span><span class="k">except</span><span class="w"> </span><span class="n">RuntimeWarning</span><span class="o">:</span><span class="w">  </span><span class="c1"># In case of 0-division, we don&#39;t want `inf` values from numpy</span><span class="w"></span>
 
-            <span class="c1"># Generate a random complex vector with same dimension (since `eigenvector` is of</span>
+<span class="w">            </span><span class="c1"># Generate a random complex vector with same dimension (since `eigenvector` is of</span><span class="w"></span>
 
-            <span class="c1"># dimension N * 1, `numpy.ndarray.size` method will give us N).</span>
+<span class="w">            </span><span class="c1"># dimension N * 1, `numpy.ndarray.size` method will give us N).</span><span class="w"></span>
 
-            <span class="c1"># Remember to initialize a random real and imaginary part.</span>
+<span class="w">            </span><span class="c1"># Remember to initialize a random real and imaginary part.</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Encountered 0-division, trying normalization&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Encountered 0-division, trying normalization&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<span class="w">            </span><span class="n">e_vect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1j</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">while</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">:</span>  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">eigenvector</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w">  </span><span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span><span class="w"></span>
 
-                <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<span class="w">                </span><span class="n">e_vect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1j</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">e_vect</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">eigenvector</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">reconstruct_complex_phases_evm</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">reconstruct_complex_phases_evm</span><span class="p">(</span><span class="n">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Reconstruct simplest estimator fom the eigenvector method. The result is in complex form,</span>
 
@@ -1747,17 +1751,17 @@
 
 <span class="s2">            The complex form of the result as a &#39;numpy.ndarray&#39; instance.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting complex phase results&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting complex phase results&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">leading_eigenvector</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">leading_eigenvector</span><span class="p">)</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">convert_complex_result_to_phase_values</span><span class="p">(</span><span class="n">complex_estimator</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">deg</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">convert_complex_result_to_phase_values</span><span class="p">(</span><span class="n">complex_estimator</span><span class="o">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"> </span><span class="n">deg</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Casts back the complex form of your result to real phase values.</span>
 
@@ -1773,11 +1777,11 @@
 
 <span class="s2">            A `numpy.ndarray` with the real phase values of the result.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Casting complex phases to real values&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Casting complex phases to real values&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">angle</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">arr</span><span class="o">=</span><span class="n">complex_estimator</span><span class="p">,</span> <span class="n">deg</span><span class="o">=</span><span class="n">deg</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">apply_along_axis</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">angle</span><span class="p">,</span><span class="w"> </span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">arr</span><span class="o">=</span><span class="n">complex_estimator</span><span class="p">,</span><span class="w"> </span><span class="n">deg</span><span class="o">=</span><span class="n">deg</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1796,7 +1800,9 @@
     before being returned. Defaults to False.</p>
 <p>Returns:
     A <code>numpy.ndarray</code> with the real phase values of the result.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">convert_complex_result_to_phase_values</span><span class="p">(</span><span class="nl">complex_estimator</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"> </span><span class="nl">deg</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="nl">ndarray</span><span class="p">:</span><span class="w"></span>
 
@@ -1891,9 +1897,11 @@ implementation.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="n">def</span> <span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">eigenvector</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="n">self</span><span class="p">,</span><span class="w"> </span><span class="n">eigenvector</span><span class="o">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Return the eigenvector estimator of a given eigenvector (id est the component-wise</span>
 
@@ -1909,29 +1917,29 @@ implementation.</p>
 
 <span class="s2">             A `numpy.ndarray` object of the same dimension as param `eigenvector`.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">try</span><span class="o">:</span>
+<span class="w">        </span><span class="n">try</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">)</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">eigenvector</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">except</span> <span class="n">RuntimeWarning</span><span class="o">:</span>  <span class="c1"># In case of 0-division, we don&#39;t want `inf` values from numpy</span>
+<span class="w">        </span><span class="k">except</span><span class="w"> </span><span class="n">RuntimeWarning</span><span class="o">:</span><span class="w">  </span><span class="c1"># In case of 0-division, we don&#39;t want `inf` values from numpy</span><span class="w"></span>
 
-            <span class="c1"># Generate a random complex vector with same dimension (since `eigenvector` is of</span>
+<span class="w">            </span><span class="c1"># Generate a random complex vector with same dimension (since `eigenvector` is of</span><span class="w"></span>
 
-            <span class="c1"># dimension N * 1, `numpy.ndarray.size` method will give us N).</span>
+<span class="w">            </span><span class="c1"># dimension N * 1, `numpy.ndarray.size` method will give us N).</span><span class="w"></span>
 
-            <span class="c1"># Remember to initialize a random real and imaginary part.</span>
+<span class="w">            </span><span class="c1"># Remember to initialize a random real and imaginary part.</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Encountered 0-division, trying normalization&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Encountered 0-division, trying normalization&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<span class="w">            </span><span class="n">e_vect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1j</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">while</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">:</span>  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
+<span class="w">            </span><span class="k">while</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">eigenvector</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w">  </span><span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span><span class="w"></span>
 
-                <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
+<span class="w">                </span><span class="n">e_vect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">1j</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">e_vect</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">eigenvector</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span><span class="w"> </span><span class="err">@</span><span class="w"> </span><span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1957,9 +1965,11 @@ implementation.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="n">def</span> <span class="n">reconstruct_complex_phases_evm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">reconstruct_complex_phases_evm</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Reconstruct simplest estimator fom the eigenvector method. The result is in complex form,</span>
 
@@ -1969,11 +1979,11 @@ implementation.</p>
 
 <span class="sd">            The complex form of the result as a &#39;numpy.ndarray&#39; instance.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting complex phase results&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting complex phase results&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leading_eigenvector</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="bp">self</span><span class="o">.</span><span class="n">get_eigenvector_estimator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">leading_eigenvector</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>

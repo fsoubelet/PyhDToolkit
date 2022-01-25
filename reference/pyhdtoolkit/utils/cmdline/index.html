@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1251,7 +1251,9 @@
 <p>Module utils.cmdline</p>
 <hr />
 <p>Created on 2019.11.06</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module utils.cmdline</span>
 
@@ -1461,15 +1463,17 @@
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">CommandLine</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">class</span><span class="w"> </span><span class="n">CommandLine</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A high-level object to encapsulate the different methods for interacting with the commandline.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A high-level object to encapsulate the different methods for interacting with the commandline.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="o">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Check whether the given PID exists in the current process table.</span>
 
@@ -1481,57 +1485,57 @@
 
 <span class="s2">            A boolean stating the result.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="o">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">pid</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
 
-            <span class="c1"># According to &quot;man 2 kill&quot;, PID 0 refers to &lt;&lt;every process in the process group of</span>
+<span class="w">            </span><span class="c1"># According to &quot;man 2 kill&quot;, PID 0 refers to &lt;&lt;every process in the process group of</span><span class="w"></span>
 
-            <span class="c1"># the calling process&gt;&gt;. Best not to go any further.</span>
+<span class="w">            </span><span class="c1"># the calling process&gt;&gt;. Best not to go any further.</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;PID 0 refers to &#39;every process in calling processes&#39;, and should be untouched&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;PID 0 refers to &#39;every process in calling processes&#39;, and should be untouched&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="no">True</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="no">True</span><span class="w"></span>
 
-        <span class="n">try</span><span class="o">:</span>
+<span class="w">        </span><span class="n">try</span><span class="o">:</span><span class="w"></span>
 
-            <span class="c1"># Sending SIG 0 only checks if process has terminated, we&#39;re not actually terminating it</span>
+<span class="w">            </span><span class="c1"># Sending SIG 0 only checks if process has terminated, we&#39;re not actually terminating it</span><span class="w"></span>
 
-            <span class="n">os</span><span class="p">.</span><span class="k">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="w">            </span><span class="n">os</span><span class="p">.</span><span class="k">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">except</span> <span class="n">OSError</span> <span class="k">as</span> <span class="n">pid_checkout_error</span><span class="o">:</span>
+<span class="w">        </span><span class="k">except</span><span class="w"> </span><span class="n">OSError</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">pid_checkout_error</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">if</span> <span class="n">pid_checkout_error</span><span class="p">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="p">.</span><span class="n">ESRCH</span><span class="o">:</span>  <span class="c1"># ERROR &quot;No such process&quot;</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">pid_checkout_error</span><span class="p">.</span><span class="n">errno</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">errno</span><span class="p">.</span><span class="n">ESRCH</span><span class="o">:</span><span class="w">  </span><span class="c1"># ERROR &quot;No such process&quot;</span><span class="w"></span>
 
-                <span class="k">return</span> <span class="no">False</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="no">False</span><span class="w"></span>
 
-            <span class="k">if</span> <span class="p">(</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 
-                <span class="n">pid_checkout_error</span><span class="p">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="p">.</span><span class="n">EPERM</span>
+<span class="w">                </span><span class="n">pid_checkout_error</span><span class="p">.</span><span class="n">errno</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">errno</span><span class="p">.</span><span class="n">EPERM</span><span class="w"></span>
 
-            <span class="p">)</span><span class="o">:</span>  <span class="c1"># ERROR &quot;Operation not permitted&quot; -&gt; there&#39;s a process to deny access to.</span>
+<span class="w">            </span><span class="p">)</span><span class="o">:</span><span class="w">  </span><span class="c1"># ERROR &quot;Operation not permitted&quot; -&gt; there&#39;s a process to deny access to.</span><span class="w"></span>
 
-                <span class="k">return</span> <span class="no">True</span>
+<span class="w">                </span><span class="k">return</span><span class="w"> </span><span class="no">True</span><span class="w"></span>
 
-            <span class="c1"># According to &quot;man 2 kill&quot; possible error values are (EINVAL, EPERM, ESRCH), therefore</span>
+<span class="w">            </span><span class="c1"># According to &quot;man 2 kill&quot; possible error values are (EINVAL, EPERM, ESRCH), therefore</span><span class="w"></span>
 
-            <span class="c1"># we should never get here. If so let&#39;s be explicit in considering this an error.</span>
+<span class="w">            </span><span class="c1"># we should never get here. If so let&#39;s be explicit in considering this an error.</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not figure out the provided PID for some reason&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not figure out the provided PID for some reason&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">raise</span>
+<span class="w">            </span><span class="n">raise</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="no">True</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="no">True</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">run</span><span class="p">(</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">run</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">command</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">shell</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span> <span class="n">env</span><span class="o">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="k">None</span>
+<span class="w">        </span><span class="n">command</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">shell</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="o">:</span><span class="w"> </span><span class="n">Mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">timeout</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="w"></span>
 
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="err">[</span><span class="k">Optional</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="p">,</span> <span class="n">bytes</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Tuple</span><span class="err">[</span><span class="k">Optional</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.</span>
 
@@ -1583,29 +1587,29 @@
 
 <span class="s2">            CommandLine.run(&#39;echo $ENV_VAR&#39;, env=modified_env) -&gt; (0, b&#39;new_value&#39;)</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span><span class="n">lambda</span> <span class="n">spanned</span><span class="o">:</span> <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Ran command &#39;{command}&#39; in a subprocess, in: {spanned:.4f} seconds&quot;</span><span class="p">))</span><span class="o">:</span>
+<span class="w">        </span><span class="k">with</span><span class="w"> </span><span class="n">timeit</span><span class="p">(</span><span class="n">lambda</span><span class="w"> </span><span class="n">spanned</span><span class="o">:</span><span class="w"> </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Ran command &#39;{command}&#39; in a subprocess, in: {spanned:.4f} seconds&quot;</span><span class="p">))</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+<span class="w">            </span><span class="k">process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">,</span><span class="w"> </span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">STDOUT</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">process</span><span class="p">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="w">            </span><span class="n">stdout</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">process</span><span class="p">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">if</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">:</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
 
-                <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">else</span><span class="o">:</span>
+<span class="w">            </span><span class="k">else</span><span class="o">:</span><span class="w"></span>
 
-                <span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">(),</span> <span class="n">stdout</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">(),</span><span class="w"> </span><span class="n">stdout</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">terminate</span><span class="p">(</span><span class="n">pid</span><span class="o">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">terminate</span><span class="p">(</span><span class="n">pid</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM</span>
 
@@ -1619,19 +1623,19 @@
 
 <span class="s2">            A boolean stating the success of the operation.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">CommandLine</span><span class="p">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span><span class="o">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">CommandLine</span><span class="p">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-            <span class="n">os</span><span class="p">.</span><span class="k">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="k">signal</span><span class="p">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+<span class="w">            </span><span class="n">os</span><span class="p">.</span><span class="k">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="k">signal</span><span class="p">.</span><span class="n">SIGTERM</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process {pid} has successfully been terminated.&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process {pid} has successfully been terminated.&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="no">True</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="no">True</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="k">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process with ID {pid} could not be terminated.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="k">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process with ID {pid} could not be terminated.&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="no">False</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="no">False</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1677,7 +1681,9 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">check_pid_exists</span><span class="p">(</span><span class="nl">pid</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span><span class="w"></span>
 
@@ -1749,43 +1755,45 @@
 <p>Note that <code>stderr</code> is redirected to <code>stdout</code>. <code>shell</code> is same to parameter of <code>Popen</code>.
         If the process does not terminate after <code>timeout</code> seconds, a <code>TimeoutExpired</code> exception
         will be raised.</p>
-<div class="codehilite"><pre><span></span><code>    <span class="n">Args</span><span class="o">:</span>
-        <span class="n">command</span> <span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">:</span> <span class="k">string</span><span class="p">,</span> <span class="n">the</span> <span class="n">command</span> <span class="n">you</span> <span class="n">want</span> <span class="k">to</span> <span class="n">run</span><span class="p">.</span>
-        <span class="n">shell</span> <span class="p">(</span><span class="kt">bool</span><span class="p">)</span><span class="o">:</span> <span class="n">same</span> <span class="k">as</span> <span class="n n-Quoted">`Popen`</span> <span class="n">argument</span><span class="p">.</span> <span class="k">Set</span><span class="n">ting</span> <span class="n">the</span> <span class="n">shell</span> <span class="n">argument</span> <span class="k">to</span> <span class="n">a</span> <span class="no">true</span> <span class="k">value</span>
-            <span class="n">causes</span> <span class="n">subprocess</span> <span class="k">to</span> <span class="n">spawn</span> <span class="n">an</span> <span class="n">intermediate</span> <span class="n">shell</span> <span class="k">process</span><span class="p">,</span> <span class="k">and</span> <span class="n">tell</span> <span class="n">it</span> <span class="k">to</span> <span class="n">run</span> <span class="n">the</span>
-            <span class="n">command</span><span class="p">.</span> <span class="k">In</span> <span class="n">other</span> <span class="n">words</span><span class="p">,</span> <span class="k">using</span> <span class="n">an</span> <span class="n">intermediate</span> <span class="n">shell</span> <span class="n">means</span> <span class="n">that</span> <span class="k">variables</span><span class="p">,</span> <span class="n">glob</span>
-            <span class="n">patterns</span><span class="p">,</span> <span class="k">and</span> <span class="n">other</span> <span class="n">special</span> <span class="n">shell</span> <span class="n">features</span> <span class="k">in</span> <span class="n">the</span> <span class="n">command</span> <span class="k">string</span> <span class="n">are</span> <span class="n">processed</span>
-            <span class="k">before</span> <span class="n">the</span> <span class="n">command</span> <span class="k">is</span> <span class="n">ran</span><span class="p">.</span> <span class="n">Defaults</span> <span class="k">to</span> <span class="no">True</span><span class="p">.</span>
-        <span class="n">env</span> <span class="p">(</span><span class="n">Mapping</span><span class="p">)</span><span class="o">:</span> <span class="n">mapping</span> <span class="n">that</span> <span class="n">defines</span> <span class="n">the</span> <span class="n">environment</span> <span class="k">variables</span> <span class="k">for</span> <span class="n">the</span> <span class="k">new</span> <span class="k">process</span><span class="p">.</span>
-        <span class="n">timeout</span> <span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="o">:</span> <span class="n">same</span> <span class="k">as</span> <span class="n n-Quoted">`Popen.communicate`</span> <span class="n">argument</span><span class="p">,</span> <span class="k">number</span> <span class="k">of</span> <span class="n">seconds</span> <span class="k">to</span> <span class="k">wait</span> <span class="k">for</span> <span class="n">a</span>
-            <span class="n">response</span> <span class="k">before</span> <span class="n">raising</span> <span class="n">a</span> <span class="n">TimeoutExpired</span> <span class="n">exception</span><span class="p">.</span>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="n">Args</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">command</span><span class="w"> </span><span class="p">(</span><span class="n">str</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="k">string</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">run</span><span class="p">.</span><span class="w"></span>
+<span class="w">        </span><span class="n">shell</span><span class="w"> </span><span class="p">(</span><span class="kt">bool</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n n-Quoted">`Popen`</span><span class="w"> </span><span class="n">argument</span><span class="p">.</span><span class="w"> </span><span class="k">Set</span><span class="n">ting</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">argument</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="no">true</span><span class="w"> </span><span class="k">value</span><span class="w"></span>
+<span class="w">            </span><span class="n">causes</span><span class="w"> </span><span class="n">subprocess</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">spawn</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">intermediate</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="k">process</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">tell</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">run</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
+<span class="w">            </span><span class="n">command</span><span class="p">.</span><span class="w"> </span><span class="k">In</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">words</span><span class="p">,</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">intermediate</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">means</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="k">variables</span><span class="p">,</span><span class="w"> </span><span class="n">glob</span><span class="w"></span>
+<span class="w">            </span><span class="n">patterns</span><span class="p">,</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">other</span><span class="w"> </span><span class="n">special</span><span class="w"> </span><span class="n">shell</span><span class="w"> </span><span class="n">features</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">string</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">processed</span><span class="w"></span>
+<span class="w">            </span><span class="k">before</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">command</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">ran</span><span class="p">.</span><span class="w"> </span><span class="n">Defaults</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="no">True</span><span class="p">.</span><span class="w"></span>
+<span class="w">        </span><span class="n">env</span><span class="w"> </span><span class="p">(</span><span class="n">Mapping</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">mapping</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">defines</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">environment</span><span class="w"> </span><span class="k">variables</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="k">process</span><span class="p">.</span><span class="w"></span>
+<span class="w">        </span><span class="n">timeout</span><span class="w"> </span><span class="p">(</span><span class="kt">float</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">same</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n n-Quoted">`Popen.communicate`</span><span class="w"> </span><span class="n">argument</span><span class="p">,</span><span class="w"> </span><span class="k">number</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">seconds</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">wait</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">a</span><span class="w"></span>
+<span class="w">            </span><span class="n">response</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">raising</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">TimeoutExpired</span><span class="w"> </span><span class="n">exception</span><span class="p">.</span><span class="w"></span>
 
-    <span class="k">Returns</span><span class="o">:</span>
-        <span class="n">The</span> <span class="n">tuple</span> <span class="k">of</span> <span class="p">(</span><span class="n">returncode</span><span class="p">,</span> <span class="n">stdout</span><span class="p">).</span> <span class="n">Beware</span><span class="p">,</span> <span class="n">the</span> <span class="n">stdout</span> <span class="n">will</span> <span class="n">be</span> <span class="n">a</span> <span class="k">byte</span> <span class="k">array</span> <span class="p">(</span><span class="n">id</span> <span class="n">est</span>
-        <span class="n">b</span><span class="s1">&#39;some returned text&#39;</span><span class="p">).</span> <span class="n">This</span> <span class="n">output</span><span class="p">,</span> <span class="n">returned</span> <span class="k">as</span> <span class="n">stdout</span><span class="p">,</span> <span class="n">needs</span> <span class="k">to</span> <span class="n">be</span> <span class="n">decoded</span> <span class="n">properly</span>
-        <span class="k">before</span> <span class="n">you</span> <span class="k">do</span> <span class="n">anything</span> <span class="k">with</span> <span class="n">it</span><span class="p">,</span> <span class="n">especially</span> <span class="k">if</span> <span class="n">you</span> <span class="n">intend</span> <span class="k">to</span> <span class="n">log</span> <span class="n">it</span> <span class="k">into</span> <span class="n">a</span> <span class="k">file</span><span class="p">.</span> <span class="k">While</span>
-        <span class="n">it</span> <span class="n">will</span> <span class="n">most</span> <span class="n">likely</span> <span class="n">be</span> <span class="s1">&#39;utf-8&#39;</span><span class="p">,</span> <span class="n">the</span> <span class="n">encoding</span> <span class="n">can</span> <span class="n">vary</span> <span class="k">from</span> <span class="k">system</span> <span class="k">to</span> <span class="k">system</span> <span class="n">so</span> <span class="n">the</span>
-        <span class="n">standard</span> <span class="n">output</span> <span class="k">is</span> <span class="n">returned</span> <span class="k">in</span> <span class="n">bytes</span> <span class="k">format</span> <span class="k">and</span> <span class="n">should</span> <span class="n">be</span> <span class="n">decoded</span> <span class="n">later</span> <span class="k">on</span><span class="p">.</span>
+<span class="w">    </span><span class="k">Returns</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">The</span><span class="w"> </span><span class="n">tuple</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="p">(</span><span class="n">returncode</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="p">).</span><span class="w"> </span><span class="n">Beware</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">stdout</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">byte</span><span class="w"> </span><span class="k">array</span><span class="w"> </span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="n">est</span><span class="w"></span>
+<span class="w">        </span><span class="n">b</span><span class="s1">&#39;some returned text&#39;</span><span class="p">).</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">output</span><span class="p">,</span><span class="w"> </span><span class="n">returned</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">stdout</span><span class="p">,</span><span class="w"> </span><span class="n">needs</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">decoded</span><span class="w"> </span><span class="n">properly</span><span class="w"></span>
+<span class="w">        </span><span class="k">before</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="n">anything</span><span class="w"> </span><span class="k">with</span><span class="w"> </span><span class="n">it</span><span class="p">,</span><span class="w"> </span><span class="n">especially</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">intend</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">log</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="k">into</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">file</span><span class="p">.</span><span class="w"> </span><span class="k">While</span><span class="w"></span>
+<span class="w">        </span><span class="n">it</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">most</span><span class="w"> </span><span class="n">likely</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="s1">&#39;utf-8&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">encoding</span><span class="w"> </span><span class="n">can</span><span class="w"> </span><span class="n">vary</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">system</span><span class="w"> </span><span class="n">so</span><span class="w"> </span><span class="n">the</span><span class="w"></span>
+<span class="w">        </span><span class="n">standard</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">returned</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">bytes</span><span class="w"> </span><span class="k">format</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">decoded</span><span class="w"> </span><span class="n">later</span><span class="w"> </span><span class="k">on</span><span class="p">.</span><span class="w"></span>
 
-    <span class="k">Usage</span><span class="o">:</span>
-        <span class="n">CommandLine</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;echo hello&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="s1">&#39;hello</span>
+<span class="w">    </span><span class="k">Usage</span><span class="o">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">CommandLine</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;echo hello&#39;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="s1">&#39;hello</span>
 </code></pre></div>
 
 <p>')</p>
-<div class="codehilite"><pre><span></span><code>        <span class="n">modified_env</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span>
-        <span class="n">modified_env</span><span class="p">[</span><span class="s">&#39;ENV_VAR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
-        <span class="n">CommandLine</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;echo $ENV_VAR&#39;</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">modified_env</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="s">&#39;new_value&#39;</span><span class="p">)</span>
+<div class="codehilite"><pre><span></span><code><span class="w">        </span><span class="n">modified_env</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">.</span><span class="n">copy</span><span class="p">()</span><span class="w"></span>
+<span class="w">        </span><span class="n">modified_env</span><span class="p">[</span><span class="s">&#39;ENV_VAR&#39;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">new_value</span><span class="w"></span>
+<span class="w">        </span><span class="n">CommandLine</span><span class="p">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;echo $ENV_VAR&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="o">=</span><span class="n">modified_env</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="s">&#39;new_value&#39;</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">run</span><span class="p">(</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">run</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">command</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">shell</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">True</span><span class="p">,</span> <span class="n">env</span><span class="o">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="n">timeout</span><span class="o">:</span> <span class="kt">float</span> <span class="o">=</span> <span class="k">None</span>
+<span class="w">        </span><span class="n">command</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">shell</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">True</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="o">:</span><span class="w"> </span><span class="n">Mapping</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="n">timeout</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="w"></span>
 
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="err">[</span><span class="k">Optional</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="p">,</span> <span class="n">bytes</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Tuple</span><span class="err">[</span><span class="k">Optional</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">bytes</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Run command based on `subprocess.Popen` and return the tuple of `(returncode, stdout)`.</span>
 
@@ -1837,23 +1845,23 @@
 
 <span class="s2">            CommandLine.run(&#39;echo $ENV_VAR&#39;, env=modified_env) -&gt; (0, b&#39;new_value&#39;)</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span><span class="n">lambda</span> <span class="n">spanned</span><span class="o">:</span> <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Ran command &#39;{command}&#39; in a subprocess, in: {spanned:.4f} seconds&quot;</span><span class="p">))</span><span class="o">:</span>
+<span class="w">        </span><span class="k">with</span><span class="w"> </span><span class="n">timeit</span><span class="p">(</span><span class="n">lambda</span><span class="w"> </span><span class="n">spanned</span><span class="o">:</span><span class="w"> </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Ran command &#39;{command}&#39; in a subprocess, in: {spanned:.4f} seconds&quot;</span><span class="p">))</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+<span class="w">            </span><span class="k">process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">subprocess</span><span class="p">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="w"> </span><span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span><span class="w"> </span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">PIPE</span><span class="p">,</span><span class="w"> </span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="p">.</span><span class="n">STDOUT</span><span class="p">,</span><span class="w"> </span><span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="k">process</span><span class="p">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
+<span class="w">            </span><span class="n">stdout</span><span class="p">,</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">process</span><span class="p">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">if</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="o">:</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">()</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"></span>
 
-                <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">else</span><span class="o">:</span>
+<span class="w">            </span><span class="k">else</span><span class="o">:</span><span class="w"></span>
 
-                <span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span>
+<span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">success</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Subprocess command &#39;{command}&#39; finished with exit code: {process.poll()}&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">(),</span> <span class="n">stdout</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">process</span><span class="p">.</span><span class="n">poll</span><span class="p">(),</span><span class="w"> </span><span class="n">stdout</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1898,11 +1906,13 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="err">@</span><span class="n">staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">terminate</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">terminate</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Terminate process by given pid. On Other platforms, using os.kill with signal.SIGTERM</span>
 
@@ -1916,19 +1926,19 @@
 
 <span class="sd">            A boolean stating the success of the operation.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span><span class="w"></span>
 
-            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="k">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
+<span class="w">            </span><span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span><span class="w"> </span><span class="k">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span><span class="w"></span>
 
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process {pid} has successfully been terminated.&quot;</span><span class="p">)</span>
+<span class="w">            </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process {pid} has successfully been terminated.&quot;</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="n">True</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">True</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process with ID {pid} could not be terminated.&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Process with ID {pid} could not be terminated.&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">False</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">False</span><span class="w"></span>
 </code></pre></div>
 
 </details>

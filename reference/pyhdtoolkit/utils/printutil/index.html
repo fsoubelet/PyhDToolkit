@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1303,7 +1303,9 @@
 <p>Module utils.printutil</p>
 <hr />
 <p>Created on 2019.12.11</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">Module utils.printutil</span>
 
@@ -1315,93 +1317,93 @@
 
 <span class="s">A class utility class to allow me printing text in color, bold, etc.</span>
 
-<span class="s">&quot;&quot;&quot;</span>
+<span class="s">&quot;&quot;&quot;</span><span class="w"></span>
 
-<span class="k">END</span> <span class="o">=</span> <span class="s">&quot;\033[0m&quot;</span>
+<span class="k">END</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[0m&quot;</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">Background</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Background</span><span class="p">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    ANSI color escape sequences for the background of a terminal output.</span>
 
-<span class="s">    &quot;&quot;&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">black</span> <span class="o">=</span> <span class="s">&quot;\033[40m&quot;</span>
+<span class="w">    </span><span class="n">black</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[40m&quot;</span><span class="w"></span>
 
-    <span class="n">blue</span> <span class="o">=</span> <span class="s">&quot;\033[44m&quot;</span>
+<span class="w">    </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[44m&quot;</span><span class="w"></span>
 
-    <span class="n">cyan</span> <span class="o">=</span> <span class="s">&quot;\033[46m&quot;</span>
+<span class="w">    </span><span class="n">cyan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[46m&quot;</span><span class="w"></span>
 
-    <span class="n">green</span> <span class="o">=</span> <span class="s">&quot;\033[42m&quot;</span>
+<span class="w">    </span><span class="n">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[42m&quot;</span><span class="w"></span>
 
-    <span class="n">grey</span> <span class="o">=</span> <span class="s">&quot;\033[47m&quot;</span>
+<span class="w">    </span><span class="n">grey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[47m&quot;</span><span class="w"></span>
 
-    <span class="n">magenta</span> <span class="o">=</span> <span class="s">&quot;\033[45m&quot;</span>
+<span class="w">    </span><span class="n">magenta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[45m&quot;</span><span class="w"></span>
 
-    <span class="n">red</span> <span class="o">=</span> <span class="s">&quot;\033[41m&quot;</span>
+<span class="w">    </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[41m&quot;</span><span class="w"></span>
 
-    <span class="n">yellow</span> <span class="o">=</span> <span class="s">&quot;\033[43m&quot;</span>
+<span class="w">    </span><span class="n">yellow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[43m&quot;</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">Foreground</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Foreground</span><span class="p">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    ANSI color escape sequences for the foreground of a terminal output.</span>
 
-<span class="s">    &quot;&quot;&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">blue</span> <span class="o">=</span> <span class="s">&quot;\033[94m&quot;</span>
+<span class="w">    </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[94m&quot;</span><span class="w"></span>
 
-    <span class="n">cyan</span> <span class="o">=</span> <span class="s">&quot;\033[96m&quot;</span>
+<span class="w">    </span><span class="n">cyan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[96m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_blue</span> <span class="o">=</span> <span class="s">&quot;\033[34m&quot;</span>
+<span class="w">    </span><span class="n">dark_blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[34m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_cyan</span> <span class="o">=</span> <span class="s">&quot;\033[36m&quot;</span>
+<span class="w">    </span><span class="n">dark_cyan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[36m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_green</span> <span class="o">=</span> <span class="s">&quot;\033[32m&quot;</span>
+<span class="w">    </span><span class="n">dark_green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[32m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_grey</span> <span class="o">=</span> <span class="s">&quot;\033[90m&quot;</span>
+<span class="w">    </span><span class="n">dark_grey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[90m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_red</span> <span class="o">=</span> <span class="s">&quot;\033[31m&quot;</span>
+<span class="w">    </span><span class="n">dark_red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[31m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_yellow</span> <span class="o">=</span> <span class="s">&quot;\033[33m&quot;</span>
+<span class="w">    </span><span class="n">dark_yellow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[33m&quot;</span><span class="w"></span>
 
-    <span class="n">green</span> <span class="o">=</span> <span class="s">&quot;\033[92m&quot;</span>
+<span class="w">    </span><span class="n">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[92m&quot;</span><span class="w"></span>
 
-    <span class="n">grey</span> <span class="o">=</span> <span class="s">&quot;\033[37m&quot;</span>
+<span class="w">    </span><span class="n">grey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[37m&quot;</span><span class="w"></span>
 
-    <span class="n">magenta</span> <span class="o">=</span> <span class="s">&quot;\033[35m&quot;</span>
+<span class="w">    </span><span class="n">magenta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[35m&quot;</span><span class="w"></span>
 
-    <span class="n">pink</span> <span class="o">=</span> <span class="s">&quot;\033[95m&quot;</span>
+<span class="w">    </span><span class="n">pink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[95m&quot;</span><span class="w"></span>
 
-    <span class="n">red</span> <span class="o">=</span> <span class="s">&quot;\033[91m&quot;</span>
+<span class="w">    </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[91m&quot;</span><span class="w"></span>
 
-    <span class="n">yellow</span> <span class="o">=</span> <span class="s">&quot;\033[93m&quot;</span>
+<span class="w">    </span><span class="n">yellow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[93m&quot;</span><span class="w"></span>
 
-    <span class="n">white</span> <span class="o">=</span> <span class="s">&quot;\033[30m&quot;</span>
+<span class="w">    </span><span class="n">white</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[30m&quot;</span><span class="w"></span>
 
-<span class="k">class</span> <span class="nc">Styles</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Styles</span><span class="p">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
 <span class="s">    ANSI style escape sequences for a terminal output.</span>
 
-<span class="s">    &quot;&quot;&quot;</span>
+<span class="s">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">all_off</span> <span class="o">=</span> <span class="s">&quot;\033[0m&quot;</span>
+<span class="w">    </span><span class="n">all_off</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[0m&quot;</span><span class="w"></span>
 
-    <span class="n">bold</span> <span class="o">=</span> <span class="s">&quot;\033[1m&quot;</span>
+<span class="w">    </span><span class="n">bold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[1m&quot;</span><span class="w"></span>
 
-    <span class="n">concealed</span> <span class="o">=</span> <span class="s">&quot;\033[7m&quot;</span>
+<span class="w">    </span><span class="n">concealed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[7m&quot;</span><span class="w"></span>
 
-    <span class="n">disable</span> <span class="o">=</span> <span class="s">&quot;\033[02m&quot;</span>
+<span class="w">    </span><span class="n">disable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[02m&quot;</span><span class="w"></span>
 
-    <span class="n">reverse</span> <span class="o">=</span> <span class="s">&quot;\033[7m&quot;</span>
+<span class="w">    </span><span class="n">reverse</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[7m&quot;</span><span class="w"></span>
 
-    <span class="n">strikethrough</span> <span class="o">=</span> <span class="s">&quot;\033[09m&quot;</span>
+<span class="w">    </span><span class="n">strikethrough</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[09m&quot;</span><span class="w"></span>
 
-    <span class="n">underscore</span> <span class="o">=</span> <span class="s">&quot;\033[4m&quot;</span>
+<span class="w">    </span><span class="n">underscore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;\033[4m&quot;</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1416,7 +1418,9 @@
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="n">Background:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="n">Background:</span>
 
     <span class="s">&quot;&quot;&quot;</span>
 
@@ -1467,43 +1471,45 @@
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="nl">Foreground:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">class</span><span class="w"> </span><span class="nl">Foreground:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
-    <span class="n">ANSI</span> <span class="n">color</span> <span class="n">escape</span> <span class="n">sequences</span> <span class="k">for</span> <span class="n">the</span> <span class="n">foreground</span> <span class="n">of</span> <span class="n">a</span> <span class="n">terminal</span> <span class="k">output</span><span class="p">.</span>
+<span class="w">    </span><span class="n">ANSI</span><span class="w"> </span><span class="n">color</span><span class="w"> </span><span class="n">escape</span><span class="w"> </span><span class="n">sequences</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">foreground</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">terminal</span><span class="w"> </span><span class="k">output</span><span class="p">.</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
-    <span class="n">blue</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[94m&quot;</span>
+<span class="w">    </span><span class="n">blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[94m&quot;</span><span class="w"></span>
 
-    <span class="n">cyan</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[96m&quot;</span>
+<span class="w">    </span><span class="n">cyan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[96m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_blue</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[34m&quot;</span>
+<span class="w">    </span><span class="n">dark_blue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[34m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_cyan</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[36m&quot;</span>
+<span class="w">    </span><span class="n">dark_cyan</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[36m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_green</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[32m&quot;</span>
+<span class="w">    </span><span class="n">dark_green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[32m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_grey</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[90m&quot;</span>
+<span class="w">    </span><span class="n">dark_grey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[90m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_red</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[31m&quot;</span>
+<span class="w">    </span><span class="n">dark_red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[31m&quot;</span><span class="w"></span>
 
-    <span class="n">dark_yellow</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[33m&quot;</span>
+<span class="w">    </span><span class="n">dark_yellow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[33m&quot;</span><span class="w"></span>
 
-    <span class="n">green</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[92m&quot;</span>
+<span class="w">    </span><span class="n">green</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[92m&quot;</span><span class="w"></span>
 
-    <span class="n">grey</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[37m&quot;</span>
+<span class="w">    </span><span class="n">grey</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[37m&quot;</span><span class="w"></span>
 
-    <span class="n">magenta</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[35m&quot;</span>
+<span class="w">    </span><span class="n">magenta</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[35m&quot;</span><span class="w"></span>
 
-    <span class="n">pink</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[95m&quot;</span>
+<span class="w">    </span><span class="n">pink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[95m&quot;</span><span class="w"></span>
 
-    <span class="n">red</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[91m&quot;</span>
+<span class="w">    </span><span class="n">red</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[91m&quot;</span><span class="w"></span>
 
-    <span class="n">yellow</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[93m&quot;</span>
+<span class="w">    </span><span class="n">yellow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[93m&quot;</span><span class="w"></span>
 
-    <span class="n">white</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\033</span><span class="s">[30m&quot;</span>
+<span class="w">    </span><span class="n">white</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\033</span><span class="s">[30m&quot;</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1546,7 +1552,9 @@
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="n">Styles:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="n">Styles:</span>
 
     <span class="s">&quot;&quot;&quot;</span>
 

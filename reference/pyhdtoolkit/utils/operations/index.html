@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1777,7 +1777,9 @@
 <p>Module utils.operations</p>
 <hr />
 <p>Created on 2019.11.12</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s2">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="s2">&quot;&quot;&quot;</span>
 
 <span class="s2">Module utils.operations</span>
 
@@ -2935,15 +2937,17 @@
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="n">ListOperations</span><span class="p">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="n">ListOperations</span><span class="p">:</span><span class="w"></span>
 
-    <span class="sd">&quot;&quot;&quot;A class to group some common / useful operations on lists.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class to group some common / useful operations on lists.&quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">all_unique</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">all_unique</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns True if all the values in a flat list are unique, False otherwise.</span>
 
@@ -2955,15 +2959,15 @@
 
 <span class="sd">            True if all elements are unique, False otherwise.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">==</span> <span class="n">len</span><span class="p">(</span><span class="n">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">average_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">float</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">average_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="p">:</span><span class="w"> </span><span class="n">Callable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns the average of lst after mapping each element to a value using the</span>
 
@@ -2985,15 +2989,15 @@
 
 <span class="sd">            average_by([{&#39;n&#39;: 4}, {&#39;n&#39;: 2}, {&#39;n&#39;: 8}, {&#39;n&#39;: 6}], lambda x: x[&#39;n&#39;]) -&gt; 5.0</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="nb nb-Type">float</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nb nb-Type">float</span><span class="p">(</span><span class="n">sum</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">bifurcate</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb nb-Type">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">bifurcate</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">filters</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="p">[</span><span class="nb nb-Type">bool</span><span class="p">])</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Sequence</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Splits values into two groups. If an element in filter is True, the corresponding element</span>
 
@@ -3017,21 +3021,21 @@
 
 <span class="sd">            -&gt; [[&#39;beep&#39;, &#39;boop&#39;, &#39;bar&#39;], [&#39;foo&#39;]]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">[</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 
-            <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="k">if</span> <span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+<span class="w">            </span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">enumerate</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="w"></span>
 
-            <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">enumerate</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+<span class="w">            </span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="p">,</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">enumerate</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span><span class="w"></span>
 
-        <span class="p">]</span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">bifurcate_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">bifurcate_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="p">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Splits values into two groups according to a function, which specifies which group an</span>
 
@@ -3057,15 +3061,15 @@
 
 <span class="sd">            bifurcate_by(list(range(5)), lambda x: x % 2 == 0) -&gt; [[0, 2, 4], [1, 3]]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">[[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)],</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)]]</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[[</span><span class="n">x</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sequence</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)],</span><span class="w"> </span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sequence</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)]]</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">chunk_list</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">chunk_list</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Sequence</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Chunks a list into smaller lists of a specified size. If the size is bigger than initial</span>
 
@@ -3091,19 +3095,19 @@
 
 <span class="sd">            chunk_list(list(range(10)), 3) -&gt; [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="n">sequence</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">sequence</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sequence</span><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">size</span><span class="p">],</span> <span class="n">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span><span class="p">)))))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="n">sequence</span><span class="p">[</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">size</span><span class="p">],</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">size</span><span class="p">)))))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">deep_flatten</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">deep_flatten</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Deep flattens a list, no matter the nesting levels. This is a recursive approach.</span>
 
@@ -3121,23 +3125,23 @@
 
 <span class="sd">            -&gt; [&quot;a&quot;, &quot;b&quot;, 1, 2, None True, False]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">(</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 
-            <span class="p">[</span><span class="n">elem</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ListOperations</span><span class="o">.</span><span class="n">deep_flatten</span><span class="p">(</span><span class="n">sublist</span><span class="p">)]</span>
+<span class="w">            </span><span class="p">[</span><span class="n">elem</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">sublist</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sequence</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">elem</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">deep_flatten</span><span class="p">(</span><span class="n">sublist</span><span class="p">)]</span><span class="w"></span>
 
-            <span class="k">if</span> <span class="n">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">list</span><span class="p">)</span>
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"></span>
 
-            <span class="k">else</span> <span class="p">[</span><span class="n">sequence</span><span class="p">]</span>
+<span class="w">            </span><span class="k">else</span><span class="w"> </span><span class="p">[</span><span class="n">sequence</span><span class="p">]</span><span class="w"></span>
 
-        <span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">eval_none</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">eval_none</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="p">:</span><span class="w"> </span><span class="n">Callable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns False if the provided function returns True for at least one element in the list,</span>
 
@@ -3163,15 +3167,15 @@
 
 <span class="sd">            eval_none([0, 1, 2, 0], lambda x: x &gt;= 2) -&gt; False</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="ow">not</span> <span class="n">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">eval_some</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">eval_some</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="p">:</span><span class="w"> </span><span class="n">Callable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="p">:</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns True if the provided function returns True for at least one element in the list,</span>
 
@@ -3197,15 +3201,15 @@
 
 <span class="sd">            eval_some([0, 0, 1, 0], lambda x: x &gt;= 2) -&gt; False</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">get_indices</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb nb-Type">int</span><span class="p">]:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">get_indices</span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="p">[</span><span class="nb nb-Type">int</span><span class="p">]:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Return all array indices at which number is located.</span>
 
@@ -3227,15 +3231,15 @@
 
 <span class="sd">            get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2]) -&gt; [0, 7, 8]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="n">zip</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)))</span> <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="n">y</span><span class="p">]</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="n">i</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">zip</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)))</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span><span class="p">]</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">group_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">list</span><span class="p">]:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">group_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="p">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span><span class="w"> </span><span class="n">list</span><span class="p">]:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Groups the elements of a list based on the given function.</span>
 
@@ -3261,21 +3265,21 @@
 
 <span class="sd">            group_by(list(range(5)), lambda x: x % 2 == 0) -&gt; {True: [0, 2, 4], False: [1, 3]}</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="n">groups</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="w">        </span><span class="n">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span><span class="w"></span>
 
-        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)):</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">key</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">)):</span><span class="w"></span>
 
-            <span class="n">groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="p">]</span>
+<span class="w">            </span><span class="n">groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">sequence</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">key</span><span class="p">]</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">groups</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">groups</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">has_duplicates</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb nb-Type">bool</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">has_duplicates</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nb nb-Type">bool</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns True if there are duplicate values in a fast list, False otherwise.</span>
 
@@ -3295,15 +3299,15 @@
 
 <span class="sd">            has_duplicates([1, 2, 1]) -&gt; True</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">!=</span> <span class="n">len</span><span class="p">(</span><span class="n">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">sample</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">sample</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns a random element from an array.</span>
 
@@ -3315,15 +3319,15 @@
 
 <span class="sd">            A random element from `lst` in a list (to manage potentially nested lists as input).</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">sequence</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sequence</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)]</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">sanitize_list</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">sanitize_list</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Removes falsey values from a list. Use filter() to filter out falsey values</span>
 
@@ -3341,15 +3345,15 @@
 
 <span class="sd">            sanitize_list([1, False, &quot;a&quot;, 2, &quot;&quot;, None, 6, 0]) -&gt; [1, &quot;a&quot;, 2, 6]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">list</span><span class="p">(</span><span class="n">filter</span><span class="p">(</span><span class="nb nb-Type">bool</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">filter</span><span class="p">(</span><span class="nb nb-Type">bool</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">shuffle</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">shuffle</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Sequence</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Randomizes the order of the values of an list, returning a new list. Uses an improved</span>
 
@@ -3365,33 +3369,33 @@
 
 <span class="sd">            The `lst` with original elements at a random index.</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="n">temp_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+<span class="w">        </span><span class="n">temp_list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">amount_to_shuffle</span> <span class="o">=</span> <span class="n">len</span><span class="p">(</span><span class="n">temp_list</span><span class="p">)</span>
+<span class="w">        </span><span class="n">amount_to_shuffle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">temp_list</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">while</span> <span class="n">amount_to_shuffle</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+<span class="w">        </span><span class="k">while</span><span class="w"> </span><span class="n">amount_to_shuffle</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">:</span><span class="w"></span>
 
-            <span class="n">rand_index</span> <span class="o">=</span> <span class="nb nb-Type">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">amount_to_shuffle</span><span class="p">))</span>
+<span class="w">            </span><span class="n">rand_index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">amount_to_shuffle</span><span class="p">))</span><span class="w"></span>
 
-            <span class="n">amount_to_shuffle</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="w">            </span><span class="n">amount_to_shuffle</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
 
-            <span class="n">temp_list</span><span class="p">[</span><span class="n">rand_index</span><span class="p">],</span> <span class="n">temp_list</span><span class="p">[</span><span class="n">amount_to_shuffle</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">            </span><span class="n">temp_list</span><span class="p">[</span><span class="n">rand_index</span><span class="p">],</span><span class="w"> </span><span class="n">temp_list</span><span class="p">[</span><span class="n">amount_to_shuffle</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 
-                <span class="n">temp_list</span><span class="p">[</span><span class="n">amount_to_shuffle</span><span class="p">],</span>
+<span class="w">                </span><span class="n">temp_list</span><span class="p">[</span><span class="n">amount_to_shuffle</span><span class="p">],</span><span class="w"></span>
 
-                <span class="n">temp_list</span><span class="p">[</span><span class="n">rand_index</span><span class="p">],</span>
+<span class="w">                </span><span class="n">temp_list</span><span class="p">[</span><span class="n">rand_index</span><span class="p">],</span><span class="w"></span>
 
-            <span class="p">)</span>
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">temp_list</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">temp_list</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">spread</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">spread</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Flattens a list, by spreading its elements into a new list.</span>
 
@@ -3413,15 +3417,15 @@
 
 <span class="sd">            spread([list(range(5)), list(range(5))]) -&gt; [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">symmetric_difference_by</span><span class="p">(</span><span class="n">lst_1</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">lst_2</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">symmetric_difference_by</span><span class="p">(</span><span class="n">lst_1</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">lst_2</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="p">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns the symmetric difference (https://en.wikipedia.org/wiki/Symmetric_difference) of</span>
 
@@ -3451,21 +3455,21 @@
 
 <span class="sd">            symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x &gt;= 2) -&gt; [2.1]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="n">_lst_1</span><span class="p">,</span> <span class="n">_lst_2</span> <span class="o">=</span> <span class="n">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">lst_1</span><span class="p">)),</span> <span class="n">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">lst_2</span><span class="p">))</span>
+<span class="w">        </span><span class="n">_lst_1</span><span class="p">,</span><span class="w"> </span><span class="n">_lst_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="n">lst_1</span><span class="p">)),</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="n">lst_2</span><span class="p">))</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst_1</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_lst_2</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">lst_1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">_lst_2</span><span class="p">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
 
-            <span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst_2</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_lst_1</span>
+<span class="w">            </span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">lst_2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">_lst_1</span><span class="w"></span>
 
-        <span class="p">]</span>
+<span class="w">        </span><span class="p">]</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">union_by</span><span class="p">(</span><span class="n">lst_1</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">lst_2</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">union_by</span><span class="p">(</span><span class="n">lst_1</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">lst_2</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">function</span><span class="p">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Returns every element that exists in any of the two lists once, after applying the provided</span>
 
@@ -3501,17 +3505,17 @@
 
 <span class="sd">            union_by([2.1], [1.2, 2.3], math.floor) -&gt; [1.2, 2.1]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="n">_lst_1</span> <span class="o">=</span> <span class="n">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">lst_1</span><span class="p">))</span>
+<span class="w">        </span><span class="n">_lst_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span><span class="w"> </span><span class="n">lst_1</span><span class="p">))</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">sorted</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">set</span><span class="p">(</span><span class="n">lst_1</span> <span class="o">+</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">lst_2</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_lst_1</span><span class="p">])))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">list</span><span class="p">(</span><span class="n">set</span><span class="p">(</span><span class="n">lst_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">lst_2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">_lst_1</span><span class="p">])))</span><span class="w"></span>
 
-    <span class="err">@</span><span class="n">staticmethod</span>
+<span class="w">    </span><span class="err">@</span><span class="n">staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">zipper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fillvalue</span><span class="o">=</span><span class="n">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">list</span><span class="p">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">zipper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="n">fillvalue</span><span class="o">=</span><span class="n">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">list</span><span class="p">:</span><span class="w"></span>
 
-        <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">        Creates a list of lists of elements, each internal list being a grouping based on the</span>
 
@@ -3541,11 +3545,11 @@
 
 <span class="sd">            -&gt; [[1, 2, &#39;a&#39;], [2, 5, &#39;b&#39;], [3, 3, &#39;c&#39;], [None, 7, None]]</span>
 
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span><span class="w"></span>
 
-        <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">args</span><span class="p">)</span>
+<span class="w">        </span><span class="n">max_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">max</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">lst</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">[[</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">else</span> <span class="n">fillvalue</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">))]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_length</span><span class="p">)]</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">[[</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">])</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">fillvalue</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">))]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nb">range</span><span class="p">(</span><span class="n">max_length</span><span class="p">)]</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3591,7 +3595,9 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">all_unique</span><span class="p">(</span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="k">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">bool</span><span class="p">:</span><span class="w"></span>
 
@@ -3616,7 +3622,7 @@
 <h4 id="average_by">average_by</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">average_by</span><span class="p">(</span>
     <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fc8791d54d0</span><span class="o">&gt;</span>
+    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f56b22c23b0</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </code></pre></div>
 <p>Returns the average of lst after mapping each element to a value using the</p>
@@ -3664,11 +3670,13 @@ Use sum() to sum all of the mapped values, divide by len(lst).</p>
 </table>
 <p>Usage:
     average_by([{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']) -&gt; 5.0 |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">average_by</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">function</span><span class="o">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="o">:</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">float</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">average_by</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="o">:</span><span class="w"> </span><span class="n">Callable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">float</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns the average of lst after mapping each element to a value using the</span>
 
@@ -3690,9 +3698,9 @@ Use sum() to sum all of the mapped values, divide by len(lst).</p>
 
 <span class="s2">            average_by([{&#39;n&#39;: 4}, {&#39;n&#39;: 2}, {&#39;n&#39;: 8}, {&#39;n&#39;: 6}], lambda x: x[&#39;n&#39;]) -&gt; 5.0</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="kt">float</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kt">float</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">),</span><span class="w"> </span><span class="mf">0.0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3748,7 +3756,9 @@ Use list comprehension and enumerate() to add elements to groups, based on filte
 <p>Usage:
     bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
     -&gt; [['beep', 'boop', 'bar'], ['foo']] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">bifurcate</span><span class="p">(</span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="k">Sequence</span><span class="p">,</span><span class="w"> </span><span class="nl">filters</span><span class="p">:</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">bool</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Sequence</span><span class="err">:</span><span class="w"></span>
 
@@ -3844,7 +3854,9 @@ add elements to groups, based on function.</p>
 </table>
 <p>Usage:
     bifurcate_by(list(range(5)), lambda x: x % 2 == 0) -&gt; [[0, 2, 4], [1, 3]] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">bifurcate_by</span><span class="p">(</span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="k">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="err">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">list</span><span class="p">:</span><span class="w"></span>
 
@@ -3936,11 +3948,13 @@ fill it with splices of the given list. Finally, return use created list.</p>
 </table>
 <p>Usage:
     chunk_list(list(range(10)), 3) -&gt; [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">chunk_list</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">size</span><span class="o">:</span> <span class="kt">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">chunk_list</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Sequence</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Chunks a list into smaller lists of a specified size. If the size is bigger than initial</span>
 
@@ -3966,13 +3980,13 @@ fill it with splices of the given list. Finally, return use created list.</p>
 
 <span class="s2">            chunk_list(list(range(10)), 3) -&gt; [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="o">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="n">sequence</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">sequence</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="o">:</span> <span class="n">sequence</span><span class="err">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">size</span><span class="err">]</span><span class="p">,</span> <span class="k">list</span><span class="p">(</span><span class="k">range</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span><span class="p">)))))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">sequence</span><span class="err">[</span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">size</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="k">list</span><span class="p">(</span><span class="k">range</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">size</span><span class="p">)))))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4019,7 +4033,9 @@ fill it with splices of the given list. Finally, return use created list.</p>
 <p>Usage:
     deep_flatten([["a", "b"], [1, 2], None, [True, False]])
     -&gt; ["a", "b", 1, 2, None True, False] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">deep_flatten</span><span class="p">(</span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="k">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">list</span><span class="p">:</span><span class="w"></span>
 
@@ -4058,7 +4074,7 @@ fill it with splices of the given list. Finally, return use created list.</p>
 <h4 id="eval_none">eval_none</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">eval_none</span><span class="p">(</span>
     <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fc8791d5830</span><span class="o">&gt;</span>
+    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f56b22c2710</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>Returns False if the provided function returns True for at least one element in the list,</p>
@@ -4108,11 +4124,13 @@ all elements are False.</p>
 <p>Usage:
     eval_none([0, 0, 1, 0], lambda x: x &gt;= 2) -&gt; True
     eval_none([0, 1, 2, 0], lambda x: x &gt;= 2) -&gt; False |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">eval_none</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">function</span><span class="o">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="o">:</span> <span class="k">not</span> <span class="k">not</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">eval_none</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="o">:</span><span class="w"> </span><span class="n">Callable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns False if the provided function returns True for at least one element in the list,</span>
 
@@ -4138,16 +4156,16 @@ all elements are False.</p>
 
 <span class="s2">            eval_none([0, 1, 2, 0], lambda x: x &gt;= 2) -&gt; False</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">not</span> <span class="k">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
 <h4 id="eval_some">eval_some</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">eval_some</span><span class="p">(</span>
     <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fc8791d5950</span><span class="o">&gt;</span>
+    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7f56b22c2830</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>Returns True if the provided function returns True for at least one element in the list,</p>
@@ -4197,11 +4215,13 @@ elements are True.</p>
 <p>Usage:
     eval_some([0, 1, 2, 0], lambda x: x &gt;= 2) -&gt; True
     eval_some([0, 0, 1, 0], lambda x: x &gt;= 2) -&gt; False |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">eval_some</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">function</span><span class="o">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">lambda</span> <span class="n">x</span><span class="o">:</span> <span class="k">not</span> <span class="k">not</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">eval_some</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="o">:</span><span class="w"> </span><span class="n">Callable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns True if the provided function returns True for at least one element in the list,</span>
 
@@ -4227,9 +4247,9 @@ elements are True.</p>
 
 <span class="s2">            eval_some([0, 0, 1, 0], lambda x: x &gt;= 2) -&gt; False</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">any</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4292,11 +4312,13 @@ elements are True.</p>
 </table>
 <p>Usage:
     get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2]) -&gt; [0, 7, 8] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">get_indices</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">List</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">get_indices</span><span class="p">(</span><span class="n">element</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">List</span><span class="err">[</span><span class="kt">int</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Return all array indices at which number is located.</span>
 
@@ -4318,9 +4340,9 @@ elements are True.</p>
 
 <span class="s2">            get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2]) -&gt; [0, 7, 8]</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="err">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">in</span> <span class="n">zip</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="k">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)))</span> <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="n">y</span><span class="err">]</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="err">[</span><span class="n">i</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">zip</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)))</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">element</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span><span class="err">]</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4385,11 +4407,13 @@ keys of an object. Use list comprehension to map each element to the appropriate
 </table>
 <p>Usage:
     group_by(list(range(5)), lambda x: x % 2 == 0) -&gt; {True: [0, 2, 4], False: [1, 3]} |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">group_by</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">function</span><span class="o">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="err">[</span><span class="n">str</span><span class="p">,</span> <span class="k">list</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">group_by</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="o">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="err">[</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="k">list</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Groups the elements of a list based on the given function.</span>
 
@@ -4415,15 +4439,15 @@ keys of an object. Use list comprehension to map each element to the appropriate
 
 <span class="s2">            group_by(list(range(5)), lambda x: x % 2 == 0) -&gt; {True: [0, 2, 4], False: [1, 3]}</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">groups</span> <span class="o">=</span> <span class="err">{}</span>
+<span class="w">        </span><span class="k">groups</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{}</span><span class="w"></span>
 
-        <span class="k">for</span> <span class="k">key</span> <span class="k">in</span> <span class="k">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span><span class="o">:</span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="k">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span><span class="w"> </span><span class="n">sequence</span><span class="p">))</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">groups</span><span class="err">[</span><span class="k">key</span><span class="err">]</span> <span class="o">=</span> <span class="err">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="k">key</span><span class="err">]</span>
+<span class="w">            </span><span class="k">groups</span><span class="err">[</span><span class="k">key</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">sequence</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="k">key</span><span class="err">]</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">groups</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">groups</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4471,11 +4495,13 @@ of the list.</p>
 </table>
 <p>Usage:
     has_duplicates([1, 2, 1]) -&gt; True |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">has_duplicates</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">has_duplicates</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns True if there are duplicate values in a fast list, False otherwise.</span>
 
@@ -4495,9 +4521,9 @@ of the list.</p>
 
 <span class="s2">            has_duplicates([1, 2, 1]) -&gt; True</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">!=</span> <span class="n">len</span><span class="p">(</span><span class="kt">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="kt">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4541,11 +4567,13 @@ of the list.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">sample</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">list</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">sample</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">list</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns a random element from an array.</span>
 
@@ -4557,9 +4585,9 @@ of the list.</p>
 
 <span class="s2">            A random element from `lst` in a list (to manage potentially nested lists as input).</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">sequence</span><span class="err">[</span><span class="k">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="err">]</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sequence</span><span class="err">[</span><span class="k">random</span><span class="p">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="err">]</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4606,7 +4634,9 @@ of the list.</p>
 </table>
 <p>Usage:
     sanitize_list([1, False, "a", 2, "", None, 6, 0]) -&gt; [1, "a", 2, 6] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">sanitize_list</span><span class="p">(</span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="k">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">list</span><span class="p">:</span><span class="w"></span>
 
@@ -4676,7 +4706,9 @@ of the list.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">shuffle</span><span class="p">(</span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="k">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Sequence</span><span class="err">:</span><span class="w"></span>
 
@@ -4765,11 +4797,13 @@ deep_flatten. This only works if all elements in <code>lst</code> are iterables!
 </table>
 <p>Usage:
     spread([list(range(5)), list(range(5))]) -&gt; [0, 1, 2, 3, 4, 0, 1, 2, 3, 4] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">spread</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">list</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">spread</span><span class="p">(</span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">list</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Flattens a list, by spreading its elements into a new list.</span>
 
@@ -4791,9 +4825,9 @@ deep_flatten. This only works if all elements in <code>lst</code> are iterables!
 
 <span class="s2">            spread([list(range(5)), list(range(5))]) -&gt; [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="k">list</span><span class="p">(</span><span class="n">itertools</span><span class="p">.</span><span class="k">chain</span><span class="p">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">list</span><span class="p">(</span><span class="n">itertools</span><span class="p">.</span><span class="k">chain</span><span class="p">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4858,11 +4892,13 @@ created set of the other.</p>
 <p>Usage:
     symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor) -&gt; [1.2, 3.4]
     symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x &gt;= 2) -&gt; [2.1] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">symmetric_difference_by</span><span class="p">(</span><span class="n">lst_1</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">lst_2</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">function</span><span class="o">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">list</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">symmetric_difference_by</span><span class="p">(</span><span class="n">lst_1</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">lst_2</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="o">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">list</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns the symmetric difference (https://en.wikipedia.org/wiki/Symmetric_difference) of</span>
 
@@ -4892,15 +4928,15 @@ created set of the other.</p>
 
 <span class="s2">            symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x &gt;= 2) -&gt; [2.1]</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">_lst_1</span><span class="p">,</span> <span class="n">_lst_2</span> <span class="o">=</span> <span class="kt">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span> <span class="n">lst_1</span><span class="p">)),</span> <span class="kt">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span> <span class="n">lst_2</span><span class="p">))</span>
+<span class="w">        </span><span class="n">_lst_1</span><span class="p">,</span><span class="w"> </span><span class="n">_lst_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span><span class="w"> </span><span class="n">lst_1</span><span class="p">)),</span><span class="w"> </span><span class="kt">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span><span class="w"> </span><span class="n">lst_2</span><span class="p">))</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="err">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">lst_1</span> <span class="k">if</span> <span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">not</span> <span class="k">in</span> <span class="n">_lst_2</span><span class="err">]</span> <span class="o">+</span> <span class="err">[</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="err">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">lst_1</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">_lst_2</span><span class="err">]</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">[</span><span class="w"></span>
 
-            <span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">lst_2</span> <span class="k">if</span> <span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">not</span> <span class="k">in</span> <span class="n">_lst_1</span>
+<span class="w">            </span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">lst_2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">_lst_1</span><span class="w"></span>
 
-        <span class="err">]</span>
+<span class="w">        </span><span class="err">]</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -4968,11 +5004,13 @@ result and _lst_1 and transform it into a list.</p>
 </table>
 <p>Usage:
     union_by([2.1], [1.2, 2.3], math.floor) -&gt; [1.2, 2.1] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">union_by</span><span class="p">(</span><span class="n">lst_1</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">lst_2</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="k">function</span><span class="o">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">list</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">union_by</span><span class="p">(</span><span class="n">lst_1</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="n">lst_2</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="o">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">list</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns every element that exists in any of the two lists once, after applying the provided</span>
 
@@ -5008,11 +5046,11 @@ result and _lst_1 and transform it into a list.</p>
 
 <span class="s2">            union_by([2.1], [1.2, 2.3], math.floor) -&gt; [1.2, 2.1]</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">_lst_1</span> <span class="o">=</span> <span class="kt">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span> <span class="n">lst_1</span><span class="p">))</span>
+<span class="w">        </span><span class="n">_lst_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">set</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="k">function</span><span class="p">,</span><span class="w"> </span><span class="n">lst_1</span><span class="p">))</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">sorted</span><span class="p">(</span><span class="k">list</span><span class="p">(</span><span class="kt">set</span><span class="p">(</span><span class="n">lst_1</span> <span class="o">+</span> <span class="err">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="k">in</span> <span class="n">lst_2</span> <span class="k">if</span> <span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="k">not</span> <span class="k">in</span> <span class="n">_lst_1</span><span class="err">]</span><span class="p">)))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="k">list</span><span class="p">(</span><span class="kt">set</span><span class="p">(</span><span class="n">lst_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="err">[</span><span class="n">item</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">lst_2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="k">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">_lst_1</span><span class="err">]</span><span class="p">)))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -5071,7 +5109,9 @@ Loop for max_length times grouping elements. If lengths of lists vary, use fill_
 <p>Usage:
     zipper([1, 2, 3], [2, 5, 3, 7], ["a", "b", "c"])
     -&gt; [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]] |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">zipper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="n">fillvalue</span><span class="o">=</span><span class="k">None</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">list</span><span class="p">:</span><span class="w"></span>
 
@@ -5120,7 +5160,9 @@ Loop for max_length times grouping elements. If lengths of lists vary, use fill_
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">MiscellaneousOperations</span><span class="p">:</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">MiscellaneousOperations</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">    </span><span class="ss">&quot;&quot;&quot;A class to group some misc. operations that don&#39;t pertain to classic structures.&quot;&quot;&quot;</span><span class="w"></span>
 
@@ -5244,7 +5286,9 @@ Use max() with len as the key to return the item with the greatest length.</p>
 </table>
 <p>Usage:
     longest_item(list(range(5)), list(range(100)), list(range(50))) -&gt; list(range(100)) |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">longest_item</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
 
@@ -5329,7 +5373,9 @@ function to each key of a new object.</p>
         {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
         lambda x: len(x)
     ) -&gt; {"a": 5, "b": 10, "c": 15} |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">map_values</span><span class="p">(</span><span class="nl">obj</span><span class="p">:</span><span class="w"> </span><span class="n">dict</span><span class="p">,</span><span class="w"> </span><span class="k">function</span><span class="err">:</span><span class="w"> </span><span class="n">Callable</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nl">dict</span><span class="p">:</span><span class="w"></span>
 
@@ -5382,15 +5428,17 @@ function to each key of a new object.</p>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">NumberOperations</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">class</span><span class="w"> </span><span class="n">NumberOperations</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A class to group some common / useful operations on numbers.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A class to group some common / useful operations on numbers.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">clamp_number</span><span class="p">(</span><span class="n">num</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">a_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">b_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">clamp_number</span><span class="p">(</span><span class="n">num</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">a_val</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">b_val</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Clamps num within the inclusive range specified by the boundary values a and b. If num</span>
 
@@ -5414,19 +5462,19 @@ function to each key of a new object.</p>
 
 <span class="s2">            clamp_number(23, 20, 30) -&gt; 23</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">)),</span> <span class="nf">min</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span><span class="w"> </span><span class="n">b_val</span><span class="p">)),</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span><span class="w"> </span><span class="n">b_val</span><span class="p">))</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">degrees_to_radians</span><span class="p">(</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">degrees_to_radians</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">deg_value</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">decompose</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span>
+<span class="w">        </span><span class="n">deg_value</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">decompose</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="w"></span>
 
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span> <span class="n">str</span><span class="p">,</span> <span class="n">str</span><span class="err">]</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="n">Tuple</span><span class="err">[</span><span class="kt">float</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">str</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Converts an angle from degrees to radians.</span>
 
@@ -5448,19 +5496,19 @@ function to each key of a new object.</p>
 
 <span class="s2">            degrees_to_radians(360, decompose=True) -&gt; (2, &quot;</span><span class="n">pi</span><span class="s2">&quot;, &quot;</span><span class="n">rad</span><span class="s2">&quot;)</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">if</span> <span class="n">decompose</span><span class="o">:</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="n">decompose</span><span class="o">:</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="n">deg_value</span> <span class="o">/</span> <span class="mi">180</span><span class="p">,</span> <span class="s2">&quot;pi&quot;</span><span class="p">,</span> <span class="s2">&quot;rad&quot;</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">deg_value</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">180</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;pi&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;rad&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">deg_value</span> <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="mf">180.0</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">deg_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="n">pi</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mf">180.0</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">greatest_common_divisor</span><span class="p">(</span><span class="n">numbers_list</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">greatest_common_divisor</span><span class="p">(</span><span class="n">numbers_list</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Calculates the greatest common divisor of a list of numbers.</span>
 
@@ -5482,15 +5530,15 @@ function to each key of a new object.</p>
 
 <span class="s2">            greatest_common_divisor([30, 132, 378, 582, 738]) -&gt; 6</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">gcd</span><span class="p">,</span> <span class="n">numbers_list</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">gcd</span><span class="p">,</span><span class="w"> </span><span class="n">numbers_list</span><span class="p">)</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">is_divisible_by</span><span class="p">(</span><span class="n">dividend</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">divisor</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">is_divisible_by</span><span class="p">(</span><span class="n">dividend</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">divisor</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Checks if the first numeric argument is divisible by the second one.</span>
 
@@ -5506,15 +5554,15 @@ function to each key of a new object.</p>
 
 <span class="s2">            A boolean stating if `dividend` can be divided by `divisor`.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">dividend</span> <span class="o">%</span> <span class="n">divisor</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">divisor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">least_common_multiple</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">int</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">least_common_multiple</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">int</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Returns the least common multiple of two or more numbers.</span>
 
@@ -5540,23 +5588,23 @@ function to each key of a new object.</p>
 
 <span class="s2">            least_common_multiple(2, 5, 17, 632) -&gt; 53720</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">numbers</span> <span class="o">=</span> <span class="k">list</span><span class="p">(</span><span class="n">ListOperations</span><span class="p">.</span><span class="n">spread</span><span class="p">(</span><span class="k">list</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+<span class="w">        </span><span class="n">numbers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">list</span><span class="p">(</span><span class="n">ListOperations</span><span class="p">.</span><span class="n">spread</span><span class="p">(</span><span class="k">list</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span><span class="w"></span>
 
-        <span class="n">def</span> <span class="n">_lcm</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span> <span class="n">number2</span><span class="p">)</span><span class="o">:</span>
+<span class="w">        </span><span class="n">def</span><span class="w"> </span><span class="n">_lcm</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span><span class="w"> </span><span class="n">number2</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-            <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A least common multiple method for two numbers only</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="w">            </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A least common multiple method for two numbers only</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-            <span class="k">return</span> <span class="kt">int</span><span class="p">(</span><span class="n">number1</span> <span class="o">*</span> <span class="n">number2</span> <span class="o">/</span> <span class="n">math</span><span class="p">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span> <span class="n">number2</span><span class="p">))</span>
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kt">int</span><span class="p">(</span><span class="n">number1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">number2</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span><span class="w"> </span><span class="n">number2</span><span class="p">))</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">:</span> <span class="n">_lcm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">numbers</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="n">lambda</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="o">:</span><span class="w"> </span><span class="n">_lcm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">),</span><span class="w"> </span><span class="n">numbers</span><span class="p">)</span><span class="w"></span>
 
-    <span class="nv">@staticmethod</span>
+<span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">radians_to_degrees</span><span class="p">(</span><span class="n">rad_value</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">radians_to_degrees</span><span class="p">(</span><span class="n">rad_value</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Converts an angle from radians to degrees.</span>
 
@@ -5576,9 +5624,9 @@ function to each key of a new object.</p>
 
 <span class="s2">            radians_to_degrees(2.710) -&gt; 155.2715624804531</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="p">(</span><span class="n">rad_value</span> <span class="o">*</span> <span class="mf">180.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="p">.</span><span class="n">pi</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="p">(</span><span class="n">rad_value</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mf">180.0</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">math</span><span class="p">.</span><span class="n">pi</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -5642,11 +5690,13 @@ function to each key of a new object.</p>
 <p>Usage:
     clamp_number(17, 4, 5) -&gt; 5
     clamp_number(23, 20, 30) -&gt; 23 |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">clamp_number</span><span class="p">(</span><span class="n">num</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">a_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">b_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">clamp_number</span><span class="p">(</span><span class="n">num</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">a_val</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">b_val</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Clamps num within the inclusive range specified by the boundary values a and b. If num</span>
 
@@ -5670,9 +5720,9 @@ function to each key of a new object.</p>
 
 <span class="s2">            clamp_number(23, 20, 30) -&gt; 23</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">)),</span> <span class="nf">min</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">))</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="nf">min</span><span class="p">(</span><span class="n">num</span><span class="p">,</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span><span class="w"> </span><span class="n">b_val</span><span class="p">)),</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span><span class="w"> </span><span class="n">b_val</span><span class="p">))</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -5727,7 +5777,9 @@ function to each key of a new object.</p>
 <p>Usage:
     degrees_to_radians(160) -&gt; 2.792526803190927
     degrees_to_radians(360, decompose=True) -&gt; (2, "pi", "rad") |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">degrees_to_radians</span><span class="p">(</span><span class="w"></span>
 
@@ -5782,11 +5834,13 @@ Use reduce() and math.gcd over the given list.</p>
 <p>Usage:
     greatest_common_divisor([54, 24]) -&gt;
     greatest_common_divisor([30, 132, 378, 582, 738]) -&gt; 6</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">greatest_common_divisor</span><span class="p">(</span><span class="n">numbers_list</span><span class="o">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">greatest_common_divisor</span><span class="p">(</span><span class="n">numbers_list</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Calculates the greatest common divisor of a list of numbers.</span>
 
@@ -5808,9 +5862,9 @@ Use reduce() and math.gcd over the given list.</p>
 
 <span class="s2">            greatest_common_divisor([30, 132, 378, 582, 738]) -&gt; 6</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">gcd</span><span class="p">,</span> <span class="n">numbers_list</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="n">gcd</span><span class="p">,</span><span class="w"> </span><span class="n">numbers_list</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -5862,11 +5916,13 @@ Use reduce() and math.gcd over the given list.</p>
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">is_divisible_by</span><span class="p">(</span><span class="n">dividend</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">divisor</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">is_divisible_by</span><span class="p">(</span><span class="n">dividend</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">divisor</span><span class="o">:</span><span class="w"> </span><span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="kt">float</span><span class="err">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Checks if the first numeric argument is divisible by the second one.</span>
 
@@ -5882,9 +5938,9 @@ Use reduce() and math.gcd over the given list.</p>
 
 <span class="s2">            A boolean stating if `dividend` can be divided by `divisor`.</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">dividend</span> <span class="o">%</span> <span class="n">divisor</span> <span class="o">==</span> <span class="mi">0</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">dividend</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">divisor</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">0</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -5905,7 +5961,9 @@ least common multiple.</p>
 <p>Usage:
     least_common_multiple(4, 5) -&gt; 20
     least_common_multiple(2, 5, 17, 632) -&gt; 53720</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">least_common_multiple</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nc">int</span><span class="err">:</span><span class="w"></span>
 
@@ -5993,7 +6051,9 @@ least common multiple.</p>
 <p>Usage:
     radians_to_degrees(2* math.pi) -&gt; 360
     radians_to_degrees(2.710) -&gt; 155.2715624804531 |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">radians_to_degrees</span><span class="p">(</span><span class="nl">rad_value</span><span class="p">:</span><span class="w"> </span><span class="ow">Union</span><span class="o">[</span><span class="n">int, float</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="ow">Union</span><span class="o">[</span><span class="n">int, float</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
 
@@ -6030,7 +6090,9 @@ least common multiple.</p>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span>
 </code></pre></div>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">class</span> <span class="nv">StringOperations</span><span class="s s-Atom">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="s s-Atom">class</span> <span class="nv">StringOperations</span><span class="s s-Atom">:</span>
 
     <span class="s2">&quot;&quot;&quot;A class to group some common / useful operations on strings.&quot;&quot;&quot;</span>
 
@@ -6311,7 +6373,9 @@ using a regexp, title() and lower.</p>
 <p>Usage:
     camel_case("a_snake_case_name") -&gt; "aSnakeCaseName"
     camel_case("A Title Case Name") -&gt; "aTitleCaseName" |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">camel_case</span><span class="p">(</span><span class="nc">text</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
 
@@ -6398,11 +6462,13 @@ to convert to lowercase.</p>
 <p>Usage:
     capitalize("astringtocapitalize") -&gt; "Astringtocapitalize"
     capitalize("astRIngTocApItalizE", lower_rest=True) -&gt; "Astringtocapitalize" |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">capitalize</span><span class="p">(</span><span class="kt">text</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">lower_rest</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">str</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">capitalize</span><span class="p">(</span><span class="kt">text</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">lower_rest</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">False</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">str</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Capitalizes the first letter of a string, eventually lowers the rest of it.</span>
 
@@ -6428,9 +6494,9 @@ to convert to lowercase.</p>
 
 <span class="s2">            capitalize(&quot;</span><span class="n">astRIngTocApItalizE</span><span class="s2">&quot;, lower_rest=True) -&gt; &quot;</span><span class="n">Astringtocapitalize</span><span class="s2">&quot;</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="kt">text</span><span class="err">[</span><span class="o">:</span><span class="mi">1</span><span class="err">]</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="kt">text</span><span class="err">[</span><span class="mi">1</span><span class="o">:</span><span class="err">]</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">lower_rest</span> <span class="k">else</span> <span class="kt">text</span><span class="err">[</span><span class="mi">1</span><span class="o">:</span><span class="err">]</span><span class="p">)</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kt">text</span><span class="err">[</span><span class="o">:</span><span class="mi">1</span><span class="err">]</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="kt">text</span><span class="err">[</span><span class="mi">1</span><span class="o">:</span><span class="err">]</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">lower_rest</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="kt">text</span><span class="err">[</span><span class="mi">1</span><span class="o">:</span><span class="err">]</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -6487,11 +6553,13 @@ on both strings and compare the results.</p>
 <p>Usage:
    is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort") -&gt; True
    is_anagram("A first string", "Definitely not an anagram") -&gt; False |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-    <span class="n">def</span> <span class="n">is_anagram</span><span class="p">(</span><span class="n">str_1</span><span class="o">:</span> <span class="n">str</span><span class="p">,</span> <span class="n">str_2</span><span class="o">:</span> <span class="n">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">bool</span><span class="o">:</span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">is_anagram</span><span class="p">(</span><span class="n">str_1</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">str_2</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">bool</span><span class="o">:</span><span class="w"></span>
 
-        <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">        Checks if a string is an anagram of another string (case-insensitive, ignores spaces,</span>
 
@@ -6513,21 +6581,21 @@ on both strings and compare the results.</p>
 
 <span class="s2">        Usage:</span>
 
-<span class="s2">           is_anagram(&quot;</span><span class="n">Tom</span> <span class="n">Marvolo</span> <span class="n">Riddle</span><span class="s2">&quot;, &quot;</span><span class="n">I</span> <span class="n">am</span> <span class="n">Lord</span> <span class="n">Voldemort</span><span class="s2">&quot;) -&gt; True</span>
+<span class="s2">           is_anagram(&quot;</span><span class="n">Tom</span><span class="w"> </span><span class="n">Marvolo</span><span class="w"> </span><span class="n">Riddle</span><span class="s2">&quot;, &quot;</span><span class="n">I</span><span class="w"> </span><span class="n">am</span><span class="w"> </span><span class="n">Lord</span><span class="w"> </span><span class="n">Voldemort</span><span class="s2">&quot;) -&gt; True</span>
 
-<span class="s2">           is_anagram(&quot;</span><span class="n">A</span> <span class="k">first</span> <span class="k">string</span><span class="s2">&quot;, &quot;</span><span class="n">Definitely</span> <span class="k">not</span> <span class="n">an</span> <span class="n">anagram</span><span class="s2">&quot;) -&gt; False</span>
+<span class="s2">           is_anagram(&quot;</span><span class="n">A</span><span class="w"> </span><span class="k">first</span><span class="w"> </span><span class="k">string</span><span class="s2">&quot;, &quot;</span><span class="n">Definitely</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">anagram</span><span class="s2">&quot;) -&gt; False</span>
 
-<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">        </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-        <span class="n">_str1</span><span class="p">,</span> <span class="n">_str2</span> <span class="o">=</span> <span class="p">(</span>
+<span class="w">        </span><span class="n">_str1</span><span class="p">,</span><span class="w"> </span><span class="n">_str2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
 
-            <span class="n">str_1</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="n">str_1</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">),</span><span class="w"></span>
 
-            <span class="n">str_2</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+<span class="w">            </span><span class="n">str_2</span><span class="p">.</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">).</span><span class="k">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">),</span><span class="w"></span>
 
-        <span class="p">)</span>
+<span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-        <span class="k">return</span> <span class="n">sorted</span><span class="p">(</span><span class="n">_str1</span><span class="p">.</span><span class="nf">lower</span><span class="p">())</span> <span class="o">==</span> <span class="n">sorted</span><span class="p">(</span><span class="n">_str2</span><span class="p">.</span><span class="nf">lower</span><span class="p">())</span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">_str1</span><span class="p">.</span><span class="nf">lower</span><span class="p">())</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sorted</span><span class="p">(</span><span class="n">_str2</span><span class="p">.</span><span class="nf">lower</span><span class="p">())</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -6576,7 +6644,9 @@ characters from the given string. Then compare the new string with its reverse.<
 <p>Usage:
     is_palindrome("racecar") -&gt; True
     is_palindrome("definitelynot") -&gt; False |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="s s-Atom">@staticmethod</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code>    <span class="s s-Atom">@staticmethod</span>
 
     <span class="s s-Atom">def</span> <span class="nf">is_palindrome</span><span class="p">(</span><span class="nn">text</span><span class="p">:</span> <span class="s s-Atom">str</span><span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="nn">bool</span><span class="p">:</span>
 
@@ -6654,7 +6724,9 @@ characters from the given string. Then compare the new string with its reverse.<
 <p>Usage:
     kebab_case("camel Case") -&gt; "camel-case"
     kebab_case("snake_case") -&gt; "snake-case" |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">kebab_case</span><span class="p">(</span><span class="nc">text</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
 
@@ -6744,7 +6816,9 @@ characters from the given string. Then compare the new string with its reverse.<
 <p>Usage:
     snake_case("A bunch of words") -&gt; "a_bunch_of_words"
     snake_case("camelCase") -&gt; "camelcase" |</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">snake_case</span><span class="p">(</span><span class="nc">text</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nf">str</span><span class="err">:</span><span class="w"></span>
 

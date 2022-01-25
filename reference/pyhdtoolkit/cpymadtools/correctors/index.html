@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1211,7 +1211,9 @@
 <p>Module cpymadtools.correctors</p>
 <hr />
 <p>Created on 2021.10.16</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.correctors</span>
 
@@ -1500,71 +1502,73 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">query_arc_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">str</span><span class="p">,</span> <span class="n">float</span><span class="p">]</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">query_arc_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="p">[</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">float</span><span class="p">]</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
-<span class="s">    This is a port of one of the `corr_value.madx` file&#39;</span><span class="n">s</span> <span class="n">macros</span><span class="p">.</span> <span class="n">It</span> <span class="n">queries</span> <span class="n">for</span> <span class="n">the</span> <span class="n">arc</span> <span class="n">corrector</span> <span class="n">strengths</span>
+<span class="s">    This is a port of one of the `corr_value.madx` file&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">macros</span><span class="p">.</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">queries</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">corrector</span><span class="w"> </span><span class="n">strengths</span><span class="w"></span>
 
-    <span class="kr">and</span> <span class="n">returns</span> <span class="n">their</span> <span class="n">values</span> <span class="kr">as</span> <span class="n">a</span> <span class="n">percentage</span> <span class="kr">of</span> <span class="n">their</span> <span class="nf">max</span> <span class="n">powering</span><span class="p">.</span>
+<span class="w">    </span><span class="kr">and</span><span class="w"> </span><span class="n">returns</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="nf">max</span><span class="w"> </span><span class="n">powering</span><span class="p">.</span><span class="w"></span>
 
-    <span class="n">Args</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Args</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">madx</span> <span class="p">(</span><span class="n">cpymad</span><span class="p">.</span><span class="n">madx</span><span class="p">.</span><span class="n">Madx</span><span class="p">)</span><span class="o">:</span> <span class="n">an</span> <span class="n">instanciated</span> <span class="n">cpymad</span> <span class="n">Madx</span> <span class="n">object</span> <span class="n">with</span> <span class="n">an</span> <span class="n">active</span> <span class="p">(</span><span class="n">HL</span><span class="p">)</span><span class="n">LHC</span> <span class="n">sequence</span><span class="p">.</span>
+<span class="w">        </span><span class="n">madx</span><span class="w"> </span><span class="p">(</span><span class="n">cpymad</span><span class="p">.</span><span class="n">madx</span><span class="p">.</span><span class="n">Madx</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">instanciated</span><span class="w"> </span><span class="n">cpymad</span><span class="w"> </span><span class="n">Madx</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="p">(</span><span class="n">HL</span><span class="p">)</span><span class="n">LHC</span><span class="w"> </span><span class="n">sequence</span><span class="p">.</span><span class="w"></span>
 
-    <span class="n">Returns</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Returns</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">A</span> <span class="n">dict</span> <span class="n">with</span> <span class="n">the</span> <span class="n">percentage</span> <span class="n">for</span> <span class="n">each</span> <span class="n">corrector</span><span class="p">.</span>
+<span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="n">dict</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">corrector</span><span class="p">.</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
-<span class="s">    logger.info(&quot;</span><span class="n">Querying</span> <span class="n">triplets</span> <span class="n">correctors</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.info(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplets</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    result: Dict[str, float] = {}</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="n">tune</span> <span class="kr">trim</span> <span class="n">quadrupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MQTs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">tune</span><span class="w"> </span><span class="kr">trim</span><span class="w"> </span><span class="n">quadrupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MQTs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mqt_max = 120 / madx.globals.brho  # 120 T/m</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mqt_max for knob in LHC_KQTF_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="n">short</span> <span class="n">straight</span> <span class="n">sections</span> <span class="kr">skew</span> <span class="n">quadrupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MQSs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">short</span><span class="w"> </span><span class="n">straight</span><span class="w"> </span><span class="n">sections</span><span class="w"> </span><span class="kr">skew</span><span class="w"> </span><span class="n">quadrupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MQSs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mqs_max = 120 / madx.globals.brho  # 120 T/m</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mqs_max for knob in LHC_KQS_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="n">sextupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MSs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">sextupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MSs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_ms_max = 1.280 * 2 / 0.017 ** 2 / madx.globals.brho  # 1.28 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_ms_max for knob in LHC_KSF_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="kr">skew</span> <span class="n">sextupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MSSs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="kr">skew</span><span class="w"> </span><span class="n">sextupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MSSs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mss_max = 1.280 * 2 / 0.017 ** 2 / madx.globals.brho  # 1.28 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mss_max for knob in LHC_KSS_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="n">spool</span> <span class="n">piece</span> <span class="p">(</span><span class="kr">skew</span><span class="p">)</span> <span class="n">sextupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCSs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">spool</span><span class="w"> </span><span class="n">piece</span><span class="w"> </span><span class="p">(</span><span class="kr">skew</span><span class="p">)</span><span class="w"> </span><span class="n">sextupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCSs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mcs_max = 0.471 * 2 / 0.017 ** 2 / madx.globals.brho  # 0.471 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mcs_max for knob in LHC_KCS_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="n">spool</span> <span class="n">piece</span> <span class="p">(</span><span class="kr">skew</span><span class="p">)</span> <span class="n">octupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCOs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">spool</span><span class="w"> </span><span class="n">piece</span><span class="w"> </span><span class="p">(</span><span class="kr">skew</span><span class="p">)</span><span class="w"> </span><span class="n">octupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCOs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mco_max = 0.040 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.04 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mco_max for knob in LHC_KCO_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="n">spool</span> <span class="n">piece</span> <span class="p">(</span><span class="kr">skew</span><span class="p">)</span> <span class="n">decapole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCDs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">spool</span><span class="w"> </span><span class="n">piece</span><span class="w"> </span><span class="p">(</span><span class="kr">skew</span><span class="p">)</span><span class="w"> </span><span class="n">decapole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCDs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mcd_max = 0.100 * 24 / 0.017 ** 4 / madx.globals.brho  # 0.1 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mcd_max for knob in LHC_KCD_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">arc</span> <span class="n">short</span> <span class="n">straight</span> <span class="n">sections</span> <span class="n">octupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MOs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">arc</span><span class="w"> </span><span class="n">short</span><span class="w"> </span><span class="n">straight</span><span class="w"> </span><span class="n">sections</span><span class="w"> </span><span class="n">octupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MOs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mo_max = 0.29 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.29 T @ 17 mm</span>
 
@@ -1615,59 +1619,61 @@
 </tr>
 </tbody>
 </table>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">query_triplet_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="n">str</span><span class="p">,</span> <span class="n">float</span><span class="p">]</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">query_triplet_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Dict</span><span class="p">[</span><span class="n">str</span><span class="p">,</span><span class="w"> </span><span class="n">float</span><span class="p">]</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
-<span class="s">    This is a port of one of the `corr_value.madx` file&#39;</span><span class="n">s</span> <span class="n">macros</span><span class="p">.</span> <span class="n">It</span> <span class="n">queries</span> <span class="n">for</span> <span class="n">the</span> <span class="n">triplet</span> <span class="n">corrector</span>
+<span class="s">    This is a port of one of the `corr_value.madx` file&#39;</span><span class="n">s</span><span class="w"> </span><span class="n">macros</span><span class="p">.</span><span class="w"> </span><span class="n">It</span><span class="w"> </span><span class="n">queries</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">triplet</span><span class="w"> </span><span class="n">corrector</span><span class="w"></span>
 
-    <span class="n">strengths</span> <span class="kr">and</span> <span class="n">returns</span> <span class="n">their</span> <span class="n">values</span> <span class="kr">as</span> <span class="n">a</span> <span class="n">percentage</span> <span class="kr">of</span> <span class="n">their</span> <span class="nf">max</span> <span class="n">powering</span><span class="p">.</span>
+<span class="w">    </span><span class="n">strengths</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">returns</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="n">values</span><span class="w"> </span><span class="kr">as</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">their</span><span class="w"> </span><span class="nf">max</span><span class="w"> </span><span class="n">powering</span><span class="p">.</span><span class="w"></span>
 
-    <span class="n">Args</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Args</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">madx</span> <span class="p">(</span><span class="n">cpymad</span><span class="p">.</span><span class="n">madx</span><span class="p">.</span><span class="n">Madx</span><span class="p">)</span><span class="o">:</span> <span class="n">an</span> <span class="n">instanciated</span> <span class="n">cpymad</span> <span class="n">Madx</span> <span class="n">object</span> <span class="n">with</span> <span class="n">an</span> <span class="n">active</span> <span class="p">(</span><span class="n">HL</span><span class="p">)</span><span class="n">LHC</span> <span class="n">sequence</span><span class="p">.</span>
+<span class="w">        </span><span class="n">madx</span><span class="w"> </span><span class="p">(</span><span class="n">cpymad</span><span class="p">.</span><span class="n">madx</span><span class="p">.</span><span class="n">Madx</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">instanciated</span><span class="w"> </span><span class="n">cpymad</span><span class="w"> </span><span class="n">Madx</span><span class="w"> </span><span class="n">object</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="p">(</span><span class="n">HL</span><span class="p">)</span><span class="n">LHC</span><span class="w"> </span><span class="n">sequence</span><span class="p">.</span><span class="w"></span>
 
-    <span class="n">Returns</span><span class="o">:</span>
+<span class="w">    </span><span class="n">Returns</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">A</span> <span class="n">dict</span> <span class="n">with</span> <span class="n">the</span> <span class="n">percentage</span> <span class="n">for</span> <span class="n">each</span> <span class="n">corrector</span><span class="p">.</span>
+<span class="w">        </span><span class="n">A</span><span class="w"> </span><span class="n">dict</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">percentage</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">each</span><span class="w"> </span><span class="n">corrector</span><span class="p">.</span><span class="w"></span>
 
-    <span class="s">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
 
-<span class="s">    logger.info(&quot;</span><span class="n">Querying</span> <span class="n">triplets</span> <span class="n">correctors</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.info(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplets</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    result: Dict[str, float] = {}</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">triplet</span> <span class="kr">skew</span> <span class="n">quadrupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MQSXs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplet</span><span class="w"> </span><span class="kr">skew</span><span class="w"> </span><span class="n">quadrupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MQSXs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mqsx_max = 1.360 / 0.017 / madx.globals.brho  # 1.36 T @ 17mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mqsx_max for knob in LHC_KQSX_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">triplet</span> <span class="n">sextupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCSXs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplet</span><span class="w"> </span><span class="n">sextupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCSXs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mcsx_max = 0.028 * 2 / 0.017 ** 2 / madx.globals.brho  # 0.028 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mcsx_max for knob in LHC_KCSX_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">triplet</span> <span class="kr">skew</span> <span class="n">sextupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCSSXs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplet</span><span class="w"> </span><span class="kr">skew</span><span class="w"> </span><span class="n">sextupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCSSXs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mcssx_max = 0.11 * 2 / 0.017 ** 2 / madx.globals.brho  # 0.11 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mcssx_max for knob in LHC_KCSSX_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">triplet</span> <span class="n">octupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCOXs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplet</span><span class="w"> </span><span class="n">octupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCOXs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mcox_max = 0.045 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.045 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mcox_max for knob in LHC_KCOX_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">triplet</span> <span class="kr">skew</span> <span class="n">octupole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCOSXs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplet</span><span class="w"> </span><span class="kr">skew</span><span class="w"> </span><span class="n">octupole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCOSXs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mcosx_max = 0.048 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.048 T @ 17 mm</span>
 
 <span class="s">    result.update({knob: 100 * _knob_value(madx, knob) / k_mcosx_max for knob in LHC_KCOSX_KNOBS})</span>
 
-<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span> <span class="n">triplet</span> <span class="n">decapole</span> <span class="n">correctors</span> <span class="p">(</span><span class="n">MCTXs</span><span class="p">)</span> <span class="n">powering</span><span class="s">&quot;)</span>
+<span class="s">    logger.debug(&quot;</span><span class="n">Querying</span><span class="w"> </span><span class="n">triplet</span><span class="w"> </span><span class="n">decapole</span><span class="w"> </span><span class="n">correctors</span><span class="w"> </span><span class="p">(</span><span class="n">MCTXs</span><span class="p">)</span><span class="w"> </span><span class="n">powering</span><span class="s">&quot;)</span>
 
 <span class="s">    k_mctx_max = 0.01 * 120 / 0.017 ** 5 / madx.globals.brho  # 0.010 T @ 17 mm</span>
 

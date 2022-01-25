@@ -10,7 +10,7 @@
       
       
       <link rel="icon" href="../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.0">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.0">
     
     
       
@@ -1239,7 +1239,9 @@
 <p>Module cpymadtools.twiss</p>
 <hr />
 <p>Created on 2020.02.03</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">Module cpymadtools.twiss</span>
 
@@ -1494,9 +1496,11 @@ included as the TfsDataFrame's header dictionary.</p>
     <code>centre</code> or starting coordinates with <code>betax</code>, 'betay` etc.</p>
 <p>Returns:
     A TfsDataFrame of the twiss output.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_ips_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="k">columns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_ips_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="k">columns</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Quickly get the `TWISS` table for certain variables at IP locations only. The `SUMM` table will be</span>
 
@@ -1518,11 +1522,11 @@ included as the TfsDataFrame's header dictionary.</p>
 
 <span class="s2">        A TfsDataFrame of the twiss output.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Getting Twiss at IPs&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Getting Twiss at IPs&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="err">[</span><span class="s2">&quot;IP&quot;</span><span class="err">]</span><span class="p">,</span> <span class="k">columns</span><span class="o">=</span><span class="k">columns</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span><span class="w"> </span><span class="n">patterns</span><span class="o">=</span><span class="err">[</span><span class="s2">&quot;IP&quot;</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="k">columns</span><span class="o">=</span><span class="k">columns</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1545,9 +1549,11 @@ left and right of the IP. The <code>SUMM</code> table will be included as the Tf
     <code>centre</code> or starting coordinates with <code>betax</code>, 'betay` etc.</p>
 <p>Returns:
     A TfsDataFrame of the twiss output.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_ir_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb nb-Type">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_ir_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">ir</span><span class="p">:</span><span class="w"> </span><span class="nb nb-Type">int</span><span class="p">,</span><span class="w"> </span><span class="n">columns</span><span class="p">:</span><span class="w"> </span><span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span><span class="w"></span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
 <span class="sd">    Quickly get the `TWISS` table for certain variables for one IR, meaning at the IP and Q1 to Q3 both</span>
 
@@ -1571,31 +1577,31 @@ left and right of the IP. The <code>SUMM</code> table will be included as the Tf
 
 <span class="sd">        A TfsDataFrame of the twiss output.</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Getting Twiss for IR{ir:d}&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Getting Twiss for IR{ir:d}&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">get_pattern_twiss</span><span class="p">(</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span>
+<span class="w">        </span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span><span class="w"></span>
 
-        <span class="n">patterns</span><span class="o">=</span><span class="p">[</span>
+<span class="w">        </span><span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="w"></span>
 
-            <span class="n">f</span><span class="s2">&quot;IP{ir:d}&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="n">f</span><span class="s2">&quot;IP{ir:d}&quot;</span><span class="p">,</span><span class="w"></span>
 
-            <span class="n">f</span><span class="s2">&quot;MQXA.[12345][RL]{ir:d}&quot;</span><span class="p">,</span>  <span class="c1"># Q1 and Q3 LHC</span>
+<span class="w">            </span><span class="n">f</span><span class="s2">&quot;MQXA.[12345][RL]{ir:d}&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1"># Q1 and Q3 LHC</span><span class="w"></span>
 
-            <span class="n">f</span><span class="s2">&quot;MQXB.[AB][12345][RL]{ir:d}&quot;</span><span class="p">,</span>  <span class="c1"># Q2A and Q2B LHC</span>
+<span class="w">            </span><span class="n">f</span><span class="s2">&quot;MQXB.[AB][12345][RL]{ir:d}&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1"># Q2A and Q2B LHC</span><span class="w"></span>
 
-            <span class="n">f</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]{ir:d}&quot;</span><span class="p">,</span>  <span class="c1"># Q1 to Q3 A and B HL-LHC</span>
+<span class="w">            </span><span class="n">f</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]{ir:d}&quot;</span><span class="p">,</span><span class="w">  </span><span class="c1"># Q1 to Q3 A and B HL-LHC</span><span class="w"></span>
 
-        <span class="p">],</span>
+<span class="w">        </span><span class="p">],</span><span class="w"></span>
 
-        <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
+<span class="w">        </span><span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span><span class="w"></span>
 
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="w">        </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
 
-    <span class="p">)</span>
+<span class="w">    </span><span class="p">)</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1626,13 +1632,15 @@ itself.</p>
 <p>Returns:
     A TfsDataFrame with the selected columns for all elements matching the provided patterns,
     and the internal <code>summ</code> table as header dict.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">def</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_pattern_twiss</span><span class="p">(</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="o">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="err">[</span><span class="s2">&quot;&quot;</span><span class="err">]</span><span class="p">,</span> <span class="k">columns</span><span class="o">:</span> <span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span> <span class="o">=</span> <span class="k">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">patterns</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[</span><span class="s2">&quot;&quot;</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="k">columns</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
 
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span><span class="w"></span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
 <span class="s2">    Extract the `TWISS` table for desired variables, and for certain elements matching a pattern.</span>
 
@@ -1672,33 +1680,33 @@ itself.</p>
 
 <span class="s2">        and the internal `summ` table as header dict.</span>
 
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Clearing &#39;TWISS&#39; flag&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Clearing &#39;TWISS&#39; flag&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">for</span> <span class="n">pattern</span> <span class="k">in</span> <span class="n">patterns</span><span class="o">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">pattern</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">patterns</span><span class="o">:</span><span class="w"></span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Adding pattern {pattern} to &#39;TWISS&#39; flag&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Adding pattern {pattern} to &#39;TWISS&#39; flag&quot;</span><span class="p">)</span><span class="w"></span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="k">column</span><span class="o">=</span><span class="k">columns</span><span class="p">)</span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="k">column</span><span class="o">=</span><span class="k">columns</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">twiss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">twiss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Extracting relevant parts of the TWISS table&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Extracting relevant parts of the TWISS table&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">())</span>
+<span class="w">    </span><span class="n">twiss_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">dframe</span><span class="p">().</span><span class="n">copy</span><span class="p">())</span><span class="w"></span>
 
-    <span class="n">twiss_df</span><span class="p">.</span><span class="n">headers</span> <span class="o">=</span> <span class="err">{</span><span class="n">var</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="o">:</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">[</span><span class="n">var</span><span class="err">][</span><span class="mi">0</span><span class="err">]</span> <span class="k">for</span> <span class="n">var</span> <span class="k">in</span> <span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">}</span>
+<span class="w">    </span><span class="n">twiss_df</span><span class="p">.</span><span class="n">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">{</span><span class="n">var</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="o">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">[</span><span class="n">var</span><span class="err">][</span><span class="mi">0</span><span class="err">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">var</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">summ</span><span class="err">}</span><span class="w"></span>
 
-    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="err">[</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">selected_columns</span><span class="p">()</span><span class="err">]</span><span class="p">.</span><span class="n">iloc</span><span class="err">[</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">selected_rows</span><span class="p">()</span><span class="err">]</span>
+<span class="w">    </span><span class="n">twiss_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">twiss_df</span><span class="err">[</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">selected_columns</span><span class="p">()</span><span class="err">]</span><span class="p">.</span><span class="n">iloc</span><span class="err">[</span><span class="n">madx</span><span class="p">.</span><span class="k">table</span><span class="p">.</span><span class="n">twiss</span><span class="p">.</span><span class="n">selected_rows</span><span class="p">()</span><span class="err">]</span><span class="w"></span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Clearing &#39;TWISS&#39; flag&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Clearing &#39;TWISS&#39; flag&quot;</span><span class="p">)</span><span class="w"></span>
 
-    <span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">clear</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-    <span class="k">return</span> <span class="n">twiss_df</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">twiss_df</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -1718,7 +1726,9 @@ will call the TWISS command first before returning the dframe to you.</p>
     <code>centre</code> or starting coordinates with <code>betax</code>, 'betay` etc.</p>
 <p>Returns:
     A tfs.TfsDataFrame.</p>
-<details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">get_twiss_tfs</span><span class="p">(</span><span class="nn">madx</span><span class="p">:</span> <span class="nv">Madx</span><span class="p">,</span> <span class="s s-Atom">**kwargs</span><span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="s s-Atom">tfs</span><span class="p">.</span><span class="nv">TfsDataFrame</span><span class="s s-Atom">:</span>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="s s-Atom">def</span> <span class="nf">get_twiss_tfs</span><span class="p">(</span><span class="nn">madx</span><span class="p">:</span> <span class="nv">Madx</span><span class="p">,</span> <span class="s s-Atom">**kwargs</span><span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="s s-Atom">tfs</span><span class="p">.</span><span class="nv">TfsDataFrame</span><span class="s s-Atom">:</span>
 
     <span class="s2">&quot;&quot;&quot;</span>
 
