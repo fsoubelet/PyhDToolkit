@@ -1227,18 +1227,6 @@
 
 <span class="sd">    Tracks a single particle for nturns, based on its initial coordinates.</span>
 
-<span class="sd">    Warnings:</span>
-
-<span class="sd">        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided</span>
-
-<span class="sd">        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously</span>
-
-<span class="sd">        defined errors, orbits corrections etc. In this case a warning will be logged but the function will</span>
-
-<span class="sd">        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking</span>
-
-<span class="sd">        is performed on.</span>
-
 <span class="sd">    Args:</span>
 
 <span class="sd">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
@@ -1264,6 +1252,18 @@
 <span class="sd">        Any keyword argument to be given to the `TRACK` command like it would be given directly into `MAD-X`,</span>
 
 <span class="sd">        for instance `ONETABLE` etc. Refer to the `MAD-X` manual for options.</span>
+
+<span class="sd">    Warnings:</span>
+
+<span class="sd">        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided</span>
+
+<span class="sd">        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously</span>
+
+<span class="sd">        defined errors, orbits corrections etc. In this case a warning will be logged but the function will</span>
+
+<span class="sd">        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking</span>
+
+<span class="sd">        is performed on.</span>
 
 <span class="sd">    Returns:</span>
 
@@ -1293,11 +1293,7 @@
 
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-
-            <span class="sa">f</span><span class="s2">&quot;Sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39; was provided and will be used, beware that this will erase errors etc.&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39; was provided and will be used, beware that this will erase errors etc.&quot;</span><span class="p">)</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39; for tracking&quot;</span><span class="p">)</span>
 
@@ -1349,12 +1345,6 @@
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pandas</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]</span>
 </code></pre></div>
 <p>Tracks a single particle for nturns, based on its initial coordinates.</p>
-<p>Warnings:
-    If the <code>sequence</code> argument is given a string value, the <code>USE</code> command will be ran on the provided
-    sequence name. This means the caveats of <code>USE</code> apply, for instance the erasing of previously
-    defined errors, orbits corrections etc. In this case a warning will be logged but the function will
-    proceed. If <code>None</code> is given (by default) then the sequence already in used will be the one tracking
-    is performed on.</p>
 <p>Args:
     madx (Madx): an instantiated cpymad.madx.Madx object.
     initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,
@@ -1368,6 +1358,12 @@
 <p>Keyword Args:
     Any keyword argument to be given to the <code>TRACK</code> command like it would be given directly into <code>MAD-X</code>,
     for instance <code>ONETABLE</code> etc. Refer to the <code>MAD-X</code> manual for options.</p>
+<p>Warnings:
+    If the <code>sequence</code> argument is given a string value, the <code>USE</code> command will be ran on the provided
+    sequence name. This means the caveats of <code>USE</code> apply, for instance the erasing of previously
+    defined errors, orbits corrections etc. In this case a warning will be logged but the function will
+    proceed. If <code>None</code> is given (by default) then the sequence already in used will be the one tracking
+    is performed on.</p>
 <p>Returns:
     A dictionary with a copy of the track table's dataframe for each defined observation point,
     with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary
@@ -1398,18 +1394,6 @@
 
 <span class="s2">    Tracks a single particle for nturns, based on its initial coordinates.</span>
 
-<span class="s2">    Warnings:</span>
-
-<span class="s2">        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided</span>
-
-<span class="s2">        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously</span>
-
-<span class="s2">        defined errors, orbits corrections etc. In this case a warning will be logged but the function will</span>
-
-<span class="s2">        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking</span>
-
-<span class="s2">        is performed on.</span>
-
 <span class="s2">    Args:</span>
 
 <span class="s2">        madx (Madx): an instantiated cpymad.madx.Madx object.</span>
@@ -1435,6 +1419,18 @@
 <span class="s2">        Any keyword argument to be given to the `TRACK` command like it would be given directly into `MAD-X`,</span>
 
 <span class="s2">        for instance `ONETABLE` etc. Refer to the `MAD-X` manual for options.</span>
+
+<span class="s2">    Warnings:</span>
+
+<span class="s2">        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided</span>
+
+<span class="s2">        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously</span>
+
+<span class="s2">        defined errors, orbits corrections etc. In this case a warning will be logged but the function will</span>
+
+<span class="s2">        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking</span>
+
+<span class="s2">        is performed on.</span>
 
 <span class="s2">    Returns:</span>
 
@@ -1464,11 +1460,7 @@
 
     <span class="k">if</span> <span class="n">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">str</span><span class="p">)</span><span class="o">:</span>
 
-        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span>
-
-            <span class="n">f</span><span class="s2">&quot;Sequence &#39;{sequence}&#39; was provided and will be used, beware that this will erase errors etc.&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="p">.</span><span class="n">warning</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Sequence &#39;{sequence}&#39; was provided and will be used, beware that this will erase errors etc.&quot;</span><span class="p">)</span>
 
         <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Using sequence &#39;{sequence}&#39; for tracking&quot;</span><span class="p">)</span>
 

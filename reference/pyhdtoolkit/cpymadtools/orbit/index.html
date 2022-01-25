@@ -1457,11 +1457,7 @@
 
     <span class="n">variables</span><span class="p">,</span> <span class="n">specials</span> <span class="o">=</span> <span class="n">lhc_orbit_variables</span><span class="p">()</span>
 
-    <span class="k">return</span> <span class="p">{</span>
-
-        <span class="n">orbit_variable</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">orbit_variable</span><span class="p">]</span> <span class="k">for</span> <span class="n">orbit_variable</span> <span class="ow">in</span> <span class="n">variables</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">specials</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-
-    <span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">orbit_variable</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">orbit_variable</span><span class="p">]</span> <span class="k">for</span> <span class="n">orbit_variable</span> <span class="ow">in</span> <span class="n">variables</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">specials</span><span class="o">.</span><span class="n">keys</span><span class="p">())}</span>
 
 <span class="k">def</span> <span class="nf">correct_lhc_orbit</span><span class="p">(</span>
 
@@ -1521,17 +1517,9 @@
 
         <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-
-        <span class="p">)</span>
-
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span>
-
-            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-
-        <span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
 
 </details>
@@ -1616,17 +1604,9 @@
 
         <span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="no">True</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-
-        <span class="p">)</span>
-
-        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span>
-
-            <span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-
-        <span class="p">)</span>
+        <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">correct</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s2">&quot;ring&quot;</span><span class="p">,</span> <span class="k">error</span><span class="o">=</span><span class="n">orbit_tolerance</span><span class="p">,</span> <span class="k">mode</span><span class="o">=</span><span class="k">mode</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </code></pre></div>
 
 </details>
@@ -1693,11 +1673,7 @@
 
 <span class="w">    </span><span class="n">variables</span><span class="p">,</span><span class="w"> </span><span class="n">specials</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lhc_orbit_variables</span><span class="p">()</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">orbit_variable</span><span class="p">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">orbit_variable</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">orbit_variable</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">specials</span><span class="p">.</span><span class="n">keys</span><span class="p">())</span><span class="w"></span>
-
-<span class="w">    </span><span class="err">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="nl">orbit_variable</span><span class="p">:</span><span class="w"> </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">orbit_variable</span><span class="o">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">orbit_variable</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">list</span><span class="p">(</span><span class="n">specials</span><span class="p">.</span><span class="n">keys</span><span class="p">())</span><span class="err">}</span><span class="w"></span>
 </code></pre></div>
 
 </details>

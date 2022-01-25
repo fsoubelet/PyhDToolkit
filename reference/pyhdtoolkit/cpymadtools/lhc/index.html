@@ -1501,11 +1501,7 @@
 
     <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
-
-            <span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span><span class="p">)</span>
 
         <span class="k">raise</span> <span class="ne">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_error</span>
 
@@ -1845,11 +1841,7 @@
 
     <span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span>
-
-        <span class="sa">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -1935,11 +1927,7 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=vacmap43;&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span>
-
-        <span class="sa">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span>
-
-    <span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -2327,13 +2315,9 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">orientation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;straight&quot;</span><span class="p">,</span> <span class="s2">&quot;skew&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">,):</span>
+    <span class="k">if</span> <span class="n">orientation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;straight&quot;</span><span class="p">,</span> <span class="s2">&quot;skew&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">):</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-
-            <span class="sa">f</span><span class="s2">&quot;Orientation &#39;</span><span class="si">{</span><span class="n">orientation</span><span class="si">}</span><span class="s2">&#39; is not accepted, should be one of &#39;straight&#39;, &#39;skew&#39;, &#39;both&#39;.&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orientation &#39;</span><span class="si">{</span><span class="n">orientation</span><span class="si">}</span><span class="s2">&#39; is not accepted, should be one of &#39;straight&#39;, &#39;skew&#39;, &#39;both&#39;.&quot;</span><span class="p">)</span>
 
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;orientation&#39; parameter&quot;</span><span class="p">)</span>
 
@@ -2967,11 +2951,7 @@ functions. See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevST
 
     <span class="p">)</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span>
-
-        <span class="n">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span>
-
-    <span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span>
 
@@ -3111,11 +3091,7 @@ See <a href="https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.08400
 
     <span class="n">madx</span><span class="p">.</span><span class="n">input</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=vacmap43;&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span>
-
-        <span class="n">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span>
-
-    <span class="p">)</span>
+    <span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">f</span><span class="s2">&quot;lhcb{beam:d}&quot;</span><span class="p">)</span>
 
@@ -3549,11 +3525,7 @@ will enforce <code>makedipedge</code>.</p>
 
     <span class="n">except</span> <span class="n">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
-
-            <span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span>
-
-        <span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span><span class="p">)</span>
 
         <span class="n">raise</span> <span class="n">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="n">from</span> <span class="n">madx_error</span>
 

@@ -1407,11 +1407,7 @@
 
         <span class="n">else:</span>
 
-            <span class="n">logger</span>.<span class="nb">exception</span>(
-
-                <span class="s">&quot;Instantiating a PhaseReconstructor with a non hermitian matrix is &quot;</span> <span class="s">&quot;not possible&quot;</span>
-
-            )
+            <span class="n">logger</span>.<span class="nb">exception</span>(<span class="s">&quot;Instantiating a PhaseReconstructor with a non hermitian matrix is not possible&quot;</span>)
 
             <span class="n">raise</span> <span class="n">ValueError</span>(<span class="s">&quot;Provided matrix should be Hermitian&quot;</span>)
 
@@ -1517,19 +1513,11 @@
 
             <span class="n">e_vect</span> = <span class="n">np</span>.<span class="n">random</span>.<span class="n">randn</span>(<span class="n">eigenvector</span>.<span class="n">size</span>) + <span class="mi">1</span><span class="n">j</span> * <span class="n">np</span>.<span class="n">random</span>.<span class="n">randn</span>(<span class="n">eigenvector</span>.<span class="n">size</span>)
 
-            <span class="k">while</span> (
-
-                <span class="n">np</span>.<span class="nb">absolute</span>(<span class="n">e_vect</span> @ <span class="n">eigenvector</span>) == <span class="mi">0</span>
-
-            ):  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
+            <span class="k">while</span> <span class="n">np</span>.<span class="nb">absolute</span>(<span class="n">e_vect</span> @ <span class="n">eigenvector</span>) == <span class="mi">0</span>:  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
 
                 <span class="n">e_vect</span> = <span class="n">np</span>.<span class="n">random</span>.<span class="n">randn</span>(<span class="n">eigenvector</span>.<span class="n">size</span>) + <span class="mi">1</span><span class="n">j</span> * <span class="n">np</span>.<span class="n">random</span>.<span class="n">randn</span>(<span class="n">eigenvector</span>.<span class="n">size</span>)
 
-            <span class="k">return</span> (<span class="n">e_vect</span> @ <span class="n">eigenvector</span> / <span class="n">np</span>.<span class="nb">absolute</span>(<span class="n">e_vect</span> @ <span class="n">eigenvector</span>)).<span class="n">reshape</span>(
-
-                (<span class="mi">1</span>, <span class="nb">self</span>.<span class="n">space_dimension</span>)
-
-            )
+            <span class="k">return</span> (<span class="n">e_vect</span> @ <span class="n">eigenvector</span> / <span class="n">np</span>.<span class="nb">absolute</span>(<span class="n">e_vect</span> @ <span class="n">eigenvector</span>)).<span class="n">reshape</span>((<span class="mi">1</span>, <span class="nb">self</span>.<span class="n">space_dimension</span>))
 
     <span class="n">def</span> <span class="n">reconstruct_complex_phases_evm</span>(<span class="nb">self</span>) -&gt; <span class="n">np</span>.<span class="n">ndarray:</span>
 
@@ -1551,11 +1539,7 @@
 
     <span class="nv">@staticmethod</span>
 
-    <span class="n">def</span> <span class="n">convert_complex_result_to_phase_values</span>(
-
-        <span class="n">complex_estimator:</span> <span class="n">np</span>.<span class="n">ndarray</span>, <span class="n">deg:</span> <span class="n">bool</span> = <span class="nb">False</span>
-
-    ) -&gt; <span class="n">np</span>.<span class="n">ndarray:</span>
+    <span class="n">def</span> <span class="n">convert_complex_result_to_phase_values</span>(<span class="n">complex_estimator:</span> <span class="n">np</span>.<span class="n">ndarray</span>, <span class="n">deg:</span> <span class="n">bool</span> = <span class="nb">False</span>) -&gt; <span class="n">np</span>.<span class="n">ndarray:</span>
 
         <span class="s">&quot;&quot;&quot;</span>
 
@@ -1639,11 +1623,7 @@
 
         <span class="k">else</span><span class="o">:</span>
 
-            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span>
-
-                <span class="s2">&quot;Instantiating a PhaseReconstructor with a non hermitian matrix is &quot;</span> <span class="s2">&quot;not possible&quot;</span>
-
-            <span class="p">)</span>
+            <span class="n">logger</span><span class="p">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Instantiating a PhaseReconstructor with a non hermitian matrix is not possible&quot;</span><span class="p">)</span>
 
             <span class="n">raise</span> <span class="n">ValueError</span><span class="p">(</span><span class="s2">&quot;Provided matrix should be Hermitian&quot;</span><span class="p">)</span>
 
@@ -1749,19 +1729,11 @@
 
             <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
 
-            <span class="k">while</span> <span class="p">(</span>
-
-                <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
-
-            <span class="p">)</span><span class="o">:</span>  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
+            <span class="k">while</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">:</span>  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
 
                 <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">(</span>
-
-                <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">)</span>
-
-            <span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span>
 
     <span class="n">def</span> <span class="n">reconstruct_complex_phases_evm</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
 
@@ -1783,11 +1755,7 @@
 
     <span class="nv">@staticmethod</span>
 
-    <span class="n">def</span> <span class="n">convert_complex_result_to_phase_values</span><span class="p">(</span>
-
-        <span class="n">complex_estimator</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">deg</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span>
-
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
+    <span class="n">def</span> <span class="n">convert_complex_result_to_phase_values</span><span class="p">(</span><span class="n">complex_estimator</span><span class="o">:</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">deg</span><span class="o">:</span> <span class="kt">bool</span> <span class="o">=</span> <span class="no">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="o">:</span>
 
         <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
@@ -1830,11 +1798,7 @@
     A <code>numpy.ndarray</code> with the real phase values of the result.</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">convert_complex_result_to_phase_values</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">        </span><span class="nl">complex_estimator</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"> </span><span class="nl">deg</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="w"></span>
-
-<span class="w">    </span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="nl">ndarray</span><span class="p">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">convert_complex_result_to_phase_values</span><span class="p">(</span><span class="nl">complex_estimator</span><span class="p">:</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="n">ndarray</span><span class="p">,</span><span class="w"> </span><span class="nl">deg</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">False</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">np</span><span class="p">.</span><span class="nl">ndarray</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="ss">&quot;&quot;&quot;</span>
 
@@ -1963,19 +1927,11 @@ implementation.</p>
 
             <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
 
-            <span class="k">while</span> <span class="p">(</span>
-
-                <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
-
-            <span class="p">)</span><span class="o">:</span>  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
+            <span class="k">while</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="o">:</span>  <span class="c1"># Guarantee that we don&#39;t fall back to this edge case.</span>
 
                 <span class="n">e_vect</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span> <span class="o">+</span> <span class="n">1j</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="k">random</span><span class="p">.</span><span class="n">randn</span><span class="p">(</span><span class="n">eigenvector</span><span class="p">.</span><span class="n">size</span><span class="p">)</span>
 
-            <span class="k">return</span> <span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">(</span>
-
-                <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">)</span>
-
-            <span class="p">)</span>
+            <span class="k">return</span> <span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="n">absolute</span><span class="p">(</span><span class="n">e_vect</span> <span class="err">@</span> <span class="n">eigenvector</span><span class="p">)).</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">space_dimension</span><span class="p">))</span>
 </code></pre></div>
 
 </details>

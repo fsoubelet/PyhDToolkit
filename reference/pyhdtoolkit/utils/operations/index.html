@@ -1809,11 +1809,7 @@
 
 <span class="s s-Atom">class</span> <span class="nv">ListOperations</span><span class="s s-Atom">:</span>
 
-    <span class="s2">&quot;&quot;&quot;</span>
-
-<span class="s2">    A class to group some common / useful operations on lists.</span>
-
-<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="s2">&quot;&quot;&quot;A class to group some common / useful operations on lists.&quot;&quot;&quot;</span>
 
     <span class="s s-Atom">@staticmethod</span>
 
@@ -1973,11 +1969,7 @@
 
             <span class="s s-Atom">return</span> <span class="s s-Atom">sequence</span>
 
-        <span class="s s-Atom">return</span> <span class="nf">list</span><span class="p">(</span>
-
-            <span class="nf">map</span><span class="p">(</span><span class="s s-Atom">lambda</span> <span class="nn">x</span><span class="p">:</span> <span class="s s-Atom">sequence</span><span class="p">[</span><span class="s s-Atom">x</span> <span class="o">*</span> <span class="s s-Atom">size</span> <span class="s s-Atom">:</span> <span class="s s-Atom">x</span> <span class="o">*</span> <span class="s s-Atom">size</span> <span class="o">+</span> <span class="s s-Atom">size</span><span class="p">],</span> <span class="nf">list</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="s s-Atom">math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="s s-Atom">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="s s-Atom">size</span><span class="p">))),)</span>
-
-        <span class="p">)</span>
+        <span class="s s-Atom">return</span> <span class="nf">list</span><span class="p">(</span><span class="nf">map</span><span class="p">(</span><span class="s s-Atom">lambda</span> <span class="nn">x</span><span class="p">:</span> <span class="s s-Atom">sequence</span><span class="p">[</span><span class="s s-Atom">x</span> <span class="o">*</span> <span class="s s-Atom">size</span> <span class="s s-Atom">:</span> <span class="s s-Atom">x</span> <span class="o">*</span> <span class="s s-Atom">size</span> <span class="o">+</span> <span class="s s-Atom">size</span><span class="p">],</span> <span class="nf">list</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="s s-Atom">math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="s s-Atom">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="s s-Atom">size</span><span class="p">)))))</span>
 
     <span class="s s-Atom">@staticmethod</span>
 
@@ -2425,21 +2417,11 @@
 
         <span class="s s-Atom">max_length</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="s s-Atom">lst</span><span class="p">)</span> <span class="s s-Atom">for</span> <span class="s s-Atom">lst</span> <span class="s s-Atom">in</span> <span class="s s-Atom">args</span><span class="p">)</span>
 
-        <span class="s s-Atom">return</span> <span class="p">[</span>
-
-            <span class="p">[</span><span class="s s-Atom">args</span><span class="p">[</span><span class="s s-Atom">k</span><span class="p">][</span><span class="s s-Atom">i</span><span class="p">]</span> <span class="s s-Atom">if</span> <span class="s s-Atom">i</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="s s-Atom">args</span><span class="p">[</span><span class="s s-Atom">k</span><span class="p">])</span> <span class="s s-Atom">else</span> <span class="s s-Atom">fillvalue</span> <span class="s s-Atom">for</span> <span class="s s-Atom">k</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="s s-Atom">args</span><span class="p">))]</span>
-
-            <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="s s-Atom">max_length</span><span class="p">)</span>
-
-        <span class="p">]</span>
+        <span class="s s-Atom">return</span> <span class="p">[[</span><span class="s s-Atom">args</span><span class="p">[</span><span class="s s-Atom">k</span><span class="p">][</span><span class="s s-Atom">i</span><span class="p">]</span> <span class="s s-Atom">if</span> <span class="s s-Atom">i</span> <span class="o">&lt;</span> <span class="nf">len</span><span class="p">(</span><span class="s s-Atom">args</span><span class="p">[</span><span class="s s-Atom">k</span><span class="p">])</span> <span class="s s-Atom">else</span> <span class="s s-Atom">fillvalue</span> <span class="s s-Atom">for</span> <span class="s s-Atom">k</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="s s-Atom">args</span><span class="p">))]</span> <span class="s s-Atom">for</span> <span class="s s-Atom">i</span> <span class="s s-Atom">in</span> <span class="nf">range</span><span class="p">(</span><span class="s s-Atom">max_length</span><span class="p">)]</span>
 
 <span class="s s-Atom">class</span> <span class="nv">MiscellaneousOperations</span><span class="s s-Atom">:</span>
 
-    <span class="s2">&quot;&quot;&quot;</span>
-
-<span class="s2">    A class to group some misc. operations that don&#39;t pertain to classic structures.</span>
-
-<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="s2">&quot;&quot;&quot;A class to group some misc. operations that don&#39;t pertain to classic structures.&quot;&quot;&quot;</span>
 
     <span class="s s-Atom">@staticmethod</span>
 
@@ -2515,19 +2497,11 @@
 
 <span class="s s-Atom">class</span> <span class="nv">NumberOperations</span><span class="s s-Atom">:</span>
 
-    <span class="s2">&quot;&quot;&quot;</span>
-
-<span class="s2">    A class to group some common / useful operations on numbers.</span>
-
-<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="s2">&quot;&quot;&quot;A class to group some common / useful operations on numbers.&quot;&quot;&quot;</span>
 
     <span class="s s-Atom">@staticmethod</span>
 
-    <span class="s s-Atom">def</span> <span class="nf">clamp_number</span><span class="p">(</span>
-
-        <span class="nn">num</span><span class="p">:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">],</span> <span class="s s-Atom">a_val:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">],</span> <span class="s s-Atom">b_val:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">]</span>
-
-    <span class="p">)</span> <span class="s s-Atom">-&gt;</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">]</span><span class="s s-Atom">:</span>
+    <span class="s s-Atom">def</span> <span class="nf">clamp_number</span><span class="p">(</span><span class="nn">num</span><span class="p">:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">],</span> <span class="s s-Atom">a_val:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">],</span> <span class="s s-Atom">b_val:</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">])</span> <span class="s s-Atom">-&gt;</span> <span class="nv">Union</span><span class="p">[</span><span class="s s-Atom">int</span><span class="p">,</span> <span class="s s-Atom">float</span><span class="p">]</span><span class="s s-Atom">:</span>
 
         <span class="s2">&quot;&quot;&quot;</span>
 
@@ -2721,11 +2695,7 @@
 
 <span class="s s-Atom">class</span> <span class="nv">StringOperations</span><span class="s s-Atom">:</span>
 
-    <span class="s2">&quot;&quot;&quot;</span>
-
-<span class="s2">    A class to group some common / useful operations on strings.</span>
-
-<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="s2">&quot;&quot;&quot;A class to group some common / useful operations on strings.&quot;&quot;&quot;</span>
 
     <span class="s s-Atom">@staticmethod</span>
 
@@ -2967,11 +2937,7 @@
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="n">ListOperations</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    A class to group some common / useful operations on lists.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A class to group some common / useful operations on lists.&quot;&quot;&quot;</span>
 
     <span class="err">@</span><span class="n">staticmethod</span>
 
@@ -3131,11 +3097,7 @@
 
             <span class="k">return</span> <span class="n">sequence</span>
 
-        <span class="k">return</span> <span class="n">list</span><span class="p">(</span>
-
-            <span class="n">map</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sequence</span><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">size</span><span class="p">],</span> <span class="n">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span><span class="p">))),)</span>
-
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sequence</span><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">size</span><span class="p">],</span> <span class="n">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span><span class="p">)))))</span>
 
     <span class="err">@</span><span class="n">staticmethod</span>
 
@@ -3583,13 +3545,7 @@
 
         <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">args</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="p">[</span>
-
-            <span class="p">[</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">else</span> <span class="n">fillvalue</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">))]</span>
-
-            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_length</span><span class="p">)</span>
-
-        <span class="p">]</span>
+        <span class="k">return</span> <span class="p">[[</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">else</span> <span class="n">fillvalue</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">args</span><span class="p">))]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_length</span><span class="p">)]</span>
 </code></pre></div>
 
 </details>
@@ -3660,7 +3616,7 @@
 <h4 id="average_by">average_by</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">average_by</span><span class="p">(</span>
     <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fd4689ab440</span><span class="o">&gt;</span>
+    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fc8791d54d0</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </code></pre></div>
 <p>Returns the average of lst after mapping each element to a value using the</p>
@@ -4016,11 +3972,7 @@ fill it with splices of the given list. Finally, return use created list.</p>
 
             <span class="k">return</span> <span class="n">sequence</span>
 
-        <span class="k">return</span> <span class="k">list</span><span class="p">(</span>
-
-            <span class="n">map</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="o">:</span> <span class="n">sequence</span><span class="err">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">size</span><span class="err">]</span><span class="p">,</span> <span class="k">list</span><span class="p">(</span><span class="k">range</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span><span class="p">))),)</span>
-
-        <span class="p">)</span>
+        <span class="k">return</span> <span class="k">list</span><span class="p">(</span><span class="n">map</span><span class="p">(</span><span class="n">lambda</span> <span class="n">x</span><span class="o">:</span> <span class="n">sequence</span><span class="err">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">size</span><span class="err">]</span><span class="p">,</span> <span class="k">list</span><span class="p">(</span><span class="k">range</span><span class="p">(</span><span class="n">math</span><span class="p">.</span><span class="nf">ceil</span><span class="p">(</span><span class="n">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span><span class="p">)))))</span>
 </code></pre></div>
 
 </details>
@@ -4106,7 +4058,7 @@ fill it with splices of the given list. Finally, return use created list.</p>
 <h4 id="eval_none">eval_none</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">eval_none</span><span class="p">(</span>
     <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fd4689ab7a0</span><span class="o">&gt;</span>
+    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fc8791d5830</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>Returns False if the provided function returns True for at least one element in the list,</p>
@@ -4195,7 +4147,7 @@ all elements are False.</p>
 <h4 id="eval_some">eval_some</h4>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">eval_some</span><span class="p">(</span>
     <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span>
-    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fd4689ab8c0</span><span class="o">&gt;</span>
+    <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">function</span> <span class="n">ListOperations</span><span class="o">.&lt;</span><span class="k">lambda</span><span class="o">&gt;</span> <span class="n">at</span> <span class="mh">0x7fc8791d5950</span><span class="o">&gt;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span>
 </code></pre></div>
 <p>Returns True if the provided function returns True for at least one element in the list,</p>
@@ -5157,13 +5109,7 @@ Loop for max_length times grouping elements. If lengths of lists vary, use fill_
 
 <span class="w">        </span><span class="n">max_length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">max</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">lst</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">[</span><span class="n"></span>
-
-<span class="n">            [args[k</span><span class="o">][</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="n">k</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">fillvalue</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">args</span><span class="p">))</span><span class="err">]</span><span class="w"></span>
-
-<span class="w">            </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">max_length</span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="err">]</span><span class="w"></span>
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="o">[</span><span class="n">[args[k</span><span class="o">][</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="nf">len</span><span class="p">(</span><span class="n">args</span><span class="o">[</span><span class="n">k</span><span class="o">]</span><span class="p">)</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">fillvalue</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">args</span><span class="p">))</span><span class="err">]</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="k">range</span><span class="p">(</span><span class="n">max_length</span><span class="p">)</span><span class="err">]</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -5176,11 +5122,7 @@ Loop for max_length times grouping elements. If lengths of lists vary, use fill_
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">MiscellaneousOperations</span><span class="p">:</span><span class="w"></span>
 
-<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
-
-<span class="ss">    A class to group some misc. operations that don&#39;t pertain to classic structures.</span>
-
-<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;A class to group some misc. operations that don&#39;t pertain to classic structures.&quot;&quot;&quot;</span><span class="w"></span>
 
 <span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
@@ -5442,19 +5384,11 @@ function to each key of a new object.</p>
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">NumberOperations</span><span class="o">:</span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
-
-<span class="s2">    A class to group some common / useful operations on numbers.</span>
-
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A class to group some common / useful operations on numbers.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
     <span class="nv">@staticmethod</span>
 
-    <span class="n">def</span> <span class="n">clamp_number</span><span class="p">(</span>
-
-        <span class="n">num</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">a_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">b_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span>
-
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+    <span class="n">def</span> <span class="n">clamp_number</span><span class="p">(</span><span class="n">num</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">a_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">b_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
 
         <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
@@ -5710,11 +5644,7 @@ function to each key of a new object.</p>
     clamp_number(23, 20, 30) -&gt; 23 |</p>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code>    <span class="nv">@staticmethod</span>
 
-    <span class="n">def</span> <span class="n">clamp_number</span><span class="p">(</span>
-
-        <span class="n">num</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">a_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">b_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span>
-
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
+    <span class="n">def</span> <span class="n">clamp_number</span><span class="p">(</span><span class="n">num</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">a_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">,</span> <span class="n">b_val</span><span class="o">:</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="k">Union</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span><span class="o">:</span>
 
         <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
@@ -6102,11 +6032,7 @@ least common multiple.</p>
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="s s-Atom">class</span> <span class="nv">StringOperations</span><span class="s s-Atom">:</span>
 
-    <span class="s2">&quot;&quot;&quot;</span>
-
-<span class="s2">    A class to group some common / useful operations on strings.</span>
-
-<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="s2">&quot;&quot;&quot;A class to group some common / useful operations on strings.&quot;&quot;&quot;</span>
 
     <span class="s s-Atom">@staticmethod</span>
 

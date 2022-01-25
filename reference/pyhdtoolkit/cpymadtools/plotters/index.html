@@ -1671,19 +1671,13 @@
 
 <span class="n">COLORS_DICT</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">BASE_COLORS</span><span class="p">,</span> <span class="o">**</span><span class="n">mcolors</span><span class="o">.</span><span class="n">CSS4_COLORS</span><span class="p">)</span>
 
-<span class="n">BY_HSV</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-
-    <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">rgb_to_hsv</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">color</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])),</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">COLORS_DICT</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-
-<span class="p">)</span>
+<span class="n">BY_HSV</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">((</span><span class="nb">tuple</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">rgb_to_hsv</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">color</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])),</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">COLORS_DICT</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
 
 <span class="n">SORTED_COLORS</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">hsv</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">BY_HSV</span><span class="p">]</span>
 
 <span class="k">class</span> <span class="nc">AperturePlotter</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;A class to plot the aperture of your machine as determined by `MAD-X`&#39;s `APERTURE` command.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A class to plot the aperture of your machine as determined by `MAD-X`&#39;s `APERTURE` command.&quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
 
@@ -1877,11 +1871,7 @@
 
         <span class="p">)</span>
 
-        <span class="n">aperture_axis</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-
-            <span class="n">aperture_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="o">.</span><span class="kp">max</span><span class="p">(),</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span>
-
-        <span class="p">)</span>
+        <span class="n">aperture_axis</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">aperture_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="o">.</span><span class="kp">max</span><span class="p">(),</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
 
         <span class="n">aperture_axis</span><span class="o">.</span><span class="n">legend</span>
 
@@ -1911,11 +1901,7 @@
 
 <span class="k">class</span> <span class="nc">BeamEnvelopePlotter</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    A class to plot the estimated beam envelope of your machine.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A class to plot the estimated beam envelope of your machine.&quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
 
@@ -2031,11 +2017,7 @@
 
         <span class="n">axis1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_x</span><span class="p">,</span> <span class="o">-</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
-        <span class="n">axis1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-
-            <span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_x</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span>
-
-        <span class="p">)</span>
+        <span class="n">axis1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_x</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_x</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
         <span class="n">axis1</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">aper_1</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">aper_1</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
@@ -2067,17 +2049,9 @@
 
         <span class="n">axis2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="o">-</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
-        <span class="n">axis2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
+        <span class="n">axis2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
-            <span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span>
-
-        <span class="p">)</span>
-
-        <span class="n">axis2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-
-            <span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span>
-
-        <span class="p">)</span>
+        <span class="n">axis2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span> <span class="o">*</span> <span class="n">twiss_hr</span><span class="o">.</span><span class="n">envelope_y</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
         <span class="n">axis2</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">machine</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">aper_2</span><span class="p">,</span> <span class="n">machine</span><span class="o">.</span><span class="n">aper_2</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;k&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 
@@ -2123,11 +2097,7 @@
 
 <span class="k">class</span> <span class="nc">CrossingSchemePlotter</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    A class to plot LHC crossing schemes at provided IPs.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A class to plot LHC crossing schemes at provided IPs.&quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
 
@@ -2529,11 +2499,7 @@
 
 <span class="k">class</span> <span class="nc">DynamicAperturePlotter</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    This is currently badly named, and will change in the future.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;This is currently badly named, and will change in the future.&quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
 
@@ -2587,13 +2553,9 @@
 
                 <span class="nb">min</span><span class="p">(</span>
 
-                    <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x_coords</span><span class="p">[</span><span class="n">particle</span><span class="p">])</span><span class="o">.</span><span class="n">last_valid_index</span><span class="p">()</span>
+                    <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">x_coords</span><span class="p">[</span><span class="n">particle</span><span class="p">])</span><span class="o">.</span><span class="n">last_valid_index</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># starts at 0, lost after last valid</span>
 
-                    <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># starts at 0, lost after last valid</span>
-
-                    <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_coords</span><span class="p">[</span><span class="n">particle</span><span class="p">])</span><span class="o">.</span><span class="n">last_valid_index</span><span class="p">()</span>
-
-                    <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># starts at 0, lost after last valid</span>
+                    <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y_coords</span><span class="p">[</span><span class="n">particle</span><span class="p">])</span><span class="o">.</span><span class="n">last_valid_index</span><span class="p">()</span> <span class="o">+</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># starts at 0, lost after last valid</span>
 
                 <span class="p">)</span>
 
@@ -2957,47 +2919,19 @@
 
             <span class="p">)</span>
 
-            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QF&quot;</span><span class="p">)</span>
 
-                <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QF&quot;</span><span class="p">,</span>
-
-            <span class="p">)</span>
-
-            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-
-                <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QD&quot;</span><span class="p">,</span>
-
-            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QD&quot;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">high_orders</span><span class="p">:</span>
 
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting high order magnetic elements (up to octupoles)&quot;</span><span class="p">)</span>
 
-                <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-
-                    <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span>
-
-                    <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
-
-                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
-
-                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
-
-                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span>
-
-                <span class="p">)</span>
+                <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
 
                 <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
 
-                    <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span>
-
-                    <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span>
-
-                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
-
-                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span>
-
-                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MO&quot;</span><span class="p">,</span>
+                    <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MO&quot;</span>
 
                 <span class="p">)</span>
 
@@ -3035,11 +2969,7 @@
 
 <span class="k">class</span> <span class="nc">PhaseSpacePlotter</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    A class to plot Courant-Snyder coordinates phase space.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A class to plot Courant-Snyder coordinates phase space.&quot;&quot;&quot;</span>
 
     <span class="nd">@staticmethod</span>
 
@@ -3267,11 +3197,7 @@
 
 <span class="k">class</span> <span class="nc">TuneDiagramPlotter</span><span class="p">:</span>
 
-    <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="sd">    A class to plot a blank tune diagram with Farey sequences, as well as your working points.</span>
-
-<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;A class to plot a blank tune diagram with Farey sequences, as well as your working points.&quot;&quot;&quot;</span>
 
     <span class="n">order_to_alpha</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">}</span>
 
@@ -3513,7 +3439,7 @@
 
             <span class="n">TuneDiagramPlotter</span><span class="o">.</span><span class="n">_plot_resonance_lines_for_order</span><span class="p">(</span>
 
-                <span class="n">order</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="n">order</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 
             <span class="p">)</span>
 
@@ -3979,29 +3905,13 @@
 
         <span class="p">),</span>
 
-        <span class="s2">&quot;quadrupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
+        <span class="s2">&quot;quadrupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;k1l != 0 or k1sl != 0&quot;</span><span class="p">),</span>
 
-            <span class="s2">&quot;k1l != 0 or k1sl != 0&quot;</span>
+        <span class="s2">&quot;sextupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;sextupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;k2l != 0 or k2sl &quot;</span> <span class="s2">&quot;!= 0&quot;</span><span class="p">),</span>
 
-        <span class="p">),</span>
+        <span class="s2">&quot;octupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;octupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;k3l != 0 or k3sl != &quot;</span> <span class="s2">&quot;0&quot;</span><span class="p">),</span>
 
-        <span class="s2">&quot;sextupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;sextupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
-
-            <span class="s2">&quot;k2l != 0 or k2sl &quot;</span> <span class="s2">&quot;!= 0&quot;</span>
-
-        <span class="p">),</span>
-
-        <span class="s2">&quot;octupoles&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;multipole&quot;</span><span class="p">,</span> <span class="s2">&quot;octupole&quot;</span><span class="p">])]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
-
-            <span class="s2">&quot;k3l != 0 or k3sl != &quot;</span> <span class="s2">&quot;0&quot;</span>
-
-        <span class="p">),</span>
-
-        <span class="s2">&quot;bpms&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[</span>
-
-            <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;monitor&quot;</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;BPM&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))</span>
-
-        <span class="p">],</span>
+        <span class="s2">&quot;bpms&quot;</span><span class="p">:</span> <span class="n">twiss_df</span><span class="p">[(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">keyword</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s2">&quot;monitor&quot;</span><span class="p">]))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;BPM&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">))],</span>
 
     <span class="p">}</span>
 
@@ -4072,9 +3982,7 @@
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">AperturePlotter</span><span class="o">:</span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A class to plot the aperture of your machine as determined by `MAD-X`&#39;s `APERTURE` command.</span>
-
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A class to plot the aperture of your machine as determined by `MAD-X`&#39;s `APERTURE` command.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
     <span class="nv">@staticmethod</span>
 
@@ -4268,11 +4176,7 @@
 
         <span class="p">)</span>
 
-        <span class="n">aperture_axis</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span>
-
-            <span class="n">aperture_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">.</span><span class="nf">max</span><span class="p">(),</span> <span class="n">interpolate</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span>
-
-        <span class="p">)</span>
+        <span class="n">aperture_axis</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">aperture_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">.</span><span class="nf">max</span><span class="p">(),</span> <span class="n">interpolate</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
 
         <span class="n">aperture_axis</span><span class="p">.</span><span class="n">legend</span>
 
@@ -4556,11 +4460,7 @@ assumes the user has previously made a call to the <code>APERTURE</code> command
 
         <span class="p">)</span>
 
-        <span class="n">aperture_axis</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span>
-
-            <span class="n">aperture_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">.</span><span class="nf">max</span><span class="p">(),</span> <span class="n">interpolate</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span>
-
-        <span class="p">)</span>
+        <span class="n">aperture_axis</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">aperture_df</span><span class="p">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">aperture_df</span><span class="p">.</span><span class="n">n1</span><span class="p">.</span><span class="nf">max</span><span class="p">(),</span> <span class="n">interpolate</span><span class="o">=</span><span class="no">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
 
         <span class="n">aperture_axis</span><span class="p">.</span><span class="n">legend</span>
 
@@ -4599,11 +4499,7 @@ assumes the user has previously made a call to the <code>APERTURE</code> command
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">BeamEnvelopePlotter</span><span class="p">:</span><span class="w"></span>
 
-<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
-
-<span class="ss">    A class to plot the estimated beam envelope of your machine.</span>
-
-<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;A class to plot the estimated beam envelope of your machine.&quot;&quot;&quot;</span><span class="w"></span>
 
 <span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
@@ -4719,11 +4615,7 @@ assumes the user has previously made a call to the <code>APERTURE</code> command
 
 <span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">machine</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_1</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;k&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="w"></span>
 
@@ -4755,17 +4647,9 @@ assumes the user has previously made a call to the <code>APERTURE</code> command
 
 <span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">machine</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_2</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;k&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="w"></span>
 
@@ -5038,11 +4922,7 @@ assumes the user has previously made a call to the <code>APERTURE</code> command
 
 <span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_x</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;b&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">axis1</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">machine</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_1</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_1</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;k&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="w"></span>
 
@@ -5074,17 +4954,9 @@ assumes the user has previously made a call to the <code>APERTURE</code> command
 
 <span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="w"></span>
-
-<span class="w">        </span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">twiss_hr</span><span class="p">.</span><span class="n">envelope_y</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;r&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">axis2</span><span class="p">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">machine</span><span class="p">.</span><span class="n">s</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_2</span><span class="p">,</span><span class="w"> </span><span class="n">machine</span><span class="p">.</span><span class="n">aper_2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;k&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span><span class="w"></span>
 
@@ -5139,11 +5011,7 @@ assumes the user has previously made a call to the <code>APERTURE</code> command
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">CrossingSchemePlotter</span><span class="o">:</span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
-
-<span class="s2">    A class to plot LHC crossing schemes at provided IPs.</span>
-
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A class to plot LHC crossing schemes at provided IPs.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
     <span class="nv">@staticmethod</span>
 
@@ -5885,11 +5753,7 @@ re-<code>use</code> your wanted sequence after calling this function!</p>
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">DynamicAperturePlotter</span><span class="p">:</span><span class="w"></span>
 
-<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
-
-<span class="ss">    This is currently badly named, and will change in the future.</span>
-
-<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;This is currently badly named, and will change in the future.&quot;&quot;&quot;</span><span class="w"></span>
 
 <span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
@@ -5943,13 +5807,9 @@ re-<code>use</code> your wanted sequence after calling this function!</p>
 
 <span class="s1">                min(</span>
 
-<span class="s1">                    pd.Series(x_coords[particle]).last_valid_index()</span>
+<span class="s1">                    pd.Series(x_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid</span>
 
-<span class="s1">                    + 2,  # starts at 0, lost after last valid</span>
-
-<span class="s1">                    pd.Series(y_coords[particle]).last_valid_index()</span>
-
-<span class="s1">                    + 2,  # starts at 0, lost after last valid</span>
+<span class="s1">                    pd.Series(y_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid</span>
 
 <span class="s1">                )</span>
 
@@ -6097,13 +5957,9 @@ re-<code>use</code> your wanted sequence after calling this function!</p>
 
 <span class="s1">                min(</span>
 
-<span class="s1">                    pd.Series(x_coords[particle]).last_valid_index()</span>
+<span class="s1">                    pd.Series(x_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid</span>
 
-<span class="s1">                    + 2,  # starts at 0, lost after last valid</span>
-
-<span class="s1">                    pd.Series(y_coords[particle]).last_valid_index()</span>
-
-<span class="s1">                    + 2,  # starts at 0, lost after last valid</span>
+<span class="s1">                    pd.Series(y_coords[particle]).last_valid_index() + 2,  # starts at 0, lost after last valid</span>
 
 <span class="s1">                )</span>
 
@@ -6476,47 +6332,19 @@ re-<code>use</code> your wanted sequence after calling this function!</p>
 
             <span class="p">)</span>
 
-            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
+            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QF&quot;</span><span class="p">)</span>
 
-                <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QF&quot;</span><span class="p">,</span>
-
-            <span class="p">)</span>
-
-            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
-
-                <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QD&quot;</span><span class="p">,</span>
-
-            <span class="p">)</span>
+            <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QD&quot;</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="n">high_orders</span><span class="o">:</span>
 
                 <span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting high order magnetic elements (up to octupoles)&quot;</span><span class="p">)</span>
 
-                <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
-
-                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
-
-                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
-
-                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
-
-                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
-
-                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">,</span>
-
-                <span class="p">)</span>
+                <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
 
                 <span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span>
 
-                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;octupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span>
-
-                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;octupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span>
-
-                    <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
-
-                    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span>
-
-                    <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MO&quot;</span><span class="p">,</span>
+                    <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;octupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="err">[</span><span class="s2">&quot;octupoles&quot;</span><span class="err">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MO&quot;</span>
 
                 <span class="p">)</span>
 
@@ -6976,47 +6804,19 @@ representing the machine geometry in 2D. Heavily reworked, original code is from
 
 <span class="w">            </span><span class="p">)</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_foc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_foc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;QF&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_foc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_foc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;blue&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;QF&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
-
-<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_defoc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_defoc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;red&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;QD&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">            </span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_defoc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;quad_defoc&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;o&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;red&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;QD&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="nl">high_orders</span><span class="p">:</span><span class="w"></span>
 
 <span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Plotting high order magnetic elements (up to octupoles)&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">                </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;sextupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;sextupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;m&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;MS&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                </span><span class="p">)</span><span class="w"></span>
+<span class="w">                </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;sextupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;sextupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;m&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;MS&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">                </span><span class="n">plt</span><span class="p">.</span><span class="n">scatter</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;octupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;octupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;cyan&quot;</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">                    </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;MO&quot;</span><span class="p">,</span><span class="w"></span>
+<span class="w">                    </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;octupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">z</span><span class="p">,</span><span class="w"> </span><span class="n">element_dfs</span><span class="o">[</span><span class="n">&quot;octupoles&quot;</span><span class="o">]</span><span class="p">.</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">marker</span><span class="o">=</span><span class="ss">&quot;.&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">color</span><span class="o">=</span><span class="ss">&quot;cyan&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">label</span><span class="o">=</span><span class="ss">&quot;MO&quot;</span><span class="w"></span>
 
 <span class="w">                </span><span class="p">)</span><span class="w"></span>
 
@@ -7063,11 +6863,7 @@ representing the machine geometry in 2D. Heavily reworked, original code is from
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nl">PhaseSpacePlotter</span><span class="p">:</span><span class="w"></span>
 
-<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
-
-<span class="ss">    A class to plot Courant-Snyder coordinates phase space.</span>
-
-<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;A class to plot Courant-Snyder coordinates phase space.&quot;&quot;&quot;</span><span class="w"></span>
 
 <span class="w">    </span><span class="nv">@staticmethod</span><span class="w"></span>
 
@@ -7732,11 +7528,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 </code></pre></div>
 <details class="example"><summary>View Source</summary><div class="codehilite"><pre><span></span><code><span class="n">class</span> <span class="n">TuneDiagramPlotter</span><span class="o">:</span>
 
-    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
-
-<span class="s2">    A class to plot a blank tune diagram with Farey sequences, as well as your working points.</span>
-
-<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
+    <span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">A class to plot a blank tune diagram with Farey sequences, as well as your working points.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span>
 
     <span class="n">order_to_alpha</span><span class="o">:</span> <span class="n">Dict</span><span class="err">[</span><span class="kt">int</span><span class="p">,</span> <span class="kt">float</span><span class="err">]</span> <span class="o">=</span> <span class="err">{</span><span class="mi">1</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="o">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">3</span><span class="o">:</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mi">4</span><span class="o">:</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mi">5</span><span class="o">:</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">6</span><span class="o">:</span> <span class="mf">0.35</span><span class="err">}</span>
 
@@ -7978,7 +7770,7 @@ the plot, within the limit of pyplot's 156 named colors. The sequence repeats af
 
             <span class="n">TuneDiagramPlotter</span><span class="p">.</span><span class="n">_plot_resonance_lines_for_order</span><span class="p">(</span>
 
-                <span class="k">order</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="k">order</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 
             <span class="p">)</span>
 
@@ -8215,7 +8007,7 @@ when redefining the limits of the figure, which are by default [0, 1] on each ax
 
             <span class="n">TuneDiagramPlotter</span><span class="p">.</span><span class="n">_plot_resonance_lines_for_order</span><span class="p">(</span>
 
-                <span class="k">order</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+                <span class="k">order</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="n">ls</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="n">lw</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">rgb</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 
             <span class="p">)</span>
 
