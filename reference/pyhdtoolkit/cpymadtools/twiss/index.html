@@ -1271,7 +1271,13 @@
 
 <span class="k">def</span> <span class="nf">get_pattern_twiss</span><span class="p">(</span>
 
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+
+    <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
+
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 
@@ -1327,7 +1333,9 @@
 
         <span class="n">madx</span><span class="o">.</span><span class="kp">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">column</span><span class="o">=</span><span class="n">columns</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># DO NOT change to madx.command.twiss(**kwargs): it doesn&#39;t properly set the selected_columns and selected_rows</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="kp">trace</span><span class="p">(</span><span class="s2">&quot;Extracting relevant parts of the TWISS table&quot;</span><span class="p">)</span>
 
@@ -1636,7 +1644,13 @@ itself.</p>
 <summary>View Source</summary>
 <div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_pattern_twiss</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="n">patterns</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[</span><span class="s2">&quot;&quot;</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="k">columns</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">patterns</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">[</span><span class="s2">&quot;&quot;</span><span class="err">]</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">columns</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">**</span><span class="n">kwargs</span><span class="p">,</span><span class="w"></span>
 
 <span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">tfs</span><span class="p">.</span><span class="n">TfsDataFrame</span><span class="o">:</span><span class="w"></span>
 
@@ -1692,7 +1706,9 @@ itself.</p>
 
 <span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="k">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span><span class="w"> </span><span class="k">column</span><span class="o">=</span><span class="k">columns</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">twiss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="c1"># DO NOT change to madx.command.twiss(**kwargs): it doesn&#39;t properly set the selected_columns and selected_rows</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Extracting relevant parts of the TWISS table&quot;</span><span class="p">)</span><span class="w"></span>
 
