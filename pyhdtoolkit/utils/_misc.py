@@ -11,6 +11,8 @@ from typing import List
 
 from loguru import logger
 
+# ----- Constants ----- #
+
 CPUS = cpu_count()
 HOME = str(Path.home())
 
@@ -43,7 +45,7 @@ def get_opticsfiles_paths() -> List[Path]:
     optics_dir: Path = PATHS["optics2018"] / "PROTON" if RUN_LOCATION == "afs" else PATHS["local"] / "optics"
     optics_files = list(optics_dir.iterdir())
     desired_files = [path for path in optics_files if len(path.suffix) <= 3 and path.name.startswith("opticsfile")]
-    return sorted(optics_files, key=lambda x: float(x.suffix[1:]))  # sort by the number after 'opticsfile.'
+    return sorted(desired_files, key=lambda x: float(x.suffix[1:]))  # sort by the number after 'opticsfile.'
 
 
 # ----- Fetching Utilities ----- #
