@@ -511,14 +511,14 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
 
 def get_lhc_bpms_list(madx: Madx) -> List[str]:
     """
-    Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through 
+    Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through
     a regex in the result of a TWISS command.
 
     NOTE: As this function calls the TWISS command and requires that TWISS can succeed on your sequence.
 
     Args:
         madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
-    
+
     Returns:
         The list of BPM names.
     """

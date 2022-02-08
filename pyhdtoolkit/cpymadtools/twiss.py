@@ -57,7 +57,7 @@ def get_pattern_twiss(
     for pattern in patterns:
         logger.trace(f"Adding pattern {pattern} to 'TWISS' flag")
         madx.select(flag="twiss", pattern=pattern, column=columns)
-    
+
     # DO NOT change to madx.command.twiss(**kwargs): it doesn't properly set the selected_columns and selected_rows
     madx.twiss(**kwargs)
 
