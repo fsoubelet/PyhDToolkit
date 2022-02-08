@@ -509,6 +509,24 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
     madx.command.endedit()
 
 
+def get_lhc_bpms_list(madx: Madx) -> List[str]:
+    """
+    Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through 
+    a regex in the result of a TWISS command.
+
+    NOTE: As this function calls the TWISS command and requires that TWISS can succeed on your sequence.
+
+    Args:
+        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
+    
+    Returns:
+        The list of BPM names.
+    """
+    twiss_df = twiss.get_twiss_tfs(madx).reset_index()
+    bpms_df = twiss_df[twiss_df.NAME.str.contains("^bpm.*B[12]$", case=False, regex=True)]
+    return bpms_df.NAME.tolist()
+
+
 def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
