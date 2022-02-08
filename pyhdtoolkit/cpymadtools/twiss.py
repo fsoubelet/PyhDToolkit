@@ -93,7 +93,7 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
 
     logger.info("Exporting internal TWISS and SUMM tables to TfsDataFrame")
     twiss_tfs = tfs.TfsDataFrame(madx.table.twiss.dframe())
-    twiss_tfs.name = [element[:-2] for element in twiss_tfs.name]
+    twiss_tfs.name = twiss_tfs.name.apply(lambda x: x[:-2])  # remove :1 from names
     twiss_tfs.columns = twiss_tfs.columns.str.upper()
     twiss_tfs = twiss_tfs.set_index("NAME")
     twiss_tfs.index = twiss_tfs.index.str.upper()

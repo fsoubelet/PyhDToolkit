@@ -207,7 +207,7 @@ class BeamEnvelopePlotter:
 
         logger.trace("Getting Twiss dframe from MAD-X")
         twiss_hr: pd.DataFrame = madx.table.twiss.dframe().copy()
-        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params.eg_y_m)
+        twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params.eg_x_m)
         twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params.eg_y_m)
         twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params.deltap_p
         twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params.deltap_p
