@@ -7,7 +7,7 @@ Created on 2020.02.03
 
 A module with functions to perform MAD-X matchings with a cpymad.madx.Madx object.
 """
-from typing import Dict, Sequence, Tuple
+from typing import Dict, Sequence, Tuple, Optional
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -70,26 +70,40 @@ def match_tunes_and_chromaticities(
     tolerance: float = 1e-21,
 ) -> None:
     """
-    Provided with an active `cpymad` class after having ran a script, will run an additional
-    matching command to reach the provided values for tunes and chromaticities.
+    Provided with an active `cpymad` instance, will run relevant commands to match tunes and/or chromaticities.
+    As target values are given, the function expects knob names to be provided, which are then used and varied 
+    by `MAD-X` to match the targets.
 
-    Tune matching is always performed. If chromaticity target values are given, then a matching is done
-    for them, followed by an additionnal matching for both tunes and chromaticities.
+    If target tune values only are provided, then tune matching is performed with the provided knobs. If target 
+    chromaticity values are provided, then chromaticity matching is performed with the provided knobs. If targets
+    for both types are provided, then both are matched in a single call with the provided knobs. If the user wishes
+    to perform different matching calls for each, then it is recommended to call this function as many times as
+    necessary, with the appropriate targets.
+
+    For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,
+    then followed by a combined matching. In this case the function should be called three times, once with tune 
+    targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.
+
+    When acting of either the `LHC` or `HLLHC`, the accelerator name can be provided and the vary knobs will be 
+    automatically set accordingly to the provided targets. If explicit knobs are provided, these will always be 
+    used. On other machines the knobs should be provided explicitly, always.
+
+    NOTA BENE: The matching is always performed with the `CHROM` option on.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
         accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
-            Automatic determination will only work for LHC and HLLHC.
-        sequence (str): name of the sequence you want to activate for the tune matching.
+            Automatic determination will only work for `LHC` and `HLLHC`.
+        sequence (str): name of the sequence you want to perform the matching for.
         q1_target (float): horizontal tune to match to.
         q2_target (float): vertical tune to match to.
         dq1_target (float): horizontal chromaticity to match to.
         dq2_target (float): vertical chromaticity to match to.
-        varied_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine. An input
+        varied_knobs (Sequence[str]): the variables names to 'vary' in the `MAD-X` routine. An input
             could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
-            sextupole strengths (foc / defoc) in most examples.
-        telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic
-            Squeeze configuration. Defaults to True as of Run III.
+            sextupole strengths (focusing / defocusing) in most examples.
+        telescopic_squeeze (bool): `LHC` specific. If set to `True`, uses the `(HL)LHC` knobs for Telescopic
+            Squeeze configuration. Defaults to `True` as of Run III.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
@@ -112,7 +126,7 @@ def match_tunes_and_chromaticities(
         madx.command.lmdif(calls=calls, tolerance=tolerance)
         madx.command.endmatch()
         logger.trace("Performing routine TWISS")
-        madx.twiss()  # prevents errors if the user forgets to TWISS before querying tables
+        madx.twiss(chrom=True)  # prevents errors if the user forgets to TWISS before querying tables
 
     if q1_target is not None and q2_target is not None and dq1_target is not None and dq2_target is not None:
         logger.info(
@@ -145,12 +159,12 @@ def get_closest_tune_approach(
     tolerance: float = 1e-21,
 ) -> float:
     """
-    Provided with an active `cpymad` class after having ran a script, tries to match the tunes to
-    their mid-fractional tunes. The difference between this mid-tune and the actual matched tune is the
-    closest tune approach.
+    Provided with an active `cpymad` instance, tries to match the tunes to their mid-fractional tunes,
+    aka getting them together. The difference between the final reached fractional tunes is the closest 
+    tune approach.
 
     NOTA BENE: This assumes your lattice has previously been matched to desired tunes and chromaticities,
-    as it will determine the appropriate targets from the Madx instance's internal tables.
+    as it will determine the appropriate targets from `MAD-X`'s internal tables.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -179,7 +193,7 @@ def get_closest_tune_approach(
         )
 
     logger.debug("Running TWISS to update SUMM and TWISS tables")
-    madx.command.twiss()
+    madx.command.twiss(chrom=True)
 
     logger.debug("Saving knob values to restore after closest tune approach")
     saved_knobs: Dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
@@ -223,7 +237,7 @@ def get_closest_tune_approach(
     logger.info("Restoring saved knobs")
     with madx.batch():
         madx.globals.update(saved_knobs)
-    madx.twiss()
+    madx.twiss(chrom=True)
 
     return cminus
 
