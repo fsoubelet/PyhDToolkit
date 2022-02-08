@@ -7,7 +7,7 @@ Created on 2020.02.03
 
 A module with functions to perform MAD-X matchings with a cpymad.madx.Madx object.
 """
-from typing import Dict, Sequence, Tuple, Optional
+from typing import Dict, Optional, Sequence, Tuple
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -71,21 +71,21 @@ def match_tunes_and_chromaticities(
 ) -> None:
     """
     Provided with an active `cpymad` instance, will run relevant commands to match tunes and/or chromaticities.
-    As target values are given, the function expects knob names to be provided, which are then used and varied 
+    As target values are given, the function expects knob names to be provided, which are then used and varied
     by `MAD-X` to match the targets.
 
-    If target tune values only are provided, then tune matching is performed with the provided knobs. If target 
+    If target tune values only are provided, then tune matching is performed with the provided knobs. If target
     chromaticity values are provided, then chromaticity matching is performed with the provided knobs. If targets
     for both types are provided, then both are matched in a single call with the provided knobs. If the user wishes
     to perform different matching calls for each, then it is recommended to call this function as many times as
     necessary, with the appropriate targets.
 
     For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,
-    then followed by a combined matching. In this case the function should be called three times, once with tune 
+    then followed by a combined matching. In this case the function should be called three times, once with tune
     targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.
 
-    When acting of either the `LHC` or `HLLHC`, the accelerator name can be provided and the vary knobs will be 
-    automatically set accordingly to the provided targets. If explicit knobs are provided, these will always be 
+    When acting of either the `LHC` or `HLLHC`, the accelerator name can be provided and the vary knobs will be
+    automatically set accordingly to the provided targets. If explicit knobs are provided, these will always be
     used. On other machines the knobs should be provided explicitly, always.
 
     NOTA BENE: The matching is always performed with the `CHROM` option on.
@@ -160,7 +160,7 @@ def get_closest_tune_approach(
 ) -> float:
     """
     Provided with an active `cpymad` instance, tries to match the tunes to their mid-fractional tunes,
-    aka getting them together. The difference between the final reached fractional tunes is the closest 
+    aka getting them together. The difference between the final reached fractional tunes is the closest
     tune approach.
 
     NOTA BENE: This assumes your lattice has previously been matched to desired tunes and chromaticities,

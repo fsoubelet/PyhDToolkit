@@ -73,9 +73,9 @@ def get_pattern_twiss(
 
 def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     """
-    Returns a tfs.TfsDataFrame from the Madx instance's twiss dframe, typically in the way we're used to
-    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers). This
-    will call the TWISS command first before returning the dframe to you.
+    Returns a `tfs.TfsDataFrame` from the Madx instance's twiss dframe, typically in the way we're used to
+    getting it from MAD-X outputting the `TWISS` (uppercase names, colnames, summ table in headers). This
+    will call the `TWISS` command first before returning the dframe to you.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
