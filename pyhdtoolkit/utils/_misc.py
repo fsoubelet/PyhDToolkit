@@ -65,7 +65,7 @@ def get_opticsfiles_paths() -> List[Path]:
 def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     """
     Parses the betastar value from the opticsfile content, which is in the first lines. This contains a check
-    that ensures the betastar is the same for IP1 and IP5.
+    that ensures the betastar is the same for IP1 and IP5. The values returned are in meters.
 
     Args:
         opticsfile (Path): Path object to the opticsfile.
