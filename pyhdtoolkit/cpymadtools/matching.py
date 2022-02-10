@@ -117,7 +117,7 @@ def match_tunes_and_chromaticities(
         lhc_knobs = get_lhc_tune_and_chroma_knobs(
             accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
         )
-        tune_knobs, chroma_knobs = knobs[:2], knobs[2:]  # first two, last two
+        tune_knobs, chroma_knobs = lhc_knobs[:2], lhc_knobs[2:]  # first two, last two
 
     def match(*args, **kwargs):
         """Create matching commands for kwarg targets, varying the given args."""
