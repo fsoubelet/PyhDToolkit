@@ -14,6 +14,8 @@ from typing import List
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit.cpymadtools import lhc
+
 # ----- Constants ----- #
 
 CPUS = cpu_count()
@@ -88,6 +90,33 @@ def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") 
     else:
         logger.error("Unknown runtime location, exiting")
         raise ValueError("The 'RUN_LOCATION' variable should be either 'afs' or 'local'.")
+
+
+def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, stderr: bool = False, **kwargs) -> Madx:
+    """
+    Returns a prepared default LHC setup for the given opticsfile. Both beams are made with a default Run III
+    configuration, and the `lhcb1` sequence is re-cycled from `MSIA.EXIT.B1` as in the `OMC` model creator, and
+    then `USE`d. Specific variable settings can be given as keyword arguments. Matching is not performed and should
+    be taken care of by the user, but the working point should be set by the definitions in the opticsfile. Beware
+    that passing specific variables as keyword arguments might change that working point.
+
+    Args:
+        opticsfile (str): name of the opticsfile to be used. Defaults to `opticsfile.22`.
+
+    Keyword Args:
+        Any keyword argument pair will be used to update the `MAD-X` globals.
+
+    Returns:
+        An instanciated cpymad Madx object with the required configuration.
+    """
+    madx = Madx(stdout=stdout, stderr=stderr)
+    madx.option(echo=False, warn=False)
+    call_lhc_sequence_and_optics(madx, opticsfile)
+    lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
+    lhc.make_lhc_beams(madx, energy=7000, emittance=3.75e-6)
+    madx.command.use(sequence="lhcb1")
+    madx.globals.update(kwargs)
+    return madx
 
 
 # ----- Fetching Utilities ----- #
