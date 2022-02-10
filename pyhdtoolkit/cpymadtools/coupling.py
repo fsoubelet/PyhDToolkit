@@ -64,16 +64,18 @@ def get_closest_tune_approach(
     Returns:
         The closest tune approach, in absolute value.
     """
-    # if accelerator and not varied_knobs:
-    #     logger.trace(f"Getting knobs from default {accelerator.upper()} values")
-    #     varied_knobs = get_lhc_tune_and_chroma_knobs(
-    #         accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
-    #     )
+    if accelerator and not varied_knobs:
+        logger.trace(f"Getting knobs from default {accelerator.upper()} values")
+        lhc_knobs = get_lhc_tune_and_chroma_knobs(
+            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
+        )
+        tune_knobs, _ = lhc_knobs[:2], lhc_knobs[2:]  # first two for tune & last two for chroma, not used
 
     logger.debug("Running TWISS to update SUMM and TWISS tables")
     madx.command.twiss(chrom=True)
 
     logger.debug("Saving knob values to restore after closest tune approach")
+    varied_knobs = varied_knobs or tune_knobs   # if accelerator was given we've extracted this already
     saved_knobs: Dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
     logger.trace(f"Saved knobs are {saved_knobs}")
 
