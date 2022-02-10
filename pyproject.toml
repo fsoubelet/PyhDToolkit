@@ -68,7 +68,7 @@ source = ["pyhdtoolkit/"]
 
 [tool.coverage.report]
 ignore_errors = true
-omit = ["pyhdtoolkit/utils/htc_monitor.py"]
+omit = ["pyhdtoolkit/utils/htc_monitor.py", "pyhdtoolkit/utils/_misc.py"]
 precision = 2
 
 # ----- Documentation Configuration ----- #
