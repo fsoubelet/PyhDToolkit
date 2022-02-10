@@ -18,7 +18,8 @@ from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
 # ----- General Use ----- #
 
-
+# TODO: DO NOT TARGET CHROMATICITIES IN THIS, WITH CHROM THAT COUPLES IT THE ALGORITHM WILL BE CONFUSED
+# In turn one won't get to the CTA when they actually could, shame.
 def get_closest_tune_approach(
     madx: Madx,
     accelerator: str = None,
@@ -33,10 +34,16 @@ def get_closest_tune_approach(
     """
     Provided with an active `cpymad` instance, tries to match the tunes to their mid-fractional tunes,
     aka getting them together. The difference between the final reached fractional tunes is the closest
-    tune approach.
+    tune approach. This should not have any effect on the user's simulation, as the varied knobs are
+    restored to their previous values after performing the CTA.
 
-    NOTA BENE: This assumes your lattice has previously been matched to desired tunes and chromaticities,
-    as it will determine the appropriate targets from `MAD-X`'s internal tables.
+    NOTA BENE: This assumes the sequence has previously been matched to the user's desired working point,
+    as if not explicitely given, the appropriate targets will be determined from `MAD-X`'s internal tables.
+
+    NOTA BENE: This is hard-coded to use the `CHROM` flag when performing matching, since we expect to be in
+    the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
+    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is 
+    performed here, and chromaticities are voluntarily ignored.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
@@ -72,13 +79,11 @@ def get_closest_tune_approach(
     logger.trace(f"Saved knobs are {saved_knobs}")
 
     if explicit_targets:
-        qx_target, qy_target = explicit_targets
-        q1, q2 = qx_target, qy_target  # the integer part is used later on
+        q1, q2 = explicit_targets  # the integer part is used later on
     else:
         logger.trace("Retrieving tunes and chromaticities from internal tables")
         q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
-    dq1, dq2 = madx.table.summ.dq1[0], madx.table.summ.dq2[0]
-    logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}")
+        logger.trace(f"Retrieved values are q1 = {q1}, q2 = {q2}")
 
     logger.trace("Determining target tunes for closest approach")
     middle_of_fractional_tunes = (_fractional_tune(q1) + _fractional_tune(q2)) / 2
@@ -93,8 +98,6 @@ def get_closest_tune_approach(
         sequence,
         q1_target=qx_target,
         q2_target=qy_target,
-        dq1_target=dq1,
-        dq2_target=dq2,
         varied_knobs=varied_knobs,
         step=step,
         calls=calls,
@@ -104,7 +107,7 @@ def get_closest_tune_approach(
     logger.debug("Retrieving tune separation from internal tables")
     dqmin = madx.table.summ.q1[0] - madx.table.summ.q2[0] - (int(q1) - int(q2))
     cminus = abs(dqmin)
-    logger.debug(f"Matching got to a Closest Tune Approach of {cminus:.4f}")
+    logger.debug(f"Matching got to a Closest Tune Approach of {cminus:.5f}")
 
     logger.info("Restoring saved knobs")
     with madx.batch():
