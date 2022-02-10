@@ -1,6 +1,6 @@
 """
-Module cpymadtools.special
---------------------------
+Module cpymadtools.lhc
+----------------------
 
 Created on 2020.02.03
 :author: Felix Soubelet (felix.soubelet@cern.ch)
@@ -8,7 +8,7 @@ Created on 2020.02.03
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are specific to LHC
 and HLLHC machines.
 """
-from typing import List, Sequence
+from typing import List, Sequence, Tuple
 
 import numpy as np
 
@@ -528,10 +528,7 @@ def get_lhc_bpms_list(madx: Madx) -> List[str]:
     return bpms_df.NAME.tolist()
 
 
-@deprecated(
-    message="This function is deprecated and will be removed in a future release."
-    "Please use its equivalent from the 'cpymadtools.coupling' module."
-)
+@deprecated(message="Please use its equivalent from the 'cpymadtools.coupling' module.")
 def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
