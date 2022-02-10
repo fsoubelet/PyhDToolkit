@@ -18,8 +18,7 @@ from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
 # ----- General Use ----- #
 
-# TODO: DO NOT TARGET CHROMATICITIES IN THIS, WITH CHROM THAT COUPLES IT THE ALGORITHM WILL BE CONFUSED
-# In turn one won't get to the CTA when they actually could, shame.
+
 def get_closest_tune_approach(
     madx: Madx,
     accelerator: str = None,
@@ -42,7 +41,7 @@ def get_closest_tune_approach(
 
     NOTA BENE: This is hard-coded to use the `CHROM` flag when performing matching, since we expect to be in
     the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
-    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is 
+    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is
     performed here, and chromaticities are voluntarily ignored.
 
     Args:
@@ -65,11 +64,11 @@ def get_closest_tune_approach(
     Returns:
         The closest tune approach, in absolute value.
     """
-    if accelerator and not varied_knobs:
-        logger.trace(f"Getting knobs from default {accelerator.upper()} values")
-        varied_knobs = get_lhc_tune_and_chroma_knobs(
-            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
-        )
+    # if accelerator and not varied_knobs:
+    #     logger.trace(f"Getting knobs from default {accelerator.upper()} values")
+    #     varied_knobs = get_lhc_tune_and_chroma_knobs(
+    #         accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
+    #     )
 
     logger.debug("Running TWISS to update SUMM and TWISS tables")
     madx.command.twiss(chrom=True)
