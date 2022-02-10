@@ -12,9 +12,15 @@ from typing import Dict, Optional, Sequence, Tuple
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit.utils import deprecated
+
 # ----- Utlites ----- #
 
 
+@deprecated(
+    message="This function is deprecated and will be removed in a future release."
+    "Please use its equivalent from the 'cpymadtools.lhc' module."
+)
 def get_lhc_tune_and_chroma_knobs(
     accelerator: str, beam: int = 1, telescopic_squeeze: bool = True
 ) -> Tuple[str, str, str, str]:
@@ -147,6 +153,10 @@ def match_tunes_and_chromaticities(
         match(*varied_knobs, dq1=dq1_target, dq2=dq2_target)  # sent varied_knobs should be chromaticity knobs
 
 
+@deprecated(
+    message="This function is deprecated and will be removed in a future release."
+    "Please use its equivalent from the 'cpymadtools.coupling' module."
+)
 def get_closest_tune_approach(
     madx: Madx,
     accelerator: str = None,
@@ -244,7 +254,7 @@ def get_closest_tune_approach(
 
 # ----- Helpers ----- #
 
-
+# TODO: remove this once deprecated 'get_closest_tune_approach' is removed as its the only thing using it
 def _fractional_tune(tune: float) -> float:
     """
     Return only the fractional part of a tune value.
