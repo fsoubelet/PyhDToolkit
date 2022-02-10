@@ -88,8 +88,9 @@ def match_tunes_and_chromaticities(
     targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.
 
     When acting of either the `LHC` or `HLLHC`, the accelerator name can be provided and the vary knobs will be
-    automatically set accordingly to the provided targets. If explicit knobs are provided, these will always be
-    used. On other machines the knobs should be provided explicitly, always.
+    automatically set accordingly to the provided targets. Note that only the relevant knobs are set, so if tune
+    targets only are provided, then tune knobs only will be used, and not chromaticity knobs. If explicit knobs
+    are provided, these will always be used. On other machines the knobs should be provided explicitly, always.
 
     NOTA BENE: The matching is always performed with the `CHROM` option on.
 
@@ -113,9 +114,10 @@ def match_tunes_and_chromaticities(
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
-        varied_knobs = get_lhc_tune_and_chroma_knobs(
+        lhc_knobs = get_lhc_tune_and_chroma_knobs(
             accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
         )
+        tune_knobs, chroma_knobs = knobs[:2], knobs[2:]  # first two, last two
 
     def match(*args, **kwargs):
         """Create matching commands for kwarg targets, varying the given args."""
@@ -141,13 +143,15 @@ def match_tunes_and_chromaticities(
 
     elif q1_target is not None and q2_target is not None:
         logger.info(f"Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence '{sequence}'")
-        logger.trace(f"Vary knobs sent are {varied_knobs}")
-        match(*varied_knobs, q1=q1_target, q2=q2_target)  # sent varied_knobs should be tune knobs
+        tune_knobs = varied_knobs or tune_knobs  # if accelerator was given we've extracted this already
+        logger.trace(f"Vary knobs sent are {tune_knobs}")
+        match(*tune_knobs, q1=q1_target, q2=q2_target)  # sent varied_knobs should be tune knobs
 
     elif dq1_target is not None and dq2_target is not None:
         logger.info(f"Matching chromaticities to dq1={dq1_target}, dq2={dq2_target} for sequence {sequence}")
-        logger.trace(f"Vary knobs sent are {varied_knobs}")
-        match(*varied_knobs, dq1=dq1_target, dq2=dq2_target)  # sent varied_knobs should be chromaticity knobs
+        chroma_knobs = varied_knobs or chroma_knobs  # if accelerator was given we've extracted this already
+        logger.trace(f"Vary knobs sent are {chroma_knobs}")
+        match(*chroma_knobs, dq1=dq1_target, dq2=dq2_target)  # sent varied_knobs should be chromaticity knobs
 
 
 # TODO: DO NOT TARGET CHROMATICITIES IN THIS, WITH CHROM THAT COUPLES IT THE ALGORITHM WILL BE CONFUSED
@@ -175,7 +179,7 @@ def get_closest_tune_approach(
 
     NOTA BENE: This is hard-coded to use the `CHROM` flag when performing matching, since we expect to be in
     the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
-    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is 
+    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is
     performed here, and chromaticities are voluntarily ignored.
 
     Args:
