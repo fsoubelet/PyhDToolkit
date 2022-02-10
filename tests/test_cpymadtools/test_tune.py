@@ -6,9 +6,9 @@ import numpy as np
 import pytest
 import tfs
 
+from pyhdtoolkit.cpymadtools.lhc import make_lhc_thin, re_cycle_sequence
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.orbit import setup_lhc_orbit
-from pyhdtoolkit.cpymadtools.special import make_lhc_thin, re_cycle_sequence
 from pyhdtoolkit.cpymadtools.tune import get_footprint_lines, get_footprint_patches, make_footprint_table
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests

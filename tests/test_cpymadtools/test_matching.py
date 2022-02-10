@@ -5,12 +5,12 @@ import pytest
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob
 from pyhdtoolkit.cpymadtools.matching import (
     get_closest_tune_approach,
     get_lhc_tune_and_chroma_knobs,
     match_tunes_and_chromaticities,
 )
-from pyhdtoolkit.cpymadtools.special import apply_lhc_coupling_knob
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
