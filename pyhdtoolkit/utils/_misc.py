@@ -2,7 +2,8 @@
 Module utils.misc
 -----------------
 
-Private module that provides miscellaneous personnal utility functions.
+Private module that provides miscellaneous personnal utility functions. The functions in here are intented for
+personal use, and will most likely NOT work on other people's machines.
 """
 import shlex
 
@@ -10,6 +11,7 @@ from multiprocessing import cpu_count
 from pathlib import Path
 from typing import List
 
+from cpymad.madx import Madx
 from loguru import logger
 
 # ----- Constants ----- #
@@ -57,6 +59,35 @@ def get_opticsfiles_paths() -> List[Path]:
     optics_files = list(optics_dir.iterdir())
     desired_files = [path for path in optics_files if len(path.suffix) <= 3 and path.name.startswith("opticsfile")]
     return sorted(desired_files, key=lambda x: float(x.suffix[1:]))  # sort by the number after 'opticsfile.'
+
+
+# ----- MAD-X Setup Utilities ----- #
+
+
+def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") -> None:
+    """
+    Call the LHC sequence and the desired opticsfile from the appropriate location, either
+    on `AFS` or locally, based on the runtime location of the code.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        opticsfile (str): name of the opticsfile to be used. Defaults to `opticsfile.22`, which holds LHC collisions
+            optics configuration (beta*_IP1/2/5/8=  0.300/10.000/ 0.300/ 3.000 ; ! Telescopic squeeze (with Q6@300A)).
+
+    Raises:
+        ValueError: If the program is running in an unknown location (neither 'afs' nor 'local'), and the files cannot
+        be found in the expected directories.
+    """
+    logger.debug("Calling optics")
+    if RUN_LOCATION == "afs":
+        madx.call(fullpath(PATHS["optics2018"] / "lhc_as-built.seq"))
+        madx.call(fullpath(PATHS["optics2018"] / "PROTON" / opticsfile))
+    elif RUN_LOCATION == "local":
+        madx.call(fullpath(PATHS["local"] / "sequences" / "lhc_as-built.seq"))
+        madx.call(fullpath(PATHS["local"] / "optics" / opticsfile))
+    else:
+        logger.error("Unknown runtime location, exiting")
+        raise ValueError("The 'RUN_LOCATION' variable should be either 'afs' or 'local'.")
 
 
 # ----- Fetching Utilities ----- #
