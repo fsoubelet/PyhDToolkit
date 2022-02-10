@@ -138,6 +138,7 @@ def match_tunes_and_chromaticities(
             f"Doing combined matching to Qx={q1_target}, Qy={q2_target}, "
             f"dqx={dq1_target}, dqy={dq2_target} for sequence '{sequence}'"
         )
+        varied_knobs = varied_knobs or lhc_knobs  # if accelerator was given we've extracted this already
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
