@@ -75,7 +75,7 @@ def get_closest_tune_approach(
     madx.command.twiss(chrom=True)
 
     logger.debug("Saving knob values to restore after closest tune approach")
-    varied_knobs = varied_knobs or tune_knobs   # if accelerator was given we've extracted this already
+    varied_knobs = varied_knobs or tune_knobs  # if accelerator was given we've extracted this already
     saved_knobs: Dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
     logger.trace(f"Saved knobs are {saved_knobs}")
 
