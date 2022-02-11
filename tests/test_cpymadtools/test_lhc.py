@@ -21,6 +21,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
+    get_lhc_tune_and_chroma_knobs,
     install_ac_dipole_as_kicker,
     install_ac_dipole_as_matrix,
     make_lhc_beams,
@@ -30,7 +31,6 @@ from pyhdtoolkit.cpymadtools.lhc import (
     re_cycle_sequence,
     reset_lhc_bump_flags,
     vary_independent_ir_quadrupoles,
-    get_lhc_tune_and_chroma_knobs,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 
