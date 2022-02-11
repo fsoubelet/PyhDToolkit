@@ -47,6 +47,7 @@ pendulum = "^2.0"
 [tool.poetry.dev-dependencies]
 pytest = "^6.0"
 pytest-cov = "^2.7"
+pytest-xdist = "^2.5"
 flaky = "^3.5"
 black = { version = "^19.10b0", python = "^3.6" }
 pylint = "^2.4"

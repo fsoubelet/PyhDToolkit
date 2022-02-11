@@ -111,4 +111,4 @@ jobs:
         run: poetry install -v
 
       - name: Run Tests
-        run: poetry run python -m pytest -k "test_cpymadtools"
+        run: poetry run python -m pytest -k "test_cpymadtools" -n auto
