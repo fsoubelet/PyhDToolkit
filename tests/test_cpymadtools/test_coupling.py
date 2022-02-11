@@ -5,8 +5,8 @@ import pytest
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.coupling import get_closest_tune_approach
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob
+from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob, get_lhc_tune_and_chroma_knobs
+from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
 
 class TestCoupling:
