@@ -16,6 +16,7 @@ from typing import Callable
 
 from .cmdline import CommandLine
 from .executors import MultiProcessor, MultiThreader
+from .printutil import END, Background, Foreground, Styles
 
 # ----- Utility deprecation decorator ----- #
 

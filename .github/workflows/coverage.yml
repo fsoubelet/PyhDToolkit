@@ -60,7 +60,7 @@ jobs:
         run: poetry install -v
 
       - name: Run all tests
-        run: poetry run python -m pytest
+        run: poetry run python -m pytest -n auto
 
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v1
