@@ -21,23 +21,6 @@ from .printutil import END, Background, Foreground, Styles
 # ----- Utility deprecation decorator ----- #
 
 
-# def deprecated(func, message: str) -> Callable:
-#     """
-#     Decorator to mark some functions in this module as deprecated, as they will be moved to a new `coupling` module.
-#     It will result in an informative `DeprecationWarning` being issued with the provided message when the function
-#     is used.
-#     """
-
-#     @functools.wraps(func)
-#     def new_func(*args, **kwargs):
-#         warnings.simplefilter("always", DeprecationWarning)  # turn off filter
-#         warnings.warn(message, category=DeprecationWarning, stacklevel=2)
-#         warnings.simplefilter("default", DeprecationWarning)  # reset filter
-#         return func(*args, **kwargs)
-
-#     return new_func
-
-
 def deprecated(message: str = "") -> Callable:
     """
     Decorator to mark some functions in this module as deprecated, as they will be moved to a new `coupling` module.
