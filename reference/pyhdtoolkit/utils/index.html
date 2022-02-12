@@ -379,6 +379,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../cpymadtools/coupling/" class="md-nav__link">
+        Coupling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../cpymadtools/errors/" class="md-nav__link">
         Errors
       </a>
@@ -493,20 +507,6 @@
     <li class="md-nav__item">
       <a href="../cpymadtools/ptc/" class="md-nav__link">
         Ptc
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cpymadtools/special/" class="md-nav__link">
-        Special
       </a>
     </li>
   
@@ -1054,6 +1054,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deprecated" class="md-nav__link">
+    deprecated
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1150,6 +1170,26 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+    <nav class="md-nav" aria-label="Functions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#deprecated" class="md-nav__link">
+    deprecated
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1190,11 +1230,65 @@ These are mainly wrappers around lower-level tools, or simply just additional ni
 
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="kn">import</span> <span class="nn">inspect</span>
+
+<span class="kn">import</span> <span class="nn">traceback</span>
+
+<span class="kn">import</span> <span class="nn">warnings</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span>
+
 <span class="kn">from</span> <span class="nn">.cmdline</span> <span class="kn">import</span> <span class="n">CommandLine</span>
 
 <span class="kn">from</span> <span class="nn">.executors</span> <span class="kn">import</span> <span class="n">MultiProcessor</span><span class="p">,</span> <span class="n">MultiThreader</span>
 
 <span class="kn">from</span> <span class="nn">.printutil</span> <span class="kn">import</span> <span class="n">END</span><span class="p">,</span> <span class="n">Background</span><span class="p">,</span> <span class="n">Foreground</span><span class="p">,</span> <span class="n">Styles</span>
+
+<span class="c1"># ----- Utility deprecation decorator ----- #</span>
+
+<span class="k">def</span> <span class="nf">deprecated</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Decorator to mark some functions in this module as deprecated, as they will be moved to a new `coupling` module.</span>
+
+<span class="sd">    It will result in an informative `DeprecationWarning` being issued with the provided message when the function</span>
+
+<span class="sd">    is used for the first time.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">decorator_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">function_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+            <span class="n">current_call_source</span> <span class="o">=</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">traceback</span><span class="o">.</span><span class="n">format_stack</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()))</span>
+
+            <span class="k">if</span> <span class="n">current_call_source</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">function_wrapper</span><span class="o">.</span><span class="n">last_call_source</span><span class="p">:</span>
+
+                <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+
+                    <span class="sa">f</span><span class="s2">&quot;Function </span><span class="si">{</span><span class="n">func</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> is now deprecated and will be removed in a future release! </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+                    <span class="n">category</span><span class="o">=</span><span class="ne">DeprecationWarning</span><span class="p">,</span>
+
+                    <span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+
+                <span class="p">)</span>
+
+                <span class="n">function_wrapper</span><span class="o">.</span><span class="n">last_call_source</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">current_call_source</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">function_wrapper</span><span class="o">.</span><span class="n">last_call_source</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">function_wrapper</span>
+
+    <span class="k">return</span> <span class="n">decorator_wrapper</span>
 </code></pre></div>
 
 </details>
@@ -1211,6 +1305,61 @@ These are mainly wrappers around lower-level tools, or simply just additional ni
 <h2 id="variables">Variables</h2>
 <p><code>python3
 END</code></p>
+<h2 id="functions">Functions</h2>
+<h3 id="deprecated">deprecated</h3>
+<p><code>python3
+def deprecated(
+    message: str = ''
+) -&gt; Callable</code></p>
+<p>Decorator to mark some functions in this module as deprecated, as they will be moved to a new <code>coupling</code> module.</p>
+<p>It will result in an informative <code>DeprecationWarning</code> being issued with the provided message when the function
+is used for the first time.</p>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Callable</span><span class="o">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
+
+<span class="s2">    Decorator to mark some functions in this module as deprecated, as they will be moved to a new `coupling` module.</span>
+
+<span class="s2">    It will result in an informative `DeprecationWarning` being issued with the provided message when the function</span>
+
+<span class="s2">    is used for the first time.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="n">decorator_wrapper</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="nv">@functools.wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">def</span><span class="w"> </span><span class="n">function_wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">current_call_source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;|&quot;</span><span class="p">.</span><span class="k">join</span><span class="p">(</span><span class="n">traceback</span><span class="p">.</span><span class="n">format_stack</span><span class="p">(</span><span class="n">inspect</span><span class="p">.</span><span class="n">currentframe</span><span class="p">()))</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="n">current_call_source</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">function_wrapper</span><span class="p">.</span><span class="n">last_call_source</span><span class="o">:</span><span class="w"></span>
+
+<span class="w">                </span><span class="k">warnings</span><span class="p">.</span><span class="n">warn</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">f</span><span class="s2">&quot;Function {func.__name__} is now deprecated and will be removed in a future release! {message}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">category</span><span class="o">=</span><span class="n">DeprecationWarning</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                    </span><span class="n">stacklevel</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">                </span><span class="p">)</span><span class="w"></span>
+
+<span class="w">                </span><span class="n">function_wrapper</span><span class="p">.</span><span class="n">last_call_source</span><span class="p">.</span><span class="k">add</span><span class="p">(</span><span class="n">current_call_source</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">function_wrapper</span><span class="p">.</span><span class="n">last_call_source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kt">set</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">function_wrapper</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">decorator_wrapper</span><span class="w"></span>
+</code></pre></div>
+
+</details>
                 
               
               

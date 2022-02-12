@@ -381,6 +381,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../coupling/" class="md-nav__link">
+        Coupling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../errors/" class="md-nav__link">
         Errors
       </a>
@@ -495,20 +509,6 @@
     <li class="md-nav__item">
       <a href="../ptc/" class="md-nav__link">
         Ptc
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../special/" class="md-nav__link">
-        Special
       </a>
     </li>
   
@@ -1355,11 +1355,11 @@
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Returns a tfs.TfsDataFrame from the Madx instance&#39;s twiss dframe, typically in the way we&#39;re used to</span>
+<span class="sd">    Returns a `tfs.TfsDataFrame` from the Madx instance&#39;s twiss dframe, typically in the way we&#39;re used to</span>
 
-<span class="sd">    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers). This</span>
+<span class="sd">    getting it from MAD-X outputting the `TWISS` (uppercase names, colnames, summ table in headers). This</span>
 
-<span class="sd">    will call the TWISS command first before returning the dframe to you.</span>
+<span class="sd">    will call the `TWISS` command first before returning the dframe to you.</span>
 
 <span class="sd">    Args:</span>
 
@@ -1490,7 +1490,7 @@
 <h3 id="get_ips_twiss">get_ips_twiss</h3>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_ips_twiss</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
-    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;betx&#39;</span><span class="p">,</span> <span class="s1">&#39;bety&#39;</span><span class="p">,</span> <span class="s1">&#39;alfx&#39;</span><span class="p">,</span> <span class="s1">&#39;alfy&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;dy&#39;</span><span class="p">,</span> <span class="s1">&#39;mux&#39;</span><span class="p">,</span> <span class="s1">&#39;muy&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">,</span> <span class="s1">&#39;r21&#39;</span><span class="p">,</span> <span class="s1">&#39;r22&#39;</span><span class="p">,</span> <span class="s1">&#39;beta11&#39;</span><span class="p">,</span> <span class="s1">&#39;beta12&#39;</span><span class="p">,</span> <span class="s1">&#39;beta21&#39;</span><span class="p">,</span> <span class="s1">&#39;beta22&#39;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;betx&#39;</span><span class="p">,</span> <span class="s1">&#39;bety&#39;</span><span class="p">,</span> <span class="s1">&#39;alfx&#39;</span><span class="p">,</span> <span class="s1">&#39;alfy&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;dy&#39;</span><span class="p">,</span> <span class="s1">&#39;mux&#39;</span><span class="p">,</span> <span class="s1">&#39;muy&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">,</span> <span class="s1">&#39;r21&#39;</span><span class="p">,</span> <span class="s1">&#39;r22&#39;</span><span class="p">,</span> <span class="s1">&#39;beta11&#39;</span><span class="p">,</span> <span class="s1">&#39;beta12&#39;</span><span class="p">,</span> <span class="s1">&#39;beta21&#39;</span><span class="p">,</span> <span class="s1">&#39;beta22&#39;</span><span class="p">],</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
@@ -1542,7 +1542,7 @@ included as the TfsDataFrame's header dictionary.</p>
 <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_ir_twiss</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span><span class="p">,</span>
     <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;betx&#39;</span><span class="p">,</span> <span class="s1">&#39;bety&#39;</span><span class="p">,</span> <span class="s1">&#39;alfx&#39;</span><span class="p">,</span> <span class="s1">&#39;alfy&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;dy&#39;</span><span class="p">,</span> <span class="s1">&#39;mux&#39;</span><span class="p">,</span> <span class="s1">&#39;muy&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">,</span> <span class="s1">&#39;r21&#39;</span><span class="p">,</span> <span class="s1">&#39;r22&#39;</span><span class="p">,</span> <span class="s1">&#39;beta11&#39;</span><span class="p">,</span> <span class="s1">&#39;beta12&#39;</span><span class="p">,</span> <span class="s1">&#39;beta21&#39;</span><span class="p">,</span> <span class="s1">&#39;beta22&#39;</span><span class="p">],</span>
+    <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;l&#39;</span><span class="p">,</span> <span class="s1">&#39;px&#39;</span><span class="p">,</span> <span class="s1">&#39;py&#39;</span><span class="p">,</span> <span class="s1">&#39;betx&#39;</span><span class="p">,</span> <span class="s1">&#39;bety&#39;</span><span class="p">,</span> <span class="s1">&#39;alfx&#39;</span><span class="p">,</span> <span class="s1">&#39;alfy&#39;</span><span class="p">,</span> <span class="s1">&#39;dx&#39;</span><span class="p">,</span> <span class="s1">&#39;dy&#39;</span><span class="p">,</span> <span class="s1">&#39;mux&#39;</span><span class="p">,</span> <span class="s1">&#39;muy&#39;</span><span class="p">,</span> <span class="s1">&#39;r11&#39;</span><span class="p">,</span> <span class="s1">&#39;r12&#39;</span><span class="p">,</span> <span class="s1">&#39;r21&#39;</span><span class="p">,</span> <span class="s1">&#39;r22&#39;</span><span class="p">,</span> <span class="s1">&#39;beta11&#39;</span><span class="p">,</span> <span class="s1">&#39;beta12&#39;</span><span class="p">,</span> <span class="s1">&#39;beta21&#39;</span><span class="p">,</span> <span class="s1">&#39;beta22&#39;</span><span class="p">],</span>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
@@ -1732,9 +1732,9 @@ itself.</p>
     <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">frame</span><span class="o">.</span><span class="n">TfsDataFrame</span>
 </code></pre></div>
-<p>Returns a tfs.TfsDataFrame from the Madx instance's twiss dframe, typically in the way we're used to
-getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers). This
-will call the TWISS command first before returning the dframe to you.</p>
+<p>Returns a <code>tfs.TfsDataFrame</code> from the Madx instance's twiss dframe, typically in the way we're used to
+getting it from MAD-X outputting the <code>TWISS</code> (uppercase names, colnames, summ table in headers). This
+will call the <code>TWISS</code> command first before returning the dframe to you.</p>
 <p>Args:
     madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</p>
 <p>Keyword Args:
@@ -1748,11 +1748,11 @@ will call the TWISS command first before returning the dframe to you.</p>
 
     <span class="s2">&quot;&quot;&quot;</span>
 
-<span class="s2">    Returns a tfs.TfsDataFrame from the Madx instance&#39;s twiss dframe, typically in the way we&#39;re used to</span>
+<span class="s2">    Returns a `tfs.TfsDataFrame` from the Madx instance&#39;s twiss dframe, typically in the way we&#39;re used to</span>
 
-<span class="s2">    getting it from MAD-X outputting the TWISS (uppercase names, colnames, summ table in headers). This</span>
+<span class="s2">    getting it from MAD-X outputting the `TWISS` (uppercase names, colnames, summ table in headers). This</span>
 
-<span class="s2">    will call the TWISS command first before returning the dframe to you.</span>
+<span class="s2">    will call the `TWISS` command first before returning the dframe to you.</span>
 
 <span class="s2">    Args:</span>
 

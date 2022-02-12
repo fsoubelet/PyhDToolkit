@@ -381,6 +381,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../coupling/" class="md-nav__link">
+        Coupling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../errors/" class="md-nav__link">
         Errors
       </a>
@@ -494,6 +508,20 @@
           <li class="md-nav__item">
   <a href="#deactivate_lhc_arc_sextupoles" class="md-nav__link">
     deactivate_lhc_arc_sextupoles
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_lhc_bpms_list" class="md-nav__link">
+    get_lhc_bpms_list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_lhc_tune_and_chroma_knobs" class="md-nav__link">
+    get_lhc_tune_and_chroma_knobs
   </a>
   
 </li>
@@ -646,20 +674,6 @@
     <li class="md-nav__item">
       <a href="../ptc/" class="md-nav__link">
         Ptc
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../special/" class="md-nav__link">
-        Special
       </a>
     </li>
   
@@ -1284,6 +1298,20 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#get_lhc_bpms_list" class="md-nav__link">
+    get_lhc_bpms_list
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get_lhc_tune_and_chroma_knobs" class="md-nav__link">
+    get_lhc_tune_and_chroma_knobs
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#install_ac_dipole_as_kicker" class="md-nav__link">
     install_ac_dipole_as_kicker
   </a>
@@ -1376,16 +1404,16 @@
                 
                 
                 <h1 id="module-pyhdtoolkitcpymadtoolslhc">Module pyhdtoolkit.cpymadtools.lhc</h1>
-<p>Module cpymadtools.special</p>
+<p>Module cpymadtools.lhc</p>
 <hr />
 <p>Created on 2020.02.03</p>
 <details class="example">
 <summary>View Source</summary>
 <div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">Module cpymadtools.special</span>
+<span class="sd">Module cpymadtools.lhc</span>
 
-<span class="sd">--------------------------</span>
+<span class="sd">----------------------</span>
 
 <span class="sd">Created on 2020.02.03</span>
 
@@ -1397,7 +1425,7 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -1420,6 +1448,8 @@
     <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span><span class="p">,</span>
 
 <span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
 <span class="c1"># ----- Setup Utlites ----- #</span>
 
@@ -2227,6 +2257,34 @@
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span>
 
+<span class="k">def</span> <span class="nf">get_lhc_bpms_list</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through</span>
+
+<span class="sd">    a regex in the result of a TWISS command.</span>
+
+<span class="sd">    NOTE: As this function calls the TWISS command and requires that TWISS can succeed on your sequence.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        The list of BPM names.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss</span><span class="o">.</span><span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+
+    <span class="n">bpms_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;^bpm.*B[12]$&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+
+    <span class="k">return</span> <span class="n">bpms_df</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="kp">tolist</span><span class="p">()</span>
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span>
+
 <span class="k">def</span> <span class="nf">match_no_coupling_through_ripkens</span><span class="p">(</span>
 
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vary_knobs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
@@ -2251,7 +2309,7 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="kp">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching Ripken parameters for no coupling at location </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating macro tu update Ripkens&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating macro to update Ripkens&quot;</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;do_ripken: macro = {twiss, ripken=True;}&quot;</span><span class="p">)</span>  <span class="c1"># cpymad needs .input for macros</span>
 
@@ -2272,6 +2330,74 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">lmdif</span><span class="p">(</span><span class="n">calls</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-21</span><span class="p">)</span>
 
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endmatch</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+
+    <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+
+    <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+
+<span class="sd">    Get names of knobs needed to match tunes and chromaticities as a tuple of strings.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        accelerator (str): Accelerator either &#39;LHC&#39; (dQ[xy], dQp[xy] knobs) or &#39;HLLHC&#39;</span>
+
+<span class="sd">            (kqt[fd], ks[fd] knobs).</span>
+
+<span class="sd">        beam (int): Beam to use, for the knob names.</span>
+
+<span class="sd">        telescopic_squeeze (bool): if set to True, returns the knobs for Telescopic Squeeze configuration.</span>
+
+<span class="sd">            Defaults to `True`.</span>
+
+<span class="sd">    Returns:</span>
+
+<span class="sd">        Tuple of strings with knobs for `(qx, qy, dqx, dqy)`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+
+    <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;LHC&quot;</span><span class="p">,</span> <span class="s2">&quot;HLLHC&quot;</span><span class="p">):</span>
+
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid accelerator name, only &#39;LHC&#39; and &#39;HLLHC&#39; implemented&quot;</span><span class="p">)</span>
+
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accelerator &#39;</span><span class="si">{</span><span class="n">accelerator</span><span class="si">}</span><span class="s2">&#39; not implemented.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+
+        <span class="s2">&quot;LHC&quot;</span><span class="p">:</span> <span class="p">(</span>
+
+            <span class="sa">f</span><span class="s2">&quot;dQx.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;dQy.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;dQpx.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;dQpy.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+        <span class="p">),</span>
+
+        <span class="s2">&quot;HLLHC&quot;</span><span class="p">:</span> <span class="p">(</span>
+
+            <span class="sa">f</span><span class="s2">&quot;kqtf.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;kqtd.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;ksf.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+            <span class="sa">f</span><span class="s2">&quot;ksd.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+
+        <span class="p">),</span>
+
+    <span class="p">}[</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
 
 <span class="c1"># ----- Helpers ----- #</span>
 
@@ -2733,6 +2859,217 @@ works well.</p>
 <span class="w">                </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;De-powering element &#39;{sextupole}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">                </span><span class="n">madx</span><span class="p">.</span><span class="n">globals</span><span class="o">[</span><span class="n">sextupole</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">0.0</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="get_lhc_bpms_list">get_lhc_bpms_list</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_lhc_bpms_list</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">cpymad</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">Madx</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+</code></pre></div>
+<p>Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through</p>
+<p>a regex in the result of a TWISS command.</p>
+<p>NOTE: As this function calls the TWISS command and requires that TWISS can succeed on your sequence.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>madx</td>
+<td>cpymad.madx.Madx</td>
+<td>an instantiated cpymad.madx.Madx object.</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>The list of BPM names.</td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_lhc_bpms_list</span><span class="p">(</span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">List</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through</span>
+
+<span class="ss">    a regex in the result of a TWISS command.</span>
+
+<span class="ss">    NOTE: As this function calls the TWISS command and requires that TWISS can succeed on your sequence.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.</span>
+
+<span class="ss">    Returns:</span>
+
+<span class="ss">        The list of BPM names.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">twiss_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">twiss</span><span class="p">.</span><span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">).</span><span class="n">reset_index</span><span class="p">()</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">bpms_df</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">twiss_df</span><span class="o">[</span><span class="n">twiss_df.NAME.str.contains(&quot;^bpm.*B[12</span><span class="o">]</span><span class="err">$&quot;</span><span class="p">,</span><span class="w"> </span><span class="k">case</span><span class="o">=</span><span class="k">False</span><span class="p">,</span><span class="w"> </span><span class="n">regex</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="err">]</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">bpms_df</span><span class="p">.</span><span class="n">NAME</span><span class="p">.</span><span class="n">tolist</span><span class="p">()</span><span class="w"></span>
+</code></pre></div>
+
+</details>
+<h3 id="get_lhc_tune_and_chroma_knobs">get_lhc_tune_and_chroma_knobs</h3>
+<div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+    <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+</code></pre></div>
+<p>INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</p>
+<p>Get names of knobs needed to match tunes and chromaticities as a tuple of strings.</p>
+<p><strong>Parameters:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Type</th>
+<th>Description</th>
+<th>Default</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>accelerator</td>
+<td>str</td>
+<td>Accelerator either 'LHC' (dQ[xy], dQp[xy] knobs) or 'HLLHC'</td>
+<td></td>
+</tr>
+<tr>
+<td>(kqt[fd], ks[fd] knobs).</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>beam</td>
+<td>int</td>
+<td>Beam to use, for the knob names.</td>
+<td>None</td>
+</tr>
+<tr>
+<td>telescopic_squeeze</td>
+<td>bool</td>
+<td>if set to True, returns the knobs for Telescopic Squeeze configuration.</td>
+<td></td>
+</tr>
+<tr>
+<td>Defaults to <code>True</code>.</td>
+<td>None</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>None</td>
+<td>Tuple of strings with knobs for <code>(qx, qy, dqx, dqy)</code>.</td>
+</tr>
+</tbody>
+</table>
+<details class="example">
+<summary>View Source</summary>
+<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">    </span><span class="nl">accelerator</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
+
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Tuple</span><span class="o">[</span><span class="n">str, str, str, str</span><span class="o">]</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+
+<span class="ss">    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).</span>
+
+<span class="ss">    Get names of knobs needed to match tunes and chromaticities as a tuple of strings.</span>
+
+<span class="ss">    Args:</span>
+
+<span class="ss">        accelerator (str): Accelerator either &#39;LHC&#39; (dQ[xy], dQp[xy] knobs) or &#39;HLLHC&#39;</span>
+
+<span class="ss">            (kqt[fd], ks[fd] knobs).</span>
+
+<span class="ss">        beam (int): Beam to use, for the knob names.</span>
+
+<span class="ss">        telescopic_squeeze (bool): if set to True, returns the knobs for Telescopic Squeeze configuration.</span>
+
+<span class="ss">            Defaults to `True`.</span>
+
+<span class="ss">    Returns:</span>
+
+<span class="ss">        Tuple of strings with knobs for `(qx, qy, dqx, dqy)`.</span>
+
+<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">beam</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">beam</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">beam</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">suffix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ss">&quot;_sq&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">telescopic_squeeze</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="ss">&quot;&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">accelerator</span><span class="p">.</span><span class="nf">upper</span><span class="p">()</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="p">(</span><span class="ss">&quot;LHC&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">&quot;HLLHC&quot;</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">error</span><span class="p">(</span><span class="ss">&quot;Invalid accelerator name, only &#39;LHC&#39; and &#39;HLLHC&#39; implemented&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">raise</span><span class="w"> </span><span class="n">NotImplementedError</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Accelerator &#39;{accelerator}&#39; not implemented.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="err">{</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;LHC&quot;</span><span class="err">:</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;dQx.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;dQy.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;dQpx.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;dQpy.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">),</span><span class="w"></span>
+
+<span class="w">        </span><span class="ss">&quot;HLLHC&quot;</span><span class="err">:</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;kqtf.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;kqtd.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;ksf.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">f</span><span class="ss">&quot;ksd.b{beam}{suffix}&quot;</span><span class="p">,</span><span class="w"></span>
+
+<span class="w">        </span><span class="p">),</span><span class="w"></span>
+
+<span class="w">    </span><span class="err">}</span><span class="o">[</span><span class="n">accelerator.upper()</span><span class="o">]</span><span class="w"></span>
 </code></pre></div>
 
 </details>
@@ -3429,7 +3766,9 @@ will enforce <code>makedipedge</code>.</p>
 </table>
 <details class="example">
 <summary>View Source</summary>
-<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">match_no_coupling_through_ripkens</span><span class="p">(</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="nv">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="ss">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">match_no_coupling_through_ripkens</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"> </span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">location</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"> </span><span class="nl">vary_knobs</span><span class="p">:</span><span class="w"> </span><span class="k">Sequence</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="w"></span>
 
@@ -3453,7 +3792,7 @@ will enforce <code>makedipedge</code>.</p>
 
 <span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Matching Ripken parameters for no coupling at location {location}&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Creating macro tu update Ripkens&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="ss">&quot;Creating macro to update Ripkens&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">madx</span><span class="p">.</span><span class="k">input</span><span class="p">(</span><span class="ss">&quot;do_ripken: macro = {twiss, ripken=True;}&quot;</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">cpymad</span><span class="w"> </span><span class="n">needs</span><span class="w"> </span><span class="p">.</span><span class="k">input</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">macros</span><span class="w"></span>
 

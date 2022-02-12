@@ -381,6 +381,20 @@
   
   
     <li class="md-nav__item">
+      <a href="../coupling/" class="md-nav__link">
+        Coupling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../errors/" class="md-nav__link">
         Errors
       </a>
@@ -562,20 +576,6 @@
     <li class="md-nav__item">
       <a href="../ptc/" class="md-nav__link">
         Ptc
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../special/" class="md-nav__link">
-        Special
       </a>
     </li>
   
@@ -1227,13 +1227,17 @@
 
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
 <span class="c1"># ----- Utlites ----- #</span>
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.lhc&#39; module.&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
 
@@ -1333,13 +1337,37 @@
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Provided with an active `cpymad` class after having ran a script, will run an additional</span>
+<span class="sd">    Provided with an active `cpymad` instance, will run relevant commands to match tunes and/or chromaticities.</span>
 
-<span class="sd">    matching command to reach the provided values for tunes and chromaticities.</span>
+<span class="sd">    As target values are given, the function expects knob names to be provided, which are then used and varied</span>
 
-<span class="sd">    Tune matching is always performed. If chromaticity target values are given, then a matching is done</span>
+<span class="sd">    by `MAD-X` to match the targets.</span>
 
-<span class="sd">    for them, followed by an additionnal matching for both tunes and chromaticities.</span>
+<span class="sd">    If target tune values only are provided, then tune matching is performed with the provided knobs. If target</span>
+
+<span class="sd">    chromaticity values are provided, then chromaticity matching is performed with the provided knobs. If targets</span>
+
+<span class="sd">    for both types are provided, then both are matched in a single call with the provided knobs. If the user wishes</span>
+
+<span class="sd">    to perform different matching calls for each, then it is recommended to call this function as many times as</span>
+
+<span class="sd">    necessary, with the appropriate targets.</span>
+
+<span class="sd">    For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,</span>
+
+<span class="sd">    then followed by a combined matching. In this case the function should be called three times, once with tune</span>
+
+<span class="sd">    targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.</span>
+
+<span class="sd">    When acting of either the `LHC` or `HLLHC`, the accelerator name can be provided and the vary knobs will be</span>
+
+<span class="sd">    automatically set accordingly to the provided targets. Note that only the relevant knobs are set, so if tune</span>
+
+<span class="sd">    targets only are provided, then tune knobs only will be used, and not chromaticity knobs. If explicit knobs</span>
+
+<span class="sd">    are provided, these will always be used. On other machines the knobs should be provided explicitly, always.</span>
+
+<span class="sd">    NOTA BENE: The matching is always performed with the `CHROM` option on.</span>
 
 <span class="sd">    Args:</span>
 
@@ -1347,9 +1375,9 @@
 
 <span class="sd">        accelerator (str): name of the accelerator, used to determmine knobs if &#39;variables&#39; not given.</span>
 
-<span class="sd">            Automatic determination will only work for LHC and HLLHC.</span>
+<span class="sd">            Automatic determination will only work for `LHC` and `HLLHC`.</span>
 
-<span class="sd">        sequence (str): name of the sequence you want to activate for the tune matching.</span>
+<span class="sd">        sequence (str): name of the sequence you want to perform the matching for.</span>
 
 <span class="sd">        q1_target (float): horizontal tune to match to.</span>
 
@@ -1359,15 +1387,15 @@
 
 <span class="sd">        dq2_target (float): vertical chromaticity to match to.</span>
 
-<span class="sd">        varied_knobs (Sequence[str]): the variables names to &#39;vary&#39; in the MADX routine. An input</span>
+<span class="sd">        varied_knobs (Sequence[str]): the variables names to &#39;vary&#39; in the `MAD-X` routine. An input</span>
 
 <span class="sd">            could be [&quot;kqf&quot;, &quot;ksd&quot;, &quot;kqf&quot;, &quot;kqd&quot;] as they are common names used for quadrupole and</span>
 
-<span class="sd">            sextupole strengths (foc / defoc) in most examples.</span>
+<span class="sd">            sextupole strengths (focusing / defocusing) in most examples.</span>
 
-<span class="sd">        telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic</span>
+<span class="sd">        telescopic_squeeze (bool): `LHC` specific. If set to `True`, uses the `(HL)LHC` knobs for Telescopic</span>
 
-<span class="sd">            Squeeze configuration. Defaults to True as of Run III.</span>
+<span class="sd">            Squeeze configuration. Defaults to `True` as of Run III.</span>
 
 <span class="sd">        step (float): step size to use when varying knobs.</span>
 
@@ -1381,11 +1409,13 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting knobs from default </span><span class="si">{</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> values&quot;</span><span class="p">)</span>
 
-        <span class="n">varied_knobs</span> <span class="o">=</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+        <span class="n">lhc_knobs</span> <span class="o">=</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
 
             <span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">telescopic_squeeze</span><span class="o">=</span><span class="n">telescopic_squeeze</span>
 
         <span class="p">)</span>
+
+        <span class="n">tune_knobs</span><span class="p">,</span> <span class="n">chroma_knobs</span> <span class="o">=</span> <span class="n">lhc_knobs</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">lhc_knobs</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># first two, last two</span>
 
     <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
@@ -1411,7 +1441,7 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Performing routine TWISS&quot;</span><span class="p">)</span>
 
-        <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># prevents errors if the user forgets to TWISS before querying tables</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># prevents errors if the user forgets to TWISS before querying tables</span>
 
     <span class="k">if</span> <span class="n">q1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">q2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
@@ -1423,6 +1453,8 @@
 
         <span class="p">)</span>
 
+        <span class="n">varied_knobs</span> <span class="o">=</span> <span class="n">varied_knobs</span> <span class="ow">or</span> <span class="n">lhc_knobs</span>  <span class="c1"># if accelerator was given we&#39;ve extracted this already</span>
+
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">varied_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>
@@ -1431,17 +1463,27 @@
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching tunes to Qx=</span><span class="si">{</span><span class="n">q1_target</span><span class="si">}</span><span class="s2">, Qy=</span><span class="si">{</span><span class="n">q2_target</span><span class="si">}</span><span class="s2"> for sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">varied_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">tune_knobs</span> <span class="o">=</span> <span class="n">varied_knobs</span> <span class="ow">or</span> <span class="n">tune_knobs</span>  <span class="c1"># if accelerator was given we&#39;ve extracted this already</span>
 
-        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be tune knobs</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">tune_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">tune_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be tune knobs</span>
 
     <span class="k">elif</span> <span class="n">dq1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
 
         <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching chromaticities to dq1=</span><span class="si">{</span><span class="n">dq1_target</span><span class="si">}</span><span class="s2">, dq2=</span><span class="si">{</span><span class="n">dq2_target</span><span class="si">}</span><span class="s2"> for sequence </span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">varied_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">chroma_knobs</span> <span class="o">=</span> <span class="n">varied_knobs</span> <span class="ow">or</span> <span class="n">chroma_knobs</span>  <span class="c1"># if accelerator was given we&#39;ve extracted this already</span>
 
-        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be chromaticity knobs</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">chroma_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">chroma_knobs</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be chromaticity knobs</span>
+
+<span class="c1"># TODO: DO NOT TARGET CHROMATICITIES IN THIS, WITH CHROM THAT COUPLES IT THE ALGORITHM WILL BE CONFUSED</span>
+
+<span class="c1"># In turn one won&#39;t get to the CTA when they actually could, shame.</span>
+
+<span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span>
 
 <span class="k">def</span> <span class="nf">get_closest_tune_approach</span><span class="p">(</span>
 
@@ -1467,15 +1509,25 @@
 
     <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Provided with an active `cpymad` class after having ran a script, tries to match the tunes to</span>
+<span class="sd">    Provided with an active `cpymad` instance, tries to match the tunes to their mid-fractional tunes,</span>
 
-<span class="sd">    their mid-fractional tunes. The difference between this mid-tune and the actual matched tune is the</span>
+<span class="sd">    aka getting them together. The difference between the final reached fractional tunes is the closest</span>
 
-<span class="sd">    closest tune approach.</span>
+<span class="sd">    tune approach. This should not have any effect on the user&#39;s simulation, as the varied knobs are</span>
 
-<span class="sd">    NOTA BENE: This assumes your lattice has previously been matched to desired tunes and chromaticities,</span>
+<span class="sd">    restored to their previous values after performing the CTA.</span>
 
-<span class="sd">    as it will determine the appropriate targets from the Madx instance&#39;s internal tables.</span>
+<span class="sd">    NOTA BENE: This assumes the sequence has previously been matched to the user&#39;s desired working point,</span>
+
+<span class="sd">    as if not explicitely given, the appropriate targets will be determined from `MAD-X`&#39;s internal tables.</span>
+
+<span class="sd">    NOTA BENE: This is hard-coded to use the `CHROM` flag when performing matching, since we expect to be in</span>
+
+<span class="sd">    the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the</span>
+
+<span class="sd">    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is</span>
+
+<span class="sd">    performed here, and chromaticities are voluntarily ignored.</span>
 
 <span class="sd">    Args:</span>
 
@@ -1527,7 +1579,7 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running TWISS to update SUMM and TWISS tables&quot;</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving knob values to restore after closest tune approach&quot;</span><span class="p">)</span>
 
@@ -1537,9 +1589,7 @@
 
     <span class="k">if</span> <span class="n">explicit_targets</span><span class="p">:</span>
 
-        <span class="n">qx_target</span><span class="p">,</span> <span class="n">qy_target</span> <span class="o">=</span> <span class="n">explicit_targets</span>
-
-        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">qx_target</span><span class="p">,</span> <span class="n">qy_target</span>  <span class="c1"># the integer part is used later on</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">explicit_targets</span>  <span class="c1"># the integer part is used later on</span>
 
     <span class="k">else</span><span class="p">:</span>
 
@@ -1547,9 +1597,7 @@
 
         <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-    <span class="n">dq1</span><span class="p">,</span> <span class="n">dq2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">, dq1 = </span><span class="si">{</span><span class="n">dq1</span><span class="si">}</span><span class="s2">, dq2 = </span><span class="si">{</span><span class="n">dq2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Determining target tunes for closest approach&quot;</span><span class="p">)</span>
 
@@ -1575,10 +1623,6 @@
 
         <span class="n">q2_target</span><span class="o">=</span><span class="n">qy_target</span><span class="p">,</span>
 
-        <span class="n">dq1_target</span><span class="o">=</span><span class="n">dq1</span><span class="p">,</span>
-
-        <span class="n">dq2_target</span><span class="o">=</span><span class="n">dq2</span><span class="p">,</span>
-
         <span class="n">varied_knobs</span><span class="o">=</span><span class="n">varied_knobs</span><span class="p">,</span>
 
         <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
@@ -1595,7 +1639,7 @@
 
     <span class="n">cminus</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dqmin</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching got to a Closest Tune Approach of </span><span class="si">{</span><span class="n">cminus</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching got to a Closest Tune Approach of </span><span class="si">{</span><span class="n">cminus</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Restoring saved knobs&quot;</span><span class="p">)</span>
 
@@ -1603,11 +1647,13 @@
 
         <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_knobs</span><span class="p">)</span>
 
-    <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># make sure TWISS and SUMM tables are returned to their original state</span>
 
     <span class="k">return</span> <span class="n">cminus</span>
 
 <span class="c1"># ----- Helpers ----- #</span>
+
+<span class="c1"># TODO: remove this once deprecated &#39;get_closest_tune_approach&#39; is removed as its the only thing using it</span>
 
 <span class="k">def</span> <span class="nf">_fractional_tune</span><span class="p">(</span><span class="n">tune</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 
@@ -1643,11 +1689,16 @@
     <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-21</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span>
 </code></pre></div>
-<p>Provided with an active <code>cpymad</code> class after having ran a script, tries to match the tunes to</p>
-<p>their mid-fractional tunes. The difference between this mid-tune and the actual matched tune is the
-closest tune approach.</p>
-<p>NOTA BENE: This assumes your lattice has previously been matched to desired tunes and chromaticities,
-as it will determine the appropriate targets from the Madx instance's internal tables.</p>
+<p>Provided with an active <code>cpymad</code> instance, tries to match the tunes to their mid-fractional tunes,</p>
+<p>aka getting them together. The difference between the final reached fractional tunes is the closest
+tune approach. This should not have any effect on the user's simulation, as the varied knobs are
+restored to their previous values after performing the CTA.</p>
+<p>NOTA BENE: This assumes the sequence has previously been matched to the user's desired working point,
+as if not explicitely given, the appropriate targets will be determined from <code>MAD-X</code>'s internal tables.</p>
+<p>NOTA BENE: This is hard-coded to use the <code>CHROM</code> flag when performing matching, since we expect to be in
+the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
+tunes might cause <code>LMDIF</code> to fail, as the knobs become dependent. For this reason, only tune matching is
+performed here, and chromaticities are voluntarily ignored.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -1768,7 +1819,9 @@ as it will determine the appropriate targets from the Madx instance's internal t
 </table>
 <details class="example">
 <summary>View Source</summary>
-<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_closest_tune_approach</span><span class="p">(</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="err">@</span><span class="n">deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">get_closest_tune_approach</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
@@ -1792,15 +1845,25 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 
-<span class="sd">    Provided with an active `cpymad` class after having ran a script, tries to match the tunes to</span>
+<span class="sd">    Provided with an active `cpymad` instance, tries to match the tunes to their mid-fractional tunes,</span>
 
-<span class="sd">    their mid-fractional tunes. The difference between this mid-tune and the actual matched tune is the</span>
+<span class="sd">    aka getting them together. The difference between the final reached fractional tunes is the closest</span>
 
-<span class="sd">    closest tune approach.</span>
+<span class="sd">    tune approach. This should not have any effect on the user&#39;s simulation, as the varied knobs are</span>
 
-<span class="sd">    NOTA BENE: This assumes your lattice has previously been matched to desired tunes and chromaticities,</span>
+<span class="sd">    restored to their previous values after performing the CTA.</span>
 
-<span class="sd">    as it will determine the appropriate targets from the Madx instance&#39;s internal tables.</span>
+<span class="sd">    NOTA BENE: This assumes the sequence has previously been matched to the user&#39;s desired working point,</span>
+
+<span class="sd">    as if not explicitely given, the appropriate targets will be determined from `MAD-X`&#39;s internal tables.</span>
+
+<span class="sd">    NOTA BENE: This is hard-coded to use the `CHROM` flag when performing matching, since we expect to be in</span>
+
+<span class="sd">    the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the</span>
+
+<span class="sd">    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is</span>
+
+<span class="sd">    performed here, and chromaticities are voluntarily ignored.</span>
 
 <span class="sd">    Args:</span>
 
@@ -1852,7 +1915,7 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running TWISS to update SUMM and TWISS tables&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="n">True</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving knob values to restore after closest tune approach&quot;</span><span class="p">)</span><span class="w"></span>
 
@@ -1862,9 +1925,7 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">explicit_targets</span><span class="p">:</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">qx_target</span><span class="p">,</span><span class="w"> </span><span class="n">qy_target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">explicit_targets</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">qx_target</span><span class="p">,</span><span class="w"> </span><span class="n">qy_target</span><span class="w">  </span><span class="c1"># the integer part is used later on</span><span class="w"></span>
+<span class="w">        </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">explicit_targets</span><span class="w">  </span><span class="c1"># the integer part is used later on</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">else</span><span class="p">:</span><span class="w"></span>
 
@@ -1872,9 +1933,7 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="w">        </span><span class="n">q1</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">dq1</span><span class="p">,</span><span class="w"> </span><span class="n">dq2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="w"> </span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">dq2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"></span>
-
-<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1}, q2 = {q2}, dq1 = {dq1}, dq2 = {dq2}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Retrieved values are q1 = {q1}, q2 = {q2}&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Determining target tunes for closest approach&quot;</span><span class="p">)</span><span class="w"></span>
 
@@ -1900,10 +1959,6 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="w">        </span><span class="n">q2_target</span><span class="o">=</span><span class="n">qy_target</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">dq1_target</span><span class="o">=</span><span class="n">dq1</span><span class="p">,</span><span class="w"></span>
-
-<span class="w">        </span><span class="n">dq2_target</span><span class="o">=</span><span class="n">dq2</span><span class="p">,</span><span class="w"></span>
-
 <span class="w">        </span><span class="n">varied_knobs</span><span class="o">=</span><span class="n">varied_knobs</span><span class="p">,</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span><span class="w"></span>
@@ -1920,7 +1975,7 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="w">    </span><span class="n">cminus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">abs</span><span class="p">(</span><span class="n">dqmin</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Matching got to a Closest Tune Approach of {cminus:.4f}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Matching got to a Closest Tune Approach of {cminus:.5f}&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Restoring saved knobs&quot;</span><span class="p">)</span><span class="w"></span>
 
@@ -1928,7 +1983,7 @@ as it will determine the appropriate targets from the Madx instance's internal t
 
 <span class="w">        </span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_knobs</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="n">True</span><span class="p">)</span><span class="w">  </span><span class="c1"># make sure TWISS and SUMM tables are returned to their original state</span><span class="w"></span>
 
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">cminus</span><span class="w"></span>
 </code></pre></div>
@@ -2003,7 +2058,9 @@ as it will determine the appropriate targets from the Madx instance's internal t
 </table>
 <details class="example">
 <summary>View Source</summary>
-<div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
+<div class="codehilite"><pre><span></span><code><span class="nv">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="ss">&quot;Please use its equivalent from the &#39;cpymadtools.lhc&#39; module.&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="n">def</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
 
 <span class="w">    </span><span class="nl">accelerator</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="p">,</span><span class="w"> </span><span class="nl">beam</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="w"></span>
 
@@ -2089,10 +2146,22 @@ as it will determine the appropriate targets from the Madx instance's internal t
     <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-21</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span>
 </code></pre></div>
-<p>Provided with an active <code>cpymad</code> class after having ran a script, will run an additional</p>
-<p>matching command to reach the provided values for tunes and chromaticities.</p>
-<p>Tune matching is always performed. If chromaticity target values are given, then a matching is done
-for them, followed by an additionnal matching for both tunes and chromaticities.</p>
+<p>Provided with an active <code>cpymad</code> instance, will run relevant commands to match tunes and/or chromaticities.</p>
+<p>As target values are given, the function expects knob names to be provided, which are then used and varied
+by <code>MAD-X</code> to match the targets.</p>
+<p>If target tune values only are provided, then tune matching is performed with the provided knobs. If target
+chromaticity values are provided, then chromaticity matching is performed with the provided knobs. If targets
+for both types are provided, then both are matched in a single call with the provided knobs. If the user wishes
+to perform different matching calls for each, then it is recommended to call this function as many times as
+necessary, with the appropriate targets.</p>
+<p>For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,
+then followed by a combined matching. In this case the function should be called three times, once with tune
+targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.</p>
+<p>When acting of either the <code>LHC</code> or <code>HLLHC</code>, the accelerator name can be provided and the vary knobs will be
+automatically set accordingly to the provided targets. Note that only the relevant knobs are set, so if tune
+targets only are provided, then tune knobs only will be used, and not chromaticity knobs. If explicit knobs
+are provided, these will always be used. On other machines the knobs should be provided explicitly, always.</p>
+<p>NOTA BENE: The matching is always performed with the <code>CHROM</code> option on.</p>
 <p><strong>Parameters:</strong></p>
 <table>
 <thead>
@@ -2117,7 +2186,7 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 <td></td>
 </tr>
 <tr>
-<td>Automatic determination will only work for LHC and HLLHC.</td>
+<td>Automatic determination will only work for <code>LHC</code> and <code>HLLHC</code>.</td>
 <td>None</td>
 <td></td>
 <td></td>
@@ -2125,7 +2194,7 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 <tr>
 <td>sequence</td>
 <td>str</td>
-<td>name of the sequence you want to activate for the tune matching.</td>
+<td>name of the sequence you want to perform the matching for.</td>
 <td>None</td>
 </tr>
 <tr>
@@ -2155,7 +2224,7 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 <tr>
 <td>varied_knobs</td>
 <td>Sequence[str]</td>
-<td>the variables names to 'vary' in the MADX routine. An input</td>
+<td>the variables names to 'vary' in the <code>MAD-X</code> routine. An input</td>
 <td></td>
 </tr>
 <tr>
@@ -2165,7 +2234,7 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 <td></td>
 </tr>
 <tr>
-<td>sextupole strengths (foc / defoc) in most examples.</td>
+<td>sextupole strengths (focusing / defocusing) in most examples.</td>
 <td>None</td>
 <td></td>
 <td></td>
@@ -2173,11 +2242,11 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 <tr>
 <td>telescopic_squeeze</td>
 <td>bool</td>
-<td>LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic</td>
+<td><code>LHC</code> specific. If set to <code>True</code>, uses the <code>(HL)LHC</code> knobs for Telescopic</td>
 <td></td>
 </tr>
 <tr>
-<td>Squeeze configuration. Defaults to True as of Run III.</td>
+<td>Squeeze configuration. Defaults to <code>True</code> as of Run III.</td>
 <td>None</td>
 <td></td>
 <td></td>
@@ -2206,143 +2275,175 @@ for them, followed by an additionnal matching for both tunes and chromaticities.
 <summary>View Source</summary>
 <div class="codehilite"><pre><span></span><code><span class="n">def</span><span class="w"> </span><span class="n">match_tunes_and_chromaticities</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">madx</span><span class="p">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">madx</span><span class="o">:</span><span class="w"> </span><span class="n">Madx</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">accelerator</span><span class="p">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">accelerator</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">sequence</span><span class="err">:</span><span class="w"> </span><span class="nf">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">sequence</span><span class="o">:</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">q1_target</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">q1_target</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">q2_target</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">q2_target</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">dq1_target</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">dq1_target</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">dq2_target</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">dq2_target</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">varied_knobs</span><span class="p">:</span><span class="w"> </span><span class="k">Sequence</span><span class="o">[</span><span class="n">str</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">varied_knobs</span><span class="o">:</span><span class="w"> </span><span class="n">Sequence</span><span class="err">[</span><span class="n">str</span><span class="err">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">None</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">telescopic_squeeze</span><span class="p">:</span><span class="w"> </span><span class="n">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">True</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">telescopic_squeeze</span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="no">True</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">step</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-7</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">step</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-7</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">calls</span><span class="p">:</span><span class="w"> </span><span class="nc">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">calls</span><span class="o">:</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w"></span>
 
-<span class="w">    </span><span class="nl">tolerance</span><span class="p">:</span><span class="w"> </span><span class="nc">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-21</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">tolerance</span><span class="o">:</span><span class="w"> </span><span class="kt">float</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">1e-21</span><span class="p">,</span><span class="w"></span>
 
-<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-<span class="w">    </span><span class="ss">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2"></span>
 
-<span class="ss">    Provided with an active `cpymad` class after having ran a script, will run an additional</span>
+<span class="s2">    Provided with an active `cpymad` instance, will run relevant commands to match tunes and/or chromaticities.</span>
 
-<span class="ss">    matching command to reach the provided values for tunes and chromaticities.</span>
+<span class="s2">    As target values are given, the function expects knob names to be provided, which are then used and varied</span>
 
-<span class="ss">    Tune matching is always performed. If chromaticity target values are given, then a matching is done</span>
+<span class="s2">    by `MAD-X` to match the targets.</span>
 
-<span class="ss">    for them, followed by an additionnal matching for both tunes and chromaticities.</span>
+<span class="s2">    If target tune values only are provided, then tune matching is performed with the provided knobs. If target</span>
 
-<span class="ss">    Args:</span>
+<span class="s2">    chromaticity values are provided, then chromaticity matching is performed with the provided knobs. If targets</span>
 
-<span class="ss">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
+<span class="s2">    for both types are provided, then both are matched in a single call with the provided knobs. If the user wishes</span>
 
-<span class="ss">        accelerator (str): name of the accelerator, used to determmine knobs if &#39;variables&#39; not given.</span>
+<span class="s2">    to perform different matching calls for each, then it is recommended to call this function as many times as</span>
 
-<span class="ss">            Automatic determination will only work for LHC and HLLHC.</span>
+<span class="s2">    necessary, with the appropriate targets.</span>
 
-<span class="ss">        sequence (str): name of the sequence you want to activate for the tune matching.</span>
+<span class="s2">    For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,</span>
 
-<span class="ss">        q1_target (float): horizontal tune to match to.</span>
+<span class="s2">    then followed by a combined matching. In this case the function should be called three times, once with tune</span>
 
-<span class="ss">        q2_target (float): vertical tune to match to.</span>
+<span class="s2">    targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.</span>
 
-<span class="ss">        dq1_target (float): horizontal chromaticity to match to.</span>
+<span class="s2">    When acting of either the `LHC` or `HLLHC`, the accelerator name can be provided and the vary knobs will be</span>
 
-<span class="ss">        dq2_target (float): vertical chromaticity to match to.</span>
+<span class="s2">    automatically set accordingly to the provided targets. Note that only the relevant knobs are set, so if tune</span>
 
-<span class="ss">        varied_knobs (Sequence[str]): the variables names to &#39;vary&#39; in the MADX routine. An input</span>
+<span class="s2">    targets only are provided, then tune knobs only will be used, and not chromaticity knobs. If explicit knobs</span>
 
-<span class="ss">            could be [&quot;</span><span class="n">kqf</span><span class="ss">&quot;, &quot;</span><span class="n">ksd</span><span class="ss">&quot;, &quot;</span><span class="n">kqf</span><span class="ss">&quot;, &quot;</span><span class="n">kqd</span><span class="ss">&quot;] as they are common names used for quadrupole and</span>
+<span class="s2">    are provided, these will always be used. On other machines the knobs should be provided explicitly, always.</span>
 
-<span class="ss">            sextupole strengths (foc / defoc) in most examples.</span>
+<span class="s2">    NOTA BENE: The matching is always performed with the `CHROM` option on.</span>
 
-<span class="ss">        telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic</span>
+<span class="s2">    Args:</span>
 
-<span class="ss">            Squeeze configuration. Defaults to True as of Run III.</span>
+<span class="s2">        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.</span>
 
-<span class="ss">        step (float): step size to use when varying knobs.</span>
+<span class="s2">        accelerator (str): name of the accelerator, used to determmine knobs if &#39;variables&#39; not given.</span>
 
-<span class="ss">        calls (int): max number of varying calls to perform.</span>
+<span class="s2">            Automatic determination will only work for `LHC` and `HLLHC`.</span>
 
-<span class="ss">        tolerance (float): tolerance for successfull matching.</span>
+<span class="s2">        sequence (str): name of the sequence you want to perform the matching for.</span>
 
-<span class="ss">    &quot;&quot;&quot;</span><span class="w"></span>
+<span class="s2">        q1_target (float): horizontal tune to match to.</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">accelerator</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="nl">varied_knobs</span><span class="p">:</span><span class="w"></span>
+<span class="s2">        q2_target (float): vertical tune to match to.</span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Getting knobs from default {accelerator.upper()} values&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="s2">        dq1_target (float): horizontal chromaticity to match to.</span>
 
-<span class="w">        </span><span class="n">varied_knobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
+<span class="s2">        dq2_target (float): vertical chromaticity to match to.</span>
 
-<span class="w">            </span><span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span><span class="w"> </span><span class="n">beam</span><span class="o">=</span><span class="nc">int</span><span class="p">(</span><span class="k">sequence</span><span class="o">[</span><span class="n">-1</span><span class="o">]</span><span class="p">),</span><span class="w"> </span><span class="n">telescopic_squeeze</span><span class="o">=</span><span class="n">telescopic_squeeze</span><span class="w"></span>
+<span class="s2">        varied_knobs (Sequence[str]): the variables names to &#39;vary&#39; in the `MAD-X` routine. An input</span>
+
+<span class="s2">            could be [&quot;</span><span class="n">kqf</span><span class="s2">&quot;, &quot;</span><span class="n">ksd</span><span class="s2">&quot;, &quot;</span><span class="n">kqf</span><span class="s2">&quot;, &quot;</span><span class="n">kqd</span><span class="s2">&quot;] as they are common names used for quadrupole and</span>
+
+<span class="s2">            sextupole strengths (focusing / defocusing) in most examples.</span>
+
+<span class="s2">        telescopic_squeeze (bool): `LHC` specific. If set to `True`, uses the `(HL)LHC` knobs for Telescopic</span>
+
+<span class="s2">            Squeeze configuration. Defaults to `True` as of Run III.</span>
+
+<span class="s2">        step (float): step size to use when varying knobs.</span>
+
+<span class="s2">        calls (int): max number of varying calls to perform.</span>
+
+<span class="s2">        tolerance (float): tolerance for successfull matching.</span>
+
+<span class="s2">    </span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">accelerator</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="n">varied_knobs</span><span class="o">:</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Getting knobs from default {accelerator.upper()} values&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">lhc_knobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span><span class="w"> </span><span class="n">beam</span><span class="o">=</span><span class="kt">int</span><span class="p">(</span><span class="n">sequence</span><span class="err">[</span><span class="o">-</span><span class="mi">1</span><span class="err">]</span><span class="p">),</span><span class="w"> </span><span class="n">telescopic_squeeze</span><span class="o">=</span><span class="n">telescopic_squeeze</span><span class="w"></span>
 
 <span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="err">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">tune_knobs</span><span class="p">,</span><span class="w"> </span><span class="n">chroma_knobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">lhc_knobs</span><span class="err">[</span><span class="o">:</span><span class="mi">2</span><span class="err">]</span><span class="p">,</span><span class="w"> </span><span class="n">lhc_knobs</span><span class="err">[</span><span class="mi">2</span><span class="o">:</span><span class="err">]</span><span class="w">  </span><span class="c1"># first two, last two</span><span class="w"></span>
 
-<span class="w">        </span><span class="ss">&quot;&quot;&quot;Create matching commands for kwarg targets, varying the given args.&quot;&quot;&quot;</span><span class="w"></span>
+<span class="w">    </span><span class="n">def</span><span class="w"> </span><span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="o">:</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Executing matching commands, using sequence &#39;{sequence}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="s2">&quot;</span><span class="se">&quot;&quot;</span><span class="s2">Create matching commands for kwarg targets, varying the given args.</span><span class="se">&quot;&quot;</span><span class="s2">&quot;</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">match</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="k">True</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">debug</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Executing matching commands, using sequence &#39;{sequence}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Targets are given as {kwargs}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="k">match</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">global_</span><span class="p">(</span><span class="k">sequence</span><span class="o">=</span><span class="k">sequence</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Targets are given as {kwargs}&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">variable_name</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="nl">args</span><span class="p">:</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">global_</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span><span class="w"> </span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Creating vary command for knob &#39;{variable_name}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="n">variable_name</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">args</span><span class="o">:</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">vary</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Creating vary command for knob &#39;{variable_name}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">            </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">vary</span><span class="p">(</span><span class="k">name</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span><span class="w"> </span><span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">lmdif</span><span class="p">(</span><span class="n">calls</span><span class="o">=</span><span class="n">calls</span><span class="p">,</span><span class="w"> </span><span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">command</span><span class="p">.</span><span class="n">endmatch</span><span class="p">()</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="ss">&quot;Performing routine TWISS&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Performing routine TWISS&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">()</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">prevents</span><span class="w"> </span><span class="n">errors</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">user</span><span class="w"> </span><span class="n">forgets</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">TWISS</span><span class="w"> </span><span class="k">before</span><span class="w"> </span><span class="n">querying</span><span class="w"> </span><span class="n">tables</span><span class="w"></span>
+<span class="w">        </span><span class="n">madx</span><span class="p">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="no">True</span><span class="p">)</span><span class="w">  </span><span class="c1"># prevents errors if the user forgets to TWISS before querying tables</span><span class="w"></span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">q1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">q2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">dq1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">dq2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">q1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">q2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">dq1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">dq2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
 <span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">f</span><span class="ss">&quot;Doing combined matching to Qx={q1_target}, Qy={q2_target}, &quot;</span><span class="w"></span>
+<span class="w">            </span><span class="n">f</span><span class="s2">&quot;Doing combined matching to Qx={q1_target}, Qy={q2_target}, &quot;</span><span class="w"></span>
 
-<span class="w">            </span><span class="n">f</span><span class="ss">&quot;dqx={dq1_target}, dqy={dq2_target} for sequence &#39;{sequence}&#39;&quot;</span><span class="w"></span>
+<span class="w">            </span><span class="n">f</span><span class="s2">&quot;dqx={dq1_target}, dqy={dq2_target} for sequence &#39;{sequence}&#39;&quot;</span><span class="w"></span>
 
 <span class="w">        </span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Vary knobs sent are {varied_knobs}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">varied_knobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">varied_knobs</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">lhc_knobs</span><span class="w">  </span><span class="c1"># if accelerator was given we&#39;ve extracted this already</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Vary knobs sent are {varied_knobs}&quot;</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">        </span><span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">,</span><span class="w"> </span><span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span><span class="w"> </span><span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">q1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">q2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">q1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">q2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence &#39;{sequence}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence &#39;{sequence}&#39;&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Vary knobs sent are {varied_knobs}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">tune_knobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">varied_knobs</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">tune_knobs</span><span class="w">  </span><span class="c1"># if accelerator was given we&#39;ve extracted this already</span><span class="w"></span>
 
-<span class="w">        </span><span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">sent</span><span class="w"> </span><span class="n">varied_knobs</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">tune</span><span class="w"> </span><span class="n">knobs</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Vary knobs sent are {tune_knobs}&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">dq1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">dq2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="ow">not</span><span class="w"> </span><span class="k">None</span><span class="err">:</span><span class="w"></span>
+<span class="w">        </span><span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">tune_knobs</span><span class="p">,</span><span class="w"> </span><span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span><span class="w"> </span><span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">)</span><span class="w">  </span><span class="c1"># sent varied_knobs should be tune knobs</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Matching chromaticities to dq1={dq1_target}, dq2={dq2_target} for sequence {sequence}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">elif</span><span class="w"> </span><span class="n">dq1_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="n">dq2_target</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="k">None</span><span class="o">:</span><span class="w"></span>
 
-<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="ss">&quot;Vary knobs sent are {varied_knobs}&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">info</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Matching chromaticities to dq1={dq1_target}, dq2={dq2_target} for sequence {sequence}&quot;</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">        </span><span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span><span class="w"> </span><span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span><span class="w"> </span><span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span><span class="w">  </span><span class="err">#</span><span class="w"> </span><span class="n">sent</span><span class="w"> </span><span class="n">varied_knobs</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">chromaticity</span><span class="w"> </span><span class="n">knobs</span><span class="w"></span>
+<span class="w">        </span><span class="n">chroma_knobs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">varied_knobs</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">chroma_knobs</span><span class="w">  </span><span class="c1"># if accelerator was given we&#39;ve extracted this already</span><span class="w"></span>
+
+<span class="w">        </span><span class="n">logger</span><span class="p">.</span><span class="n">trace</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;Vary knobs sent are {chroma_knobs}&quot;</span><span class="p">)</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">chroma_knobs</span><span class="p">,</span><span class="w"> </span><span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span><span class="w"> </span><span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span><span class="w">  </span><span class="c1"># sent varied_knobs should be chromaticity knobs</span><span class="w"></span>
 </code></pre></div>
 
 </details>

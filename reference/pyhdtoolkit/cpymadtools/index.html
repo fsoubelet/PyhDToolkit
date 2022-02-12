@@ -381,6 +381,20 @@
   
   
     <li class="md-nav__item">
+      <a href="coupling/" class="md-nav__link">
+        Coupling
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
       <a href="errors/" class="md-nav__link">
         Errors
       </a>
@@ -535,20 +549,6 @@
     <li class="md-nav__item">
       <a href="ptc/" class="md-nav__link">
         Ptc
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="special/" class="md-nav__link">
-        Special
       </a>
     </li>
   
@@ -1177,33 +1177,7 @@ cpymadtools is a collection of utilities that integrate within my workflow with 
 
 <span class="kn">from</span> <span class="nn">.generators</span> <span class="kn">import</span> <span class="n">LatticeGenerator</span>
 
-<span class="kn">from</span> <span class="nn">.matching</span> <span class="kn">import</span> <span class="n">get_closest_tune_approach</span><span class="p">,</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">,</span> <span class="n">match_tunes_and_chromaticities</span>
-
-<span class="kn">from</span> <span class="nn">.orbit</span> <span class="kn">import</span> <span class="n">correct_lhc_orbit</span><span class="p">,</span> <span class="n">get_current_orbit_setup</span><span class="p">,</span> <span class="n">lhc_orbit_variables</span><span class="p">,</span> <span class="n">setup_lhc_orbit</span>
-
-<span class="kn">from</span> <span class="nn">.parameters</span> <span class="kn">import</span> <span class="n">query_beam_attributes</span>
-
-<span class="kn">from</span> <span class="nn">.plotters</span> <span class="kn">import</span> <span class="p">(</span>
-
-    <span class="n">AperturePlotter</span><span class="p">,</span>
-
-    <span class="n">BeamEnvelopePlotter</span><span class="p">,</span>
-
-    <span class="n">CrossingSchemePlotter</span><span class="p">,</span>
-
-    <span class="n">DynamicAperturePlotter</span><span class="p">,</span>
-
-    <span class="n">LatticePlotter</span><span class="p">,</span>
-
-    <span class="n">PhaseSpacePlotter</span><span class="p">,</span>
-
-    <span class="n">TuneDiagramPlotter</span><span class="p">,</span>
-
-<span class="p">)</span>
-
-<span class="kn">from</span> <span class="nn">.ptc</span> <span class="kn">import</span> <span class="n">get_amplitude_detuning</span><span class="p">,</span> <span class="n">get_rdts</span>
-
-<span class="kn">from</span> <span class="nn">.special</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span> <span class="nn">.lhc</span> <span class="kn">import</span> <span class="p">(</span>
 
     <span class="n">apply_lhc_colinearity_knob</span><span class="p">,</span>
 
@@ -1231,6 +1205,32 @@ cpymadtools is a collection of utilities that integrate within my workflow with 
 
 <span class="p">)</span>
 
+<span class="kn">from</span> <span class="nn">.matching</span> <span class="kn">import</span> <span class="n">get_closest_tune_approach</span><span class="p">,</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">,</span> <span class="n">match_tunes_and_chromaticities</span>
+
+<span class="kn">from</span> <span class="nn">.orbit</span> <span class="kn">import</span> <span class="n">correct_lhc_orbit</span><span class="p">,</span> <span class="n">get_current_orbit_setup</span><span class="p">,</span> <span class="n">lhc_orbit_variables</span><span class="p">,</span> <span class="n">setup_lhc_orbit</span>
+
+<span class="kn">from</span> <span class="nn">.parameters</span> <span class="kn">import</span> <span class="n">query_beam_attributes</span>
+
+<span class="kn">from</span> <span class="nn">.plotters</span> <span class="kn">import</span> <span class="p">(</span>
+
+    <span class="n">AperturePlotter</span><span class="p">,</span>
+
+    <span class="n">BeamEnvelopePlotter</span><span class="p">,</span>
+
+    <span class="n">CrossingSchemePlotter</span><span class="p">,</span>
+
+    <span class="n">DynamicAperturePlotter</span><span class="p">,</span>
+
+    <span class="n">LatticePlotter</span><span class="p">,</span>
+
+    <span class="n">PhaseSpacePlotter</span><span class="p">,</span>
+
+    <span class="n">TuneDiagramPlotter</span><span class="p">,</span>
+
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">.ptc</span> <span class="kn">import</span> <span class="n">get_amplitude_detuning</span><span class="p">,</span> <span class="n">get_rdts</span>
+
 <span class="kn">from</span> <span class="nn">.track</span> <span class="kn">import</span> <span class="n">track_single_particle</span>
 
 <span class="kn">from</span> <span class="nn">.tune</span> <span class="kn">import</span> <span class="n">make_footprint_table</span>
@@ -1245,6 +1245,7 @@ cpymadtools is a collection of utilities that integrate within my workflow with 
 <ul>
 <li><a href="constants/">pyhdtoolkit.cpymadtools.constants</a></li>
 <li><a href="correctors/">pyhdtoolkit.cpymadtools.correctors</a></li>
+<li><a href="coupling/">pyhdtoolkit.cpymadtools.coupling</a></li>
 <li><a href="errors/">pyhdtoolkit.cpymadtools.errors</a></li>
 <li><a href="generators/">pyhdtoolkit.cpymadtools.generators</a></li>
 <li><a href="lhc/">pyhdtoolkit.cpymadtools.lhc</a></li>
@@ -1253,7 +1254,6 @@ cpymadtools is a collection of utilities that integrate within my workflow with 
 <li><a href="parameters/">pyhdtoolkit.cpymadtools.parameters</a></li>
 <li><a href="plotters/">pyhdtoolkit.cpymadtools.plotters</a></li>
 <li><a href="ptc/">pyhdtoolkit.cpymadtools.ptc</a></li>
-<li><a href="special/">pyhdtoolkit.cpymadtools.special</a></li>
 <li><a href="track/">pyhdtoolkit.cpymadtools.track</a></li>
 <li><a href="tune/">pyhdtoolkit.cpymadtools.tune</a></li>
 <li><a href="twiss/">pyhdtoolkit.cpymadtools.twiss</a></li>
