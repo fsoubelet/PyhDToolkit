@@ -20,7 +20,7 @@ from pyhdtoolkit.cpymadtools.correctors import (
     query_arc_correctors_powering,
     query_triplet_correctors_powering,
 )
-from pyhdtoolkit.cpymadtools.special import make_lhc_beams
+from pyhdtoolkit.cpymadtools.lhc import make_lhc_beams
 
 ALL_TRIPLET_CORRECTOR_KNOBS = (
     LHC_KQSX_KNOBS + LHC_KCSX_KNOBS + LHC_KCSSX_KNOBS + LHC_KCOX_KNOBS + LHC_KCOSX_KNOBS + LHC_KCTX_KNOBS

@@ -3,6 +3,7 @@ import math
 import pytest
 
 from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES  # for coverage
+from pyhdtoolkit.cpymadtools.lhc import make_lhc_beams, re_cycle_sequence
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.orbit import (
     correct_lhc_orbit,
@@ -10,7 +11,6 @@ from pyhdtoolkit.cpymadtools.orbit import (
     lhc_orbit_variables,
     setup_lhc_orbit,
 )
-from pyhdtoolkit.cpymadtools.special import make_lhc_beams, re_cycle_sequence
 
 
 class TestOrbit:

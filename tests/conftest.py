@@ -4,7 +4,7 @@ import pytest
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools import special
+from pyhdtoolkit.cpymadtools import lhc
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
@@ -102,9 +102,9 @@ def _cycled_lhc_sequences() -> Madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
-        special.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
-        special.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
-        special.make_lhc_beams(madx, energy=6500)
+        lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+        lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
+        lhc.make_lhc_beams(madx, energy=6500)
 
         yield madx
 
@@ -115,7 +115,7 @@ def _injection_aperture_tolerances_lhc_madx() -> Madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_INJ_OPTICS.absolute()))  # opticsfile.1
 
-        special.make_lhc_beams(madx, energy=450)  # injection
+        lhc.make_lhc_beams(madx, energy=450)  # injection
         madx.use(sequence="lhcb1")
 
         madx.call((str(LHC_B1_APERTURE.absolute())))
@@ -132,7 +132,7 @@ def _collision_aperture_tolerances_lhc_madx() -> Madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
-        special.make_lhc_beams(madx, energy=6500)  # collision
+        lhc.make_lhc_beams(madx, energy=6500)  # collision
         madx.use(sequence="lhcb1")
 
         madx.call((str(LHC_B1_APERTURE.absolute())))

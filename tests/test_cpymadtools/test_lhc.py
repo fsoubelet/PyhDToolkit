@@ -21,6 +21,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
+    get_lhc_tune_and_chroma_knobs,
     install_ac_dipole_as_kicker,
     install_ac_dipole_as_matrix,
     make_lhc_beams,
@@ -34,7 +35,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 
 
-class TestSpecial:
+class TestLHC:
     def test_all_lhc_arcs(self):
         assert _all_lhc_arcs(1) == ["A12B1", "A23B1", "A34B1", "A45B1", "A56B1", "A67B1", "A78B1", "A81B1"]
         assert _all_lhc_arcs(2) == ["A12B2", "A23B2", "A34B2", "A45B2", "A56B2", "A67B2", "A78B2", "A81B2"]
@@ -258,6 +259,37 @@ class TestSpecial:
         madx = _non_matched_lhc_madx
         with pytest.raises(ValueError):
             vary_independent_ir_quadrupoles(madx, quad_numbers=[5, 20, 100], ip=1, sides="R")
+
+        for record in caplog.records:
+            assert record.levelname == "ERROR"
+
+    @pytest.mark.parametrize("beam", [1, 2, 3, 4])
+    @pytest.mark.parametrize("telescopic_squeeze", [False, True])
+    def test_lhc_tune_and_chroma_knobs(self, beam, telescopic_squeeze):
+        expected_beam = 2 if beam == 4 else beam
+        expected_suffix = "_sq" if telescopic_squeeze else ""
+        assert get_lhc_tune_and_chroma_knobs("LHC", beam, telescopic_squeeze) == (
+            f"dQx.b{expected_beam}{expected_suffix}",
+            f"dQy.b{expected_beam}{expected_suffix}",
+            f"dQpx.b{expected_beam}{expected_suffix}",
+            f"dQpy.b{expected_beam}{expected_suffix}",
+        )
+
+    @pytest.mark.parametrize("beam", [1, 2, 3, 4])
+    @pytest.mark.parametrize("telescopic_squeeze", [False, True])
+    def test_hllhc_tune_and_chroma_knobs(self, beam, telescopic_squeeze):
+        expected_beam = 2 if beam == 4 else beam
+        expected_suffix = "_sq" if telescopic_squeeze else ""
+        assert get_lhc_tune_and_chroma_knobs("HLLHC", beam, telescopic_squeeze) == (
+            f"kqtf.b{expected_beam}{expected_suffix}",
+            f"kqtd.b{expected_beam}{expected_suffix}",
+            f"ksf.b{expected_beam}{expected_suffix}",
+            f"ksd.b{expected_beam}{expected_suffix}",
+        )
+
+    def test_get_knobs_fails_on_unknown_accelerator(self, caplog):
+        with pytest.raises(NotImplementedError):
+            _ = get_lhc_tune_and_chroma_knobs("not_an_accelerator")
 
         for record in caplog.records:
             assert record.levelname == "ERROR"

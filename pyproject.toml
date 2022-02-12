@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhdtoolkit"
-version = "0.15.2"
+version = "0.16.0"
 description = "An all-in-one toolkit package to easy my Python work in my PhD."
 authors = ["Felix Soubelet <felix.soubelet@cern.ch>"]
 license = "MIT"
@@ -47,6 +47,7 @@ pendulum = "^2.0"
 [tool.poetry.dev-dependencies]
 pytest = "^6.0"
 pytest-cov = "^2.7"
+pytest-xdist = "^2.5"
 flaky = "^3.5"
 black = { version = "^19.10b0", python = "^3.6" }
 pylint = "^2.4"
@@ -68,7 +69,7 @@ source = ["pyhdtoolkit/"]
 
 [tool.coverage.report]
 ignore_errors = true
-omit = ["pyhdtoolkit/utils/htc_monitor.py"]
+omit = ["pyhdtoolkit/utils/htc_monitor.py", "pyhdtoolkit/utils/_misc.py"]
 precision = 2
 
 # ----- Documentation Configuration ----- #

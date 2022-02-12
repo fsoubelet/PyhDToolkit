@@ -1,6 +1,6 @@
 """
-Module cpymadtools.special
---------------------------
+Module cpymadtools.lhc
+----------------------
 
 Created on 2020.02.03
 :author: Felix Soubelet (felix.soubelet@cern.ch)
@@ -8,7 +8,7 @@ Created on 2020.02.03
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are specific to LHC
 and HLLHC machines.
 """
-from typing import List, Sequence
+from typing import List, Sequence, Tuple
 
 import numpy as np
 
@@ -23,6 +23,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_IP_OFFSET_FLAGS,
     LHC_PARALLEL_SEPARATION_FLAGS,
 )
+from pyhdtoolkit.utils import deprecated
 
 # ----- Setup Utlites ----- #
 
@@ -509,6 +510,25 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
     madx.command.endedit()
 
 
+def get_lhc_bpms_list(madx: Madx) -> List[str]:
+    """
+    Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through
+    a regex in the result of a TWISS command.
+
+    NOTE: As this function calls the TWISS command and requires that TWISS can succeed on your sequence.
+
+    Args:
+        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
+
+    Returns:
+        The list of BPM names.
+    """
+    twiss_df = twiss.get_twiss_tfs(madx).reset_index()
+    bpms_df = twiss_df[twiss_df.NAME.str.contains("^bpm.*B[12]$", case=False, regex=True)]
+    return bpms_df.NAME.tolist()
+
+
+@deprecated(message="Please use its equivalent from the 'cpymadtools.coupling' module.")
 def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
@@ -522,7 +542,7 @@ def match_no_coupling_through_ripkens(
         vary_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine.
     """
     logger.info(f"Matching Ripken parameters for no coupling at location {location}")
-    logger.debug("Creating macro tu update Ripkens")
+    logger.debug("Creating macro to update Ripkens")
     madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
 
     logger.debug("Matching Parameters")
@@ -534,6 +554,46 @@ def match_no_coupling_through_ripkens(
     madx.input(f"constraint, expr=table(twiss, {location}, beta21)=0")  # need input else includes " and fails
     madx.command.lmdif(calls=500, tolerance=1e-21)
     madx.command.endmatch()
+
+
+def get_lhc_tune_and_chroma_knobs(
+    accelerator: str, beam: int = 1, telescopic_squeeze: bool = True
+) -> Tuple[str, str, str, str]:
+    """
+    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
+    Get names of knobs needed to match tunes and chromaticities as a tuple of strings.
+
+    Args:
+        accelerator (str): Accelerator either 'LHC' (dQ[xy], dQp[xy] knobs) or 'HLLHC'
+            (kqt[fd], ks[fd] knobs).
+        beam (int): Beam to use, for the knob names.
+        telescopic_squeeze (bool): if set to True, returns the knobs for Telescopic Squeeze configuration.
+            Defaults to `True`.
+
+    Returns:
+        Tuple of strings with knobs for `(qx, qy, dqx, dqy)`.
+    """
+    beam = 2 if beam == 4 else beam
+    suffix = "_sq" if telescopic_squeeze else ""
+
+    if accelerator.upper() not in ("LHC", "HLLHC"):
+        logger.error("Invalid accelerator name, only 'LHC' and 'HLLHC' implemented")
+        raise NotImplementedError(f"Accelerator '{accelerator}' not implemented.")
+
+    return {
+        "LHC": (
+            f"dQx.b{beam}{suffix}",
+            f"dQy.b{beam}{suffix}",
+            f"dQpx.b{beam}{suffix}",
+            f"dQpy.b{beam}{suffix}",
+        ),
+        "HLLHC": (
+            f"kqtf.b{beam}{suffix}",
+            f"kqtd.b{beam}{suffix}",
+            f"ksf.b{beam}{suffix}",
+            f"ksd.b{beam}{suffix}",
+        ),
+    }[accelerator.upper()]
 
 
 # ----- Helpers ----- #

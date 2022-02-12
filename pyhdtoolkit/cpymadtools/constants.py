@@ -10,7 +10,7 @@ Specific constants to be used in cpymadtools functions, to help with consistency
 from typing import Dict, List, Set
 
 # fmt: off
-DEFAULT_TWISS_COLUMNS: List[str] = ["name", "s", "x", "y", "px", "py", "betx", "bety", "alfx", "alfy",
+DEFAULT_TWISS_COLUMNS: List[str] = ["name", "s", "x", "y", "l", "px", "py", "betx", "bety", "alfx", "alfy",
                                     "dx", "dy", "mux", "muy", "r11", "r12", "r21", "r22", "beta11", "beta12",
                                     "beta21", "beta22"]
 MONITOR_TWISS_COLUMNS: List[str] = ["name", "s", "betx", "bety", "alfx", "alfy", "mux", "muy", "dx", "dy",
