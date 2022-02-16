@@ -543,6 +543,7 @@ class DynamicAperturePlotter:
         return figure
 
 
+# TODO: fix the xoffset plotting mode, behavior is off
 class LatticePlotter:
     """
     A class to elegantly plot the Twiss parameters layout of a machine from a `cpymad.madx.Madx` instance
@@ -1149,7 +1150,7 @@ def _plot_machine_layout(
     twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
 
     logger.trace("Extracting element-specific dataframes")
-    element_dfs = _make_elements_groups(madx)
+    element_dfs = _make_elements_groups(madx, xoffset, xlimits)
     dipoles_df = element_dfs["dipoles"]
     quadrupoles_df = element_dfs["quadrupoles"]
     sextupoles_df = element_dfs["sextupoles"]
@@ -1265,13 +1266,19 @@ def _plot_machine_layout(
 # ----- Helpers ----- #
 
 
-def _make_elements_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
+def _make_elements_groups(
+    madx: Madx, xoffset: float = 0, xlimits: Tuple[float, float] = None
+) -> Dict[str, pd.DataFrame]:
     """
     Provided with an active `cpymad` instance after having ran a script, will returns different portions of
     the twiss table's dataframe for different magnetic elements.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
+            to center a plot around a specific point or element, which would then become located at s = 0.
+        xlimits (Tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this
+            is not None, using the tuple passed.
 
     Returns:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
@@ -1280,6 +1287,8 @@ def _make_elements_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     logger.trace("Getting TWISS table from MAD-X")
     madx.command.twiss()
     twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df.s = twiss_df.s - xoffset
+    twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
 
     logger.debug("Getting different element groups dframes from MAD-X twiss table")
     # Elements are detected by their keyword being either 'multipole' or their specific element type,
