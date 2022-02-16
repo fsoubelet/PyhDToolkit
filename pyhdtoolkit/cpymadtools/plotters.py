@@ -621,12 +621,7 @@ class LatticePlotter:
         # pylint: disable=too-many-arguments
         # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
         logger.info("Plotting optics functions and machine layout")
-        logger.debug("Getting Twiss dataframe from cpymad")
-        madx.command.twiss()
-        twiss_df = madx.table.twiss.dframe().copy()
-        twiss_df.s = twiss_df.s - xoffset
-        xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
-        twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
+        twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
         # Create a subplot for the lattice patches (takes a third of figure)
         figure = plt.figure(figsize=figsize)
@@ -1142,12 +1137,7 @@ def _plot_machine_layout(
         overlap.
     """
     # pylint: disable=too-many-arguments
-    # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
-    logger.trace("Getting Twiss table from MAD-X")
-    madx.command.twiss()
-    twiss_df = madx.table.twiss.dframe().copy()
-    twiss_df.s = twiss_df.s - xoffset
-    twiss_df = twiss_df[twiss_df.s.between(xlimits[0], xlimits[1])] if xlimits else twiss_df
+    twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
     logger.trace("Extracting element-specific dataframes")
     element_dfs = _make_elements_groups(madx, xoffset, xlimits)
@@ -1284,11 +1274,7 @@ def _make_elements_groups(
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
         quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
     """
-    logger.trace("Getting TWISS table from MAD-X")
-    madx.command.twiss()
-    twiss_df = madx.table.twiss.dframe().copy()
-    twiss_df.s = twiss_df.s - xoffset
-    twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
+    twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
     logger.debug("Getting different element groups dframes from MAD-X twiss table")
     # Elements are detected by their keyword being either 'multipole' or their specific element type,
@@ -1331,3 +1317,28 @@ def _make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
         "sextupoles": survey_df[survey_df.index.isin(element_dfs["sextupoles"].index.tolist())],
         "octupoles": survey_df[survey_df.index.isin(element_dfs["octupoles"].index.tolist())],
     }
+
+
+def _get_twiss_table_with_offsets_and_limits(
+    madx: Madx, xoffset: float = 0, xlimits: Tuple[float, float] = None
+) -> pd.DataFrame:
+    """
+    Get the twiss dataframe from madx, only within the provided `xlimits` and with the s axis shifted by
+    the given `xoffset`.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        xoffset (float): An offset applied to the S coordinate in the dataframe.
+        xlimits (Tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
+            this is not `None`, using the tuple passed.
+
+    Returns:
+        The TWISS dataframe from MAD-X, with the limits and shit applied, if any.
+    """
+    # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
+    logger.trace("Getting TWISS table from MAD-X")
+    madx.command.twiss()
+    twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df.s = twiss_df.s - xoffset
+    twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
+    return twiss_df
