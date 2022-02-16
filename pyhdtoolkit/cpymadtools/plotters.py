@@ -28,8 +28,8 @@ from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.utils.defaults import PLOT_PARAMS
 
-plt.rcParams.update(PLOT_PARAMS)
-plt.rcParams.update({"xtick.direction": "in", "ytick.direction": "in"})  # need to reiterate these somehow
+# plt.rcParams.update(PLOT_PARAMS)
+# plt.rcParams.update({"xtick.direction": "in", "ytick.direction": "in"})  # need to reiterate these somehow
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
