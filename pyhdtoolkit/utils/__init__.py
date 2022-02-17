@@ -14,6 +14,7 @@ import warnings
 
 from typing import Callable
 
+from . import defaults
 from .cmdline import CommandLine
 from .executors import MultiProcessor, MultiThreader
 from .printutil import END, Background, Foreground, Styles
