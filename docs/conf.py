@@ -21,82 +21,27 @@ warnings.filterwarnings("ignore", message="numpy.dtype size changed")
 warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 
 TOPLEVEL_DIR = pathlib.Path(__file__).parent.parent.absolute()
-ABOUT_FILE = TOPLEVEL_DIR / "pyhdtoolkit" / "__init__.py"
-
-
-def about_package(init_posixpath: pathlib.Path) -> dict:
-    """
-    Return package information defined with dunders in __init__.py as a dictionary, when
-    provided with a PosixPath to the __init__.py file.
-    """
-    about_text: str = init_posixpath.read_text()
-    return {
-        entry.split(" = ")[0]: entry.split(" = ")[1].strip('"')
-        for entry in about_text.strip().split("\n")
-        if entry.startswith("__")
-    }
-
 
 if str(TOPLEVEL_DIR) not in sys.path:
     sys.path.insert(0, str(TOPLEVEL_DIR))
 
-ABOUT_PYHDTOOLKIT = about_package(ABOUT_FILE)
-
+import pyhdtoolkit
 
 # -- Project information -----------------------------------------------------
 
 project = "PyhDToolkit"
-copyright = f"2020, {ABOUT_PYHDTOOLKIT['__author__']}"
-author = ABOUT_PYHDTOOLKIT["__author__"]
+copyright = f"2020, {pyhdtoolkit.__author__}"
+author = pyhdtoolkit.__author__
 
 # The full version, including alpha/beta/rc tags
-version = ABOUT_PYHDTOOLKIT["__version__"]
-release = ABOUT_PYHDTOOLKIT["__version__"]
+version = pyhdtoolkit.__version__
+release = pyhdtoolkit.__version__
 
 
 # -- General configuration ---------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.
 # needs_sphinx = '1.0'
-
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
-extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosectionlabel",
-    "sphinx.ext.autosummary",
-    "sphinx.ext.coverage",
-    "sphinx.ext.doctest",
-    "sphinx.ext.githubpages",
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.mathjax",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.todo",
-    "sphinx.ext.viewcode",
-    "sphinx_copybutton",
-    "sphinx_issues",
-]
-
-# Config for autosectionlabel extension
-autosectionlabel_prefix_document = True
-autosectionlabel_maxdepth = 2
-
-# Config for the napoleon extension
-napoleon_google_docstring = True
-napoleon_numpy_docstring = False
-napoleon_include_init_with_doc = True
-napoleon_include_private_with_doc = False
-napoleon_include_special_with_doc = True
-napoleon_use_admonition_for_examples = True
-napoleon_use_admonition_for_notes = True
-napoleon_use_admonition_for_references = True
-napoleon_use_ivar = False
-napoleon_use_param = True
-napoleon_use_rtype = True
-napoleon_preprocess_types = True
-napoleon_type_aliases = None
-napoleon_attr_annotations = True
 
 # Config for the sphinx_issues extension
 issues_github_path = "fsoubelet/PyhDToolkit"
@@ -154,6 +99,51 @@ pygments_style = "sphinx"
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
+# -- Extensions Configuration ---------------------------------------------
+
+# Add any Sphinx extension module names here, as strings. They can be
+# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
+# ones.
+extensions = [
+    "sphinx.ext.autodoc",
+    "sphinx.ext.autosectionlabel",
+    "sphinx.ext.autosummary",
+    "sphinx.ext.coverage",
+    "sphinx.ext.doctest",
+    "sphinx.ext.githubpages",
+    "sphinx.ext.intersphinx",
+    "sphinx.ext.mathjax",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.todo",
+    "sphinx.ext.viewcode",
+    "sphinx_copybutton",
+    "sphinx_issues",
+    "matplotlib.sphinxext.plot_directive",
+]
+
+# Config for autosectionlabel extension
+autosectionlabel_prefix_document = True
+autosectionlabel_maxdepth = 2
+
+# Config for the napoleon extension
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
+napoleon_include_init_with_doc = True
+napoleon_include_private_with_doc = False
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = True
+napoleon_use_admonition_for_notes = True
+napoleon_use_admonition_for_references = True
+napoleon_use_ivar = False
+napoleon_use_param = True
+napoleon_use_rtype = True
+napoleon_preprocess_types = True
+napoleon_type_aliases = None
+napoleon_attr_annotations = True
+
+# Config for the matplotlib plot directive
+plot_formats = [("svg", 250)]
+plot_rcparams = pyhdtoolkit.utils.defaults.PLOT_PARAMS
 
 # -- Options for HTML output ----------------------------------------------
 

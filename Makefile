@@ -39,6 +39,7 @@ build:
 clean:
 	@echo "Cleaning up documentation pages."
 	@rm -rf doc_build
+	@rm -rf plot_directive
 	@echo "Cleaning up distutils remains."
 	@rm -rf build
 	@rm -rf dist
