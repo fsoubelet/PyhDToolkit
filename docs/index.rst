@@ -1,4 +1,4 @@
-Welcome to PyhDToolkit's documentation!
+Welcome to PyhDToolkit's Documentation!
 =======================================
 
 This package is an all-in-one collection of baseline utilities I use in my PhD work.
