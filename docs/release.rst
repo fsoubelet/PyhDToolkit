@@ -1,4 +1,4 @@
-Release notes
+Release Notes
 =============
 
 .. _release_0.4.0:
