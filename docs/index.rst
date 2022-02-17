@@ -23,9 +23,8 @@ However, feedback and bug reports are very welcome, please get in touch via the 
 Installation
 ------------
 
-PyhDToolkit is available to install from ``PyPI`` or from VCS.
-
-Install PyhDToolkit from PyPI::
+``PyhDToolkit`` is available to install from ``PyPI`` or from VCS.
+Install the package from ``PyPI``::
 
     pip install pyhdtoolkit
 
@@ -34,16 +33,7 @@ latest GitHub master::
 
     pip install git+https://github.com/fsoubelet/PyhDToolkit.git
 
-The code base comes with a useful Makefile.
-To work with PyhDToolkit source code in development, on needs Poetry_ and should install from ``GitHub``::
-
-    git clone --recursive https://github.com/fsoubelet/PyhDToolkit.git
-    cd PyhDToolkit
-    make install
-
-To verify that any of your changes keeps the package stable, run the test suite::
-
-    make tests
+To setup a development environment, see the :doc:`contributing instructions <contributing>`.
 
 Contents
 --------
