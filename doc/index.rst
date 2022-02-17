@@ -80,7 +80,7 @@ The following people have contributed to the development of PyhDToolkit by contr
 documentation, code reviews, comments and/or ideas:
 
 * :user:`Felix Soubelet <fsoubelet>`
-* :user:`Joschua Dilly <jdilly>`
+* :user:`Joschua Dilly <joschd>`
 * :user:`Axel Poyet <apoyet>`
 * :user:`Michael Hofer <mihofer>`
 * :user:`Tobias Persson <tpersson>`
