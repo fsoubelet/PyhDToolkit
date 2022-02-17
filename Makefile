@@ -22,14 +22,13 @@ help:
 	@echo "  $(R) clean $(E)  \t  to recursively remove build, run, and bitecode files/dirs."
 	@echo "  $(R) condaenv $(E)  \t  to $(D)conda create$(E) the specific 'PHD' environment I use. Personnal."
 	@echo "  $(R) docker $(E)  \t  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
-	@echo "  $(R) documentation $(E)  \t  to build the documentation for the package."
-	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) cli tool."
+	@echo "  $(R) docs $(E)  \t  to build the documentation for the package."
+	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) and $(P)isort$(E) cli tools."
 	@echo "  $(R) install $(E)  \t  to $(D)poetry install$(E) this package into the project's virtual environment."
-	@echo "  $(R) interrogate $(E)  \t  to run docstring presence inspection on this package."
 	@echo "  $(R) lines $(E)  \t  to count lines of code with the $(P)tokei$(E) tool."
 	@echo "  $(R) lint $(E)  \t  to lint the code though $(P)Pylint$(E)."
 	@echo "  $(R) tests $(E)  \t  to run tests with the $(P)pytest$(E) package."
-	@echo "  $(R) type $(E)  \t  to run type checking with the $(P)mypy$(E) package."
+	@echo "  $(R) typing $(E)  \t  to run type checking with the $(P)mypy$(E) package."
 
 build:
 	@echo "Re-building wheel and dist"
@@ -64,8 +63,8 @@ condaenv:
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
 
-documentation: clean
-	@echo "Building static pages with $(D)Portray$(E)."
+docs: clean
+	@echo "Building static pages with $(D)Sphinx$(E)."
 	@poetry run python -m sphinx -b html docs doc_build -d doc_build
 
 docker:
@@ -75,30 +74,26 @@ docker:
 	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 
 format:
-	@echo "Sorting imports and formatting code to PEP8, default line length is 110 characters."
+	@echo "Sorting imports with $(P)isort$(E) and formatting code to PEP8 with $(P)Black$(E), max line length is 120 characters."
 	@poetry run isort . && black .
 
 install: format clean
 	@echo "Installing through $(D)Poetry$(E), with dev dependencies but no extras."
 	@poetry install -v
 
-interrogate:
-	@echo "Inspecting docstring presence in the package."
-	@interrogate pyhdtoolkit
-
 lines: format
 	@tokei .
 
 lint: format
-	@echo "Linting code"
+	@echo "Linting code with $(P)Pylint$(E)."
 	@poetry run pylint pyhdtoolkit/
 
 tests: format clean
-	@poetry run pytest --no-flaky-report # -p no:sugar
+	@poetry run pytest --no-flaky-report -n auto -p no:sugar
 	@make clean
 
-type: format
-	@echo "Checking code typing with mypy, ignore $(C)pyhdtoolkit/scripts$(E)"
+typing: format
+	@echo "Checking code typing with $(P)mypy$(E)."
 	@poetry run mypy pyhdtoolkit
 	@make clean
 
