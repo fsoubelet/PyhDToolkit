@@ -2,9 +2,7 @@ r"""
 Nonconvex Phase Synchronization
 -------------------------------
 
-This is a Python3 implementation of the Nonconvex Phase Synchronisation method found in the
-following paper (DOI: 10.1137/16M105808X, the algorithm reproduced is page 8).
-
+This is a Python3 implementation of the Nonconvex Phase Synchronisation method found in :cite:t:`Boumal:NPS:2016`, page 8.
 
 Methodology and Use Case:
 ~~~~~~~~~~~~~~~~~~~~~~~~~
