@@ -105,17 +105,17 @@ todo_include_todos = False
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "sphinx.ext.autodoc",
-    "sphinx.ext.autosectionlabel",
-    "sphinx.ext.autosummary",
-    "sphinx.ext.coverage",
-    "sphinx.ext.doctest",
-    "sphinx.ext.githubpages",
-    "sphinx.ext.intersphinx",
-    "sphinx.ext.mathjax",
-    "sphinx.ext.napoleon",
-    "sphinx.ext.todo",
-    "sphinx.ext.viewcode",
+    "sphinx.ext.autodoc",  # Include documentation from docstrings
+    "sphinx.ext.autosectionlabel",  # Allow reference sections using its title
+    "sphinx.ext.autosummary",  # Generate autodoc summaries
+    "sphinx.ext.coverage",  # Collect doc coverage stats
+    "sphinx.ext.doctest",  # Test snippets in the documentation
+    "sphinx.ext.githubpages",  # Publish HTML docs in GitHub Pages
+    "sphinx.ext.intersphinx",  # Link to other projects’ documentation
+    "sphinx.ext.mathjax",  # Render math via JavaScript
+    "sphinx.ext.napoleon",  # Support for NumPy and Google style docstrings
+    "sphinx.ext.todo",  # Support for todo items
+    "sphinx.ext.viewcode",  # Add links to highlighted source code
     "sphinx_copybutton",
     "sphinx_issues",
     "matplotlib.sphinxext.plot_directive",
@@ -126,20 +126,16 @@ autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 2
 
 # Config for the napoleon extension
-napoleon_google_docstring = True
 napoleon_numpy_docstring = False
 napoleon_include_init_with_doc = True
-napoleon_include_private_with_doc = False
-napoleon_include_special_with_doc = True
 napoleon_use_admonition_for_examples = True
 napoleon_use_admonition_for_notes = True
 napoleon_use_admonition_for_references = True
-napoleon_use_ivar = False
-napoleon_use_param = True
-napoleon_use_rtype = True
 napoleon_preprocess_types = True
-napoleon_type_aliases = None
 napoleon_attr_annotations = True
+
+# Configuration for sphinx.ext.todo
+todo_include_todos = True
 
 # Config for the matplotlib plot directive
 plot_formats = [("svg", 250)]
