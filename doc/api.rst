@@ -2,8 +2,7 @@ API reference
 =============
 
 .. toctree::
-    :caption: API Documentation
-    :maxdepth: 2
+    :maxdepth: 1
     :glob:
     
     api/*
