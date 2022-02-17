@@ -10,7 +10,7 @@ Provides defaults to import for different settings.
 import sys
 
 from pathlib import Path
-from typing import Dict, NewType, Union
+from typing import Dict, Union
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -33,7 +33,7 @@ LOGURU_FORMAT = (
     "<level>{message}</level>"
 )
 
-PlotSetting = NewType("PlotSetting", Union[float, bool, str, tuple])
+PlotSetting = Union[float, bool, str, tuple]
 
 # Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS).
 # Will ALWAYS be overwritten by later on definition

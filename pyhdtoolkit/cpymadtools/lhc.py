@@ -8,13 +8,14 @@ Created on 2020.02.03
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are specific to LHC
 and HLLHC machines.
 """
-from typing import List, Sequence, Tuple
+from typing import Dict, List, Sequence, Tuple
 
 import numpy as np
 
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit.cpymadtools import twiss
 from pyhdtoolkit.cpymadtools.constants import (
     LHC_ANGLE_FLAGS,
     LHC_CROSSING_ANGLE_FLAGS,

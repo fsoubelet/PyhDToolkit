@@ -166,7 +166,7 @@ def get_closest_tune_approach(
     telescopic_squeeze: bool = True,
     explicit_targets: Tuple[float, float] = None,
     step: float = 1e-7,
-    calls: float = 100,
+    calls: int = 100,
     tolerance: float = 1e-21,
 ) -> float:
     """

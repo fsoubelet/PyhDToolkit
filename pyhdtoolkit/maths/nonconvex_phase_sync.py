@@ -141,7 +141,7 @@ class PhaseReconstructor:
             # dimension N * 1, `numpy.ndarray.size` method will give us N).
             # Remember to initialize a random real and imaginary part.
             logger.exception("Encountered 0-division, trying normalization")
-            e_vect = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
+            e_vect: np.ndarray = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
             while np.absolute(e_vect @ eigenvector) == 0:  # Guarantee that we don't fall back to this edge case.
                 e_vect = np.random.randn(eigenvector.size) + 1j * np.random.randn(eigenvector.size)
             return (e_vect @ eigenvector / np.absolute(e_vect @ eigenvector)).reshape((1, self.space_dimension))

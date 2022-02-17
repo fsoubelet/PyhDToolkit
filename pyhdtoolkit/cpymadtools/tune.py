@@ -50,7 +50,7 @@ def make_footprint_table(
     """
     logger.info(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
     small, big = 0.05, math.sqrt(1 - 0.05 ** 2)
-    sigma_multiplier, angle_multiplier = 0.1, 0
+    sigma_multiplier, angle_multiplier = 0.1, 0.0
 
     logger.debug("Initializing particles")
     madx.command.track()
@@ -257,7 +257,7 @@ def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[D
         `get_footprint_lines()`.
     """
     logger.debug("Constructing tune points groups based on starting amplitudes and angles")
-    tune_groups = []
+    tune_groups: List[List[Dict[str, float]]] = []
     items = dynap_string_rep.strip().split(",")
     amplitude = int(items[1])
     current = 2

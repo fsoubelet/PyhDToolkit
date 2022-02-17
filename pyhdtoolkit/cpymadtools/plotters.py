@@ -928,7 +928,7 @@ class TuneDiagramPlotter:
             The sequence as a list of plottable 2D points.
         """
         logger.trace(f"Computing Farey sequence for order {order}")
-        seq = [[0, 1]]
+        seq = [(0, 1)]
         a, b, c, d = 0, 1, 1, order
         while c <= order:
             k = int((order + b) / d)
