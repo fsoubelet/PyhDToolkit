@@ -64,7 +64,7 @@ release = ABOUT_PYHDTOOLKIT["__version__"]
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    "sphinx.ext.autosectionlabel",
+    # "sphinx.ext.autosectionlabel",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
     "sphinx.ext.doctest",
@@ -80,6 +80,22 @@ extensions = [
 # Config for autosectionlabel extension
 autosectionlabel_prefix_document = True
 autosectionlabel_maxdepth = 2
+
+# Config for the napoleon extension
+napoleon_google_docstring = True
+napoleon_numpy_docstring = False
+napoleon_include_init_with_doc = True
+napoleon_include_private_with_doc = False
+napoleon_include_special_with_doc = True
+napoleon_use_admonition_for_examples = True
+napoleon_use_admonition_for_notes = True
+napoleon_use_admonition_for_references = True
+napoleon_use_ivar = False
+napoleon_use_param = True
+napoleon_use_rtype = True
+napoleon_preprocess_types = True
+napoleon_type_aliases = None
+napoleon_attr_annotations = True
 
 # Config for the sphinx_issues extension
 issues_github_path = "fsoubelet/PyhDToolkit"
