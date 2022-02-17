@@ -1,11 +1,9 @@
 """
-Module utils.defaults
----------------------
-
-Created on 2019.11.12
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Defaults Setting Utilities
+--------------------------
 
 Provides defaults to import for different settings.
+Created on *2019.11.12* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import sys
 

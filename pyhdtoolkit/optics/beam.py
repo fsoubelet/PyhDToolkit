@@ -1,11 +1,9 @@
 """
-Module optics.beam
-------------------
-
-Created on 2020.11.11
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Beam Optics
+-----------
 
 This is a Python3 module implementing various functionality for simple beam parameter calculations.
+Created on *2020.11.11* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import numpy as np
 

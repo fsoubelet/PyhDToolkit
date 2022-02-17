@@ -1,11 +1,9 @@
 """
-Module plotting.helpers
------------------------
-
-Created on 2019.06.15
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Plotting Helpers
+----------------
 
 A collection of functions for more descriptive plots.
+Created on *2019.06.15* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Tuple
 

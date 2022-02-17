@@ -1,11 +1,9 @@
 """
-Module cpymadtools.parameters
------------------------------
-
-Created on 2020.02.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Parameters
+----------
 
 A module with functions to compute different beam and machine parameters.
+Created on *2020.02.03* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 
 from cpymad.madx import Madx

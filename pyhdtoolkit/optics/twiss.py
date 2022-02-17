@@ -1,12 +1,9 @@
 """
-Module optics.twiss
+TWISS Optics
 -------------------
 
-Created on 2020.09.07
-:author: Felix Soubelet (felix.soubelet@cern.ch)
-
-This is a Python3 module implementing various functionality for optics calculations from / to
-twiss parameters.
+This is a Python3 module implementing various functionality for optics calculations from / to twiss parameters.
+Created on *2020.09.07* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import numpy as np
 

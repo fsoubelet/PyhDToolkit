@@ -1,3 +1,10 @@
+"""
+Ripken Parameters
+-----------------
+
+This is a Python3 module implementing various calculations based on Ripken optics parameters.
+Created on *2020.11.11* by Felix Soubelet (felix.soubelet@cern.ch).
+"""
 from typing import Union
 
 import numpy as np

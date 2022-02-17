@@ -1,12 +1,10 @@
 """
-Module cpymadtools.errors
--------------------------
-
-Created on 2020.02.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Errors Application
+------------------
 
 A module with functions to perform MAD-X errors setups and manipulations with a cpymad.madx.Madx object,
 mainly for LHC and HLLHC machines.
+Created on *2020.02.03* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Dict, List, Sequence
 
@@ -107,10 +105,12 @@ def misalign_lhc_ir_quadrupoles(
             misalign_lhc_ir_quadrupoles(
                 madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
             )
+
         For a tilt distribution centered on 1mrad:
             misalign_lhc_ir_quadrupoles(
                 madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
             )
+
         For several error types on the elements, here DY and DPSI:
             misalign_lhc_ir_quadrupoles(
                 madx,

@@ -1,11 +1,9 @@
 """
-Module models.beam
-------------------
+Particle Beam Models
+--------------------
 
-Created on 2021.08.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
-
-A module with `pydantic` models to validate and store data structures used in the `beam` module.
+A module with ``pydantic`` models to validate and store data structures relative to particle beams.
+Created on *2021.08.03* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from math import sqrt
 from typing import Optional

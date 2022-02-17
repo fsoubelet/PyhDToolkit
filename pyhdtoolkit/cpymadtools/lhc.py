@@ -1,12 +1,10 @@
 """
-Module cpymadtools.lhc
+LHC-Specific Utilities
 ----------------------
-
-Created on 2020.02.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
 
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are specific to LHC
 and HLLHC machines.
+Created on *2020.02.03* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Dict, List, Sequence, Tuple
 

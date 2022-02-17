@@ -1,12 +1,10 @@
 """
-Module maths.stats_fitting
---------------------------
-
-Created on 2020.02.06
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Stats Fitting
+-------------
 
 This is a Python3 module implementing methods to find the best fit of statistical distributions
 to data.
+Created on *2020.02.06* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import warnings
 

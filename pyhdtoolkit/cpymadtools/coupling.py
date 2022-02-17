@@ -1,12 +1,10 @@
 """
-Module cpymadtools.coupling
+Betatron Coupling Utilities
 ---------------------------
-
-Created on 2022.02.10
-:author: Felix Soubelet (felix.soubelet@cern.ch)
 
 A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that retate to betatron
 coupling in the machine.
+Created on *2022.02.10* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Dict, Sequence, Tuple
 

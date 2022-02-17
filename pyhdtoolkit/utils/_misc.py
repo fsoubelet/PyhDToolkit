@@ -1,9 +1,10 @@
 """
-Module utils.misc
------------------
+Miscellanous Personnal Utilities
+--------------------------------
 
-Private module that provides miscellaneous personnal utility functions. The functions in here are intented for
-personal use, and will most likely NOT work on other people's machines.
+Private module that provides miscellaneous personnal utility functions.
+The functions in here are intented for personal use, and will most likely NOT work on other people's machines.
+Created on *2022.02.12* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import shlex
 

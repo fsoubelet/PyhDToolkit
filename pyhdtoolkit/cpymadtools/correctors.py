@@ -1,12 +1,10 @@
 """
-Module cpymadtools.correctors
------------------------------
-
-Created on 2021.10.16
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Correctors
+----------
 
 A module with functions to perform MAD-X correctors-related operations and manipulations with a
 cpymad.madx.Madx object, mainly for LHC and HLLHC machines.
+Created on *2021.10.16* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Dict, List, Sequence
 

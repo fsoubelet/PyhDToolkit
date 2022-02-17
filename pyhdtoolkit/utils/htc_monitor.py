@@ -1,11 +1,9 @@
 """
-Module utils.htc_monitor
-------------------------
-
-Created on 2021.04.22
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+HTCondor Monitoring
+-------------------
 
 A module with utility to query the HTCondor queue, process the returned data and display it nicely.
+Created on *2021.04.22* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import re
 import time

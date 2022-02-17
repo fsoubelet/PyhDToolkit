@@ -1,12 +1,13 @@
 """
-Module utils.operations
------------------------
-
-Created on 2019.11.12
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Operations Utilties
+-------------------
 
 A collection classes with utility functions to perform common / convenient operations on the
 classic Python structures.
+Created on *2019.11.12* by Felix Soubelet (felix.soubelet@cern.ch).
+
+.. warning::
+   This module contains un-used code and will be removed in a future release.
 """
 
 import copy

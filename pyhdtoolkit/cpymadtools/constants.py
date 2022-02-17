@@ -1,11 +1,9 @@
 """
-Module cpymadtools.constants
-----------------------------
-
-Created on 2020.02.02
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Useful Constants
+----------------
 
 Specific constants to be used in cpymadtools functions, to help with consistency.
+Created on *2020.02.02* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Dict, List, Set
 

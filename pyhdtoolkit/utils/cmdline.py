@@ -1,11 +1,9 @@
 """
-Module utils.cmdline
---------------------
-
-Created on 2019.11.06
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Command Line Utilities
+----------------------
 
 Utility script to help run commands and access the commandline.
+Created on *2019.12.06* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 
 import errno

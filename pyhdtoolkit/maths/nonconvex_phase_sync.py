@@ -1,9 +1,6 @@
 """
-Module maths.nonconvex_phase_sync
----------------------------------
-
-Created on 2020.01.13
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Nonconvex Phase Synchronization
+-------------------------------
 
 This is a Python3 implementation of the Nonconvex Phase Synchronisation method found in the
 following paper (DOI: 10.1137/16M105808X, the algorithm reproduced is page 8).
@@ -44,6 +41,8 @@ Note that M_matrix having zeros in its diagonal, c_matrix will have (1 + 0j) on 
 With added noise to those values (noise should be included in M_matrix in the case of measurements),
 we can reconstruct a good estimator of the original values through the EVM method, provided in the
 class below.
+
+Created on *2020.01.13* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 
 import numpy as np

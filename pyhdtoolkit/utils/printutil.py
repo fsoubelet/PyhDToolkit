@@ -1,11 +1,12 @@
 """
-Module utils.printutil
-----------------------
-
-Created on 2019.12.11
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Printing Utilities
+------------------
 
 A class utility class to allow me printing text in color, bold, etc.
+Created on *2019.12.11* by Felix Soubelet (felix.soubelet@cern.ch).
+
+.. warning::
+   This module's functionality is superseeded by the ``rich`` package, and it will be removed in a future release.
 """
 
 END = "\033[0m"

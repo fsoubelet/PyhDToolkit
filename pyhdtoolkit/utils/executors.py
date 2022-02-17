@@ -1,9 +1,6 @@
 """
-Module utils.executors
+Executors Utilities
 ----------------------
-
-Created on 2019.12.09
-:author: Felix Soubelet
 
 A module providing two classes to execute functions + arguments couples through either a
 multiprocessing approach, or a multithreading approach.
@@ -18,6 +15,8 @@ Here are a few tidbits to keep in mind:
   bigger than 1 that you can tweak on your own. Try many values and choose the one with the best
   speedup because there isn’t a general rule.
 For instance the default value of m in ThreadPoolExecutor is set to 5 which I think is quite random.
+
+Created on *2019.12.09* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 
 from concurrent import futures

@@ -1,8 +1,9 @@
 """
-Module utils.contexts
----------------------
+Context Utilities
+-----------------
 
 Provides contexts to use functions in.
+Created on *2019.12.06* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import time
 

@@ -1,11 +1,9 @@
 """
-Module cpymadtools.generators
------------------------------
-
-Created on 2019.06.15
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Lattice Generators
+------------------
 
 A collection of functions for generating different lattices for cpymad.madx.Madx input.
+Created on *2019.06.15* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 
 
