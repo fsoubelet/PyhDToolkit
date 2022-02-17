@@ -40,7 +40,7 @@ def about_package(init_posixpath: pathlib.Path) -> dict:
 if str(TOPLEVEL_DIR) not in sys.path:
     sys.path.insert(0, str(TOPLEVEL_DIR))
 
-ABOUT_PYHDTOOLKIT: about_package(ABOUT_FILE)
+ABOUT_PYHDTOOLKIT = about_package(ABOUT_FILE)
 
 
 # -- Project information -----------------------------------------------------
