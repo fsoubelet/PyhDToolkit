@@ -119,6 +119,7 @@ extensions = [
     "sphinxcontrib.bibtex",  # Insert BibTeX citations into Sphinx documentation
     "sphinx_copybutton",  # Add a "copy" button to code blocks
     "sphinx_issues",  # Link to project's issue tracker
+    "sphinx_panels",  # Create panels in a grid layout or as drop-downs
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
 ]
 
