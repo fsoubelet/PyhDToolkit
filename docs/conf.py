@@ -174,7 +174,7 @@ html_theme_options = {
 # that is the logo of the docs, or URL that points an image file for the logo.
 # It is placed at the top of the sidebar;
 # its width should therefore not exceed 200 pixels.
-html_logo = "_static/img/omc_logo.svg"
+# html_logo = "_static/img/pyhdtoolkit.svg"
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
