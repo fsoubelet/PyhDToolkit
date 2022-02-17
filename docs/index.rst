@@ -38,7 +38,7 @@ The code base comes with a useful Makefile.
 To work with PyhDToolkit source code in development, on needs Poetry_ and should install from ``GitHub``::
 
     git clone --recursive https://github.com/fsoubelet/PyhDToolkit.git
-    cd pyhdtoolkit
+    cd PyhDToolkit
     make install
 
 To verify that any of your changes keeps the package stable, run the test suite::
