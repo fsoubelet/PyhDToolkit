@@ -99,7 +99,7 @@ tests: format clean
 
 type: format
 	@echo "Checking code typing with mypy, ignore $(C)pyhdtoolkit/scripts$(E)"
-	@poetry run mypy --pretty --no-strict-optional --show-error-codes --warn-redundant-casts --ignore-missing-imports --follow-imports skip pyhdtoolkit/scripts/
+	@poetry run mypy pyhdtoolkit
 	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
