@@ -45,7 +45,6 @@ To verify that any of your changes keeps the package stable, run the test suite:
 
     make tests
 
-
 Contents
 --------
 
