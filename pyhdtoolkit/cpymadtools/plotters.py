@@ -26,6 +26,7 @@ from matplotlib import colors as mcolors
 
 from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
+from pyhdtoolkit.utils import deprecated
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
@@ -139,7 +140,7 @@ class AperturePlotter:
             aperture_df.s, aperture_df.n1, marker=".", ls="-", lw=0.5, color=color, label="Aperture Limits"
         )
         aperture_axis.fill_between(aperture_df.s, aperture_df.n1, aperture_df.n1.max(), interpolate=True, color=color)
-        aperture_axis.legend
+        aperture_axis.legend()
         aperture_axis.set_ylabel(r"$n_{1} \ [\sigma]$")
         aperture_axis.set_xlabel(r"$S \ [m]$")
 
@@ -336,9 +337,9 @@ class CrossingSchemePlotter:
         Args:
             axis (matplotlib.axes.Axes): the axis on which to plot.
             plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 1
-            of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
+                of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
             plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 2
-            of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
+                of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
             plot_column (str): which column (should be `x` or `y`) to plot for the orbit.
             scaling (float): scaling factor to apply to the plotted data. Defaults to 1 (no change of data).
             xlabel (str): if given, will be used for the `xlabel` of the axis. Defaults to `None`.
@@ -493,6 +494,7 @@ class DynamicAperturePlotter:
     """This is currently badly named, and will change in the future."""
 
     @staticmethod
+    @deprecated(message="It is currently badly named and will migrate to a different class.")
     def plot_dynamic_aperture(
         x_coords: np.ndarray, y_coords: np.ndarray, n_particles: int, savefig: str = None
     ) -> matplotlib.figure.Figure:
@@ -617,6 +619,7 @@ class LatticePlotter:
         # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
         logger.info("Plotting optics functions and machine layout")
         twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
+        xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
 
         # Create a subplot for the lattice patches (takes a third of figure)
         figure = plt.figure(figsize=figsize)
