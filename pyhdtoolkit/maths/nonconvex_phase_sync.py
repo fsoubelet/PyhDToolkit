@@ -1,4 +1,4 @@
-"""
+r"""
 Nonconvex Phase Synchronization
 -------------------------------
 
@@ -6,27 +6,40 @@ This is a Python3 implementation of the Nonconvex Phase Synchronisation method f
 following paper (DOI: 10.1137/16M105808X, the algorithm reproduced is page 8).
 
 
-Methodology and Use Case
-========================
+Methodology and Use Case:
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
 We consider that from measurements, we can only obtain noisy relative phase advances
-mu_{i} - mu_{j} and want a converging solution to reconstruct the different individual
-mu_{1}, ...., mu_{n} values.
+:math:`\mu_{i} - \mu_{j}` and want a converging solution to reconstruct the different individual
+:math:`\mu_{1}, ...., \mu_{n}` values.
 
 From measurements, we construct a hermitian matrix C in the shape of:
-C_{ij} = z_{i} * bar(z_{j}) = exp(i * (mu_{i} - mu_{j}))
+
+.. math::
+
+   C_{ij} = z_{i} \bar{z}_{j} = e^{i (\mu_{i} - \mu_{j})}
+
 A mock one with random values (500 by 500 as we have 500 BPMs per plane in the LHC) would be:
-c_matrix = np.exp(1j * np.random.rand(500, 500))
+
+.. code-block:: python
+
+   C_matrix = np.exp(1j * np.random.rand(500, 500))
 
 Considering 4 BPMs, the measurement matrix would be:
-M_matrix = [[mu_{1 -> 1}, mu_{1 -> 2}, mu_{1 -> 3}, mu_{1 -> 4}],
-            [mu_{2 -> 1}, mu_{2 -> 2}, mu_{2 -> 3}, mu_{2 -> 4}],
-            [mu_{3 -> 1}, mu_{3 -> 2}, mu_{3 -> 3}, mu_{3 -> 4}],
-            [mu_{4 -> 1}, mu_{4 -> 2}, mu_{4 -> 3}, mu_{4 -> 4}]]
+
+.. math::
+
+   M = \begin{pmatrix}
+          \mu_{1 -> 1} & \mu_{1 -> 2} & \mu_{1 -> 3} & \mu_{1 -> 4} \\
+          \mu_{2 -> 1} & \mu_{2 -> 2} & \mu_{2 -> 3} & \mu_{2 -> 4} \\
+          \mu_{3 -> 1} & \mu_{3 -> 2} & \mu_{3 -> 3} & \mu_{3 -> 4} \\
+          \mu_{4 -> 1} & \mu_{4 -> 2} & \mu_{4 -> 3} & \mu_{4 -> 4}
+       \end{pmatrix}
 
 Note two particular properties here:
   - Because our measurements are phase differences, the M_matrix will necessarily have zeros on
-    its diagonal (mu_{k -> k} = 0).
-  - By definition, since mu_{a -> b} = - mu_{b -> a}, M_matrix is symmetric.
+    its diagonal (:math:`\mu_{k -> k} = 0`).
+  - By definition, since :math:`\mu_{a -> b} = - \mu_{b -> a}`, M_matrix is symmetric.
   - Also note that for all computations, M_matrix needs to be initialised in radians!
 
 
@@ -34,9 +47,14 @@ We can very simply get our C_matrix (see page 1 of referenced paper) with `numpy
 applied to a `numpy.ndarray` applies the exponential function element-wise. See reference at
 https://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html
 
-Then follows:  C_matrix = np.exp(1j * M_matrix)
-Note that M_matrix being symmetric, then c_matrix will be Hermitian.
-Note that M_matrix having zeros in its diagonal, c_matrix will have (1 + 0j) on its diagonal.
+Then follows:
+
+.. code-block:: python
+
+   C_matrix = np.exp(1j * M_matrix)
+
+Note that M_matrix being symmetric, then C_matrix will be Hermitian.
+Note that M_matrix having zeros in its diagonal, C_matrix will have (1 + 0j) on its diagonal.
 
 With added noise to those values (noise should be included in M_matrix in the case of measurements),
 we can reconstruct a good estimator of the original values through the EVM method, provided in the
@@ -164,7 +182,7 @@ class PhaseReconstructor:
         Args:
             complex_estimator (np.ndarray): your result's complex form as a numpy array.
             deg (bool): if this is set to True, the result is cast to degrees (from radians)
-            before being returned. Defaults to False.
+                before being returned. Defaults to False.
 
         Returns:
             A `numpy.ndarray` with the real phase values of the result.
