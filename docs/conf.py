@@ -116,9 +116,9 @@ extensions = [
     "sphinx.ext.napoleon",  # Support for NumPy and Google style docstrings
     "sphinx.ext.todo",  # Support for todo items
     "sphinx.ext.viewcode",  # Add links to highlighted source code
-    "sphinx_copybutton",
-    "sphinx_issues",
-    "matplotlib.sphinxext.plot_directive",
+    "sphinx_copybutton",  # Add a "copy" button to code blocks
+    "sphinx_issues",  # Link to project's issue tracker
+    "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
 ]
 
 # Config for autosectionlabel extension
