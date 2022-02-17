@@ -64,7 +64,7 @@ release = ABOUT_PYHDTOOLKIT["__version__"]
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
-    # "sphinx.ext.autosectionlabel",
+    "sphinx.ext.autosectionlabel",
     "sphinx.ext.autosummary",
     "sphinx.ext.coverage",
     "sphinx.ext.doctest",
@@ -167,7 +167,7 @@ html_theme_options = {
     "collapse_navigation": False,
     "display_version": True,
     "logo_only": True,
-    "navigation_depth": 2,
+    "navigation_depth": 3,
 }
 
 # Name of an image file (path relative to the configuration directory)
