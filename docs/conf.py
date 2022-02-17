@@ -377,5 +377,10 @@ autodoc_mock_imports = [
 intersphinx_mapping = {
     "python": ("https://docs.python.org/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
+    "pandas": ("https://pandas.pydata.org/docs/", None),
+    "matplotlib": ("https://matplotlib.org/stable/", None),
+    "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
+    "tfs-pandas": ("https://pylhc.github.io/tfs/", None),
+    "tfs": ("https://pylhc.github.io/tfs/", None),
     "cpymad": ("https://hibtc.github.io/cpymad/", None),
 }
