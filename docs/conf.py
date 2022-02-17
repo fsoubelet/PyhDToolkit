@@ -116,6 +116,7 @@ extensions = [
     "sphinx.ext.napoleon",  # Support for NumPy and Google style docstrings
     "sphinx.ext.todo",  # Support for todo items
     "sphinx.ext.viewcode",  # Add links to highlighted source code
+    "sphinxcontrib.bibtex",  # Insert BibTeX citations into Sphinx documentation
     "sphinx_copybutton",  # Add a "copy" button to code blocks
     "sphinx_issues",  # Link to project's issue tracker
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
@@ -136,6 +137,10 @@ napoleon_attr_annotations = True
 
 # Configuration for sphinx.ext.todo
 todo_include_todos = True
+
+# Config for the sphinxcontrib.bibtex extension
+bibtex_bibfiles = ["references.bib"]
+bibtex_default_style = "alpha"
 
 # Config for the matplotlib plot directive
 plot_formats = [("svg", 250)]

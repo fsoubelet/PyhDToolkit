@@ -44,6 +44,7 @@ Contents
     api
     release
     contributing
+    bibliography
 
 Citing
 ------
