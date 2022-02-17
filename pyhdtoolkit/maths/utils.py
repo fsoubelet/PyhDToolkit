@@ -2,7 +2,7 @@
 Utilities
 ---------
 
-A module with utility functions used throughout the :py:mod:`pyhdtoolkit.maths.nonconvex_phase_sync` and :py:mod:`pyhdtoolkit.maths.stats_fitting` modules.
+A module with utility functions used throughout the `pyhdtoolkit.maths.nonconvex_phase_sync` and `pyhdtoolkit.maths.stats_fitting` modules.
 Created on *2020.01.13* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Tuple, Union
