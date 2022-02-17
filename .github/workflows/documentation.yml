@@ -59,7 +59,7 @@ jobs:
         run: poetry install -v
 
       - name: Build documentation
-        run: poetry run portray as_html -o doc_build
+        run: poetry run python -m sphinx -b html docs doc_build -d doc_build
 
       - name: Upload documentation to gh-pages
         if: ${{ success() }}

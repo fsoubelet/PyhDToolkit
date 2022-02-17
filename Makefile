@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help checklist clean condaenv docker format install interrogate lines lint tests type
+.PHONY : help checklist clean condaenv docker documentation format install interrogate lines lint tests type
 
 all: install
 
@@ -22,6 +22,7 @@ help:
 	@echo "  $(R) clean $(E)  \t  to recursively remove build, run, and bitecode files/dirs."
 	@echo "  $(R) condaenv $(E)  \t  to $(D)conda create$(E) the specific 'PHD' environment I use. Personnal."
 	@echo "  $(R) docker $(E)  \t  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
+	@echo "  $(R) documentation $(E)  \t  to build the documentation for the package."
 	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) cli tool."
 	@echo "  $(R) install $(E)  \t  to $(D)poetry install$(E) this package into the project's virtual environment."
 	@echo "  $(R) interrogate $(E)  \t  to run docstring presence inspection on this package."
@@ -65,7 +66,7 @@ condaenv:
 
 documentation: clean
 	@echo "Building static pages with $(D)Portray$(E)."
-	@poetry run portray in_browser -v
+	@poetry run python -m sphinx -b html docs doc_build -d doc_build
 
 docker:
 	@echo "Building $(P)simenv$(E) Docker image with $(D)PHD$(E) conda environment, with tag $(P)latest$(E)."
