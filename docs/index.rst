@@ -28,8 +28,7 @@ Install the package from ``PyPI``::
 
     pip install pyhdtoolkit
 
-To install the latest development version of PyhDToolkit, you can use pip with the
-latest GitHub master::
+To install the latest development version of PyhDToolkit, you can use ``pip`` with the latest GitHub master::
 
     pip install git+https://github.com/fsoubelet/PyhDToolkit.git
 
@@ -50,7 +49,7 @@ Citing
 ------
 
 If you have a use of these codes, please consider citing them.
-The repository has a `CERN <https://zenodo.org/badge/latestdoi/227081702/>`_ provided by Zenodo_, and all versions can be cited with the following BibTeX entry:
+The repository has a DOI_ provided by Zenodo_, and all versions can be cited with the following ``BibTeX`` entry:
 
 .. code-block:: bibtex
 
@@ -65,8 +64,7 @@ The repository has a `CERN <https://zenodo.org/badge/latestdoi/227081702/>`_ pro
 Acknowledgments
 ---------------
 
-The following people have contributed to the development of PyhDToolkit by contributing code,
-documentation, code reviews, comments and/or ideas:
+The following people have contributed to the development of PyhDToolkit by contributing code, documentation, comments and/or ideas:
 
 * :user:`Felix Soubelet <fsoubelet>`
 * :user:`Joschua Dilly <joschd>`
@@ -87,4 +85,5 @@ Indices and tables
 .. _pydantic: https://pydantic-docs.helpmanual.io/
 .. _HTCondor: https://htcondor.org/
 .. _Poetry: https://python-poetry.org/
+.. _DOI: https://zenodo.org/badge/latestdoi/227081702
 .. _Zenodo: https://zenodo.org
