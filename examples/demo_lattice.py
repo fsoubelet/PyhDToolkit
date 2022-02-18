@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools import lhc, orbit, matching
+from pyhdtoolkit.cpymadtools import lhc, matching, orbit
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
 from pyhdtoolkit.utils import defaults
@@ -71,7 +71,7 @@ lhc_madx.call("lhc/lhc_as-built.seq")
 lhc_madx.call("lhc/opticsfile.22")  # collisions optics
 
 ###############################################################################
-# Let's re-cycle the sequences to avoid having IR1 split at beginning and end of 
+# Let's re-cycle the sequences to avoid having IR1 split at beginning and end of
 # lattice, as is the default in the LHC sequence, and setup a flat orbit.
 
 lhc.re_cycle_sequence(lhc_madx, sequence="lhcb1", start="IP3")
@@ -140,7 +140,7 @@ plt.show()
 # When and only when the **k2l_lim** parameter is provided, the sextupolar elements
 # are plotted on the lattice layout axis, and an additional scale is put to the right.
 # This is useful to see sextupoles when zooming in, which you would not necessarily
-# want to plot when looking at the big picture, to avoid overcrowding it. Similarly, 
+# want to plot when looking at the big picture, to avoid overcrowding it. Similarly,
 # providing the *plot_bpms* will add a small marker for BPM elements. Here it is
 # showcased when looking at an LHC arc cell:
 

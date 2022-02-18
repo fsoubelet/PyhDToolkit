@@ -30,17 +30,19 @@ lhc.make_lhc_beams(madx, energy=450)
 madx.command.use(sequence="lhcb1")
 
 ###############################################################################
-# We now call the aperture definitions and tolerances, then task ``MAD-X`` with 
+# We now call the aperture definitions and tolerances, then task ``MAD-X`` with
 # computing the available aperture:
 
 madx.call("lhc/aperture.b1.madx")
 madx.call("lhc/aper_tol.b1.madx")
 
 madx.command.twiss()
-madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
+madx.command.aperture(
+    cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14
+)
 
 ###############################################################################
-# We can now determine the exact position of the IP5 point and plot the LHC 
+# We can now determine the exact position of the IP5 point and plot the LHC
 # injection aperture:
 
 twiss_df = madx.table.twiss.dframe().copy()
