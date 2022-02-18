@@ -32,7 +32,7 @@ if str(TOPLEVEL_DIR) not in sys.path:
     sys.path.insert(0, str(TOPLEVEL_DIR))
 
 from sphinx_gallery.scrapers import matplotlib_scraper
-from sphinx_gallery.sorting import FileNameSortKey 
+from sphinx_gallery.sorting import FileNameSortKey, ExampleTitleSortKey
 
 import pyhdtoolkit
 
@@ -168,8 +168,8 @@ sphinx_gallery_conf = {
     "examples_dirs": ["../examples"],  # directory where to find plotting scripts
     "gallery_dirs": ["gallery"],  # directory where to store generated plots
     "filename_pattern": "^((?!sgskip).)*$",  # which files to execute, taken from matplotlib
-    "subsection_order": FileNameSortKey,
-    "within_subsection_order": FileNameSortKey,
+    "subsection_order": ExampleTitleSortKey,
+    "within_subsection_order": ExampleTitleSortKey,
     "reference_url": {"pyhdtoolkit": None},  # Sets up intersphinx in gallery code
     "backreferences_dir": "gen_modules/backreferences",  # where function/class granular galleries are stored
     # Modules for which function/class level galleries are created
