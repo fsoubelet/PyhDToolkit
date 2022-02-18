@@ -31,9 +31,20 @@ TOPLEVEL_DIR = pathlib.Path(__file__).parent.parent.absolute()
 if str(TOPLEVEL_DIR) not in sys.path:
     sys.path.insert(0, str(TOPLEVEL_DIR))
 
+from sphinx_gallery.scrapers import matplotlib_scraper
 from sphinx_gallery.sorting import ExplicitOrder
 
 import pyhdtoolkit
+
+
+# To use SVG outputs when scraping matplotlib figures for the sphinx-gallery
+class matplotlib_svg_scraper(object):
+    def __repr__(self):
+        return self.__class__.__name__
+
+    def __call__(self, *args, **kwargs):
+        return matplotlib_scraper(*args, format="svg", **kwargs)
+
 
 # -- Project information -----------------------------------------------------
 
@@ -162,6 +173,7 @@ sphinx_gallery_conf = {
     "backreferences_dir": "gen_modules/backreferences",  # where function/class granular galleries are stored
     # Modules for which function/class level galleries are created
     "doc_module": "pyhdtoolkit",
+    "image_scrapers": (matplotlib_svg_scraper(),),  # scrape gallery as SVG
     "image_srcset": ["2x"],  # use srcset twice as dense for high-resolution images display
     "min_reported_time": 2,  # minimum execution time to enable reporting
     "remove_config_comments": True,  # remove config comments from the code
