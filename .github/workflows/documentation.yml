@@ -65,8 +65,16 @@ jobs:
       - name: Install dependencies
         run: poetry install -v
 
+      # Sometimes the minrpc client will close while doc builds and I don't know why
+      # Forcing several successive builds here and hoping it works out (sphinx-gallery 
+      # checks for the existence of already built examples to avoid re-running them)
       - name: Build documentation
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+        run: |
+          poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+          poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+          poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+          poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+          poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
       - name: Upload build artifacts  # upload artifacts so reviewers can have a quick look without building documentation from the branch locally
         uses: actions/upload-artifact@v2
