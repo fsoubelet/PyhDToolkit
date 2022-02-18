@@ -167,6 +167,7 @@ sphinx_gallery_conf = {
     "image_srcset": ["2x"],  # use srcset twice as dense for high-resolution images display
     "min_reported_time": 2,  # minimum execution time to enable reporting
     "remove_config_comments": True,  # remove config comments from the code
+    "capture_repr": ("_repr_html_",),
 }
 
 # Config for the matplotlib plot directive
