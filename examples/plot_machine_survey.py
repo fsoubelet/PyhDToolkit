@@ -24,9 +24,8 @@ circumference: float = 1000.0
 n_cells: int = 24
 base_lattice = LatticeGenerator.generate_base_cas_lattice()
 
-
 ###############################################################################
-# Input the lattice into MAD-X, no more needed here
+# Input the lattice into ``MAD-X``, no more needed here
 madx = Madx(stdout=False)
 madx.input(base_lattice)
 
@@ -43,6 +42,6 @@ LatticePlotter.plot_machine_survey(madx, show_elements=True, high_orders=True)
 plt.show()
 
 ###############################################################################
-# Let's not forget to close the rpc connection to MAD-X
+# Let's not forget to close the rpc connection to ``MAD-X``
 
 madx.exit()
