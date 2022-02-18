@@ -8,6 +8,7 @@ particle with the ``TRACK`` command of ``MAD-X``, and visualise its coordinates 
 
 In this example we will generate a dummy lattice, set its working point and track particles to plot their phase space coordinates.
 """
+# sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt
 import numpy as np
 
