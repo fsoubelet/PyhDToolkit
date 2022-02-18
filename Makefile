@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help checklist clean condaenv docker documentation format install interrogate lines lint tests type
+.PHONY : help checklist clean condaenv docker docs documentation format install interrogate lines lint tests type
 
 all: install
 
@@ -69,7 +69,7 @@ condaenv:
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
 
-docs: clean
+docs:
 	@echo "Building static pages with $(D)Sphinx$(E)."
 	@poetry run python -m sphinx -b html docs doc_build -d doc_build
 
