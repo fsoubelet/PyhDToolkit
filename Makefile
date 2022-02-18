@@ -78,8 +78,10 @@ docker:
 	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 
 format:
-	@echo "Sorting imports with $(P)isort$(E) and formatting code to PEP8 with $(P)Black$(E), max line length is 120 characters."
+	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)docs$(E), $(C)pyhdtoolkit$(E) and $(C)tests$(E) folders. Max line length is 120 characters."
 	@poetry run isort . && black .
+	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)examples$(E) folder. Max line length is 95 characters."
+	@poetry run isort examples && black -l 95 examples
 
 install: format clean
 	@echo "Installing through $(D)Poetry$(E), with dev dependencies but no extras."
