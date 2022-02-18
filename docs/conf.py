@@ -157,13 +157,11 @@ sphinx_gallery_conf = {
     "examples_dirs": ["../examples"],  # directory where to find plotting scripts
     "gallery_dirs": ["gallery"],  # directory where to store generated plots
     "filename_pattern": "^((?!sgskip).)*$",  # which files to execute, taken from matplotlib
-    # "subsection_order": gallery_order.sectionorder,
-    # "subsection_order": ExplicitOrder(["../examples/sin_func", "../examples/no_output", "../tutorials/seaborn"]),
-    "reference_url": {"sphinx_gallery": None},  # Sets up intersphinx in gallery code
+    # "subsection_order": ExplicitOrder(["../examples/lattice_plotting"]),
+    "reference_url": {"pyhdtoolkit": None},  # Sets up intersphinx in gallery code
     "backreferences_dir": "gen_modules/backreferences",  # where function/class granular galleries are stored
-    # Modules for which function/class level galleries are created. In
-    # this case sphinx_gallery and numpy in a tuple of strings.
-    "doc_module": ("sphinx_gallery", "numpy"),
+    # Modules for which function/class level galleries are created
+    "doc_module": "pyhdtoolkit",
     "image_srcset": ["2x"],  # use srcset twice as dense for high-resolution images display
     "min_reported_time": 2,  # minimum execution time to enable reporting
     "remove_config_comments": True,  # remove config comments from the code
