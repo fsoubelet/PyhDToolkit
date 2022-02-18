@@ -42,6 +42,7 @@ Contents
 
     tutorial
     api
+    gallery/index
     release
     contributing
     bibliography

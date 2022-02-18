@@ -12,18 +12,26 @@
 
 import pathlib
 import sys
+import warnings
 
 # ignore numpy warnings, see:
 # https://stackoverflow.com/questions/40845304/runtimewarning-numpy-dtype-size-changed-may-indicate-binary-incompatibility
-import warnings
-
 warnings.filterwarnings("ignore", message="numpy.dtype size changed")
 warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
+
+# Ignore potential warnings from matplotlib when building the gallery
+warnings.filterwarnings(
+    "ignore",
+    category=UserWarning,
+    message="Matplotlib is currently using agg, which is a" " non-GUI backend, so cannot show the figure.",
+)
 
 TOPLEVEL_DIR = pathlib.Path(__file__).parent.parent.absolute()
 
 if str(TOPLEVEL_DIR) not in sys.path:
     sys.path.insert(0, str(TOPLEVEL_DIR))
+
+from sphinx_gallery.sorting import ExplicitOrder
 
 import pyhdtoolkit
 
@@ -118,6 +126,7 @@ extensions = [
     "sphinx.ext.viewcode",  # Add links to highlighted source code
     "sphinxcontrib.bibtex",  # Insert BibTeX citations into Sphinx documentation
     "sphinx_copybutton",  # Add a "copy" button to code blocks
+    "sphinx_gallery.gen_gallery",  # Build an HTML gallery of examples from a set of Python scripts
     "sphinx_issues",  # Link to project's issue tracker
     "sphinx_panels",  # Create panels in a grid layout or as drop-downs
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
@@ -142,6 +151,23 @@ todo_include_todos = True
 # Config for the sphinxcontrib.bibtex extension
 bibtex_bibfiles = ["references.bib"]
 bibtex_default_style = "alpha"
+
+# Configuration for the sphinx-gallery extension
+sphinx_gallery_conf = {
+    "examples_dirs": ["../examples"],  # directory where to find plotting scripts
+    "gallery_dirs": ["gallery"],  # directory where to store generated plots
+    "filename_pattern": "^((?!sgskip).)*$",  # which files to execute, taken from matplotlib
+    # "subsection_order": gallery_order.sectionorder,
+    # "subsection_order": ExplicitOrder(["../examples/sin_func", "../examples/no_output", "../tutorials/seaborn"]),
+    "reference_url": {"sphinx_gallery": None},  # Sets up intersphinx in gallery code
+    "backreferences_dir": "gen_modules/backreferences",  # where function/class granular galleries are stored
+    # Modules for which function/class level galleries are created. In
+    # this case sphinx_gallery and numpy in a tuple of strings.
+    "doc_module": ("sphinx_gallery", "numpy"),
+    "image_srcset": ["2x"],  # use srcset twice as dense for high-resolution images display
+    "min_reported_time": 2,  # minimum execution time to enable reporting
+    "remove_config_comments": True,  # remove config comments from the code
+}
 
 # Config for the matplotlib plot directive
 plot_formats = [("svg", 250)]
@@ -350,11 +376,13 @@ fontpkg = r"""
   Extension      = .otf,
 ]}
 """
-latex_elements['fontpkg'] = fontpkg
+latex_elements["fontpkg"] = fontpkg
 
 
 # Additional stuff for the LaTeX preamble.
-latex_elements['preamble'] = r"""
+latex_elements[
+    "preamble"
+] = r"""
    % Show Parts and Chapters in Table of Contents
    \setcounter{tocdepth}{0}
    % One line per author on title page
@@ -386,11 +414,11 @@ latex_elements['preamble'] = r"""
 # and usage of "enumitem" LaTeX package is unneeded.
 # Value can be increased but do not set it to something such as 2048
 # which needlessly would trigger creation of thousands of TeX macros
-latex_elements['maxlistdepth'] = '10'
-latex_elements['pointsize'] = '11pt'
+latex_elements["maxlistdepth"] = "10"
+latex_elements["pointsize"] = "11pt"
 
 # Better looking general index in PDF
-latex_elements['printindex'] = r'\footnotesize\raggedright\printindex'
+latex_elements["printindex"] = r"\footnotesize\raggedright\printindex"
 
 # For "manual" documents, if this is true, then toplevel headings are parts,
 # not chapters.
@@ -408,7 +436,7 @@ latex_appendices = []
 # If false, no module index is generated.
 latex_use_modindex = True
 
-latex_toplevel_sectioning = 'part'
+latex_toplevel_sectioning = "part"
 
 # If false, no module index is generated.
 # latex_domain_indices = True

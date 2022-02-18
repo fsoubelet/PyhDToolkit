@@ -68,6 +68,7 @@ sphinxcontrib-bibtex = "^2.4"
 sphinx-panels = "<1.0"
 
 # ----- Testing Configuration ----- #
+sphinx-gallery = "^0.10.1"
 
 [tool.pytest.ini_options]
 addopts = "--mpl --no-flaky-report --cov-report=xml --cov-report term-missing --cov-config=pyproject.toml --cov=pyhdtoolkit"
