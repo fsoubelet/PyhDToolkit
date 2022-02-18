@@ -2,7 +2,7 @@
 ==============
 Beam Enveloppe
 ==============
-New attempt at the :ref:`gallery <gallery>` linking.
+
 This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.BeamEnvelopePlotter.plot_envelope` function
 to visualise the particle beam's enveloppe in your machine.
 
