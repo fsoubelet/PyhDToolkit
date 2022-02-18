@@ -128,7 +128,8 @@ twiss;
 )
 
 ###############################################################################
-# Now let's run an interpolation to be able to see the value of the optics functions inside the elements
+# Now let's run an interpolation to be able to see the value of the optics functions 
+# inside the elements:
 
 madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
 madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
@@ -136,24 +137,24 @@ madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e
 madx.command.twiss()
 
 ###############################################################################
-# We can now plot the beam enveloppe at injection, for a single cell
+# We can now plot the beam enveloppe at injection, for a single cell:
 
 BeamEnvelopePlotter.plot_envelope(madx, beam_injection)
 plt.show()
 
 ###############################################################################
 # In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
-# Here we will plot the enveloppe for the first cell only
+# Here we will plot the enveloppe for the first cell only.
 
 BeamEnvelopePlotter.plot_envelope(madx, beam_injection, xlimits=(0, l_cell))
 plt.show()
 
 ###############################################################################
-# And similarly at top energy
+# And similarly at top energy:
 
 BeamEnvelopePlotter.plot_envelope(madx, beam_flattop, xlimits=(0, l_cell))
 
 ###############################################################################
-# Let's not forget to close the rpc connection to MAD-X
+# Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()

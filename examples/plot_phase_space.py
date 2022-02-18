@@ -24,7 +24,7 @@ from pyhdtoolkit.utils import defaults
 defaults.config_logger(level="warning")
 
 ###############################################################################
-# Define some constants, generate a simple lattice and setup your simulation
+# Define some constants, generate a simple lattice and setup your simulation:
 
 circumference: float = 1000.0
 n_cells: int = 24
@@ -37,7 +37,8 @@ initial_x_coordinates = np.linspace(1e-4, 0.05, n_particles)
 x_coords, px_coords, y_coords, py_coords = [], [], [], []
 
 ###############################################################################
-# Input the lattice into ``MAD-X``, and match to a desired working point
+# Input the lattice into ``MAD-X``, and match to a desired working point:
+
 madx = Madx(stdout=False)
 madx.input(base_lattice)
 match_tunes_and_chromaticities(
@@ -79,7 +80,7 @@ plt.show()
 
 ###############################################################################
 # Using the `~pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored`
-# function, one gets a plot in which each color corresponds to a given particle's trajectory
+# function, one gets a plot in which each color corresponds to a given particle's trajectory:
 
 PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
     madx, x_coords, px_coords, plane="Horizontal", figsize=(10, 9)
@@ -104,7 +105,8 @@ madx.input(perturbed_lattice)
 madx.input("ks1 = 0.1;")  # powering the sextupole
 
 ###############################################################################
-# Let's get close to the third order resonance and track particles
+# Let's get close to the third order resonance and track particles.
+
 match_tunes_and_chromaticities(
     madx,
     None,
@@ -137,6 +139,6 @@ plt.xlim(-0.015 * 1e3, 0.015 * 1e3)
 plt.ylim(-0.015 * 1e3, 0.015 * 1e3)
 
 ###############################################################################
-# Let's not forget to close the rpc connection to ``MAD-X``
+# Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()

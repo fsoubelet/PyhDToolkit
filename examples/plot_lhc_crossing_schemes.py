@@ -23,7 +23,7 @@ defaults.config_logger(level="warning")
 
 
 ###############################################################################
-# Setup a simple LHC simulation in ``MAD-X``, with collision optics (at 7 TeV)
+# Setup a simple LHC simulation in ``MAD-X``, with collision optics (at 7 TeV):
 
 madx = Madx(stdout=False)
 madx.option(echo=False, warn=False)
@@ -32,14 +32,14 @@ madx.call("lhc/opticsfile.22")  # collisions optics
 
 ###############################################################################
 # Let's re-cycle the sequences to avoid having IR1 split at beginning and end of lattice,
-# as is the default in the LHC sequence
+# as is the default in the LHC sequence:
 
 lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
 lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
 lhc.make_lhc_beams(madx, energy=7000)
 
 ###############################################################################
-# Now we plot the crossing schemes, here for IP1 and IP5
+# Now we plot the crossing schemes, here for IP1 and IP5.
 
 CrossingSchemePlotter.plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
 plt.show()
@@ -53,6 +53,6 @@ CrossingSchemePlotter.plot_two_lhc_ips_crossings(
 )
 
 ###############################################################################
-# Let's not forget to close the rpc connection to MAD-X
+# Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()
