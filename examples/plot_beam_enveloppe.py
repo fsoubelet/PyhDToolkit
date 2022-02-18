@@ -8,6 +8,7 @@ to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
 """
+# sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
 import numpy as np
 

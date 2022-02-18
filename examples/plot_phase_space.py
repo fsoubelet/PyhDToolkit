@@ -9,6 +9,7 @@ the particles' trajectories in phase space for your machine.
 
 In this example we will generate a dummy lattice, set its working point and track particles to plot their phase space coordinates.
 """
+# sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
 import numpy as np
 
