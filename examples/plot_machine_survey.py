@@ -41,3 +41,8 @@ plt.show()
 
 LatticePlotter.plot_machine_survey(madx, show_elements=True, high_orders=True)
 plt.show()
+
+###############################################################################
+# Let's not forget to close the rpc connection to MAD-X
+
+madx.exit()
