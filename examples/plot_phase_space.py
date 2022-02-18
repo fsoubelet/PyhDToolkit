@@ -28,7 +28,7 @@ defaults.config_logger(level="warning")
 
 base_lattice: str = LatticeGenerator.generate_base_cas_lattice()
 
-n_particles: int = 200
+n_particles: int = 150
 n_turns: int = 1000  # just enough to do a full revolution in phase space
 initial_x_coordinates = np.linspace(1e-4, 0.05, n_particles)
 
