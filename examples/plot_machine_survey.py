@@ -18,10 +18,8 @@ from pyhdtoolkit.utils import defaults
 defaults.config_logger(level="warning")
 
 ###############################################################################
-# Define some constants, generate a simple lattice and setup your simulation:
+# Generate a simple lattice and setup your simulation:
 
-circumference: float = 1000.0
-n_cells: int = 24
 base_lattice = LatticeGenerator.generate_base_cas_lattice()
 
 ###############################################################################
