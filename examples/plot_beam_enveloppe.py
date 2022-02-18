@@ -128,7 +128,7 @@ twiss;
 )
 
 ###############################################################################
-# Now let's run an interpolation to be able to see the value of the optics functions 
+# Now let's run an interpolation to be able to see the value of the optics functions
 # inside the elements:
 
 madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
