@@ -3,6 +3,7 @@ Lattice Generators
 ------------------
 
 A collection of functions for generating different lattices for cpymad.madx.Madx input.
+These lattices are quite simple and are meant to be used in the package's documentation and example gallery.
 Created on *2019.06.15* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 
