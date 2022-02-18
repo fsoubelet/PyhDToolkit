@@ -32,7 +32,7 @@ if str(TOPLEVEL_DIR) not in sys.path:
     sys.path.insert(0, str(TOPLEVEL_DIR))
 
 from sphinx_gallery.scrapers import matplotlib_scraper
-from sphinx_gallery.sorting import FileNameSortKey, ExampleTitleSortKey
+from sphinx_gallery.sorting import ExampleTitleSortKey
 
 import pyhdtoolkit
 
