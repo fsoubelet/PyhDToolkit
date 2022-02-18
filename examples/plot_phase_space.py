@@ -71,7 +71,7 @@ for starting_x in initial_x_coordinates:
 # plots these.
 
 PhaseSpacePlotter.plot_courant_snyder_phase_space(
-    madx, x_coords, px_coords, plane="Horizontal"
+    madx, x_coords, px_coords, plane="Horizontal", figsize=(10, 9)
 )
 plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
 plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
@@ -82,7 +82,7 @@ plt.show()
 # function, one gets a plot in which each color corresponds to a given particle's trajectory
 
 PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
-    madx, x_coords, px_coords, plane="Horizontal"
+    madx, x_coords, px_coords, plane="Horizontal", figsize=(10, 9)
 )
 plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
 plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
