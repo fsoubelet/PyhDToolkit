@@ -26,6 +26,9 @@ jobs:
       - name: Install LaTeX
         run: sudo apt install -y texlive-latex-base texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra texlive-latex-recommended ghostscript
 
+      - name: Install optipng
+        run: sudo apt install -y optipng
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:

@@ -166,6 +166,7 @@ sphinx_gallery_conf = {
     "min_reported_time": 2,  # minimum execution time to enable reporting
     "remove_config_comments": True,  # remove config comments from the code
     "capture_repr": ("_repr_html_",),
+    "compress_images": ("images", "thumbnails", "-o1"),
 }
 
 # Config for the matplotlib plot directive
