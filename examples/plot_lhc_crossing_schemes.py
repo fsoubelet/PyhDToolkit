@@ -1,7 +1,7 @@
 """
-==================================
-LHC Crossing Schemes Plotting Demo
-==================================
+====================
+LHC Crossing Schemes
+====================
 
 This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings` function
 to visualise the crossing schemes setup at the LHC IRs.
@@ -57,3 +57,13 @@ CrossingSchemePlotter.plot_two_lhc_ips_crossings(
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
+#    - `~.cpymadtools.plotters`: `~.plotters.CrossingSchemePlotter`, `~.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings`

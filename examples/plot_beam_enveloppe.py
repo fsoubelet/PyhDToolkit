@@ -1,14 +1,14 @@
 """
-============================
-Beam Enveloppe Plotting Demo
-============================
-
+==============
+Beam Enveloppe
+==============
+New attempt at the :ref:`gallery <gallery>` linking.
 This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.BeamEnvelopePlotter.plot_envelope` function
 to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
 """
-# sphinx_gallery_thumbnail_number = 2
+# sphinx_gallery_thumbnail_number = 1
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -139,22 +139,32 @@ madx.command.twiss()
 ###############################################################################
 # We can now plot the beam enveloppe at injection, for a single cell:
 
-BeamEnvelopePlotter.plot_envelope(madx, beam_injection)
+BeamEnvelopePlotter.plot_envelope(madx, beam_injection, figsize=(18, 20))
 plt.show()
 
 ###############################################################################
 # In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
 # Here we will plot the enveloppe for the first cell only.
 
-BeamEnvelopePlotter.plot_envelope(madx, beam_injection, xlimits=(0, l_cell))
+BeamEnvelopePlotter.plot_envelope(madx, beam_injection, xlimits=(0, l_cell), figsize=(18, 20))
 plt.show()
 
 ###############################################################################
 # And similarly at top energy:
 
-BeamEnvelopePlotter.plot_envelope(madx, beam_flattop, xlimits=(0, l_cell))
+BeamEnvelopePlotter.plot_envelope(madx, beam_flattop, xlimits=(0, l_cell), figsize=(18, 20))
 
 ###############################################################################
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.cpymadtools.plotters`: `~.plotters.BeamEnvelopePlotter`, `~.plotters.BeamEnvelopePlotter.plot_envelope`
+#    - `~.models.beam`: `~.models.beam.BeamParameters`

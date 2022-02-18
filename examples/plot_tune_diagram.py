@@ -1,7 +1,7 @@
 """
-==========================
-Tune Diagram Plotting Demo
-==========================
+============
+Tune Diagram
+============
 
 This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter.plot_tune_diagram` function to 
 visualise resonance lines up to certain orders
@@ -59,3 +59,12 @@ plt.show()
 
 ###############################################################################
 # It is now much easier to identify the resonances lines near our working point :)
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.cpymadtools.plotters.TuneDiagramPlotter`: `~.plotters.TuneDiagramPlotter.plot_tune_diagram`

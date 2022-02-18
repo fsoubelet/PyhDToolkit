@@ -1,7 +1,7 @@
 """
-=========================
-Phase Space Plotting Demo
-=========================
+===========
+Phase Space
+===========
 
 This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space` 
 and `~pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored` functions to visualise
@@ -140,3 +140,15 @@ plt.ylim(-0.015 * 1e3, 0.015 * 1e3)
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
+#    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
+#    - `~.cpymadtools.plotters`: `~.plotters.PhaseSpacePlotter`, `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space`, `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored`
+#    - `~.cpymadtools.track`: `~.track.track_single_particle`

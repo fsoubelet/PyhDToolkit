@@ -1,7 +1,7 @@
 """
-===================================
-Free Tracking and Spectrum Plotting
-===================================
+======================
+Free Tracking Spectrum
+======================
 
 This example shows how to use the `~pyhdtoolkit.cpymadtools.track.track_single_particle` function to track a 
 particle with the ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
@@ -14,7 +14,7 @@ import numpy as np
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools import lhc, matching, track
+from pyhdtoolkit.cpymadtools import lhc, track
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -128,7 +128,7 @@ tracks.plot(
 
 tracks_dict = track.track_single_particle(
     madx,
-    nturns=50,  # few turns to speedup the example
+    nturns=10,  # few turns to speedup the example
     initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
     observation_points=["BPMSW.1L1.B1_DOROS", "BPMSW.1R1.B1_DOROS"],
     ONETABLE=True,  # Gather all observation points data into a single table (and file if DUMP set to True)
@@ -142,3 +142,13 @@ tracks[tracks.index == observation_point.lower()]  # cpymad lower-cases the name
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
+#    - `~.cpymadtools.track`: `~.track.track_single_particle`

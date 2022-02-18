@@ -1,7 +1,7 @@
 """
-=============================
-Machine Survey Plotting Demo
-=============================
+==============
+Machine Survey
+==============
 
 This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey` function
 to represent your machine geometry in a from-the-top view.
@@ -44,3 +44,13 @@ plt.show()
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`, `~.lhc.re_cycle_sequence`
+#    - `~.cpymadtools.plotters`: `~.plotters.LatticePlotter`, `~.plotters.LatticePlotter.plot_machine_survey`
