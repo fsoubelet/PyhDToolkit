@@ -40,6 +40,9 @@ clean:
 	@echo "Cleaning up documentation pages."
 	@rm -rf doc_build
 	@rm -rf plot_directive
+	@echo "Cleaning up sphinx-gallery build artifacts."
+	@rm -rf docs/gallery
+	@rm -rf docs/gen_modules
 	@echo "Cleaning up distutils remains."
 	@rm -rf build
 	@rm -rf dist
