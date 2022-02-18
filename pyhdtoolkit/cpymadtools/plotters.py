@@ -761,7 +761,7 @@ class PhaseSpacePlotter:
         u_coordinates: np.ndarray,
         pu_coordinates: np.ndarray,
         savefig: str = None,
-        size: Tuple[int, int] = (16, 8),
+        figsize: Tuple[int, int] = (16, 8),
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
@@ -776,7 +776,7 @@ class PhaseSpacePlotter:
                 given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
                 and so on.
             savefig (str): will save the figure if this is not None, using the string value passed.
-            size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
+            figsize (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
             plane (str): the physical plane to plot. Defaults to 'Horizontal'.
 
         Returns:
@@ -788,7 +788,7 @@ class PhaseSpacePlotter:
             raise ValueError("Invalid plane value")
 
         logger.info("Plotting phase space for normalized Courant-Snyder coordinates")
-        figure = plt.figure(figsize=size)
+        figure = plt.figure(figsize=figsize)
         plt.title("Courant-Snyder Phase Space")
 
         # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
@@ -821,7 +821,7 @@ class PhaseSpacePlotter:
         u_coordinates: np.ndarray,
         pu_coordinates: np.ndarray,
         savefig: str = None,
-        size: Tuple[int, int] = (16, 8),
+        figsize: Tuple[int, int] = (16, 8),
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
@@ -838,7 +838,7 @@ class PhaseSpacePlotter:
                 given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
                 and so on.
             savefig (str): will save the figure if this is not None, using the string value passed.
-            size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
+            figsize (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
             plane (str): the physical plane to plot. Defaults to 'Horizontal'.
 
         Returns:
@@ -855,7 +855,7 @@ class PhaseSpacePlotter:
             colors.pop()
 
         logger.info("Plotting colored phase space for normalized Courant-Snyder coordinates")
-        figure = plt.figure(figsize=size)
+        figure = plt.figure(figsize=figsize)
         plt.title("Courant-Snyder Phase Space")
 
         # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
@@ -1075,6 +1075,7 @@ def _plot_lattice_series(
     )
 
 
+# TODO: make public
 def _plot_machine_layout(
     madx: Madx,
     quadrupole_patches_axis: matplotlib.axes.Axes,
