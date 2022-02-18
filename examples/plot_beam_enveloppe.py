@@ -3,7 +3,7 @@
 Beam Enveloppe
 ==============
 
-This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.BeamEnvelopePlotter.plot_envelope` function
+This example shows how to use the `~.plotters.BeamEnvelopePlotter.plot_envelope` function
 to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.

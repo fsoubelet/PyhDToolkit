@@ -3,8 +3,8 @@
 Phase Space
 ===========
 
-This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space` 
-and `~pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored` functions to visualise
+This example shows how to use the `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space` 
+and `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored` functions to visualise
 the particles' trajectories in phase space for your machine.
 
 In this example we will generate a dummy lattice, set its working point and track particles to plot their phase space coordinates.

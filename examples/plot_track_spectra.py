@@ -3,10 +3,11 @@
 Free Tracking Spectrum
 ======================
 
-This example shows how to use the `~pyhdtoolkit.cpymadtools.track.track_single_particle` function to track a 
+This example shows how to use the `~.track.track_single_particle` function to track a 
 particle with the ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
 
-In this example we will generate a dummy lattice, set its working point and track particles to plot their phase space coordinates.
+In this example we will generate a dummy lattice, set its working point and track particles to 
+plot their phase space coordinates.
 """
 # sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt

@@ -3,7 +3,7 @@
 LHC Crossing Schemes
 ====================
 
-This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings` function
+This example shows how to use the `~.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings` function
 to visualise the crossing schemes setup at the LHC IRs.
 
 .. note::

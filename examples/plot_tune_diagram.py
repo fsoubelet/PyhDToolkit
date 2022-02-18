@@ -3,10 +3,8 @@
 Tune Diagram
 ============
 
-This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter.plot_tune_diagram` function to 
-visualise resonance lines up to certain orders
-
-In this example we will generate a dummy lattice, set its working point and track particles to plot their phase space coordinates.
+This example shows how to use the `~.plotters.TuneDiagramPlotter.plot_tune_diagram` function 
+to visualise resonance lines up to certain orders.
 """
 # sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt

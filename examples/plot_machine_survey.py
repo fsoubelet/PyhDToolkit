@@ -3,7 +3,7 @@
 Machine Survey
 ==============
 
-This example shows how to use the `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey` function
+This example shows how to use the `~.plotters.LatticePlotter.plot_machine_survey` function
 to represent your machine geometry in a from-the-top view.
 """
 # sphinx_gallery_thumbnail_number = 2
