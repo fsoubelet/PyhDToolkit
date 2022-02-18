@@ -5,7 +5,8 @@ defaults:
   run:
     shell: bash
 
-on:  # Runs on any push event to master
+on:  # Runs on any push event in a PR or any push event to master
+  pull_request:
   push:
     branches:
       - 'master'
@@ -21,6 +22,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Install LaTeX
+        run: sudo apt install -y texlive-latex-base texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra texlive-latex-recommended ghostscript
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -60,6 +64,14 @@ jobs:
 
       - name: Build documentation
         run: poetry run python -m sphinx -b html docs doc_build -d doc_build
+
+      - name: Upload build artifacts  # upload artifacts so reviewers can have a quick look without building documentation from the branch locally
+        uses: actions/upload-artifact@v2
+        if: success() && github.event_name == 'pull_request'  # only for pushes in PR
+        with:
+          name: site-build
+          path: doc_build
+          retention-days: 7
 
       - name: Upload documentation to gh-pages
         if: ${{ success() }}
