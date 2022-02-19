@@ -3,7 +3,6 @@ HTCondor Models
 ---------------
 
 A module with ``pydantic`` models to validate and store data obtained by querying the ``HTCondor`` queue.
-Created on *2021.07.30* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Union
 
@@ -12,6 +11,7 @@ from pydantic import BaseModel
 
 
 class BaseSummary(BaseModel):
+    """Class to encompass and validate the cluster's summary line in the ``condor_q`` output."""
     jobs: int
     completed: int
     removed: int
@@ -22,6 +22,7 @@ class BaseSummary(BaseModel):
 
 
 class ClusterSummary(BaseModel):
+    """Class to encompass and validate the cluster's info line in the ``condor_q`` output."""
     scheduler_id: str
     query: BaseSummary
     user: BaseSummary
@@ -29,6 +30,7 @@ class ClusterSummary(BaseModel):
 
 
 class HTCTaskSummary(BaseModel):
+    """Class to encompass and validate a specific job's line in the ``condor_q`` output."""
     owner: str
     batch_name: int
     submitted: DateTime
