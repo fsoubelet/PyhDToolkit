@@ -3,6 +3,24 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.13.2:
+
+0.13.2
+------
+
+Bug Fixes
+~~~~~~~~~
+
+* Fixed the ``get_pattern_twiss function`` in ``cpymadtools.twiss``. Starting with ``cpymad`` 1.9.0, ``Table.selected_rows()`` now actually returns the indices of the selected elements rather than returning a boolean mask. The previous (faulty) behavior had been worked around in ``get_pattern_twiss``, which is now an issue. The correct ``Table.selected_rows()`` behavior is now used.
+
+Maintenance
+~~~~~~~~~~~
+
+* The minimum ``cpymad`` required version is now 1.9.0.
+
+See `v0.13.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.1...0.13.2>`_.
+
+
 .. _release_0.13.1:
 
 0.13.1
