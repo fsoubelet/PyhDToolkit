@@ -161,7 +161,7 @@ def _make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
 
 
 def _process_scheduler_information_line(line: str) -> str:
-    """Extract only the 'Schedd: <cluster>.cern.ch' part oof the scheduler information line"""
+    """Extract only the 'Schedd: <cluster>.cern.ch' part of the scheduler information line"""
     result = re.search(r"Schedd: (.*).cern.ch", line)
     return result.group(1)
 
