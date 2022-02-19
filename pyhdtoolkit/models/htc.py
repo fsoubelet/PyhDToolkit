@@ -2,7 +2,7 @@
 HTCondor Models
 ---------------
 
-A module with ``pydantic`` models to validate and store data obtained by querying the ``HTCondor`` queue.
+Module with ``pydantic`` models to validate and store data obtained by querying the ``HTCondor`` queue.
 """
 from typing import Union
 
