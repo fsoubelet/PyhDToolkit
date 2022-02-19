@@ -3,6 +3,34 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.12.0:
+
+0.12.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``models`` module in ``cpymadtools`` to hold various ``pydantic`` models for data manipulated in the library functions.
+* Added a ``query_beam_attributes`` function in ``cpymadtools.parameters`` that returns a parsed and validated *MADXBeam* with all ``BEAM`` attributes from the ``MAD-X`` process based on the currently defined beam.
+* Added a ``ptc_twiss`` function in ``cpymadtools.ptc`` to conveniently create the ``PTC`` universe and perform a ``TWISS`` command according to the Ripken-Mais formalism.
+* Added a ``ptc_track_particle`` function in ``cpymadtools.ptc`` to conveniently create the ``PTC`` universe and perform particle tracking similarly to ``cpymadtools.track.track_single_particle``.
+* Added a ``get_footprint_lines`` function in ``cpymadtools.tune`` to obtain the (Qx, Qy) points needed to plot the footprint based on the *TfsDataFrame* returned by ``make_footprint_table``. To be considered experimental.
+* Added a ``get_footprint_patches`` function in ``cpymadtools.tune`` to obtain a collection of ``matplotlib.patches.Polygon`` elements needed to plot the footprint based on the *TfsDataFrame* returned by ``make_footprint_table``. To be considered experimental.
+* The ``get_table_tfs`` function in ``cpmadtools.utils`` now takes a *headers_table* argument to choose an internal table to use for headers.
+
+Maintenance
+~~~~~~~~~~~
+
+* The default energy value in ``cpymadtools.special.make_lhc_beams`` has been changed to 7000 [GeV] to reflect run III scenario.
+* The value for npart in ``cpymadtools.special.make_lhc_beams`` has been changed to 1.15e11 to reflect run III scenario.
+* The ``make_footprint_table`` in ``cpymadtools.tune`` now returns a *TfsDataFrame* instead of a `~pandas.DataFrame`, the headers of which are populated with useful values for other functions.
+* The ``beam_parameters`` function in ``cpymadtools.parameters`` has been moved to the ``optics.beam`` module and renamed ``compute_beam_parameters``.
+* The default ``patch.linewidth`` value in the phd matplotlib style has been changed to 1.5.
+
+See `v0.12.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.12.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.11.0...0.12.0>`_.
+
+
 .. _release_0.11.0:
 
 0.11.0
