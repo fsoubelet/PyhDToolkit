@@ -3,6 +3,27 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.11.0:
+
+0.11.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``cpymadtools.utils`` module with convenience functions for ``cpymad.mad.Madx`` objects, for now containing a single function ``get_table_tfs`` which turns an internal ``MAD-X`` table into a *TfsDataFrame*.
+* The ``get_amplitude_detuning`` and ``get_rdts`` functions in the ``cpymadtools.ptc`` module now have a fringe argument defaulting to False in order to enable fringe field calculations.
+* The ``get_amplitude_detuning`` and ``get_rdts`` functions in the ``cpymadtools.ptc`` module now transmit keyword arguments to respectively ``ptc_normal`` and ``ptc_twiss``.
+
+Documentation
+~~~~~~~~~~~~~
+
+* The ``get_amplitude_detuning`` and ``get_rdts`` functions in the ``cpymadtools.ptc`` module now contain extensive docstrings detailing their inner workings as well as parameters used in internal MAD-X commands.
+
+
+See `v0.11.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.11.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.10.0...0.11.0>`_.
+
+
 .. _release_0.10.0:
 
 0.10.0
