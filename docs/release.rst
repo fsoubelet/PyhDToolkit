@@ -3,6 +3,19 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.8.3:
+
+0.8.3
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a function in ``cpymadtools.twiss`` to export the entire twiss table to a *TfsDataFrame*.
+
+See `v0.8.3 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.3>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.2...0.8.3>`_.
+
+
 .. _release_0.8.2:
 
 0.8.2
@@ -32,8 +45,6 @@ Maintenance
 * ``plot_latwiss`` changed the parameter *plot_sextupoles* to *k2l_lim*, creating a dedicated axis for sextupole patches in the layout.
 * The ``plotting.settings`` module has been removed.
 * ``plot_latwiss`` doesn't force the pdf format when saving the figure anymore.
-
-
 
 See `v0.8.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.1...0.8.2>`_.
 
