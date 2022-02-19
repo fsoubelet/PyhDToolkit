@@ -1,4 +1,7 @@
 """
+
+.. _demo-tune-diagram:
+
 ============
 Tune Diagram
 ============

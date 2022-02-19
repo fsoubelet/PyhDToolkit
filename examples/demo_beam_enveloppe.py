@@ -1,4 +1,7 @@
 """
+
+.. _demo-beam-enveloppe:
+
 ==============
 Beam Enveloppe
 ==============

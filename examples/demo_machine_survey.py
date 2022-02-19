@@ -1,4 +1,7 @@
 """
+
+.. _demo-machine-survey:
+
 ==============
 Machine Survey
 ==============

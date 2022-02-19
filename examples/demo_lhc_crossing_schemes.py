@@ -1,4 +1,7 @@
 """
+
+.. _demo-crossing-schemes:
+
 ====================
 LHC Crossing Schemes
 ====================

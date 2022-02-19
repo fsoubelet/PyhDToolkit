@@ -1,4 +1,7 @@
 """
+
+.. _demo-free-tracking:
+
 ======================
 Free Tracking Spectrum
 ======================
@@ -6,8 +9,8 @@ Free Tracking Spectrum
 This example shows how to use the `~.track.track_single_particle` function to track a 
 particle with the ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
 
-In this example we will generate a dummy lattice, set its working point and track particles to 
-plot their phase space coordinates.
+In this example we will use the LHC lattice to illustrate the tracking workflow when using
+`~.cpymadtools`.
 """
 # sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt

@@ -1,4 +1,7 @@
 """
+
+.. _demo-accelerator-lattice:
+
 ===================
 Accelerator Lattice
 ===================

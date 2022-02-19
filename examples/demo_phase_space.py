@@ -1,4 +1,7 @@
 """
+
+.. _demo-phase-space:
+
 ===========
 Phase Space
 ===========

@@ -1,4 +1,7 @@
 """
+
+.. _demo-ir-errors:
+
 =========================
 LHC IR Errors Assignments
 =========================

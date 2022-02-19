@@ -1,4 +1,7 @@
 """
+
+.. _demo-accelerator-aperture:
+
 ====================
 Accelerator Aperture
 ====================
