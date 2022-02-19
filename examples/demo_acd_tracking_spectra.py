@@ -1,4 +1,7 @@
 """
+
+.. _demo-ac-dipole-tracking:
+
 ==================================
 AC Dipole Driven Tracking Spectrum
 ==================================
