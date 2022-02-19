@@ -36,7 +36,7 @@ def get_amplitude_detuning(
     Normal Form).
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         order (int): maximum derivative order coefficient (only 0, 1 or 2 implemented in `PTC`).
             Defaults to `2`.
         file (Union[Path, str]): path to output file. Default `None`
@@ -122,7 +122,7 @@ def get_rdts(
     through the provided `Madx` instance.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         order (int): map order for derivative evaluation of Twiss parameters. Defaults to `4`.
         file (Union[Path, str]): path to output file. Default `None`
         fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
@@ -177,7 +177,7 @@ def ptc_twiss(
     `NONLIN` which will then be available through the provided `Madx` instance.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         order (int): map order for derivative evaluation of Twiss parameters. Defaults to `4`.
         file (Union[Path, str]): path to output file. Default `None`
         fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.

@@ -16,7 +16,7 @@ def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> t
     Turns an internal table from the `MAD-X` process into a `TfsDataFrame` object.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         table_name (str): the name of the internal table.
         headers_table (str): the name of the internal table to use for headers. Defaults to `SUMM`.
 

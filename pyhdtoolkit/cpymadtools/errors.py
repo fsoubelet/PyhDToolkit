@@ -37,7 +37,7 @@ def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
     Applies magnetic field orders. This will only work for LHC and HLLHC machines.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Keyword Args:
         default: sets global default to this value. Defaults to `False`.
@@ -81,7 +81,7 @@ def misalign_lhc_ir_quadrupoles(
     different layouts incompatible with this function.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ips (Sequence[int]): the interaction point(s) around which to apply errors.
         beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single
             aperture, Q4 to Q10 are not and will need this information.
@@ -166,7 +166,7 @@ def misalign_lhc_triplets(
     `misalign_lhc_ir_quadrupoles` function, see that function's docstring for more information.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ip (int): the interaction point around which to apply errors.
         sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
             Defaults to both.

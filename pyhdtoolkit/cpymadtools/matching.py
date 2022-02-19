@@ -93,7 +93,7 @@ def match_tunes_and_chromaticities(
     NOTA BENE: The matching is always performed with the `CHROM` option on.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
             Automatic determination will only work for `LHC` and `HLLHC`.
         sequence (str): name of the sequence you want to perform the matching for.
@@ -182,7 +182,7 @@ def get_closest_tune_approach(
     performed here, and chromaticities are voluntarily ignored.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
             Automatic determination will only work for LHC and HLLHC.
         sequence (str): name of the sequence you want to activate for the tune matching.

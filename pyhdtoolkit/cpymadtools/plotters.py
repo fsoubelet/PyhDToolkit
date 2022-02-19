@@ -58,7 +58,7 @@ class AperturePlotter:
         assumes the user has previously made a call to the `APERTURE` command in `MAD-X`.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             title (str): title of your plot.
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 1).
             savefig (str): will save the figure if this is not None, using the string value passed.
@@ -174,7 +174,7 @@ class BeamEnvelopePlotter:
         stay-clear enveloppe in your machine, as well as an estimation of the aperture limits.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             beam_params (BeamParameters): a validated BeamParameters object from
                 `pyhdtoolkit.optics.beam.compute_beam_parameters`.
             figsize (Tuple[int, int]): size of the figure, defaults to (13, 20).
@@ -390,7 +390,7 @@ class CrossingSchemePlotter:
         re-`use` your wanted sequence after calling this function!
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             first_ip (int): the first of the two IPs to plot crossing schemes for.
             second_ip (int): the second of the two IPs to plot crossing schemes for.
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 12).
@@ -570,7 +570,7 @@ class LatticePlotter:
         very heavily reworked code, inspired by code from Guido Sterbini.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             title (str): title of your plot.
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
             savefig (str): will save the figure if this is not None, using the string value passed.
@@ -688,7 +688,7 @@ class LatticePlotter:
         representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             title (str): title of your plot.
             figsize (Tuple[int, int]): size of the figure, defaults to (16, 11).
             savefig (str): will save the figure if this is not None, using the string value passed.
@@ -769,7 +769,7 @@ class PhaseSpacePlotter:
         and momentum coordinates for a specific plane.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
                 u_coordinates[0] should be all tracked coordinates for the first particle and so on.
             pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
@@ -831,7 +831,7 @@ class PhaseSpacePlotter:
         156th color.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
                 u_coordinates[0] should be all tracked coordinates for the first particle and so on.
             pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
@@ -1098,7 +1098,7 @@ def _plot_machine_layout(
     The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         quadrupole_patches_axis (matplotlib.axes.Axes): the axis on which to plot. Will also create the
             appropriate new axes with `twinx()` to plot the element orders asked for.
         title (str): title of your plot.
@@ -1261,7 +1261,7 @@ def _make_elements_groups(
     the twiss table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
             to center a plot around a specific point or element, which would then become located at s = 0.
         xlimits (Tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this
@@ -1293,7 +1293,7 @@ def _make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     the survey table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Returns:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
@@ -1324,7 +1324,7 @@ def _get_twiss_table_with_offsets_and_limits(
     the given `xoffset`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         xoffset (float): An offset applied to the S coordinate in the dataframe.
         xlimits (Tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
             this is not `None`, using the tuple passed.

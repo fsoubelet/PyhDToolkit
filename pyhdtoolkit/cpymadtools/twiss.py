@@ -34,7 +34,7 @@ def get_pattern_twiss(
     itself.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         patterns (Sequence[str]): the different element patterns (such as `MQX` or `BPM`) to be applied to
             the command, which will determine the rows in the returned DataFrame. Defaults to [""] which
             will select all elements.
@@ -76,7 +76,7 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     will call the `TWISS` command first before returning the dframe to you.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Keyword Args:
         Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
@@ -105,7 +105,7 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
     included as the TfsDataFrame's header dictionary.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
 
     Keyword Args:
@@ -125,7 +125,7 @@ def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COL
     left and right of the IP. The `SUMM` table will be included as the TfsDataFrame's header dictionary.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ir (int): which interaction region to get the TWISS for.
         columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
 

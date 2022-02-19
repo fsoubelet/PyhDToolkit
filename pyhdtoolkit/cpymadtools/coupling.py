@@ -43,7 +43,7 @@ def get_closest_tune_approach(
     performed here, and chromaticities are voluntarily ignored.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
             Automatic determination will only work for LHC and HLLHC.
         sequence (str): name of the sequence you want to activate for the tune matching.
@@ -123,7 +123,7 @@ def match_no_coupling_through_ripkens(
     Matching routine to get cross-term Ripken parameters beta_12 and beta_21 to be 0 at a given location.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         sequence (str): name of the sequence to use for the matching.
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
         vary_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine.

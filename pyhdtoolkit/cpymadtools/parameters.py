@@ -21,7 +21,7 @@ def query_beam_attributes(madx: Madx) -> MADXBeam:
     manual for details.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Returns:
         A validated `MADXBeam` object.

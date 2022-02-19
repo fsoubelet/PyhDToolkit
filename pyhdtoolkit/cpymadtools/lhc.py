@@ -32,7 +32,7 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
     Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         energy (float): beam energy in GeV. Defaults to 6500.
         emittance (float): emittance in meters, which will be used to calculate geometric emittance,
             then fed to the BEAM command.
@@ -65,7 +65,7 @@ def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_a
     Power the Landau octupoles in the (HL)LHC.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         mo_current (float): MO powering in Amps.
         beam (int): beam to use.
         defective_arc: If set to `True`, the KOD in Arc 56 are powered for less Imax.
@@ -95,7 +95,7 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
     Deactivate all arc sextupoles in the (HL)LHC.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         beam (int): beam to use.
     """
     # KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56
@@ -118,7 +118,7 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     function.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users
             don't mess up local coupling by mistake. This should be a positive integer, normally between 1
             and 10.
@@ -151,7 +151,7 @@ def apply_lhc_rigidity_waist_shift_knob(
     works well.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).
         ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
             Classically 1 or 5.
@@ -187,7 +187,7 @@ def apply_lhc_coupling_knob(
     Applies the LHC coupling knob to reach the desired C- value.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0
         so users don't mess up coupling by mistake
         beam (int): beam to apply the knob to, defaults to beam 1.
@@ -226,7 +226,7 @@ def install_ac_dipole_as_kicker(
     `make_lhc_beams` function), matched to your desired working point and made a TWISS.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.
         deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.
         sigma_x (float): the horizontal amplitude to drive the beam to, in bunch sigma.
@@ -302,7 +302,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     `make_lhc_beams` function), matched to your desired working point and made a TWISS.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.
         deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.
         beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.
@@ -354,7 +354,7 @@ def vary_independent_ir_quadrupoles(
     It is necessary to have defined a 'brho' variable when creating your beams.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).
         ip (int): the IP around which to apply the instructions. Defaults to 1.
         sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left.
@@ -400,7 +400,7 @@ def reset_lhc_bump_flags(madx: Madx) -> None:
     Resets all LHC IP bump flags to 0.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
     """
     logger.info("Resetting all LHC IP bump flags")
     ALL_BUMPS = (
@@ -424,7 +424,7 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
     Prepare output for sixtrack run.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         energy (float): beam energy in GeV.
     """
     logger.info("Preparing outputs for SixTrack")
@@ -535,7 +535,7 @@ def match_no_coupling_through_ripkens(
     Matching routine to get cross-term Ripken parameters beta_12 and beta_21 to be 0 at a given location.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         sequence (str): name of the sequence to activate for the matching.
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
         vary_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine.

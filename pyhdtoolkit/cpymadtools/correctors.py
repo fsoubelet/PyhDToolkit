@@ -126,7 +126,7 @@ def _knob_value(madx: Madx, knob: str) -> float:
     case that knob has not been defined in the current process.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         knob (str): the name the knob.
 
     Returns:

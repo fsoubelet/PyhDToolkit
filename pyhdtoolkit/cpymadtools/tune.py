@@ -33,7 +33,7 @@ def make_footprint_table(
     this function.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         sigma (float): the maximum amplitude of the tracked particles, in bunch sigma. Defaults to 5.
         dense (bool): if set to True, an increased number of particles will be tracked. Defaults to False.
         file (str): If given, the `dynaptune` table will be exported as a TFS file with the provided name.

@@ -78,7 +78,7 @@ def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, flo
     Assumed that at least sequence and optics files have been called.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         scheme (str): the default scheme to apply, as defined in `LHC_CROSSING_SCHEMES`. Accepted values
             are keys of `LHC_CROSSING_SCHEMES`. Defaults to 'flat' (every orbit variable to 0).
 
@@ -120,7 +120,7 @@ def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
     Get the current values for the (HL)LHC orbit variales.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Returns:
         A dictionary of all orbit variables set, and their values as set in the MAD-X globals.
@@ -142,7 +142,7 @@ def correct_lhc_orbit(
     Routine for orbit correction using 'MCB.*' elements in the LHC.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         sequence (str): which sequence to use the routine on.
         orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.
         iterations (int): the number of iterations of the correction to perform. Defaults to 3.
