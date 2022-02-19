@@ -481,8 +481,8 @@ class MiscellaneousOperations:
             .. code-block:: python
 
               >>> MiscellaneousOperations.longest_item(
-                      list(range(5)), list(range(100)), list(range(50))
-                  )
+              ...     list(range(5)), list(range(100)), list(range(50))
+              ... )
               list(range(100))
         """
         return max(args, key=len)
@@ -506,9 +506,9 @@ class MiscellaneousOperations:
             .. code-block:: python
 
               >>> MiscellaneousOperations.map_values(
-                      {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
-                      lambda x: len(x)
-                  )
+              ...     {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
+              ...     lambda x: len(x)
+              ... )
               {"a": 5, "b": 10, "c": 15}
         """
         ret = {}

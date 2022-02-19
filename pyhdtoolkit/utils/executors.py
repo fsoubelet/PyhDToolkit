@@ -38,10 +38,10 @@ class MultiProcessor:
 
             >>> Processor = MultiProcessor()
             >>> results_one_tuple_per_run = Processor.execute_function(
-                    func=your_cpu_heavy_function,
-                    func_args=list_of_args_for_each_call,
-                    n_processes=some_int_up_to_you,
-                )
+            ...     func=your_cpu_heavy_function,
+            ...     func_args=list_of_args_for_each_call,
+            ...     n_processes=some_int_up_to_you,
+            ... )
     """
 
     @staticmethod
@@ -84,10 +84,10 @@ class MultiThreader:
 
             >>> Processor = MultiProcessor()
             >>> results_one_tuple_per_run = Processor.execute_function(
-                    func=your_io_heavy_function,
-                    func_args=list_of_args_for_each_call,
-                    n_processes=some_int_up_to_you,
-                )
+            ...     func=your_io_heavy_function,
+            ...     func_args=list_of_args_for_each_call,
+            ...     n_processes=some_int_up_to_you,
+            ... )
     """
 
     @staticmethod
