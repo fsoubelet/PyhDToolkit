@@ -1,4 +1,6 @@
 """
+.. _utils-misc:
+
 Miscellanous Personnal Utilities
 --------------------------------
 

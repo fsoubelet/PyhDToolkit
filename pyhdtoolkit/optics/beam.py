@@ -1,4 +1,6 @@
 """
+.. _optics-beam:
+
 Beam Optics
 -----------
 

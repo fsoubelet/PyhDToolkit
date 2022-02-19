@@ -1,4 +1,7 @@
 """
+.. _cpymadtools-coupling:
+
+
 Betatron Coupling Utilities
 ---------------------------
 

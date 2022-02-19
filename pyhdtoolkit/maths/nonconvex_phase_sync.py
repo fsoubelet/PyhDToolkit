@@ -1,4 +1,6 @@
 r"""
+.. _maths-nonconvex-phase-sync:
+
 Nonconvex Phase Synchronization
 -------------------------------
 

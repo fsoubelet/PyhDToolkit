@@ -1,4 +1,6 @@
 """
+.. _utils-cmdline:
+
 Command Line Utilities
 ----------------------
 

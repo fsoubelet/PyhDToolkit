@@ -1,4 +1,6 @@
 """
+.. _optics-twiss:
+
 Twiss Optics
 ------------
 

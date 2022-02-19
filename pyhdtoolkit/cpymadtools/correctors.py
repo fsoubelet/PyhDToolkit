@@ -1,4 +1,7 @@
 """
+.. _cpymadtools-correctors:
+
+
 Correctors
 ----------
 

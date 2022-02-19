@@ -1,4 +1,6 @@
 """
+.. _maths-stats-fitting:
+
 Stats Fitting
 -------------
 

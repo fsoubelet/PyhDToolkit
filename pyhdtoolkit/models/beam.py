@@ -1,4 +1,6 @@
 """
+.. _models-beam:
+
 Particle Beam Models
 --------------------
 

@@ -1,4 +1,6 @@
 """
+.. _plotting-helpers:
+
 Plotting Helpers
 ----------------
 

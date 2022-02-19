@@ -1,4 +1,6 @@
 """
+.. _cpymadtools-utils:
+
 Miscellaneous Utilities
 -----------------------
 

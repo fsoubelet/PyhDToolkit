@@ -1,4 +1,7 @@
 """
+.. _cpymadtools-lhc:
+
+
 LHC-Specific Utilities
 ----------------------
 

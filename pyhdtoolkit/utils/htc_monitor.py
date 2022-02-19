@@ -1,4 +1,6 @@
 """
+.. _utils-htc-monitor:
+
 HTCondor Monitoring
 -------------------
 

@@ -1,4 +1,6 @@
 """
+.. _models-htc:
+
 HTCondor Models
 ---------------
 

@@ -1,4 +1,6 @@
 """
+.. _models-madx:
+
 MAD-X Models
 ------------
 

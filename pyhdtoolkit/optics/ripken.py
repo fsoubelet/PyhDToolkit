@@ -1,4 +1,6 @@
 """
+.. _optics-ripken:
+
 Ripken Parameters
 -----------------
 

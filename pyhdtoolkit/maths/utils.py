@@ -1,4 +1,6 @@
 """
+.. _maths-utils:
+
 Utilities
 ---------
 
