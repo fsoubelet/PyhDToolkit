@@ -436,8 +436,9 @@ class ListOperations:
         """
         Creates a `list` of lists of elements, each internal list being a grouping based
         on the position of elements in the original sequences. Essentially, a list containing:
-         * a first list with all first elements,
-         * then a second list with all second elements, etc.
+        
+        * a first list with all first elements,
+        * then a second list with all second elements, etc.
 
         Uses `max` combined with list comprehension to get the length of the longest list in
         the arguments. Loops for max_length times grouping elements. If lengths of sequences
