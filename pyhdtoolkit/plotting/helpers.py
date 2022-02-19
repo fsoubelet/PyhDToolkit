@@ -2,8 +2,7 @@
 Plotting Helpers
 ----------------
 
-A collection of functions for more descriptive plots.
-Created on *2019.06.15* by Felix Soubelet (felix.soubelet@cern.ch).
+A collection of utility functions for more descriptive plots.
 """
 from typing import Tuple
 
@@ -25,22 +24,22 @@ class AnnotationsPlotter:
         **kwargs,
     ) -> matplotlib.text.Annotation:
         """
-        Add a label box with text and an arrow from the box to a specified position to an existing
-        provided matplotlib.axes `Axes` instance. Original code from Guido Sterbini.
+        Adds on the provided `matplotlib.axes.Axes` a label box with text and an arrow from the box to a specified position.
+        Original code from :user:`Guido Sterbini <sterbini>`.
 
         Args:
-            axis (matplotlib.axes.Axes): a matplotlib axis to plot on.
+            axis (matplotlib.axes.Axes): a `matplotlib.axes.Axes` to plot on.
             label (str): label text to print on the axis.
             arrow_position (Tuple[float, float]): where on the plot to point the tip of the arrow.
             label_position (Tuple[float, float]): where on the plot the text label (and thus start
                 of the arrow) is.
-            color (str): color parameter for your arrow and label. Defaults to 'k'.
+            color (str): color parameter for your arrow and label. Defaults to "k".
             arrow_arc_rad (float): angle value defining the upwards / downwards shape of and
                 bending of the arrow.
-            fontsize (int): text size in the box
+            fontsize (int): text size in the box.
 
         Returns:
-            A matploblit text annotation object.
+            A `matploblit.text.Annotation` of the created annotation.
         """
         return axis.annotate(
             label,
