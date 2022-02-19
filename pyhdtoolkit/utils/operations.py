@@ -25,13 +25,13 @@ class ListOperations:
     @staticmethod
     def all_unique(sequence: Sequence) -> bool:
         """
-        Returns `~True` if all the values in a flat list are unique, `~False` otherwise.
+        Returns `True` if all the values in a flat list are unique, `False` otherwise.
 
         Args:
             sequence (Sequence): a sequence of elements.
 
         Returns:
-            `~True` if all elements are unique, `~False` otherwise.
+            `True` if all elements are unique, `False` otherwise.
         """
         return len(sequence) == len(set(sequence))
 
@@ -39,15 +39,15 @@ class ListOperations:
     def average_by(sequence: Sequence, function: Callable = lambda x: x) -> float:
         """
         Returns the average of *sequence* after mapping each element to a value using the
-        provided function. Use `~map` to map each element to the value returned by function.
-        Uses `~sum` to sum all of the mapped values, divided by `~len`.
+        provided function. Use `map` to map each element to the value returned by *function*.
+        Uses `sum` to sum all of the mapped values, divided by `len`.
 
         Args:
             sequence (Sequence): a sequence of elements.
             function (Callable): function to apply to elements of the sequence.
 
         Returns:
-            The average of each element's result through `function`.
+            The average of each element's result through *function*.
 
         Example:
             .. code-block:: python
@@ -60,9 +60,9 @@ class ListOperations:
     @staticmethod
     def bifurcate(sequence: Sequence, filters: List[bool]) -> Sequence:
         """
-        Splits values into two groups. If an element in filter is `~True`, the corresponding 
+        Splits values into two groups. If an element in filter is `True`, the corresponding 
         element in the collection belongs to the first group; otherwise, it belongs to the 
-        second group. Uses list comprehension and `~enumerate` to add elements to groups, 
+        second group. Uses list comprehension and `enumerate` to add elements to groups, 
         based on *filter*.
 
         Args:
@@ -87,7 +87,7 @@ class ListOperations:
     def bifurcate_by(sequence: Sequence, function: Callable) -> list:
         """
         Splits values into two groups according to a function, which specifies which group an
-        element in the input sequence belongs to. If the function returns `~True`, the element 
+        element in the input sequence belongs to. If the function returns `True`, the element 
         belongs to the first group; otherwise it belongs to the second group. Uses list 
         comprehension to add elements to groups, based on *function*.
 
@@ -111,21 +111,24 @@ class ListOperations:
     @staticmethod
     def chunk_list(sequence: Sequence, size: int) -> Sequence:
         """
-        Chunks a list into smaller lists of a specified size. If the size is bigger than initial
-        list, return the initial list to avoid unnecessary nesting.
-        Use list() and range() to create a list of the desired size. Use map() on the list and
-        fill it with splices of the given list. Finally, return use created list.
+        Chunks a sequence into smaller lists of a specified size. If the size is bigger 
+        than that of *sequence*, return *sequence* to avoid unnecessary nesting. Uses 
+        `list` and `range` to create a list of the desired size. Uses `map` on that 
+        list and fills it with splices of *sequence*. Finally, returns the created list.
 
         Args:
             sequence (Sequence): a sequence of elements.
             size (int): the size of the wanted sublists.
 
         Returns:
-            A list of lists of length `size` (except maybe the last element), with elements
-            from `lst`.
+            A `list` of lists of length `size` (except maybe the last element), with 
+            elements from *sequence*.
 
-        Usage:
-            chunk_list(list(range(10)), 3) -> [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
+        Example:
+            .. code-block:: python
+              
+              >>> ListOperations.chunk_list(list(range(10)), 3)
+              [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
         """
         if size > len(sequence):
             return sequence
@@ -134,17 +137,19 @@ class ListOperations:
     @staticmethod
     def deep_flatten(sequence: Sequence) -> list:
         """
-        Deep flattens a list, no matter the nesting levels. This is a recursive approach.
+        Recursively deep flattens *sequence*, no matter the nesting levels.
 
         Args:
             sequence (Sequence): a sequence of elements.
 
         Returns:
-            A list with all elements of `lst`, but flattened.
+            A `list` with all elements of *sequence*, but flattened.
 
-        Usage:
-            deep_flatten([["a", "b"], [1, 2], None, [True, False]])
-            -> ["a", "b", 1, 2, None True, False]
+        Example:
+            .. code-block:: python
+              
+              >>> ListOperations.deep_flatten([["a", "b"], [1, 2], None, [True, False]])
+              ["a", "b", 1, 2, None True, False]
         """
         return (
             [elem for sublist in sequence for elem in ListOperations.deep_flatten(sublist)]
@@ -155,21 +160,27 @@ class ListOperations:
     @staticmethod
     def eval_none(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
         """
-        Returns False if the provided function returns True for at least one element in the list,
-        True otherwise. Iterate over the elements of the list to test if every element in the
-        list returns False based on function. Omit the seconds argument, function, to check if
-        all elements are False.
+        Returns `False` if the provided *function* returns `True` for at least one element 
+        in *sequence*, `True` otherwise. Iterates over *sequence* to test if every element 
+        returns `False` based on function. Omit the seconds argument, *function*, to check 
+        if all elements are `False`.
 
         Args:
             sequence (Sequence): a sequence of elements.
-            function (Callable): a callable on elements of `sequence` that should return a boolean.
+            function (Callable): a callable on elements of *sequence* that should return 
+                a boolean.
 
         Returns:
             A boolean. See first line of docstring.
 
-        Usage:
-            eval_none([0, 0, 1, 0], lambda x: x >= 2) -> True
-            eval_none([0, 1, 2, 0], lambda x: x >= 2) -> False
+        Example:
+            .. code-block:: python
+              
+              >>> ListOperations.eval_none([0, 0, 1, 0], lambda x: x >= 2)
+              True
+              
+              >>> ListOperations.eval_none([0, 1, 2, 0], lambda x: x >= 2)
+              False
         """
         return not any(map(function, sequence))
 
