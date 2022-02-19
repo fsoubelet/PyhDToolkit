@@ -3,6 +3,30 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.7.0:
+
+0.7.0
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added an ``errors`` submodule to handle (HL)LHC magnetic errors setup.
+* Added a ``matching`` submodule with routines for ``MAD-X`` matching and closest tune approach determination.
+* Added an ``orbit`` submodule to handle (HL)LHC orbit variables setup.
+* Added a ``ptc`` submodule with routines for ``MAD-X`` ``PTC`` operations.
+* Added a ``special`` submodule with routines for personal use cases for (HL)LHC in ``MAD-X``.
+
+Maintenance
+~~~~~~~~~~~
+
+* Cleanup of some modules.
+* Improved test coverage.
+* Tweaks to dev configurations.
+
+See `v0.7.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.7.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.6.0...0.7.0>`_.
+
+
 .. _release_0.6.0:
 
 0.6.0
