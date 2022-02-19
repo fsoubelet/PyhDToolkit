@@ -518,4 +518,5 @@ intersphinx_mapping = {
     "tfs-pandas": ("https://pylhc.github.io/tfs/", None),
     "tfs": ("https://pylhc.github.io/tfs/", None),
     "cpymad": ("https://hibtc.github.io/cpymad/", None),
+    "pyhdtoolkit": ("https://fsoubelet.github.io/PyhDToolkit/", None),
 }
