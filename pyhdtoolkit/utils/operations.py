@@ -673,24 +673,23 @@ class StringOperations:
     @staticmethod
     def camel_case(text: str) -> str:
         """
-        Converts a string to camelCase.
-        Break the string into words and combine them capitalizing the first letter of each word,
-        using a regexp, title() and lower.
+        Converts a `string` to camelCase. Breaks the string into words and combines
+        them capitalizing the first letter of each word, using a regexp, `title` and `lower`.
 
         Args:
             text (str): a string.
 
         Returns:
-            The same string best adapted to camel_case.
+            The same `string` best adapted to camelCase.
 
         Example:
             .. code-block:: python
               
-              >>> StringOperations.has_duplicates([1, 2, 1])
-              True
-        Usage:
-            camel_case("a_snake_case_name") -> "aSnakeCaseName"
-            camel_case("A Title Case Name") -> "aTitleCaseName"
+              >>> StringOperations.camel_case("a_snake_case_name")
+              "aSnakeCaseName"
+              
+              >>> StringOperations.camel_case("A Title Case Name")
+              "aTitleCaseName"
         """
         text = re.sub(r"(\s|_|-)+", " ", text).title().replace(" ", "")
         return text[0].lower() + text[1:]
@@ -698,10 +697,9 @@ class StringOperations:
     @staticmethod
     def capitalize(text: str, lower_rest: bool = False) -> str:
         """
-        Capitalizes the first letter of a string, eventually lowers the rest of it.
-        Capitalize the first letter of the string and then add it with rest of the string.
-        Omit the lower_rest parameter to keep the rest of the string intact, or set it to True
-        to convert to lowercase.
+        Capitalizes the first letter of a `string`, eventually lowers the rest of it.
+        Omit the *lower_rest* parameter to keep the rest of the string intact, or set 
+        it to `True` to convert to lowercase.
 
         Args:
             text (str): a string.
@@ -713,21 +711,22 @@ class StringOperations:
         Example:
             .. code-block:: python
               
-              >>> StringOperations.has_duplicates([1, 2, 1])
-              True
-        Usage:
-            capitalize("astringtocapitalize") -> "Astringtocapitalize"
-            capitalize("astRIngTocApItalizE", lower_rest=True) -> "Astringtocapitalize"
+              >>> StringOperations.capitalize("astringtocapitalize")
+              "Astringtocapitalize"
+              
+              >>> StringOperations.capitalize("astRIngTocApItalizE", lower_rest=True)
+              "Astringtocapitalize"
         """
         return text[:1].upper() + (text[1:].lower() if lower_rest else text[1:])
 
     @staticmethod
     def is_anagram(str_1: str, str_2: str) -> bool:
         """
-        Checks if a string is an anagram of another string (case-insensitive, ignores spaces,
-        punctuation and special characters). Use str.replace() to remove spaces from both strings.
-        Compare the lengths of the two strings, return False if they are not equal. Use sorted()
-        on both strings and compare the results.
+        Checks if a `string` is an anagram of another string (case-insensitive, 
+        ignores spaces, punctuation and special characters). Uses `str.replace` 
+        to remove spaces from both strings. Compares the lengths of the two strings, 
+        return `False` if they are not equal. Uses `sorted` on both strings and 
+        compares the results.
 
         Args:
             str_1 (str): a string.
@@ -739,11 +738,11 @@ class StringOperations:
         Example:
             .. code-block:: python
               
-              >>> StringOperations.has_duplicates([1, 2, 1])
+              >>> StringOperations.is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort")
               True
-        Usage:
-           is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort") -> True
-           is_anagram("A first string", "Definitely not an anagram") -> False
+              
+              >>> StringOperations.is_anagram("A first string", "Definitely not an anagram")
+              False
         """
         _str1, _str2 = (
             str_1.replace(" ", "").replace("'", ""),
@@ -754,24 +753,24 @@ class StringOperations:
     @staticmethod
     def is_palindrome(text: str) -> bool:
         """
-        Returns True if the given string is a palindrome, False otherwise.
-        Use str.lower() and re.sub() to convert to lowercase and remove non-alphanumeric
+        Returns `True` if the given string is a palindrome, `False` otherwise.
+        Uses `str.lower` and `re.sub` to convert to lowercase and remove non-alphanumeric
         characters from the given string. Then compare the new string with its reverse.
 
         Args:
             text (str): a string.
 
         Returns:
-            A boolean stating whether `string` is a palindrome or not.
+            A boolean stating whether *text* is a palindrome or not.
 
         Example:
             .. code-block:: python
               
-              >>> StringOperations.has_duplicates([1, 2, 1])
+              >>> StringOperations.is_palindrome("racecar")
               True
-        Usage:
-            is_palindrome("racecar") -> True
-            is_palindrome("definitelynot") -> False
+              
+              >>> StringOperations.is_palindrome("definitelynot")
+              False
         """
         s_reverse = re.sub(r"[\W_]", "", text.lower())
         return s_reverse == s_reverse[::-1]
@@ -779,8 +778,8 @@ class StringOperations:
     @staticmethod
     def kebab_case(text: str) -> str:
         """
-        Converts a string to kebab-case.
-        Break the string into words and combine them adding - as a separator, using a regexp.
+        Converts a string to kebab-case. Breaks the string into words and 
+        combines them adding `-` as a separator, using a regexp.
 
         Args:
             text (str): a string.
@@ -791,11 +790,11 @@ class StringOperations:
         Example:
             .. code-block:: python
               
-              >>> StringOperations.has_duplicates([1, 2, 1])
-              True
-        Usage:
-            kebab_case("camel Case") -> "camel-case"
-            kebab_case("snake_case") -> "snake-case"
+              >>> StringOperations.kebab_case("camel Case")
+              "camel-case"
+              
+              >>> StringOperations.kebab_case("snake_case")
+              "snake-case"
         """
         return re.sub(
             r"(\s|_|-)+",
@@ -810,8 +809,8 @@ class StringOperations:
     @staticmethod
     def snake_case(text: str) -> str:
         """
-        Converts a string to snake_case.
-        Break the string into words and combine them adding _ as a separator, using a regexp.
+        Converts a string to snake_case. Breaks the string into words and 
+        combines them adding `_` as a separator, using a regexp.
 
         Args:
             text (str): a string.
@@ -822,11 +821,11 @@ class StringOperations:
         Example:
             .. code-block:: python
               
-              >>> StringOperations.has_duplicates([1, 2, 1])
-              True
-        Usage:
-            snake_case("A bunch of words") -> "a_bunch_of_words"
-            snake_case("camelCase") -> "camelcase"
+              >>> StringOperations.snake_case("A bunch of words")
+              "a_bunch_of_words"
+              
+              >>> StringOperations.snake_case("camelCase")
+              "camelcase"
         """
         return re.sub(
             r"(\s|_|-)+",
