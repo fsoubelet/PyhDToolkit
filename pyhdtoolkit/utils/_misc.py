@@ -103,7 +103,7 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     """
     Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
     configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and
-    then `USE`d. Specific variable settings can be given as keyword arguments.
+    then ``USE``-d. Specific variable settings can be given as keyword arguments.
     
     .. important::
         Matching is **not** performed by this function and should be taken care of by the user, but the working point 
