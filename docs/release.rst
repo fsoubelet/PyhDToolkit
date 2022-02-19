@@ -3,6 +3,35 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.8.0:
+
+0.8.0
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``twiss`` submodule to easily get specific patterns.
+* Added a ``track`` submodule to handle particle tracking with ``MAD-X``'s ``TRACK`` command.
+* Added utilities to get ``TWISS`` frame for specific IP or IR locations.
+* Added utilities to ``MAKETHIN`` for (HL)LHC sequences.
+* Added a utility to install an AC dipole in LHC beam 1.
+
+Bug Fixes
+~~~~~~~~~
+
+* Closest tune approach determination now properly handles explicit targets
+
+Maintenance
+~~~~~~~~~~~
+
+* The ``cpymadtools`` now use *madx* as a parameter name instead of *cpymad_instance*.
+* Relaxed dependencies.
+
+
+See `v0.8.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.7.0...0.8.0>`_.
+
+
 .. _release_0.7.0:
 
 0.7.0
