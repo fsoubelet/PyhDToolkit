@@ -3,6 +3,19 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.14.1:
+
+0.14.1
+------
+
+Maintenance
+~~~~~~~~~~~
+
+* Both tracking functions ``ptc_track_particle`` and ``track_single_particle`` in respectively the ``cpymadtools.ptc`` and ``cpymadtools.track`` modules now log a warning when a string value is given to their *sequence* argument. Giving a value means the provided sequence will be ``USE``-ed in ``MAD-X``, leading to a loss of set errors, orbit corrections etc whch the user should be well aware of. This caveat has been added to the functions' docstrings. An info level log has also been added at the start of each function for consistency with the rest of the package.
+
+See `v0.14.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.14.0...0.14.1>`_.
+
+
 .. _release_0.14.0:
 
 0.14.0
