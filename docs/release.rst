@@ -3,6 +3,30 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.13.0:
+
+0.13.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``install_ac_dipole_as_matrix`` function in the ``cpymadtools.special`` module to install an AC Dipole element as a matrix, which will reflect its effect on twiss functions (which the kicker implementation does not). This matrix implementation cannot be used to influence particle tracking.
+
+Bug Fixes
+~~~~~~~~~
+
+* The ``install_ac_dipole_as_kicker`` function now properly sets the element location to avoid a negative drift (location taken from omc3's model_creator) if the sequence wasn't previously made ``THIN`` (which it should).
+* The ``install_ac_dipole_as_kicker`` function now makes a use, sequence=... call after installing the element. Beware this means errors, correctors etc that were set / loaded will be lost.
+
+Maintenance
+~~~~~~~~~~~
+
+* The ``install_ac_dipole`` function in ``cpymadtools.special`` is now named ``install_ac_dipole_as_kicker``. This kicker implementation **cannot** be used to affect twiss functions, only particle tracking.
+
+See `v0.13.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.12.0...0.13.0>`_.
+
+
 .. _release_0.12.0:
 
 0.12.0
