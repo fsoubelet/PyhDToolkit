@@ -60,7 +60,7 @@ CLUSTER_COLUMNS_SETTINGS = {
 
 def query_condor_q() -> str:
     """
-    Returns a decoded string with the result of the ``condor_q`` command, 
+    Returns a decoded string with the result of the ``condor_q`` command,
     to get the status of the caller' jobs.
     """
     return_code, raw_result = CommandLine.run("condor_q")
@@ -73,21 +73,21 @@ def query_condor_q() -> str:
 
 def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
     """
-    Splits information from different parts of the ``condor_q`` command's output 
+    Splits information from different parts of the ``condor_q`` command's output
     into one clean, validated data structure.
 
     Args:
         report (str): the utf-8 decoded string returned by the ``condor_q`` command.
 
     Returns:
-        A `tuple`. The first element is a `list` of each task summary given by ``condor_q``, 
+        A `tuple`. The first element is a `list` of each task summary given by ``condor_q``,
         each as a validated `~.models.htc.HTCTaskSummary`` object. The second element is a
-        validated `~.models.htc.ClusterSummary` object with scheduler identification and summaries 
+        validated `~.models.htc.ClusterSummary` object with scheduler identification and summaries
         of the user as well as all users' statistics on this scheduler cluster.
 
     Example:
         .. code-block:: python
-            
+
             >>> condor_q_output = get_the_string_as_you_wish(...)
             >>> tasks, cluster = read_condor_q(condor_q_outout)
     """

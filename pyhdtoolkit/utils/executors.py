@@ -28,14 +28,14 @@ from loguru import logger
 class MultiProcessor:
     """
     A class to easily wrap a multi-processing context manager call to a function.
-    
+
     .. important::
         * Reminder: multiprocessing is good for cpu-heavy tasks.
         * Reminder: only picklable objects can be executed and returned.
 
     Example:
         .. code-block:: python
-            
+
             >>> Processor = MultiProcessor()
             >>> results_one_tuple_per_run = Processor.execute_function(
                     func=your_cpu_heavy_function,
@@ -48,7 +48,7 @@ class MultiProcessor:
     def execute_function(func: Callable, func_args: list, n_processes: int) -> List[tuple]:
         """
         Executes the *function* with the provided arguments *func_args* as multiple processes.
-        
+
         .. warning::
             Do not fire up more processes than you have cores! Never!
 
@@ -58,7 +58,7 @@ class MultiProcessor:
                 takes more than one parameter, wrap them up in tuples, e.g.:
                 `[(params, run, one), (params, run, two), (params, run, three)]`.
             n_processes (int): the number of processes to fire up. No more than your number of
-                cores! If *n_processes* is `None` or not given, `~concurrent.futures.ProcessPoolExecutor` 
+                cores! If *n_processes* is `None` or not given, `~concurrent.futures.ProcessPoolExecutor`
                 will default it to the number of processors on the machine.
 
         Returns:
@@ -75,13 +75,13 @@ class MultiProcessor:
 class MultiThreader:
     """
     A class to easily wrap a multi-threading context manager call to a function.
-    
+
     .. important::
         Reminder: multithreading is good for IO-heavy tasks.
 
     Example:
         .. code-block:: python
-            
+
             >>> Processor = MultiProcessor()
             >>> results_one_tuple_per_run = Processor.execute_function(
                     func=your_io_heavy_function,
@@ -94,10 +94,10 @@ class MultiThreader:
     def execute_function(func: Callable, func_args: list, n_threads: int) -> List[tuple]:
         """
         Executes the *function* with the provided arguments *func_args* as multiple threads.
-        
+
         .. note::
-            Remember: there is no point of having more threads than the number calls to be 
-            executed, the excess threads would be idle and you wouldd lose the time spent 
+            Remember: there is no point of having more threads than the number calls to be
+            executed, the excess threads would be idle and you wouldd lose the time spent
             to fire them up.
 
         Args:
@@ -106,10 +106,10 @@ class MultiThreader:
                 takes more than one parameter, wrap them up in tuples, e.g.:
                 `[(params, run, one), (params, run, two), (params, run, three)]`.
             n_threads (int): the number of threads to fire up. No more than your number of
-                tasks. If *n_threads* is `None` or not given, `~concurrent.futures.ThreadPoolExecutor` 
-                will default it to the number of processors on the machine multiplied by 5, 
-                assuming that it is often used to overlap I/O instead of CPU work and 
-                the number of workers should be higher than the number of workers for 
+                tasks. If *n_threads* is `None` or not given, `~concurrent.futures.ThreadPoolExecutor`
+                will default it to the number of processors on the machine multiplied by 5,
+                assuming that it is often used to overlap I/O instead of CPU work and
+                the number of workers should be higher than the number of workers for
                 a `~concurrent.futures.ProcessPoolExecutor`.
 
         Returns:
