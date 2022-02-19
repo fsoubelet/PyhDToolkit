@@ -3,6 +3,24 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.8.5:
+
+0.8.5
+-----
+
+Bug Fixes
+~~~~~~~~~
+
+* The ``match_tunes_and_chromaticities`` function now properly behaves if some of the targets are set to 0.
+
+Maintenance
+~~~~~~~~~~~
+
+* The default behavior in lattice slicing is changed to have makedipedge as False, which compensates the effect of the default slicing style ``TEAPOT``.
+
+See `v0.8.5 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.5>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.4...0.8.5>`_.
+
+
 .. _release_0.8.4:
 
 0.8.4
