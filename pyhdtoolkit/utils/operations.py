@@ -2,9 +2,8 @@
 Operations Utilties
 -------------------
 
-A collection classes with utility functions to perform common / convenient operations on the
-classic Python structures.
-Created on *2019.11.12* by Felix Soubelet (felix.soubelet@cern.ch).
+A collection classes with utility functions to perform common / convenient 
+operations on the classic Python structures.
 
 .. warning::
    This module contains un-used code and will be removed in a future release.
@@ -21,27 +20,27 @@ from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 
 class ListOperations:
-    """A class to group some common / useful operations on lists."""
+    """A class to group some common / useful operations on lists or sequences."""
 
     @staticmethod
     def all_unique(sequence: Sequence) -> bool:
         """
-        Returns True if all the values in a flat list are unique, False otherwise.
+        Returns `~True` if all the values in a flat list are unique, `~False` otherwise.
 
         Args:
             sequence (Sequence): a sequence of elements.
 
         Returns:
-            True if all elements are unique, False otherwise.
+            `~True` if all elements are unique, `~False` otherwise.
         """
         return len(sequence) == len(set(sequence))
 
     @staticmethod
     def average_by(sequence: Sequence, function: Callable = lambda x: x) -> float:
         """
-        Returns the average of lst after mapping each element to a value using the
-        provided function. Use map() to map each element to the value returned by function.
-        Use sum() to sum all of the mapped values, divide by len(lst).
+        Returns the average of *sequence* after mapping each element to a value using the
+        provided function. Use `~map` to map each element to the value returned by function.
+        Uses `~sum` to sum all of the mapped values, divided by `~len`.
 
         Args:
             sequence (Sequence): a sequence of elements.
@@ -50,28 +49,34 @@ class ListOperations:
         Returns:
             The average of each element's result through `function`.
 
-        Usage:
-            average_by([{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']) -> 5.0
+        Example:
+            .. code-block:: python
+              
+              >>> ListOperations.average_by([{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n'])
+              5.0
         """
         return float(sum(map(function, sequence), 0.0) / len(sequence))
 
     @staticmethod
     def bifurcate(sequence: Sequence, filters: List[bool]) -> Sequence:
         """
-        Splits values into two groups. If an element in filter is True, the corresponding element
-        in the collection belongs to the first group; otherwise, it belongs to the second group.
-        Use list comprehension and enumerate() to add elements to groups, based on filter.
+        Splits values into two groups. If an element in filter is `~True`, the corresponding 
+        element in the collection belongs to the first group; otherwise, it belongs to the 
+        second group. Uses list comprehension and `~enumerate` to add elements to groups, 
+        based on *filter*.
 
         Args:
             sequence (Sequence): a sequence of elements.
             filters (List[bool]): a list of booleans.
 
         Returns:
-            A list of two lists, one for each boolean output of the filters
+            A list of two lists, one for each boolean output of the filters.
 
-        Usage:
-            bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
-            -> [['beep', 'boop', 'bar'], ['foo']]
+        Example:
+            .. code-block:: python
+              
+              >>> ListOperations.bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
+              [['beep', 'boop', 'bar'], ['foo']]
         """
         return [
             [x for i, x in enumerate(sequence) if filters[i]],
@@ -82,20 +87,24 @@ class ListOperations:
     def bifurcate_by(sequence: Sequence, function: Callable) -> list:
         """
         Splits values into two groups according to a function, which specifies which group an
-        element in the input list belongs to. If the function returns True, the element belongs
-        to the first group; otherwise it belongs to the second group. Use list comprehension to
-        add elements to groups, based on function.
+        element in the input sequence belongs to. If the function returns `~True`, the element 
+        belongs to the first group; otherwise it belongs to the second group. Uses list 
+        comprehension to add elements to groups, based on *function*.
 
         Args:
             sequence (Sequence): a sequence of elements.
-            function (Callable): a callable on the elements of lst, that should return a boolean.
+            function (Callable): a callable on the elements of *sequence*, that should return a 
+                boolean.
 
         Returns:
-            A list of two lists, as groups of elements of lst classified depending on their result
-            through function.
+            A list of two lists, as groups of elements of *sequence* classified depending on their 
+            result when passed to *function*.
 
-        Usage:
-            bifurcate_by(list(range(5)), lambda x: x % 2 == 0) -> [[0, 2, 4], [1, 3]]
+        Example:
+            .. code-block:: python
+              
+              >>> ListOperations.bifurcate_by(list(range(5)), lambda x: x % 2 == 0)
+              [[0, 2, 4], [1, 3]]
         """
         return [[x for x in sequence if function(x)], [x for x in sequence if not function(x)]]
 
