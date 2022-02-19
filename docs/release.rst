@@ -3,6 +3,31 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.14.0:
+
+0.14.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a new ``AperturePlotter`` class in the ``cpymadtools.plotters`` module replacing the old one, with functionality to plot the aperture tolerances as calculated from the ``APERTURE`` command in ``MAD-X``, jointly with the lattice layout.
+* Added a ``CrossingSchemePlotter`` class in the ``cpymadtools.plotters`` module, with functionality to plot the orbit crossings at LHC IPs.
+* The new ``TuneDiagramPlotter.plot_tune_diagram`` function in the ``cpymadtools.plotters`` module is now more customisable, can be given a title, a figure size, add legends, differentiate between resonance lines of different orders and given a specific order up to which to plot resonance lines.
+
+Maintenance
+~~~~~~~~~~~
+
+* Functions from the ``cpymadtools.latwiss`` module have into a class named ``LatticePlotter`` in the ``cpymadtools.plotters`` module.
+* The old ``AperturePlotter`` class in the ``cpymadtools.plotters`` module has been renamed to ``BeamEnvelopePlotter`` to reflect its role, and functions in this class have also been renamed accordingly.
+* The old ``TuneDiagramPlotter.plot_blank_tune_diagram`` function in the ``cpymadtools.plotters`` module has replaced the ``TuneDiagramPlotter.plot_tune_diagram`` function and taken its name.
+* The phd matplotlib style has a new setting for legend.framealpha set at 0.9.
+* The ``cpymadtools.latwiss`` module has been removed.
+* The old ``TuneDiagramPlotter.plot_blank_tune_diagram`` function in the ``cpymadtools.plotters`` module has been removed.
+
+See `v0.14.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.3...0.14.0>`_.
+
+
 .. _release_0.13.3:
 
 0.13.3
