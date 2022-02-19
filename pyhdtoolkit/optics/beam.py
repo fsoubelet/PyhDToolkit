@@ -2,8 +2,7 @@
 Beam Optics
 -----------
 
-This is a Python3 module implementing various functionality for simple beam parameter calculations.
-Created on *2020.11.11* by Felix Soubelet (felix.soubelet@cern.ch).
+Module implementing various functionality for simple beam parameter calculations.
 """
 import numpy as np
 
@@ -14,16 +13,16 @@ from pyhdtoolkit.models.beam import BeamParameters
 
 def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_p: float) -> BeamParameters:
     """
-    Calculate beam parameters from provided values, for proton particles.
+    Calculates beam parameters from provided values, for *proton* particles.
 
     Args:
-        pc_gev (float): particle momentum.
-        en_x_m (float): horizontal emittance, in meters.
-        en_y_m (float): vertical emittance, in meters.
+        pc_gev (float): particle momentum, in [GeV].
+        en_x_m (float): horizontal emittance, in [m].
+        en_y_m (float): vertical emittance, in [m].
         deltap_p (float): momentum deviation.
 
     Returns:
-        A `BeamParameters` object with the calculated values.
+        A `~.optics.beam.BeamParameters` object with the calculated values.
     """
     e0_gev = 0.9382720813
     e_tot_gev = np.sqrt(pc_gev ** 2 + e0_gev ** 2)
@@ -48,7 +47,7 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
 
 class Beam:
     """
-    Class to encompass functionality.
+    Class to represent most useful particle beam attributes for ``MAD-X`` simulations.
     """
 
     def __init__(
@@ -61,7 +60,7 @@ class Beam:
         Args:
             energy (float): energy of the particles in your beam, in [GeV].
             emittance (float): beam emittance, in [m].
-            m0 (float): rest mass of the beam's particles in MeV. Defaults to that of a proton.
+            m0 (float): rest mass of the beam's particles in [MeV]. Defaults to that of a proton.
         """
         self.energy = energy
         self.emittance = emittance
@@ -84,43 +83,51 @@ class Beam:
 
     @property
     def normalized_emittance(self) -> float:
-        """
-        Normalized emittance [m].
-        """
+        """Normalized emittance [m]."""
         return self.emittance * self.beta_rel * self.gamma_rel
 
     @property
     def rms_emittance(self) -> float:
-        """
-        Rms emittance [m].
-        """
+        """Rms emittance [m]."""
         return self.emittance / (self.beta_rel * self.gamma_rel)
 
     def revolution_frequency(self, circumference: float = 26658.8832, speed: float = constants.c) -> float:
         """
-        Revolution frequency.
+        Returns the revolution frequency of the beam's particles around the accelerator.
 
         Args:
             circumference (float): the machine circumference in [m]. Defaults to that of the LHC.
             speed (float): the particles' speed in the machine, in [m/s]. Defaults to c.
+
+        Returns:
+            The revolution frequency, in [turns/s].
         """
         return self.beta_rel * speed / circumference
 
     def eta(self, alpha_p: float) -> float:
         """
-        Slip factor parameter eta: eta = 0 at transition energy (eta < 0 above transition).
+        Returns the slip factor parameter :math:`\\eta`.
+
+        .. note::
+            :math:`\\eta = 0` at transition energy (:math:`\\eta < 0` above transition).
 
         Args:
             alpha_p (float): momentum compaction factor.
+
+        Returns:
+            The slip factor.
         """
         return (1 / (self.gamma_rel ** 2)) - alpha_p
 
     @staticmethod
     def gamma_transition(alpha_p: float) -> float:
         """
-        Relativistic gamma corresponding to the transition energy.
+        Returns the relativistic :math:`\\gamma` corresponding to the transition energy.
 
         Args:
             alpha_p (float): momentum compaction factor.
+
+        Returns:
+            The relativistic :math:`\\gamma` value at the transition energy.
         """
         return np.sqrt(1 / alpha_p)
