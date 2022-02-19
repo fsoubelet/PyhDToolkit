@@ -3,6 +3,24 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.8.4:
+
+0.8.4
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added an *xoffset* variable to ``plot_latwiss``, allowing to center the plot on a specific element.
+
+Maintenance
+~~~~~~~~~~~
+
+* The machine layout plotting in ``plot_latwiss`` has been exported to its own function. It is a private function.
+
+See `v0.8.4 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.4>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.3...0.8.4>`_.
+
+
 .. _release_0.8.3:
 
 0.8.3
