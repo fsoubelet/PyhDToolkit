@@ -34,7 +34,7 @@ Contents
 .. toctree::
     :maxdepth: 2
 
-    tutorial
+    quickstart
     api
     gallery/index
     release
