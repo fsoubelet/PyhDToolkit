@@ -57,6 +57,11 @@ The repository has a DOI_ provided by Zenodo_, and all versions can be cited wit
      url          = {https://doi.org/10.5281/zenodo.4268804}
    }
 
+License
+-------
+
+The package is licensed under the `MIT license <https://github.com/fsoubelet/PyhDToolkit/blob/master/LICENSE>`_. 
+
 Acknowledgments
 ---------------
 
