@@ -3,6 +3,41 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.8.2:
+
+0.8.2
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``maths.utils`` module with convenience functions related to magnitude.
+* Added an ``optics.ripken`` module with functions to calculate beam size according to Lebedev and Bogacz's formalism.
+* Added a convenience logging setup function in ``utils.defaults``.
+* ``plot_latwiss`` now adds a legend for different elements in the layout.
+* ``plot_latwiss`` can now optionally plot BPM patches.
+* ``plot_latwiss`` now accepts kwargs that will be transmitted to the layout plotting function.
+
+Bug Fixes
+~~~~~~~~~
+
+* ``get_pattern_twiss`` now properly capitalizes variable names in the returned *TfsDataFrame*.
+* ``plot_latwiss`` now only draws elements in the desired area when *xlimits* is provided, for a drastic speedup on big machines.
+
+Maintenance
+~~~~~~~~~~~
+
+* The *PLOT_PARAMS* have been moved to ``utils.defaults``.
+* The ``get_pattern_twiss`` default argument values now select the entire twiss table.
+* ``plot_latwiss`` changed the parameter *plot_sextupoles* to *k2l_lim*, creating a dedicated axis for sextupole patches in the layout.
+* The ``plotting.settings`` module has been removed.
+* ``plot_latwiss`` doesn't force the pdf format when saving the figure anymore.
+
+
+
+See `v0.8.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.1...0.8.2>`_.
+
+
 .. _release_0.8.1:
 
 0.8.1
