@@ -2,8 +2,7 @@
 Context Utilities
 -----------------
 
-Provides contexts to use functions in.
-Created on *2019.12.06* by Felix Soubelet (felix.soubelet@cern.ch).
+Provides useful contexts to use functions in.
 """
 import time
 
@@ -14,19 +13,22 @@ from typing import Callable, Iterator
 @contextmanager
 def timeit(function: Callable) -> Iterator[None]:
     """
-    Returns the time elapsed when executing code in the context via `function`.
-    Original code from @jaimecp89
+    Returns the time elapsed when executing code in the context via *function*.
+    Original code from is from :user:`Jaime Coello de Portugal <jaimecp89>`.
 
     Args:
-        function (Callable): any callable taking one argument. Was conceived with a lambda in mind.
+        function (Callable): any callable taking one argument. This was conceived 
+            with a `lambda` in mind.
 
     Returns:
         The elapsed time as an argument for the provided function.
 
-    Usage:
-        with timeit(lambda spanned: logger.debug(f'Did some stuff in {spanned} seconds')):
-            some_stuff()
-            some_other_stuff()
+    Example:
+        .. code-block:: python
+
+            >>> with timeit(lambda spanned: logger.debug(f'Did some stuff in {spanned} seconds')):
+            ...     some_stuff()
+            ...     some_other_stuff()
     """
     start_time = time.time()
     try:
