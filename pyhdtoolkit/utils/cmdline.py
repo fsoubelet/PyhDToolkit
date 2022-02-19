@@ -77,7 +77,7 @@ class CommandLine:
                 patterns, and other special shell features in the command string are processed
                 before the command is ran. Defaults to `True`.
             env (Mapping): mapping that defines the environment variables for the new process.
-            timeout (float): same as the `subprocess.Popen.communicate` argument, number of seconds 
+            timeout (float): same as the `subprocess.Popen.communicate` argument, number of seconds
                 to wait for a response before raising a `TimeoutExpired` exception.
 
         Returns:
@@ -115,7 +115,7 @@ class CommandLine:
     @staticmethod
     def terminate(pid: int) -> bool:
         """
-        Terminates the process corresponding to the given *PID*. On other platforms, 
+        Terminates the process corresponding to the given *PID*. On other platforms,
         using `os.kill` with `signal.SIGTERM` to kill.
 
         Args:

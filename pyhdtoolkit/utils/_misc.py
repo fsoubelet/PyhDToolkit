@@ -48,9 +48,9 @@ def get_opticsfiles_paths() -> List[Path]:
     """
     Returns `pathlib.Path` objects to the **opticsfiles** from the appropriate location,
     depending on where the program is running, either on ``AFS`` or locally.
-    
+
     .. note::
-        Only the "normal" configuration **opticsfiles** are returned, so those ending with 
+        Only the "normal" configuration **opticsfiles** are returned, so those ending with
         a special suffix such as **_ctpps1** are ignored.
 
     Returns:
@@ -74,13 +74,13 @@ def get_opticsfiles_paths() -> List[Path]:
 
 def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") -> None:
     """
-    Issues a ``CALL`` to the ``LHC`` sequence and the desired opticsfile, from the appropriate 
+    Issues a ``CALL`` to the ``LHC`` sequence and the desired opticsfile, from the appropriate
     location (either on ``AFS`` or locally), based on the runtime location of the code.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        opticsfile (str): name of the optics file to call. Defaults to **opticsfile.22**, which 
-            holds ``LHC`` collisions optics configuration (`beta*_IP1/2/5/8=  0.300/10.000/0.300/3.000 ; 
+        opticsfile (str): name of the optics file to call. Defaults to **opticsfile.22**, which
+            holds ``LHC`` collisions optics configuration (`beta*_IP1/2/5/8=  0.300/10.000/0.300/3.000 ;
             ! Telescopic squeeze (with Q6@300A)`).
 
     Raises:
@@ -104,10 +104,10 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
     configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and
     then ``USE``-d. Specific variable settings can be given as keyword arguments.
-    
+
     .. important::
-        Matching is **not** performed by this function and should be taken care of by the user, but the working point 
-        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments 
+        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
         might change that working point.
 
     Args:
@@ -143,7 +143,7 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
         The :math:`\\beta^{*}` value parsed from the file.
 
     Raises:
-        AssertionError: if the :math:`\\beta^{*}` value for IP1 and IP5 is not 
+        AssertionError: if the :math:`\\beta^{*}` value for IP1 and IP5 is not
         the same (in both planes too).
     """
     file_lines = opticsfile.read_text().split("\n")
