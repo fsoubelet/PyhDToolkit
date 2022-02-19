@@ -3,6 +3,37 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.6.0:
+
+0.6.0
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Full compatibility across OSes (thanks to ``cpymad``'s progress).
+* Added a ``tfstools`` module.
+* Added a ``beam`` module in ``optics``.
+* Added an (experimental) ``timedata`` module in ``plotting``.
+
+Documentation
+~~~~~~~~~~~~~
+
+* Added a docs dependency.
+* Started documentation site.
+
+Maintenance
+~~~~~~~~~~~
+
+* Improved object validation with ``pydantic``.
+* Made ``cpymad`` a default dependency.
+* Updated dependencies.
+* Moved CI to Github Actions, now covers all platforms.
+* Improved test coverage.
+
+See `v0.6.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.6.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.5.0...0.6.0>`_.
+
+
 .. _release_0.5.0:
 
 0.5.0
