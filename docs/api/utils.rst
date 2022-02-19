@@ -16,6 +16,9 @@ Utils
 .. automodule:: pyhdtoolkit.utils.htc_monitor
    :members:
 
+.. automodule:: pyhdtoolkit.utils._misc
+   :members:
+
 .. automodule:: pyhdtoolkit.utils.operations
    :members:
 
