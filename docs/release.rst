@@ -3,6 +3,28 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+
+.. _release_0.9.2:
+
+0.9.2
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``match_no_coupling_through_ripkens`` function in the ``cpymadtools.special`` module as a 0-coupling matching routine through cross-term Ripken parameters at a given location.
+
+Bug Fixes
+~~~~~~~~~
+
+* The ``install_mpl_style`` function now installs the **.mplstyle** file also in the site-packages location for ``matplotlib``, which is sometimes where it will look when running ``plt.style.use("phd")``.
+* The closest tune approach routine now properly makes use of madx.batch() to restore settings.
+* The plotting functions in the ``cpymadtools.latwiss`` module have updated LaTeX-compatible labels.
+* The ``plot_survey`` function in the ``cpymadtools.latwiss`` module now uses clearer markers to indicate the machine survey, properly matches the colormaps of the plotted dipoles and the colorbar when using ``show_elements=True`` and lets the user config handle savefig options.
+
+See `v0.9.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.1...0.9.2>`_.
+
+
 .. _release_0.9.1:
 
 0.9.1
