@@ -3,6 +3,19 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.13.1:
+
+0.13.1
+------
+
+Bug Fixes
+~~~~~~~~~
+
+* Fixed both AC Dipole installation routines in the ``cpymadtoolks.special`` module, which now use the implementation from ``omc3``'s model_creator and will provide similar results.
+
+See `v0.13.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.0...0.13.1>`_.
+
+
 .. _release_0.13.0:
 
 0.13.0
