@@ -3,6 +3,19 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.15.1:
+
+0.15.1
+------
+
+Bug Fixes
+~~~~~~~~~
+
+* The ``misalign_lhc_ir_quadrupoles`` function in the ``cpymadtools.errors`` module can now properly handle several IPs at the same time. Its *ip* parameter has been renamed to *ips* and properly expects a sequence.
+
+See `v0.15.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.15.0...0.15.1>`_.
+
+
 .. _release_0.15.0:
 
 0.15.0
