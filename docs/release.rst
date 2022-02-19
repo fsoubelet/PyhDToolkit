@@ -3,6 +3,25 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.9.1:
+
+0.9.1
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added an ``install_mpl_style`` function in the ``utils.defaults`` module to create a **phd.mplstyle** file in ``matplotlib``'s stylelib directory, making the style callable through ``plt.style.use("phd")``.
+
+Maintenance
+~~~~~~~~~~~
+
+* The *PLOT_PARAMS* dictionary in ``utils.defaults`` has been updated.
+* The ``numba`` library's used has been removed, easing the package's dependencies.
+
+See `v0.9.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.0...0.9.1>`_.
+
+
 .. _release_0.9.0:
 
 0.9.0
@@ -18,13 +37,11 @@ Enhancements
 * Added a ``tune`` module in ``cpymadtools`` with currently a ``make_footprint_table`` function that creates a ``DYNAP`` setup according to parameters and returns the generated table.
 * Added A ``utils.htc_monitor`` module with functionality to query the ``HTCondor`` queue, process the returned data and nicely display it. To be ran directly, but different functionality can be imported.
 
-
 Bug Fixes
 ~~~~~~~~~
 
 * Fixed an issue in ``plot_latwiss`` where the function would sometimes mishandle the *xlimits* argument.
 * Fixed a mistake in ``apply_lhc_rigidity_waist_shift_knob`` where the side argument would be ignored if uppercase.
-
 
 Maintenance
 ~~~~~~~~~~~
