@@ -3,6 +3,39 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.13.3:
+
+0.13.3
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The ``plot_machine_layout`` function in ``cpymadtools.latwiss`` now accepts keyword arguments which are transmitted to `~matplotlib.pyplot.scatter` calls.
+* The ``TuneDiagramPlotter.plot_blank_tune_diagram`` function in ``cpymadtools.plotters`` now has a *figsize* argument.
+
+Bug Fixes
+~~~~~~~~~
+
+* All plotting functions in the ``cpymadtools`` module now have ``LaTeX``-compatible text elements.
+* The ``plot_latwiss`` and ``plot_machine_survey`` functions in ``cpymadtools.latwiss`` now properly detect element types from ``TWISS`` table properties and does not rely on naming anymore.
+* The ``plot_machine_layout`` function in ``cpymadtools.latwiss`` now correctly scales the colorbar to the full length of the machine and now to 1.
+* The ``match_tunes_and_chromaticities`` function in ``cpymadtools.matching`` now properly handles being given either only tune targets or only chromaticity targets.
+* The *BeamParameters* class in ``models.beam`` now properly builds in all cases and has a ``__repr__``.
+* Fixed some calls to the ``SELECT`` command via ``cpymad`` which might previously have had unintended side effects.
+
+Maintenance
+~~~~~~~~~~~
+
+* All functions in the ``cpymadtools`` module which offer the *telescopic_squeeze* argument now have it default to True to reflect operational scenarios of run III.
+* The ``correct_lhc_orbit`` function in ``cpymadtools.orbit`` now takes a required sequence positional argument.
+* The ``correct_lhc_orbit`` function in ``cpymadtools.orbit`` now defaults its mode argument to micado like the ``CORRECT`` command in ``MAD-X`` does.
+* The ``AperturePlotter.plot_aperture`` function in ``cpymadtools.plotters`` now has a default figsize argument of (13, 20) instead of 15, 15.
+* The minimum required version of ``tfs-pandas`` is now 3.0.0.
+
+See `v0.13.3 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.3>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.2...0.13.3>`_.
+
+
 .. _release_0.13.2:
 
 0.13.2
@@ -142,7 +175,7 @@ Bug Fixes
 
 * The ``install_mpl_style`` function now installs the **.mplstyle** file also in the site-packages location for ``matplotlib``, which is sometimes where it will look when running ``plt.style.use("phd")``.
 * The closest tune approach routine now properly makes use of madx.batch() to restore settings.
-* The plotting functions in the ``cpymadtools.latwiss`` module have updated LaTeX-compatible labels.
+* The plotting functions in the ``cpymadtools.latwiss`` module have updated ``LaTeX``-compatible labels.
 * The ``plot_survey`` function in the ``cpymadtools.latwiss`` module now uses clearer markers to indicate the machine survey, properly matches the colormaps of the plotted dipoles and the colorbar when using ``show_elements=True`` and lets the user config handle savefig options.
 
 See `v0.9.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.1...0.9.2>`_.
