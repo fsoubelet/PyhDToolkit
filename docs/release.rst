@@ -3,6 +3,24 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.8.1:
+
+0.8.1
+-----
+
+Bug Fixes
+~~~~~~~~~
+
+* Fixed inacurrate logging statements during tunes and chromaticities matching.
+
+Maintenance
+~~~~~~~~~~~
+
+* Removed the unused **scripts** folder as well as the scripts' dependencies.
+
+See `v0.8.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.1.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.0...0.8.1>`_.
+
+
 .. _release_0.8.0:
 
 0.8.0
@@ -20,14 +38,13 @@ Enhancements
 Bug Fixes
 ~~~~~~~~~
 
-* Closest tune approach determination now properly handles explicit targets
+* Closest tune approach determination now properly handles explicit targets.
 
 Maintenance
 ~~~~~~~~~~~
 
 * The ``cpymadtools`` now use *madx* as a parameter name instead of *cpymad_instance*.
 * Relaxed dependencies.
-
 
 See `v0.8.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.7.0...0.8.0>`_.
 
