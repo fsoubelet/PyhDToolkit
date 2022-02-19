@@ -14,12 +14,6 @@ Highlights
 * Manage contexts, configurations and logging.
 * Monitor HTCondor_ jobs.
 
-Status
-------
-
-PyhDToolkit is a personnal project, and combined with my PhD I have very limited time to work on it.
-However, feedback and bug reports are very welcome, please get in touch via the `GitHub issue tracker <https://github.com/zarr-developers/zarr-python/issues>`_.
-
 Installation
 ------------
 
