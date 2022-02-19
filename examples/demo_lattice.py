@@ -87,7 +87,7 @@ lhc_madx.command.use(sequence="lhcb1")
 ###############################################################################
 # The `~.plotters.LatticePlotter.plot_latwiss` function gives the possibility
 # to zoom on a region by providing the *xlimits* parameter. Let's first determine
-# determine the position of points of interest through the ``TWISS`` table:
+# the position of points of interest through the ``TWISS`` table:
 
 lhc_madx.command.twiss()
 twiss_df = lhc_madx.table.twiss.dframe().copy()
