@@ -46,8 +46,8 @@ lhc.make_lhc_beams(madx, energy=7000)
 madx.command.use(sequence="lhcb1")
 
 ###############################################################################
-# We will use the `~.plotters.LatticePlotter.plot_latwiss` function to have zoomed-in 
-# look at the Interaction Region 1 by providing the *xlimits* parameter. Let's first 
+# We will use the `~.plotters.LatticePlotter.plot_latwiss` function to have zoomed-in
+# look at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
 # determine the position of points of interest through the ``TWISS`` table:
 
 madx.command.twiss()
@@ -75,14 +75,14 @@ for axis in IR1_fig.axes:
 plt.show()
 
 ###############################################################################
-# Notice the (anti)symmetry of the :math:`\beta_{x,y}` functions and triplet 
-# quadrupoles powering on the right and left-hand side of the IP. Let's now apply 
-# a rigid waist shift - meaning all four betatron waists moving simultaneously - by 
-# changing the triplets powering. This is handled by the convenient function 
+# Notice the (anti)symmetry of the :math:`\beta_{x,y}` functions and triplet
+# quadrupoles powering on the right and left-hand side of the IP. Let's now apply
+# a rigid waist shift - meaning all four betatron waists moving simultaneously - by
+# changing the triplets powering. This is handled by the convenient function
 # `~.lhc.apply_lhc_rigidity_waist_shift_knob`.
-# 
-# It is possible to choose the knob's strength, in which IR to apply it, and on 
-# which side of the IP to shift the beam waist. See the function documentation 
+#
+# It is possible to choose the knob's strength, in which IR to apply it, and on
+# which side of the IP to shift the beam waist. See the function documentation
 # for more details. After applying the knob, we will re-match to our working point
 # to make sure we do not deviate.
 
@@ -117,30 +117,30 @@ plt.show()
 # Comparing to the previous plot, one can notice two things:
 #  - The triplet quadrupoles powering is not has changed.
 #  - The :math:`\beta_{x,y}` functions symmetry has been broken.
-# 
-# One can compare the :math:`\beta_{x,y}` functions before and after the rigid 
+#
+# One can compare the :math:`\beta_{x,y}` functions before and after the rigid
 # waist shift with a simple plot:
 
 plt.figure(figsize=(16, 10))
-plt.plot(twiss_df.s- ip1s, twiss_df.betx * 1e-3, "b-", label=r"$\beta_{x}^{n}$")
-plt.plot(twiss_df_waist.s- ip1s, twiss_df_waist.betx * 1e-3, "b--", label=r"$\beta_{x}^{w}$")
+plt.plot(twiss_df.s - ip1s, twiss_df.betx * 1e-3, "b-", label=r"$\beta_{x}^{n}$")
+plt.plot(twiss_df_waist.s - ip1s, twiss_df_waist.betx * 1e-3, "b--", label=r"$\beta_{x}^{w}$")
 
-plt.plot(twiss_df.s- ip1s, twiss_df.bety * 1e-3, "r-", label=r"$\beta_{y}^{n}$")
-plt.plot(twiss_df_waist.s- ip1s, twiss_df_waist.bety * 1e-3, "r--", label=r"$\beta_{y}^{w}$")
+plt.plot(twiss_df.s - ip1s, twiss_df.bety * 1e-3, "r-", label=r"$\beta_{y}^{n}$")
+plt.plot(twiss_df_waist.s - ip1s, twiss_df_waist.bety * 1e-3, "r--", label=r"$\beta_{y}^{w}$")
 
 plt.xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
 plt.ylabel(r"$\beta_{x,y}\ \mathrm{[km]}$")
-plt.xlim(- 200, 200)
+plt.xlim(-200, 200)
 plt.ylim(-5e-1, 9)
 plt.legend()
 
 ###############################################################################
 # Here the subscript **n** stands for nominal, and **w** for the waist shift.
-# 
+#
 # .. tip::
-#   The differences observed will vary depending on the strength of the knob, 
+#   The differences observed will vary depending on the strength of the knob,
 #   which we choose with the **rigidty_waist_shift_value** parameter.
-# 
+#
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
 madx.exit()
