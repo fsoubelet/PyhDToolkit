@@ -17,7 +17,7 @@ def timeit(function: Callable) -> Iterator[None]:
     Original code from is from :user:`Jaime Coello de Portugal <jaimecp89>`.
 
     Args:
-        function (Callable): any callable taking one argument. This was conceived 
+        function (Callable): any callable taking one argument. This was conceived
             with a `lambda` in mind.
 
     Returns:

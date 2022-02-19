@@ -436,7 +436,7 @@ class ListOperations:
         """
         Creates a `list` of lists of elements, each internal list being a grouping based
         on the position of elements in the original sequences. Essentially, a list containing:
-        
+
         * a first list with all first elements,
         * then a second list with all second elements, etc.
 
