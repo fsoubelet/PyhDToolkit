@@ -256,7 +256,7 @@ def get_closest_tune_approach(
         .. code-block:: python
 
             >>> # Say we have set the coupling knobs to 1e-3
-            >>> dqmin = get_closest_tune_approach()
+            >>> dqmin = get_closest_tune_approach(
             ...     madx,
             ...     "lhc",                    # will find the knobs automatically
             ...     sequence="lhcb1",
