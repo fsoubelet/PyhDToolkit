@@ -4,8 +4,8 @@
 Tune Utilities
 --------------
 
-A collection of functions to manipulate MAD-X functionality around the tune through a cpymad.madx.Madx
-object.
+Module with functions to manipulate to manipulate ``MAD-X`` functionality around the tune through
+a `~cpymad.madx.Madx` object.
 """
 import math
 import sys
@@ -26,26 +26,31 @@ def make_footprint_table(
     madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
 ) -> tfs.TfsDataFrame:
     """
-    Instantiates an ensemble of particles up to the desired bunch sigma amplitude to be tracked for the
-    DYNAP command, letting MAD-X infer their tunes. Particules are instantiated for different angle
+    Instantiates an ensemble of particles up to the desired bunch :math:`\\sigma` amplitude to be tracked for
+    the ``DYNAP`` command, letting ``MAD-X`` infer their tunes. Particules are instantiated for different angle
     variables for each amplitude, creating an ensemble able to represent the tune footprint.
 
-    Beware: since the `DYNAP` command makes use of tracking, your sequence needs to be sliced before calling
-    this function.
+    .. warning::
+        Since the ``DYNAP`` command makes use of tracking, your sequence needs to be sliced before calling
+        this function.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        sigma (float): the maximum amplitude of the tracked particles, in bunch sigma. Defaults to 5.
-        dense (bool): if set to True, an increased number of particles will be tracked. Defaults to False.
-        file (str): If given, the `dynaptune` table will be exported as a TFS file with the provided name.
-        cleanup (bool): If True, the `fort.69` and `lyapunov.data` files are cleared before returning the
-            dynap table. Defaults to True.
-
-    Keyword Args:
-            Any keyword argument that will be transmitted to the DYNAP command in MAD-X.
+        sigma (float): the maximum amplitude of the tracked particles, in bunch :math:`\\sigma`. Defaults
+            to 5.
+        dense (bool): if set to `True`, an increased number of particles will be tracked. Defaults to `False`.
+        file (str): If given, the ``dynaptune`` table will be exported as a ``TFS`` file with the provided name.
+        cleanup (bool): If `True`, the **fort.69** and **lyapunov.data** files are cleared before returning the
+            ``dynaptune`` table. Defaults to `True`.
+        **kwargs: any keyword argument will be transmitted to the ``DYNAP`` command in ``MAD-X``.
 
     Returns:
-        The resulting `dynaptune` table, as a pandas DataFrame.
+        The resulting ``dynaptune`` table, as a `~tfs.frame.TfsDataFrame`.
+
+    Example:
+        .. code-block:: python
+
+            >>> dynap_dframe = make_footprint_table(madx)
     """
     logger.info(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
     small, big = 0.05, math.sqrt(1 - 0.05 ** 2)
@@ -113,26 +118,27 @@ def make_footprint_table(
 
 def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.ndarray]:
     """
-    Provided with the `TfsDataFrame` returned by `make_footprint_table()`, determines the various (Qx, Qy)
-    points needed to plot the footprint data with lines representing the different amplitudes and angles
-    from starting particles, and returns these in immediately plottable numpy arrays.
+    Provided with the `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`, determines the
+    various (Qx, Qy) points needed to plot the footprint data with lines representing the different amplitudes
+    and angles from starting particles, and returns these in immediately plottable `numpy.ndarray` objects.
 
-    WARNING: This function is some DARK MAGIC stuff I have taken out of very dusty drawers, and I cannot
-    explain exactly how it works. I also do not know who wrote this initially. Results are not guaranteed
-    to be correct and should be checked with a quick plot.
-
-    Usage:
-        ```python
-        dynap_tfs = make_footprint_table(madx)
-        qxs, qys = get_footprint_lines(dynap_tfs)
-        plt.plot(qxs, qys, "o--", label="Tune Footprint from DYNAP Table")
-        ```
+    .. warning::
+        This function is some *dark magic* stuff I have taken out of very dusty drawers, and I cannot
+        explain exactly how it works. I also do not know who wrote this initially. Results are not
+        guaranteed to be correct and should be checked with a quick plot.
 
     Args:
-        dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
+        dynap_dframe (tfs.frame.TfsDataFrame): the dynap data frame returned by `~.tune.make_footprint_table`.
 
     Returns:
-        The Qx and Qy data points to plot directly, both as numpy.ndarrays.
+        The Qx and Qy data points to plot directly, both as `~numpy.ndarray` objects.
+
+    Example:
+        .. code-block:: python
+
+            >>> dynap_tfs = make_footprint_table(madx)
+            >>> qxs, qys = get_footprint_lines(dynap_tfs)
+            >>> plt.plot(qxs, qys, "o--", label="Tune Footprint from DYNAP Table")
     """
     logger.info("Determining footprint plottable")
     logger.debug("Retrieving AMPLITUDE, ANGLE and DSIGMA data from TfsDataFrame headers")
@@ -148,30 +154,32 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
 
 def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collections.PatchCollection:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO KONSTANTINOS PARASCHOU (@kparasch).
-    Provided with the `TfsDataFrame` returned by `make_footprint_table()`, computes the polygon patches
-    needed to plot the footprint data, with lines representing the different amplitudes and angles
-    from starting particles, and returns the `PatchCollection` with the computed polygons.
+    Provided with the `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`, computes
+    the polygon patches needed to plot the footprint data, with lines representing the different
+    amplitudes and angles from starting particles, and returns the `~matplotlib.collections.PatchCollection`
+    with the computed polygons. Initial implementation credits go to :user:`Konstantinos Paraschou <kparasch>`.
 
-    The polygons will have blue edges, except the ones corresponding to the last starting angle particles (
-    in red) and the last starting amplitude particles (in green).
+    .. note::
+        The polygons will have blue edges, except the ones corresponding to the last starting angle particles
+        (in red) and the last starting amplitude particles (in green).
 
-    WARNING: The internal construction of polygons can be tricky, and you might need to change the `ANGLE`
-    or `AMPLITUDE` values in `dynap_dframe`'s headers.
-
-    Usage:
-        ```python
-        fig, axis = plt.subplots()
-        dynap_tfs = make_footprint_table(madx)
-        footprint_polygons = get_footprint_patches(dynap_tfs)
-        axis.add_collection(footprint_polygons)
-        ```
+    .. warning::
+        The internal construction of polygons can be tricky, and you might need to change the ``ANGLE``
+        or ``AMPLITUDE`` values in *dynap_dframe* headers.
 
     Args:
-        dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
+        dynap_dframe (tfs.frame.TfsDataFrame): the dynap data frame returned by `~.tune.make_footprint_table`.
 
     Returns:
-        The `matplotlib.collections.PatchCollection` with the created polygons.
+        The `~matplotlib.collections.PatchCollection` with the created polygons.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig, axis = plt.subplots()
+            >>> dynap_tfs = make_footprint_table(madx)
+            >>> footprint_polygons = get_footprint_patches(dynap_tfs)
+            >>> axis.add_collection(footprint_polygons)
     """
     logger.info("Determining footprint polygons")
     angle = dynap_dframe.headers["ANGLE"]
@@ -214,15 +222,16 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
 
 def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
     """
-    This is a weird dusty function to get a specific useful string representation from the `TfsDataFrame`
-    returned by `make_footprint_table()`. This specific dataframe contains important information.
+    This is a weird dusty function to get a specific useful string representation from the
+    `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`. This specific dataframe
+    contains important information.
 
     Args:
-        dynap_dframe (tfs.TfsDataFrame): the dynap data frame returned by `make_footprint_table()`.
+        dynap_dframe (tfs.frame.TfsDataFrame): the dynap data frame returned by `~.tune.make_footprint_table`.
 
     Returns:
         A weird string representation gathering tune points split according to the number of angles and
-        amplitudes used in `make_footprint_table()`.
+        amplitudes used in `~.tune.make_footprint_table`.
     """
     logger.trace("Retrieving AMPLITUDE and ANGLE data from TfsDataFrame headers")
     amplitude = dynap_dframe.headers["AMPLITUDE"]
@@ -240,20 +249,20 @@ def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
 def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[Dict[str, float]]]:
     """
     Creates appropriate tune points groups from the arcane string representation returned by
-    `_get_dynap_string_rep` based on starting amplitude and angle for each particle.
+    `~.tune._get_dynap_string_rep` based on starting amplitude and angle for each particle.
 
     Args:
-        dynap_string_rep (str): weird string representation of the `TfsDataFrame` returned by
-        `make_footprint_table()` and as given by `_get_dynap_string_rep()`.
+        dynap_string_rep (str): weird string representation of the `~tfs.frame.TfsDataFrame` returned by
+            `~.tune.make_footprint_table` and as given by `~.tune._get_dynap_string_rep()`.
         dsigma (float): The increment in amplitude between different starting amplitudes when starting
-            particles for the `DYNAP` command in `MAD-X`. This information is in the headers of the
-            `TfsDataFrame` returned by `make_footprint_table()`.
+            particles for the ``DYNAP`` command in ``MAD-X``. This information is in the headers of the
+            `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`.
 
     Returns:
-        A list of list of dictionaries containing horizontal and vertical tune points. The data is
-        constructed such that one can access the data of a particle starting with 'amplitude' and 'angle'
-        with data[amplitude][angle]["H"/"V"]. This function is only meant to be used internally by
-        `get_footprint_lines()`.
+        A `list` of lists of dictionaries containing horizontal and vertical tune points. The data is
+        constructed such that one can access the data of a particle starting with given amplitude and
+        angle through ``data[amplitude][angle]["H"/"V"]``. This function is only meant to be used internally
+        by `~.tune.get_footprint_lines`.
     """
     logger.debug("Constructing tune points groups based on starting amplitudes and angles")
     tune_groups: List[List[Dict[str, float]]] = []
