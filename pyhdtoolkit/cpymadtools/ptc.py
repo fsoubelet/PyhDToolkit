@@ -261,7 +261,7 @@ def ptc_track_particle(
         is performed on.
 
     Args:
-        madx (Madx): an instantiated cpymad.madx.Madx object.
+        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
         initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the ``X, PX,
             Y, PY, T, PT`` starting coordinates of the particle to track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.
