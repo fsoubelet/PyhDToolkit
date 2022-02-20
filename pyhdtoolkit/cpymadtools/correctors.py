@@ -5,8 +5,8 @@
 Correctors
 ----------
 
-A module with functions to perform MAD-X correctors-related operations and manipulations with a
-cpymad.madx.Madx object, mainly for LHC and HLLHC machines.
+Module with functions to perform ``MAD-X`` correctors-related operations and manipulations
+through a `~cpymad.madx.Madx` object, mainly for LHC and HLLHC machines.
 """
 from typing import Dict, List, Sequence
 
@@ -33,14 +33,20 @@ from pyhdtoolkit.cpymadtools.constants import (
 
 def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
     """
-    This is a port of one of the `corr_value.madx` file's macros. It queries for the triplet corrector
-    strengths and returns their values as a percentage of their max powering.
+    Queries for the triplet corrector strengths and returns their values as a percentage of
+    their max powering. This is a port of one of the **corr_value.madx** file's macros.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object with an active (HL)LHC sequence.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with an
+            active (HL)LHC sequence.
 
     Returns:
-        A dict with the percentage for each corrector.
+        A `dict` with the percentage for each corrector.
+
+    Example:
+        .. code-block:: python
+
+            >>> triplet_knobs = query_triplet_correctors_powering(madx)
     """
     logger.info("Querying triplets correctors powering")
     result: Dict[str, float] = {}
@@ -73,14 +79,20 @@ def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
 
 def query_arc_correctors_powering(madx: Madx) -> Dict[str, float]:
     """
-    This is a port of one of the `corr_value.madx` file's macros. It queries for the arc corrector strengths
-    and returns their values as a percentage of their max powering.
+    Queries for the arc corrector strengths and returns their values as a percentage of
+    their max powering. This is a port of one of the **corr_value.madx** file's macros
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object with an active (HL)LHC sequence.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with an
+            active (HL)LHC sequence.
 
     Returns:
-        A dict with the percentage for each corrector.
+        A `dict` with the percentage for each corrector.
+
+    Example:
+        .. code-block:: python
+
+            >>> arc_knobs = query_arc_correctors_powering(madx)
     """
     logger.info("Querying triplets correctors powering")
     result: Dict[str, float] = {}
@@ -124,8 +136,8 @@ def query_arc_correctors_powering(madx: Madx) -> Dict[str, float]:
 
 def _knob_value(madx: Madx, knob: str) -> float:
     """
-    Queryies the current value of a given knob name in the MAD-X process, and defaults to 0 (as MAD-X does) in
-    case that knob has not been defined in the current process.
+    Queryies the current value of a given *knob* name in the ``MAD-X`` process, and defaults
+    to 0 (as ``MAD-X`` does) in case that knob has not been defined in the current process.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -133,6 +145,12 @@ def _knob_value(madx: Madx, knob: str) -> float:
 
     Returns:
         The knob value if it was defined, otherwise 0.
+
+    Example:
+        .. code-block:: python
+
+            >>> _knob_value(madx, knob="underfined_for_sure")
+            0
     """
     try:
         return madx.globals[knob]

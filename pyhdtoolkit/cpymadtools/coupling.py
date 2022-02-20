@@ -5,8 +5,8 @@
 Betatron Coupling Utilities
 ---------------------------
 
-A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that retate to betatron
-coupling in the machine.
+Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object, that
+retate to betatron coupling in the machine.
 """
 from typing import Dict, Sequence, Tuple
 
@@ -31,38 +31,53 @@ def get_closest_tune_approach(
     tolerance: float = 1e-21,
 ) -> float:
     """
-    Provided with an active `cpymad` instance, tries to match the tunes to their mid-fractional tunes,
-    aka getting them together. The difference between the final reached fractional tunes is the closest
+    Provided with an active `~cpymad.madx.Madx` object, tries to match the tunes to their mid-fractional tunes,
+    a.k.a tries to get them together. The difference between the final reached fractional tunes is the closest
     tune approach. This should not have any effect on the user's simulation, as the varied knobs are
-    restored to their previous values after performing the CTA.
+    restored to their previous values after performing the CTA. This uses `~.tune.match_tunes_and_chromaticities`
+    under the hood.
 
-    NOTA BENE: This assumes the sequence has previously been matched to the user's desired working point,
-    as if not explicitely given, the appropriate targets will be determined from `MAD-X`'s internal tables.
+    .. note::
+        This assumes the sequence has previously been matched to the user's desired working point, as if not
+        explicitely given, the appropriate targets will be determined from the ``MAD-X`` internal tables.
 
-    NOTA BENE: This is hard-coded to use the `CHROM` flag when performing matching, since we expect to be in
-    the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
-    tunes might cause `LMDIF` to fail, as the knobs become dependent. For this reason, only tune matching is
-    performed here, and chromaticities are voluntarily ignored.
+    .. important::
+        This is hard-coded to use the ``CHROM`` flag when performing matching, since we expect to be in
+        the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
+        tunes might cause ``LMDIF`` to fail, as the knobs become dependent. For this reason, only tune matching is
+        performed here, and chromaticities are voluntarily ignored.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        accelerator (str): name of the accelerator, used to determmine knobs if 'variables' not given.
-            Automatic determination will only work for LHC and HLLHC.
+        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
+            Automatic determination will only work for `LHC` and `HLLHC`.
         sequence (str): name of the sequence you want to activate for the tune matching.
-        varied_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine. An input
-            could be ["kqf", "ksd", "kqf", "kqd"] as they are common names used for quadrupole and
-            sextupole strengths (foc / defoc) in most examples.
-        telescopic_squeeze (bool): LHC specific. If set to True, uses the (HL)LHC knobs for Telescopic
-            Squeeze configuration. Defaults to `True`.
-        explicit_targets (Tuple[float, float]): if given, will be used as matching targets for Qx, Qy.
+        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An input
+            could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used for quadrupole and sextupole
+            strengths (focusing / defocusing) in most examples.
+        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+            Squeeze configuration. Defaults to `True` as of run III.
+        explicit_targets (Tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.
             Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to
-            None.
+            `None`.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
 
     Returns:
         The closest tune approach, in absolute value.
+
+    Example:
+        .. code-block:: python
+
+            >>> # Say we have set the coupling knobs to 1e-3
+            >>> dqmin = get_closest_tune_approach(
+            ...     madx,
+            ...     "lhc",                    # will find the knobs automatically
+            ...     sequence="lhcb1",
+            ...     telescopic_squeeze=True,  # influences the knobs definition
+            ... )
+            0.001
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
@@ -122,13 +137,14 @@ def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
     """
-    Matching routine to get cross-term Ripken parameters beta_12 and beta_21 to be 0 at a given location.
+    Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
+    to be 0 at a given location.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        sequence (str): name of the sequence to use for the matching.
+        sequence (str): name of the sequence to activate for the matching.
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
-        vary_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine.
+        vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
     """
     logger.info(f"Matching Ripken parameters for no coupling at location {location}")
     logger.debug("Creating macro to update Ripkens")
@@ -150,12 +166,18 @@ def match_no_coupling_through_ripkens(
 
 def _fractional_tune(tune: float) -> float:
     """
-    Return only the fractional part of a tune value.
+    Returns only the fractional part *tune*.
 
     Args:
         tune (float): tune value.
 
     Returns:
         The fractional part.
+
+    Example:
+        .. code-block:: python
+
+            >>> _fractional_tune(62.31)
+            0.31
     """
     return tune - int(tune)  # ok since int truncates to lower integer
