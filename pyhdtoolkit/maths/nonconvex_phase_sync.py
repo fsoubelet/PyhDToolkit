@@ -44,8 +44,7 @@ Note two particular properties here:
 
 
 We can very simply get our C_matrix (see page 1 of referenced paper) with `numpy.exp` which,
-applied to a `numpy.ndarray` applies the exponential function element-wise. See reference at
-https://docs.scipy.org/doc/numpy/reference/generated/numpy.exp.html
+applied to a `numpy.ndarray` applies the exponential function element-wise.
 
 Then follows:
 
@@ -53,14 +52,13 @@ Then follows:
 
    C_matrix = np.exp(1j * M_matrix)
 
-Note that M_matrix being symmetric, then C_matrix will be Hermitian.
-Note that M_matrix having zeros in its diagonal, C_matrix will have (1 + 0j) on its diagonal.
+.. note::
+    Since M_matrix is symmetric, then C_matrix will be Hermitian.
+    Since M_matrix has zeros on its diagonal, C_matrix will have (1 + 0j) on its diagonal.
 
 With added noise to those values (noise should be included in M_matrix in the case of measurements),
 we can reconstruct a good estimator of the original values through the EVM method, provided in the
 class below.
-
-Created on *2020.01.13* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 
 import numpy as np
@@ -72,6 +70,21 @@ class PhaseReconstructor:
     """
     Class algorithm to reconstruct your phase values.
     Make sure to provide vectors as `numpy.ndarray` with shape (1, N), N being the dimension.
+
+    Example:
+        .. code-block:: python
+
+            >>> real_noised_measurements = np.ndarray(...)
+            >>> C_herm = np.exp(1j * np.deg2rad(RealNoisedMeas))
+            >>> pr = PhaseReconstructor(C_herm)
+            >>> complex_eigenvector_method_result = pr.get_eigenvector_estimator(
+            ...     pr.leading_eigenvector
+            ... )
+            >>> reconstructed = np.abs(
+            ...     pr.convert_complex_result_to_phase_values(
+            ...         complex_eigenvector_method_result, deg=True
+            ...     )
+            ... ).reshape(n_observation_points)
     """
 
     __slots__ = {
@@ -86,7 +99,7 @@ class PhaseReconstructor:
         Initialize your reconstructor object from measurements.
 
         Args:
-            measurements_hermitian_matrix: a `numpy.ndarray` object built from measurements, see
+            measurements_hermitian_matrix (np.ndarray): a 2D array built from measurements, see
                 module docstring on how to build this matrix.
         """
         logger.debug("Checking that the provided matrix is Hermitian")
@@ -103,15 +116,16 @@ class PhaseReconstructor:
     @property
     def alpha(self) -> np.float64:
         """
-        This is a factor used to define the new reconstruction matrix. It is taken either as the
-        operator norm of the hermitian noise matrix, or as the max value between 0 and the opposite
-        of the min eigenvalue of c_matrix (chosen for implementation, since our noise is included
-        in the measurements). See page 8 of the paper for reference.
+        Factor used to define the new reconstruction matrix. It is taken either as the
+        operator norm of the hermitian noise matrix C_matrix, or as the max value between
+        0 and the opposite of the min eigenvalue of C_matrix (chosen for implementation,
+        since our noise is included in the measurements). See page 8 of the paper for
+        reference.
 
         Returns:
-           A real scalar value, because c_matrix is Hermitian and the eigenvalues of real symmetric
-           or complex Hermitian matrices are always real (see G. Strang, Linear Algebra and Its
-           Applications, 2nd Ed., Orlando, FL, Academic Press, Inc., 1980, pg. 222.)
+           A real scalar value, since C_matrix is Hermitian and the eigenvalues of real
+           symmetric or complex Hermitian matrices are always real (see :cite:t:`Strang:linalg:1980`,
+           page 222).
         """
         return np.float64(max(0, np.amin(self.c_matrix_eigenvalues)))
 
@@ -132,7 +146,7 @@ class PhaseReconstructor:
     def reconstructor_matrix(self) -> np.ndarray:
         """
         This is the reconstructor matrix built from `self.c_matrix` and the `alpha` property.
-        It is the matrix denoted as \\widetilde{C} on page 8 of the reference paper.
+        It is the matrix denoted as :math:`\\widetilde{C}` on page 8 of :cite:t:`Boumal:NPS:2016`.
 
         Returns:
             A `numpy.ndarray`, with same dimension as `self.c_matrix`.
@@ -142,14 +156,14 @@ class PhaseReconstructor:
     def get_eigenvector_estimator(self, eigenvector: np.ndarray) -> np.ndarray:
         """
         Return the eigenvector estimator of a given eigenvector (id est the component-wise
-        projection of said eigenvector onto ℂˆ{n}_{1}, see reference paper at page 7 for
-        implementation.
+        projection of said eigenvector onto :math:`\\mathbb{C}_1`. See page 7 of
+        :cite:t:`Boumal:NPS:2016` for the implementation.
 
         Args:
             eigenvector (np.ndarray): a numpy array representing the vector.
 
         Returns:
-             A `numpy.ndarray` object of the same dimension as param `eigenvector`.
+             A `numpy.ndarray` object of the same dimension as *eigenvector*.
         """
         try:
             return eigenvector / np.absolute(eigenvector)
@@ -165,11 +179,12 @@ class PhaseReconstructor:
 
     def reconstruct_complex_phases_evm(self) -> np.ndarray:
         """
-        Reconstruct simplest estimator fom the eigenvector method. The result is in complex form,
-        and will be radians once cast back to real form.
+        Reconstructs the simplest estimator fom the eigenvector method. The
+        result is in complex form, and will be radians once cast back to real
+        form.
 
         Returns:
-            The complex form of the result as a 'numpy.ndarray' instance.
+            The complex form of the result as a `numpy.ndarray`.
         """
         logger.debug("Getting complex phase results")
         return self.get_eigenvector_estimator(self.leading_eigenvector)
@@ -180,9 +195,10 @@ class PhaseReconstructor:
         Casts back the complex form of your result to real phase values.
 
         Args:
-            complex_estimator (np.ndarray): your result's complex form as a numpy array.
-            deg (bool): if this is set to True, the result is cast to degrees (from radians)
-                before being returned. Defaults to False.
+            complex_estimator (np.ndarray): your reconstructed result's complex form as a
+                `numpy.ndarray`.
+            deg (bool): if this is set to `True`, the result is cast to degrees (from radians)
+                before being returned. Defaults to `False`.
 
         Returns:
             A `numpy.ndarray` with the real phase values of the result.
