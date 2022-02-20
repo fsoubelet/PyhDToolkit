@@ -4,8 +4,7 @@
 Utilities
 ---------
 
-A module with utility functions used throughout the `pyhdtoolkit.maths.nonconvex_phase_sync` and `pyhdtoolkit.maths.stats_fitting` modules.
-Created on *2020.01.13* by Felix Soubelet (felix.soubelet@cern.ch).
+Module with utility functions used throughout the `~.maths.nonconvex_phase_sync` and `~.maths.stats_fitting` modules.
 """
 from typing import Tuple, Union
 
@@ -18,7 +17,29 @@ from loguru import logger
 
 
 def get_magnitude(value: float) -> int:
-    """Return the determined magnitude of the provided value."""
+    """
+    Returns the determined magnitude of the provided *value*. This corresponds to the
+    power of 10 that would be necessary to reduce *value* to a :math:`X \\cdot 10^{n}`
+    form. In this case, *n* is the result.
+
+    Args:
+        value (float): value to determine the magnitude of.
+
+    Returns:
+        The magnitude of the provided *value*, as an `int`.
+
+    Example:
+        .. code-block:: python
+
+            >>> get_magnitude(10)
+            1
+
+            >>> get_magnitude(0.0311)
+            -2
+
+            >>> get_magnitude(1e-7)
+            -7
+    """
     return int(np.floor(np.log10(np.abs(value))))
 
 
@@ -26,19 +47,25 @@ def get_scaled_values_and_magnitude_string(
     values_array: Union[pd.DataFrame, np.ndarray], force_magnitude: float = None
 ) -> Tuple[Union[pd.DataFrame, np.ndarray], str]:
     """
-    Conveniently scale provided values to the best determined magnitude. Returns scaled values
-    and the magnitude string to use in plots labels.
+    Conveniently scales the provided values to the best determined magnitude, and returns
+    the scaled values and the magnitude string to use in plots labels.
 
     Args:
         values_array (Union[pd.DataFrame, np.ndarray]): vectorised structure containing the
             values to scale.
-        force_magnitude (float0: a specific magnitude value to use for the scaling, if desired.
+        force_magnitude (float): a specific magnitude value to use for the scaling, if desired.
 
     Returns:
-        A tuple of the scaled values (same type as the provided ones) and the string to use for
+        A `tuple` of the scaled values (same type as the provided ones) and the string to use for
         the scale in plots labels and legends.
 
-    Usage:
+    Example:
+        .. code-block:: python
+
+            >>> import numpy as np
+            >>> q = np.array([-330,  230,  430, -720,  750, -110,  410, -340, -950, -630])
+            >>> get_scaled_values_and_magnitude_string(q)
+            (array([-3.3,  2.3,  4.3, -7.2,  7.5, -1.1,  4.1, -3.4, -9.5, -6.3]), '{-2}')
     """
     magnitude = get_magnitude(max(values_array)) if force_magnitude is None else force_magnitude
     applied_magnitude = -magnitude
