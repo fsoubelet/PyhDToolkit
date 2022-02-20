@@ -4,7 +4,7 @@
 Useful Constants
 ----------------
 
-Specific constants to be used in cpymadtools functions, to help with consistency.
+Specific constants to be used in `~.cpymadtools` functions, to help with consistency.
 """
 from typing import Dict, List, Set
 
