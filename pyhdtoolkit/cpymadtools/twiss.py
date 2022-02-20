@@ -4,8 +4,8 @@
 TWISS Routines
 --------------
 
-A module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
-`cpymad.madx.Madx` object.
+Module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
+`~cpymad.madx.Madx` object.
 """
 from typing import Sequence
 
@@ -27,9 +27,9 @@ def get_pattern_twiss(
     **kwargs,
 ) -> tfs.TfsDataFrame:
     """
-    Extracts the ``TWISS`` table for desired variables from the provided `cpymad.madx.Madx`
+    Extracts the ``TWISS`` table for desired variables from the provided `~cpymad.madx.Madx`
     object, and for certain elements matching the provided *patterns*. The table is returned
-    as a `tfs.frame.TfsDataFrame`. Additionally, the ``SUMM`` table is also returned as the
+    as a `~tfs.frame.TfsDataFrame`. Additionally, the ``SUMM`` table is also returned as the
     headers of the returned DataFrame.
 
     .. note::
@@ -41,17 +41,17 @@ def get_pattern_twiss(
         section `Regular Expressions` for details on what is implemented in ``MAD-X`` itself.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         patterns (Sequence[str]): the different element patterns (such as ``MQX`` or ``BPM``) to be applied
-            to the ``TWISS`` command, which will determine the rows in the returned `tfs.frame.TfsDataFrame`.
+            to the ``TWISS`` command, which will determine the rows in the returned `~tfs.frame.TfsDataFrame`.
             Defaults to `[""]` which will select all elements.
-        columns (Sequence[str]): the variables to be returned, as columns in the `tfs.frame.TfsDataFrame`.
+        columns (Sequence[str]): the variables to be returned, as columns in the `~tfs.frame.TfsDataFrame`.
             Defaults to `None`, which will return all available columns.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
             ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
 
     Returns:
-        A `tfs.frame.TfsDataFrame` with the selected columns for all elements matching the provided patterns,
+        A `~tfs.frame.TfsDataFrame` with the selected columns for all elements matching the provided patterns,
         and the internal ``SUMM`` table as header `dict`.
 
     Example:
@@ -90,7 +90,7 @@ def get_pattern_twiss(
 
 def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     """
-    Returns a `tfs.frame.TfsDataFrame` from the `cpymad.madx.Madx` instance's ``TWISS`` table,
+    Returns a `~tfs.frame.TfsDataFrame` from the `~cpymad.madx.Madx` instance's ``TWISS`` table,
     typically in the way we're used to getting it from ``MAD-X`` outputting the `TWISS` (uppercase
     names, colnames, ``SUMM`` table in headers). This will call the `TWISS` command first before
     returning the dframe to you.
@@ -101,7 +101,7 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
             ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.    Keyword Args:
 
     Returns:
-        A `tfs.frame.TfsDataFrame` of the ``TWISS`` table.
+        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table.
 
     Example:
         .. code-block:: python
@@ -125,7 +125,7 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
 def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
     Quickly get the ``TWISS`` table for certain variables at IP locations only. The ``SUMM`` table will be
-    included as the `tfs.frame.TfsDataFrame`'s header dictionary.
+    included as the `~tfs.frame.TfsDataFrame`'s header dictionary.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -134,7 +134,7 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
             ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
 
     Returns:
-        A `tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
+        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
 
     Example:
         .. code-block:: python
@@ -148,7 +148,7 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
 def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
     Quickly get the ``TWISS`` table for certain variables for one Interaction Region, meaning at the IP and
-    Q1 to Q3 both left and right of the IP. The ``SUMM`` table will be included as the `tfs.frame.TfsDataFrame`'s
+    Q1 to Q3 both left and right of the IP. The ``SUMM`` table will be included as the `~tfs.frame.TfsDataFrame`'s
     header dictionary.
 
     Args:
@@ -159,7 +159,7 @@ def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COL
             ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
 
     Returns:
-        A `tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
+        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
 
     Example:
         .. code-block:: python

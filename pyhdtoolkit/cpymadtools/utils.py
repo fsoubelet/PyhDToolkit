@@ -4,7 +4,7 @@
 Miscellaneous Utilities
 -----------------------
 
-Module with utility functions to do mundane operations with `cpymad.madx.Madx` objects.
+Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
 import tfs
 
@@ -14,7 +14,7 @@ from loguru import logger
 
 def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> tfs.TfsDataFrame:
     """
-    Turns an internal table from the ``MAD-X`` process into a `tfs.frame.TfsDataFrame`.
+    Turns an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame`.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
