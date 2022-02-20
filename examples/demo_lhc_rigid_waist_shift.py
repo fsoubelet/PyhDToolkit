@@ -8,7 +8,7 @@ LHC Rigid Waist Shift
 
 This example shows how to use the `~.lhc.apply_lhc_rigidity_waist_shift_knob` 
 function to force a waist shift at a given IP and break the symmetry of the 
-:math:`\beta`-functions in the Interaction Region.
+:math:`\\beta`-functions in the Interaction Region.
 
 We will do a comparison of the interaction region situation before and after 
 applying a rigid waist shift.
@@ -115,7 +115,7 @@ plt.show()
 
 ###############################################################################
 # Comparing to the previous plot, one can notice two things:
-#  - The triplet quadrupoles powering is not has changed.
+#  - The triplet quadrupoles powering has changed.
 #  - The :math:`\beta_{x,y}` functions symmetry has been broken.
 #
 # One can compare the :math:`\beta_{x,y}` functions before and after the rigid
