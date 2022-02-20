@@ -1,13 +1,11 @@
 """
 .. _cpymadtools-errors:
 
-
 Errors Application
 ------------------
 
 A module with functions to perform MAD-X errors setups and manipulations with a cpymad.madx.Madx object,
 mainly for LHC and HLLHC machines.
-Created on *2020.02.03* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Dict, List, Sequence
 

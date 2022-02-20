@@ -1,12 +1,10 @@
 """
 .. _cpymadtools-twiss:
 
-
 TWISS Routines
 --------------
 
 A module with functions to manipulate MAD-X TWISS functionality through a cpymad.madx.Madx object.
-Created on *2020.02.03* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from typing import Sequence
 

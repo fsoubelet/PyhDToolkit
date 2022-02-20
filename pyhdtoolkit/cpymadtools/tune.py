@@ -1,13 +1,11 @@
 """
 .. _cpymadtools-tune:
 
-
 Tune Utilities
 --------------
 
 A collection of functions to manipulate MAD-X functionality around the tune through a cpymad.madx.Madx
 object.
-Created on *2021.04.01* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import math
 import sys

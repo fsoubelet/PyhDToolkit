@@ -1,13 +1,11 @@
 """
 .. _cpymadtools-plotters:
 
-
 Plotting Utilities
 ------------------
 
 A collection of functions to plot different output results from a cpymad.madx.Madx object's
 simulation results.
-Created on *2019.12.08* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from functools import partial
 from pathlib import Path

@@ -5,7 +5,6 @@ Miscellaneous Utilities
 -----------------------
 
 A module with utility functions to do mundane operations with `cpymad.madx.Madx` objects.
-Created on *2021.07.22* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 import tfs
 

@@ -1,12 +1,10 @@
 """
 .. _cpymadtools-ptc:
 
-
 PTC Routines
 ------------
 
 A module with functions to harness MAD-X PTC functionality with a cpymad.madx.Madx object.
-Created on *2020.02.03* by Felix Soubelet (felix.soubelet@cern.ch).
 """
 from pathlib import Path
 from typing import Dict, Sequence, Tuple, Union
