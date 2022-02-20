@@ -117,7 +117,7 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
         **kwargs: any keyword argument pair will be used to update the ``MAD-X`` globals.
 
     Returns:
-        An instanciated `cpymad.madx.Madx` object with the required configuration.
+        An instanciated `~cpymad.madx.Madx` object with the required configuration.
     """
     madx = Madx(stdout=stdout, stderr=stderr)
     madx.option(echo=False, warn=False)
