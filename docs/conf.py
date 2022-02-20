@@ -180,6 +180,7 @@ sphinx_gallery_conf = {
     "remove_config_comments": True,  # remove config comments from the code
     "capture_repr": ("_repr_html_",),
     "compress_images": ("images", "thumbnails", "-o1"),
+    "only_warn_on_example_error": True,  # keep the build going if an example fails, very important for doc workflow
 }
 
 # Config for the matplotlib plot directive
