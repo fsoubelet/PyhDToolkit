@@ -4,7 +4,8 @@
 TWISS Routines
 --------------
 
-A module with functions to manipulate MAD-X TWISS functionality through a cpymad.madx.Madx object.
+A module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
+`cpymad.madx.Madx` object.
 """
 from typing import Sequence
 
@@ -26,29 +27,46 @@ def get_pattern_twiss(
     **kwargs,
 ) -> tfs.TfsDataFrame:
     """
-    Extract the `TWISS` table for desired variables, and for certain elements matching a pattern.
-    Additionally, the `SUMM` table is also returned in the form of the TfsDataFrame's headers dictionary.
-    The TWISS flag will be fully cleared after running this command.
+    Extracts the ``TWISS`` table for desired variables from the provided `cpymad.madx.Madx`
+    object, and for certain elements matching the provided *patterns*. The table is returned
+    as a `tfs.frame.TfsDataFrame`. Additionally, the ``SUMM`` table is also returned as the
+    headers of the returned DataFrame.
 
-    Warning: Although the `pattern` parameter should accept a regex, MAD-X does not implement actual regexes.
-    Please refer to the MAD-X manual, section `Regular Expressions` for details on what is implemented in MAD-X
-    itself.
+    .. note::
+        The ``TWISS`` flag will be fully cleared after running this function.
+
+    .. warning::
+        Although the *patterns* parameter should accept a regex, ``MAD-X`` does not implement actual regexes.
+        Please refer to the `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_,
+        section `Regular Expressions` for details on what is implemented in ``MAD-X`` itself.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        patterns (Sequence[str]): the different element patterns (such as `MQX` or `BPM`) to be applied to
-            the command, which will determine the rows in the returned DataFrame. Defaults to [""] which
-            will select all elements.
-        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame. Defaults to
-            `None`, which will return all available columns.
-
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
-        `centre` or starting coordinates with `betax`, 'betay` etc.
+        madx (cpymad.madx.Madx): an instanciated `cpymad.madx.Madx` object.
+        patterns (Sequence[str]): the different element patterns (such as ``MQX`` or ``BPM``) to be applied
+            to the ``TWISS`` command, which will determine the rows in the returned `tfs.frame.TfsDataFrame`.
+            Defaults to `[""]` which will select all elements.
+        columns (Sequence[str]): the variables to be returned, as columns in the `tfs.frame.TfsDataFrame`.
+            Defaults to `None`, which will return all available columns.
+        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
+            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
 
     Returns:
-        A TfsDataFrame with the selected columns for all elements matching the provided patterns,
-        and the internal `summ` table as header dict.
+        A `tfs.frame.TfsDataFrame` with the selected columns for all elements matching the provided patterns,
+        and the internal ``SUMM`` table as header `dict`.
+
+    Example:
+        .. code-block:: python
+
+            >>> ips_df = get_pattern_twiss(madx=madx, patterns=["IP"])  # get LHC IP points
+
+            >>> triplets_df = get_pattern_twiss(  # get (HL)LHC IR1 triplets
+            ...     madx=madx,
+            ...     patterns=[
+            ...         f"MQXA.[12345][RL]1",  # Q1 and Q3 LHC
+            ...         f"MQXB.[AB][12345][RL]1",  # Q2A and Q2B LHC
+            ...         f"MQXF[AB].[AB][12345][RL]1",  # Q1 to Q3 A and B HL-LHC
+            ...     ],
+            ... )
     """
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)
@@ -72,19 +90,23 @@ def get_pattern_twiss(
 
 def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     """
-    Returns a `tfs.TfsDataFrame` from the Madx instance's twiss dframe, typically in the way we're used to
-    getting it from MAD-X outputting the `TWISS` (uppercase names, colnames, summ table in headers). This
-    will call the `TWISS` command first before returning the dframe to you.
+    Returns a `tfs.frame.TfsDataFrame` from the `cpymad.madx.Madx` instance's ``TWISS`` table,
+    typically in the way we're used to getting it from ``MAD-X`` outputting the `TWISS` (uppercase
+    names, colnames, ``SUMM`` table in headers). This will call the `TWISS` command first before
+    returning the dframe to you.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
-        `centre` or starting coordinates with `betax`, 'betay` etc.
+        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
+            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.    Keyword Args:
 
     Returns:
-        A tfs.TfsDataFrame.
+        A `tfs.frame.TfsDataFrame` of the ``TWISS`` table.
+
+    Example:
+        .. code-block:: python
+
+            >>> twiss_df = get_twiss_tfs(madx, chrom=True, ripken=True)
     """
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)
@@ -102,19 +124,22 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
 
 def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
-    Quickly get the `TWISS` table for certain variables at IP locations only. The `SUMM` table will be
-    included as the TfsDataFrame's header dictionary.
+    Quickly get the ``TWISS`` table for certain variables at IP locations only. The ``SUMM`` table will be
+    included as the `tfs.frame.TfsDataFrame`'s header dictionary.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
-
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
-        `centre` or starting coordinates with `betax`, 'betay` etc.
+        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
+            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
 
     Returns:
-        A TfsDataFrame of the twiss output.
+        A `tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
+
+    Example:
+        .. code-block:: python
+
+            >>> ips_df = get_ips_twiss(madx, chrom=True, ripken=True)
     """
     logger.info("Getting Twiss at IPs")
     return get_pattern_twiss(madx=madx, patterns=["IP"], columns=columns, **kwargs)
@@ -122,20 +147,24 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
 
 def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
-    Quickly get the `TWISS` table for certain variables for one IR, meaning at the IP and Q1 to Q3 both
-    left and right of the IP. The `SUMM` table will be included as the TfsDataFrame's header dictionary.
+    Quickly get the ``TWISS`` table for certain variables for one Interaction Region, meaning at the IP and
+    Q1 to Q3 both left and right of the IP. The ``SUMM`` table will be included as the `tfs.frame.TfsDataFrame`'s
+    header dictionary.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ir (int): which interaction region to get the TWISS for.
         columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
-
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X TWISS command, such as `chrom`, `ripken`,
-        `centre` or starting coordinates with `betax`, 'betay` etc.
+        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
+            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
 
     Returns:
-        A TfsDataFrame of the twiss output.
+        A `tfs.frame.TfsDataFrame` of the ``TWISS`` table's sub-selection.
+
+    Example:
+        .. code-block:: python
+
+            >>> ir_df = get_ir_twiss(madx, chrom=True, ripken=True)
     """
     logger.info(f"Getting Twiss for IR{ir:d}")
     return get_pattern_twiss(
