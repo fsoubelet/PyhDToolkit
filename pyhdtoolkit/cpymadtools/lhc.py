@@ -4,8 +4,8 @@
 LHC-Specific Utilities
 ----------------------
 
-A module with functions to perform MAD-X actions with a cpymad.madx.Madx object, that are specific to LHC
-and HLLHC machines.
+Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object,
+that are specific to LHC and HLLHC machines.
 """
 from typing import Dict, List, Sequence, Tuple
 
@@ -30,16 +30,19 @@ from pyhdtoolkit.utils import deprecated
 
 def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6, **kwargs) -> None:
     """
-    Define beams with default configuratons for `LHCB1` and `LHCB2` sequences.
+    Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        energy (float): beam energy in GeV. Defaults to 6500.
-        emittance (float): emittance in meters, which will be used to calculate geometric emittance,
-            then fed to the BEAM command.
+        energy (float): beam energy, in [GeV]. Defaults to 6500.
+        emittance (float): emittance in [m]. Will be used to calculate geometric
+            emittance which is then fed to the ``BEAM`` command.
+        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.
 
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X BEAM command.
+    Example:
+        .. code-block:: python
+
+            >>> make_lhc_beams(madx, energy=6800, emittance=2.5e-6)
     """
     logger.info("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
@@ -61,15 +64,20 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
         )
 
 
-def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_arc: bool = False) -> None:
+def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_arc: bool = False) -> None:
     """
-    Power the Landau octupoles in the (HL)LHC.
+    Powers the Landau octupoles in the (HL)LHC.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        mo_current (float): MO powering in Amps.
         beam (int): beam to use.
-        defective_arc: If set to `True`, the KOD in Arc 56 are powered for less Imax.
+        mo_current (float): `MO` powering, in [A].
+        defective_arc: If set to `True`, the ``KOD`` in Arc 56 are powered for less ``Imax``.
+
+    Example:
+        .. code-block:: python
+
+            >>> power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)
     """
     try:
         brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
@@ -93,11 +101,16 @@ def power_landau_octupoles(madx: Madx, mo_current: float, beam: int, defective_a
 
 def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
     """
-    Deactivate all arc sextupoles in the (HL)LHC.
+    Deactivates all arc sextupoles in the (HL)LHC.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         beam (int): beam to use.
+
+    Example:
+        .. code-block:: python
+
+            >>> deactivate_lhc_arc_sextupoles(madx, beam=1)
     """
     # KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56
     # KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56
@@ -115,16 +128,23 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
 
 def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
     """
-    Applies the LHC colinearity knob. If you don't know what this is, you should not be using this
-    function.
+    Applies the LHC colinearity knob.
+
+    .. note::
+        If you don't know what this is, you really should not be using this function.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users
-            don't mess up local coupling by mistake. This should be a positive integer, normally between 1
+            don't mess up local IR coupling by mistake. This should be a positive integer, normally between 1
             and 10.
         ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
             Classically 1 or 5.
+
+    Example:
+        .. code-block:: python
+
+            >>> apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)
     """
     logger.info(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
     logger.warning("You should re-match tunes & chromaticities after this")
@@ -141,15 +161,19 @@ def apply_lhc_rigidity_waist_shift_knob(
     madx: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
 ) -> None:
     """
-    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP. If you don't know what
-    this is, you should not be using this function. The waist shift is done by unbalancing the
-    triplet powering knob of the left and right-hand sides of the IP.
+    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP.
 
-    Warning: Applying the shift will modify your tunes and most likely flip them, making a subsequent
-    matching impossible if your lattice has coupling. To avoid this, match to tunes split further apart
-    before applying the waist shift knob, and then match to the desired working point. For instance for
-    the LHC, matching to (62.27, 60.36) before applying and afterwards rematching to (62.31, 60.32) usually
-    works well.
+    .. note::
+        If you don't know what this is, you really should not be using this function. The waist shift
+        is achieved by moving all four betatron waists simltaneously: unbalancing the triplet powering
+        knobs of the left and right-hand sides of the IP,
+
+    .. warning::
+        Applying the shift will modify your tunes and is likely to flip them, making a subsequent matching
+        impossible if your lattice has coupling. To avoid this, one should match to tunes split further apart
+        before applying the waist shift knob, and then match to the desired working point. For instance for
+        the LHC, matching to (62.27, 60.36) before applying and afterwards rematching to (62.31, 60.32) usually
+        works well.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -157,8 +181,16 @@ def apply_lhc_rigidity_waist_shift_knob(
         ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
             Classically 1 or 5.
         side (str): Which side of the IP to move the waist to, determines a sign in the calculation.
-            Defaults to 'left', which means s_waist < s_ip (and setting it to 'right' would move the waist
-            to s_waist > s_ip).
+            Defaults to `left`, which means :math:`s_{\\mathrm{waist}} \\lt s_{\\mathrm{ip}}` (and
+            setting it to `right` would move the waist such that
+            :math:`s_{\\mathrm{waist}} \\gt s_{\\mathrm{ip}}`).
+
+    Example:
+        .. code-block:: python
+
+            >>> matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.27, 60.36)
+            >>> apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)
+            >>> matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32)
     """
     logger.info(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
     logger.warning("You should re-match tunes & chromaticities after this")
@@ -185,15 +217,20 @@ def apply_lhc_coupling_knob(
     madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
 ) -> None:
     """
-    Applies the LHC coupling knob to reach the desired C- value.
+    Applies the LHC coupling knob to reach the desired :math:`C^{-}` value.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        coupling_knob (float): Desired value for the Cminus, typically a few units of 1E-3. Defaults to 0
-        so users don't mess up coupling by mistake
-        beam (int): beam to apply the knob to, defaults to beam 1.
-        telescopic_squeeze (bool): if set to True, uses the knobs for Telescopic Squeeze configuration.
-            Defaults to `True`.
+        coupling_knob (float): Desired value for the Cminus, typically a few units of ``1E-3``.
+            Defaults to 0 so users don't mess up coupling by mistake.
+        beam (int): beam to apply the knob to. Defaults to beam 1.
+        telescopic_squeeze (bool): if set to `True`, uses the knobs for Telescopic Squeeze configuration.
+            Defaults to `True` as of run III.
+
+    Example:
+        .. code-block:: python
+
+            >>> apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)
     """
     logger.info("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this")
@@ -217,14 +254,20 @@ def install_ac_dipole_as_kicker(
     top_turns: int = 6600,
 ) -> None:
     """
-    Installs an AC dipole for (HL)LHC BEAM 1 OR 2 ONLY.
-    The AC Dipole does impact the orbit as well as the betatron functions when turned on. Unfortunately in
-    MAD-X, it cannot be modeled to do both at the same time. This routine introduces an AC Dipole as a
-    kicker element so that its effect can be seen on particle orbit in tracking. It DOES NOT affect TWISS
-    functions. See https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.084002 (part III).
+    Installs an AC dipole as a kicker element in (HL)LHC beam 1 or 2, for tracking. This function
+    assumes that you have already defined lhcb1/lhcb2 sequence, made a beam for it (``BEAM``
+    command or `~lhc.make_lhc_beams` function), matched to your desired working point and made
+    a ``TWISS`` call.
 
-    This function assumes that you have already defined lhcb1/lhcb2, made a beam for it (BEAM command or
-    `make_lhc_beams` function), matched to your desired working point and made a TWISS.
+    .. important::
+        In a real machine, the AC Dipole does impact the orbit as well as the betatron
+        functions when turned on (:cite:t:`Miyamoto:ACD:2008`, part III). In ``MAD-X``
+        however, it cannot be modeled to do both at the same time. This routine introduces
+        an AC Dipole as a kicker element so that its effect can be seen on particle trajectory
+        in tracking. It **does not** affect ``TWISS`` functions.
+
+    One can find a full example use of the function for tracking in the
+    :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>` example gallery.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -238,6 +281,21 @@ def install_ac_dipole_as_kicker(
             This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000
             as in the LHC.
         top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.
+
+    Example:
+        .. code-block:: python
+
+            >>> lhc.install_ac_dipole_as_kicker(
+            ...     madx,
+            ...     deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30
+            ...     deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332
+            ...     sigma_x=2,  # bunch amplitude kick in the horizontal plane
+            ...     sigma_y=2,  # bunch amplitude kick in the vertical plane
+            ...     beam=1,  # beam for which to install and kick
+            ...     start_turn=100,  # when to turn on the AC Dipole
+            ...     ramp_turns=2000,  # how many turns to ramp up/down the AC Dipole
+            ...     top_turns=6600,  # how many turns to keep the AC Dipole at full kick
+            ... )
     """
     logger.warning("This AC Dipole is implemented as a kicker and will not affect TWISS functions!")
     logger.info("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam")
@@ -293,20 +351,30 @@ def install_ac_dipole_as_kicker(
 
 def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: int = 1) -> None:
     """
-    Installs an AC dipole as a matrix element for (HL)LHC BEAM 1 OR 2 ONLY.
-    The AC Dipole does impact the orbit as well as the betatron functions when turned on. Unfortunately in
-    MAD-X, it cannot be modeled to do both at the same time. This routine introduces an AC Dipole as a
-    matrix element so that its effect can be seen on the TWISS functions. It DOES NOT affect tracking.
-    See https://journals.aps.org/prab/abstract/10.1103/PhysRevSTAB.11.084002 (part III).
+    Installs an AC dipole as a matrix element in (HL)LHC beam 1 or 2, to see its effect on TWISS functions
+    This function assumes that you have already defined lhcb1/lhcb2 sequence, made a beam for it (``BEAM``
+    command or `~lhc.make_lhc_beams` function), matched to your desired working point and made a ``TWISS``
+    call.
 
-    This function assumes that you have already defined lhcb1/lhcb2, made a beam for it (BEAM command or
-    `make_lhc_beams` function), matched to your desired working point and made a TWISS.
+    This function's use is very similar to that of `~.lhc.install_ac_dipole_as_kicker`.
+
+    .. important::
+        In a real machine, the AC Dipole does impact the orbit as well as the betatron
+        functions when turned on (:cite:t:`Miyamoto:ACD:2008`, part III). In ``MAD-X``
+        however, it cannot be modeled to do both at the same time. This routine introduces
+        an AC Dipole as a matrix element so that its effect can be seen on ``TWISS`` functions.
+        It **does not** affect tracking.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.
         deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.
         beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.
+
+    Example:
+        .. code-block:: python
+
+            >>> install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)
     """
     logger.warning("This AC Dipole is implemented as a matrix and will not affect particle tracking!")
     logger.info("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam.")
@@ -348,19 +416,27 @@ def vary_independent_ir_quadrupoles(
     madx: Madx, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
 ) -> None:
     """
-    Send the `vary` commands for the desired quadrupoles in the IRs. The independent quadrupoles for which
-    this is implemented are Q4 to Q13 included. This is useful to setup some specific matching involving
-    these elements.
+    Sends the ``VARY`` commands for the desired quadrupoles in the IR surrounding the provided *ip*.
+    The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful
+    to setup some specific matching involving these elements.
 
-    It is necessary to have defined a 'brho' variable when creating your beams.
+    ..important::
+        It is necessary to have defined a ``brho`` variable when creating your beams.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).
-        ip (int): the IP around which to apply the instructions. Defaults to 1.
-        sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left.
-            Defaults to both sides of the IP.
+        ip (int): the IP around which to apply the instructions.
+        sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left,
+            accepts these letters case-insensitively. Defaults to both sides of the IP.
         beam (int): the beam for which to apply the instructions. Defaults to 1.
+
+    Example:
+        .. code-block:: python
+
+            >>> vary_independent_ir_quadrupoles(
+            ...     madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=("r", "l")
+            ... )
     """
     if (
         ip not in (1, 2, 5, 8)
@@ -402,6 +478,11 @@ def reset_lhc_bump_flags(madx: Madx) -> None:
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+
+    Example:
+        .. code-block:: python
+
+            >>> reset_lhc_bump_flags(madx)
     """
     logger.info("Resetting all LHC IP bump flags")
     ALL_BUMPS = (
@@ -421,12 +502,17 @@ def reset_lhc_bump_flags(madx: Madx) -> None:
 
 def make_sixtrack_output(madx: Madx, energy: int) -> None:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Prepare output for sixtrack run.
+    Prepare output for a ``SixTrack`` run. Initial implementation credits go to
+    :user:`Joschua Dilly <joschd>`.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        energy (float): beam energy in GeV.
+        energy (float): beam energy, in [GeV].
+
+    Example:
+        .. code-block:: python
+
+            >>> make_sixtrack_output(madx, energy=6800)
     """
     logger.info("Preparing outputs for SixTrack")
 
@@ -445,17 +531,26 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
 
 def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
     """
-    Makethin for the LHC sequence as previously done in MAD-X macros. This will use the `teapot` style and
-    will enforce `makedipedge`.
+    Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.
+    This will use the ``teapot`` style and will enforce ``makedipedge``.
+
+    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
+    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
 
     Args:
-        madx (Madx): an instantiated cpymad.madx.Madx object.
-        sequence (str): the sequence to use for the MAKETHIN command.
-        slicefactor (int): the slice factor to apply in makethin. Defaults to 1.
+        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
+        sequence (str): the sequence to use for the ``MAKETHIN`` command.
+        slicefactor (int): the slice factor to apply in ``MAKETHIN``, which is a factor
+            applied to default values for different elements, as did the old macro. Defaults
+            to 1.
+        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``
+            command, namely ``style`` (will default to ``teapot``) and the ``makedipedge``
+            flag (will default to `True`).
 
-    Keyword Args:
-        The keyword arguments for the MAD-X MAKETHN commands, namely `style` (will default to `teapot`) and
-        the `makedipedge` flag (will default to True).
+    Example:
+        .. code-block:: python
+
+            >>> make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
     """
     logger.info(f"Slicing sequence '{sequence}'")
     madx.select(flag="makethin", clear=True)
@@ -496,12 +591,20 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
 
 def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
     """
-    Re-cycle the provided sequence from a different starting point.
+    Re-cycles the provided *sequence* from a different starting point, given as *start*.
+
+    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
+    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
 
     Args:
-        madx (Madx): an instantiated cpymad.madx.Madx object.
-        sequence (str): the sequence to re cycle.
+        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
+        sequence (str): the sequence to re-cycle.
         start (str): element to start the new cycle from.
+
+    Example:
+        .. code-block:: python
+
+            >>> lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
     """
     logger.debug(f"Re-cycling sequence '{sequence}' from {start}")
     madx.command.seqedit(sequence=sequence)
@@ -512,16 +615,23 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
 
 def get_lhc_bpms_list(madx: Madx) -> List[str]:
     """
-    Returns the list of monitoring BPMs for the current LHC sequence in use. The BPMs are queried through
-    a regex in the result of a TWISS command.
+    Returns the list of monitoring BPMs for the current LHC sequence in use.
+    The BPMs are queried through a regex in the result of a ``TWISS`` command.
 
-    NOTE: As this function calls the TWISS command and requires that TWISS can succeed on your sequence.
+    .. note::
+        As this function calls the ``TWISS`` command and requires that ``TWISS`` can
+        succeed on your sequence.
 
     Args:
         madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
 
     Returns:
-        The list of BPM names.
+        The `list` of BPM names.
+
+    Example:
+        .. code-block:: python
+
+            >>> observation_bpms = get_lhc_bpms_list(madx)
     """
     twiss_df = twiss.get_twiss_tfs(madx).reset_index()
     bpms_df = twiss_df[twiss_df.NAME.str.contains("^bpm.*B[12]$", case=False, regex=True)]
@@ -533,13 +643,18 @@ def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
     """
-    Matching routine to get cross-term Ripken parameters beta_12 and beta_21 to be 0 at a given location.
+    Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
+    to be 0 at a given location.
+
+    .. danger::
+        This function is deprecated and will be removed in a future version. Please use
+        its equivalent from the `~.cpymadtools.coupling` module.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         sequence (str): name of the sequence to activate for the matching.
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
-        vary_knobs (Sequence[str]): the variables names to 'vary' in the MADX routine.
+        vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
     """
     logger.info(f"Matching Ripken parameters for no coupling at location {location}")
     logger.debug("Creating macro to update Ripkens")
@@ -560,18 +675,28 @@ def get_lhc_tune_and_chroma_knobs(
     accelerator: str, beam: int = 1, telescopic_squeeze: bool = True
 ) -> Tuple[str, str, str, str]:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Get names of knobs needed to match tunes and chromaticities as a tuple of strings.
+    Gets names of knobs needed to match tunes and chromaticities as a tuple of strings,
+    for the LHC or HLLHC machines. Initial implementation credits go to
+    :user:`Joschua Dilly <joschd>`.
 
     Args:
         accelerator (str): Accelerator either 'LHC' (dQ[xy], dQp[xy] knobs) or 'HLLHC'
             (kqt[fd], ks[fd] knobs).
-        beam (int): Beam to use, for the knob names.
-        telescopic_squeeze (bool): if set to True, returns the knobs for Telescopic Squeeze configuration.
-            Defaults to `True`.
+        beam (int): Beam to use, for the knob names. Defaults to 1.
+        telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic
+            Squeeze configuration. Defaults to `True` to reflect run III scenarios.
 
     Returns:
-        Tuple of strings with knobs for `(qx, qy, dqx, dqy)`.
+        A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.
+
+    Example:
+        .. code-block:: python
+
+            >>> get_lhc_tune_and_chroma_knobs("LHC", beam=1, telescopic_squeeze=False)
+            ('dQx.b1', 'dQy.b1', 'dQpx.b1', 'dQpy.b1')
+
+            >>> get_lhc_tune_and_chroma_knobs("HLLHC", beam=2)
+            ('kqtf.b2_sq', 'kqtd.b2_sq', 'ksf.b2_sq', 'ksd.b2_sq')
     """
     beam = 2 if beam == 4 else beam
     suffix = "_sq" if telescopic_squeeze else ""
@@ -601,8 +726,8 @@ def get_lhc_tune_and_chroma_knobs(
 
 def _all_lhc_arcs(beam: int) -> List[str]:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Names of all LHC arcs for a given beam.
+    Generates and returns the names of all LHC arcs for a given beam.
+    Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
 
     Args:
         beam (int): beam to get names for.
@@ -615,16 +740,17 @@ def _all_lhc_arcs(beam: int) -> List[str]:
 
 def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Returns the list of K-strings for various magnets and orders (K1L, K2SL etc strings).
+    Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).
+    Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
 
     Args:
         start (int): the starting order, defaults to 0.
         stop (int): the order to go up to, defaults to 8.
-        orientation (str): magnet orientation, can be 'straight', 'skew' or 'both'. Defaults to 'both'.
+        orientation (str): magnet orientation, can be `straight`, `skew` or `both`.
+            Defaults to `both`.
 
     Returns:
-        The list of names as strings.
+        The `list` of names as strings.
     """
     if orientation not in ("straight", "skew", "both"):
         logger.error(f"Orientation '{orientation}' is not accepted, should be one of 'straight', 'skew', 'both'.")
