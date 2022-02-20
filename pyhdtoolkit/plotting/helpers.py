@@ -42,6 +42,19 @@ class AnnotationsPlotter:
 
         Returns:
             A `matploblit.text.Annotation` of the created annotation.
+        
+        Example:
+            .. code-block:: python
+
+                >>> AnnotationsPlotter.set_arrow_label(
+                ...     axis=ax,
+                ...     label="Your label",
+                ...     arrow_position=(1, 2),
+                ...     label_position=(1.1 * some_value, 0.75 * another_value),
+                ...     color="indianred",
+                ...     arrow_arc_rad=0.3,
+                ...     fontsize=25,
+                ... )
         """
         return axis.annotate(
             label,

@@ -286,6 +286,13 @@ def ptc_track_particle(
 
         If the user has set ``onetable`` to `True`, only one entry is in the dictionary under the key
         ``trackone`` and it has the combined table as a pandas DataFrame for value.
+
+    Example:
+        .. code-block:: python
+
+            >>> tracks_dict = ptc_track_particle(
+            ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
+            ... )
     """
     logger.info("Performing single particle PTC (thick) tracking")
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]

@@ -93,11 +93,13 @@ class CommandLine:
             If the process does not terminate after *timeout* seconds, a `TimeoutExpired` exception
             will be raised.
 
-        Example:
+        Examples:
             .. code-block:: python
 
                 >>> CommandLine.run("echo hello")
                 (0, b"hello\\r\\n")
+
+            .. code-block:: python
 
                 >>> import os
                 >>> modified_env = os.environ.copy()

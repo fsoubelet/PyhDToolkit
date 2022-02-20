@@ -28,7 +28,7 @@ def timeit(function: Callable) -> Iterator[None]:
     Example:
         .. code-block:: python
 
-            >>> with timeit(lambda spanned: logger.debug(f'Did some stuff in {spanned} seconds')):
+            >>> with timeit(lambda spanned: logger.debug(f"Did some stuff in {spanned} seconds")):
             ...     some_stuff()
             ...     some_other_stuff()
     """

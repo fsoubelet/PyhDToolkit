@@ -25,6 +25,11 @@ def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> t
     Returns:
         A `~tfs.frame.TfsDataFrame` object with the *table_name* data, and the desired
         *headers_table* (usually ``SUMM``) as headers.
+
+    Examples:
+        .. code-block:: python
+
+            >>> twiss_tfs = get_table_tfs(madx, table_name="TWISS")
     """
     logger.debug(f"Extracting table {table_name} into a TfsDataFrame")
     dframe = tfs.TfsDataFrame(madx.table[table_name].dframe())

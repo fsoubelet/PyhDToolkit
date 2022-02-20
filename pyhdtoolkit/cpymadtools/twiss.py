@@ -54,12 +54,18 @@ def get_pattern_twiss(
         A `~tfs.frame.TfsDataFrame` with the selected columns for all elements matching the provided patterns,
         and the internal ``SUMM`` table as header `dict`.
 
-    Example:
+    Examples:
+        To get LHC IP points:
+
         .. code-block:: python
 
-            >>> ips_df = get_pattern_twiss(madx=madx, patterns=["IP"])  # get LHC IP points
+            >>> ips_df = get_pattern_twiss(madx=madx, patterns=["IP"])
 
-            >>> triplets_df = get_pattern_twiss(  # get (HL)LHC IR1 triplets
+        To get (HL)LHC IR1 triplets:
+
+        .. code-block:: python
+
+            >>> triplets_df = get_pattern_twiss(
             ...     madx=madx,
             ...     patterns=[
             ...         f"MQXA.[12345][RL]1",  # Q1 and Q3 LHC

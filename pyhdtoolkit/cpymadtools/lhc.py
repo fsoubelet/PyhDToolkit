@@ -689,11 +689,13 @@ def get_lhc_tune_and_chroma_knobs(
     Returns:
         A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.
 
-    Example:
+    Examples:
         .. code-block:: python
 
             >>> get_lhc_tune_and_chroma_knobs("LHC", beam=1, telescopic_squeeze=False)
             ('dQx.b1', 'dQy.b1', 'dQpx.b1', 'dQpy.b1')
+
+        .. code-block:: python
 
             >>> get_lhc_tune_and_chroma_knobs("HLLHC", beam=2)
             ('kqtf.b2_sq', 'kqtd.b2_sq', 'ksf.b2_sq', 'ksd.b2_sq')

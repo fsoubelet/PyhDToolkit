@@ -41,6 +41,13 @@ def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
 
     Returns:
         Nothing, but modifies the global ``DISTRIBUTIONS`` `dict` called by other functions.
+
+    Example:
+        .. code-block:: python
+
+            >>> import scipy.stats as st
+            >>> tested_dists = {st.chi: "Chi", st.expon: "Exponential", st.laplace: "Laplace"}
+            >>> set_distributions_dict(tested_dists)
     """
     # pylint: disable=global-statement
     logger.debug("Setting tested distributions")
@@ -66,6 +73,11 @@ def best_fit_distribution(
     Returns:
         A `tuple` containing the `scipy.stats` generator corresponding to the best fit candidate,
         and the parameters for said generator to best fit the data.
+
+    Example:
+        .. code-block:: python
+
+            >>> best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)
     """
     # pylint: disable=too-many-locals
     logger.debug(f"Getting histogram of original data, in {bins} bins")
@@ -122,6 +134,12 @@ def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: in
 
     Returns:
         A `pandas.Series` with the PDF as values, and the corresponding axis values as index.
+
+    Example:
+        .. code-block:: python
+
+            >>> best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)
+            >>> pdf = fitting.make_pdf(best_fit_func, best_fit_params)
     """
     # Separate parts of parameters
     *args, loc, scale = params

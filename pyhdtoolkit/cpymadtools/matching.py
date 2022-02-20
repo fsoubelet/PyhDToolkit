@@ -129,10 +129,11 @@ def match_tunes_and_chromaticities(
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
 
-    Example:
+    Examples:
+        Matching a dummy lattice (not LHC or HLLHC):
+
         .. code-block:: python
 
-            >>> # matching in a dummy lattice (not LHC or HLLHC)
             >>> matching.match_tunes_and_chromaticities(
             ...     madx,
             ...     None,              # this is not LHC or HLLHC
@@ -144,7 +145,10 @@ def match_tunes_and_chromaticities(
             ...     varied_knobs=["kqf", "kqd", "ksf", "ksd"],
             ... )
 
-            >>> # matching the LHC lattice
+        Matching the LHC lattice:
+
+        .. code-block:: python
+
             >>> matching.match_tunes_and_chromaticities(
             ...     madx,
             ...     "lhc",                    # will find the knobs automatically

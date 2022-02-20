@@ -56,7 +56,7 @@ def get_opticsfiles_paths() -> List[Path]:
         a special suffix such as **_ctpps1** are ignored.
 
     Returns:
-        List[Path]: List of Path objects to the opticsfiles.
+        A `list` of `~pathlib.Path` objects to the opticsfiles.
 
     Raises:
         ValueError: If the program is running in an unknown location (neither `afs` nor `local`).
@@ -87,7 +87,7 @@ def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") 
 
     Raises:
         ValueError: If the program is running in an unknown location  (neither `afs` nor `local`), and the
-        files cannot be found in the expected directories.
+            files cannot be found in the expected directories.
     """
     logger.debug("Calling optics")
     if RUN_LOCATION == "afs":
@@ -146,7 +146,7 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
 
     Raises:
         AssertionError: if the :math:`\\beta^{*}` value for IP1 and IP5 is not
-        the same (in both planes too).
+            the same (in both planes too).
     """
     file_lines = opticsfile.read_text().split("\n")
     ip1_x_line, ip1_y_line, ip5_x_line, ip5_y_line = [line for line in file_lines if line.startswith("bet")]

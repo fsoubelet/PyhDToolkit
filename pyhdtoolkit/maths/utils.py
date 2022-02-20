@@ -28,14 +28,18 @@ def get_magnitude(value: float) -> int:
     Returns:
         The magnitude of the provided *value*, as an `int`.
 
-    Example:
+    Examples:
         .. code-block:: python
 
             >>> get_magnitude(10)
             1
 
+        .. code-block:: python
+
             >>> get_magnitude(0.0311)
             -2
+
+        .. code-block:: python
 
             >>> get_magnitude(1e-7)
             -7

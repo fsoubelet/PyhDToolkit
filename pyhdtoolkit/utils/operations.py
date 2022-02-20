@@ -34,6 +34,12 @@ class ListOperations:
 
         Returns:
             `True` if all elements are unique, `False` otherwise.
+
+        Example:
+            .. code-block:: python
+
+              >>> ListOperations.all_unique([1, 2, 3, 5, 12, 0])
+              True
         """
         return len(sequence) == len(set(sequence))
 
@@ -54,7 +60,9 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.average_by([{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n'])
+              >>> ListOperations.average_by(
+              ...   [{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']
+              ... )
               5.0
         """
         return float(sum(map(function, sequence), 0.0) / len(sequence))
@@ -175,11 +183,13 @@ class ListOperations:
         Returns:
             A boolean. See first line of docstring.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> ListOperations.eval_none([0, 0, 1, 0], lambda x: x >= 2)
               True
+
+            .. code-block:: python
 
               >>> ListOperations.eval_none([0, 1, 2, 0], lambda x: x >= 2)
               False
@@ -201,11 +211,13 @@ class ListOperations:
         Returns:
             A boolean. See first line of docstring.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> ListOperations.eval_some([0, 1, 2, 0], lambda x: x >= 2)
               True
+
+            .. code-block:: python
 
               >>> ListOperations.eval_some([0, 0, 1, 0], lambda x: x >= 2)
               False
@@ -294,6 +306,12 @@ class ListOperations:
         Returns:
             A random element from *sequence* in a list (to manage potentially
             nested sequences as input).
+
+        Examples:
+            .. code-block:: python
+
+              >>> ListOperations.sample(["a", "b", 1, 2, False])
+              2
         """
         return sequence[random.randint(0, len(sequence) - 1)]
 
@@ -330,6 +348,12 @@ class ListOperations:
 
         Returns:
             A copy of *sequence* with original elements at a random index.
+
+        Examples:
+            .. code-block:: python
+
+              >>> ListOperations.shuffle(["a", "b", 1, 2, False])
+              ['b', 1, False, 2, 'a']
         """
         temp_list = copy.deepcopy(sequence)
         amount_to_shuffle = len(temp_list)
@@ -384,11 +408,13 @@ class ListOperations:
         Returns:
             A `list`, see first docstring sentence reference.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> ListOperations.symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor)
               [1.2, 3.4]
+
+            .. code-block:: python
 
               >>> ListOperations.symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x >= 2)
               [2.1]
@@ -537,11 +563,13 @@ class NumberOperations:
         Returns:
             A number (float  / int), being the nearest to *num* in the range [*a_val*, *b_val*].
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> NumberOperations.clamp_number(17, 4, 5)
               5
+
+            .. code-block:: python
 
               >>> NumberOperations.clamp_number(23, 20, 30)
               23
@@ -563,11 +591,13 @@ class NumberOperations:
         Returns:
             The angle value in radians.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> NumberOperations.degrees_to_radians(160)
               2.792526803190927
+
+            .. code-block:: python
 
               >>> NumberOperations.degrees_to_radians(360, decompose=True)
               (2, "pi", "rad")
@@ -589,11 +619,13 @@ class NumberOperations:
         Returns:
             The greatest common divisor of all elements in *sequence*.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> NumberOperations.greatest_common_divisor([54, 24])
               6
+
+            .. code-block:: python
 
               >>> NumberOperations.greatest_common_divisor([30, 132, 378, 582, 738])
               6
@@ -612,6 +644,12 @@ class NumberOperations:
 
         Returns:
             A boolean stating if *dividend* can be divided by *divisor*.
+
+        Examples:
+            .. code-block:: python
+
+              >>> NumberOperations.is_divisible_by(35, 15)
+              False
         """
         return dividend % divisor == 0
 
@@ -629,11 +667,13 @@ class NumberOperations:
         Returns:
             The least common multiple of all provided numbers.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> NumberOperations.least_common_multiple(4, 5)
               20
+
+            .. code-block:: python
 
               >>> NumberOperations.least_common_multiple(2, 5, 17, 632)
               53720
@@ -658,11 +698,13 @@ class NumberOperations:
         Returns:
             The angle value in degrees.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> NumberOperations.radians_to_degrees(2* math.pi)
               360
+
+            .. code-block:: python
 
               >>> NumberOperations.radians_to_degrees(2.710)
               155.2715624804531
@@ -685,11 +727,13 @@ class StringOperations:
         Returns:
             The same `string` best adapted to camelCase.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> StringOperations.camel_case("a_snake_case_name")
               "aSnakeCaseName"
+
+            .. code-block:: python
 
               >>> StringOperations.camel_case("A Title Case Name")
               "aTitleCaseName"
@@ -711,11 +755,13 @@ class StringOperations:
         Returns:
             The `string`, capitalized.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> StringOperations.capitalize("astringtocapitalize")
               "Astringtocapitalize"
+
+            .. code-block:: python
 
               >>> StringOperations.capitalize("astRIngTocApItalizE", lower_rest=True)
               "Astringtocapitalize"
@@ -738,11 +784,13 @@ class StringOperations:
         Returns:
             A boolean stating whether `str_1` is an anagram of `str_2` or not.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> StringOperations.is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort")
               True
+
+            .. code-block:: python
 
               >>> StringOperations.is_anagram("A first string", "Definitely not an anagram")
               False
@@ -766,11 +814,13 @@ class StringOperations:
         Returns:
             A boolean stating whether *text* is a palindrome or not.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> StringOperations.is_palindrome("racecar")
               True
+
+            .. code-block:: python
 
               >>> StringOperations.is_palindrome("definitelynot")
               False
@@ -790,11 +840,13 @@ class StringOperations:
         Returns:
             The same string best adapted to kebab_case.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> StringOperations.kebab_case("camel Case")
               "camel-case"
+
+            .. code-block:: python
 
               >>> StringOperations.kebab_case("snake_case")
               "snake-case"
@@ -821,11 +873,13 @@ class StringOperations:
         Returns:
             The same string best adapted to snake_case.
 
-        Example:
+        Examples:
             .. code-block:: python
 
               >>> StringOperations.snake_case("A bunch of words")
               "a_bunch_of_words"
+
+            .. code-block:: python
 
               >>> StringOperations.snake_case("camelCase")
               "camelcase"

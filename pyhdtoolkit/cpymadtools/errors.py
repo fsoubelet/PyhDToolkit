@@ -46,7 +46,7 @@ def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
             specific value for this given order. In all kwargs, the order # should be in the range
             [1...15], where 1 == dipolar field.
 
-    Example:
+    Examples:
 
         Set random values for (alsmost) all of these orders:
 
@@ -120,7 +120,7 @@ def misalign_lhc_ir_quadrupoles(
         **kwargs: Any keyword argument is given to the ``EALIGN`` command, including the error to apply
             (`DX`, `DY`, `DPSI` etc) as a string, like it would be given directly into ``MAD-X``.
 
-    Example:
+    Examples:
 
         For systematic ``DX`` misalignment:
 
@@ -206,7 +206,7 @@ def misalign_lhc_triplets(
         **kwargs: Any keyword argument is given to the ``EALIGN`` command, including the error to apply
             (`DX`, `DY`, `DPSI` etc) as a string, like it would be given directly into ``MAD-X``.
 
-    Example:
+    Examples:
 
         A random, gaussian truncated ``DX`` misalignment:
 

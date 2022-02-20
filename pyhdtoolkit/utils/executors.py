@@ -5,20 +5,20 @@ Executors Utilities
 -------------------
 
 A module providing two classes to execute functions + arguments couples through either a
-multiprocessing approach, or a multithreading approach.
-
-Here are a few tidbits to keep in mind:
+multiprocessing approach, or a multithreading approach. Before using these, here are a few
+tidbits to keep in mind:
 
 * There can only be one thread running at any given time in a python process because of the GIL.
 * Multiprocessing is parallelism. Multithreading is concurrency.
 * Multiprocessing is for increasing speed. Multithreading is for hiding latency.
 * Multiprocessing is best for computations. Multithreading is best for IO.
-* If you have CPU heavy tasks, use multiprocessing with n_process = n_cores and never more. Never.
-* If you have IO heavy tasks, use multithreading with n_threads = m * n_cores with m a number
+* If you have CPU heavy tasks, use multiprocessing with `n_process = n_cores` and never more. Never.
+* If you have IO heavy tasks, use multithreading with `n_threads = m * n_cores` with `m` a number
   bigger than 1 that you can tweak on your own. Try many values and choose the one with the best
-  speedup because there isn’t a general rule.
+  speedup because there isn't a general rule.
 
-For instance the default value of m in ThreadPoolExecutor is set to 5 which I think is quite random.
+For instance the default value of `m` in `~concurrent.futures.ThreadPoolExecutor` is set to 5 which
+I think is quite random.
 """
 
 from concurrent import futures
@@ -66,6 +66,14 @@ class MultiProcessor:
         Returns:
             A list of tuples, each `tuple` being the returned value(s) of *function* for the given
             call, for instance `[(results, run, one), (results, run, two), (results, run, three)]`.
+        
+        Example:
+            .. code-block:: python
+
+                >>> MultiProcessor.execute_function(
+                ...     func=np.square, func_args=list(range(6)), n_processes=2)
+                ... )
+                [0, 1, 4, 9, 16, 25]
         """
         logger.debug(f"Starting multiprocessing with {n_processes} processes")
         with futures.ProcessPoolExecutor(n_processes) as ex:
@@ -84,8 +92,8 @@ class MultiThreader:
     Example:
         .. code-block:: python
 
-            >>> Processor = MultiProcessor()
-            >>> results_one_tuple_per_run = Processor.execute_function(
+            >>> Threader = MultiThreader()
+            >>> results_one_tuple_per_run = Threader.execute_function(
             ...     func=your_io_heavy_function,
             ...     func_args=list_of_args_for_each_call,
             ...     n_processes=some_int_up_to_you,
