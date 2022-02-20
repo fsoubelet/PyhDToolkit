@@ -12,10 +12,10 @@ import numpy as np
 def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) -> np.ndarray:
     """
     Perform the Courant-Snyder transform on regular (nonchaotic) phase-space coordinates.
-    Specifically, if considering the horizontal plane and noting :math:`U = (x, px)` the 
-    phase-space vector, it returns :math:`\\bar{U} = (\\bar{x}, \\bar{px})` according to 
+    Specifically, if considering the horizontal plane and noting :math:`U = (x, px)` the
+    phase-space vector, it returns :math:`\\bar{U} = (\\bar{x}, \\bar{px})` according to
     the transform :math:`\\bar{U} = P \\cdot U`, where::
-    
+
         P = [1/sqrt(beta_x)              0      ]
             [alpha_x/sqrt(beta_x)   sqrt(beta_x)]
 
