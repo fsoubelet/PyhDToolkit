@@ -1,3 +1,5 @@
+.. _pyhdtoolkit-plotting:
+
 Plotting
 ========
 

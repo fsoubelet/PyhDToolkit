@@ -1,3 +1,5 @@
+.. _pyhdtoolkit-models:
+
 Models
 ======
 
