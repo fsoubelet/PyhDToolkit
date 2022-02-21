@@ -49,7 +49,7 @@ class matplotlib_svg_scraper(object):
 # -- Project information -----------------------------------------------------
 
 project = "PyhDToolkit"
-copyright = f"2020, {pyhdtoolkit.__author__}"
+copyright = f"2019, {pyhdtoolkit.__author__}"
 author = pyhdtoolkit.__author__
 
 # The full version, including alpha/beta/rc tags
