@@ -54,6 +54,8 @@ class AperturePlotter:
     ) -> matplotlib.figure.Figure:
         """
         Creates a plot representing nicely the lattice layout and the aperture tolerance across the machine.
+        One can find an example use of this function in the :ref:`machine aperture <demo-accelerator-aperture>`
+        example gallery.
 
         .. important::
             This function assumes the user has previously made a call to the ``APERTURE`` command in ``MAD-X``,
@@ -157,7 +159,7 @@ class AperturePlotter:
 
 
 class BeamEnvelopePlotter:
-    """A class to plot the estimated beam envelope of your machine."""
+    """A class to plot the estimated beam envelope throughout your machine."""
 
     @staticmethod
     def plot_envelope(
@@ -170,25 +172,26 @@ class BeamEnvelopePlotter:
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active `cpymad` instance after having ran a script, plots an estimation of the beam
-        stay-clear enveloppe in your machine, as well as an estimation of the aperture limits.
+        Creates a plot representing an estimation of the beam stay-clear enveloppe through the machine,
+        as well as an estimation of the aperture limits of elements. One can find an example use of this
+        function in the :ref:`beam enveloppe <demo-beam-enveloppe>` example gallery.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            beam_params (BeamParameters): a validated BeamParameters object from
-                `pyhdtoolkit.optics.beam.compute_beam_parameters`.
+            beam_params (BeamParameters): a validated `~.models.beam.BeamParameters` object one can
+                get from `~.optics.beam.compute_beam_parameters`.
             figsize (Tuple[int, int]): size of the figure, defaults to (13, 20).
-            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-                not None, using the tuple passed.
+            xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+                not ``None``, using the tuple passed.
             hplane_ylim (Tuple[float, float]): the y limits for the horizontal plane plot (so
                 that machine geometry doesn't make the  plot look shrinked). Defaults to (-0.12, 0.12).
             vplane_ylim (Tuple[float, float]): the y limits for the vertical plane plot (so that
                 machine geometry doesn't make the plot look shrinked). Defaults to (-0.12, 0.12).
-            savefig (str): will save the figure if this is not None, using the string value passed.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         # pylint: disable=too-many-arguments
         # We need to interpolate in order to get high resolution along the S direction
