@@ -35,8 +35,8 @@ Contents
     :maxdepth: 2
 
     quickstart
-    api
     gallery/index
+    api
     release
     contributing
     bibliography
