@@ -53,7 +53,7 @@ TuneDiagramPlotter.plot_tune_diagram(
     differentiate_orders=True,  # different orders will have a different color and linestyle
     legend_title="Resonance Lines",  # if given, legend is added to figure
 )
-plt.scatter(0.35, 0.29, marker="o", color="red")  # this is close to a third order resonance
+plt.scatter(0.35, 0.29, marker="o", color="m")  # this is close to a third order resonance
 plt.xlim(0, 0.5)  # limit the x-axis to the range [0, 0.5] for visibility
 plt.ylim(0, 0.5)  # limit the y-axis to the range [0, 0.5] for visibility
 plt.show()

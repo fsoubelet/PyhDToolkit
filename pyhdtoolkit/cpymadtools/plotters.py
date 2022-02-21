@@ -781,7 +781,8 @@ class PhaseSpacePlotter:
     ) -> matplotlib.figure.Figure:
         """
         Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
-        when provided by position and momentum coordinates for a specific plane.
+        when provided by position and momentum coordinates for a specific plane. One can find an example
+        use of this function in the :ref:`phase space <demo-phase-space>` example gallery.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -844,7 +845,8 @@ class PhaseSpacePlotter:
         Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
         when provided by position and momentum coordinates for a specific plane. Each particle trajectory
         has its own color on the plot, within the limit of `~matplotlib.pyplot`'s 156 named colors, after
-        the function loops back to the first color again.
+        the function loops back to the first color again. One can find an example use of this function in
+        the :ref:`phase space <demo-phase-space>` example gallery.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -901,7 +903,7 @@ class PhaseSpacePlotter:
 
 
 class TuneDiagramPlotter:
-    """A class to plot a blank tune diagram with Farey sequences, as well as your working points."""
+    """A class to plot a blank tune diagram with Farey sequences up to a desired order."""
 
     order_to_alpha: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
     order_to_rgb: Dict[int, np.ndarray] = {
@@ -933,14 +935,15 @@ class TuneDiagramPlotter:
     @staticmethod
     def farey_sequence(order: int) -> List[Tuple[int, int]]:
         """
-        Returns the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás (see Numerical
-        Methods 2018 CAS proceedings: https://arxiv.org/abs/2006.10661).
+        Returns the n-th farey_sequence sequence, ascending, where n is the provided *order*.
+        Original code from :user:`Rogelio Tomás <rogeliotomas>` (see Numerical Methods 2018 CAS
+        proceedings, :cite:t:`Tomas:CASImperfections:2018`).
 
         Args:
             order (int): the order up to which we want to calculate the sequence.
 
         Returns:
-            The sequence as a list of plottable 2D points.
+            The sequence as a `list` of plottable 2D points.
         """
         logger.trace(f"Computing Farey sequence for order {order}")
         seq = [(0, 1)]
@@ -954,14 +957,14 @@ class TuneDiagramPlotter:
     @staticmethod
     def _plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwargs) -> None:
         """
-        Plot resonance lines from farey sequences of the given order on the current figure.
+        Plot resonance lines from farey sequences of the given *order* on the provided
+        `~matplotlib.axes.Axes`.
 
         Args:
             order (int): the order of the resonance.
-            axis (matplotlib.axes.Axes): the axis on which to plot the resonance lines.
-
-        Keyword Args:
-            Any keyword argument is given to plt.plot().
+            axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot
+                the resonance lines.
+            **kwargs: any keyword argument is given to `~matplotlib.pyplt.plot`.
         """
         order_label = TuneDiagramPlotter.order_to_label[order]
         logger.debug(f"Plotting {order_label} resonance lines")
@@ -997,30 +1000,31 @@ class TuneDiagramPlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
-        Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
-        The first order lines make up the [(0, 0), (0, 1), (1, 1), (1, 0)] square and will only be seen
-        when redefining the limits of the figure, which are by default [0, 1] on each axis.
+        Creates a plot representing the tune diagram up to the given *max_order*. One can find an example
+        use of this function in the :ref:`tune diagram <demo-tune-diagram>` example gallery.
+
+        .. note::
+            The first order lines make up the [(0, 0), (0, 1), (1, 1), (1, 0)] square and will only be
+            seen when redefining the limits of the figure, which are by default [0, 1] on each axis.
 
         Args:
-            title (str): title of your plot, to be given to the figure. Defaults to an empty string.
+            title (Optional[str]): title of the figure.
             legend_title (str): if given, will be used as the title of the plot's legend. If set to `None`,
                 then creating a legend for the figure will not be done by this function and left up to the
-                user's care (a call to `pyplot.legend` will do). Defaults to `None`.
+                user's care (a call to `~matplotlib.pyplot.legend` will do). Defaults to `None`.
             max_order (int): the order up to which to plot resonance lines for, should not exceed 6.
                 Defaults to 6.
             differentiate_orders (bool): if `True`, the lines for each order will be of a different color.
-                When set to False, there is still minimal differentation through alpha, linewidth and
-                linestyle. Defaults to `False`.
+                When set to `False`, there is still minimal differentation through ``alpha``, ``linewidth``
+                and ``linestyle``. Defaults to `False`.
             figsize (Tuple[int, int]): size of the figure, defaults to (12, 12).
-
-        Keyword Args:
-            Any keyword argument will be transmitted to the `_plot_resonance_lines_for_order` functino
-            and later on to `pyplot.plot`. Be aware that `alpha`, `ls`, `lw`, `color` and `label` are
-            already set by this function and providing them as kwargs might lead to errors.
+            **kwargs: any keyword argument will be transmitted to the
+                `~.plotters.TuneDiagramPlotter._plot_resonance_lines_for_order` function and later on to
+                `~matplotlib.pyplot.plot`. Be aware that ``alpha``, ``ls``, ``lw``, ``color`` and ``label`` are
+                already set by this function and providing them as kwargs might lead to errors.
 
         Returns:
-             The figure on which resonance lines from farey sequences are drawn, up to the specified max
-             order.
+             The `~matplotlib.figure.Figure` on which the tune diagram is drawn.
         """
         if max_order > 6 or max_order < 1:
             logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
