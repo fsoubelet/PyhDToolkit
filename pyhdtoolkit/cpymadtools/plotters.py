@@ -768,7 +768,7 @@ class LatticePlotter:
 
 
 class PhaseSpacePlotter:
-    """A class to plot Courant-Snyder coordinates phase space."""
+    """A class to plot the normalized Courant-Snyder coordinates in phase space."""
 
     @staticmethod
     def plot_courant_snyder_phase_space(
@@ -780,23 +780,24 @@ class PhaseSpacePlotter:
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
-        Plots the Courant-Snyder phase space of a particle distribution when provided by position
-        and momentum coordinates for a specific plane.
+        Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
+        when provided by position and momentum coordinates for a specific plane.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
-                u_coordinates[0] should be all tracked coordinates for the first particle and so on.
-            pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
-                given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
+            u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
+                ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
+            pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
+                given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
                 and so on.
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            figsize (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
-            plane (str): the physical plane to plot. Defaults to 'Horizontal'.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
+            plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
+                case-insensitive. Defaults to ``Horizontal``.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
             logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
@@ -840,25 +841,26 @@ class PhaseSpacePlotter:
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
-        Plots the Courant-Snyder phase space of a particle distribution when provided by position
-        and momentum coordinates for a specific plane. Each particle trajectory has its own color on
-        the plot, within the limit of pyplot's 156 named colors. The sequence repeats after the
-        156th color.
+        Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
+        when provided by position and momentum coordinates for a specific plane. Each particle trajectory
+        has its own color on the plot, within the limit of `~matplotlib.pyplot`'s 156 named colors, after
+        the function loops back to the first color again.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
-                u_coordinates[0] should be all tracked coordinates for the first particle and so on.
-            pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
-                given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
+            u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
+                ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
+            pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
+                given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
                 and so on.
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            figsize (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
-            plane (str): the physical plane to plot. Defaults to 'Horizontal'.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
+            plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
+                case-insensitive. Defaults to ``Horizontal``.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
             logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
