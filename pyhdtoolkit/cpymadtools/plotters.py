@@ -557,8 +557,7 @@ class DynamicAperturePlotter:
 
 class LatticePlotter:
     """
-    A class to elegantly plot the Twiss parameters layout of a machine from a `~cpymad.madx.Madx` instance
-    after it has ran, or the machine survey.
+    A class to plot plot the ``TWISS`` parameters as well as the lattice layout or survey of the machine.
     """
 
     @staticmethod
@@ -581,53 +580,52 @@ class LatticePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
-        the lattice layout and the beta functions along with the horizontal dispertion function. This is very,
-        very heavily reworked code, inspired by code from Guido Sterbini.
+        Creates a plot representing the lattice layout and the :math`\\beta` functions along with the horizontal
+        dispertion function. This is a very, very heavily refactored version of an initial implementation by
+        :user:`Guido Sterbini <sterbini>`. One can find an example use of this function in the
+        :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            title (str): title of your plot.
+            title (Optional[str]): title of the figure.
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
-                to center a plot around a specific point or element, which would then become located at s = 0.
-                Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).
-            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-                not None, using the tuple passed.
-            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
-                the figure. Defaults to True. Dipoles are plotted in blue.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
+                you want to center a plot around a specific point or element, which would then become located
+                at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
+            xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+                not ``None``, using the tuple passed.
+            plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
+                the figure. Defaults to `True`. Dipoles are plotted in blue.
             plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this
                 gradient plotted as a quadrupole patch. Defaults to `False`.
-            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
-                subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
-            plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
-                Beam Position Monitors. BPMs are plotted in dark grey.
+            plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted on the layout
+                subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
+            plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
+                represent Beam Position Monitors. BPMs are plotted in dark grey.
             disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
                 Defaults to (-10, 125).
             beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
                 Defaults to None, to be determined by matplotlib based on the provided beta values.
-            k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
+            k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
                 height of dipole patches. Defaults to (-0.25, 0.25).
-            k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
+            k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
                 height of quadrupole patches. Defaults to (-0.08, 0.08).
             k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
                 the figure, and the provided values act as vertical axis limits for the k2l values used for the
                 height of sextupole patches.
+            **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on
+                to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-        Keyword Args:
-            Any keyword argument to be transmitted to `_plot_machine_layout`, later on to `plot_lattice_series`
-            and then `matplotlib.patches.Rectangle`, such as lw etc.
-
-        WARNING:
+        .. warning::
             Currently the function tries to plot legends for the different layout patches. The position of the
             different legends has been hardcoded in corners and might require users to tweak the axis limits
-            (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don't
+            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
             overlap.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         # pylint: disable=too-many-arguments
         # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
@@ -700,25 +698,26 @@ class LatticePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active Cpymad class after having ran a script, will create a plot
-        representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.
+        Creates a plot representing the lattice layout and the machine geometry in 2D. This is a very,
+        very heavily refactored version of an initial implementation by :user:`Guido Sterbini <sterbini>`.
+        One can find an example use of this function in the :ref:`machine survey <demo-machine-survey>`
+        example gallery.
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-            title (str): title of your plot.
+            title (Optional[str]): title of the figure.
             figsize (Tuple[int, int]): size of the figure, defaults to (16, 11).
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            show_elements (bool): if True, will try to plot by differentiating elements.
-                Experimental, defaults to False.
-            high_orders (bool): if True, plot sextupoles and octupoles when show_elements is True,
-                otherwise only up to quadrupoles. Defaults to False.
-
-        Keyword Arguments:
-            Any keyword argument is transmiitted to `matplotlib.pyplot.scatter` calls later on.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            show_elements (bool): if `True`, will try to plot by differentiating elements.
+                Defaults to `False`.
+            high_orders (bool): if `True`, plots sextupoles and octupoles if *show_elements* is `True`,
+                otherwise only up to quadrupoles. Defaults to `False`.
+            **kwargs: any keyword argument will be transmitted to `~matplotlib.pyplot.scatter` calls
+                later on.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         logger.info("Plotting machine survey")
         logger.trace("Getting machine survey from cpymad")
