@@ -413,7 +413,7 @@ class CrossingSchemePlotter:
 
         Returns:
             The `~matplotlib.figure.Figure` on which the crossing schemes are drawn. One crossing scheme is
-            plotted per IP and per plane (orbit X and orbit Y) .The underlying axes can be
+            plotted per IP and per plane (orbit X and orbit Y). The underlying axes can be
             accessed with ``fig.get_axes()``.
         """
         logger.warning("You should re-call the 'USE' command on your wanted sequence after this!")
@@ -499,7 +499,12 @@ class CrossingSchemePlotter:
 
 
 class DynamicAperturePlotter:
-    """This is currently badly named, and will change in the future."""
+    """
+    A class to plot the "aperture" at a given number of turns, based on tracked particles.
+
+    .. warning::
+        This class is currently badly named, and will change in the future.
+    """
 
     @staticmethod
     @deprecated(message="It is currently badly named and will migrate to a different class.")
@@ -507,18 +512,19 @@ class DynamicAperturePlotter:
         x_coords: np.ndarray, y_coords: np.ndarray, n_particles: int, savefig: str = None
     ) -> matplotlib.figure.Figure:
         """
-        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
-        vertical axis, and the turn at which they were lost is in the horizontal axis.
+        Creates a plot representing a visual aid for the dynamic aperture after a tracking.
+        Initial amplitudes are on the vertical axis, and the turn at which they were lost is
+        in the horizontal axis.
 
         Args:
-            x_coords (np.ndarray): numpy array of horizontal coordinates over turns.
-            y_coords (np.ndarray): numpy array of vertical coordinates over turns.
+            x_coords (np.ndarray): `~numpy.ndarray` of horizontal coordinates over turns.
+            y_coords (np.ndarray): `~numpy.ndarray` of vertical coordinates over turns.
             n_particles (int): number of particles simulated.
-            savefig (str): will save the figure if this is not None, using the string value passed.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+            The `~matplotlib.figure.Figure` on which the points are drawn. The underlying axes can be
+            accessed with ``fig.get_axes()``.
         """
         logger.info(f"Plotting the '{len(x_coords)} turns' aperture")
         figure = plt.figure(figsize=(12, 7))
