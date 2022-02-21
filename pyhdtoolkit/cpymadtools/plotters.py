@@ -268,24 +268,26 @@ class BeamEnvelopePlotter:
 
 
 class CrossingSchemePlotter:
-    """A class to plot LHC crossing schemes at provided IPs."""
+    """A class to plot LHC crossing schemes at given IPs."""
 
     @staticmethod
     def _highlight_mbx_and_mqx(
         axis: matplotlib.axes.Axes, plot_df: Union[pd.DataFrame, tfs.TfsDataFrame], ip: int, **kwargs
     ) -> None:
         """
-        Plot colored pacthes highlighting zones with MBX and MQX elements in a twin of the given axis.
-        Assumes that the plot_df s already centered at 0 on the IP point!
+        Plots colored pacthes highlighting zones with ``MBX`` and ``MQX`` elements in a twin
+        of the given axis.
+
+        .. warning::
+            This function assumes the provided *plot_df* is already centered at 0 on the IP point!
 
         Args:
-            axis (matplotlib.axes.Axes): the axis to twin and then on which to add patches.
-            plot_df (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone, centered on 0
-                at IP position (simply done with `df.s = df.s - ip_s`).
-            ip (int): the IP number of the given IR.
-
-        Keyword Args:
-            Any keyword argument is given to the `axis.axvspan` method called for each patch.
+            axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` to twin and then on which to add patches.
+            plot_df (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone, centered on 0
+                at the IP position (simply done with ``df.s = df.s - ip_s``).
+            ip (int): the IP number of the wanted IR in which to highlight elements positions.
+            **kwargs: any keyword argument is given to the `~matplotlib.axes.Axes.axvspan` method called for
+                each patch.
         """
         left_ir = plot_df.query("s < 0")  # no need to copy, we don't touch data
         right_ir = plot_df.query("s > 0")  # no need to copy, we don't touch data
@@ -332,20 +334,23 @@ class CrossingSchemePlotter:
         title: str = None,
     ) -> None:
         """
-        Plot the X or Y orbit for the IR on the given axis. Assumes that the plot_df_b1 and plot_df_b2
-        are already centered at 0 on the IP point!
+        Plots the X or Y orbit for the IR on the given axis.
+
+        .. warning::
+            This function assumes the provided the *plot_df_b1* and *plot_df_b2* are already centered
+            at 0 on the IP point!
 
         Args:
-            axis (matplotlib.axes.Axes): the axis on which to plot.
-            plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 1
-                of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
-            plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 2
-                of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
-            plot_column (str): which column (should be `x` or `y`) to plot for the orbit.
+            axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot.
+            plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 1
+                of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
+            plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 2
+                of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
+            plot_column (str): which column (should be ``x`` or ``y``) to plot for the orbit.
             scaling (float): scaling factor to apply to the plotted data. Defaults to 1 (no change of data).
-            xlabel (str): if given, will be used for the `xlabel` of the axis. Defaults to `None`.
-            ylabel (str): if given, will be used for the `ylabel` of the axis. Defaults to `None`.
-            title (str): if given, will be used for the `title` of the axis. Defaults to `None`.
+            xlabel (str): if given, will be used for the ``xlabel`` of the axis. Defaults to `None`.
+            ylabel (str): if given, will be used for the ``ylabel`` of the axis. Defaults to `None`.
+            title (str): if given, will be used for the ``title`` of the axis. Defaults to `None`.
         """
         logger.trace(f"Plotting orbit '{plot_column}'")
         axis.plot(
@@ -382,15 +387,18 @@ class CrossingSchemePlotter:
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active `~cpymad.madx.Madx` instance after having ran a script, will create a plot
-        representing nicely the crossing schemes at two provided IPs. This assumes the appropriate LHC
-        sequence and opticsfile have been loaded, and both `lhcb1` and `lhcb2` beams are defined. It is
-        very recommended to re-cycle the sequences from a point which is not an IP
+        Creates a plot representing the crossing schemes at the two provided IPs.
 
-        WARNING: This function will get TWISS tables for both beams, which means it will `USE` both the
-        `lhcb1` and `lhcb2` sequences, erasing previously defined errors or orbit corrections. The second
-        sequence `USE` will be called on is `lhcb2`, which may not be the one you were using before. Please
-        re-`use` your wanted sequence after calling this function!
+        .. note::
+            This assumes the appropriate LHC sequence and opticsfile have been loaded, and both
+            ``lhcb1`` and ``lhcb2`` beams are defined. It is very recommended to first re-cycle the
+            sequences so that the desired IPs do not happen at beginning or end of the lattice.
+
+        .. warning::
+            This function will get ``TWISS`` tables for both beams, which means it will ``USE`` both the
+            ``lhcb1`` and ``lhcb2`` sequences, erasing previously defined errors or orbit corrections. The
+            second sequence ``USE`` will be called on is ``lhcb2``, which may not be the one you were using
+            before. Please re-``use`` your wanted sequence after calling this function!
 
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -398,16 +406,15 @@ class CrossingSchemePlotter:
             second_ip (int): the second of the two IPs to plot crossing schemes for.
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 12).
             ir_limit (float): the amount of meters to keep left and right of the IP point. Will also
-                determine the xlimits of the plots. Defaults to 275.
+                determine the ``xlimits`` of the plots. Defaults to 275.
             highlight_mqx_and_mbx (bool): if `True`, will add patches highlighting the zones corresponding
-                to MBX and MQX elements. Defaults to `True`.
-            savefig (str): will save the figure if this is not `None`, using the string value passed.
-                Defaults to `None`.
+                to ``MBX`` and ``MQX`` elements. Defaults to `True`.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
 
         Returns:
-            The figure on which the crossing schemes are drawn. One crossing scheme is plotted per IP and
-            per plane (orbit X and orbit Y). The underlying axes can be accessed with 'fig.get_axes()'.
-            Eventually saves the figure as a file.
+            The `~matplotlib.figure.Figure` on which the crossing schemes are drawn. One crossing scheme is
+            plotted per IP and per plane (orbit X and orbit Y) .The underlying axes can be
+            accessed with ``fig.get_axes()``.
         """
         logger.warning("You should re-call the 'USE' command on your wanted sequence after this!")
         # ----- Getting Twiss table dframe for each beam ----- #
