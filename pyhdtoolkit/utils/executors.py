@@ -66,7 +66,7 @@ class MultiProcessor:
         Returns:
             A list of tuples, each `tuple` being the returned value(s) of *function* for the given
             call, for instance `[(results, run, one), (results, run, two), (results, run, three)]`.
-        
+
         Example:
             .. code-block:: python
 

@@ -42,7 +42,7 @@ class AnnotationsPlotter:
 
         Returns:
             A `matploblit.text.Annotation` of the created annotation.
-        
+
         Example:
             .. code-block:: python
 
