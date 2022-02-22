@@ -10,7 +10,7 @@ from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
-
+@pytest.mark.skipif(sys.platform.startswith("win"), reason="Windows is very flaky on this.")
 class TestMatching:
     @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
     @pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
