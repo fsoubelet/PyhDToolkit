@@ -1,5 +1,5 @@
-Contributing to PyhDToolkit
-===========================
+Contributing
+============
 
 ``PyhDToolkit`` is a personnal project, and contributions in the form of bug reports, bug fixes, documentation, enhancement proposals and more are welcome.
 This page provides information on how best to contribute.
