@@ -87,7 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-utilities">Plotting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -338,6 +338,12 @@
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;make_footprint_table&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_footprint_lines&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_footprint_patches&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <div class="viewcode-block" id="make_footprint_table"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table">[docs]</a><span class="k">def</span> <span class="nf">make_footprint_table</span><span class="p">(</span>

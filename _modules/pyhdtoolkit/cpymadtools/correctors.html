@@ -87,7 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-utilities">Plotting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -347,6 +347,11 @@
     <span class="n">LHC_KSF_KNOBS</span><span class="p">,</span>
     <span class="n">LHC_KSS_KNOBS</span><span class="p">,</span>
 <span class="p">)</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;query_arc_correctors_powering&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;query_triplet_correctors_powering&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <div class="viewcode-block" id="query_triplet_correctors_powering"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.correctors.query_triplet_correctors_powering">[docs]</a><span class="k">def</span> <span class="nf">query_triplet_correctors_powering</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>

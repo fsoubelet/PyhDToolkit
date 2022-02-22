@@ -87,7 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-utilities">Plotting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -319,8 +319,8 @@
 <span></span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">.. _cpymadtools-plotters:</span>
 
-<span class="sd">Plotting Utilities</span>
-<span class="sd">------------------</span>
+<span class="sd">Plotting Wrappers</span>
+<span class="sd">-----------------</span>
 
 <span class="sd">Module with functions to create different plots through a `~cpymad.madx.Madx` object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
@@ -347,6 +347,18 @@
 <span class="n">COLORS_DICT</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">BASE_COLORS</span><span class="p">,</span> <span class="o">**</span><span class="n">mcolors</span><span class="o">.</span><span class="n">CSS4_COLORS</span><span class="p">)</span>
 <span class="n">BY_HSV</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">((</span><span class="nb">tuple</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">rgb_to_hsv</span><span class="p">(</span><span class="n">mcolors</span><span class="o">.</span><span class="n">to_rgba</span><span class="p">(</span><span class="n">color</span><span class="p">)[:</span><span class="mi">3</span><span class="p">])),</span> <span class="n">name</span><span class="p">)</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">COLORS_DICT</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
 <span class="n">SORTED_COLORS</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span> <span class="k">for</span> <span class="n">hsv</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">BY_HSV</span><span class="p">]</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;AperturePlotter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;BeamEnvelopePlotter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;CrossingSchemePlotter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;DynamicAperturePlotter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LatticePlotter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;PhaseSpacePlotter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;TuneDiagramPlotter&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;plot_machine_layout&quot;</span><span class="p">,</span>
+<span class="p">]</span>
 
 
 <div class="viewcode-block" id="AperturePlotter"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.AperturePlotter">[docs]</a><span class="k">class</span> <span class="nc">AperturePlotter</span><span class="p">:</span>
@@ -379,6 +391,12 @@
 <span class="sd">            This function assumes the user has previously made a call to the ``APERTURE`` command in ``MAD-X``,</span>
 <span class="sd">            as it will query relevant values from the ``aperture`` table.</span>
 
+<span class="sd">        .. warning::</span>
+<span class="sd">            Currently the function tries to plot legends for the different layout patches. The position of the</span>
+<span class="sd">            different legends has been hardcoded in corners and might require users to tweak the axis limits</span>
+<span class="sd">            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don&#39;t</span>
+<span class="sd">            overlap.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
 <span class="sd">            title (Optional[str]): title of the figure.</span>
@@ -409,12 +427,6 @@
 <span class="sd">            **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on</span>
 <span class="sd">                to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.</span>
 
-<span class="sd">        .. warning::</span>
-<span class="sd">            Currently the function tries to plot legends for the different layout patches. The position of the</span>
-<span class="sd">            different legends has been hardcoded in corners and might require users to tweak the axis limits</span>
-<span class="sd">            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don&#39;t</span>
-<span class="sd">            overlap.</span>
-
 <span class="sd">        Returns:</span>
 <span class="sd">             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be</span>
 <span class="sd">             accessed with ``fig.get_axes()``.</span>
@@ -436,9 +448,9 @@
         <span class="c1"># Create a subplot for the lattice patches (takes a third of figure)</span>
         <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
         <span class="n">quadrupole_patches_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">_plot_machine_layout</span><span class="p">(</span>
+        <span class="n">plot_machine_layout</span><span class="p">(</span>
             <span class="n">madx</span><span class="p">,</span>
-            <span class="n">quadrupole_patches_axis</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">,</span>
             <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
             <span class="n">xoffset</span><span class="o">=</span><span class="n">xoffset</span><span class="p">,</span>
             <span class="n">xlimits</span><span class="o">=</span><span class="n">xlimits</span><span class="p">,</span>
@@ -820,7 +832,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class to plot the &quot;aperture&quot; at a given number of turns, based on tracked particles.</span>
 
-<span class="sd">    .. warning::</span>
+<span class="sd">    .. caution::</span>
 <span class="sd">        This class is currently badly named, and will change in the future.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -903,6 +915,12 @@
 <span class="sd">        :user:`Guido Sterbini &lt;sterbini&gt;`. One can find an example use of this function in the</span>
 <span class="sd">        :ref:`machine lattice &lt;demo-accelerator-lattice&gt;` example gallery.</span>
 
+<span class="sd">        .. warning::</span>
+<span class="sd">            Currently the function tries to plot legends for the different layout patches. The position of the</span>
+<span class="sd">            different legends has been hardcoded in corners and might require users to tweak the axis limits</span>
+<span class="sd">            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don&#39;t</span>
+<span class="sd">            overlap.</span>
+
 <span class="sd">        Args:</span>
 <span class="sd">            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
 <span class="sd">            title (Optional[str]): title of the figure.</span>
@@ -935,12 +953,6 @@
 <span class="sd">            **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on</span>
 <span class="sd">                to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.</span>
 
-<span class="sd">        .. warning::</span>
-<span class="sd">            Currently the function tries to plot legends for the different layout patches. The position of the</span>
-<span class="sd">            different legends has been hardcoded in corners and might require users to tweak the axis limits</span>
-<span class="sd">            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don&#39;t</span>
-<span class="sd">            overlap.</span>
-
 <span class="sd">        Returns:</span>
 <span class="sd">             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be</span>
 <span class="sd">             accessed with ``fig.get_axes()``.</span>
@@ -954,9 +966,9 @@
         <span class="c1"># Create a subplot for the lattice patches (takes a third of figure)</span>
         <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="n">figsize</span><span class="p">)</span>
         <span class="n">quadrupole_patches_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-        <span class="n">_plot_machine_layout</span><span class="p">(</span>
+        <span class="n">plot_machine_layout</span><span class="p">(</span>
             <span class="n">madx</span><span class="p">,</span>
-            <span class="n">quadrupole_patches_axis</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">,</span>
+            <span class="n">axis</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">,</span>
             <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
             <span class="n">xoffset</span><span class="o">=</span><span class="n">xoffset</span><span class="p">,</span>
             <span class="n">xlimits</span><span class="o">=</span><span class="n">xlimits</span><span class="p">,</span>
@@ -1387,20 +1399,18 @@
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plots the layout of your machine as a patch of rectangles for different element types.</span>
-<span class="sd">    Original code from Guido Sterbini.</span>
+<span class="sd">    Plots a `~matplotlib.patches.Rectangle` element on the provided `~matplotlib.axes.Axes` to</span>
+<span class="sd">    represent an element of the machine. Original code from :user:`Guido Sterbini &lt;sterbini&gt;`.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        ax (matplotlib.axes.Axes): an existing  matplotlib.axis `Axes` object to act on.</span>
-<span class="sd">        series (pd.DataFrame): a dataframe with your elements&#39; data.</span>
+<span class="sd">        ax (matplotlib.axes.Axes): an existing  `~matplotlib.axes.Axes` object to draw on.</span>
+<span class="sd">        series (pd.DataFrame): a `pandas.DataFrame` with the elements&#39; data.</span>
 <span class="sd">        height (float): value to reach for the patch on the y axis.</span>
 <span class="sd">        v_offset (float): vertical offset for the patch.</span>
-<span class="sd">        color (str): color kwarg to transmit to pyplot.</span>
-<span class="sd">        alpha (float): alpha kwarg to transmit to pyplot.</span>
-
-<span class="sd">    Keyword Args:</span>
-<span class="sd">        Any kwarg that can be given to matplotlib.patches.Rectangle(), for instance `lw` for the edge line</span>
-<span class="sd">        width.</span>
+<span class="sd">        color (str): color kwarg to transmit to `~matplotlib.pyplot`.</span>
+<span class="sd">        alpha (float): alpha kwarg to transmit to `~matplotlib.pyplot`.</span>
+<span class="sd">        **kwargs: any keyword argument will be transmitted to `~matplotlib.patches.Rectangle`,</span>
+<span class="sd">            for instance ``lw`` for the edge line width.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">add_patch</span><span class="p">(</span>
         <span class="n">patches</span><span class="o">.</span><span class="n">Rectangle</span><span class="p">(</span>
@@ -1414,10 +1424,9 @@
     <span class="p">)</span>
 
 
-<span class="c1"># TODO: make public</span>
-<span class="k">def</span> <span class="nf">_plot_machine_layout</span><span class="p">(</span>
+<div class="viewcode-block" id="plot_machine_layout"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.plot_machine_layout">[docs]</a><span class="k">def</span> <span class="nf">plot_machine_layout</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
-    <span class="n">quadrupole_patches_axis</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
+    <span class="n">axis</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
     <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -1431,46 +1440,50 @@
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Provided with an active `cpymad` instance after having ran a script, will plot the lattice layout on a</span>
-<span class="sd">    given axis. This is the function that takes care of the machine layout in `LatticePlotter.plot_latwiss`,</span>
-<span class="sd">    and is in theory a private function, though if you know what you are doing you may use it individually.</span>
-<span class="sd">    The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.</span>
+<span class="sd">    Draws patches elements representing the lattice layout on the given *axis*. This is the function that</span>
+<span class="sd">    takes care of the machine layout axis in `~.plotters.LatticePlotter.plot_latwiss`.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        Currently the function tries to plot legends for the different layout patches. The position of the</span>
+<span class="sd">        different legends has been hardcoded in corners of the `~matplotlib.axes.Axes` and might require users</span>
+<span class="sd">        to tweak the axis limits (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and</span>
+<span class="sd">        plotted elements don&#39;t overlap.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        quadrupole_patches_axis (matplotlib.axes.Axes): the axis on which to plot. Will also create the</span>
-<span class="sd">            appropriate new axes with `twinx()` to plot the element orders asked for.</span>
-<span class="sd">        title (str): title of your plot.</span>
-<span class="sd">        xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want</span>
-<span class="sd">            to center a plot around a specific point or element, which would then become located at s = 0.</span>
-<span class="sd">            Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).</span>
-<span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is</span>
-<span class="sd">            not None, using the tuple passed.</span>
-<span class="sd">        plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of</span>
-<span class="sd">            the figure. Defaults to True. Dipoles are plotted in blue.</span>
+<span class="sd">        axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` axis on draw the elements. By definition,</span>
+<span class="sd">            the quadrupole elements will be drawn, and for each new element type a call to `~matplotlib.axes.Axes.twinx`</span>
+<span class="sd">            is made and the new elements will be drawn on the newly created twin `~matplotlib.axes.Axes`.</span>
+<span class="sd">            title (Optional[str]): title of the `~matplotlib.axes.Axes`.</span>
+<span class="sd">        xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if</span>
+<span class="sd">            you want to center a plot around a specific point or element, which would then become located</span>
+<span class="sd">            at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.</span>
+<span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is</span>
+<span class="sd">            not ``None``, using the tuple passed.</span>
+<span class="sd">        plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of</span>
+<span class="sd">            the figure. Defaults to `True`. Dipoles are plotted in blue.</span>
 <span class="sd">        plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this</span>
 <span class="sd">            gradient plotted as a quadrupole patch. Defaults to `False`.</span>
-<span class="sd">        plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout</span>
-<span class="sd">            subplot of the figure. Defaults to True. Quadrupoles are plotted in red.</span>
-<span class="sd">        plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent</span>
-<span class="sd">            Beam Position Monitors. BPMs are plotted in dark grey.</span>
-<span class="sd">        k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the</span>
+<span class="sd">        plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted on the layout</span>
+<span class="sd">            subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.</span>
+<span class="sd">        plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to</span>
+<span class="sd">            represent Beam Position Monitors. BPMs are plotted in dark grey.</span>
+<span class="sd">        disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.</span>
+<span class="sd">            Defaults to (-10, 125).</span>
+<span class="sd">        beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.</span>
+<span class="sd">            Defaults to None, to be determined by matplotlib based on the provided beta values.</span>
+<span class="sd">        k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the</span>
 <span class="sd">            height of dipole patches. Defaults to (-0.25, 0.25).</span>
-<span class="sd">        k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the</span>
+<span class="sd">        k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the</span>
 <span class="sd">            height of quadrupole patches. Defaults to (-0.08, 0.08).</span>
 <span class="sd">        k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of</span>
 <span class="sd">            the figure, and the provided values act as vertical axis limits for the k2l values used for the</span>
 <span class="sd">            height of sextupole patches.</span>
-
-<span class="sd">    Keyword Args:</span>
-<span class="sd">        Any keyword argument to be transmitted to `_plot_lattice_series`, and later on to</span>
-<span class="sd">        `matplotlib.patches.Rectangle`, such as lw etc.</span>
-
-<span class="sd">    WARNING:</span>
-<span class="sd">        Currently the function tries to plot legends for the different layout patches. The position of the</span>
-<span class="sd">        different legends has been hardcoded in corners and might require users to tweak the axis limits</span>
-<span class="sd">        (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don&#39;t</span>
-<span class="sd">        overlap.</span>
+<span class="sd">        **kwargs: any keyword argument will be transmitted to `~.plotters._plot_lattice_series`, and then</span>
+<span class="sd">        `~matplotlib.patches.Rectangle`, such as ``lw`` etc.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">_get_twiss_table_with_offsets_and_limits</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">)</span>
@@ -1483,16 +1496,16 @@
     <span class="n">bpms_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;bpms&quot;</span><span class="p">]</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting machine layout&quot;</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting from axis &#39;</span><span class="si">{</span><span class="n">quadrupole_patches_axis</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-    <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$1/f=K_</span><span class="si">{1}</span><span class="s2">L$ $[m^{-1}]$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>  <span class="c1"># quadrupole in red</span>
-    <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
-    <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">k1l_lim</span><span class="p">)</span>
-    <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlimits</span><span class="p">)</span>
-    <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
-    <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>  <span class="c1"># 0-level line</span>
-    <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting from axis &#39;</span><span class="si">{</span><span class="n">axis</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$1/f=K_</span><span class="si">{1}</span><span class="s2">L$ $[m^{-1}]$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>  <span class="c1"># quadrupole in red</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">k1l_lim</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlimits</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="mi">0</span> <span class="o">*</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="s2">&quot;k&quot;</span><span class="p">)</span>  <span class="c1"># 0-level line</span>
+    <span class="n">axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="n">dipole_patches_axis</span> <span class="o">=</span> <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+    <span class="n">dipole_patches_axis</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
     <span class="n">dipole_patches_axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$</span><span class="se">\\</span><span class="s2">theta=K_</span><span class="si">{0}</span><span class="s2">L$ $[rad]$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;royalblue&quot;</span><span class="p">)</span>  <span class="c1"># dipoles in blue</span>
     <span class="n">dipole_patches_axis</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">&quot;royalblue&quot;</span><span class="p">)</span>
     <span class="n">dipole_patches_axis</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">k0l_lim</span><span class="p">)</span>
@@ -1516,7 +1529,7 @@
             <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k1l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">plot_dipole_k1</span><span class="p">:</span>  <span class="c1"># plot dipole quadrupolar gradient (with reduced alpha)</span>
                 <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting quadrupolar gradient of dipole element &#39;</span><span class="si">{</span><span class="n">dipole_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
                 <span class="n">_plot_lattice_series</span><span class="p">(</span>
-                    <span class="n">quadrupole_patches_axis</span><span class="p">,</span>
+                    <span class="n">axis</span><span class="p">,</span>
                     <span class="n">dipole</span><span class="p">,</span>
                     <span class="n">height</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k1l</span><span class="p">,</span>
                     <span class="n">v_offset</span><span class="o">=</span><span class="n">dipole</span><span class="o">.</span><span class="n">k1l</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
@@ -1533,7 +1546,7 @@
         <span class="k">for</span> <span class="n">quadrupole_name</span><span class="p">,</span> <span class="n">quadrupole</span> <span class="ow">in</span> <span class="n">quadrupoles_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting quadrupole element &#39;</span><span class="si">{</span><span class="n">quadrupole_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
             <span class="n">_plot_lattice_series</span><span class="p">(</span>
-                <span class="n">quadrupole_patches_axis</span><span class="p">,</span>
+                <span class="n">axis</span><span class="p">,</span>
                 <span class="n">quadrupole</span><span class="p">,</span>
                 <span class="n">height</span><span class="o">=</span><span class="n">quadrupole</span><span class="o">.</span><span class="n">k1l</span><span class="p">,</span>
                 <span class="n">v_offset</span><span class="o">=</span><span class="n">quadrupole</span><span class="o">.</span><span class="n">k1l</span> <span class="o">/</span> <span class="mi">2</span><span class="p">,</span>
@@ -1542,11 +1555,11 @@
                 <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
             <span class="p">)</span>
             <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
-        <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">k2l_lim</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting sextupole patches&quot;</span><span class="p">)</span>
-        <span class="n">sextupoles_patches_axis</span> <span class="o">=</span> <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+        <span class="n">sextupoles_patches_axis</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$K_</span><span class="si">{2}</span><span class="s2">L$ $[m^{-2}]$&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkgoldenrod&quot;</span><span class="p">)</span>
         <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">tick_params</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="n">labelcolor</span><span class="o">=</span><span class="s2">&quot;darkgoldenrod&quot;</span><span class="p">)</span>
         <span class="n">sextupoles_patches_axis</span><span class="o">.</span><span class="n">spines</span><span class="p">[</span><span class="s2">&quot;right&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">set_position</span><span class="p">((</span><span class="s2">&quot;axes&quot;</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">))</span>
@@ -1569,7 +1582,7 @@
 
     <span class="k">if</span> <span class="n">plot_bpms</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Plotting BPM patches&quot;</span><span class="p">)</span>
-        <span class="n">bpm_patches_axis</span> <span class="o">=</span> <span class="n">quadrupole_patches_axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
+        <span class="n">bpm_patches_axis</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">twinx</span><span class="p">()</span>
         <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>  <span class="c1"># hide yticks, labels etc</span>
         <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.6</span><span class="p">,</span> <span class="mf">1.6</span><span class="p">)</span>
         <span class="n">plotted_elements</span> <span class="o">=</span> <span class="mi">0</span>
@@ -1586,7 +1599,7 @@
             <span class="p">)</span>
             <span class="n">plotted_elements</span> <span class="o">+=</span> <span class="mi">1</span>
         <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-        <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">bpm_patches_axis</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span></div>
 
 
 <span class="c1"># ----- Helpers ----- #</span>

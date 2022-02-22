@@ -87,7 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-utilities">Plotting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -342,6 +342,25 @@
     <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;apply_lhc_colinearity_knob&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;apply_lhc_coupling_knob&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;apply_lhc_rigidity_waist_shift_knob&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;deactivate_lhc_arc_sextupoles&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_lhc_bpms_list&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_lhc_tune_and_chroma_knobs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;install_ac_dipole_as_kicker&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;install_ac_dipole_as_matrix&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_lhc_beams&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_lhc_thin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_sixtrack_output&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;power_landau_octupoles&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reset_lhc_bump_flags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;re_cycle_sequence&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;vary_independent_ir_quadrupoles&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
 
 <span class="c1"># ----- Setup Utlites ----- #</span>
 
@@ -956,7 +975,7 @@
     <span class="k">return</span> <span class="n">bpms_df</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
 
 
-<div class="viewcode-block" id="match_no_coupling_through_ripkens"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.match_no_coupling_through_ripkens">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span>
+<span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">match_no_coupling_through_ripkens</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vary_knobs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -986,7 +1005,7 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;constraint, expr=table(twiss, </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">, beta12)=0&quot;</span><span class="p">)</span>  <span class="c1"># need input else includes &quot; and fails</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;constraint, expr=table(twiss, </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">, beta21)=0&quot;</span><span class="p">)</span>  <span class="c1"># need input else includes &quot; and fails</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">lmdif</span><span class="p">(</span><span class="n">calls</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="mf">1e-21</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endmatch</span><span class="p">()</span></div>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endmatch</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="get_lhc_tune_and_chroma_knobs"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.get_lhc_tune_and_chroma_knobs">[docs]</a><span class="k">def</span> <span class="nf">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>

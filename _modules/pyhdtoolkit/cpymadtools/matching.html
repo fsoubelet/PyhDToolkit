@@ -87,7 +87,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-utilities">Plotting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -331,10 +331,12 @@
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
 
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;match_tunes_and_chromaticities&quot;</span><span class="p">]</span>
+
 <span class="c1"># ----- Utlites ----- #</span>
 
 
-<div class="viewcode-block" id="get_lhc_tune_and_chroma_knobs"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.get_lhc_tune_and_chroma_knobs">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.lhc&#39; module.&quot;</span><span class="p">)</span>
+<span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.lhc&#39; module.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
     <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
@@ -377,7 +379,7 @@
             <span class="sa">f</span><span class="s2">&quot;ksf.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s2">&quot;ksd.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
         <span class="p">),</span>
-    <span class="p">}[</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span></div>
+    <span class="p">}[</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span>
 
 
 <div class="viewcode-block" id="match_tunes_and_chromaticities"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities">[docs]</a><span class="k">def</span> <span class="nf">match_tunes_and_chromaticities</span><span class="p">(</span>
@@ -521,7 +523,7 @@
         <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">chroma_knobs</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be chromaticity knobs</span></div>
 
 
-<div class="viewcode-block" id="get_closest_tune_approach"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.get_closest_tune_approach">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span>
+<span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">get_closest_tune_approach</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="n">accelerator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -635,7 +637,7 @@
         <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_knobs</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># make sure TWISS and SUMM tables are returned to their original state</span>
 
-    <span class="k">return</span> <span class="n">cminus</span></div>
+    <span class="k">return</span> <span class="n">cminus</span>
 
 
 <span class="c1"># ----- Helpers ----- #</span>
