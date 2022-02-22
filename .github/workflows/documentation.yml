@@ -107,7 +107,7 @@ jobs:
           retention-days: 7
 
       - name: Upload documentation to gh-pages
-        if: ${{ success() }}
+        if: ${{ success() }} && github.ref == 'refs/heads/master'  # only for pushes to master
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
