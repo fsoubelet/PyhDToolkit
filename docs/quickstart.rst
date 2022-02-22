@@ -3,108 +3,140 @@
 Quickstart
 ==========
 
-Zarr provides classes and functions for working with N-dimensional arrays that
-behave like NumPy arrays but whose data is divided into chunks and each chunk is
-compressed. If you are already familiar with HDF5 then Zarr arrays provide
-similar functionality, but with some additional flexibility.
+.. _quickstart-install:
 
-.. _quickstart_create:
+Installation
+------------
 
-Creating an array
+This package is tested for and supports `Python 3.7+`.
+You can install it simply from ``PyPI`` in a virtual environment with:
+
+.. prompt:: bash
+
+    pip install pyhdtoolkit
+
+.. tip::
+    Don't know what a virtual environment is or how to set it up?
+    Here is a good primer on `virtual environments <https://realpython.com/python-virtual-environments-a-primer/>`_ by `RealPython`.
+
+To setup a development environment, see the :doc:`contributing instructions <contributing>`.
+
+
+.. _quickstart-docker:
+
+Using With Docker
 -----------------
 
-Zarr has several functions for creating arrays. For example::
+Docker provides an easy way to get access to a fully-fledged environment identical to the one I use for reproducibility.
+One can directly pull a pre-built image from Dockerhub with:
 
-    >>> import zarr
-    >>> z = zarr.zeros((10000, 10000), chunks=(1000, 1000), dtype='i4')
-    >>> z
-    <zarr.core.Array (10000, 10000) int32>
+.. prompt:: bash
 
-The code above creates a 2-dimensional array of 32-bit integers with 10000 rows
-and 10000 columns, divided into chunks where each chunk has 1000 rows and 1000
-columns (and so there will be 100 chunks in total).
+    docker pull fsoubelet/simenv
 
-For a complete list of array creation routines see the :mod:`zarr.creation`
-module documentation.
+You can then run a jupyter server from within the container and bind a local directory to work on.
+Assuming the command above has beem ran and the image pulled from Dockerhub, one can run a jupyterlab server on port ``8888`` with the command: 
 
-.. _quickstart_array:
+.. prompt:: bash
 
-Reading and writing data
+    docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work fsoubelet/simenv
+
+Any jupyter notebook or Python files in the mounted directory can then be used or ran with an environment identical to mine.
+
+
+.. quickstart-five-minutes:
+
+5 Minutes to PyhDToolkit
 ------------------------
 
-Zarr arrays support a similar interface to NumPy arrays for reading and writing
-data. For example, the entire array can be filled with a scalar value::
+One can use the library by simply importing it:
 
-    >>> z[:] = 42
+.. prompt:: python >>>
 
-Regions of the array can also be written to, e.g.::
+    import pyhdtoolkit
 
-    >>> import numpy as np
-    >>> z[0, :] = np.arange(10000)
-    >>> z[:, 0] = np.arange(10000)
+This will include only the core components of ``PyhDToolkit``.
+The different sub-packages must be imported separately, depending on your needs:
 
-The contents of the array can be retrieved by slicing, which will load the
-requested region into memory as a NumPy array, e.g.::
+.. prompt:: python >>>
 
-    >>> z[0, 0]
-    0
-    >>> z[-1, -1]
-    42
-    >>> z[0, :]
-    array([   0,    1,    2, ..., 9997, 9998, 9999], dtype=int32)
-    >>> z[:, 0]
-    array([   0,    1,    2, ..., 9997, 9998, 9999], dtype=int32)
-    >>> z[:]
-    array([[   0,    1,    2, ..., 9997, 9998, 9999],
-           [   1,   42,   42, ...,   42,   42,   42],
-           [   2,   42,   42, ...,   42,   42,   42],
-           ...,
-           [9997,   42,   42, ...,   42,   42,   42],
-           [9998,   42,   42, ...,   42,   42,   42],
-           [9999,   42,   42, ...,   42,   42,   42]], dtype=int32)
+    import pyhdtoolkit.cpymadtools
+    import pyhdtoolkit.maths
+    import pyhdtoolkit.models
+    import pyhdtoolkit.optics
+    import pyhdtoolkit.utils
 
-.. _quickstart_persist:
+Cpymadtools
+^^^^^^^^^^^
 
-Persistent arrays
------------------
+The core of ``PyhDToolkit`` is the `~pyhdtoolkit.cpymadtools` sub-package.
+It provides an ensemble of functionality to perform operations with and from `~cpymad.madx.Madx` objects;
+and conveniently setup, run, analyze and plot ``MAD-X`` simulations and their results.
 
-In the examples above, compressed data for each chunk of the array was stored in
-main memory. Zarr arrays can also be stored on a file system, enabling
-persistence of data between sessions. For example::
+All the public apis in the `~pyhdtoolkit.cpymadtools` work in the same fashion: call them with as first argument your
+`~cpymad.madx.Madx` instance, and then any `args` and `kwargs` relevant to the functionality at hand.
+Let's say one has initiated their ``MAD-X`` simulation through `~cpymad.madx.Madx` as follows:
 
-    >>> z1 = zarr.open('data/example.zarr', mode='w', shape=(10000, 10000),
-    ...                chunks=(1000, 1000), dtype='i4')
+.. prompt:: python >>>
 
-The array above will store its configuration metadata and all compressed chunk
-data in a directory called 'data/example.zarr' relative to the current working
-directory. The :func:`zarr.convenience.open` function provides a convenient way
-to create a new persistent array or continue working with an existing
-array. Note that although the function is called "open", there is no need to
-close an array: data are automatically flushed to disk, and files are
-automatically closed whenever an array is modified.
+    from cpymad.madx import Madx
+    madx = Madx()
 
-Persistent arrays support the same interface for reading and writing data,
-e.g.::
+Then using the `~pyhdtoolkit.cpymadtools` apis goes as:
 
-    >>> z1[:] = 42
-    >>> z1[0, :] = np.arange(10000)
-    >>> z1[:, 0] = np.arange(10000)
+.. prompt:: python >>>
 
-Check that the data have been written and can be read again::
+    from pyhdtoolkit.cpymadtools import super_cool_function  # pretend it exists ;)
+    super_cool_function(madx, *args, **kwargs)
 
-    >>> z2 = zarr.open('data/example.zarr', mode='r')
-    >>> np.all(z1[:] == z2[:])
-    True
+In the `~pyhdtoolkit.cpymadtools` one will find modules to:
 
-If you are just looking for a fast and convenient way to save NumPy arrays to
-disk then load back into memory later, the functions
-:func:`zarr.convenience.save` and :func:`zarr.convenience.load` may be
-useful. E.g.::
+* Encompass existing ``MAD-X`` commands, such as for example :ref:`matching <cpymadtools-matching>` or :ref:`tracking <cpymadtools-track>`;
+* Perform useful routines with a clean pythonic interface (for instance :ref:`betatron coupling  <cpymadtools-coupling>` calculation and handling, :ref:`errors assignments <cpymadtools-errors>`);
+* Conveniently create different useful plots after a simulation thanks to the :ref:`plotters classes <cpymadtools-plotters>`;
+* Run :ref:`(HL)LHC <cpymadtools-lhc>` specific functionality, mostly tailored to my work. 
 
-    >>> a = np.arange(10)
-    >>> zarr.save('data/example.zarr', a)
-    >>> zarr.load('data/example.zarr')
-    array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+One can find many examples of the `~pyhdtoolkit.cpymadtools` apis' use in the :ref:`gallery <gallery>` section of this documentation.
 
-Please note that there are a number of other options for persistent array
-storage, see the section on :ref:`tutorial_storage` below.
+Utilities
+^^^^^^^^^
+
+The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to setup logging or
+plotting :ref:`defaults <utils-defaults>`, run external programs through the :ref:`command line <utils-cmdline>`, 
+run your functions through :ref:`useful contexts <utils-contexts>`, easily wrap and :ref:`parallelise <utils-executors>`
+functions, or perform many convenient :ref:`operations <utils-operations>` on miscellaneous Python objects.
+
+For instance, one can safely run an input at the commandline with:
+
+.. prompt:: python >>>
+
+    from pyhdtoolkit.utils.cmdline import CommandLine
+    CommandLine.run("sleep 5")
+
+Alternatively one can easily parallelise an I/O-intensive function through multithreading with:
+
+.. prompt:: python >>>
+
+    from pyhdtoolkit.utils.executors import MultiThreader
+    Threader = MultiThreader()
+    results = Threader.execute_function(
+        func=your_io_heavy_function,
+        func_args=list_of_args_for_each_call,
+        n_processes=some_int_up_to_you,
+    )
+
+.. tip::
+    A useful tidbit is this line which sets up the logging level for functions in the package:
+
+    .. prompt:: python >>>
+
+        from pyhdtoolkit.utils import defaults
+        defaults.config_logger(level="trace")  # lowest level used, will give ALL logging
+
+Additional Helpers
+^^^^^^^^^^^^^^^^^^
+
+Other sub-packages provide helper functionality mostly used internally in the package, but may be of use to you.
+:ref:`Plotting <pyhdtoolkit-plotting>` gives access to helpers for `~matplotlib` plots; :ref:`models <pyhdtoolkit-models>`
+provides `~pydantic`-validated classes for data handling throughout the package; :ref:`optics <pyhdtoolkit-optics>` to useful
+beam optics parameters calculations; and :ref:`maths <pyhdtoolkit-maths>` to some statistical utilities.
