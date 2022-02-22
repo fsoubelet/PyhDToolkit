@@ -1,4 +1,5 @@
 import math
+import sys
 
 import pytest
 
@@ -9,6 +10,7 @@ from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
+
 
 @pytest.mark.skipif(sys.platform.startswith("win"), reason="Windows is very flaky on this.")
 class TestMatching:
