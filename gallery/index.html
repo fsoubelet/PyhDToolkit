@@ -15,7 +15,7 @@
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -320,45 +320,45 @@
              
   <section id="gallery">
 <span id="examples-index"></span><span id="sphx-glr-gallery"></span><span id="id1"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this headline"></a></h1>
-<p>This page contains a gallery showcasing either plotting functionality provided in <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters" title="pyhdtoolkit.cpymadtools.plotters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotters</span></code></a>, or plots made from results of convenient functions available in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>.</p>
+<p>This page contains a gallery showcasing either plotting functionality provided in <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters" title="pyhdtoolkit.cpymadtools.plotters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotters</span></code></a>,
+or plots made from results of convenient functions available in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The examples shown here are plotted with the default <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> of matplotlib. If one uses this
+<p>The examples shown here are plotted with the default <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> of <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>. If one uses this
 package and sets their own preferences or uses their own <strong>mplstyle</strong>, the resulting plots might
 look significantly different.</p>
 <p>The package provides a plotting style in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">default</span></code> module, which should be
 compatible with the plotters. One can use the style in two ways:</p>
-<div class="sphinx-bs container pb-4 docutils">
-<div class="row docutils">
-<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
-<div class="card w-100 shadow docutils">
-<div class="card-body docutils">
-<p class="card-text">Update the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> at runtime with:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.defaults</span> <span class="kn">import</span> <span class="n">PLOT_PARAMS</span>
-
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PLOT_PARAMS</span><span class="p">)</span>
-</pre></div>
+<div class="tabbed-set docutils">
+<input checked="checked" id="f2e5ff71-83ba-49a3-9516-659e61054212" name="0f95543c-dac0-4f37-8e01-e46f65a458ec" type="radio">
+</input><label class="tabbed-label" for="f2e5ff71-83ba-49a3-9516-659e61054212">
+Import and Set the Style</label><div class="tabbed-content docutils">
+<p>Update the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> at runtime with:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: ">>> ";
+}
+</style><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.defaults</span> <span class="kn">import</span> <span class="n">PLOT_PARAMS</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PLOT_PARAMS</span><span class="p">)</span></span>
+</pre></div></div></div></blockquote>
+</div>
+<input id="6a45897f-fced-4671-b9de-06c4e76ba2bc" name="0f95543c-dac0-4f37-8e01-e46f65a458ec" type="radio">
+</input><label class="tabbed-label" for="6a45897f-fced-4671-b9de-06c4e76ba2bc">
+Install and Load the Style</label><div class="tabbed-content docutils">
+<p>Do a one-time install of the style as an <strong>.mplstyle</strong> file to import in <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="n">defaults</span><span class="o">.</span><span class="n">install_mpl_style</span><span class="p">()</span>  <span class="c1"># only run this once</span></span>
+<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;phd&quot;</span><span class="p">)</span>  <span class="c1"># created file is &#39;phd.mplstyle&#39;</span></span>
+</pre></div></div></div></blockquote>
 </div>
 </div>
-</div>
-</div>
-<div class="d-flex col-lg-6 col-md-6 col-sm-6 col-xs-12 p-2 docutils">
-<div class="card w-100 shadow docutils">
-<div class="card-body docutils">
-<p class="card-text">Do a one-time install of the style as an <strong>.mplstyle</strong> file to import in matplotlib:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span>
-
-<span class="n">defaults</span><span class="o">.</span><span class="n">install_mpl_style</span><span class="p">()</span>  <span class="c1"># only run once</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;phd&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+<p>In both cases, re-updating the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> later on will always overwrite these settings.</p>
 </div>
 <p>Click on any image thumbnail to see the full image and source code.</p>
 <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.install_ac_dipole_as_kicker and  ~.track.track_single_p..."><figure class="align-default" id="id2">

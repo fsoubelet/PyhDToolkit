@@ -14,6 +14,55 @@ Highlights
 * Manage contexts, configurations and logging.
 * Monitor HTCondor_ jobs.
 
+.. dropdown:: Some Quick Links
+    :animate: fade-in-slide-down
+    :title: text-center
+
+    .. panels::
+        :body: text-center
+
+        To the Quickstart
+
+        +++
+
+        .. link-button:: quickstart
+            :type: ref
+            :text: Quickstart
+            :classes: btn-outline-primary btn-block stretched-link
+
+        ---
+
+        To the Gallery
+
+        +++
+
+        .. link-button:: gallery/index
+            :type: ref
+            :text: Gallery
+            :classes: btn-outline-primary btn-block stretched-link
+
+        ---
+
+        To the API Reference
+
+        +++
+
+        .. link-button:: api
+            :type: ref
+            :text: Reference
+            :classes: btn-outline-primary btn-block stretched-link
+
+        ---
+
+        To the Bibliography
+
+        +++
+
+        .. link-button:: bibliography
+            :type: ref
+            :text: Bibliography
+            :classes: btn-outline-primary btn-block stretched-link
+
 Installation
 ------------
 
