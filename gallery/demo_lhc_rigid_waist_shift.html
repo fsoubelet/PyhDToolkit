@@ -348,6 +348,7 @@ work on other accelerators.</p>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span>
 
 <span class="n">defaults</span><span class="o">.</span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">defaults</span><span class="o">.</span><span class="n">_SPHINX_GALLERY_PARAMS</span><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
 <p>Let’s start by setting up the LHC in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, in this case at top energy:</p>
@@ -404,7 +405,7 @@ to make sure we do not deviate.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-02-22 09:44:21 | WARNING  | pyhdtoolkit.cpymadtools.lhc:196 - You should re-match tunes &amp; chromaticities after this
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-02-22 10:54:15 | WARNING  | pyhdtoolkit.cpymadtools.lhc:196 - You should re-match tunes &amp; chromaticities after this
 </pre></div>
 </div>
 <p>Let’s again retrieve the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> table, then plot the new conditions in the
@@ -473,7 +474,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters" title="pyhdtoolkit.cpymadtools.plotters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotters</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LatticePlotter</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latwiss</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  55.098 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  59.452 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-lhc-rigid-waist-shift-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/92d99024e2e13e0ddcd6018dea27ea82/demo_lhc_rigid_waist_shift.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_lhc_rigid_waist_shift.py</span></code></a></p>

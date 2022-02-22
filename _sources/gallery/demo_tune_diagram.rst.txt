@@ -27,7 +27,7 @@ Tune Diagram
 This example shows how to use the `~.plotters.TuneDiagramPlotter.plot_tune_diagram` function 
 to visualise resonance lines up to certain orders.
 
-.. GENERATED FROM PYTHON SOURCE LINES 12-19
+.. GENERATED FROM PYTHON SOURCE LINES 12-20
 
 .. code-block:: default
 
@@ -37,6 +37,7 @@ to visualise resonance lines up to certain orders.
     from pyhdtoolkit.utils import defaults
 
     defaults.config_logger(level="warning")
+    plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
 
@@ -45,7 +46,7 @@ to visualise resonance lines up to certain orders.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 21-27
+.. GENERATED FROM PYTHON SOURCE LINES 22-28
 
 The tune diagram allows on to visualise resonance lines up to certain orders,
 and to know where the working point of the machine stands compared to these resonances
@@ -54,7 +55,7 @@ function will plot all resonance lines up to the specified order, with line thic
 decreasing with the resonance order. The max order is set 6, as the graph becomes unreadable
 above this value.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-31
+.. GENERATED FROM PYTHON SOURCE LINES 28-32
 
 .. code-block:: default
 
@@ -74,7 +75,7 @@ above this value.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-40
+.. GENERATED FROM PYTHON SOURCE LINES 33-41
 
 One can add their machine's working point onto the figure with a new matplotlib
 plotting command. The graph is limited to the ranges [0, 1] on each axis as the
@@ -85,7 +86,7 @@ fractional part of the tunes is what determines stability.
     when determining the stability. As so, plot that value onto the graph, or it would
     be way out of range
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-45
+.. GENERATED FROM PYTHON SOURCE LINES 41-46
 
 .. code-block:: default
 
@@ -106,14 +107,14 @@ fractional part of the tunes is what determines stability.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-50
+.. GENERATED FROM PYTHON SOURCE LINES 47-51
 
 On the previous plot, it is not obvious that our working point is close to a
 *third* order resonance. One may then want to differentiate the origin of each
 line, aka knowing which resonance order is responsible for each given line. This
 makes it easier to see the resonances near your working point.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-61
+.. GENERATED FROM PYTHON SOURCE LINES 51-62
 
 .. code-block:: default
 
@@ -140,11 +141,11 @@ makes it easier to see the resonances near your working point.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-63
+.. GENERATED FROM PYTHON SOURCE LINES 63-64
 
 It is now much easier to identify the resonances lines near our working point :)
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-71
+.. GENERATED FROM PYTHON SOURCE LINES 66-72
 
 .. admonition:: References
 
@@ -156,7 +157,7 @@ It is now much easier to identify the resonances lines near our working point :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  4.800 seconds)
+   **Total running time of the script:** ( 0 minutes  7.442 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_tune_diagram.py:

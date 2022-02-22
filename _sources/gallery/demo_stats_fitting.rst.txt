@@ -34,7 +34,7 @@ it originated from.
 
 .. _chi-square: https://en.wikipedia.org/wiki/Chi-squared_distribution
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-30
+.. GENERATED FROM PYTHON SOURCE LINES 18-31
 
 .. code-block:: default
 
@@ -49,6 +49,7 @@ it originated from.
     from pyhdtoolkit.utils import defaults
 
     defaults.config_logger(level="warning")
+    plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
 
@@ -57,7 +58,7 @@ it originated from.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 32-41
+.. GENERATED FROM PYTHON SOURCE LINES 33-42
 
 We will for this example create a chi-square_ distribution with known parameters. As the
 chisquare distribution is based on deviations of independent, normal distribution variables,
@@ -69,7 +70,7 @@ we will create a normal distribution with K degrees of freedom, and compute the 
 
 By repeating so a few thousand times, we get a chi-square distribution.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-81
+.. GENERATED FROM PYTHON SOURCE LINES 42-82
 
 .. code-block:: default
 
@@ -120,7 +121,7 @@ By repeating so a few thousand times, we get a chi-square distribution.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 82-107
+.. GENERATED FROM PYTHON SOURCE LINES 83-108
 
 Now, from this chi-squared distribution of values, how do we find back the standard deviation
 :math:`\sigma_{0}` of the normal (gaussian) distributions it is computed from?
@@ -148,7 +149,7 @@ Since this peak happens at :math:`K - 2`, then we have:
 
 Enough talk, see below an example with :math:`N = 5` measurements.
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-119
+.. GENERATED FROM PYTHON SOURCE LINES 108-120
 
 .. code-block:: default
 
@@ -171,12 +172,12 @@ Enough talk, see below an example with :math:`N = 5` measurements.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-122
+.. GENERATED FROM PYTHON SOURCE LINES 121-123
 
 For the sake of not over-crowding our plot, let's reduce the amount of statistical
 distributions we will try to fit to the data:
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-130
+.. GENERATED FROM PYTHON SOURCE LINES 123-131
 
 .. code-block:: default
 
@@ -195,12 +196,12 @@ distributions we will try to fit to the data:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-133
+.. GENERATED FROM PYTHON SOURCE LINES 132-134
 
 Now we plot our data, and try to fit these three distributions to it, by calling
 the `~.maths.stats_fitting.best_fit_distribution` function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 133-153
+.. GENERATED FROM PYTHON SOURCE LINES 134-154
 
 .. code-block:: default
 
@@ -236,14 +237,14 @@ the `~.maths.stats_fitting.best_fit_distribution` function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 154-158
+.. GENERATED FROM PYTHON SOURCE LINES 155-159
 
 That's nice. We can already see that only the chi-squared distrubtion seems to
 be a good fit. Let's do a new plot with only the best fit's probability density
 function (which we get with `~.maths.stats_fitting.make_pdf` function) added onto
 the data, and determine its mode:
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-198
+.. GENERATED FROM PYTHON SOURCE LINES 159-198
 
 .. code-block:: default
 
@@ -279,19 +280,18 @@ the data, and determine its mode:
         label_position=(1.1 * np.mean(ax.get_xlim()), 0.75 * max(pdf.to_numpy())),
         color="indianred",
         arrow_arc_rad=0.3,
-        fontsize=25,
     )
     plt.vlines(pdf.idxmax(), ymin=0, ymax=max(pdf.to_numpy()), linestyles="--", color="indianred")
-    ax.set_title(f"Best fit to distribution:\n" + dist_str, fontsize=30)
-    ax.set_ylabel("Normed Hist Counts", fontsize=25)
-    ax.set_xlabel("x", fontsize=25)
-    ax.legend(fontsize=25)
+    ax.set_title(f"Best fit to distribution:\n" + dist_str)
+    ax.set_ylabel("Normed Hist Counts")
+    ax.set_xlabel("x")
+    ax.legend()
 
 
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: ChiSquared(df=4.00, loc=0.00, scale=1.00)
+   :alt: Best fit to distribution: ChiSquared(df=3.99, loc=-0.00, scale=1.01)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -402,7 +402,7 @@ distribution generated above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  12.258 seconds)
+   **Total running time of the script:** ( 0 minutes  12.867 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:

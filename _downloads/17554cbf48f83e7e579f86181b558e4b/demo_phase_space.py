@@ -25,6 +25,7 @@ from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Define some constants, generate a simple lattice and setup your simulation:

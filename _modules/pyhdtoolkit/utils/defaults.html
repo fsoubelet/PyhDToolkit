@@ -426,6 +426,18 @@
     <span class="s2">&quot;savefig.bbox&quot;</span><span class="p">:</span> <span class="s2">&quot;tight&quot;</span><span class="p">,</span>  <span class="c1"># Careful: incompatible with pipe-based animation backends</span>
 <span class="p">}</span>
 
+<span class="c1"># This is meant for use in the sphinx-gallery to help with readability</span>
+<span class="c1"># as the default matplotlib settings are a bit small</span>
+<span class="n">_SPHINX_GALLERY_PARAMS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;figure.autolayout&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="s2">&quot;figure.titlesize&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+    <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
+    <span class="s2">&quot;legend.fontsize&quot;</span><span class="p">:</span> <span class="mi">24</span><span class="p">,</span>
+    <span class="s2">&quot;axes.labelsize&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>
+    <span class="s2">&quot;xtick.labelsize&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+    <span class="s2">&quot;ytick.labelsize&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
+<span class="p">}</span>
+
 
 <div class="viewcode-block" id="config_logger"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.defaults.config_logger">[docs]</a><span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span><span class="n">level</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>

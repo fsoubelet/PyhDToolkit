@@ -22,9 +22,10 @@ from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
-# Define beam parameters for injection and top energy:
+# Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):
 
 beam_injection = BeamParameters(
     charge=1,
@@ -37,7 +38,7 @@ beam_injection = BeamParameters(
 )
 beam_flattop = BeamParameters(
     charge=1,
-    pc_GeV=1.9,
+    pc_GeV=19,
     E_0_GeV=0.9382720813,
     en_x_m=5e-6,
     en_y_m=5e-6,
@@ -156,6 +157,7 @@ plt.show()
 # And similarly at top energy:
 
 BeamEnvelopePlotter.plot_envelope(madx, beam_flattop, xlimits=(0, l_cell), figsize=(18, 20))
+plt.show()
 
 ###############################################################################
 # Let's not forget to close the rpc connection to ``MAD-X``:

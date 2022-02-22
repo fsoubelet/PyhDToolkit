@@ -30,7 +30,7 @@ to visualise the crossing schemes setup at the LHC IRs.
 .. note::
     This is very LHC-specific and will most likely not work with other machines.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-28
+.. GENERATED FROM PYTHON SOURCE LINES 15-29
 
 .. code-block:: default
 
@@ -45,6 +45,7 @@ to visualise the crossing schemes setup at the LHC IRs.
     from pyhdtoolkit.utils import defaults
 
     defaults.config_logger(level="warning")
+    plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
 
@@ -54,11 +55,11 @@ to visualise the crossing schemes setup at the LHC IRs.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
+.. GENERATED FROM PYTHON SOURCE LINES 30-31
 
 Setup a simple LHC simulation in ``MAD-X``, with collision optics (at 7 TeV):
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-36
+.. GENERATED FROM PYTHON SOURCE LINES 31-37
 
 .. code-block:: default
 
@@ -75,12 +76,12 @@ Setup a simple LHC simulation in ``MAD-X``, with collision optics (at 7 TeV):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-39
+.. GENERATED FROM PYTHON SOURCE LINES 38-40
 
 Let's re-cycle the sequences to avoid having IR1 split at beginning and end of lattice,
 as is the default in the LHC sequence:
 
-.. GENERATED FROM PYTHON SOURCE LINES 39-44
+.. GENERATED FROM PYTHON SOURCE LINES 40-45
 
 .. code-block:: default
 
@@ -96,11 +97,11 @@ as is the default in the LHC sequence:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 45-46
+.. GENERATED FROM PYTHON SOURCE LINES 46-47
 
 Now we plot the crossing schemes, here for IP1 and IP5.
 
-.. GENERATED FROM PYTHON SOURCE LINES 46-50
+.. GENERATED FROM PYTHON SOURCE LINES 47-51
 
 .. code-block:: default
 
@@ -123,17 +124,17 @@ Now we plot the crossing schemes, here for IP1 and IP5.
 
  .. code-block:: none
 
-    2022-02-22 09:43:34 | WARNING  | pyhdtoolkit.cpymadtools.plotters:419 - You should re-call the 'USE' command on your wanted sequence after this!
+    2022-02-22 10:53:10 | WARNING  | pyhdtoolkit.cpymadtools.plotters:419 - You should re-call the 'USE' command on your wanted sequence after this!
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-53
+.. GENERATED FROM PYTHON SOURCE LINES 52-54
 
 We can have a look at, say, IP2 and IP8 by simply changing the parameters, and
 for instance also remove the highlighting of MQX and MBX elements:
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-58
+.. GENERATED FROM PYTHON SOURCE LINES 54-59
 
 .. code-block:: default
 
@@ -157,16 +158,16 @@ for instance also remove the highlighting of MQX and MBX elements:
 
  .. code-block:: none
 
-    2022-02-22 09:43:36 | WARNING  | pyhdtoolkit.cpymadtools.plotters:419 - You should re-call the 'USE' command on your wanted sequence after this!
+    2022-02-22 10:53:13 | WARNING  | pyhdtoolkit.cpymadtools.plotters:419 - You should re-call the 'USE' command on your wanted sequence after this!
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-60
+.. GENERATED FROM PYTHON SOURCE LINES 60-61
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-63
+.. GENERATED FROM PYTHON SOURCE LINES 61-64
 
 .. code-block:: default
 
@@ -180,7 +181,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-71
+.. GENERATED FROM PYTHON SOURCE LINES 65-72
 
 .. admonition:: References
 
@@ -193,7 +194,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  5.789 seconds)
+   **Total running time of the script:** ( 0 minutes  7.011 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_crossing_schemes.py:

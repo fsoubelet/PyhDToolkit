@@ -29,6 +29,7 @@ from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:

@@ -16,6 +16,7 @@ from pyhdtoolkit.cpymadtools.plotters import TuneDiagramPlotter
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # The tune diagram allows on to visualise resonance lines up to certain orders,

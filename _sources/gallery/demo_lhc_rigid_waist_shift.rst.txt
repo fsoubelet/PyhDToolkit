@@ -35,7 +35,7 @@ applying a rigid waist shift.
     This is very specific to the LHC machine and the implementation would not 
     work on other accelerators.
 
-.. GENERATED FROM PYTHON SOURCE LINES 20-32
+.. GENERATED FROM PYTHON SOURCE LINES 20-33
 
 .. code-block:: default
 
@@ -50,6 +50,7 @@ applying a rigid waist shift.
     from pyhdtoolkit.utils import defaults
 
     defaults.config_logger(level="warning")
+    plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
 
@@ -58,11 +59,11 @@ applying a rigid waist shift.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 34-35
+.. GENERATED FROM PYTHON SOURCE LINES 35-36
 
 Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-40
+.. GENERATED FROM PYTHON SOURCE LINES 36-41
 
 .. code-block:: default
 
@@ -78,12 +79,12 @@ Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-43
+.. GENERATED FROM PYTHON SOURCE LINES 42-44
 
 Let's re-cycle the sequences to avoid having IR1 split at beginning and end of lattice,
 as is the default in the LHC sequence:
 
-.. GENERATED FROM PYTHON SOURCE LINES 43-48
+.. GENERATED FROM PYTHON SOURCE LINES 44-49
 
 .. code-block:: default
 
@@ -99,13 +100,13 @@ as is the default in the LHC sequence:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-52
+.. GENERATED FROM PYTHON SOURCE LINES 50-53
 
 We will use the `~.plotters.LatticePlotter.plot_latwiss` function to have zoomed-in
 look at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
 determine the position of points of interest through the ``TWISS`` table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-58
+.. GENERATED FROM PYTHON SOURCE LINES 53-59
 
 .. code-block:: default
 
@@ -122,11 +123,11 @@ determine the position of points of interest through the ``TWISS`` table:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-60
+.. GENERATED FROM PYTHON SOURCE LINES 60-61
 
 Let's now have a look at the IR in normal conditions.
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-77
+.. GENERATED FROM PYTHON SOURCE LINES 61-78
 
 .. code-block:: default
 
@@ -159,7 +160,7 @@ Let's now have a look at the IR in normal conditions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-88
+.. GENERATED FROM PYTHON SOURCE LINES 79-89
 
 Notice the (anti)symmetry of the :math:`\beta_{x,y}` functions and triplet
 quadrupoles powering on the right and left-hand side of the IP. Let's now apply
@@ -172,7 +173,7 @@ which side of the IP to shift the beam waist. See the function documentation
 for more details. After applying the knob, we will re-match to our working point
 to make sure we do not deviate.
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-92
+.. GENERATED FROM PYTHON SOURCE LINES 89-93
 
 .. code-block:: default
 
@@ -190,17 +191,17 @@ to make sure we do not deviate.
 
  .. code-block:: none
 
-    2022-02-22 09:44:21 | WARNING  | pyhdtoolkit.cpymadtools.lhc:196 - You should re-match tunes & chromaticities after this
+    2022-02-22 10:54:15 | WARNING  | pyhdtoolkit.cpymadtools.lhc:196 - You should re-match tunes & chromaticities after this
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-95
+.. GENERATED FROM PYTHON SOURCE LINES 94-96
 
 Let's again retrieve the ``TWISS`` table, then plot the new conditions in the
 Interaction Region.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-116
+.. GENERATED FROM PYTHON SOURCE LINES 96-117
 
 .. code-block:: default
 
@@ -237,7 +238,7 @@ Interaction Region.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 117-123
+.. GENERATED FROM PYTHON SOURCE LINES 118-124
 
 Comparing to the previous plot, one can notice two things:
  - The triplet quadrupoles powering has changed.
@@ -246,7 +247,7 @@ Comparing to the previous plot, one can notice two things:
 One can compare the :math:`\beta_{x,y}` functions before and after the rigid
 waist shift with a simple plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-137
+.. GENERATED FROM PYTHON SOURCE LINES 124-138
 
 .. code-block:: default
 
@@ -276,7 +277,7 @@ waist shift with a simple plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 138-145
+.. GENERATED FROM PYTHON SOURCE LINES 139-146
 
 Here the subscript **n** stands for nominal, and **w** for the waist shift.
 
@@ -286,7 +287,7 @@ Here the subscript **n** stands for nominal, and **w** for the waist shift.
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-148
+.. GENERATED FROM PYTHON SOURCE LINES 146-149
 
 .. code-block:: default
 
@@ -300,7 +301,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-157
+.. GENERATED FROM PYTHON SOURCE LINES 150-158
 
 .. admonition:: References
 
@@ -314,7 +315,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  55.098 seconds)
+   **Total running time of the script:** ( 0 minutes  59.452 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:
