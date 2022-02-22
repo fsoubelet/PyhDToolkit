@@ -13,7 +13,7 @@ Bug Fixes
 
 * The ``misalign_lhc_ir_quadrupoles`` function in the ``cpymadtools.errors`` module can now properly handle several IPs at the same time. Its *ip* parameter has been renamed to *ips* and properly expects a sequence.
 
-See `v0.15.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.15.0...0.15.1>`_.
+See `v0.15.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.1>`_ and the `full changes since v0.15.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.15.0...0.15.1>`_.
 
 
 .. _release_0.15.0:
@@ -42,7 +42,7 @@ Maintenance
 * Exceptions are properly logged as exceptions, with stack information.
 * The entire ``cpymadtools.special`` module is deprecated and its contents have been mirrored in a new ``cpymadtools.lhc`` module. Users are encouraged to use the new module, as ``cpymadtools.special`` will be removed in a future release.
 
-See `v0.15.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.14.1...0.15.0>`_.
+See `v0.15.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.0>`_ and the `full changes since v0.14.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.14.1...0.15.0>`_.
 
 
 .. _release_0.14.1:
@@ -55,7 +55,7 @@ Maintenance
 
 * Both tracking functions ``ptc_track_particle`` and ``track_single_particle`` in respectively the ``cpymadtools.ptc`` and ``cpymadtools.track`` modules now log a warning when a string value is given to their *sequence* argument. Giving a value means the provided sequence will be ``USE``-ed in ``MAD-X``, leading to a loss of set errors, orbit corrections etc whch the user should be well aware of. This caveat has been added to the functions' docstrings. An info level log has also been added at the start of each function for consistency with the rest of the package.
 
-See `v0.14.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.14.0...0.14.1>`_.
+See `v0.14.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.1>`_ and the `full changes since v0.14.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.14.0...0.14.1>`_.
 
 
 .. _release_0.14.0:
@@ -80,7 +80,7 @@ Maintenance
 * The ``cpymadtools.latwiss`` module has been removed.
 * The old ``TuneDiagramPlotter.plot_blank_tune_diagram`` function in the ``cpymadtools.plotters`` module has been removed.
 
-See `v0.14.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.3...0.14.0>`_.
+See `v0.14.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.0>`_ and the `full changes since v0.13.3 <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.3...0.14.0>`_.
 
 
 .. _release_0.13.3:
@@ -113,7 +113,7 @@ Maintenance
 * The ``AperturePlotter.plot_aperture`` function in ``cpymadtools.plotters`` now has a default figsize argument of (13, 20) instead of 15, 15.
 * The minimum required version of ``tfs-pandas`` is now 3.0.0.
 
-See `v0.13.3 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.3>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.2...0.13.3>`_.
+See `v0.13.3 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.3>`_ and the `full changes since v0.13.2 <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.2...0.13.3>`_.
 
 
 .. _release_0.13.2:
@@ -131,7 +131,7 @@ Maintenance
 
 * The minimum ``cpymad`` required version is now 1.9.0.
 
-See `v0.13.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.1...0.13.2>`_.
+See `v0.13.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.2>`_ and the `full changes since v0.13.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.1...0.13.2>`_.
 
 
 .. _release_0.13.1:
@@ -144,7 +144,7 @@ Bug Fixes
 
 * Fixed both AC Dipole installation routines in the ``cpymadtoolks.special`` module, which now use the implementation from ``omc3``'s model_creator and will provide similar results.
 
-See `v0.13.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.0...0.13.1>`_.
+See `v0.13.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.1>`_ and the `full changes since v0.13.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.0...0.13.1>`_.
 
 
 .. _release_0.13.0:
@@ -168,7 +168,7 @@ Maintenance
 
 * The ``install_ac_dipole`` function in ``cpymadtools.special`` is now named ``install_ac_dipole_as_kicker``. This kicker implementation **cannot** be used to affect twiss functions, only particle tracking.
 
-See `v0.13.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.12.0...0.13.0>`_.
+See `v0.13.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.0>`_ and the `full changes since v0.12.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.12.0...0.13.0>`_.
 
 
 .. _release_0.12.0:
@@ -196,7 +196,7 @@ Maintenance
 * The ``beam_parameters`` function in ``cpymadtools.parameters`` has been moved to the ``optics.beam`` module and renamed ``compute_beam_parameters``.
 * The default ``patch.linewidth`` value in the phd matplotlib style has been changed to 1.5.
 
-See `v0.12.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.12.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.11.0...0.12.0>`_.
+See `v0.12.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.12.0>`_ and the `full changes since v0.11.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.11.0...0.12.0>`_.
 
 
 .. _release_0.11.0:
@@ -217,7 +217,7 @@ Documentation
 * The ``get_amplitude_detuning`` and ``get_rdts`` functions in the ``cpymadtools.ptc`` module now contain extensive docstrings detailing their inner workings as well as parameters used in internal MAD-X commands.
 
 
-See `v0.11.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.11.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.10.0...0.11.0>`_.
+See `v0.11.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.11.0>`_ and the `full changes since v0.10.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.10.0...0.11.0>`_.
 
 
 .. _release_0.10.0:
@@ -237,7 +237,7 @@ Maintenance
 * The ``track_single_particle`` function in the ``cpymadtools.track`` module now defaults initial tracking coordinates to all 0.
 * The ``track_single_particle`` function in the ``cpymadtools.track`` module now returns a dictionary, with one keys per defined observation point and as a value the corresponding track table. The special case where *ONETABLE* is given to ``TRACK`` as a keyword argument is handled, and then a single entry taken from the appropriate table with be found in the returned dictionary.
 
-See `v0.10.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.10.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.2...0.10.0>`_.
+See `v0.10.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.10.0>`_ and the `full changes since v0.9.2 <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.2...0.10.0>`_.
 
 
 .. _release_0.9.2:
@@ -258,7 +258,7 @@ Bug Fixes
 * The plotting functions in the ``cpymadtools.latwiss`` module have updated ``LaTeX``-compatible labels.
 * The ``plot_survey`` function in the ``cpymadtools.latwiss`` module now uses clearer markers to indicate the machine survey, properly matches the colormaps of the plotted dipoles and the colorbar when using ``show_elements=True`` and lets the user config handle savefig options.
 
-See `v0.9.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.1...0.9.2>`_.
+See `v0.9.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.2>`_ and the `full changes since v0.9.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.1...0.9.2>`_.
 
 
 .. _release_0.9.1:
@@ -277,7 +277,7 @@ Maintenance
 * The *PLOT_PARAMS* dictionary in ``utils.defaults`` has been updated.
 * The ``numba`` library's used has been removed, easing the package's dependencies.
 
-See `v0.9.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.0...0.9.1>`_.
+See `v0.9.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.1>`_ and the `full changes since v0.9.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.0...0.9.1>`_.
 
 
 .. _release_0.9.0:
@@ -309,7 +309,7 @@ Maintenance
 * Added dependencies: ``pydantic``, ``rich`` and ``pendulum``. The ``llvmlite`` dependency is also added explicitely, though it is a dependency of ``numba`` and the version constraint is here to guarantee ``pyhdtoolkit`` will build on Python 3.9.
 * Tests now include Python 3.9.
 
-See `v0.9.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.5...0.9.0>`_.
+See `v0.9.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.0>`_ and the `full changes since v0.8.5 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.5...0.9.0>`_.
 
 
 .. _release_0.8.5:
@@ -327,7 +327,7 @@ Maintenance
 
 * The default behavior in lattice slicing is changed to have makedipedge as False, which compensates the effect of the default slicing style ``TEAPOT``.
 
-See `v0.8.5 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.5>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.4...0.8.5>`_.
+See `v0.8.5 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.5>`_ and the `full changes since v0.8.4 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.4...0.8.5>`_.
 
 
 .. _release_0.8.4:
@@ -345,7 +345,7 @@ Maintenance
 
 * The machine layout plotting in ``plot_latwiss`` has been exported to its own function. It is a private function.
 
-See `v0.8.4 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.4>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.3...0.8.4>`_.
+See `v0.8.4 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.4>`_ and the `full changes since v0.8.3 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.3...0.8.4>`_.
 
 
 .. _release_0.8.3:
@@ -358,7 +358,7 @@ Enhancements
 
 * Added a function in ``cpymadtools.twiss`` to export the entire twiss table to a *TfsDataFrame*.
 
-See `v0.8.3 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.3>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.2...0.8.3>`_.
+See `v0.8.3 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.3>`_ and the `full changes since v0.8.2 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.2...0.8.3>`_.
 
 
 .. _release_0.8.2:
@@ -391,7 +391,7 @@ Maintenance
 * The ``plotting.settings`` module has been removed.
 * ``plot_latwiss`` doesn't force the pdf format when saving the figure anymore.
 
-See `v0.8.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.2>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.1...0.8.2>`_.
+See `v0.8.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.2>`_ and the `full changes since v0.8.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.1...0.8.2>`_.
 
 
 .. _release_0.8.1:
@@ -409,7 +409,7 @@ Maintenance
 
 * Removed the unused **scripts** folder as well as the scripts' dependencies.
 
-See `v0.8.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.1.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.0...0.8.1>`_.
+See `v0.8.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.1.0>`_ and the `full changes since v0.8.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.0...0.8.1>`_.
 
 
 .. _release_0.8.0:
@@ -437,7 +437,7 @@ Maintenance
 * The ``cpymadtools`` now use *madx* as a parameter name instead of *cpymad_instance*.
 * Relaxed dependencies.
 
-See `v0.8.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.7.0...0.8.0>`_.
+See `v0.8.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.0>`_ and the `full changes since v0.7.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.7.0...0.8.0>`_.
 
 
 .. _release_0.7.0:
@@ -461,7 +461,7 @@ Maintenance
 * Improved test coverage.
 * Tweaks to dev configurations.
 
-See `v0.7.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.7.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.6.0...0.7.0>`_.
+See `v0.7.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.7.0>`_ and the `full changes since v0.6.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.6.0...0.7.0>`_.
 
 
 .. _release_0.6.0:
@@ -492,7 +492,7 @@ Maintenance
 * Moved CI to Github Actions, now covers all platforms.
 * Improved test coverage.
 
-See `v0.6.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.6.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.5.0...0.6.0>`_.
+See `v0.6.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.6.0>`_ and the `full changes since v0.5.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.5.0...0.6.0>`_.
 
 
 .. _release_0.5.0:
@@ -522,7 +522,7 @@ Maintenance
 * Updated dependencies.
 * Added some development tools and configurations.
 
-See `v0.5.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.5.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.4.1...0.5.0>`_.
+See `v0.5.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.5.0>`_ and the `full changes since v0.4.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.4.1...0.5.0>`_.
 
 
 .. _release_0.4.1:
@@ -535,7 +535,7 @@ Bug Fixes
 
 * Quick fix of a type hinting issue causing imports to crash.
 
-See `v0.4.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.4.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.4.0...0.4.1>`_.
+See `v0.4.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.4.1>`_ and the `full changes since v0.4.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.4.0...0.4.1>`_.
 
 
 .. _release_0.4.0:
@@ -558,7 +558,7 @@ Maintenance
 * Renaming pyhdtoolkit.math to pyhdtoolkit.maths to avoid namespace clashes if trying to use the standard library's math module.
 * Removing many functions from pyhdtoolkit.maths.nonconvex_phase_sync module as they were needed for notebooks but not this package.
 
-See `v0.4.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.4.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.3.0...0.4.0>`_.
+See `v0.4.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.4.0>`_ and the `full changes since v0.3.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.3.0...0.4.0>`_.
 
 
 .. _release_0.3.0:
@@ -576,7 +576,7 @@ Enhancements
   - ``plot_latwiss`` has better defaults in values and plotting styles, as well as new args and kwargs options for customization.
   - ``plot_machine_survey`` also has better defaults, and offers the options to plot while differentiating magnetic elements.
 
-See `v0.3.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.3.0>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.2.1...0.3.0>`_.
+See `v0.3.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.3.0>`_ and the `full changes since v0.2.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.2.1...0.3.0>`_.
 
 
 .. _release_0.2.1:
@@ -594,7 +594,7 @@ Maintenance
 
 * Some slight changes to **README**, **Makefile** and **Dockerfile**.
 
-See `v0.2.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.2.1>`_ and the `full changes from the previous release <https://github.com/fsoubelet/PyhDToolkit/compare/0.2.0...0.2.1>`_.
+See `v0.2.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.2.1>`_ and the `full changes since v0.2.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.2.0...0.2.1>`_.
 
 
 .. _release_0.2.0:
