@@ -1,11 +1,10 @@
 """
-Module cpymadtools.utils
-------------------------
+.. _cpymadtools-utils:
 
-Created on 2021.07.22
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Miscellaneous Utilities
+-----------------------
 
-A module with utility functions to do mundane operatiions with `cpymad.madx.Madx` objects.
+Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
 import tfs
 
@@ -15,15 +14,22 @@ from loguru import logger
 
 def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> tfs.TfsDataFrame:
     """
-    Turns an internal table from the `MAD-X` process into a `TfsDataFrame` object.
+    Turns an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        table_name (str): the name of the internal table.
-        headers_table (str): the name of the internal table to use for headers. Defaults to `SUMM`.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        table_name (str): the name of the internal table to retrieve.
+        headers_table (str): the name of the internal table to use for headers.
+            Defaults to ``SUMM``.
 
     Returns:
-        A `TfsDataFrame` object with the table data, and the desired table (usually `SUMM`) as headers.
+        A `~tfs.frame.TfsDataFrame` object with the *table_name* data, and the desired
+        *headers_table* (usually ``SUMM``) as headers.
+
+    Examples:
+        .. code-block:: python
+
+            >>> twiss_tfs = get_table_tfs(madx, table_name="TWISS")
     """
     logger.debug(f"Extracting table {table_name} into a TfsDataFrame")
     dframe = tfs.TfsDataFrame(madx.table[table_name].dframe())

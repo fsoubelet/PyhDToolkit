@@ -1,12 +1,11 @@
 """
-Module cpymadtools.orbit
-------------------------
+.. _cpymadtools-orbit:
 
-Created on 2020.02.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Orbit Handling
+--------------
 
-A module with functions to perform MAD-X orbit setup with a cpymad.madx.Madx object, mainly for LHC and
-HLLHC machines.
+Module with functions to perform ``MAD-X`` orbit setup through a `~cpymad.madx.Madx` object,
+mainly for LHC and HLLHC machines.
 """
 from typing import Dict, List, Tuple
 
@@ -20,12 +19,17 @@ from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES
 
 def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Get the variable names used for orbit setup in the (HL)LHC.
+    Get the variable names used for orbit setup in the (HL)LHC. Initial implementation
+    credits go to :user:`Joschua Dilly <joschd>`.
 
     Returns:
-        A tuple with a list of all orbit variables, and a dict of additional variables, that in the
-        default configurations have the same value as another variable.
+        A `tuple` with a `list` of all orbit variables, and a `dict` of additional variables,
+        that in the default configurations have the same value as another variable.
+
+    Example:
+        .. code-block:: python
+
+            >>> variables, specials = lhc_orbit_variables()
     """
     logger.trace("Returning (HL)LHC orbit variables")
     on_variables = (
@@ -75,21 +79,25 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
 
 def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, float]:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Automated orbit setup for (hl)lhc runs, for some default schemes.
-    Assumed that at least sequence and optics files have been called.
+    Automated orbit setup for (HL)LHC runs, for some default schemes. It is assumed that at
+    least sequence and optics files have been called. Initial implementation credits go to
+    :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-        scheme (str): the default scheme to apply, as defined in `LHC_CROSSING_SCHEMES`. Accepted values
-            are keys of `LHC_CROSSING_SCHEMES`. Defaults to 'flat' (every orbit variable to 0).
-
-    Keyword Args:
-        All standard crossing scheme variables (on_x1, phi_IR1, etc). Values given here override the
-        values in the default scheme configurations.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        scheme (str): the default scheme to apply, as defined in the ``LHC_CROSSING_SCHEMES``
+            constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults to *flat*
+            (every orbit variable to 0).
+        **kwargs: Any standard crossing scheme variables (``on_x1``, ``phi_IR1``, etc). Values
+            given here override the values in the default scheme configurations.
 
     Returns:
-        A dictionary of all orbit variables set, and their values as set in the MAD-X globals.
+        A `dict` of all orbit variables set, and their values as set in the ``MAD-X`` globals.
+
+    Example:
+        .. code-block:: python
+
+            >>> orbit_setup = setup_lhc_orbit(madx, scheme="lhc_top")
     """
     if scheme not in LHC_CROSSING_SCHEMES.keys():
         logger.error(f"Invalid scheme parameter, should be one of {LHC_CROSSING_SCHEMES.keys()}")
@@ -118,14 +126,19 @@ def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, flo
 
 def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
-    Get the current values for the (HL)LHC orbit variales.
+    Get the current values for the (HL)LHC orbit variables. Initial implementation credits go to
+    :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Returns:
-        A dictionary of all orbit variables set, and their values as set in the MAD-X globals.
+        A `dict` of all orbit variables set, and their values as set in the ``MAD-X`` globals.
+
+    Example:
+        .. code-block:: python
+
+            >>> orbit_setup = get_current_orbit_setup(madx)
     """
     logger.debug("Extracting orbit variables from global table")
     variables, specials = lhc_orbit_variables()
@@ -141,17 +154,26 @@ def correct_lhc_orbit(
     **kwargs,
 ) -> None:
     """
-    Routine for orbit correction using 'MCB.*' elements in the LHC.
+    Routine for orbit correction using ``MCB.*`` elements in the LHC. This uses the
+    ``CORRECT`` command in ``MAD-X`` behind the scenes, refer to the
+    `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for
+    usage information.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         sequence (str): which sequence to use the routine on.
         orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.
-        iterations (int): the number of iterations of the correction to perform. Defaults to 3.
-        mode (str): the method to use for the correction. Defaults to `micado` as in the CORRECT command.
+        iterations (int): the number of iterations of the correction to perform.
+            Defaults to 3.
+        mode (str): the method to use for the correction. Defaults to ``micado`` as in
+            the `CORRECT` command.
+        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``CORRECT``
+            command, such as ``mode``, ``ncorr``, etc.
 
-    Keyword Args:
-        Any keyword argument that can be given to the MAD-X CORRECT command, such as `mode`, `ncorr`, etc.
+    Example:
+        .. code-block:: python
+
+            >>> correct_lhc_orbit(madx, sequence="lhcb1", plane="y")
     """
     logger.info("Starting orbit correction")
     for default_kicker in ("kicker", "hkicker", "vkicker", "virtualcorrector"):

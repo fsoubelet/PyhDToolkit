@@ -1,13 +1,13 @@
 """
-Module cpymadtools.track
-------------------------
+.. _cpymadtools-track:
 
-Created on 2020.02.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Tracking Routines
+-----------------
 
-A module with functions to manipulate MAD-X TRACK functionality through a cpymad.madx.Madx object.
+Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality through a
+`~cpymad.madx.Madx` object.
 """
-from typing import Dict, Sequence, Tuple
+from typing import Dict, Optional, Sequence, Tuple
 
 import pandas as pd
 
@@ -21,44 +21,52 @@ def track_single_particle(
     madx: Madx,
     initial_coordinates: Tuple[float, float, float, float, float, float],
     nturns: int,
-    sequence: str = None,
+    sequence: Optional[str] = None,
     observation_points: Sequence[str] = None,
     **kwargs,
 ) -> Dict[str, pd.DataFrame]:
     """
-    Tracks a single particle for nturns, based on its initial coordinates.
+    Tracks a single particle for *nturns*, based on its initial coordinates. For an example of the use of this
+    function, have a look at the :ref:`phase space <demo-phase-space>` or :ref:`tracking <demo-free-tracking>`
+    example galleries.
 
     Args:
-        madx (Madx): an instantiated cpymad.madx.Madx object.
-        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the X, PX, Y, PY,
-            T, PT starting coordinates the particle to track. Defaults to all 0 if none given.
+        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
+        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the ``X, PX,
+            Y, PY, T, PT`` starting coordinates of the particle to track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.
-        sequence (str): the sequence to use for tracking. If no value is provided, it is assumed that a
-            sequence is already defined and in use, and this one will be picked up by MAD-X. BEWARE of the
-            dangers of giving a sequence that will be `use`d by `MAD-X`, see function warning docstring.
-        observation_points (Sequence[str]): sequence of all element names at which to OBSERVE during the
+        sequence (Optional[str]): the sequence to use for tracking. If no value is provided, it is assumed
+            that a sequence is already defined and in use, and this one will be picked up by ``MAD-X``.
+            Beware of the dangers of giving a sequence that will be used by ``MAD-X``, see the warning below
+            for more information.
+        observation_points (Sequence[str]): sequence of all element names at which to ``OBSERVE`` during the
             tracking.
+        **kwargs: Any keyword argument will be given to the ``TRACK`` command like it would be given directly
+            into ``MAD-X``, for instance ``ONETABLE`` etc. Refer to the ``MAD-X`` manual for options.
 
-    Keyword Args:
-        Any keyword argument to be given to the `TRACK` command like it would be given directly into `MAD-X`,
-        for instance `ONETABLE` etc. Refer to the `MAD-X` manual for options.
-
-    Warnings:
-        If the `sequence` argument is given a string value, the `USE` command will be ran on the provided
-        sequence name. This means the caveats of `USE` apply, for instance the erasing of previously
+    .. warning::
+        If the *sequence* argument is given a string value, the ``USE`` command will be ran on the provided
+        sequence name. This means the caveats of ``USE`` apply, for instance the erasing of previously
         defined errors, orbits corrections etc. In this case a warning will be logged but the function will
-        proceed. If `None` is given (by default) then the sequence already in used will be the one tracking
+        proceed. If `None` is given (by default) then the sequence already in use will be the one tracking
         is performed on.
 
     Returns:
-        A dictionary with a copy of the track table's dataframe for each defined observation point,
-        with as columns the coordinates x, px, y, py, t, pt, s and e (energy). The keys of the dictionary
-        are simply numbered 'observation_point_1', 'observation_point_2' etc. The first observation point
+        A `dict` with a copy of the track table's dataframe for each defined observation point,
+        with as columns the coordinates ``x, px, y, py, t, pt, s and e`` (energy). The keys of the dictionary
+        are simply named ``observation_point_1``, ``observation_point_2`` etc. The first observation point
         always corresponds to the start of machine, the others correspond to the ones manually defined,
         in the order they are defined in.
 
-        If the user has set `onetable` to `True`, only one entry is in the dictionary under the key
-        'trackone' and it has the combined table as a pandas DataFrame for value.
+        If the user has set ``onetable`` to `True`, only one entry is in the dictionary under the key
+        ``trackone`` and it has the combined table as a pandas DataFrame for value.
+
+    Example:
+        .. code-block:: python
+
+            >>> tracks_dict = track_single_particle(
+            ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
+            ... )
     """
     logger.info("Performing single particle MAD-X (thin) tracking")
     onetable = kwargs.get("onetable", False) if "onetable" in kwargs else kwargs.get("ONETABLE", False)

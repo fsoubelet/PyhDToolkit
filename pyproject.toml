@@ -23,6 +23,7 @@ classifiers = [
     "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Physics",
@@ -45,18 +46,28 @@ pydantic = "^1.0"
 pendulum = "^2.0"
 
 [tool.poetry.dev-dependencies]
+# Tests Block
 pytest = "^6.0"
 pytest-cov = "^2.7"
 pytest-xdist = "^2.5"
 flaky = "^3.5"
-black = { version = "^19.10b0", python = "^3.6" }
-pylint = "^2.4"
 pytest-randomly = "^3.3"
-mypy = "<1.0"
 coverage = {extras = ["toml"], version = "^5.2"}
 pytest-mpl = "<1.0"
-interrogate = "^1.3"
-portray = "^1.4"
+# Code Quality Block
+black = "^22.1"
+isort = "^5.10"
+pylint = "^2.4"
+mypy = "<1.0"
+# Documentation Block
+Sphinx = "^4.4"
+sphinx-rtd-theme = "^1.0"
+sphinx-issues = "^3.0"
+sphinx-copybutton = "<1.0"
+sphinxcontrib-bibtex = "^2.4"
+sphinx-panels = "<1.0"
+sphinx-gallery = "<1.0"
+sphinx-prompt = "^1.5"
 
 # ----- Testing Configuration ----- #
 
@@ -71,49 +82,6 @@ source = ["pyhdtoolkit/"]
 ignore_errors = true
 omit = ["pyhdtoolkit/utils/htc_monitor.py", "pyhdtoolkit/utils/_misc.py"]
 precision = 2
-
-# ----- Documentation Configuration ----- #
-
-[tool.portray]
-extra_markdown_extensions = [
-    "admonition",
-    "codehilite",
-    "footnotes",
-    "pymdownx.arithmatex",
-    "pymdownx.betterem",
-    "pymdownx.caret",
-    "pymdownx.critic",
-    "pymdownx.details",
-    "pymdownx.inlinehilite",
-    "pymdownx.magiclink",
-    "pymdownx.tabbed",
-    "pymdownx.tasklist",
-    "pymdownx.keys",
-    "pymdownx.mark",
-    "pymdownx.smartsymbols",
-    "pymdownx.superfences",
-    "pymdownx.tasklist",
-    "pymdownx.tilde"
-]
-modules = ["pyhdtoolkit"]
-
-[tool.portray.mkdocs]
-repo_url = "https://github.com/fsoubelet/PyhDToolkit/"
-repo_name = "PyhDToolkit"
-
-[tool.portray.mkdocs.theme]
-name = "material"
-palette = {scheme = "slate", primary = "teal", accent = "purple"}
-font = {text = "Ubuntu Mono", code = "Fira Code"}
-
-[[tool.portray.mkdocs.nav]]
-Home = "README.md"
-
-[[tool.portray.mkdocs.nav]]
-"About" = "docs/About_PyhDToolkit.md"
-
-[[tool.portray.mkdocs.nav]]
-"Getting Started" = "docs/Getting_Started.md"
 
 # ----- Utilities Configuration ----- #
 
@@ -150,6 +118,14 @@ exclude = '''
   | tests/.*/setup.py
 )/
 '''
+
+[tool.mypy]
+pretty = true
+strict_optional = false
+show_error_codes = true
+warn_redundant_casts = true
+ignore_missing_imports = true
+follow_imports = "skip"
 
 [tool.pylint]
 [tool.pylint.master]

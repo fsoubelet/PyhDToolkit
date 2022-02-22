@@ -22,8 +22,8 @@ from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.htc_monitor import (
     ClusterSummary,
     HTCTaskSummary,
-    make_cluster_table,
-    make_tasks_table,
+    _make_cluster_table,
+    _make_tasks_table,
     read_condor_q,
 )
 from pyhdtoolkit.utils.operations import (
@@ -122,16 +122,16 @@ class TestHTCMonitor:
         user_tasks, cluster_info = read_condor_q(_condor_q_output)
         owner = user_tasks[0].owner if user_tasks else "User"
 
-        cluster_table = make_cluster_table(owner, cluster_info)
+        cluster_table = _make_cluster_table(owner, cluster_info)
         assert isinstance(cluster_table, Table)
 
     def test_tasks_table_creation(self, _condor_q_output, _taskless_condor_q_output):
         user_tasks, cluster_info = read_condor_q(_condor_q_output)
-        tasks_table = make_tasks_table(user_tasks)
+        tasks_table = _make_tasks_table(user_tasks)
         assert isinstance(tasks_table, Table)
 
         user_tasks, cluster_info = read_condor_q(_taskless_condor_q_output)
-        tasks_table = make_tasks_table(user_tasks)
+        tasks_table = _make_tasks_table(user_tasks)
         assert isinstance(tasks_table, Table)
 
 

@@ -248,3 +248,11 @@ Temporary Items
 /.idea/inspectionProfiles/profiles_settings.xml
 /.idea/vcs.xml
 /.idea/PyhDToolkit.iml
+
+# Sphinx build directory and sphinx-gallery generated documents
+.doc_build
+.doc_build/
+.docs/gallery
+.docs/gallery/
+.docs/gen_modules
+.docs/gen_modules/

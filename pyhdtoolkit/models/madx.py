@@ -1,12 +1,11 @@
 """
-Module models.madx
-------------------
+.. _models-madx:
 
-Created on 2021.07.30
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+MAD-X Models
+------------
 
-A module with `pydantic` models to validate and store data obtained by interacting with the `MAD-X` process
-through `cpymad`.
+Module with ``pydantic`` models to validate and store data obtained by interacting
+with the ``MAD-X`` process through `cpymad`.
 """
 from enum import Enum
 
@@ -14,7 +13,7 @@ from pydantic import BaseModel, PositiveFloat, PositiveInt
 
 
 class ParticleEnum(str, Enum):
-    """Validator Enum defining the accepted particle names in `MAD-X` beams."""
+    """Validator Enum defining the accepted particle names in ``MAD-X`` beams."""
 
     positron = "positron"
     electron = "electron"
@@ -26,7 +25,7 @@ class ParticleEnum(str, Enum):
 
 
 class MADXBeam(BaseModel):
-    """This is a class to encompass and validate `BEAM` attributes from the `MAD-X` process."""
+    """Class to encompass and validate ``BEAM`` attributes from the ``MAD-X`` process."""
 
     particle: ParticleEnum  # The name of particles in the beam
     mass: PositiveFloat  # The rest mass of the particles in the beam in [GeV]

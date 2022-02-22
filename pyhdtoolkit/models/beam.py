@@ -1,11 +1,10 @@
 """
-Module models.beam
-------------------
+.. _models-beam:
 
-Created on 2021.08.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Particle Beam Models
+--------------------
 
-A module with `pydantic` models to validate and store data structures used in the `beam` module.
+Module with ``pydantic`` models to validate and store data structures relative to particle beams.
 """
 from math import sqrt
 from typing import Optional
@@ -16,6 +15,7 @@ from pydantic import BaseModel
 class BeamParameters(BaseModel):
     """
     Class to encompass, validate and manipulate properties of a particle beam.
+    One can find a usage example in the :ref:`beam enveloppe demo <demo-beam-enveloppe>`.
     """
 
     pc_GeV: Optional[float]  # Beam momentum [GeV]

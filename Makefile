@@ -13,7 +13,7 @@ E = \033[0m
 P = \033[95m
 R = \033[31m
 
-.PHONY : help checklist clean condaenv docker format install interrogate lines lint tests type
+.PHONY : help checklist clean condaenv docker docs documentation format install interrogate lines lint tests type
 
 all: install
 
@@ -22,13 +22,13 @@ help:
 	@echo "  $(R) clean $(E)  \t  to recursively remove build, run, and bitecode files/dirs."
 	@echo "  $(R) condaenv $(E)  \t  to $(D)conda create$(E) the specific 'PHD' environment I use. Personnal."
 	@echo "  $(R) docker $(E)  \t  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
-	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) cli tool."
+	@echo "  $(R) docs $(E)  \t  to build the documentation for the package."
+	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) and $(P)isort$(E) cli tools."
 	@echo "  $(R) install $(E)  \t  to $(D)poetry install$(E) this package into the project's virtual environment."
-	@echo "  $(R) interrogate $(E)  \t  to run docstring presence inspection on this package."
 	@echo "  $(R) lines $(E)  \t  to count lines of code with the $(P)tokei$(E) tool."
 	@echo "  $(R) lint $(E)  \t  to lint the code though $(P)Pylint$(E)."
 	@echo "  $(R) tests $(E)  \t  to run tests with the $(P)pytest$(E) package."
-	@echo "  $(R) type $(E)  \t  to run type checking with the $(P)mypy$(E) package."
+	@echo "  $(R) typing $(E)  \t  to run type checking with the $(P)mypy$(E) package."
 
 build:
 	@echo "Re-building wheel and dist"
@@ -39,6 +39,10 @@ build:
 clean:
 	@echo "Cleaning up documentation pages."
 	@rm -rf doc_build
+	@rm -rf plot_directive
+	@echo "Cleaning up sphinx-gallery build artifacts."
+	@rm -rf docs/gallery
+	@rm -rf docs/gen_modules
 	@echo "Cleaning up distutils remains."
 	@rm -rf build
 	@rm -rf dist
@@ -46,6 +50,8 @@ clean:
 	@rm -rf .eggs
 	@echo "Cleaning up bitecode files and python cache."
 	@find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
+	@echo "Cleaning up Jupyter notebooks cache."
+	@find . -type d -name "*.ipynb_checkpoints" -exec rm -rf {} +
 	@echo "Cleaning up pytest cache & test artifacts."
 	@find . -type d -name '*.pytest_cache' -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
 	@find . -type f -name 'fc.*' -delete -o -type f -name 'fort.*' -delete
@@ -63,9 +69,9 @@ condaenv:
 	@ipython kernel install --user --name=PHD
 	@conda deactivate
 
-documentation: clean
-	@echo "Building static pages with $(D)Portray$(E)."
-	@poetry run portray in_browser -v
+docs:
+	@echo "Building static pages with $(D)Sphinx$(E)."
+	@poetry run python -m sphinx -b html docs doc_build -d doc_build
 
 docker:
 	@echo "Building $(P)simenv$(E) Docker image with $(D)PHD$(E) conda environment, with tag $(P)latest$(E)."
@@ -74,31 +80,29 @@ docker:
 	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 
 format:
-	@echo "Sorting imports and formatting code to PEP8, default line length is 110 characters."
+	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)docs$(E), $(C)pyhdtoolkit$(E) and $(C)tests$(E) folders. Max line length is 120 characters."
 	@poetry run isort . && black .
+	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)examples$(E) folder. Max line length is 95 characters."
+	@poetry run isort examples && black -l 95 examples
 
 install: format clean
 	@echo "Installing through $(D)Poetry$(E), with dev dependencies but no extras."
 	@poetry install -v
 
-interrogate:
-	@echo "Inspecting docstring presence in the package."
-	@interrogate pyhdtoolkit
-
 lines: format
 	@tokei .
 
 lint: format
-	@echo "Linting code"
+	@echo "Linting code with $(P)Pylint$(E)."
 	@poetry run pylint pyhdtoolkit/
 
 tests: format clean
-	@poetry run pytest --no-flaky-report # -p no:sugar
+	@poetry run pytest --no-flaky-report -n auto -p no:sugar
 	@make clean
 
-type: format
-	@echo "Checking code typing with mypy, ignore $(C)pyhdtoolkit/scripts$(E)"
-	@poetry run mypy --pretty --no-strict-optional --show-error-codes --warn-redundant-casts --ignore-missing-imports --follow-imports skip pyhdtoolkit/scripts/
+typing: format
+	@echo "Checking code typing with $(P)mypy$(E)."
+	@poetry run mypy pyhdtoolkit
 	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.

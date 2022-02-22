@@ -1,12 +1,11 @@
 """
-Module cpymadtools.errors
--------------------------
+.. _cpymadtools-errors:
 
-Created on 2020.02.03
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Errors Assignments
+------------------
 
-A module with functions to perform MAD-X errors setups and manipulations with a cpymad.madx.Madx object,
-mainly for LHC and HLLHC machines.
+Module with functions to perform ``MAD-X`` errors setups and manipulations through a `~cpymad.madx.Madx`
+object, mainly for LHC and HLLHC machines.
 """
 from typing import Dict, List, Sequence
 
@@ -35,19 +34,35 @@ IR_QUADS_PATTERNS: Dict[int, List[str]] = {
 
 def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
     """
-    INITIAL IMPLEMENTATION CREDITS GO TO JOSCHUA DILLY (@JoschD).
     Applies magnetic field orders. This will only work for LHC and HLLHC machines.
+    Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        **kwargs: The setting works through keyword arguments, and several specific
+            kwargs are expected. `default` sets global default to this value (defaults to `False`).
+            `AB#` sets the default for all of that order, the order being the `#` number. `A#` or
+            `B#` sets the default for systematic and random of this id. `A#s`, `B#r`, etc. sets the
+            specific value for this given order. In all kwargs, the order # should be in the range
+            [1...15], where 1 == dipolar field.
 
-    Keyword Args:
-        default: sets global default to this value. Defaults to `False`.
-        AB#:  sets the default for all of that order, the order being the # number.
-        A# or B#: sets the default for systematic and random of this id.
-        A#s, B#r etc.: sets the specific value.
+    Examples:
 
-    In all kwargs, the order # should be in the range (1...15), where 1 == dipolar field.
+        Set random values for (alsmost) all of these orders:
+
+        .. code-block:: python
+
+            >>> random_kwargs = {}
+            >>> for order in range(1, 16):
+            ...     for ab in "AB":
+            ...         random_kwargs[f"{ab}{order:d}"] = random.randint(0, 20)
+            >>> switch_magnetic_errors(madx, **random_kwargs)
+
+        Set a given value for ``B6`` order magnetic errors:
+
+        .. code-block:: python
+
+            >>> switch_magnetic_errors(madx, "B6"=1e-4)
     """
     logger.debug("Setting magnetic errors")
     global_default = kwargs.get("default", False)
@@ -75,52 +90,67 @@ def misalign_lhc_ir_quadrupoles(
     **kwargs,
 ) -> None:
     """
-    Apply misalignment errors to IR quadrupoles on a given side of a given IP. In case of a sliced
-    lattice, this will misalign all slices of the magnet together. According to the equipment codes main
-    system, those are Q1 to Q10 included, quads beyond are MQ or MQT which are considered arc elements.
+    Apply misalignment errors to IR quadrupoles on a given side of given IPs. In case of a sliced
+    lattice, this will misalign all slices of each magnet together. According to the
+    `Equipment Codes Main System <https://edms5.cern.ch/cedar/plsql/codes.systems>`_,  those are Q1
+    to Q10 included, quads beyond are ``MQ`` or ``MQT`` which are considered arc elements.
 
-    Beware: this implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have
-    different layouts incompatible with this function.
+    One can find a full example use of the function for tracking in the
+    :ref:`LHC IR Errors  <demo-ir-errors>` example gallery.
+
+    .. warning::
+        This implementation is only valid for LHC IP IRs, which are 1, 2, 5 and 8. Other IRs have
+        different layouts incompatible with this function.
+
+    .. warning::
+        One should avoid issuing different errors with several uses of this command as it is unclear to me
+        how ``MAD-X`` chooses to handle this internally. Instead, it is advised to give all errors in the same
+        command, which is guaranteed to work. See the last provided example below.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ips (Sequence[int]): the interaction point(s) around which to apply errors.
         beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single
             aperture, Q4 to Q10 are not and will need this information.
-        quadrupoles (Sequence[int]): the number of quadrupoles to apply errors to.
+        quadrupoles (Sequence[int]): the number of the quadrupoles to apply errors to.
         sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
-            Defaults to both.
+            Case-insensitive. Defaults to both.
         table (str): the name of the internal table that will save the assigned errors. Defaults to
             'ir_quads_errors'.
-
-    Keyword Args:
-        Any keyword argument to give to the EALIGN command, including the error to apply (DX, DY,
-        DPSI etc) as a string, like it would be given directly into MAD-X.
-
-    Warning:
-        One should avoid issuing different errors with several uses of this command as it is unclear to me
-        how MAD-X chooses to handle this internally. Instead, it is advised to give all errors in the same
-        command, which is guaranteed to work. See the last provided example below.
+        **kwargs: Any keyword argument is given to the ``EALIGN`` command, including the error to apply
+            (`DX`, `DY`, `DPSI` etc) as a string, like it would be given directly into ``MAD-X``.
 
     Examples:
-        For systematic DX misalignment:
-            misalign_lhc_ir_quadrupoles(
-                madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
-            )
+
+        For systematic ``DX`` misalignment:
+
+        .. code-block:: python
+
+            >>> misalign_lhc_ir_quadrupoles(
+            ...     madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
+            ... )
+
         For a tilt distribution centered on 1mrad:
-            misalign_lhc_ir_quadrupoles(
-                madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
-            )
-        For several error types on the elements, here DY and DPSI:
-            misalign_lhc_ir_quadrupoles(
-                madx,
-                ips=[1, 5],
-                quadrupoles=list(range(1, 11)),
-                beam=1,
-                sides="RL",
-                dy=1e-5,  # ok too as cpymad converts this to a string first
-                dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
-            )
+
+        .. code-block:: python
+
+            >>> misalign_lhc_ir_quadrupoles(
+            ...     madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+            ... )
+
+        For several error types on the elements, here ``DY`` and ``DPSI``:
+
+        .. code-block:: python
+
+            >>> misalign_lhc_ir_quadrupoles(
+            ...     madx,
+            ...     ips=[1, 5],
+            ...     quadrupoles=list(range(1, 11)),
+            ...     beam=1,
+            ...     sides="RL",
+            ...     dy=1e-5,  # ok too as cpymad converts this to a string first
+            ...     dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+            ... )
     """
     if any(ip not in (1, 2, 5, 8) for ip in ips):
         logger.error("The IP number provided is invalid, not applying any error.")
@@ -161,24 +191,33 @@ def misalign_lhc_triplets(
     madx: Madx, ip: int, sides: Sequence[str] = ("r", "l"), table: str = "triplet_errors", **kwargs
 ) -> None:
     """
-    Apply misalignment errors to triplet quadrupoles on a given side of a given IP. In case of a sliced
-    lattice, this will misalign all slices of the magnet together. This is a convenience wrapper around the
-    `misalign_lhc_ir_quadrupoles` function, see that function's docstring for more information.
+    Apply misalignment errors to IR triplet quadrupoles on a given side of a given IP. In case of a
+    sliced lattice, this will misalign all slices of each magnet together. This is a convenience wrapper
+    around the `~.errors.misalign_lhc_ir_quadrupoles` function, see that function's docstring for more
+    information.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ip (int): the interaction point around which to apply errors.
         sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
-            Defaults to both.
+            Case-insensitive. Defaults to both.
         table (str): the name of the internal table that will save the assigned errors. Defaults to
-            'triplet_errors'.
-
-    Keyword Args:
-        Any keyword argument to give to the EALIGN command, including the error to apply (DX, DY,
-        DPSI etc) as a string, like it would be given directly into MAD-X.
+            `triplet_errors`.
+        **kwargs: Any keyword argument is given to the ``EALIGN`` command, including the error to apply
+            (`DX`, `DY`, `DPSI` etc) as a string, like it would be given directly into ``MAD-X``.
 
     Examples:
-        misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-5 * TGAUSS(2.5)")
-        misalign_lhc_triplets(madx, ip=5, sides="RL", dpsi="0.001 * TGAUSS(2.5)")
+
+        A random, gaussian truncated ``DX`` misalignment:
+
+        .. code-block:: python
+
+            >>> misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-5 * TGAUSS(2.5)")
+
+        A random, gaussian truncated ``DPSI`` misalignment:
+
+        .. code-block:: python
+
+            >>> misalign_lhc_triplets(madx, ip=5, sides="RL", dpsi="0.001 * TGAUSS(2.5)")
     """
     misalign_lhc_ir_quadrupoles(madx, ips=[ip], beam=None, quadrupoles=(1, 2, 3), sides=sides, table=table, **kwargs)

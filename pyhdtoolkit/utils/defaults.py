@@ -1,16 +1,15 @@
 """
-Module utils.defaults
----------------------
+.. _utils-defaults:
 
-Created on 2019.11.12
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Defaults Setting Utilities
+--------------------------
 
-Provides defaults to import for different settings.
+Provides defaults to import for different settings, such as plotting or logging.
 """
 import sys
 
 from pathlib import Path
-from typing import Dict, NewType, Union
+from typing import Dict, Union
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -33,7 +32,7 @@ LOGURU_FORMAT = (
     "<level>{message}</level>"
 )
 
-PlotSetting = NewType("PlotSetting", Union[float, bool, str, tuple])
+PlotSetting = Union[float, bool, str, tuple]
 
 # Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS).
 # Will ALWAYS be overwritten by later on definition
@@ -109,12 +108,27 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     "savefig.bbox": "tight",  # Careful: incompatible with pipe-based animation backends
 }
 
+# This is meant for use in the sphinx-gallery to help with readability
+# as the default matplotlib settings are a bit small
+_SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
+    "figure.autolayout": True,
+    "figure.titlesize": 28,
+    "axes.titlesize": 28,
+    "legend.fontsize": 24,
+    "axes.labelsize": 23,
+    "xtick.labelsize": 18,
+    "ytick.labelsize": 18,
+}
+
 
 def config_logger(level: str = "INFO", **kwargs) -> None:
     """
-    Resets the logger object from loguru, with `sys.stdout` as a sink and the aforedefined format.
-    This comes down to personnal preference.
-    Any additional keyword argument used is transmitted to the `logger.add` call.
+    Resets the logger object from ``loguru``, with `sys.stdout` as a sink and the
+    aforedefined format, which comes down to personnal preference.
+
+    Args:
+        level (str): The logging level to set.
+        **kwargs: any keyword argument is transmitted to the ``logger.add`` call.
     """
     logger.remove()
     logger.add(sys.stdout, format=LOGURU_FORMAT, level=level.upper(), **kwargs)
@@ -122,11 +136,20 @@ def config_logger(level: str = "INFO", **kwargs) -> None:
 
 def install_mpl_style() -> None:
     """
-    Will create a `phd.mplstyle` file in the appropriate directories from the `PLOT_PARAMS` defined in this
-    module. This enables one to use the style without importing `PLOT_PARAMS` and updating the rcParams,
-    but instead simply using `plt.style.use("phd")`.
-    Sometimes, matplotlib will not look for the file in its global config directory, but in the activated
-    environment's site-packages data. The file is installed in both places.
+    Writes to disk a **phd.mplstyle** file in the appropriate directories, translating to matplotlib style
+    format the ``PLOT_PARAMS`` defined in this module. This enables one to use the style without importing
+    ``PLOT_PARAMS`` directly and updating the ``rcParams``, but instead setting the style to use, as so:
+
+    .. code-block:: python
+
+        from matplotlib import pyplot as plt
+        plt.style.use("phd")
+
+    .. note::
+        Sometimes, matplotlib will not look for the file in its global config directory, but in the
+        activated environment's site-packages data. The file is installed in both places.
+
+    One can see both options for using the style in the :ref:`examples gallery <gallery>`.
     """
     logger.info("Installing matplotlib style")
     style_content: str = "\n".join(f"{option} : {setting}" for option, setting in PLOT_PARAMS.items())

@@ -1,12 +1,10 @@
 """
-Module maths.stats_fitting
---------------------------
+.. _maths-stats-fitting:
 
-Created on 2020.02.06
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Stats Fitting
+-------------
 
-This is a Python3 module implementing methods to find the best fit of statistical distributions
-to data.
+Module implementing methods to find the best fit of statistical distributions to data.
 """
 import warnings
 
@@ -33,16 +31,23 @@ DISTRIBUTIONS: Dict[st.rv_continuous, str] = {
 
 def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
     """
-    Sets DISTRIBUTIONS as the provided dict. This is useful to define only the ones you want to
-    try out.
+    Sets ``DISTRIBUTIONS`` as the provided `dict`. This allows the user to define the
+    distributions to try and fit against the data.
 
     Args:
-        dist_dict Dict[st.rv_continuous, str]: dictionnary with the wanted distributions,
-            in the format of DISTRIBUTIONS, aka scipy.stats generator objects as keys, and a string
-            representation of their name as value.
+        dist_dict (Dict[st.rv_continuous, str]): dictionnary with the wanted distributions,
+            in the format of ``DISTRIBUTIONS``, aka with `scipy.stats` generator objects as
+            keys, and a string representation of their name as value.
 
     Returns:
-        Nothing, but modifies the global DISTRIBUTIONS dict called by other functions.
+        Nothing, but modifies the global ``DISTRIBUTIONS`` `dict` called by other functions.
+
+    Example:
+        .. code-block:: python
+
+            >>> import scipy.stats as st
+            >>> tested_dists = {st.chi: "Chi", st.expon: "Exponential", st.laplace: "Laplace"}
+            >>> set_distributions_dict(tested_dists)
     """
     # pylint: disable=global-statement
     logger.debug("Setting tested distributions")
@@ -54,18 +59,25 @@ def best_fit_distribution(
     data: Union[pd.Series, np.ndarray], bins: int = 200, ax: matplotlib.axes.Axes = None
 ) -> Tuple[st.rv_continuous, Tuple[float, ...]]:
     """
-    Model data by finding best fit candidate distribution among those in DISTRIBUTIONS.
+    Model data by finding the best fit candidate distribution among those in ``DISTRIBUTIONS``.
+    One can find an example use of this function in the :ref:`gallery <demo-distributions-fitting>`.
 
     Args:
-        data (Union[pd.Series, np.ndarray]): a pandas Series or numpy array with your
+        data (Union[pd.Series, np.ndarray]): a `pandas.Series` or `numpy.ndarray` with your
             distribution data.
-        bins (int): the number of bins to decompose your data in before performing fittings.
-        ax (matplotlib.axes.Axes): the matplotlib axis object on which to plot the pdf of tried
-            functions. This should be provided as the ax on which you plotted your distribution.
+        bins (int): the number of bins to decompose your data in before fitting.
+        ax (matplotlib.axes.Axes): the `matplotlib.axes.Axes` on which to plot the probability
+            density function of the different fitted distributions. This should be provided as
+            the axis on which the distribution data is plotted, as it will add to that plot.
 
     Returns:
-        A tuple containing the scipy.stats generator corresponding to the best fit candidate,
-        and the parameters to give said generator to get this fit.
+        A `tuple` containing the `scipy.stats` generator corresponding to the best fit candidate,
+        and the parameters for said generator to best fit the data.
+
+    Example:
+        .. code-block:: python
+
+            >>> best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)
     """
     # pylint: disable=too-many-locals
     logger.debug(f"Getting histogram of original data, in {bins} bins")
@@ -112,16 +124,22 @@ def best_fit_distribution(
 
 def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: int = 25_000) -> pd.Series:
     """
-    Generate a pandas Series for the distributions's Probability Distribution Function. This Series
-    will have axis values as index, and PDF values as values.
+    Generates a `pandas.Series` for the distributions's Probability Distribution Function.
+    This Series will have axis values as index, and PDF values as column.
 
     Args:
-        distribution (st.rv_continuous): a scipy.stats generator object
+        distribution (st.rv_continuous): a `scipy.stats` generator.
         params (Tuple[float, ...]): the parameters for this generator given back by the fit.
         size (int): the number of points to evaluate.
 
     Returns:
-        A pandas Series object with the PDF as values, corresponding axis values as index.
+        A `pandas.Series` with the PDF as values, and the corresponding axis values as index.
+
+    Example:
+        .. code-block:: python
+
+            >>> best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)
+            >>> pdf = fitting.make_pdf(best_fit_func, best_fit_params)
     """
     # Separate parts of parameters
     *args, loc, scale = params

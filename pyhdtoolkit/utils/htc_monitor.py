@@ -1,11 +1,16 @@
 """
-Module utils.htc_monitor
-------------------------
+.. _utils-htc-monitor:
 
-Created on 2021.04.22
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+HTCondor Monitoring
+-------------------
 
-A module with utility to query the HTCondor queue, process the returned data and display it nicely.
+A module with utility to query the HTCondor queue, process the returned data 
+and display it nicely.
+
+.. note::
+    This module is meant to be called as a script, but some of the individual 
+    functionality is made public API and one shoule be able to build a different 
+    monitor from the functions in here.
 """
 import re
 import time
@@ -57,7 +62,8 @@ CLUSTER_COLUMNS_SETTINGS = {
 
 def query_condor_q() -> str:
     """
-    Returns a decoded string with the result of the 'condor_q' command, to get status on your jobs.
+    Returns a decoded string with the result of the ``condor_q`` command,
+    to get the status of the caller' jobs.
     """
     return_code, raw_result = CommandLine.run("condor_q")
     condor_status = raw_result.decode().strip()
@@ -69,20 +75,23 @@ def query_condor_q() -> str:
 
 def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
     """
-    Split information from different parts of the condor_q output into one data structure.
+    Splits information from different parts of the ``condor_q`` command's output
+    into one clean, validated data structure.
 
     Args:
-        report (str): the utf-8 decoded string returned by the 'condor_q' command.
+        report (str): the utf-8 decoded string returned by the ``condor_q`` command.
 
     Returns:
-        A tuple of:
-            - A list of each task summary given by 'condor_q', each as a validated HTCTaskSummary object,
-            - A validated ClusterSummary object with scheduler identification and summaries of the user
-                as well as all users' statistics on this scheduler cluster.
+        A `tuple`. The first element is a `list` of each task summary given by ``condor_q``,
+        each as a validated `~.models.htc.HTCTaskSummary`` object. The second element is a
+        validated `~.models.htc.ClusterSummary` object with scheduler identification and summaries
+        of the user as well as all users' statistics on this scheduler cluster.
 
-    Example Usage:
-        condor_q_output = get_the_string_as_you_wish(...)
-        tasks, cluster = read_condor_q(condor_q_outout)
+    Example:
+        .. code-block:: python
+
+            >>> condor_q_output = get_the_string_as_you_wish(...)
+            >>> tasks, cluster = read_condor_q(condor_q_outout)
     """
     tasks: List[HTCTaskSummary] = []
     next_line_is_task_report = False
@@ -117,7 +126,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
 # ----- Output Formating ----- #
 
 
-def make_tasks_table(tasks: List[HTCTaskSummary]) -> Table:
+def _make_tasks_table(tasks: List[HTCTaskSummary]) -> Table:
     table = _default_tasks_table()
     date_display_format = "dddd, D MMM YY at LT (zz)"  # example: Wednesday, 21 Apr 21 9:04 PM (CEST)
     for task in tasks:
@@ -134,7 +143,7 @@ def make_tasks_table(tasks: List[HTCTaskSummary]) -> Table:
     return table
 
 
-def make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
+def _make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
     table = _default_cluster_table()
     for i, source in enumerate(["query", "user", "cluster"]):
         table.add_row(
@@ -154,7 +163,7 @@ def make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
 
 
 def _process_scheduler_information_line(line: str) -> str:
-    """Extract only the 'Schedd: <cluster>.cern.ch' part oof the scheduler information line"""
+    """Extract only the 'Schedd: <cluster>.cern.ch' part of the scheduler information line"""
     result = re.search(r"Schedd: (.*).cern.ch", line)
     return result.group(1)
 
@@ -232,8 +241,8 @@ def main():
         user_tasks, cluster_info = read_condor_q(condor_string)
         owner = user_tasks[0].owner if user_tasks else "User"
 
-        tasks_table = make_tasks_table(user_tasks)
-        cluster_table = make_cluster_table(owner, cluster_info)
+        tasks_table = _make_tasks_table(user_tasks)
+        cluster_table = _make_cluster_table(owner, cluster_info)
         return Group(
             Panel(
                 tasks_table,

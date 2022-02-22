@@ -1,16 +1,14 @@
 """
-Module cpymadtools.plotters
----------------------------
+.. _cpymadtools-plotters:
 
-Created on 2019.12.08
-:author: Felix Soubelet (felix.soubelet@cern.ch)
+Plotting Utilities
+------------------
 
-A collection of functions to plot different output results from a cpymad.madx.Madx object's
-simulation results.
+Module with functions to create different plots through a `~cpymad.madx.Madx` object.
 """
 from functools import partial
 from pathlib import Path
-from typing import Dict, List, Tuple, Union
+from typing import Dict, List, Optional, Tuple, Union
 
 import matplotlib
 import matplotlib.axes
@@ -34,14 +32,14 @@ SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
 class AperturePlotter:
-    """A class to plot the aperture of your machine as determined by `MAD-X`'s `APERTURE` command."""
+    """A class to plot the aperture of your machine as determined by ``MAD-X``'s ``APERTURE`` command."""
 
     @staticmethod
     def plot_aperture(
         madx: Madx,
-        title: str,
+        title: Optional[str],
         figsize: Tuple[int, int] = (18, 11),
-        savefig: str = None,
+        savefig: Optional[str] = None,
         xoffset: float = 0,
         xlimits: Tuple[float, float] = None,
         plot_dipoles: bool = True,
@@ -55,51 +53,53 @@ class AperturePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active `cpymad` instance after having ran a script, will create a plot representing
-        nicely the lattice layout and the aperture tolerance across the machine. Beware: this function
-        assumes the user has previously made a call to the `APERTURE` command in `MAD-X`.
+        Creates a plot representing nicely the lattice layout and the aperture tolerance across the machine.
+        One can find an example use of this function in the :ref:`machine aperture <demo-accelerator-aperture>`
+        example gallery.
+
+        .. important::
+            This function assumes the user has previously made a call to the ``APERTURE`` command in ``MAD-X``,
+            as it will query relevant values from the ``aperture`` table.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            title (str): title of your plot.
-            figsize (Tuple[int, int]): size of the figure, defaults to (18, 1).
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
-                to center a plot around a specific point or element, which would then become located at s = 0.
-                Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).
-            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-                not None, using the tuple passed.
-            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
-                the figure. Defaults to True. Dipoles are plotted in blue.
-            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
-                subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
-            plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
-                Beam Position Monitors. BPMs are plotted in dark grey.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            title (Optional[str]): title of the figure.
+            figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
+                you want to center a plot around a specific point or element, which would then become located
+                at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
+            xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+                not ``None``, using the tuple passed.
+            plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
+                the figure. Defaults to `True`. Dipoles are plotted in blue.
+            plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted on the layout
+                subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
+            plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
+                represent Beam Position Monitors. BPMs are plotted in dark grey.
             aperture_ylim (Tuple[float, float]): vertical axis limits for the aperture values. Defaults to
                 `None`, to be determined by matplotlib based on the provided values.
-            k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
+            k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
                 height of dipole patches. Defaults to (-0.25, 0.25).
-            k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
+            k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
                 height of quadrupole patches. Defaults to (-0.08, 0.08).
             k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
                 the figure, and the provided values act as vertical axis limits for the k2l values used for the
                 height of sextupole patches.
-            color (str): the color argument given to the aperture lines. Defaults to `None`, and should be
-                the first color in your `rcParams`'s cycler.
+            color (str): the color argument given to the aperture lines. Defaults to `None`, in which case
+                the first color in your `rcParams`'s cycler will be used.
+            **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on
+                to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-        Keyword Args:
-            Any keyword argument to be transmitted to `_plot_machine_layout`, later on to `plot_lattice_series`
-            and then `matplotlib.patches.Rectangle`, such as lw etc.
-
-        WARNING:
+        .. warning::
             Currently the function tries to plot legends for the different layout patches. The position of the
             different legends has been hardcoded in corners and might require users to tweak the axis limits
-            (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don't
+            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
             overlap.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         # pylint: disable=too-many-arguments
         logger.info("Plotting aperture limits and machine layout")
@@ -159,7 +159,7 @@ class AperturePlotter:
 
 
 class BeamEnvelopePlotter:
-    """A class to plot the estimated beam envelope of your machine."""
+    """A class to plot the estimated beam envelope throughout your machine."""
 
     @staticmethod
     def plot_envelope(
@@ -172,25 +172,26 @@ class BeamEnvelopePlotter:
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active `cpymad` instance after having ran a script, plots an estimation of the beam
-        stay-clear enveloppe in your machine, as well as an estimation of the aperture limits.
+        Creates a plot representing an estimation of the beam stay-clear enveloppe through the machine,
+        as well as an estimation of the aperture limits of elements. One can find an example use of this
+        function in the :ref:`beam enveloppe <demo-beam-enveloppe>` example gallery.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            beam_params (BeamParameters): a validated BeamParameters object from
-                `pyhdtoolkit.optics.beam.compute_beam_parameters`.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            beam_params (BeamParameters): a validated `~.models.beam.BeamParameters` object one can
+                get from `~.optics.beam.compute_beam_parameters`.
             figsize (Tuple[int, int]): size of the figure, defaults to (13, 20).
-            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-                not None, using the tuple passed.
+            xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+                not ``None``, using the tuple passed.
             hplane_ylim (Tuple[float, float]): the y limits for the horizontal plane plot (so
                 that machine geometry doesn't make the  plot look shrinked). Defaults to (-0.12, 0.12).
             vplane_ylim (Tuple[float, float]): the y limits for the vertical plane plot (so that
                 machine geometry doesn't make the plot look shrinked). Defaults to (-0.12, 0.12).
-            savefig (str): will save the figure if this is not None, using the string value passed.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         # pylint: disable=too-many-arguments
         # We need to interpolate in order to get high resolution along the S direction
@@ -267,24 +268,26 @@ class BeamEnvelopePlotter:
 
 
 class CrossingSchemePlotter:
-    """A class to plot LHC crossing schemes at provided IPs."""
+    """A class to plot LHC crossing schemes at given IPs."""
 
     @staticmethod
     def _highlight_mbx_and_mqx(
         axis: matplotlib.axes.Axes, plot_df: Union[pd.DataFrame, tfs.TfsDataFrame], ip: int, **kwargs
     ) -> None:
         """
-        Plot colored pacthes highlighting zones with MBX and MQX elements in a twin of the given axis.
-        Assumes that the plot_df s already centered at 0 on the IP point!
+        Plots colored pacthes highlighting zones with ``MBX`` and ``MQX`` elements in a twin
+        of the given axis.
+
+        .. warning::
+            This function assumes the provided *plot_df* is already centered at 0 on the IP point!
 
         Args:
-            axis (matplotlib.axes.Axes): the axis to twin and then on which to add patches.
-            plot_df (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone, centered on 0
-                at IP position (simply done with `df.s = df.s - ip_s`).
-            ip (int): the IP number of the given IR.
-
-        Keyword Args:
-            Any keyword argument is given to the `axis.axvspan` method called for each patch.
+            axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` to twin and then on which to add patches.
+            plot_df (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone, centered on 0
+                at the IP position (simply done with ``df.s = df.s - ip_s``).
+            ip (int): the IP number of the wanted IR in which to highlight elements positions.
+            **kwargs: any keyword argument is given to the `~matplotlib.axes.Axes.axvspan` method called for
+                each patch.
         """
         left_ir = plot_df.query("s < 0")  # no need to copy, we don't touch data
         right_ir = plot_df.query("s > 0")  # no need to copy, we don't touch data
@@ -331,20 +334,23 @@ class CrossingSchemePlotter:
         title: str = None,
     ) -> None:
         """
-        Plot the X or Y orbit for the IR on the given axis. Assumes that the plot_df_b1 and plot_df_b2
-        are already centered at 0 on the IP point!
+        Plots the X or Y orbit for the IR on the given axis.
+
+        .. warning::
+            This function assumes the provided the *plot_df_b1* and *plot_df_b2* are already centered
+            at 0 on the IP point!
 
         Args:
-            axis (matplotlib.axes.Axes): the axis on which to plot.
-            plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 1
-                of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
-            plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): TWISS dataframe of the IR zone for beam 2
-                of the LHC, centered on 0 at IP position (simply done with `df.s = df.s - ip_s`).
-            plot_column (str): which column (should be `x` or `y`) to plot for the orbit.
+            axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot.
+            plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 1
+                of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
+            plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 2
+                of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
+            plot_column (str): which column (should be ``x`` or ``y``) to plot for the orbit.
             scaling (float): scaling factor to apply to the plotted data. Defaults to 1 (no change of data).
-            xlabel (str): if given, will be used for the `xlabel` of the axis. Defaults to `None`.
-            ylabel (str): if given, will be used for the `ylabel` of the axis. Defaults to `None`.
-            title (str): if given, will be used for the `title` of the axis. Defaults to `None`.
+            xlabel (str): if given, will be used for the ``xlabel`` of the axis. Defaults to `None`.
+            ylabel (str): if given, will be used for the ``ylabel`` of the axis. Defaults to `None`.
+            title (str): if given, will be used for the ``title`` of the axis. Defaults to `None`.
         """
         logger.trace(f"Plotting orbit '{plot_column}'")
         axis.plot(
@@ -381,32 +387,34 @@ class CrossingSchemePlotter:
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active `cpymad.madx.Madx` instance after having ran a script, will create a plot
-        representing nicely the crossing schemes at two provided IPs. This assumes the appropriate LHC
-        sequence and opticsfile have been loaded, and both `lhcb1` and `lhcb2` beams are defined. It is
-        very recommended to re-cycle the sequences from a point which is not an IP
+        Creates a plot representing the crossing schemes at the two provided IPs.
 
-        WARNING: This function will get TWISS tables for both beams, which means it will `USE` both the
-        `lhcb1` and `lhcb2` sequences, erasing previously defined errors or orbit corrections. The second
-        sequence `USE` will be called on is `lhcb2`, which may not be the one you were using before. Please
-        re-`use` your wanted sequence after calling this function!
+        .. note::
+            This assumes the appropriate LHC sequence and opticsfile have been loaded, and both
+            ``lhcb1`` and ``lhcb2`` beams are defined. It is very recommended to first re-cycle the
+            sequences so that the desired IPs do not happen at beginning or end of the lattice.
+
+        .. warning::
+            This function will get ``TWISS`` tables for both beams, which means it will ``USE`` both the
+            ``lhcb1`` and ``lhcb2`` sequences, erasing previously defined errors or orbit corrections. The
+            second sequence ``USE`` will be called on is ``lhcb2``, which may not be the one you were using
+            before. Please re-``use`` your wanted sequence after calling this function!
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             first_ip (int): the first of the two IPs to plot crossing schemes for.
             second_ip (int): the second of the two IPs to plot crossing schemes for.
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 12).
             ir_limit (float): the amount of meters to keep left and right of the IP point. Will also
-                determine the xlimits of the plots. Defaults to 275.
+                determine the ``xlimits`` of the plots. Defaults to 275.
             highlight_mqx_and_mbx (bool): if `True`, will add patches highlighting the zones corresponding
-                to MBX and MQX elements. Defaults to `True`.
-            savefig (str): will save the figure if this is not `None`, using the string value passed.
-                Defaults to `None`.
+                to ``MBX`` and ``MQX`` elements. Defaults to `True`.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
 
         Returns:
-            The figure on which the crossing schemes are drawn. One crossing scheme is plotted per IP and
-            per plane (orbit X and orbit Y). The underlying axes can be accessed with 'fig.get_axes()'.
-            Eventually saves the figure as a file.
+            The `~matplotlib.figure.Figure` on which the crossing schemes are drawn. One crossing scheme is
+            plotted per IP and per plane (orbit X and orbit Y). The underlying axes can be
+            accessed with ``fig.get_axes()``.
         """
         logger.warning("You should re-call the 'USE' command on your wanted sequence after this!")
         # ----- Getting Twiss table dframe for each beam ----- #
@@ -491,7 +499,12 @@ class CrossingSchemePlotter:
 
 
 class DynamicAperturePlotter:
-    """This is currently badly named, and will change in the future."""
+    """
+    A class to plot the "aperture" at a given number of turns, based on tracked particles.
+
+    .. warning::
+        This class is currently badly named, and will change in the future.
+    """
 
     @staticmethod
     @deprecated(message="It is currently badly named and will migrate to a different class.")
@@ -499,18 +512,19 @@ class DynamicAperturePlotter:
         x_coords: np.ndarray, y_coords: np.ndarray, n_particles: int, savefig: str = None
     ) -> matplotlib.figure.Figure:
         """
-        Plots a visual aid for the dynamic aperture after a tracking. Initial amplitudes are on the
-        vertical axis, and the turn at which they were lost is in the horizontal axis.
+        Creates a plot representing a visual aid for the dynamic aperture after a tracking.
+        Initial amplitudes are on the vertical axis, and the turn at which they were lost is
+        in the horizontal axis.
 
         Args:
-            x_coords (np.ndarray): numpy array of horizontal coordinates over turns.
-            y_coords (np.ndarray): numpy array of vertical coordinates over turns.
+            x_coords (np.ndarray): `~numpy.ndarray` of horizontal coordinates over turns.
+            y_coords (np.ndarray): `~numpy.ndarray` of vertical coordinates over turns.
             n_particles (int): number of particles simulated.
-            savefig (str): will save the figure if this is not None, using the string value passed.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+            The `~matplotlib.figure.Figure` on which the points are drawn. The underlying axes can be
+            accessed with ``fig.get_axes()``.
         """
         logger.info(f"Plotting the '{len(x_coords)} turns' aperture")
         figure = plt.figure(figsize=(12, 7))
@@ -543,8 +557,7 @@ class DynamicAperturePlotter:
 
 class LatticePlotter:
     """
-    A class to elegantly plot the Twiss parameters layout of a machine from a `cpymad.madx.Madx` instance
-    after it has ran, or the machine survey.
+    A class to plot plot the ``TWISS`` parameters as well as the lattice layout or survey of the machine.
     """
 
     @staticmethod
@@ -567,53 +580,52 @@ class LatticePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active Cpymad class after having ran a script, will create a plot representing nicely
-        the lattice layout and the beta functions along with the horizontal dispertion function. This is very,
-        very heavily reworked code, inspired by code from Guido Sterbini.
+        Creates a plot representing the lattice layout and the :math`\\beta` functions along with the horizontal
+        dispertion function. This is a very, very heavily refactored version of an initial implementation by
+        :user:`Guido Sterbini <sterbini>`. One can find an example use of this function in the
+        :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            title (str): title of your plot.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            title (Optional[str]): title of the figure.
             figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
-                to center a plot around a specific point or element, which would then become located at s = 0.
-                Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).
-            xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-                not None, using the tuple passed.
-            plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
-                the figure. Defaults to True. Dipoles are plotted in blue.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
+                you want to center a plot around a specific point or element, which would then become located
+                at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
+            xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+                not ``None``, using the tuple passed.
+            plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
+                the figure. Defaults to `True`. Dipoles are plotted in blue.
             plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this
                 gradient plotted as a quadrupole patch. Defaults to `False`.
-            plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
-                subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
-            plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
-                Beam Position Monitors. BPMs are plotted in dark grey.
+            plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted on the layout
+                subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
+            plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
+                represent Beam Position Monitors. BPMs are plotted in dark grey.
             disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
                 Defaults to (-10, 125).
             beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
                 Defaults to None, to be determined by matplotlib based on the provided beta values.
-            k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
+            k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
                 height of dipole patches. Defaults to (-0.25, 0.25).
-            k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
+            k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
                 height of quadrupole patches. Defaults to (-0.08, 0.08).
             k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
                 the figure, and the provided values act as vertical axis limits for the k2l values used for the
                 height of sextupole patches.
+            **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on
+                to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-        Keyword Args:
-            Any keyword argument to be transmitted to `_plot_machine_layout`, later on to `plot_lattice_series`
-            and then `matplotlib.patches.Rectangle`, such as lw etc.
-
-        WARNING:
+        .. warning::
             Currently the function tries to plot legends for the different layout patches. The position of the
             different legends has been hardcoded in corners and might require users to tweak the axis limits
-            (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don't
+            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
             overlap.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         # pylint: disable=too-many-arguments
         # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
@@ -686,25 +698,26 @@ class LatticePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
-        Provided with an active Cpymad class after having ran a script, will create a plot
-        representing the machine geometry in 2D. Heavily reworked, original code is from Guido Sterbini.
+        Creates a plot representing the lattice layout and the machine geometry in 2D. This is a very,
+        very heavily refactored version of an initial implementation by :user:`Guido Sterbini <sterbini>`.
+        One can find an example use of this function in the :ref:`machine survey <demo-machine-survey>`
+        example gallery.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            title (str): title of your plot.
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            title (Optional[str]): title of the figure.
             figsize (Tuple[int, int]): size of the figure, defaults to (16, 11).
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            show_elements (bool): if True, will try to plot by differentiating elements.
-                Experimental, defaults to False.
-            high_orders (bool): if True, plot sextupoles and octupoles when show_elements is True,
-                otherwise only up to quadrupoles. Defaults to False.
-
-        Keyword Arguments:
-            Any keyword argument is transmiitted to `matplotlib.pyplot.scatter` calls later on.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            show_elements (bool): if `True`, will try to plot by differentiating elements.
+                Defaults to `False`.
+            high_orders (bool): if `True`, plots sextupoles and octupoles if *show_elements* is `True`,
+                otherwise only up to quadrupoles. Defaults to `False`.
+            **kwargs: any keyword argument will be transmitted to `~matplotlib.pyplot.scatter` calls
+                later on.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         logger.info("Plotting machine survey")
         logger.trace("Getting machine survey from cpymad")
@@ -755,7 +768,7 @@ class LatticePlotter:
 
 
 class PhaseSpacePlotter:
-    """A class to plot Courant-Snyder coordinates phase space."""
+    """A class to plot the normalized Courant-Snyder coordinates in phase space."""
 
     @staticmethod
     def plot_courant_snyder_phase_space(
@@ -763,34 +776,36 @@ class PhaseSpacePlotter:
         u_coordinates: np.ndarray,
         pu_coordinates: np.ndarray,
         savefig: str = None,
-        size: Tuple[int, int] = (16, 8),
+        figsize: Tuple[int, int] = (16, 8),
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
-        Plots the Courant-Snyder phase space of a particle distribution when provided by position
-        and momentum coordinates for a specific plane.
+        Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
+        when provided by position and momentum coordinates for a specific plane. One can find an example
+        use of this function in the :ref:`phase space <demo-phase-space>` example gallery.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
-                u_coordinates[0] should be all tracked coordinates for the first particle and so on.
-            pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
-                given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
+                ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
+            pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
+                given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
                 and so on.
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
-            plane (str): the physical plane to plot. Defaults to 'Horizontal'.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
+            plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
+                case-insensitive. Defaults to ``Horizontal``.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
             logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
             raise ValueError("Invalid plane value")
 
         logger.info("Plotting phase space for normalized Courant-Snyder coordinates")
-        figure = plt.figure(figsize=size)
+        figure = plt.figure(figsize=figsize)
         plt.title("Courant-Snyder Phase Space")
 
         # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
@@ -823,29 +838,31 @@ class PhaseSpacePlotter:
         u_coordinates: np.ndarray,
         pu_coordinates: np.ndarray,
         savefig: str = None,
-        size: Tuple[int, int] = (16, 8),
+        figsize: Tuple[int, int] = (16, 8),
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
-        Plots the Courant-Snyder phase space of a particle distribution when provided by position
-        and momentum coordinates for a specific plane. Each particle trajectory has its own color on
-        the plot, within the limit of pyplot's 156 named colors. The sequence repeats after the
-        156th color.
+        Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
+        when provided by position and momentum coordinates for a specific plane. Each particle trajectory
+        has its own color on the plot, within the limit of `~matplotlib.pyplot`'s 156 named colors, after
+        the function loops back to the first color again. One can find an example use of this function in
+        the :ref:`phase space <demo-phase-space>` example gallery.
 
         Args:
-            madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
-            u_coordinates (np.ndarray): numpy array of particles' coordinates for the given plane. Here
-                u_coordinates[0] should be all tracked coordinates for the first particle and so on.
-            pu_coordinates (np.ndarray): numpy array of particles' momentum coordinates for the
-                given plane.Here pu_coordinates[0] should be all tracked momenta for the first particle
+            madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
+                ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
+            pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
+                given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
                 and so on.
-            savefig (str): will save the figure if this is not None, using the string value passed.
-            size (Tuple[int, int]): the wanted matplotlib figure size. Defaults to (16, 8).
-            plane (str): the physical plane to plot. Defaults to 'Horizontal'.
+            savefig (str): if not `None`, will save the figure to file using the string value passed.
+            figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
+            plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
+                case-insensitive. Defaults to ``Horizontal``.
 
         Returns:
-             The figure on which the plots are drawn. The underlying axes can be accessed with
-             'fig.get_axes()'. Eventually saves the figure as a file.
+             The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+             accessed with ``fig.get_axes()``.
         """
         if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
             logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
@@ -857,7 +874,7 @@ class PhaseSpacePlotter:
             colors.pop()
 
         logger.info("Plotting colored phase space for normalized Courant-Snyder coordinates")
-        figure = plt.figure(figsize=size)
+        figure = plt.figure(figsize=figsize)
         plt.title("Courant-Snyder Phase Space")
 
         # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
@@ -886,7 +903,7 @@ class PhaseSpacePlotter:
 
 
 class TuneDiagramPlotter:
-    """A class to plot a blank tune diagram with Farey sequences, as well as your working points."""
+    """A class to plot a blank tune diagram with Farey sequences up to a desired order."""
 
     order_to_alpha: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
     order_to_rgb: Dict[int, np.ndarray] = {
@@ -918,17 +935,18 @@ class TuneDiagramPlotter:
     @staticmethod
     def farey_sequence(order: int) -> List[Tuple[int, int]]:
         """
-        Returns the n-th farey_sequence sequence, ascending. Original code from Rogelio Tomás (see Numerical
-        Methods 2018 CAS proceedings: https://arxiv.org/abs/2006.10661).
+        Returns the n-th farey_sequence sequence, ascending, where n is the provided *order*.
+        Original code from :user:`Rogelio Tomás <rogeliotomas>` (see Numerical Methods 2018 CAS
+        proceedings, :cite:t:`Tomas:CASImperfections:2018`).
 
         Args:
             order (int): the order up to which we want to calculate the sequence.
 
         Returns:
-            The sequence as a list of plottable 2D points.
+            The sequence as a `list` of plottable 2D points.
         """
         logger.trace(f"Computing Farey sequence for order {order}")
-        seq = [[0, 1]]
+        seq = [(0, 1)]
         a, b, c, d = 0, 1, 1, order
         while c <= order:
             k = int((order + b) / d)
@@ -939,14 +957,14 @@ class TuneDiagramPlotter:
     @staticmethod
     def _plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwargs) -> None:
         """
-        Plot resonance lines from farey sequences of the given order on the current figure.
+        Plot resonance lines from farey sequences of the given *order* on the provided
+        `~matplotlib.axes.Axes`.
 
         Args:
             order (int): the order of the resonance.
-            axis (matplotlib.axes.Axes): the axis on which to plot the resonance lines.
-
-        Keyword Args:
-            Any keyword argument is given to plt.plot().
+            axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot
+                the resonance lines.
+            **kwargs: any keyword argument is given to `~matplotlib.pyplt.plot`.
         """
         order_label = TuneDiagramPlotter.order_to_label[order]
         logger.debug(f"Plotting {order_label} resonance lines")
@@ -982,30 +1000,31 @@ class TuneDiagramPlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
-        Plotting the tune diagram up to the 6th order. Original code from Rogelio Tomás.
-        The first order lines make up the [(0, 0), (0, 1), (1, 1), (1, 0)] square and will only be seen
-        when redefining the limits of the figure, which are by default [0, 1] on each axis.
+        Creates a plot representing the tune diagram up to the given *max_order*. One can find an example
+        use of this function in the :ref:`tune diagram <demo-tune-diagram>` example gallery.
+
+        .. note::
+            The first order lines make up the [(0, 0), (0, 1), (1, 1), (1, 0)] square and will only be
+            seen when redefining the limits of the figure, which are by default [0, 1] on each axis.
 
         Args:
-            title (str): title of your plot, to be given to the figure. Defaults to an empty string.
+            title (Optional[str]): title of the figure.
             legend_title (str): if given, will be used as the title of the plot's legend. If set to `None`,
                 then creating a legend for the figure will not be done by this function and left up to the
-                user's care (a call to `pyplot.legend` will do). Defaults to `None`.
+                user's care (a call to `~matplotlib.pyplot.legend` will do). Defaults to `None`.
             max_order (int): the order up to which to plot resonance lines for, should not exceed 6.
                 Defaults to 6.
             differentiate_orders (bool): if `True`, the lines for each order will be of a different color.
-                When set to False, there is still minimal differentation through alpha, linewidth and
-                linestyle. Defaults to `False`.
+                When set to `False`, there is still minimal differentation through ``alpha``, ``linewidth``
+                and ``linestyle``. Defaults to `False`.
             figsize (Tuple[int, int]): size of the figure, defaults to (12, 12).
-
-        Keyword Args:
-            Any keyword argument will be transmitted to the `_plot_resonance_lines_for_order` functino
-            and later on to `pyplot.plot`. Be aware that `alpha`, `ls`, `lw`, `color` and `label` are
-            already set by this function and providing them as kwargs might lead to errors.
+            **kwargs: any keyword argument will be transmitted to the
+                `~.plotters.TuneDiagramPlotter._plot_resonance_lines_for_order` function and later on to
+                `~matplotlib.pyplot.plot`. Be aware that ``alpha``, ``ls``, ``lw``, ``color`` and ``label`` are
+                already set by this function and providing them as kwargs might lead to errors.
 
         Returns:
-             The figure on which resonance lines from farey sequences are drawn, up to the specified max
-             order.
+             The `~matplotlib.figure.Figure` on which the tune diagram is drawn.
         """
         if max_order > 6 or max_order < 1:
             logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
@@ -1077,6 +1096,7 @@ def _plot_lattice_series(
     )
 
 
+# TODO: make public
 def _plot_machine_layout(
     madx: Madx,
     quadrupole_patches_axis: matplotlib.axes.Axes,
@@ -1099,7 +1119,7 @@ def _plot_machine_layout(
     The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         quadrupole_patches_axis (matplotlib.axes.Axes): the axis on which to plot. Will also create the
             appropriate new axes with `twinx()` to plot the element orders asked for.
         title (str): title of your plot.
@@ -1262,7 +1282,7 @@ def _make_elements_groups(
     the twiss table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
             to center a plot around a specific point or element, which would then become located at s = 0.
         xlimits (Tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this
@@ -1294,7 +1314,7 @@ def _make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     the survey table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Returns:
         A dictionary containing a dataframe for dipoles, focusing quadrupoles, defocusing
@@ -1325,7 +1345,7 @@ def _get_twiss_table_with_offsets_and_limits(
     the given `xoffset`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated cpymad Madx object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         xoffset (float): An offset applied to the S coordinate in the dataframe.
         xlimits (Tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
             this is not `None`, using the tuple passed.
