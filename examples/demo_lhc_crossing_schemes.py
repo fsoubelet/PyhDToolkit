@@ -39,6 +39,7 @@ madx.call("lhc/opticsfile.22")  # collisions optics
 # as is the default in the LHC sequence:
 
 lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
+lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
 lhc.make_lhc_beams(madx, energy=7000)
 madx.command.use(sequence="lhcb1")
 
