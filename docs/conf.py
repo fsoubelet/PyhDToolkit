@@ -184,6 +184,11 @@ sphinx_gallery_conf = {
     "only_warn_on_example_error": True,  # keep the build going if an example fails, very important for doc workflow
 }
 
+# Config for the sphinx_panels extension
+panels_css_variables = {
+    "tabs-color-label-inactive": "rgba(178, 206, 245, 0.90)",  # increase alpha from defaults
+}
+
 # Config for the matplotlib plot directive
 plot_formats = [("svg", 250)]
 plot_rcparams = pyhdtoolkit.utils.defaults.PLOT_PARAMS
