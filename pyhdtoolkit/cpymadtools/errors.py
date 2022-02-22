@@ -1,7 +1,7 @@
 """
 .. _cpymadtools-errors:
 
-Errors Application
+Errors Assignments
 ------------------
 
 Module with functions to perform ``MAD-X`` errors setups and manipulations through a `~cpymad.madx.Madx`
