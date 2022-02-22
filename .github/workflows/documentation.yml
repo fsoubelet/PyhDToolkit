@@ -24,10 +24,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install LaTeX
-        run: sudo apt install -y texlive-latex-base texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra texlive-latex-recommended ghostscript
+        run: sudo apt-get install -y texlive-latex-base # texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra texlive-latex-recommended ghostscript
 
       - name: Install optipng
-        run: sudo apt install -y optipng
+        run: sudo apt-get install -y optipng
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -67,28 +67,38 @@ jobs:
 
       # Sometimes the minrpc client will close while documentation builds and I don't know why
       # Forcing several successive builds here and hoping it works out (sphinx-gallery 
-      # checks for the existence of already built examples to avoid re-running them)
-      - name: Build documentation (1/5)
+      # checks for the existence of already built examples to avoid re-running them, so
+      # once the gallery is built successive builds will just re-generate the html, very quickly)
+      - name: Build documentation (1/7)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (2/5)
+      - name: Build documentation (2/7)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (3/5)
+      - name: Build documentation (3/7)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (4/5)
+      - name: Build documentation (4/7)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (5/5)
+      - name: Build documentation (5/7)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Upload build artifacts  # upload artifacts so reviewers can have a quick look without building documentation from the branch locally
+      - name: Build documentation (6/7)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (7/7)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
+      - name: Upload build artifacts
         uses: actions/upload-artifact@v2
         if: ${{ success() }} && github.event_name == 'pull_request'  # only for pushes in PR
         with:
