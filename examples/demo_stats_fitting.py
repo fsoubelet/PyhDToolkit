@@ -250,4 +250,4 @@ best_fit_func, best_fit_params = fitting.best_fit_distribution(chi_data, 200, ac
 ac.set_ylim(dataYLim)
 ac.set_title(f"All Fitted Distributions")
 ac.set_ylabel("Normed Hist Counts")
-plt.legend()
+plt.legend(fontsize=25)
