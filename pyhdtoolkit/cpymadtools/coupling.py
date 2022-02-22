@@ -16,6 +16,11 @@ from loguru import logger
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
+__all__ = [
+    "get_closest_tune_approach",
+    "match_no_coupling_through_ripkens",
+]
+
 # ----- General Use ----- #
 
 

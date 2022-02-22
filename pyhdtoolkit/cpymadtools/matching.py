@@ -13,6 +13,8 @@ from loguru import logger
 
 from pyhdtoolkit.utils import deprecated
 
+__all__ = ["match_tunes_and_chromaticities"]
+
 # ----- Utlites ----- #
 
 

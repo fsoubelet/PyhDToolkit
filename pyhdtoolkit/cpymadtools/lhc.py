@@ -25,6 +25,25 @@ from pyhdtoolkit.cpymadtools.constants import (
 )
 from pyhdtoolkit.utils import deprecated
 
+__all__ = [
+    "apply_lhc_colinearity_knob",
+    "apply_lhc_coupling_knob",
+    "apply_lhc_rigidity_waist_shift_knob",
+    "deactivate_lhc_arc_sextupoles",
+    "get_lhc_bpms_list",
+    "get_lhc_tune_and_chroma_knobs",
+    "install_ac_dipole_as_kicker",
+    "install_ac_dipole_as_matrix",
+    "make_lhc_beams",
+    "make_lhc_thin",
+    "make_sixtrack_output",
+    "power_landau_octupoles",
+    "reset_lhc_bump_flags",
+    "re_cycle_sequence",
+    "vary_independent_ir_quadrupoles",
+]
+
+
 # ----- Setup Utlites ----- #
 
 
