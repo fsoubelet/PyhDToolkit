@@ -147,7 +147,7 @@ ax.set_ylim(data_y_lim)
 
 ax.set_title(f"All Fitted Distributions")
 ax.set_ylabel("Normed Hist Counts")
-plt.legend()
+plt.legend(fontsize=25)
 plt.show()
 
 ###############################################################################
