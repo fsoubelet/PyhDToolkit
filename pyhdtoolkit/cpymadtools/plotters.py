@@ -1,8 +1,8 @@
 """
 .. _cpymadtools-plotters:
 
-Plotting Utilities
-------------------
+Plotting Wrappers
+-----------------
 
 Module with functions to create different plots through a `~cpymad.madx.Madx` object.
 """
@@ -29,6 +29,18 @@ from pyhdtoolkit.utils import deprecated
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
 SORTED_COLORS = [name for hsv, name in BY_HSV]
+
+
+__all__ = [
+    "AperturePlotter",
+    "BeamEnvelopePlotter",
+    "CrossingSchemePlotter",
+    "DynamicAperturePlotter",
+    "LatticePlotter",
+    "PhaseSpacePlotter",
+    "TuneDiagramPlotter",
+    "plot_machine_layout",
+]
 
 
 class AperturePlotter:
@@ -61,6 +73,12 @@ class AperturePlotter:
             This function assumes the user has previously made a call to the ``APERTURE`` command in ``MAD-X``,
             as it will query relevant values from the ``aperture`` table.
 
+        .. warning::
+            Currently the function tries to plot legends for the different layout patches. The position of the
+            different legends has been hardcoded in corners and might require users to tweak the axis limits
+            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
+            overlap.
+
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             title (Optional[str]): title of the figure.
@@ -91,12 +109,6 @@ class AperturePlotter:
             **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on
                 to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-        .. warning::
-            Currently the function tries to plot legends for the different layout patches. The position of the
-            different legends has been hardcoded in corners and might require users to tweak the axis limits
-            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
-            overlap.
-
         Returns:
              The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
              accessed with ``fig.get_axes()``.
@@ -118,9 +130,9 @@ class AperturePlotter:
         # Create a subplot for the lattice patches (takes a third of figure)
         figure = plt.figure(figsize=figsize)
         quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
-        _plot_machine_layout(
+        plot_machine_layout(
             madx,
-            quadrupole_patches_axis=quadrupole_patches_axis,
+            axis=quadrupole_patches_axis,
             title=title,
             xoffset=xoffset,
             xlimits=xlimits,
@@ -502,7 +514,7 @@ class DynamicAperturePlotter:
     """
     A class to plot the "aperture" at a given number of turns, based on tracked particles.
 
-    .. warning::
+    .. caution::
         This class is currently badly named, and will change in the future.
     """
 
@@ -585,6 +597,12 @@ class LatticePlotter:
         :user:`Guido Sterbini <sterbini>`. One can find an example use of this function in the
         :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
 
+        .. warning::
+            Currently the function tries to plot legends for the different layout patches. The position of the
+            different legends has been hardcoded in corners and might require users to tweak the axis limits
+            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
+            overlap.
+
         Args:
             madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             title (Optional[str]): title of the figure.
@@ -617,12 +635,6 @@ class LatticePlotter:
             **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on
                 to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-        .. warning::
-            Currently the function tries to plot legends for the different layout patches. The position of the
-            different legends has been hardcoded in corners and might require users to tweak the axis limits
-            (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
-            overlap.
-
         Returns:
              The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
              accessed with ``fig.get_axes()``.
@@ -636,9 +648,9 @@ class LatticePlotter:
         # Create a subplot for the lattice patches (takes a third of figure)
         figure = plt.figure(figsize=figsize)
         quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
-        _plot_machine_layout(
+        plot_machine_layout(
             madx,
-            quadrupole_patches_axis=quadrupole_patches_axis,
+            axis=quadrupole_patches_axis,
             title=title,
             xoffset=xoffset,
             xlimits=xlimits,
@@ -1069,20 +1081,18 @@ def _plot_lattice_series(
     **kwargs,
 ) -> None:
     """
-    Plots the layout of your machine as a patch of rectangles for different element types.
-    Original code from Guido Sterbini.
+    Plots a `~matplotlib.patches.Rectangle` element on the provided `~matplotlib.axes.Axes` to
+    represent an element of the machine. Original code from :user:`Guido Sterbini <sterbini>`.
 
     Args:
-        ax (matplotlib.axes.Axes): an existing  matplotlib.axis `Axes` object to act on.
-        series (pd.DataFrame): a dataframe with your elements' data.
+        ax (matplotlib.axes.Axes): an existing  `~matplotlib.axes.Axes` object to draw on.
+        series (pd.DataFrame): a `pandas.DataFrame` with the elements' data.
         height (float): value to reach for the patch on the y axis.
         v_offset (float): vertical offset for the patch.
-        color (str): color kwarg to transmit to pyplot.
-        alpha (float): alpha kwarg to transmit to pyplot.
-
-    Keyword Args:
-        Any kwarg that can be given to matplotlib.patches.Rectangle(), for instance `lw` for the edge line
-        width.
+        color (str): color kwarg to transmit to `~matplotlib.pyplot`.
+        alpha (float): alpha kwarg to transmit to `~matplotlib.pyplot`.
+        **kwargs: any keyword argument will be transmitted to `~matplotlib.patches.Rectangle`,
+            for instance ``lw`` for the edge line width.
     """
     ax.add_patch(
         patches.Rectangle(
@@ -1096,10 +1106,9 @@ def _plot_lattice_series(
     )
 
 
-# TODO: make public
-def _plot_machine_layout(
+def plot_machine_layout(
     madx: Madx,
-    quadrupole_patches_axis: matplotlib.axes.Axes,
+    axis: matplotlib.axes.Axes,
     title: str,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
@@ -1113,46 +1122,50 @@ def _plot_machine_layout(
     **kwargs,
 ) -> None:
     """
-    Provided with an active `cpymad` instance after having ran a script, will plot the lattice layout on a
-    given axis. This is the function that takes care of the machine layout in `LatticePlotter.plot_latwiss`,
-    and is in theory a private function, though if you know what you are doing you may use it individually.
-    The current implementation can take care of dipole, quadrupole and sextupole elements as well as BPMs.
+    Draws patches elements representing the lattice layout on the given *axis*. This is the function that
+    takes care of the machine layout axis in `~.plotters.LatticePlotter.plot_latwiss`.
+
+    .. note::
+        This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.
+
+    .. warning::
+        Currently the function tries to plot legends for the different layout patches. The position of the
+        different legends has been hardcoded in corners of the `~matplotlib.axes.Axes` and might require users
+        to tweak the axis limits (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and
+        plotted elements don't overlap.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        quadrupole_patches_axis (matplotlib.axes.Axes): the axis on which to plot. Will also create the
-            appropriate new axes with `twinx()` to plot the element orders asked for.
-        title (str): title of your plot.
-        xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
-            to center a plot around a specific point or element, which would then become located at s = 0.
-            Beware this offset is applied before applying the `xlimits`. Offset defaults to 0 (no change).
-        xlimits (Tuple[float, float]): will implement xlim (for the s coordinate) if this is
-            not None, using the tuple passed.
-        plot_dipoles (bool): if True, dipole patches will be plotted on the layout subplot of
-            the figure. Defaults to True. Dipoles are plotted in blue.
+        axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` axis on draw the elements. By definition,
+            the quadrupole elements will be drawn, and for each new element type a call to `~matplotlib.axes.Axes.twinx`
+            is made and the new elements will be drawn on the newly created twin `~matplotlib.axes.Axes`.
+            title (Optional[str]): title of the `~matplotlib.axes.Axes`.
+        xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
+            you want to center a plot around a specific point or element, which would then become located
+            at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
+        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+            not ``None``, using the tuple passed.
+        plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
+            the figure. Defaults to `True`. Dipoles are plotted in blue.
         plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar gradient will have this
             gradient plotted as a quadrupole patch. Defaults to `False`.
-        plot_quadrupoles (bool): if True, quadrupole patches will be plotted on the layout
-            subplot of the figure. Defaults to True. Quadrupoles are plotted in red.
-        plot_bpms (bool): if True, additional patches will be plotted on the layout subplot to represent
-            Beam Position Monitors. BPMs are plotted in dark grey.
-        k0l_lim (Tuple[float, float]): vertical axis limits for the k0l values used for the
+        plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted on the layout
+            subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
+        plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
+            represent Beam Position Monitors. BPMs are plotted in dark grey.
+        disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
+            Defaults to (-10, 125).
+        beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
+            Defaults to None, to be determined by matplotlib based on the provided beta values.
+        k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
             height of dipole patches. Defaults to (-0.25, 0.25).
-        k1l_lim (Tuple[float, float]): vertical axis limits for the k1l values used for the
+        k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
             height of quadrupole patches. Defaults to (-0.08, 0.08).
         k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
-
-    Keyword Args:
-        Any keyword argument to be transmitted to `_plot_lattice_series`, and later on to
-        `matplotlib.patches.Rectangle`, such as lw etc.
-
-    WARNING:
-        Currently the function tries to plot legends for the different layout patches. The position of the
-        different legends has been hardcoded in corners and might require users to tweak the axis limits
-        (through `k0l_lim`, `k1l_lim` and `k2l_lim`) to ensure legend labels and plotted elements don't
-        overlap.
+        **kwargs: any keyword argument will be transmitted to `~.plotters._plot_lattice_series`, and then
+        `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
     """
     # pylint: disable=too-many-arguments
     twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
@@ -1165,16 +1178,16 @@ def _plot_machine_layout(
     bpms_df = element_dfs["bpms"]
 
     logger.debug("Plotting machine layout")
-    logger.trace(f"Plotting from axis '{quadrupole_patches_axis}'")
-    quadrupole_patches_axis.set_ylabel("$1/f=K_{1}L$ $[m^{-1}]$", color="red")  # quadrupole in red
-    quadrupole_patches_axis.tick_params(axis="y", labelcolor="red")
-    quadrupole_patches_axis.set_ylim(k1l_lim)
-    quadrupole_patches_axis.set_xlim(xlimits)
-    quadrupole_patches_axis.set_title(title)
-    quadrupole_patches_axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
-    quadrupole_patches_axis.grid(False)
+    logger.trace(f"Plotting from axis '{axis}'")
+    axis.set_ylabel("$1/f=K_{1}L$ $[m^{-1}]$", color="red")  # quadrupole in red
+    axis.tick_params(axis="y", labelcolor="red")
+    axis.set_ylim(k1l_lim)
+    axis.set_xlim(xlimits)
+    axis.set_title(title)
+    axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
+    axis.grid(False)
 
-    dipole_patches_axis = quadrupole_patches_axis.twinx()
+    dipole_patches_axis = axis.twinx()
     dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ $[rad]$", color="royalblue")  # dipoles in blue
     dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
     dipole_patches_axis.set_ylim(k0l_lim)
@@ -1198,7 +1211,7 @@ def _plot_machine_layout(
             if dipole.k1l != 0 and plot_dipole_k1:  # plot dipole quadrupolar gradient (with reduced alpha)
                 logger.trace(f"Plotting quadrupolar gradient of dipole element '{dipole_name}'")
                 _plot_lattice_series(
-                    quadrupole_patches_axis,
+                    axis,
                     dipole,
                     height=dipole.k1l,
                     v_offset=dipole.k1l / 2,
@@ -1215,7 +1228,7 @@ def _plot_machine_layout(
         for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
             logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
             _plot_lattice_series(
-                quadrupole_patches_axis,
+                axis,
                 quadrupole,
                 height=quadrupole.k1l,
                 v_offset=quadrupole.k1l / 2,
@@ -1224,11 +1237,11 @@ def _plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        quadrupole_patches_axis.legend(loc=2)
+        axis.legend(loc=2)
 
     if k2l_lim:
         logger.trace("Plotting sextupole patches")
-        sextupoles_patches_axis = quadrupole_patches_axis.twinx()
+        sextupoles_patches_axis = axis.twinx()
         sextupoles_patches_axis.set_ylabel("$K_{2}L$ $[m^{-2}]$", color="darkgoldenrod")
         sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
         sextupoles_patches_axis.spines["right"].set_position(("axes", 1.1))
@@ -1251,7 +1264,7 @@ def _plot_machine_layout(
 
     if plot_bpms:
         logger.trace("Plotting BPM patches")
-        bpm_patches_axis = quadrupole_patches_axis.twinx()
+        bpm_patches_axis = axis.twinx()
         bpm_patches_axis.set_axis_off()  # hide yticks, labels etc
         bpm_patches_axis.set_ylim(-1.6, 1.6)
         plotted_elements = 0
