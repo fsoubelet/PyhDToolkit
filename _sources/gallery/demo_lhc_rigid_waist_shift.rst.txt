@@ -191,7 +191,7 @@ to make sure we do not deviate.
 
  .. code-block:: none
 
-    2022-02-22 17:07:31 | WARNING  | pyhdtoolkit.cpymadtools.lhc:196 - You should re-match tunes & chromaticities after this
+    2022-02-22 17:19:52 | WARNING  | pyhdtoolkit.cpymadtools.lhc:196 - You should re-match tunes & chromaticities after this
 
 
 
@@ -315,7 +315,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  6.925 seconds)
+   **Total running time of the script:** ( 0 minutes  57.434 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:
