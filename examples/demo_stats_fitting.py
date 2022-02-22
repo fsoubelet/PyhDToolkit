@@ -27,6 +27,7 @@ from pyhdtoolkit.plotting.helpers import AnnotationsPlotter
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # We will for this example create a chi-square_ distribution with known parameters. As the
@@ -147,7 +148,7 @@ ax.set_ylim(data_y_lim)
 
 ax.set_title(f"All Fitted Distributions")
 ax.set_ylabel("Normed Hist Counts")
-plt.legend(fontsize=25)
+plt.legend()
 plt.show()
 
 ###############################################################################
@@ -187,13 +188,12 @@ AnnotationsPlotter.set_arrow_label(
     label_position=(1.1 * np.mean(ax.get_xlim()), 0.75 * max(pdf.to_numpy())),
     color="indianred",
     arrow_arc_rad=0.3,
-    fontsize=25,
 )
 plt.vlines(pdf.idxmax(), ymin=0, ymax=max(pdf.to_numpy()), linestyles="--", color="indianred")
-ax.set_title(f"Best fit to distribution:\n" + dist_str, fontsize=30)
-ax.set_ylabel("Normed Hist Counts", fontsize=25)
-ax.set_xlabel("x", fontsize=25)
-ax.legend(fontsize=25)
+ax.set_title(f"Best fit to distribution:\n" + dist_str)
+ax.set_ylabel("Normed Hist Counts")
+ax.set_xlabel("x")
+ax.legend()
 
 ###############################################################################
 # We expect a mode of 2, we can check that this is indeed the case. Here we leave
@@ -250,4 +250,4 @@ best_fit_func, best_fit_params = fitting.best_fit_distribution(chi_data, 200, ac
 ac.set_ylim(dataYLim)
 ac.set_title(f"All Fitted Distributions")
 ac.set_ylabel("Normed Hist Counts")
-plt.legend(fontsize=25)
+plt.legend()

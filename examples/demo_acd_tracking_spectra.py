@@ -29,6 +29,7 @@ from pyhdtoolkit.cpymadtools import lhc, matching, track
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
@@ -126,8 +127,8 @@ spectrum = spectrum[spectrum.tunes.between(0, 0.5)]  # do not care about other h
 #
 #     .. code-block:: python
 #
-#      qxd = spectrum.tunes[spectrum.horizontal == spectrum.horizontal.max()].to_numpy()[0]
-#      qyd = spectrum.tunes[spectrum.vertical == spectrum.vertical.max()].to_numpy()[0]
+#      >>> qxd = spectrum.tunes[spectrum.horizontal == spectrum.horizontal.max()].to_numpy()[0]
+#      >>> qyd = spectrum.tunes[spectrum.vertical == spectrum.vertical.max()].to_numpy()[0]
 #
 # One can now plot the spectra, and here we will add two stem lines at the position of the
 # determined driven tunes to highlight them.

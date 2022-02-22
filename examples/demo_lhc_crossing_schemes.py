@@ -23,6 +23,7 @@ from pyhdtoolkit.cpymadtools.plotters import CrossingSchemePlotter
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
 ###############################################################################

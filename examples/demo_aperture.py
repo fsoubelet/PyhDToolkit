@@ -19,6 +19,7 @@ from pyhdtoolkit.cpymadtools.plotters import AperturePlotter
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
+plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Setup a simple LHC simulation in ``MAD-X``, at injection energy (450 GeV)

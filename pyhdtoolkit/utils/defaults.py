@@ -108,6 +108,18 @@ PLOT_PARAMS: Dict[str, PlotSetting] = {
     "savefig.bbox": "tight",  # Careful: incompatible with pipe-based animation backends
 }
 
+# This is meant for use in the sphinx-gallery to help with readability
+# as the default matplotlib settings are a bit small
+_SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
+    "figure.autolayout": True,
+    "figure.titlesize": 28,
+    "axes.titlesize": 28,
+    "legend.fontsize": 24,
+    "axes.labelsize": 23,
+    "xtick.labelsize": 18,
+    "ytick.labelsize": 18,
+}
+
 
 def config_logger(level: str = "INFO", **kwargs) -> None:
     """
