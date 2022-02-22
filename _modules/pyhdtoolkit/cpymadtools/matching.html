@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyhdtoolkit.cpymadtools.matching &mdash; PyhDToolkit 0.16.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.16.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-utilities">Plotting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#bug-fixes">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id5">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id8">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id9">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id12">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id13">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id14">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id17">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id18">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id21">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id24">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id25">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id26">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id29">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id30">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id33">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id36">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id40">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id41">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id44">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id45">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id49">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id50">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id53">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id54">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id57">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id58">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id61">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id64">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id65">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id66">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id69">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id70">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id73">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id74">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id78">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id79">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id82">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id83">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id84">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id87">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id88">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id89">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id92">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id95">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id96">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id99">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id102">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id103">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id106">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>pyhdtoolkit.cpymadtools.matching</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyhdtoolkit.cpymadtools.matching</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. _cpymadtools-matching:</span>
+
+<span class="sd">Matching Routines</span>
+<span class="sd">-----------------</span>
+
+<span class="sd">Module with functions to perform ``MAD-X`` matchings through a `~cpymad.madx.Madx` object.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
+
+<span class="c1"># ----- Utlites ----- #</span>
+
+
+<div class="viewcode-block" id="get_lhc_tune_and_chroma_knobs"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.get_lhc_tune_and_chroma_knobs">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.lhc&#39; module.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+    <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets names of knobs needed to match tunes and chromaticities as a tuple of strings,</span>
+<span class="sd">    for the LHC or HLLHC machines. Initial implementation credits go to</span>
+<span class="sd">    :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+
+<span class="sd">    .. danger::</span>
+<span class="sd">        This function is deprecated and will be removed in a future version. Please use</span>
+<span class="sd">        its equivalent from the `~.cpymadtools.lhc` module.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        accelerator (str): Accelerator either &#39;LHC&#39; (dQ[xy], dQp[xy] knobs) or &#39;HLLHC&#39;</span>
+<span class="sd">            (kqt[fd], ks[fd] knobs).</span>
+<span class="sd">        beam (int): Beam to use, for the knob names. Defaults to 1.</span>
+<span class="sd">        telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic</span>
+<span class="sd">            Squeeze configuration. Defaults to `True` to reflect run III scenarios.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+    <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;LHC&quot;</span><span class="p">,</span> <span class="s2">&quot;HLLHC&quot;</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid accelerator name, only &#39;LHC&#39; and &#39;HLLHC&#39; implemented&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accelerator &#39;</span><span class="si">{</span><span class="n">accelerator</span><span class="si">}</span><span class="s2">&#39; not implemented.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;LHC&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;dQx.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;dQy.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;dQpx.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;dQpy.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;HLLHC&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;kqtf.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;kqtd.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;ksf.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;ksd.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">}[</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="match_tunes_and_chromaticities"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities">[docs]</a><span class="k">def</span> <span class="nf">match_tunes_and_chromaticities</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+    <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">q1_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">q2_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dq1_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">dq2_target</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">varied_knobs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span>
+    <span class="n">calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-21</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match tunes</span>
+<span class="sd">    and/or chromaticities. As target values are given, the function expects knob names to be provided,</span>
+<span class="sd">    which are then used and varied by `MAD-X` to match the targets. This is a convenient wrapper around</span>
+<span class="sd">    the ``MATCH`` command. For usage details, see the</span>
+<span class="sd">    `MAD-X manual &lt;http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf&gt;`_.</span>
+
+<span class="sd">    One can find example use of this function in the :ref:`lattice plotting &lt;demo-accelerator-lattice&gt;`,</span>
+<span class="sd">    :ref:`rigid waist shift &lt;demo-rigid-waist-shift&gt;` or :ref:`phase space &lt;demo-phase-space&gt;` example</span>
+<span class="sd">    galleries.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        If target tune values only are provided, then tune matching is performed with the provided knobs.</span>
+<span class="sd">        If target chromaticity values only are provided, then chromaticity matching is performed with the</span>
+<span class="sd">        provided knobs. If targets for both types are provided, then both are matched in a single call with</span>
+<span class="sd">        the provided knobs.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If the user wishes to perform different matching calls for each, then it is recommended to call this</span>
+<span class="sd">        function as many times as necessary, with the appropriate targets.</span>
+
+<span class="sd">        For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,</span>
+<span class="sd">        then followed by a combined matching. In this case the function should be called three times, once with tune</span>
+<span class="sd">        targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        When acting of either the ``LHC`` or ``HLLHC`` machines, the accelerator name can be provided and the vary</span>
+<span class="sd">        knobs will be automatically set accordingly to the provided targets. Note that only the relevant knobs are</span>
+<span class="sd">        set, so if tune targets only are provided, then tune knobs only will be used, and not chromaticity knobs.</span>
+<span class="sd">        If explicit knobs are provided, these will always be used. On other machines the knobs should be provided</span>
+<span class="sd">        explicitly, always.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        The matching is always performed with the ``CHROM`` option on.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.</span>
+<span class="sd">            Automatic determination will only work for `LHC` and `HLLHC`.</span>
+<span class="sd">        sequence (str): name of the sequence you want to perform the matching for.</span>
+<span class="sd">        q1_target (float): horizontal tune to match to.</span>
+<span class="sd">        q2_target (float): vertical tune to match to.</span>
+<span class="sd">        dq1_target (float): horizontal chromaticity to match to.</span>
+<span class="sd">        dq2_target (float): vertical chromaticity to match to.</span>
+<span class="sd">        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An input</span>
+<span class="sd">            could be ``[&quot;kqf&quot;, &quot;ksd&quot;, &quot;kqf&quot;, &quot;kqd&quot;]`` as they are common names used for quadrupole and sextupole</span>
+<span class="sd">            strengths (focusing / defocusing) in most examples.</span>
+<span class="sd">        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic</span>
+<span class="sd">            Squeeze configuration. Defaults to `True` as of run III.</span>
+<span class="sd">        step (float): step size to use when varying knobs.</span>
+<span class="sd">        calls (int): max number of varying calls to perform.</span>
+<span class="sd">        tolerance (float): tolerance for successfull matching.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        Matching a dummy lattice (not LHC or HLLHC):</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; matching.match_tunes_and_chromaticities(</span>
+<span class="sd">            ...     madx,</span>
+<span class="sd">            ...     None,              # this is not LHC or HLLHC</span>
+<span class="sd">            ...     sequence=&quot;CAS3&quot;,</span>
+<span class="sd">            ...     q1_target=6.335,</span>
+<span class="sd">            ...     q2_target=6.29,</span>
+<span class="sd">            ...     dq1_target=100,</span>
+<span class="sd">            ...     dq2_target=100,</span>
+<span class="sd">            ...     varied_knobs=[&quot;kqf&quot;, &quot;kqd&quot;, &quot;ksf&quot;, &quot;ksd&quot;],</span>
+<span class="sd">            ... )</span>
+
+<span class="sd">        Matching the LHC lattice:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; matching.match_tunes_and_chromaticities(</span>
+<span class="sd">            ...     madx,</span>
+<span class="sd">            ...     &quot;lhc&quot;,                    # will find the knobs automatically</span>
+<span class="sd">            ...     sequence=&quot;lhcb1&quot;,</span>
+<span class="sd">            ...     q1_target=62.31,</span>
+<span class="sd">            ...     q2_target=60.32,</span>
+<span class="sd">            ...     dq1_target=2.0,</span>
+<span class="sd">            ...     dq2_target=2.0,</span>
+<span class="sd">            ...     telescopic_squeeze=True,  # influences the knobs definition</span>
+<span class="sd">            ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">accelerator</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">varied_knobs</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting knobs from default </span><span class="si">{</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> values&quot;</span><span class="p">)</span>
+        <span class="n">lhc_knobs</span> <span class="o">=</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+            <span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">telescopic_squeeze</span><span class="o">=</span><span class="n">telescopic_squeeze</span>
+        <span class="p">)</span>
+        <span class="n">tune_knobs</span><span class="p">,</span> <span class="n">chroma_knobs</span> <span class="o">=</span> <span class="n">lhc_knobs</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">lhc_knobs</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># first two, last two</span>
+
+    <span class="k">def</span> <span class="nf">match</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Create matching commands for kwarg targets, varying the given args.&quot;&quot;&quot;</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Executing matching commands, using sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Targets are given as </span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">global_</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">variable_name</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating vary command for knob &#39;</span><span class="si">{</span><span class="n">variable_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">vary</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">variable_name</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">lmdif</span><span class="p">(</span><span class="n">calls</span><span class="o">=</span><span class="n">calls</span><span class="p">,</span> <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endmatch</span><span class="p">()</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Performing routine TWISS&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># prevents errors if the user forgets to TWISS before querying tables</span>
+
+    <span class="k">if</span> <span class="n">q1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">q2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Doing combined matching to Qx=</span><span class="si">{</span><span class="n">q1_target</span><span class="si">}</span><span class="s2">, Qy=</span><span class="si">{</span><span class="n">q2_target</span><span class="si">}</span><span class="s2">, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;dqx=</span><span class="si">{</span><span class="n">dq1_target</span><span class="si">}</span><span class="s2">, dqy=</span><span class="si">{</span><span class="n">dq2_target</span><span class="si">}</span><span class="s2"> for sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+        <span class="p">)</span>
+        <span class="n">varied_knobs</span> <span class="o">=</span> <span class="n">varied_knobs</span> <span class="ow">or</span> <span class="n">lhc_knobs</span>  <span class="c1"># if accelerator was given we&#39;ve extracted this already</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">varied_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">varied_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>
+
+    <span class="k">elif</span> <span class="n">q1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">q2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching tunes to Qx=</span><span class="si">{</span><span class="n">q1_target</span><span class="si">}</span><span class="s2">, Qy=</span><span class="si">{</span><span class="n">q2_target</span><span class="si">}</span><span class="s2"> for sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">tune_knobs</span> <span class="o">=</span> <span class="n">varied_knobs</span> <span class="ow">or</span> <span class="n">tune_knobs</span>  <span class="c1"># if accelerator was given we&#39;ve extracted this already</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">tune_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">tune_knobs</span><span class="p">,</span> <span class="n">q1</span><span class="o">=</span><span class="n">q1_target</span><span class="p">,</span> <span class="n">q2</span><span class="o">=</span><span class="n">q2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be tune knobs</span>
+
+    <span class="k">elif</span> <span class="n">dq1_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">dq2_target</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching chromaticities to dq1=</span><span class="si">{</span><span class="n">dq1_target</span><span class="si">}</span><span class="s2">, dq2=</span><span class="si">{</span><span class="n">dq2_target</span><span class="si">}</span><span class="s2"> for sequence </span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">chroma_knobs</span> <span class="o">=</span> <span class="n">varied_knobs</span> <span class="ow">or</span> <span class="n">chroma_knobs</span>  <span class="c1"># if accelerator was given we&#39;ve extracted this already</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Vary knobs sent are </span><span class="si">{</span><span class="n">chroma_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">match</span><span class="p">(</span><span class="o">*</span><span class="n">chroma_knobs</span><span class="p">,</span> <span class="n">dq1</span><span class="o">=</span><span class="n">dq1_target</span><span class="p">,</span> <span class="n">dq2</span><span class="o">=</span><span class="n">dq2_target</span><span class="p">)</span>  <span class="c1"># sent varied_knobs should be chromaticity knobs</span></div>
+
+
+<div class="viewcode-block" id="get_closest_tune_approach"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.get_closest_tune_approach">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.coupling&#39; module.&quot;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_closest_tune_approach</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+    <span class="n">accelerator</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">varied_knobs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="n">explicit_targets</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">step</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-7</span><span class="p">,</span>
+    <span class="n">calls</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">tolerance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1e-21</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Provided with an active `~cpymad.madx.Madx` object, tries to match the tunes to their mid-fractional tunes,</span>
+<span class="sd">    a.k.a tries to get them together. The difference between the final reached fractional tunes is the closest</span>
+<span class="sd">    tune approach. This should not have any effect on the user&#39;s simulation, as the varied knobs are</span>
+<span class="sd">    restored to their previous values after performing the CTA. This uses `~.tune.match_tunes_and_chromaticities`</span>
+<span class="sd">    under the hood.</span>
+
+<span class="sd">    .. danger::</span>
+<span class="sd">        This function is deprecated and will be removed in a future version. Please use</span>
+<span class="sd">        its equivalent from the `~.cpymadtools.coupling` module.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This assumes the sequence has previously been matched to the user&#39;s desired working point, as if not</span>
+<span class="sd">        explicitely given, the appropriate targets will be determined from the ``MAD-X`` internal tables.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        This is hard-coded to use the ``CHROM`` flag when performing matching, since we expect to be in</span>
+<span class="sd">        the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the</span>
+<span class="sd">        tunes might cause ``LMDIF`` to fail, as the knobs become dependent. For this reason, only tune matching is</span>
+<span class="sd">        performed here, and chromaticities are voluntarily ignored.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.</span>
+<span class="sd">            Automatic determination will only work for `LHC` and `HLLHC`.</span>
+<span class="sd">        sequence (str): name of the sequence you want to activate for the tune matching.</span>
+<span class="sd">        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine. An input</span>
+<span class="sd">            could be ``[&quot;kqf&quot;, &quot;ksd&quot;, &quot;kqf&quot;, &quot;kqd&quot;]`` as they are common names used for quadrupole and sextupole</span>
+<span class="sd">            strengths (focusing / defocusing) in most examples.</span>
+<span class="sd">        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic</span>
+<span class="sd">            Squeeze configuration. Defaults to `True` as of run III.</span>
+<span class="sd">        explicit_targets (Tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.</span>
+<span class="sd">            Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to</span>
+<span class="sd">            `None`.</span>
+<span class="sd">        step (float): step size to use when varying knobs.</span>
+<span class="sd">        calls (int): max number of varying calls to perform.</span>
+<span class="sd">        tolerance (float): tolerance for successfull matching.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The closest tune approach, in absolute value.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; # Say we have set the coupling knobs to 1e-3</span>
+<span class="sd">            &gt;&gt;&gt; dqmin = get_closest_tune_approach(</span>
+<span class="sd">            ...     madx,</span>
+<span class="sd">            ...     &quot;lhc&quot;,                    # will find the knobs automatically</span>
+<span class="sd">            ...     sequence=&quot;lhcb1&quot;,</span>
+<span class="sd">            ...     telescopic_squeeze=True,  # influences the knobs definition</span>
+<span class="sd">            ... )</span>
+<span class="sd">            0.001</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">accelerator</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">varied_knobs</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting knobs from default </span><span class="si">{</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> values&quot;</span><span class="p">)</span>
+        <span class="n">varied_knobs</span> <span class="o">=</span> <span class="n">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+            <span class="n">accelerator</span><span class="o">=</span><span class="n">accelerator</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">sequence</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]),</span> <span class="n">telescopic_squeeze</span><span class="o">=</span><span class="n">telescopic_squeeze</span>
+        <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running TWISS to update SUMM and TWISS tables&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving knob values to restore after closest tune approach&quot;</span><span class="p">)</span>
+    <span class="n">saved_knobs</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="n">knob</span><span class="p">:</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob</span><span class="p">]</span> <span class="k">for</span> <span class="n">knob</span> <span class="ow">in</span> <span class="n">varied_knobs</span><span class="p">}</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Saved knobs are </span><span class="si">{</span><span class="n">saved_knobs</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">explicit_targets</span><span class="p">:</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">explicit_targets</span>  <span class="c1"># the integer part is used later on</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes and chromaticities from internal tables&quot;</span><span class="p">)</span>
+        <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Determining target tunes for closest approach&quot;</span><span class="p">)</span>
+    <span class="n">middle_of_fractional_tunes</span> <span class="o">=</span> <span class="p">(</span><span class="n">_fractional_tune</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="o">+</span> <span class="n">_fractional_tune</span><span class="p">(</span><span class="n">q2</span><span class="p">))</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">qx_target</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="o">+</span> <span class="n">middle_of_fractional_tunes</span>
+    <span class="n">qy_target</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">q2</span><span class="p">)</span> <span class="o">+</span> <span class="n">middle_of_fractional_tunes</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Targeting tunes Qx = </span><span class="si">{</span><span class="n">qx_target</span><span class="si">}</span><span class="s2">  |  Qy = </span><span class="si">{</span><span class="n">qy_target</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Performing closest tune approach routine, matching should fail at DeltaQ = dqmin&quot;</span><span class="p">)</span>
+    <span class="n">match_tunes_and_chromaticities</span><span class="p">(</span>
+        <span class="n">madx</span><span class="p">,</span>
+        <span class="n">accelerator</span><span class="p">,</span>
+        <span class="n">sequence</span><span class="p">,</span>
+        <span class="n">q1_target</span><span class="o">=</span><span class="n">qx_target</span><span class="p">,</span>
+        <span class="n">q2_target</span><span class="o">=</span><span class="n">qy_target</span><span class="p">,</span>
+        <span class="n">varied_knobs</span><span class="o">=</span><span class="n">varied_knobs</span><span class="p">,</span>
+        <span class="n">step</span><span class="o">=</span><span class="n">step</span><span class="p">,</span>
+        <span class="n">calls</span><span class="o">=</span><span class="n">calls</span><span class="p">,</span>
+        <span class="n">tolerance</span><span class="o">=</span><span class="n">tolerance</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tune separation from internal tables&quot;</span><span class="p">)</span>
+    <span class="n">dqmin</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">q1</span><span class="p">)</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">q2</span><span class="p">))</span>
+    <span class="n">cminus</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">dqmin</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching got to a Closest Tune Approach of </span><span class="si">{</span><span class="n">cminus</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Restoring saved knobs&quot;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">madx</span><span class="o">.</span><span class="n">batch</span><span class="p">():</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_knobs</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># make sure TWISS and SUMM tables are returned to their original state</span>
+
+    <span class="k">return</span> <span class="n">cminus</span></div>
+
+
+<span class="c1"># ----- Helpers ----- #</span>
+
+<span class="c1"># TODO: remove this once deprecated &#39;get_closest_tune_approach&#39; is removed as its the only thing using it</span>
+<span class="k">def</span> <span class="nf">_fractional_tune</span><span class="p">(</span><span class="n">tune</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns only the fractional part *tune*.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tune (float): tune value.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The fractional part.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; _fractional_tune(62.31)</span>
+<span class="sd">            0.31</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">tune</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">tune</span><span class="p">)</span>  <span class="c1"># ok since int truncates to lower integer</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Notes &mdash; PyhDToolkit 0.16.0 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/clipboard.min.js"></script>
+        <script src="_static/copybutton.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Reference bibliography" href="bibliography.html" />
+    <link rel="prev" title="Contributing" href="contributing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.16.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#plotting-utilities">Plotting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#bug-fixes">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id5">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id8">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id9">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id12">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id13">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id14">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id17">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id18">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id21">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id24">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id25">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id26">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id29">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id30">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id33">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id36">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id40">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id41">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id44">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id45">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id49">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id50">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id53">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id54">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id57">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id58">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id61">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id64">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id65">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id66">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id69">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id70">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id73">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id74">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id78">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id79">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id82">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id83">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id84">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id87">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id88">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id89">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id92">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id95">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id96">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id99">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id102">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id103">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id106">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Release Notes</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/Felix Soubelet/PyhDToolkit/blob/master/doc/release.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="release-notes">
+<h1>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline"></a></h1>
+<p>The full list of releases can be found in the Github repository’s <code class="xref py py-obj docutils literal notranslate"><span class="pre">releases</span> <span class="pre">page</span></code>.</p>
+<section id="release-0-15-1">
+<span id="id1"></span><h2>0.15.1<a class="headerlink" href="#release-0-15-1" title="Permalink to this headline"></a></h2>
+<section id="bug-fixes">
+<h3>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.errors</span></code> module can now properly handle several IPs at the same time. Its <em>ip</em> parameter has been renamed to <em>ips</em> and properly expects a sequence.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.1">v0.15.1 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.15.0...0.15.1">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-15-0">
+<span id="id2"></span><h2>0.15.0<a class="headerlink" href="#release-0-15-0" title="Permalink to this headline"></a></h2>
+<section id="enhancements">
+<h3>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">LatticePlotter.plot_latwiss</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module can now plot the k1 gradient of dipoles that have one, if asked to, which will appear with a lower alpha than regular quadrupoles. A new boolean parameter <em>plot_dipole_k1</em> is used for this.</p></li>
+<li><p>Type hints have been added to all elements of the <code class="docutils literal notranslate"><span class="pre">cpymadtools.constants</span></code> module.</p></li>
+<li><p>A new module, <code class="docutils literal notranslate"><span class="pre">cpymadtools.correctors</span></code>, has been added with currently functionality to query LHC triplet and arc corrector powering status (relatively to their max powering).</p></li>
+<li><p>A new function, <code class="docutils literal notranslate"><span class="pre">reset_bump_flags</span></code> in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> module which will reset all LHC IP bump flags to 0.</p></li>
+<li><p>Several new constants have been introduced in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.constants</span></code> module:</p>
+<ul>
+<li><p>Supplementing the <code class="docutils literal notranslate"><span class="pre">DEFAULT_TWISS_COLUMNS</span></code> list, a similar but slightly different one, <code class="docutils literal notranslate"><span class="pre">MONITOR_TWISS_COLUMNS</span></code>, has been added with elements present in OMC macros.</p></li>
+<li><p>Constants lists for LHC IP bump flags have been added: <code class="docutils literal notranslate"><span class="pre">LHC_CROSSING_ANGLE_FLAGS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_PARALLEL_SEPARATION_FLAGS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_IP_OFFSET_FLAGS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_ANGLE_FLAGS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_EXPERIMENT_STATE_FLAGS</span></code> and <code class="docutils literal notranslate"><span class="pre">LHC_IP2_SPECIAL_FLAGS</span></code>.</p></li>
+<li><p>Constants lists for LHC triplets corrector knobs have been added: <code class="docutils literal notranslate"><span class="pre">LHC_KQSX_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCSX_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCSSX_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCOX_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCOSX_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCTX_KNOBS</span></code> with their signification in comments.</p></li>
+<li><p>Constants lists for LHC arc corrector knobs have been added: <code class="docutils literal notranslate"><span class="pre">LHC_KQTF_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KQS_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KSF_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KSS_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCS_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCO_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KCD_KNOBS</span></code>, <code class="docutils literal notranslate"><span class="pre">LHC_KO_KNOBS</span></code> with their signification in comments.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="maintenance">
+<h3>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">CORRECTOR_LIMITS</span></code> dict of dict in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.constants</span></code> module has been changed to a simple dictionary and renamed <code class="docutils literal notranslate"><span class="pre">HLLHC_CORRECTOR_LIMITS</span></code> as it only contained HighLumi values.</p></li>
+<li><p>Exceptions are properly logged as exceptions, with stack information.</p></li>
+<li><p>The entire <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> module is deprecated and its contents have been mirrored in a new <code class="docutils literal notranslate"><span class="pre">cpymadtools.lhc</span></code> module. Users are encouraged to use the new module, as <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> will be removed in a future release.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.0">v0.15.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.14.1...0.15.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-14-1">
+<span id="id4"></span><h2>0.14.1<a class="headerlink" href="#release-0-14-1" title="Permalink to this headline"></a></h2>
+<section id="id5">
+<h3>Maintenance<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Both tracking functions <code class="docutils literal notranslate"><span class="pre">ptc_track_particle</span></code> and <code class="docutils literal notranslate"><span class="pre">track_single_particle</span></code> in respectively the <code class="docutils literal notranslate"><span class="pre">cpymadtools.ptc</span></code> and <code class="docutils literal notranslate"><span class="pre">cpymadtools.track</span></code> modules now log a warning when a string value is given to their <em>sequence</em> argument. Giving a value means the provided sequence will be <code class="docutils literal notranslate"><span class="pre">USE</span></code>-ed in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, leading to a loss of set errors, orbit corrections etc whch the user should be well aware of. This caveat has been added to the functions’ docstrings. An info level log has also been added at the start of each function for consistency with the rest of the package.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.1">v0.14.1 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.14.0...0.14.1">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-14-0">
+<span id="id7"></span><h2>0.14.0<a class="headerlink" href="#release-0-14-0" title="Permalink to this headline"></a></h2>
+<section id="id8">
+<h3>Enhancements<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a new <code class="docutils literal notranslate"><span class="pre">AperturePlotter</span></code> class in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module replacing the old one, with functionality to plot the aperture tolerances as calculated from the <code class="docutils literal notranslate"><span class="pre">APERTURE</span></code> command in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, jointly with the lattice layout.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">CrossingSchemePlotter</span></code> class in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module, with functionality to plot the orbit crossings at LHC IPs.</p></li>
+<li><p>The new <code class="docutils literal notranslate"><span class="pre">TuneDiagramPlotter.plot_tune_diagram</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module is now more customisable, can be given a title, a figure size, add legends, differentiate between resonance lines of different orders and given a specific order up to which to plot resonance lines.</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>Maintenance<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Functions from the <code class="docutils literal notranslate"><span class="pre">cpymadtools.latwiss</span></code> module have into a class named <code class="docutils literal notranslate"><span class="pre">LatticePlotter</span></code> in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module.</p></li>
+<li><p>The old <code class="docutils literal notranslate"><span class="pre">AperturePlotter</span></code> class in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module has been renamed to <code class="docutils literal notranslate"><span class="pre">BeamEnvelopePlotter</span></code> to reflect its role, and functions in this class have also been renamed accordingly.</p></li>
+<li><p>The old <code class="docutils literal notranslate"><span class="pre">TuneDiagramPlotter.plot_blank_tune_diagram</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module has replaced the <code class="docutils literal notranslate"><span class="pre">TuneDiagramPlotter.plot_tune_diagram</span></code> function and taken its name.</p></li>
+<li><p>The phd matplotlib style has a new setting for legend.framealpha set at 0.9.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cpymadtools.latwiss</span></code> module has been removed.</p></li>
+<li><p>The old <code class="docutils literal notranslate"><span class="pre">TuneDiagramPlotter.plot_blank_tune_diagram</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> module has been removed.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.0">v0.14.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.13.3...0.14.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-13-3">
+<span id="id11"></span><h2>0.13.3<a class="headerlink" href="#release-0-13-3" title="Permalink to this headline"></a></h2>
+<section id="id12">
+<h3>Enhancements<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">plot_machine_layout</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.latwiss</span></code> now accepts keyword arguments which are transmitted to <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.scatter.html#matplotlib.pyplot.scatter" title="(in Matplotlib v3.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">scatter</span></code></a> calls.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">TuneDiagramPlotter.plot_blank_tune_diagram</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> now has a <em>figsize</em> argument.</p></li>
+</ul>
+</section>
+<section id="id13">
+<h3>Bug Fixes<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>All plotting functions in the <code class="docutils literal notranslate"><span class="pre">cpymadtools</span></code> module now have <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code>-compatible text elements.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> and <code class="docutils literal notranslate"><span class="pre">plot_machine_survey</span></code> functions in <code class="docutils literal notranslate"><span class="pre">cpymadtools.latwiss</span></code> now properly detect element types from <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> table properties and does not rely on naming anymore.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">plot_machine_layout</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.latwiss</span></code> now correctly scales the colorbar to the full length of the machine and now to 1.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.matching</span></code> now properly handles being given either only tune targets or only chromaticity targets.</p></li>
+<li><p>The <em>BeamParameters</em> class in <code class="docutils literal notranslate"><span class="pre">models.beam</span></code> now properly builds in all cases and has a <code class="docutils literal notranslate"><span class="pre">__repr__</span></code>.</p></li>
+<li><p>Fixed some calls to the <code class="docutils literal notranslate"><span class="pre">SELECT</span></code> command via <code class="docutils literal notranslate"><span class="pre">cpymad</span></code> which might previously have had unintended side effects.</p></li>
+</ul>
+</section>
+<section id="id14">
+<h3>Maintenance<a class="headerlink" href="#id14" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>All functions in the <code class="docutils literal notranslate"><span class="pre">cpymadtools</span></code> module which offer the <em>telescopic_squeeze</em> argument now have it default to True to reflect operational scenarios of run III.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.orbit</span></code> now takes a required sequence positional argument.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.orbit</span></code> now defaults its mode argument to micado like the <code class="docutils literal notranslate"><span class="pre">CORRECT</span></code> command in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> does.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">AperturePlotter.plot_aperture</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.plotters</span></code> now has a default figsize argument of (13, 20) instead of 15, 15.</p></li>
+<li><p>The minimum required version of <code class="docutils literal notranslate"><span class="pre">tfs-pandas</span></code> is now 3.0.0.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.3">v0.13.3 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.13.2...0.13.3">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-13-2">
+<span id="id16"></span><h2>0.13.2<a class="headerlink" href="#release-0-13-2" title="Permalink to this headline"></a></h2>
+<section id="id17">
+<h3>Bug Fixes<a class="headerlink" href="#id17" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Fixed the <code class="docutils literal notranslate"><span class="pre">get_pattern_twiss</span> <span class="pre">function</span></code> in <code class="docutils literal notranslate"><span class="pre">cpymadtools.twiss</span></code>. Starting with <code class="docutils literal notranslate"><span class="pre">cpymad</span></code> 1.9.0, <code class="docutils literal notranslate"><span class="pre">Table.selected_rows()</span></code> now actually returns the indices of the selected elements rather than returning a boolean mask. The previous (faulty) behavior had been worked around in <code class="docutils literal notranslate"><span class="pre">get_pattern_twiss</span></code>, which is now an issue. The correct <code class="docutils literal notranslate"><span class="pre">Table.selected_rows()</span></code> behavior is now used.</p></li>
+</ul>
+</section>
+<section id="id18">
+<h3>Maintenance<a class="headerlink" href="#id18" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The minimum <code class="docutils literal notranslate"><span class="pre">cpymad</span></code> required version is now 1.9.0.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.2">v0.13.2 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.13.1...0.13.2">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-13-1">
+<span id="id20"></span><h2>0.13.1<a class="headerlink" href="#release-0-13-1" title="Permalink to this headline"></a></h2>
+<section id="id21">
+<h3>Bug Fixes<a class="headerlink" href="#id21" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Fixed both AC Dipole installation routines in the <code class="docutils literal notranslate"><span class="pre">cpymadtoolks.special</span></code> module, which now use the implementation from <code class="docutils literal notranslate"><span class="pre">omc3</span></code>’s model_creator and will provide similar results.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.1">v0.13.1 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.13.0...0.13.1">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-13-0">
+<span id="id23"></span><h2>0.13.0<a class="headerlink" href="#release-0-13-0" title="Permalink to this headline"></a></h2>
+<section id="id24">
+<h3>Enhancements<a class="headerlink" href="#id24" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_matrix</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> module to install an AC Dipole element as a matrix, which will reflect its effect on twiss functions (which the kicker implementation does not). This matrix implementation cannot be used to influence particle tracking.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h3>Bug Fixes<a class="headerlink" href="#id25" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker</span></code> function now properly sets the element location to avoid a negative drift (location taken from omc3’s model_creator) if the sequence wasn’t previously made <code class="docutils literal notranslate"><span class="pre">THIN</span></code> (which it should).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker</span></code> function now makes a use, sequence=… call after installing the element. Beware this means errors, correctors etc that were set / loaded will be lost.</p></li>
+</ul>
+</section>
+<section id="id26">
+<h3>Maintenance<a class="headerlink" href="#id26" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">install_ac_dipole</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> is now named <code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker</span></code>. This kicker implementation <strong>cannot</strong> be used to affect twiss functions, only particle tracking.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.0">v0.13.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.12.0...0.13.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-12-0">
+<span id="id28"></span><h2>0.12.0<a class="headerlink" href="#release-0-12-0" title="Permalink to this headline"></a></h2>
+<section id="id29">
+<h3>Enhancements<a class="headerlink" href="#id29" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">models</span></code> module in <code class="docutils literal notranslate"><span class="pre">cpymadtools</span></code> to hold various <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> models for data manipulated in the library functions.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">query_beam_attributes</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.parameters</span></code> that returns a parsed and validated <em>MADXBeam</em> with all <code class="docutils literal notranslate"><span class="pre">BEAM</span></code> attributes from the <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> process based on the currently defined beam.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">ptc_twiss</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.ptc</span></code> to conveniently create the <code class="docutils literal notranslate"><span class="pre">PTC</span></code> universe and perform a <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> command according to the Ripken-Mais formalism.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">ptc_track_particle</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.ptc</span></code> to conveniently create the <code class="docutils literal notranslate"><span class="pre">PTC</span></code> universe and perform particle tracking similarly to <code class="docutils literal notranslate"><span class="pre">cpymadtools.track.track_single_particle</span></code>.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">get_footprint_lines</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.tune</span></code> to obtain the (Qx, Qy) points needed to plot the footprint based on the <em>TfsDataFrame</em> returned by <code class="docutils literal notranslate"><span class="pre">make_footprint_table</span></code>. To be considered experimental.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">get_footprint_patches</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.tune</span></code> to obtain a collection of <code class="docutils literal notranslate"><span class="pre">matplotlib.patches.Polygon</span></code> elements needed to plot the footprint based on the <em>TfsDataFrame</em> returned by <code class="docutils literal notranslate"><span class="pre">make_footprint_table</span></code>. To be considered experimental.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">get_table_tfs</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpmadtools.utils</span></code> now takes a <em>headers_table</em> argument to choose an internal table to use for headers.</p></li>
+</ul>
+</section>
+<section id="id30">
+<h3>Maintenance<a class="headerlink" href="#id30" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The default energy value in <code class="docutils literal notranslate"><span class="pre">cpymadtools.special.make_lhc_beams</span></code> has been changed to 7000 [GeV] to reflect run III scenario.</p></li>
+<li><p>The value for npart in <code class="docutils literal notranslate"><span class="pre">cpymadtools.special.make_lhc_beams</span></code> has been changed to 1.15e11 to reflect run III scenario.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">make_footprint_table</span></code> in <code class="docutils literal notranslate"><span class="pre">cpymadtools.tune</span></code> now returns a <em>TfsDataFrame</em> instead of a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.4.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a>, the headers of which are populated with useful values for other functions.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">beam_parameters</span></code> function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.parameters</span></code> has been moved to the <code class="docutils literal notranslate"><span class="pre">optics.beam</span></code> module and renamed <code class="docutils literal notranslate"><span class="pre">compute_beam_parameters</span></code>.</p></li>
+<li><p>The default <code class="docutils literal notranslate"><span class="pre">patch.linewidth</span></code> value in the phd matplotlib style has been changed to 1.5.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.12.0">v0.12.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.11.0...0.12.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-11-0">
+<span id="id32"></span><h2>0.11.0<a class="headerlink" href="#release-0-11-0" title="Permalink to this headline"></a></h2>
+<section id="id33">
+<h3>Enhancements<a class="headerlink" href="#id33" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">cpymadtools.utils</span></code> module with convenience functions for <code class="docutils literal notranslate"><span class="pre">cpymad.mad.Madx</span></code> objects, for now containing a single function <code class="docutils literal notranslate"><span class="pre">get_table_tfs</span></code> which turns an internal <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> table into a <em>TfsDataFrame</em>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning</span></code> and <code class="docutils literal notranslate"><span class="pre">get_rdts</span></code> functions in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.ptc</span></code> module now have a fringe argument defaulting to False in order to enable fringe field calculations.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning</span></code> and <code class="docutils literal notranslate"><span class="pre">get_rdts</span></code> functions in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.ptc</span></code> module now transmit keyword arguments to respectively <code class="docutils literal notranslate"><span class="pre">ptc_normal</span></code> and <code class="docutils literal notranslate"><span class="pre">ptc_twiss</span></code>.</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h3>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning</span></code> and <code class="docutils literal notranslate"><span class="pre">get_rdts</span></code> functions in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.ptc</span></code> module now contain extensive docstrings detailing their inner workings as well as parameters used in internal MAD-X commands.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.11.0">v0.11.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.10.0...0.11.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-10-0">
+<span id="id35"></span><h2>0.10.0<a class="headerlink" href="#release-0-10-0" title="Permalink to this headline"></a></h2>
+<section id="id36">
+<h3>Enhancements<a class="headerlink" href="#id36" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">track_single_particle</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.track</span></code> module can now take a sequence defining observation points as argument.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">track_single_particle</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.track</span></code> module can now take keyword arguments to be transmitted to the <code class="docutils literal notranslate"><span class="pre">TRACK</span></code> command in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.</p></li>
+</ul>
+</section>
+<section id="id37">
+<h3>Maintenance<a class="headerlink" href="#id37" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">track_single_particle</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.track</span></code> module now defaults initial tracking coordinates to all 0.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">track_single_particle</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.track</span></code> module now returns a dictionary, with one keys per defined observation point and as a value the corresponding track table. The special case where <em>ONETABLE</em> is given to <code class="docutils literal notranslate"><span class="pre">TRACK</span></code> as a keyword argument is handled, and then a single entry taken from the appropriate table with be found in the returned dictionary.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.10.0">v0.10.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.9.2...0.10.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-9-2">
+<span id="id39"></span><h2>0.9.2<a class="headerlink" href="#release-0-9-2" title="Permalink to this headline"></a></h2>
+<section id="id40">
+<h3>Enhancements<a class="headerlink" href="#id40" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">match_no_coupling_through_ripkens</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> module as a 0-coupling matching routine through cross-term Ripken parameters at a given location.</p></li>
+</ul>
+</section>
+<section id="id41">
+<h3>Bug Fixes<a class="headerlink" href="#id41" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">install_mpl_style</span></code> function now installs the <strong>.mplstyle</strong> file also in the site-packages location for <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>, which is sometimes where it will look when running <code class="docutils literal notranslate"><span class="pre">plt.style.use(&quot;phd&quot;)</span></code>.</p></li>
+<li><p>The closest tune approach routine now properly makes use of madx.batch() to restore settings.</p></li>
+<li><p>The plotting functions in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.latwiss</span></code> module have updated <code class="docutils literal notranslate"><span class="pre">LaTeX</span></code>-compatible labels.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">plot_survey</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.latwiss</span></code> module now uses clearer markers to indicate the machine survey, properly matches the colormaps of the plotted dipoles and the colorbar when using <code class="docutils literal notranslate"><span class="pre">show_elements=True</span></code> and lets the user config handle savefig options.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.2">v0.9.2 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.9.1...0.9.2">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-9-1">
+<span id="id43"></span><h2>0.9.1<a class="headerlink" href="#release-0-9-1" title="Permalink to this headline"></a></h2>
+<section id="id44">
+<h3>Enhancements<a class="headerlink" href="#id44" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added an <code class="docutils literal notranslate"><span class="pre">install_mpl_style</span></code> function in the <code class="docutils literal notranslate"><span class="pre">utils.defaults</span></code> module to create a <strong>phd.mplstyle</strong> file in <code class="docutils literal notranslate"><span class="pre">matplotlib</span></code>’s stylelib directory, making the style callable through <code class="docutils literal notranslate"><span class="pre">plt.style.use(&quot;phd&quot;)</span></code>.</p></li>
+</ul>
+</section>
+<section id="id45">
+<h3>Maintenance<a class="headerlink" href="#id45" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <em>PLOT_PARAMS</em> dictionary in <code class="docutils literal notranslate"><span class="pre">utils.defaults</span></code> has been updated.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">numba</span></code> library’s used has been removed, easing the package’s dependencies.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.1">v0.9.1 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.9.0...0.9.1">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-9-0">
+<span id="id47"></span><h2>0.9.0<a class="headerlink" href="#release-0-9-0" title="Permalink to this headline"></a></h2>
+<section id="id48">
+<h3>Enhancements<a class="headerlink" href="#id48" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.errors</span></code> module to conveniently apply <code class="docutils literal notranslate"><span class="pre">EALIGN</span></code> to IR quadrupoles.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">misalign_lhc_triplets</span> <span class="pre">function</span></code> in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.errors</span></code>, convenience wrapper around the aforementioned one for triplets.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.orbit</span></code> module to perform orbit correction using MCB.* elements in the LHC.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">vary_independent_ir_quadrupoles</span></code> function in the <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> module to conveniently send the vary commands for the desired quadrupoles in the IRs.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">tune</span></code> module in <code class="docutils literal notranslate"><span class="pre">cpymadtools</span></code> with currently a <code class="docutils literal notranslate"><span class="pre">make_footprint_table</span></code> function that creates a <code class="docutils literal notranslate"><span class="pre">DYNAP</span></code> setup according to parameters and returns the generated table.</p></li>
+<li><p>Added A <code class="docutils literal notranslate"><span class="pre">utils.htc_monitor</span></code> module with functionality to query the <code class="docutils literal notranslate"><span class="pre">HTCondor</span></code> queue, process the returned data and nicely display it. To be ran directly, but different functionality can be imported.</p></li>
+</ul>
+</section>
+<section id="id49">
+<h3>Bug Fixes<a class="headerlink" href="#id49" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Fixed an issue in <code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> where the function would sometimes mishandle the <em>xlimits</em> argument.</p></li>
+<li><p>Fixed a mistake in <code class="docutils literal notranslate"><span class="pre">apply_lhc_rigidity_waist_shift_knob</span></code> where the side argument would be ignored if uppercase.</p></li>
+</ul>
+</section>
+<section id="id50">
+<h3>Maintenance<a class="headerlink" href="#id50" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <em>telescopic_squeeze</em> parameter in <code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code> now defaults to True, to reflect the LHC scenario as of Run III.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">get_ips_twiss</span></code> and <code class="docutils literal notranslate"><span class="pre">get_ir_twiss</span></code> functions have been moved from <code class="docutils literal notranslate"><span class="pre">cpymadtools.special</span></code> to <code class="docutils literal notranslate"><span class="pre">cpymadtools.twiss</span></code>.</p></li>
+<li><p>Added dependencies: <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>, <code class="docutils literal notranslate"><span class="pre">rich</span></code> and <code class="docutils literal notranslate"><span class="pre">pendulum</span></code>. The <code class="docutils literal notranslate"><span class="pre">llvmlite</span></code> dependency is also added explicitely, though it is a dependency of <code class="docutils literal notranslate"><span class="pre">numba</span></code> and the version constraint is here to guarantee <code class="docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code> will build on Python 3.9.</p></li>
+<li><p>Tests now include Python 3.9.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.0">v0.9.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.8.5...0.9.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-8-5">
+<span id="id52"></span><h2>0.8.5<a class="headerlink" href="#release-0-8-5" title="Permalink to this headline"></a></h2>
+<section id="id53">
+<h3>Bug Fixes<a class="headerlink" href="#id53" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code> function now properly behaves if some of the targets are set to 0.</p></li>
+</ul>
+</section>
+<section id="id54">
+<h3>Maintenance<a class="headerlink" href="#id54" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The default behavior in lattice slicing is changed to have makedipedge as False, which compensates the effect of the default slicing style <code class="docutils literal notranslate"><span class="pre">TEAPOT</span></code>.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.5">v0.8.5 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.8.4...0.8.5">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-8-4">
+<span id="id56"></span><h2>0.8.4<a class="headerlink" href="#release-0-8-4" title="Permalink to this headline"></a></h2>
+<section id="id57">
+<h3>Enhancements<a class="headerlink" href="#id57" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added an <em>xoffset</em> variable to <code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code>, allowing to center the plot on a specific element.</p></li>
+</ul>
+</section>
+<section id="id58">
+<h3>Maintenance<a class="headerlink" href="#id58" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The machine layout plotting in <code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> has been exported to its own function. It is a private function.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.4">v0.8.4 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.8.3...0.8.4">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-8-3">
+<span id="id60"></span><h2>0.8.3<a class="headerlink" href="#release-0-8-3" title="Permalink to this headline"></a></h2>
+<section id="id61">
+<h3>Enhancements<a class="headerlink" href="#id61" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a function in <code class="docutils literal notranslate"><span class="pre">cpymadtools.twiss</span></code> to export the entire twiss table to a <em>TfsDataFrame</em>.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.3">v0.8.3 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.8.2...0.8.3">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-8-2">
+<span id="id63"></span><h2>0.8.2<a class="headerlink" href="#release-0-8-2" title="Permalink to this headline"></a></h2>
+<section id="id64">
+<h3>Enhancements<a class="headerlink" href="#id64" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">maths.utils</span></code> module with convenience functions related to magnitude.</p></li>
+<li><p>Added an <code class="docutils literal notranslate"><span class="pre">optics.ripken</span></code> module with functions to calculate beam size according to Lebedev and Bogacz’s formalism.</p></li>
+<li><p>Added a convenience logging setup function in <code class="docutils literal notranslate"><span class="pre">utils.defaults</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> now adds a legend for different elements in the layout.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> can now optionally plot BPM patches.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> now accepts kwargs that will be transmitted to the layout plotting function.</p></li>
+</ul>
+</section>
+<section id="id65">
+<h3>Bug Fixes<a class="headerlink" href="#id65" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">get_pattern_twiss</span></code> now properly capitalizes variable names in the returned <em>TfsDataFrame</em>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> now only draws elements in the desired area when <em>xlimits</em> is provided, for a drastic speedup on big machines.</p></li>
+</ul>
+</section>
+<section id="id66">
+<h3>Maintenance<a class="headerlink" href="#id66" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <em>PLOT_PARAMS</em> have been moved to <code class="docutils literal notranslate"><span class="pre">utils.defaults</span></code>.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">get_pattern_twiss</span></code> default argument values now select the entire twiss table.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> changed the parameter <em>plot_sextupoles</em> to <em>k2l_lim</em>, creating a dedicated axis for sextupole patches in the layout.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">plotting.settings</span></code> module has been removed.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> doesn’t force the pdf format when saving the figure anymore.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.2">v0.8.2 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.8.1...0.8.2">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-8-1">
+<span id="id68"></span><h2>0.8.1<a class="headerlink" href="#release-0-8-1" title="Permalink to this headline"></a></h2>
+<section id="id69">
+<h3>Bug Fixes<a class="headerlink" href="#id69" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Fixed inacurrate logging statements during tunes and chromaticities matching.</p></li>
+</ul>
+</section>
+<section id="id70">
+<h3>Maintenance<a class="headerlink" href="#id70" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Removed the unused <strong>scripts</strong> folder as well as the scripts’ dependencies.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.1.0">v0.8.1 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.8.0...0.8.1">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-8-0">
+<span id="id72"></span><h2>0.8.0<a class="headerlink" href="#release-0-8-0" title="Permalink to this headline"></a></h2>
+<section id="id73">
+<h3>Enhancements<a class="headerlink" href="#id73" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">twiss</span></code> submodule to easily get specific patterns.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">track</span></code> submodule to handle particle tracking with <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>’s <code class="docutils literal notranslate"><span class="pre">TRACK</span></code> command.</p></li>
+<li><p>Added utilities to get <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> frame for specific IP or IR locations.</p></li>
+<li><p>Added utilities to <code class="docutils literal notranslate"><span class="pre">MAKETHIN</span></code> for (HL)LHC sequences.</p></li>
+<li><p>Added a utility to install an AC dipole in LHC beam 1.</p></li>
+</ul>
+</section>
+<section id="id74">
+<h3>Bug Fixes<a class="headerlink" href="#id74" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Closest tune approach determination now properly handles explicit targets.</p></li>
+</ul>
+</section>
+<section id="id75">
+<h3>Maintenance<a class="headerlink" href="#id75" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cpymadtools</span></code> now use <em>madx</em> as a parameter name instead of <em>cpymad_instance</em>.</p></li>
+<li><p>Relaxed dependencies.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.0">v0.8.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.7.0...0.8.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-7-0">
+<span id="id77"></span><h2>0.7.0<a class="headerlink" href="#release-0-7-0" title="Permalink to this headline"></a></h2>
+<section id="id78">
+<h3>Enhancements<a class="headerlink" href="#id78" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added an <code class="docutils literal notranslate"><span class="pre">errors</span></code> submodule to handle (HL)LHC magnetic errors setup.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">matching</span></code> submodule with routines for <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> matching and closest tune approach determination.</p></li>
+<li><p>Added an <code class="docutils literal notranslate"><span class="pre">orbit</span></code> submodule to handle (HL)LHC orbit variables setup.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">ptc</span></code> submodule with routines for <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> <code class="docutils literal notranslate"><span class="pre">PTC</span></code> operations.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">special</span></code> submodule with routines for personal use cases for (HL)LHC in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.</p></li>
+</ul>
+</section>
+<section id="id79">
+<h3>Maintenance<a class="headerlink" href="#id79" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Cleanup of some modules.</p></li>
+<li><p>Improved test coverage.</p></li>
+<li><p>Tweaks to dev configurations.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.7.0">v0.7.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.6.0...0.7.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-6-0">
+<span id="id81"></span><h2>0.6.0<a class="headerlink" href="#release-0-6-0" title="Permalink to this headline"></a></h2>
+<section id="id82">
+<h3>Enhancements<a class="headerlink" href="#id82" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Full compatibility across OSes (thanks to <code class="docutils literal notranslate"><span class="pre">cpymad</span></code>’s progress).</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">tfstools</span></code> module.</p></li>
+<li><p>Added a <code class="docutils literal notranslate"><span class="pre">beam</span></code> module in <code class="docutils literal notranslate"><span class="pre">optics</span></code>.</p></li>
+<li><p>Added an (experimental) <code class="docutils literal notranslate"><span class="pre">timedata</span></code> module in <code class="docutils literal notranslate"><span class="pre">plotting</span></code>.</p></li>
+</ul>
+</section>
+<section id="id83">
+<h3>Documentation<a class="headerlink" href="#id83" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Added a docs dependency.</p></li>
+<li><p>Started documentation site.</p></li>
+</ul>
+</section>
+<section id="id84">
+<h3>Maintenance<a class="headerlink" href="#id84" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Improved object validation with <code class="docutils literal notranslate"><span class="pre">pydantic</span></code>.</p></li>
+<li><p>Made <code class="docutils literal notranslate"><span class="pre">cpymad</span></code> a default dependency.</p></li>
+<li><p>Updated dependencies.</p></li>
+<li><p>Moved CI to Github Actions, now covers all platforms.</p></li>
+<li><p>Improved test coverage.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.6.0">v0.6.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.5.0...0.6.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-5-0">
+<span id="id86"></span><h2>0.5.0<a class="headerlink" href="#release-0-5-0" title="Permalink to this headline"></a></h2>
+<section id="id87">
+<h3>Enhancements<a class="headerlink" href="#id87" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Python 3.8 compatibility.</p></li>
+<li><p>Added an <code class="docutils literal notranslate"><span class="pre">optics</span></code> module.</p></li>
+<li><p>Added slots to classes.</p></li>
+<li><p>Almost fully covered in tests.</p></li>
+</ul>
+</section>
+<section id="id88">
+<h3>Bug Fixes<a class="headerlink" href="#id88" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Important fix of the lattice matchers in <code class="docutils literal notranslate"><span class="pre">cpymadtools</span></code>.</p></li>
+</ul>
+</section>
+<section id="id89">
+<h3>Maintenance<a class="headerlink" href="#id89" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Fully type hinted the package.</p></li>
+<li><p>Improved logging.</p></li>
+<li><p>Replaced <code class="docutils literal notranslate"><span class="pre">tqdm</span></code> with <code class="docutils literal notranslate"><span class="pre">rich</span></code>.</p></li>
+<li><p>Updated dependencies.</p></li>
+<li><p>Added some development tools and configurations.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.5.0">v0.5.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.4.1...0.5.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-4-1">
+<span id="id91"></span><h2>0.4.1<a class="headerlink" href="#release-0-4-1" title="Permalink to this headline"></a></h2>
+<section id="id92">
+<h3>Bug Fixes<a class="headerlink" href="#id92" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Quick fix of a type hinting issue causing imports to crash.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.4.1">v0.4.1 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.4.0...0.4.1">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-4-0">
+<span id="id94"></span><h2>0.4.0<a class="headerlink" href="#release-0-4-0" title="Permalink to this headline"></a></h2>
+<section id="id95">
+<h3>Enhancements<a class="headerlink" href="#id95" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Optimization of the Docker image.</p></li>
+<li><p>Removal of the <code class="docutils literal notranslate"><span class="pre">fsbox</span></code> dependency.</p></li>
+<li><p>Use of <code class="docutils literal notranslate"><span class="pre">loguru</span></code> library for logging, and improved logging.</p></li>
+<li><p>Refactored commandline argument parsing for scripts.</p></li>
+<li><p>Improved type hinting.</p></li>
+</ul>
+</section>
+<section id="id96">
+<h3>Maintenance<a class="headerlink" href="#id96" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Renaming pyhdtoolkit.math to pyhdtoolkit.maths to avoid namespace clashes if trying to use the standard library’s math module.</p></li>
+<li><p>Removing many functions from pyhdtoolkit.maths.nonconvex_phase_sync module as they were needed for notebooks but not this package.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.4.0">v0.4.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.3.0...0.4.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-3-0">
+<span id="id98"></span><h2>0.3.0<a class="headerlink" href="#release-0-3-0" title="Permalink to this headline"></a></h2>
+<section id="id99">
+<h3>Enhancements<a class="headerlink" href="#id99" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">helpers</span></code> module now has a <code class="docutils literal notranslate"><span class="pre">Parameters</span></code> class for beam and machine parameters calculations. Only one function yet.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">plotters</span></code> module now has an <code class="docutils literal notranslate"><span class="pre">AperturePlotter</span></code> class with a function to plot physical aperture.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">latwiss</span></code> module has received a major overhaul.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_latwiss</span></code> has better defaults in values and plotting styles, as well as new args and kwargs options for customization.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">plot_machine_survey</span></code> also has better defaults, and offers the options to plot while differentiating magnetic elements.</p></li>
+</ul>
+</li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.3.0">v0.3.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.2.1...0.3.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-2-1">
+<span id="id101"></span><h2>0.2.1<a class="headerlink" href="#release-0-2-1" title="Permalink to this headline"></a></h2>
+<section id="id102">
+<h3>Enhancements<a class="headerlink" href="#id102" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>New module for AC Dipole or Free Oscillations (with amplitude offset) tracking (in scripts).</p></li>
+</ul>
+</section>
+<section id="id103">
+<h3>Maintenance<a class="headerlink" href="#id103" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Some slight changes to <strong>README</strong>, <strong>Makefile</strong> and <strong>Dockerfile</strong>.</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.2.1">v0.2.1 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.2.0...0.2.1">full changes from the previous release</a>.</p>
+</section>
+</section>
+<section id="release-0-2-0">
+<span id="id105"></span><h2>0.2.0<a class="headerlink" href="#release-0-2-0" title="Permalink to this headline"></a></h2>
+<section id="id106">
+<h3>Enhancements<a class="headerlink" href="#id106" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>An <strong>EVM</strong> implementation for nonconvex phase synchronisation (in module <code class="docutils literal notranslate"><span class="pre">omc_math</span></code>).</p></li>
+<li><p>Logging and contexts utilities from <code class="docutils literal notranslate"><span class="pre">fsbox</span></code> (props to <code class="docutils literal notranslate"><span class="pre">pylhc/omc3</span></code> for creating those).</p></li>
+</ul>
+<p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.2.0">v0.2.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.1.1...0.2.0">full changes from the previous release</a>.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="contributing.html" class="btn btn-neutral float-left" title="Contributing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bibliography.html" class="btn btn-neutral float-right" title="Reference bibliography" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
