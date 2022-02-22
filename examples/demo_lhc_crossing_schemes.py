@@ -36,7 +36,8 @@ madx.call("lhc/opticsfile.22")  # collisions optics
 
 ###############################################################################
 # Let's re-cycle the sequences to avoid having IR1 split at beginning and end of lattice,
-# as is the default in the LHC sequence:
+# as is the default in the LHC sequence. Note that it is important to re-cycle both
+# sequences from the same points for the plots later on.
 
 lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
 lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
