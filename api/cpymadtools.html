@@ -1487,6 +1487,12 @@ accessed with <code class="docutils literal notranslate"><span class="pre">fig.g
 dispertion function. This is a very, very heavily refactored version of an initial implementation by
 <a class="reference external" href="https://github.com/sterbini">Guido Sterbini</a>. One can find an example use of this function in the
 <a class="reference internal" href="../gallery/demo_lattice.html#demo-accelerator-lattice"><span class="std std-ref">machine lattice</span></a> example gallery.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>At the moment, it is important to give this function symmetric limits for the <code class="docutils literal notranslate"><span class="pre">k0l_lim</span></code>, <code class="docutils literal notranslate"><span class="pre">k1l_lim</span></code>
+and <code class="docutils literal notranslate"><span class="pre">k2l_lim</span></code> arguments. Otherwise the element patches will show up vertically displaced from the
+axis’ center line.</p>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Currently the function tries to plot legends for the different layout patches. The position of the
@@ -1696,6 +1702,12 @@ takes care of the machine layout axis in <a class="reference internal" href="#py
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>At the moment, it is important to give this function symmetric limits for the <code class="docutils literal notranslate"><span class="pre">k0l_lim</span></code>, <code class="docutils literal notranslate"><span class="pre">k1l_lim</span></code>
+and <code class="docutils literal notranslate"><span class="pre">k2l_lim</span></code> arguments. Otherwise the element patches will show up vertically displaced from the
+axis’ center line.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

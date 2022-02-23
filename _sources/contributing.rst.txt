@@ -69,7 +69,7 @@ Installation instructions are provided on the linked website.
 
 Assuming you have ``poetry`` in your ``PATH``, once in the root of the repository setting yourself up is as easy as::
 
-    poetry install
+    $ poetry install
 
 With this, ``poetry`` will create a new virtual environment and install there the package as well as its runtime and development dependencies.
 The install is similar to the editable mode from ``pip``.
@@ -84,7 +84,7 @@ The install is similar to the editable mode from ``pip``.
    Start your commands with **poetry run** to have ``poetry`` run them in the virtual environment, if you don't wish to activate it.
    For instance, getting the Python version can be as simple as::
 
-       poetry run python --version
+       $ poetry run python --version
 
 Creating a Branch
 ~~~~~~~~~~~~~~~~~
@@ -94,27 +94,27 @@ Before you do any new work or submit a pull request, please open an issue on Git
 It's best to synchronize your fork with the upstream repository, then create a new, separate branch for each piece of work you want to do.
 E.g.::
 
-    git checkout master
-    git fetch upstream
-    git rebase upstream/master
-    git push
-    git checkout -b shiny-new-feature
-    git push -u origin shiny-new-feature
+    $ git checkout master
+    $ git fetch upstream
+    $ git rebase upstream/master
+    $ git push
+    $ git checkout -b shiny-new-feature
+    $ git push -u origin shiny-new-feature
 
 This changes your working directory to the **shiny-new-feature** branch.
 Keep any changes in this branch specific to one bug or feature so it is clear what the branch brings.
 
 To update this branch with latest code from ``PyhDToolkit``, you can retrieve the changes from the master branch and perform a rebase::
 
-    git fetch upstream
-    git rebase upstream/master
+    $ git fetch upstream
+    $ git rebase upstream/master
 
 This will replay your commits on top of the latest ``PyhDToolkit`` git master.
 If this leads to merge conflicts, these need to be resolved *before* submitting a pull request.
 Alternatively, you can merge the changes in from upstream/master instead of rebasing, which can be simpler::
 
-    git fetch upstream
-    git merge upstream/master
+    $ git fetch upstream
+    $ git merge upstream/master
 
 Again, any conflicts need to be resolved *before* submitting a pull request.
 
@@ -124,14 +124,14 @@ Running the Test Suite
 The repository includes a suite of unit tests you should run to check your changes.
 The simplest way to run the test suite is, again, through ``poetry``::
 
-    poetry run python -m pytest --dist no
+    $ poetry run python -m pytest --dist no
 
 .. tip::
 
    A convenient ``Makefile`` target exists for tests, which taps into the power of ``pytest-xdist`` and parallelises tests through your cpu cores.
    If you are ok using this option, which can drastically speedup the runtime of the suite, simply run::
 
-       make tests
+       $ make tests
 
 All tests are automatically run via **GitHub Actions** for every push onto the main repository, and in every pull request.
 The test suite **must** pass before code can be accepted.
@@ -150,7 +150,7 @@ These tools are development dependencies and are automatically installed when yo
    Configuration for ``black`` and ``isort`` is written into the **pyproject.toml** file.
    A ``Makefile`` target is available to run these tools::
 
-       make format
+       $ make format
 
 `Type hints <https://www.python.org/dev/peps/pep-0484>`_ are required for all user-facing classes and functions.
 As much as possible, types are enforced with the help of the ``mypy`` tool.
@@ -160,8 +160,8 @@ Additionally, code quality is kept in check with the ``pylint`` tool.
 
    Some ``Makefile`` targets are available to run these tools::
    
-       make lint
-       make typing
+       $ make lint
+       $ make typing
 
 Documentation
 ~~~~~~~~~~~~~
@@ -176,7 +176,7 @@ All user-facing classes and functions should be included in the API documentatio
 
 The documentation can be built locally by running::
 
-    poetry run python -m sphinx -b html docs doc_build -d doc_build
+    $ poetry run python -m sphinx -b html docs doc_build -d doc_build
 
 The static html pages will be available in a newly created **doc_build** folder.
 
@@ -184,7 +184,7 @@ The static html pages will be available in a newly created **doc_build** folder.
 
    As for other tasks, a ``Makefile`` target is available::
    
-       make docs
+       $ make docs
 
 
 .. _pip: https://pip.pypa.io/en/stable/
