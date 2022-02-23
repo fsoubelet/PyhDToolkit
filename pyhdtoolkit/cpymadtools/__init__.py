@@ -1,12 +1,3 @@
-"""
-cpymadtools package
-~~~~~~~~~~~~~~~~~~~
-cpymadtools is a collection of utilities that integrate within my workflow with the `cpymad` library.
-
-:copyright: (c) 2019 by Felix Soubelet.
-:license: MIT, see LICENSE for more details.
-"""
-
 from . import (
     constants,
     correctors,
