@@ -597,6 +597,11 @@ class LatticePlotter:
         :user:`Guido Sterbini <sterbini>`. One can find an example use of this function in the
         :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
 
+        .. important::
+            At the moment, it is important to give this function symmetric limits for the ``k0l_lim``, ``k1l_lim``
+            and ``k2l_lim`` arguments. Otherwise the element patches will show up vertically displaced from the
+            axis' center line.
+
         .. warning::
             Currently the function tries to plot legends for the different layout patches. The position of the
             different legends has been hardcoded in corners and might require users to tweak the axis limits
@@ -1127,6 +1132,11 @@ def plot_machine_layout(
 
     .. note::
         This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.
+
+    .. important::
+        At the moment, it is important to give this function symmetric limits for the ``k0l_lim``, ``k1l_lim``
+        and ``k2l_lim`` arguments. Otherwise the element patches will show up vertically displaced from the
+        axis' center line.
 
     .. warning::
         Currently the function tries to plot legends for the different layout patches. The position of the
