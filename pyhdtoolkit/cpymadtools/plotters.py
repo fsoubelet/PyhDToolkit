@@ -106,7 +106,7 @@ class AperturePlotter:
                 height of sextupole patches.
             color (str): the color argument given to the aperture lines. Defaults to `None`, in which case
                 the first color in your `rcParams`'s cycler will be used.
-            **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on
+            **kwargs: any keyword argument will be transmitted to `~.plotters.plot_machine_layout`, later on
                 to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
         Returns:
@@ -637,7 +637,7 @@ class LatticePlotter:
             k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
                 the figure, and the provided values act as vertical axis limits for the k2l values used for the
                 height of sextupole patches.
-            **kwargs: any keyword argument will be transmitted to `~.plotters._plot_machine_layout`, later on
+            **kwargs: any keyword argument will be transmitted to `~.plotters.plot_machine_layout`, later on
                 to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
         Returns:
