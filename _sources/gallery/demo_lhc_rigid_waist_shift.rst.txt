@@ -191,7 +191,7 @@ to make sure we do not deviate.
 
  .. code-block:: none
 
-    2022-02-24 13:38:19 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes & chromaticities after this
+    2022-02-28 11:13:20 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes & chromaticities after this
 
 
 
@@ -213,7 +213,7 @@ Interaction Region.
     IR1_waist_shift = LatticePlotter.plot_latwiss(
         madx,
         figsize=(16, 11),
-        title="LHCB1 IR1 - No Rigid Waist Shift",
+        title="LHCB1 IR1 - With Rigid Waist Shift",
         disp_ylim=(-1.5, 3),
         xoffset=ip1s,
         xlimits=(-200, 200),
@@ -230,7 +230,7 @@ Interaction Region.
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_lhc_rigid_waist_shift_002.svg
-   :alt: LHCB1 IR1 - No Rigid Waist Shift
+   :alt: LHCB1 IR1 - With Rigid Waist Shift
    :srcset: /gallery/images/sphx_glr_demo_lhc_rigid_waist_shift_002.svg, /gallery/images/sphx_glr_demo_lhc_rigid_waist_shift_002_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -283,7 +283,7 @@ Here the subscript **n** stands for nominal, and **w** for the waist shift.
 
 .. tip::
   The differences observed will vary depending on the strength of the knob,
-  which we choose with the **rigidty_waist_shift_value** parameter.
+  which we choose with the *rigidty_waist_shift_value* parameter.
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
@@ -315,7 +315,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  5.456 seconds)
+   **Total running time of the script:** ( 1 minutes  4.265 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:

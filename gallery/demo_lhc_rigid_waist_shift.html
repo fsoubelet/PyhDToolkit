@@ -412,7 +412,7 @@ to make sure we do not deviate.</p>
 </pre></div>
 </div>
 <p class="sphx-glr-script-out">Out:</p>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-02-24 13:38:19 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes &amp; chromaticities after this
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-02-28 11:13:20 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes &amp; chromaticities after this
 </pre></div>
 </div>
 <p>Let’s again retrieve the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> table, then plot the new conditions in the
@@ -424,7 +424,7 @@ Interaction Region.</p>
 <span class="n">IR1_waist_shift</span> <span class="o">=</span> <span class="n">LatticePlotter</span><span class="o">.</span><span class="n">plot_latwiss</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">),</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;LHCB1 IR1 - No Rigid Waist Shift&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;LHCB1 IR1 - With Rigid Waist Shift&quot;</span><span class="p">,</span>
     <span class="n">disp_ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.5</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
     <span class="n">xoffset</span><span class="o">=</span><span class="n">ip1s</span><span class="p">,</span>
     <span class="n">xlimits</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">),</span>
@@ -438,7 +438,7 @@ Interaction Region.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_demo_lhc_rigid_waist_shift_002.svg" srcset="../_images/sphx_glr_demo_lhc_rigid_waist_shift_002.svg, ../_images/sphx_glr_demo_lhc_rigid_waist_shift_002_2_0x.svg 2.0x" alt="LHCB1 IR1 - No Rigid Waist Shift" class = "sphx-glr-single-img"/><dl class="simple">
+<img src="../_images/sphx_glr_demo_lhc_rigid_waist_shift_002.svg" srcset="../_images/sphx_glr_demo_lhc_rigid_waist_shift_002.svg, ../_images/sphx_glr_demo_lhc_rigid_waist_shift_002_2_0x.svg 2.0x" alt="LHCB1 IR1 - With Rigid Waist Shift" class = "sphx-glr-single-img"/><dl class="simple">
 <dt>Comparing to the previous plot, one can notice two things:</dt><dd><ul class="simple">
 <li><p>The triplet quadrupoles powering has changed.</p></li>
 <li><p>The <span class="math notranslate nohighlight">\(\beta_{x,y}\)</span> functions symmetry has been broken.</p></li>
@@ -465,7 +465,7 @@ waist shift with a simple plot:</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>The differences observed will vary depending on the strength of the knob,
-which we choose with the <strong>rigidty_waist_shift_value</strong> parameter.</p>
+which we choose with the <em>rigidty_waist_shift_value</em> parameter.</p>
 </div>
 <p>Let’s not forget to close the rpc connection to <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">madx</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span>
@@ -481,7 +481,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters" title="pyhdtoolkit.cpymadtools.plotters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotters</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LatticePlotter</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latwiss</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  5.456 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 1 minutes  4.265 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-lhc-rigid-waist-shift-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/92d99024e2e13e0ddcd6018dea27ea82/demo_lhc_rigid_waist_shift.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_lhc_rigid_waist_shift.py</span></code></a></p>
@@ -521,7 +521,13 @@ in this example:</p>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
 
 </body>
 </html>

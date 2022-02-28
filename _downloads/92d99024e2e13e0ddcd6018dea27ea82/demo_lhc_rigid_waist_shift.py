@@ -101,7 +101,7 @@ ip1s = twiss_df_waist.s["ip1"]
 IR1_waist_shift = LatticePlotter.plot_latwiss(
     madx,
     figsize=(16, 11),
-    title="LHCB1 IR1 - No Rigid Waist Shift",
+    title="LHCB1 IR1 - With Rigid Waist Shift",
     disp_ylim=(-1.5, 3),
     xoffset=ip1s,
     xlimits=(-200, 200),
@@ -140,7 +140,7 @@ plt.legend()
 #
 # .. tip::
 #   The differences observed will vary depending on the strength of the knob,
-#   which we choose with the **rigidty_waist_shift_value** parameter.
+#   which we choose with the *rigidty_waist_shift_value* parameter.
 #
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
