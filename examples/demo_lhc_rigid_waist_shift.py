@@ -86,6 +86,10 @@ plt.show()
 # which side of the IP to shift the beam waist. See the function documentation
 # for more details. After applying the knob, we will re-match to our working point
 # to make sure we do not deviate.
+# 
+# .. hint::
+#    A waist shift knob setting of 1 will result in a 0.5% change in the triplets
+#    knob powering. The individual triplet magnets trims are not affected.
 
 lhc.apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=1)
 matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
@@ -101,7 +105,7 @@ ip1s = twiss_df_waist.s["ip1"]
 IR1_waist_shift = LatticePlotter.plot_latwiss(
     madx,
     figsize=(16, 11),
-    title="LHCB1 IR1 - No Rigid Waist Shift",
+    title="LHCB1 IR1 - With Rigid Waist Shift",
     disp_ylim=(-1.5, 3),
     xoffset=ip1s,
     xlimits=(-200, 200),
@@ -140,7 +144,7 @@ plt.legend()
 #
 # .. tip::
 #   The differences observed will vary depending on the strength of the knob,
-#   which we choose with the **rigidty_waist_shift_value** parameter.
+#   which we choose with the *rigidty_waist_shift_value* parameter.
 #
 # Let's not forget to close the rpc connection to ``MAD-X``:
 
