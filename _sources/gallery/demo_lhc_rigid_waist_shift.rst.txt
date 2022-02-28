@@ -160,7 +160,7 @@ Let's now have a look at the IR in normal conditions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-89
+.. GENERATED FROM PYTHON SOURCE LINES 79-93
 
 Notice the (anti)symmetry of the :math:`\beta_{x,y}` functions and triplet
 quadrupoles powering on the right and left-hand side of the IP. Let's now apply
@@ -173,7 +173,11 @@ which side of the IP to shift the beam waist. See the function documentation
 for more details. After applying the knob, we will re-match to our working point
 to make sure we do not deviate.
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-93
+.. hint::
+   A waist shift knob setting of 1 will result in a 0.5% change in the triplets
+   knob powering. The individual triplet magnets trims are not affected.
+
+.. GENERATED FROM PYTHON SOURCE LINES 93-97
 
 .. code-block:: default
 
@@ -191,17 +195,17 @@ to make sure we do not deviate.
 
  .. code-block:: none
 
-    2022-02-28 11:13:20 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes & chromaticities after this
+    2022-02-28 16:59:09 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes & chromaticities after this
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-96
+.. GENERATED FROM PYTHON SOURCE LINES 98-100
 
 Let's again retrieve the ``TWISS`` table, then plot the new conditions in the
 Interaction Region.
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-117
+.. GENERATED FROM PYTHON SOURCE LINES 100-121
 
 .. code-block:: default
 
@@ -238,7 +242,7 @@ Interaction Region.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-124
+.. GENERATED FROM PYTHON SOURCE LINES 122-128
 
 Comparing to the previous plot, one can notice two things:
  - The triplet quadrupoles powering has changed.
@@ -247,7 +251,7 @@ Comparing to the previous plot, one can notice two things:
 One can compare the :math:`\beta_{x,y}` functions before and after the rigid
 waist shift with a simple plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-138
+.. GENERATED FROM PYTHON SOURCE LINES 128-142
 
 .. code-block:: default
 
@@ -277,7 +281,7 @@ waist shift with a simple plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-146
+.. GENERATED FROM PYTHON SOURCE LINES 143-150
 
 Here the subscript **n** stands for nominal, and **w** for the waist shift.
 
@@ -287,7 +291,7 @@ Here the subscript **n** stands for nominal, and **w** for the waist shift.
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-149
+.. GENERATED FROM PYTHON SOURCE LINES 150-153
 
 .. code-block:: default
 
@@ -301,7 +305,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-158
+.. GENERATED FROM PYTHON SOURCE LINES 154-162
 
 .. admonition:: References
 
@@ -315,7 +319,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  4.265 seconds)
+   **Total running time of the script:** ( 1 minutes  6.022 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:
