@@ -166,7 +166,7 @@ def misalign_lhc_ir_quadrupoles(
     logger.trace("Clearing error flag")
     madx.select(flag="error", clear=True)
 
-    logger.info(f"Applying alignment errors to IR quads '{quadrupoles}', with arguments {kwargs}")
+    logger.debug(f"Applying alignment errors to IR quads '{quadrupoles}', with arguments {kwargs}")
     for ip in ips:
         logger.debug(f"Applying errors for IR{ip}")
         for side in sides:

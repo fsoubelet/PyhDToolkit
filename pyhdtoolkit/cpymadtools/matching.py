@@ -184,7 +184,7 @@ def match_tunes_and_chromaticities(
         madx.twiss(chrom=True)  # prevents errors if the user forgets to TWISS before querying tables
 
     if q1_target is not None and q2_target is not None and dq1_target is not None and dq2_target is not None:
-        logger.info(
+        logger.debug(
             f"Doing combined matching to Qx={q1_target}, Qy={q2_target}, "
             f"dqx={dq1_target}, dqy={dq2_target} for sequence '{sequence}'"
         )
@@ -193,13 +193,13 @@ def match_tunes_and_chromaticities(
         match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
     elif q1_target is not None and q2_target is not None:
-        logger.info(f"Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence '{sequence}'")
+        logger.debug(f"Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence '{sequence}'")
         tune_knobs = varied_knobs or tune_knobs  # if accelerator was given we've extracted this already
         logger.trace(f"Vary knobs sent are {tune_knobs}")
         match(*tune_knobs, q1=q1_target, q2=q2_target)  # sent varied_knobs should be tune knobs
 
     elif dq1_target is not None and dq2_target is not None:
-        logger.info(f"Matching chromaticities to dq1={dq1_target}, dq2={dq2_target} for sequence {sequence}")
+        logger.debug(f"Matching chromaticities to dq1={dq1_target}, dq2={dq2_target} for sequence {sequence}")
         chroma_knobs = varied_knobs or chroma_knobs  # if accelerator was given we've extracted this already
         logger.trace(f"Vary knobs sent are {chroma_knobs}")
         match(*chroma_knobs, dq1=dq1_target, dq2=dq2_target)  # sent varied_knobs should be chromaticity knobs
@@ -296,7 +296,7 @@ def get_closest_tune_approach(
     qy_target = int(q2) + middle_of_fractional_tunes
     logger.debug(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
 
-    logger.info("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
+    logger.debug("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
     match_tunes_and_chromaticities(
         madx,
         accelerator,
@@ -314,7 +314,7 @@ def get_closest_tune_approach(
     cminus = abs(dqmin)
     logger.debug(f"Matching got to a Closest Tune Approach of {cminus:.5f}")
 
-    logger.info("Restoring saved knobs")
+    logger.debug("Restoring saved knobs")
     with madx.batch():
         madx.globals.update(saved_knobs)
     madx.command.twiss(chrom=True)  # make sure TWISS and SUMM tables are returned to their original state

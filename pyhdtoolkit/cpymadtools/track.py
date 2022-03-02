@@ -68,13 +68,13 @@ def track_single_particle(
             ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
             ... )
     """
-    logger.info("Performing single particle MAD-X (thin) tracking")
+    logger.debug("Performing single particle MAD-X (thin) tracking")
     onetable = kwargs.get("onetable", False) if "onetable" in kwargs else kwargs.get("ONETABLE", False)
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
     observation_points = observation_points if observation_points else []
 
     if isinstance(sequence, str):
-        logger.warning(f"Sequence '{sequence}' was provided and will be used, beware that this will erase errors etc.")
+        logger.warning(f"Sequence '{sequence}' was provided and will be USEd, beware that this will erase errors etc.")
         logger.debug(f"Using sequence '{sequence}' for tracking")
         madx.use(sequence=sequence)
 

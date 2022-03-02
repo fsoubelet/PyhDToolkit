@@ -112,7 +112,7 @@ def get_closest_tune_approach(
     qy_target = int(q2) + middle_of_fractional_tunes
     logger.debug(f"Targeting tunes Qx = {qx_target}  |  Qy = {qy_target}")
 
-    logger.info("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
+    logger.debug("Performing closest tune approach routine, matching should fail at DeltaQ = dqmin")
     match_tunes_and_chromaticities(
         madx,
         accelerator,
@@ -130,7 +130,7 @@ def get_closest_tune_approach(
     cminus = abs(dqmin)
     logger.debug(f"Matching got to a Closest Tune Approach of {cminus:.5f}")
 
-    logger.info("Restoring saved knobs")
+    logger.debug("Restoring saved knobs")
     with madx.batch():
         madx.globals.update(saved_knobs)
     madx.command.twiss(chrom=True)  # make sure TWISS and SUMM tables are returned to their original state
@@ -151,7 +151,7 @@ def match_no_coupling_through_ripkens(
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
         vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
     """
-    logger.info(f"Matching Ripken parameters for no coupling at location {location}")
+    logger.debug(f"Matching Ripken parameters for no coupling at location {location}")
     logger.debug("Creating macro to update Ripkens")
     madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
 
