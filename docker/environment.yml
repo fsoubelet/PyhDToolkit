@@ -221,9 +221,9 @@ dependencies:
   - zlib=1.2.11
   - zstd=1.5.2
   - pip:
-    - cpymad==1.9.2
+    - cpymad==1.9.3
     - importlib-resources==5.4.0
     - minrpc==0.1.0
-    - pyhdtoolkit==0.16.0
+    - pyhdtoolkit==0.16.1
     - pynaff==1.1.4
     - rich==11.1.0
