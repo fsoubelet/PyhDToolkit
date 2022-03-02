@@ -195,7 +195,7 @@ to make sure we do not deviate.
 
  .. code-block:: none
 
-    2022-03-02 10:04:53 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes & chromaticities after this rigid waist shift knob is applied
+    2022-03-02 10:34:07 | WARNING  | pyhdtoolkit.cpymadtools.lhc:215 - You should re-match tunes & chromaticities after this rigid waist shift knob is applied
 
 
 
@@ -319,7 +319,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  51.130 seconds)
+   **Total running time of the script:** ( 0 minutes  59.701 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:
