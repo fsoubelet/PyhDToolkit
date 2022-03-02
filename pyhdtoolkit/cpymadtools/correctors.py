@@ -53,7 +53,7 @@ def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
 
             >>> triplet_knobs = query_triplet_correctors_powering(madx)
     """
-    logger.info("Querying triplets correctors powering")
+    logger.debug("Querying triplets correctors powering")
     result: Dict[str, float] = {}
 
     logger.debug("Querying triplet skew quadrupole correctors (MQSXs) powering")
@@ -99,7 +99,7 @@ def query_arc_correctors_powering(madx: Madx) -> Dict[str, float]:
 
             >>> arc_knobs = query_arc_correctors_powering(madx)
     """
-    logger.info("Querying triplets correctors powering")
+    logger.debug("Querying triplets correctors powering")
     result: Dict[str, float] = {}
 
     logger.debug("Querying arc tune trim quadrupole correctors (MQTs) powering")

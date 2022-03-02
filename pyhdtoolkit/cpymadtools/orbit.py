@@ -175,7 +175,7 @@ def correct_lhc_orbit(
 
             >>> correct_lhc_orbit(madx, sequence="lhcb1", plane="y")
     """
-    logger.info("Starting orbit correction")
+    logger.debug("Starting orbit correction")
     for default_kicker in ("kicker", "hkicker", "vkicker", "virtualcorrector"):
         logger.trace(f"Disabling default corrector class '{default_kicker}'")
         madx.command.usekick(sequence=sequence, status="off", class_=default_kicker)

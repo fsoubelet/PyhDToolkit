@@ -114,7 +114,7 @@ class AperturePlotter:
              accessed with ``fig.get_axes()``.
         """
         # pylint: disable=too-many-arguments
-        logger.info("Plotting aperture limits and machine layout")
+        logger.debug("Plotting aperture limits and machine layout")
         logger.debug("Getting Twiss dataframe from cpymad")
         madx.command.twiss(centre=True)
         twiss_df: pd.DataFrame = madx.table.twiss.dframe().copy()
@@ -165,7 +165,7 @@ class AperturePlotter:
             plt.xlim(xlimits)
 
         if savefig:
-            logger.info(f"Saving latwiss plot as {savefig}")
+            logger.debug(f"Saving latwiss plot as {savefig}")
             plt.savefig(savefig)
         return figure
 
@@ -207,7 +207,7 @@ class BeamEnvelopePlotter:
         """
         # pylint: disable=too-many-arguments
         # We need to interpolate in order to get high resolution along the S direction
-        logger.info("Plotting estimated machine aperture and beam envelope")
+        logger.debug("Plotting estimated machine aperture and beam envelope")
         logger.debug("Running interpolation in MAD-X")
         madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
         madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
@@ -274,7 +274,7 @@ class BeamEnvelopePlotter:
         axis3.set_title(f"Stay-clear envelope at {beam_params.pc_GeV} GeV/c")
 
         if savefig:
-            logger.info(f"Saving aperture plot at '{Path(savefig).absolute()}'")
+            logger.debug(f"Saving aperture plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
         return figure
 
@@ -428,7 +428,7 @@ class CrossingSchemePlotter:
             plotted per IP and per plane (orbit X and orbit Y). The underlying axes can be
             accessed with ``fig.get_axes()``.
         """
-        logger.warning("You should re-call the 'USE' command on your wanted sequence after this!")
+        logger.warning("You should re-call the 'USE' command on your wanted sequence after this plot!")
         # ----- Getting Twiss table dframe for each beam ----- #
         logger.debug("Getting TWISS table for LHCB1")
         madx.use(sequence="lhcb1")
@@ -445,7 +445,7 @@ class CrossingSchemePlotter:
         second_ip_s = twiss_df_b1.s[f"ip{second_ip}"]
 
         # ----- Plotting figure ----- #
-        logger.info(f"Plotting crossing schemes for IP{first_ip} and IP{second_ip}")
+        logger.debug(f"Plotting crossing schemes for IP{first_ip} and IP{second_ip}")
         figure, axes = plt.subplots(2, 2, figsize=figsize)
 
         logger.debug(f"Plotting for IP{first_ip}")
@@ -505,7 +505,7 @@ class CrossingSchemePlotter:
         plt.tight_layout()
 
         if savefig:
-            logger.info(f"Saving crossing schemes for IP{first_ip} and IP{second_ip} plot as '{savefig}'")
+            logger.debug(f"Saving crossing schemes for IP{first_ip} and IP{second_ip} plot as '{savefig}'")
             figure.savefig(savefig)
         return figure
 
@@ -538,7 +538,7 @@ class DynamicAperturePlotter:
             The `~matplotlib.figure.Figure` on which the points are drawn. The underlying axes can be
             accessed with ``fig.get_axes()``.
         """
-        logger.info(f"Plotting the '{len(x_coords)} turns' aperture")
+        logger.debug(f"Plotting the '{len(x_coords)} turns' aperture")
         figure = plt.figure(figsize=(12, 7))
         turn_lost_at = []
         amp_lost = []
@@ -562,7 +562,7 @@ class DynamicAperturePlotter:
         plt.ylabel("Initial amplitude $[mm]$")
 
         if savefig:
-            logger.info(f"Saving dynamic aperture plot at '{Path(savefig).absolute()}'")
+            logger.debug(f"Saving dynamic aperture plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
         return figure
 
@@ -646,7 +646,7 @@ class LatticePlotter:
         """
         # pylint: disable=too-many-arguments
         # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
-        logger.info("Plotting optics functions and machine layout")
+        logger.debug("Plotting optics functions and machine layout")
         twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
         xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
 
@@ -700,7 +700,7 @@ class LatticePlotter:
             plt.xlim(xlimits)
 
         if savefig:
-            logger.info(f"Saving latwiss plot as {savefig}")
+            logger.debug(f"Saving latwiss plot as {savefig}")
             plt.savefig(savefig)
         return figure
 
@@ -736,7 +736,7 @@ class LatticePlotter:
              The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
              accessed with ``fig.get_axes()``.
         """
-        logger.info("Plotting machine survey")
+        logger.debug("Plotting machine survey")
         logger.trace("Getting machine survey from cpymad")
         madx.command.survey()
         survey = madx.table.survey.dframe()
@@ -779,7 +779,7 @@ class LatticePlotter:
         plt.title(title)
 
         if savefig:
-            logger.info(f"Saving machine survey plot as {savefig}")
+            logger.debug(f"Saving machine survey plot as {savefig}")
             plt.savefig(savefig)
         return figure
 
@@ -821,7 +821,7 @@ class PhaseSpacePlotter:
             logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
             raise ValueError("Invalid plane value")
 
-        logger.info("Plotting phase space for normalized Courant-Snyder coordinates")
+        logger.debug("Plotting phase space for normalized Courant-Snyder coordinates")
         figure = plt.figure(figsize=figsize)
         plt.title("Courant-Snyder Phase Space")
 
@@ -845,7 +845,7 @@ class PhaseSpacePlotter:
             plt.axis("Equal")
 
         if savefig:
-            logger.info(f"Saving Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
+            logger.debug(f"Saving Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
         return figure
 
@@ -890,7 +890,7 @@ class PhaseSpacePlotter:
         while len(colors) > len(u_coordinates):
             colors.pop()
 
-        logger.info("Plotting colored phase space for normalized Courant-Snyder coordinates")
+        logger.debug("Plotting colored phase space for normalized Courant-Snyder coordinates")
         figure = plt.figure(figsize=figsize)
         plt.title("Courant-Snyder Phase Space")
 
@@ -914,7 +914,7 @@ class PhaseSpacePlotter:
             plt.axis("Equal")
 
         if savefig:
-            logger.info(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
+            logger.debug(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
             plt.savefig(Path(savefig))
         return figure
 
@@ -1047,7 +1047,7 @@ class TuneDiagramPlotter:
             logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
             raise ValueError("The 'max_order' argument should be between 1 and 6 included")
 
-        logger.info(f"Plotting resonance lines up to {TuneDiagramPlotter.order_to_label[max_order]}")
+        logger.debug(f"Plotting resonance lines up to {TuneDiagramPlotter.order_to_label[max_order]}")
         figure, axis = plt.subplots(figsize=figsize)
 
         for order in range(max_order, 0, -1):  # high -> low so most importants ones (low) are plotted on top

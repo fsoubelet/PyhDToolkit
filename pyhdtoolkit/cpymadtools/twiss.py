@@ -118,7 +118,7 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     madx.select(flag="twiss", clear=True)
     madx.command.twiss(**kwargs)
 
-    logger.info("Exporting internal TWISS and SUMM tables to TfsDataFrame")
+    logger.debug("Exporting internal TWISS and SUMM tables to TfsDataFrame")
     twiss_tfs = tfs.TfsDataFrame(madx.table.twiss.dframe())
     twiss_tfs.name = twiss_tfs.name.apply(lambda x: x[:-2])  # remove :1 from names
     twiss_tfs.columns = twiss_tfs.columns.str.upper()
@@ -147,7 +147,7 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
 
             >>> ips_df = get_ips_twiss(madx, chrom=True, ripken=True)
     """
-    logger.info("Getting Twiss at IPs")
+    logger.debug("Getting Twiss at IPs")
     return get_pattern_twiss(madx=madx, patterns=["IP"], columns=columns, **kwargs)
 
 
@@ -172,7 +172,7 @@ def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COL
 
             >>> ir_df = get_ir_twiss(madx, chrom=True, ripken=True)
     """
-    logger.info(f"Getting Twiss for IR{ir:d}")
+    logger.debug(f"Getting Twiss for IR{ir:d}")
     return get_pattern_twiss(
         madx=madx,
         patterns=[

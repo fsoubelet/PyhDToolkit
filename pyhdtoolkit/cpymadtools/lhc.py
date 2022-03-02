@@ -63,7 +63,7 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
 
             >>> make_lhc_beams(madx, energy=6800, emittance=2.5e-6)
     """
-    logger.info("Making default beams for 'lhcb1' and 'lhbc2' sequences")
+    logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
     madx.globals["brho"] = energy * 1e9 / madx.globals.clight
     geometric_emit = madx.globals["geometric_emit"] = emittance / (energy / 0.938)
@@ -104,7 +104,7 @@ def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_a
         logger.exception("The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined.")
         raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error
 
-    logger.info(f"Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.")
+    logger.debug(f"Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.")
     strength = mo_current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
     beam = 2 if beam == 4 else beam
 
@@ -134,7 +134,7 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
     # KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56
     # KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56
     # Rest: Weak sextupoles in sectors 78/23/34/67
-    logger.info(f"Deactivating all arc sextupoles for beam {beam}.")
+    logger.debug(f"Deactivating all arc sextupoles for beam {beam}.")
     beam = 2 if beam == 4 else beam
 
     for arc in _all_lhc_arcs(beam):
@@ -165,8 +165,8 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
 
             >>> apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)
     """
-    logger.info(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
-    logger.warning("You should re-match tunes & chromaticities after this")
+    logger.debug(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
+    logger.warning("You should re-match tunes & chromaticities after this colinearity knob is applied")
     knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors
     right_knob, left_knob = knob_variables
 
@@ -211,8 +211,8 @@ def apply_lhc_rigidity_waist_shift_knob(
             >>> apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)
             >>> matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32)
     """
-    logger.info(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
-    logger.warning("You should re-match tunes & chromaticities after this")
+    logger.debug(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
+    logger.warning("You should re-match tunes & chromaticities after this rigid waist shift knob is applied")
     right_knob, left_knob = f"kqx.r{ir:d}", f"kqx.l{ir:d}"  # IP triplet default knob (no trims)
 
     current_right_knob = madx.globals[right_knob]
@@ -251,8 +251,8 @@ def apply_lhc_coupling_knob(
 
             >>> apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)
     """
-    logger.info("Applying coupling knob")
-    logger.warning("You should re-match tunes & chromaticities after this")
+    logger.debug("Applying coupling knob")
+    logger.warning("You should re-match tunes & chromaticities after this coupling knob is applied")
     suffix = "_sq" if telescopic_squeeze else ""
     knob_name = f"CMRS.b{beam:d}{suffix}"
 
@@ -317,7 +317,7 @@ def install_ac_dipole_as_kicker(
             ... )
     """
     logger.warning("This AC Dipole is implemented as a kicker and will not affect TWISS functions!")
-    logger.info("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam")
+    logger.debug("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam")
 
     if top_turns > 6600:
         logger.warning(
@@ -353,7 +353,7 @@ def install_ac_dipole_as_kicker(
         f"ramp2={ramp2}, ramp3={ramp3}, ramp4={ramp4};"
     )
 
-    logger.info(f"Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
+    logger.debug(f"Installing AC Dipole kicker with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
     # The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)
@@ -362,7 +362,7 @@ def install_ac_dipole_as_kicker(
     madx.command.endedit()
 
     logger.warning(
-        f"Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, "
+        f"Sequence LHCB{beam:d} is now re-USEd for changes to take effect. Beware that this will reset it, "
         "remove errors etc."
     )
     madx.use(sequence=f"lhcb{beam:d}")
@@ -396,7 +396,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
             >>> install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)
     """
     logger.warning("This AC Dipole is implemented as a matrix and will not affect particle tracking!")
-    logger.info("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam.")
+    logger.debug("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam.")
 
     logger.debug("Retrieving tunes from internal tables")
     q1, q2 = madx.table.summ.q1[0], madx.table.summ.q2[0]
@@ -416,7 +416,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     madx.input(f"hacmap: matrix, l=0, rm21=hacmap21;")
     madx.input(f"vacmap: matrix, l=0, rm43=vacmap43;")
 
-    logger.info(f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
+    logger.debug(f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
     madx.command.seqedit(sequence=f"lhcb{beam:d}")
     madx.command.flatten()
     # The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]
@@ -425,7 +425,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     madx.command.endedit()
 
     logger.warning(
-        f"Sequence LHCB{beam:d} is now re-used for changes to take effect. Beware that this will reset it, "
+        f"Sequence LHCB{beam:d} is now re-USEd for changes to take effect. Beware that this will reset it, "
         "remove errors etc."
     )
     madx.use(sequence=f"lhcb{beam:d}")
@@ -503,7 +503,7 @@ def reset_lhc_bump_flags(madx: Madx) -> None:
 
             >>> reset_lhc_bump_flags(madx)
     """
-    logger.info("Resetting all LHC IP bump flags")
+    logger.debug("Resetting all LHC IP bump flags")
     ALL_BUMPS = (
         LHC_ANGLE_FLAGS
         + LHC_CROSSING_ANGLE_FLAGS
@@ -533,7 +533,7 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
 
             >>> make_sixtrack_output(madx, energy=6800)
     """
-    logger.info("Preparing outputs for SixTrack")
+    logger.debug("Preparing outputs for SixTrack")
 
     logger.debug("Powering RF cavities")
     madx.globals["VRF400"] = 8 if energy < 5000 else 16  # is 6 at injection for protons iirc?
@@ -571,7 +571,7 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
 
             >>> make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
     """
-    logger.info(f"Slicing sequence '{sequence}'")
+    logger.debug(f"Slicing sequence '{sequence}'")
     madx.select(flag="makethin", clear=True)
     four_slices_patterns = [r"mbx\.", r"mbrb\.", r"mbrc\.", r"mbrs\."]
     four_slicefactor_patterns = [
@@ -675,7 +675,7 @@ def match_no_coupling_through_ripkens(
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
         vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
     """
-    logger.info(f"Matching Ripken parameters for no coupling at location {location}")
+    logger.debug(f"Matching Ripken parameters for no coupling at location {location}")
     logger.debug("Creating macro to update Ripkens")
     madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
 

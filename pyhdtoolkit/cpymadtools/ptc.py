@@ -8,7 +8,7 @@ Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a
 `~cpymad.madx.Madx` object.
 """
 from pathlib import Path
-from typing import Dict, Sequence, Tuple, Union
+from typing import Dict, Optional, Sequence, Tuple, Union
 
 import pandas as pd
 import tfs
@@ -60,7 +60,7 @@ def get_amplitude_detuning(
         logger.error(f"Maximum amplitude detuning order in PTC is 2, but {order:d} was requested")
         raise NotImplementedError("PTC amplitude detuning is not implemented for order > 2")
 
-    logger.info("Creating PTC universe")
+    logger.debug("Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
@@ -146,7 +146,7 @@ def get_rdts(
 
             >>> rdts_df = get_rdts(madx, order=3, fringe=True)
     """
-    logger.info("Creating PTC universe")
+    logger.debug("Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
@@ -208,7 +208,7 @@ def ptc_twiss(
 
             >>> twiss_ptc_df = ptc_twiss(madx, order=3)
     """
-    logger.info(f"Creating PTC universe")
+    logger.debug(f"Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
@@ -235,7 +235,7 @@ def ptc_track_particle(
     madx: Madx,
     initial_coordinates: Tuple[float, float, float, float, float, float],
     nturns: int,
-    sequence: str = None,
+    sequence: Optional[str] = None,
     observation_points: Sequence[str] = None,
     onetable: bool = False,
     fringe: bool = False,
@@ -294,16 +294,16 @@ def ptc_track_particle(
             ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
             ... )
     """
-    logger.info("Performing single particle PTC (thick) tracking")
+    logger.debug("Performing single particle PTC (thick) tracking")
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
     observation_points = observation_points if observation_points else []
 
     if isinstance(sequence, str):
-        logger.warning(f"Sequence '{sequence}' was provided and will be used, beware that this will erase errors etc.")
+        logger.warning(f"Sequence '{sequence}' was provided and will be USEd, beware that this will erase errors etc.")
         logger.debug(f"Using sequence '{sequence}' for tracking")
         madx.use(sequence=sequence)
 
-    logger.info(f"Creating PTC universe")
+    logger.debug(f"Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
