@@ -13,9 +13,7 @@ from loguru import logger
 
 from pyhdtoolkit.utils import deprecated
 
-__all__ = ["match_tunes_and_chromaticities"]
-
-# ----- Utlites ----- #
+__all__ = ["match_tunes_and_chromaticities", "match_tunes", "match_chromaticities"]
 
 
 @deprecated(message="Please use its equivalent from the 'cpymadtools.lhc' module.")
@@ -62,6 +60,9 @@ def get_lhc_tune_and_chroma_knobs(
             f"ksd.b{beam}{suffix}",
         ),
     }[accelerator.upper()]
+
+
+# ----- Workhorse ----- #
 
 
 def match_tunes_and_chromaticities(
@@ -203,6 +204,167 @@ def match_tunes_and_chromaticities(
         chroma_knobs = varied_knobs or chroma_knobs  # if accelerator was given we've extracted this already
         logger.trace(f"Vary knobs sent are {chroma_knobs}")
         match(*chroma_knobs, dq1=dq1_target, dq2=dq2_target)  # sent varied_knobs should be chromaticity knobs
+
+
+# ----- Convenient Wrappers ----- #
+
+
+def match_tunes(
+    madx: Madx,
+    accelerator: str = None,
+    sequence: Optional[str] = None,
+    q1_target: float = None,
+    q2_target: float = None,
+    varied_knobs: Sequence[str] = None,
+    telescopic_squeeze: bool = True,
+    step: float = 1e-7,
+    calls: int = 100,
+    tolerance: float = 1e-21,
+):
+    """
+    Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match tunes to
+    the desired target values.
+
+    .. note::
+        This is a wrapper around the `~.match_tunes_and_chromaticities` function. Refer to its documentation
+        for usage details.
+
+    .. important::
+        The matching is always performed with the ``CHROM`` option on.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
+            Automatic determination will only work for `LHC` and `HLLHC`.
+        sequence (str): name of the sequence you want to perform the matching for.
+        q1_target (float): horizontal tune to match to.
+        q2_target (float): vertical tune to match to.
+        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine.
+        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+            Squeeze configuration. Defaults to `True` as of run III.
+        step (float): step size to use when varying knobs. Defaults to `1E-7`.
+        calls (int): max number of varying calls to perform. Defaults to `100`.
+        tolerance (float): tolerance for successfull matching. Defaults to `1E-21`.
+
+    Examples:
+        Matching a dummy lattice (not LHC or HLLHC):
+
+        .. code-block:: python
+
+            >>> matching.match_tunes(
+            ...     madx,
+            ...     None,              # this is not LHC or HLLHC
+            ...     sequence="CAS3",
+            ...     q1_target=6.335,
+            ...     q2_target=6.29,
+            ...     varied_knobs=["kqf", "kqd"],  # only tune knobs
+            ... )
+
+        Matching the LHC lattice:
+
+        .. code-block:: python
+
+            >>> matching.match_tunes(
+            ...     madx,
+            ...     "lhc",                    # will find the knobs automatically
+            ...     sequence="lhcb1",
+            ...     q1_target=62.31,
+            ...     q2_target=60.32,
+            ... )
+    """
+    match_tunes_and_chromaticities(
+        madx=madx,
+        accelerator=accelerator,
+        sequence=sequence,
+        q1_target=q1_target,
+        q2_target=q2_target,
+        dq1_target=None,
+        dq2_target=None,
+        varied_knobs=varied_knobs,
+        telescopic_squeeze=telescopic_squeeze,
+        step=step,
+        calls=calls,
+        tolerance=tolerance,
+    )
+
+
+def match_chromaticities(
+    madx: Madx,
+    accelerator: str = None,
+    sequence: Optional[str] = None,
+    dq1_target: float = None,
+    dq2_target: float = None,
+    varied_knobs: Sequence[str] = None,
+    telescopic_squeeze: bool = True,
+    step: float = 1e-7,
+    calls: int = 100,
+    tolerance: float = 1e-21,
+):
+    """
+    Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match chromaticities
+    to the desired target values.
+
+    .. note::
+        This is a wrapper around the `~.match_tunes_and_chromaticities` function. Refer to its documentation
+        for usage details.
+
+    .. important::
+        The matching is always performed with the ``CHROM`` option on.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
+            Automatic determination will only work for `LHC` and `HLLHC`.
+        sequence (str): name of the sequence you want to perform the matching for.
+        q1_target (float): horizontal tune to match to.
+        q2_target (float): vertical tune to match to.
+        varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine.
+        telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
+            Squeeze configuration. Defaults to `True` as of run III.
+        step (float): step size to use when varying knobs. Defaults to `1E-7`.
+        calls (int): max number of varying calls to perform. Defaults to `100`.
+        tolerance (float): tolerance for successfull matching. Defaults to `1E-21`.
+
+    Examples:
+        Matching a dummy lattice (not LHC or HLLHC):
+
+        .. code-block:: python
+
+            >>> matching.match_chromaticities(
+            ...     madx,
+            ...     None,              # this is not LHC or HLLHC
+            ...     sequence="CAS3",
+            ...     dq1_target=100,
+            ...     dq2_target=100,
+            ...     varied_knobs=["ksf", "ksd"],  # only chroma knobs
+            ... )
+
+        Matching the LHC lattice:
+
+        .. code-block:: python
+
+            >>> matching.match_chromaticities(
+            ...     madx,
+            ...     "lhc",                    # will find the knobs automatically
+            ...     sequence="lhcb1",
+            ...     dq1_target=2.0,
+            ...     dq2_target=2.0,
+            ... )
+    """
+    match_tunes_and_chromaticities(
+        madx=madx,
+        accelerator=accelerator,
+        sequence=sequence,
+        q1_target=None,
+        q2_target=None,
+        dq1_target=dq1_target,
+        dq2_target=dq2_target,
+        varied_knobs=varied_knobs,
+        telescopic_squeeze=telescopic_squeeze,
+        step=step,
+        calls=calls,
+        tolerance=tolerance,
+    )
 
 
 @deprecated(message="Please use its equivalent from the 'cpymadtools.coupling' module.")
