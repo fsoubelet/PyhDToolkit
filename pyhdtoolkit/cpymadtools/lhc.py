@@ -759,6 +759,7 @@ def _all_lhc_arcs(beam: int) -> List[str]:
     return [f"A{i+1}{(i+1)%8+1}B{beam:d}" for i in range(8)]
 
 
+@deprecated(message="Please use its equivalent from the 'cpymadtools.utils' module.")
 def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
     """
     Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).
