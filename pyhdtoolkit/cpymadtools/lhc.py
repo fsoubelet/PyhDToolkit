@@ -739,6 +739,9 @@ def get_magnets_powering(
         the results for *all* elements. One can also give a specific magnet's exact
         name to include it in the results.
 
+    .. note::
+        The ``TWISS`` flag will be fully cleared after running this function.
+
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         patterns (Sequence[str]): a list of regex patterns to define which elements
@@ -757,9 +760,9 @@ def get_magnets_powering(
     """
     logger.debug("Computing magnets field and powering limits proportions")
     NEW_COLNAMES = ["name", "keyword", "ampere", "imax", "percent", "kn", "kmax", "integrated_field", "L"]
-    NEW_COLNAMES = list(set(NEW_COLNAMES + kwargs.get("columns", [])))  # in case user gives explicit columns
+    NEW_COLNAMES = list(set(NEW_COLNAMES + kwargs.pop("columns", [])))  # in case user gives explicit columns
     _list_field_currents(madx, brho=brho)
-    return twiss.get_pattern_twiss(madx, patterns=patterns, columns=NEW_COLNAMES, **kwargs)
+    return twiss.get_pattern_twiss(madx, columns=NEW_COLNAMES, patterns=patterns, **kwargs)
 
 
 @deprecated(message="Please use its equivalent from the 'cpymadtools.coupling' module.")
