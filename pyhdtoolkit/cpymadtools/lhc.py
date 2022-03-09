@@ -7,9 +7,9 @@ LHC-Specific Utilities
 Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object,
 that are specific to LHC and HLLHC machines.
 """
-from typing import Dict, List, Sequence, Tuple
+from typing import Dict, List, Sequence, Tuple, Union
 
-import numpy as np
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -30,6 +30,7 @@ __all__ = [
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
     "deactivate_lhc_arc_sextupoles",
+    "get_magnets_powering",
     "get_lhc_bpms_list",
     "get_lhc_tune_and_chroma_knobs",
     "install_ac_dipole_as_kicker",
@@ -715,6 +716,52 @@ def get_lhc_tune_and_chroma_knobs(
     }[accelerator.upper()]
 
 
+def get_magnets_powering(
+    madx: Madx, patterns: Sequence[str] = ["^mb\.", "^mq\.", "^ms\."], brho: Union[str, float] = None, **kwargs
+) -> tfs.TfsDataFrame:
+    """
+    Gets the twiss table with additional defined columns for the given *patterns*.
+
+    .. note::
+        Here are below certain useful patterns for the ``LHC`` and their meaning:
+
+        * ``^mb\.`` :math:`\\rightarrow` main bends.
+        * ``^mq\.`` :math:`\\rightarrow` main quadrupoles.
+        * ``^ms\.`` :math:`\\rightarrow` main sextupoles.
+        * ``^mb[rswx]`` :math:`\\rightarrow` separation dipoles.
+        * ``^mq[mwxy]`` :math:`\\rightarrow` insertion quads.
+        * ``^mqt.1[23]`` :math:`\\rightarrow` short tuning quads (12 & 13).
+        * ``^mqtl`` :math:`\\rightarrow` long  tuning quads.
+        * ``^mcbx`` :math:`\\rightarrow` crossing scheme magnets.
+        * ``^mcb[cy]`` :math:`\\rightarrow` crossing scheme magnets.
+
+        To make no selection, one can give ``patterns=[""]`` and this will give back
+        the results for *all* elements. One can also give a specific magnet's exact
+        name to include it in the results.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        patterns (Sequence[str]): a list of regex patterns to define which elements
+            should be selected and included in the returned table. Defaults to selecting
+            the main bends, quads and sextupoles. See the note admonition above for
+            useful patterns to select specific ``LHC`` magnet families.
+        brho (Union[str, float]): optional, an explicit definition for the magnetic
+            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that
+            a ``brho`` quantity is defined in the ``MAD-X`` globals.
+        **kwargs: any keyword argument will be passed to `~.twiss.get_pattern_twiss` and
+            later on to the ``TWISS`` command executed in ``MAD-X``.
+
+    Returns:
+        A `~tfs.TfsDataFrame` of the ``TWISS`` table, with the relevant newly defined columns
+        and including the elements matching the regex *patterns* that were provided.
+    """
+    logger.debug("Computing magnets field and powering limits proportions")
+    NEW_COLNAMES = ["name", "keyword", "ampere", "imax", "percent", "kn", "kmax", "integrated_field", "L"]
+    NEW_COLNAMES = list(set(NEW_COLNAMES + kwargs.get("columns", [])))  # in case user gives explicit columns
+    _list_field_currents(madx, brho=brho)
+    return twiss.get_pattern_twiss(madx, patterns=patterns, columns=NEW_COLNAMES, **kwargs)
+
+
 @deprecated(message="Please use its equivalent from the 'cpymadtools.coupling' module.")
 def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
@@ -763,6 +810,53 @@ def _all_lhc_arcs(beam: int) -> List[str]:
         The list of names.
     """
     return [f"A{i+1}{(i+1)%8+1}B{beam:d}" for i in range(8)]
+
+
+def _list_field_currents(madx: Madx, brho: Union[str, float] = None) -> None:
+    """
+    Creates additional columns for the ``TWISS`` table with the magnets' total fields
+    and currents, to help later on determine which proportion of their maximum powering
+    the current setting is using. This is an implementation of the old utility script
+    located at **/afs/cern.ch/eng/lhc/optics/V6.503/toolkit/list_fields_currents.madx**.
+
+    .. important::
+        Certain quantities are assumed to be defined in the ``MAD-X`` globals, such as
+        ``brho``, or available in the magnets definition, such as ``calib``. For this
+        reason, this script most likely only works for the ``(HL)LHC`` sequences where
+        those are defined.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        brho (Union[str, float]): optional, an explicit definition for the magnetic
+            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that
+            a ``brho`` quantity is defined in the ``MAD-X`` globals and this one will
+            be used.
+    """
+    logger.debug("Creating additional TWISS table columns for magnets' fields and currents")
+
+    if brho is not None:
+        logger.trace(f"Setting 'brho' to explicitely defined '{brho}'")
+        madx.globals["brho"] = brho
+
+    # Define strength := table(twiss, k0l) + ... + table(twiss, k5sl) +  table(twiss, hkick)  +  table(twiss, vkick);
+    madx.globals["strength"] = (
+        " + ".join(f"table(twiss, {a.lower()})" for a in _get_k_strings(stop=6))
+        + " +  table(twiss, hkick)  +  table(twiss, vkick)"
+    )
+
+    # All here are given as strings to make it deferred expressions in MAD-X
+    madx.globals["epsilon"] = 1e-20  # to avoid divisions by zero
+    madx.globals["length"] = "table(twiss, l) + table(twiss, lrad) + epsilon"
+    madx.globals["kmaxx"] = "table(twiss, kmax) + epsilon"
+    madx.globals["calibration"] = "table(twiss, calib) + epsilon"
+    madx.globals["kn"] = "abs(strength) / length"
+    # madx.globals["rho"] = "kn / (kn + epsilon) / (kn + epsilon)"
+
+    madx.globals["field"] = "kn * brho"
+    madx.globals["percent"] = "field * 100 / (kmaxx + epsilon)"
+    madx.globals["ampere"] = "field / calibration"
+    madx.globals["imax"] = "kmaxx / calibration"
+    madx.globals["integrated_field"] = "field * length"
 
 
 @deprecated(message="Please use its equivalent from the 'cpymadtools.utils' module.")
