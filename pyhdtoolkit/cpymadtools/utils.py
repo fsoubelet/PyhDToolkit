@@ -6,6 +6,8 @@ Miscellaneous Utilities
 
 Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
+from typing import List
+
 import tfs
 
 from cpymad.madx import Madx
@@ -42,3 +44,34 @@ def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> t
     logger.trace(f"Turning {headers_table} table into headers")
     dframe.headers = {var.upper(): madx.table[headers_table][var][0] for var in madx.table[headers_table]}
     return dframe
+
+
+# ----- Helpers ----- #
+
+
+def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
+    """
+    Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).
+    Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
+
+    Args:
+        start (int): the starting order, defaults to 0.
+        stop (int): the order to go up to, defaults to 8.
+        orientation (str): magnet orientation, can be `straight`, `skew` or `both`.
+            Defaults to `both`.
+
+    Returns:
+        The `list` of names as strings.
+    """
+    if orientation not in ("straight", "skew", "both"):
+        logger.error(f"Orientation '{orientation}' is not accepted, should be one of 'straight', 'skew', 'both'.")
+        raise ValueError("Invalid 'orientation' parameter")
+
+    if orientation == "straight":
+        orientation = ("",)
+    elif orientation == "skew":
+        orientation = ("S",)
+    else:  # both
+        orientation = ("", "S")
+
+    return [f"K{i:d}{s:s}L" for i in range(start, stop) for s in orientation]

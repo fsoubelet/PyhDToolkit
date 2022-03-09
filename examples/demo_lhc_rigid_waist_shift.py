@@ -86,7 +86,7 @@ plt.show()
 # which side of the IP to shift the beam waist. See the function documentation
 # for more details. After applying the knob, we will re-match to our working point
 # to make sure we do not deviate.
-# 
+#
 # .. hint::
 #    A waist shift knob setting of 1 will result in a 0.5% change in the triplets
 #    knob powering. The individual triplet magnets trims are not affected.

@@ -34,7 +34,6 @@ beam_injection = BeamParameters(
     en_x_m=5e-6,
     en_y_m=5e-6,
     deltap_p=2e-3,
-    verbose=True,
 )
 beam_flattop = BeamParameters(
     charge=1,
@@ -43,7 +42,6 @@ beam_flattop = BeamParameters(
     en_x_m=5e-6,
     en_y_m=5e-6,
     deltap_p=2e-4,
-    verbose=True,
 )
 
 ###############################################################################

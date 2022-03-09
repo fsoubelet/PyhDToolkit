@@ -1,7 +1,10 @@
 import math
+import pathlib
+import pickle
 import random
 
 import pytest
+import tfs
 
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
@@ -21,7 +24,9 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
+    get_lhc_bpms_list,
     get_lhc_tune_and_chroma_knobs,
+    get_magnets_powering,
     install_ac_dipole_as_kicker,
     install_ac_dipole_as_matrix,
     make_lhc_beams,
@@ -33,6 +38,9 @@ from pyhdtoolkit.cpymadtools.lhc import (
     vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
+
+CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 
 
 class TestLHC:
@@ -81,8 +89,7 @@ class TestLHC:
         for record in caplog.records:
             assert record.levelname == "ERROR"
 
-    @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
-    def test_depower_arc_sextupoles(self, current, _non_matched_lhc_madx):
+    def test_depower_arc_sextupoles(self, _non_matched_lhc_madx):
         madx = _non_matched_lhc_madx
         deactivate_lhc_arc_sextupoles(madx, beam=1)
 
@@ -98,6 +105,13 @@ class TestLHC:
         assert madx.globals["VRF400"] == 16
         assert madx.globals["LAGRF400.B1"] == 0.5
         assert madx.globals["LAGRF400.B2"] == 0.0
+
+    def test_get_lhc_bpms_list(self, _non_matched_lhc_madx, _correct_bpms_list):
+        madx = _non_matched_lhc_madx
+        bpms = get_lhc_bpms_list(madx)
+        with _correct_bpms_list.open("rb") as f:
+            correct_list = pickle.load(f)
+        assert bpms == correct_list
 
     @pytest.mark.parametrize("knob_value", [-5, 10])
     @pytest.mark.parametrize("IR", [1, 2, 5, 8])
@@ -293,3 +307,30 @@ class TestLHC:
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
+
+    def test_get_magnets_powering(self, _matched_lhc_madx, _magnets_fields_path):
+        madx = _matched_lhc_madx
+
+        # Specific pattern and extra column, and brho for coverage
+        magnets_df = get_magnets_powering(
+            madx, patterns=["mqxa.1[rl]1"], brho=madx.globals["NRJ"] * 1e9 / madx.globals.clight, columns=["s"]
+        )
+        reference_df = tfs.read(_magnets_fields_path)
+        # Somehow they're equal but with different columns order, let's reindex to avoid that
+        assert_frame_equal(
+            reference_df.reindex(sorted(reference_df.columns), axis=1).set_index("name"),
+            magnets_df.reindex(sorted(magnets_df.columns), axis=1).set_index("name"),
+        )
+
+
+# ---------------------- Private Utilities ---------------------- #
+
+
+@pytest.fixture()
+def _magnets_fields_path() -> pathlib.Path:
+    return INPUTS_DIR / "magnets_fields.tfs"
+
+
+@pytest.fixture()
+def _correct_bpms_list() -> pathlib.Path:
+    return INPUTS_DIR / "correct_bpms_list.pkl"

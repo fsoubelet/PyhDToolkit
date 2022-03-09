@@ -7,9 +7,9 @@ LHC-Specific Utilities
 Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object,
 that are specific to LHC and HLLHC machines.
 """
-from typing import Dict, List, Sequence, Tuple
+from typing import Dict, List, Sequence, Tuple, Union
 
-import numpy as np
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -30,6 +30,7 @@ __all__ = [
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
     "deactivate_lhc_arc_sextupoles",
+    "get_magnets_powering",
     "get_lhc_bpms_list",
     "get_lhc_tune_and_chroma_knobs",
     "install_ac_dipole_as_kicker",
@@ -83,66 +84,91 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
         )
 
 
-def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_arc: bool = False) -> None:
+def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
     """
-    Powers the Landau octupoles in the (HL)LHC.
+    Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.
+    This will use the ``teapot`` style and will enforce ``makedipedge``.
+
+    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
+    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        beam (int): beam to use.
-        mo_current (float): `MO` powering, in [A].
-        defective_arc: If set to `True`, the ``KOD`` in Arc 56 are powered for less ``Imax``.
+        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
+        sequence (str): the sequence to use for the ``MAKETHIN`` command.
+        slicefactor (int): the slice factor to apply in ``MAKETHIN``, which is a factor
+            applied to default values for different elements, as did the old macro. Defaults
+            to 1.
+        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``
+            command, namely ``style`` (will default to ``teapot``) and the ``makedipedge``
+            flag (will default to `True`).
 
     Example:
         .. code-block:: python
 
-            >>> power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)
+            >>> make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
     """
-    try:
-        brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
-    except AttributeError as madx_error:
-        logger.exception("The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined.")
-        raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error
+    logger.debug(f"Slicing sequence '{sequence}'")
+    madx.select(flag="makethin", clear=True)
+    four_slices_patterns = [r"mbx\.", r"mbrb\.", r"mbrc\.", r"mbrs\."]
+    four_slicefactor_patterns = [
+        r"mqwa\.",
+        r"mqwb\.",
+        r"mqy\.",
+        r"mqm\.",
+        r"mqmc\.",
+        r"mqml\.",
+        r"mqtlh\.",
+        r"mqtli\.",
+        r"mqt\.",
+    ]
 
-    logger.debug(f"Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.")
-    strength = mo_current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
-    beam = 2 if beam == 4 else beam
+    logger.trace("Defining slices for general MB and MQ elements")
+    madx.select(flag="makethin", class_="MB", slice_=2)
+    madx.select(flag="makethin", class_="MQ", slice_=2 * slicefactor)
 
-    for arc in _all_lhc_arcs(beam):
-        for fd in "FD":
-            octupole = f"KO{fd}.{arc}"
-            logger.trace(f"Powering element '{octupole}' at {strength} Amps")
-            madx.globals[octupole] = strength
+    logger.trace("Defining slices for triplets")
+    madx.select(flag="makethin", class_="mqxa", slice_=16 * slicefactor)
+    madx.select(flag="makethin", class_="mqxb", slice_=16 * slicefactor)
 
-    if defective_arc and (beam == 1):
-        madx.globals["KOD.A56B1"] = strength * 4.65 / 6  # defective MO group
+    logger.trace("Defining slices for various specifc mb elements")
+    for pattern in four_slices_patterns:
+        madx.select(flag="makethin", pattern=pattern, slice_=4)
+
+    logger.trace("Defining slices for varous specifc mq elements")
+    for pattern in four_slicefactor_patterns:
+        madx.select(flag="makethin", pattern=pattern, slice_=4 * slicefactor)
+
+    madx.use(sequence=sequence)
+    style = kwargs.get("style", "teapot")
+    makedipedge = kwargs.get("makedipedge", False)  # defaults to False to compensate default TEAPOT style
+    madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
 
 
-def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
+def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
     """
-    Deactivates all arc sextupoles in the (HL)LHC.
+    Re-cycles the provided *sequence* from a different starting point, given as *start*.
+
+    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
+    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        beam (int): beam to use.
+        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
+        sequence (str): the sequence to re-cycle.
+        start (str): element to start the new cycle from.
 
     Example:
         .. code-block:: python
 
-            >>> deactivate_lhc_arc_sextupoles(madx, beam=1)
+            >>> lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
     """
-    # KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56
-    # KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56
-    # Rest: Weak sextupoles in sectors 78/23/34/67
-    logger.debug(f"Deactivating all arc sextupoles for beam {beam}.")
-    beam = 2 if beam == 4 else beam
+    logger.debug(f"Re-cycling sequence '{sequence}' from {start}")
+    madx.command.seqedit(sequence=sequence)
+    madx.command.flatten()
+    madx.command.cycle(start=start)
+    madx.command.endedit()
 
-    for arc in _all_lhc_arcs(beam):
-        for fd in "FD":
-            for i in (1, 2):
-                sextupole = f"KS{fd}{i:d}.{arc}"
-                logger.trace(f"De-powering element '{sextupole}'")
-                madx.globals[sextupole] = 0.0
+
+# ----- Magnets Powering ----- #
 
 
 def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
@@ -259,6 +285,131 @@ def apply_lhc_coupling_knob(
     logger.trace(f"Knob '{knob_name}' is {madx.globals[knob_name]} before implementation")
     madx.globals[knob_name] = coupling_knob
     logger.trace(f"Set '{knob_name}' to {madx.globals[knob_name]}")
+
+
+def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_arc: bool = False) -> None:
+    """
+    Powers the Landau octupoles in the (HL)LHC.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        beam (int): beam to use.
+        mo_current (float): `MO` powering, in [A].
+        defective_arc: If set to `True`, the ``KOD`` in Arc 56 are powered for less ``Imax``.
+
+    Example:
+        .. code-block:: python
+
+            >>> power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)
+    """
+    try:
+        brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
+    except AttributeError as madx_error:
+        logger.exception("The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined.")
+        raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error
+
+    logger.debug(f"Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.")
+    strength = mo_current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
+    beam = 2 if beam == 4 else beam
+
+    for arc in _all_lhc_arcs(beam):
+        for fd in "FD":
+            octupole = f"KO{fd}.{arc}"
+            logger.trace(f"Powering element '{octupole}' at {strength} Amps")
+            madx.globals[octupole] = strength
+
+    if defective_arc and (beam == 1):
+        madx.globals["KOD.A56B1"] = strength * 4.65 / 6  # defective MO group
+
+
+def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
+    """
+    Deactivates all arc sextupoles in the (HL)LHC.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        beam (int): beam to use.
+
+    Example:
+        .. code-block:: python
+
+            >>> deactivate_lhc_arc_sextupoles(madx, beam=1)
+    """
+    # KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56
+    # KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56
+    # Rest: Weak sextupoles in sectors 78/23/34/67
+    logger.debug(f"Deactivating all arc sextupoles for beam {beam}.")
+    beam = 2 if beam == 4 else beam
+
+    for arc in _all_lhc_arcs(beam):
+        for fd in "FD":
+            for i in (1, 2):
+                sextupole = f"KS{fd}{i:d}.{arc}"
+                logger.trace(f"De-powering element '{sextupole}'")
+                madx.globals[sextupole] = 0.0
+
+
+def vary_independent_ir_quadrupoles(
+    madx: Madx, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
+) -> None:
+    """
+    Sends the ``VARY`` commands for the desired quadrupoles in the IR surrounding the provided *ip*.
+    The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful
+    to setup some specific matching involving these elements.
+
+    ..important::
+        It is necessary to have defined a ``brho`` variable when creating your beams.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).
+        ip (int): the IP around which to apply the instructions.
+        sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left,
+            accepts these letters case-insensitively. Defaults to both sides of the IP.
+        beam (int): the beam for which to apply the instructions. Defaults to 1.
+
+    Example:
+        .. code-block:: python
+
+            >>> vary_independent_ir_quadrupoles(
+            ...     madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=("r", "l")
+            ... )
+    """
+    if (
+        ip not in (1, 2, 5, 8)
+        or any(side.upper() not in ("R", "L") for side in sides)
+        or any(quad not in (4, 5, 6, 7, 8, 9, 10, 11, 12, 13) for quad in quad_numbers)
+    ):
+        logger.error("Either the IP number of the side provided are invalid, not applying any error.")
+        raise ValueError("Invalid 'quad_numbers', 'ip', 'sides' argument")
+
+    logger.debug(f"Preparing a knob involving quadrupoles {quad_numbers}")
+    # Each quad has a specific power circuit used for their k1 boundaries
+    power_circuits: Dict[int, str] = {
+        4: "mqy",
+        5: "mqml",
+        6: "mqml",
+        7: "mqm",
+        8: "mqml",
+        9: "mqm",
+        10: "mqml",
+        11: "mqtli",
+        12: "mqt",
+        13: "mqt",
+    }
+    for quad in quad_numbers:
+        circuit = power_circuits[quad]
+        for side in sides:
+            logger.trace(f"Sending vary command for Q{quad}{side.upper()}{ip}")
+            madx.command.vary(
+                name=f"kq{'t' if quad >= 11 else ''}{'l' if quad == 11 else ''}{quad}.{side}{ip}b{beam}",
+                step=1e-7,
+                lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+                upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+            )
+
+
+# ----- Element Installation ----- #
 
 
 def install_ac_dipole_as_kicker(
@@ -431,91 +582,6 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     madx.use(sequence=f"lhcb{beam:d}")
 
 
-def vary_independent_ir_quadrupoles(
-    madx: Madx, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
-) -> None:
-    """
-    Sends the ``VARY`` commands for the desired quadrupoles in the IR surrounding the provided *ip*.
-    The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful
-    to setup some specific matching involving these elements.
-
-    ..important::
-        It is necessary to have defined a ``brho`` variable when creating your beams.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).
-        ip (int): the IP around which to apply the instructions.
-        sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left,
-            accepts these letters case-insensitively. Defaults to both sides of the IP.
-        beam (int): the beam for which to apply the instructions. Defaults to 1.
-
-    Example:
-        .. code-block:: python
-
-            >>> vary_independent_ir_quadrupoles(
-            ...     madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=("r", "l")
-            ... )
-    """
-    if (
-        ip not in (1, 2, 5, 8)
-        or any(side.upper() not in ("R", "L") for side in sides)
-        or any(quad not in (4, 5, 6, 7, 8, 9, 10, 11, 12, 13) for quad in quad_numbers)
-    ):
-        logger.error("Either the IP number of the side provided are invalid, not applying any error.")
-        raise ValueError("Invalid 'quad_numbers', 'ip', 'sides' argument")
-
-    logger.debug(f"Preparing a knob involving quadrupoles {quad_numbers}")
-    # Each quad has a specific power circuit used for their k1 boundaries
-    power_circuits: Dict[int, str] = {
-        4: "mqy",
-        5: "mqml",
-        6: "mqml",
-        7: "mqm",
-        8: "mqml",
-        9: "mqm",
-        10: "mqml",
-        11: "mqtli",
-        12: "mqt",
-        13: "mqt",
-    }
-    for quad in quad_numbers:
-        circuit = power_circuits[quad]
-        for side in sides:
-            logger.trace(f"Sending vary command for Q{quad}{side.upper()}{ip}")
-            madx.command.vary(
-                name=f"kq{'t' if quad >= 11 else ''}{'l' if quad == 11 else ''}{quad}.{side}{ip}b{beam}",
-                step=1e-7,
-                lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
-                upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
-            )
-
-
-def reset_lhc_bump_flags(madx: Madx) -> None:
-    """
-    Resets all LHC IP bump flags to 0.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-
-    Example:
-        .. code-block:: python
-
-            >>> reset_lhc_bump_flags(madx)
-    """
-    logger.debug("Resetting all LHC IP bump flags")
-    ALL_BUMPS = (
-        LHC_ANGLE_FLAGS
-        + LHC_CROSSING_ANGLE_FLAGS
-        + LHC_EXPERIMENT_STATE_FLAGS
-        + LHC_IP2_SPECIAL_FLAG
-        + LHC_IP_OFFSET_FLAGS
-        + LHC_PARALLEL_SEPARATION_FLAGS
-    )
-    with madx.batch():
-        madx.globals.update({bump: 0 for bump in ALL_BUMPS})
-
-
 # ----- Output Utilities ----- #
 
 
@@ -548,88 +614,29 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
 # ----- Miscellaneous Utilities ----- #
 
 
-def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
+def reset_lhc_bump_flags(madx: Madx) -> None:
     """
-    Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.
-    This will use the ``teapot`` style and will enforce ``makedipedge``.
-
-    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
-    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
+    Resets all LHC IP bump flags to 0.
 
     Args:
-        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
-        sequence (str): the sequence to use for the ``MAKETHIN`` command.
-        slicefactor (int): the slice factor to apply in ``MAKETHIN``, which is a factor
-            applied to default values for different elements, as did the old macro. Defaults
-            to 1.
-        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``
-            command, namely ``style`` (will default to ``teapot``) and the ``makedipedge``
-            flag (will default to `True`).
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
 
     Example:
         .. code-block:: python
 
-            >>> make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+            >>> reset_lhc_bump_flags(madx)
     """
-    logger.debug(f"Slicing sequence '{sequence}'")
-    madx.select(flag="makethin", clear=True)
-    four_slices_patterns = [r"mbx\.", r"mbrb\.", r"mbrc\.", r"mbrs\."]
-    four_slicefactor_patterns = [
-        r"mqwa\.",
-        r"mqwb\.",
-        r"mqy\.",
-        r"mqm\.",
-        r"mqmc\.",
-        r"mqml\.",
-        r"mqtlh\.",
-        r"mqtli\.",
-        r"mqt\.",
-    ]
-
-    logger.trace("Defining slices for general MB and MQ elements")
-    madx.select(flag="makethin", class_="MB", slice_=2)
-    madx.select(flag="makethin", class_="MQ", slice_=2 * slicefactor)
-
-    logger.trace("Defining slices for triplets")
-    madx.select(flag="makethin", class_="mqxa", slice_=16 * slicefactor)
-    madx.select(flag="makethin", class_="mqxb", slice_=16 * slicefactor)
-
-    logger.trace("Defining slices for various specifc mb elements")
-    for pattern in four_slices_patterns:
-        madx.select(flag="makethin", pattern=pattern, slice_=4)
-
-    logger.trace("Defining slices for varous specifc mq elements")
-    for pattern in four_slicefactor_patterns:
-        madx.select(flag="makethin", pattern=pattern, slice_=4 * slicefactor)
-
-    madx.use(sequence=sequence)
-    style = kwargs.get("style", "teapot")
-    makedipedge = kwargs.get("makedipedge", False)  # defaults to False to compensate default TEAPOT style
-    madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
-
-
-def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
-    """
-    Re-cycles the provided *sequence* from a different starting point, given as *start*.
-
-    One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
-    and :ref:`Free Tracking <demo-free-tracking>` example galleries.
-
-    Args:
-        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
-        sequence (str): the sequence to re-cycle.
-        start (str): element to start the new cycle from.
-
-    Example:
-        .. code-block:: python
-
-            >>> lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
-    """
-    logger.debug(f"Re-cycling sequence '{sequence}' from {start}")
-    madx.command.seqedit(sequence=sequence)
-    madx.command.flatten()
-    madx.command.cycle(start=start)
-    madx.command.endedit()
+    logger.debug("Resetting all LHC IP bump flags")
+    ALL_BUMPS = (
+        LHC_ANGLE_FLAGS
+        + LHC_CROSSING_ANGLE_FLAGS
+        + LHC_EXPERIMENT_STATE_FLAGS
+        + LHC_IP2_SPECIAL_FLAG
+        + LHC_IP_OFFSET_FLAGS
+        + LHC_PARALLEL_SEPARATION_FLAGS
+    )
+    with madx.batch():
+        madx.globals.update({bump: 0 for bump in ALL_BUMPS})
 
 
 def get_lhc_bpms_list(madx: Madx) -> List[str]:
@@ -655,39 +662,6 @@ def get_lhc_bpms_list(madx: Madx) -> List[str]:
     twiss_df = twiss.get_twiss_tfs(madx).reset_index()
     bpms_df = twiss_df[twiss_df.NAME.str.contains("^bpm.*B[12]$", case=False, regex=True)]
     return bpms_df.NAME.tolist()
-
-
-@deprecated(message="Please use its equivalent from the 'cpymadtools.coupling' module.")
-def match_no_coupling_through_ripkens(
-    madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
-) -> None:
-    """
-    Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
-    to be 0 at a given location.
-
-    .. danger::
-        This function is deprecated and will be removed in a future version. Please use
-        its equivalent from the `~.cpymadtools.coupling` module.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        sequence (str): name of the sequence to activate for the matching.
-        location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
-        vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
-    """
-    logger.debug(f"Matching Ripken parameters for no coupling at location {location}")
-    logger.debug("Creating macro to update Ripkens")
-    madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
-
-    logger.debug("Matching Parameters")
-    madx.command.match(sequence=sequence, use_macro=True, chrom=True)
-    for knob in vary_knobs:
-        madx.command.vary(name=knob)
-    madx.command.use_macro(name="do_ripken")
-    madx.input(f"constraint, expr=table(twiss, {location}, beta12)=0")  # need input else includes " and fails
-    madx.input(f"constraint, expr=table(twiss, {location}, beta21)=0")  # need input else includes " and fails
-    madx.command.lmdif(calls=500, tolerance=1e-21)
-    madx.command.endmatch()
 
 
 def get_lhc_tune_and_chroma_knobs(
@@ -742,6 +716,55 @@ def get_lhc_tune_and_chroma_knobs(
     }[accelerator.upper()]
 
 
+def get_magnets_powering(
+    madx: Madx, patterns: Sequence[str] = ["^mb\.", "^mq\.", "^ms\."], brho: Union[str, float] = None, **kwargs
+) -> tfs.TfsDataFrame:
+    """
+    Gets the twiss table with additional defined columns for the given *patterns*.
+
+    .. note::
+        Here are below certain useful patterns for the ``LHC`` and their meaning:
+
+        * ``^mb\.`` :math:`\\rightarrow` main bends.
+        * ``^mq\.`` :math:`\\rightarrow` main quadrupoles.
+        * ``^ms\.`` :math:`\\rightarrow` main sextupoles.
+        * ``^mb[rswx]`` :math:`\\rightarrow` separation dipoles.
+        * ``^mq[mwxy]`` :math:`\\rightarrow` insertion quads.
+        * ``^mqt.1[23]`` :math:`\\rightarrow` short tuning quads (12 & 13).
+        * ``^mqtl`` :math:`\\rightarrow` long  tuning quads.
+        * ``^mcbx`` :math:`\\rightarrow` crossing scheme magnets.
+        * ``^mcb[cy]`` :math:`\\rightarrow` crossing scheme magnets.
+
+        To make no selection, one can give ``patterns=[""]`` and this will give back
+        the results for *all* elements. One can also give a specific magnet's exact
+        name to include it in the results.
+
+    .. note::
+        The ``TWISS`` flag will be fully cleared after running this function.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        patterns (Sequence[str]): a list of regex patterns to define which elements
+            should be selected and included in the returned table. Defaults to selecting
+            the main bends, quads and sextupoles. See the note admonition above for
+            useful patterns to select specific ``LHC`` magnet families.
+        brho (Union[str, float]): optional, an explicit definition for the magnetic
+            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that
+            a ``brho`` quantity is defined in the ``MAD-X`` globals.
+        **kwargs: any keyword argument will be passed to `~.twiss.get_pattern_twiss` and
+            later on to the ``TWISS`` command executed in ``MAD-X``.
+
+    Returns:
+        A `~tfs.TfsDataFrame` of the ``TWISS`` table, with the relevant newly defined columns
+        and including the elements matching the regex *patterns* that were provided.
+    """
+    logger.debug("Computing magnets field and powering limits proportions")
+    NEW_COLNAMES = ["name", "keyword", "ampere", "imax", "percent", "kn", "kmax", "integrated_field", "L"]
+    NEW_COLNAMES = list(set(NEW_COLNAMES + kwargs.pop("columns", [])))  # in case user gives explicit columns
+    _list_field_currents(madx, brho=brho)
+    return twiss.get_pattern_twiss(madx, columns=NEW_COLNAMES, patterns=patterns, **kwargs)
+
+
 # ----- Helpers ----- #
 
 
@@ -759,6 +782,54 @@ def _all_lhc_arcs(beam: int) -> List[str]:
     return [f"A{i+1}{(i+1)%8+1}B{beam:d}" for i in range(8)]
 
 
+def _list_field_currents(madx: Madx, brho: Union[str, float] = None) -> None:
+    """
+    Creates additional columns for the ``TWISS`` table with the magnets' total fields
+    and currents, to help later on determine which proportion of their maximum powering
+    the current setting is using. This is an implementation of the old utility script
+    located at **/afs/cern.ch/eng/lhc/optics/V6.503/toolkit/list_fields_currents.madx**.
+
+    .. important::
+        Certain quantities are assumed to be defined in the ``MAD-X`` globals, such as
+        ``brho``, or available in the magnets definition, such as ``calib``. For this
+        reason, this script most likely only works for the ``(HL)LHC`` sequences where
+        those are defined.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        brho (Union[str, float]): optional, an explicit definition for the magnetic
+            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that
+            a ``brho`` quantity is defined in the ``MAD-X`` globals and this one will
+            be used.
+    """
+    logger.debug("Creating additional TWISS table columns for magnets' fields and currents")
+
+    if brho is not None:
+        logger.trace(f"Setting 'brho' to explicitely defined '{brho}'")
+        madx.globals["brho"] = brho
+
+    # Define strength := table(twiss, k0l) + ... + table(twiss, k5sl) +  table(twiss, hkick)  +  table(twiss, vkick);
+    madx.globals["strength"] = (
+        " + ".join(f"table(twiss, {a.lower()})" for a in _get_k_strings(stop=6))
+        + " +  table(twiss, hkick)  +  table(twiss, vkick)"
+    )
+
+    # All here are given as strings to make it deferred expressions in MAD-X
+    madx.globals["epsilon"] = 1e-20  # to avoid divisions by zero
+    madx.globals["length"] = "table(twiss, l) + table(twiss, lrad) + epsilon"
+    madx.globals["kmaxx"] = "table(twiss, kmax) + epsilon"
+    madx.globals["calibration"] = "table(twiss, calib) + epsilon"
+    madx.globals["kn"] = "abs(strength) / length"
+    # madx.globals["rho"] = "kn / (kn + epsilon) / (kn + epsilon)"
+
+    madx.globals["field"] = "kn * brho"
+    madx.globals["percent"] = "field * 100 / (kmaxx + epsilon)"
+    madx.globals["ampere"] = "field / calibration"
+    madx.globals["imax"] = "kmaxx / calibration"
+    madx.globals["integrated_field"] = "field * length"
+
+
+@deprecated(message="Please use its equivalent from the 'cpymadtools.utils' module.")
 def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
     """
     Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).
