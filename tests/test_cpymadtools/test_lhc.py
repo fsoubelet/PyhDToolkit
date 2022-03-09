@@ -311,8 +311,10 @@ class TestLHC:
     def test_get_magnets_powering(self, _matched_lhc_madx, _magnets_fields_path):
         madx = _matched_lhc_madx
 
-        # Specific pattern and extra column
-        magnets_df = get_magnets_powering(madx, patterns=["mqxa.1[rl]1"], columns=["s"])
+        # Specific pattern and extra column, and brho for coverage
+        magnets_df = get_magnets_powering(
+            madx, patterns=["mqxa.1[rl]1"], brho=madx.globals["NRJ"] * 1e9 / madx.globals.clight, columns=["s"]
+        )
         reference_df = tfs.read(_magnets_fields_path)
         # Somehow they're equal but with different columns order, let's reindex to avoid that
         assert_frame_equal(
