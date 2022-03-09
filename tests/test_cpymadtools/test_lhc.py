@@ -1,5 +1,6 @@
 import math
 import pathlib
+import pickle
 import random
 
 import pytest
@@ -23,6 +24,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
+    get_lhc_bpms_list,
     get_lhc_tune_and_chroma_knobs,
     get_magnets_powering,
     install_ac_dipole_as_kicker,
@@ -103,6 +105,13 @@ class TestLHC:
         assert madx.globals["VRF400"] == 16
         assert madx.globals["LAGRF400.B1"] == 0.5
         assert madx.globals["LAGRF400.B2"] == 0.0
+
+    def test_get_lhc_bpms_list(self, _non_matched_lhc_madx, _correct_bpms_list):
+        madx = _non_matched_lhc_madx
+        bpms = get_lhc_bpms_list(madx)
+        with _correct_bpms_list.open("rb") as f:
+            correct_list = pickle.load(f)
+        assert bpms == correct_list
 
     @pytest.mark.parametrize("knob_value", [-5, 10])
     @pytest.mark.parametrize("IR", [1, 2, 5, 8])
@@ -318,3 +327,8 @@ class TestLHC:
 @pytest.fixture()
 def _magnets_fields_path() -> pathlib.Path:
     return INPUTS_DIR / "magnets_fields.tfs"
+
+
+@pytest.fixture()
+def _correct_bpms_list() -> pathlib.Path:
+    return INPUTS_DIR / "correct_bpms_list.pkl"
