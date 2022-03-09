@@ -56,7 +56,7 @@ In this example we will use a very simple lattice, hard-coded below.
 
 Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-49
+.. GENERATED FROM PYTHON SOURCE LINES 29-47
 
 .. code-block:: default
 
@@ -68,7 +68,6 @@ Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):
         en_x_m=5e-6,
         en_y_m=5e-6,
         deltap_p=2e-3,
-        verbose=True,
     )
     beam_flattop = BeamParameters(
         charge=1,
@@ -77,7 +76,6 @@ Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):
         en_x_m=5e-6,
         en_y_m=5e-6,
         deltap_p=2e-4,
-        verbose=True,
     )
 
 
@@ -87,11 +85,11 @@ Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-51
+.. GENERATED FROM PYTHON SOURCE LINES 48-49
 
 Define relevant constants.
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-71
+.. GENERATED FROM PYTHON SOURCE LINES 49-69
 
 .. code-block:: default
 
@@ -122,11 +120,11 @@ Define relevant constants.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-73
+.. GENERATED FROM PYTHON SOURCE LINES 70-71
 
 Now let's setup ``MAD-X`` and input a very simple lattice.
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-134
+.. GENERATED FROM PYTHON SOURCE LINES 71-132
 
 .. code-block:: default
 
@@ -198,12 +196,12 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-137
+.. GENERATED FROM PYTHON SOURCE LINES 133-135
 
 Now let's run an interpolation to be able to see the value of the optics functions
 inside the elements:
 
-.. GENERATED FROM PYTHON SOURCE LINES 137-143
+.. GENERATED FROM PYTHON SOURCE LINES 135-141
 
 .. code-block:: default
 
@@ -220,11 +218,11 @@ inside the elements:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-145
+.. GENERATED FROM PYTHON SOURCE LINES 142-143
 
 We can now plot the beam enveloppe at injection, for a single cell:
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-149
+.. GENERATED FROM PYTHON SOURCE LINES 143-147
 
 .. code-block:: default
 
@@ -244,12 +242,12 @@ We can now plot the beam enveloppe at injection, for a single cell:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-152
+.. GENERATED FROM PYTHON SOURCE LINES 148-150
 
 In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
 Here we will plot the enveloppe for the first cell only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-156
+.. GENERATED FROM PYTHON SOURCE LINES 150-154
 
 .. code-block:: default
 
@@ -269,11 +267,11 @@ Here we will plot the enveloppe for the first cell only.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-158
+.. GENERATED FROM PYTHON SOURCE LINES 155-156
 
 And similarly at top energy:
 
-.. GENERATED FROM PYTHON SOURCE LINES 158-162
+.. GENERATED FROM PYTHON SOURCE LINES 156-160
 
 .. code-block:: default
 
@@ -293,11 +291,11 @@ And similarly at top energy:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 163-164
+.. GENERATED FROM PYTHON SOURCE LINES 161-162
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 164-167
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
 .. code-block:: default
 
@@ -311,7 +309,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-175
+.. GENERATED FROM PYTHON SOURCE LINES 166-173
 
 .. admonition:: References
 
@@ -324,7 +322,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.048 seconds)
+   **Total running time of the script:** ( 0 minutes  2.748 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_beam_enveloppe.py:
