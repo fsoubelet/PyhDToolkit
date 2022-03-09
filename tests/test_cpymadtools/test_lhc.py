@@ -1,7 +1,9 @@
 import math
+import pathlib
 import random
 
 import pytest
+import tfs
 
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
@@ -34,6 +36,9 @@ from pyhdtoolkit.cpymadtools.lhc import (
     vary_independent_ir_quadrupoles,
 )
 from pyhdtoolkit.cpymadtools.track import track_single_particle
+
+CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 
 
 class TestLHC:
@@ -293,3 +298,23 @@ class TestLHC:
 
         for record in caplog.records:
             assert record.levelname == "ERROR"
+
+    def test_get_magnets_powering(self, _matched_lhc_madx, _magnets_fields_path):
+        madx = _matched_lhc_madx
+
+        # Specific pattern and extra column
+        magnets_df = get_magnets_powering(madx, patterns=["mqxa.1[rl]1"], columns=["s"])
+        reference_df = tfs.read(_magnets_fields_path)
+        # Somehow they're equal but with different columns order, let's reindex to avoid that
+        assert_frame_equal(
+            reference_df.reindex(sorted(reference_df.columns), axis=1).set_index("name"),
+            magnets_df.reindex(sorted(magnets_df.columns), axis=1).set_index("name"),
+        )
+
+
+# ---------------------- Private Utilities ---------------------- #
+
+
+@pytest.fixture()
+def _magnets_fields_path() -> pathlib.Path:
+    return INPUTS_DIR / "magnets_fields.tfs"
