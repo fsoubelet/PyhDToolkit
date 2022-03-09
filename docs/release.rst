@@ -23,6 +23,7 @@ Maintenance
 ~~~~~~~~~~~
 
 * The deprecated `pyhdtoolkit.cpymadtools.lhc.match_no_coupling_through_ripkens` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
+* The deprecated `pyhdtoolkit.cpymadtools.matching.get_closest_tune_approach` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
 * The `pyhdtoolkit.cpymadtools.lhc._get_k_strings` helper function is now deprecated and has been moved to `pyhdtoolkit.cpymadtools.utils._get_k_strings`.
 * Some tests have been added.
 
