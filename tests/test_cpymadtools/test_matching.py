@@ -46,6 +46,16 @@ class TestMatching:
         assert math.isclose(madx.table.summ.dq1[0], dq1_target, rel_tol=1e-3)
         assert math.isclose(madx.table.summ.dq2[0], dq2_target, rel_tol=1e-3)
 
+    def test_tune_and_chroma_matching_fails_on_unknown_accelerator(self):
+        """Using my CAS19 project's lattice."""
+        madx = Madx(stdout=False)
+        madx.input(BASE_LATTICE)
+
+        with pytest.raises(NotImplementedError):
+            match_tunes_and_chromaticities(
+                madx, "some_machine", "some_sequence1", q1_target=6.335, q2_target=6.29, dq1_target=100, dq2_target=100
+            )
+
     @pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
     @pytest.mark.parametrize("telescopic_squeeze", [False, True])
     def test_tune_only_matching(self, q1_target, q2_target, telescopic_squeeze):
