@@ -22,6 +22,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
     get_lhc_tune_and_chroma_knobs,
+    get_magnets_powering,
     install_ac_dipole_as_kicker,
     install_ac_dipole_as_matrix,
     make_lhc_beams,
@@ -81,8 +82,7 @@ class TestLHC:
         for record in caplog.records:
             assert record.levelname == "ERROR"
 
-    @pytest.mark.parametrize("current", [100, 200, 300, 400, 500])
-    def test_depower_arc_sextupoles(self, current, _non_matched_lhc_madx):
+    def test_depower_arc_sextupoles(self, _non_matched_lhc_madx):
         madx = _non_matched_lhc_madx
         deactivate_lhc_arc_sextupoles(madx, beam=1)
 
