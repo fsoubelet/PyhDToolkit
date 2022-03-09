@@ -103,7 +103,7 @@ in the machine layout axis. The same can be done with the *k1_lim* parameter.
 
     LatticePlotter.plot_latwiss(
         madx,
-        title=fr"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$",
+        title=rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$",
         k0l_lim=(-0.15, 0.15),
         lw=3,
     )
@@ -351,7 +351,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  16.303 seconds)
+   **Total running time of the script:** ( 0 minutes  16.614 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lattice.py:

@@ -351,8 +351,8 @@
 
 <div class="viewcode-block" id="get_pattern_twiss"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss">[docs]</a><span class="k">def</span> <span class="nf">get_pattern_twiss</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
-    <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
     <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">],</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -371,11 +371,11 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the `~tfs.frame.TfsDataFrame`.</span>
+<span class="sd">            Defaults to `None`, which will return all available columns.</span>
 <span class="sd">        patterns (Sequence[str]): the different element patterns (such as ``MQX`` or ``BPM``) to be applied</span>
 <span class="sd">            to the ``TWISS`` command, which will determine the rows in the returned `~tfs.frame.TfsDataFrame`.</span>
 <span class="sd">            Defaults to `[&quot;&quot;]` which will select all elements.</span>
-<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the `~tfs.frame.TfsDataFrame`.</span>
-<span class="sd">            Defaults to `None`, which will return all available columns.</span>
 <span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,</span>
 <span class="sd">            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.</span>
 
@@ -477,7 +477,7 @@
 <span class="sd">            &gt;&gt;&gt; ips_df = get_ips_twiss(madx, chrom=True, ripken=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss at IPs&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;IP&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;IP&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="get_ir_twiss"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_ir_twiss">[docs]</a><span class="k">def</span> <span class="nf">get_ir_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
@@ -504,13 +504,13 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting Twiss for IR</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
         <span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span>
+        <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
         <span class="n">patterns</span><span class="o">=</span><span class="p">[</span>
             <span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="sa">f</span><span class="s2">&quot;MQXA.[12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Q1 and Q3 LHC</span>
             <span class="sa">f</span><span class="s2">&quot;MQXB.[AB][12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Q2A and Q2B LHC</span>
             <span class="sa">f</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Q1 to Q3 A and B HL-LHC</span>
         <span class="p">],</span>
-        <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">)</span></div>
 </pre></div>
