@@ -765,39 +765,6 @@ def get_magnets_powering(
     return twiss.get_pattern_twiss(madx, columns=NEW_COLNAMES, patterns=patterns, **kwargs)
 
 
-@deprecated(message="Please use its equivalent from the 'cpymadtools.coupling' module.")
-def match_no_coupling_through_ripkens(
-    madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
-) -> None:
-    """
-    Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
-    to be 0 at a given location.
-
-    .. danger::
-        This function is deprecated and will be removed in a future version. Please use
-        its equivalent from the `~.cpymadtools.coupling` module.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        sequence (str): name of the sequence to activate for the matching.
-        location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
-        vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
-    """
-    logger.debug(f"Matching Ripken parameters for no coupling at location {location}")
-    logger.debug("Creating macro to update Ripkens")
-    madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
-
-    logger.debug("Matching Parameters")
-    madx.command.match(sequence=sequence, use_macro=True, chrom=True)
-    for knob in vary_knobs:
-        madx.command.vary(name=knob)
-    madx.command.use_macro(name="do_ripken")
-    madx.input(f"constraint, expr=table(twiss, {location}, beta12)=0")  # need input else includes " and fails
-    madx.input(f"constraint, expr=table(twiss, {location}, beta21)=0")  # need input else includes " and fails
-    madx.command.lmdif(calls=500, tolerance=1e-21)
-    madx.command.endmatch()
-
-
 # ----- Helpers ----- #
 
 
