@@ -3,6 +3,32 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
 
+.. _release_0.17.0:
+
+0.17.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.cpymadtools.matching` module has two new wrapper functions, `~pyhdtoolkit.cpymadtools.matching.match_tunes` and `~pyhdtoolkit.cpymadtools.matching.match_chromaticities`, to perform matching on either tunes or chromaticities only.
+* The `pyhdtoolkit.cpymadtolls.lhc` module has a new utility function, `~pyhdtoolkit.cpymadtools.lhc.get_magnets_powering`, to get the percentage of magnets' max powering used in a given configuration.
+
+Bug Fixes
+~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss` function now properly handles being given specific *columns*.
+
+Maintenance
+~~~~~~~~~~~
+
+* The deprecated `pyhdtoolkit.cpymadtools.lhc.match_no_coupling_through_ripkens` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
+* The `pyhdtoolkit.cpymadtools.lhc._get_k_strings` helper function is now deprecated and has been moved to `pyhdtoolkit.cpymadtools.utils._get_k_strings`.
+* Some tests have been added.
+
+See `v0.17.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.17.0>`_ and the `full changes since v0.16.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.16.1...0.17.0>`_.
+
+
 .. _release_0.16.1:
 
 0.16.1
