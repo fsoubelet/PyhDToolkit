@@ -1,7 +1,5 @@
 import math
 
-import pyhdtoolkit.maths.nonconvex_phase_sync as nps
-
 from pyhdtoolkit.models.beam import BeamParameters
 
 
@@ -17,6 +15,3 @@ class TestBeam:
         assert math.isclose(beam.beta_r, 0.8966300434726596)
         assert math.isclose(beam.eg_x_m, 2.469137056052632e-06)
         assert math.isclose(beam.eg_y_m, 2.469137056052632e-06)
-
-
-# ---------------------- Utilities ---------------------- #
