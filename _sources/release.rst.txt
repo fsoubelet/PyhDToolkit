@@ -1,11 +1,11 @@
 Release Notes
 =============
 
-The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`.
+The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
 .. _release_0.17.0:
 
-0.17.0
+0.17.0-rc0
 ------
 
 Enhancements
@@ -25,6 +25,7 @@ Maintenance
 * The deprecated `pyhdtoolkit.cpymadtools.lhc.match_no_coupling_through_ripkens` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
 * The deprecated `pyhdtoolkit.cpymadtools.matching.get_closest_tune_approach` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
 * The `pyhdtoolkit.cpymadtools.lhc._get_k_strings` helper function is now deprecated and has been moved to `pyhdtoolkit.cpymadtools.utils._get_k_strings`.
+* The internal imports in the package have been reworked, and sub-packages now only expose their modules through ``__all__`` opposed to some of the modules' contents previously.
 * Some tests have been added.
 
 See `v0.17.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.17.0>`_ and the `full changes since v0.16.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.16.1...0.17.0>`_.
