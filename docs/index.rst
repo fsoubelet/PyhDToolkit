@@ -14,14 +14,21 @@ Highlights
 * Manage contexts, configurations and logging.
 * Monitor HTCondor_ jobs.
 
-.. dropdown:: Some Quick Links
+.. dropdown:: Useful Quick Links
     :animate: fade-in-slide-down
     :title: text-center
 
     .. panels::
+        :card: + intro-card text-center
         :body: text-center
 
-        To the Quickstart
+        ---
+        :img-top: _static/index_getting_started.png
+
+        Getting Started
+        ^^^^^^^^^^^^^^^
+
+        Check out the quickstart guide, an introduction to the package's main contents and concepts.
 
         +++
 
@@ -31,8 +38,12 @@ Highlights
             :classes: btn-outline-primary btn-block stretched-link
 
         ---
+        :img-top: _static/index_gallery.png
 
-        To the Gallery
+        Examples
+        ^^^^^^^^
+
+        Access various tutorials showcasing the capabilities of the package, including plots.
 
         +++
 
@@ -42,8 +53,12 @@ Highlights
             :classes: btn-outline-primary btn-block stretched-link
 
         ---
+        :img-top: _static/index_api.png
 
-        To the API Reference
+        API Reference
+        ^^^^^^^^^^^^^
+
+        A detailed description of how the methods work and which parameters can be used.
 
         +++
 
@@ -53,8 +68,12 @@ Highlights
             :classes: btn-outline-primary btn-block stretched-link
 
         ---
+        :img-top: _static/index_bibliography.png
 
-        To the Bibliography
+        Bibliography
+        ^^^^^^^^^^^^
+
+        A compilation of the various papers are referenced throughout this documentation.
 
         +++
 
