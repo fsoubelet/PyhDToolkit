@@ -18,6 +18,9 @@ MONITOR_TWISS_COLUMNS: List[str] = ["name", "s", "betx", "bety", "alfx", "alfy",
                                     "r11", "r12", "r21", "r22"]
 # fmt: on
 
+# MQX + maybe F (1/3 in HLLHC) + A (1/3) or B (2) + . + maybe A or B (2) + triplet number (1/2/3) + side (R/L) + IP number (1/2/5/8)
+LHC_TRIPLETS_REGEX = "^MQXF?[AB].[AB]?[123][RL][1258]"
+
 LHC_CROSSING_SCHEMES: Dict[str, Dict[str, float]] = {
     "flat": {},
     "lhc_inj": {
