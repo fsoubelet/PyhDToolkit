@@ -358,7 +358,7 @@
     <span class="n">LHC_IP_OFFSET_FLAGS</span><span class="p">,</span>
     <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.utils</span> <span class="kn">import</span> <span class="n">_get_k_strings</span>
 
 <span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">&quot;apply_lhc_colinearity_knob&quot;</span><span class="p">,</span>
@@ -1162,35 +1162,6 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;ampere&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;field / calibration&quot;</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;imax&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;kmaxx / calibration&quot;</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;integrated_field&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;field * length&quot;</span>
-
-
-<span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Please use its equivalent from the &#39;cpymadtools.utils&#39; module.&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">_get_k_strings</span><span class="p">(</span><span class="n">start</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">stop</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">8</span><span class="p">,</span> <span class="n">orientation</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;both&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).</span>
-<span class="sd">    Initial implementation credits go to :user:`Joschua Dilly &lt;joschd&gt;`.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        start (int): the starting order, defaults to 0.</span>
-<span class="sd">        stop (int): the order to go up to, defaults to 8.</span>
-<span class="sd">        orientation (str): magnet orientation, can be `straight`, `skew` or `both`.</span>
-<span class="sd">            Defaults to `both`.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        The `list` of names as strings.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">orientation</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;straight&quot;</span><span class="p">,</span> <span class="s2">&quot;skew&quot;</span><span class="p">,</span> <span class="s2">&quot;both&quot;</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Orientation &#39;</span><span class="si">{</span><span class="n">orientation</span><span class="si">}</span><span class="s2">&#39; is not accepted, should be one of &#39;straight&#39;, &#39;skew&#39;, &#39;both&#39;.&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;orientation&#39; parameter&quot;</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;straight&quot;</span><span class="p">:</span>
-        <span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,)</span>
-    <span class="k">elif</span> <span class="n">orientation</span> <span class="o">==</span> <span class="s2">&quot;skew&quot;</span><span class="p">:</span>
-        <span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;S&quot;</span><span class="p">,)</span>
-    <span class="k">else</span><span class="p">:</span>  <span class="c1"># both</span>
-        <span class="n">orientation</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;K</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}{</span><span class="n">s</span><span class="si">:</span><span class="s2">s</span><span class="si">}</span><span class="s2">L&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">stop</span><span class="p">)</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">orientation</span><span class="p">]</span>
 </pre></div>
 
            </div>

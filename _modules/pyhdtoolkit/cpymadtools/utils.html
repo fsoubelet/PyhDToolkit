@@ -341,12 +341,48 @@
 
 <span class="sd">Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="nn">cmath</span> <span class="kn">import</span> <span class="n">log</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">tfs</span>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+
+<div class="viewcode-block" id="export_madx_table"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table">[docs]</a><span class="k">def</span> <span class="nf">export_madx_table</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_name</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">headers_table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;SUMM&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exports an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame` on disk.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        Tables can only be correctly read back in ``MAD-X`` (through ``READTABLE``) if the written</span>
+<span class="sd">        file has a ``NAME`` and a ``TYPE`` entries in its headers.</span>
+
+<span class="sd">        If these entries are not  (see below for their usage), then</span>
+<span class="sd">        they will be given default values so the **TFS** file can be read by ``MAD-X``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        table_name (str): the name of the internal table to retrieve.</span>
+<span class="sd">        file_name (str): the name of the file to export to.</span>
+<span class="sd">        headers_table (str): the name of the internal table to use for headers.</span>
+<span class="sd">            Defaults to ``SUMM``.</span>
+<span class="sd">        **kwargs: any keyword arguments will be passed to `~tfs.writer.write_tfs`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exporting table </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> into &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">dframe</span> <span class="o">=</span> <span class="n">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">table_name</span><span class="p">,</span> <span class="n">headers_table</span><span class="p">)</span>
+    <span class="k">if</span> <span class="s2">&quot;NAME&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dframe</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No &#39;NAME&#39; header found, adding a default value &#39;EXPORT&#39;&quot;</span><span class="p">)</span>
+        <span class="n">dframe</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;NAME&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EXPORT&quot;</span>
+    <span class="k">if</span> <span class="s2">&quot;TYPE&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">dframe</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No &#39;TYPE&#39; header found, adding a default value &#39;EXPORT&#39;&quot;</span><span class="p">)</span>
+        <span class="n">dframe</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;TYPE&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;EXPORT&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Writing to disk&quot;</span><span class="p">)</span>
+    <span class="n">tfs</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">dframe</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="get_table_tfs"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.get_table_tfs">[docs]</a><span class="k">def</span> <span class="nf">get_table_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">table_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">headers_table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;SUMM&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
