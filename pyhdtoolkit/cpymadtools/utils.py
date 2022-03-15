@@ -6,12 +6,47 @@ Miscellaneous Utilities
 
 Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
-from typing import List
+from pathlib import Path
+from typing import List, Union
 
 import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
+
+
+def export_madx_table(
+    madx: Madx, table_name: str, file_name: Union[Path, str], headers_table: str = "SUMM", **kwargs
+) -> None:
+    """
+    Exports an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame` on disk.
+
+    .. important::
+        Tables can only be correctly read back in ``MAD-X`` (through ``READTABLE``) if the written
+        file has a ``NAME`` and a ``TYPE`` entries in its headers.
+
+        If these entries are not  (see below for their usage), then
+        they will be given default values so the **TFS** file can be read by ``MAD-X``.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        table_name (str): the name of the internal table to retrieve.
+        file_name (str): the name of the file to export to.
+        headers_table (str): the name of the internal table to use for headers.
+            Defaults to ``SUMM``.
+        **kwargs: any keyword arguments will be passed to `~tfs.writer.write_tfs`.
+    """
+    file_path = Path(file_name)
+    logger.debug(f"Exporting table {table_name} into '{file_path.absolute()}'")
+    dframe = get_table_tfs(madx, table_name, headers_table)
+    if "NAME" not in dframe.headers:
+        logger.debug(f"No 'NAME' header found, adding a default value 'EXPORT'")
+        dframe.headers["NAME"] = "EXPORT"
+    if "TYPE" not in dframe.headers:
+        logger.debug(f"No 'TYPE' header found, adding a default value 'EXPORT'")
+        dframe.headers["TYPE"] = "EXPORT"
+    logger.debug("Writing to disk")
+    tfs.write(file_path, dframe, **kwargs)
 
 
 def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> tfs.TfsDataFrame:

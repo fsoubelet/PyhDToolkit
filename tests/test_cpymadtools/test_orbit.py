@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES  # for coverage
+from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES
 from pyhdtoolkit.cpymadtools.lhc import make_lhc_beams, re_cycle_sequence
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.orbit import (

@@ -12,7 +12,9 @@ Enhancements
 ~~~~~~~~~~~~
 
 * The `pyhdtoolkit.cpymadtools.matching` module has two new wrapper functions, `~pyhdtoolkit.cpymadtools.matching.match_tunes` and `~pyhdtoolkit.cpymadtools.matching.match_chromaticities`, to perform matching on either tunes or chromaticities only.
-* The `pyhdtoolkit.cpymadtolls.lhc` module has a new utility function, `~pyhdtoolkit.cpymadtools.lhc.get_magnets_powering`, to get the percentage of magnets' max powering used in a given configuration.
+* The `pyhdtoolkit.cpymadtools.lhc` module has a new utility function, `~pyhdtoolkit.cpymadtools.lhc.get_magnets_powering`, to get the percentage of magnets' max powering used in a given configuration.
+* The `pyhdtoolkit.cpymadtools.utils` module has a new function, `~pyhdtoolkit.cpymadtools.utils.export_madx_table`, to conveniently export an internal table to disk in a way that can be read by ``MAD-X`` later on. 
+* The `pyhdtoolkit.cpymadtools.constants` module now includes a regex for the `(HL)LHC` triplets. Beware that ``MAD-X`` itself does not understand all regex features.
 
 Bug Fixes
 ~~~~~~~~~
@@ -23,7 +25,9 @@ Maintenance
 ~~~~~~~~~~~
 
 * The deprecated `pyhdtoolkit.cpymadtools.lhc.match_no_coupling_through_ripkens` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
+* The deprecated `pyhdtoolkit.cpymadtools.lhc._get_k_strings` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.utils` module should be used.
 * The deprecated `pyhdtoolkit.cpymadtools.matching.get_closest_tune_approach` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
+* The deprecated `pyhdtoolkit.cpymadtools.matching.get_lhc_tune_and_chroma_knobs` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.lhc` module should be used.
 * The `pyhdtoolkit.cpymadtools.lhc._get_k_strings` helper function is now deprecated and has been moved to `pyhdtoolkit.cpymadtools.utils._get_k_strings`.
 * The internal imports in the package have been reworked, and sub-packages now only expose their modules through ``__all__`` opposed to some of the modules' contents previously.
 * Some tests have been added.
