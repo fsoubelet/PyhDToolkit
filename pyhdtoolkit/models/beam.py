@@ -33,7 +33,7 @@ class BeamParameters(BaseModel):
     @property
     def E_tot_GeV(self) -> float:
         """Total beam energy [GeV]"""
-        return sqrt(self.pc_GeV**2 + self.E_0_GeV**2)
+        return sqrt(self.pc_GeV ** 2 + self.E_0_GeV ** 2)
 
     @property
     def E_kin_GeV(self) -> float:
@@ -48,7 +48,7 @@ class BeamParameters(BaseModel):
     @property
     def beta_r(self) -> float:
         """Relativistic beta"""
-        return self.pc_GeV / sqrt(self.pc_GeV**2 + self.E_0_GeV**2)
+        return self.pc_GeV / sqrt(self.pc_GeV ** 2 + self.E_0_GeV ** 2)
 
     @property
     def eg_x_m(self) -> float:
