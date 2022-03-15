@@ -6,7 +6,6 @@ Miscellaneous Utilities
 
 Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
-from cmath import log
 from pathlib import Path
 from typing import List, Union
 
