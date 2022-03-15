@@ -23,7 +23,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_IP_OFFSET_FLAGS,
     LHC_PARALLEL_SEPARATION_FLAGS,
 )
-from pyhdtoolkit.utils import deprecated
+from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 __all__ = [
     "apply_lhc_colinearity_knob",
@@ -827,32 +827,3 @@ def _list_field_currents(madx: Madx, brho: Union[str, float] = None) -> None:
     madx.globals["ampere"] = "field / calibration"
     madx.globals["imax"] = "kmaxx / calibration"
     madx.globals["integrated_field"] = "field * length"
-
-
-@deprecated(message="Please use its equivalent from the 'cpymadtools.utils' module.")
-def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
-    """
-    Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).
-    Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
-
-    Args:
-        start (int): the starting order, defaults to 0.
-        stop (int): the order to go up to, defaults to 8.
-        orientation (str): magnet orientation, can be `straight`, `skew` or `both`.
-            Defaults to `both`.
-
-    Returns:
-        The `list` of names as strings.
-    """
-    if orientation not in ("straight", "skew", "both"):
-        logger.error(f"Orientation '{orientation}' is not accepted, should be one of 'straight', 'skew', 'both'.")
-        raise ValueError("Invalid 'orientation' parameter")
-
-    if orientation == "straight":
-        orientation = ("",)
-    elif orientation == "skew":
-        orientation = ("S",)
-    else:  # both
-        orientation = ("", "S")
-
-    return [f"K{i:d}{s:s}L" for i in range(start, stop) for s in orientation]

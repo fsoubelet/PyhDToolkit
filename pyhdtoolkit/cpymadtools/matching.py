@@ -11,55 +11,9 @@ from typing import Dict, Optional, Sequence, Tuple
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.utils import deprecated
+from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 
 __all__ = ["match_tunes_and_chromaticities", "match_tunes", "match_chromaticities"]
-
-
-@deprecated(message="Please use its equivalent from the 'cpymadtools.lhc' module.")
-def get_lhc_tune_and_chroma_knobs(
-    accelerator: str, beam: int = 1, telescopic_squeeze: bool = True
-) -> Tuple[str, str, str, str]:
-    """
-    Gets names of knobs needed to match tunes and chromaticities as a tuple of strings,
-    for the LHC or HLLHC machines. Initial implementation credits go to
-    :user:`Joschua Dilly <joschd>`.
-
-    .. danger::
-        This function is deprecated and will be removed in a future version. Please use
-        its equivalent from the `~.cpymadtools.lhc` module.
-
-    Args:
-        accelerator (str): Accelerator either 'LHC' (dQ[xy], dQp[xy] knobs) or 'HLLHC'
-            (kqt[fd], ks[fd] knobs).
-        beam (int): Beam to use, for the knob names. Defaults to 1.
-        telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic
-            Squeeze configuration. Defaults to `True` to reflect run III scenarios.
-
-    Returns:
-        A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.
-    """
-    beam = 2 if beam == 4 else beam
-    suffix = "_sq" if telescopic_squeeze else ""
-
-    if accelerator.upper() not in ("LHC", "HLLHC"):
-        logger.error("Invalid accelerator name, only 'LHC' and 'HLLHC' implemented")
-        raise NotImplementedError(f"Accelerator '{accelerator}' not implemented.")
-
-    return {
-        "LHC": (
-            f"dQx.b{beam}{suffix}",
-            f"dQy.b{beam}{suffix}",
-            f"dQpx.b{beam}{suffix}",
-            f"dQpy.b{beam}{suffix}",
-        ),
-        "HLLHC": (
-            f"kqtf.b{beam}{suffix}",
-            f"kqtd.b{beam}{suffix}",
-            f"ksf.b{beam}{suffix}",
-            f"ksd.b{beam}{suffix}",
-        ),
-    }[accelerator.upper()]
 
 
 # ----- Workhorse ----- #
@@ -365,25 +319,3 @@ def match_chromaticities(
         calls=calls,
         tolerance=tolerance,
     )
-
-
-# ----- Helpers ----- #
-
-# TODO: remove this once deprecated 'get_closest_tune_approach' is removed as its the only thing using it
-def _fractional_tune(tune: float) -> float:
-    """
-    Returns only the fractional part *tune*.
-
-    Args:
-        tune (float): tune value.
-
-    Returns:
-        The fractional part.
-
-    Example:
-        .. code-block:: python
-
-            >>> _fractional_tune(62.31)
-            0.31
-    """
-    return tune - int(tune)  # ok since int truncates to lower integer

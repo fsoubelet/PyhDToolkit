@@ -6,7 +6,6 @@ import pytest
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob, get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_chromaticities, match_tunes, match_tunes_and_chromaticities
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()

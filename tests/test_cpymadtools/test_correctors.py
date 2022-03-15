@@ -15,6 +15,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_KQTF_KNOBS,
     LHC_KSF_KNOBS,
     LHC_KSS_KNOBS,
+    LHC_TRIPLETS_REGEX,
 )
 from pyhdtoolkit.cpymadtools.correctors import (
     query_arc_correctors_powering,
