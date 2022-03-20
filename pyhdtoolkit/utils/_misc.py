@@ -16,9 +16,12 @@ from multiprocessing import cpu_count
 from pathlib import Path
 from typing import List
 
+import cpymad
+
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import lhc
 
 # ----- Constants ----- #
@@ -69,6 +72,12 @@ def get_opticsfiles_paths() -> List[Path]:
     optics_files = list(optics_dir.iterdir())
     desired_files = [path for path in optics_files if len(path.suffix) <= 3 and path.name.startswith("opticsfile")]
     return sorted(desired_files, key=lambda x: float(x.suffix[1:]))  # sort by the number after 'opticsfile.'
+
+
+def log_versions() -> None:
+    """Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``."""
+    with Madx(stdout=False) as mad:
+        logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
 
 
 # ----- MAD-X Setup Utilities ----- #
