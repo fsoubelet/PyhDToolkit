@@ -74,7 +74,7 @@ def get_opticsfiles_paths() -> List[Path]:
     return sorted(desired_files, key=lambda x: float(x.suffix[1:]))  # sort by the number after 'opticsfile.'
 
 
-def log_versions() -> None:
+def log_runtime_versions() -> None:
     """Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``."""
     with Madx(stdout=False) as mad:
         logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
