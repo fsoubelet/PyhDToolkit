@@ -16,7 +16,7 @@ from loguru import logger
 
 
 def export_madx_table(
-    madx: Madx, table_name: str, file_name: Union[Path, str], headers_table: str = "SUMM", **kwargs
+    madx: Madx, table_name: str, file_name: Union[Path, str], pattern: str = None, headers_table: str = "SUMM", **kwargs
 ) -> None:
     """
     Exports an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame` on disk.
@@ -32,6 +32,8 @@ def export_madx_table(
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         table_name (str): the name of the internal table to retrieve.
         file_name (str): the name of the file to export to.
+        pattern (str): if given, will be used as a regular expression to filter the extracted
+            table, by passing it as the *regex* parameter of `pandas.DataFrame.filter`.
         headers_table (str): the name of the internal table to use for headers.
             Defaults to ``SUMM``.
         **kwargs: any keyword arguments will be passed to `~tfs.writer.write_tfs`.
@@ -39,6 +41,10 @@ def export_madx_table(
     file_path = Path(file_name)
     logger.debug(f"Exporting table {table_name} into '{file_path.absolute()}'")
     dframe = get_table_tfs(madx, table_name, headers_table)
+    if pattern:
+        logger.debug(f"Setting NAME column as index and filtering extracted table with regex pattern '{pattern}'")
+        dframe.NAME = dframe.NAME.apply(lambda x: x[:-2])
+        dframe = dframe.set_index("NAME").filter(regex=pattern, axis="index").reset_index()
     if "NAME" not in dframe.headers:
         logger.debug(f"No 'NAME' header found, adding a default value 'EXPORT'")
         dframe.headers["NAME"] = "EXPORT"
