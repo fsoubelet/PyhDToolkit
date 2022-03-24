@@ -43,7 +43,6 @@ def export_madx_table(
     dframe = get_table_tfs(madx, table_name, headers_table)
     if pattern:
         logger.debug(f"Setting NAME column as index and filtering extracted table with regex pattern '{pattern}'")
-        dframe.NAME = dframe.NAME.apply(lambda x: x[:-2])
         dframe = dframe.set_index("NAME").filter(regex=pattern, axis="index").reset_index()
     if "NAME" not in dframe.headers:
         logger.debug(f"No 'NAME' header found, adding a default value 'EXPORT'")
