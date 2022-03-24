@@ -5,7 +5,7 @@ The full list of releases can be found in the Github repository's `releases page
 
 .. _release_0.17.0:
 
-0.17.0-rc0
+0.17.0
 ------
 
 Enhancements
@@ -13,7 +13,7 @@ Enhancements
 
 * The `pyhdtoolkit.cpymadtools.matching` module has two new wrapper functions, `~pyhdtoolkit.cpymadtools.matching.match_tunes` and `~pyhdtoolkit.cpymadtools.matching.match_chromaticities`, to perform matching on either tunes or chromaticities only.
 * The `pyhdtoolkit.cpymadtools.lhc` module has a new utility function, `~pyhdtoolkit.cpymadtools.lhc.get_magnets_powering`, to get the percentage of magnets' max powering used in a given configuration.
-* The `pyhdtoolkit.cpymadtools.utils` module has a new function, `~pyhdtoolkit.cpymadtools.utils.export_madx_table`, to conveniently export an internal table to disk in a way that can be read by ``MAD-X`` later on. 
+* The `pyhdtoolkit.cpymadtools.utils` module has a new function, `~pyhdtoolkit.cpymadtools.utils.export_madx_table`, to conveniently export an internal table to disk with proper regex filtering in a way that can be read by ``MAD-X`` later on. 
 * The `pyhdtoolkit.cpymadtools.constants` module now includes a regex for the `(HL)LHC` triplets. Beware that ``MAD-X`` itself does not understand all regex features.
 
 Bug Fixes

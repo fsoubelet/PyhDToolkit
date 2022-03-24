@@ -22,13 +22,17 @@ class TestUtils:
         with pytest.raises(ValueError):
             _get_k_strings(stop=5, orientation="wrong")
 
-    def test_table_export(self, _matched_base_lattice, tmp_path):
+    @pytest.mark.parametrize("regex", [None, "^QF*"])
+    def test_table_export(self, _matched_base_lattice, regex, tmp_path):
         write_location = tmp_path / "test.tfs"
         madx = _matched_base_lattice
         madx.command.twiss()
-        twiss_df = get_table_tfs(madx, "twiss").reset_index(drop=True)
 
-        export_madx_table(madx, table_name="twiss", file_name=write_location)
+        twiss_df = get_table_tfs(madx, "twiss").reset_index(drop=True)
+        if regex:
+            twiss_df = twiss_df.set_index("NAME").filter(regex=regex, axis=0).reset_index()
+
+        export_madx_table(madx, table_name="twiss", file_name=write_location, pattern=regex)
         assert write_location.is_file()
 
         new = tfs.read(write_location)
