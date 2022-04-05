@@ -138,6 +138,46 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     return madx
 
 
+def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
+    """
+    Adds some simple marker elements left and right of an IP point, to increase the
+
+    .. warning::
+        You will most likely need to have sliced the sequence before calling this function,
+        as otherwise there is a risk on getting a negative drift depending on the affected
+        IP. This would lead to the remote ``MAD-X`` process to crash.
+
+    .. warning::
+        After editing the *sequence* to add markers, the ``USE`` command will be run for the changes to apply.
+        This means the caveats of ``USE`` apply, for instance the erasing of previously defined errors, orbits
+        corrections etc.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        sequence (str): which sequence to use the routine on.
+        ip (int): The interaction point around which to add markers.
+        n_markers (int): how many markers to add on each side of the IP.
+        interval (float): the distance between markers, in [m]. Giving ``interval=0.05`` will
+            place a marker every 5cm (starting 5cm away from the IP on each side).
+    """
+    logger.debug(f"Adding {n_markers:d} markers on each side of IP{ip:d}")
+    madx.command.seqedit(sequence=sequence)
+    madx.command.flatten()
+    for i in range(1, n_markers + 1):
+        madx.command.install(
+            element=f"MARKER.LEFT.IP{ip:d}.{i:02d}", class_="MARKER", at=-i * interval, from_=f"IP{ip:d}"
+        )
+        madx.command.install(
+            element=f"MARKER.RIGHT.IP{ip:d}.{i:02d}", class_="MARKER", at=i * interval, from_=f"IP{ip:d}"
+        )
+    madx.command.flatten()
+    madx.command.endedit()
+    logger.warning(
+        f"Sequence '{sequence}' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc."
+    )
+    madx.use(sequence=sequence)
+
+
 # ----- Fetching Utilities ----- #
 
 
