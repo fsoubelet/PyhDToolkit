@@ -52,6 +52,8 @@ project = "PyhDToolkit"
 copyright = f"2019, {pyhdtoolkit.__author__}"
 author = pyhdtoolkit.__author__
 
+rst_prolog = f""":github_url: {pyhdtoolkit.__url__}"""
+
 # The full version, including alpha/beta/rc tags
 version = pyhdtoolkit.__version__
 release = pyhdtoolkit.__version__
