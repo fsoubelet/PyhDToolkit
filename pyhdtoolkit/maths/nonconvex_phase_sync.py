@@ -37,10 +37,10 @@ Considering 4 BPMs, the measurement matrix would be:
        \end{pmatrix}
 
 Note two particular properties here:
-  - Because our measurements are phase differences, the M_matrix will necessarily have zeros on
+  - Because our measurements are phase differences, the :math:`\mathrm{M_matrix}` will necessarily have zeros on
     its diagonal (:math:`\mu_{k -> k} = 0`).
-  - By definition, since :math:`\mu_{a -> b} = - \mu_{b -> a}`, M_matrix is symmetric.
-  - Also note that for all computations, M_matrix needs to be initialised in radians!
+  - By definition, since :math:`\mu_{a -> b} = - \mu_{b -> a}`, :math:`\mathrm{M_matrix}` is symmetric.
+  - Also note that for all computations, :math:`\mathrm{M_matrix}` needs to be initialised in radians!
 
 
 We can very simply get our C_matrix (see page 1 of referenced paper) with `numpy.exp` which,
@@ -50,13 +50,13 @@ Then follows:
 
 .. code-block:: python
 
-   C_matrix = np.exp(1j * M_matrix)
+   C_matrix = np.exp(1j * :math:`\mathrm{M_matrix}`)
 
 .. note::
-    Since M_matrix is symmetric, then C_matrix will be Hermitian.
-    Since M_matrix has zeros on its diagonal, C_matrix will have (1 + 0j) on its diagonal.
+    Since :math:`\mathrm{M_matrix}` is symmetric, then C_matrix will be Hermitian.
+    Since :math:`\mathrm{M_matrix}` has zeros on its diagonal, C_matrix will have (1 + 0j) on its diagonal.
 
-With added noise to those values (noise should be included in M_matrix in the case of measurements),
+With added noise to those values (noise should be included in :math:`\mathrm{M_matrix}` in the case of measurements),
 we can reconstruct a good estimator of the original values through the EVM method, provided in the
 class below.
 """

@@ -14,12 +14,15 @@ import shlex
 
 from multiprocessing import cpu_count
 from pathlib import Path
-from typing import List
+from typing import Dict, List
 
 import cpymad
+import matplotlib
+import pandas
 
 from cpymad.madx import Madx
 from loguru import logger
+from matplotlib import pyplot as plt
 
 from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import lhc
@@ -138,6 +141,47 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     return madx
 
 
+def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
+    """
+    Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
+    functions returned from a ``TWISS`` call.
+
+    .. warning::
+        You will most likely need to have sliced the sequence before calling this function,
+        as otherwise there is a risk on getting a negative drift depending on the affected
+        IP. This would lead to the remote ``MAD-X`` process to crash.
+
+    .. warning::
+        After editing the *sequence* to add markers, the ``USE`` command will be run for the changes to apply.
+        This means the caveats of ``USE`` apply, for instance the erasing of previously defined errors, orbits
+        corrections etc.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        sequence (str): which sequence to use the routine on.
+        ip (int): The interaction point around which to add markers.
+        n_markers (int): how many markers to add on each side of the IP.
+        interval (float): the distance between markers, in [m]. Giving ``interval=0.05`` will
+            place a marker every 5cm (starting 5cm away from the IP on each side).
+    """
+    logger.debug(f"Adding {n_markers:d} markers on each side of IP{ip:d}")
+    madx.command.seqedit(sequence=sequence)
+    madx.command.flatten()
+    for i in range(1, n_markers + 1):
+        madx.command.install(
+            element=f"MARKER.LEFT.IP{ip:d}.{i:02d}", class_="MARKER", at=-i * interval, from_=f"IP{ip:d}"
+        )
+        madx.command.install(
+            element=f"MARKER.RIGHT.IP{ip:d}.{i:02d}", class_="MARKER", at=i * interval, from_=f"IP{ip:d}"
+        )
+    madx.command.flatten()
+    madx.command.endedit()
+    logger.warning(
+        f"Sequence '{sequence}' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc."
+    )
+    madx.use(sequence=sequence)
+
+
 # ----- Fetching Utilities ----- #
 
 
@@ -165,3 +209,81 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     betastar_y_ip5 = float(shlex.split(ip5_y_line)[2])
     assert betastar_x_ip1 == betastar_y_ip1 == betastar_x_ip5 == betastar_y_ip5
     return betastar_x_ip1  # doesn't matter which plane, they're all the same
+
+
+# ----- Here for now for testing ----- #
+
+
+def get_lhc_ips_positions(dataframe: pandas.DataFrame) -> Dict[str, float]:
+    """
+    Returns a `dict` of LHC IP and their positions from the provided *dataframe*.
+
+    .. important::
+        This function expects the IP names to be in the dataframe's index,
+        and cased as the longitudinal coordinate column: aka uppercase names
+        (``IP1``, ``IP2``, etc) and ``S`` column; or lowercase names
+        (``ip1``, ip2``, etc) and ``s`` column.
+
+    Args:
+        dataframe (pandas.DataFrame): a `~pandas.DataFrame` containing IP positions.
+
+    Returns:
+        A `dict` with IP names as keys and their longitudinal locations as values.
+    """
+    logger.debug("Extracting IP positions from dataframe")
+    try:
+        ip_names = [f"IP{i:d}" for i in range(1, 9)]
+        ip_pos = dataframe.loc[ip_names, "S"].to_numpy()
+    except KeyError:
+        logger.trace("Attempting to extract with lowercase names")
+        ip_names = [f"ip{i:d}" for i in range(1, 9)]
+        ip_pos = dataframe.loc[ip_names, "s"].to_numpy()
+    ip_names = [name.upper() for name in ip_names]  # make sure to uppercase now
+    return dict(zip(ip_names, ip_pos))
+
+
+def draw_ip_locations(
+    axis: matplotlib.axes.Axes = None,
+    ip_positions: Dict[str, float] = None,
+    lines: bool = True,
+    location: str = "outside",
+) -> None:
+    """
+    Plots the interaction points' locations into the background of the provided *axis*.
+
+    Args:
+        axis:  `~matplotlib.axes.Axes` to put the labels on. Defaults to `plt.gca()`.
+        ip_positions (dict): a `dict` containing IP names as keys and their longitudinal positions
+            as values, as returned by `~.get_lhc_ips_positions`.
+        lines (bool): whether to also draw vertical lines at the IP positions. Defaults to `True`.
+        location: where to show the IP names on the provided *axis*, either ``inside`` (will draw text
+            at the bottom of the axis) or ``outside`` (will draw text on top of the axis). If `None` is
+            given, then no labels are drawn. Defaults to ``outside``.
+    """
+    if axis is None:
+        axis = plt.gca()
+
+    xlimits = axis.get_xlim()
+    ylimits = axis.get_ylim()
+
+    # Draw for each IP
+    for ip_name, ip_xpos in ip_positions.items():
+        if xlimits[0] <= ip_xpos <= xlimits[1]:  # only plot if within plot's xlimits
+            if lines:
+                logger.trace(f"Drawing dashed axvline at location of {ip_name}")
+                axis.axvline(ip_xpos, linestyle=":", color="grey", marker="", zorder=0)
+
+            if location is not None and isinstance(location, str):
+                inside: bool = location.lower() == "inside"
+                logger.trace(f"Drawing name indicator for {ip_name}")
+                # drawing ypos is lower end of ylimits if drawing inside, higher end if drawing outside
+                ypos = ylimits[not inside] + (ylimits[1] + ylimits[0]) * 0.01
+                c = "grey" if inside else matplotlib.rcParams["text.color"]  # match axis ticks color
+                fontsize = plt.rcParams["xtick.labelsize"]  # match the xticks size
+                axis.text(ip_xpos, ypos, ip_name, color=c, ha="center", va="bottom", size=fontsize)
+
+        else:
+            logger.trace(f"Skipping {ip_name} as its position is outside of the plot's xlimits")
+
+    axis.set_xlim(xlimits)
+    axis.set_ylim(ylimits)

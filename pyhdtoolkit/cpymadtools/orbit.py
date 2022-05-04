@@ -52,7 +52,6 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
         "o5",
         "oh5",
         "ov5",
-        "phi_IR5",
         "x8",
         "sep8",
         "o8",

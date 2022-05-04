@@ -52,6 +52,8 @@ project = "PyhDToolkit"
 copyright = f"2019, {pyhdtoolkit.__author__}"
 author = pyhdtoolkit.__author__
 
+rst_prolog = f""":github_url: {pyhdtoolkit.__url__}"""
+
 # The full version, including alpha/beta/rc tags
 version = pyhdtoolkit.__version__
 release = pyhdtoolkit.__version__
@@ -517,7 +519,7 @@ autodoc_mock_imports = [
 # use in refs e.g:
 # :ref:`comparison manual <python:comparisons>`
 intersphinx_mapping = {
-    "python": ("https://docs.python.org/", None),
+    "python": ("https://docs.python.org/3/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "matplotlib": ("https://matplotlib.org/stable/", None),
