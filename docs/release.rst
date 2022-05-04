@@ -3,6 +3,36 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
+.. _release_0.18.0:
+
+0.18.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.utils._misc` module has a new function,  `~pyhdtoolkit.utils._misc.add_markers_around_lhc_ip` to add `MAD-X` markers around a given IP in order to increase the resolution of the TWISS calls in the IP vicinity.
+* The `pyhdtoolkit.utils._misc` module has a new function,  `~pyhdtoolkit.utils._misc.get_lhc_ips_positions`, to determine the longitudinal position (S variable) of LHC IPs from a dataframe.
+* The `pyhdtoolkit.utils._misc` module has a new function,  `~pyhdtoolkit.utils._misc.draw_ip_locations`, to add labels with the location of LHC IPs to a given `~matplotlib.axes.Axes` object.
+* The `LHC Rigid Waist Shift` gallery has been improved, and now shows a visualization of the waist shift and two ways to calculate its value.
+
+Bug Fixes
+~~~~~~~~~
+
+* The `phi_IR5` variables has been removed from the ones returned by the `~pyhdtoolkit.cpymadtools.orbit.lhc_orbit_variables` function.
+
+Maintenance
+~~~~~~~~~~~
+
+* The dependency on `matplotlib` has been pinned to `<3.5` to avoid issues with the documentation plot style, to be fixed later on. 
+* The bibliography file for the package's documentation has been cleaned up.
+* The Github icon in the documentation pages now redirects to the proper pages.
+* The documentation for the `~pyhdtoolkit.maths.nonconvex_phase_sync` has been improved.
+* Some additional files necessary for the documentation additions are now included in the repo, but not the package.
+
+See `v0.18.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.18.0>`_ and the `full changes since v0.17.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.17.0...0.18.0>`_.
+
+
 .. _release_0.17.0:
 
 0.17.0
