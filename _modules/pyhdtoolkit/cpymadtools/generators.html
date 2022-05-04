@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyhdtoolkit.cpymadtools.generators &mdash; PyhDToolkit 0.18.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.18.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-18-0">0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#bug-fixes">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-17-0">0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id3">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id4">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id5">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-1">0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id7">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-0">0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id9">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id10">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id11">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id13">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id15">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id16">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id18">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id20">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id21">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id23">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id24">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id25">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id27">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id28">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id30">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id32">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id33">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id34">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id36">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id39">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id40">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id42">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id43">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id45">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id46">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id49">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id51">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id52">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id53">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id55">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id56">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id58">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id59">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id61">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id63">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id64">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id65">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id67">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id68">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id70">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id71">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id72">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id74">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id77">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id78">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id79">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id81">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id82">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id83">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id85">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id87">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id88">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id90">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id92">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id93">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id95">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>pyhdtoolkit.cpymadtools.generators</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyhdtoolkit.cpymadtools.generators</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. _cpymadtools-generators:</span>
+
+<span class="sd">Lattice Generators</span>
+<span class="sd">------------------</span>
+
+<span class="sd">Module with a collection of functions generating different lattices for `~cpymad.madx.Madx` input.</span>
+<span class="sd">These lattices are quite simple and are meant to be used in the package&#39;s documentation and</span>
+<span class="sd">:ref:`example gallery &lt;gallery&gt;`.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<span class="c1"># ----- Utlites ----- #</span>
+
+
+<div class="viewcode-block" id="LatticeGenerator"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator">[docs]</a><span class="k">class</span> <span class="nc">LatticeGenerator</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A simple class to handle encompass generating functions.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LatticeGenerator.generate_base_cas_lattice"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator.generate_base_cas_lattice">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_base_cas_lattice</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates a simple and robust dummy lattice, initially designed for my</span>
+<span class="sd">        CERN Accelerator School optics project.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">option, -info, -warn;</span>
+<span class="s2">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="s2">! PARAMETERS</span>
+<span class="s2">circumference = 1000.0;</span>
+<span class="s2">ncell = 24;</span>
+<span class="s2">lcell = circumference/ncell;</span>
+<span class="s2">lq = 3.00;</span>
+<span class="s2">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="s2">! STRENGTHS</span>
+<span class="s2">kqf = 0.0228 * lq;</span>
+<span class="s2">kqd = -0.0228 * lq;</span>
+<span class="s2">lsex = 0.00001;</span>
+
+<span class="s2">! ELEMENTS</span>
+<span class="s2">mb:multipole, knl:=</span><span class="si">{angleBending}</span><span class="s2">;</span>
+<span class="s2">qf: multipole, knl:={0, kqf};</span>
+<span class="s2">qd: multipole, knl:={0, kqd};</span>
+<span class="s2">msf: multipole, knl:={0, 0, ksf};</span>
+<span class="s2">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="s2">! DECLARE SEQUENCE</span>
+<span class="s2">CAS3: sequence, refer=centre, l=circumference;</span>
+<span class="s2">   start_machine: marker, at = 0;</span>
+<span class="s2">   n = 1;</span>
+<span class="s2">   while (n &lt; ncell+1) {</span>
+<span class="s2">    qf: qf,   at=(n-1)*lcell;</span>
+<span class="s2">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+<span class="s2">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+<span class="s2">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+<span class="s2">    at=(n-1)*lcell;</span>
+<span class="s2">    n = n + 1;</span>
+<span class="s2">}</span>
+<span class="s2">end_machine: marker at=circumference;</span>
+<span class="s2">endsequence;</span>
+
+<span class="s2">! MAKE BEAM</span>
+<span class="s2">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="s2">! ACTIVATE SEQUENCE</span>
+<span class="s2">use, sequence=CAS3;</span>
+
+<span class="s2">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="s2">ksf = 0;</span>
+<span class="s2">ksd = 0;</span>
+
+<span class="s2">! INTERPOLATE</span>
+<span class="s2">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+<span class="s2">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+<span class="s2">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="s2">! TWISS</span>
+<span class="s2">select,flag=twiss, clear;</span>
+<span class="s2">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+<span class="s2">twiss;</span>
+<span class="s2">    &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="LatticeGenerator.generate_onesext_cas_lattice"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator.generate_onesext_cas_lattice">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_onesext_cas_lattice</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the dummy lattice with a sextupole added to excite third order</span>
+<span class="sd">        resonances.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">option, -info, -warn;</span>
+<span class="s2">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="s2">! PARAMETERS</span>
+<span class="s2">circumference = 1000.0;</span>
+<span class="s2">ncell = 24;</span>
+<span class="s2">lcell = circumference/ncell;</span>
+<span class="s2">lq = 3.00;</span>
+<span class="s2">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="s2">! STRENGTHS</span>
+<span class="s2">kqf = 0.0228 * lq;</span>
+<span class="s2">kqd = -0.0228 * lq;</span>
+<span class="s2">lsex = 0.00001;</span>
+<span class="s2">ks1 = 0;</span>
+<span class="s2">ks2 = 0;</span>
+
+<span class="s2">! ELEMENTS</span>
+<span class="s2">mb:multipole, knl:=</span><span class="si">{angleBending}</span><span class="s2">;</span>
+<span class="s2">qf: multipole, knl:={0, kqf};</span>
+<span class="s2">qd: multipole, knl:={0, kqd};</span>
+<span class="s2">msf: multipole, knl:={0, 0, ksf};</span>
+<span class="s2">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="s2">mof: multipole, knl:={0, 0, ks1, 0};</span>
+<span class="s2">mod: multipole, knl:={0, 0, ks2, 0};</span>
+
+<span class="s2">! DECLARE SEQUENCE</span>
+<span class="s2">CAS3: sequence, refer=centre, l=circumference;</span>
+<span class="s2">   start_machine: marker, at = 0;</span>
+<span class="s2">   n = 1;</span>
+<span class="s2">   qf: qf,   at=(n-1)*lcell;</span>
+<span class="s2">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+<span class="s2">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+<span class="s2">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+<span class="s2">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+<span class="s2">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+<span class="s2">   at=(n-1)*lcell;</span>
+<span class="s2">   n = n + 1;</span>
+<span class="s2">   while (n &lt; ncell+1) {</span>
+<span class="s2">    qf: qf,   at=(n-1)*lcell;</span>
+<span class="s2">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+<span class="s2">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+<span class="s2">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+<span class="s2">    at=(n-1)*lcell;</span>
+<span class="s2">    n = n + 1;</span>
+<span class="s2">   }</span>
+<span class="s2">end_machine: marker at=circumference;</span>
+<span class="s2">endsequence;</span>
+
+<span class="s2">! MAKE BEAM</span>
+<span class="s2">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="s2">! ACTIVATE SEQUENCE</span>
+<span class="s2">use, sequence=CAS3;</span>
+
+<span class="s2">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="s2">ksf = 0;</span>
+<span class="s2">ksd = 0;</span>
+
+<span class="s2">! INTERPOLATE</span>
+<span class="s2">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+<span class="s2">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+<span class="s2">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="s2">! TWISS</span>
+<span class="s2">select,flag=twiss, clear;</span>
+<span class="s2">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+<span class="s2">twiss;</span>
+<span class="s2">    &quot;&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="LatticeGenerator.generate_oneoct_cas_lattice"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator.generate_oneoct_cas_lattice">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">generate_oneoct_cas_lattice</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generates the dummy lattice with a sextupole and an octupole added</span>
+<span class="sd">        to excite third and fourth order resonances.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">option, -info, -warn;</span>
+<span class="s2">TITLE, ’CAS2019 Project Team 3’;</span>
+
+<span class="s2">! PARAMETERS</span>
+<span class="s2">circumference = 1000.0;</span>
+<span class="s2">ncell = 24;</span>
+<span class="s2">lcell = circumference/ncell;</span>
+<span class="s2">lq = 3.00;</span>
+<span class="s2">angleBending = 2.0*pi/(4*ncell);</span>
+
+<span class="s2">! STRENGTHS</span>
+<span class="s2">kqf = 0.0228 * lq;</span>
+<span class="s2">kqd = -0.0228 * lq;</span>
+<span class="s2">lsex = 0.00001;</span>
+<span class="s2">ks1 = 0;</span>
+<span class="s2">ks2 = 0;</span>
+
+<span class="s2">! ELEMENTS</span>
+<span class="s2">mb:multipole, knl:=</span><span class="si">{angleBending}</span><span class="s2">;</span>
+<span class="s2">qf: multipole, knl:={0, kqf};</span>
+<span class="s2">qd: multipole, knl:={0, kqd};</span>
+<span class="s2">msf: multipole, knl:={0, 0, ksf};</span>
+<span class="s2">msd: multipole, knl:={0, 0, ksd};</span>
+
+<span class="s2">mof: multipole, knl:={0, 0, 0, koct};</span>
+<span class="s2">mod: multipole, knl:={0, 0, 0, 0};</span>
+
+<span class="s2">! DECLARE SEQUENCE</span>
+<span class="s2">CAS3: sequence, refer=centre, l=circumference;</span>
+<span class="s2">   start_machine: marker, at = 0;</span>
+<span class="s2">   n = 1;</span>
+<span class="s2">   qf: qf,   at=(n-1)*lcell;</span>
+<span class="s2">   msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+<span class="s2">   mof: mof, at=(n-1)*lcell + 3*lsex/2.0;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+<span class="s2">   qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+<span class="s2">   msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+<span class="s2">   mod: mod, at=(n-1)*lcell + 0.50*lcell + 3*lsex/2.0;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+<span class="s2">   mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+<span class="s2">   at=(n-1)*lcell;</span>
+<span class="s2">   n = n + 1;</span>
+<span class="s2">   while (n &lt; ncell+1) {</span>
+<span class="s2">    qf: qf,   at=(n-1)*lcell;</span>
+<span class="s2">    msf: msf, at=(n-1)*lcell + lsex/2.0;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.15*lcell;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.35*lcell;</span>
+<span class="s2">    qd: qd,   at=(n-1)*lcell + 0.50*lcell;</span>
+<span class="s2">    msd: msd, at=(n-1)*lcell + 0.50*lcell + lsex/2.0;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.65*lcell;</span>
+<span class="s2">    mb: mb,   at=(n-1)*lcell + 0.85*lcell;</span>
+<span class="s2">    at=(n-1)*lcell;</span>
+<span class="s2">    n = n + 1;</span>
+<span class="s2">   }</span>
+<span class="s2">end_machine: marker at=circumference;</span>
+<span class="s2">endsequence;</span>
+
+<span class="s2">! MAKE BEAM</span>
+<span class="s2">beam, particle=proton, sequence=CAS3, energy=20.0;</span>
+
+<span class="s2">! ACTIVATE SEQUENCE</span>
+<span class="s2">use, sequence=CAS3;</span>
+
+<span class="s2">select,flag=interpolate, class=drift, slice=5, range=#s/#e;</span>
+
+<span class="s2">ksf = 0;</span>
+<span class="s2">ksd = 0;</span>
+
+<span class="s2">! INTERPOLATE</span>
+<span class="s2">select, flag=interpolate, class=drift, slice=10, range=#s/#e;</span>
+<span class="s2">select, flag=interpolate, class=quadrupole, slice=5, range=#s/#e;</span>
+<span class="s2">select, flag=interpolate, class=sbend, slice=10, range=#s/#e;</span>
+
+<span class="s2">! TWISS</span>
+<span class="s2">select,flag=twiss, clear;</span>
+<span class="s2">select,flag=twiss, column=name ,s, x, y, betx, bety, mux, muy, dx, dy;</span>
+<span class="s2">twiss;</span>
+<span class="s2">    &quot;&quot;&quot;</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_generate_tripleterrors_study_reference</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate generic script for reference ``TWISS``, to use in a</span>
+<span class="sd">        `~cpymad.madx.Madx` object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A string you can input into your `~cpymad.madx.Madx` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">!####################### Make macros available #######################</span>
+
+<span class="s2">option, -echo, -warn, -info;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/beta_beat.macros.madx&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/lhc.macros.madx&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/hllhc.macros.madx&quot;;</span>
+
+<span class="s2">title, &quot;HLLHC Triplet TFErrors to Beta-Beating&quot;;</span>
+
+<span class="s2">!####################### Call optics files #######################</span>
+
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx&quot;;</span>
+
+<span class="s2">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="s2">call, file = &quot;/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx&quot;;</span>
+
+<span class="s2">!####################### Create beam #######################</span>
+
+<span class="s2">exec, define_nominal_beams();</span>
+
+<span class="s2">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="s2">exec, cycle_sequences();</span>
+
+<span class="s2">!####################### Default crossing scheme #######################</span>
+
+<span class="s2">exec, set_default_crossing_scheme();</span>
+
+<span class="s2">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="s2">use, period = LHCB1;</span>
+
+<span class="s2">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="s2">option, echo, warn, info;</span>
+<span class="s2">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+<span class="s2">twiss;</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_generate_tripleterrors_study_tferror_job</span><span class="p">(</span><span class="n">rand_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">tf_error</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate generic script for tf_error ``TWISS``, to use in a `~cpymad.madx.Madx` object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rand_seed (str): the random seed to provide ``MAD-X`` for the errors distributions.</span>
+<span class="sd">            tf_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">!####################### Make macros available #######################</span>
+
+<span class="s2">option, -echo, -warn, -info;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/beta_beat.macros.madx&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/lhc.macros.madx&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/hllhc.macros.madx&quot;;</span>
+
+<span class="s2">title, &quot;HLLHC Triplet TFErrors to Beta-Beating&quot;;</span>
+
+<span class="s2">!####################### Call optics files #######################</span>
+
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx&quot;;</span>
+
+<span class="s2">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="s2">call, file = &quot;/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx&quot;;</span>
+
+<span class="s2">!####################### Create beam #######################</span>
+
+<span class="s2">exec, define_nominal_beams();</span>
+
+<span class="s2">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="s2">exec, cycle_sequences();</span>
+
+<span class="s2">!####################### Default crossing scheme #######################</span>
+
+<span class="s2">exec, set_default_crossing_scheme();</span>
+
+<span class="s2">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="s2">use, period = LHCB1;</span>
+
+<span class="s2">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="s2">option, echo, warn, info;</span>
+<span class="s2">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+<span class="s2">exec, do_twiss_elements(LHCB1, &quot;./twiss_nominal.dat&quot;, 0.0);</span>
+
+<span class="s2">!####################### For field errors #######################</span>
+
+<span class="s2">eoption, add, seed = </span><span class="si">{</span><span class="n">rand_seed</span><span class="si">}</span><span class="s2">;  ! Different seed every time</span>
+<span class="s2">select, flag=error, clear;</span>
+<span class="s2">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+<span class="s2">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+<span class="s2">Rr = 0.05;             ! Radius for field errors (??)</span>
+<span class="s2">ON_B2R = 1;            ! Activate field errors</span>
+<span class="s2">B2r = </span><span class="si">{</span><span class="n">tf_error</span><span class="si">}</span><span class="s2">;       ! Set field errors magnitude -&gt; Units of B2 error (will be in 1E-4)</span>
+<span class="s2">exec, SetEfcomp_Q;     ! Assign field errors</span>
+
+<span class="s2">!####################### Saving errors to file #######################</span>
+
+<span class="s2">!esave, file=&quot;./errors_file.dat&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="s2">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="s2">exec, match_tunes(62.31, 60.32, 1);</span>
+<span class="s2">exec, do_twiss_elements(LHCB1, &quot;./twiss_errors.dat&quot;, 0.0);</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_generate_tripleterrors_study_mserror_job</span><span class="p">(</span><span class="n">rand_seed</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ms_error</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Generate generic script for ms_error ``TWISS``, to use in a `~cpymad.madx.Madx` object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rand_seed (str): the random seed to provide ``MAD-X`` for the errors distributions.</span>
+<span class="sd">            ms_error (str): the misalignment error value (along the s axis).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A string to directly ``.input()`` into your `~cpymad.madx.Madx` object.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">!####################### Make macros available #######################</span>
+
+<span class="s2">option, -echo, -warn, -info;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/beta_beat.macros.madx&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/lhc.macros.madx&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/madx/lib/hllhc.macros.madx&quot;;</span>
+
+<span class="s2">title, &quot;HLLHC Triplet MSErrors to Beta-Beating&quot;;</span>
+
+<span class="s2">!####################### Call optics files #######################</span>
+
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/lhcrunIII.seq&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/work/f/fesoubel/public/Repositories/Beta-Beat.src/model/accelerators/lhc/hllhc1.3/main.seq&quot;;</span>
+<span class="s2">call, file = &quot;/afs/cern.ch/eng/lhc/optics/V6.5/errors/Esubroutines.madx&quot;;</span>
+
+<span class="s2">!####################### Calling modifiers for 15cm optics #######################</span>
+
+<span class="s2">call, file = &quot;/afs/cern.ch/eng/lhc/optics/HLLHCV1.3/opt_150_150_150_150.madx&quot;;</span>
+
+<span class="s2">!####################### Create beam #######################</span>
+
+<span class="s2">exec, define_nominal_beams();</span>
+
+<span class="s2">!####################### Flatten and set START point at ? #######################</span>
+
+<span class="s2">exec, cycle_sequences();</span>
+
+<span class="s2">!####################### Default crossing scheme #######################</span>
+
+<span class="s2">exec, set_default_crossing_scheme();</span>
+
+<span class="s2">!####################### Selecting to use Beam 1 #######################</span>
+
+<span class="s2">use, period = LHCB1;</span>
+
+<span class="s2">!####################### Tune matching and Twiss nominal #######################</span>
+
+<span class="s2">option, echo, warn, info;</span>
+<span class="s2">exec, match_tunes(62.31, 60.32, 1);     ! Since we&#39;re using beam 1</span>
+<span class="s2">exec, do_twiss_elements(LHCB1, &quot;./twiss_nominal.dat&quot;, 0.0);</span>
+
+<span class="s2">!####################### For longitudinal missalignments #######################</span>
+
+<span class="s2">eoption, add, seed = </span><span class="si">{</span><span class="n">rand_seed</span><span class="si">}</span><span class="s2">;  ! Different seed every time</span>
+<span class="s2">select, flag=error, clear;</span>
+<span class="s2">select, flag=error, pattern = ^MQXF.*[RL][15]; ! Only triplets quadrupoles around IP1 and IP5</span>
+<span class="s2">GCUTR = 3;                 ! Cut gaussians at 3 sigma</span>
+<span class="s2">ealign, ds := </span><span class="si">{</span><span class="n">ms_error</span><span class="si">}</span><span class="s2"> * 1E-3 * TGAUSS(GCUTR);  ! Gaussian missalignments in meters</span>
+
+<span class="s2">!####################### Saving errors to file #######################</span>
+
+<span class="s2">!esave, file=&quot;./errors_file.dat&quot;; ! Will save the errors of chosen type.</span>
+
+<span class="s2">!####################### Tune matching and Twiss with errors #######################</span>
+
+<span class="s2">exec, match_tunes(62.31, 60.32, 1);</span>
+<span class="s2">exec, do_twiss_elements(LHCB1, &quot;./twiss_errors.dat&quot;, 0.0);</span>
+<span class="s2">&quot;&quot;&quot;</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>

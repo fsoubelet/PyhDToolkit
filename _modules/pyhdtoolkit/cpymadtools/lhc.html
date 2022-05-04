@@ -1,0 +1,1206 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyhdtoolkit.cpymadtools.lhc &mdash; PyhDToolkit 0.18.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.18.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-18-0">0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#bug-fixes">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-17-0">0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id3">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id4">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id5">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-1">0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id7">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-0">0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id9">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id10">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id11">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id13">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id15">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id16">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id18">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id20">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id21">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id23">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id24">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id25">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id27">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id28">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id30">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id32">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id33">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id34">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id36">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id39">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id40">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id42">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id43">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id45">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id46">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id49">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id51">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id52">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id53">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id55">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id56">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id58">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id59">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id61">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id63">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id64">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id65">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id67">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id68">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id70">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id71">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id72">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id74">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id77">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id78">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id79">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id81">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id82">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id83">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id85">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id87">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id88">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id90">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id92">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id93">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id95">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>pyhdtoolkit.cpymadtools.lhc</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyhdtoolkit.cpymadtools.lhc</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. _cpymadtools-lhc:</span>
+
+<span class="sd">LHC-Specific Utilities</span>
+<span class="sd">----------------------</span>
+
+<span class="sd">Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object,</span>
+<span class="sd">that are specific to LHC and HLLHC machines.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+<span class="kn">import</span> <span class="nn">tfs</span>
+
+<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">twiss</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.constants</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">LHC_ANGLE_FLAGS</span><span class="p">,</span>
+    <span class="n">LHC_CROSSING_ANGLE_FLAGS</span><span class="p">,</span>
+    <span class="n">LHC_EXPERIMENT_STATE_FLAGS</span><span class="p">,</span>
+    <span class="n">LHC_IP2_SPECIAL_FLAG</span><span class="p">,</span>
+    <span class="n">LHC_IP_OFFSET_FLAGS</span><span class="p">,</span>
+    <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.utils</span> <span class="kn">import</span> <span class="n">_get_k_strings</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">&quot;apply_lhc_colinearity_knob&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;apply_lhc_coupling_knob&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;apply_lhc_rigidity_waist_shift_knob&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;deactivate_lhc_arc_sextupoles&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_magnets_powering&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_lhc_bpms_list&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;get_lhc_tune_and_chroma_knobs&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;install_ac_dipole_as_kicker&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;install_ac_dipole_as_matrix&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_lhc_beams&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_lhc_thin&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;make_sixtrack_output&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;power_landau_octupoles&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;reset_lhc_bump_flags&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;re_cycle_sequence&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;vary_independent_ir_quadrupoles&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+
+
+<span class="c1"># ----- Setup Utlites ----- #</span>
+
+
+<div class="viewcode-block" id="make_lhc_beams"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams">[docs]</a><span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span> <span class="n">emittance</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        energy (float): beam energy, in [GeV]. Defaults to 6500.</span>
+<span class="sd">        emittance (float): emittance in [m]. Will be used to calculate geometric</span>
+<span class="sd">            emittance which is then fed to the ``BEAM`` command.</span>
+<span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; make_lhc_beams(madx, energy=6800, emittance=2.5e-6)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;NRJ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;brho&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>
+    <span class="n">geometric_emit</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emittance</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Defining beam for sequence &#39;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">beam</span><span class="p">(</span>
+            <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span>
+            <span class="n">bv</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
+            <span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span>
+            <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+            <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit</span><span class="p">,</span>
+            <span class="n">sige</span><span class="o">=</span><span class="mf">4.5e-4</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_lhc_thin"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_thin">[docs]</a><span class="k">def</span> <span class="nf">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.</span>
+<span class="sd">    This will use the ``teapot`` style and will enforce ``makedipedge``.</span>
+
+<span class="sd">    One can find an exemple use of this function in the :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;`</span>
+<span class="sd">    and :ref:`Free Tracking &lt;demo-free-tracking&gt;` example galleries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        sequence (str): the sequence to use for the ``MAKETHIN`` command.</span>
+<span class="sd">        slicefactor (int): the slice factor to apply in ``MAKETHIN``, which is a factor</span>
+<span class="sd">            applied to default values for different elements, as did the old macro. Defaults</span>
+<span class="sd">            to 1.</span>
+<span class="sd">        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``</span>
+<span class="sd">            command, namely ``style`` (will default to ``teapot``) and the ``makedipedge``</span>
+<span class="sd">            flag (will default to `True`).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; make_lhc_thin(madx, sequence=&quot;lhcb1&quot;, slicefactor=4)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Slicing sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">four_slices_patterns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s2">&quot;mbx\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrb\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrc\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrs\.&quot;</span><span class="p">]</span>
+    <span class="n">four_slicefactor_patterns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">r</span><span class="s2">&quot;mqwa\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqwb\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqy\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqm\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqmc\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqml\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqtlh\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqtli\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqt\.&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for general MB and MQ elements&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for triplets&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxa&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxb&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for various specifc mb elements&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">four_slices_patterns</span><span class="p">:</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining slices for varous specifc mq elements&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">four_slicefactor_patterns</span><span class="p">:</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">)</span>
+    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># defaults to False to compensate default TEAPOT style</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="re_cycle_sequence"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence">[docs]</a><span class="k">def</span> <span class="nf">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;IP3&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Re-cycles the provided *sequence* from a different starting point, given as *start*.</span>
+
+<span class="sd">    One can find an exemple use of this function in the :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;`</span>
+<span class="sd">    and :ref:`Free Tracking &lt;demo-free-tracking&gt;` example galleries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        sequence (str): the sequence to re-cycle.</span>
+<span class="sd">        start (str): element to start the new cycle from.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; lhc.re_cycle_sequence(madx, sequence=&quot;lhcb1&quot;, start=&quot;MSIA.EXIT.B1&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Re-cycling sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39; from </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span></div>
+
+
+<span class="c1"># ----- Magnets Powering ----- #</span>
+
+
+<div class="viewcode-block" id="apply_lhc_colinearity_knob"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob">[docs]</a><span class="k">def</span> <span class="nf">apply_lhc_colinearity_knob</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">colinearity_knob_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies the LHC colinearity knob.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If you don&#39;t know what this is, you really should not be using this function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users</span>
+<span class="sd">            don&#39;t mess up local IR coupling by mistake. This should be a positive integer, normally between 1</span>
+<span class="sd">            and 10.</span>
+<span class="sd">        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</span>
+<span class="sd">            Classically 1 or 5.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying Colinearity knob with a unit setting of </span><span class="si">{</span><span class="n">colinearity_knob_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this colinearity knob is applied&quot;</span><span class="p">)</span>
+    <span class="n">knob_variables</span> <span class="o">=</span> <span class="p">(</span><span class="sa">f</span><span class="s2">&quot;KQSX3.R</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;KQSX3.L</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>  <span class="c1"># MQSX IP coupling correctors</span>
+    <span class="n">right_knob</span><span class="p">,</span> <span class="n">left_knob</span> <span class="o">=</span> <span class="n">knob_variables</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">right_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="n">colinearity_knob_value</span> <span class="o">*</span> <span class="mf">1e-4</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">left_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="apply_lhc_rigidity_waist_shift_knob"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.apply_lhc_rigidity_waist_shift_knob">[docs]</a><span class="k">def</span> <span class="nf">apply_lhc_rigidity_waist_shift_knob</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">rigidty_waist_shift_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">side</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If you don&#39;t know what this is, you really should not be using this function. The waist shift</span>
+<span class="sd">        is achieved by moving all four betatron waists simltaneously: unbalancing the triplet powering</span>
+<span class="sd">        knobs of the left and right-hand sides of the IP,</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        Applying the shift will modify your tunes and is likely to flip them, making a subsequent matching</span>
+<span class="sd">        impossible if your lattice has coupling. To avoid this, one should match to tunes split further apart</span>
+<span class="sd">        before applying the waist shift knob, and then match to the desired working point. For instance for</span>
+<span class="sd">        the LHC, matching to (62.27, 60.36) before applying and afterwards rematching to (62.31, 60.32) usually</span>
+<span class="sd">        works well.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).</span>
+<span class="sd">        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].</span>
+<span class="sd">            Classically 1 or 5.</span>
+<span class="sd">        side (str): Which side of the IP to move the waist to, determines a sign in the calculation.</span>
+<span class="sd">            Defaults to `left`, which means :math:`s_{\\mathrm{waist}} \\lt s_{\\mathrm{ip}}` (and</span>
+<span class="sd">            setting it to `right` would move the waist such that</span>
+<span class="sd">            :math:`s_{\\mathrm{waist}} \\gt s_{\\mathrm{ip}}`).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; matching.match_tunes_and_chromaticities(madx, &quot;lhc&quot;, &quot;lhcb1&quot;, 62.27, 60.36)</span>
+<span class="sd">            &gt;&gt;&gt; apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)</span>
+<span class="sd">            &gt;&gt;&gt; matching.match_tunes_and_chromaticities(madx, &quot;lhc&quot;, &quot;lhcb1&quot;, 62.31, 60.32)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying Rigidity Waist Shift knob with a unit setting of </span><span class="si">{</span><span class="n">rigidty_waist_shift_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this rigid waist shift knob is applied&quot;</span><span class="p">)</span>
+    <span class="n">right_knob</span><span class="p">,</span> <span class="n">left_knob</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;kqx.r</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;kqx.l</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># IP triplet default knob (no trims)</span>
+
+    <span class="n">current_right_knob</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span>
+    <span class="n">current_left_knob</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">side</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
+    <span class="k">elif</span> <span class="n">side</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_right_knob</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">rigidty_waist_shift_value</span> <span class="o">*</span> <span class="mf">0.005</span><span class="p">)</span> <span class="o">*</span> <span class="n">current_left_knob</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Given side &#39;</span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2">&#39; invalid, only &#39;left&#39; and &#39;right&#39; are accepted values.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid value for parameter &#39;side&#39;.&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">right_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">right_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">left_knob</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">left_knob</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="apply_lhc_coupling_knob"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.apply_lhc_coupling_knob">[docs]</a><span class="k">def</span> <span class="nf">apply_lhc_coupling_knob</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">coupling_knob</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Applies the LHC coupling knob to reach the desired :math:`C^{-}` value.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        coupling_knob (float): Desired value for the Cminus, typically a few units of ``1E-3``.</span>
+<span class="sd">            Defaults to 0 so users don&#39;t mess up coupling by mistake.</span>
+<span class="sd">        beam (int): beam to apply the knob to. Defaults to beam 1.</span>
+<span class="sd">        telescopic_squeeze (bool): if set to `True`, uses the knobs for Telescopic Squeeze configuration.</span>
+<span class="sd">            Defaults to `True` as of run III.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Applying coupling knob&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this coupling knob is applied&quot;</span><span class="p">)</span>
+    <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">knob_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CMRS.b</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Knob &#39;</span><span class="si">{</span><span class="n">knob_name</span><span class="si">}</span><span class="s2">&#39; is </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span><span class="si">}</span><span class="s2"> before implementation&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">coupling_knob</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Set &#39;</span><span class="si">{</span><span class="n">knob_name</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="power_landau_octupoles"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.power_landau_octupoles">[docs]</a><span class="k">def</span> <span class="nf">power_landau_octupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">mo_current</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">defective_arc</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Powers the Landau octupoles in the (HL)LHC.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        beam (int): beam to use.</span>
+<span class="sd">        mo_current (float): `MO` powering, in [A].</span>
+<span class="sd">        defective_arc: If set to `True`, the ``KOD`` in Arc 56 are powered for less ``Imax``.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span> <span class="k">as</span> <span class="n">madx_error</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;The global MAD-X variable &#39;NRJ&#39; should have been set in the optics files but is not defined.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">EnvironmentError</span><span class="p">(</span><span class="s2">&quot;No &#39;NRJ&#39; variable found in scripts&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_error</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Powering Landau Octupoles, beam </span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2"> @ </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span><span class="si">}</span><span class="s2"> GeV with </span><span class="si">{</span><span class="n">mo_current</span><span class="si">}</span><span class="s2"> A.&quot;</span><span class="p">)</span>
+    <span class="n">strength</span> <span class="o">=</span> <span class="n">mo_current</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Imax_MO</span> <span class="o">*</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">Kmax_MO</span> <span class="o">/</span> <span class="n">brho</span>
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+
+    <span class="k">for</span> <span class="n">arc</span> <span class="ow">in</span> <span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span>
+            <span class="n">octupole</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;KO</span><span class="si">{</span><span class="n">fd</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">arc</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Powering element &#39;</span><span class="si">{</span><span class="n">octupole</span><span class="si">}</span><span class="s2">&#39; at </span><span class="si">{</span><span class="n">strength</span><span class="si">}</span><span class="s2"> Amps&quot;</span><span class="p">)</span>
+            <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">octupole</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span>
+
+    <span class="k">if</span> <span class="n">defective_arc</span> <span class="ow">and</span> <span class="p">(</span><span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;KOD.A56B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">strength</span> <span class="o">*</span> <span class="mf">4.65</span> <span class="o">/</span> <span class="mi">6</span>  <span class="c1"># defective MO group</span></div>
+
+
+<div class="viewcode-block" id="deactivate_lhc_arc_sextupoles"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.deactivate_lhc_arc_sextupoles">[docs]</a><span class="k">def</span> <span class="nf">deactivate_lhc_arc_sextupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Deactivates all arc sextupoles in the (HL)LHC.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        beam (int): beam to use.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; deactivate_lhc_arc_sextupoles(madx, beam=1)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56</span>
+    <span class="c1"># KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56</span>
+    <span class="c1"># Rest: Weak sextupoles in sectors 78/23/34/67</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Deactivating all arc sextupoles for beam </span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+
+    <span class="k">for</span> <span class="n">arc</span> <span class="ow">in</span> <span class="n">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">fd</span> <span class="ow">in</span> <span class="s2">&quot;FD&quot;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+                <span class="n">sextupole</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;KS</span><span class="si">{</span><span class="n">fd</span><span class="si">}{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">arc</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;De-powering element &#39;</span><span class="si">{</span><span class="n">sextupole</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+                <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">sextupole</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span></div>
+
+
+<div class="viewcode-block" id="vary_independent_ir_quadrupoles"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.vary_independent_ir_quadrupoles">[docs]</a><span class="k">def</span> <span class="nf">vary_independent_ir_quadrupoles</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">quad_numbers</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sides</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="s2">&quot;l&quot;</span><span class="p">),</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Sends the ``VARY`` commands for the desired quadrupoles in the IR surrounding the provided *ip*.</span>
+<span class="sd">    The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful</span>
+<span class="sd">    to setup some specific matching involving these elements.</span>
+
+<span class="sd">    ..important::</span>
+<span class="sd">        It is necessary to have defined a ``brho`` variable when creating your beams.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).</span>
+<span class="sd">        ip (int): the IP around which to apply the instructions.</span>
+<span class="sd">        sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left,</span>
+<span class="sd">            accepts these letters case-insensitively. Defaults to both sides of the IP.</span>
+<span class="sd">        beam (int): the beam for which to apply the instructions. Defaults to 1.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; vary_independent_ir_quadrupoles(</span>
+<span class="sd">            ...     madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=(&quot;r&quot;, &quot;l&quot;)</span>
+<span class="sd">            ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">side</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;R&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">)</span> <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">quad</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="k">for</span> <span class="n">quad</span> <span class="ow">in</span> <span class="n">quad_numbers</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Either the IP number of the side provided are invalid, not applying any error.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;quad_numbers&#39;, &#39;ip&#39;, &#39;sides&#39; argument&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Preparing a knob involving quadrupoles </span><span class="si">{</span><span class="n">quad_numbers</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># Each quad has a specific power circuit used for their k1 boundaries</span>
+    <span class="n">power_circuits</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;mqy&quot;</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+        <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+        <span class="mi">7</span><span class="p">:</span> <span class="s2">&quot;mqm&quot;</span><span class="p">,</span>
+        <span class="mi">8</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+        <span class="mi">9</span><span class="p">:</span> <span class="s2">&quot;mqm&quot;</span><span class="p">,</span>
+        <span class="mi">10</span><span class="p">:</span> <span class="s2">&quot;mqml&quot;</span><span class="p">,</span>
+        <span class="mi">11</span><span class="p">:</span> <span class="s2">&quot;mqtli&quot;</span><span class="p">,</span>
+        <span class="mi">12</span><span class="p">:</span> <span class="s2">&quot;mqt&quot;</span><span class="p">,</span>
+        <span class="mi">13</span><span class="p">:</span> <span class="s2">&quot;mqt&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">for</span> <span class="n">quad</span> <span class="ow">in</span> <span class="n">quad_numbers</span><span class="p">:</span>
+        <span class="n">circuit</span> <span class="o">=</span> <span class="n">power_circuits</span><span class="p">[</span><span class="n">quad</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">side</span> <span class="ow">in</span> <span class="n">sides</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Sending vary command for Q</span><span class="si">{</span><span class="n">quad</span><span class="si">}{</span><span class="n">side</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">vary</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;kq</span><span class="si">{</span><span class="s1">&#39;t&#39;</span> <span class="k">if</span> <span class="n">quad</span> <span class="o">&gt;=</span> <span class="mi">11</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="s1">&#39;l&#39;</span> <span class="k">if</span> <span class="n">quad</span> <span class="o">==</span> <span class="mi">11</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="n">quad</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+                <span class="n">step</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">,</span>
+                <span class="n">lower</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;-</span><span class="si">{</span><span class="n">circuit</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="s1">&#39;b&#39;</span> <span class="k">if</span> <span class="n">quad</span> <span class="o">==</span> <span class="mi">7</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="n">quad</span><span class="si">}{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">-&gt;kmax/brho&quot;</span><span class="p">,</span>
+                <span class="n">upper</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;+</span><span class="si">{</span><span class="n">circuit</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="s1">&#39;b&#39;</span> <span class="k">if</span> <span class="n">quad</span> <span class="o">==</span> <span class="mi">7</span> <span class="k">else</span> <span class="s1">&#39;&#39;</span><span class="si">}{</span><span class="n">quad</span><span class="si">}{</span><span class="n">side</span><span class="si">}{</span><span class="n">ip</span><span class="si">}</span><span class="s2">.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}</span><span class="s2">-&gt;kmax/brho&quot;</span><span class="p">,</span>
+            <span class="p">)</span></div>
+
+
+<span class="c1"># ----- Element Installation ----- #</span>
+
+
+<div class="viewcode-block" id="install_ac_dipole_as_kicker"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.install_ac_dipole_as_kicker">[docs]</a><span class="k">def</span> <span class="nf">install_ac_dipole_as_kicker</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+    <span class="n">deltaqx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">deltaqy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">sigma_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">sigma_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">start_turn</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
+    <span class="n">ramp_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2000</span><span class="p">,</span>
+    <span class="n">top_turns</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6600</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Installs an AC dipole as a kicker element in (HL)LHC beam 1 or 2, for tracking. This function</span>
+<span class="sd">    assumes that you have already defined lhcb1/lhcb2 sequence, made a beam for it (``BEAM``</span>
+<span class="sd">    command or `~lhc.make_lhc_beams` function), matched to your desired working point and made</span>
+<span class="sd">    a ``TWISS`` call.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        In a real machine, the AC Dipole does impact the orbit as well as the betatron</span>
+<span class="sd">        functions when turned on (:cite:t:`Miyamoto:ACD:2008`, part III). In ``MAD-X``</span>
+<span class="sd">        however, it cannot be modeled to do both at the same time. This routine introduces</span>
+<span class="sd">        an AC Dipole as a kicker element so that its effect can be seen on particle trajectory</span>
+<span class="sd">        in tracking. It **does not** affect ``TWISS`` functions.</span>
+
+<span class="sd">    One can find a full example use of the function for tracking in the</span>
+<span class="sd">    :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;` example gallery.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.</span>
+<span class="sd">        deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.</span>
+<span class="sd">        sigma_x (float): the horizontal amplitude to drive the beam to, in bunch sigma.</span>
+<span class="sd">        sigma_y (float): the vertical amplitude to drive the beam to, in bunch sigma.</span>
+<span class="sd">        beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.</span>
+<span class="sd">        start_turn (int): the turn at which to start ramping up the AC dipole. Defaults to 100.</span>
+<span class="sd">        ramp_turns (int): the number of turns to use for the ramp-up and the ramp-down of the AC dipole.</span>
+<span class="sd">            This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000</span>
+<span class="sd">            as in the LHC.</span>
+<span class="sd">        top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; lhc.install_ac_dipole_as_kicker(</span>
+<span class="sd">            ...     madx,</span>
+<span class="sd">            ...     deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30</span>
+<span class="sd">            ...     deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332</span>
+<span class="sd">            ...     sigma_x=2,  # bunch amplitude kick in the horizontal plane</span>
+<span class="sd">            ...     sigma_y=2,  # bunch amplitude kick in the vertical plane</span>
+<span class="sd">            ...     beam=1,  # beam for which to install and kick</span>
+<span class="sd">            ...     start_turn=100,  # when to turn on the AC Dipole</span>
+<span class="sd">            ...     ramp_turns=2000,  # how many turns to ramp up/down the AC Dipole</span>
+<span class="sd">            ...     top_turns=6600,  # how many turns to keep the AC Dipole at full kick</span>
+<span class="sd">            ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a kicker and will not affect TWISS functions!&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">top_turns</span> <span class="o">&gt;</span> <span class="mi">6600</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Configuring the AC Dipole for </span><span class="si">{</span><span class="n">top_turns</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> of driving is fine for MAD-X but is &quot;</span>
+            <span class="s2">&quot;higher than what the device can do in the (HL)LHC! Beware.&quot;</span>
+        <span class="p">)</span>
+    <span class="n">ramp1</span><span class="p">,</span> <span class="n">ramp2</span> <span class="o">=</span> <span class="n">start_turn</span><span class="p">,</span> <span class="n">start_turn</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+    <span class="n">ramp3</span> <span class="o">=</span> <span class="n">ramp2</span> <span class="o">+</span> <span class="n">top_turns</span>
+    <span class="n">ramp4</span> <span class="o">=</span> <span class="n">ramp3</span> <span class="o">+</span> <span class="n">ramp_turns</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span>
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
+    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;pbeam = beam%lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">-&gt;pc;&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, betx);&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, bety);&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole voltage values&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;voltx = 0.042 * pbeam * ABS(</span><span class="si">{</span><span class="n">deltaqx</span><span class="si">}</span><span class="s2">) / SQRT(180.0 * betxac) * </span><span class="si">{</span><span class="n">sigma_x</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;volty = 0.042 * pbeam * ABS(</span><span class="si">{</span><span class="n">deltaqy</span><span class="si">}</span><span class="s2">) / SQRT(177.0 * betyac) * </span><span class="si">{</span><span class="n">sigma_y</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining kicker elements for transverse planes&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;MKACH.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">: hacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt=voltx, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;ramp2=</span><span class="si">{</span><span class="n">ramp2</span><span class="si">}</span><span class="s2">, ramp3=</span><span class="si">{</span><span class="n">ramp3</span><span class="si">}</span><span class="s2">, ramp4=</span><span class="si">{</span><span class="n">ramp4</span><span class="si">}</span><span class="s2">;&quot;</span>
+    <span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;MKACV.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">: vacdipole, l=0, freq:=</span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">, lag=0, volt=volty, ramp1=</span><span class="si">{</span><span class="n">ramp1</span><span class="si">}</span><span class="s2">, &quot;</span>
+        <span class="sa">f</span><span class="s2">&quot;ramp2=</span><span class="si">{</span><span class="n">ramp2</span><span class="si">}</span><span class="s2">, ramp3=</span><span class="si">{</span><span class="n">ramp3</span><span class="si">}</span><span class="s2">, ramp4=</span><span class="si">{</span><span class="n">ramp4</span><span class="si">}</span><span class="s2">;&quot;</span>
+    <span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing AC Dipole kicker with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="c1"># The kicker version is meant for a thin lattice and is installed a right at MKQA.6L4.B[12] (at=0)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKACH.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKACV.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Sequence LHCB</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> is now re-USEd for changes to take effect. Beware that this will reset it, &quot;</span>
+        <span class="s2">&quot;remove errors etc.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="install_ac_dipole_as_matrix"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.install_ac_dipole_as_matrix">[docs]</a><span class="k">def</span> <span class="nf">install_ac_dipole_as_matrix</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">deltaqx</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">deltaqy</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Installs an AC dipole as a matrix element in (HL)LHC beam 1 or 2, to see its effect on TWISS functions</span>
+<span class="sd">    This function assumes that you have already defined lhcb1/lhcb2 sequence, made a beam for it (``BEAM``</span>
+<span class="sd">    command or `~lhc.make_lhc_beams` function), matched to your desired working point and made a ``TWISS``</span>
+<span class="sd">    call.</span>
+
+<span class="sd">    This function&#39;s use is very similar to that of `~.lhc.install_ac_dipole_as_kicker`.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        In a real machine, the AC Dipole does impact the orbit as well as the betatron</span>
+<span class="sd">        functions when turned on (:cite:t:`Miyamoto:ACD:2008`, part III). In ``MAD-X``</span>
+<span class="sd">        however, it cannot be modeled to do both at the same time. This routine introduces</span>
+<span class="sd">        an AC Dipole as a matrix element so that its effect can be seen on ``TWISS`` functions.</span>
+<span class="sd">        It **does not** affect tracking.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.</span>
+<span class="sd">        deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.</span>
+<span class="sd">        beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a matrix and will not affect particle tracking!&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam.&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving tunes from internal tables&quot;</span><span class="p">)</span>
+    <span class="n">q1</span><span class="p">,</span> <span class="n">q2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q1</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="o">.</span><span class="n">q2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Retrieved values are q1 = </span><span class="si">{</span><span class="n">q1</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">, q2 = </span><span class="si">{</span><span class="n">q2</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">q1_dipole</span><span class="p">,</span> <span class="n">q2_dipole</span> <span class="o">=</span> <span class="n">q1</span> <span class="o">+</span> <span class="n">deltaqx</span><span class="p">,</span> <span class="n">q2</span> <span class="o">+</span> <span class="n">deltaqy</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Querying BETX and BETY at AC Dipole location&quot;</span><span class="p">)</span>
+    <span class="c1"># All below is done as model_creator macros with `.input()` calls</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betxac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, betx);&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;betyac = table(twiss, MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">, BEAM, bety);&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Calculating AC Dipole matrix terms&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;hacmap21 = 2 * (cos(2*pi*</span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">}</span><span class="s2">) - cos(2*pi*</span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">)) / (betxac * sin(2*pi*</span><span class="si">{</span><span class="n">q1</span><span class="si">}</span><span class="s2">));&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vacmap43 = 2 * (cos(2*pi*</span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">}</span><span class="s2">) - cos(2*pi*</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">)) / (betyac * sin(2*pi*</span><span class="si">{</span><span class="n">q2</span><span class="si">}</span><span class="s2">));&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Defining matrix elements for transverse planes&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;hacmap: matrix, l=0, rm21=hacmap21;&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;vacmap: matrix, l=0, rm43=vacmap43;&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing AC Dipole matrix with driven tunes of Qx_D = </span><span class="si">{</span><span class="n">q1_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">  |  Qy_D = </span><span class="si">{</span><span class="n">q2_dipole</span><span class="si">:</span><span class="s2">.5f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="c1"># The matrix version is meant for a thick lattice and is installed a little after MKQA.6L4.B[12]</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;hacmap&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span><span class="n">element</span><span class="o">=</span><span class="s2">&quot;vacmap&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="s2">&quot;1.583 / 2&quot;</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MKQA.6L4.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">&quot;Sequence LHCB</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> is now re-USEd for changes to take effect. Beware that this will reset it, &quot;</span>
+        <span class="s2">&quot;remove errors etc.&quot;</span>
+    <span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1"># ----- Output Utilities ----- #</span>
+
+
+<div class="viewcode-block" id="make_sixtrack_output"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_sixtrack_output">[docs]</a><span class="k">def</span> <span class="nf">make_sixtrack_output</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Prepare output for a ``SixTrack`` run. Initial implementation credits go to</span>
+<span class="sd">    :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        energy (float): beam energy, in [GeV].</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; make_sixtrack_output(madx, energy=6800)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Preparing outputs for SixTrack&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Powering RF cavities&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;VRF400&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">8</span> <span class="k">if</span> <span class="n">energy</span> <span class="o">&lt;</span> <span class="mi">5000</span> <span class="k">else</span> <span class="mi">16</span>  <span class="c1"># is 6 at injection for protons iirc?</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B1&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># cavity phase difference in units of 2pi</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;LAGRF400.B2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Executing TWISS and SIXTRACK commands&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># used by sixtrack</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">sixtrack</span><span class="p">(</span><span class="n">cavall</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mf">0.017</span><span class="p">)</span>  <span class="c1"># this value is only ok for HL(LHC) magnet radius</span></div>
+
+
+<span class="c1"># ----- Miscellaneous Utilities ----- #</span>
+
+
+<div class="viewcode-block" id="reset_lhc_bump_flags"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.reset_lhc_bump_flags">[docs]</a><span class="k">def</span> <span class="nf">reset_lhc_bump_flags</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resets all LHC IP bump flags to 0.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; reset_lhc_bump_flags(madx)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Resetting all LHC IP bump flags&quot;</span><span class="p">)</span>
+    <span class="n">ALL_BUMPS</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">LHC_ANGLE_FLAGS</span>
+        <span class="o">+</span> <span class="n">LHC_CROSSING_ANGLE_FLAGS</span>
+        <span class="o">+</span> <span class="n">LHC_EXPERIMENT_STATE_FLAGS</span>
+        <span class="o">+</span> <span class="n">LHC_IP2_SPECIAL_FLAG</span>
+        <span class="o">+</span> <span class="n">LHC_IP_OFFSET_FLAGS</span>
+        <span class="o">+</span> <span class="n">LHC_PARALLEL_SEPARATION_FLAGS</span>
+    <span class="p">)</span>
+    <span class="k">with</span> <span class="n">madx</span><span class="o">.</span><span class="n">batch</span><span class="p">():</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">bump</span><span class="p">:</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">bump</span> <span class="ow">in</span> <span class="n">ALL_BUMPS</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="get_lhc_bpms_list"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.get_lhc_bpms_list">[docs]</a><span class="k">def</span> <span class="nf">get_lhc_bpms_list</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns the list of monitoring BPMs for the current LHC sequence in use.</span>
+<span class="sd">    The BPMs are queried through a regex in the result of a ``TWISS`` command.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        As this function calls the ``TWISS`` command and requires that ``TWISS`` can</span>
+<span class="sd">        succeed on your sequence.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The `list` of BPM names.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; observation_bpms = get_lhc_bpms_list(madx)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss</span><span class="o">.</span><span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="n">bpms_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;^bpm.*B[12]$&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
+    <span class="k">return</span> <span class="n">bpms_df</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_lhc_tune_and_chroma_knobs"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.get_lhc_tune_and_chroma_knobs">[docs]</a><span class="k">def</span> <span class="nf">get_lhc_tune_and_chroma_knobs</span><span class="p">(</span>
+    <span class="n">accelerator</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">telescopic_squeeze</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets names of knobs needed to match tunes and chromaticities as a tuple of strings,</span>
+<span class="sd">    for the LHC or HLLHC machines. Initial implementation credits go to</span>
+<span class="sd">    :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        accelerator (str): Accelerator either &#39;LHC&#39; (dQ[xy], dQp[xy] knobs) or &#39;HLLHC&#39;</span>
+<span class="sd">            (kqt[fd], ks[fd] knobs).</span>
+<span class="sd">        beam (int): Beam to use, for the knob names. Defaults to 1.</span>
+<span class="sd">        telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic</span>
+<span class="sd">            Squeeze configuration. Defaults to `True` to reflect run III scenarios.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; get_lhc_tune_and_chroma_knobs(&quot;LHC&quot;, beam=1, telescopic_squeeze=False)</span>
+<span class="sd">            (&#39;dQx.b1&#39;, &#39;dQy.b1&#39;, &#39;dQpx.b1&#39;, &#39;dQpy.b1&#39;)</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; get_lhc_tune_and_chroma_knobs(&quot;HLLHC&quot;, beam=2)</span>
+<span class="sd">            (&#39;kqtf.b2_sq&#39;, &#39;kqtd.b2_sq&#39;, &#39;ksf.b2_sq&#39;, &#39;ksd.b2_sq&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
+    <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;LHC&quot;</span><span class="p">,</span> <span class="s2">&quot;HLLHC&quot;</span><span class="p">):</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Invalid accelerator name, only &#39;LHC&#39; and &#39;HLLHC&#39; implemented&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accelerator &#39;</span><span class="si">{</span><span class="n">accelerator</span><span class="si">}</span><span class="s2">&#39; not implemented.&quot;</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;LHC&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;dQx.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;dQy.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;dQpx.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;dQpy.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="s2">&quot;HLLHC&quot;</span><span class="p">:</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;kqtf.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;kqtd.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;ksf.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="sa">f</span><span class="s2">&quot;ksd.b</span><span class="si">{</span><span class="n">beam</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">}[</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()]</span></div>
+
+
+<div class="viewcode-block" id="get_magnets_powering"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.get_magnets_powering">[docs]</a><span class="k">def</span> <span class="nf">get_magnets_powering</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">patterns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;^mb\.&quot;</span><span class="p">,</span> <span class="s2">&quot;^mq\.&quot;</span><span class="p">,</span> <span class="s2">&quot;^ms\.&quot;</span><span class="p">],</span> <span class="n">brho</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Gets the twiss table with additional defined columns for the given *patterns*.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Here are below certain useful patterns for the ``LHC`` and their meaning:</span>
+
+<span class="sd">        * ``^mb\.`` :math:`\\rightarrow` main bends.</span>
+<span class="sd">        * ``^mq\.`` :math:`\\rightarrow` main quadrupoles.</span>
+<span class="sd">        * ``^ms\.`` :math:`\\rightarrow` main sextupoles.</span>
+<span class="sd">        * ``^mb[rswx]`` :math:`\\rightarrow` separation dipoles.</span>
+<span class="sd">        * ``^mq[mwxy]`` :math:`\\rightarrow` insertion quads.</span>
+<span class="sd">        * ``^mqt.1[23]`` :math:`\\rightarrow` short tuning quads (12 &amp; 13).</span>
+<span class="sd">        * ``^mqtl`` :math:`\\rightarrow` long  tuning quads.</span>
+<span class="sd">        * ``^mcbx`` :math:`\\rightarrow` crossing scheme magnets.</span>
+<span class="sd">        * ``^mcb[cy]`` :math:`\\rightarrow` crossing scheme magnets.</span>
+
+<span class="sd">        To make no selection, one can give ``patterns=[&quot;&quot;]`` and this will give back</span>
+<span class="sd">        the results for *all* elements. One can also give a specific magnet&#39;s exact</span>
+<span class="sd">        name to include it in the results.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The ``TWISS`` flag will be fully cleared after running this function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        patterns (Sequence[str]): a list of regex patterns to define which elements</span>
+<span class="sd">            should be selected and included in the returned table. Defaults to selecting</span>
+<span class="sd">            the main bends, quads and sextupoles. See the note admonition above for</span>
+<span class="sd">            useful patterns to select specific ``LHC`` magnet families.</span>
+<span class="sd">        brho (Union[str, float]): optional, an explicit definition for the magnetic</span>
+<span class="sd">            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that</span>
+<span class="sd">            a ``brho`` quantity is defined in the ``MAD-X`` globals.</span>
+<span class="sd">        **kwargs: any keyword argument will be passed to `~.twiss.get_pattern_twiss` and</span>
+<span class="sd">            later on to the ``TWISS`` command executed in ``MAD-X``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A `~tfs.TfsDataFrame` of the ``TWISS`` table, with the relevant newly defined columns</span>
+<span class="sd">        and including the elements matching the regex *patterns* that were provided.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Computing magnets field and powering limits proportions&quot;</span><span class="p">)</span>
+    <span class="n">NEW_COLNAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;keyword&quot;</span><span class="p">,</span> <span class="s2">&quot;ampere&quot;</span><span class="p">,</span> <span class="s2">&quot;imax&quot;</span><span class="p">,</span> <span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="s2">&quot;kn&quot;</span><span class="p">,</span> <span class="s2">&quot;kmax&quot;</span><span class="p">,</span> <span class="s2">&quot;integrated_field&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">]</span>
+    <span class="n">NEW_COLNAMES</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">NEW_COLNAMES</span> <span class="o">+</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;columns&quot;</span><span class="p">,</span> <span class="p">[])))</span>  <span class="c1"># in case user gives explicit columns</span>
+    <span class="n">_list_field_currents</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">brho</span><span class="o">=</span><span class="n">brho</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">twiss</span><span class="o">.</span><span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">NEW_COLNAMES</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="n">patterns</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<span class="c1"># ----- Helpers ----- #</span>
+
+
+<span class="k">def</span> <span class="nf">_all_lhc_arcs</span><span class="p">(</span><span class="n">beam</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Generates and returns the names of all LHC arcs for a given beam.</span>
+<span class="sd">    Initial implementation credits go to :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        beam (int): beam to get names for.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        The list of names.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;A</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}{</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="mi">8</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2">B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">)]</span>
+
+
+<span class="k">def</span> <span class="nf">_list_field_currents</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">brho</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Creates additional columns for the ``TWISS`` table with the magnets&#39; total fields</span>
+<span class="sd">    and currents, to help later on determine which proportion of their maximum powering</span>
+<span class="sd">    the current setting is using. This is an implementation of the old utility script</span>
+<span class="sd">    located at **/afs/cern.ch/eng/lhc/optics/V6.503/toolkit/list_fields_currents.madx**.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        Certain quantities are assumed to be defined in the ``MAD-X`` globals, such as</span>
+<span class="sd">        ``brho``, or available in the magnets definition, such as ``calib``. For this</span>
+<span class="sd">        reason, this script most likely only works for the ``(HL)LHC`` sequences where</span>
+<span class="sd">        those are defined.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        brho (Union[str, float]): optional, an explicit definition for the magnetic</span>
+<span class="sd">            rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that</span>
+<span class="sd">            a ``brho`` quantity is defined in the ``MAD-X`` globals and this one will</span>
+<span class="sd">            be used.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating additional TWISS table columns for magnets&#39; fields and currents&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">brho</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting &#39;brho&#39; to explicitely defined &#39;</span><span class="si">{</span><span class="n">brho</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;brho&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">brho</span>
+
+    <span class="c1"># Define strength := table(twiss, k0l) + ... + table(twiss, k5sl) +  table(twiss, hkick)  +  table(twiss, vkick);</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;strength&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot; + &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;table(twiss, </span><span class="si">{</span><span class="n">a</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">)&quot;</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">_get_k_strings</span><span class="p">(</span><span class="n">stop</span><span class="o">=</span><span class="mi">6</span><span class="p">))</span>
+        <span class="o">+</span> <span class="s2">&quot; +  table(twiss, hkick)  +  table(twiss, vkick)&quot;</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All here are given as strings to make it deferred expressions in MAD-X</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;epsilon&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-20</span>  <span class="c1"># to avoid divisions by zero</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;length&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;table(twiss, l) + table(twiss, lrad) + epsilon&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;kmaxx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;table(twiss, kmax) + epsilon&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;calibration&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;table(twiss, calib) + epsilon&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;kn&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;abs(strength) / length&quot;</span>
+    <span class="c1"># madx.globals[&quot;rho&quot;] = &quot;kn / (kn + epsilon) / (kn + epsilon)&quot;</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;field&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;kn * brho&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;percent&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;field * 100 / (kmaxx + epsilon)&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;ampere&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;field / calibration&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;imax&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;kmaxx / calibration&quot;</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;integrated_field&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;field * length&quot;</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>

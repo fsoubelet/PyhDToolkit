@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Models &mdash; PyhDToolkit 0.18.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Optics" href="optics.html" />
+    <link rel="prev" title="Maths" href="maths.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.18.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api.html">API Reference</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-18-0">0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#bug-fixes">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-17-0">0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id3">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id4">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id5">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-16-1">0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id7">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-16-0">0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id9">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id10">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id11">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id13">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id15">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id16">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id18">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id20">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id21">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id23">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id24">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id25">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id27">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id28">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id30">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id32">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id33">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id34">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id36">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id39">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id40">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id42">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id43">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id45">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id46">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id49">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id51">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id52">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id53">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id55">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id56">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id58">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id59">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id61">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id63">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id64">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id65">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id67">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id68">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id70">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id71">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id72">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id74">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id77">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id78">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id79">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id81">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id82">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id83">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id85">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id87">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id88">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id90">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id92">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id93">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id95">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api.html">API Reference</a> &raquo;</li>
+      <li>Models</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/fsoubelet/PyhDToolkit" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-pyhdtoolkit.models.beam">
+<span id="models"></span><span id="pyhdtoolkit-models"></span><h1>Models<a class="headerlink" href="#module-pyhdtoolkit.models.beam" title="Permalink to this headline"></a></h1>
+<section id="particle-beam-models">
+<span id="models-beam"></span><h2>Particle Beam Models<a class="headerlink" href="#particle-beam-models" title="Permalink to this headline"></a></h2>
+<p>Module with <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> models to validate and store data structures relative to particle beams.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.models.beam.</span></span><span class="sig-name descname"><span class="pre">BeamParameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pc_GeV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">E_0_GeV</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.9382720813</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">en_x_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">en_y_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deltap_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/models/beam.html#BeamParameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters" title="Permalink to this definition"></a></dt>
+<dd><p>Class to encompass, validate and manipulate properties of a particle beam.
+One can find a usage example in the <a class="reference internal" href="../gallery/demo_beam_enveloppe.html#demo-beam-enveloppe"><span class="std std-ref">beam enveloppe demo</span></a>.</p>
+<dl class="py property">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters.B_rho_Tm">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">B_rho_Tm</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters.B_rho_Tm" title="Permalink to this definition"></a></dt>
+<dd><p>Beam rigidity [T/m]</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters.E_kin_GeV">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">E_kin_GeV</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters.E_kin_GeV" title="Permalink to this definition"></a></dt>
+<dd><p>Total beam energy [GeV]</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters.E_tot_GeV">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">E_tot_GeV</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters.E_tot_GeV" title="Permalink to this definition"></a></dt>
+<dd><p>Total beam energy [GeV]</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters.beta_r">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">beta_r</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters.beta_r" title="Permalink to this definition"></a></dt>
+<dd><p>Relativistic beta</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters.eg_x_m">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eg_x_m</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters.eg_x_m" title="Permalink to this definition"></a></dt>
+<dd><p>Horizontal geometrical emittance</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters.eg_y_m">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eg_y_m</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters.eg_y_m" title="Permalink to this definition"></a></dt>
+<dd><p>Vertical geometrical emittance</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.beam.BeamParameters.gamma_r">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gamma_r</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></em><a class="headerlink" href="#pyhdtoolkit.models.beam.BeamParameters.gamma_r" title="Permalink to this definition"></a></dt>
+<dd><p>Relativistic gamma</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<span class="target" id="module-pyhdtoolkit.models.htc"></span><section id="htcondor-models">
+<span id="models-htc"></span><h2>HTCondor Models<a class="headerlink" href="#htcondor-models" title="Permalink to this headline"></a></h2>
+<p>Module with <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> models to validate and store data obtained by querying the <code class="docutils literal notranslate"><span class="pre">HTCondor</span></code> queue.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.htc.BaseSummary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.models.htc.</span></span><span class="sig-name descname"><span class="pre">BaseSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">jobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">completed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">removed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">idle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">running</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">held</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">suspended</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/models/htc.html#BaseSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.models.htc.BaseSummary" title="Permalink to this definition"></a></dt>
+<dd><p>Class to encompass and validate the cluster’s summary line in the <code class="docutils literal notranslate"><span class="pre">condor_q</span></code> output.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.htc.ClusterSummary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.models.htc.</span></span><span class="sig-name descname"><span class="pre">ClusterSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scheduler_id</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">query</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyhdtoolkit.models.htc.BaseSummary" title="pyhdtoolkit.models.htc.BaseSummary"><span class="pre">pyhdtoolkit.models.htc.BaseSummary</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">user</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyhdtoolkit.models.htc.BaseSummary" title="pyhdtoolkit.models.htc.BaseSummary"><span class="pre">pyhdtoolkit.models.htc.BaseSummary</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">cluster</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyhdtoolkit.models.htc.BaseSummary" title="pyhdtoolkit.models.htc.BaseSummary"><span class="pre">pyhdtoolkit.models.htc.BaseSummary</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/models/htc.html#ClusterSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.models.htc.ClusterSummary" title="Permalink to this definition"></a></dt>
+<dd><p>Class to encompass and validate the cluster’s info line in the <code class="docutils literal notranslate"><span class="pre">condor_q</span></code> output.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.htc.HTCTaskSummary">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.models.htc.</span></span><span class="sig-name descname"><span class="pre">HTCTaskSummary</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">submitted</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pendulum.datetime.DateTime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">done</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">total</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">job_ids</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/models/htc.html#HTCTaskSummary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.models.htc.HTCTaskSummary" title="Permalink to this definition"></a></dt>
+<dd><p>Class to encompass and validate a specific job’s line in the <code class="docutils literal notranslate"><span class="pre">condor_q</span></code> output.</p>
+</dd></dl>
+
+</section>
+<span class="target" id="module-pyhdtoolkit.models.madx"></span><section id="mad-x-models">
+<span id="models-madx"></span><h2>MAD-X Models<a class="headerlink" href="#mad-x-models" title="Permalink to this headline"></a></h2>
+<p>Module with <code class="docutils literal notranslate"><span class="pre">pydantic</span></code> models to validate and store data obtained by interacting
+with the <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> process through <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymad</span></code>.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.madx.MADXBeam">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.models.madx.</span></span><span class="sig-name descname"><span class="pre">MADXBeam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">particle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pyhdtoolkit.models.madx.ParticleEnum" title="pyhdtoolkit.models.madx.ParticleEnum"><span class="pre">pyhdtoolkit.models.madx.ParticleEnum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">mass</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydantic.types.PositiveFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">charge</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydantic.types.PositiveFloat</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pc</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">brho</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ex</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ey</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">et</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">exn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">eyn</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigt</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sige</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">kbunch</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydantic.types.PositiveInt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">npart</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">pydantic.types.PositiveInt</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bcurrent</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bunched</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">radiate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">bv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/models/madx.html#MADXBeam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.models.madx.MADXBeam" title="Permalink to this definition"></a></dt>
+<dd><p>Class to encompass and validate <code class="docutils literal notranslate"><span class="pre">BEAM</span></code> attributes from the <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> process.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="pyhdtoolkit.models.madx.ParticleEnum">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.models.madx.</span></span><span class="sig-name descname"><span class="pre">ParticleEnum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/models/madx.html#ParticleEnum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.models.madx.ParticleEnum" title="Permalink to this definition"></a></dt>
+<dd><p>Validator Enum defining the accepted particle names in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> beams.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="maths.html" class="btn btn-neutral float-left" title="Maths" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="optics.html" class="btn btn-neutral float-right" title="Optics" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery &mdash; PyhDToolkit 0.18.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="AC Dipole Driven Tracking Spectrum" href="demo_acd_tracking_spectra.html" />
+    <link rel="prev" title="Quickstart" href="../quickstart.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.18.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-18-0">0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#bug-fixes">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-17-0">0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id3">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id4">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id5">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-16-1">0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id7">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-16-0">0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id9">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id10">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id11">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id13">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id15">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id16">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id18">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id20">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id21">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id23">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id24">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id25">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id27">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id28">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id30">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id32">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id33">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id34">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id36">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id39">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id40">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id42">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id43">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id45">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id46">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id49">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id51">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id52">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id53">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id55">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id56">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id58">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id59">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id61">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id63">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id64">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id65">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id67">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id68">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id70">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id71">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id72">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id74">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id77">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id78">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id79">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id81">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id82">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id83">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id85">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id87">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id88">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id90">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id92">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id93">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../release.html#id95">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Gallery</li>
+      <li class="wy-breadcrumbs-aside">
+              <!-- User defined GitHub URL -->
+              <a href="https://github.com/fsoubelet/PyhDToolkit" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gallery">
+<span id="examples-index"></span><span id="sphx-glr-gallery"></span><span id="id1"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this headline"></a></h1>
+<p>This page contains a gallery showcasing either plotting functionality provided in <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters" title="pyhdtoolkit.cpymadtools.plotters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotters</span></code></a>,
+or plots made from results of convenient functions available in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The examples shown here are plotted with the default <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> of <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>. If one uses this
+package and sets their own preferences or uses their own <strong>mplstyle</strong>, the resulting plots might
+look significantly different.</p>
+<p>The package provides a plotting style in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">default</span></code> module, which should be
+compatible with the plotters. One can use the style in two ways:</p>
+<div class="tabbed-set docutils">
+<input checked="checked" id="3226257d-14e9-490f-b91a-8b4a574187fe" name="3c862ae2-5f9e-4679-95dd-53502f0da5b3" type="radio">
+</input><label class="tabbed-label" for="3226257d-14e9-490f-b91a-8b4a574187fe">
+Import and Set the Style</label><div class="tabbed-content docutils">
+<p>Update the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> at runtime with:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><style type="text/css">
+span.prompt1:before {
+  content: ">>> ";
+}
+</style><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.defaults</span> <span class="kn">import</span> <span class="n">PLOT_PARAMS</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PLOT_PARAMS</span><span class="p">)</span></span>
+</pre></div></div></div></blockquote>
+</div>
+<input id="9949e64c-f9f2-41ae-a018-28bd0fad450a" name="3c862ae2-5f9e-4679-95dd-53502f0da5b3" type="radio">
+</input><label class="tabbed-label" for="9949e64c-f9f2-41ae-a018-28bd0fad450a">
+Install and Load the Style</label><div class="tabbed-content docutils">
+<p>Do a one-time install of the style as an <strong>.mplstyle</strong> file to import in <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="n">defaults</span><span class="o">.</span><span class="n">install_mpl_style</span><span class="p">()</span>  <span class="c1"># only run this once</span></span>
+<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;phd&quot;</span><span class="p">)</span>  <span class="c1"># created file is &#39;phd.mplstyle&#39;</span></span>
+</pre></div></div></div></blockquote>
+</div>
+</div>
+<p>In both cases, re-updating the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> later on will always overwrite these settings.</p>
+</div>
+<p>Click on any image thumbnail to see the full image and source code.</p>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.install_ac_dipole_as_kicker and  ~.track.track_single_p..."><figure class="align-default" id="id2">
+<img alt="AC Dipole Driven Tracking Spectrum" src="../_images/sphx_glr_demo_acd_tracking_spectra_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_acd_tracking_spectra.html#sphx-glr-gallery-demo-acd-tracking-spectra-py"><span class="std std-ref">AC Dipole Driven Tracking Spectrum</span></a></span><a class="headerlink" href="#id2" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.AperturePlotter.plot_aperture function to visualis..."><figure class="align-default" id="id3">
+<img alt="Accelerator Aperture" src="../_images/sphx_glr_demo_aperture_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_aperture.html#sphx-glr-gallery-demo-aperture-py"><span class="std std-ref">Accelerator Aperture</span></a></span><a class="headerlink" href="#id3" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.LatticePlotter.plot_latwiss function to represent ..."><figure class="align-default" id="id4">
+<img alt="Accelerator Lattice" src="../_images/sphx_glr_demo_lattice_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_lattice.html#sphx-glr-gallery-demo-lattice-py"><span class="std std-ref">Accelerator Lattice</span></a></span><a class="headerlink" href="#id4" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.BeamEnvelopePlotter.plot_envelope function to visu..."><figure class="align-default" id="id5">
+<img alt="Beam Enveloppe" src="../_images/sphx_glr_demo_beam_enveloppe_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_beam_enveloppe.html#sphx-glr-gallery-demo-beam-enveloppe-py"><span class="std std-ref">Beam Enveloppe</span></a></span><a class="headerlink" href="#id5" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.maths.stats_fitting.best_fit_distribution function to deter..."><figure class="align-default" id="id6">
+<img alt="Distributions Fitting" src="../_images/sphx_glr_demo_stats_fitting_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_stats_fitting.html#sphx-glr-gallery-demo-stats-fitting-py"><span class="std std-ref">Distributions Fitting</span></a></span><a class="headerlink" href="#id6" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.track.track_single_particle function to track a  particle w..."><figure class="align-default" id="id7">
+<img alt="Free Tracking Spectrum" src="../_images/sphx_glr_demo_track_spectra_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_track_spectra.html#sphx-glr-gallery-demo-track-spectra-py"><span class="std std-ref">Free Tracking Spectrum</span></a></span><a class="headerlink" href="#id7" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings f..."><figure class="align-default" id="id8">
+<img alt="LHC Crossing Schemes" src="../_images/sphx_glr_demo_lhc_crossing_schemes_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_lhc_crossing_schemes.html#sphx-glr-gallery-demo-lhc-crossing-schemes-py"><span class="std std-ref">LHC Crossing Schemes</span></a></span><a class="headerlink" href="#id8" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.errors.misalign_lhc_ir_quadrupoles function to assign magne..."><figure class="align-default" id="id9">
+<img alt="LHC IR Errors Assignments" src="../_images/sphx_glr_demo_ir_errors_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_ir_errors.html#sphx-glr-gallery-demo-ir-errors-py"><span class="std std-ref">LHC IR Errors Assignments</span></a></span><a class="headerlink" href="#id9" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.apply_lhc_rigidity_waist_shift_knob  function to force ..."><figure class="align-default" id="id10">
+<img alt="LHC Rigid Waist Shift" src="../_images/sphx_glr_demo_lhc_rigid_waist_shift_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#sphx-glr-gallery-demo-lhc-rigid-waist-shift-py"><span class="std std-ref">LHC Rigid Waist Shift</span></a></span><a class="headerlink" href="#id10" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.LatticePlotter.plot_machine_survey function to rep..."><figure class="align-default" id="id11">
+<img alt="Machine Survey" src="../_images/sphx_glr_demo_machine_survey_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_machine_survey.html#sphx-glr-gallery-demo-machine-survey-py"><span class="std std-ref">Machine Survey</span></a></span><a class="headerlink" href="#id11" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space ..."><figure class="align-default" id="id12">
+<img alt="Phase Space" src="../_images/sphx_glr_demo_phase_space_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_phase_space.html#sphx-glr-gallery-demo-phase-space-py"><span class="std std-ref">Phase Space</span></a></span><a class="headerlink" href="#id12" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.TuneDiagramPlotter.plot_tune_diagram function  to ..."><figure class="align-default" id="id13">
+<img alt="Tune Diagram" src="../_images/sphx_glr_demo_tune_diagram_thumb.svg" /><figcaption>
+<p><span class="caption-text"><a class="reference internal" href="demo_tune_diagram.html#sphx-glr-gallery-demo-tune-diagram-py"><span class="std std-ref">Tune Diagram</span></a></span><a class="headerlink" href="#id13" title="Permalink to this image"></a></p>
+</figcaption>
+</figure>
+</div><div class="toctree-wrapper compound">
+</div>
+<div class="sphx-glr-clear"></div><div class="sphx-glr-footer class sphx-glr-footer-gallery docutils container">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/46b4cb42d5bb56cc39e2b5b2b520b38d/gallery_python.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">gallery_python.zip</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/fcaddee3a42ae2e2c41e00ae08d70347/gallery_jupyter.zip"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">all</span> <span class="pre">examples</span> <span class="pre">in</span> <span class="pre">Jupyter</span> <span class="pre">notebooks:</span> <span class="pre">gallery_jupyter.zip</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../quickstart.html" class="btn btn-neutral float-left" title="Quickstart" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="demo_acd_tracking_spectra.html" class="btn btn-neutral float-right" title="AC Dipole Driven Tracking Spectrum" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>

@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyhdtoolkit.utils.operations &mdash; PyhDToolkit 0.18.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.18.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-18-0">0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#bug-fixes">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-17-0">0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id3">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id4">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id5">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-1">0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id7">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-0">0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id9">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id10">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id11">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id13">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id15">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id16">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id18">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id20">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id21">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id23">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id24">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id25">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id27">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id28">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id30">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id32">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id33">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id34">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id36">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id39">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id40">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id42">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id43">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id45">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id46">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id49">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id51">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id52">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id53">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id55">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id56">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id58">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id59">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id61">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id63">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id64">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id65">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id67">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id68">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id70">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id71">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id72">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id74">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id77">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id78">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id79">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id81">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id82">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id83">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id85">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id87">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id88">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id90">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id92">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id93">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id95">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>pyhdtoolkit.utils.operations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyhdtoolkit.utils.operations</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. _utils-operations:</span>
+
+<span class="sd">Operations Utilities</span>
+<span class="sd">--------------------</span>
+
+<span class="sd">A collection classes with utility functions to perform common / convenient </span>
+<span class="sd">operations on the classic Python structures.</span>
+
+<span class="sd">.. warning::</span>
+<span class="sd">   This module contains un-used code and will be removed in a future release.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">reduce</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
+
+
+<div class="viewcode-block" id="ListOperations"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations">[docs]</a><span class="k">class</span> <span class="nc">ListOperations</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class to group some common / useful operations on lists or sequences.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ListOperations.all_unique"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.all_unique">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">all_unique</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns `True` if all the values in a flat list are unique, `False` otherwise.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            `True` if all elements are unique, `False` otherwise.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.all_unique([1, 2, 3, 5, 12, 0])</span>
+<span class="sd">              True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ListOperations.average_by"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.average_by">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">average_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the average of *sequence* after mapping each element to a value using the</span>
+<span class="sd">        provided function. Use `map` to map each element to the value returned by *function*.</span>
+<span class="sd">        Uses `sum` to sum all of the mapped values, divided by `len`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+<span class="sd">            function (Callable): function to apply to elements of the sequence.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The average of each element&#39;s result through *function*.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.average_by(</span>
+<span class="sd">              ...   [{&#39;n&#39;: 4}, {&#39;n&#39;: 2}, {&#39;n&#39;: 8}, {&#39;n&#39;: 6}], lambda x: x[&#39;n&#39;]</span>
+<span class="sd">              ... )</span>
+<span class="sd">              5.0</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">),</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ListOperations.bifurcate"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.bifurcate">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">bifurcate</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">filters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">bool</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Splits values into two groups. If an element in filter is `True`, the corresponding</span>
+<span class="sd">        element in the collection belongs to the first group; otherwise, it belongs to the</span>
+<span class="sd">        second group. Uses list comprehension and `enumerate` to add elements to groups,</span>
+<span class="sd">        based on *filter*.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+<span class="sd">            filters (List[bool]): a list of booleans.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of two lists, one for each boolean output of the filters.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.bifurcate([&#39;beep&#39;, &#39;boop&#39;, &#39;foo&#39;, &#39;bar&#39;], [True, True, False, True])</span>
+<span class="sd">              [[&#39;beep&#39;, &#39;boop&#39;, &#39;bar&#39;], [&#39;foo&#39;]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="k">if</span> <span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+            <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">filters</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="ListOperations.bifurcate_by"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.bifurcate_by">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">bifurcate_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Splits values into two groups according to a function, which specifies which group an</span>
+<span class="sd">        element in the input sequence belongs to. If the function returns `True`, the element</span>
+<span class="sd">        belongs to the first group; otherwise it belongs to the second group. Uses list</span>
+<span class="sd">        comprehension to add elements to groups, based on *function*.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+<span class="sd">            function (Callable): a callable on the elements of *sequence*, that should return a</span>
+<span class="sd">                boolean.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A list of two lists, as groups of elements of *sequence* classified depending on their</span>
+<span class="sd">            result when passed to *function*.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.bifurcate_by(list(range(5)), lambda x: x % 2 == 0)</span>
+<span class="sd">              [[0, 2, 4], [1, 3]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)],</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">function</span><span class="p">(</span><span class="n">x</span><span class="p">)]]</span></div>
+
+<div class="viewcode-block" id="ListOperations.chunk_list"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.chunk_list">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">chunk_list</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Chunks a sequence into smaller lists of a specified size. If the size is bigger</span>
+<span class="sd">        than that of *sequence*, return *sequence* to avoid unnecessary nesting. Uses</span>
+<span class="sd">        `list` and `range` to create a list of the desired size. Uses `map` on that</span>
+<span class="sd">        list and fills it with splices of *sequence*. Finally, returns the created list.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+<span class="sd">            size (int): the size of the wanted sublists.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `list` of lists of length `size` (except maybe the last element), with</span>
+<span class="sd">            elements from *sequence*.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.chunk_list(list(range(10)), 3)</span>
+<span class="sd">              [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">size</span> <span class="o">&gt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">sequence</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">sequence</span><span class="p">[</span><span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">size</span> <span class="o">+</span> <span class="n">size</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">/</span> <span class="n">size</span><span class="p">)))))</span></div>
+
+<div class="viewcode-block" id="ListOperations.deep_flatten"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.deep_flatten">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">deep_flatten</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Recursively deep flattens *sequence*, no matter the nesting levels.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `list` with all elements of *sequence*, but flattened.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.deep_flatten([[&quot;a&quot;, &quot;b&quot;], [1, 2], None, [True, False]])</span>
+<span class="sd">              [&quot;a&quot;, &quot;b&quot;, 1, 2, None True, False]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="p">[</span><span class="n">elem</span> <span class="k">for</span> <span class="n">sublist</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">ListOperations</span><span class="o">.</span><span class="n">deep_flatten</span><span class="p">(</span><span class="n">sublist</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">[</span><span class="n">sequence</span><span class="p">]</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="ListOperations.eval_none"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.eval_none">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">eval_none</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns `False` if the provided *function* returns `True` for at least one element</span>
+<span class="sd">        in *sequence*, `True` otherwise. Iterates over *sequence* to test if every element</span>
+<span class="sd">        returns `False` based on function. Omit the seconds argument, *function*, to check</span>
+<span class="sd">        if all elements are `False`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+<span class="sd">            function (Callable): a callable on elements of *sequence* that should return</span>
+<span class="sd">                a boolean.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A boolean. See first line of docstring.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.eval_none([0, 0, 1, 0], lambda x: x &gt;= 2)</span>
+<span class="sd">              True</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.eval_none([0, 1, 2, 0], lambda x: x &gt;= 2)</span>
+<span class="sd">              False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ListOperations.eval_some"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.eval_some">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">eval_some</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="ow">not</span> <span class="ow">not</span> <span class="n">x</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns `True` if the provided *function* returns `True` for at least one element in</span>
+<span class="sd">        *sequence*, `False` otherwise. Iterates over the elements of *sequence* to test if every</span>
+<span class="sd">        element returns `True` based on *function*. Omit the seconds argument, *function*, to check</span>
+<span class="sd">        if all elements are `True`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+<span class="sd">            function (Callable): a callable on elements of *sequence* that should return a boolean.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A boolean. See first line of docstring.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.eval_some([0, 1, 2, 0], lambda x: x &gt;= 2)</span>
+<span class="sd">              True</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.eval_some([0, 0, 1, 0], lambda x: x &gt;= 2)</span>
+<span class="sd">              False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ListOperations.get_indices"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.get_indices">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">get_indices</span><span class="p">(</span><span class="n">element</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return all array indices at which *element* is located.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            element: any reference element to check.</span>
+<span class="sd">            sequence (Sequence): a sequence containing objects comparable to *elements*.</span>
+<span class="sd">                A `string` can be compared to an `int` in Python, custom objects probably</span>
+<span class="sd">                won&#39;t be comparable.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `list` of all indices at which *element* is found in *sequence*. Empty list if</span>
+<span class="sd">            *element* is not present in *sequence* at all.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2])</span>
+<span class="sd">              [0, 7, 8]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)))</span> <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="n">y</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="ListOperations.group_by"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.group_by">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">group_by</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">list</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Groups the elements of *sequence* based on the given *function*. Uses `list` in</span>
+<span class="sd">        combination with `map` and *function* to map the values of *sequence* to the</span>
+<span class="sd">        keys of an object. Uses list comprehension to map each element to the appropriate key.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+<span class="sd">            function (Callable): a callable on the elements of *sequence* that should return a</span>
+<span class="sd">                boolean.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `dict` with keys `True` and `False`, each having as value a list of all elements of</span>
+<span class="sd">            *sequence* that were evaluated to respectively `True` or `False` through *function*.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.group_by(list(range(5)), lambda x: x % 2 == 0)</span>
+<span class="sd">              {True: [0, 2, 4], False: [1, 3]}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">groups</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)):</span>
+            <span class="n">groups</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">sequence</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="n">key</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">groups</span></div>
+
+<div class="viewcode-block" id="ListOperations.has_duplicates"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.has_duplicates">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">has_duplicates</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns `True` if there are duplicate values in *sequence*, `False` otherwise.</span>
+<span class="sd">        Uses `set` on the given *sequence* to remove duplicates, then compares its length</span>
+<span class="sd">        with that of *sequence*.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A boolean indicating the presence of duplicates in *sequence*.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.has_duplicates([1, 2, 1])</span>
+<span class="sd">              True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ListOperations.sample"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.sample">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sample</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns a random element from *sequence*.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A random element from *sequence* in a list (to manage potentially</span>
+<span class="sd">            nested sequences as input).</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.sample([&quot;a&quot;, &quot;b&quot;, 1, 2, False])</span>
+<span class="sd">              2</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">sequence</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)]</span></div>
+
+<div class="viewcode-block" id="ListOperations.sanitize_list"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.sanitize_list">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">sanitize_list</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Removes falsey values from a *sequence*. Uses `filter` to filter out falsey</span>
+<span class="sd">        values (`False`, `None`, `0`, and `&quot;&quot;`).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The sequence without falsey values.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.sanitize_list([1, False, &quot;a&quot;, 2, &quot;&quot;, None, 6, 0])</span>
+<span class="sd">              [1, &quot;a&quot;, 2, 6]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">filter</span><span class="p">(</span><span class="nb">bool</span><span class="p">,</span> <span class="n">sequence</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ListOperations.shuffle"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.shuffle">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">shuffle</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Sequence</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Randomizes the order of the elements in *sequence*, returning a new `list`.</span>
+<span class="sd">        Uses an improved version of the</span>
+<span class="sd">        `Fisher-Yates algorithm &lt;https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle&gt;`_</span>
+<span class="sd">        to reorder the elements.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of elements.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A copy of *sequence* with original elements at a random index.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.shuffle([&quot;a&quot;, &quot;b&quot;, 1, 2, False])</span>
+<span class="sd">              [&#39;b&#39;, 1, False, 2, &#39;a&#39;]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">temp_list</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">sequence</span><span class="p">)</span>
+        <span class="n">amount_to_shuffle</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp_list</span><span class="p">)</span>
+        <span class="k">while</span> <span class="n">amount_to_shuffle</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">rand_index</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">*</span> <span class="n">amount_to_shuffle</span><span class="p">))</span>
+            <span class="n">amount_to_shuffle</span> <span class="o">-=</span> <span class="mi">1</span>
+            <span class="n">temp_list</span><span class="p">[</span><span class="n">rand_index</span><span class="p">],</span> <span class="n">temp_list</span><span class="p">[</span><span class="n">amount_to_shuffle</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">temp_list</span><span class="p">[</span><span class="n">amount_to_shuffle</span><span class="p">],</span>
+                <span class="n">temp_list</span><span class="p">[</span><span class="n">rand_index</span><span class="p">],</span>
+            <span class="p">)</span>
+        <span class="k">return</span> <span class="n">temp_list</span></div>
+
+<div class="viewcode-block" id="ListOperations.spread"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.spread">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">spread</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Flattens the provided *sequence*, by spreading its elements into a new `list`.</span>
+<span class="sd">        Loops over elements, uses `list.extend` if the element is a list, `list.append`</span>
+<span class="sd">        otherwise. This might look like `~.ListOperations.deep_flatten` but is a subset</span>
+<span class="sd">        of its functionality, and is used in `~.ListOperations.deep_flatten`.</span>
+
+<span class="sd">        .. warning::</span>
+<span class="sd">            This only works if all elements in *sequence* are iterables.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence):  a sequence of elements.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The sequence flattened, see first docstring sentence.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.spread([list(range(5)), list(range(5))])</span>
+<span class="sd">              [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="o">.</span><span class="n">from_iterable</span><span class="p">(</span><span class="n">sequence</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="ListOperations.symmetric_difference_by"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.symmetric_difference_by">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">symmetric_difference_by</span><span class="p">(</span><span class="n">seq_1</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">seq_2</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the `symmetric difference &lt;https://en.wikipedia.org/wiki/Symmetric_difference&gt;`_</span>
+<span class="sd">        of the provided sequences, after applying the provided *function* to each element of both.</span>
+<span class="sd">        Creates a `set` by applying *function* to each element in each sequence, then uses list</span>
+<span class="sd">        comprehension in combination with *function* on each one to only keep values not contained</span>
+<span class="sd">        in the previously created set of the other.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lst_1 (Sequence): a sequence of elements.</span>
+<span class="sd">            lst_2 (Sequence): a sequence of elements.</span>
+<span class="sd">            function (Callable): a callable on elements of *seq_1* and *seq_2*.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `list`, see first docstring sentence reference.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor)</span>
+<span class="sd">              [1.2, 3.4]</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x &gt;= 2)</span>
+<span class="sd">              [2.1]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_lst_1</span><span class="p">,</span> <span class="n">_lst_2</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">seq_1</span><span class="p">)),</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">seq_2</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seq_1</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_lst_2</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span>
+            <span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seq_2</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_lst_1</span>
+        <span class="p">]</span></div>
+
+<div class="viewcode-block" id="ListOperations.union_by"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.union_by">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">union_by</span><span class="p">(</span><span class="n">seq_1</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">seq_2</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns every element that exists in any of the two sequences once, after</span>
+<span class="sd">        applying the provided *function* to each element of both. This is the</span>
+<span class="sd">        `set theory union &lt;https://en.wikipedia.org/wiki/Union_(set_theory)&gt;`_ of the</span>
+<span class="sd">        two sequences, but based on the results of applying *function* to each.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            Python&#39;s  `set` is strange in how is gives output, so this function sorts the</span>
+<span class="sd">            final list before returning it, in order to give it predictable behavior.</span>
+
+<span class="sd">        Creates a `set` by applying *function* to each element in *seq_1*, then uses list</span>
+<span class="sd">        comprehension in combination with *function* on *seq_2* to only keep values not</span>
+<span class="sd">        contained in the previously created set, _lst_1. Finally, create a set from the</span>
+<span class="sd">        previous result and _lst_1, and transform it into a `list`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            lst_1 (Sequence): a sequence of elements.</span>
+<span class="sd">            lst_2 (Sequence): a sequence of elements.</span>
+<span class="sd">            function (Callable): a callable on elements of *seq_1* and *seq_2*.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `list`, see first docstring sentence reference.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.union_by([2.1], [1.2, 2.3], math.floor)</span>
+<span class="sd">              [1.2, 2.1]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_lst_1</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">function</span><span class="p">,</span> <span class="n">seq_1</span><span class="p">))</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">seq_1</span> <span class="o">+</span> <span class="p">[</span><span class="n">item</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">seq_2</span> <span class="k">if</span> <span class="n">function</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_lst_1</span><span class="p">])))</span></div>
+
+<div class="viewcode-block" id="ListOperations.zipper"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations.zipper">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">zipper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">fillvalue</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates a `list` of lists of elements, each internal list being a grouping based</span>
+<span class="sd">        on the position of elements in the original sequences. Essentially, a list containing:</span>
+
+<span class="sd">        * a first list with all first elements,</span>
+<span class="sd">        * then a second list with all second elements, etc.</span>
+
+<span class="sd">        Uses `max` combined with list comprehension to get the length of the longest list in</span>
+<span class="sd">        the arguments. Loops for max_length times grouping elements. If lengths of sequences</span>
+<span class="sd">        vary, uses *fill_value* to adjust the smaller ones (defaults to `None`).</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *args: a number (&gt;= 2) of different iterables.</span>
+<span class="sd">            fillvalue: value to use in case of length mismatch.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A `list` with the proper level of nesting, and original elements zipped.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; ListOperations.zipper([1, 2, 3], [2, 5, 3, 7], [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;])</span>
+<span class="sd">              [[1, 2, &#39;a&#39;], [2, 5, &#39;b&#39;], [3, 3, &#39;c&#39;], [None, 7, None]]</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">max_length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">lst</span><span class="p">)</span> <span class="k">for</span> <span class="n">lst</span> <span class="ow">in</span> <span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[[</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="k">if</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="n">k</span><span class="p">])</span> <span class="k">else</span> <span class="n">fillvalue</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">))]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_length</span><span class="p">)]</span></div></div>
+
+
+<div class="viewcode-block" id="MiscellaneousOperations"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations">[docs]</a><span class="k">class</span> <span class="nc">MiscellaneousOperations</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class to group some misc. operations that don&#39;t pertain to classic structures.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="MiscellaneousOperations.longest_item"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations.longest_item">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">longest_item</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Takes any number of iterable objects, or objects with a length property, and returns the</span>
+<span class="sd">        longest one. If multiple objects have the same length, the first one will be returned.</span>
+<span class="sd">        Usess `max` with `len` as the key to return the item with the greatest length.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *args: any number (&gt;= 2) of iterables.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The longest elements of provided iterables.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; MiscellaneousOperations.longest_item(</span>
+<span class="sd">              ...     list(range(5)), list(range(100)), list(range(50))</span>
+<span class="sd">              ... )</span>
+<span class="sd">              list(range(100))</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="MiscellaneousOperations.map_values"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations.map_values">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">map_values</span><span class="p">(</span><span class="n">obj</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">function</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an new `dict` with the same keys as the provided *obj*,</span>
+<span class="sd">        and values generated by running *function* on the *obj*&#39;s values.</span>
+<span class="sd">        Uses `dict.keys` to iterate over the object&#39;s keys, assigning the</span>
+<span class="sd">        values produced by *function* to each key of a new object.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            obj (dict): a dictionary.</span>
+<span class="sd">            function (Callable): a callable on values of `obj`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A new dictionary with the results.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; MiscellaneousOperations.map_values(</span>
+<span class="sd">              ...     {&quot;a&quot;: list(range(5)), &quot;b&quot;: list(range(10)), &quot;c&quot;: list(range(15))},</span>
+<span class="sd">              ...     lambda x: len(x)</span>
+<span class="sd">              ... )</span>
+<span class="sd">              {&quot;a&quot;: 5, &quot;b&quot;: 10, &quot;c&quot;: 15}</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">obj</span><span class="p">:</span>
+            <span class="n">ret</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="n">obj</span><span class="p">[</span><span class="n">key</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">ret</span></div></div>
+
+
+<div class="viewcode-block" id="NumberOperations"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations">[docs]</a><span class="k">class</span> <span class="nc">NumberOperations</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class to group some common / useful operations on numbers.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="NumberOperations.clamp_number"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.clamp_number">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">clamp_number</span><span class="p">(</span><span class="n">num</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">a_val</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">b_val</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Clamps *num* within the inclusive range specified by the boundary values *a_val*</span>
+<span class="sd">        and *b_val*. If *num* falls within the range, returns *num*. Otherwise, return the</span>
+<span class="sd">        nearest number in the range.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            num (Union[int, float]): a number (float  / int)</span>
+<span class="sd">            a_val (Union[int, float]): a number (float  / int)</span>
+<span class="sd">            b_val (Union[int, float]): a number (float  / int)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A number (float  / int), being the nearest to *num* in the range [*a_val*, *b_val*].</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.clamp_number(17, 4, 5)</span>
+<span class="sd">              5</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.clamp_number(23, 20, 30)</span>
+<span class="sd">              23</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">num</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">)),</span> <span class="nb">min</span><span class="p">(</span><span class="n">a_val</span><span class="p">,</span> <span class="n">b_val</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="NumberOperations.degrees_to_radians"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.degrees_to_radians">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">degrees_to_radians</span><span class="p">(</span>
+        <span class="n">deg_value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">decompose</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts an angle from degrees to radians. Uses `math.pi` and the degree</span>
+<span class="sd">        to radian formula to convert the provided *deg_value*.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            deg_value (Union[int, float]): angle value in degrees.</span>
+<span class="sd">            decompose (bool): boolean option to return a more verbose result. Defaults to `False`.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The angle value in radians.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.degrees_to_radians(160)</span>
+<span class="sd">              2.792526803190927</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.degrees_to_radians(360, decompose=True)</span>
+<span class="sd">              (2, &quot;pi&quot;, &quot;rad&quot;)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">decompose</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">deg_value</span> <span class="o">/</span> <span class="mi">180</span><span class="p">,</span> <span class="s2">&quot;pi&quot;</span><span class="p">,</span> <span class="s2">&quot;rad&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">deg_value</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">/</span> <span class="mf">180.0</span></div>
+
+<div class="viewcode-block" id="NumberOperations.greatest_common_divisor"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.greatest_common_divisor">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">greatest_common_divisor</span><span class="p">(</span><span class="n">sequence</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Calculates the greatest common divisor of a sequence of numbers.</span>
+<span class="sd">        Uses `reduce` and `math.gcd` over the given *sequence*.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            sequence (Sequence): a sequence of numbers (floats are advised against as this would</span>
+<span class="sd">                become a very heavy computation).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The greatest common divisor of all elements in *sequence*.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.greatest_common_divisor([54, 24])</span>
+<span class="sd">              6</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.greatest_common_divisor([30, 132, 378, 582, 738])</span>
+<span class="sd">              6</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">,</span> <span class="n">sequence</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NumberOperations.is_divisible_by"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.is_divisible_by">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_divisible_by</span><span class="p">(</span><span class="n">dividend</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="n">divisor</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if the first numeric argument is divisible by the second one.</span>
+<span class="sd">        Uses the modulo operator (`%`) to check if the remainder is equal to 0.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            dividend (Union[int, float]): a number.</span>
+<span class="sd">            divisor (Union[int, float]): a number.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A boolean stating if *dividend* can be divided by *divisor*.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.is_divisible_by(35, 15)</span>
+<span class="sd">              False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">dividend</span> <span class="o">%</span> <span class="n">divisor</span> <span class="o">==</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="NumberOperations.least_common_multiple"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.least_common_multiple">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">least_common_multiple</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the least common multiple of two or more numbers. Defines a function, spread,</span>
+<span class="sd">        that uses either `list.extend` or `list.append` on each element of s sequence to flatten</span>
+<span class="sd">        it. Uses `math.gcd` and lcm(x,y) = (x * y) / gcd(x,y) to determine the least common multiple.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            *args: any number (&gt;= 2) of numbers (floats are advised against as this would become a</span>
+<span class="sd">                very heavy computation).</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The least common multiple of all provided numbers.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.least_common_multiple(4, 5)</span>
+<span class="sd">              20</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.least_common_multiple(2, 5, 17, 632)</span>
+<span class="sd">              53720</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">numbers</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">ListOperations</span><span class="o">.</span><span class="n">spread</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">args</span><span class="p">)))</span>
+
+        <span class="k">def</span> <span class="nf">_lcm</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span> <span class="n">number2</span><span class="p">):</span>
+            <span class="sd">&quot;&quot;&quot;A least common multiple method for two numbers only&quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">number1</span> <span class="o">*</span> <span class="n">number2</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">gcd</span><span class="p">(</span><span class="n">number1</span><span class="p">,</span> <span class="n">number2</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">reduce</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">_lcm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="n">numbers</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="NumberOperations.radians_to_degrees"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.radians_to_degrees">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">radians_to_degrees</span><span class="p">(</span><span class="n">rad_value</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts an angle from radians to degrees. Uses `math.pi` and the radian</span>
+<span class="sd">        to degree formula to convert the provided *rad_value*.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            rad_value (Union[int, float]): angle value in degrees.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The angle value in degrees.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.radians_to_degrees(2* math.pi)</span>
+<span class="sd">              360</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; NumberOperations.radians_to_degrees(2.710)</span>
+<span class="sd">              155.2715624804531</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">rad_value</span> <span class="o">*</span> <span class="mf">180.0</span><span class="p">)</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span></div></div>
+
+
+<div class="viewcode-block" id="StringOperations"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations">[docs]</a><span class="k">class</span> <span class="nc">StringOperations</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A class to group some common / useful operations on strings.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="StringOperations.camel_case"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations.camel_case">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">camel_case</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a `string` to camelCase. Breaks the string into words and combines</span>
+<span class="sd">        them capitalizing the first letter of each word, using a regexp, `title` and `lower`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): a string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The same `string` best adapted to camelCase.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.camel_case(&quot;a_snake_case_name&quot;)</span>
+<span class="sd">              &quot;aSnakeCaseName&quot;</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.camel_case(&quot;A Title Case Name&quot;)</span>
+<span class="sd">              &quot;aTitleCaseName&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;(\s|_|-)+&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span><span class="o">.</span><span class="n">title</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">text</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">+</span> <span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span></div>
+
+<div class="viewcode-block" id="StringOperations.capitalize"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations.capitalize">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">capitalize</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">lower_rest</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Capitalizes the first letter of a `string`, eventually lowers the rest of it.</span>
+<span class="sd">        Omit the *lower_rest* parameter to keep the rest of the string intact, or set</span>
+<span class="sd">        it to `True` to convert to lowercase.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): a string.</span>
+<span class="sd">            lower_rest (bool): boolean option to lower all elements starting from the second.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The `string`, capitalized.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.capitalize(&quot;astringtocapitalize&quot;)</span>
+<span class="sd">              &quot;Astringtocapitalize&quot;</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.capitalize(&quot;astRIngTocApItalizE&quot;, lower_rest=True)</span>
+<span class="sd">              &quot;Astringtocapitalize&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">text</span><span class="p">[:</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="p">(</span><span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="n">lower_rest</span> <span class="k">else</span> <span class="n">text</span><span class="p">[</span><span class="mi">1</span><span class="p">:])</span></div>
+
+<div class="viewcode-block" id="StringOperations.is_anagram"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations.is_anagram">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_anagram</span><span class="p">(</span><span class="n">str_1</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">str_2</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Checks if a `string` is an anagram of another string (case-insensitive,</span>
+<span class="sd">        ignores spaces, punctuation and special characters). Uses `str.replace`</span>
+<span class="sd">        to remove spaces from both strings. Compares the lengths of the two strings,</span>
+<span class="sd">        return `False` if they are not equal. Uses `sorted` on both strings and</span>
+<span class="sd">        compares the results.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            str_1 (str): a string.</span>
+<span class="sd">            str_2 (str): a string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A boolean stating whether `str_1` is an anagram of `str_2` or not.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.is_anagram(&quot;Tom Marvolo Riddle&quot;, &quot;I am Lord Voldemort&quot;)</span>
+<span class="sd">              True</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.is_anagram(&quot;A first string&quot;, &quot;Definitely not an anagram&quot;)</span>
+<span class="sd">              False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">_str1</span><span class="p">,</span> <span class="n">_str2</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">str_1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="n">str_2</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_str1</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span> <span class="o">==</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">_str2</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="StringOperations.is_palindrome"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations.is_palindrome">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">is_palindrome</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns `True` if the given string is a palindrome, `False` otherwise.</span>
+<span class="sd">        Uses `str.lower` and `re.sub` to convert to lowercase and remove non-alphanumeric</span>
+<span class="sd">        characters from the given string. Then compare the new string with its reverse.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): a string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            A boolean stating whether *text* is a palindrome or not.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.is_palindrome(&quot;racecar&quot;)</span>
+<span class="sd">              True</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.is_palindrome(&quot;definitelynot&quot;)</span>
+<span class="sd">              False</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">s_reverse</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;[\W_]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">s_reverse</span> <span class="o">==</span> <span class="n">s_reverse</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span></div>
+
+<div class="viewcode-block" id="StringOperations.kebab_case"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations.kebab_case">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">kebab_case</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a string to kebab-case. Breaks the string into words and</span>
+<span class="sd">        combines them adding `-` as a separator, using a regexp.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): a string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The same string best adapted to kebab_case.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.kebab_case(&quot;camel Case&quot;)</span>
+<span class="sd">              &quot;camel-case&quot;</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.kebab_case(&quot;snake_case&quot;)</span>
+<span class="sd">              &quot;snake-case&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;(\s|_|-)+&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+            <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+&quot;</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">mo</span><span class="p">:</span> <span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+                <span class="n">text</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="StringOperations.snake_case"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations.snake_case">[docs]</a>    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">snake_case</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts a string to snake_case. Breaks the string into words and</span>
+<span class="sd">        combines them adding `_` as a separator, using a regexp.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            text (str): a string.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            The same string best adapted to snake_case.</span>
+
+<span class="sd">        Examples:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.snake_case(&quot;A bunch of words&quot;)</span>
+<span class="sd">              &quot;a_bunch_of_words&quot;</span>
+
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">              &gt;&gt;&gt; StringOperations.snake_case(&quot;camelCase&quot;)</span>
+<span class="sd">              &quot;camelcase&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+            <span class="sa">r</span><span class="s2">&quot;(\s|_|-)+&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;_&quot;</span><span class="p">,</span>
+            <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span>
+                <span class="sa">r</span><span class="s2">&quot;[A-Z]{2,}(?=[A-Z][a-z]+[0-9]*|\b)|[A-Z]?[a-z]+[0-9]*|[A-Z]|[0-9]+&quot;</span><span class="p">,</span>
+                <span class="k">lambda</span> <span class="n">mo</span><span class="p">:</span> <span class="n">mo</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">(),</span>
+                <span class="n">text</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>
