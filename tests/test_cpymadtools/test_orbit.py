@@ -36,7 +36,6 @@ class TestOrbit:
                 "on_o5",
                 "on_oh5",
                 "on_ov5",
-                "on_phi_IR5",
                 "on_x8",
                 "on_sep8",
                 "on_o8",

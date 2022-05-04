@@ -19,7 +19,7 @@ Enhancements
 Bug Fixes
 ~~~~~~~~~
 
-* The `phi_IR5` variables has been removed from the ones returned by the `~pyhdtoolkit.cpymadtools.orbit.lhc_orbit_variables` function.
+* The `~pyhdtoolkit.cpymadtools.orbit.lhc_orbit_variables` function does not return a wrong `on_phi_IR5` variable anymore.
 
 Maintenance
 ~~~~~~~~~~~
