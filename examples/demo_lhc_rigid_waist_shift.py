@@ -17,7 +17,7 @@ applying a rigid waist shift.
     This is very specific to the LHC machine and the implementation would not 
     work on other accelerators.
 """
-# sphinx_gallery_thumbnail_number = -1
+# sphinx_gallery_thumbnail_number = 3
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
