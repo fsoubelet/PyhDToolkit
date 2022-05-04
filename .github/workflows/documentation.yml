@@ -69,45 +69,77 @@ jobs:
       # Forcing several successive builds here and hoping it works out (sphinx-gallery 
       # checks for the existence of already built examples to avoid re-running them, so
       # once the gallery is built successive builds will just re-generate the html, very quickly)
-      - name: Build documentation (1/7)
+      - name: Build documentation (1/15)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (2/7)
+      - name: Build documentation (2/15)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (3/7)
+      - name: Build documentation (3/15)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (4/7)
+      - name: Build documentation (4/15)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (5/7)
+      - name: Build documentation (5/15)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (6/7)
+      - name: Build documentation (6/15)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (7/7)
+      - name: Build documentation (7/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (8/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (9/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (10/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (11/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (12/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (13/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (14/15)
+        continue-on-error: true
+        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+
+      - name: Build documentation (15/15)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
       # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
       - name: Upload build artifacts
         uses: actions/upload-artifact@v2
-        if: ${{ success() }} && github.event_name == 'pull_request'  # only for pushes in PR
+        if: success() && github.event_name == 'pull_request'  # only for pushes in PR
         with:
           name: site-build
           path: doc_build
           retention-days: 7
 
       - name: Upload documentation to gh-pages
-        if: ${{ success() }} && github.ref == 'refs/heads/master'  # only for pushes to master
+        if: success() && github.ref == 'refs/heads/master'  # only for pushes to master
         uses: JamesIves/github-pages-deploy-action@3.7.1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
