@@ -69,63 +69,43 @@ jobs:
       # Forcing several successive builds here and hoping it works out (sphinx-gallery 
       # checks for the existence of already built examples to avoid re-running them, so
       # once the gallery is built successive builds will just re-generate the html, very quickly)
-      - name: Build documentation (1/15)
+      - name: Build documentation (1/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (2/15)
+      - name: Build documentation (2/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (3/15)
+      - name: Build documentation (3/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (4/15)
+      - name: Build documentation (4/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (5/15)
+      - name: Build documentation (5/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (6/15)
+      - name: Build documentation (6/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (7/15)
+      - name: Build documentation (7/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (8/15)
+      - name: Build documentation (8/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (9/15)
+      - name: Build documentation (9/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
-      - name: Build documentation (10/15)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (11/15)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (12/15)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (13/15)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (14/15)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (15/15)
+      - name: Build documentation (10/10)
         continue-on-error: true
         run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
 
