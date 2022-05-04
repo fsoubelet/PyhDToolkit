@@ -243,7 +243,10 @@ def get_lhc_ips_positions(dataframe: pandas.DataFrame) -> Dict[str, float]:
 
 
 def draw_ip_locations(
-    axis: matplotlib.axes.Axes = None, ip_positions: Dict[str, float] = None, lines: bool = True, location="outside"
+    axis: matplotlib.axes.Axes = None,
+    ip_positions: Dict[str, float] = None,
+    lines: bool = True,
+    location: str = "outside",
 ) -> None:
     """
     Plots the interaction points' locations into the background of the provided *axis*.
@@ -254,28 +257,31 @@ def draw_ip_locations(
             as values, as returned by `~.get_lhc_ips_positions`.
         lines (bool): whether to also draw vertical lines at the IP positions. Defaults to `True`.
         location: where to show the IP names on the provided *axis*, either ``inside`` (will draw text
-            at the bottom of the axis) or ``outside`` (will draw text on top of the axis).
+            at the bottom of the axis) or ``outside`` (will draw text on top of the axis). If `None` is
+            given, then no labels are drawn. Defaults to ``outside``.
     """
     if axis is None:
         axis = plt.gca()
 
     xlimits = axis.get_xlim()
     ylimits = axis.get_ylim()
-    inside: bool = location.lower() == "inside"
 
     # Draw for each IP
     for ip_name, ip_xpos in ip_positions.items():
         if xlimits[0] <= ip_xpos <= xlimits[1]:  # only plot if within plot's xlimits
-            logger.trace(f"Drawing indicator for {ip_name}")
-            # drawing ypos is lower end of ylimits if drawing inside, higher end if drawing outside
-            ypos = ylimits[not inside] + (ylimits[1] + ylimits[0]) * 0.01
-            c = "grey" if inside else matplotlib.rcParams["text.color"]  # match axis ticks color
-            fontsize = plt.rcParams["xtick.labelsize"]  # match the xticks size
-            axis.text(ip_xpos, ypos, ip_name, color=c, ha="center", va="bottom", size=fontsize)
-
             if lines:
-                logger.trace(f"Also drawing dashed axvline for {ip_name}")
+                logger.trace(f"Drawing dashed axvline at location of {ip_name}")
                 axis.axvline(ip_xpos, linestyle=":", color="grey", marker="", zorder=0)
+
+            if location is not None and isinstance(location, str):
+                inside: bool = location.lower() == "inside"
+                logger.trace(f"Drawing name indicator for {ip_name}")
+                # drawing ypos is lower end of ylimits if drawing inside, higher end if drawing outside
+                ypos = ylimits[not inside] + (ylimits[1] + ylimits[0]) * 0.01
+                c = "grey" if inside else matplotlib.rcParams["text.color"]  # match axis ticks color
+                fontsize = plt.rcParams["xtick.labelsize"]  # match the xticks size
+                axis.text(ip_xpos, ypos, ip_name, color=c, ha="center", va="bottom", size=fontsize)
+
         else:
             logger.trace(f"Skipping {ip_name} as its position is outside of the plot's xlimits")
 
