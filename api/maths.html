@@ -74,7 +74,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_machine_survey.html">Machine Survey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_phase_space.html">Phase Space</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
@@ -381,7 +385,7 @@ its diagonal (<span class="math notranslate nohighlight">\(\mu_{k -&gt; k} = 0\)
 <p>We can very simply get our C_matrix (see page 1 of referenced paper) with <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.exp.html#numpy.exp" title="(in NumPy v1.22)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.exp</span></code></a> which,
 applied to a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a> applies the exponential function element-wise.</p>
 <p>Then follows:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>C_matrix = np.exp(1j * :math:`\mathrm{M_matrix}`)
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">C_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="n">j</span> <span class="o">*</span> <span class="n">M_matrix</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition note">

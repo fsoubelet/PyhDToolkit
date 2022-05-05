@@ -8,10 +8,13 @@ LHC Rigid Waist Shift
 
 This example shows how to use the `~.lhc.apply_lhc_rigidity_waist_shift_knob` 
 function to force a waist shift at a given IP and break the symmetry of the 
-:math:`\\beta`-functions in the Interaction Region.
+:math:`\\beta`-functions in the Interaction Region. This is done by 
+over-powering one triplet and under-powering the other, by the same powering
+delta.
 
 We will do a comparison of the interaction region situation before and after 
-applying a rigid waist shift.
+applying a rigid waist shift, and look in more details at the waist shift 
+itself.
 
 .. note::
     This is very specific to the LHC machine and the implementation would not 
@@ -32,6 +35,8 @@ defaults.config_logger(level="warning")
 plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
+# Showcasing the Waist Shift
+# --------------------------
 # Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
 
 madx = Madx(stdout=False)
@@ -89,7 +94,8 @@ plt.show()
 #
 # .. hint::
 #    A waist shift knob setting of 1 will result in a 0.5% change in the triplets
-#    knob powering. The individual triplet magnets trims are not affected.
+#    knob powering. The individual triplet magnets trims are not affected. Here we
+#    will use a setting of 1.5 to make the effect easily noticeable.
 
 lhc.apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=1)
 matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
@@ -120,7 +126,7 @@ plt.show()
 
 ###############################################################################
 # Comparing to the previous plot, one can notice two things:
-#  - The triplet quadrupoles powering has changed and is not symmetric anymore.
+#  - The triplet quadrupoles powering has changed and is not (anti-)symmetric anymore.
 #  - The :math:`\beta_{x,y}` functions symmetry has been broken.
 #
 # One can compare the :math:`\beta_{x,y}` functions before and after the rigid
@@ -152,6 +158,8 @@ plt.show()
 madx.exit()
 
 ###############################################################################
+# Determining the Waist Shift
+# ---------------------------
 # Let's now determine the value of the waist, aka the amount by which we have
 # shifted the waist compared to the IP point location. To do so, we will use
 # both an analytical approach and a more brute force one through simulations.
@@ -258,7 +266,7 @@ plt.show()
 # The value of the waist is then simply the distance between the IP and the
 # location of the found minima. Here is the value, in meters:
 
-shift = abs(ip_s - waist_location)
+shift = ip_s - waist_location
 print(shift)
 
 ###############################################################################
@@ -276,23 +284,21 @@ print(shift)
 # Manipulating the equation to determine the waist yields:
 # :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[0]
-q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[-1]  # to calculate from the left
+q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[0]  # to calculate from the right Q1
+q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[-1]  # to calculate from the left Q1
 
-L_star = ip_s - q1_left_s
-beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].betx[0]
-# beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l{IP:d}")].betx[-1]  # if calculating from the left
+L_star = ip_s - q1_left_s  # we calculate from left Q1
+# beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].betx[0]  # to calculate from the right
+beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].betx[-1]  # to calculate from the left
 betaw = around_ip.betx.min()
 
 ###############################################################################
 # The analytical result (sign will swap depending on if we calculate from left
-# or right Q1) is then:
+# or right Q1) is then easily calculated. We can then compare this value to the
+# one found with the markers we previously added, and they are fairly close.
 waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
-print(waist)
-
-###############################################################################
-# It is fairly close to the value found with the markers we previously added:
-print(shift)
+print(waist)  # analytical
+print(shift)  # markers
 
 #############################################################################
 #

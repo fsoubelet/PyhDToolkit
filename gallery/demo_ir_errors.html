@@ -73,7 +73,11 @@
 <li class="toctree-l2"><a class="reference internal" href="demo_track_spectra.html">Free Tracking Spectrum</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">LHC IR Errors Assignments</a></li>
-<li class="toctree-l2"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="demo_machine_survey.html">Machine Survey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo_phase_space.html">Phase Space</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo_tune_diagram.html">Tune Diagram</a></li>
@@ -472,100 +476,100 @@ order in which they are in the machine:</p>
   <tbody>
     <tr>
       <th>mqml.6l1.b1</th>
-      <td>-0.000250</td>
+      <td>-0.000238</td>
       <td>0.0</td>
-      <td>-0.003216</td>
+      <td>0.002770</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5l1.b1</th>
-      <td>-0.000120</td>
+      <td>-0.001718</td>
       <td>0.0</td>
-      <td>-0.000332</td>
+      <td>-0.000120</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4l1.b1</th>
-      <td>-0.000741</td>
+      <td>-0.001116</td>
       <td>0.0</td>
-      <td>-0.001641</td>
+      <td>0.004739</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3l1</th>
-      <td>-0.001347</td>
+      <td>-0.001697</td>
       <td>0.0</td>
-      <td>0.000035</td>
+      <td>-0.000029</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2l1</th>
-      <td>0.000392</td>
+      <td>0.002009</td>
       <td>0.0</td>
-      <td>-0.002905</td>
+      <td>-0.006348</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2l1</th>
-      <td>-0.000569</td>
+      <td>-0.000783</td>
       <td>0.0</td>
-      <td>-0.000485</td>
+      <td>0.000594</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1l1</th>
-      <td>0.001732</td>
+      <td>-0.000268</td>
       <td>0.0</td>
-      <td>0.003590</td>
+      <td>-0.001356</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1r1</th>
-      <td>0.000260</td>
+      <td>0.001782</td>
       <td>0.0</td>
-      <td>0.006423</td>
+      <td>0.000231</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2r1</th>
-      <td>-0.001039</td>
+      <td>0.001691</td>
       <td>0.0</td>
-      <td>0.003203</td>
+      <td>0.002988</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2r1</th>
-      <td>-0.000195</td>
+      <td>-0.000287</td>
       <td>0.0</td>
-      <td>-0.001202</td>
+      <td>0.002054</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3r1</th>
-      <td>-0.001586</td>
+      <td>-0.000237</td>
       <td>0.0</td>
-      <td>-0.002823</td>
+      <td>0.001671</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4r1.b1</th>
-      <td>-0.000406</td>
+      <td>-0.000410</td>
       <td>0.0</td>
-      <td>-0.002356</td>
+      <td>-0.002303</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5r1.b1</th>
-      <td>-0.000143</td>
+      <td>0.000015</td>
       <td>0.0</td>
-      <td>-0.001348</td>
+      <td>0.001307</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.6r1.b1</th>
-      <td>0.001415</td>
+      <td>0.000888</td>
       <td>0.0</td>
-      <td>-0.001774</td>
+      <td>0.001195</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -609,7 +613,7 @@ in this example:</p>
 - <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a>
 - <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a></p>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  36.472 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  31.473 seconds)</p>
 <div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-ir-errors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/da42f6ab08c5bc8cb6606bcaeb4957d9/demo_ir_errors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_ir_errors.py</span></code></a></p>
