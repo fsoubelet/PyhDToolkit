@@ -50,7 +50,7 @@ Then follows:
 
 .. code-block:: python
 
-   C_matrix = np.exp(1j * :math:`\mathrm{M_matrix}`)
+   C_matrix = np.exp(1j * M_matrix)
 
 .. note::
     Since :math:`\mathrm{M_matrix}` is symmetric, then C_matrix will be Hermitian.
