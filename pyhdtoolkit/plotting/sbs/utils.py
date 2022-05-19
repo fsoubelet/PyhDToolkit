@@ -55,6 +55,9 @@ def determine_default_coupling_ylabel(rdt: str, component: str) -> str:
     return r"$" + opening + rdt_latex + closing + r"$"
 
 
+# ----- Phase Helpers ----- #
+
+
 def determine_default_phase_ylabel(plane: str) -> str:
     """
     Creates the ``LaTeX``-compatible label for the phase Y-axis based on the given *plane*.
@@ -69,5 +72,5 @@ def determine_default_phase_ylabel(plane: str) -> str:
     assert plane.upper() in ("X", "Y")
 
     beginning = r"\Delta "
-    term = r"\Phi_{x}" if plane.upper() == "X" else r"\Phi_{y}"
+    term = r"\phi_{x}" if plane.upper() == "X" else r"\phi_{y}"
     return r"$" + beginning + term + r"$"
