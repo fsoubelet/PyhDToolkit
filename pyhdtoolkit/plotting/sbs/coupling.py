@@ -153,8 +153,8 @@ def plot_full_ip_rdt(
     fig.legend(*_get_legend_handles_labels([abs_b1]), ncol=2, bbox_to_anchor=legend_bbox_to_anchor, loc="lower center")
 
     # X axis labels
-    imag_b1.set_xlabel("$S\ [m]$")
-    imag_b2.set_xlabel("$S\ [m]$")
+    imag_b1.set_xlabel(r"$\mathrm{S\ [m]}$")
+    imag_b2.set_xlabel(r"$\mathrm{S\ [m]}$")
 
     # Suptitles
     abs_b1.set_title(r"$\mathrm{Beam\ 1}$", y=1.01)
