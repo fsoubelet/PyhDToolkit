@@ -113,8 +113,8 @@ def plot_phase_segment_both_beams(
 
 
 def plot_phase_segment(
-    ax: matplotlib.axes.Axes,
-    segment_df: tfs.TfsDataFrame,
+    ax: matplotlib.axes.Axes = None,
+    segment_df: tfs.TfsDataFrame = None,
     model_df: tfs.TfsDataFrame = None,
     plane: str = "x",
     ip: int = None,
