@@ -108,10 +108,12 @@ def plot_full_ip_rdt(
             Case insensitive.
         **kwargs: Keyword arguments will be transmitted to the figure creation call to `~matplotlib.pyplot.subplots`.
             If ``b1_ylabel`` or ``b2_ylabel`` are found, they will be used as y-label for the respective beams axes.
+            If ``bbox_to_anchor`` is found, it will be used to position the legend across the whole figure space.
 
     Returns:
         The `~matplotlib.figure.Figure` on which the plot is created.
     """
+    legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.52, 0.93))
     fig, ((abs_b1, abs_b2), (real_b1, real_b2), (imag_b1, imag_b2)) = plt.subplots(
         3, 2, sharex=True, sharey="row", **kwargs
     )
@@ -150,7 +152,7 @@ def plot_full_ip_rdt(
         imag_b1.set_ylim(imag_ylimits)  # only apply to one as they share ylimits
 
     # Legend, this is a bit of a hacky way to get it between `Beam 1` and `Beam 2` titles
-    fig.legend(*_get_legend_handles_labels([abs_b1]), ncol=2, bbox_to_anchor=(0.52, 0.93), loc="lower center")
+    fig.legend(*_get_legend_handles_labels([abs_b1]), ncol=2, bbox_to_anchor=legend_bbox_to_anchor, loc="lower center")
 
     # X axis labels
     imag_b1.set_xlabel("$S\ [m]$")
