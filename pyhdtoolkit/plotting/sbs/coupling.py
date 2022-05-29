@@ -174,7 +174,7 @@ def _plot_sbs_coupling_rdt_component(
     rdt: str = "F1001",
     component: str = "ABS",
     ylabel: str = None,
-):
+) -> None:
     """
     Plots a component of the given coupling RDT over the segment, optionally highlighting the IP location.
 
