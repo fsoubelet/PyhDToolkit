@@ -93,8 +93,6 @@ def plot_full_ip_rdt(
     highlights the IP location.
 
     Args:
-        ax (matplotlib.axes.Axes): The `~matplotlib.axes.Axes` to plot on. Will get the current axis if no
-            `~matplotlib.axes.Axes` is given.
         b1_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
             Beam 1 in the given segment.
         b2_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
