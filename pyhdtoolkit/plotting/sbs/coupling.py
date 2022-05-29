@@ -157,8 +157,8 @@ def plot_full_ip_rdt(
     imag_b2.set_xlabel("$S\ [m]$")
 
     # Suptitles
-    abs_b1.set_title(r"$\mathrm{Beam\ 1}$", y=1.01, fontsize=32)
-    abs_b2.set_title(r"$\mathrm{Beam\ 2}$", y=1.01, fontsize=32)
+    abs_b1.set_title(r"$\mathrm{Beam\ 1}$", y=1.01)
+    abs_b2.set_title(r"$\mathrm{Beam\ 2}$", y=1.01)
     plt.tight_layout()
     return fig
 
