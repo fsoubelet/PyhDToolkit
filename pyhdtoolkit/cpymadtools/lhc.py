@@ -13,6 +13,7 @@ import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
+from optics_functions.coupling import coupling_via_cmatrix
 
 from pyhdtoolkit.cpymadtools import twiss
 from pyhdtoolkit.cpymadtools.constants import (
@@ -22,7 +23,9 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_IP2_SPECIAL_FLAG,
     LHC_IP_OFFSET_FLAGS,
     LHC_PARALLEL_SEPARATION_FLAGS,
+    MONITOR_TWISS_COLUMNS,
 )
+from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
 from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 __all__ = [
@@ -32,6 +35,7 @@ __all__ = [
     "deactivate_lhc_arc_sextupoles",
     "get_magnets_powering",
     "get_lhc_bpms_list",
+    "get_lhc_bpms_twiss_and_rdts",
     "get_lhc_tune_and_chroma_knobs",
     "install_ac_dipole_as_kicker",
     "install_ac_dipole_as_matrix",
@@ -763,6 +767,32 @@ def get_magnets_powering(
     NEW_COLNAMES = list(set(NEW_COLNAMES + kwargs.pop("columns", [])))  # in case user gives explicit columns
     _list_field_currents(madx, brho=brho)
     return twiss.get_pattern_twiss(madx, columns=NEW_COLNAMES, patterns=patterns, **kwargs)
+
+
+def get_lhc_bpms_twiss_and_rdts(madx: Madx) -> tfs.TfsDataFrame:
+    """
+    Runs a ``TWISS`` on the currently active sequence for all ``LHC`` BPMs. The coupling RDTs
+    are also computed through a CMatrix approach via  `optics_functions.coupling.coupling_via_cmatrix`.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+
+    Returns:
+        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table with basic default columns, as well as one
+        new column for each of the coupling RDTs. The coupling RDTs are returned as complex numbers.
+
+    Example:
+        .. code-block:: python
+
+            >>> twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
+    """
+    twiss_tfs = twiss.get_pattern_twiss(  # need chromatic flag as we're dealing with coupling
+        madx, patterns=["^BPM.*B[12]$"], columns=MONITOR_TWISS_COLUMNS, chrom=True
+    )
+    twiss_tfs.columns = twiss_tfs.columns.str.upper()  # optics_functions needs capitalized names
+    twiss_tfs.NAME = twiss_tfs.NAME.str.upper()
+    twiss_tfs[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_tfs, output=["rdts"])
+    return twiss_tfs
 
 
 # ----- Helpers ----- #
