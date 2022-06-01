@@ -21,6 +21,10 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
     first_element: str = segment_df.NAME.to_numpy()[0]
     first_element_s_in_model = model_df[model_df.NAME == first_element].S.to_numpy()[0]
     ip_s_in_model = model_df[model_df.NAME == f"IP{ip:d}"].S.to_numpy()[0]
+
+    # Handle case where IP segment is cut and by end of sequence and the IP is at beginning of machine
+    if ip_s_in_model < first_element_s_in_model:
+        ip_s_in_model += model_df.S.to_numpy().max()  # add machine length to cancel looping
     return ip_s_in_model - first_element_s_in_model
 
 
