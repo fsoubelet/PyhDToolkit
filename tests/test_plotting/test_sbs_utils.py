@@ -19,7 +19,7 @@ class TestSbsPlottingUtils:
     def test_find_ip_s(self, sbs_coupling_b1_ip1, sbs_model_b1):
         assert math.isclose(
             find_ip_s_from_segment_start(segment_df=sbs_coupling_b1_ip1, model_df=sbs_model_b1, ip=1),
-            920.84038,
+            493.25226,
             rel_tol=1e-5,
         )
 

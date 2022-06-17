@@ -25,6 +25,7 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
     # Handle case where IP segment is cut and by end of sequence and the IP is at beginning of machine
     if ip_s_in_model < first_element_s_in_model:
         # Distance to end of sequence + distance from start to IP s
+        logger.debug("IP{ip:d} segment seems cut off by end of sequence, looping around to determine IP location")
         distance = (model_df.S.to_numpy().max() - first_element_s_in_model) + ip_s_in_model
     else:  # just the difference
         distance = ip_s_in_model - first_element_s_in_model

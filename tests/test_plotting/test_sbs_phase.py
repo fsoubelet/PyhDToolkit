@@ -23,7 +23,7 @@ class TestPhaseSbsPlotting:
             phase_x=sbs_phasex,
             phase_y=sbs_phasey,
             model=sbs_model_b2,
-            ip=1,
+            ip=5,
         )
         return figure
 
@@ -37,7 +37,7 @@ class TestPhaseSbsPlotting:
             b2_phase_y=sbs_phasey,
             b1_model=sbs_model_b2,
             b2_model=sbs_model_b2,
-            ip=1,
+            ip=5,
             figsize=(10, 6),
             bbox_to_anchor=(0.535, 0.94),
         )

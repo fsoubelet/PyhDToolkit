@@ -32,9 +32,9 @@ class TestCouplingSbsPlotting:
             ip=1,
             rdt="f1001",
             figsize=(18, 9),
-            abs_ylimits=(5e-3, 6.5e-2),
-            real_ylimits=(-1e-1, 1e-1),
-            imag_ylimits=(-1e-1, 1e-1),
+            # abs_ylimits=(8e-2, 14e-2),
+            # real_ylimits=(-1e-1, 1e-1),
+            # imag_ylimits=(-1e-1, 1e-1),
         )
         return figure
 
