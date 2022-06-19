@@ -1,3 +1,11 @@
+"""
+.. _plotting-sbs-phase:
+
+Segment-by-Segment Phase
+------------------------
+
+Functions to plot phase values of Segment-by-Segment results.
+"""
 import matplotlib
 import matplotlib.pyplot as plt
 import tfs

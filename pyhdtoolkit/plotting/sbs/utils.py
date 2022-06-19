@@ -1,3 +1,11 @@
+"""
+.. _plotting-sbs-utils:
+
+Segment-by-Segment Utilities
+----------------------------
+
+Utility functions to help in the plotting of Segment-by-Segment results.
+"""
 import tfs
 
 from loguru import logger

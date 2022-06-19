@@ -1,3 +1,11 @@
+"""
+.. _plotting-sbs-coupling:
+
+Segment-by-Segment Coupling
+---------------------------
+
+Functions to plot coupling components of Segment-by-Segment results.
+"""
 from typing import Tuple
 
 import matplotlib
