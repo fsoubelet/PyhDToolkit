@@ -3,6 +3,26 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
+.. _release_0.19.0:
+
+0.19.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.plotting` package has a new package,  `pyhdtoolkit.plotting.sbs` with modules to plot coupling (`~pyhdtoolkit.plotting.sbs.coupling`) and phase (`~pyhdtoolkit.plotting.sbs.phase`) segment-by-segment results.
+* The `pyhdtoolkit.plotting.sbs` package has a new utility module,  `~pyhdtoolkit.plotting.sbs.utils`, with helpful functions for plotting.
+
+Maintenance
+~~~~~~~~~~~
+
+* The documentation for the `~pyhdtoolkit.maths.plotting` module has been extended.
+* Tests were added for the new functionality.
+
+See `v0.19.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.0>`_ and the `full changes since v0.18.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.18.0...0.19.0>`_.
+
+
 .. _release_0.18.0:
 
 0.18.0
