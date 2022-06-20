@@ -53,6 +53,20 @@ def plot_rdt_component(
 
     Returns:
         The `~matplotlib.figure.Figure` on which the plot is created.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig = plot_rdt_component(
+            ...     b1_segment_df=tfs.read("B1/sbscouple_IP1.out"),
+            ...     b2_segment_df=tfs.read("B2/sbscouple_IP1.out"),
+            ...     b1_model=b1_model_tfs,
+            ...     b2_model=b2_model_tfs,
+            ...     ip=1,
+            ...     figsize=(8, 8),
+            ...     b1_ylabel=r"$\mathrm{Beam\ 1}$ $|f_{1001}|$",
+            ...     b2_ylabel=r"$\mathrm{Beam\ 2}$ $|f_{1001}|$",
+            ... )
     """
     logger.debug(f"Plotting the {component.upper()} component of {rdt.upper()} for both beams over the segment.")
     b1_ylabel = kwargs.pop("b1_ylabel", None)
@@ -118,6 +132,21 @@ def plot_full_ip_rdt(
 
     Returns:
         The `~matplotlib.figure.Figure` on which the plot is created.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig = plot_full_ip_rdt(
+            ...     couple_b1_tfs,
+            ...     couple_b2_tfs,
+            ...     b1_model_tfs,
+            ...     b2_model_tfs,
+            ...     ip=1,
+            ...     figsize=(18, 9),
+            ...     abs_ylimits=(5e-3, 6.5e-2),
+            ...     real_ylimits=(-1e-1, 1e-1),
+            ...     imag_ylimits=(-1e-1, 1e-1),
+            ... )
     """
     legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.52, 0.93))
     fig, ((abs_b1, abs_b2), (real_b1, real_b2), (imag_b1, imag_b2)) = plt.subplots(
