@@ -40,6 +40,13 @@ def plot_phase_segment_one_beam(
 
     Returns:
         The `~matplotlib.figure.Figure` on which the plot is created.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig = plot_phase_segment_one_beam(
+            ...     sbs_phasex, sbs_phasey, model=b2_model_tfs, ip=5, figsize=(8, 8)
+            ... )
     """
     logger.debug(f"Plotting the phase for both planes over the segment.")
     legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.535, 0.97))
@@ -87,6 +94,21 @@ def plot_phase_segment_both_beams(
 
     Returns:
         The `~matplotlib.figure.Figure` on which the plot is created.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig = plot_phase_segment_both_beams(
+            ...     phasex_b1_tfs,
+            ...     phasey_b1_tfs,
+            ...     phasex_b2_tfs,
+            ...     phasey_b2_tfs,
+            ...     b1_model_tfs,
+            ...     b2_model_tfs,
+            ...     ip=1,
+            ...     figsize=(18, 9),
+            ...     bbox_to_anchor=(0.535, 0.94),
+            ... )
     """
     logger.debug(f"Plotting the phase for both planes over the segment.")
     legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.535, 0.97))
@@ -141,6 +163,11 @@ def plot_phase_segment(
         plane (str): the plane the data is is for in the provided *segment_df*. Will be used for the ylabel.
             Should be either "x" or "y", case-insensitive.
         ip (int): The IP number of the segment.
+
+    Example:
+        .. code-block:: python
+
+            >>> plot_phase_segment(ax, segment_df b1_model_tfs, plane="x", ip=1)
     """
     if plane.upper() not in ("X", "Y"):
         logger.error("The provided plane is invalid, should be either 'x' or 'y', case-insensitively.")
