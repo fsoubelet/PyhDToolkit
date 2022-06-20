@@ -3,6 +3,7 @@ import pathlib
 import pickle
 import random
 
+import numpy as np
 import pytest
 import tfs
 
@@ -25,6 +26,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
     get_lhc_bpms_list,
+    get_lhc_bpms_twiss_and_rdts,
     get_lhc_tune_and_chroma_knobs,
     get_magnets_powering,
     install_ac_dipole_as_kicker,
@@ -322,6 +324,21 @@ class TestLHC:
             magnets_df.reindex(sorted(magnets_df.columns), axis=1).set_index("name"),
         )
 
+    def test_get_bpms_coupling_rdts(self, _non_matched_lhc_madx, _reference_twiss_rdts):
+        madx = _non_matched_lhc_madx
+        madx.globals["CMRS.b1_sq"] = 0.001
+
+        twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
+        # We separate the complex components to compare to the reference
+        twiss_with_rdts["F1001R"] = twiss_with_rdts.F1001.apply(np.real)
+        twiss_with_rdts["F1001I"] = twiss_with_rdts.F1001.apply(np.imag)
+        twiss_with_rdts["F1010R"] = twiss_with_rdts.F1010.apply(np.real)
+        twiss_with_rdts["F1010I"] = twiss_with_rdts.F1010.apply(np.imag)
+        twiss_with_rdts = twiss_with_rdts.drop(columns=["F1001", "F1010"]).set_index("NAME")
+
+        reference = tfs.read(_reference_twiss_rdts, index="NAME")
+        assert_frame_equal(twiss_with_rdts, reference)
+
 
 # ---------------------- Private Utilities ---------------------- #
 
@@ -334,3 +351,8 @@ def _magnets_fields_path() -> pathlib.Path:
 @pytest.fixture()
 def _correct_bpms_list() -> pathlib.Path:
     return INPUTS_DIR / "correct_bpms_list.pkl"
+
+
+@pytest.fixture()
+def _reference_twiss_rdts() -> pathlib.Path:
+    return INPUTS_DIR / "twiss_with_rdts.tfs"
