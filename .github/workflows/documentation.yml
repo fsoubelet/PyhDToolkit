@@ -24,10 +24,10 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Install LaTeX
-        run: sudo apt-get install -y texlive-latex-base # texlive-fonts-extra texlive-fonts-recommended texlive-latex-extra texlive-latex-recommended ghostscript
+        run: sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended # texlive-fonts-extra texlive-latex-recommended ghostscript
 
-      - name: Install optipng
-        run: sudo apt-get install -y optipng
+      - name: Install optipng, dvipng and cm-super
+        run: sudo apt-get install -y optipng dvipng cm-super
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
