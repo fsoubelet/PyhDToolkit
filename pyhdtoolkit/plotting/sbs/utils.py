@@ -24,6 +24,13 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
 
     Returns:
         The S-offset of the IP from the BPM at the start of segment.
+
+    Example:
+        .. code-block:: python
+
+            >>> ip_offset_in_segment = find_ip_s_from_segment_start(
+            ...     segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1
+            )
     """
     logger.debug(f"Determining location of IP{ip:d} from the start of segment.")
     first_element: str = segment_df.NAME.to_numpy()[0]
@@ -55,6 +62,11 @@ def determine_default_coupling_ylabel(rdt: str, component: str) -> str:
 
     Returns:
         The label string.
+
+    Example:
+        .. code-block:: python
+
+            >>> coupling_label = determine_default_coupling_ylabel(rdt="f1001", component="RE")
     """
     logger.debug(f"Determining a default label for the {component.upper()} component of coupling {rdt.upper()}.")
     assert rdt.upper() in ("F1001", "F1010")
@@ -83,6 +95,11 @@ def determine_default_phase_ylabel(plane: str) -> str:
 
     Returns:
         The label string.
+
+    Example:
+        .. code-block:: python
+
+            >>> phase_label = determine_default_phase_ylabel(plane="X")
     """
     logger.debug(f"Determining a default label for the {plane.upper()} phase plane.")
     assert plane.upper() in ("X", "Y")
