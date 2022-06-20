@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyhdtoolkit.utils.htc_monitor &mdash; PyhDToolkit 0.19.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                0.19.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_sbs_plotting.html">Segment-by-Segment Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#correctors">Correctors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-19-0">0.19.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#enhancements">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#maintenance">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-18-0">0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id3">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#bug-fixes">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id4">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-17-0">0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id6">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id7">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id8">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-1">0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id10">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-16-0">0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id12">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id13">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#documentation">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id14">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-1">0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id16">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-15-0">0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id18">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id19">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-1">0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id21">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-14-0">0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id23">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id24">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-3">0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id26">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id27">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id28">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-2">0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id30">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id31">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-1">0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id33">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-13-0">0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id35">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id36">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id37">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-12-0">0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id39">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id40">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-11-0">0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id42">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id43">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-10-0">0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id45">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id46">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-2">0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id48">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id49">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-1">0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id51">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id52">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-9-0">0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id54">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id55">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id56">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-5">0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id58">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id59">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-4">0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id61">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id62">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-3">0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id64">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-2">0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id66">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id67">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id68">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-1">0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id70">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id71">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-8-0">0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id73">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id74">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id75">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-7-0">0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id77">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id78">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-6-0">0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id80">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id81">Documentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id82">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-5-0">0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id84">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id85">Bug Fixes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id86">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-1">0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id88">Bug Fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-4-0">0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id90">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id91">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-3-0">0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id93">Enhancements</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-1">0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id95">Enhancements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id96">Maintenance</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#release-0-2-0">0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../release.html#id98">Enhancements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>pyhdtoolkit.utils.htc_monitor</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyhdtoolkit.utils.htc_monitor</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. _utils-htc-monitor:</span>
+
+<span class="sd">HTCondor Monitoring</span>
+<span class="sd">-------------------</span>
+
+<span class="sd">A module with utility to query the HTCondor queue, process the returned data </span>
+<span class="sd">and display it nicely.</span>
+
+<span class="sd">.. note::</span>
+<span class="sd">    This module is meant to be called as a script, but some of the individual </span>
+<span class="sd">    functionality is made public API and one shoule be able to build a different </span>
+<span class="sd">    monitor from the functions in here.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span> <span class="nn">pendulum</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">box</span>
+<span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">Group</span>
+<span class="kn">from</span> <span class="nn">rich.live</span> <span class="kn">import</span> <span class="n">Live</span>
+<span class="kn">from</span> <span class="nn">rich.panel</span> <span class="kn">import</span> <span class="n">Panel</span>
+<span class="kn">from</span> <span class="nn">rich.table</span> <span class="kn">import</span> <span class="n">Table</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.models.htc</span> <span class="kn">import</span> <span class="n">BaseSummary</span><span class="p">,</span> <span class="n">ClusterSummary</span><span class="p">,</span> <span class="n">HTCTaskSummary</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.cmdline</span> <span class="kn">import</span> <span class="n">CommandLine</span>
+
+<span class="n">defaults</span><span class="o">.</span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;ERROR&quot;</span><span class="p">)</span>
+
+<span class="c1"># ----- Data ----- #</span>
+
+<span class="n">TASK_COLUMNS_SETTINGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;OWNER&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;BATCH_NAME&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;magenta&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;magenta&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;SUBMITTED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;medium_turquoise&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;medium_turquoise&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;DONE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;RUNNING&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;IDLE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;TOTAL&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;JOB_IDS&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">CLUSTER_COLUMNS_SETTINGS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;SOURCE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;JOBS&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;COMPLETED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;RUNNING&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;IDLE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;HELD&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold gold1&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold gold1&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;SUSPENDED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold slate_blue1&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold slate_blue1&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;REMOVED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold red3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold red3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+<span class="p">}</span>
+
+
+<span class="c1"># ----- HTCondor Querying / Processing ----- #</span>
+
+
+<div class="viewcode-block" id="query_condor_q"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.query_condor_q">[docs]</a><span class="k">def</span> <span class="nf">query_condor_q</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns a decoded string with the result of the ``condor_q`` command,</span>
+<span class="sd">    to get the status of the caller&#39; jobs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">return_code</span><span class="p">,</span> <span class="n">raw_result</span> <span class="o">=</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">&quot;condor_q&quot;</span><span class="p">)</span>
+    <span class="n">condor_status</span> <span class="o">=</span> <span class="n">raw_result</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">return_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">condor_status</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ChildProcessError</span><span class="p">(</span><span class="s2">&quot;Checking htcondor status failed&quot;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="read_condor_q"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q">[docs]</a><span class="k">def</span> <span class="nf">read_condor_q</span><span class="p">(</span><span class="n">report</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">],</span> <span class="n">ClusterSummary</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Splits information from different parts of the ``condor_q`` command&#39;s output</span>
+<span class="sd">    into one clean, validated data structure.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        report (str): the utf-8 decoded string returned by the ``condor_q`` command.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A `tuple`. The first element is a `list` of each task summary given by ``condor_q``,</span>
+<span class="sd">        each as a validated `~.models.htc.HTCTaskSummary`` object. The second element is a</span>
+<span class="sd">        validated `~.models.htc.ClusterSummary` object with scheduler identification and summaries</span>
+<span class="sd">        of the user as well as all users&#39; statistics on this scheduler cluster.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; condor_q_output = get_the_string_as_you_wish(...)</span>
+<span class="sd">            &gt;&gt;&gt; tasks, cluster = read_condor_q(condor_q_outout)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">next_line_is_task_report</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-- Schedd:&quot;</span><span class="p">):</span>  <span class="c1"># extract scheduler information</span>
+            <span class="n">scheduler_id</span> <span class="o">=</span> <span class="n">_process_scheduler_information_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;OWNER&quot;</span><span class="p">):</span>  <span class="c1"># headers line before we get task reports</span>
+            <span class="n">next_line_is_task_report</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">elif</span> <span class="n">next_line_is_task_report</span><span class="p">:</span>  <span class="c1"># extract task report information</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_process_task_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>  <span class="c1"># an empty line denotes the end of the task report(s)</span>
+                <span class="n">next_line_is_task_report</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">else</span><span class="p">:</span>  <span class="c1"># extract cluster information, only 3 lines here</span>
+            <span class="n">querying_owner</span> <span class="o">=</span> <span class="n">tasks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">owner</span> <span class="k">if</span> <span class="n">tasks</span> <span class="k">else</span> <span class="s2">&quot;(\D+)&quot;</span>
+            <span class="k">if</span> <span class="s2">&quot;query&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>  <span class="c1"># first line</span>
+                <span class="n">query_summary</span> <span class="o">=</span> <span class="n">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="s2">&quot;all users&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>  <span class="c1"># last line</span>
+                <span class="n">full_summary</span> <span class="o">=</span> <span class="n">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s2">&quot;all users&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>  <span class="c1"># user line, whoever the user is</span>
+                <span class="n">owner_summary</span> <span class="o">=</span> <span class="n">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">querying_owner</span><span class="p">)</span>
+    <span class="n">cluster_summary</span> <span class="o">=</span> <span class="n">ClusterSummary</span><span class="p">(</span>
+        <span class="n">scheduler_id</span><span class="o">=</span><span class="n">scheduler_id</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query_summary</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">owner_summary</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="n">full_summary</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">tasks</span><span class="p">,</span> <span class="n">cluster_summary</span></div>
+
+
+<span class="c1"># ----- Output Formating ----- #</span>
+
+
+<span class="k">def</span> <span class="nf">_make_tasks_table</span><span class="p">(</span><span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">_default_tasks_table</span><span class="p">()</span>
+    <span class="n">date_display_format</span> <span class="o">=</span> <span class="s2">&quot;dddd, D MMM YY at LT (zz)&quot;</span>  <span class="c1"># example: Wednesday, 21 Apr 21 9:04 PM (CEST)</span>
+    <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">owner</span><span class="p">,</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">batch_name</span><span class="p">),</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">submitted</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="n">date_display_format</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">run</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">idle</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">task</span><span class="o">.</span><span class="n">total</span><span class="p">),</span>
+            <span class="n">task</span><span class="o">.</span><span class="n">job_ids</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span>
+
+
+<span class="k">def</span> <span class="nf">_make_cluster_table</span><span class="p">(</span><span class="n">owner_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">cluster</span><span class="p">:</span> <span class="n">ClusterSummary</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">_default_cluster_table</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">source</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster&quot;</span><span class="p">]):</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
+            <span class="s2">&quot;Query&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;All Users&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">owner_name</span><span class="p">),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">dict</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;jobs&quot;</span><span class="p">]),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">dict</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;completed&quot;</span><span class="p">]),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">dict</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;running&quot;</span><span class="p">]),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">dict</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;idle&quot;</span><span class="p">]),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">dict</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;held&quot;</span><span class="p">]),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">dict</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;suspended&quot;</span><span class="p">]),</span>
+            <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">dict</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;removed&quot;</span><span class="p">]),</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span>
+
+
+<span class="c1"># ----- Helpers ----- #</span>
+
+
+<span class="k">def</span> <span class="nf">_process_scheduler_information_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Extract only the &#39;Schedd: &lt;cluster&gt;.cern.ch&#39; part of the scheduler information line&quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;Schedd: (.*).cern.ch&quot;</span><span class="p">,</span> <span class="n">line</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_process_task_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">HTCTaskSummary</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extract the various information in a task summary line, validated and returned as an HTCTaskSummary</span>
+<span class="sd">    object.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_elements</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">HTCTaskSummary</span><span class="p">(</span>
+        <span class="n">owner</span><span class="o">=</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+        <span class="n">batch_name</span><span class="o">=</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>  <span class="c1"># line_elements[1] is the &#39;ID:&#39; part, we don&#39;t need it</span>
+        <span class="n">submitted</span><span class="o">=</span><span class="n">pendulum</span><span class="o">.</span><span class="n">from_format</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">fmt</span><span class="o">=</span><span class="s2">&quot;MM/D HH:mm&quot;</span><span class="p">,</span> <span class="n">tz</span><span class="o">=</span><span class="s2">&quot;Europe/Paris&quot;</span>
+        <span class="p">),</span>  <span class="c1"># Geneva timezone is Paris timezone,</span>
+        <span class="n">done</span><span class="o">=</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+        <span class="n">run</span><span class="o">=</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">6</span><span class="p">],</span>
+        <span class="n">idle</span><span class="o">=</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">7</span><span class="p">],</span>
+        <span class="n">total</span><span class="o">=</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">8</span><span class="p">],</span>
+        <span class="n">job_ids</span><span class="o">=</span><span class="n">line_elements</span><span class="p">[</span><span class="mi">9</span><span class="p">],</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseSummary</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Beware if no jobs are running we can&#39;t have taken querying_owner info from tasks summaries,</span>
+<span class="sd">    so we need to match a wildcard word by giving querying_owner=(\D+). This would add a match to the regex</span>
+<span class="sd">    search, and we need to look one match further for the wanted information.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+        <span class="sa">rf</span><span class="s2">&quot;Total for </span><span class="si">{</span><span class="n">query</span><span class="si">}</span><span class="s2">: (\d+) jobs; (\d+) completed, &quot;</span>
+        <span class="s2">&quot;(\d+) removed, (\d+) idle, (\d+) running, (\d+) held, (\d+) suspended&quot;</span><span class="p">,</span>
+        <span class="n">line</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">first_interesting_match_index</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">query</span> <span class="o">!=</span> <span class="s2">&quot;(\D+)&quot;</span> <span class="k">else</span> <span class="mi">2</span>
+    <span class="k">return</span> <span class="n">BaseSummary</span><span class="p">(</span>
+        <span class="n">jobs</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">first_interesting_match_index</span><span class="p">),</span>
+        <span class="n">completed</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">first_interesting_match_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">removed</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">first_interesting_match_index</span> <span class="o">+</span> <span class="mi">2</span><span class="p">),</span>
+        <span class="n">idle</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">first_interesting_match_index</span> <span class="o">+</span> <span class="mi">3</span><span class="p">),</span>
+        <span class="n">running</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">first_interesting_match_index</span> <span class="o">+</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="n">held</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">first_interesting_match_index</span> <span class="o">+</span> <span class="mi">5</span><span class="p">),</span>
+        <span class="n">suspended</span><span class="o">=</span><span class="n">result</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="n">first_interesting_match_index</span> <span class="o">+</span> <span class="mi">6</span><span class="p">),</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span> <span class="nf">_default_tasks_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create the default structure for the Tasks Table, hard coded columns and no rows added.&quot;&quot;&quot;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="n">box</span><span class="o">.</span><span class="n">SIMPLE_HEAVY</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">header_col_settings</span> <span class="ow">in</span> <span class="n">TASK_COLUMNS_SETTINGS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="o">**</span><span class="n">header_col_settings</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span>
+
+
+<span class="k">def</span> <span class="nf">_default_cluster_table</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Create the default structure for the Cluster Table, hard coded columns and no rows added.&quot;&quot;&quot;</span>
+    <span class="n">table</span> <span class="o">=</span> <span class="n">Table</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">120</span><span class="p">,</span> <span class="n">box</span><span class="o">=</span><span class="n">box</span><span class="o">.</span><span class="n">HORIZONTALS</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">header</span><span class="p">,</span> <span class="n">header_col_settings</span> <span class="ow">in</span> <span class="n">CLUSTER_COLUMNS_SETTINGS</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">table</span><span class="o">.</span><span class="n">add_column</span><span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="o">**</span><span class="n">header_col_settings</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">table</span>
+
+
+<span class="c1"># ----- Executable ----- #</span>
+
+
+<span class="nd">@logger</span><span class="o">.</span><span class="n">catch</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="k">def</span> <span class="nf">generate_renderable</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">RGroup</span><span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Function called to update the live display, fetches data from htcondor, does the processing and</span>
+<span class="sd">        returns a Group with both Panels.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">condor_string</span> <span class="o">=</span> <span class="n">query_condor_q</span><span class="p">()</span>
+        <span class="n">user_tasks</span><span class="p">,</span> <span class="n">cluster_info</span> <span class="o">=</span> <span class="n">read_condor_q</span><span class="p">(</span><span class="n">condor_string</span><span class="p">)</span>
+        <span class="n">owner</span> <span class="o">=</span> <span class="n">user_tasks</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">owner</span> <span class="k">if</span> <span class="n">user_tasks</span> <span class="k">else</span> <span class="s2">&quot;User&quot;</span>
+
+        <span class="n">tasks_table</span> <span class="o">=</span> <span class="n">_make_tasks_table</span><span class="p">(</span><span class="n">user_tasks</span><span class="p">)</span>
+        <span class="n">cluster_table</span> <span class="o">=</span> <span class="n">_make_cluster_table</span><span class="p">(</span><span class="n">owner</span><span class="p">,</span> <span class="n">cluster_info</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">Group</span><span class="p">(</span>
+            <span class="n">Panel</span><span class="p">(</span>
+                <span class="n">tasks_table</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Scheduler: </span><span class="si">{</span><span class="n">cluster_info</span><span class="o">.</span><span class="n">scheduler_id</span><span class="si">}</span><span class="s2">.cern.ch&quot;</span><span class="p">,</span>
+                <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">border_style</span><span class="o">=</span><span class="s2">&quot;scope.border&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+            <span class="n">Panel</span><span class="p">(</span>
+                <span class="n">cluster_table</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">cluster_info</span><span class="o">.</span><span class="n">scheduler_id</span><span class="si">}</span><span class="s2"> Statistics&quot;</span><span class="p">,</span>
+                <span class="n">expand</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">border_style</span><span class="o">=</span><span class="s2">&quot;scope.border&quot;</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">Live</span><span class="p">(</span><span class="n">generate_renderable</span><span class="p">(),</span> <span class="n">refresh_per_second</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span> <span class="k">as</span> <span class="n">live</span><span class="p">:</span>
+        <span class="n">live</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Querying HTCondor Queue - Refreshed Every 5 Minutes</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">live</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">generate_renderable</span><span class="p">())</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">300</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                <span class="n">live</span><span class="o">.</span><span class="n">console</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s2">&quot;Exiting Program&quot;</span><span class="p">)</span>
+                <span class="k">break</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>
