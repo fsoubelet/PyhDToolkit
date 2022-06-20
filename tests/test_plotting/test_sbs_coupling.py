@@ -31,10 +31,11 @@ class TestCouplingSbsPlotting:
             b2_model=sbs_model_b2,
             ip=1,
             rdt="f1001",
-            figsize=(18, 9),
+            figsize=(12, 7),
             # abs_ylimits=(8e-2, 14e-2),
             # real_ylimits=(-1e-1, 1e-1),
             # imag_ylimits=(-1e-1, 1e-1),
+            bbox_to_anchor=(0.535, 0.95),
         )
         return figure
 

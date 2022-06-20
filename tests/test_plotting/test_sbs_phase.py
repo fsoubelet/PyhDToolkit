@@ -38,7 +38,7 @@ class TestPhaseSbsPlotting:
             b1_model=sbs_model_b2,
             b2_model=sbs_model_b2,
             ip=5,
-            figsize=(10, 6),
+            figsize=(12, 6),
             bbox_to_anchor=(0.535, 0.94),
         )
         return figure
