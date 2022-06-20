@@ -23,6 +23,14 @@ class TestSbsPlottingUtils:
             rel_tol=1e-5,
         )
 
+        # This one is cut by the end of sequence, tests we properly loop around
+        # Value is high because segment in test file is for IP1
+        assert math.isclose(
+            find_ip_s_from_segment_start(segment_df=sbs_coupling_b1_ip1, model_df=sbs_model_b1, ip=2),
+            3825.68884,
+            rel_tol=1e-5,
+        )
+
     @pytest.mark.parametrize("f1001", ["F1001", "f1001"])
     @pytest.mark.parametrize("f1010", ["F1010", "f1010"])
     @pytest.mark.parametrize("abs_", ["abs", "ABS", "aBs"])
