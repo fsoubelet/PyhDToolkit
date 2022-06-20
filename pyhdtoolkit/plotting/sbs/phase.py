@@ -55,7 +55,7 @@ def plot_phase_segment_one_beam(
     plot_phase_segment(ax1, segment_df=phase_x, model_df=model, plane="x", ip=ip)
     plot_phase_segment(ax2, segment_df=phase_y, model_df=model, plane="y", ip=ip)
 
-    figure.legend(*_get_legend_handles_labels([ax1]), ncol=2, bbox_to_anchor=legend_bbox_to_anchor, loc="lower center")
+    ax1.legend(bbox_to_anchor=(0, 1.02, 1, 0.2), loc="lower left", ncol=4)
     ax2.set_xlabel(r"$\mathrm{S\ [m]}$")
     plt.tight_layout()
     return figure
