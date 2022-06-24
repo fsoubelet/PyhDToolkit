@@ -10,12 +10,12 @@ from pyhdtoolkit.optics.beam import Beam, compute_beam_parameters
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
 INPUT_PATHS = {
-    "alpha_beta": INPUTS_DIR / "alpha_beta.npy",
-    "u_vector": INPUTS_DIR / "u_vector.npy",
-    "u_bar": INPUTS_DIR / "u_bar.npy",
-    "beta11": INPUTS_DIR / "beta11.npy",
-    "beta21": INPUTS_DIR / "beta21.npy",
-    "lebedev": INPUTS_DIR / "lebedev_size.npy",
+    "alpha_beta": INPUTS_DIR / "optics" / "alpha_beta.npy",
+    "u_vector": INPUTS_DIR / "optics" / "u_vector.npy",
+    "u_bar": INPUTS_DIR / "optics" / "u_bar.npy",
+    "beta11": INPUTS_DIR / "optics" / "beta11.npy",
+    "beta21": INPUTS_DIR / "optics" / "beta21.npy",
+    "lebedev": INPUTS_DIR / "optics" / "lebedev_size.npy",
 }
 
 
