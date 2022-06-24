@@ -105,9 +105,9 @@ class TestTune:
 
 @pytest.fixture()
 def _plottable_footprint_path() -> pathlib.Path:
-    return INPUTS_DIR / "plottable_footprint.npz"
+    return INPUTS_DIR / "cpymadtools" / "plottable_footprint.npz"
 
 
 @pytest.fixture()
 def _dynap_tfs_path() -> pathlib.Path:
-    return INPUTS_DIR / "dynap.tfs"
+    return INPUTS_DIR / "cpymadtools" / "dynap.tfs"

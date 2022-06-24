@@ -47,9 +47,9 @@ class TestTwiss:
 
 @pytest.fixture()
 def _ips_twiss_path() -> pathlib.Path:
-    return INPUTS_DIR / "ips_twiss.tfs"
+    return INPUTS_DIR / "cpymadtools" / "ips_twiss.tfs"
 
 
 @pytest.fixture()
 def _twiss_export() -> pathlib.Path:
-    return INPUTS_DIR / "twiss_export.tfs"
+    return INPUTS_DIR / "cpymadtools" / "twiss_export.tfs"
