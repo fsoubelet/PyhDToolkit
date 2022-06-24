@@ -28,7 +28,7 @@ matplotlib.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
-GUIDO_LATTICE = INPUTS_DIR / "guido_lattice.madx"
+GUIDO_LATTICE = INPUTS_DIR / "cpymadtools" / "guido_lattice.madx"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
 
