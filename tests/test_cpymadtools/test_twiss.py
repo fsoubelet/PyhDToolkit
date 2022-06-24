@@ -32,7 +32,7 @@ class TestTwiss:
     def test_get_irs_twiss(self, ir, _matched_lhc_madx):
         madx = _matched_lhc_madx
 
-        reference_df = tfs.read(INPUTS_DIR / f"ir{ir:d}_twiss.tfs")
+        reference_df = tfs.read(INPUTS_DIR / "cpymadtools" / f"ir{ir:d}_twiss.tfs")
         ir_df = get_ir_twiss(madx, ir=ir)
         # assert_dict_equal(reference_df.headers, ir_df.headers)  # bugged at the moment
         assert_frame_equal(reference_df.set_index("name"), ir_df.set_index("name"))
