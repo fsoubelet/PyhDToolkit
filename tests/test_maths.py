@@ -211,14 +211,14 @@ def _create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.nda
 
 @pytest.fixture()
 def _to_scale() -> np.ndarray:
-    return np.load(INPUTS_DIR / "to_scale.npy")
+    return np.load(INPUTS_DIR / "maths" / "to_scale.npy")
 
 
 @pytest.fixture()
 def _scaled() -> np.ndarray:
-    return np.load(INPUTS_DIR / "scaled.npy")
+    return np.load(INPUTS_DIR / "maths" / "scaled.npy")
 
 
 @pytest.fixture()
 def _force_scaled() -> np.ndarray:
-    return np.load(INPUTS_DIR / "force_scaled.npy")
+    return np.load(INPUTS_DIR / "maths" / "force_scaled.npy")

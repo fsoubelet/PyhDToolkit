@@ -11,11 +11,11 @@ from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
-LHC_SEQUENCE = INPUTS_DIR / "lhc_as-built.seq"
-LHC_OPTICS = INPUTS_DIR / "opticsfile.22"
-LHC_INJ_OPTICS = INPUTS_DIR / "opticsfile.1"
-LHC_B1_APERTURE = INPUTS_DIR / "aperture.b1.madx"
-LHC_B1_APERTOL = INPUTS_DIR / "aper_tol.b1.madx"
+LHC_SEQUENCE = INPUTS_DIR / "madx" / "lhc_as-built.seq"
+LHC_OPTICS = INPUTS_DIR / "madx" / "opticsfile.22"
+LHC_INJ_OPTICS = INPUTS_DIR / "madx" / "opticsfile.1"
+LHC_B1_APERTURE = INPUTS_DIR / "madx" / "aperture.b1.madx"
+LHC_B1_APERTOL = INPUTS_DIR / "madx" / "aper_tol.b1.madx"
 
 # ----- Fixtures for cpymadtools tests ----- #
 

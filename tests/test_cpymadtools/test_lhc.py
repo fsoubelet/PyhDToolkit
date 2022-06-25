@@ -345,14 +345,14 @@ class TestLHC:
 
 @pytest.fixture()
 def _magnets_fields_path() -> pathlib.Path:
-    return INPUTS_DIR / "magnets_fields.tfs"
+    return INPUTS_DIR / "cpymadtools" / "magnets_fields.tfs"
 
 
 @pytest.fixture()
 def _correct_bpms_list() -> pathlib.Path:
-    return INPUTS_DIR / "correct_bpms_list.pkl"
+    return INPUTS_DIR / "cpymadtools" / "correct_bpms_list.pkl"
 
 
 @pytest.fixture()
 def _reference_twiss_rdts() -> pathlib.Path:
-    return INPUTS_DIR / "twiss_with_rdts.tfs"
+    return INPUTS_DIR / "cpymadtools" / "twiss_with_rdts.tfs"

@@ -93,14 +93,14 @@ class TestPTC:
 
 @pytest.fixture()
 def _ampdet_tfs_path() -> pathlib.Path:
-    return INPUTS_DIR / "ampdet.tfs"
+    return INPUTS_DIR / "cpymadtools" / "ampdet.tfs"
 
 
 @pytest.fixture()
 def _rdts_tfs_path() -> pathlib.Path:
-    return INPUTS_DIR / "rdts.tfs"
+    return INPUTS_DIR / "cpymadtools" / "rdts.tfs"
 
 
 @pytest.fixture()
 def _ptc_twiss_tfs_path() -> pathlib.Path:
-    return INPUTS_DIR / "ptc_twiss.tfs"
+    return INPUTS_DIR / "cpymadtools" / "ptc_twiss.tfs"

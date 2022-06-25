@@ -222,10 +222,10 @@ class BeamEnvelopePlotter:
         twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params.deltap_p
         twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params.deltap_p
         twiss_hr["envelope_x"] = np.sqrt(
-            twiss_hr.betatronic_envelope_x ** 2 + (twiss_hr.dx * beam_params.deltap_p) ** 2
+            twiss_hr.betatronic_envelope_x**2 + (twiss_hr.dx * beam_params.deltap_p) ** 2
         )
         twiss_hr["envelope_y"] = np.sqrt(
-            twiss_hr.betatronic_envelope_y ** 2 + (twiss_hr.dy * beam_params.deltap_p) ** 2
+            twiss_hr.betatronic_envelope_y**2 + (twiss_hr.dy * beam_params.deltap_p) ** 2
         )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
@@ -1226,7 +1226,6 @@ def plot_machine_layout(
                     height=dipole.k1l,
                     v_offset=dipole.k1l / 2,
                     color="r",
-                    alpha=0.3,
                     **kwargs,
                 )
             plotted_elements += 1
