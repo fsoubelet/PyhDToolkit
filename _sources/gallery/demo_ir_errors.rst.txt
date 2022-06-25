@@ -241,100 +241,100 @@ order in which they are in the machine:
       <tbody>
         <tr>
           <th>mqml.6l1.b1</th>
-          <td>0.000377</td>
+          <td>-0.000284</td>
           <td>0.0</td>
-          <td>0.002263</td>
+          <td>0.000155</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5l1.b1</th>
-          <td>-0.000659</td>
+          <td>-0.000084</td>
           <td>0.0</td>
-          <td>-0.000003</td>
+          <td>-0.003453</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4l1.b1</th>
-          <td>-0.000900</td>
+          <td>-0.002102</td>
           <td>0.0</td>
-          <td>0.001146</td>
+          <td>-0.004197</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3l1</th>
-          <td>0.000551</td>
+          <td>-0.000627</td>
           <td>0.0</td>
-          <td>0.001486</td>
+          <td>-0.001556</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2l1</th>
-          <td>0.000214</td>
+          <td>-0.000369</td>
           <td>0.0</td>
-          <td>0.001056</td>
+          <td>-0.006636</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2l1</th>
-          <td>0.000360</td>
+          <td>-0.001095</td>
           <td>0.0</td>
-          <td>-0.000790</td>
+          <td>-0.000595</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1l1</th>
-          <td>0.000045</td>
+          <td>-0.000596</td>
           <td>0.0</td>
-          <td>-0.001027</td>
+          <td>-0.002850</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1r1</th>
-          <td>-0.000042</td>
+          <td>0.000956</td>
           <td>0.0</td>
-          <td>-0.000587</td>
+          <td>0.003360</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2r1</th>
-          <td>0.000362</td>
+          <td>-0.000121</td>
           <td>0.0</td>
-          <td>0.000841</td>
+          <td>-0.001417</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2r1</th>
-          <td>-0.000153</td>
+          <td>0.000945</td>
           <td>0.0</td>
-          <td>0.007749</td>
+          <td>0.002251</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3r1</th>
-          <td>0.001074</td>
+          <td>0.001267</td>
           <td>0.0</td>
-          <td>0.003371</td>
+          <td>0.003302</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4r1.b1</th>
-          <td>0.000285</td>
+          <td>0.001458</td>
           <td>0.0</td>
-          <td>0.000337</td>
+          <td>0.004181</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5r1.b1</th>
-          <td>0.001028</td>
+          <td>-0.000373</td>
           <td>0.0</td>
-          <td>0.001467</td>
+          <td>-0.001425</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.6r1.b1</th>
-          <td>-0.000019</td>
+          <td>-0.000108</td>
           <td>0.0</td>
-          <td>0.004129</td>
+          <td>-0.000391</td>
           <td>0.0</td>
         </tr>
       </tbody>
@@ -433,7 +433,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  40.369 seconds)
+   **Total running time of the script:** ( 0 minutes  32.503 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_ir_errors.py:
