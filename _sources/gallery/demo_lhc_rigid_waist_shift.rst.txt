@@ -201,7 +201,7 @@ to make sure we do not deviate.
 
  .. code-block:: none
 
-    2022-06-25 09:33:23 | WARNING  | pyhdtoolkit.cpymadtools.lhc:245 - You should re-match tunes & chromaticities after this rigid waist shift knob is applied
+    2022-06-27 11:10:33 | WARNING  | pyhdtoolkit.cpymadtools.lhc:245 - You should re-match tunes & chromaticities after this rigid waist shift knob is applied
 
 
 
@@ -369,7 +369,7 @@ Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
 
  .. code-block:: none
 
-    2022-06-25 09:34:15 | WARNING  | pyhdtoolkit.utils._misc:180 - Sequence 'lhcb1' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
+    2022-06-27 11:11:36 | WARNING  | pyhdtoolkit.utils._misc:179 - Sequence 'lhcb1' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
 
 
 
@@ -577,7 +577,7 @@ one found with the markers we previously added, and they are fairly close.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  59.305 seconds)
+   **Total running time of the script:** ( 3 minutes  30.322 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:
