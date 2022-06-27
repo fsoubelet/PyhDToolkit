@@ -3,6 +3,20 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
+.. _release_0.19.1:
+
+0.19.1
+------
+
+Maintenance
+~~~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.lhc.get_lhc_tune_and_chroma_knobs` function now can has a new boolean argument, `run3`, to determine if the standard `_op` knobs should be returned.
+* The functions in the `~pyhdtoolkit.cpymadtools.matching` module now also have the `run3` argument, and will call the Run 3 `_op` knobs if this argument is set to `True` and the `LHC` accelerator is passed.
+
+See `v0.19.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.1>`_ and the `full changes since v0.18.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.19.0...0.19.1>`_.
+
+
 .. _release_0.19.0:
 
 0.19.0
