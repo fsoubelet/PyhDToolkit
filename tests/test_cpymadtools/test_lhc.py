@@ -281,10 +281,16 @@ class TestLHC:
 
     @pytest.mark.parametrize("beam", [1, 2, 3, 4])
     @pytest.mark.parametrize("telescopic_squeeze", [False, True])
-    def test_lhc_tune_and_chroma_knobs(self, beam, telescopic_squeeze):
+    @pytest.mark.parametrize("run3", [False, True])
+    def test_lhc_tune_and_chroma_knobs(self, beam, telescopic_squeeze, run3):
         expected_beam = 2 if beam == 4 else beam
-        expected_suffix = "_sq" if telescopic_squeeze else ""
-        assert get_lhc_tune_and_chroma_knobs("LHC", beam, telescopic_squeeze) == (
+        if run3:
+            expected_suffix = "_op"
+        elif telescopic_squeeze:
+            expected_suffix = "_sq"
+        else:
+            expected_suffix = ""
+        assert get_lhc_tune_and_chroma_knobs("LHC", beam, telescopic_squeeze, run3) == (
             f"dQx.b{expected_beam}{expected_suffix}",
             f"dQy.b{expected_beam}{expected_suffix}",
             f"dQpx.b{expected_beam}{expected_suffix}",
