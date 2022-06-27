@@ -669,7 +669,7 @@ def get_lhc_bpms_list(madx: Madx) -> List[str]:
 
 
 def get_lhc_tune_and_chroma_knobs(
-    accelerator: str, beam: int = 1, telescopic_squeeze: bool = True
+    accelerator: str, beam: int = 1, telescopic_squeeze: bool = True, run3: bool = False
 ) -> Tuple[str, str, str, str]:
     """
     Gets names of knobs needed to match tunes and chromaticities as a tuple of strings,
@@ -682,6 +682,7 @@ def get_lhc_tune_and_chroma_knobs(
         beam (int): Beam to use, for the knob names. Defaults to 1.
         telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic
             Squeeze configuration. Defaults to `True` to reflect run III scenarios.
+        run3 (bool): if set to `True`, returns the Run 3 `*_op` knobs.
 
     Returns:
         A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.
@@ -698,7 +699,12 @@ def get_lhc_tune_and_chroma_knobs(
             ('kqtf.b2_sq', 'kqtd.b2_sq', 'ksf.b2_sq', 'ksd.b2_sq')
     """
     beam = 2 if beam == 4 else beam
-    suffix = "_sq" if telescopic_squeeze else ""
+    if run3:
+        suffix = "_op"
+    elif telescopic_squeeze:
+        suffix = "_sq"
+    else:
+        suffix = ""
 
     if accelerator.upper() not in ("LHC", "HLLHC"):
         logger.error("Invalid accelerator name, only 'LHC' and 'HLLHC' implemented")

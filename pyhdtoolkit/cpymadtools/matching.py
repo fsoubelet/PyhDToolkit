@@ -29,6 +29,7 @@ def match_tunes_and_chromaticities(
     dq2_target: float = None,
     varied_knobs: Sequence[str] = None,
     telescopic_squeeze: bool = True,
+    run3: bool = False,
     step: float = 1e-7,
     calls: int = 100,
     tolerance: float = 1e-21,
@@ -81,7 +82,8 @@ def match_tunes_and_chromaticities(
             could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used for quadrupole and sextupole
             strengths (focusing / defocusing) in most examples.
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
-            Squeeze configuration. Defaults to `True` as of run III.
+            Squeeze configuration. Defaults to `True` since `v0.9.0`.
+        run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
@@ -120,7 +122,7 @@ def match_tunes_and_chromaticities(
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
         lhc_knobs = get_lhc_tune_and_chroma_knobs(
-            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
+            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze, run3=run3
         )
         tune_knobs, chroma_knobs = lhc_knobs[:2], lhc_knobs[2:]  # first two, last two
 
@@ -171,6 +173,7 @@ def match_tunes(
     q2_target: float = None,
     varied_knobs: Sequence[str] = None,
     telescopic_squeeze: bool = True,
+    run3: bool = False,
     step: float = 1e-7,
     calls: int = 100,
     tolerance: float = 1e-21,
@@ -195,7 +198,8 @@ def match_tunes(
         q2_target (float): vertical tune to match to.
         varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine.
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
-            Squeeze configuration. Defaults to `True` as of run III.
+            Squeeze configuration. Defaults to `True` since `v0.9.0`.
+        run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
         step (float): step size to use when varying knobs. Defaults to `1E-7`.
         calls (int): max number of varying calls to perform. Defaults to `100`.
         tolerance (float): tolerance for successfull matching. Defaults to `1E-21`.
@@ -236,6 +240,7 @@ def match_tunes(
         dq2_target=None,
         varied_knobs=varied_knobs,
         telescopic_squeeze=telescopic_squeeze,
+        run3=run3,
         step=step,
         calls=calls,
         tolerance=tolerance,
@@ -250,6 +255,7 @@ def match_chromaticities(
     dq2_target: float = None,
     varied_knobs: Sequence[str] = None,
     telescopic_squeeze: bool = True,
+    run3: bool = False,
     step: float = 1e-7,
     calls: int = 100,
     tolerance: float = 1e-21,
@@ -274,7 +280,8 @@ def match_chromaticities(
         q2_target (float): vertical tune to match to.
         varied_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` ``MATCH`` routine.
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
-            Squeeze configuration. Defaults to `True` as of run III.
+            Squeeze configuration. Defaults to `True` since `v0.9.0`.
+        run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
         step (float): step size to use when varying knobs. Defaults to `1E-7`.
         calls (int): max number of varying calls to perform. Defaults to `100`.
         tolerance (float): tolerance for successfull matching. Defaults to `1E-21`.
@@ -315,6 +322,7 @@ def match_chromaticities(
         dq2_target=dq2_target,
         varied_knobs=varied_knobs,
         telescopic_squeeze=telescopic_squeeze,
+        run3=run3,
         step=step,
         calls=calls,
         tolerance=tolerance,
