@@ -9,11 +9,13 @@ that are specific to LHC and HLLHC machines.
 """
 from typing import Dict, List, Sequence, Tuple, Union
 
+import numpy as np
 import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
-from optics_functions.coupling import coupling_via_cmatrix
+from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix
+from scipy import stats
 
 from pyhdtoolkit.cpymadtools import twiss
 from pyhdtoolkit.cpymadtools.constants import (
@@ -33,6 +35,7 @@ __all__ = [
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
     "deactivate_lhc_arc_sextupoles",
+    "get_cminus_from_coupling_rdts",
     "get_magnets_powering",
     "get_lhc_bpms_list",
     "get_lhc_bpms_twiss_and_rdts",
@@ -801,7 +804,92 @@ def get_lhc_bpms_twiss_and_rdts(madx: Madx) -> tfs.TfsDataFrame:
     return twiss_tfs
 
 
+# ----- Compute Utilities ----- #
+
+
+def get_cminus_from_coupling_rdts(
+    madx: Madx,
+    only_bpms: bool = False,
+    method: str = "teapot",
+    qx: float = None,
+    qy: float = None,
+    filtering: float = 0,
+) -> np.complex128:
+    """
+    Computes and returns the complex :math:`C^{-}` from the machine's coupling RDTs. The
+    closest tune approach is computed thanks to functionality from `optics_functions.coupling`.
+
+    .. hint::
+        A quick estimate of the :math:`|C^{-}|` is available in ``MAD-X`` as the ``dqmin``
+        variable in the ``SUMM`` table. However this estimate is not accurate in all situations,
+        and is the norm of a complex vector which is not approriate for comparisons or for
+        normalizations, which is the use-case of this functions.
+
+    .. note::
+        If using the “calaga”, “teapot”, “teapot_franchi” or “franchi” method, then the returned
+        value will be a real number.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        only_bpms (bool): if `True`, only the values at the BPMs will be used to compute the
+            :math:`C^{-}`, otherwise values are taken at every element.
+        method (str): the method to use for the calculation of the :math:`C^{-}`. Defaults to
+            `teapot`, which is the default of `~optics_functions.coupling.closest_tune_approach`.
+        qx (float): the horizontal tune. Defaults to `None`, in which case the value will be taken
+            from the ``SUMM`` table.
+        qy (float): the vertical tune. Defaults to `None`, in which case the value will be taken
+            from the ``SUMM`` table.
+        filtering (float): If non-zero value is given, applies outlier filtering of BPMs based on
+            the abs. value of the coupling RTDs before computing the :math:`C^{-}`. The given value
+            corresponds to the std. dev. :math:`\\sigma` outside of which to filter out a BPM.
+            Defaults to 0, which means no filtering.
+
+    Returns:
+        The complex calculated :math:`C^{-}` value.
+
+    Example:
+        .. code-block:: python
+
+            >>> complex_cminus = get_cminus_from_coupling_rdts(madx)
+    """
+    if only_bpms:
+        logger.debug(f"Getting RDTs at BPMs thoughout the machine")
+        twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
+    else:
+        logger.debug(f"Getting RDTs at all elements thoughout the machine")
+        twiss_with_rdts = twiss.get_twiss_tfs(madx, chrom=True)
+        twiss_with_rdts[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_with_rdts, output=["rdts"])
+
+    # Get tunes values from SUMM table if not provided
+    qx = qx or madx.table.summ.q1[0]
+    qy = qy or madx.table.summ.q2[0]
+
+    # Do this following line here as if done above, merging model erases headers
+    logger.debug("Filtering out BPMs that do not respect the resonance relation")
+    twiss_with_rdts.headers["LENGTH"] = 26659  # LHC length, will be needed later
+    twiss_with_rdts = check_resonance_relation(twiss_with_rdts, to_nan=True).dropna()
+
+    if filtering:
+        logger.debug(f"Filtering out BPMs with RDTs outside of {filtering:f} std. dev.")
+        twiss_with_rdts = _filter_outlier_bpms_from_coupling_rdts(twiss_with_rdts, filtering)
+
+    # Now we do the closest tune approach calculation -> adds DELTAQMIN column to df
+    logger.debug(f"Calculating CTA via optics_functions, with method '{method}'")
+    return closest_tune_approach(twiss_with_rdts, qx=qx, qy=qy, method=method).mean()[0]
+
+
 # ----- Helpers ----- #
+
+
+def _filter_outlier_bpms_from_coupling_rdts(twiss_df: tfs.TfsDataFrame, stdev: float = 3) -> tfs.TfsDataFrame:
+    """Only keep BPMs for which the abs. value of coupling RDTs is no further than `stdev` sigma from its mean"""
+    logger.debug("Filtering out outlier BPMs based on coupling RDTs")
+    df = twiss_df.copy(deep=True)
+    df = df[np.abs(stats.zscore(df.F1001W)) < stdev]
+    df = df[np.abs(stats.zscore(df.F1010W)) < stdev]
+    if (removed := len(twiss_df) - len(df)) > 0:
+        logger.debug(f"{removed} BPMs removed due to outlier coupling RDTs")
+    return df
 
 
 def _all_lhc_arcs(beam: int) -> List[str]:
