@@ -18,6 +18,7 @@ from loguru import logger
 from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix
 from scipy import stats
 
+from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
@@ -152,7 +153,7 @@ def get_cminus_from_coupling_rdts(
     qx: float = None,
     qy: float = None,
     filtering: float = 0,
-) -> np.complex128:
+) -> np.complex_:
     """
     Computes and returns the complex :math:`C^{-}` from the machine's coupling RDTs. The
     closest tune approach is computed thanks to functionality from `optics_functions.coupling`.
@@ -197,7 +198,8 @@ def get_cminus_from_coupling_rdts(
             >>> complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=["^BPM.*B[12]$"])
     """
     logger.debug(f"Getting coupling RDTs at selected elements thoughout the machine")
-    twiss_with_rdts = get_pattern_twiss(madx, patterns)
+    twiss_with_rdts = get_pattern_twiss(madx, patterns=patterns, columns=MONITOR_TWISS_COLUMNS)
+    twiss_with_rdts.columns = twiss_with_rdts.columns.str.upper()  # optics_functions needs capitalized names
     twiss_with_rdts[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_with_rdts, output=["rdts"])
 
     # Get tunes values from SUMM table if not provided
@@ -250,11 +252,17 @@ def match_no_coupling_through_ripkens(
 
 
 def _filter_outlier_bpms_from_coupling_rdts(twiss_df: tfs.TfsDataFrame, stdev: float = 3) -> tfs.TfsDataFrame:
-    """Only keep BPMs for which the abs. value of coupling RDTs is no further than `stdev` sigma from its mean"""
+    """
+    Only keep BPMs for which the abs. value of coupling RDTs is no further than
+    `stdev` sigma from its mean.
+
+    .. note::
+        This expects the `twiss_df` to have ``F1001`` and ``F1010`` complex columns.
+    """
     logger.debug("Filtering out outlier BPMs based on coupling RDTs")
     df = twiss_df.copy(deep=True)
-    df = df[np.abs(stats.zscore(df.F1001W)) < stdev]
-    df = df[np.abs(stats.zscore(df.F1010W)) < stdev]
+    df = df[np.abs(stats.zscore(df.F1001.abs())) < stdev]
+    df = df[np.abs(stats.zscore(df.F1010.abs())) < stdev]
     removed = len(twiss_df) - len(df)
     if removed > 0:
         logger.debug(f"{removed} BPMs removed due to outlier coupling RDTs")
