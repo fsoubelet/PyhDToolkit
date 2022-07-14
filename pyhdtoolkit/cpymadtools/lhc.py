@@ -273,13 +273,14 @@ def apply_lhc_coupling_knob(
             Defaults to 0 so users don't mess up coupling by mistake.
         beam (int): beam to apply the knob to. Defaults to beam 1.
         telescopic_squeeze (bool): if set to `True`, uses the knobs for Telescopic Squeeze configuration.
-            Defaults to `True` as of run III.
+            Defaults to `True` since `v0.9.0`.
 
     Example:
         .. code-block:: python
 
             >>> apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)
     """
+    # NOTE: for maintainers, no `_op` suffix on ATS coupling knobs, only `_sq` even in Run 3
     logger.debug("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this coupling knob is applied")
     suffix = "_sq" if telescopic_squeeze else ""
@@ -681,7 +682,7 @@ def get_lhc_tune_and_chroma_knobs(
         beam (int): Beam to use, for the knob names. Defaults to 1.
         telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic
             Squeeze configuration. Defaults to `True` to reflect run III scenarios.
-        run3 (bool): if set to `True`, returns the Run 3 `*_op` knobs.
+        run3 (bool): if set to `True`, returns the Run 3 `*_op` knobs. Defaults to `False`.
 
     Returns:
         A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.
@@ -691,6 +692,11 @@ def get_lhc_tune_and_chroma_knobs(
 
             >>> get_lhc_tune_and_chroma_knobs("LHC", beam=1, telescopic_squeeze=False)
             ('dQx.b1', 'dQy.b1', 'dQpx.b1', 'dQpy.b1')
+
+        .. code-block:: python
+
+            >>> get_lhc_tune_and_chroma_knobs("LHC", beam=2, run3=True)
+            ('dQx.b2_op', 'dQx.b2_op', 'dQpx.b2_op', 'dQpx.b2_op')
 
         .. code-block:: python
 

@@ -59,7 +59,7 @@ def match_tunes_and_chromaticities(
         then followed by a combined matching. In this case the function should be called three times, once with tune
         targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.
 
-    .. note::
+    .. hint::
         When acting of either the ``LHC`` or ``HLLHC`` machines, the accelerator name can be provided and the vary
         knobs will be automatically set accordingly to the provided targets. Note that only the relevant knobs are
         set, so if tune targets only are provided, then tune knobs only will be used, and not chromaticity knobs.

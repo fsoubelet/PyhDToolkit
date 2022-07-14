@@ -38,6 +38,7 @@ def get_closest_tune_approach(
     sequence: str = None,
     varied_knobs: Sequence[str] = None,
     telescopic_squeeze: bool = True,
+    run3: bool = False,
     explicit_targets: Tuple[float, float] = None,
     step: float = 1e-7,
     calls: int = 100,
@@ -69,7 +70,8 @@ def get_closest_tune_approach(
             could be ``["kqf", "ksd", "kqf", "kqd"]`` as they are common names used for quadrupole and sextupole
             strengths (focusing / defocusing) in most examples.
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
-            Squeeze configuration. Defaults to `True` as of run III.
+            Squeeze configuration. Defaults to `True` since `v0.9.0`.
+        run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
         explicit_targets (Tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.
             Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to
             `None`.
@@ -89,13 +91,14 @@ def get_closest_tune_approach(
             ...     "lhc",                    # will find the knobs automatically
             ...     sequence="lhcb1",
             ...     telescopic_squeeze=True,  # influences the knobs definition
+            ...     run3=True,                # influences the knobs definition (LHC Run 3)
             ... )
             0.001
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
         lhc_knobs = get_lhc_tune_and_chroma_knobs(
-            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze
+            accelerator=accelerator, beam=int(sequence[-1]), telescopic_squeeze=telescopic_squeeze, run3=run3
         )
         tune_knobs, _ = lhc_knobs[:2], lhc_knobs[2:]  # first two for tune & last two for chroma, not used
 
@@ -128,6 +131,8 @@ def get_closest_tune_approach(
         q1_target=qx_target,
         q2_target=qy_target,
         varied_knobs=varied_knobs,
+        telescopic_squeeze=telescopic_squeeze,
+        run3=run3,
         step=step,
         calls=calls,
         tolerance=tolerance,
