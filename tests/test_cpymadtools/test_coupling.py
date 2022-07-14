@@ -1,8 +1,9 @@
 import math
 
+import numpy as np
 import pytest
 
-from pyhdtoolkit.cpymadtools.coupling import get_closest_tune_approach
+from pyhdtoolkit.cpymadtools.coupling import get_closest_tune_approach, get_cminus_from_coupling_rdts
 from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob, get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
@@ -43,3 +44,13 @@ class TestCoupling:
 
         assert math.isclose(cminus, 2e-3, rel_tol=1e-1)  # let's say 10% as MAD-X does what it can
         assert knobs_after == knobs_before
+
+    @pytest.mark.parametrize("filtering", [0, 3.5])
+    def test_complex_cminus_from_coupling_rdts(self, _non_matched_lhc_madx, filtering):
+        """Using LHC lattice."""
+        madx = _non_matched_lhc_madx
+        apply_lhc_coupling_knob(madx, 2e-3, telescopic_squeeze=True)
+        # match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
+
+        complex_cminus = get_cminus_from_coupling_rdts(madx, method="teapot", filtering=filtering)
+        assert np.isclose(np.abs(complex_cminus), 2e-3, rtol=1e-1)  # let's say 10% here too
