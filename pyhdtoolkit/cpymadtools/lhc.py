@@ -7,8 +7,11 @@ LHC-Specific Utilities
 Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object,
 that are specific to LHC and HLLHC machines.
 """
+from copy import deepcopy
+from multiprocessing.spawn import old_main_modules
 from typing import Dict, List, Sequence, Tuple, Union
 
+import numpy as np
 import tfs
 
 from cpymad.madx import Madx
@@ -411,6 +414,48 @@ def vary_independent_ir_quadrupoles(
                 lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
                 upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
             )
+
+
+def do_kmodulation(
+    madx: Madx, ir: int = 1, side: str = "right", steps: int = 100, stepsize: float = 3e-8
+) -> tfs.TfsDataFrame:
+    """"""
+    element = f"MQXA.1R{ir:d}" if side.lower() == "right" else f"MQXA.1L{ir:d}"
+    powering_variable = f"KTQX1.R{ir:d}" if side.lower() == "right" else f"KTQX1.L{ir:d}"
+
+    logger.debug(f"Saving current magnet powering for '{element}'")
+    old_powering = madx.globals[powering_variable]
+    minval = old_powering - steps / 2 * stepsize
+    maxval = old_powering + steps / 2 * stepsize
+    k_powerings = np.linspace(minval, maxval, steps + 1)
+    results = tfs.TfsDataFrame(
+        index=k_powerings,
+        columns=["K", "TUNEX", "ERRTUNEX", "TUNEY", "ERRTUNEY"],
+        headers={
+            "TITLE": "K-Modulation",
+            "ELEMENT": element,
+            "VARIABLE": powering_variable,
+            "STEPS": steps,
+            "STEP SIZE": stepsize,
+        },
+    )
+
+    logger.debug(f"Modulating quadrupole '{element}'")
+    for powering in k_powerings:
+        logger.trace(f"Modulation of '{element}' - Setting '{powering_variable}' to {powering}")
+        madx.globals[powering_variable] = powering
+        df = twiss.get_ir_twiss(madx, ir=ir, centre=True, columns=["k1l", "l"])
+        results.loc[powering].K = df.loc[element.lower()].k1l / df.loc[element.lower()].l  # Store K
+        results.loc[powering].TUNEX = madx.table.summ.q1[0]  # Store Qx
+        results.loc[powering].TUNEY = madx.table.summ.q2[0]  # Store Qy
+
+    logger.debug(f"Resetting '{element}' powering")
+    madx.globals[powering_variable] = old_powering
+
+    results.index.name = powering_variable
+    results.ERRTUNEX = 0  # No measurement error from MAD-X
+    results.ERRTUNEY = 0  # No measurement error from MAD-X
+    return results
 
 
 # ----- Element Installation ----- #
