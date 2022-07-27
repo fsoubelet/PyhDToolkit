@@ -28,10 +28,10 @@ matplotlib.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
-GUIDO_LATTICE = INPUTS_DIR / "cpymadtools" / "guido_lattice.madx"
+GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
-ELETTRA_LATTICE = INPUTS_DIR / "cpymadtools" / "elettra2_v15_VADER_2.3T.madx"
-ELETTRA_OPTICS = INPUTS_DIR / "cpymadtools" / "optics_elettra2_v15_VADER_2.3T.madx"
+ELETTRA_LATTICE = INPUTS_DIR / "madx" / "elettra2_v15_VADER_2.3T.madx"
+ELETTRA_OPTICS = INPUTS_DIR / "madx" / "optics_elettra2_v15_VADER_2.3T.madx"
 
 
 class TestAperturePlotter:

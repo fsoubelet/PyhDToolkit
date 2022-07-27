@@ -3,7 +3,11 @@ import math
 import numpy as np
 import pytest
 
-from pyhdtoolkit.cpymadtools.coupling import get_closest_tune_approach, get_cminus_from_coupling_rdts
+from pyhdtoolkit.cpymadtools.coupling import (
+    get_closest_tune_approach,
+    get_cminus_from_coupling_rdts,
+    match_no_coupling_through_ripkens,
+)
 from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob, get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
