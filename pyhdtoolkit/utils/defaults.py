@@ -120,6 +120,16 @@ _SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
     "ytick.labelsize": 18,
 }
 
+# This is meant for use to guarantee single-subplot figures all align on
+# their axes and labels, for consistencyin my articles / thesis.
+_FIGURE_CONSTRAINTS = {
+    "figure.constrained_layout.use": False,
+    "figure.subplot.left": 0.12,
+    "figure.subplot.bottom": 0.15,
+    "figure.subplot.right": 0.99,
+    "figure.subplot.top": 0.77,
+}
+
 
 def config_logger(level: Union[str, int] = "INFO", **kwargs) -> None:
     """
