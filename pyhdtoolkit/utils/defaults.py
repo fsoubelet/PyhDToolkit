@@ -121,17 +121,19 @@ _SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
 }
 
 
-def config_logger(level: str = "INFO", **kwargs) -> None:
+def config_logger(level: Union[str, int] = "INFO", **kwargs) -> None:
     """
     Resets the logger object from ``loguru``, with `sys.stdout` as a sink and the
     aforedefined format, which comes down to personnal preference.
 
     Args:
-        level (str): The logging level to set.
+        level (Union[str, int]): The logging level to set. Case-insensitive if a
+            string is given. Defaults to ``INFO``.
         **kwargs: any keyword argument is transmitted to the ``logger.add`` call.
     """
     logger.remove()
-    logger.add(sys.stdout, format=LOGURU_FORMAT, level=level.upper(), **kwargs)
+    level = level.upper() if isinstance(level, str) else level
+    logger.add(sys.stdout, format=LOGURU_FORMAT, level=level, **kwargs)
 
 
 def install_mpl_style() -> None:
