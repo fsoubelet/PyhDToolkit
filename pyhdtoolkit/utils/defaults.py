@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 
 from loguru import logger
 
-ANACONDA_INSTALL = Path().home() / "anaconda3"
-OMC_PYTHON = ANACONDA_INSTALL / "envs" / "OMC" / "bin" / "python"
+ANACONDA_INSTALL = Path().home() / "mambaforge"
+OMC_PYTHON = ANACONDA_INSTALL / "envs" / "omc3" / "bin" / "python"
 
 WORK_REPOSITORIES = Path.home() / "Repositories" / "Work"
 BETABEAT_REPO = WORK_REPOSITORIES / "Beta-Beat.src"
