@@ -58,3 +58,14 @@ class TestCoupling:
 
         complex_cminus = get_cminus_from_coupling_rdts(madx, method="teapot", filtering=filtering)
         assert np.isclose(np.abs(complex_cminus), 2e-3, rtol=1e-1)  # let's say 10% here too
+
+    @pytest.mark.parametrize("variable", ["kqsx3.l1", "kqsx3.r1"])
+    @pytest.mark.parametrize("powering", [2e-4, 5e-4, 1e-3])
+    def test_match_no_coupling_through_ripken(self, _non_matched_lhc_madx, variable, powering):
+        madx = _non_matched_lhc_madx
+        madx.globals[variable] = powering  # power MQSX, this will create coupling at IP1
+        match_no_coupling_through_ripkens(madx, "lhcb1", location="IP1", vary_knobs=[variable])
+        twiss_df = madx.twiss(chrom=True, ripken=True).dframe().copy()
+        twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
+        assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21[0], 0, abs_tol=1e-10)
+        assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21[0], 0, abs_tol=1e-10)
