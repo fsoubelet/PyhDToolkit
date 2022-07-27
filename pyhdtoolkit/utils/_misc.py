@@ -141,6 +141,50 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     return madx
 
 
+def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **kwargs) -> Madx:
+    """
+    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
+    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``
+    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.
+
+    .. important::
+        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space.
+
+    .. note::
+        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
+        might change that working point.
+
+    Args:
+        opticsfile (str): name of the optics file to be used. Only the file itself, which will be looked
+            for at the **acc-models-lhc/operation/optics/** path.
+        beam (int): which beam to set up for. Defaults to beam 1.
+        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
+            which leads to an unsliced sequence.
+
+    Returns:
+        An instanciated `~cpymad.madx.Madx` object with the required configuration.
+    """
+    logger.debug("Creating Run 3 setup MAD-X instance")
+    madx = Madx(**kwargs)
+    madx.option(echo=False, warn=False)
+    logger.debug("Calling sequence")
+    madx.call("acc-models-lhc/lhc.seq")
+    lhc.make_lhc_beams(madx, energy=6800)
+
+    if slicefactor:
+        logger.debug("A slicefactor was provided, slicing the sequence")
+        lhc.make_lhc_thin(madx, sequence=f"lhcb{beam:d}", slicefactor=slicefactor)
+        lhc.make_lhc_beams(madx, energy=6800)
+
+    lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
+    logger.debug("Calling optics file from the 'operation/optics' folder")
+    madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
+    lhc.make_lhc_beams(madx, energy=6800)
+    madx.command.use(sequence=f"lhcb{beam:d}")
+    return madx
+
+
 def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
     """
     Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
