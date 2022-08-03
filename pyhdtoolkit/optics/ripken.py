@@ -9,6 +9,7 @@ Module implementing various calculations based on the :cite:t:`Ripken:optics:198
 from typing import Union
 
 import numpy as np
+import tfs
 
 from loguru import logger
 
@@ -74,3 +75,15 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     elif method == "rms":
         return np.sqrt(np.mean(np.square(coordinates_distribution)))
     raise NotImplementedError(f"Invalid method provided")
+
+
+def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit: float) -> tfs.TfsDataFrame:
+    """
+    Adds columns with the horizontal and vertical Lebedev beam sizes to a dataframe
+    that already contains Ripken Twiss parameters. Assumes that the geometrical emittance
+    is identical for the horizontal and vertical plane, which is something I usually have.
+    """
+    res = df.copy(deep=True)
+    res["SIZE_X"] = lebedev_beam_size(res.BETA11, res.BETA21, geom_emit, geom_emit)  # horizontal
+    res["SIZE_Y"] = lebedev_beam_size(res.BETA12, res.BETA22, geom_emit, geom_emit)  # vertical
+    return res
