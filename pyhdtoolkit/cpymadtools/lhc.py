@@ -35,6 +35,7 @@ __all__ = [
     "apply_lhc_colinearity_knob",
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
+    "correct_lhc_global_coupling",
     "deactivate_lhc_arc_sextupoles",
     "get_magnets_powering",
     "get_lhc_bpms_list",
@@ -462,7 +463,7 @@ def do_kmodulation(
     return results
 
 
-def correct_lhc_coupling(
+def correct_lhc_global_coupling(
     madx: Madx,
     sequence: str = None,
     telescopic_squeeze: bool = True,
@@ -486,7 +487,7 @@ def correct_lhc_coupling(
     Example:
         .. code-block:: python
 
-            >>> correct_lhc_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
+            >>> correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
     """
     logger.debug(f"Attempting to correct global coupling through matching, on sequence '{sequence}'")
     suffix = "_sq" if telescopic_squeeze else ""
