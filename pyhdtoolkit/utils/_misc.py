@@ -14,7 +14,7 @@ import shlex
 
 from multiprocessing import cpu_count
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import cpymad
 import matplotlib
@@ -28,7 +28,8 @@ from matplotlib import pyplot as plt
 from scipy import stats
 
 from pyhdtoolkit import __version__
-from pyhdtoolkit.cpymadtools import lhc
+from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
+from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
 # ----- Constants ----- #
 
@@ -256,6 +257,31 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     betastar_y_ip5 = float(shlex.split(ip5_y_line)[2])
     assert betastar_x_ip1 == betastar_y_ip1 == betastar_x_ip5 == betastar_y_ip5
     return betastar_x_ip1  # doesn't matter which plane, they're all the same
+
+
+def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float, float]:
+    """
+    Get the Lebedev beam sides at the provided *IP*.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        ip (int): the IP to get the sizes at.
+        geom_emit (float): the geometrical emittance to use for the calculation.
+            If not provided, will look for the value of the ``geometric_emit``
+            variable in ``MAD-X`` itself.
+
+    Returns:
+        A tuple of the horizontal and vertical beam sizes at the provided *IP*.
+
+    Example:
+        .. code-block:: python
+
+            >>> ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
+    """
+    logger.debug("Getting ")
+    twiss_tfs = twiss.get_twiss_tfs(madx, chrom=True, ripken=True)
+    twiss_tfs = _add_beam_size_to_df(twiss_tfs, madx.globals["geometric_emit"])
+    return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y
 
 
 # ----- Here for now for testing ----- #
