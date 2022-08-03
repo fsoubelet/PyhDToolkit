@@ -9,6 +9,7 @@ that are specific to LHC and HLLHC machines.
 """
 from copy import deepcopy
 from multiprocessing.spawn import old_main_modules
+from signal import siginterrupt
 from typing import Dict, List, Sequence, Tuple, Union
 
 import numpy as np
@@ -416,6 +417,9 @@ def vary_independent_ir_quadrupoles(
             )
 
 
+# ----- Useful Routines ----- #
+
+
 def do_kmodulation(
     madx: Madx, ir: int = 1, side: str = "right", steps: int = 100, stepsize: float = 3e-8
 ) -> tfs.TfsDataFrame:
@@ -456,6 +460,46 @@ def do_kmodulation(
     results.ERRTUNEX = 0  # No measurement error from MAD-X
     results.ERRTUNEY = 0  # No measurement error from MAD-X
     return results
+
+
+def correct_lhc_coupling(
+    madx: Madx,
+    sequence: str = None,
+    telescopic_squeeze: bool = True,
+) -> None:
+    """
+    A littly tricky matching routine to perform a decent global coupling correction using
+    the ``LHC`` coupling knobs.
+
+    .. important::
+        This routine makes use of some matching tricks and uses the ``SUMM`` table's
+        ``dqmin`` variable for the matching. It should be considered a helpful little
+        trick, but it is not a perfect solution.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        sequence (str): name of the sequence you want to perform the matching for. If
+            `None` is provided, the currently active sequence is used. Defaults to `None`.
+        telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
+            for Telescopic Squeeze configuration. Defaults to `True`.
+
+    Example:
+        .. code-block:: python
+
+            >>> correct_lhc_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
+    """
+    logger.debug(f"Attempting to correct global coupling through matching, on sequence '{sequence}'")
+    suffix = "_sq" if telescopic_squeeze else ""
+    beam = int(sequence[-1])
+    real_knob, imag_knob = f"CMRS.b{beam:d}{suffix}", f"CMIS.b{beam:d}{suffix}"
+    logger.debug(f"Matching using the coupling knobs '{real_knob}' and '{imag_knob}'")
+    madx.command.match(chrom=True, sequence=sequence)
+    madx.command.gweight(dqmin=1, Q1=0)
+    madx.command.global_(dqmin=0, Q1=62.28)
+    madx.command.vary(name=real_knob, step=1.0e-8)
+    madx.command.vary(name=imag_knob, step=1.0e-8)
+    madx.command.lmdif(calls=150, tolerance=1.0e-21)
+    madx.command.endmatch()
 
 
 # ----- Element Installation ----- #
