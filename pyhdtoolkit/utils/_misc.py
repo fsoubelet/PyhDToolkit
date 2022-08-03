@@ -20,6 +20,7 @@ import cpymad
 import matplotlib
 import numpy as np
 import pandas
+import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
