@@ -37,7 +37,7 @@ def match_tunes_and_chromaticities(
     """
     Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match tunes
     and/or chromaticities. As target values are given, the function expects knob names to be provided,
-    which are then used and varied by `MAD-X` to match the targets. This is a convenient wrapper around
+    which are then used and varied by ``MAD-X`` to match the targets. This is a convenient wrapper around
     the ``MATCH`` command. For usage details, see the
     `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_.
 
@@ -58,6 +58,7 @@ def match_tunes_and_chromaticities(
         For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,
         then followed by a combined matching. In this case the function should be called three times, once with tune
         targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.
+        For this, simple wrappers are provided: the :func:`match_tunes` and :func:`match_chromaticities` functions.
 
     .. hint::
         When acting of either the ``LHC`` or ``HLLHC`` machines, the accelerator name can be provided and the vary
@@ -72,7 +73,7 @@ def match_tunes_and_chromaticities(
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
-            Automatic determination will only work for `LHC` and `HLLHC`.
+            Automatic determination will only work for ``LHC`` and ``HLLHC``.
         sequence (str): name of the sequence you want to perform the matching for.
         q1_target (float): horizontal tune to match to.
         q2_target (float): vertical tune to match to.
@@ -83,7 +84,7 @@ def match_tunes_and_chromaticities(
             strengths (focusing / defocusing) in most examples.
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
             Squeeze configuration. Defaults to `True` since `v0.9.0`.
-        run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
+        run3 (bool): if set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults to `False`.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
