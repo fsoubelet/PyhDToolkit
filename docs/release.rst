@@ -15,7 +15,7 @@ Maintenance
 * The functions in the `~pyhdtoolkit.cpymadtools.matching` module now also have the `run3` argument, and will call the Run 3 `_op` knobs if this argument is set to `True` and the `LHC` accelerator is passed.
 * Fixes have been provided to the various Github Actions workflow of the repository.
 
-See `v0.19.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.1>`_ and the `full changes since v0.18.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.19.0...0.19.1>`_.
+See `v0.19.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.1>`_ and the `full changes since v0.19.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.19.0...0.19.1>`_.
 
 
 .. _release_0.19.0:
