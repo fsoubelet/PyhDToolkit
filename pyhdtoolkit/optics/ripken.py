@@ -22,6 +22,11 @@ def lebedev_beam_size(
     Calculate beam size according to the Lebedev-Bogacz formula, based on the Ripken-Mais Twiss
     parameters. The implementation is that of Eq. (A.3.1) in :cite:t:`Lebedev:coupling:2010`.
 
+    .. tip::
+        For the calculations, use :math:`\\beta_{11}` and :math:`\\beta_{21}` for the **vertical**
+        beam size, but use :math:`\\beta_{12}` and :math:`\\beta_{22}` for the **horizontal** one.
+        See the example below.
+
     Args:
         beta1_ (Union[float, np.ndarray]): value(s) for the beta1x or beta1y Ripken parameter.
         beta2_ (Union[float, np.ndarray]): value(s) for the beta2x or beta2y Ripken parameter.
@@ -31,6 +36,18 @@ def lebedev_beam_size(
     Returns:
         The beam size (horizontal or vertical) according to Lebedev & Bogacz, as
         :math:`\\sqrt{\\epsilon_x * \\beta_{1,\\_}^2 + \\epsilon_y * \\beta_{2,\\_}^2}`.
+
+    Example:
+        .. code-block:: python
+
+            >>> geom_emit = madx.globals["geometric_emit"]
+            >>> twiss_tfs = madx.twiss(ripken=True).dframe().copy()
+            >>> horizontal_size = lebedev_beam_size(
+                    twiss_tfs.beta11, twiss_tfs.beta21, geom_emit, geom_emit
+                )
+            >>> vertical_size = lebedev_beam_size(
+                    twiss_tfs.beta12, twiss_tfs.beta22, geom_emit, geom_emit
+                )
     """
     logger.trace("Computing beam size according to Lebedev formula: sqrt(epsx * b1_^2 + epsy * b2_^2)")
     return np.sqrt(geom_emit_x * beta1_ + geom_emit_y * beta2_)
