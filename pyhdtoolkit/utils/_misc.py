@@ -160,8 +160,8 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **
         might change that working point.
 
     Args:
-        opticsfile (str): name of the optics file to be used. Only the file itself, which will be looked
-            for at the **acc-models-lhc/operation/optics/** path.
+        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
+            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
         beam (int): which beam to set up for. Defaults to beam 1.
         slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
             which leads to an unsliced sequence.
@@ -183,7 +183,11 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **
 
     lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
     logger.debug("Calling optics file from the 'operation/optics' folder")
-    madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
+
+    if Path(opticsfile).is_file():
+        madx.call(opticsfile)
+    else:
+        madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
     lhc.make_lhc_beams(madx, energy=6800)
     madx.command.use(sequence=f"lhcb{beam:d}")
     return madx
