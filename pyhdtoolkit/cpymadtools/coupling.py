@@ -21,11 +21,12 @@ from scipy import stats
 from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
-from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
+from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss, get_twiss_tfs
 
 __all__ = [
     "get_closest_tune_approach",
     "get_cminus_from_coupling_rdts",
+    "get_coupling_rdts",
     "match_no_coupling_through_ripkens",
 ]
 
@@ -85,7 +86,7 @@ def get_closest_tune_approach(
     Example:
         .. code-block:: python
 
-            >>> # Say we have set the coupling knobs to 1e-3
+            >>> # Say we have set the LHC coupling knobs to 1e-3
             >>> dqmin = get_closest_tune_approach(
             ...     madx,
             ...     "lhc",                    # will find the knobs automatically
@@ -237,6 +238,13 @@ def match_no_coupling_through_ripkens(
         sequence (str): name of the sequence to activate for the matching.
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
         vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
+
+    Example:
+        .. code-block:: python
+
+            >>> match_no_coupling_through_ripkens(
+            ...     madx, sequence="lhcb1", location="IP5", vary_knobs=["kqsx.3l5", "kqsx.3r5"]
+            ... )
     """
     logger.debug(f"Matching Ripken parameters for no coupling at location {location}")
     logger.debug("Creating macro to update Ripkens")
@@ -253,17 +261,38 @@ def match_no_coupling_through_ripkens(
     madx.command.endmatch()
 
 
+def get_coupling_rdts(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
+    """
+    Computed the coupling Resonance Driving Tensors (RDTs) :math:`f_{1001}` and :math:`f_{1010}`
+    at all elements in the currently active sequence from a ``TWISS`` call.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        **kwargs: any keyword argument will be transmitted to the ``TWISS`` command in ``MAD-X``.
+            Note that ``CHROM`` is already provided as it is needed for the RDTs' calculation.
+
+    Returns:
+        A `~tfs.TfsDataFrame` with columns of the ``TWISS`` table, and two complex columns for the
+        ``F1001`` and ``f1010`` RDTs.
+
+    Example:
+        .. code-block:: python
+
+            >>> twiss_rdts = get_coupling_rdts(madx)
+    """
+    twiss_tfs = get_twiss_tfs(madx, chrom=True, **kwargs)
+    twiss_tfs[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_tfs, output=["rdts"])
+    return twiss_tfs
+
+
 # ----- Helpers ----- #
 
 
 def _filter_outlier_bpms_from_coupling_rdts(twiss_df: tfs.TfsDataFrame, stdev: float = 3) -> tfs.TfsDataFrame:
-    """
-    Only keep BPMs for which the abs. value of coupling RDTs is no further than
-    `stdev` sigma from its mean.
+    """Only keep BPMs for which the abs. value of coupling RDTs is no further than `stdev` sigma from its mean.Example:
 
     .. note::
-        This expects the `twiss_df` to have ``F1001`` and ``F1010`` complex columns.
-    """
+        This expects the `twiss_df` to have ``F1001`` and ``F1010`` complex columns."""
     logger.debug("Filtering out outlier BPMs based on coupling RDTs")
     df = twiss_df.copy(deep=True)
     df = df[np.abs(stats.zscore(df.F1001.abs())) < stdev]
