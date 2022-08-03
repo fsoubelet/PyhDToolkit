@@ -35,6 +35,7 @@ __all__ = [
     "apply_lhc_colinearity_knob",
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
+    "carry_colinearity_knob_over",
     "correct_lhc_global_coupling",
     "deactivate_lhc_arc_sextupoles",
     "get_magnets_powering",
@@ -314,13 +315,16 @@ def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> No
 
             >>> carry_colinearity_knob_over(madx, ir=5, to_left=True)
     """
-    left_variable, right_variable = f"kqsx3.l{ir:d}", f"kqsx3.r{ir:d}"
     side = "left" if to_left else "right"
     logger.debug(f"Carrying colinearity knob powering around IP{ir:d} over to the {side} side")
-    left, right = madx.globals[left_variable], madx.globals[left_variable]
-    new_left = left + right if to_left else 0
-    new_right = 0 if to_left else left + right
-    logger.debug(f"New powering values are: '{left_variable}'={new_left:.3f} | '{right_variable}'={new_right:.3f}")
+
+    left_variable, right_variable = f"kqsx3.l{ir:d}", f"kqsx3.r{ir:d}"
+    left_powering, right_powering = madx.globals[left_variable], madx.globals[right_variable]
+    logger.trace(f"Current powering values are: '{left_variable}'={left_powering} | '{right_variable}'={left_powering}")
+
+    new_left = left_powering + right_powering if to_left else 0
+    new_right = 0 if to_left else left_powering + right_powering
+    logger.trace(f"New powering values are: '{left_variable}'={new_left} | '{right_variable}'={new_right}")
     madx.globals[left_variable] = new_left
     madx.globals[right_variable] = new_right
     logger.trace("New powerings applied")
