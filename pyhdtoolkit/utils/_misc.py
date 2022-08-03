@@ -331,3 +331,22 @@ def draw_ip_locations(
 
     axis.set_xlim(xlimits)
     axis.set_ylim(ylimits)
+
+
+# ----- Helpers ----- #
+
+
+def _filter_outlier_bpms_from_coupling_rdts(twiss_df: tfs.TfsDataFrame, stdev: float = 3) -> tfs.TfsDataFrame:
+    """Only keep BPMs for which the abs. value of coupling RDTs is no further than `stdev` sigma from its mean.Example:
+
+    .. note::
+        This expects the `twiss_df` to have ``F1001`` and ``F1010`` complex columns.
+    """
+    logger.debug("Filtering out outlier BPMs based on coupling RDTs")
+    df = twiss_df.copy(deep=True)
+    df = df[np.abs(stats.zscore(df.F1001.abs())) < stdev]
+    df = df[np.abs(stats.zscore(df.F1010.abs())) < stdev]
+    removed = len(twiss_df) - len(df)
+    if removed > 0:
+        logger.debug(f"{removed} BPMs removed due to outlier coupling RDTs")
+    return df
