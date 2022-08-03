@@ -18,11 +18,13 @@ from typing import Dict, List
 
 import cpymad
 import matplotlib
+import numpy as np
 import pandas
 
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import pyplot as plt
+from scipy import stats
 
 from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import lhc

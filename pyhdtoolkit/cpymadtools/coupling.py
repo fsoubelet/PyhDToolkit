@@ -16,7 +16,6 @@ import tfs
 from cpymad.madx import Madx
 from loguru import logger
 from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix
-from scipy import stats
 
 from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
