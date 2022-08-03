@@ -296,6 +296,36 @@ def apply_lhc_coupling_knob(
     logger.trace(f"Set '{knob_name}' to {madx.globals[knob_name]}")
 
 
+def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> None:
+    """
+    Removes the powering setting on one side of the colinearty knob and applies it to the
+    other side.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        ir (int): The Interaction Region around which to apply the change, should be
+            one of [1, 2, 5, 8].
+        to_left (bool): If `True`, the magnet right of IP is powered of and its powering
+            is transferred to the magnet left of IP. If `False`, then the opposite happens.
+            Defaults to `True`.
+
+    Example:
+        .. code-block:: python
+
+            >>> carry_colinearity_knob_over(madx, ir=5, to_left=True)
+    """
+    left_variable, right_variable = f"kqsx3.l{ir:d}", f"kqsx3.r{ir:d}"
+    side = "left" if to_left else "right"
+    logger.debug(f"Carrying colinearity knob powering around IP{ir:d} over to the {side} side")
+    left, right = madx.globals[left_variable], madx.globals[left_variable]
+    new_left = left + right if to_left else 0
+    new_right = 0 if to_left else left + right
+    logger.debug(f"New powering values are: '{left_variable}'={new_left:.3f} | '{right_variable}'={new_right:.3f}")
+    madx.globals[left_variable] = new_left
+    madx.globals[right_variable] = new_right
+    logger.trace("New powerings applied")
+
+
 def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_arc: bool = False) -> None:
     """
     Powers the Landau octupoles in the (HL)LHC.
