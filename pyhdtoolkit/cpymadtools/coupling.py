@@ -16,6 +16,7 @@ import tfs
 from cpymad.madx import Madx
 from loguru import logger
 from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix
+from scipy import stats
 
 from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
@@ -304,3 +305,19 @@ def _fractional_tune(tune: float) -> float:
             0.31
     """
     return tune - int(tune)  # ok since int truncates to lower integer
+
+
+def _filter_outlier_bpms_from_coupling_rdts(twiss_df: tfs.TfsDataFrame, stdev: float = 3) -> tfs.TfsDataFrame:
+    """Only keep BPMs for which the abs. value of coupling RDTs is no further than `stdev` sigma from its mean.Example:
+
+    .. note::
+        This expects the `twiss_df` to have ``F1001`` and ``F1010`` complex columns.
+    """
+    logger.debug("Filtering out outlier BPMs based on coupling RDTs")
+    df = twiss_df.copy(deep=True)
+    df = df[np.abs(stats.zscore(df.F1001.abs())) < stdev]
+    df = df[np.abs(stats.zscore(df.F1010.abs())) < stdev]
+    removed = len(twiss_df) - len(df)
+    if removed > 0:
+        logger.debug(f"{removed} BPMs removed due to outlier coupling RDTs")
+    return df
