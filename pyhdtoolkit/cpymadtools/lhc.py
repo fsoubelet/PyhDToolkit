@@ -7,9 +7,6 @@ LHC-Specific Utilities
 Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object,
 that are specific to LHC and HLLHC machines.
 """
-from copy import deepcopy
-from multiprocessing.spawn import old_main_modules
-from signal import siginterrupt
 from typing import Dict, List, Sequence, Tuple, Union
 
 import numpy as np
