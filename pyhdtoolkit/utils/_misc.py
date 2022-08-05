@@ -25,7 +25,7 @@ from loguru import logger
 from matplotlib import pyplot as plt
 
 from pyhdtoolkit import __version__
-from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
+from pyhdtoolkit.cpymadtools import errors, lhc, twiss
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
 # ----- Constants ----- #
@@ -229,6 +229,41 @@ def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int
         f"Sequence '{sequence}' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc."
     )
     madx.use(sequence=sequence)
+
+
+def apply_colin_corrs_balance(madx: Madx) -> None:
+    """
+    Applies the local coupling correction settings from the 2022 commissioning as
+    they were in the machine, and tilts of Q3s that would compensate for those settings.
+    This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
+    be added and studied in the machine, pretending a perfect local coupling correction.
+
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with your
+            ``LHC`` setup.
+    """
+    # ----- Let's balance IR1 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="R", DPSI=1.41e-3)
+    madx.globals["kqsx3.l1"] = 8e-4
+    madx.globals["kqsx3.r1"] = 7e-4
+    # ----- Let's balance IR2 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="L", DPSI=-2.84e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="R", DPSI=2.84e-3)
+    madx.globals["kqsx3.l2"] = -14e-4
+    madx.globals["kqsx3.r2"] = -14e-4
+    # ----- Let's balance IR5 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="L", DPSI=-1.21e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="R", DPSI=1.21e-3)
+    madx.globals["kqsx3.l5"] = 6e-4
+    madx.globals["kqsx3.r5"] = 6e-4
+    # ----- Let's balance IR8 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="L", DPSI=-1e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="R", DPSI=1e-3)
+    madx.globals["kqsx3.l8"] = -5e-4
+    madx.globals["kqsx3.r8"] = -5e-4
+    madx.command.twiss(chrom=True)
 
 
 # ----- Fetching Utilities ----- #
