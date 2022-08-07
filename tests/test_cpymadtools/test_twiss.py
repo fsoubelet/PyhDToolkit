@@ -3,7 +3,6 @@ import pathlib
 import pytest
 import tfs
 
-from pandas._testing import assert_dict_equal
 from pandas.testing import assert_frame_equal
 
 from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS  # for coverage
