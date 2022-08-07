@@ -25,6 +25,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     deactivate_lhc_arc_sextupoles,
+    do_kmodulation,
     get_lhc_bpms_list,
     get_lhc_bpms_twiss_and_rdts,
     get_lhc_tune_and_chroma_knobs,
@@ -345,6 +346,17 @@ class TestLHC:
         reference = tfs.read(_reference_twiss_rdts, index="NAME")
         assert_frame_equal(twiss_with_rdts, reference)
 
+    def test_k_modulation(self, _non_matched_lhc_madx, _reference_kmodulation):
+        madx = _non_matched_lhc_madx
+        results = do_kmodulation(madx)
+        assert all(var == 0 for var in results.ERRTUNEX)
+        assert all(var == 0 for var in results.ERRTUNEY)
+
+        reference = tfs.read(_reference_kmodulation)
+        assert_frame_equal(
+            results.convert_dtypes(), reference.convert_dtypes()
+        )  # avoid dtype comparison error on 0 cols
+
 
 # ---------------------- Private Utilities ---------------------- #
 
@@ -362,3 +374,8 @@ def _correct_bpms_list() -> pathlib.Path:
 @pytest.fixture()
 def _reference_twiss_rdts() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "twiss_with_rdts.tfs"
+
+
+@pytest.fixture()
+def _reference_kmodulation() -> pathlib.Path:
+    return INPUTS_DIR / "cpymadtools" / "kmodulation.tfs"

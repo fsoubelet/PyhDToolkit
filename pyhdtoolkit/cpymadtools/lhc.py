@@ -473,7 +473,7 @@ def do_kmodulation(
             "ELEMENT": element,
             "VARIABLE": powering_variable,
             "STEPS": steps,
-            "STEP SIZE": stepsize,
+            "STEP_SIZE": stepsize,
         },
     )
 
