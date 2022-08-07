@@ -1,15 +1,25 @@
 import math
+import pathlib
 
 import numpy as np
 import pytest
+import tfs
+
+from optics_functions.constants import F1001, F1010
+from optics_functions.coupling import split_complex_columns
+from pandas.testing import assert_frame_equal
 
 from pyhdtoolkit.cpymadtools.coupling import (
     get_closest_tune_approach,
     get_cminus_from_coupling_rdts,
+    get_coupling_rdts,
     match_no_coupling_through_ripkens,
 )
 from pyhdtoolkit.cpymadtools.lhc import apply_lhc_coupling_knob, get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
+
+CURRENT_DIR = pathlib.Path(__file__).parent
+INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 
 
 class TestCoupling:
@@ -69,3 +79,26 @@ class TestCoupling:
         twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
         assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21[0], 0, abs_tol=1e-10)
         assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21[0], 0, abs_tol=1e-10)
+
+    def test_get_coupling_rdts(self, _non_matched_lhc_madx, _coupling_bump_script, _correct_bump_rdts_path):
+        madx = _non_matched_lhc_madx
+        madx.call(str(_coupling_bump_script.absolute()))
+        res = get_coupling_rdts(madx)[[F1001, F1010]]
+        assert F1001 in res.columns
+        assert F1010 in res.columns
+        res = split_complex_columns(res, columns=[F1001, F1010], drop=True)
+        reference = tfs.read(_correct_bump_rdts_path)
+        assert_frame_equal(res, reference)
+
+
+# ---------------------- Private Utilities ---------------------- #
+
+
+@pytest.fixture()
+def _coupling_bump_script() -> pathlib.Path:
+    return INPUTS_DIR / "madx" / "lhc_coupling_bump.madx"
+
+
+@pytest.fixture()
+def _correct_bump_rdts_path() -> pathlib.Path:
+    return INPUTS_DIR / "cpymadtools" / "lhc_coupling_bump.tfs"

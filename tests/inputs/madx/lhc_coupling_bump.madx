@@ -1,7 +1,4 @@
 ! To be called after sequence and optics
-slicefactor = 8;
-beam;
-
 ! Cycling w.r.t. to IP3 (mandatory to find closed orbit in collision in the presence of errors)
 seqedit, sequence=lhcb1; flatten; cycle, start=IP3; endedit;
 USE, SEQUENCE=lhcb1;
@@ -53,25 +50,6 @@ ENDMATCH;
 
 USE, SEQUENCE=lhcb1;
 
-! Save strength of MQSX IP coupling correctors
-KQSX3.R1_old = KQSX3.R1;
-KQSX3.L1_old = KQSX3.L1;
-
-! Power MQSX
-KQSX3.R2 = 10E-4;
-KQSX3.L2 = -10E-4;
-
-! Match Tunes and Chromaticity to compensate the second order contribution of coupling
-MATCH;
-  GLOBAL, Q1=62.31, Q2=60.32;
-  GLOBAL, DQ1=2., DQ2=2.;
-  VARY, NAME=dQx.b1_sq;
-  VARY, NAME=dQy.b1_sq;
-  VARY, NAME=dQpx.b1_sq;
-  VARY, NAME=dQpy.b1_sq;
-  LMDIF, CALLS=100, TOLERANCE=1.0E-21;
-ENDMATCH;
-
 ! Set up skew quadrupoles around arc12
 sk1l = 0.5E-3;
 sk2l = sk1l/3;
@@ -98,7 +76,7 @@ MATCH, SEQUENCE = lhcb1;
   CONSTRAINT, RANGE=E.DS.L2.B1, R21=0;
   CONSTRAINT, RANGE=E.DS.L2.B1, R22=0;
   LMDIF, CALLS=5000, TOLERANCE=1E-22;
-  JACOBIAN, CALLS=1000, TOLERANCE=1E-22;
+  JACOBIAN, CALLS=100, TOLERANCE=1E-22;
 ENDMATCH;
 
 ! Match Tunes to compensate second order contribution of coupling
