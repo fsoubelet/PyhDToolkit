@@ -497,7 +497,7 @@ def do_kmodulation(
 
 def correct_lhc_global_coupling(
     madx: Madx,
-    sequence: str = None,
+    beam: int = 1,
     telescopic_squeeze: bool = True,
 ) -> None:
     """
@@ -511,8 +511,8 @@ def correct_lhc_global_coupling(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        sequence (str): name of the sequence you want to perform the matching for. If
-            `None` is provided, the currently active sequence is used. Defaults to `None`.
+        beam (int): which beam you want to perform the matching for, should be `1` or
+            `2`. Defaults to `1`.
         telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
             for Telescopic Squeeze configuration. Defaults to `True`.
 
@@ -521,9 +521,10 @@ def correct_lhc_global_coupling(
 
             >>> correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
     """
-    logger.debug(f"Attempting to correct global coupling through matching, on sequence '{sequence}'")
     suffix = "_sq" if telescopic_squeeze else ""
-    beam = int(sequence[-1])
+    sequence = f"lhcb{beam:d}"
+    logger.debug(f"Attempting to correct global coupling through matching, on sequence '{sequence}'")
+
     real_knob, imag_knob = f"CMRS.b{beam:d}{suffix}", f"CMIS.b{beam:d}{suffix}"
     logger.debug(f"Matching using the coupling knobs '{real_knob}' and '{imag_knob}'")
     madx.command.match(chrom=True, sequence=sequence)
