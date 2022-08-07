@@ -25,6 +25,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     carry_colinearity_knob_over,
+    correct_lhc_global_coupling,
     deactivate_lhc_arc_sextupoles,
     do_kmodulation,
     get_lhc_bpms_list,
@@ -377,6 +378,18 @@ class TestLHC:
         carry_colinearity_knob_over(madx, ir=ir, to_left=False)
         assert madx.globals[f"kqsx3.l{ir:d}"] == 0
         assert madx.globals[f"kqsx3.r{ir:d}"] == 0.002
+
+    @pytest.mark.parametrize("telesqueeze", [True, False])
+    def test_correct_lhc_global_coupling(self, _non_matched_lhc_madx, telesqueeze):
+        madx = _non_matched_lhc_madx
+        madx.globals["CMRS.b1"] = 0.001
+        madx.globals["CMIS.b1"] = 0.001
+        madx.command.twiss(chrom=True)
+        assert madx.table.summ.dqmin[0] > 0
+
+        correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
+        assert madx.table.summ.dqmin[0] >= 0
+        assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-7)
 
 
 # ---------------------- Private Utilities ---------------------- #
