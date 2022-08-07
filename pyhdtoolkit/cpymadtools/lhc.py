@@ -35,6 +35,7 @@ __all__ = [
     "carry_colinearity_knob_over",
     "correct_lhc_global_coupling",
     "deactivate_lhc_arc_sextupoles",
+    "do_kmodulation",
     "get_magnets_powering",
     "get_lhc_bpms_list",
     "get_lhc_bpms_twiss_and_rdts",
