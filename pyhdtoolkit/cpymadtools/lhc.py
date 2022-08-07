@@ -288,11 +288,12 @@ def apply_lhc_coupling_knob(
     logger.debug("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this coupling knob is applied")
     suffix = "_sq" if telescopic_squeeze else ""
-    knob_name = f"CMRS.b{beam:d}{suffix}"
+    knob_names = [f"CMRS.b{beam:d}{suffix}", f"CMIS.b{beam:d}{suffix}"]  # real and imaginary knobs
 
-    logger.trace(f"Knob '{knob_name}' is {madx.globals[knob_name]} before implementation")
-    madx.globals[knob_name] = coupling_knob
-    logger.trace(f"Set '{knob_name}' to {madx.globals[knob_name]}")
+    for knob in knob_names:
+        logger.trace(f"Knob '{knob}' is {madx.globals[knob]} before implementation")
+        madx.globals[knob] = coupling_knob
+        logger.trace(f"Set '{knob}' to {madx.globals[knob]}")
 
 
 def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> None:

@@ -162,6 +162,7 @@ class TestLHC:
         apply_lhc_coupling_knob(madx, coupling_knob=knob_value, beam=1, telescopic_squeeze=telescopic_squeeze)
         knob_suffix = "_sq" if telescopic_squeeze else ""
         assert madx.globals[f"CMRS.b1{knob_suffix}"] == knob_value
+        assert madx.globals[f"CMIS.b1{knob_suffix}"] == knob_value
 
     @pytest.mark.parametrize("energy", [450, 6500, 7000])
     def test_make_lhc_beams(self, energy, _bare_lhc_madx):

@@ -18,6 +18,11 @@ Enhancements
 * The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.correct_lhc_global_coupling`, which will runs a tricky routine to minimize the global :math:`|C^{-}|` through the ``dqmin`` variable.
 * The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.do_kmodulation` which simulates a `K-Modulation` of an inner triplet quadrupole ``Q1`` in a desired IR, and returns a `tfs.TfsDataFrame` of the results.
 
+Bug Fixes
+~~~~~~~~~
+
+* Fixed an issue where the `~pyhdtoolkit.cpymadtools.lhc.apply_lhc_coupling_knob` would only set the real part of the knobs. Now the imaginary part is also properly set.
+
 Documentation
 ~~~~~~~~~~~~~
 
