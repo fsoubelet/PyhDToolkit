@@ -24,6 +24,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_colinearity_knob,
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
+    carry_colinearity_knob_over,
     deactivate_lhc_arc_sextupoles,
     do_kmodulation,
     get_lhc_bpms_list,
@@ -356,6 +357,26 @@ class TestLHC:
         assert_frame_equal(
             results.convert_dtypes(), reference.convert_dtypes()
         )  # avoid dtype comparison error on 0 cols
+
+    @pytest.mark.parametrize("ir", [1, 2, 5, 8])
+    def test_carry_colinearity_knob_over(self, _non_matched_lhc_madx, ir):
+        madx = _non_matched_lhc_madx
+        madx.globals[f"kqsx3.l{ir:d}"] = 0.001
+        madx.globals[f"kqsx3.r{ir:d}"] = 0.001
+
+        # Carry to left
+        carry_colinearity_knob_over(madx, ir=ir, to_left=True)
+        assert madx.globals[f"kqsx3.l{ir:d}"] == 0.002
+        assert madx.globals[f"kqsx3.r{ir:d}"] == 0
+
+        # Reset
+        madx.globals[f"kqsx3.l{ir:d}"] = 0.001
+        madx.globals[f"kqsx3.r{ir:d}"] = 0.001
+
+        # Carry to right
+        carry_colinearity_knob_over(madx, ir=ir, to_left=False)
+        assert madx.globals[f"kqsx3.l{ir:d}"] == 0
+        assert madx.globals[f"kqsx3.r{ir:d}"] == 0.002
 
 
 # ---------------------- Private Utilities ---------------------- #
