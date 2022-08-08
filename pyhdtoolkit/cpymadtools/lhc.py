@@ -288,6 +288,8 @@ def apply_lhc_coupling_knob(
     logger.debug("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this coupling knob is applied")
     suffix = "_sq" if telescopic_squeeze else ""
+    # NOTE: Only using this knob will give a dqmin very close to coupling_knob
+    # If one wants to also assign f"CMIS.b{beam:d}{suffix}" the dqmin be > coupling_knob
     knob_name = f"CMRS.b{beam:d}{suffix}"
 
     logger.trace(f"Knob '{knob_name}' is {madx.globals[knob_name]} before implementation")
