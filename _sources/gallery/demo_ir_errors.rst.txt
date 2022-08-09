@@ -241,100 +241,100 @@ order in which they are in the machine:
       <tbody>
         <tr>
           <th>mqml.6l1.b1</th>
-          <td>-0.001573</td>
+          <td>-0.001192</td>
           <td>0.0</td>
-          <td>0.002995</td>
+          <td>-0.000498</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5l1.b1</th>
-          <td>0.000254</td>
+          <td>-0.000092</td>
           <td>0.0</td>
-          <td>-0.001593</td>
+          <td>-0.001365</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4l1.b1</th>
-          <td>-0.000280</td>
+          <td>-0.000190</td>
           <td>0.0</td>
-          <td>0.000129</td>
+          <td>0.002107</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3l1</th>
-          <td>0.000152</td>
+          <td>0.000440</td>
           <td>0.0</td>
-          <td>0.001841</td>
+          <td>0.000983</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2l1</th>
-          <td>0.000984</td>
+          <td>0.001466</td>
           <td>0.0</td>
-          <td>0.001921</td>
+          <td>0.001489</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2l1</th>
-          <td>0.000755</td>
+          <td>-0.000290</td>
           <td>0.0</td>
-          <td>0.000183</td>
+          <td>-0.000465</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1l1</th>
-          <td>0.000116</td>
+          <td>0.000274</td>
           <td>0.0</td>
-          <td>-0.000649</td>
+          <td>0.004999</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1r1</th>
-          <td>0.001473</td>
+          <td>-0.000290</td>
           <td>0.0</td>
-          <td>0.006894</td>
+          <td>0.000288</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2r1</th>
-          <td>0.000363</td>
+          <td>0.000725</td>
           <td>0.0</td>
-          <td>0.002612</td>
+          <td>-0.002384</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2r1</th>
-          <td>0.001979</td>
+          <td>-0.000685</td>
           <td>0.0</td>
-          <td>0.000677</td>
+          <td>-0.000654</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3r1</th>
-          <td>0.000364</td>
+          <td>0.000145</td>
           <td>0.0</td>
-          <td>0.002353</td>
+          <td>-0.000674</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4r1.b1</th>
-          <td>-0.002388</td>
+          <td>-0.000446</td>
           <td>0.0</td>
-          <td>-0.007949</td>
+          <td>0.002218</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5r1.b1</th>
-          <td>-0.001107</td>
+          <td>-0.000025</td>
           <td>0.0</td>
-          <td>-0.000287</td>
+          <td>0.004993</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.6r1.b1</th>
-          <td>0.000599</td>
+          <td>0.000483</td>
           <td>0.0</td>
-          <td>0.003576</td>
+          <td>0.000427</td>
           <td>0.0</td>
         </tr>
       </tbody>
@@ -433,28 +433,23 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  31.968 seconds)
+   **Total running time of the script:** ( 0 minutes  35.042 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_ir_errors.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: demo_ir_errors.py <demo_ir_errors.py>`
 
-     :download:`Download Python source code: demo_ir_errors.py <demo_ir_errors.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: demo_ir_errors.ipynb <demo_ir_errors.ipynb>`
+      :download:`Download Jupyter notebook: demo_ir_errors.ipynb <demo_ir_errors.ipynb>`
 
 
 .. only:: html

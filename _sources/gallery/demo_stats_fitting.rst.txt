@@ -291,7 +291,7 @@ the data, and determine its mode:
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: ChiSquared(df=3.99, loc=0.00, scale=1.01)
+   :alt: Best fit to distribution: ChiSquared(df=4.04, loc=-0.00, scale=0.99)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -402,28 +402,23 @@ distribution generated above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.861 seconds)
+   **Total running time of the script:** ( 0 minutes  12.811 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: demo_stats_fitting.py <demo_stats_fitting.py>`
 
-     :download:`Download Python source code: demo_stats_fitting.py <demo_stats_fitting.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: demo_stats_fitting.ipynb <demo_stats_fitting.ipynb>`
+      :download:`Download Jupyter notebook: demo_stats_fitting.ipynb <demo_stats_fitting.ipynb>`
 
 
 .. only:: html

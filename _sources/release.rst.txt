@@ -3,6 +3,36 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
+.. _release_0.20.0:
+
+0.20.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach` function now supports the `run3` boolean argument introduced in version `0.19.1`, which is used for the ``LHC`` case.
+* The `~pyhdtoolkit.cpymadtools.coupling` module now has a new function, `~pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts`, which will return the coupling Resonance Driving Terms throughout all elements in the sequence as columns added to the `tfs.TfsDataFrame` returned after a ``TWISS`` call.
+* The `~pyhdtoolkit.cpymadtools.coupling` module now has a new function, `~pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts`, which first calls the new `~pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts` and then wraps the `optics_functions.coupling.closest_tune_approach` to provide an estimate of the :math:`C^{-}` according to the desired calculation method.
+* The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.carry_colinearity_knob_over`, which will carry over the powering of ``MQSX`` magnets around an IP to a single side.
+* The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.correct_lhc_global_coupling`, which will runs a tricky routine to minimize the global :math:`|C^{-}|` through the ``dqmin`` variable.
+* The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.do_kmodulation` which simulates a `K-Modulation` of an inner triplet quadrupole ``Q1`` in a desired IR, and returns a `tfs.TfsDataFrame` of the results.
+
+Documentation
+~~~~~~~~~~~~~
+
+* Various docstrings have been corrected on wrong details, and some examples have been added.
+
+Maintenance
+~~~~~~~~~~~
+
+* Various private helpers have been added through different modules.
+* The minimum required version of `tfs-pandas` has been raised to ``3.2.0``.
+* Increased test coverage.
+
+See `v0.20.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.20.0>`_ and the `full changes since v0.19.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.19.1...0.20.0>`_.
+
+
 .. _release_0.19.1:
 
 0.19.1
@@ -11,11 +41,11 @@ The full list of releases can be found in the Github repository's `releases page
 Maintenance
 ~~~~~~~~~~~
 
-* The `~pyhdtoolkit.cpymadtools.lhc.get_lhc_tune_and_chroma_knobs` function now can has a new boolean argument, `run3`, to determine if the standard `_op` knobs should be returned.
+* The `~pyhdtoolkit.cpymadtools.lhc.get_lhc_tune_and_chroma_knobs` function now has a new boolean argument, `run3`, to determine if the standard `_op` knobs should be returned.
 * The functions in the `~pyhdtoolkit.cpymadtools.matching` module now also have the `run3` argument, and will call the Run 3 `_op` knobs if this argument is set to `True` and the `LHC` accelerator is passed.
 * Fixes have been provided to the various Github Actions workflow of the repository.
 
-See `v0.19.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.1>`_ and the `full changes since v0.18.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.19.0...0.19.1>`_.
+See `v0.19.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.1>`_ and the `full changes since v0.19.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.19.0...0.19.1>`_.
 
 
 .. _release_0.19.0:
@@ -26,8 +56,8 @@ See `v0.19.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/r
 Enhancements
 ~~~~~~~~~~~~
 
-* The `pyhdtoolkit.plotting` package has a new sub-package,  `pyhdtoolkit.plotting.sbs` with modules to plot coupling (`~pyhdtoolkit.plotting.sbs.coupling`) and phase (`~pyhdtoolkit.plotting.sbs.phase`) segment-by-segment results.
-* The `pyhdtoolkit.plotting.sbs` package has a new utility module,  `~pyhdtoolkit.plotting.sbs.utils`, with helpful functions for plotting.
+* The `pyhdtoolkit.plotting` package has a new sub-package, `pyhdtoolkit.plotting.sbs` with modules to plot coupling (`~pyhdtoolkit.plotting.sbs.coupling`) and phase (`~pyhdtoolkit.plotting.sbs.phase`) segment-by-segment results.
+* The `pyhdtoolkit.plotting.sbs` package has a new utility module, `~pyhdtoolkit.plotting.sbs.utils`, with helpful functions for plotting.
 * The `pyhdtoolkit.cpymadtools.lhc` module has a new function, `~pyhdtoolkit.cpymadtools.lhc.get_lhc_bpms_twiss_and_rdts` to easily get coupling RDTs at all observation points (BPMs) in the LHC sequence.
 
 Documentation

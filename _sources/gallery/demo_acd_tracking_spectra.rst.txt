@@ -143,12 +143,10 @@ Here we will choose for the settings the same values as we use in operation in t
 
 .. rst-class:: sphx-glr-script-out
 
- Out:
-
  .. code-block:: none
 
-    2022-06-27 11:55:59 | WARNING  | pyhdtoolkit.cpymadtools.lhc:474 - This AC Dipole is implemented as a kicker and will not affect TWISS functions!
-    2022-06-27 11:55:59 | WARNING  | pyhdtoolkit.cpymadtools.lhc:519 - Sequence LHCB1 is now re-USEd for changes to take effect. Beware that this will reset it, remove errors etc.
+    2022-08-09 08:38:00 | WARNING  | pyhdtoolkit.cpymadtools.lhc:599 - This AC Dipole is implemented as a kicker and will not affect TWISS functions!
+    2022-08-09 08:38:00 | WARNING  | pyhdtoolkit.cpymadtools.lhc:644 - Sequence LHCB1 is now re-USEd for changes to take effect. Beware that this will reset it, remove errors etc.
 
 
 
@@ -322,28 +320,23 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  51.818 seconds)
+   **Total running time of the script:** ( 2 minutes  59.059 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_acd_tracking_spectra.py:
 
+.. only:: html
 
-.. only :: html
-
- .. container:: sphx-glr-footer
-    :class: sphx-glr-footer-example
+  .. container:: sphx-glr-footer sphx-glr-footer-example
 
 
+    .. container:: sphx-glr-download sphx-glr-download-python
 
-  .. container:: sphx-glr-download sphx-glr-download-python
+      :download:`Download Python source code: demo_acd_tracking_spectra.py <demo_acd_tracking_spectra.py>`
 
-     :download:`Download Python source code: demo_acd_tracking_spectra.py <demo_acd_tracking_spectra.py>`
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
-
-  .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-     :download:`Download Jupyter notebook: demo_acd_tracking_spectra.ipynb <demo_acd_tracking_spectra.ipynb>`
+      :download:`Download Jupyter notebook: demo_acd_tracking_spectra.ipynb <demo_acd_tracking_spectra.ipynb>`
 
 
 .. only:: html
