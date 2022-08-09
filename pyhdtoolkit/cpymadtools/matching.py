@@ -37,7 +37,7 @@ def match_tunes_and_chromaticities(
     """
     Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match tunes
     and/or chromaticities. As target values are given, the function expects knob names to be provided,
-    which are then used and varied by `MAD-X` to match the targets. This is a convenient wrapper around
+    which are then used and varied by ``MAD-X`` to match the targets. This is a convenient wrapper around
     the ``MATCH`` command. For usage details, see the
     `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_.
 
@@ -58,8 +58,9 @@ def match_tunes_and_chromaticities(
         For instance, in some cases and machines some prefer to do a tune matching followed by a chromaticity matching,
         then followed by a combined matching. In this case the function should be called three times, once with tune
         targets and knobs, another time with chromaticity targets and knobs, then a final time with all of the above.
+        For this, simple wrappers are provided: the :func:`match_tunes` and :func:`match_chromaticities` functions.
 
-    .. note::
+    .. hint::
         When acting of either the ``LHC`` or ``HLLHC`` machines, the accelerator name can be provided and the vary
         knobs will be automatically set accordingly to the provided targets. Note that only the relevant knobs are
         set, so if tune targets only are provided, then tune knobs only will be used, and not chromaticity knobs.
@@ -72,7 +73,7 @@ def match_tunes_and_chromaticities(
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
-            Automatic determination will only work for `LHC` and `HLLHC`.
+            Automatic determination will only work for ``LHC`` and ``HLLHC``.
         sequence (str): name of the sequence you want to perform the matching for.
         q1_target (float): horizontal tune to match to.
         q2_target (float): vertical tune to match to.
@@ -83,7 +84,7 @@ def match_tunes_and_chromaticities(
             strengths (focusing / defocusing) in most examples.
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
             Squeeze configuration. Defaults to `True` since `v0.9.0`.
-        run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
+        run3 (bool): if set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults to `False`.
         step (float): step size to use when varying knobs.
         calls (int): max number of varying calls to perform.
         tolerance (float): tolerance for successfull matching.
@@ -140,6 +141,7 @@ def match_tunes_and_chromaticities(
         logger.trace("Performing routine TWISS")
         madx.twiss(chrom=True)  # prevents errors if the user forgets to TWISS before querying tables
 
+    # Case of a combined matching: both tune and chroma targets have been provided
     if q1_target is not None and q2_target is not None and dq1_target is not None and dq2_target is not None:
         logger.debug(
             f"Doing combined matching to Qx={q1_target}, Qy={q2_target}, "
@@ -149,12 +151,14 @@ def match_tunes_and_chromaticities(
         logger.trace(f"Vary knobs sent are {varied_knobs}")
         match(*varied_knobs, q1=q1_target, q2=q2_target, dq1=dq1_target, dq2=dq2_target)
 
+    # Case of a tune matching: ony tune targets have been provided (see also 'match_tunes' wrapper)
     elif q1_target is not None and q2_target is not None:
         logger.debug(f"Matching tunes to Qx={q1_target}, Qy={q2_target} for sequence '{sequence}'")
         tune_knobs = varied_knobs or tune_knobs  # if accelerator was given we've extracted this already
         logger.trace(f"Vary knobs sent are {tune_knobs}")
         match(*tune_knobs, q1=q1_target, q2=q2_target)  # sent varied_knobs should be tune knobs
 
+    # Case of a chrom matching: ony chroma targets have been provided (see also 'match_chromaticities' wrapper)
     elif dq1_target is not None and dq2_target is not None:
         logger.debug(f"Matching chromaticities to dq1={dq1_target}, dq2={dq2_target} for sequence {sequence}")
         chroma_knobs = varied_knobs or chroma_knobs  # if accelerator was given we've extracted this already

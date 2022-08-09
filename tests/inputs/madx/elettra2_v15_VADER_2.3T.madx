@@ -1,0 +1,531 @@
+!One achromat of the S6BA-E lattice of Elettra 2.0 created by Emanuel Karantzoulis D.Phil.
+
+!using 4 LG+TG dipoles and 2 TG dipoles per achromat, 12-fold symmetry
+
+!Any use of this lattice for publications should reffer to its name S6BA-E 
+
+!for Elettra 2.0 and mention its creator 
+
+!A. Poyet modifiction (Sept 2021), replacement of the 4 LG dipoles by trapezoidal profiles
+
+
+!==============================================================================================================================!
+!                                                        ELEMENT DEFINITIONS                                                   !
+!==============================================================================================================================!
+
+!========================================================= RF CAVITIES ========================================================!
+
+rf3 : rfcavity, l = 0.0, volt := volt_rf*ON_RF, freq = 499.654096666667, lag=0.5;
+rf4 : rfcavity, l = 0.0, volt := volt_rf*ON_RF, freq = 499.654096666667, lag=0.5;
+rf7 : rfcavity, l = 0.0, volt := volt_rf*ON_RF, freq = 499.654096666667, lag=0.5;
+rf9 : rfcavity, l = 0.0, volt := volt_rf*ON_RF, freq = 499.654096666667, lag=0.5;
+
+!=========================================================== DRIFTS ===========================================================!
+
+
+ll             : drift, l = 2.470000;
+ss             : drift, l = 0.630000;
+
+dcor           : drift, l = 0.060000;
+dmon           : drift, l = 0.025000;
+dl10           : drift, l = 0.032000;
+dl11           : drift, l = 0.040000;
+dl12           : drift, l = 0.072000;
+dl13           : drift, l = 0.025000;
+dl14           : drift, l = 0.070000;
+dl15           : drift, l = 0.105000;
+dl16           : drift, l = 0.030000;
+dl17           : drift, l = 0.032000;
+dl18           : drift, l = 0.102000;
+dl19           : drift, l = 0.070000;
+dl20           : drift, l = 0.130000;
+dl20a          : drift, l = 0.050000;
+dl20b          : drift, l = 0.030000;
+dl21           : drift, l = 0.050000;
+dl22           : drift, l = 0.040000;
+dl23           : drift, l = 0.020000;
+dl24           : drift, l = 0.010000;
+dl25           : drift, l = 0.050000;
+dl26           : drift, l = 0.050000;
+dl27           : drift, l = 0.180000;
+dl30           : drift, l = 0.130000;
+dl30a          : drift, l = 0.050000;
+dl30b          : drift, l = 0.030000;
+dl31           : drift, l = 0.050000;
+dl32           : drift, l = 0.070000;
+dl33           : drift, l = 0.130000;
+dl40           : drift, l = 0.130000;
+dl41           : drift, l = 0.050000;
+
+dr10           : drift, l = 0.032000;
+dr11           : drift, l = 0.040000;
+dr12           : drift, l = 0.072000;
+dr13           : drift, l = 0.025000;
+dr14           : drift, l = 0.070000;
+dr15           : drift, l = 0.105000;
+dr16           : drift, l = 0.080000;
+dr17           : drift, l = 0.032000;
+dr18           : drift, l = 0.059000;
+dr19           : drift, l = 0.063000;
+dr20           : drift, l = 0.170000;
+dr21           : drift, l = 0.050000;
+dr22           : drift, l = 0.040000;
+dr23           : drift, l = 0.020000;
+dr24           : drift, l = 0.010000;
+dr25           : drift, l = 0.050000;
+dr26           : drift, l = 0.050000;
+dr27           : drift, l = 0.180000;
+dr27a          : drift, l = 0.080000;
+dr27b          : drift, l = 0.050000;
+dr30           : drift, l = 0.130000;
+dr31           : drift, l = 0.050000;
+dr32           : drift, l = 0.070000;
+dr33           : drift, l = 0.130000;
+dr33a          : drift, l = 0.030000;
+dr33b          : drift, l = 0.050000;
+dr40           : drift, l = 0.130000;
+dr41           : drift, l = 0.050000;
+
+sd2_sleftdrift : drift, l = 0.160000;
+sd1_sleftdrift : drift, l = 0.160000;
+
+sexdrift10     : drift, l = 0.100000;
+sexdrift08     : drift, l = 0.080000;
+sexdrift06     : drift, l = 0.060000;
+
+!=========================================================== MARKERS ===========================================================!
+
+s01.1          : marker;
+s02.1          : marker;
+s03.1          : marker;
+s04.1          : marker;
+s05.1          : marker;
+s06.1          : marker;
+s07.1          : marker;
+s08.1          : marker;
+s09.1          : marker;
+s10.1          : marker;
+s11.1          : marker;
+s12.1          : marker;
+
+s01.2          : marker;
+s02.2          : marker;
+s03.2          : marker;
+s04.2          : marker;
+s05.2          : marker;
+s06.2          : marker;
+s07.2          : marker;
+s08.2          : marker;
+s09.2          : marker;
+s10.2          : marker;
+s11.2          : marker;
+s12.2          : marker;
+
+rfs3           : marker;
+rfs4           : marker;
+rfs7           : marker;
+rfs9           : marker;
+
+3hc            : marker;
+
+defcavity      : marker;
+
+skew           : marker;
+
+!=========================================================== QUADRUPOLES ===========================================================!
+
+qd1_s01.1      : quadrupole, l = 0.106000, k1 := k1_qd1;
+qf1_s01.1      : quadrupole, l = 0.240000, k1 := k1_qf1;
+qd2_s01.1      : quadrupole, l = 0.106000, k1 := k1_qd2;
+qf2_s01.1      : quadrupole, l = 0.240000, k1 := k1_qf2;
+qd1_s02.1      : quadrupole, l = 0.106000, k1 := k1_qd1;
+qf1_s02.1      : quadrupole, l = 0.240000, k1 := k1_qf1;
+qd2_s02.1      : quadrupole, l = 0.106000, k1 := k1_qd2;
+qf2_s02.1      : quadrupole, l = 0.240000, k1 := k1_qf2;
+
+qd1_s01.2      : quadrupole, l = 0.106000, k1 := k1_qd1;
+qf1_s01.2      : quadrupole, l = 0.240000, k1 := k1_qf1;
+qd2_s01.2      : quadrupole, l = 0.106000, k1 := k1_qd2;
+qf2_s01.2      : quadrupole, l = 0.240000, k1 := k1_qf2;
+qd1_s02.2      : quadrupole, l = 0.106000, k1 := k1_qd1;
+qf1_s02.2      : quadrupole, l = 0.240000, k1 := k1_qf1;
+qd2_s02.2      : quadrupole, l = 0.106000, k1 := k1_qd2;
+qf2_s02.2      : quadrupole, l = 0.240000, k1 := k1_qf2;
+
+
+
+!=========================================================== DIPOLES ===========================================================!
+
+!++++++++++++++ VADER DIPOLES ++++++++++++++!
+
+! Lengths
+length0 = 0.015384615384615385;
+length1 = 0.01564682;
+length2 = 0.02241887;
+length3 = 0.02919093;
+length4 = 0.03596299;
+length5 = 0.04273504;
+length6 = 0.0495071;
+length7 = 0.05627916;
+length8 = 0.06305121;
+length9 = 0.06982327;
+
+! Slices
+! At the moment we gently neglect the entrance and exit angles e1 and e2. 
+VADER0      : SBEND, L = length0, ANGLE := angle0, k1 = 0;
+VADER1      : SBEND, L = length1, ANGLE := angle_slice, k1 := k1_vader;
+VADER2      : SBEND, L = length2, ANGLE := angle_slice, k1 := k1_vader;
+VADER3      : SBEND, L = length3, ANGLE := angle_slice, k1 := k1_vader;
+VADER4      : SBEND, L = length4, ANGLE := angle_slice, k1 := k1_vader;
+VADER5      : SBEND, L = length5, ANGLE := angle_slice, k1 := k1_vader;
+VADER6      : SBEND, L = length6, ANGLE := angle_slice, k1 := k1_vader;
+VADER7      : SBEND, L = length7, ANGLE := angle_slice, k1 := k1_vader;
+VADER8      : SBEND, L = length8, ANGLE := angle_slice, k1 := k1_vader;
+VADER9      : SBEND, L = length9, ANGLE := angle_slice, k1 := k1_vader;
+
+! Assemble the dipole 
+
+VADER       : LINE=(VADER9, VADER8, VADER7, VADER6, VADER5, VADER4, VADER3, VADER2, VADER1, VADER0, VADER0, VADER1, VADER2, VADER3, VADER4, VADER5, VADER6, VADER7, VADER8, VADER9);
+
+
+!++++++++++++++ OTHER DIPOLES ++++++++++++++!
+
+
+
+bf1            : sbend, l = 0.640000, angle := angle_bf1, k1 := k1_bf1, e1 = 0.031416, e2 = 0.031416;
+sb1            : sbend, l = 0.360000, angle := 0.027053, k1 := -2.020000, e1 = 0.010472, e2 = 0.010472;
+sb2            : sbend, l = 0.080000, angle := angle_sb2, k1 := k1_sb2, e1 = 0.029671, e2 = 0.029671;
+
+bqf1_s01.1     : sbend, l = 0.240000, angle := angle_bqf1, k1 := k1_bqf1, e1 = -0.003491, e2 = -0.003491;
+bqf2_s01.1     : sbend, l = 0.240000, angle := angle_bqf2, k1 := k1_bqf2, e1 = -0.003491, e2 = -0.003491;
+bqf3_s01.1     : sbend, l = 0.240000, angle := angle_bqf3, k1 := k1_bqf3, e1 = -0.003491, e2 = -0.003491;
+bqf4_s01.1     : sbend, l = 0.240000, angle := angle_bqf4, k1 := k1_bqf4, e1 = -0.003491, e2 = -0.003491;
+bqf1_s02.1     : sbend, l = 0.240000, angle := angle_bqf1, k1 := k1_bqf1, e1 = -0.003491, e2 = -0.003491;
+bqf2_s02.1     : sbend, l = 0.240000, angle := angle_bqf2, k1 := k1_bqf2, e1 = -0.003491, e2 = -0.003491;
+bqf3_s02.1     : sbend, l = 0.240000, angle := angle_bqf3, k1 := k1_bqf3, e1 = -0.003491, e2 = -0.003491;
+bqf4_s02.1     : sbend, l = 0.240000, angle := angle_bqf4, k1 := k1_bqf4, e1 = -0.003491, e2 = -0.003491;
+
+
+bqf1_s01.2     : sbend, l = 0.240000, angle := angle_bqf1, k1 := k1_bqf1, e1 = -0.003491, e2 = -0.003491;
+bqf2_s01.2     : sbend, l = 0.240000, angle := angle_bqf2, k1 := k1_bqf2, e1 = -0.003491, e2 = -0.003491;
+bqf3_s01.2     : sbend, l = 0.240000, angle := angle_bqf3, k1 := k1_bqf3, e1 = -0.003491, e2 = -0.003491;
+bqf4_s01.2     : sbend, l = 0.240000, angle := angle_bqf4, k1 := k1_bqf4, e1 = -0.003491, e2 = -0.003491;
+bqf1_s02.2     : sbend, l = 0.240000, angle := angle_bqf1, k1 := k1_bqf1, e1 = -0.003491, e2 = -0.003491;
+bqf2_s02.2     : sbend, l = 0.240000, angle := angle_bqf2, k1 := k1_bqf2, e1 = -0.003491, e2 = -0.003491;
+bqf3_s02.2     : sbend, l = 0.240000, angle := angle_bqf3, k1 := k1_bqf3, e1 = -0.003491, e2 = -0.003491;
+bqf4_s02.2     : sbend, l = 0.240000, angle := angle_bqf4, k1 := k1_bqf4, e1 = -0.003491, e2 = -0.003491;
+
+
+!=========================================================== SEXTUPOLES ===========================================================!
+
+sd1h1          : multipole, knl := {0,0,k2_sd1};
+sd2h1          : multipole, knl := {0,0,k2_sd2};
+sd3h1          : multipole, knl := {0,0,k2_sd3};
+sd4h1          : multipole, knl := {0,0,k2_sd4};
+sd5h1          : multipole, knl := {0,0,k2_sd5};
+sf1h1          : multipole, knl := {0,0,k2_sf1};
+sf2h1          : multipole, knl := {0,0,k2_sf2};
+sf3h1          : multipole, knl := {0,0,k2_sf3};
+sex1h1         : multipole, knl := {0,0,k2_sex1};
+sex2h1         : multipole, knl := {0,0,k2_sex2};
+
+sd1h2          : multipole, knl := {0,0,k2_sd1};
+sd2h2          : multipole, knl := {0,0,k2_sd2};
+sd3h2          : multipole, knl := {0,0,k2_sd3};
+sd4h2          : multipole, knl := {0,0,k2_sd4};
+sd5h2          : multipole, knl := {0,0,k2_sd5};
+sf1h2          : multipole, knl := {0,0,k2_sf1};
+sf2h2          : multipole, knl := {0,0,k2_sf2};
+sf3h2          : multipole, knl := {0,0,k2_sf3};
+sex1h2         : multipole, knl := {0,0,k2_sex1};
+sex2h2         : multipole, knl := {0,0,k2_sex2};
+
+!=========================================================== OCTUPOLES ===========================================================!
+
+oct1_r         : multipole, knl := {0,0,0,k3_oct1r};
+oct2_r         : multipole, knl := {0,0,0,k3_oct2r};
+oct2_l         : multipole, knl := {0,0,0,k3_oct2l};
+oct1_l         : multipole, knl := {0,0,0,k3_oct1l};
+
+!=========================================================== MONITORS ===========================================================!
+
+mon            : monitor;
+
+!=========================================================== KICKERS ===========================================================!
+
+ch             : hkicker;
+cv             : vkicker;
+
+
+
+!==============================================================================================================================!
+!                                                        SEGMENTS DEFINITIONS                                                  !
+!==============================================================================================================================!
+
+!++++++++++++++ SEGMENTS ++++++++++++++!
+
+bf3s1          : line=(sb1, sb2, sb1);
+
+sq1_s01.1      : line=(skew);
+sq2_s01.1      : line=(skew);
+sq1_s01.2      : line=(skew);
+sq2_s01.2      : line=(skew);
+sq1_s02.1      : line=(skew);
+sq2_s02.1      : line=(skew);
+sq1_s02.2      : line=(skew);
+sq2_s02.2      : line=(skew);
+
+oc1_s01.2      : line=(oct1_r);
+oc2_s01.2      : line=(oct2_r);
+oc2_s01.1      : line=(oct2_l);
+oc1_s01.1      : line=(oct1_l);
+oc1_s02.2      : line=(oct1_r);
+oc2_s02.2      : line=(oct2_r);
+oc2_s02.1      : line=(oct2_l);
+oc1_s02.1      : line=(oct1_l);
+
+cmon           : line=(dmon, mon, dmon);
+
+bpm1_s01.1     : line=(cmon);
+bpm2_s01.1     : line=(cmon);
+bpm3_s01.1     : line=(cmon);
+bpm4_s01.1     : line=(cmon);
+bpm5_s01.1     : line=(cmon);
+bpm6_s01.1     : line=(cmon);
+bpm1_s01.2     : line=(cmon);
+bpm2_s01.2     : line=(cmon);
+bpm3_s01.2     : line=(cmon);
+bpm4_s01.2     : line=(cmon);
+bpm5_s01.2     : line=(cmon);
+bpm6_s01.2     : line=(cmon);
+bpm1_s02.1     : line=(cmon);
+bpm2_s02.1     : line=(cmon);
+bpm3_s02.1     : line=(cmon);
+bpm4_s02.1     : line=(cmon);
+bpm5_s02.1     : line=(cmon);
+bpm6_s02.1     : line=(cmon);
+bpm1_s02.2     : line=(cmon);
+bpm2_s02.2     : line=(cmon);
+bpm3_s02.2     : line=(cmon);
+bpm4_s02.2     : line=(cmon);
+bpm5_s02.2     : line=(cmon);
+bpm6_s02.2     : line=(cmon);
+
+ch1_s01.1      : line=(ch);
+cv1_s01.1      : line=(cv);
+ch2_s01.1      : line=(ch);
+cv2_s01.1      : line=(cv);
+ch3_s01.1      : line=(ch);
+cv3_s01.1      : line=(cv);
+ch4_s01.1      : line=(ch);
+cv4_s01.1      : line=(cv);
+ch5_s01.1      : line=(ch);
+cv5_s01.1      : line=(cv);
+ch6_s01.1      : line=(ch);
+cv6_s01.1      : line=(cv);
+ch7_s01.1      : line=(ch);
+cv7_s01.1      : line=(cv);
+ch8_s01.1      : line=(ch);
+cv8_s01.1      : line=(cv);
+ch1_s02.1      : line=(ch);
+cv1_s02.1      : line=(cv);
+ch2_s02.1      : line=(ch);
+cv2_s02.1      : line=(cv);
+ch3_s02.1      : line=(ch);
+cv3_s02.1      : line=(cv);
+ch4_s02.1      : line=(ch);
+cv4_s02.1      : line=(cv);
+ch5_s02.1      : line=(ch);
+cv5_s02.1      : line=(cv);
+ch6_s02.1      : line=(ch);
+cv6_s02.1      : line=(cv);
+ch7_s02.1      : line=(ch);
+cv7_s02.1      : line=(cv);
+ch8_s02.1      : line=(ch);
+cv8_s02.1      : line=(cv);
+ch1_s01.2      : line=(ch);
+cv1_s01.2      : line=(cv);
+ch2_s01.2      : line=(ch);
+cv2_s01.2      : line=(cv);
+ch3_s01.2      : line=(ch);
+cv3_s01.2      : line=(cv);
+ch4_s01.2      : line=(ch);
+cv4_s01.2      : line=(cv);
+ch5_s01.2      : line=(ch);
+cv5_s01.2      : line=(cv);
+ch6_s01.2      : line=(ch);
+cv6_s01.2      : line=(cv);
+ch7_s01.2      : line=(ch);
+cv7_s01.2      : line=(cv);
+ch8_s01.2      : line=(ch);
+cv8_s01.2      : line=(cv);
+ch1_s02.2      : line=(ch);
+cv1_s02.2      : line=(cv);
+ch2_s02.2      : line=(ch);
+cv2_s02.2      : line=(cv);
+ch3_s02.2      : line=(ch);
+cv3_s02.2      : line=(cv);
+ch4_s02.2      : line=(ch);
+cv4_s02.2      : line=(cv);
+ch5_s02.2      : line=(ch);
+cv5_s02.2      : line=(cv);
+ch6_s02.2      : line=(ch);
+cv6_s02.2      : line=(cv);
+ch7_s02.2      : line=(ch);
+cv7_s02.2      : line=(cv);
+ch8_s02.2      : line=(ch);
+cv8_s02.2      : line=(cv);
+
+chv_ape        : line=(dcor, ch, cv, dcor);
+
+corhv1_r       : line=(dcor, ch, oct1_r, cv, dcor);
+corhv2_r       : line=(dcor, ch, oct2_r, cv, dcor);
+corhv2_l       : line=(dcor, ch, oct2_l, cv, dcor);
+corhv1_l       : line=(dcor, ch, oct1_l, cv, dcor);
+
+sf3_s01.1      : line=(sf1h1sd5_s01.1:);
+sd4_s01.1      : line=(sd2h1);
+sf2_s01.1      : line=(sexdrift10, sf2h1, sexdrift10);
+sd3_s01.1      : line=(sd3h1);
+sd2_s01.1      : line=(sd4h1);
+sf1_s01.1      : line=(sexdrift10, sf3h1, sexdrift10);
+sd1_s01.1      : line=(sd5h1);
+sh2_s01.1      : line=(sex1h1);
+sh1_s01.1      : line=(sex2h1);
+sf3_s01.2      : line=(sf1h2);
+sd5_s01.2      : line=(sd1h2);
+sd4_s01.2      : line=(sd2h2);
+sf2_s01.2      : line=(sexdrift10, sf2h2, sexdrift10);
+sd3_s01.2      : line=(sd3h2);
+sd2_s01.2      : line=(sd4h2);
+sf1_s01.2      : line=(sexdrift10, sf3h2, sexdrift10);
+sd1_s01.2      : line=(sd5h2);
+sh2_s01.2      : line=(sex1h2);
+sh1_s01.2      : line=(sex2h2);
+sf3_s02.1      : line=(sf1h1);
+sd5_s02.1      : line=(sd1h1);
+sd4_s02.1      : line=(sd2h1);
+sf2_s02.1      : line=(sexdrift10, sf2h1, sexdrift10);
+sd3_s02.1      : line=(sd3h1);
+sd2_s02.1      : line=(sd4h1);
+sf1_s02.1      : line=(sexdrift10, sf3h1, sexdrift10);
+sd1_s02.1      : line=(sd5h1);
+sh2_s02.1      : line=(sex2h1);
+sh1_s02.1      : line=(sex1h1);
+sf3_s02.2      : line=(sf1h2);
+sd5_s02.2      : line=(sd1h2);
+sd4_s02.2      : line=(sd2h2);
+sf2_s02.2      : line=(sexdrift10, sf2h2, sexdrift10);
+sd3_s02.2      : line=(sd3h2);
+sd2_s02.2      : line=(sd4h2);
+sf1_s02.2      : line=(sexdrift10, sf3h2, sexdrift10);
+sd1_s02.2      : line=(sd5h2);
+sh2_s02.2      : line=(sex1h2);
+sh1_s02.2      : line=(sex2h2);
+sf3c8_s01.1    : line=(sexdrift08, ch8_s01.1, sf3_s01.1, cv8_s01.1, sexdrift08);
+sd5c7_s01.1    : line=(sexdrift08, ch7_s01.1, sd5_s01.1, cv7_s01.1, sexdrift08);
+sd4c6_s01.1    : line=(sexdrift08, ch6_s01.1, sd4_s01.1, cv6_s01.1, sexdrift08);
+sd3c5_s01.1    : line=(sexdrift08, sd3_s01.1, ch5_s01.1, cv5_s01.1, sexdrift08);
+sd2c4_s01.1    : line=(sexdrift08, sd2_s01.1, ch4_s01.1, cv4_s01.1, sexdrift08);
+sd1sq2_s01.1   : line=(sexdrift08, sd1_s01.1, sq2_s01.1, sexdrift08);
+sh2c2_s01.1    : line=(sexdrift06, sh2_s01.1, ch2_s01.1, cv2_s01.1, sexdrift06);
+sh1sq1_s01.1   : line=(sexdrift06, sh1_s01.1, sq1_s01.1, sexdrift06);
+sf3c8_s01.2    : line=(sexdrift08, sf3_s01.2, ch8_s01.2, cv8_s01.2, sexdrift08);
+sd5c7_s01.2    : line=(sexdrift08, sd5_s01.2, ch7_s01.2, cv7_s01.2, sexdrift08);
+sd4c6_s01.2    : line=(sexdrift08, sd4_s01.2, ch6_s01.2, cv6_s01.2, sexdrift08);
+sd3c5_s01.2    : line=(sexdrift08, sd3_s01.2, ch5_s01.2, cv5_s01.2, sexdrift08);
+sd2c4_s01.2    : line=(sexdrift08, sd2_s01.2, ch4_s01.2, cv4_s01.2, sexdrift08);
+sd1sq2_s01.2   : line=(sexdrift06, sd1_s01.2, sq2_s01.2, sexdrift06);
+sh2c2_s01.2    : line=(sexdrift06, sh2_s01.2, ch2_s01.2, cv2_s01.2, sexdrift06);
+sh1sq1_s01.2   : line=(sexdrift06, sh1_s01.2, sq1_s01.2, sexdrift06);
+sf3c8_s02.1    : line=(sexdrift08, sf3_s02.1, ch8_s02.1, cv8_s02.1, sexdrift08);
+sd5c7_s02.1    : line=(sexdrift08, sd5_s02.1, ch7_s02.1, cv7_s02.1, sexdrift08);
+sd4c6_s02.1    : line=(sexdrift08, sd4_s02.1, ch6_s02.1, cv6_s02.1, sexdrift08);
+sd3c5_s02.1    : line=(sexdrift08, sd3_s02.1, ch5_s02.1, cv5_s02.1, sexdrift08);
+sd2c4_s02.1    : line=(sexdrift08, sd2_s02.1, ch4_s02.1, cv4_s02.1, sexdrift08);
+sd1sq2_s02.1   : line=(sexdrift08, sd1_s02.1, sq2_s02.1, sexdrift08);
+sh2c2_s02.1    : line=(sexdrift06, sh2_s02.1, ch2_s02.1, cv2_s02.1, sexdrift06);
+sh1sq1_s02.1   : line=(sexdrift06, sh1_s02.1, sq1_s02.1, sexdrift06);
+sf3c8_s02.2    : line=(sexdrift08, sf3_s02.2, ch8_s02.2, cv8_s02.2, sexdrift08);
+sd5c7_s02.2    : line=(sexdrift08, sd5_s02.2, ch7_s02.2, cv7_s02.2, sexdrift08);
+sd4c6_s02.2    : line=(sexdrift08, sd4_s02.2, ch6_s02.2, cv6_s02.2, sexdrift08);
+sd3c5_s02.2    : line=(sexdrift08, sd3_s02.2, ch5_s02.2, cv5_s02.2, sexdrift08);
+sd2c4_s02.2    : line=(sexdrift08, sd2_s02.2, ch4_s02.2, cv4_s02.2, sexdrift08);
+sd1sq2_s02.2   : line=(sexdrift06, sd1_s02.2, sq2_s02.2, sexdrift06);
+sh2c2_s02.2    : line=(sexdrift06, sh2_s02.2, ch2_s02.2, cv2_s02.2, sexdrift06);
+sh1sq1_s02.2   : line=(sexdrift06, sh1_s02.2, sq1_s02.2, sexdrift06);
+
+oc1c1_s01.1    : line=(dcor, oc1_s01.1, ch1_s01.1, cv1_s01.1, dcor);
+oc2c3_s01.1    : line=(dcor, oc2_s01.1, ch3_s01.1, cv3_s01.1, dcor);
+oc2c3_s01.2    : line=(dcor, oc2_s01.2, ch3_s01.2, cv3_s01.2, dcor);
+oc1c1_s01.2    : line=(dcor, oc1_s01.2, ch1_s01.2, cv1_s01.2, dcor);
+oc2c3_s02.1    : line=(dcor, oc2_s02.1, ch3_s02.1, cv3_s02.1, dcor);
+oc1c1_s02.1    : line=(dcor, oc1_s02.1, ch1_s02.1, cv1_s02.1, dcor);
+oc2c3_s02.2    : line=(dcor, oc2_s02.2, ch3_s02.2, cv3_s02.2, dcor);
+oc1c1_s02.2    : line=(dcor, oc1_s02.2, ch1_s02.2, cv1_s02.2, dcor);
+
+dip1           : line=(bf1);
+dip2           : line=(VADER);
+dip3           : line=(VADER);
+dip4           : line=(VADER);
+dip5           : line=(VADER);
+dip6           : line=(bf1);
+
+
+bsup           : line=(VADER);
+bsup_s06.1     : line=(bf3s1);
+bsup_s12.1     : line=(VADER);
+
+
+b1_s01.1       : line=(dip1);
+b1_s01.2       : line=(dip6);
+b1_s02.1       : line=(dip1);
+b1_s02.2       : line=(dip6);
+b2_s01.1       : line=(dip2);
+b2_s01.2       : line=(dip5);
+b2_s02.1       : line=(dip2);
+b2_s02.2       : line=(dip5);
+b3_s01.1       : line=(dip3);
+b3_s01.2       : line=(dip4);
+b3_s02.1       : line=(dip3);
+b3_s02.2       : line=(dip4);
+
+!++++++++++++++ SUBCELLS ++++++++++++++!
+
+subcell_s01_1r : line=(bpm1_s01.2, dr10, oc1c1_s01.2, dr11, qd1_s01.2, dr12, sh1sq1_s01.2, dr13, dr14, qf1_s01.2, dr15, sh2c2_s01.2, dr16, dr17, qd2_s01.2, dr18, bpm2_s01.2, dr19);
+subcell_s01_2r : line=(dr20, sd1sq2_s01.2, dr21, qf2_s01.2, dr22, oc2c3_s01.2, dr23, dmon, dmon, dr24, sf1_s01.2, dr25, bqf1_s01.2, dr26, sd2c4_s01.2, dr27a, bpm3_s01.2, dr27b);
+subcell_s01_3r : line=(dr30, sd3c5_s01.2, bpm4_s01.2, bqf2_s01.2, dr31, sf2_s01.2, dr32, bqf3_s01.2, dmon, dmon, sd4c6_s01.2, dr33a, bpm5_s01.2, dr33b);
+subcell_s01_4r : line=(dr40, sd5c7_s01.2, dr41, bqf4_s01.2, bpm6_s01.2, sf3c8_s01.2);
+
+subcell_s02_1l : line=(bpm1_s02.1, dl10, oc1c1_s02.1, dl11, qd1_s02.1, dl12, sh1sq1_s02.1, dl13, dl14, qf1_s02.1, dl15, sh2c2_s02.1, dl16, bpm2_s02.1, dl17, qd2_s02.1, dl18, dl19);
+subcell_s02_2l : line=(dl20a, bpm3_s02.1, dl20b, sd1sq2_s02.1, dl21, qf2_s02.1, dl22, oc2c3_s02.1, dl23, dmon, dmon, dl24, sf1_s02.1, dl25, bqf1_s02.1, dl26, sd2c4_s02.1, dl27);
+subcell_s02_3l : line=(dl30a, bpm4_s02.1, dl30b, sd3c5_s02.1, dmon, dmon, bqf2_s02.1, dl31, sf2_s02.1, dl32, bqf3_s02.1, bpm5_s02.1, sd4c6_s02.1, dl33);
+subcell_s02_4l : line=(dl40, sd5c7_s02.1, dl41, bqf4_s02.1, bpm6_s02.1, sf3c8_s02.1);
+
+!++++++++++++++ CELLS ++++++++++++++!
+
+cell_s01.2     : line=(subcell_s01_1r, b1_s01.2, subcell_s01_2r, b2_s01.2, subcell_s01_3r, b3_s01.2, subcell_s01_4r);
+cell_s02.1     : line=(subcell_s02_1l, b1_s02.1, subcell_s02_2l, b2_s02.1, subcell_s02_3l, b3_s02.1, subcell_s02_4l);
+
+!++++++++++++++ RING ++++++++++++++!
+
+ringgy         : line=(ss, -cell_s02.1, ll, ll, cell_s01.2, ss);
+ring           : line=(12*ringgy);
+
+! Convert into sequence
+
+beam, sequence=ring, particle = electron, energy = NRJ_GeV, radiate=True;
+use, sequence=ring;
+
+!++++++++++++++ INSTALL RF ++++++++++++++!
+
+seqedit, sequence=ring;
+flatten;
+install, element=rf3, class=rfcavity, at=65.430000;
+install, element=rf4, class=rfcavity, at=87.030000;
+install, element=rf7, class=rfcavity, at=151.830000;
+install, element=rf9, class=rfcavity, at=195.030000;
+flatten;
+endedit;
+
+

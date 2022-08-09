@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "pyhdtoolkit"
-version = "0.19.2"
+version = "0.20.0"
 description = "An all-in-one toolkit package to ease my Python work in my PhD."
 authors = ["Felix Soubelet <felix.soubelet@cern.ch>"]
 license = "MIT"
@@ -38,13 +38,14 @@ numpy = "^1.19"
 pandas = "^1.0"
 matplotlib = "^3.0, <3.5"
 scipy = "^1.4"
-tfs-pandas = "^3.0"
+tfs-pandas = "^3.2"
 loguru = "<1.0"
 cpymad = "^1.9"
 rich = "^12.0"
 pydantic = "^1.0"
 pendulum = "^2.0"
 optics-functions = "^0.1"
+sympy = "^1.10"
 
 [tool.poetry.dev-dependencies]
 # Tests Block

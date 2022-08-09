@@ -28,21 +28,20 @@ matplotlib.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
-GUIDO_LATTICE = INPUTS_DIR / "cpymadtools" / "guido_lattice.madx"
+GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
+ELETTRA_LATTICE = INPUTS_DIR / "madx" / "elettra2_v15_VADER_2.3T.madx"
+ELETTRA_OPTICS = INPUTS_DIR / "madx" / "optics_elettra2_v15_VADER_2.3T.madx"
 
 
 class TestAperturePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_aperture_cell_injection(self, tmp_path, _injection_aperture_tolerances_lhc_madx):
-        savefig_dir = tmp_path / "test_plot_envelope"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "aperture.png"
+        saved_fig = tmp_path / "aperture.png"
 
         madx = _injection_aperture_tolerances_lhc_madx
         madx.command.twiss(centre=True)
         twiss_df = madx.table.twiss.dframe().copy()
-        ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
         figure = AperturePlotter.plot_aperture(
             madx,
             title="Arc 56 Cell, Injection Optics Aperture Tolerance",
@@ -61,9 +60,7 @@ class TestAperturePlotter:
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_aperture_ir5_collision(self, tmp_path, _collision_aperture_tolerances_lhc_madx):
-        savefig_dir = tmp_path / "test_plot_envelope"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "aperture.png"
+        saved_fig = tmp_path / "aperture.png"
 
         madx = _collision_aperture_tolerances_lhc_madx
         madx.command.twiss(centre=True)
@@ -88,10 +85,7 @@ class TestAperturePlotter:
 class TestBeamEnvelopePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_envelope(self, tmp_path):
-        savefig_dir = tmp_path / "test_plot_envelope"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "envelope.png"
-
+        saved_fig = tmp_path / "envelope.png"
         beam_fb = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
         madx = Madx(stdout=False)
         madx.call(str(GUIDO_LATTICE))
@@ -103,9 +97,7 @@ class TestBeamEnvelopePlotter:
 class TestCrossingSchemePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_crossing_schemes(self, tmp_path, _cycled_lhc_sequences):
-        savefig_dir = tmp_path / "test_plot_envelope"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "crossings.png"
+        saved_fig = tmp_path / "crossings.png"
 
         madx = _cycled_lhc_sequences
         figure = CrossingSchemePlotter.plot_two_lhc_ips_crossings(
@@ -120,23 +112,19 @@ class TestDynamicAperturePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_dynamic_aperture(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
-        savefig_dir = tmp_path / "test_plot_aperture"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "dynamic_aperture.png"
-
+        saved_fig = tmp_path / "dynamic_aperture.png"
         n_particles = 100
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
-
-        x_coords_stable, y_coords_stable, _, _ = _perform_tracking_for_coordinates(madx)
-        x_coords_stable = np.array(x_coords_stable)
-        y_coords_stable = np.array(y_coords_stable)
-        figure = DynamicAperturePlotter.plot_dynamic_aperture(
-            x_coords_stable, y_coords_stable, n_particles=n_particles, savefig=saved_fig
-        )
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+            )
+            x_coords_stable, y_coords_stable, _, _ = _perform_tracking_for_coordinates(madx)
+            x_coords_stable = np.array(x_coords_stable)
+            y_coords_stable = np.array(y_coords_stable)
+            figure = DynamicAperturePlotter.plot_dynamic_aperture(
+                x_coords_stable, y_coords_stable, n_particles=n_particles, savefig=saved_fig
+            )
         assert saved_fig.is_file()
         return figure
 
@@ -145,156 +133,175 @@ class TestLatticePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_latwiss(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
-        savefig_dir = tmp_path / "test_plot_latwiss"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "latwiss.png"
+        saved_fig = tmp_path / "latwiss.png"
 
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
-        figure = LatticePlotter.plot_latwiss(
-            madx=madx,
-            title="Project 3 Base Lattice",
-            xlimits=(-50, 1_050),
-            beta_ylim=(5, 75),
-            k2l_lim=(-0.25, 0.25),
-            plot_bpms=True,
-            savefig=saved_fig,
-        )
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+            )
+            figure = LatticePlotter.plot_latwiss(
+                madx=madx,
+                title="Project 3 Base Lattice",
+                xlimits=(-50, 1_050),
+                beta_ylim=(5, 75),
+                k2l_lim=(-0.25, 0.25),
+                plot_bpms=True,
+                savefig=saved_fig,
+            )
         assert saved_fig.is_file()
+        return figure
+
+    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    def test_plot_latwiss_with_dipole_k1(self):
+        """Using ELETTRA2.0 lattice provided by Axel."""
+        elettra_parameters = {"ON_SEXT": 1, "ON_OCT": 1, "ON_RF": 1, "NRJ_GeV": 2.4, "DELTAP": 0.00095}
+
+        with Madx(stdout=False) as madx:
+            with madx.batch():
+                madx.globals.update(elettra_parameters)
+            madx.call(str(ELETTRA_LATTICE))
+            madx.call(str(ELETTRA_OPTICS))
+            madx.use(sequence="ring")
+            madx.command.twiss(sequence="ring")
+            init_twiss = madx.table.twiss.dframe().copy()
+            x0 = init_twiss.s[init_twiss.name == "ll:1"][0]
+            x1 = init_twiss.s[init_twiss.name == "ll:3"][0]
+            figure = LatticePlotter.plot_latwiss(
+                madx=madx,
+                title="Elettra Cell",
+                xlimits=(x0, x1),
+                k0l_lim=(-7e-2, 7e-2),
+                k1l_lim=(-1.5, 1.5),
+                disp_ylim=(-madx.table.twiss.dx.max() * 2, madx.table.twiss.dx.max() * 2),
+                plot_dipole_k1=True,
+                lw=2,
+            )
         return figure
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_machine_survey_with_elements(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
-        savefig_dir = tmp_path / "test_plot_survey"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "survey.png"
-
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        figure = LatticePlotter.plot_machine_survey(
-            madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig
-        )
+        saved_fig = tmp_path / "survey.png"
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            figure = LatticePlotter.plot_machine_survey(
+                madx=madx, show_elements=True, high_orders=True, figsize=(20, 15), savefig=saved_fig
+            )
         assert saved_fig.is_file()
         return figure
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_machine_survey_without_elements(self):
         """Using my CAS 19 project's base lattice."""
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        return LatticePlotter.plot_machine_survey(madx=madx, show_elements=False, high_orders=True, figsize=(20, 15))
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            return LatticePlotter.plot_machine_survey(
+                madx=madx, show_elements=False, high_orders=True, figsize=(20, 15)
+            )
 
 
 class TestPhaseSpacePlotter:
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_horizontal_courant_snyder_phase_space(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
-        savefig_dir = tmp_path / "test_plot_latwiss"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "phase_space.png"
+        saved_fig = tmp_path / "phase_space.png"
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+            )
 
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
-
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
-            madx, x_coords_stable, px_coords_stable, plane="Horizontal", savefig=saved_fig
-        )
-        plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
-        plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+            x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+            figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
+                madx, x_coords_stable, px_coords_stable, plane="Horizontal", savefig=saved_fig
+            )
+            plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
+            plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
         assert saved_fig.is_file()
         return figure
 
     @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
     def test_plot_vertical_courant_snyder_phase_space(self):
         """Using my CAS 19 project's base lattice."""
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+            )
 
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
-            madx, x_coords_stable, px_coords_stable, plane="Vertical"
-        )
-        plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
-        plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+            x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+            figure = PhaseSpacePlotter.plot_courant_snyder_phase_space(
+                madx, x_coords_stable, px_coords_stable, plane="Vertical"
+            )
+            plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
+            plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
         return figure
 
     def test_plot_courant_snyder_phase_space_wrong_plane_input(self):
         """Using my CAS 19 project's base lattice."""
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
-
-        x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
-        with pytest.raises(ValueError):
-            _ = PhaseSpacePlotter.plot_courant_snyder_phase_space(
-                madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
             )
+
+            x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
+            with pytest.raises(ValueError):
+                _ = PhaseSpacePlotter.plot_courant_snyder_phase_space(
+                    madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
+                )
 
     @pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
     def test_plot_horizontal_courant_snyder_phase_space_colored(self, tmp_path):
         """Using my CAS 19 project's base lattice."""
-        savefig_dir = tmp_path / "test_plot_latwiss"
-        savefig_dir.mkdir()
-        saved_fig = savefig_dir / "colored_phase_space.png"
+        saved_fig = tmp_path / "colored_phase_space.png"
 
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+            )
 
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
-            madx, x_coords_stable, px_coords_stable, plane="Horizontal", savefig=saved_fig
-        )
-        plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
-        plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+            x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+            figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
+                madx, x_coords_stable, px_coords_stable, plane="Horizontal", savefig=saved_fig
+            )
+            plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
+            plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
         assert saved_fig.is_file()
         return figure
 
     @pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
     def test_plot_vertical_courant_snyder_phase_space_colored(self):
         """Using my CAS 19 project's base lattice."""
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+            )
 
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-        figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
-            madx, x_coords_stable, px_coords_stable, plane="Vertical"
-        )
-        plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
-        plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+            x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+            figure = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
+                madx, x_coords_stable, px_coords_stable, plane="Vertical"
+            )
+            plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
+            plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
         return figure
 
     def test_plot_courant_snyder_phase_space_colored_wrong_plane_input(self):
         """Using my CAS 19 project's base lattice."""
-        madx = Madx(stdout=False)
-        madx.input(BASE_LATTICE)
-        match_tunes_and_chromaticities(
-            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        )
-
-        x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
-        with pytest.raises(ValueError):
-            _ = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
-                madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
+        with Madx(stdout=False) as madx:
+            madx.input(BASE_LATTICE)
+            match_tunes_and_chromaticities(
+                madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
             )
+
+            x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
+            with pytest.raises(ValueError):
+                _ = PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
+                    madx, x_coords_stable, px_coords_stable, plane="invalid_plane"
+                )
 
 
 class TestTuneDiagramPlotter:

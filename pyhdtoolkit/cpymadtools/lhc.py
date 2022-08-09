@@ -9,6 +9,7 @@ that are specific to LHC and HLLHC machines.
 """
 from typing import Dict, List, Sequence, Tuple, Union
 
+import numpy as np
 import tfs
 
 from cpymad.madx import Madx
@@ -25,14 +26,16 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_PARALLEL_SEPARATION_FLAGS,
     MONITOR_TWISS_COLUMNS,
 )
-from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss
 from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 __all__ = [
     "apply_lhc_colinearity_knob",
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
+    "carry_colinearity_knob_over",
+    "correct_lhc_global_coupling",
     "deactivate_lhc_arc_sextupoles",
+    "do_kmodulation",
     "get_magnets_powering",
     "get_lhc_bpms_list",
     "get_lhc_bpms_twiss_and_rdts",
@@ -274,21 +277,57 @@ def apply_lhc_coupling_knob(
             Defaults to 0 so users don't mess up coupling by mistake.
         beam (int): beam to apply the knob to. Defaults to beam 1.
         telescopic_squeeze (bool): if set to `True`, uses the knobs for Telescopic Squeeze configuration.
-            Defaults to `True` as of run III.
+            Defaults to `True` since `v0.9.0`.
 
     Example:
         .. code-block:: python
 
             >>> apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)
     """
+    # NOTE: for maintainers, no `_op` suffix on ATS coupling knobs, only `_sq` even in Run 3
     logger.debug("Applying coupling knob")
     logger.warning("You should re-match tunes & chromaticities after this coupling knob is applied")
     suffix = "_sq" if telescopic_squeeze else ""
+    # NOTE: Only using this knob will give a dqmin very close to coupling_knob
+    # If one wants to also assign f"CMIS.b{beam:d}{suffix}" the dqmin be > coupling_knob
     knob_name = f"CMRS.b{beam:d}{suffix}"
 
     logger.trace(f"Knob '{knob_name}' is {madx.globals[knob_name]} before implementation")
     madx.globals[knob_name] = coupling_knob
     logger.trace(f"Set '{knob_name}' to {madx.globals[knob_name]}")
+
+
+def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> None:
+    """
+    Removes the powering setting on one side of the colinearty knob and applies it to the
+    other side.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        ir (int): The Interaction Region around which to apply the change, should be
+            one of [1, 2, 5, 8].
+        to_left (bool): If `True`, the magnet right of IP is powered of and its powering
+            is transferred to the magnet left of IP. If `False`, then the opposite happens.
+            Defaults to `True`.
+
+    Example:
+        .. code-block:: python
+
+            >>> carry_colinearity_knob_over(madx, ir=5, to_left=True)
+    """
+    side = "left" if to_left else "right"
+    logger.debug(f"Carrying colinearity knob powering around IP{ir:d} over to the {side} side")
+
+    left_variable, right_variable = f"kqsx3.l{ir:d}", f"kqsx3.r{ir:d}"
+    left_powering, right_powering = madx.globals[left_variable], madx.globals[right_variable]
+    logger.trace(f"Current powering values are: '{left_variable}'={left_powering} | '{right_variable}'={left_powering}")
+
+    new_left = left_powering + right_powering if to_left else 0
+    new_right = 0 if to_left else left_powering + right_powering
+    logger.trace(f"New powering values are: '{left_variable}'={new_left} | '{right_variable}'={new_right}")
+    madx.globals[left_variable] = new_left
+    madx.globals[right_variable] = new_right
+    logger.trace("New powerings applied")
 
 
 def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_arc: bool = False) -> None:
@@ -411,6 +450,92 @@ def vary_independent_ir_quadrupoles(
                 lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
                 upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
             )
+
+
+# ----- Useful Routines ----- #
+
+
+def do_kmodulation(
+    madx: Madx, ir: int = 1, side: str = "right", steps: int = 100, stepsize: float = 3e-8
+) -> tfs.TfsDataFrame:
+    """"""
+    element = f"MQXA.1R{ir:d}" if side.lower() == "right" else f"MQXA.1L{ir:d}"
+    powering_variable = f"KTQX1.R{ir:d}" if side.lower() == "right" else f"KTQX1.L{ir:d}"
+
+    logger.debug(f"Saving current magnet powering for '{element}'")
+    old_powering = madx.globals[powering_variable]
+    minval = old_powering - steps / 2 * stepsize
+    maxval = old_powering + steps / 2 * stepsize
+    k_powerings = np.linspace(minval, maxval, steps + 1)
+    results = tfs.TfsDataFrame(
+        index=k_powerings,
+        columns=["K", "TUNEX", "ERRTUNEX", "TUNEY", "ERRTUNEY"],
+        headers={
+            "TITLE": "K-Modulation",
+            "ELEMENT": element,
+            "VARIABLE": powering_variable,
+            "STEPS": steps,
+            "STEP_SIZE": stepsize,
+        },
+    )
+
+    logger.debug(f"Modulating quadrupole '{element}'")
+    for powering in k_powerings:
+        logger.trace(f"Modulation of '{element}' - Setting '{powering_variable}' to {powering}")
+        madx.globals[powering_variable] = powering
+        df = twiss.get_ir_twiss(madx, ir=ir, centre=True, columns=["k1l", "l"])
+        results.loc[powering].K = df.loc[element.lower()].k1l / df.loc[element.lower()].l  # Store K
+        results.loc[powering].TUNEX = madx.table.summ.q1[0]  # Store Qx
+        results.loc[powering].TUNEY = madx.table.summ.q2[0]  # Store Qy
+
+    logger.debug(f"Resetting '{element}' powering")
+    madx.globals[powering_variable] = old_powering
+
+    results.index.name = powering_variable
+    results.ERRTUNEX = 0  # No measurement error from MAD-X
+    results.ERRTUNEY = 0  # No measurement error from MAD-X
+    return results
+
+
+def correct_lhc_global_coupling(
+    madx: Madx,
+    beam: int = 1,
+    telescopic_squeeze: bool = True,
+) -> None:
+    """
+    A littly tricky matching routine to perform a decent global coupling correction using
+    the ``LHC`` coupling knobs.
+
+    .. important::
+        This routine makes use of some matching tricks and uses the ``SUMM`` table's
+        ``dqmin`` variable for the matching. It should be considered a helpful little
+        trick, but it is not a perfect solution.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        beam (int): which beam you want to perform the matching for, should be `1` or
+            `2`. Defaults to `1`.
+        telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
+            for Telescopic Squeeze configuration. Defaults to `True`.
+
+    Example:
+        .. code-block:: python
+
+            >>> correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
+    """
+    suffix = "_sq" if telescopic_squeeze else ""
+    sequence = f"lhcb{beam:d}"
+    logger.debug(f"Attempting to correct global coupling through matching, on sequence '{sequence}'")
+
+    real_knob, imag_knob = f"CMRS.b{beam:d}{suffix}", f"CMIS.b{beam:d}{suffix}"
+    logger.debug(f"Matching using the coupling knobs '{real_knob}' and '{imag_knob}'")
+    madx.command.match(chrom=True, sequence=sequence)
+    madx.command.gweight(dqmin=1, Q1=0)
+    madx.command.global_(dqmin=0, Q1=62.28)
+    madx.command.vary(name=real_knob, step=1.0e-8)
+    madx.command.vary(name=imag_knob, step=1.0e-8)
+    madx.command.lmdif(calls=150, tolerance=1.0e-21)
+    madx.command.endmatch()
 
 
 # ----- Element Installation ----- #
@@ -682,7 +807,7 @@ def get_lhc_tune_and_chroma_knobs(
         beam (int): Beam to use, for the knob names. Defaults to 1.
         telescopic_squeeze (bool): if set to `True`, returns the knobs for Telescopic
             Squeeze configuration. Defaults to `True` to reflect run III scenarios.
-        run3 (bool): if set to `True`, returns the Run 3 `*_op` knobs.
+        run3 (bool): if set to `True`, returns the Run 3 `*_op` knobs. Defaults to `False`.
 
     Returns:
         A `tuple` of strings with knobs for ``(qx, qy, dqx, dqy)``.
@@ -692,6 +817,11 @@ def get_lhc_tune_and_chroma_knobs(
 
             >>> get_lhc_tune_and_chroma_knobs("LHC", beam=1, telescopic_squeeze=False)
             ('dQx.b1', 'dQy.b1', 'dQpx.b1', 'dQpy.b1')
+
+        .. code-block:: python
+
+            >>> get_lhc_tune_and_chroma_knobs("LHC", beam=2, run3=True)
+            ('dQx.b2_op', 'dQx.b2_op', 'dQpx.b2_op', 'dQpx.b2_op')
 
         .. code-block:: python
 
@@ -727,9 +857,9 @@ def get_lhc_tune_and_chroma_knobs(
 
 
 def get_magnets_powering(
-    madx: Madx, patterns: Sequence[str] = ["^mb\.", "^mq\.", "^ms\."], brho: Union[str, float] = None, **kwargs
+    madx: Madx, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: Union[str, float] = None, **kwargs
 ) -> tfs.TfsDataFrame:
-    """
+    r"""
     Gets the twiss table with additional defined columns for the given *patterns*.
 
     .. note::

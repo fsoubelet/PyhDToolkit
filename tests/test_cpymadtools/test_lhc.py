@@ -24,7 +24,10 @@ from pyhdtoolkit.cpymadtools.lhc import (
     apply_lhc_colinearity_knob,
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
+    carry_colinearity_knob_over,
+    correct_lhc_global_coupling,
     deactivate_lhc_arc_sextupoles,
+    do_kmodulation,
     get_lhc_bpms_list,
     get_lhc_bpms_twiss_and_rdts,
     get_lhc_tune_and_chroma_knobs,
@@ -345,6 +348,49 @@ class TestLHC:
         reference = tfs.read(_reference_twiss_rdts, index="NAME")
         assert_frame_equal(twiss_with_rdts, reference)
 
+    def test_k_modulation(self, _non_matched_lhc_madx, _reference_kmodulation):
+        madx = _non_matched_lhc_madx
+        results = do_kmodulation(madx)
+        assert all(var == 0 for var in results.ERRTUNEX)
+        assert all(var == 0 for var in results.ERRTUNEY)
+
+        reference = tfs.read(_reference_kmodulation)
+        assert_frame_equal(
+            results.convert_dtypes(), reference.convert_dtypes()
+        )  # avoid dtype comparison error on 0 cols
+
+    @pytest.mark.parametrize("ir", [1, 2, 5, 8])
+    def test_carry_colinearity_knob_over(self, _non_matched_lhc_madx, ir):
+        madx = _non_matched_lhc_madx
+        madx.globals[f"kqsx3.l{ir:d}"] = 0.001
+        madx.globals[f"kqsx3.r{ir:d}"] = 0.001
+
+        # Carry to left
+        carry_colinearity_knob_over(madx, ir=ir, to_left=True)
+        assert madx.globals[f"kqsx3.l{ir:d}"] == 0.002
+        assert madx.globals[f"kqsx3.r{ir:d}"] == 0
+
+        # Reset
+        madx.globals[f"kqsx3.l{ir:d}"] = 0.001
+        madx.globals[f"kqsx3.r{ir:d}"] = 0.001
+
+        # Carry to right
+        carry_colinearity_knob_over(madx, ir=ir, to_left=False)
+        assert madx.globals[f"kqsx3.l{ir:d}"] == 0
+        assert madx.globals[f"kqsx3.r{ir:d}"] == 0.002
+
+    @pytest.mark.parametrize("telesqueeze", [True, False])
+    def test_correct_lhc_global_coupling(self, _non_matched_lhc_madx, telesqueeze):
+        madx = _non_matched_lhc_madx
+        madx.globals["CMRS.b1"] = 0.001
+        madx.globals["CMIS.b1"] = 0.001
+        madx.command.twiss(chrom=True)
+        assert madx.table.summ.dqmin[0] > 0
+
+        correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
+        assert madx.table.summ.dqmin[0] >= 0
+        assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-7)
+
 
 # ---------------------- Private Utilities ---------------------- #
 
@@ -362,3 +408,8 @@ def _correct_bpms_list() -> pathlib.Path:
 @pytest.fixture()
 def _reference_twiss_rdts() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "twiss_with_rdts.tfs"
+
+
+@pytest.fixture()
+def _reference_kmodulation() -> pathlib.Path:
+    return INPUTS_DIR / "cpymadtools" / "kmodulation.tfs"

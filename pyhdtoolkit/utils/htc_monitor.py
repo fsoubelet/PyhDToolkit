@@ -110,7 +110,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
                 next_line_is_task_report = False
 
         else:  # extract cluster information, only 3 lines here
-            querying_owner = tasks[0].owner if tasks else "(\D+)"
+            querying_owner = tasks[0].owner if tasks else r"(\D+)"
             if "query" in line:  # first line
                 query_summary = _process_cluster_summary_line(line, "query")
             elif "all users" in line:  # last line
@@ -189,17 +189,17 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
 
 
 def _process_cluster_summary_line(line: str, query: str = None) -> BaseSummary:
-    """
+    r"""
     Beware if no jobs are running we can't have taken querying_owner info from tasks summaries,
     so we need to match a wildcard word by giving querying_owner=(\D+). This would add a match to the regex
     search, and we need to look one match further for the wanted information.
     """
     result = re.search(
         rf"Total for {query}: (\d+) jobs; (\d+) completed, "
-        "(\d+) removed, (\d+) idle, (\d+) running, (\d+) held, (\d+) suspended",
+        r"(\d+) removed, (\d+) idle, (\d+) running, (\d+) held, (\d+) suspended",
         line,
     )
-    first_interesting_match_index = 1 if query != "(\D+)" else 2
+    first_interesting_match_index = 1 if query != r"(\D+)" else 2
     return BaseSummary(
         jobs=result.group(first_interesting_match_index),
         completed=result.group(first_interesting_match_index + 1),
@@ -232,7 +232,7 @@ def _default_cluster_table() -> Table:
 
 @logger.catch()
 def main():
-    def generate_renderable() -> RGroup:
+    def generate_renderable() -> Group:
         """
         Function called to update the live display, fetches data from htcondor, does the processing and
         returns a Group with both Panels.

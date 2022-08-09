@@ -16,8 +16,8 @@ import matplotlib.pyplot as plt
 
 from loguru import logger
 
-ANACONDA_INSTALL = Path().home() / "anaconda3"
-OMC_PYTHON = ANACONDA_INSTALL / "envs" / "OMC" / "bin" / "python"
+ANACONDA_INSTALL = Path().home() / "mambaforge"
+OMC_PYTHON = ANACONDA_INSTALL / "envs" / "omc3" / "bin" / "python"
 
 WORK_REPOSITORIES = Path.home() / "Repositories" / "Work"
 BETABEAT_REPO = WORK_REPOSITORIES / "Beta-Beat.src"
@@ -120,18 +120,30 @@ _SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
     "ytick.labelsize": 18,
 }
 
+# This is meant for use to guarantee single-subplot figures all align on
+# their axes and labels, for consistencyin my articles / thesis.
+_FIGURE_CONSTRAINTS = {
+    "figure.constrained_layout.use": False,
+    "figure.subplot.left": 0.12,
+    "figure.subplot.bottom": 0.15,
+    "figure.subplot.right": 0.99,
+    "figure.subplot.top": 0.77,
+}
 
-def config_logger(level: str = "INFO", **kwargs) -> None:
+
+def config_logger(level: Union[str, int] = "INFO", **kwargs) -> None:
     """
     Resets the logger object from ``loguru``, with `sys.stdout` as a sink and the
     aforedefined format, which comes down to personnal preference.
 
     Args:
-        level (str): The logging level to set.
+        level (Union[str, int]): The logging level to set. Case-insensitive if a
+            string is given. Defaults to ``INFO``.
         **kwargs: any keyword argument is transmitted to the ``logger.add`` call.
     """
     logger.remove()
-    logger.add(sys.stdout, format=LOGURU_FORMAT, level=level.upper(), **kwargs)
+    level = level.upper() if isinstance(level, str) else level
+    logger.add(sys.stdout, format=LOGURU_FORMAT, level=level, **kwargs)
 
 
 def install_mpl_style() -> None:

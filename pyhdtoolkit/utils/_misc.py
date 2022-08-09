@@ -14,7 +14,7 @@ import shlex
 
 from multiprocessing import cpu_count
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Tuple
 
 import cpymad
 import matplotlib
@@ -25,7 +25,8 @@ from loguru import logger
 from matplotlib import pyplot as plt
 
 from pyhdtoolkit import __version__
-from pyhdtoolkit.cpymadtools import lhc
+from pyhdtoolkit.cpymadtools import errors, lhc, twiss
+from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
 # ----- Constants ----- #
 
@@ -141,6 +142,54 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     return madx
 
 
+def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **kwargs) -> Madx:
+    """
+    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
+    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``
+    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.
+
+    .. important::
+        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space.
+
+    .. note::
+        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
+        might change that working point.
+
+    Args:
+        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
+            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
+        beam (int): which beam to set up for. Defaults to beam 1.
+        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
+            which leads to an unsliced sequence.
+
+    Returns:
+        An instanciated `~cpymad.madx.Madx` object with the required configuration.
+    """
+    logger.debug("Creating Run 3 setup MAD-X instance")
+    madx = Madx(**kwargs)
+    madx.option(echo=False, warn=False)
+    logger.debug("Calling sequence")
+    madx.call("acc-models-lhc/lhc.seq")
+    lhc.make_lhc_beams(madx, energy=6800)
+
+    if slicefactor:
+        logger.debug("A slicefactor was provided, slicing the sequence")
+        lhc.make_lhc_thin(madx, sequence=f"lhcb{beam:d}", slicefactor=slicefactor)
+        lhc.make_lhc_beams(madx, energy=6800)
+
+    lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
+    logger.debug("Calling optics file from the 'operation/optics' folder")
+
+    if Path(opticsfile).is_file():
+        madx.call(opticsfile)
+    else:
+        madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
+    lhc.make_lhc_beams(madx, energy=6800)
+    madx.command.use(sequence=f"lhcb{beam:d}")
+    return madx
+
+
 def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
     """
     Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
@@ -182,6 +231,41 @@ def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int
     madx.use(sequence=sequence)
 
 
+def apply_colin_corrs_balance(madx: Madx) -> None:
+    """
+    Applies the local coupling correction settings from the 2022 commissioning as
+    they were in the machine, and tilts of Q3s that would compensate for those settings.
+    This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
+    be added and studied in the machine, pretending a perfect local coupling correction.
+
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with your
+            ``LHC`` setup.
+    """
+    # ----- Let's balance IR1 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="R", DPSI=1.41e-3)
+    madx.globals["kqsx3.l1"] = 8e-4
+    madx.globals["kqsx3.r1"] = 7e-4
+    # ----- Let's balance IR2 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="L", DPSI=-2.84e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="R", DPSI=2.84e-3)
+    madx.globals["kqsx3.l2"] = -14e-4
+    madx.globals["kqsx3.r2"] = -14e-4
+    # ----- Let's balance IR5 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="L", DPSI=-1.21e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="R", DPSI=1.21e-3)
+    madx.globals["kqsx3.l5"] = 6e-4
+    madx.globals["kqsx3.r5"] = 6e-4
+    # ----- Let's balance IR8 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="L", DPSI=-1e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="R", DPSI=1e-3)
+    madx.globals["kqsx3.l8"] = -5e-4
+    madx.globals["kqsx3.r8"] = -5e-4
+    madx.command.twiss(chrom=True)
+
+
 # ----- Fetching Utilities ----- #
 
 
@@ -209,6 +293,31 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     betastar_y_ip5 = float(shlex.split(ip5_y_line)[2])
     assert betastar_x_ip1 == betastar_y_ip1 == betastar_x_ip5 == betastar_y_ip5
     return betastar_x_ip1  # doesn't matter which plane, they're all the same
+
+
+def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float, float]:
+    """
+    Get the Lebedev beam sides at the provided *IP*.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        ip (int): the IP to get the sizes at.
+        geom_emit (float): the geometrical emittance to use for the calculation.
+            If not provided, will look for the value of the ``geometric_emit``
+            variable in ``MAD-X`` itself.
+
+    Returns:
+        A tuple of the horizontal and vertical beam sizes at the provided *IP*.
+
+    Example:
+        .. code-block:: python
+
+            >>> ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
+    """
+    logger.debug("Getting ")
+    twiss_tfs = twiss.get_twiss_tfs(madx, chrom=True, ripken=True)
+    twiss_tfs = _add_beam_size_to_df(twiss_tfs, madx.globals["geometric_emit"])
+    return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y
 
 
 # ----- Here for now for testing ----- #

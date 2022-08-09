@@ -28,7 +28,7 @@ def plot_rdt_component(
     component: str = "ABS",
     **kwargs,
 ) -> matplotlib.figure.Figure:
-    """
+    r"""
     Plots for Beam 1 and Beam 2 vertically a component of the given coupling *rdt* over the segment. Optionally
     highlights the IP location.
 
