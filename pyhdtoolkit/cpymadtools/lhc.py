@@ -857,9 +857,9 @@ def get_lhc_tune_and_chroma_knobs(
 
 
 def get_magnets_powering(
-    madx: Madx, patterns: Sequence[str] = ["^mb\.", "^mq\.", "^ms\."], brho: Union[str, float] = None, **kwargs
+    madx: Madx, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: Union[str, float] = None, **kwargs
 ) -> tfs.TfsDataFrame:
-    """
+    r"""
     Gets the twiss table with additional defined columns for the given *patterns*.
 
     .. note::

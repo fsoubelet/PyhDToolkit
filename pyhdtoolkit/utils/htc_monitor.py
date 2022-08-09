@@ -189,7 +189,7 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
 
 
 def _process_cluster_summary_line(line: str, query: str = None) -> BaseSummary:
-    """
+    r"""
     Beware if no jobs are running we can't have taken querying_owner info from tasks summaries,
     so we need to match a wildcard word by giving querying_owner=(\D+). This would add a match to the regex
     search, and we need to look one match further for the wanted information.
