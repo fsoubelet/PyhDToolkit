@@ -142,7 +142,7 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     return madx
 
 
-def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **kwargs) -> Madx:
+def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slicefactor: int = None, **kwargs) -> Madx:
     """
     Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
     are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``
@@ -160,6 +160,7 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **
         opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
             name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
         beam (int): which beam to set up for. Defaults to beam 1.
+        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
         slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
             which leads to an unsliced sequence.
 
@@ -167,11 +168,13 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **
         An instanciated `~cpymad.madx.Madx` object with the required configuration.
     """
     logger.debug("Creating Run 3 setup MAD-X instance")
+    echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)
+
     madx = Madx(**kwargs)
-    madx.option(echo=False, warn=False)
+    madx.option(echo=echo, warn=warn)
     logger.debug("Calling sequence")
     madx.call("acc-models-lhc/lhc.seq")
-    lhc.make_lhc_beams(madx, energy=6800)
+    lhc.make_lhc_beams(madx, energy=energy)
 
     if slicefactor:
         logger.debug("A slicefactor was provided, slicing the sequence")
@@ -179,13 +182,14 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, slicefactor: int = None, **
         lhc.make_lhc_beams(madx, energy=6800)
 
     lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
-    logger.debug("Calling optics file from the 'operation/optics' folder")
 
+    logger.debug("Calling optics file from the 'operation/optics' folder")
     if Path(opticsfile).is_file():
         madx.call(opticsfile)
     else:
         madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
-    lhc.make_lhc_beams(madx, energy=6800)
+
+    lhc.make_lhc_beams(madx, energy=energy)
     madx.command.use(sequence=f"lhcb{beam:d}")
     return madx
 
