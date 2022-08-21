@@ -86,8 +86,8 @@ def match_tunes_and_chromaticities(
             Squeeze configuration. Defaults to `True` since `v0.9.0`.
         run3 (bool): if set to `True`, uses the ``LHC`` Run 3 `*_op` knobs. Defaults to `False`.
         step (float): step size to use when varying knobs.
-        calls (int): max number of varying calls to perform.
-        tolerance (float): tolerance for successfull matching.
+        calls (int): max number of varying calls to perform. Defaults to 100.
+        tolerance (float): tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
     Examples:
         Matching a dummy lattice (not LHC or HLLHC):

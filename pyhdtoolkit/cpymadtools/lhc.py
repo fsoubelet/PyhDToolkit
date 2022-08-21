@@ -498,9 +498,7 @@ def do_kmodulation(
 
 
 def correct_lhc_global_coupling(
-    madx: Madx,
-    beam: int = 1,
-    telescopic_squeeze: bool = True,
+    madx: Madx, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
 ) -> None:
     """
     A littly tricky matching routine to perform a decent global coupling correction using
@@ -517,6 +515,8 @@ def correct_lhc_global_coupling(
             `2`. Defaults to `1`.
         telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
             for Telescopic Squeeze configuration. Defaults to `True`.
+        calls (int): max number of varying calls to perform when matching. Defaults to 100.
+        tolerance (float): tolerance for successfull matching. Defaults to :math:`10^{-21}`.
 
     Example:
         .. code-block:: python
@@ -534,7 +534,7 @@ def correct_lhc_global_coupling(
     madx.command.global_(dqmin=0, Q1=62.28)
     madx.command.vary(name=real_knob, step=1.0e-8)
     madx.command.vary(name=imag_knob, step=1.0e-8)
-    madx.command.lmdif(calls=150, tolerance=1.0e-21)
+    madx.command.lmdif(calls=calls, tolerance=tolerance)
     madx.command.endmatch()
 
 
