@@ -3,6 +3,20 @@ Release Notes
 
 The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
+
+.. _release_0.20.1:
+
+0.20.1
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.lhc.correct_lhc_global_coupling` function now supports a `call` and a `tolerance` arguments to be given to the `LMDIF` call in `MAD-X`.
+
+See `v0.20.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.20.1>`_ and the `full changes since v0.19.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.20.0...0.20.1>`_.
+
+
 .. _release_0.20.0:
 
 0.20.0
