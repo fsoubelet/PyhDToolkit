@@ -30,6 +30,7 @@ from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 __all__ = [
     "apply_lhc_colinearity_knob",
+    "apply_lhc_colinearity_knob_delta",
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
     "carry_colinearity_knob_over",
@@ -185,6 +186,11 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     .. note::
         If you don't know what this is, you really should not be using this function.
 
+    .. tip::
+        The convention, which is also the one I implemented in ``LSA`` for the ``LHC``, is that a
+        positive value of the colinearity knob results in a powering increase of the ``MQSX`` *right*
+        of the IP, and a powering decrease of the ``MQSX`` *left* of the IP.
+
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users
@@ -200,12 +206,49 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     """
     logger.debug(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
     logger.warning("You should re-match tunes & chromaticities after this colinearity knob is applied")
-    knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors
+    knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors powering
     right_knob, left_knob = knob_variables
 
     madx.globals[right_knob] = colinearity_knob_value * 1e-4
     logger.trace(f"Set '{right_knob}' to {madx.globals[right_knob]}")
     madx.globals[left_knob] = -1 * colinearity_knob_value * 1e-4
+    logger.trace(f"Set '{left_knob}' to {madx.globals[left_knob]}")
+
+
+def apply_lhc_colinearity_knob_delta(madx: Madx, colinearity_knob_delta: float = 0, ir: int = None) -> None:
+    """
+    This is essentially the same as `.apply_lhc_colinearity_knob`, but instead of a applying fixed powering
+    value, it applies to delta to the existing value.
+
+    .. note::
+        If you don't know what this is, you really should not be using this function.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        colinearity_knob_delta (float): Units of the colinearity knob to vary the existing powerings with.
+            Defaults to 0.
+        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
+            Classically 1 or 5.
+
+    Example:
+        .. code-block:: python
+
+            >>> apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)
+    """
+    logger.debug(f"Applying Colinearity knob delta of {colinearity_knob_delta}")
+    logger.warning("You should re-match tunes & chromaticities after this delta is applied")
+    knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors powering
+    right_knob, left_knob = knob_variables
+
+    logger.debug("Query current knob values")
+    current_right = madx.eval(right_knob)  # ugly, but avoids KeyError if not defined yet
+    current_left = madx.eval(left_knob)  # augly, but avoids KeyError if not defined yet
+    logger.trace(f"Current right knob value is {current_right}")
+    logger.trace(f"Current left knob value is {current_left}")
+
+    madx.globals[right_knob] = current_right + colinearity_knob_delta * 1e-4
+    logger.trace(f"Set '{right_knob}' to {madx.globals[right_knob]}")
+    madx.globals[left_knob] = current_left - colinearity_knob_delta * 1e-4
     logger.trace(f"Set '{left_knob}' to {madx.globals[left_knob]}")
 
 
@@ -269,7 +312,7 @@ def apply_lhc_coupling_knob(
     madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
 ) -> None:
     """
-    Applies the LHC coupling knob to reach the desired :math:`C^{-}` value.
+    Applies the LHC coupling knob to reach the desired :math:`|C^{-}|` value.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
