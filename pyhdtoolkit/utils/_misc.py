@@ -27,6 +27,7 @@ from matplotlib import pyplot as plt
 from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import errors, lhc, twiss
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
+from pyhdtoolkit.utils import deprecated
 
 # ----- Constants ----- #
 
@@ -190,6 +191,7 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
     madx.command.twiss(chrom=True)
 
 
+@deprecated("Please use the 'prepare_lhc_run2' function or the 'LHCRun2Setup' context manager instead.")
 def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, stderr: bool = False, **kwargs) -> Madx:
     """
     Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
@@ -218,6 +220,9 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     return madx
 
 
+prepare_lhc_run2 = prepare_lhc_setup
+
+
 def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slicefactor: int = None, **kwargs) -> Madx:
     """
     Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
@@ -239,6 +244,8 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
         energy (float): beam energy to set up for, in GeV. Defaults to 6800.
         slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
             which leads to an unsliced sequence.
+        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.
+            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.
 
     Returns:
         An instanciated `~cpymad.madx.Madx` object with the required configuration.
@@ -268,6 +275,87 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
     lhc.make_lhc_beams(madx, energy=energy)
     madx.command.use(sequence=f"lhcb{beam:d}")
     return madx
+
+
+# As context managers
+class LHCRun2Setup:
+    """
+    This is the same as `prepare_lhc_setup` (which is for Run 2) but to be used as a context manager.
+
+    .. note::
+        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
+        might change that working point.
+
+    Args:
+        opticsfile (str): name of the optics file to be used. Defaults to **opticsfile.22**.
+        **kwargs: any keyword argument pair will be used to update the ``MAD-X`` globals.
+
+    Returns:
+        An instanciated `~cpymad.madx.Madx` object with the required configuration.
+
+    Example:
+
+        .. code-block:: python
+
+            >>> with LHCRun2Setup() as madx:
+            ...    # do some stuff
+    """
+
+    def __init__(self, opticsfile: str = "opticsfile.22", stdout: bool = False, stderr: bool = False, **kwargs) -> None:
+        self.madx = prepare_lhc_setup(opticsfile=opticsfile, stdout=stdout, stderr=stderr, **kwargs)
+
+    def __enter__(self):
+        """Use as context manager to ensure that MAD-X is terminated."""
+        return self.madx
+
+    def __exit__(self, *exc_info):
+        self.madx.quit()
+
+
+class LHCRun3Setup:
+    """
+    This is the same as `prepare_lhc_run3` but to be used as a context manager.
+
+    .. important::
+        As this is a Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.
+
+    .. note::
+        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
+        might change that working point.
+
+    Args:
+        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
+            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
+        beam (int): which beam to set up for. Defaults to beam 1.
+        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
+        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
+            which leads to an unsliced sequence.
+        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.
+            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.
+
+    Returns:
+        An instanciated context manager `~cpymad.madx.Madx` object with the required configuration.
+
+
+    Example:
+
+        .. code-block:: python
+
+            >>> with LHCRun3Setup("R2022a_A30cmC30cmA10mL200cm.madx", beam=1) as madx:
+            ...    # do some stuff
+    """
+
+    def __init__(self, opticsfile: str, beam: int, energy: float = 6800, slicefactor: int = None, **kwargs) -> None:
+        self.madx = prepare_lhc_run3(opticsfile=opticsfile, beam=beam, energy=energy, slicefactor=slicefactor, **kwargs)
+
+    def __enter__(self):
+        """Use as context manager to ensure that MAD-X is terminated."""
+        return self.madx
+
+    def __exit__(self, *exc_info):
+        self.madx.quit()
 
 
 # ----- Fetching Utilities ----- #
