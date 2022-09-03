@@ -27,7 +27,6 @@ from matplotlib import pyplot as plt
 from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import errors, lhc, twiss
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
-from pyhdtoolkit.utils import deprecated
 
 # ----- Constants ----- #
 
@@ -191,7 +190,6 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
     madx.command.twiss(chrom=True)
 
 
-@deprecated("Please use the 'prepare_lhc_run2' function or the 'LHCRun2Setup' context manager instead.")
 def prepare_lhc_setup(
     opticsfile: str = "opticsfile.22",
     beam: int = 1,
@@ -286,51 +284,18 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
     return madx
 
 
-# As context managers
-class LHCRun2Setup:
+# As a context manager
+class LHCSetup:
     """
-    This is the same as `prepare_lhc_setup` (which is for Run 2) but to be used as a context manager.
-
-    .. note::
-        Matching is **not** performed by this function and should be taken care of by the user, but the working point
-        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
-        might change that working point.
-
-    Args:
-        opticsfile (str): name of the optics file to be used. Defaults to **opticsfile.22**.
-        **kwargs: any keyword argument pair will be used to update the ``MAD-X`` globals.
-
-    Returns:
-        An instanciated `~cpymad.madx.Madx` object with the required configuration.
-
-    Example:
-
-        .. code-block:: python
-
-            >>> with LHCRun2Setup() as madx:
-            ...    # do some stuff
-    """
-
-    def __init__(self, opticsfile: str = "opticsfile.22", stdout: bool = False, stderr: bool = False, **kwargs) -> None:
-        self.madx = prepare_lhc_setup(opticsfile=opticsfile, stdout=stdout, stderr=stderr, **kwargs)
-
-    def __enter__(self):
-        """Use as context manager to ensure that MAD-X is terminated."""
-        return self.madx
-
-    def __exit__(self, *exc_info):
-        self.madx.quit()
-
-
-class LHCRun3Setup:
-    """
-    This is the same as `prepare_lhc_run3` but to be used as a context manager.
+    This is a context manager to prepare LHC Run 2 or Run 3 setup: calling sequences and opticsfile,
+    re-cycling like the model creator, making beams, slicing, etc. For details on the achieved setups,
+    look at the `prepare_lhc_run2` or `prepare_lhc_run3` function.
 
     .. important::
-        As this is a Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.
+        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.
 
     .. note::
-        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        Matching is **not** performed by this setup and should be taken care of by the user, but the working point
         should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
         might change that working point.
 
@@ -352,15 +317,24 @@ class LHCRun3Setup:
 
         .. code-block:: python
 
-            >>> with LHCRun3Setup("R2022a_A30cmC30cmA10mL200cm.madx", beam=1) as madx:
+            >>> with LHCRun3Setup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1) as madx:
             ...    # do some stuff
     """
 
-    def __init__(self, opticsfile: str, beam: int, energy: float = 6800, slicefactor: int = None, **kwargs) -> None:
-        self.madx = prepare_lhc_run3(opticsfile=opticsfile, beam=beam, energy=energy, slicefactor=slicefactor, **kwargs)
+    def __init__(self, run: int, opticsfile: str, beam: int, energy: float = 6800, slicefactor: int = None, **kwargs):
+        if int(run) not in (2, 3):
+            raise NotImplementedError("This setup is only possible for Run 2 and Run 3 configurations.")
+        elif run == 2:
+            stdout, stderr = kwargs.pop("stdout", False), kwargs.pop("stderr", False)
+            self.madx = prepare_lhc_run2(
+                opticsfile=opticsfile, beam=beam, energy=energy, stdout=stdout, stderr=stderr, **kwargs
+            )
+        else:
+            self.madx = prepare_lhc_run3(
+                opticsfile=opticsfile, beam=beam, energy=energy, slicefactor=slicefactor, **kwargs
+            )
 
     def __enter__(self):
-        """Use as context manager to ensure that MAD-X is terminated."""
         return self.madx
 
     def __exit__(self, *exc_info):
