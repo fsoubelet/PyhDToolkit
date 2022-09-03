@@ -192,7 +192,14 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
 
 
 @deprecated("Please use the 'prepare_lhc_run2' function or the 'LHCRun2Setup' context manager instead.")
-def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, stderr: bool = False, **kwargs) -> Madx:
+def prepare_lhc_setup(
+    opticsfile: str = "opticsfile.22",
+    beam: int = 1,
+    energy: float = 7000,
+    stdout: bool = False,
+    stderr: bool = False,
+    **kwargs,
+) -> Madx:
     """
     Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
     configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and
@@ -205,6 +212,8 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
 
     Args:
         opticsfile (str): name of the optics file to be used. Defaults to **opticsfile.22**.
+        beam (int): which beam to set up for. Defaults to beam 1.
+        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
         **kwargs: any keyword argument pair will be used to update the ``MAD-X`` globals.
 
     Returns:
@@ -213,9 +222,9 @@ def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, s
     madx = Madx(stdout=stdout, stderr=stderr)
     madx.option(echo=False, warn=False)
     call_lhc_sequence_and_optics(madx, opticsfile)
-    lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
-    lhc.make_lhc_beams(madx, energy=7000, emittance=3.75e-6)
-    madx.command.use(sequence="lhcb1")
+    lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
+    lhc.make_lhc_beams(madx, energy=energy, emittance=3.75e-6)
+    madx.command.use(sequence=f"lhcb{beam:d}")
     madx.globals.update(kwargs)
     return madx
 
