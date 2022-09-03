@@ -300,6 +300,7 @@ class LHCSetup:
         might change that working point.
 
     Args:
+        run (int): which run to set up for, should be 2 or 3.
         opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
             name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
         beam (int): which beam to set up for. Defaults to beam 1.
@@ -312,6 +313,8 @@ class LHCSetup:
     Returns:
         An instanciated context manager `~cpymad.madx.Madx` object with the required configuration.
 
+    Raises:
+        NotImplementedError: if the *run* argument is not 2 or 3.
 
     Example:
 
