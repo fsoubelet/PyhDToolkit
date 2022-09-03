@@ -114,6 +114,82 @@ def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") 
         raise ValueError("The 'RUN_LOCATION' variable should be either 'afs' or 'local'.")
 
 
+def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
+    """
+    Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
+    functions returned from a ``TWISS`` call.
+
+    .. warning::
+        You will most likely need to have sliced the sequence before calling this function,
+        as otherwise there is a risk on getting a negative drift depending on the affected
+        IP. This would lead to the remote ``MAD-X`` process to crash.
+
+    .. warning::
+        After editing the *sequence* to add markers, the ``USE`` command will be run for the changes to apply.
+        This means the caveats of ``USE`` apply, for instance the erasing of previously defined errors, orbits
+        corrections etc.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        sequence (str): which sequence to use the routine on.
+        ip (int): The interaction point around which to add markers.
+        n_markers (int): how many markers to add on each side of the IP.
+        interval (float): the distance between markers, in [m]. Giving ``interval=0.05`` will
+            place a marker every 5cm (starting 5cm away from the IP on each side).
+    """
+    logger.debug(f"Adding {n_markers:d} markers on each side of IP{ip:d}")
+    madx.command.seqedit(sequence=sequence)
+    madx.command.flatten()
+    for i in range(1, n_markers + 1):
+        madx.command.install(
+            element=f"MARKER.LEFT.IP{ip:d}.{i:02d}", class_="MARKER", at=-i * interval, from_=f"IP{ip:d}"
+        )
+        madx.command.install(
+            element=f"MARKER.RIGHT.IP{ip:d}.{i:02d}", class_="MARKER", at=i * interval, from_=f"IP{ip:d}"
+        )
+    madx.command.flatten()
+    madx.command.endedit()
+    logger.warning(
+        f"Sequence '{sequence}' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc."
+    )
+    madx.use(sequence=sequence)
+
+
+def apply_colin_corrs_balance(madx: Madx) -> None:
+    """
+    Applies the local coupling correction settings from the 2022 commissioning as
+    they were in the machine, and tilts of Q3s that would compensate for those settings.
+    This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
+    be added and studied in the machine, pretending a perfect local coupling correction.
+
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with your
+            ``LHC`` setup.
+    """
+    # ----- Let's balance IR1 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="R", DPSI=1.41e-3)
+    madx.globals["kqsx3.l1"] = 8e-4
+    madx.globals["kqsx3.r1"] = 7e-4
+    # ----- Let's balance IR2 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="L", DPSI=-2.84e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="R", DPSI=2.84e-3)
+    madx.globals["kqsx3.l2"] = -14e-4
+    madx.globals["kqsx3.r2"] = -14e-4
+    # ----- Let's balance IR5 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="L", DPSI=-1.21e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="R", DPSI=1.21e-3)
+    madx.globals["kqsx3.l5"] = 6e-4
+    madx.globals["kqsx3.r5"] = 6e-4
+    # ----- Let's balance IR8 ----- #
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="L", DPSI=-1e-3)
+    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="R", DPSI=1e-3)
+    madx.globals["kqsx3.l8"] = -5e-4
+    madx.globals["kqsx3.r8"] = -5e-4
+    madx.command.twiss(chrom=True)
+
+
 def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, stderr: bool = False, **kwargs) -> Madx:
     """
     Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
@@ -192,82 +268,6 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
     lhc.make_lhc_beams(madx, energy=energy)
     madx.command.use(sequence=f"lhcb{beam:d}")
     return madx
-
-
-def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
-    """
-    Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
-    functions returned from a ``TWISS`` call.
-
-    .. warning::
-        You will most likely need to have sliced the sequence before calling this function,
-        as otherwise there is a risk on getting a negative drift depending on the affected
-        IP. This would lead to the remote ``MAD-X`` process to crash.
-
-    .. warning::
-        After editing the *sequence* to add markers, the ``USE`` command will be run for the changes to apply.
-        This means the caveats of ``USE`` apply, for instance the erasing of previously defined errors, orbits
-        corrections etc.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        sequence (str): which sequence to use the routine on.
-        ip (int): The interaction point around which to add markers.
-        n_markers (int): how many markers to add on each side of the IP.
-        interval (float): the distance between markers, in [m]. Giving ``interval=0.05`` will
-            place a marker every 5cm (starting 5cm away from the IP on each side).
-    """
-    logger.debug(f"Adding {n_markers:d} markers on each side of IP{ip:d}")
-    madx.command.seqedit(sequence=sequence)
-    madx.command.flatten()
-    for i in range(1, n_markers + 1):
-        madx.command.install(
-            element=f"MARKER.LEFT.IP{ip:d}.{i:02d}", class_="MARKER", at=-i * interval, from_=f"IP{ip:d}"
-        )
-        madx.command.install(
-            element=f"MARKER.RIGHT.IP{ip:d}.{i:02d}", class_="MARKER", at=i * interval, from_=f"IP{ip:d}"
-        )
-    madx.command.flatten()
-    madx.command.endedit()
-    logger.warning(
-        f"Sequence '{sequence}' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc."
-    )
-    madx.use(sequence=sequence)
-
-
-def apply_colin_corrs_balance(madx: Madx) -> None:
-    """
-    Applies the local coupling correction settings from the 2022 commissioning as
-    they were in the machine, and tilts of Q3s that would compensate for those settings.
-    This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
-    be added and studied in the machine, pretending a perfect local coupling correction.
-
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with your
-            ``LHC`` setup.
-    """
-    # ----- Let's balance IR1 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="R", DPSI=1.41e-3)
-    madx.globals["kqsx3.l1"] = 8e-4
-    madx.globals["kqsx3.r1"] = 7e-4
-    # ----- Let's balance IR2 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="L", DPSI=-2.84e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="R", DPSI=2.84e-3)
-    madx.globals["kqsx3.l2"] = -14e-4
-    madx.globals["kqsx3.r2"] = -14e-4
-    # ----- Let's balance IR5 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="L", DPSI=-1.21e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="R", DPSI=1.21e-3)
-    madx.globals["kqsx3.l5"] = 6e-4
-    madx.globals["kqsx3.r5"] = 6e-4
-    # ----- Let's balance IR8 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="L", DPSI=-1e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="R", DPSI=1e-3)
-    madx.globals["kqsx3.l8"] = -5e-4
-    madx.globals["kqsx3.r8"] = -5e-4
-    madx.command.twiss(chrom=True)
 
 
 # ----- Fetching Utilities ----- #
