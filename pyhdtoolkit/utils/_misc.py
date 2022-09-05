@@ -300,9 +300,10 @@ class LHCSetup:
         might change that working point.
 
     Args:
-        run (int): which run to set up for, should be 2 or 3.
+        run (int): which run to set up for, should be 2 or 3. Defaults to run 3.
         opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
-            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
+            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path. Defaults to `None`,
+            which will raise an error.
         beam (int): which beam to set up for. Defaults to beam 1.
         energy (float): beam energy to set up for, in GeV. Defaults to 6800.
         slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
@@ -315,6 +316,7 @@ class LHCSetup:
 
     Raises:
         NotImplementedError: if the *run* argument is not 2 or 3.
+        AssertionError: if the *opticsfile* argument is not provided.
 
     Example:
 
@@ -324,7 +326,16 @@ class LHCSetup:
             ...    # do some stuff
     """
 
-    def __init__(self, run: int, opticsfile: str, beam: int, energy: float = 6800, slicefactor: int = None, **kwargs):
+    def __init__(
+        self,
+        run: int = 3,
+        opticsfile: str = None,
+        beam: int = 1,
+        energy: float = 6800,
+        slicefactor: int = None,
+        **kwargs,
+    ):
+        assert opticsfile is not None, "An opticsfile must be provided"
         if int(run) not in (2, 3):
             raise NotImplementedError("This setup is only possible for Run 2 and Run 3 configurations.")
         elif run == 2:
