@@ -19,6 +19,11 @@ Bug Fixes
 
 * The `~pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts` function now properly handles methods that compute complex DELTAQMIN values in `optics_functions.coupling.closest_tune_approach`, and return a correct result.
 
+Maintenance
+~~~~~~~~~~~
+
+* Relaxed version constraint on the `matplotlib` dependency.
+
 See `v0.21.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.21.0>`_ and the `full changes since v0.20.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.20.1...0.21.0>`_.
 
 
