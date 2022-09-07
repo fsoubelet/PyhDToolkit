@@ -223,7 +223,15 @@ def get_cminus_from_coupling_rdts(
 
     # Now we do the closest tune approach calculation -> adds DELTAQMIN column to df
     logger.debug(f"Calculating CTA via optics_functions, with method '{method}'")
-    return closest_tune_approach(twiss_with_rdts, qx=qx, qy=qy, method=method).mean()[0]
+    dqmin_df = closest_tune_approach(twiss_with_rdts, qx=qx, qy=qy, method=method)
+
+    # If we use a method that returns complex values, we have to average on the abs of these values!!
+    if method not in ["calaga", "teapot", "teapot_franchi", "franchi"]:
+        logger.debug(f"Taking module of values, as method '{method}' returns complex values")
+        dqmin_df = dqmin_df.abs()
+
+    # Now we can take the mean of the DELTAQMIN column
+    return dqmin_df.DELTAQMIN.mean()
 
 
 def match_no_coupling_through_ripkens(
