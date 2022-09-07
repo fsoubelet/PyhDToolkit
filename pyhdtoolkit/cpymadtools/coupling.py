@@ -159,9 +159,9 @@ def get_cminus_from_coupling_rdts(
     qx: float = None,
     qy: float = None,
     filtering: float = 0,
-) -> np.complex_:
+) -> float:
     """
-    Computes and returns the complex :math:`C^{-}` from the machine's coupling RDTs. The
+    Computes and returns the :math:`|C^{-}|` from the machine's coupling RDTs. The
     closest tune approach is computed thanks to functionality from `optics_functions.coupling`.
 
     .. hint::
@@ -191,7 +191,7 @@ def get_cminus_from_coupling_rdts(
             Defaults to 0, which means no filtering.
 
     Returns:
-        The complex calculated :math:`C^{-}` value.
+        The calculated :math:`|C^{-}|` value.
 
     Examples:
         .. code-block:: python
