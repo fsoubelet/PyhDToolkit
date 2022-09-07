@@ -1,12 +1,12 @@
 Release Notes
 =============
 
-The full list of releases can be found in the Github repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
+The full list of releases can be found in the GitHub repository's `releases page <https://github.com/fsoubelet/PyhDToolkit/releases>`_.
 
 
 .. _release_0.21.0:
 
-0.20.1
+0.21.0
 ------
 
 Enhancements
@@ -14,7 +14,12 @@ Enhancements
 
 * The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob_delta`, to apply a variation on top of the colinearity knob variables.
 
-See `v0.21.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.20.1>`_ and the `full changes since v0.20.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.20.1...0.21.0>`_.
+Bug Fixes
+~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts` function now properly handles methods that compute complex DELTAQMIN values in `optics_functions.coupling.closest_tune_approach`, and return a correct result.
+
+See `v0.21.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.21.0>`_ and the `full changes since v0.20.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.20.1...0.21.0>`_.
 
 
 .. _release_0.20.1:
