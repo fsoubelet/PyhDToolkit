@@ -23,6 +23,7 @@ Maintenance
 ~~~~~~~~~~~
 
 * Relaxed version constraint on the `matplotlib` dependency.
+* Updated and cleaned up Continuous Integration workflows.
 
 See `v0.21.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.21.0>`_ and the `full changes since v0.20.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.20.1...0.21.0>`_.
 
