@@ -27,6 +27,7 @@ from matplotlib import pyplot as plt
 from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import errors, lhc, twiss
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
+from pyhdtoolkit.utils import deprecated
 
 # ----- Constants ----- #
 
@@ -190,6 +191,7 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
     madx.command.twiss(chrom=True)
 
 
+@deprecated(message="Use the 'prepare_lhc_run2' function instead.")
 def prepare_lhc_setup(
     opticsfile: str = "opticsfile.22",
     beam: int = 1,
@@ -392,8 +394,8 @@ def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float,
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ip (int): the IP to get the sizes at.
         geom_emit (float): the geometrical emittance to use for the calculation.
-            If not provided, will look for the value of the ``geometric_emit``
-            variable in ``MAD-X`` itself.
+            If not provided, will look for the values of the ``geometric_emit_x``
+            and ``geometric_emit_y`` variables in ``MAD-X`` itself.
 
     Returns:
         A tuple of the horizontal and vertical beam sizes at the provided *IP*.
@@ -405,7 +407,7 @@ def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float,
     """
     logger.debug("Getting ")
     twiss_tfs = twiss.get_twiss_tfs(madx, chrom=True, ripken=True)
-    twiss_tfs = _add_beam_size_to_df(twiss_tfs, madx.globals["geometric_emit"])
+    twiss_tfs = _add_beam_size_to_df(twiss_tfs, madx.globals["geometric_emit_x"], madx.globals["geometric_emit_y"])
     return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y
 
 
