@@ -13,6 +13,7 @@ Enhancements
 ~~~~~~~~~~~~
 
 * The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob_delta`, to apply a variation on top of the colinearity knob variables.
+* The `~pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now has a specific argument for both horizontal and vertical emittances (resp. `emittance_x` and `emittance_y`) to enable differentiating the two. The default value for each is the same as previously. If you were calling the function without specifying the `emittance` argument, you will not see changes. If you used to specify the argument, then switch to the new ones.
 
 Bug Fixes
 ~~~~~~~~~
