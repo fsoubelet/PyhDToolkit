@@ -74,7 +74,7 @@ def make_lhc_beams(
     Example:
         .. code-block:: python
 
-            >>> make_lhc_beams(madx, energy=6800, emittance=2.5e-6)
+            >>> make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)
     """
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy

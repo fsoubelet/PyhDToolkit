@@ -221,7 +221,7 @@ def prepare_lhc_setup(
     madx.option(echo=False, warn=False)
     call_lhc_sequence_and_optics(madx, opticsfile)
     lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
-    lhc.make_lhc_beams(madx, energy=energy, emittance=3.75e-6)
+    lhc.make_lhc_beams(madx, energy=energy)
     madx.command.use(sequence=f"lhcb{beam:d}")
     madx.globals.update(kwargs)
     return madx
