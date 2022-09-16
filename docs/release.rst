@@ -18,7 +18,7 @@ Enhancements
 Bug Fixes
 ~~~~~~~~~
 
-* The `~pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts` function now properly handles methods that compute complex DELTAQMIN values in `optics_functions.coupling.closest_tune_approach`, and return a correct result.
+* The `~pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts` function now properly handles methods that compute complex `DELTAQMIN` values in `optics_functions.coupling.closest_tune_approach`, and return a correct result.
 
 Maintenance
 ~~~~~~~~~~~
