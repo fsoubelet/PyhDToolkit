@@ -56,15 +56,19 @@ __all__ = [
 # ----- Setup Utlites ----- #
 
 
-def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6, **kwargs) -> None:
+def make_lhc_beams(
+    madx: Madx, energy: float = 7000, emittance_x: float = 3.75e-6, emittance_y: float = 3.75e-6, **kwargs
+) -> None:
     """
     Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         energy (float): beam energy, in [GeV]. Defaults to 6500.
-        emittance (float): emittance in [m]. Will be used to calculate geometric
-            emittance which is then fed to the ``BEAM`` command.
+        emittance_x (float): horizontal emittance in [m]. Will be used to calculate
+            geometric emittance which is then fed to the ``BEAM`` command.
+        emittance_x (float): vertical emittance in [m]. Will be used to calculate
+            geometric emittance which is then fed to the ``BEAM`` command.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.
 
     Example:
@@ -75,7 +79,8 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
     madx.globals["brho"] = energy * 1e9 / madx.globals.clight
-    geometric_emit = madx.globals["geometric_emit"] = emittance / (energy / 0.938)
+    geometric_emit_x = madx.globals["geometric_emit_x"] = emittance_x / (energy / 0.938)
+    geometric_emit_y = madx.globals["geometric_emit_y"] = emittance_y / (energy / 0.938)
 
     for beam in (1, 2):
         logger.trace(f"Defining beam for sequence 'lhcb{beam:d}'")
@@ -85,8 +90,8 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
             bv=1 if beam == 1 else -1,
             energy=energy,
             npart=1.15e11,
-            ex=geometric_emit,
-            ey=geometric_emit,
+            ex=geometric_emit_x,
+            ey=geometric_emit_y,
             sige=4.5e-4,
             **kwargs,
         )
