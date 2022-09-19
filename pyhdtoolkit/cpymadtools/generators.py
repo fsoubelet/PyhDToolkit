@@ -15,6 +15,8 @@ These lattices are quite simple and are meant to be used in the package's docume
 
 class LatticeGenerator:
     """
+    .. versionadded:: 0.1.0
+
     A simple class to handle encompass generating functions.
     """
 

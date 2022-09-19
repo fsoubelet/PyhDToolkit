@@ -46,6 +46,8 @@ def get_closest_tune_approach(
     tolerance: float = 1e-21,
 ) -> float:
     """
+    .. versionadded:: 0.16.0
+
     Provided with an active `~cpymad.madx.Madx` object, tries to match the tunes to their mid-fractional tunes,
     a.k.a tries to get them together. The difference between the final reached fractional tunes is the closest
     tune approach. This should not have any effect on the user's simulation, as the varied knobs are
@@ -161,6 +163,8 @@ def get_cminus_from_coupling_rdts(
     filtering: float = 0,
 ) -> float:
     """
+    .. versionadded:: 0.20.0
+
     Computes and returns the :math:`|C^{-}|` from the machine's coupling RDTs. The
     closest tune approach is computed thanks to functionality from `optics_functions.coupling`.
 
@@ -238,6 +242,8 @@ def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
     """
+    ..versionadded:: 0.16.0
+
     Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
     to be 0 at a given location.
 
@@ -271,6 +277,8 @@ def match_no_coupling_through_ripkens(
 
 def get_coupling_rdts(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.20.0
+
     Computed the coupling Resonance Driving Tensors (RDTs) :math:`f_{1001}` and :math:`f_{1010}`
     at all elements in the currently active sequence from a ``TWISS`` call.
 

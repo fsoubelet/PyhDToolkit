@@ -19,6 +19,8 @@ def export_madx_table(
     madx: Madx, table_name: str, file_name: Union[Path, str], pattern: str = None, headers_table: str = "SUMM", **kwargs
 ) -> None:
     """
+    .. versionadded:: 0.17.0
+
     Exports an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame` on disk.
 
     .. important::
@@ -56,6 +58,8 @@ def export_madx_table(
 
 def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.11.0
+
     Turns an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame`.
 
     Args:

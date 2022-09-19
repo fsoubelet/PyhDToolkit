@@ -34,6 +34,8 @@ IR_QUADS_PATTERNS: Dict[int, List[str]] = {
 
 def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
     """
+    .. versionadded:: 0.7.0
+
     Applies magnetic field orders. This will only work for LHC and HLLHC machines.
     Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
 
@@ -90,6 +92,8 @@ def misalign_lhc_ir_quadrupoles(
     **kwargs,
 ) -> None:
     """
+    .. versionadded:: 0.9.0
+
     Apply misalignment errors to IR quadrupoles on a given side of given IPs. In case of a sliced
     lattice, this will misalign all slices of each magnet together. According to the
     `Equipment Codes Main System <https://edms5.cern.ch/cedar/plsql/codes.systems>`_,  those are Q1
@@ -191,6 +195,8 @@ def misalign_lhc_triplets(
     madx: Madx, ip: int, sides: Sequence[str] = ("r", "l"), table: str = "triplet_errors", **kwargs
 ) -> None:
     """
+    .. versionadded:: 0.9.0
+
     Apply misalignment errors to IR triplet quadrupoles on a given side of a given IP. In case of a
     sliced lattice, this will misalign all slices of each magnet together. This is a convenience wrapper
     around the `~.errors.misalign_lhc_ir_quadrupoles` function, see that function's docstring for more

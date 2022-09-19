@@ -44,7 +44,11 @@ __all__ = [
 
 
 class AperturePlotter:
-    """A class to plot the aperture of your machine as determined by ``MAD-X``'s ``APERTURE`` command."""
+    """
+    .. versionadded:: 0.3.0
+
+    A class to plot the aperture of your machine as determined by ``MAD-X``'s ``APERTURE`` command.
+    """
 
     @staticmethod
     def plot_aperture(
@@ -65,6 +69,8 @@ class AperturePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.3.0
+
         Creates a plot representing nicely the lattice layout and the aperture tolerance across the machine.
         One can find an example use of this function in the :ref:`machine aperture <demo-accelerator-aperture>`
         example gallery.
@@ -171,7 +177,11 @@ class AperturePlotter:
 
 
 class BeamEnvelopePlotter:
-    """A class to plot the estimated beam envelope throughout your machine."""
+    """
+    .. versionadded:: 0.14.0
+
+    A class to plot the estimated beam envelope throughout your machine.
+    """
 
     @staticmethod
     def plot_envelope(
@@ -184,6 +194,8 @@ class BeamEnvelopePlotter:
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.14.0
+
         Creates a plot representing an estimation of the beam stay-clear enveloppe through the machine,
         as well as an estimation of the aperture limits of elements. One can find an example use of this
         function in the :ref:`beam enveloppe <demo-beam-enveloppe>` example gallery.
@@ -222,10 +234,10 @@ class BeamEnvelopePlotter:
         twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params.deltap_p
         twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params.deltap_p
         twiss_hr["envelope_x"] = np.sqrt(
-            twiss_hr.betatronic_envelope_x**2 + (twiss_hr.dx * beam_params.deltap_p) ** 2
+            twiss_hr.betatronic_envelope_x ** 2 + (twiss_hr.dx * beam_params.deltap_p) ** 2
         )
         twiss_hr["envelope_y"] = np.sqrt(
-            twiss_hr.betatronic_envelope_y**2 + (twiss_hr.dy * beam_params.deltap_p) ** 2
+            twiss_hr.betatronic_envelope_y ** 2 + (twiss_hr.dy * beam_params.deltap_p) ** 2
         )
         machine = twiss_hr[twiss_hr.apertype == "ellipse"]
 
@@ -280,7 +292,11 @@ class BeamEnvelopePlotter:
 
 
 class CrossingSchemePlotter:
-    """A class to plot LHC crossing schemes at given IPs."""
+    """
+    .. versionadded:: 0.14.0
+
+    A class to plot LHC crossing schemes at given IPs.
+    """
 
     @staticmethod
     def _highlight_mbx_and_mqx(
@@ -399,6 +415,8 @@ class CrossingSchemePlotter:
         savefig: str = None,
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.14.0
+
         Creates a plot representing the crossing schemes at the two provided IPs.
 
         .. note::
@@ -512,6 +530,8 @@ class CrossingSchemePlotter:
 
 class DynamicAperturePlotter:
     """
+    .. versionadded:: 0.3.0
+
     A class to plot the "aperture" at a given number of turns, based on tracked particles.
 
     .. caution::
@@ -524,6 +544,8 @@ class DynamicAperturePlotter:
         x_coords: np.ndarray, y_coords: np.ndarray, n_particles: int, savefig: str = None
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.3.0
+
         Creates a plot representing a visual aid for the dynamic aperture after a tracking.
         Initial amplitudes are on the vertical axis, and the turn at which they were lost is
         in the horizontal axis.
@@ -569,6 +591,8 @@ class DynamicAperturePlotter:
 
 class LatticePlotter:
     """
+    .. versionadded:: 0.14.0
+
     A class to plot plot the ``TWISS`` parameters as well as the lattice layout or survey of the machine.
     """
 
@@ -592,6 +616,8 @@ class LatticePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.14.0
+
         Creates a plot representing the lattice layout and the :math`\\beta` functions along with the horizontal
         dispertion function. This is a very, very heavily refactored version of an initial implementation by
         :user:`Guido Sterbini <sterbini>`. One can find an example use of this function in the
@@ -715,6 +741,8 @@ class LatticePlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.14.0
+
         Creates a plot representing the lattice layout and the machine geometry in 2D. This is a very,
         very heavily refactored version of an initial implementation by :user:`Guido Sterbini <sterbini>`.
         One can find an example use of this function in the :ref:`machine survey <demo-machine-survey>`
@@ -785,7 +813,11 @@ class LatticePlotter:
 
 
 class PhaseSpacePlotter:
-    """A class to plot the normalized Courant-Snyder coordinates in phase space."""
+    """
+    .. versionadded:: 0.3.0
+
+    A class to plot the normalized Courant-Snyder coordinates in phase space.
+    """
 
     @staticmethod
     def plot_courant_snyder_phase_space(
@@ -797,6 +829,8 @@ class PhaseSpacePlotter:
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.3.0
+
         Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
         when provided by position and momentum coordinates for a specific plane. One can find an example
         use of this function in the :ref:`phase space <demo-phase-space>` example gallery.
@@ -859,6 +893,8 @@ class PhaseSpacePlotter:
         plane: str = "Horizontal",
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.3.0
+
         Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
         when provided by position and momentum coordinates for a specific plane. Each particle trajectory
         has its own color on the plot, within the limit of `~matplotlib.pyplot`'s 156 named colors, after
@@ -920,7 +956,11 @@ class PhaseSpacePlotter:
 
 
 class TuneDiagramPlotter:
-    """A class to plot a blank tune diagram with Farey sequences up to a desired order."""
+    """
+    .. versionadded:: 0.14.0
+
+    A class to plot a blank tune diagram with Farey sequences up to a desired order.
+    """
 
     order_to_alpha: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
     order_to_rgb: Dict[int, np.ndarray] = {
@@ -952,6 +992,8 @@ class TuneDiagramPlotter:
     @staticmethod
     def farey_sequence(order: int) -> List[Tuple[int, int]]:
         """
+        .. versionadded:: 0.14.0
+
         Returns the n-th farey_sequence sequence, ascending, where n is the provided *order*.
         Original code from :user:`Rogelio Tomás <rogeliotomas>` (see Numerical Methods 2018 CAS
         proceedings, :cite:t:`Tomas:CASImperfections:2018`).
@@ -1017,6 +1059,8 @@ class TuneDiagramPlotter:
         **kwargs,
     ) -> matplotlib.figure.Figure:
         """
+        .. versionadded:: 0.14.0
+
         Creates a plot representing the tune diagram up to the given *max_order*. One can find an example
         use of this function in the :ref:`tune diagram <demo-tune-diagram>` example gallery.
 
@@ -1127,6 +1171,8 @@ def plot_machine_layout(
     **kwargs,
 ) -> None:
     """
+    .. versionadded:: 0.14.0
+
     Draws patches elements representing the lattice layout on the given *axis*. This is the function that
     takes care of the machine layout axis in `~.plotters.LatticePlotter.plot_latwiss`.
 

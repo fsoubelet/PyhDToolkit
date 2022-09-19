@@ -27,6 +27,8 @@ def get_pattern_twiss(
     **kwargs,
 ) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.8.0
+
     Extracts the ``TWISS`` table for desired variables from the provided `~cpymad.madx.Madx`
     object, and for certain elements matching the provided *patterns*. The table is returned
     as a `~tfs.frame.TfsDataFrame`. Additionally, the ``SUMM`` table is also returned as the
@@ -96,6 +98,8 @@ def get_pattern_twiss(
 
 def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.8.3
+
     Returns a `~tfs.frame.TfsDataFrame` from the `~cpymad.madx.Madx` instance's ``TWISS`` table,
     typically in the way we're used to getting it from ``MAD-X`` outputting the `TWISS` (uppercase
     names, colnames, ``SUMM`` table in headers). This will call the `TWISS` command first before
@@ -130,6 +134,8 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
 
 def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.9.0
+
     Quickly get the ``TWISS`` table for certain variables at IP locations only. The ``SUMM`` table will be
     included as the `~tfs.frame.TfsDataFrame`'s header dictionary.
 
@@ -153,6 +159,8 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
 
 def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.9.0
+
     Quickly get the ``TWISS`` table for certain variables for one Interaction Region, meaning at the IP and
     Q1 to Q3 both left and right of the IP. The ``SUMM`` table will be included as the `~tfs.frame.TfsDataFrame`'s
     header dictionary.
