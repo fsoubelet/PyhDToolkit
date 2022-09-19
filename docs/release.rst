@@ -327,7 +327,7 @@ Bug Fixes
 
 * All plotting functions in the ``cpymadtools`` module now have ``LaTeX``-compatible text elements.
 * The ``plot_latwiss`` and ``plot_machine_survey`` functions in ``cpymadtools.latwiss`` now properly detect element types from ``TWISS`` table properties and does not rely on naming anymore.
-* The ``plot_machine_layout`` function in ``cpymadtools.latwiss`` now correctly scales the colorbar to the full length of the machine and now to 1.
+* The ``plot_machine_layout`` function in ``cpymadtools.latwiss`` now correctly scales the colorbar to the full length of the machine and not to 1.
 * The ``match_tunes_and_chromaticities`` function in ``cpymadtools.matching`` now properly handles being given either only tune targets or only chromaticity targets.
 * The *BeamParameters* class in ``models.beam`` now properly builds in all cases and has a ``__repr__``.
 * Fixed some calls to the ``SELECT`` command via ``cpymad`` which might previously have had unintended side effects.
@@ -389,7 +389,7 @@ Bug Fixes
 ~~~~~~~~~
 
 * The ``install_ac_dipole_as_kicker`` function now properly sets the element location to avoid a negative drift (location taken from omc3's model_creator) if the sequence wasn't previously made ``THIN`` (which it should).
-* The ``install_ac_dipole_as_kicker`` function now makes a use, sequence=... call after installing the element. Beware this means errors, correctors etc. that were set / loaded will be lost.
+* The ``install_ac_dipole_as_kicker`` function now makes a ``use, sequence=...`` call after installing the element. Beware this means errors, correctors etc. that were set / loaded will be lost.
 
 Maintenance
 ~~~~~~~~~~~
