@@ -20,6 +20,8 @@ def lebedev_beam_size(
     beta1_: Union[float, np.ndarray], beta2_: Union[float, np.ndarray], geom_emit_x: float, geom_emit_y: float
 ) -> Union[float, np.ndarray]:
     """
+    .. versionadded:: 0.8.2
+
     Calculate beam size according to the Lebedev-Bogacz formula, based on the Ripken-Mais Twiss
     parameters. The implementation is that of Eq. (A.3.1) in :cite:t:`Lebedev:coupling:2010`.
 
@@ -53,6 +55,9 @@ def lebedev_beam_size(
     """
     logger.trace("Computing beam size according to Lebedev formula: sqrt(epsx * b1_^2 + epsy * b2_^2)")
     return np.sqrt(geom_emit_x * beta1_ + geom_emit_y * beta2_)
+
+
+# ----- Helpers ----- #
 
 
 def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> float:
