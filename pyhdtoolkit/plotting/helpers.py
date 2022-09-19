@@ -12,7 +12,10 @@ import matplotlib.axes
 
 
 class AnnotationsPlotter:
-    """A class to encapsulate all useful plotting additional tidbits."""
+    """
+    .. versionadded:: 0.6.0
+
+    A class to encapsulate all useful plotting additional tidbits."""
 
     @staticmethod
     def set_arrow_label(

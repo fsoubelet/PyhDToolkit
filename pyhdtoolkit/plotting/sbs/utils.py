@@ -15,6 +15,8 @@ from loguru import logger
 
 def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.TfsDataFrame, ip: int) -> float:
     """
+    .. versionadded:: 0.19.0
+
     Finds the S-offset of the IP from the start of segment by comparing the S-values for the elements in the model.
 
     Args:
@@ -52,6 +54,8 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
 
 def determine_default_coupling_ylabel(rdt: str, component: str) -> str:
     """
+    .. versionadded:: 0.19.0
+
     Creates the ``LaTeX``-compatible label for the Y-axis based on the given coupling *rdt* and its *component*.
 
     Args:
@@ -88,6 +92,8 @@ def determine_default_coupling_ylabel(rdt: str, component: str) -> str:
 
 def determine_default_phase_ylabel(plane: str) -> str:
     """
+    .. versionadded:: 0.19.0
+
     Creates the ``LaTeX``-compatible label for the phase Y-axis based on the given *plane*.
 
     Args:

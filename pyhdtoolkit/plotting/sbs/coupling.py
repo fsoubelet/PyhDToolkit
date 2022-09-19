@@ -29,6 +29,8 @@ def plot_rdt_component(
     **kwargs,
 ) -> matplotlib.figure.Figure:
     r"""
+    .. versionadded:: 0.19.0
+
     Plots for Beam 1 and Beam 2 vertically a component of the given coupling *rdt* over the segment. Optionally
     highlights the IP location.
 
@@ -111,6 +113,8 @@ def plot_full_ip_rdt(
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
+    .. versionadded:: 0.19.0
+
     Plots all component of the given coupling *rdt* over the segment, for both Beam 1 and Beam 2. Optionally
     highlights the IP location.
 
