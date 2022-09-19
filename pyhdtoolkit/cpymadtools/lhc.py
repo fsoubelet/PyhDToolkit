@@ -528,10 +528,41 @@ def vary_independent_ir_quadrupoles(
 def do_kmodulation(
     madx: Madx, ir: int = 1, side: str = "right", steps: int = 100, stepsize: float = 3e-8
 ) -> tfs.TfsDataFrame:
-    """
+    r"""
     .. versionadded:: 0.20.0
 
-    TODO: write this docstring!
+    Simulates a K-Modulation measurement by varying the powering of Q1 left or
+    right of the IP, and returning the tune variations resulting from this
+    modulation.
+
+    .. note::
+        At the end of the simulation, the powering of the quadrupole is reset
+        to the value it had at the time of function call.
+
+    .. tip::
+        From these, one can then calculate the :math:`\beta`-functions at the Q1
+        and then at the IP, plus the possible waist shift, according to
+        :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        ir (int): the IR in which to perform the modulation. Defaults to 1.
+        side (str): which side of the IP to use the Q1 to perform the modulation.
+            Should be either ``right`` or ``left``, case-insensitive. Defaults to
+            ``right``.
+        steps (int): the number of steps to perform in the modulations, aka the number
+            of "measurements". Defaults to 100.
+        stepsize (float): the increment in powering for Q1, in direct values of the
+            powering variable used in ``MAD-X``. Defaults to 3e-8.
+
+    Returns:
+        A `~tfs.TfsDataFrame` containing the tune values at each powering step.
+
+    Example:
+
+        .. code-block:: python
+
+            >>> tune_results = do_kmodulation(madx, ir=1, side="right", steps=100, stepsize=3e-8)
     """
     element = f"MQXA.1R{ir:d}" if side.lower() == "right" else f"MQXA.1L{ir:d}"
     powering_variable = f"KTQX1.R{ir:d}" if side.lower() == "right" else f"KTQX1.L{ir:d}"
@@ -551,6 +582,7 @@ def do_kmodulation(
             "STEPS": steps,
             "STEP_SIZE": stepsize,
         },
+        dtype=float,
     )
 
     logger.debug(f"Modulating quadrupole '{element}'")
