@@ -68,6 +68,8 @@ from loguru import logger
 
 class PhaseReconstructor:
     """
+    .. versionadded:: 0.4.0
+
     Class algorithm to reconstruct your phase values.
     Make sure to provide vectors as `numpy.ndarray` with shape (1, N), N being the dimension.
 

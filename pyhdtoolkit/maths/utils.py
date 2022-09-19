@@ -18,6 +18,8 @@ from loguru import logger
 
 def get_magnitude(value: float) -> int:
     """
+    .. versionadded:: 0.8.2
+
     Returns the determined magnitude of the provided *value*. This corresponds to the
     power of 10 that would be necessary to reduce *value* to a :math:`X \\cdot 10^{n}`
     form. In this case, *n* is the result.
@@ -51,6 +53,8 @@ def get_scaled_values_and_magnitude_string(
     values_array: Union[pd.DataFrame, np.ndarray], force_magnitude: float = None
 ) -> Tuple[Union[pd.DataFrame, np.ndarray], str]:
     """
+    .. versionadded:: 0.8.2
+
     Conveniently scales the provided values to the best determined magnitude, and returns
     the scaled values and the magnitude string to use in plots labels.
 
@@ -74,6 +78,6 @@ def get_scaled_values_and_magnitude_string(
     magnitude = get_magnitude(max(values_array)) if force_magnitude is None else force_magnitude
     applied_magnitude = -magnitude
     logger.trace(f"Scaling data by {applied_magnitude} orders of magnitude")
-    scaled_values = values_array * (10**applied_magnitude)
+    scaled_values = values_array * (10 ** applied_magnitude)
     magnitude_string = "{" + f"{applied_magnitude}" + "}"
     return scaled_values, magnitude_string
