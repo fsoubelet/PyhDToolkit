@@ -13,7 +13,11 @@ from pydantic import BaseModel, PositiveFloat, PositiveInt
 
 
 class ParticleEnum(str, Enum):
-    """Validator Enum defining the accepted particle names in ``MAD-X`` beams."""
+    """
+    .. versionadded:: 0.12.0
+
+    Validator Enum defining the accepted particle names in ``MAD-X`` beams.
+    """
 
     positron = "positron"
     electron = "electron"
@@ -25,7 +29,11 @@ class ParticleEnum(str, Enum):
 
 
 class MADXBeam(BaseModel):
-    """Class to encompass and validate ``BEAM`` attributes from the ``MAD-X`` process."""
+    """
+    .. versionadded:: 0.12.0
+
+    Class to encompass and validate ``BEAM`` attributes from the ``MAD-X`` process.
+    """
 
     particle: ParticleEnum  # The name of particles in the beam
     mass: PositiveFloat  # The rest mass of the particles in the beam in [GeV]

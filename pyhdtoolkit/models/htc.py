@@ -13,7 +13,11 @@ from pydantic import BaseModel
 
 
 class BaseSummary(BaseModel):
-    """Class to encompass and validate the cluster's summary line in the ``condor_q`` output."""
+    """
+    .. versionadded:: 0.12.0
+
+    Class to encompass and validate the cluster's summary line in the ``condor_q`` output.
+    """
 
     jobs: int
     completed: int
@@ -25,7 +29,11 @@ class BaseSummary(BaseModel):
 
 
 class ClusterSummary(BaseModel):
-    """Class to encompass and validate the cluster's info line in the ``condor_q`` output."""
+    """
+    .. versionadded:: 0.12.0
+
+    Class to encompass and validate the cluster's info line in the ``condor_q`` output.
+    """
 
     scheduler_id: str
     query: BaseSummary
@@ -34,7 +42,11 @@ class ClusterSummary(BaseModel):
 
 
 class HTCTaskSummary(BaseModel):
-    """Class to encompass and validate a specific job's line in the ``condor_q`` output."""
+    """
+    .. versionadded:: 0.12.0
+
+    Class to encompass and validate a specific job's line in the ``condor_q`` output.
+    """
 
     owner: str
     batch_name: int

@@ -14,6 +14,8 @@ from pydantic import BaseModel
 
 class BeamParameters(BaseModel):
     """
+    .. versionadded:: 0.12.0
+
     Class to encompass, validate and manipulate properties of a particle beam.
     One can find a usage example in the :ref:`beam enveloppe demo <demo-beam-enveloppe>`.
     """
@@ -33,7 +35,7 @@ class BeamParameters(BaseModel):
     @property
     def E_tot_GeV(self) -> float:
         """Total beam energy [GeV]"""
-        return sqrt(self.pc_GeV**2 + self.E_0_GeV**2)
+        return sqrt(self.pc_GeV ** 2 + self.E_0_GeV ** 2)
 
     @property
     def E_kin_GeV(self) -> float:
@@ -48,7 +50,7 @@ class BeamParameters(BaseModel):
     @property
     def beta_r(self) -> float:
         """Relativistic beta"""
-        return self.pc_GeV / sqrt(self.pc_GeV**2 + self.E_0_GeV**2)
+        return self.pc_GeV / sqrt(self.pc_GeV ** 2 + self.E_0_GeV ** 2)
 
     @property
     def eg_x_m(self) -> float:
