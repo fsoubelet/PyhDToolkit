@@ -1,0 +1,30 @@
+.. _release_0.9.0:
+
+0.9.0
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``misalign_lhc_ir_quadrupoles`` function in the ``cpymadtools.errors`` module to conveniently apply ``EALIGN`` to IR quadrupoles.
+* Added a ``misalign_lhc_triplets function`` in the ``cpymadtools.errors``, convenience wrapper around the aforementioned one for triplets.
+* Added a ``correct_lhc_orbit`` function in the ``cpymadtools.orbit`` module to perform orbit correction using MCB.* elements in the LHC.
+* Added a ``vary_independent_ir_quadrupoles`` function in the ``cpymadtools.special`` module to conveniently send the vary commands for the desired quadrupoles in the IRs.
+* Added a ``tune`` module in ``cpymadtools`` with currently a ``make_footprint_table`` function that creates a ``DYNAP`` setup according to parameters and returns the generated table.
+* Added A ``utils.htc_monitor`` module with functionality to query the ``HTCondor`` queue, process the returned data and nicely display it. To be run directly, but different functionality can be imported.
+
+Bug Fixes
+~~~~~~~~~
+
+* Fixed an issue in ``plot_latwiss`` where the function would sometimes mishandle the *xlimits* argument.
+* Fixed a mistake in ``apply_lhc_rigidity_waist_shift_knob`` where the side argument would be ignored if uppercase.
+
+Maintenance
+~~~~~~~~~~~
+
+* The *telescopic_squeeze* parameter in ``match_tunes_and_chromaticities`` now defaults to True, to reflect the LHC scenario as of Run III.
+* The ``get_ips_twiss`` and ``get_ir_twiss`` functions have been moved from ``cpymadtools.special`` to ``cpymadtools.twiss``.
+* Added dependencies: ``pydantic``, ``rich`` and ``pendulum``. The ``llvmlite`` dependency is also added explicitely, though it is a dependency of ``numba`` and the version constraint is here to guarantee ``pyhdtoolkit`` will build on Python 3.9.
+* Tests now include Python 3.9.
+
+See `v0.9.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.0>`_ and the `full changes since v0.8.5 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.5...0.9.0>`_.

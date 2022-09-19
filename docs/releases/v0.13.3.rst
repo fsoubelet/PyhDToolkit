@@ -1,0 +1,31 @@
+.. _release_0.13.3:
+
+0.13.3
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The ``plot_machine_layout`` function in ``cpymadtools.latwiss`` now accepts keyword arguments which are transmitted to `~matplotlib.pyplot.scatter` calls.
+* The ``TuneDiagramPlotter.plot_blank_tune_diagram`` function in ``cpymadtools.plotters`` now has a *figsize* argument.
+
+Bug Fixes
+~~~~~~~~~
+
+* All plotting functions in the ``cpymadtools`` module now have ``LaTeX``-compatible text elements.
+* The ``plot_latwiss`` and ``plot_machine_survey`` functions in ``cpymadtools.latwiss`` now properly detect element types from ``TWISS`` table properties and does not rely on naming anymore.
+* The ``plot_machine_layout`` function in ``cpymadtools.latwiss`` now correctly scales the colorbar to the full length of the machine and not to 1.
+* The ``match_tunes_and_chromaticities`` function in ``cpymadtools.matching`` now properly handles being given either only tune targets or only chromaticity targets.
+* The *BeamParameters* class in ``models.beam`` now properly builds in all cases and has a ``__repr__``.
+* Fixed some calls to the ``SELECT`` command via ``cpymad`` which might previously have had unintended side effects.
+
+Maintenance
+~~~~~~~~~~~
+
+* All functions in the ``cpymadtools`` module which offer the *telescopic_squeeze* argument now have it default to True to reflect operational scenarios of run III.
+* The ``correct_lhc_orbit`` function in ``cpymadtools.orbit`` now takes a required sequence positional argument.
+* The ``correct_lhc_orbit`` function in ``cpymadtools.orbit`` now defaults its mode argument to micado like the ``CORRECT`` command in ``MAD-X`` does.
+* The ``AperturePlotter.plot_aperture`` function in ``cpymadtools.plotters`` now has a default figsize argument of (13, 20) instead of 15, 15.
+* The minimum required version of ``tfs-pandas`` is now 3.0.0.
+
+See `v0.13.3 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.13.3>`_ and the `full changes since v0.13.2 <https://github.com/fsoubelet/PyhDToolkit/compare/0.13.2...0.13.3>`_.

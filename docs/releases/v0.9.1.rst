@@ -1,0 +1,17 @@
+.. _release_0.9.1:
+
+0.9.1
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Added a ``install_mpl_style`` function in the ``utils.defaults`` module to create a **phd.mplstyle** file in ``matplotlib``'s stylelib directory, making the style callable through ``plt.style.use("phd")``.
+
+Maintenance
+~~~~~~~~~~~
+
+* The *PLOT_PARAMS* dictionary in ``utils.defaults`` has been updated.
+* The ``numba`` library's used has been removed, easing the package's dependencies.
+
+See `v0.9.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.9.1>`_ and the `full changes since v0.9.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.0...0.9.1>`_.

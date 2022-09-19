@@ -1,0 +1,23 @@
+.. _release_0.21.0:
+
+0.21.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.lhc` module now has a new function, `~pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob_delta`, to apply a variation on top of the colinearity knob variables.
+* The `~pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now has a specific argument for both horizontal and vertical emittances (resp. `emittance_x` and `emittance_y`) to enable differentiating the two. The default value for each is the same as previously. If you were calling the function without specifying the `emittance` argument, you will not see changes. If you used to specify the argument, then switch to the new ones.
+
+Bug Fixes
+~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts` function now properly handles methods that compute complex `DELTAQMIN` values in `optics_functions.coupling.closest_tune_approach`, and return a correct result.
+
+Maintenance
+~~~~~~~~~~~
+
+* Relaxed version constraint on the `matplotlib` dependency.
+* Updated and cleaned up Continuous Integration workflows.
+
+See `v0.21.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.21.0>`_ and the `full changes since v0.20.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.20.1...0.21.0>`_.

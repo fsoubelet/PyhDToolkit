@@ -1,0 +1,16 @@
+.. _release_0.8.1:
+
+0.8.1
+-----
+
+Bug Fixes
+~~~~~~~~~
+
+* Fixed inacurrate logging statements during tunes and chromaticities matching.
+
+Maintenance
+~~~~~~~~~~~
+
+* Removed the unused **scripts** folder as well as the scripts' dependencies.
+
+See `v0.8.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.1.0>`_ and the `full changes since v0.8.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.0...0.8.1>`_.

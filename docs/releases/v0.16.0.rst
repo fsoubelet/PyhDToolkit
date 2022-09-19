@@ -1,0 +1,37 @@
+.. _release_0.16.0:
+
+0.16.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* A new module, `pyhdtoolkit.cpymadtools.coupling` has been added, and now hosts functions to get the closest tune approach (`~pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach`) and match coupling through ``Ripken`` parameters (`~pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens`).
+* The `pyhdtoolkit.cpymadtools.lhc` module has a new function, `~pyhdtoolkit.cpymadtools.lhc.get_lhc_bpms_list`, which returns the list of monitoring BPMs for the current LHC sequence in use.
+* The `pyhdtoolkit.cpymadtools.lhc` module now hosts the `~pyhdtoolkit.cpymadtools.lhc.get_lhc_tune_and_chroma_knobs` function.
+* The `pyhdtoolkit.cpymadtools.plotters.plot_machine_layout` have now been made public api.
+* The ``DEFAULT_TWISS_COLUMNS`` constant in `pyhdtoolkit.cpymadtools.constants` now includes the element length.
+* A new private ``_misc`` module has been added to the `~pyhdtoolkit.utils` sub-package.
+
+Bug Fixes
+~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.plotters.AperturePlotter.plot_aperture` and `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss` functions now properly propagate the *xoffset* and *xlimits* parameters to `~pyhdtoolkit.cpymadtools.plotters.plot_machine_layout`, which restores the proper functionality for these parameters and speeds up the plotting significantly when they are used.
+* The `~pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach` function now does not provide chromaticiy targets in its matching, as it can mess up the algorithm when given ``CHROM`` which it does.
+* The `~pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities` function now properly handles the knobs sent depending on the matching targets. For instance, only tune knobs are varied when only tune targets are provided. Explicitely given knobs are always sent.
+* The `~pyhdtoolkit.cpymadtools.twiss.get_twiss_tfs` function now calls the ``TWISS`` command from ``MAD-X`` and accepts keyword arguments.
+
+Documentation
+~~~~~~~~~~~~~
+
+* All docstrings have been reviewed and now include examples. Those mentioning caveats have been given special admonitions to do so.
+* The documentation has gone through a **major** overhaul and is now built on ``sphinx`` and its extensions. It now also includes a quickstart tutorial, a gallery of examples, a contributing guide and a reference bibliography. Feedback on the new documentation is very welcome.
+
+Maintenance
+~~~~~~~~~~~
+
+* The deprecated `pyhdtoolkit.cpymadtools.special` module has been removed.
+* The functions in `pyhdtoolkit.cpymadtools.plotters` do not enforce any ``rcParams`` anymore, and these are fully left to the user.
+* The `pyhdtoolkit.cpymadtools.lhc.match_no_coupling_through_ripkens`, `pyhdtoolkit.cpymadtools.matching.get_closest_tune_approach` and `pyhdtoolkit.cpymadtools.matching.get_lhc_tune_and_chroma_knobs` functions have been deprecated in favor of their counterparts in other modules. They will be removed in a future release.
+
+See `v0.16.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.16.0>`_ and the `full changes since v0.15.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.15.1...0.16.0>`_.
