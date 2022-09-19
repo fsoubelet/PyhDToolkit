@@ -82,7 +82,7 @@ Maintenance
 
 * The `~pyhdtoolkit.cpymadtools.lhc.get_lhc_tune_and_chroma_knobs` function now has a new boolean argument, `run3`, to determine if the standard `_op` knobs should be returned.
 * The functions in the `~pyhdtoolkit.cpymadtools.matching` module now also have the `run3` argument, and will call the Run 3 `_op` knobs if this argument is set to `True` and the `LHC` accelerator is passed.
-* Fixes have been provided to the various Github Actions workflow of the repository.
+* Fixes have been provided to the various GitHub Actions workflow of the repository.
 
 See `v0.19.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.1>`_ and the `full changes since v0.19.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.19.0...0.19.1>`_.
 
@@ -124,9 +124,9 @@ See `v0.19.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/r
 Enhancements
 ~~~~~~~~~~~~
 
-* The `pyhdtoolkit.utils._misc` module has a new function,  `~pyhdtoolkit.utils._misc.add_markers_around_lhc_ip` to add `MAD-X` markers around a given IP in order to increase the resolution of the TWISS calls in the IP vicinity.
-* The `pyhdtoolkit.utils._misc` module has a new function,  `~pyhdtoolkit.utils._misc.get_lhc_ips_positions`, to determine the longitudinal position (S variable) of LHC IPs from a dataframe.
-* The `pyhdtoolkit.utils._misc` module has a new function,  `~pyhdtoolkit.utils._misc.draw_ip_locations`, to add labels with the location of LHC IPs to a given `~matplotlib.axes.Axes` object.
+* The `pyhdtoolkit.utils._misc` module has a new function, `~pyhdtoolkit.utils._misc.add_markers_around_lhc_ip` to add `MAD-X` markers around a given IP in order to increase the resolution of the TWISS calls in the IP vicinity.
+* The `pyhdtoolkit.utils._misc` module has a new function, `~pyhdtoolkit.utils._misc.get_lhc_ips_positions`, to determine the longitudinal position (S variable) of LHC IPs from a dataframe.
+* The `pyhdtoolkit.utils._misc` module has a new function, `~pyhdtoolkit.utils._misc.draw_ip_locations`, to add labels with the location of LHC IPs to a given `~matplotlib.axes.Axes` object.
 * The `LHC Rigid Waist Shift` gallery has been improved, and now shows a visualization of the waist shift and two ways to calculate its value.
 
 Bug Fixes
@@ -139,7 +139,7 @@ Maintenance
 
 * The dependency on `matplotlib` has been pinned to `<3.5` to avoid issues with the documentation plot style, to be fixed later on. 
 * The bibliography file for the package's documentation has been cleaned up.
-* The Github icon in the documentation pages now redirects to the proper pages.
+* The GitHub icon in the documentation pages now redirects to the proper pages.
 * The documentation for the `~pyhdtoolkit.maths.nonconvex_phase_sync` has been improved.
 * Some additional files necessary for the documentation additions are now included in the repo, but not the package.
 
@@ -172,7 +172,7 @@ Maintenance
 * The deprecated `pyhdtoolkit.cpymadtools.matching.get_closest_tune_approach` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.coupling` module should be used.
 * The deprecated `pyhdtoolkit.cpymadtools.matching.get_lhc_tune_and_chroma_knobs` function has been removed, its replacement in the `pyhdtoolkit.cpymadtools.lhc` module should be used.
 * The `pyhdtoolkit.cpymadtools.lhc._get_k_strings` helper function is now deprecated and has been moved to `pyhdtoolkit.cpymadtools.utils._get_k_strings`.
-* The internal imports in the package have been reworked, and sub-packages now only expose their modules through ``__all__`` opposed to some of the modules' contents previously.
+* The internal imports in the package have been reworked, and sub-packages now only expose their modules through ``__all__`` opposed to some modules' contents previously.
 * Some tests have been added.
 
 See `v0.17.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.17.0>`_ and the `full changes since v0.16.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.16.1...0.17.0>`_.
@@ -252,7 +252,7 @@ See `v0.15.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/r
 Enhancements
 ~~~~~~~~~~~~
 
-* The ``LatticePlotter.plot_latwiss`` function in the ``cpymadtools.plotters`` module can now plot the k1 gradient of dipoles that have one, if asked to, which will appear with a lower alpha than regular quadrupoles. A new boolean parameter *plot_dipole_k1* is used for this.
+* The ``LatticePlotter.plot_latwiss`` function in the ``cpymadtools.plotters`` module can now plot the k1 gradient of dipoles that have one if asked which will appear with a lower alpha than regular quadrupoles. A new boolean parameter *plot_dipole_k1* is used for this.
 * Type hints have been added to all elements of the ``cpymadtools.constants`` module.
 * A new module, ``cpymadtools.correctors``, has been added with currently functionality to query LHC triplet and arc corrector powering status (relatively to their max powering).
 * A new function, ``reset_bump_flags`` in the ``cpymadtools.special`` module which will reset all LHC IP bump flags to 0.
@@ -260,15 +260,15 @@ Enhancements
 
   - Supplementing the ``DEFAULT_TWISS_COLUMNS`` list, a similar but slightly different one, ``MONITOR_TWISS_COLUMNS``, has been added with elements present in OMC macros.
   - Constants lists for LHC IP bump flags have been added: ``LHC_CROSSING_ANGLE_FLAGS``, ``LHC_PARALLEL_SEPARATION_FLAGS``, ``LHC_IP_OFFSET_FLAGS``, ``LHC_ANGLE_FLAGS``, ``LHC_EXPERIMENT_STATE_FLAGS`` and ``LHC_IP2_SPECIAL_FLAGS``.
-  - Constants lists for LHC triplets corrector knobs have been added: ``LHC_KQSX_KNOBS``, ``LHC_KCSX_KNOBS``, ``LHC_KCSSX_KNOBS``, ``LHC_KCOX_KNOBS``, ``LHC_KCOSX_KNOBS``, ``LHC_KCTX_KNOBS`` with their signification in comments.
-  - Constants lists for LHC arc corrector knobs have been added: ``LHC_KQTF_KNOBS``, ``LHC_KQS_KNOBS``, ``LHC_KSF_KNOBS``, ``LHC_KSS_KNOBS``, ``LHC_KCS_KNOBS``, ``LHC_KCO_KNOBS``, ``LHC_KCD_KNOBS``, ``LHC_KO_KNOBS`` with their signification in comments.
+  - Constants list for LHC triplets corrector knobs have been added: ``LHC_KQSX_KNOBS``, ``LHC_KCSX_KNOBS``, ``LHC_KCSSX_KNOBS``, ``LHC_KCOX_KNOBS``, ``LHC_KCOSX_KNOBS``, ``LHC_KCTX_KNOBS`` with their signification in comments.
+  - Constants list for LHC arc corrector knobs have been added: ``LHC_KQTF_KNOBS``, ``LHC_KQS_KNOBS``, ``LHC_KSF_KNOBS``, ``LHC_KSS_KNOBS``, ``LHC_KCS_KNOBS``, ``LHC_KCO_KNOBS``, ``LHC_KCD_KNOBS``, ``LHC_KO_KNOBS`` with their signification in comments.
 
 Maintenance
 ~~~~~~~~~~~
 
 * The ``CORRECTOR_LIMITS`` dict of dict in the ``cpymadtools.constants`` module has been changed to a simple dictionary and renamed ``HLLHC_CORRECTOR_LIMITS`` as it only contained HighLumi values.
 * Exceptions are properly logged as exceptions, with stack information.
-* The entire ``cpymadtools.special`` module is deprecated and its contents have been mirrored in a new ``cpymadtools.lhc`` module. Users are encouraged to use the new module, as ``cpymadtools.special`` will be removed in a future release.
+* The entire ``cpymadtools.special`` module is deprecated, and its contents have been mirrored in a new ``cpymadtools.lhc`` module. Users are encouraged to use the new module, as ``cpymadtools.special`` will be removed in a future release.
 
 See `v0.15.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.15.0>`_ and the `full changes since v0.14.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.14.1...0.15.0>`_.
 
@@ -281,7 +281,7 @@ See `v0.15.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/r
 Maintenance
 ~~~~~~~~~~~
 
-* Both tracking functions ``ptc_track_particle`` and ``track_single_particle`` in respectively the ``cpymadtools.ptc`` and ``cpymadtools.track`` modules now log a warning when a string value is given to their *sequence* argument. Giving a value means the provided sequence will be ``USE``-ed in ``MAD-X``, leading to a loss of set errors, orbit corrections etc whch the user should be well aware of. This caveat has been added to the functions' docstrings. An info level log has also been added at the start of each function for consistency with the rest of the package.
+* Both tracking functions ``ptc_track_particle`` and ``track_single_particle`` in respectively the ``cpymadtools.ptc`` and ``cpymadtools.track`` modules now log a warning when a string value is given to their *sequence* argument. Giving a value means the provided sequence will be ``USE``-ed in ``MAD-X``, leading to a loss of set errors, orbit corrections etc. whch the user should be well aware of. This caveat has been added to the functions' docstrings. An info level log has also been added at the start of each function for consistency with the rest of the package.
 
 See `v0.14.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.14.1>`_ and the `full changes since v0.14.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.14.0...0.14.1>`_.
 
@@ -389,7 +389,7 @@ Bug Fixes
 ~~~~~~~~~
 
 * The ``install_ac_dipole_as_kicker`` function now properly sets the element location to avoid a negative drift (location taken from omc3's model_creator) if the sequence wasn't previously made ``THIN`` (which it should).
-* The ``install_ac_dipole_as_kicker`` function now makes a use, sequence=... call after installing the element. Beware this means errors, correctors etc that were set / loaded will be lost.
+* The ``install_ac_dipole_as_kicker`` function now makes a use, sequence=... call after installing the element. Beware this means errors, correctors etc. that were set / loaded will be lost.
 
 Maintenance
 ~~~~~~~~~~~
@@ -497,7 +497,7 @@ See `v0.9.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/re
 Enhancements
 ~~~~~~~~~~~~
 
-* Added an ``install_mpl_style`` function in the ``utils.defaults`` module to create a **phd.mplstyle** file in ``matplotlib``'s stylelib directory, making the style callable through ``plt.style.use("phd")``.
+* Added a ``install_mpl_style`` function in the ``utils.defaults`` module to create a **phd.mplstyle** file in ``matplotlib``'s stylelib directory, making the style callable through ``plt.style.use("phd")``.
 
 Maintenance
 ~~~~~~~~~~~
@@ -521,7 +521,7 @@ Enhancements
 * Added a ``correct_lhc_orbit`` function in the ``cpymadtools.orbit`` module to perform orbit correction using MCB.* elements in the LHC.
 * Added a ``vary_independent_ir_quadrupoles`` function in the ``cpymadtools.special`` module to conveniently send the vary commands for the desired quadrupoles in the IRs.
 * Added a ``tune`` module in ``cpymadtools`` with currently a ``make_footprint_table`` function that creates a ``DYNAP`` setup according to parameters and returns the generated table.
-* Added A ``utils.htc_monitor`` module with functionality to query the ``HTCondor`` queue, process the returned data and nicely display it. To be ran directly, but different functionality can be imported.
+* Added A ``utils.htc_monitor`` module with functionality to query the ``HTCondor`` queue, process the returned data and nicely display it. To be run directly, but different functionality can be imported.
 
 Bug Fixes
 ~~~~~~~~~
@@ -548,7 +548,7 @@ See `v0.9.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/re
 Bug Fixes
 ~~~~~~~~~
 
-* The ``match_tunes_and_chromaticities`` function now properly behaves if some of the targets are set to 0.
+* The ``match_tunes_and_chromaticities`` function now properly behaves if some targets are set to 0.
 
 Maintenance
 ~~~~~~~~~~~
@@ -566,7 +566,7 @@ See `v0.8.5 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/re
 Enhancements
 ~~~~~~~~~~~~
 
-* Added an *xoffset* variable to ``plot_latwiss``, allowing to center the plot on a specific element.
+* Added a *xoffset* variable to ``plot_latwiss``, allowing to center the plot on a specific element.
 
 Maintenance
 ~~~~~~~~~~~
@@ -598,7 +598,7 @@ Enhancements
 ~~~~~~~~~~~~
 
 * Added a ``maths.utils`` module with convenience functions related to magnitude.
-* Added an ``optics.ripken`` module with functions to calculate beam size according to Lebedev and Bogacz's formalism.
+* Added a ``optics.ripken`` module with functions to calculate beam size according to Lebedev and Bogacz's formalism.
 * Added a convenience logging setup function in ``utils.defaults``.
 * ``plot_latwiss`` now adds a legend for different elements in the layout.
 * ``plot_latwiss`` can now optionally plot BPM patches.
@@ -617,7 +617,7 @@ Maintenance
 * The ``get_pattern_twiss`` default argument values now select the entire twiss table.
 * ``plot_latwiss`` changed the parameter *plot_sextupoles* to *k2l_lim*, creating a dedicated axis for sextupole patches in the layout.
 * The ``plotting.settings`` module has been removed.
-* ``plot_latwiss`` doesn't force the pdf format when saving the figure anymore.
+* ``plot_latwiss`` doesn't force the PDF format when saving the figure anymore.
 
 See `v0.8.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.8.2>`_ and the `full changes since v0.8.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.8.1...0.8.2>`_.
 
@@ -676,9 +676,9 @@ See `v0.8.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/re
 Enhancements
 ~~~~~~~~~~~~
 
-* Added an ``errors`` submodule to handle (HL)LHC magnetic errors setup.
+* Added a ``errors`` submodule to handle (HL)LHC magnetic errors' setup.
 * Added a ``matching`` submodule with routines for ``MAD-X`` matching and closest tune approach determination.
-* Added an ``orbit`` submodule to handle (HL)LHC orbit variables setup.
+* Added a ``orbit`` submodule to handle (HL)LHC orbit variables setup.
 * Added a ``ptc`` submodule with routines for ``MAD-X`` ``PTC`` operations.
 * Added a ``special`` submodule with routines for personal use cases for (HL)LHC in ``MAD-X``.
 
@@ -703,7 +703,7 @@ Enhancements
 * Full compatibility across OSes (thanks to ``cpymad``'s progress).
 * Added a ``tfstools`` module.
 * Added a ``beam`` module in ``optics``.
-* Added an (experimental) ``timedata`` module in ``plotting``.
+* Added a (experimental) ``timedata`` module in ``plotting``.
 
 Documentation
 ~~~~~~~~~~~~~
@@ -717,7 +717,7 @@ Maintenance
 * Improved object validation with ``pydantic``.
 * Made ``cpymad`` a default dependency.
 * Updated dependencies.
-* Moved CI to Github Actions, now covers all platforms.
+* Moved CI to GitHub Actions, now covers all platforms.
 * Improved test coverage.
 
 See `v0.6.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.6.0>`_ and the `full changes since v0.5.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.5.0...0.6.0>`_.
@@ -732,7 +732,7 @@ Enhancements
 ~~~~~~~~~~~~
 
 * Python 3.8 compatibility.
-* Added an ``optics`` module.
+* Added a ``optics`` module.
 * Added slots to classes.
 * Almost fully covered in tests.
 
@@ -798,7 +798,7 @@ Enhancements
 ~~~~~~~~~~~~
 
 * The ``helpers`` module now has a ``Parameters`` class for beam and machine parameters calculations. Only one function yet.
-* The ``plotters`` module now has an ``AperturePlotter`` class with a function to plot physical aperture.
+* The ``plotters`` module now has a ``AperturePlotter`` class with a function to plot physical aperture.
 * The ``latwiss`` module has received a major overhaul.
 
   - ``plot_latwiss`` has better defaults in values and plotting styles, as well as new args and kwargs options for customization.

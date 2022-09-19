@@ -1,7 +1,7 @@
 Contributing
 ============
 
-``PyhDToolkit`` is a personnal project, and contributions in the form of bug reports, bug fixes, documentation, enhancement proposals and more are welcome.
+``PyhDToolkit`` is a personal project, and contributions in the form of bug reports, bug fixes, documentation, enhancement proposals and more are welcome.
 This page provides information on how best to contribute.
 
 Asking for Help
@@ -72,12 +72,12 @@ Assuming you have ``poetry`` in your ``PATH``, once in the root of the repositor
     $ poetry install
 
 With this, ``poetry`` will create a new virtual environment and install there the package as well as its runtime and development dependencies.
-The install is similar to the editable mode from ``pip``.
+The installation is similar to the editable mode from ``pip``.
 
 .. note::
    
    The repository contains a ``Makefile`` with many useful targets to help the development workflow.
-   While most relevant steps can be ran this way, it is still good that potential contributors get familiar with ``poetry``.
+   While most relevant steps can be run this way, it is still good that potential contributors get familiar with ``poetry``.
 
 .. tip::
 
@@ -102,9 +102,9 @@ E.g.::
     $ git push -u origin shiny-new-feature
 
 This changes your working directory to the **shiny-new-feature** branch.
-Keep any changes in this branch specific to one bug or feature so it is clear what the branch brings.
+Keep any changes in this branch specific to one bug or feature, so it is clear what the branch brings.
 
-To update this branch with latest code from ``PyhDToolkit``, you can retrieve the changes from the master branch and perform a rebase::
+To update this branch with the latest code from ``PyhDToolkit``, you can retrieve the changes from the master branch and perform a rebase::
 
     $ git fetch upstream
     $ git rebase upstream/master
@@ -129,7 +129,7 @@ The simplest way to run the test suite is, again, through ``poetry``::
 .. tip::
 
    A convenient ``Makefile`` target exists for tests, which taps into the power of ``pytest-xdist`` and parallelises tests through your cpu cores.
-   If you are ok using this option, which can drastically speedup the runtime of the suite, simply run::
+   If you are ok using this option, which can drastically speed up the runtime of the suite, simply run::
 
        $ make tests
 
@@ -169,7 +169,7 @@ Documentation
 Docstrings for user-facing classes and functions should follow the `Google <https://google.github.io/styleguide/pyguide.html#s3.8.1-comments-in-doc-strings>`_
 format, including sections for Parameters and Examples.
 
-``PyhDToolkit`` uses Sphinx_ to build its documentation, which is hosted on Github Pages.
+``PyhDToolkit`` uses Sphinx_ to build its documentation, which is hosted on GitHub Pages.
 Documentation is written in the ``RestructuredText`` markup language (**.rst** files) in the **docs** folder.
 The documentation consists both of prose and API reference documentation.
 All user-facing classes and functions should be included in the API documentation, under the **docs/api** folder.
@@ -178,7 +178,7 @@ The documentation can be built locally by running::
 
     $ poetry run python -m sphinx -b html docs doc_build -d doc_build
 
-The static html pages will be available in a newly created **doc_build** folder.
+The static HTML pages will be available in a newly created **doc_build** folder.
 
 .. tip::
 

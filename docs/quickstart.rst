@@ -19,7 +19,7 @@ You can install it simply from ``PyPI`` in a virtual environment with:
     Don't know what a virtual environment is or how to set it up?
     Here is a good primer on `virtual environments <https://realpython.com/python-virtual-environments-a-primer/>`_ by `RealPython`.
 
-To setup a development environment, see the :doc:`contributing instructions <contributing>`.
+To set up a development environment, see the :doc:`contributing instructions <contributing>`.
 
 
 .. _quickstart-docker:
@@ -101,7 +101,7 @@ One can find many examples of the `~pyhdtoolkit.cpymadtools` apis' use in the :r
 Utilities
 ^^^^^^^^^
 
-The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to setup logging or
+The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up logging or
 plotting :ref:`defaults <utils-defaults>`, run external programs through the :ref:`command line <utils-cmdline>`, 
 run your functions through :ref:`useful contexts <utils-contexts>`, easily wrap and :ref:`parallelise <utils-executors>`
 functions, or perform many convenient :ref:`operations <utils-operations>` on miscellaneous Python objects.

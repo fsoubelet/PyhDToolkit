@@ -94,7 +94,7 @@ To install the latest development version of PyhDToolkit, you can use ``pip`` wi
 
     pip install git+https://github.com/fsoubelet/PyhDToolkit.git
 
-To setup a development environment, see the :doc:`contributing instructions <contributing>`.
+To set up a development environment, see the :doc:`contributing instructions <contributing>`.
 
 Contents
 --------
