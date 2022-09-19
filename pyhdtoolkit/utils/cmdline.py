@@ -20,11 +20,17 @@ from pyhdtoolkit.utils.contexts import timeit
 
 
 class CommandLine:
-    """A high-level object to encapsulate the different methods for interacting with the commandline."""
+    """
+    .. versionadded:: 0.2.0
+
+    A high-level object to encapsulate the different methods for interacting with the commandline.
+    """
 
     @staticmethod
     def check_pid_exists(pid: int) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Check whether the given *PID* exists in the current process table.
 
         Args:
@@ -65,6 +71,8 @@ class CommandLine:
         command: str, shell: bool = True, env: Mapping = None, timeout: float = None
     ) -> Tuple[Optional[int], bytes]:
         """
+        .. versionadded:: 0.2.0
+
         Runs *command* through `subprocess.Popen` and returns the tuple of `(returncode, stdout)`.
 
         .. note::
@@ -119,6 +127,8 @@ class CommandLine:
     @staticmethod
     def terminate(pid: int) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Terminates the process corresponding to the given *PID*. On other platforms,
         using `os.kill` with `signal.SIGTERM` to kill.
 

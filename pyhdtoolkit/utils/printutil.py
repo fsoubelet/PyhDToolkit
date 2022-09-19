@@ -16,6 +16,8 @@ END = "\033[0m"
 
 class Background:
     """
+    .. versionadded:: 0.2.0
+
     ANSI color escape sequences for the background of a terminal output.
     """
 
@@ -31,6 +33,8 @@ class Background:
 
 class Foreground:
     """
+    .. versionadded:: 0.2.0
+
     ANSI color escape sequences for the foreground of a terminal output.
     """
 
@@ -53,6 +57,8 @@ class Foreground:
 
 class Styles:
     """
+    .. versionadded:: 0.2.0
+
     ANSI style escape sequences for a terminal output.
     """
 

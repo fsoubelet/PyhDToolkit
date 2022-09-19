@@ -133,6 +133,8 @@ _FIGURE_CONSTRAINTS = {
 
 def config_logger(level: Union[str, int] = "INFO", **kwargs) -> None:
     """
+    .. versionadded:: 0.8.2
+
     Resets the logger object from ``loguru``, with `sys.stdout` as a sink and the
     aforedefined format, which comes down to personnal preference.
 
@@ -148,6 +150,8 @@ def config_logger(level: Union[str, int] = "INFO", **kwargs) -> None:
 
 def install_mpl_style() -> None:
     """
+    .. versionadded:: 0.9.1
+
     Writes to disk a **phd.mplstyle** file in the appropriate directories, translating to matplotlib style
     format the ``PLOT_PARAMS`` defined in this module. This enables one to use the style without importing
     ``PLOT_PARAMS`` directly and updating the ``rcParams``, but instead setting the style to use, as so:

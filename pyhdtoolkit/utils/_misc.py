@@ -50,12 +50,18 @@ PATHS = {
 
 
 def fullpath(filepath: Path) -> str:
-    """Returns the full string path to the provided *filepath*, which is necessary for ``AFS`` paths."""
+    """
+    .. versionadded:: 0.16.0
+
+    Returns the full string path to the provided *filepath*, which is necessary for ``AFS`` paths.
+    """
     return str(filepath.absolute())
 
 
 def get_opticsfiles_paths() -> List[Path]:
     """
+    .. versionadded:: 0.16.0
+
     Returns `pathlib.Path` objects to the **opticsfiles** from the appropriate location,
     depending on where the program is running, either on ``AFS`` or locally.
 
@@ -80,7 +86,11 @@ def get_opticsfiles_paths() -> List[Path]:
 
 
 def log_runtime_versions() -> None:
-    """Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``."""
+    """
+    .. versionadded:: 0.17.0
+
+    Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``.
+    """
     with Madx(stdout=False) as mad:
         logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
 
@@ -90,6 +100,8 @@ def log_runtime_versions() -> None:
 
 def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") -> None:
     """
+    .. versionadded:: 0.16.0
+
     Issues a ``CALL`` to the ``LHC`` sequence and the desired opticsfile, from the appropriate
     location (either on ``AFS`` or locally), based on the runtime location of the code.
 
@@ -117,6 +129,8 @@ def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") 
 
 def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
     """
+    .. versionadded:: 0.18.0
+
     Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
     functions returned from a ``TWISS`` call.
 
@@ -158,6 +172,8 @@ def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int
 
 def apply_colin_corrs_balance(madx: Madx) -> None:
     """
+    .. versionadded:: 0.20.0
+
     Applies the local coupling correction settings from the 2022 commissioning as
     they were in the machine, and tilts of Q3s that would compensate for those settings.
     This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
@@ -201,6 +217,8 @@ def prepare_lhc_setup(
     **kwargs,
 ) -> Madx:
     """
+    .. versionadded:: 0.16.0
+
     Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
     configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and
     then ``USE``-d. Specific variable settings can be given as keyword arguments.
@@ -234,6 +252,8 @@ prepare_lhc_run2 = prepare_lhc_setup
 
 def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slicefactor: int = None, **kwargs) -> Madx:
     """
+    .. versionadded:: 0.20.0
+
     Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
     are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``
     as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.
@@ -289,6 +309,8 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
 # As a context manager
 class LHCSetup:
     """
+    .. versionadded:: 0.21.0
+
     This is a context manager to prepare LHC Run 2 or Run 3 setup: calling sequences and opticsfile,
     re-cycling like the model creator, making beams, slicing, etc. For details on the achieved setups,
     look at the `prepare_lhc_run2` or `prepare_lhc_run3` function.
@@ -362,6 +384,8 @@ class LHCSetup:
 
 def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     """
+    .. versionadded:: 0.16.0
+
     Parses the :math:`\\beta^{*}` value from the *opticsfile* content,
     which is in the first lines. This contains a check that ensures the betastar
     is the same for IP1 and IP5. The values returned are in meters.
@@ -388,6 +412,8 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
 
 def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float, float]:
     """
+    .. versionadded:: 0.20.0
+
     Get the Lebedev beam sides at the provided *IP*.
 
     Args:
@@ -416,6 +442,8 @@ def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float,
 
 def get_lhc_ips_positions(dataframe: pandas.DataFrame) -> Dict[str, float]:
     """
+    .. versionadded:: 0.18.0
+
     Returns a `dict` of LHC IP and their positions from the provided *dataframe*.
 
     .. important::
@@ -449,6 +477,8 @@ def draw_ip_locations(
     location: str = "outside",
 ) -> None:
     """
+    .. versionadded:: 0.18.0
+
     Plots the interaction points' locations into the background of the provided *axis*.
 
     Args:

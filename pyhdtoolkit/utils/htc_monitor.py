@@ -62,6 +62,8 @@ CLUSTER_COLUMNS_SETTINGS = {
 
 def query_condor_q() -> str:
     """
+    .. versionadded:: 0.9.0
+
     Returns a decoded string with the result of the ``condor_q`` command,
     to get the status of the caller' jobs.
     """
@@ -75,6 +77,8 @@ def query_condor_q() -> str:
 
 def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
     """
+    .. versionadded:: 0.9.0
+
     Splits information from different parts of the ``condor_q`` command's output
     into one clean, validated data structure.
 
@@ -234,6 +238,8 @@ def _default_cluster_table() -> Table:
 def main():
     def generate_renderable() -> Group:
         """
+        .. versionadded:: 0.9.0
+
         Function called to update the live display, fetches data from htcondor, does the processing and
         returns a Group with both Panels.
         """
