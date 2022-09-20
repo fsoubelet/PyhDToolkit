@@ -18,6 +18,10 @@ Bug Fixes
 Maintenance
 ~~~~~~~~~~~
 
+* Increased the minimum required Python version to ``3.8``.
+* Increased the minimum required ``numpy`` version to ``1.21``.
+* Increased the minumum required ``pandas`` version to ``1.4``.
+* Removed the dependency on ``sympy``.
 * Relaxed version constraint on the `matplotlib` dependency, increased minimum version to ``3.3``.
 * Updated API documentation by specifying the *version added* for every public API classes, functions and methods.
 * Updated and cleaned up Continuous Integration workflows.
