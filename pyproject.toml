@@ -34,10 +34,10 @@ classifiers = [
 # Core dependencies of the package
 [tool.poetry.dependencies]
 python = "^3.8"
-numpy = "^1.19"
+numpy = "^1.21"
 pandas = "^1.0"
 matplotlib = "^3.3"
-scipy = "^1.4"
+scipy = "<2.0"
 tfs-pandas = "^3.2"
 loguru = "<1.0"
 cpymad = "^1.9"
@@ -59,7 +59,6 @@ pytest-mpl = "<1.0"
 black = "^22.1"
 isort = "^5.10"
 pylint = "^2.4"
-mypy = "<1.0"
 # Documentation Block
 Sphinx = "^4.4"
 sphinx-rtd-theme = "^1.0"
