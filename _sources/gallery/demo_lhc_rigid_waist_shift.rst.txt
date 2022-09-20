@@ -199,7 +199,7 @@ to make sure we do not deviate.
 
  .. code-block:: none
 
-    2022-08-21 23:59:20 | WARNING  | pyhdtoolkit.cpymadtools.lhc:248 - You should re-match tunes & chromaticities after this rigid waist shift knob is applied
+    2022-09-20 21:11:09 | WARNING  | pyhdtoolkit.cpymadtools.lhc:308 - You should re-match tunes & chromaticities after this rigid waist shift knob is applied
 
 
 
@@ -365,7 +365,7 @@ Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
 
  .. code-block:: none
 
-    2022-08-22 00:00:21 | WARNING  | pyhdtoolkit.utils._misc:232 - Sequence 'lhcb1' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
+    2022-09-20 21:12:10 | WARNING  | pyhdtoolkit.utils._misc:167 - Sequence 'lhcb1' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
 
 
 
@@ -493,8 +493,8 @@ location of the found minima. Here is the value, in meters:
 
 .. GENERATED FROM PYTHON SOURCE LINES 273-286
 
-Let's now determine this value using the Eq. 10 formula in this paper
-:cite:t:`Carlier:AccuracyFeasibilityMeasurement2017` from Felix Carlier:
+Let's now determine this value using the Eq. 10 formula in
+:cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`:
 :math:`\beta_0 = \beta_w + \frac{(L^{*} - w)^2}{\beta_w}`
 
 where :math:`\beta_0` is the :math:`\beta` function at the end of the
@@ -537,7 +537,7 @@ one found with the markers we previously added, and they are fairly close.
 
 .. code-block:: default
 
-    waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
+    waist = L_star - np.sqrt(beta0 * betaw - betaw ** 2)
     print(waist)  # analytical
     print(shift)  # markers
 
@@ -569,7 +569,7 @@ one found with the markers we previously added, and they are fairly close.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  27.343 seconds)
+   **Total running time of the script:** ( 3 minutes  23.281 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:

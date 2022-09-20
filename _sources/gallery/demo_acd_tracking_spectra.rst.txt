@@ -145,8 +145,8 @@ Here we will choose for the settings the same values as we use in operation in t
 
  .. code-block:: none
 
-    2022-08-21 23:55:07 | WARNING  | pyhdtoolkit.cpymadtools.lhc:599 - This AC Dipole is implemented as a kicker and will not affect TWISS functions!
-    2022-08-21 23:55:08 | WARNING  | pyhdtoolkit.cpymadtools.lhc:644 - Sequence LHCB1 is now re-USEd for changes to take effect. Beware that this will reset it, remove errors etc.
+    2022-09-20 21:07:02 | WARNING  | pyhdtoolkit.cpymadtools.lhc:709 - This AC Dipole is implemented as a kicker and will not affect TWISS functions!
+    2022-09-20 21:07:02 | WARNING  | pyhdtoolkit.cpymadtools.lhc:754 - Sequence LHCB1 is now re-USEd for changes to take effect. Beware that this will reset it, remove errors etc.
 
 
 
@@ -320,7 +320,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  32.362 seconds)
+   **Total running time of the script:** ( 2 minutes  19.070 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_acd_tracking_spectra.py:

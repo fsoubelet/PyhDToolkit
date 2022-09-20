@@ -270,8 +270,8 @@ shift = ip_s - waist_location
 print(shift)
 
 ###############################################################################
-# Let's now determine this value using the Eq. 10 formula in this paper
-# :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017` from Felix Carlier:
+# Let's now determine this value using the Eq. 10 formula in
+# :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`:
 # :math:`\beta_0 = \beta_w + \frac{(L^{*} - w)^2}{\beta_w}`
 #
 # where :math:`\beta_0` is the :math:`\beta` function at the end of the
@@ -296,7 +296,7 @@ betaw = around_ip.betx.min()
 # The analytical result (sign will swap depending on if we calculate from left
 # or right Q1) is then easily calculated. We can then compare this value to the
 # one found with the markers we previously added, and they are fairly close.
-waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
+waist = L_star - np.sqrt(beta0 * betaw - betaw ** 2)
 print(waist)  # analytical
 print(shift)  # markers
 

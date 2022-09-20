@@ -1,0 +1,21 @@
+.. _release_0.4.0:
+
+0.4.0
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* Optimization of the Docker image.
+* Removal of the ``fsbox`` dependency.
+* Use of ``loguru`` library for logging, and improved logging.
+* Refactored commandline argument parsing for scripts.
+* Improved type hinting.
+
+Maintenance
+~~~~~~~~~~~
+
+* Renaming pyhdtoolkit.math to pyhdtoolkit.maths to avoid namespace clashes if trying to use the standard library's math module.
+* Removing many functions from pyhdtoolkit.maths.nonconvex_phase_sync module as they were needed for notebooks but not this package.
+
+See `v0.4.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.4.0>`_ and the `full changes since v0.3.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.3.0...0.4.0>`_.
