@@ -20,6 +20,7 @@ Maintenance
 
 * Increased the minimum Python version to ``3.8``.
 * Relaxed version constraint on the `matplotlib` dependency, increased minimum version to ``3.3``.
+* Increased the minimum ``scipy`` version to ``1.8``.
 * Updated API documentation by specifying the *version added* for every public API classes, functions and methods.
 * Updated and cleaned up Continuous Integration workflows.
 * Modularised the release notes sources of the documentation.
