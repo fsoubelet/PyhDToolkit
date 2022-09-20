@@ -1,0 +1,16 @@
+.. _release_0.3.0:
+
+0.3.0
+-----
+
+Enhancements
+~~~~~~~~~~~~
+
+* The ``helpers`` module now has a ``Parameters`` class for beam and machine parameters calculations. Only one function yet.
+* The ``plotters`` module now has a ``AperturePlotter`` class with a function to plot physical aperture.
+* The ``latwiss`` module has received a major overhaul.
+
+  - ``plot_latwiss`` has better defaults in values and plotting styles, as well as new args and kwargs options for customization.
+  - ``plot_machine_survey`` also has better defaults, and offers the options to plot while differentiating magnetic elements.
+
+See `v0.3.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.3.0>`_ and the `full changes since v0.2.1 <https://github.com/fsoubelet/PyhDToolkit/compare/0.2.1...0.3.0>`_.

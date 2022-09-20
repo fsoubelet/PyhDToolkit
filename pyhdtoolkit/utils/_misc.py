@@ -27,6 +27,7 @@ from matplotlib import pyplot as plt
 from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import errors, lhc, twiss
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
+from pyhdtoolkit.utils import deprecated
 
 # ----- Constants ----- #
 
@@ -49,12 +50,18 @@ PATHS = {
 
 
 def fullpath(filepath: Path) -> str:
-    """Returns the full string path to the provided *filepath*, which is necessary for ``AFS`` paths."""
+    """
+    .. versionadded:: 0.16.0
+
+    Returns the full string path to the provided *filepath*, which is necessary for ``AFS`` paths.
+    """
     return str(filepath.absolute())
 
 
 def get_opticsfiles_paths() -> List[Path]:
     """
+    .. versionadded:: 0.16.0
+
     Returns `pathlib.Path` objects to the **opticsfiles** from the appropriate location,
     depending on where the program is running, either on ``AFS`` or locally.
 
@@ -79,7 +86,11 @@ def get_opticsfiles_paths() -> List[Path]:
 
 
 def log_runtime_versions() -> None:
-    """Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``."""
+    """
+    .. versionadded:: 0.17.0
+
+    Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``.
+    """
     with Madx(stdout=False) as mad:
         logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
 
@@ -89,6 +100,8 @@ def log_runtime_versions() -> None:
 
 def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") -> None:
     """
+    .. versionadded:: 0.16.0
+
     Issues a ``CALL`` to the ``LHC`` sequence and the desired opticsfile, from the appropriate
     location (either on ``AFS`` or locally), based on the runtime location of the code.
 
@@ -114,88 +127,10 @@ def call_lhc_sequence_and_optics(madx: Madx, opticsfile: str = "opticsfile.22") 
         raise ValueError("The 'RUN_LOCATION' variable should be either 'afs' or 'local'.")
 
 
-def prepare_lhc_setup(opticsfile: str = "opticsfile.22", stdout: bool = False, stderr: bool = False, **kwargs) -> Madx:
-    """
-    Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
-    configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and
-    then ``USE``-d. Specific variable settings can be given as keyword arguments.
-
-    .. important::
-        Matching is **not** performed by this function and should be taken care of by the user, but the working point
-        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
-        might change that working point.
-
-    Args:
-        opticsfile (str): name of the optics file to be used. Defaults to **opticsfile.22**.
-        **kwargs: any keyword argument pair will be used to update the ``MAD-X`` globals.
-
-    Returns:
-        An instanciated `~cpymad.madx.Madx` object with the required configuration.
-    """
-    madx = Madx(stdout=stdout, stderr=stderr)
-    madx.option(echo=False, warn=False)
-    call_lhc_sequence_and_optics(madx, opticsfile)
-    lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
-    lhc.make_lhc_beams(madx, energy=7000, emittance=3.75e-6)
-    madx.command.use(sequence="lhcb1")
-    madx.globals.update(kwargs)
-    return madx
-
-
-def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slicefactor: int = None, **kwargs) -> Madx:
-    """
-    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
-    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``
-    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.
-
-    .. important::
-        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space.
-
-    .. note::
-        Matching is **not** performed by this function and should be taken care of by the user, but the working point
-        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
-        might change that working point.
-
-    Args:
-        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
-            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
-        beam (int): which beam to set up for. Defaults to beam 1.
-        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
-        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
-            which leads to an unsliced sequence.
-
-    Returns:
-        An instanciated `~cpymad.madx.Madx` object with the required configuration.
-    """
-    logger.debug("Creating Run 3 setup MAD-X instance")
-    echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)
-
-    madx = Madx(**kwargs)
-    madx.option(echo=echo, warn=warn)
-    logger.debug("Calling sequence")
-    madx.call("acc-models-lhc/lhc.seq")
-    lhc.make_lhc_beams(madx, energy=energy)
-
-    if slicefactor:
-        logger.debug("A slicefactor was provided, slicing the sequence")
-        lhc.make_lhc_thin(madx, sequence=f"lhcb{beam:d}", slicefactor=slicefactor)
-        lhc.make_lhc_beams(madx, energy=6800)
-
-    lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
-
-    logger.debug("Calling optics file from the 'operation/optics' folder")
-    if Path(opticsfile).is_file():
-        madx.call(opticsfile)
-    else:
-        madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
-
-    lhc.make_lhc_beams(madx, energy=energy)
-    madx.command.use(sequence=f"lhcb{beam:d}")
-    return madx
-
-
 def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
     """
+    .. versionadded:: 0.18.0
+
     Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
     functions returned from a ``TWISS`` call.
 
@@ -237,6 +172,8 @@ def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int
 
 def apply_colin_corrs_balance(madx: Madx) -> None:
     """
+    .. versionadded:: 0.20.0
+
     Applies the local coupling correction settings from the 2022 commissioning as
     they were in the machine, and tilts of Q3s that would compensate for those settings.
     This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
@@ -270,11 +207,185 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
     madx.command.twiss(chrom=True)
 
 
+@deprecated(message="Use the 'prepare_lhc_run2' function instead.")
+def prepare_lhc_setup(
+    opticsfile: str = "opticsfile.22",
+    beam: int = 1,
+    energy: float = 7000,
+    stdout: bool = False,
+    stderr: bool = False,
+    **kwargs,
+) -> Madx:
+    """
+    .. versionadded:: 0.16.0
+
+    Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III
+    configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and
+    then ``USE``-d. Specific variable settings can be given as keyword arguments.
+
+    .. important::
+        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
+        might change that working point.
+
+    Args:
+        opticsfile (str): name of the optics file to be used. Defaults to **opticsfile.22**.
+        beam (int): which beam to set up for. Defaults to beam 1.
+        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
+        **kwargs: any keyword argument pair will be used to update the ``MAD-X`` globals.
+
+    Returns:
+        An instanciated `~cpymad.madx.Madx` object with the required configuration.
+    """
+    madx = Madx(stdout=stdout, stderr=stderr)
+    madx.option(echo=False, warn=False)
+    call_lhc_sequence_and_optics(madx, opticsfile)
+    lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
+    lhc.make_lhc_beams(madx, energy=energy)
+    madx.command.use(sequence=f"lhcb{beam:d}")
+    madx.globals.update(kwargs)
+    return madx
+
+
+prepare_lhc_run2 = prepare_lhc_setup
+
+
+def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slicefactor: int = None, **kwargs) -> Madx:
+    """
+    .. versionadded:: 0.20.0
+
+    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams
+    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``
+    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.
+
+    .. important::
+        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space.
+
+    .. note::
+        Matching is **not** performed by this function and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
+        might change that working point.
+
+    Args:
+        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
+            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
+        beam (int): which beam to set up for. Defaults to beam 1.
+        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
+        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
+            which leads to an unsliced sequence.
+        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.
+            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.
+
+    Returns:
+        An instanciated `~cpymad.madx.Madx` object with the required configuration.
+    """
+    logger.debug("Creating Run 3 setup MAD-X instance")
+    echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)
+
+    madx = Madx(**kwargs)
+    madx.option(echo=echo, warn=warn)
+    logger.debug("Calling sequence")
+    madx.call("acc-models-lhc/lhc.seq")
+    lhc.make_lhc_beams(madx, energy=energy)
+
+    if slicefactor:
+        logger.debug("A slicefactor was provided, slicing the sequence")
+        lhc.make_lhc_thin(madx, sequence=f"lhcb{beam:d}", slicefactor=slicefactor)
+        lhc.make_lhc_beams(madx, energy=6800)
+
+    lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
+
+    logger.debug("Calling optics file from the 'operation/optics' folder")
+    if Path(opticsfile).is_file():
+        madx.call(opticsfile)
+    else:
+        madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
+
+    lhc.make_lhc_beams(madx, energy=energy)
+    madx.command.use(sequence=f"lhcb{beam:d}")
+    return madx
+
+
+# As a context manager
+class LHCSetup:
+    """
+    .. versionadded:: 0.21.0
+
+    This is a context manager to prepare LHC Run 2 or Run 3 setup: calling sequences and opticsfile,
+    re-cycling like the model creator, making beams, slicing, etc. For details on the achieved setups,
+    look at the `prepare_lhc_run2` or `prepare_lhc_run3` function.
+
+    .. important::
+        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.
+
+    .. note::
+        Matching is **not** performed by this setup and should be taken care of by the user, but the working point
+        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments
+        might change that working point.
+
+    Args:
+        run (int): which run to set up for, should be 2 or 3. Defaults to run 3.
+        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
+            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path. Defaults to `None`,
+            which will raise an error.
+        beam (int): which beam to set up for. Defaults to beam 1.
+        energy (float): beam energy to set up for, in GeV. Defaults to 6800.
+        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
+            which leads to an unsliced sequence.
+        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.
+            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.
+
+    Returns:
+        An instanciated context manager `~cpymad.madx.Madx` object with the required configuration.
+
+    Raises:
+        NotImplementedError: if the *run* argument is not 2 or 3.
+        AssertionError: if the *opticsfile* argument is not provided.
+
+    Example:
+
+        .. code-block:: python
+
+            >>> with LHCRun3Setup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1) as madx:
+            ...    # do some stuff
+    """
+
+    def __init__(
+        self,
+        run: int = 3,
+        opticsfile: str = None,
+        beam: int = 1,
+        energy: float = 6800,
+        slicefactor: int = None,
+        **kwargs,
+    ):
+        assert opticsfile is not None, "An opticsfile must be provided"
+        if int(run) not in (2, 3):
+            raise NotImplementedError("This setup is only possible for Run 2 and Run 3 configurations.")
+        elif run == 2:
+            stdout, stderr = kwargs.pop("stdout", False), kwargs.pop("stderr", False)
+            self.madx = prepare_lhc_run2(
+                opticsfile=opticsfile, beam=beam, energy=energy, stdout=stdout, stderr=stderr, **kwargs
+            )
+        else:
+            self.madx = prepare_lhc_run3(
+                opticsfile=opticsfile, beam=beam, energy=energy, slicefactor=slicefactor, **kwargs
+            )
+
+    def __enter__(self):
+        return self.madx
+
+    def __exit__(self, *exc_info):
+        self.madx.quit()
+
+
 # ----- Fetching Utilities ----- #
 
 
 def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     """
+    .. versionadded:: 0.16.0
+
     Parses the :math:`\\beta^{*}` value from the *opticsfile* content,
     which is in the first lines. This contains a check that ensures the betastar
     is the same for IP1 and IP5. The values returned are in meters.
@@ -301,14 +412,16 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
 
 def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float, float]:
     """
+    .. versionadded:: 0.20.0
+
     Get the Lebedev beam sides at the provided *IP*.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ip (int): the IP to get the sizes at.
         geom_emit (float): the geometrical emittance to use for the calculation.
-            If not provided, will look for the value of the ``geometric_emit``
-            variable in ``MAD-X`` itself.
+            If not provided, will look for the values of the ``geometric_emit_x``
+            and ``geometric_emit_y`` variables in ``MAD-X`` itself.
 
     Returns:
         A tuple of the horizontal and vertical beam sizes at the provided *IP*.
@@ -320,7 +433,7 @@ def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float,
     """
     logger.debug("Getting ")
     twiss_tfs = twiss.get_twiss_tfs(madx, chrom=True, ripken=True)
-    twiss_tfs = _add_beam_size_to_df(twiss_tfs, madx.globals["geometric_emit"])
+    twiss_tfs = _add_beam_size_to_df(twiss_tfs, madx.globals["geometric_emit_x"], madx.globals["geometric_emit_y"])
     return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y
 
 
@@ -329,6 +442,8 @@ def get_size_at_ip(madx: Madx, ip: int, geom_emit: float = None) -> Tuple[float,
 
 def get_lhc_ips_positions(dataframe: pandas.DataFrame) -> Dict[str, float]:
     """
+    .. versionadded:: 0.18.0
+
     Returns a `dict` of LHC IP and their positions from the provided *dataframe*.
 
     .. important::
@@ -362,6 +477,8 @@ def draw_ip_locations(
     location: str = "outside",
 ) -> None:
     """
+    .. versionadded:: 0.18.0
+
     Plots the interaction points' locations into the background of the provided *axis*.
 
     Args:

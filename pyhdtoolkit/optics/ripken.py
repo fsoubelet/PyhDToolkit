@@ -20,6 +20,8 @@ def lebedev_beam_size(
     beta1_: Union[float, np.ndarray], beta2_: Union[float, np.ndarray], geom_emit_x: float, geom_emit_y: float
 ) -> Union[float, np.ndarray]:
     """
+    .. versionadded:: 0.8.2
+
     Calculate beam size according to the Lebedev-Bogacz formula, based on the Ripken-Mais Twiss
     parameters. The implementation is that of Eq. (A.3.1) in :cite:t:`Lebedev:coupling:2010`.
 
@@ -41,17 +43,21 @@ def lebedev_beam_size(
     Example:
         .. code-block:: python
 
-            >>> geom_emit = madx.globals["geometric_emit"]
+            >>> geom_emit_x = madx.globals["geometric_emit_x"]
+            >>> geom_emit_y = madx.globals["geometric_emit_y"]
             >>> twiss_tfs = madx.twiss(ripken=True).dframe().copy()
             >>> horizontal_size = lebedev_beam_size(
-                    twiss_tfs.beta11, twiss_tfs.beta21, geom_emit, geom_emit
+                    twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y
                 )
             >>> vertical_size = lebedev_beam_size(
-                    twiss_tfs.beta12, twiss_tfs.beta22, geom_emit, geom_emit
+                    twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y
                 )
     """
     logger.trace("Computing beam size according to Lebedev formula: sqrt(epsx * b1_^2 + epsy * b2_^2)")
     return np.sqrt(geom_emit_x * beta1_ + geom_emit_y * beta2_)
+
+
+# ----- Helpers ----- #
 
 
 def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> float:
@@ -77,13 +83,13 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     raise NotImplementedError(f"Invalid method provided")
 
 
-def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit: float) -> tfs.TfsDataFrame:
+def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y) -> tfs.TfsDataFrame:
     """
     Adds columns with the horizontal and vertical Lebedev beam sizes to a dataframe
     that already contains Ripken Twiss parameters. Assumes that the geometrical emittance
     is identical for the horizontal and vertical plane, which is something I usually have.
     """
     res = df.copy(deep=True)
-    res["SIZE_X"] = lebedev_beam_size(res.BETA11, res.BETA21, geom_emit, geom_emit)  # horizontal
-    res["SIZE_Y"] = lebedev_beam_size(res.BETA12, res.BETA22, geom_emit, geom_emit)  # vertical
+    res["SIZE_X"] = lebedev_beam_size(res.BETA11, res.BETA21, geom_emit_x, geom_emit_y)  # horizontal
+    res["SIZE_Y"] = lebedev_beam_size(res.BETA12, res.BETA22, geom_emit_x, geom_emit_y)  # vertical
     return res

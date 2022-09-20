@@ -1,0 +1,27 @@
+.. _release_0.19.0:
+
+0.19.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.plotting` package has a new sub-package, `pyhdtoolkit.plotting.sbs` with modules to plot coupling (`~pyhdtoolkit.plotting.sbs.coupling`) and phase (`~pyhdtoolkit.plotting.sbs.phase`) segment-by-segment results.
+* The `pyhdtoolkit.plotting.sbs` package has a new utility module, `~pyhdtoolkit.plotting.sbs.utils`, with helpful functions for plotting.
+* The `pyhdtoolkit.cpymadtools.lhc` module has a new function, `~pyhdtoolkit.cpymadtools.lhc.get_lhc_bpms_twiss_and_rdts` to easily get coupling RDTs at all observation points (BPMs) in the LHC sequence.
+
+Documentation
+~~~~~~~~~~~~~
+
+* A new gallery was added showcasing the plotting of segment-by-segment coupling and phase results.
+
+Maintenance
+~~~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss` function now plots the quadrupole gradient of a dipole with the same shade as a normal quadrupole.
+* A new dependency, the `optics_functions` package, was added.
+* The documentation for the `~pyhdtoolkit.maths.plotting` module has been extended.
+* Tests were added for the new functionality.
+* Input files for various tests have been regrouped in relevant directories for clarity.
+
+See `v0.19.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.19.0>`_ and the `full changes since v0.18.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.18.0...0.19.0>`_.

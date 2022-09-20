@@ -19,6 +19,8 @@ from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES
 
 def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     """
+    .. versionadded:: 0.8.0
+
     Get the variable names used for orbit setup in the (HL)LHC. Initial implementation
     credits go to :user:`Joschua Dilly <joschd>`.
 
@@ -78,6 +80,8 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
 
 def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, float]:
     """
+    .. versionadded:: 0.8.0
+
     Automated orbit setup for (HL)LHC runs, for some default schemes. It is assumed that at
     least sequence and optics files have been called. Initial implementation credits go to
     :user:`Joschua Dilly <joschd>`.
@@ -125,6 +129,8 @@ def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, flo
 
 def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
     """
+    .. versionadded:: 0.8.0
+
     Get the current values for the (HL)LHC orbit variables. Initial implementation credits go to
     :user:`Joschua Dilly <joschd>`.
 
@@ -153,6 +159,8 @@ def correct_lhc_orbit(
     **kwargs,
 ) -> None:
     """
+    .. versionadded:: 0.9.0
+
     Routine for orbit correction using ``MCB.*`` elements in the LHC. This uses the
     ``CORRECT`` command in ``MAD-X`` behind the scenes, refer to the
     `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for

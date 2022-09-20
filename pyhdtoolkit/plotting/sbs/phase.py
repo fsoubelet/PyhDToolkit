@@ -24,6 +24,8 @@ def plot_phase_segment_one_beam(
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
+    .. versionadded:: 0.19.0
+
     Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
     both planes for a given beam. Optionally highlights the IP location in the segment.
 
@@ -72,6 +74,8 @@ def plot_phase_segment_both_beams(
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
+    .. versionadded:: 0.19.0
+
     Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
     both planes and both beams. Optionally highlights the IP location in the segment.
 
@@ -150,6 +154,8 @@ def plot_phase_segment(
     ip: int = None,
 ) -> None:
     """
+    .. versionadded:: 0.19.0
+
     Plots a the phase for a given plane over the segment, optionally highlighting the IP location.
 
     Args:

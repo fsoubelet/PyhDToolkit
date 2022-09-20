@@ -35,6 +35,8 @@ def match_tunes_and_chromaticities(
     tolerance: float = 1e-21,
 ) -> None:
     """
+    .. versionadded:: 0.8.0
+
     Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match tunes
     and/or chromaticities. As target values are given, the function expects knob names to be provided,
     which are then used and varied by ``MAD-X`` to match the targets. This is a convenient wrapper around
@@ -183,6 +185,8 @@ def match_tunes(
     tolerance: float = 1e-21,
 ):
     """
+    .. versionadded:: 0.17.0
+
     Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match tunes to
     the desired target values.
 
@@ -265,6 +269,8 @@ def match_chromaticities(
     tolerance: float = 1e-21,
 ):
     """
+    .. versionadded:: 0.17.0
+
     Provided with an active `~cpymad.madx.Madx` object, will run relevant commands to match chromaticities
     to the desired target values.
 

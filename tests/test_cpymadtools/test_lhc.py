@@ -22,6 +22,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     _all_lhc_arcs,
     _get_k_strings,
     apply_lhc_colinearity_knob,
+    apply_lhc_colinearity_knob_delta,
     apply_lhc_coupling_knob,
     apply_lhc_rigidity_waist_shift_knob,
     carry_colinearity_knob_over,
@@ -126,6 +127,25 @@ class TestLHC:
 
         assert madx.globals[f"KQSX3.R{IR:d}"] == knob_value * 1e-4
         assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * knob_value * 1e-4
+
+    @pytest.mark.parametrize("knob_delta", [-3, 5])
+    @pytest.mark.parametrize("IR", [1, 2, 5, 8])
+    def test_colinearity_knob_delta(self, knob_delta, IR, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
+        # Assign a value first to make it trickier
+        init = 1.5e-4
+        madx.globals[f"KQSX3.R{IR:d}"] = init
+        madx.globals[f"KQSX3.L{IR:d}"] = -1 * init
+
+        # We started from 0 so it should be this value
+        apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=knob_delta, ir=IR)
+        assert madx.globals[f"KQSX3.R{IR:d}"] == init + knob_delta * 1e-4
+        assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * init - knob_delta * 1e-4
+
+        # Now change the knob value and check that the delta is applied
+        apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=knob_delta, ir=IR)
+        assert madx.globals[f"KQSX3.R{IR:d}"] == init + 2 * knob_delta * 1e-4
+        assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * init - 2 * knob_delta * 1e-4
 
     def test_rigidity_knob_fails_on_invalid_side(self, caplog, _non_matched_lhc_madx):
         madx = _non_matched_lhc_madx

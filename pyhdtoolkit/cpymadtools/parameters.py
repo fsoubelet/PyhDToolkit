@@ -18,6 +18,8 @@ from pyhdtoolkit.models.madx import MADXBeam
 
 def query_beam_attributes(madx: Madx) -> MADXBeam:
     """
+    .. versionadded:: 0.12.0
+
     Returns all ``BEAM`` attributes from the ``MAD-X`` process based on the currently defined
     beam. If no beam has been defined at function call, then ``MAD-X`` will return all the default
     values. See the `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_

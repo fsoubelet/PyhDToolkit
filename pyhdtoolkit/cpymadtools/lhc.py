@@ -30,6 +30,7 @@ from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 __all__ = [
     "apply_lhc_colinearity_knob",
+    "apply_lhc_colinearity_knob_delta",
     "apply_lhc_coupling_knob",
     "apply_lhc_rigidity_waist_shift_knob",
     "carry_colinearity_knob_over",
@@ -55,26 +56,33 @@ __all__ = [
 # ----- Setup Utlites ----- #
 
 
-def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6, **kwargs) -> None:
+def make_lhc_beams(
+    madx: Madx, energy: float = 7000, emittance_x: float = 3.75e-6, emittance_y: float = 3.75e-6, **kwargs
+) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         energy (float): beam energy, in [GeV]. Defaults to 6500.
-        emittance (float): emittance in [m]. Will be used to calculate geometric
-            emittance which is then fed to the ``BEAM`` command.
+        emittance_x (float): horizontal emittance in [m]. Will be used to calculate
+            geometric emittance which is then fed to the ``BEAM`` command.
+        emittance_x (float): vertical emittance in [m]. Will be used to calculate
+            geometric emittance which is then fed to the ``BEAM`` command.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.
 
     Example:
         .. code-block:: python
 
-            >>> make_lhc_beams(madx, energy=6800, emittance=2.5e-6)
+            >>> make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)
     """
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
     madx.globals["brho"] = energy * 1e9 / madx.globals.clight
-    geometric_emit = madx.globals["geometric_emit"] = emittance / (energy / 0.938)
+    geometric_emit_x = madx.globals["geometric_emit_x"] = emittance_x / (energy / 0.938)
+    geometric_emit_y = madx.globals["geometric_emit_y"] = emittance_y / (energy / 0.938)
 
     for beam in (1, 2):
         logger.trace(f"Defining beam for sequence 'lhcb{beam:d}'")
@@ -84,8 +92,8 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
             bv=1 if beam == 1 else -1,
             energy=energy,
             npart=1.15e11,
-            ex=geometric_emit,
-            ey=geometric_emit,
+            ex=geometric_emit_x,
+            ey=geometric_emit_y,
             sige=4.5e-4,
             **kwargs,
         )
@@ -93,6 +101,8 @@ def make_lhc_beams(madx: Madx, energy: float = 7000, emittance: float = 3.75e-6,
 
 def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.
     This will use the ``teapot`` style and will enforce ``makedipedge``.
 
@@ -153,6 +163,8 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
 
 def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
     """
+    .. versionadded:: 0.15.0
+
     Re-cycles the provided *sequence* from a different starting point, given as *start*.
 
     One can find an exemple use of this function in the :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>`
@@ -180,10 +192,17 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
 
 def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Applies the LHC colinearity knob.
 
     .. note::
         If you don't know what this is, you really should not be using this function.
+
+    .. tip::
+        The convention, which is also the one I implemented in ``LSA`` for the ``LHC``, is that a
+        positive value of the colinearity knob results in a powering increase of the ``MQSX`` *right*
+        of the IP, and a powering decrease of the ``MQSX`` *left* of the IP.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -200,7 +219,7 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     """
     logger.debug(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
     logger.warning("You should re-match tunes & chromaticities after this colinearity knob is applied")
-    knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors
+    knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors powering
     right_knob, left_knob = knob_variables
 
     madx.globals[right_knob] = colinearity_knob_value * 1e-4
@@ -209,10 +228,51 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     logger.trace(f"Set '{left_knob}' to {madx.globals[left_knob]}")
 
 
+def apply_lhc_colinearity_knob_delta(madx: Madx, colinearity_knob_delta: float = 0, ir: int = None) -> None:
+    """
+    .. versionadded:: 0.21.0
+
+    This is essentially the same as `.apply_lhc_colinearity_knob`, but instead of a applying fixed powering
+    value, it applies to delta to the existing value.
+
+    .. note::
+        If you don't know what this is, you really should not be using this function.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        colinearity_knob_delta (float): Units of the colinearity knob to vary the existing powerings with.
+            Defaults to 0.
+        ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
+            Classically 1 or 5.
+
+    Example:
+        .. code-block:: python
+
+            >>> apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)
+    """
+    logger.debug(f"Applying Colinearity knob delta of {colinearity_knob_delta}")
+    logger.warning("You should re-match tunes & chromaticities after this delta is applied")
+    knob_variables = (f"KQSX3.R{ir:d}", f"KQSX3.L{ir:d}")  # MQSX IP coupling correctors powering
+    right_knob, left_knob = knob_variables
+
+    logger.debug("Query current knob values")
+    current_right = madx.eval(right_knob)  # ugly, but avoids KeyError if not defined yet
+    current_left = madx.eval(left_knob)  # augly, but avoids KeyError if not defined yet
+    logger.trace(f"Current right knob value is {current_right}")
+    logger.trace(f"Current left knob value is {current_left}")
+
+    madx.globals[right_knob] = current_right + colinearity_knob_delta * 1e-4
+    logger.trace(f"Set '{right_knob}' to {madx.globals[right_knob]}")
+    madx.globals[left_knob] = current_left - colinearity_knob_delta * 1e-4
+    logger.trace(f"Set '{left_knob}' to {madx.globals[left_knob]}")
+
+
 def apply_lhc_rigidity_waist_shift_knob(
     madx: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
 ) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Applies the LHC rigidity waist shift knob, moving the waist left or right of IP.
 
     .. note::
@@ -269,7 +329,9 @@ def apply_lhc_coupling_knob(
     madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
 ) -> None:
     """
-    Applies the LHC coupling knob to reach the desired :math:`C^{-}` value.
+    .. versionadded:: 0.15.0
+
+    Applies the LHC coupling knob to reach the desired :math:`|C^{-}|` value.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -299,6 +361,8 @@ def apply_lhc_coupling_knob(
 
 def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> None:
     """
+    .. versionadded:: 0.20.0
+
     Removes the powering setting on one side of the colinearty knob and applies it to the
     other side.
 
@@ -332,6 +396,8 @@ def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> No
 
 def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_arc: bool = False) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Powers the Landau octupoles in the (HL)LHC.
 
     Args:
@@ -367,6 +433,8 @@ def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_a
 
 def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Deactivates all arc sextupoles in the (HL)LHC.
 
     Args:
@@ -396,6 +464,8 @@ def vary_independent_ir_quadrupoles(
     madx: Madx, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
 ) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Sends the ``VARY`` commands for the desired quadrupoles in the IR surrounding the provided *ip*.
     The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful
     to setup some specific matching involving these elements.
@@ -458,7 +528,42 @@ def vary_independent_ir_quadrupoles(
 def do_kmodulation(
     madx: Madx, ir: int = 1, side: str = "right", steps: int = 100, stepsize: float = 3e-8
 ) -> tfs.TfsDataFrame:
-    """"""
+    r"""
+    .. versionadded:: 0.20.0
+
+    Simulates a K-Modulation measurement by varying the powering of Q1 left or
+    right of the IP, and returning the tune variations resulting from this
+    modulation.
+
+    .. note::
+        At the end of the simulation, the powering of the quadrupole is reset
+        to the value it had at the time of function call.
+
+    .. tip::
+        From these, one can then calculate the :math:`\beta`-functions at the Q1
+        and then at the IP, plus the possible waist shift, according to
+        :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        ir (int): the IR in which to perform the modulation. Defaults to 1.
+        side (str): which side of the IP to use the Q1 to perform the modulation.
+            Should be either ``right`` or ``left``, case-insensitive. Defaults to
+            ``right``.
+        steps (int): the number of steps to perform in the modulations, aka the number
+            of "measurements". Defaults to 100.
+        stepsize (float): the increment in powering for Q1, in direct values of the
+            powering variable used in ``MAD-X``. Defaults to 3e-8.
+
+    Returns:
+        A `~tfs.TfsDataFrame` containing the tune values at each powering step.
+
+    Example:
+
+        .. code-block:: python
+
+            >>> tune_results = do_kmodulation(madx, ir=1, side="right", steps=100, stepsize=3e-8)
+    """
     element = f"MQXA.1R{ir:d}" if side.lower() == "right" else f"MQXA.1L{ir:d}"
     powering_variable = f"KTQX1.R{ir:d}" if side.lower() == "right" else f"KTQX1.L{ir:d}"
 
@@ -477,6 +582,7 @@ def do_kmodulation(
             "STEPS": steps,
             "STEP_SIZE": stepsize,
         },
+        dtype=float,
     )
 
     logger.debug(f"Modulating quadrupole '{element}'")
@@ -501,6 +607,8 @@ def correct_lhc_global_coupling(
     madx: Madx, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
 ) -> None:
     """
+    .. versionadded:: 0.20.0
+
     A littly tricky matching routine to perform a decent global coupling correction using
     the ``LHC`` coupling knobs.
 
@@ -553,6 +661,8 @@ def install_ac_dipole_as_kicker(
     top_turns: int = 6600,
 ) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Installs an AC dipole as a kicker element in (HL)LHC beam 1 or 2, for tracking. This function
     assumes that you have already defined lhcb1/lhcb2 sequence, made a beam for it (``BEAM``
     command or `~lhc.make_lhc_beams` function), matched to your desired working point and made
@@ -650,6 +760,8 @@ def install_ac_dipole_as_kicker(
 
 def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: int = 1) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Installs an AC dipole as a matrix element in (HL)LHC beam 1 or 2, to see its effect on TWISS functions
     This function assumes that you have already defined lhcb1/lhcb2 sequence, made a beam for it (``BEAM``
     command or `~lhc.make_lhc_beams` function), matched to your desired working point and made a ``TWISS``
@@ -716,6 +828,8 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
 
 def make_sixtrack_output(madx: Madx, energy: int) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Prepare output for a ``SixTrack`` run. Initial implementation credits go to
     :user:`Joschua Dilly <joschd>`.
 
@@ -745,6 +859,8 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
 
 def reset_lhc_bump_flags(madx: Madx) -> None:
     """
+    .. versionadded:: 0.15.0
+
     Resets all LHC IP bump flags to 0.
 
     Args:
@@ -770,6 +886,8 @@ def reset_lhc_bump_flags(madx: Madx) -> None:
 
 def get_lhc_bpms_list(madx: Madx) -> List[str]:
     """
+    .. versionadded:: 0.16.0
+
     Returns the list of monitoring BPMs for the current LHC sequence in use.
     The BPMs are queried through a regex in the result of a ``TWISS`` command.
 
@@ -797,6 +915,8 @@ def get_lhc_tune_and_chroma_knobs(
     accelerator: str, beam: int = 1, telescopic_squeeze: bool = True, run3: bool = False
 ) -> Tuple[str, str, str, str]:
     """
+    .. versionadded:: 0.16.0
+
     Gets names of knobs needed to match tunes and chromaticities as a tuple of strings,
     for the LHC or HLLHC machines. Initial implementation credits go to
     :user:`Joschua Dilly <joschd>`.
@@ -860,6 +980,8 @@ def get_magnets_powering(
     madx: Madx, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: Union[str, float] = None, **kwargs
 ) -> tfs.TfsDataFrame:
     r"""
+    .. versionadded:: 0.17.0
+
     Gets the twiss table with additional defined columns for the given *patterns*.
 
     .. note::
@@ -907,6 +1029,8 @@ def get_magnets_powering(
 
 def get_lhc_bpms_twiss_and_rdts(madx: Madx) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.19.0
+
     Runs a ``TWISS`` on the currently active sequence for all ``LHC`` BPMs. The coupling RDTs
     are also computed through a CMatrix approach via  `optics_functions.coupling.coupling_via_cmatrix`.
 

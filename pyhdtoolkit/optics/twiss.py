@@ -11,6 +11,8 @@ import numpy as np
 
 def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) -> np.ndarray:
     """
+    .. versionadded:: 0.5.0
+
     Perform the Courant-Snyder transform on regular (nonchaotic) phase-space coordinates.
     Specifically, if considering the horizontal plane and noting :math:`U = (x, px)` the
     phase-space vector, it returns :math:`\\bar{U} = (\\bar{x}, \\bar{px})` according to

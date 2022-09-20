@@ -22,11 +22,17 @@ from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 
 class ListOperations:
-    """A class to group some common / useful operations on lists or sequences."""
+    """
+    .. versionadded:: 0.2.0
+
+    A class to group some common / useful operations on lists or sequences.
+    """
 
     @staticmethod
     def all_unique(sequence: Sequence) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Returns `True` if all the values in a flat list are unique, `False` otherwise.
 
         Args:
@@ -46,6 +52,8 @@ class ListOperations:
     @staticmethod
     def average_by(sequence: Sequence, function: Callable = lambda x: x) -> float:
         """
+        .. versionadded:: 0.2.0
+
         Returns the average of *sequence* after mapping each element to a value using the
         provided function. Use `map` to map each element to the value returned by *function*.
         Uses `sum` to sum all of the mapped values, divided by `len`.
@@ -70,6 +78,8 @@ class ListOperations:
     @staticmethod
     def bifurcate(sequence: Sequence, filters: List[bool]) -> Sequence:
         """
+        .. versionadded:: 0.2.0
+
         Splits values into two groups. If an element in filter is `True`, the corresponding
         element in the collection belongs to the first group; otherwise, it belongs to the
         second group. Uses list comprehension and `enumerate` to add elements to groups,
@@ -96,6 +106,8 @@ class ListOperations:
     @staticmethod
     def bifurcate_by(sequence: Sequence, function: Callable) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Splits values into two groups according to a function, which specifies which group an
         element in the input sequence belongs to. If the function returns `True`, the element
         belongs to the first group; otherwise it belongs to the second group. Uses list
@@ -121,6 +133,8 @@ class ListOperations:
     @staticmethod
     def chunk_list(sequence: Sequence, size: int) -> Sequence:
         """
+        .. versionadded:: 0.2.0
+
         Chunks a sequence into smaller lists of a specified size. If the size is bigger
         than that of *sequence*, return *sequence* to avoid unnecessary nesting. Uses
         `list` and `range` to create a list of the desired size. Uses `map` on that
@@ -147,6 +161,8 @@ class ListOperations:
     @staticmethod
     def deep_flatten(sequence: Sequence) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Recursively deep flattens *sequence*, no matter the nesting levels.
 
         Args:
@@ -170,6 +186,8 @@ class ListOperations:
     @staticmethod
     def eval_none(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Returns `False` if the provided *function* returns `True` for at least one element
         in *sequence*, `True` otherwise. Iterates over *sequence* to test if every element
         returns `False` based on function. Omit the seconds argument, *function*, to check
@@ -199,6 +217,8 @@ class ListOperations:
     @staticmethod
     def eval_some(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Returns `True` if the provided *function* returns `True` for at least one element in
         *sequence*, `False` otherwise. Iterates over the elements of *sequence* to test if every
         element returns `True` based on *function*. Omit the seconds argument, *function*, to check
@@ -227,6 +247,8 @@ class ListOperations:
     @staticmethod
     def get_indices(element, sequence: Sequence) -> List[int]:
         """
+        .. versionadded:: 0.2.0
+
         Return all array indices at which *element* is located.
 
         Args:
@@ -250,6 +272,8 @@ class ListOperations:
     @staticmethod
     def group_by(sequence: Sequence, function: Callable) -> Dict[str, list]:
         """
+        .. versionadded:: 0.2.0
+
         Groups the elements of *sequence* based on the given *function*. Uses `list` in
         combination with `map` and *function* to map the values of *sequence* to the
         keys of an object. Uses list comprehension to map each element to the appropriate key.
@@ -277,6 +301,8 @@ class ListOperations:
     @staticmethod
     def has_duplicates(sequence: Sequence) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Returns `True` if there are duplicate values in *sequence*, `False` otherwise.
         Uses `set` on the given *sequence* to remove duplicates, then compares its length
         with that of *sequence*.
@@ -298,6 +324,8 @@ class ListOperations:
     @staticmethod
     def sample(sequence: Sequence) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Returns a random element from *sequence*.
 
         Args:
@@ -318,6 +346,8 @@ class ListOperations:
     @staticmethod
     def sanitize_list(sequence: Sequence) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Removes falsey values from a *sequence*. Uses `filter` to filter out falsey
         values (`False`, `None`, `0`, and `""`).
 
@@ -338,6 +368,8 @@ class ListOperations:
     @staticmethod
     def shuffle(sequence: Sequence) -> Sequence:
         """
+        .. versionadded:: 0.2.0
+
         Randomizes the order of the elements in *sequence*, returning a new `list`.
         Uses an improved version of the
         `Fisher-Yates algorithm <https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle>`_
@@ -369,6 +401,8 @@ class ListOperations:
     @staticmethod
     def spread(sequence: Sequence) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Flattens the provided *sequence*, by spreading its elements into a new `list`.
         Loops over elements, uses `list.extend` if the element is a list, `list.append`
         otherwise. This might look like `~.ListOperations.deep_flatten` but is a subset
@@ -394,6 +428,8 @@ class ListOperations:
     @staticmethod
     def symmetric_difference_by(seq_1: Sequence, seq_2: Sequence, function: Callable) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Returns the `symmetric difference <https://en.wikipedia.org/wiki/Symmetric_difference>`_
         of the provided sequences, after applying the provided *function* to each element of both.
         Creates a `set` by applying *function* to each element in each sequence, then uses list
@@ -428,6 +464,8 @@ class ListOperations:
     @staticmethod
     def union_by(seq_1: Sequence, seq_2: Sequence, function: Callable) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Returns every element that exists in any of the two sequences once, after
         applying the provided *function* to each element of both. This is the
         `set theory union <https://en.wikipedia.org/wiki/Union_(set_theory)>`_ of the
@@ -462,6 +500,8 @@ class ListOperations:
     @staticmethod
     def zipper(*args, fillvalue=None) -> list:
         """
+        .. versionadded:: 0.2.0
+
         Creates a `list` of lists of elements, each internal list being a grouping based
         on the position of elements in the original sequences. Essentially, a list containing:
 
@@ -490,11 +530,17 @@ class ListOperations:
 
 
 class MiscellaneousOperations:
-    """A class to group some misc. operations that don't pertain to classic structures."""
+    """
+    .. versionadded:: 0.2.0
+
+    A class to group some misc. operations that don't pertain to classic structures.
+    """
 
     @staticmethod
     def longest_item(*args):
         """
+        .. versionadded:: 0.2.0
+
         Takes any number of iterable objects, or objects with a length property, and returns the
         longest one. If multiple objects have the same length, the first one will be returned.
         Usess `max` with `len` as the key to return the item with the greatest length.
@@ -518,6 +564,8 @@ class MiscellaneousOperations:
     @staticmethod
     def map_values(obj: dict, function: Callable) -> dict:
         """
+        .. versionadded:: 0.2.0
+
         Creates an new `dict` with the same keys as the provided *obj*,
         and values generated by running *function* on the *obj*'s values.
         Uses `dict.keys` to iterate over the object's keys, assigning the
@@ -546,11 +594,17 @@ class MiscellaneousOperations:
 
 
 class NumberOperations:
-    """A class to group some common / useful operations on numbers."""
+    """
+    .. versionadded:: 0.2.0
+
+    A class to group some common / useful operations on numbers.
+    """
 
     @staticmethod
     def clamp_number(num: Union[int, float], a_val: Union[int, float], b_val: Union[int, float]) -> Union[int, float]:
         """
+        .. versionadded:: 0.2.0
+
         Clamps *num* within the inclusive range specified by the boundary values *a_val*
         and *b_val*. If *num* falls within the range, returns *num*. Otherwise, return the
         nearest number in the range.
@@ -581,6 +635,8 @@ class NumberOperations:
         deg_value: Union[int, float], decompose: bool = False
     ) -> Union[Tuple[float, str, str], int, float]:
         """
+        .. versionadded:: 0.2.0
+
         Converts an angle from degrees to radians. Uses `math.pi` and the degree
         to radian formula to convert the provided *deg_value*.
 
@@ -609,6 +665,8 @@ class NumberOperations:
     @staticmethod
     def greatest_common_divisor(sequence: Sequence) -> Union[int, float]:
         """
+        .. versionadded:: 0.2.0
+
         Calculates the greatest common divisor of a sequence of numbers.
         Uses `reduce` and `math.gcd` over the given *sequence*.
 
@@ -635,6 +693,8 @@ class NumberOperations:
     @staticmethod
     def is_divisible_by(dividend: Union[int, float], divisor: Union[int, float]) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Checks if the first numeric argument is divisible by the second one.
         Uses the modulo operator (`%`) to check if the remainder is equal to 0.
 
@@ -656,6 +716,8 @@ class NumberOperations:
     @staticmethod
     def least_common_multiple(*args) -> int:
         """
+        .. versionadded:: 0.2.0
+
         Returns the least common multiple of two or more numbers. Defines a function, spread,
         that uses either `list.extend` or `list.append` on each element of s sequence to flatten
         it. Uses `math.gcd` and lcm(x,y) = (x * y) / gcd(x,y) to determine the least common multiple.
@@ -689,6 +751,8 @@ class NumberOperations:
     @staticmethod
     def radians_to_degrees(rad_value: Union[int, float]) -> Union[int, float]:
         """
+        .. versionadded:: 0.2.0
+
         Converts an angle from radians to degrees. Uses `math.pi` and the radian
         to degree formula to convert the provided *rad_value*.
 
@@ -713,11 +777,17 @@ class NumberOperations:
 
 
 class StringOperations:
-    """A class to group some common / useful operations on strings."""
+    """
+    .. versionadded:: 0.2.0
+
+    A class to group some common / useful operations on strings.
+    """
 
     @staticmethod
     def camel_case(text: str) -> str:
         """
+        .. versionadded:: 0.2.0
+
         Converts a `string` to camelCase. Breaks the string into words and combines
         them capitalizing the first letter of each word, using a regexp, `title` and `lower`.
 
@@ -744,6 +814,8 @@ class StringOperations:
     @staticmethod
     def capitalize(text: str, lower_rest: bool = False) -> str:
         """
+        .. versionadded:: 0.2.0
+
         Capitalizes the first letter of a `string`, eventually lowers the rest of it.
         Omit the *lower_rest* parameter to keep the rest of the string intact, or set
         it to `True` to convert to lowercase.
@@ -771,6 +843,8 @@ class StringOperations:
     @staticmethod
     def is_anagram(str_1: str, str_2: str) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Checks if a `string` is an anagram of another string (case-insensitive,
         ignores spaces, punctuation and special characters). Uses `str.replace`
         to remove spaces from both strings. Compares the lengths of the two strings,
@@ -804,6 +878,8 @@ class StringOperations:
     @staticmethod
     def is_palindrome(text: str) -> bool:
         """
+        .. versionadded:: 0.2.0
+
         Returns `True` if the given string is a palindrome, `False` otherwise.
         Uses `str.lower` and `re.sub` to convert to lowercase and remove non-alphanumeric
         characters from the given string. Then compare the new string with its reverse.
@@ -831,6 +907,8 @@ class StringOperations:
     @staticmethod
     def kebab_case(text: str) -> str:
         """
+        .. versionadded:: 0.2.0
+
         Converts a string to kebab-case. Breaks the string into words and
         combines them adding `-` as a separator, using a regexp.
 
@@ -864,6 +942,8 @@ class StringOperations:
     @staticmethod
     def snake_case(text: str) -> str:
         """
+        .. versionadded:: 0.2.0
+
         Converts a string to snake_case. Breaks the string into words and
         combines them adding `_` as a separator, using a regexp.
 

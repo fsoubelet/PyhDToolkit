@@ -23,6 +23,8 @@ def get_amplitude_detuning(
     madx: Madx, order: int = 2, file: Union[Path, str] = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.7.0
+
     Calculates amplitude detuning coefficients via ``PTC_NORMAL``, with sensible defaults set for
     other relevant ``PTC`` commands used in the process. The result table is returned as a
     `~tfs.frame.TfsDataFrame`, the headers of which are the contents of the internal ``SUMM`` table.
@@ -114,6 +116,8 @@ def get_rdts(
     madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.7.0
+
     Calculate the resonance driving terms up to *order* via ``PTC_TWISS``, with sensible defaults
     set for other relevant ``PTC`` commands. The result table is returned as a `~tfs.frame.TfsDataFrame`,
     the headers of which are the contents of the internal ``SUMM`` table. This is a heavily refactored
@@ -173,6 +177,8 @@ def ptc_twiss(
     madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, table: str = "ptc_twiss", **kwargs
 ) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.12.0
+
     Calculates the ``TWISS`` parameters according to the :cite:t:`Ripken:optics:1989` formalism
     via ``PTC_TWISS``, with sensible defaults set for other relevant ``PTC`` commands. The result
     table is returned as a `~tfs.frame.TfsDataFrame`, the headers of which are the contents of the
@@ -242,6 +248,8 @@ def ptc_track_particle(
     **kwargs,
 ) -> Dict[str, pd.DataFrame]:
     """
+    .. versionadded:: 0.12.0
+
     Tracks a single particle for *nturns* through ``PTC_TRACK``, based on its initial coordinates. The
     use of this function is similar to that of `~.track.track_single_particle`.
 

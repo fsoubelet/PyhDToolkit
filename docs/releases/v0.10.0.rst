@@ -1,0 +1,18 @@
+.. _release_0.10.0:
+
+0.10.0
+------
+
+Enhancements
+~~~~~~~~~~~~
+
+* The ``track_single_particle`` function in the ``cpymadtools.track`` module can now take a sequence defining observation points as argument.
+* The ``track_single_particle`` function in the ``cpymadtools.track`` module can now take keyword arguments to be transmitted to the ``TRACK`` command in ``MAD-X``.
+
+Maintenance
+~~~~~~~~~~~
+
+* The ``track_single_particle`` function in the ``cpymadtools.track`` module now defaults initial tracking coordinates to all 0.
+* The ``track_single_particle`` function in the ``cpymadtools.track`` module now returns a dictionary, with one keys per defined observation point and as a value the corresponding track table. The special case where *ONETABLE* is given to ``TRACK`` as a keyword argument is handled, and then a single entry taken from the appropriate table with be found in the returned dictionary.
+
+See `v0.10.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.10.0>`_ and the `full changes since v0.9.2 <https://github.com/fsoubelet/PyhDToolkit/compare/0.9.2...0.10.0>`_.

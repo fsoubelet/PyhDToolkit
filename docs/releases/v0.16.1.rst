@@ -1,0 +1,12 @@
+.. _release_0.16.1:
+
+0.16.1
+------
+
+Maintenance
+~~~~~~~~~~~
+
+* The **info** level logging statements in the `pyhdtoolkit.cpymadtools` modules have been adjusted to **debug** level. Info logging is left to the user.
+* The **warning** level logging statements in the `pyhdtoolkit.cpymadtools` modules have been modified to give a bit more information.
+
+See `v0.16.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/0.16.1>`_ and the `full changes since v0.16.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.16.0...0.16.1>`_.

@@ -26,6 +26,8 @@ def track_single_particle(
     **kwargs,
 ) -> Dict[str, pd.DataFrame]:
     """
+    .. versionadded:: 0.8.0
+
     Tracks a single particle for *nturns*, based on its initial coordinates. For an example of the use of this
     function, have a look at the :ref:`phase space <demo-phase-space>` or :ref:`tracking <demo-free-tracking>`
     example galleries.

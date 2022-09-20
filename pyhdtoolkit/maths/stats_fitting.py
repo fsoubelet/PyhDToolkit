@@ -31,6 +31,8 @@ DISTRIBUTIONS: Dict[st.rv_continuous, str] = {
 
 def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
     """
+    .. versionadded:: 0.5.0
+
     Sets ``DISTRIBUTIONS`` as the provided `dict`. This allows the user to define the
     distributions to try and fit against the data.
 
@@ -59,6 +61,8 @@ def best_fit_distribution(
     data: Union[pd.Series, np.ndarray], bins: int = 200, ax: matplotlib.axes.Axes = None
 ) -> Tuple[st.rv_continuous, Tuple[float, ...]]:
     """
+    .. versionadded:: 0.5.0
+
     Model data by finding the best fit candidate distribution among those in ``DISTRIBUTIONS``.
     One can find an example use of this function in the :ref:`gallery <demo-distributions-fitting>`.
 
@@ -124,6 +128,8 @@ def best_fit_distribution(
 
 def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: int = 25_000) -> pd.Series:
     """
+    .. versionadded:: 0.5.0
+
     Generates a `pandas.Series` for the distributions's Probability Distribution Function.
     This Series will have axis values as index, and PDF values as column.
 

@@ -46,6 +46,8 @@ def get_closest_tune_approach(
     tolerance: float = 1e-21,
 ) -> float:
     """
+    .. versionadded:: 0.16.0
+
     Provided with an active `~cpymad.madx.Madx` object, tries to match the tunes to their mid-fractional tunes,
     a.k.a tries to get them together. The difference between the final reached fractional tunes is the closest
     tune approach. This should not have any effect on the user's simulation, as the varied knobs are
@@ -159,9 +161,11 @@ def get_cminus_from_coupling_rdts(
     qx: float = None,
     qy: float = None,
     filtering: float = 0,
-) -> np.complex_:
+) -> float:
     """
-    Computes and returns the complex :math:`C^{-}` from the machine's coupling RDTs. The
+    .. versionadded:: 0.20.0
+
+    Computes and returns the :math:`|C^{-}|` from the machine's coupling RDTs. The
     closest tune approach is computed thanks to functionality from `optics_functions.coupling`.
 
     .. hint::
@@ -191,7 +195,7 @@ def get_cminus_from_coupling_rdts(
             Defaults to 0, which means no filtering.
 
     Returns:
-        The complex calculated :math:`C^{-}` value.
+        The calculated :math:`|C^{-}|` value.
 
     Examples:
         .. code-block:: python
@@ -223,13 +227,23 @@ def get_cminus_from_coupling_rdts(
 
     # Now we do the closest tune approach calculation -> adds DELTAQMIN column to df
     logger.debug(f"Calculating CTA via optics_functions, with method '{method}'")
-    return closest_tune_approach(twiss_with_rdts, qx=qx, qy=qy, method=method).mean()[0]
+    dqmin_df = closest_tune_approach(twiss_with_rdts, qx=qx, qy=qy, method=method)
+
+    # If we use a method that returns complex values, we have to average on the abs of these values!!
+    if method not in ["calaga", "teapot", "teapot_franchi", "franchi"]:
+        logger.debug(f"Taking module of values, as method '{method}' returns complex values")
+        dqmin_df = dqmin_df.abs()
+
+    # Now we can take the mean of the DELTAQMIN column
+    return dqmin_df.DELTAQMIN.mean()
 
 
 def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
     """
+    ..versionadded:: 0.16.0
+
     Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
     to be 0 at a given location.
 
@@ -263,6 +277,8 @@ def match_no_coupling_through_ripkens(
 
 def get_coupling_rdts(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.20.0
+
     Computed the coupling Resonance Driving Tensors (RDTs) :math:`f_{1001}` and :math:`f_{1010}`
     at all elements in the currently active sequence from a ``TWISS`` call.
 

@@ -15,6 +15,8 @@ from typing import Callable, Iterator
 @contextmanager
 def timeit(function: Callable) -> Iterator[None]:
     """
+    .. versionadded:: 0.4.0
+
     Returns the time elapsed when executing code in the context via *function*.
     Original code from is from :user:`Jaime Coello de Portugal <jaimecp89>`.
 

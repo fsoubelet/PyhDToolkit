@@ -29,6 +29,8 @@ from loguru import logger
 
 class MultiProcessor:
     """
+    .. versionadded:: 0.2.0
+
     A class to easily wrap a multi-processing context manager call to a function.
 
     .. important::
@@ -49,6 +51,8 @@ class MultiProcessor:
     @staticmethod
     def execute_function(func: Callable, func_args: list, n_processes: int) -> List[tuple]:
         """
+        .. versionadded:: 0.2.0
+
         Executes the *function* with the provided arguments *func_args* as multiple processes.
 
         .. warning::
@@ -84,6 +88,8 @@ class MultiProcessor:
 
 class MultiThreader:
     """
+    .. versionadded:: 0.2.0
+
     A class to easily wrap a multi-threading context manager call to a function.
 
     .. important::
@@ -103,6 +109,8 @@ class MultiThreader:
     @staticmethod
     def execute_function(func: Callable, func_args: list, n_threads: int) -> List[tuple]:
         """
+        .. versionadded:: 0.2.0
+
         Executes the *function* with the provided arguments *func_args* as multiple threads.
 
         .. note::

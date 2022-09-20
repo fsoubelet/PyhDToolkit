@@ -32,6 +32,8 @@ def make_footprint_table(
     madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
 ) -> tfs.TfsDataFrame:
     """
+    .. versionadded:: 0.9.0
+
     Instantiates an ensemble of particles up to the desired bunch :math:`\\sigma` amplitude to be tracked for
     the ``DYNAP`` command, letting ``MAD-X`` infer their tunes. Particules are instantiated for different angle
     variables for each amplitude, creating an ensemble able to represent the tune footprint.
@@ -59,7 +61,7 @@ def make_footprint_table(
             >>> dynap_dframe = make_footprint_table(madx)
     """
     logger.debug(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
-    small, big = 0.05, math.sqrt(1 - 0.05**2)
+    small, big = 0.05, math.sqrt(1 - 0.05 ** 2)
     sigma_multiplier, angle_multiplier = 0.1, 0.0
 
     logger.debug("Initializing particles")
@@ -124,6 +126,8 @@ def make_footprint_table(
 
 def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.ndarray]:
     """
+    .. versionadded:: 0.12.0
+
     Provided with the `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`, determines the
     various (Qx, Qy) points needed to plot the footprint data with lines representing the different amplitudes
     and angles from starting particles, and returns these in immediately plottable `numpy.ndarray` objects.
@@ -160,6 +164,8 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
 
 def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collections.PatchCollection:
     """
+    .. versionadded:: 0.12.0
+
     Provided with the `~tfs.frame.TfsDataFrame` returned by `~.tune.make_footprint_table`, computes
     the polygon patches needed to plot the footprint data, with lines representing the different
     amplitudes and angles from starting particles, and returns the `~matplotlib.collections.PatchCollection`
