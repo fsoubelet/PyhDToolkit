@@ -43,8 +43,8 @@
   </a>
 
   <!-- Build tool -->
-  <a href="https://github.com/python-poetry/poetry">
-    <img alt="Build tool" src="https://img.shields.io/badge/Build%20Tool-Poetry-4e5dc8.svg">
+  <a href="https://github.com/pypa/hatch">
+    <img alt="Build tool" src="https://img.shields.io/badge/Build%20Tool-Hatch-4e5dc8.svg">
   </a>
 
   <!-- Test runner -->
