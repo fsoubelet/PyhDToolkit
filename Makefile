@@ -104,15 +104,12 @@ typing: format
 
 quicktests:  # all tests not involving pyhdtoolkit.cpymadtools
 	@python -m pytest -k "not test_cpymadtools" -n auto -v
-	@make clean
 
 slowtests:  # all tests for pyhdtoolkit.cpymadtools
 	@python -m pytest -k "test_cpymadtools" -n auto -v
-	@make clean
 
 alltests:
 	@python -m pytest -n auto -v
-	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
 .DEFAULT:
