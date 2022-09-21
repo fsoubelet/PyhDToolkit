@@ -22,27 +22,18 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install poetry
-        run: pipx install poetry
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'poetry'
+          cache: pip
+          cache-dependency-path: '**/pyproject.toml'
 
-      - name: Upgrade pip, setuptools and wheel
-        run: poetry run python -m pip install --upgrade pip setuptools wheel
-
-      - name: Install dependencies
-        run: poetry install -v
-
-      # Because scipy has dumb <3.12 constraint on Python which fucks the dependency resolution
-      - name: Hack update scipy
-        run: poetry run python -m pip install --upgrade scipy
+      - name: Install package with test dependencies
+        run: python -m pip install ".[tests]"
 
       - name: Run Tests
-        run: poetry run python -m pytest -k "not test_cpymadtools"
+        run: python -m pytest -k "not test_cpymadtools"
 
   cpymad_tests:
     needs: quick_tests
@@ -57,24 +48,15 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install poetry
-        run: pipx install poetry
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'poetry'
+          cache: pip
+          cache-dependency-path: '**/pyproject.toml'
 
-      - name: Upgrade pip, setuptools and wheel
-        run: poetry run python -m pip install --upgrade pip setuptools wheel
-
-      - name: Install dependencies
-        run: poetry install -v
-
-      # Because scipy has dumb <3.12 constraint on Python which fucks the dependency resolution
-      - name: Hack update scipy
-        run: poetry run python -m pip install --upgrade scipy
+      - name: Install package
+        run: python -m pip install ".[tests]"
 
       - name: Run Tests
         run: poetry run python -m pytest -k "test_cpymadtools" -n auto -v
