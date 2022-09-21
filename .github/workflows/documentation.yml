@@ -43,25 +43,13 @@ jobs:
       # Forcing several successive builds here and hoping it works out (sphinx-gallery 
       # checks for the existence of already built examples to avoid re-running them, so
       # once the gallery is built successive builds will just re-generate the html, very quickly)
-      - name: Build documentation (1/10)
+      - name: Build documentation
         continue-on-error: true
-        run: python -m sphinx -v -b html docs doc_build -d doc_build
+        run: make docs
 
-      # - name: Build documentation (2/10)
+      # - name: Build documentation (2/n)
       #   continue-on-error: true
-      #   run: python -m sphinx -v -b html docs doc_build -d doc_build
-
-      # - name: Build documentation (3/10)
-      #   continue-on-error: true
-      #   run: python -m sphinx -v -b html docs doc_build -d doc_build
-
-      # - name: Build documentation (4/10)
-      #   continue-on-error: true
-      #   run: python -m sphinx -v -b html docs doc_build -d doc_build
-
-      # - name: Build documentation (5/10)
-      #   continue-on-error: true
-      #   run: python -m sphinx -v -b html docs doc_build -d doc_build
+      #   run: make docs
 
       # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
       - name: Upload build artifacts

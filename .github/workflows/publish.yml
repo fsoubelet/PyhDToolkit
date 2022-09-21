@@ -26,7 +26,7 @@ jobs:
         run: pipx install hatch
 
       - name: Build wheels and sdist
-        run: hatch build --clean
+        run: make build
 
       - name: Publish package to PyPI
         if: ${{ success() }}

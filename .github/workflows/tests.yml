@@ -36,7 +36,7 @@ jobs:
         run: make help
 
       - name: Run Tests
-        run: python -m pytest -k "not test_cpymadtools"
+        run: make quicktests
 
   cpymad_tests:
     needs: quick_tests
@@ -62,4 +62,4 @@ jobs:
         run: python -m pip install ".[tests]"
 
       - name: Run Tests
-        run: python -m pytest -k "test_cpymadtools" -n auto -v
+        run: make slowtests
