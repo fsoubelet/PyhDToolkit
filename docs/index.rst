@@ -153,6 +153,5 @@ Indices and tables
 .. _cpymad: https://hibtc.github.io/cpymad/
 .. _pydantic: https://pydantic-docs.helpmanual.io/
 .. _HTCondor: https://htcondor.org/
-.. _Poetry: https://python-poetry.org/
 .. _DOI: https://zenodo.org/badge/latestdoi/227081702
 .. _Zenodo: https://zenodo.org
