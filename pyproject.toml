@@ -2,16 +2,18 @@
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.hatch.version]
+path = "pyhdtoolkit/version.py"
+
 [project]
 name = "pyhdtoolkit"
-version = "0.21.0"
 readme = "README.md"
 description = "An all-in-one toolkit package to ease my Python work in my PhD."
 authors = [
     {name = "Felix Soubelet", email = "felix.soubelet@cern.ch"},
 ]
 license = "MIT"
-
+dynamic = ["version"]
 requires-python = ">=3.8"
 
 keywords = [
