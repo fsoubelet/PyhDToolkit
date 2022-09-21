@@ -32,9 +32,6 @@ jobs:
       - name: Install package with test dependencies
         run: python -m pip install ".[test]"
 
-      - name: test presence of make
-        run: make help
-
       - name: Run Tests
         run: make quicktests
 
