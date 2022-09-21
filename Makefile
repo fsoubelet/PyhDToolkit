@@ -5,35 +5,41 @@
 # for the GNU make special targets: https://www.gnu.org/software/make/manual/html_node/Special-Targets.html
 # for python packaging: https://docs.python.org/3/distutils/introduction.html
 
-# ANSI escape sequences for bold, cyan, dark blue, end, pink and red.
-B = \033[1m
-C = \033[96m
-D = \033[34m
-E = \033[0m
-P = \033[95m
-R = \033[31m
+# ANSI escape sequences for colors
+B = \033[1m  # bold
+C = \033[96m  # cyan
+D = \033[34m  # dark blue
+E = \033[0m  # end
+P = \033[95m  # pink
+R = \033[31m  # red
+# Y = \033[33m  # yellow
 
-.PHONY : help checklist clean condaenv docker docs documentation format install interrogate lines lint tests type
+.PHONY : help build clean docker docs format install lines lint typing alltests quicktests slowtests
 
 all: install
 
 help:
 	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
-	@echo "  $(R) clean $(E)  \t  to recursively remove build, run, and bitecode files/dirs."
-	@echo "  $(R) condaenv $(E)  \t  to $(D)conda create$(E) the specific 'PHD' environment I use. Personnal."
+	@echo "  $(R) build $(E)  \t  to build wheel and source distribution with $(P)Hatch$(E)."
+	@echo "  $(R) clean $(E)  \t  to recursively remove build, run and bitecode files/dirs."
 	@echo "  $(R) docker $(E)  \t  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
-	@echo "  $(R) docs $(E)  \t  to build the documentation for the package."
+	@echo "  $(R) docs $(E)  \t  to build the documentation for the package with $(P)Sphinx$(E)."
 	@echo "  $(R) format $(E)  \t  to recursively apply PEP8 formatting through the $(P)Black$(E) and $(P)isort$(E) cli tools."
-	@echo "  $(R) install $(E)  \t  to $(D)poetry install$(E) this package into the project's virtual environment."
+	@echo "  $(R) install $(E)  \t  to $(C)pip install$(E) this package into the current environment."
 	@echo "  $(R) lines $(E)  \t  to count lines of code with the $(P)tokei$(E) tool."
 	@echo "  $(R) lint $(E)  \t  to lint the code though $(P)Pylint$(E)."
-	@echo "  $(R) tests $(E)  \t  to run tests with the $(P)pytest$(E) package."
-	@echo "  $(R) typing $(E)  \t  to run type checking with the $(P)mypy$(E) package."
+	@echo "  $(R) typing $(E)  \t  to run type checking on the codebase with $(P)MyPy$(E)."
+	@echo "  $(R) alltests $(E)  \t  to run the full test suite with $(P)pytest$(E)."
+	@echo "  $(R) quicktests $(E) \t  to run tests not involving $(D)pyhdtoolkit.cpymadtools$(E) with $(P)Pytest$(E)."
+	@echo "  $(R) slowtests $(E)  \t  to run tests involving $(D)pyhdtoolkit.cpymadtools$(E) with $(P)Pytest$(E)."
+
+
+# ----- Dev Tools Targets ----- #
 
 build:
 	@echo "Re-building wheel and dist"
 	@rm -rf dist
-	@poetry build
+	@hatch build --clean
 	@echo "Created build is located in the $(C)dist$(E) folder."
 
 clean:
@@ -61,48 +67,51 @@ clean:
 	@find . -type f -name '.coverage*' -exec rm -rf {} + -o -type f -name 'coverage.xml' -delete
 	@echo "All cleaned up!\n"
 
-condaenv:
-	@echo "Creating $(D)PHD$(E) conda environment according to '$(C)environment.yml$(E)' file."
-	@conda env create -f docker/environment.yml
-	@echo "Adding $(D)PHD$(E) environment to base ipython kernel."
-	@source activate PHD
-	@ipython kernel install --user --name=PHD
-	@conda deactivate
-
-docs:
-	@echo "Building static pages with $(D)Sphinx$(E)."
-	@poetry run python -m sphinx -b html docs doc_build -d doc_build
-
 docker:
 	@echo "Building $(P)simenv$(E) Docker image with $(D)PHD$(E) conda environment, with tag $(P)latest$(E)."
 	@docker build -f ./docker/Dockerfile -t simenv .
 	@docker tag simenv simenv:latest
 	@echo "Done. You can run this with $(P)docker run --rm -p 8888:8888 -e JUPYTER_ENABLE_LAB=yes -v <host_dir_to_mount>:/home/jovyan/work simenv$(E)."
 
+docs:
+	@echo "Building static pages with $(D)Sphinx$(E)."
+	@python -m sphinx -v -b html docs doc_build -d doc_build
+
 format:
 	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)docs$(E), $(C)pyhdtoolkit$(E) and $(C)tests$(E) folders. Max line length is 120 characters."
-	@poetry run isort . && black .
+	@python -m isort . && black .
 	@echo "Formatting code to PEP8 with $(P)isort$(E) and $(P)Black$(E) for $(C)examples$(E) folder. Max line length is 95 characters."
-	@poetry run isort examples && black -l 95 examples
+	@python -m isort examples && black -l 95 examples
 
 install: format clean
-	@echo "Installing through $(D)Poetry$(E), with dev dependencies but no extras."
-	@poetry install -v
+	@echo "Installing with $(D)pip$(E) in the current environment."
+	@python -m pip install . -v
 
 lines: format
 	@tokei .
 
 lint: format
 	@echo "Linting code with $(P)Pylint$(E)."
-	@poetry run pylint pyhdtoolkit/
-
-tests: format clean
-	@poetry run pytest --no-flaky-report -n auto -p no:sugar
-	@make clean
+	@python -m pylint pyhdtoolkit/
 
 typing: format
 	@echo "Checking code typing with $(P)mypy$(E)."
-	@poetry run mypy pyhdtoolkit
+	@python -m mypy pyhdtoolkit
+	@make clean
+
+
+# ----- Tests Targets ----- #
+
+quicktests:  # all tests not involving pyhdtoolkit.cpymadtools
+	@python -m pytest -k "not test_cpymadtools" -n auto -v
+	@make clean
+
+slowtests:  # all tests for pyhdtoolkit.cpymadtools
+	@python -m pytest -k "test_cpymadtools" -n auto -v
+	@make clean
+
+alltests:
+	@python -m pytest -n auto -v
 	@make clean
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
