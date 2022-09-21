@@ -14,7 +14,13 @@ license = "MIT"
 
 requires-python = ">=3.8"
 
-keywords = ["PHD", "Accelerator Physics", "Physics Simulation", "Visualisation", "Docker"]
+keywords = [
+  "PHD",
+  "Accelerator Physics",
+  "Physics Simulation",
+  "Visualisation",
+  "Docker",
+  ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -89,7 +95,10 @@ source = ["pyhdtoolkit/"]
 
 [tool.coverage.report]
 ignore_errors = true
-omit = ["pyhdtoolkit/utils/htc_monitor.py", "pyhdtoolkit/utils/_misc.py"]
+omit = [
+  "pyhdtoolkit/utils/htc_monitor.py",
+  "pyhdtoolkit/utils/_misc.py"
+]
 precision = 2
 
 # ----- Dev Tools Configuration ----- #
