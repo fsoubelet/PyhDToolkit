@@ -5,6 +5,18 @@ build-backend = "hatchling.build"
 [tool.hatch.version]
 path = "pyhdtoolkit/version.py"
 
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/docs",
+  "/docker",
+  "/examples",
+  "/tests",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["pyhdtoolkit"]
+
 [project]
 name = "pyhdtoolkit"
 readme = "README.md"
