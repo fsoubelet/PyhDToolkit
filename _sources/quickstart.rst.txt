@@ -8,12 +8,12 @@ Quickstart
 Installation
 ------------
 
-This package is tested for and supports `Python 3.7+`.
+This package is tested for and supports `Python 3.8+`.
 You can install it simply from ``PyPI`` in a virtual environment with:
 
 .. prompt:: bash
 
-    pip install pyhdtoolkit
+    python -m pip install pyhdtoolkit
 
 .. tip::
     Don't know what a virtual environment is or how to set it up?
@@ -69,7 +69,7 @@ The different sub-packages must be imported separately, depending on your needs:
 Cpymadtools
 ^^^^^^^^^^^
 
-The core of ``PyhDToolkit`` is the `~pyhdtoolkit.cpymadtools` sub-package.
+The core of ``PyhDToolkit`` is the :ref:`cpymadtools <pyhdtoolkit-cpymadtools>` sub-package.
 It provides an ensemble of functionality to perform operations with and from `~cpymad.madx.Madx` objects;
 and conveniently setup, run, analyze and plot ``MAD-X`` simulations and their results.
 
@@ -131,7 +131,7 @@ Alternatively one can easily parallelise an I/O-intensive function through multi
     .. prompt:: python >>>
 
         from pyhdtoolkit.utils import defaults
-        defaults.config_logger(level="trace")  # lowest level used, will give ALL logging
+        defaults.config_logger(level="trace")  # the lowest level used, will give ALL logging
 
 Additional Helpers
 ^^^^^^^^^^^^^^^^^^

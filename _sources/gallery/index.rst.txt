@@ -12,11 +12,11 @@ This page contains a gallery showcasing either plotting functionality provided i
 or plots made from results of convenient functions available in `~pyhdtoolkit`.
 
 .. important::
-    The examples shown here are plotted with the default ``rcParams`` of `~matplotlib`. If one uses this 
-    package and sets their own preferences or uses their own **mplstyle**, the resulting plots might 
-    look significantly different.
+    The examples shown here are plotted with a customized but simple ``rcParams`` style. If one uses
+    this package and sets their own preferences or uses their own **mplstyle**, the resulting plots
+    might look significantly different.
 
-    The package provides a plotting style in the `~pyhdtoolkit.utils.default` module, which should be 
+    The package provides a plotting style in the `~pyhdtoolkit.utils.defaults` module, which should be 
     compatible with the plotters. One can use the style in two ways:
 
     .. tabbed:: Import and Set the Style

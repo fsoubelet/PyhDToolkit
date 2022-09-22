@@ -13,8 +13,8 @@
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -341,14 +341,14 @@
 or plots made from results of convenient functions available in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The examples shown here are plotted with the default <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> of <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>. If one uses this
-package and sets their own preferences or uses their own <strong>mplstyle</strong>, the resulting plots might
-look significantly different.</p>
-<p>The package provides a plotting style in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">default</span></code> module, which should be
+<p>The examples shown here are plotted with a customized but simple <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> style. If one uses
+this package and sets their own preferences or uses their own <strong>mplstyle</strong>, the resulting plots
+might look significantly different.</p>
+<p>The package provides a plotting style in the <a class="reference internal" href="../api/utils.html#module-pyhdtoolkit.utils.defaults" title="pyhdtoolkit.utils.defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">defaults</span></code></a> module, which should be
 compatible with the plotters. One can use the style in two ways:</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="a2571a76-69ae-4c42-94c9-1bde04e98d32" name="2a387d25-a4a1-4fdf-99b5-41447cd055bd" type="radio">
-</input><label class="tabbed-label" for="a2571a76-69ae-4c42-94c9-1bde04e98d32">
+<input checked="checked" id="21a30878-71a1-4ebf-b6dc-c00cc9ce1f75" name="57903bd8-65fe-4946-bdb2-0bcdc62fc36a" type="radio">
+</input><label class="tabbed-label" for="21a30878-71a1-4ebf-b6dc-c00cc9ce1f75">
 Import and Set the Style</label><div class="tabbed-content docutils">
 <p>Update the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> at runtime with:</p>
 <blockquote>
@@ -362,8 +362,8 @@ span.prompt1:before {
 <span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PLOT_PARAMS</span><span class="p">)</span></span>
 </pre></div></div></div></blockquote>
 </div>
-<input id="86fd8251-4bb1-4dfa-80f2-4a871d5f0b53" name="2a387d25-a4a1-4fdf-99b5-41447cd055bd" type="radio">
-</input><label class="tabbed-label" for="86fd8251-4bb1-4dfa-80f2-4a871d5f0b53">
+<input id="d8f12fda-1bc5-4f45-beb1-743caa41ede9" name="57903bd8-65fe-4946-bdb2-0bcdc62fc36a" type="radio">
+</input><label class="tabbed-label" for="d8f12fda-1bc5-4f45-beb1-743caa41ede9">
 Install and Load the Style</label><div class="tabbed-content docutils">
 <p>Do a one-time install of the style as an <strong>.mplstyle</strong> file to import in <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>:</p>
 <blockquote>

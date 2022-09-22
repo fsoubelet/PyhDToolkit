@@ -17,7 +17,7 @@ If you find a bug, please raise a `GitHub issue <https://github.com/fsoubelet/Py
 Please include the following items in a bug report:
 
 1. A minimal, self-contained snippet of Python code reproducing the problem. You can
-   format the code nicely using markdown, e.g.::
+   format the code nicely using Markdown, e.g.::
 
 
     ```python
@@ -28,15 +28,18 @@ Please include the following items in a bug report:
 2. An explanation of why the current behaviour is wrong/not desired, and what you expect instead.
 
 3. Information about the version of the package, along with versions of dependencies and the Python interpreter, and installation information.
-   The version information can be obtained from the ``pyhdtoolkit.__version__`` property.
    Information about other packages installed can be obtained by executing ``pip freeze`` (if using pip_) or ``conda env export`` (if using conda_) from the terminal.
-   The version of the Python interpreter can be obtained by running a Python interactive session, e.g.::
-
-    python
-    Python 3.9.9 | packaged by conda-forge | (main, Dec 20 2021, 02:38:53)
-    [Clang 11.1.0 ] on darwin
-    Type "help", "copyright", "credits" or "license" for more information.
-    >>>
+   A convenience function is provided in the `~pyhdtoolkit.version` module:
+   
+    .. code-block:: python
+   
+        >>> import pyhdtoolkit
+        >>> print(pyhdtoolkit.version.version_info())
+            PyhDToolkit version: 0.21.0
+                   Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit
+                 Python version: 3.10.6
+          Python implementation: 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:41:54) [Clang 13.0.1 ]
+                       Platform: macOS-12.5.1-x86_64-i386-64bit
 
 Enhancement Proposals
 ---------------------
@@ -64,27 +67,43 @@ Then clone your fork to your local machine::
 Creating a Development Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To work with the source code, you will need the (amazing) Poetry_ tool which is used to handle the package's development.
-Installation instructions are provided on the linked website.
+``PyhDToolkit`` uses Hatch_ as a package development tool, which handles the creation & management of a development environment, building, publishing, recipes and more.
+However, as the **pyproject.toml** file is fully **PEP**-compliant, using ``Hatch`` is not mandatory for development.
 
-Assuming you have ``poetry`` in your ``PATH``, once in the root of the repository setting yourself up is as easy as::
+Here is how to set yourself up:
 
-    $ poetry install
+    .. tabbed:: Using Hatch
 
-With this, ``poetry`` will create a new virtual environment and install there the package as well as its runtime and development dependencies.
-The installation is similar to the editable mode from ``pip``.
+        Assuming you have ``hatch`` in your ``PATH``, once in the root of the repository setting yourself up is as easy as::
+
+            $ hatch env create
+
+        With this, ``hatch`` will create a new virtual environment and install in there the package as well as its runtime and development dependencies.
+        The installation is similar to the editable mode from ``pip``.
+        You can enter the environment by running::
+
+            $ hatch shell
+
+        .. tip::
+
+            Start your commands with **hatch run** to have ``hatch`` run them in the virtual environment, if you don't wish to activate it.
+            For instance, getting the Python version can be as simple as::
+
+                $ hatch run python --version
+
+    .. tabbed:: Without Hatch
+
+        If you want to skip using ``Hatch``, you can create a virtual environment yourself and then ``pip install`` the package in editable mode::
+
+            $ python -m pip install -e ".[test,dev,docs]"
 
 .. note::
    
    The repository contains a ``Makefile`` with many useful targets to help the development workflow.
-   While most relevant steps can be run this way, it is still good that potential contributors get familiar with ``poetry``.
-
-.. tip::
-
-   Start your commands with **poetry run** to have ``poetry`` run them in the virtual environment, if you don't wish to activate it.
-   For instance, getting the Python version can be as simple as::
-
-       $ poetry run python --version
+   These targets assume you are in the appropriate environment, either one that you manage or one created by ``Hatch`` and entered with `hatch shell`.
+   You can list them by running::
+        
+        $ make help
 
 Creating a Branch
 ~~~~~~~~~~~~~~~~~
@@ -97,7 +116,6 @@ E.g.::
     $ git checkout master
     $ git fetch upstream
     $ git rebase upstream/master
-    $ git push
     $ git checkout -b shiny-new-feature
     $ git push -u origin shiny-new-feature
 
@@ -122,20 +140,30 @@ Running the Test Suite
 ~~~~~~~~~~~~~~~~~~~~~~
 
 The repository includes a suite of unit tests you should run to check your changes.
-The simplest way to run the test suite is, again, through ``poetry``::
+One can run the test suite in the following way:
 
-    $ poetry run python -m pytest --dist no
+    .. tabbed:: Using Hatch
+
+        The simplest way to run the test suite using ``hatch`` is::
+
+            $ hatch run python -m pytest
+
+    .. tabbed:: Without Hatch
+
+        In your virtual environment, run::
+
+            $ python -m pytest
 
 .. tip::
 
-   A convenient ``Makefile`` target exists for tests, which taps into the power of ``pytest-xdist`` and parallelises tests through your cpu cores.
-   If you are ok using this option, which can drastically speed up the runtime of the suite, simply run::
+    A convenient ``make`` target exists for tests, which taps into the power of ``pytest-xdist`` and parallelises tests through your cpu cores.
+    If you are ok using this option, which can drastically speed up the runtime of the suite, simply run::
 
-       $ make tests
+        $ make alltests
 
 All tests are automatically run via **GitHub Actions** for every push onto the main repository, and in every pull request.
 The test suite **must** pass before code can be accepted.
-Test coverage is also collected automatically via the Codecov_ service, and the target for total coverage is 95%.
+Test coverage is also collected automatically via the Codecov_ service, and the target for total coverage is usually 95%, though exceptions can be made.
 
 Code Standards
 ~~~~~~~~~~~~~~
@@ -143,12 +171,11 @@ Code Standards
 All code must conform to the PEP8_ standard.
 Lines up to 120 characters are allowed, although please try to keep below wherever possible.
 Formatting is enforced using the ``black`` tool, and imports sorting with ``isort``.
-These tools are development dependencies and are automatically installed when you run ``poetry install``.
 
 .. tip::
 
    Configuration for ``black`` and ``isort`` is written into the **pyproject.toml** file.
-   A ``Makefile`` target is available to run these tools::
+   A ``make`` target is available to run these tools::
 
        $ make format
 
@@ -158,7 +185,7 @@ Additionally, code quality is kept in check with the ``pylint`` tool.
 
 .. tip:: 
 
-   Some ``Makefile`` targets are available to run these tools::
+   Some ``make`` targets are available to run these tools::
    
        $ make lint
        $ make typing
@@ -176,20 +203,14 @@ All user-facing classes and functions should be included in the API documentatio
 
 The documentation can be built locally by running::
 
-    $ poetry run python -m sphinx -b html docs doc_build -d doc_build
+    $ make doc
 
 The static HTML pages will be available in a newly created **doc_build** folder.
-
-.. tip::
-
-   As for other tasks, a ``Makefile`` target is available::
-   
-       $ make docs
 
 
 .. _pip: https://pip.pypa.io/en/stable/
 .. _conda: https://docs.conda.io/en/latest/
-.. _Poetry: https://python-poetry.org/
 .. _Codecov: https://about.codecov.io/
+.. _Hatch: https://hatch.pypa.io/latest/
 .. _PEP8: https://www.python.org/dev/peps/pep-0008/
 .. _Sphinx: https://www.sphinx-doc.org/en/master/

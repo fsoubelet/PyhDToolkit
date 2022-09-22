@@ -13,8 +13,8 @@
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -350,7 +350,7 @@ I will try to respond to questions as quickly as possible, but please bear in mi
 Please include the following items in a bug report:</p>
 <ol class="arabic">
 <li><p>A minimal, self-contained snippet of Python code reproducing the problem. You can
-format the code nicely using markdown, e.g.:</p>
+format the code nicely using Markdown, e.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>```python
 import pyhdtoolkit
 # your example here.
@@ -360,16 +360,19 @@ import pyhdtoolkit
 </li>
 <li><p>An explanation of why the current behaviour is wrong/not desired, and what you expect instead.</p></li>
 <li><p>Information about the version of the package, along with versions of dependencies and the Python interpreter, and installation information.
-The version information can be obtained from the <code class="docutils literal notranslate"><span class="pre">pyhdtoolkit.__version__</span></code> property.
 Information about other packages installed can be obtained by executing <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> (if using <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>) or <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span></code> (if using <a class="reference external" href="https://docs.conda.io/en/latest/">conda</a>) from the terminal.
-The version of the Python interpreter can be obtained by running a Python interactive session, e.g.:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span>
-<span class="n">Python</span> <span class="mf">3.9.9</span> <span class="o">|</span> <span class="n">packaged</span> <span class="n">by</span> <span class="n">conda</span><span class="o">-</span><span class="n">forge</span> <span class="o">|</span> <span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">Dec</span> <span class="mi">20</span> <span class="mi">2021</span><span class="p">,</span> <span class="mi">02</span><span class="p">:</span><span class="mi">38</span><span class="p">:</span><span class="mi">53</span><span class="p">)</span>
-<span class="p">[</span><span class="n">Clang</span> <span class="mf">11.1.0</span> <span class="p">]</span> <span class="n">on</span> <span class="n">darwin</span>
-<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
-<span class="o">&gt;&gt;&gt;</span>
+A convenience function is provided in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code> module:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyhdtoolkit</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pyhdtoolkit</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version_info</span><span class="p">())</span>
+<span class="go">    PyhDToolkit version: 0.21.0</span>
+<span class="go">           Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit</span>
+<span class="go">         Python version: 3.10.6</span>
+<span class="go">  Python implementation: 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:41:54) [Clang 13.0.1 ]</span>
+<span class="go">               Platform: macOS-12.5.1-x86_64-i386-64bit</span>
 </pre></div>
 </div>
+</div></blockquote>
 </li>
 </ol>
 </section>
@@ -396,24 +399,49 @@ $ git remote add upstream git@github.com:fsoubelet/PyhDToolkit.git
 </section>
 <section id="creating-a-development-environment">
 <h3>Creating a Development Environment<a class="headerlink" href="#creating-a-development-environment" title="Permalink to this headline"></a></h3>
-<p>To work with the source code, you will need the (amazing) <a class="reference external" href="https://python-poetry.org/">Poetry</a> tool which is used to handle the package’s development.
-Installation instructions are provided on the linked website.</p>
-<p>Assuming you have <code class="docutils literal notranslate"><span class="pre">poetry</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry install
+<p><code class="docutils literal notranslate"><span class="pre">PyhDToolkit</span></code> uses <a class="reference external" href="https://hatch.pypa.io/latest/">Hatch</a> as a package development tool, which handles the creation &amp; management of a development environment, building, publishing, recipes and more.
+However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</strong>-compliant, using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code> is not mandatory for development.</p>
+<p>Here is how to set yourself up:</p>
+<blockquote>
+<div><div class="tabbed-set docutils">
+<input checked="checked" id="f9bbfc40-e8f6-45c9-8e1a-bfd49ba9273b" name="8fa26860-69d1-44a2-8af4-1ba8e39dfbb9" type="radio">
+</input><label class="tabbed-label" for="f9bbfc40-e8f6-45c9-8e1a-bfd49ba9273b">
+Using Hatch</label><div class="tabbed-content docutils">
+<p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
 </pre></div>
 </div>
-<p>With this, <code class="docutils literal notranslate"><span class="pre">poetry</span></code> will create a new virtual environment and install there the package as well as its runtime and development dependencies.
-The installation is similar to the editable mode from <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The repository contains a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> with many useful targets to help the development workflow.
-While most relevant steps can be run this way, it is still good that potential contributors get familiar with <code class="docutils literal notranslate"><span class="pre">poetry</span></code>.</p>
+<p>With this, <code class="docutils literal notranslate"><span class="pre">hatch</span></code> will create a new virtual environment and install in there the package as well as its runtime and development dependencies.
+The installation is similar to the editable mode from <code class="docutils literal notranslate"><span class="pre">pip</span></code>.
+You can enter the environment by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch shell
+</pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Start your commands with <strong>poetry run</strong> to have <code class="docutils literal notranslate"><span class="pre">poetry</span></code> run them in the virtual environment, if you don’t wish to activate it.
+<p>Start your commands with <strong>hatch run</strong> to have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> run them in the virtual environment, if you don’t wish to activate it.
 For instance, getting the Python version can be as simple as:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run python --version
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python --version
+</pre></div>
+</div>
+</div>
+</div>
+<input id="29423a52-c280-4fb8-8c00-48b73c488de1" name="8fa26860-69d1-44a2-8af4-1ba8e39dfbb9" type="radio">
+</input><label class="tabbed-label" for="29423a52-c280-4fb8-8c00-48b73c488de1">
+Without Hatch</label><div class="tabbed-content docutils">
+<p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e &quot;.[test,dev,docs]&quot;
+</pre></div>
+</div>
+</div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The repository contains a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> with many useful targets to help the development workflow.
+These targets assume you are in the appropriate environment, either one that you manage or one created by <code class="docutils literal notranslate"><span class="pre">Hatch</span></code> and entered with <code class="xref py py-obj docutils literal notranslate"><span class="pre">hatch</span> <span class="pre">shell</span></code>.
+You can list them by running:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make help
 </pre></div>
 </div>
 </div>
@@ -426,7 +454,6 @@ E.g.:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ git checkout master
 $ git fetch upstream
 $ git rebase upstream/master
-$ git push
 $ git checkout -b shiny-new-feature
 $ git push -u origin shiny-new-feature
 </pre></div>
@@ -450,32 +477,48 @@ $ git merge upstream/master
 <section id="running-the-test-suite">
 <h3>Running the Test Suite<a class="headerlink" href="#running-the-test-suite" title="Permalink to this headline"></a></h3>
 <p>The repository includes a suite of unit tests you should run to check your changes.
-The simplest way to run the test suite is, again, through <code class="docutils literal notranslate"><span class="pre">poetry</span></code>:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run python -m pytest --dist no
+One can run the test suite in the following way:</p>
+<blockquote>
+<div><div class="tabbed-set docutils">
+<input checked="checked" id="29226c43-b476-4856-b724-4d042510e1a1" name="99509711-f9a5-48c3-9591-2b2e91ccd4da" type="radio">
+</input><label class="tabbed-label" for="29226c43-b476-4856-b724-4d042510e1a1">
+Using Hatch</label><div class="tabbed-content docutils">
+<p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
+</div>
+<input id="f879cf64-f0f0-428e-8542-54eb9f990230" name="99509711-f9a5-48c3-9591-2b2e91ccd4da" type="radio">
+</input><label class="tabbed-label" for="f879cf64-f0f0-428e-8542-54eb9f990230">
+Without Hatch</label><div class="tabbed-content docutils">
+<p>In your virtual environment, run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest
+</pre></div>
+</div>
+</div>
+</div>
+</div></blockquote>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>A convenient <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> target exists for tests, which taps into the power of <code class="docutils literal notranslate"><span class="pre">pytest-xdist</span></code> and parallelises tests through your cpu cores.
+<p>A convenient <code class="docutils literal notranslate"><span class="pre">make</span></code> target exists for tests, which taps into the power of <code class="docutils literal notranslate"><span class="pre">pytest-xdist</span></code> and parallelises tests through your cpu cores.
 If you are ok using this option, which can drastically speed up the runtime of the suite, simply run:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make tests
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make alltests
 </pre></div>
 </div>
 </div>
 <p>All tests are automatically run via <strong>GitHub Actions</strong> for every push onto the main repository, and in every pull request.
 The test suite <strong>must</strong> pass before code can be accepted.
-Test coverage is also collected automatically via the <a class="reference external" href="https://about.codecov.io/">Codecov</a> service, and the target for total coverage is 95%.</p>
+Test coverage is also collected automatically via the <a class="reference external" href="https://about.codecov.io/">Codecov</a> service, and the target for total coverage is usually 95%, though exceptions can be made.</p>
 </section>
 <section id="code-standards">
 <h3>Code Standards<a class="headerlink" href="#code-standards" title="Permalink to this headline"></a></h3>
 <p>All code must conform to the <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP8</a> standard.
 Lines up to 120 characters are allowed, although please try to keep below wherever possible.
-Formatting is enforced using the <code class="docutils literal notranslate"><span class="pre">black</span></code> tool, and imports sorting with <code class="docutils literal notranslate"><span class="pre">isort</span></code>.
-These tools are development dependencies and are automatically installed when you run <code class="docutils literal notranslate"><span class="pre">poetry</span> <span class="pre">install</span></code>.</p>
+Formatting is enforced using the <code class="docutils literal notranslate"><span class="pre">black</span></code> tool, and imports sorting with <code class="docutils literal notranslate"><span class="pre">isort</span></code>.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Configuration for <code class="docutils literal notranslate"><span class="pre">black</span></code> and <code class="docutils literal notranslate"><span class="pre">isort</span></code> is written into the <strong>pyproject.toml</strong> file.
-A <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> target is available to run these tools:</p>
+A <code class="docutils literal notranslate"><span class="pre">make</span></code> target is available to run these tools:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make format
 </pre></div>
 </div>
@@ -485,7 +528,7 @@ As much as possible, types are enforced with the help of the <code class="docuti
 Additionally, code quality is kept in check with the <code class="docutils literal notranslate"><span class="pre">pylint</span></code> tool.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Some <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> targets are available to run these tools:</p>
+<p>Some <code class="docutils literal notranslate"><span class="pre">make</span></code> targets are available to run these tools:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make lint
 $ make typing
 </pre></div>
@@ -501,17 +544,10 @@ Documentation is written in the <code class="docutils literal notranslate"><span
 The documentation consists both of prose and API reference documentation.
 All user-facing classes and functions should be included in the API documentation, under the <strong>docs/api</strong> folder.</p>
 <p>The documentation can be built locally by running:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ poetry run python -m sphinx -b html docs doc_build -d doc_build
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make doc
 </pre></div>
 </div>
 <p>The static HTML pages will be available in a newly created <strong>doc_build</strong> folder.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>As for other tasks, a <code class="docutils literal notranslate"><span class="pre">Makefile</span></code> target is available:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ make docs
-</pre></div>
-</div>
-</div>
 </section>
 </section>
 </section>
