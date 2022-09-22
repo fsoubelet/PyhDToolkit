@@ -291,7 +291,7 @@ the data, and determine its mode:
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: ChiSquared(df=3.47, loc=0.00, scale=1.01)
+   :alt: Best fit to distribution: ChiSquared(df=3.99, loc=0.00, scale=1.00)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -314,14 +314,7 @@ a nice tolerance to ensure the documentation build does not fail.
 
 
 
-.. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
-
-    Traceback (most recent call last):
-      File "/home/runner/work/PyhDToolkit/PyhDToolkit/examples/demo_stats_fitting.py", line 202, in <module>
-        assert np.isclose(pdf.idxmax(), 2, rtol=2e-2)
-    AssertionError
 
 
 
@@ -347,6 +340,12 @@ one.
 
     determined_stdev = chi_data.mean() / factor
     assert np.isclose(determined_stdev, 1, rtol=1e-2)  # nice tolerance here too
+
+
+
+
+
+
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 222-226
@@ -390,9 +389,20 @@ distribution generated above.
     plt.legend()
 
 
+
+.. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_003.svg
+   :alt: All Fitted Distributions
+   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_003.svg, /gallery/images/sphx_glr_demo_stats_fitting_003_2_0x.svg 2.0x
+   :class: sphx-glr-single-img
+
+
+
+
+
+
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.407 seconds)
+   **Total running time of the script:** ( 0 minutes  14.362 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:
