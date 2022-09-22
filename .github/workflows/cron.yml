@@ -18,36 +18,28 @@ jobs:
         os: [ubuntu-20.04, ubuntu-22.04, macos-latest, windows-latest]
         python-version: [3.8, 3.9, "3.10", 3.x]  # crons should always run latest python hence 3.x
         exclude:
-          - os: windows-latest  # scipy deps issues
-            python-version: "3.10"
-          - os: windows-latest
-            python-version: "3.x"
-          - os: macos-latest  # scipy deps issues
-            python-version: "3.10"
-          - os: macos-latest
-            python-version: "3.x"
+          # - os: windows-latest  # scipy deps issues
+          #   python-version: "3.10"
+          # - os: windows-latest
+          #   python-version: "3.x"
+          # - os: macos-latest  # scipy deps issues
+          #   python-version: "3.10"
+          # - os: macos-latest
+          #   python-version: "3.x"
       fail-fast: false
 
     steps:
       - uses: actions/checkout@v3
 
-      - name: Install poetry
-        run: pipx install poetry
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'poetry'
+          cache: pip
+          cache-dependency-path: '**/pyproject.toml'
 
-      - name: Upgrade pip, setuptools and wheel
-        run: poetry run python -m pip install --upgrade pip setuptools wheel
-
-      - name: Install dependencies
-        run: poetry install -v
-
-      - name: Hack update scipy
-        run: poetry run python -m pip install --upgrade scipy
+      - name: Install package with test dependencies
+        run: python -m pip install ".[test]"
 
       - name: Run Tests
-        run: poetry run python -m pytest
+        run: alltests

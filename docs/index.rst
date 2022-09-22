@@ -88,11 +88,11 @@ Installation
 ``PyhDToolkit`` is available to install from ``PyPI`` or from VCS.
 Install the package from ``PyPI``::
 
-    pip install pyhdtoolkit
+    python -m pip install pyhdtoolkit
 
 To install the latest development version of PyhDToolkit, you can use ``pip`` with the latest GitHub master::
 
-    pip install git+https://github.com/fsoubelet/PyhDToolkit.git
+    python -m pip install git+https://github.com/fsoubelet/PyhDToolkit.git
 
 To set up a development environment, see the :doc:`contributing instructions <contributing>`.
 
@@ -153,6 +153,5 @@ Indices and tables
 .. _cpymad: https://hibtc.github.io/cpymad/
 .. _pydantic: https://pydantic-docs.helpmanual.io/
 .. _HTCondor: https://htcondor.org/
-.. _Poetry: https://python-poetry.org/
 .. _DOI: https://zenodo.org/badge/latestdoi/227081702
 .. _Zenodo: https://zenodo.org

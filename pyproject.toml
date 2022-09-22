@@ -1,18 +1,40 @@
-[tool.poetry]
-name = "pyhdtoolkit"
-version = "0.21.0"
-description = "An all-in-one toolkit package to ease my Python work in my PhD."
-authors = ["Felix Soubelet <felix.soubelet@cern.ch>"]
-license = "MIT"
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-packages = [
-    {include = "pyhdtoolkit"}
+[tool.hatch.version]
+path = "pyhdtoolkit/version.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+  "/.github",
+  "/docs",
+  "/docker",
+  "/examples",
+  "/tests",
 ]
 
-readme = "README.md"
-repository = "https://github.com/fsoubelet/PyhDToolkit"
+[tool.hatch.build.targets.wheel]
+packages = ["pyhdtoolkit"]
 
-keywords = ["PHD", "Accelerator Physics", "Physics Simulation", "Visualisation", "Docker"]
+[project]
+name = "pyhdtoolkit"
+readme = "README.md"
+description = "An all-in-one toolkit package to ease my Python work in my PhD."
+authors = [
+    {name = "Felix Soubelet", email = "felix.soubelet@cern.ch"},
+]
+license = "MIT"
+dynamic = ["version"]
+requires-python = ">=3.8"
+
+keywords = [
+  "PHD",
+  "Accelerator Physics",
+  "Physics Simulation",
+  "Visualisation",
+  "Docker",
+  ]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
@@ -20,7 +42,6 @@ classifiers = [
     "Natural Language :: English",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3 :: Only",
-    "Programming Language :: Python :: 3.7",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -31,43 +52,51 @@ classifiers = [
     "Topic :: Utilities",
 ]
 
-# Core dependencies of the package
-[tool.poetry.dependencies]
-python = "^3.8"
-numpy = "^1.21"
-pandas = "^1.4"
-matplotlib = "^3.3"
-scipy = "^1.6"
-tfs-pandas = "^3.2"
-loguru = "<1.0"
-cpymad = "^1.9"
-rich = "^12.0"
-pydantic = "^1.0"
-pendulum = "^2.0"
-optics-functions = "^0.1"
+dependencies = [
+  "numpy >= 1.21",
+  "pandas >= 1.4",
+  "matplotlib >=3.3",
+  "scipy >= 1.6",
+  "tfs-pandas >= 3.2",
+  "loguru < 1.0",
+  "cpymad >= 1.9",
+  "rich >= 12.0",
+  "pydantic >= 1.0",
+  "pendulum >= 2.0",
+  "optics-functions >= 0.1",
+]
 
-[tool.poetry.dev-dependencies]
-# Tests Block
-pytest = "^6.0"
-pytest-cov = "^2.7"
-pytest-xdist = "^2.5"
-flaky = "^3.5"
-pytest-randomly = "^3.3"
-coverage = {extras = ["toml"], version = "^5.2"}
-pytest-mpl = "<1.0"
-# Code Quality Block
-black = "^22.1"
-isort = "^5.10"
-pylint = "^2.4"
-# Documentation Block
-Sphinx = "^4.4"
-sphinx-rtd-theme = "^1.0"
-sphinx-issues = "^3.0"
-sphinx-copybutton = "<1.0"
-sphinxcontrib-bibtex = "^2.4"
-sphinx-panels = "<1.0"
-sphinx-gallery = "<1.0"
-sphinx-prompt = "^1.5"
+[project.optional-dependencies]
+test = [
+  "pytest >= 6.0",
+  "pytest-cov >= 3.0",
+  "pytest-xdist >= 2.5",
+  "flaky >= 3.5",
+  "pytest-randomly >= 3.3",
+  "coverage[toml] >= 5.2",
+  "pytest-mpl >= 0.12",
+]
+dev = [
+  "black >= 22.1",
+  "isort >= 5.10",
+  "pylint >= 2.4",
+]
+docs = [
+  "Sphinx >= 4.4",
+  "sphinx-rtd-theme >= 1.0",
+  "sphinx-issues >= 3.0",
+  "sphinx_copybutton < 1.0",
+  "sphinxcontrib-bibtex >= 2.4",
+  "sphinx-panels < 1.0",
+  "sphinx-gallery < 1.0",
+  "sphinx-prompt >= 1.5",
+]
+
+[project.urls]
+homepage = "https://github.com/fsoubelet/PyhDToolkit"
+repository = "https://github.com/fsoubelet/PyhDToolkit"
+documentation = "https://fsoubelet.github.io/PyhDToolkit"
+changelog = "https://fsoubelet.github.io/PyhDToolkit/release.html"
 
 # ----- Testing Configuration ----- #
 
@@ -80,10 +109,13 @@ source = ["pyhdtoolkit/"]
 
 [tool.coverage.report]
 ignore_errors = true
-omit = ["pyhdtoolkit/utils/htc_monitor.py", "pyhdtoolkit/utils/_misc.py"]
+omit = [
+  "pyhdtoolkit/utils/htc_monitor.py",
+  "pyhdtoolkit/utils/_misc.py"
+]
 precision = 2
 
-# ----- Utilities Configuration ----- #
+# ----- Dev Tools Configuration ----- #
 
 [tool.isort]
 atomic = true
@@ -204,7 +236,3 @@ verbose = 2
 quiet = false
 whitelist-regex = []
 color = true
-
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"

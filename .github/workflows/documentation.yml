@@ -29,64 +29,27 @@ jobs:
       - name: Install optipng, dvipng and cm-super
         run: sudo apt-get install -y optipng dvipng cm-super
 
-      - name: Install poetry
-        run: pipx install poetry
-
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-          cache: 'poetry'
+          cache: pip
+          cache-dependency-path: '**/pyproject.toml'
 
-      - name: Upgrade pip, setuptools and wheel
-        run: poetry run python -m pip install --upgrade pip setuptools wheel
-
-      - name: Install dependencies
-        run: poetry install -v
+      - name: Install package with doc dependencies
+        run: python -m pip install ".[docs]"
 
       # Sometimes the minrpc client will close while documentation builds and I don't know why
       # Forcing several successive builds here and hoping it works out (sphinx-gallery 
       # checks for the existence of already built examples to avoid re-running them, so
       # once the gallery is built successive builds will just re-generate the html, very quickly)
-      - name: Build documentation (1/10)
+      - name: Build documentation
         continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+        run: make docs
 
-      - name: Build documentation (2/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (3/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (4/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (5/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (6/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (7/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (8/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (9/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
-
-      - name: Build documentation (10/10)
-        continue-on-error: true
-        run: poetry run python -m sphinx -v -b html docs doc_build -d doc_build
+      # - name: Build documentation (2/n)
+      #   continue-on-error: true
+      #   run: make docs
 
       # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
       - name: Upload build artifacts
