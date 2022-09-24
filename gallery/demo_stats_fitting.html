@@ -13,8 +13,8 @@
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -514,7 +514,7 @@ the data, and determine its mode:</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.legend.html#matplotlib.axes.Axes.legend" title="matplotlib.axes.Axes.legend" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">ax</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_demo_stats_fitting_002.svg" srcset="../_images/sphx_glr_demo_stats_fitting_002.svg, ../_images/sphx_glr_demo_stats_fitting_002_2_0x.svg 2.0x" alt="Best fit to distribution: ChiSquared(df=3.99, loc=0.00, scale=1.00)" class = "sphx-glr-single-img"/><p>We expect a mode of 2, we can check that this is indeed the case. Here we leave
+<img src="../_images/sphx_glr_demo_stats_fitting_002.svg" srcset="../_images/sphx_glr_demo_stats_fitting_002.svg, ../_images/sphx_glr_demo_stats_fitting_002_2_0x.svg 2.0x" alt="Best fit to distribution: ChiSquared(df=4.00, loc=-0.00, scale=1.00)" class = "sphx-glr-single-img"/><p>We expect a mode of 2, we can check that this is indeed the case. Here we leave
 a nice tolerance to ensure the documentation build does not fail.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <a href="https://numpy.org/doc/stable/reference/generated/numpy.isclose.html#numpy.isclose" title="numpy.isclose" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">isclose</span></a><span class="p">(</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.Series.idxmax.html#pandas.Series.idxmax" title="pandas.Series.idxmax" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">pdf</span><span class="o">.</span><span class="n">idxmax</span></a><span class="p">(),</span> <span class="mi">2</span><span class="p">,</span> <span class="n">rtol</span><span class="o">=</span><span class="mf">2e-2</span><span class="p">)</span>
 </pre></div>
@@ -566,7 +566,7 @@ distribution generated above.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.legend.html#matplotlib.pyplot.legend" title="matplotlib.pyplot.legend" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">legend</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_demo_stats_fitting_003.svg" srcset="../_images/sphx_glr_demo_stats_fitting_003.svg, ../_images/sphx_glr_demo_stats_fitting_003_2_0x.svg 2.0x" alt="All Fitted Distributions" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  14.362 seconds)</p>
+<img src="../_images/sphx_glr_demo_stats_fitting_003.svg" srcset="../_images/sphx_glr_demo_stats_fitting_003.svg, ../_images/sphx_glr_demo_stats_fitting_003_2_0x.svg 2.0x" alt="All Fitted Distributions" class = "sphx-glr-single-img"/><p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  11.912 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-stats-fitting-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/d79a63556b1e95ae938e41be84f8f1b0/demo_stats_fitting.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_stats_fitting.py</span></code></a></p>
