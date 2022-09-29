@@ -49,8 +49,8 @@ def plot_latwiss(
 
     .. note::
         This function has some heavy logic behind it, especially in how it needs to order several axes. The
-        easiest way to go about using it is to manually create and empty figure then call this function. See
-        the example below or the gallery for more details.
+        easiest way to go about using it is to manually create and empty figure with the desired properties
+        (size, etc) then call this function. See the example below or the gallery for more details.
 
     .. important::
         At the moment, it is important to give this function symmetric limits for the ``k0l_lim``, ``k1l_lim``
