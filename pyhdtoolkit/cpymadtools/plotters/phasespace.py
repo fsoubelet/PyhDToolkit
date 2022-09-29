@@ -18,6 +18,7 @@ from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
 
+from pyhdtoolkit.cpymadtools.plotters.utils import maybe_get_ax
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
@@ -29,10 +30,10 @@ def plot_courant_snyder_phase_space(
     madx: Madx,
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
-    savefig: str = None,
-    figsize: Tuple[int, int] = (16, 8),
     plane: str = "Horizontal",
-) -> matplotlib.figure.Figure:
+    *args,
+    **kwargs,
+) -> matplotlib.axes.Axes:
     """
     .. versionadded:: 1.0.0
 
@@ -47,22 +48,21 @@ def plot_courant_snyder_phase_space(
         pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
             given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
             and so on.
-        savefig (str): if not `None`, will save the figure to file using the string value passed.
-        figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
         plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
             case-insensitive. Defaults to ``Horizontal``.
+        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
+            axis object to plot on.
 
     Returns:
-            The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
-            accessed with ``fig.get_axes()``.
+            The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
     """
     if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
         raise ValueError("Invalid plane value")
 
     logger.debug("Plotting phase space for normalized Courant-Snyder coordinates")
-    figure = plt.figure(figsize=figsize)
-    plt.title("Courant-Snyder Phase Space")
+    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
+    axis.set_title("Courant-Snyder Phase Space")
 
     # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
     logger.debug("Getting Twiss functions from MAD-X")
@@ -74,28 +74,25 @@ def plot_courant_snyder_phase_space(
         logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
         u = np.array([u_coordinates[index], pu_coordinates[index]])
         u_bar = courant_snyder_transform(u, alpha, beta)
-        plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
+        axis.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
         if plane.upper() == "HORIZONTAL":
-            plt.xlabel(r"$\bar{x} \ [mm]$")
-            plt.ylabel(r"$\bar{px} \ [mrad]$")
+            axis.set_xlabel(r"$\bar{x} \ [mm]$")
+            axis.set_ylabel(r"$\bar{px} \ [mrad]$")
         else:
-            plt.xlabel(r"$\bar{y} \ [mm]$")
-            plt.ylabel(r"$\bar{py} \ [mrad]$")
+            axis.set_xlabel(r"$\bar{y} \ [mm]$")
+            axis.set_ylabel(r"$\bar{py} \ [mrad]$")
         plt.axis("Equal")
 
-    if savefig:
-        logger.debug(f"Saving Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
-        plt.savefig(Path(savefig))
-    return figure
+    return axis
 
 
 def plot_courant_snyder_phase_space_colored(
     madx: Madx,
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
-    savefig: str = None,
-    figsize: Tuple[int, int] = (16, 8),
     plane: str = "Horizontal",
+    *args,
+    **kwargs,
 ) -> matplotlib.figure.Figure:
     """
     .. versionadded:: 1.0.0
@@ -114,13 +111,13 @@ def plot_courant_snyder_phase_space_colored(
             given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
             and so on.
         savefig (str): if not `None`, will save the figure to file using the string value passed.
-        figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
         plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
             case-insensitive. Defaults to ``Horizontal``.
+        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
+            axis object to plot on.
 
     Returns:
-            The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
-            accessed with ``fig.get_axes()``.
+            The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
     """
     if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
         logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
@@ -132,8 +129,8 @@ def plot_courant_snyder_phase_space_colored(
         colors.pop()
 
     logger.debug("Plotting colored phase space for normalized Courant-Snyder coordinates")
-    figure = plt.figure(figsize=figsize)
-    plt.title("Courant-Snyder Phase Space")
+    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
+    axis.set_title("Courant-Snyder Phase Space")
 
     # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
     logger.debug("Getting Twiss functions from MAD-X")
@@ -145,16 +142,13 @@ def plot_courant_snyder_phase_space_colored(
         logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
         u = np.array([u_coordinates[index], pu_coordinates[index]])
         u_bar = courant_snyder_transform(u, alpha, beta)
-        plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
+        axis.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
         if plane.upper() == "HORIZONTAL":
-            plt.xlabel(r"$\bar{x} \ [mm]$")
-            plt.ylabel(r"$\bar{px} \ [mrad]$")
+            axis.set_xlabel(r"$\bar{x} \ [mm]$")
+            axis.set_ylabel(r"$\bar{px} \ [mrad]$")
         else:
-            plt.xlabel(r"$\bar{y} \ [mm]$")
-            plt.ylabel(r"$\bar{py} \ [mrad]$")
+            axis.set_xlabel(r"$\bar{y} \ [mm]$")
+            axis.set_ylabel(r"$\bar{py} \ [mrad]$")
         plt.axis("Equal")
 
-    if savefig:
-        logger.debug(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
-        plt.savefig(Path(savefig))
-    return figure
+    return axis
