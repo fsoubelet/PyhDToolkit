@@ -55,7 +55,13 @@ def plot_courant_snyder_phase_space(
             axis object to plot on.
 
     Returns:
-            The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
+            The `~matplotlib.axes.Axes` on which the tune phase space is drawn.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(10, 9))
+            >>> plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane="Horizontal")
     """
     if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
@@ -118,7 +124,13 @@ def plot_courant_snyder_phase_space_colored(
             axis object to plot on.
 
     Returns:
-            The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
+            The `~matplotlib.axes.Axes` on which the phase space diagram is drawn.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(10, 9))
+            >>> plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane="Horizontal")
     """
     if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
         logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
