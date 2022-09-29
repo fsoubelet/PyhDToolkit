@@ -17,6 +17,8 @@ import numpy as np
 
 from loguru import logger
 
+from pyhdtoolkit.cpymadtools.plotters.utils import maybe_get_ax
+
 ORDER_TO_ALPHA: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
 ORDER_TO_RGB: Dict[int, np.ndarray] = {
     1: np.array([152, 52, 48]) / 255,  # a brown
@@ -74,9 +76,9 @@ def plot_tune_diagram(
     legend_title: str = None,
     max_order: int = 6,
     differentiate_orders: bool = False,
-    figsize: Tuple[float, float] = (12, 12),
+    *args,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> matplotlib.axes.Axes:
     """
     .. versionadded:: 1.0.0
 
@@ -98,20 +100,21 @@ def plot_tune_diagram(
             When set to `False`, there is still minimal differentation through ``alpha``, ``linewidth``
             and ``linestyle``. Defaults to `False`.
         figsize (Tuple[int, int]): size of the figure, defaults to (12, 12).
-        **kwargs: any keyword argument will be transmitted to the
-            `~.plotters._plot_resonance_lines_for_order` function and later on to
-            `~matplotlib.pyplot.plot`. Be aware that ``alpha``, ``ls``, ``lw``, ``color`` and ``label`` are
-            already set by this function and providing them as kwargs might lead to errors.
+        **kwargs: keyword arguments will be transmitted to the `~plot_resonance_lines_for_order` function
+            and later on to `~matplotlib.pyplot.plot`. Be aware that ``alpha``, ``ls``, ``lw``, ``color``
+            and ``label`` are already set by this function and providing them as kwargs might lead to errors.
+            If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the axis object
+            to plot on.
 
     Returns:
-            The `~matplotlib.figure.Figure` on which the tune diagram is drawn.
+            The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
     """
     if max_order > 6 or max_order < 1:
         logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
         raise ValueError("The 'max_order' argument should be between 1 and 6 included")
 
     logger.debug(f"Plotting resonance lines up to {ORDER_TO_LABEL[max_order]}")
-    figure, axis = plt.subplots(figsize=figsize)
+    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
 
     for order in range(max_order, 0, -1):  # high -> low so most importants ones (low) are plotted on top
         alpha, ls, lw, rgb = (
@@ -122,16 +125,16 @@ def plot_tune_diagram(
         )
         plot_resonance_lines_for_order(order, axis, alpha=alpha, ls=ls, lw=lw, color=rgb, **kwargs)
 
-    plt.title(title)
+    axis.set_title(title)
     axis.set_xlim([0, 1])
     axis.set_ylim([0, 1])
-    plt.xlabel("$Q_{x}$")
-    plt.ylabel("$Q_{y}$")
+    axis.set_xlabel("$Q_{x}$")
+    axis.set_ylabel("$Q_{y}$")
 
     if legend_title is not None:
         logger.debug("Adding legend with given title")
-        plt.legend(title=legend_title)
-    return figure
+        axis.legend(title=legend_title)
+    return axis
 
 
 def plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwargs) -> None:
@@ -151,7 +154,8 @@ def plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwa
     logger.debug(f"Plotting {order_label} resonance lines")
     axis.plot([], [], label=order_label, **kwargs)  # to avoid legend duplication in loops below
 
-    x, y = np.linspace(0, 1, 1000), np.linspace(0, 1, 1000)
+    x = np.linspace(0, 1, 1000)
+    y = np.linspace(0, 1, 1000)
     farey_sequences = farey_sequence(order)
     clip = partial(np.clip, a_min=0, a_max=1)  # clip all values to plot to [0, 1]
 

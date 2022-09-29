@@ -48,6 +48,7 @@ def maybe_get_ax(*args, **kwargs):
             ...     ax.plot(*args, **kwargs)
             ... )
     """
+    logger.debug("Looking for axis object to plot on")
     if "ax" in kwargs:
         logger.debug("Using the provided kwargs 'ax' as the axis to plot one")
         ax = kwargs.pop("ax")
