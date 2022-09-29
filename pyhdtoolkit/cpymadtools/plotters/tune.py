@@ -99,7 +99,6 @@ def plot_tune_diagram(
         differentiate_orders (bool): if `True`, the lines for each order will be of a different color.
             When set to `False`, there is still minimal differentation through ``alpha``, ``linewidth``
             and ``linestyle``. Defaults to `False`.
-        figsize (Tuple[int, int]): size of the figure, defaults to (12, 12).
         **kwargs: keyword arguments will be transmitted to the `~plot_resonance_lines_for_order` function
             and later on to `~matplotlib.pyplot.plot`. Be aware that ``alpha``, ``ls``, ``lw``, ``color``
             and ``label`` are already set by this function and providing them as kwargs might lead to errors.
