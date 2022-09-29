@@ -55,7 +55,7 @@ def plot_courant_snyder_phase_space(
             axis object to plot on.
 
     Returns:
-            The `~matplotlib.axes.Axes` on which the tune phase space is drawn.
+            The `~matplotlib.axes.Axes` on which the phase space is drawn.
 
     Example:
         .. code-block:: python
@@ -124,7 +124,7 @@ def plot_courant_snyder_phase_space_colored(
             axis object to plot on.
 
     Returns:
-            The `~matplotlib.axes.Axes` on which the phase space diagram is drawn.
+            The `~matplotlib.axes.Axes` on which the phase space is drawn.
 
     Example:
         .. code-block:: python

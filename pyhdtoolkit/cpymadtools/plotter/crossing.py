@@ -20,7 +20,7 @@ from loguru import logger
 
 def plot_two_lhc_ips_crossings(
     madx: Madx, first_ip: int, second_ip: int, ir_limit: float = 275, highlight_mqx_and_mbx: bool = True
-):
+) -> None:
     """
     .. versionadded:: 1.0.0
 

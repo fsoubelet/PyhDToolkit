@@ -38,7 +38,7 @@ def plot_latwiss(
     k1l_lim: Tuple[float, float] = None,
     k2l_lim: Tuple[float, float] = None,
     **kwargs,
-):
+) -> None:
     """
     .. versionadded:: 1.0.0
 
@@ -183,7 +183,7 @@ def plot_machine_survey(
             the corresponding value is used as the axis object to plot on.
 
     Returns:
-        The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
+        The `~matplotlib.axes.Axes` on which the survey is drawn.
     """
     logger.debug("Plotting machine survey")
     logger.trace("Getting machine survey from cpymad")
