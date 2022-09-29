@@ -25,9 +25,7 @@ from pyhdtoolkit.cpymadtools.plotter.utils import (
 
 def plot_latwiss(
     madx: Madx,
-    title: str,
-    figsize: Tuple[int, int] = (18, 11),
-    savefig: str = None,
+    title: str = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
@@ -62,9 +60,7 @@ def plot_latwiss(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        title (Optional[str]): title of the figure.
-        figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
-        savefig (str): if not `None`, will save the figure to file using the string value passed.
+        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
@@ -103,7 +99,7 @@ def plot_latwiss(
     xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
 
     # Create a subplot for the lattice patches (takes a third of figure)
-    figure = plt.figure(figsize=figsize)
+    figure = plt.gcf()
     quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
     plot_machine_layout(
         madx,
@@ -151,18 +147,14 @@ def plot_latwiss(
         logger.debug("Setting xlim for longitudinal coordinate")
         plt.xlim(xlimits)
 
-    if savefig:
-        logger.debug(f"Saving latwiss plot as {savefig}")
-        plt.savefig(savefig)
     return figure
 
 
 def plot_machine_survey(
     madx: Madx,
-    title: str = "Machine Layout",
+    title: str = None,
     show_elements: bool = False,
     high_orders: bool = False,
-    *args,
     **kwargs,
 ) -> matplotlib.axes.Axes:
     """
@@ -175,7 +167,7 @@ def plot_machine_survey(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        title (Optional[str]): title of the figure.
+        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         show_elements (bool): if `True`, will try to plot by differentiating elements.
             Defaults to `False`.
         high_orders (bool): if `True`, plots sextupoles and octupoles if *show_elements* is `True`,
@@ -192,7 +184,7 @@ def plot_machine_survey(
     madx.command.survey()
     survey = madx.table.survey.dframe()
 
-    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
+    axis, kwargs = maybe_get_ax(**kwargs)
 
     if show_elements:
         logger.debug("Plotting survey with elements differentiation")
