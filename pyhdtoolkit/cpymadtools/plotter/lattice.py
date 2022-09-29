@@ -6,7 +6,7 @@ Lattice Plotters
 
 Module with functions to create lattice plots through a `~cpymad.madx.Madx` object.
 """
-from typing import Tuple
+from typing import Optional, Tuple
 
 import matplotlib
 import matplotlib.axes
@@ -25,7 +25,7 @@ from pyhdtoolkit.cpymadtools.plotter.utils import (
 
 def plot_latwiss(
     madx: Madx,
-    title: str = None,
+    title: Optional[str] = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
