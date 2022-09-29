@@ -63,7 +63,7 @@ def plot_courant_snyder_phase_space(
             >>> fig, ax = plt.subplots(figsize=(10, 9))
             >>> plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane="Horizontal")
     """
-    if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
+    if plane.lower() not in ("horizontal", "vertical"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
         raise ValueError("Invalid plane value")
 
