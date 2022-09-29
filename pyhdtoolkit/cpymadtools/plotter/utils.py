@@ -20,7 +20,7 @@ from loguru import logger
 # ------ Utilities ----- #
 
 
-def maybe_get_ax(*args, **kwargs):
+def maybe_get_ax(**kwargs):
     """
     .. versionadded:: 1.0.0
 
@@ -43,7 +43,7 @@ def maybe_get_ax(*args, **kwargs):
         .. code-block:: python
 
             >>> def my_plotting_function(*args, **kwargs):
-            ...     ax, args, kwargs = maybe_get_ax(*args, **kwargs)
+            ...     ax, kwargs = maybe_get_ax(**kwargs)
             ...     # do stuff with ax
             ...     ax.plot(*args, **kwargs)
             ... )
@@ -53,20 +53,12 @@ def maybe_get_ax(*args, **kwargs):
         logger.debug("Using the provided kwargs 'ax' as the axis to plot one")
         ax = kwargs.pop("ax")
     elif "axis" in kwargs:
-        logger.debug("Using the provided kwargs 'axis' as the axis to plot one")
+        logger.debug("Using the provided kwargs 'axis' as the axis to plot on")
         ax = kwargs.pop("axis")
-    elif len(args) == 0:
-        logger.debug("No axis provided, using `plt.gca()`")
-        _ = plt.gcf()
-        ax = plt.gca()
-    elif isinstance(args[0], matplotlib.axes.Axes):
-        logger.debug("Detected first argument of type `matplotlib.axes.Axes`, using it as the axis to plot on")
-        ax = args[0]
-        args = args[1:]
     else:
         logger.debug("No axis provided, using `plt.gca()`")
         ax = plt.gca()
-    return ax, args, dict(kwargs)
+    return ax, dict(kwargs)
 
 
 # ----- Utility plotters ----- #

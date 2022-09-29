@@ -15,9 +15,10 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.cpymadtools.plotters.utils import (
+from pyhdtoolkit.cpymadtools.plotter.utils import (
     _get_twiss_table_with_offsets_and_limits,
     make_survey_groups,
+    maybe_get_ax,
     plot_machine_layout,
 )
 
@@ -159,12 +160,11 @@ def plot_latwiss(
 def plot_machine_survey(
     madx: Madx,
     title: str = "Machine Layout",
-    figsize: Tuple[int, int] = (16, 11),
-    savefig: str = None,
     show_elements: bool = False,
     high_orders: bool = False,
+    *args,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> matplotlib.axes.Axes:
     """
     .. versionadded:: 1.0.0
 
@@ -176,24 +176,23 @@ def plot_machine_survey(
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         title (Optional[str]): title of the figure.
-        figsize (Tuple[int, int]): size of the figure, defaults to (16, 11).
-        savefig (str): if not `None`, will save the figure to file using the string value passed.
         show_elements (bool): if `True`, will try to plot by differentiating elements.
             Defaults to `False`.
         high_orders (bool): if `True`, plots sextupoles and octupoles if *show_elements* is `True`,
             otherwise only up to quadrupoles. Defaults to `False`.
         **kwargs: any keyword argument will be transmitted to `~matplotlib.pyplot.scatter` calls
-            later on.
+            later on. If either `ax` or `axis` is found in the kwargs, the corresponding value is
+            used as the axis object to plot on.
 
     Returns:
-        The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
-        accessed with ``fig.get_axes()``.
+        The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
     """
     logger.debug("Plotting machine survey")
     logger.trace("Getting machine survey from cpymad")
     madx.command.survey()
     survey = madx.table.survey.dframe()
-    figure = plt.figure(figsize=figsize)
+
+    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
 
     if show_elements:
         logger.debug("Plotting survey with elements differentiation")
@@ -225,11 +224,8 @@ def plot_machine_survey(
     plt.colorbar(label=r"$S \ [m]$")
 
     plt.axis("equal")
-    plt.xlabel(r"$Z \ [m]$")
-    plt.ylabel(r"$X \ [m]$")
-    plt.title(title)
+    axis.set_xlabel(r"$Z \ [m]$")
+    axis.set_ylabel(r"$X \ [m]$")
+    axis.set_title(title)
 
-    if savefig:
-        logger.debug(f"Saving machine survey plot as {savefig}")
-        plt.savefig(savefig)
-    return figure
+    return axis

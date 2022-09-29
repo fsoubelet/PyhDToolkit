@@ -18,7 +18,7 @@ import tfs
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.cpymadtools.plotters.utils import plot_machine_layout
+from pyhdtoolkit.cpymadtools.plotter.utils import plot_machine_layout
 
 
 def plot_aperture(

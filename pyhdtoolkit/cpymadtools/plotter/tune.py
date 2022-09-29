@@ -17,7 +17,7 @@ import numpy as np
 
 from loguru import logger
 
-from pyhdtoolkit.cpymadtools.plotters.utils import maybe_get_ax
+from pyhdtoolkit.cpymadtools.plotter.utils import maybe_get_ax
 
 ORDER_TO_ALPHA: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
 ORDER_TO_RGB: Dict[int, np.ndarray] = {
@@ -76,7 +76,6 @@ def plot_tune_diagram(
     legend_title: str = None,
     max_order: int = 6,
     differentiate_orders: bool = False,
-    *args,
     **kwargs,
 ) -> matplotlib.axes.Axes:
     """
@@ -113,7 +112,7 @@ def plot_tune_diagram(
         raise ValueError("The 'max_order' argument should be between 1 and 6 included")
 
     logger.debug(f"Plotting resonance lines up to {ORDER_TO_LABEL[max_order]}")
-    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
+    axis, kwargs = maybe_get_ax(**kwargs)
 
     for order in range(max_order, 0, -1):  # high -> low so most importants ones (low) are plotted on top
         alpha, ls, lw, rgb = (
