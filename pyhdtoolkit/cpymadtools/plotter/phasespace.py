@@ -31,7 +31,7 @@ def plot_courant_snyder_phase_space(
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
-    *args,
+    title: str = None,
     **kwargs,
 ) -> matplotlib.axes.Axes:
     """
@@ -50,6 +50,7 @@ def plot_courant_snyder_phase_space(
             and so on.
         plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
             case-insensitive. Defaults to ``Horizontal``.
+        title (Optional[str]): title of the figure. Defaults to `None`.
         **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
             axis object to plot on.
 
@@ -61,8 +62,8 @@ def plot_courant_snyder_phase_space(
         raise ValueError("Invalid plane value")
 
     logger.debug("Plotting phase space for normalized Courant-Snyder coordinates")
-    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
-    axis.set_title("Courant-Snyder Phase Space")
+    axis, kwargs = maybe_get_ax(**kwargs)
+    axis.set_title(title)
 
     # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
     logger.debug("Getting Twiss functions from MAD-X")
@@ -74,14 +75,13 @@ def plot_courant_snyder_phase_space(
         logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
         u = np.array([u_coordinates[index], pu_coordinates[index]])
         u_bar = courant_snyder_transform(u, alpha, beta)
-        axis.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
+        axis.scatter(u_bar[0, :], u_bar[1, :], s=0.1, c="k")
         if plane.upper() == "HORIZONTAL":
-            axis.set_xlabel(r"$\bar{x} \ [mm]$")
-            axis.set_ylabel(r"$\bar{px} \ [mrad]$")
+            axis.set_xlabel(r"$\bar{x} \ [m]$")
+            axis.set_ylabel(r"$\bar{px} \ [rad]$")
         else:
-            axis.set_xlabel(r"$\bar{y} \ [mm]$")
-            axis.set_ylabel(r"$\bar{py} \ [mrad]$")
-        plt.axis("Equal")
+            axis.set_xlabel(r"$\bar{y} \ [m]$")
+            axis.set_ylabel(r"$\bar{py} \ [rad]$")
 
     return axis
 
@@ -91,7 +91,7 @@ def plot_courant_snyder_phase_space_colored(
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
-    *args,
+    title: str = None,
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
@@ -113,6 +113,7 @@ def plot_courant_snyder_phase_space_colored(
         savefig (str): if not `None`, will save the figure to file using the string value passed.
         plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
             case-insensitive. Defaults to ``Horizontal``.
+        title (Optional[str]): title of the figure. Defaults to `None`.
         **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
             axis object to plot on.
 
@@ -129,8 +130,8 @@ def plot_courant_snyder_phase_space_colored(
         colors.pop()
 
     logger.debug("Plotting colored phase space for normalized Courant-Snyder coordinates")
-    axis, args, kwargs = maybe_get_ax(*args, **kwargs)
-    axis.set_title("Courant-Snyder Phase Space")
+    axis, kwargs = maybe_get_ax(**kwargs)
+    axis.set_title(title)
 
     # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
     logger.debug("Getting Twiss functions from MAD-X")
@@ -142,13 +143,12 @@ def plot_courant_snyder_phase_space_colored(
         logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
         u = np.array([u_coordinates[index], pu_coordinates[index]])
         u_bar = courant_snyder_transform(u, alpha, beta)
-        axis.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
+        axis.scatter(u_bar[0, :], u_bar[1, :], s=0.1, c=colors[index])
         if plane.upper() == "HORIZONTAL":
-            axis.set_xlabel(r"$\bar{x} \ [mm]$")
-            axis.set_ylabel(r"$\bar{px} \ [mrad]$")
+            axis.set_xlabel(r"$\bar{x} \ [m]$")
+            axis.set_ylabel(r"$\bar{px} \ [rad]$")
         else:
-            axis.set_xlabel(r"$\bar{y} \ [mm]$")
-            axis.set_ylabel(r"$\bar{py} \ [mrad]$")
-        plt.axis("Equal")
+            axis.set_xlabel(r"$\bar{y} \ [m]$")
+            axis.set_ylabel(r"$\bar{py} \ [rad]$")
 
     return axis
