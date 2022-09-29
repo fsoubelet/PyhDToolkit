@@ -89,7 +89,7 @@ def plot_tune_diagram(
         seen when redefining the limits of the figure, which are by default [0, 1] on each axis.
 
     Args:
-        title (Optional[str]): title of the figure. Defaults to `None`.
+        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         legend_title (str): if given, will be used as the title of the plot's legend. If set to `None`,
             then creating a legend for the figure will not be done by this function and left up to the
             user's care (a call to `~matplotlib.pyplot.legend` will do). Defaults to `None`.

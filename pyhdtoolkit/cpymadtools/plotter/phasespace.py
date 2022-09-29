@@ -50,7 +50,7 @@ def plot_courant_snyder_phase_space(
             and so on.
         plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
             case-insensitive. Defaults to ``Horizontal``.
-        title (Optional[str]): title of the figure. Defaults to `None`.
+        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
             axis object to plot on.
 
@@ -113,7 +113,7 @@ def plot_courant_snyder_phase_space_colored(
         savefig (str): if not `None`, will save the figure to file using the string value passed.
         plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
             case-insensitive. Defaults to ``Horizontal``.
-        title (Optional[str]): title of the figure. Defaults to `None`.
+        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
             axis object to plot on.
 
