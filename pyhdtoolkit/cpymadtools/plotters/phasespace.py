@@ -1,0 +1,160 @@
+"""
+.. _cpymadtools-plotters-phasespace:
+
+Phase Space Plotters
+--------------------
+
+Module with functions to create phase space plots through a `~cpymad.madx.Madx` object.
+"""
+from pathlib import Path
+from typing import Tuple
+
+import matplotlib
+import matplotlib.axes
+import matplotlib.pyplot as plt
+import numpy as np
+
+from cpymad.madx import Madx
+from loguru import logger
+from matplotlib import colors as mcolors
+
+from pyhdtoolkit.optics.twiss import courant_snyder_transform
+
+COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
+BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())
+SORTED_COLORS = [name for hsv, name in BY_HSV]
+
+
+def plot_courant_snyder_phase_space(
+    madx: Madx,
+    u_coordinates: np.ndarray,
+    pu_coordinates: np.ndarray,
+    savefig: str = None,
+    figsize: Tuple[int, int] = (16, 8),
+    plane: str = "Horizontal",
+) -> matplotlib.figure.Figure:
+    """
+    .. versionadded:: 1.0.0
+
+    Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
+    when provided by position and momentum coordinates for a specific plane. One can find an example
+    use of this function in the :ref:`phase space <demo-phase-space>` example gallery.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
+            ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
+        pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
+            given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
+            and so on.
+        savefig (str): if not `None`, will save the figure to file using the string value passed.
+        figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
+        plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
+            case-insensitive. Defaults to ``Horizontal``.
+
+    Returns:
+            The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+            accessed with ``fig.get_axes()``.
+    """
+    if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
+        logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
+        raise ValueError("Invalid plane value")
+
+    logger.debug("Plotting phase space for normalized Courant-Snyder coordinates")
+    figure = plt.figure(figsize=figsize)
+    plt.title("Courant-Snyder Phase Space")
+
+    # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
+    logger.debug("Getting Twiss functions from MAD-X")
+    alpha = madx.table.twiss.alfx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.alfy[0]
+    beta = madx.table.twiss.betx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.bety[0]
+
+    logger.debug(f"Plotting phase space for the {plane.lower()} plane")
+    for index, _ in enumerate(u_coordinates):
+        logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
+        u = np.array([u_coordinates[index], pu_coordinates[index]])
+        u_bar = courant_snyder_transform(u, alpha, beta)
+        plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c="k")
+        if plane.upper() == "HORIZONTAL":
+            plt.xlabel(r"$\bar{x} \ [mm]$")
+            plt.ylabel(r"$\bar{px} \ [mrad]$")
+        else:
+            plt.xlabel(r"$\bar{y} \ [mm]$")
+            plt.ylabel(r"$\bar{py} \ [mrad]$")
+        plt.axis("Equal")
+
+    if savefig:
+        logger.debug(f"Saving Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
+        plt.savefig(Path(savefig))
+    return figure
+
+
+def plot_courant_snyder_phase_space_colored(
+    madx: Madx,
+    u_coordinates: np.ndarray,
+    pu_coordinates: np.ndarray,
+    savefig: str = None,
+    figsize: Tuple[int, int] = (16, 8),
+    plane: str = "Horizontal",
+) -> matplotlib.figure.Figure:
+    """
+    .. versionadded:: 1.0.0
+
+    Creates a plot representing the normalized Courant-Snyder phase space of a particle distribution
+    when provided by position and momentum coordinates for a specific plane. Each particle trajectory
+    has its own color on the plot, within the limit of `~matplotlib.pyplot`'s 156 named colors, after
+    the function loops back to the first color again. One can find an example use of this function in
+    the :ref:`phase space <demo-phase-space>` example gallery.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
+            ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
+        pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
+            given plane. Here ``pu_coordinates[0]`` should be the tracked momenta for the first particle
+            and so on.
+        savefig (str): if not `None`, will save the figure to file using the string value passed.
+        figsize (Tuple[int, int]): size of the figure, defaults to (16, 8).
+        plane (str): the physical plane to plot, should be either ``Horizontal`` or ``Vertical``, and is
+            case-insensitive. Defaults to ``Horizontal``.
+
+    Returns:
+            The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
+            accessed with ``fig.get_axes()``.
+    """
+    if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
+        logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
+        raise ValueError("Invalid plane value")
+
+    # Getting a sufficiently long array of colors to use
+    colors = int(np.floor(len(u_coordinates) / 100)) * SORTED_COLORS
+    while len(colors) > len(u_coordinates):
+        colors.pop()
+
+    logger.debug("Plotting colored phase space for normalized Courant-Snyder coordinates")
+    figure = plt.figure(figsize=figsize)
+    plt.title("Courant-Snyder Phase Space")
+
+    # Getting the twiss parameters for the P matrix to compute Courant-Snyder coordinates
+    logger.debug("Getting Twiss functions from MAD-X")
+    alpha = madx.table.twiss.alfx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.alfy[0]
+    beta = madx.table.twiss.betx[0] if plane.upper() == "HORIZONTAL" else madx.table.twiss.bety[0]
+
+    logger.debug(f"Plotting colored phase space for the {plane.lower()} plane")
+    for index, _ in enumerate(u_coordinates):
+        logger.trace(f"Getting and plotting Courant-Snyder coordinates for particle {index}")
+        u = np.array([u_coordinates[index], pu_coordinates[index]])
+        u_bar = courant_snyder_transform(u, alpha, beta)
+        plt.scatter(u_bar[0, :] * 1e3, u_bar[1, :] * 1e3, s=0.1, c=colors[index])
+        if plane.upper() == "HORIZONTAL":
+            plt.xlabel(r"$\bar{x} \ [mm]$")
+            plt.ylabel(r"$\bar{px} \ [mrad]$")
+        else:
+            plt.xlabel(r"$\bar{y} \ [mm]$")
+            plt.ylabel(r"$\bar{py} \ [mrad]$")
+        plt.axis("Equal")
+
+    if savefig:
+        logger.debug(f"Saving colored Courant-Snyder phase space plot at '{Path(savefig).absolute()}'")
+        plt.savefig(Path(savefig))
+    return figure
