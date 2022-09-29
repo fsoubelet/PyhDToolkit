@@ -23,9 +23,7 @@ from pyhdtoolkit.cpymadtools.plotter.utils import plot_machine_layout
 
 def plot_aperture(
     madx: Madx,
-    title: Optional[str],
-    figsize: Tuple[int, int] = (18, 11),
-    savefig: Optional[str] = None,
+    title: Optional[str] = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
@@ -37,7 +35,7 @@ def plot_aperture(
     k2l_lim: Tuple[float, float] = None,
     color: str = None,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> None:
     """
     .. versionadded:: 1.0.0
 
@@ -49,6 +47,11 @@ def plot_aperture(
         This function assumes the user has previously made a call to the ``APERTURE`` command in ``MAD-X``,
         as it will query relevant values from the ``aperture`` table.
 
+    .. note::
+        This function has some heavy logic behind it, especially in how it needs to order several axes. The
+        easiest way to go about using it is to manually create and empty figure with the desired properties
+        (size, etc) then call this function. See the example below or the gallery for more details.
+
     .. warning::
         Currently the function tries to plot legends for the different layout patches. The position of the
         different legends has been hardcoded in corners and might require users to tweak the axis limits
@@ -58,8 +61,6 @@ def plot_aperture(
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         title (Optional[str]): title of the figure.
-        figsize (Tuple[int, int]): size of the figure, defaults to (18, 11).
-        savefig (str): if not `None`, will save the figure to file using the string value passed.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
@@ -85,9 +86,17 @@ def plot_aperture(
         **kwargs: any keyword argument will be transmitted to `~.plotters.plot_machine_layout`, later on
             to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-    Returns:
-            The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
-            accessed with ``fig.get_axes()``.
+    Example:
+        .. code-block:: python
+
+            >>> plt.figure(figsize=(16, 11))
+            >>> plot_aperture(
+            ...     madx, plot_bpms=True,
+            ...     aperture_ylim=(0, 20),
+            ...     k0l_lim=(-4e-4, 4e-4),
+            ...     k1l_lim=(-0.08, 0.08),
+            ...     color="darkslateblue",
+            ... )
     """
     # pylint: disable=too-many-arguments
     logger.debug("Plotting aperture limits and machine layout")
@@ -104,7 +113,7 @@ def plot_aperture(
     aperture_df = aperture_df[aperture_df.s.between(*xlimits)] if xlimits else aperture_df
 
     # Create a subplot for the lattice patches (takes a third of figure)
-    figure = plt.figure(figsize=figsize)
+    figure = plt.gcf()
     quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
     plot_machine_layout(
         madx,
@@ -137,8 +146,3 @@ def plot_aperture(
     if xlimits:
         logger.debug("Setting xlim for longitudinal coordinate")
         plt.xlim(xlimits)
-
-    if savefig:
-        logger.debug(f"Saving latwiss plot as {savefig}")
-        plt.savefig(savefig)
-    return figure
