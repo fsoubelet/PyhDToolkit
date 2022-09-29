@@ -35,7 +35,7 @@ def plot_machine_layout(
     **kwargs,
 ) -> None:
     """
-    .. versionadded:: 0.14.0
+    .. versionadded:: 1.0.0
 
     Draws patches elements representing the lattice layout on the given *axis*. This is the function that
     takes care of the machine layout axis in `~.plotters.LatticePlotter.plot_latwiss`.
@@ -207,6 +207,8 @@ def make_elements_groups(
     madx: Madx, xoffset: float = 0, xlimits: Tuple[float, float] = None
 ) -> Dict[str, pd.DataFrame]:
     """
+    .. versionadded:: 1.0.0
+
     Provided with an active `cpymad` instance after having ran a script, will returns different portions of
     the twiss table's dataframe for different magnetic elements.
 
@@ -239,6 +241,8 @@ def make_elements_groups(
 
 def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     """
+    .. versionadded:: 1.0.0
+
     Provided with an active `cpymad` instance after having ran a script, will returns different portions of
     the survey table's dataframe for different magnetic elements.
 
@@ -279,6 +283,8 @@ def _plot_lattice_series(
     **kwargs,
 ) -> None:
     """
+    .. versionadded:: 1.0.0
+
     Plots a `~matplotlib.patches.Rectangle` element on the provided `~matplotlib.axes.Axes` to
     represent an element of the machine. Original code from :user:`Guido Sterbini <sterbini>`.
 
@@ -308,6 +314,8 @@ def _get_twiss_table_with_offsets_and_limits(
     madx: Madx, xoffset: float = 0, xlimits: Tuple[float, float] = None
 ) -> pd.DataFrame:
     """
+    .. versionadded:: 1.0.0
+
     Get the twiss dataframe from madx, only within the provided `xlimits` and with the s axis shifted by
     the given `xoffset`.
 
