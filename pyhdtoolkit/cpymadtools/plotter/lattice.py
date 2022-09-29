@@ -32,20 +32,25 @@ def plot_latwiss(
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    disp_ylim: Tuple[float, float] = (-10, 125),
+    disp_ylim: Tuple[float, float] = None,
     beta_ylim: Tuple[float, float] = None,
-    k0l_lim: Tuple[float, float] = (-0.25, 0.25),
-    k1l_lim: Tuple[float, float] = (-0.08, 0.08),
+    k0l_lim: Tuple[float, float] = None,
+    k1l_lim: Tuple[float, float] = None,
     k2l_lim: Tuple[float, float] = None,
     **kwargs,
-) -> matplotlib.figure.Figure:
+):
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing the lattice layout and the :math`\\beta` functions along with the horizontal
-    dispertion function. This is a very, very heavily refactored version of an initial implementation by
-    :user:`Guido Sterbini <sterbini>`. One can find an example use of this function in the
-    :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
+    Creates a plot on the current figure (`~matplotlib.pyplot.gcf`) representing the lattice layout and
+    the :math`\\beta` functions along with the horizontal dispertion function. This is a very, very heavily
+    refactored version of an initial implementation by :user:`Guido Sterbini <sterbini>`. One can find
+    example uses of this function in the :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
+
+    .. note::
+        This function has some heavy logic behind it, especially in how it needs to order several axes. The
+        easiest way to go about using it is to manually create and empty figure then call this function. See
+        the example below or the gallery for more details.
 
     .. important::
         At the moment, it is important to give this function symmetric limits for the ``k0l_lim``, ``k1l_lim``
@@ -75,22 +80,24 @@ def plot_latwiss(
         plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
             represent Beam Position Monitors. BPMs are plotted in dark grey.
         disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
-            Defaults to (-10, 125).
+            Defaults to `None`.
         beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
             Defaults to None, to be determined by matplotlib based on the provided beta values.
         k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
-            height of dipole patches. Defaults to (-0.25, 0.25).
+            height of dipole patches. Defaults to `None`.
         k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
-            height of quadrupole patches. Defaults to (-0.08, 0.08).
+            height of quadrupole patches. Defaults to `None`.
         k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
         **kwargs: any keyword argument will be transmitted to `~.plotters.plot_machine_layout`, later on
             to `~.plotters._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
-    Returns:
-        The `~matplotlib.figure.Figure` on which the plots are drawn. The underlying axes can be
-        accessed with ``fig.get_axes()``.
+    Example:
+        .. code-block:: python
+
+            >>> plt.figure(figsize=(16, 11))
+            >>> plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
     """
     # pylint: disable=too-many-arguments
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
@@ -147,8 +154,6 @@ def plot_latwiss(
         logger.debug("Setting xlim for longitudinal coordinate")
         plt.xlim(xlimits)
 
-    return figure
-
 
 def plot_machine_survey(
     madx: Madx,
@@ -174,7 +179,8 @@ def plot_machine_survey(
             otherwise only up to quadrupoles. Defaults to `False`.
         **kwargs: any keyword argument will be transmitted to `~matplotlib.pyplot.scatter` calls
             later on. If either `ax` or `axis` is found in the kwargs, the corresponding value is
-            used as the axis object to plot on.
+            used as the axis object to plot on. If either `ax` or `axis` is found in the kwargs,
+            the corresponding value is used as the axis object to plot on.
 
     Returns:
         The `~matplotlib.axes.Axes` on which the tune diagram is drawn.
