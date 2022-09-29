@@ -19,18 +19,17 @@ from loguru import logger
 
 
 def plot_two_lhc_ips_crossings(
-    madx: Madx,
-    first_ip: int,
-    second_ip: int,
-    figsize: Tuple[int, int] = (18, 12),
-    ir_limit: float = 275,
-    highlight_mqx_and_mbx: bool = True,
-    savefig: str = None,
-) -> matplotlib.figure.Figure:
+    madx: Madx, first_ip: int, second_ip: int, ir_limit: float = 275, highlight_mqx_and_mbx: bool = True
+):
     """
     .. versionadded:: 1.0.0
 
     Creates a plot representing the crossing schemes at the two provided IPs.
+
+    .. note::
+        This function has some heavy logic behind it, especially in how it needs to order several axes. The
+        easiest way to go about using it is to manually create and empty figure with the desired properties
+        (size, etc) then call this function. See the example below or the gallery for more details.
 
     .. note::
         This assumes the appropriate LHC sequence and opticsfile have been loaded, and both
@@ -47,17 +46,23 @@ def plot_two_lhc_ips_crossings(
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         first_ip (int): the first of the two IPs to plot crossing schemes for.
         second_ip (int): the second of the two IPs to plot crossing schemes for.
-        figsize (Tuple[int, int]): size of the figure, defaults to (18, 12).
         ir_limit (float): the amount of meters to keep left and right of the IP point. Will also
             determine the ``xlimits`` of the plots. Defaults to 275.
         highlight_mqx_and_mbx (bool): if `True`, will add patches highlighting the zones corresponding
             to ``MBX`` and ``MQX`` elements. Defaults to `True`.
-        savefig (str): if not `None`, will save the figure to file using the string value passed.
+        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
+            axis object to plot on.
 
-    Returns:
-        The `~matplotlib.figure.Figure` on which the crossing schemes are drawn. One crossing scheme is
-        plotted per IP and per plane (orbit X and orbit Y). The underlying axes can be
-        accessed with ``fig.get_axes()``.
+    Examples:
+        .. code-block:: python
+
+            >>> plt.figure(figsize=(18, 12))
+            >>> plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
+
+        .. code-block:: python
+
+            >>> plt.figure(figsize=(16, 11))
+            >>> plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
     """
     logger.warning("You should re-call the 'USE' command on your wanted sequence after this plot!")
     # ----- Getting Twiss table dframe for each beam ----- #
@@ -77,7 +82,11 @@ def plot_two_lhc_ips_crossings(
 
     # ----- Plotting figure ----- #
     logger.debug(f"Plotting crossing schemes for IP{first_ip} and IP{second_ip}")
-    figure, axes = plt.subplots(2, 2, figsize=figsize)
+    figure = plt.gcf()
+    first_ip_x_axis = plt.subplot2grid((2, 2), (0, 0), colspan=1, rowspan=1)
+    first_ip_y_axis = plt.subplot2grid((2, 2), (1, 0), colspan=1, rowspan=1)
+    second_ip_x_axis = plt.subplot2grid((2, 2), (0, 1), colspan=1, rowspan=1)
+    second_ip_y_axis = plt.subplot2grid((2, 2), (1, 1), colspan=1, rowspan=1)
 
     logger.debug(f"Plotting for IP{first_ip}")
     b1_plot = twiss_df_b1[twiss_df_b1.s.between(first_ip_s - ir_limit, first_ip_s + ir_limit)].copy()
@@ -85,8 +94,8 @@ def plot_two_lhc_ips_crossings(
     b1_plot.s = b1_plot.s - first_ip_s
     b2_plot.s = b2_plot.s - first_ip_s
 
-    _plot_crossing_in_ir(
-        axes[0][0],
+    plot_single_ir_crossing(
+        first_ip_x_axis,
         b1_plot,
         b2_plot,
         plot_column="x",
@@ -94,8 +103,8 @@ def plot_two_lhc_ips_crossings(
         ylabel="Orbit X $[mm]$",
         title=f"IP{first_ip} Crossing Schemes",
     )
-    _plot_crossing_in_ir(
-        axes[1][0],
+    plot_single_ir_crossing(
+        first_ip_y_axis,
         b1_plot,
         b2_plot,
         plot_column="y",
@@ -110,35 +119,60 @@ def plot_two_lhc_ips_crossings(
     b1_plot.s = b1_plot.s - second_ip_s
     b2_plot.s = b2_plot.s - second_ip_s
 
-    _plot_crossing_in_ir(
-        axes[0][1],
-        b1_plot,
-        b2_plot,
-        plot_column="x",
-        scaling=1e3,
-        title=f"IP{second_ip} Crossing Schemes",
+    plot_single_ir_crossing(
+        second_ip_x_axis, b1_plot, b2_plot, plot_column="x", scaling=1e3, title=f"IP{second_ip} Crossing Schemes"
     )
-    _plot_crossing_in_ir(
-        axes[1][1],
-        b1_plot,
-        b2_plot,
-        plot_column="y",
-        scaling=1e3,
-        xlabel=f"Distance to IP{second_ip} $[m]$",
+    plot_single_ir_crossing(
+        second_ip_y_axis, b1_plot, b2_plot, plot_column="y", scaling=1e3, xlabel=f"Distance to IP{second_ip} $[m]$"
     )
 
     if highlight_mqx_and_mbx:
         logger.debug("Highlighting MQX and MBX areas near IPs")
-        _highlight_mbx_and_mqx(axes[0][0], plot_df=b1_plot, ip=first_ip)
-        _highlight_mbx_and_mqx(axes[1][0], plot_df=b1_plot, ip=first_ip)
-        _highlight_mbx_and_mqx(axes[0][1], plot_df=b1_plot, ip=second_ip)
-        _highlight_mbx_and_mqx(axes[1][1], plot_df=b1_plot, ip=second_ip)
+        _highlight_mbx_and_mqx(first_ip_x_axis, plot_df=b1_plot, ip=first_ip)
+        _highlight_mbx_and_mqx(first_ip_y_axis, plot_df=b1_plot, ip=first_ip)
+        _highlight_mbx_and_mqx(second_ip_x_axis, plot_df=b1_plot, ip=second_ip)
+        _highlight_mbx_and_mqx(second_ip_y_axis, plot_df=b1_plot, ip=second_ip)
     plt.tight_layout()
 
-    if savefig:
-        logger.debug(f"Saving crossing schemes for IP{first_ip} and IP{second_ip} plot as '{savefig}'")
-        figure.savefig(savefig)
-    return figure
+
+def plot_single_ir_crossing(
+    axis: matplotlib.axes.Axes,
+    plot_df_b1: pd.DataFrame,
+    plot_df_b2: pd.DataFrame,
+    plot_column: str,
+    scaling: float = 1,
+    ylabel: str = None,
+    xlabel: str = None,
+    title: str = None,
+) -> None:
+    """
+    .. versionadded:: 1.0.0
+
+    Plots the X or Y orbit for the IR on the given axis.
+
+    .. warning::
+        This function assumes the provided the *plot_df_b1* and *plot_df_b2* are already centered
+        at 0 on the IP point!
+
+    Args:
+        axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot.
+        plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 1
+            of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
+        plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 2
+            of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
+        plot_column (str): which column (should be ``x`` or ``y``) to plot for the orbit.
+        scaling (float): scaling factor to apply to the plotted data. Defaults to 1 (no change of data).
+        xlabel (str): if given, will be used for the ``xlabel`` of the axis. Defaults to `None`.
+        ylabel (str): if given, will be used for the ``ylabel`` of the axis. Defaults to `None`.
+        title (str): if given, will be used for the ``title`` of the axis. Defaults to `None`.
+    """
+    logger.trace(f"Plotting orbit '{plot_column}'")
+    axis.plot(plot_df_b1.s, plot_df_b1[plot_column] * scaling, "bo", ls="-", mfc="none", alpha=0.8, label="Beam 1")
+    axis.plot(plot_df_b2.s, plot_df_b2[plot_column] * scaling, "ro", ls="-", mfc="none", alpha=0.8, label="Beam 2")
+    axis.set_ylabel(ylabel)
+    axis.set_xlabel(xlabel)
+    axis.set_title(title)
+    axis.legend()
 
 
 # ----- Helpers ----- #
@@ -196,43 +230,3 @@ def _highlight_mbx_and_mqx(
     patches_axis.axvspan(*right_mqx_lim, color="grey", lw=2, alpha=0.2)  # no label duplication
     patches_axis.axvspan(*right_mbx_lim, color="orange", lw=2, alpha=0.2)  # no label duplication
     patches_axis.legend(loc=4)
-
-
-def _plot_crossing_in_ir(
-    axis: matplotlib.axes.Axes,
-    plot_df_b1: pd.DataFrame,
-    plot_df_b2: pd.DataFrame,
-    plot_column: str,
-    scaling: float = 1,
-    ylabel: str = None,
-    xlabel: str = None,
-    title: str = None,
-) -> None:
-    """
-    .. versionadded:: 1.0.0
-
-    Plots the X or Y orbit for the IR on the given axis.
-
-    .. warning::
-        This function assumes the provided the *plot_df_b1* and *plot_df_b2* are already centered
-        at 0 on the IP point!
-
-    Args:
-        axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot.
-        plot_df_b1 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 1
-            of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
-        plot_df_b2 (Union[pd.DataFrame, tfs.TfsDataFrame]): ``TWISS`` dataframe of the IR zone for beam 2
-            of the LHC, centered on 0 at IP position (simply done with ``df.s = df.s - ip_s``).
-        plot_column (str): which column (should be ``x`` or ``y``) to plot for the orbit.
-        scaling (float): scaling factor to apply to the plotted data. Defaults to 1 (no change of data).
-        xlabel (str): if given, will be used for the ``xlabel`` of the axis. Defaults to `None`.
-        ylabel (str): if given, will be used for the ``ylabel`` of the axis. Defaults to `None`.
-        title (str): if given, will be used for the ``title`` of the axis. Defaults to `None`.
-    """
-    logger.trace(f"Plotting orbit '{plot_column}'")
-    axis.plot(plot_df_b1.s, plot_df_b1[plot_column] * scaling, "bo", ls="-", mfc="none", alpha=0.8, label="Beam 1")
-    axis.plot(plot_df_b2.s, plot_df_b2[plot_column] * scaling, "ro", ls="-", mfc="none", alpha=0.8, label="Beam 2")
-    axis.set_ylabel(ylabel)
-    axis.set_xlabel(xlabel)
-    axis.set_title(title)
-    axis.legend()
