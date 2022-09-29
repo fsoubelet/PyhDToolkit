@@ -58,7 +58,7 @@ def plot_envelope(
         .. code-block:: python
 
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_envelope(madx)
+            >>> plot_envelope(madx, beam_injection, title=f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c")
     """
     if plane.lower() not in ("horizontal", "vertical"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
@@ -137,7 +137,7 @@ def plot_stay_clear(
         .. code-block:: python
 
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_stay_clear(madx)
+            >>> plot_stay_clear(madx, beam_flattop, title=f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c")
     """
     _interpolate_madx(madx)
     twiss_hr = _get_twiss_hr_from_madx(madx, beam_params)
