@@ -14,7 +14,7 @@ from pyhdtoolkit.plotting.lattice import plot_latwiss, plot_machine_survey
 matplotlib.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
-INPUTS_DIR = CURRENT_DIR.parent.parent / "inputs"
+INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 ELETTRA_LATTICE = INPUTS_DIR / "madx" / "elettra2_v15_VADER_2.3T.madx"
 ELETTRA_OPTICS = INPUTS_DIR / "madx" / "optics_elettra2_v15_VADER_2.3T.madx"

@@ -13,7 +13,7 @@ from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
 matplotlib.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
-INPUTS_DIR = CURRENT_DIR.parent.parent / "inputs"
+INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 
 
