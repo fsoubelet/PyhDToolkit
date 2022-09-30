@@ -21,12 +21,6 @@ import tfs
 from cpymad.madx import Madx
 from loguru import logger
 
-__all__ = [
-    "make_footprint_table",
-    "get_footprint_lines",
-    "get_footprint_patches",
-]
-
 
 def make_footprint_table(
     madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs

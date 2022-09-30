@@ -30,11 +30,6 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_KSS_KNOBS,
 )
 
-__all__ = [
-    "query_arc_correctors_powering",
-    "query_triplet_correctors_powering",
-]
-
 
 def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
     """

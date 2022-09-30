@@ -8,7 +8,7 @@ Mainly particle accelerator physics studies and plotting.
 :license: MIT, see LICENSE for more details.
 """
 
-from . import cpymadtools, maths, models, optics, plotting, utils, version
+from . import version
 
 __title__ = "pyhdtoolkit"
 __description__ = "An all-in-one toolkit package to easy my Python work in my PhD."

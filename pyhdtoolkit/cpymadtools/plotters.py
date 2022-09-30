@@ -31,18 +31,6 @@ BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) fo
 SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 
-__all__ = [
-    "AperturePlotter",
-    "BeamEnvelopePlotter",
-    "CrossingSchemePlotter",
-    "DynamicAperturePlotter",
-    "LatticePlotter",
-    "PhaseSpacePlotter",
-    "TuneDiagramPlotter",
-    "plot_machine_layout",
-]
-
-
 class AperturePlotter:
     """
     .. versionadded:: 0.3.0

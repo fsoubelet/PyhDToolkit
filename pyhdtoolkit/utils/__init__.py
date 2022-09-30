@@ -5,10 +5,6 @@ import warnings
 
 from typing import Callable
 
-from . import cmdline, contexts, defaults, executors, htc_monitor, operations, printutil
-
-__all__ = [cmdline, contexts, defaults, executors, htc_monitor, operations, printutil]
-
 # ----- Utility deprecation decorator ----- #
 
 
