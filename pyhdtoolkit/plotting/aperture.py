@@ -14,7 +14,7 @@ import pandas as pd
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.cpymadtools.plot.utils import plot_machine_layout
+from pyhdtoolkit.plotting.utils import plot_machine_layout
 
 
 def plot_aperture(
