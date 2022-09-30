@@ -20,7 +20,10 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
-from pyhdtoolkit.cpymadtools.plotters import PhaseSpacePlotter
+from pyhdtoolkit.cpymadtools.plot.phasespace import (
+    plot_courant_snyder_phase_space,
+    plot_courant_snyder_phase_space_colored,
+)
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.utils import defaults
 
@@ -60,9 +63,7 @@ match_tunes_and_chromaticities(
 # a particle's coordinates for each turn.
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(
-        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
-    )
+    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
     x_coords.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords.append(tracks_df["observation_point_1"].px.to_numpy())
@@ -73,22 +74,20 @@ for starting_x in initial_x_coordinates:
 # Note that the function automatically calculates the normalized coordinates and
 # plots these.
 
-PhaseSpacePlotter.plot_courant_snyder_phase_space(
-    madx, x_coords, px_coords, plane="Horizontal", figsize=(10, 9)
-)
-plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
-plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+fig, ax = plt.subplots(figsize=(10, 10))
+plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane="Horizontal")
+ax.set_xlim(-20e-3, 18e-3)
+ax.set_ylim(-18e-3, 22e-3)
 plt.show()
 
 ###############################################################################
 # Using the `~pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored`
 # function, one gets a plot in which each color corresponds to a given particle's trajectory:
 
-PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
-    madx, x_coords, px_coords, plane="Horizontal", figsize=(10, 9)
-)
-plt.xlim(-0.012 * 1e3, 0.02 * 1e3)
-plt.ylim(-0.02 * 1e3, 0.023 * 1e3)
+fig, ax = plt.subplots(figsize=(10, 10))
+plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane="Horizontal")
+ax.set_xlim(-20e-3, 18e-3)
+ax.set_ylim(-18e-3, 22e-3)
 plt.show()
 
 ###############################################################################
@@ -123,9 +122,7 @@ match_tunes_and_chromaticities(
 x_coords_sext, px_coords_sext, y_coords_sext, py_coords_sext = [], [], [], []
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(
-        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
-    )
+    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
     x_coords_sext.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords_sext.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords_sext.append(tracks_df["observation_point_1"].px.to_numpy())
@@ -134,11 +131,11 @@ for starting_x in initial_x_coordinates:
 ###############################################################################
 # Plotting the new phase space, we can clearly see the resonance's islands!
 
-PhaseSpacePlotter.plot_courant_snyder_phase_space_colored(
-    madx, x_coords_sext, px_coords_sext, plane="Horizontal", figsize=(10, 9)
-)
-plt.xlim(-0.015 * 1e3, 0.015 * 1e3)
-plt.ylim(-0.015 * 1e3, 0.015 * 1e3)
+fig, ax = plt.subplots(figsize=(10, 10))
+plot_courant_snyder_phase_space_colored(madx, x_coords_sext, px_coords_sext, plane="Horizontal")
+ax.set_xlim(-15e-3, 15e-3)
+ax.set_ylim(-15e-3, 15e-3)
+plt.show()
 
 ###############################################################################
 # Let's not forget to close the rpc connection to ``MAD-X``:
@@ -154,5 +151,5 @@ madx.exit()
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.plotters`: `~.plotters.PhaseSpacePlotter`, `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space`, `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored`
+#    - `~.cpymadtools.plot`: `~.plot.phasespace`, `~.plot.phasespace.plot_courant_snyder_phase_space`, `~.plot.phasespace.plot_courant_snyder_phase_space_colored`
 #    - `~.cpymadtools.track`: `~.track.track_single_particle`
