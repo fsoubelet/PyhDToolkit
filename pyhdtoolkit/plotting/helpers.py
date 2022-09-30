@@ -86,7 +86,9 @@ def set_arrow_label(
         arrow_arc_rad (float): angle value defining the upwards / downwards shape of and
             bending of the arrow.
         fontsize (int): text size in the box.
-
+        **kwargs: additional keyword arguments are transmitted to `~matplotlib.axes.Axes.annotate`.
+            If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
+            axis object to plot on.
 
     Returns:
         A `matploblit.text.Annotation` of the created annotation.

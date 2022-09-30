@@ -179,8 +179,7 @@ def plot_machine_survey(
             otherwise only up to quadrupoles. Defaults to `False`.
         **kwargs: any keyword argument will be transmitted to `~matplotlib.pyplot.scatter` calls
             later on. If either `ax` or `axis` is found in the kwargs, the corresponding value is
-            used as the axis object to plot on. If either `ax` or `axis` is found in the kwargs,
-            the corresponding value is used as the axis object to plot on.
+            used as the axis object to plot on.
 
     Returns:
         The `~matplotlib.axes.Axes` on which the survey is drawn.
