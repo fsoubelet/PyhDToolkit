@@ -1,3 +1,6 @@
-from . import helpers
+"""
+.. _cpymadtools-plot:
+"""
+from . import aperture, beamenvelope, crossing, lattice, phasespace, tune, utils
 
-__all__ = [helpers]
+__all__ = [aperture, beamenvelope, crossing, lattice, phasespace, tune, utils]
