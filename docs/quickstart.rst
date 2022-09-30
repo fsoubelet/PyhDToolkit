@@ -93,7 +93,6 @@ In the `~pyhdtoolkit.cpymadtools` one will find modules to:
 
 * Encompass existing ``MAD-X`` commands, such as for example :ref:`matching <cpymadtools-matching>` or :ref:`tracking <cpymadtools-track>`;
 * Perform useful routines with a clean pythonic interface (for instance :ref:`betatron coupling  <cpymadtools-coupling>` calculation and handling, :ref:`errors assignments <cpymadtools-errors>`);
-* Conveniently create different useful plots after a simulation thanks to the :ref:`plotting functions <cpymadtools-plot-aperture>`;
 * Run :ref:`(HL)LHC <cpymadtools-lhc>` specific functionality, mostly tailored to my work. 
 
 One can find many examples of the `~pyhdtoolkit.cpymadtools` apis' use in the :ref:`gallery <gallery>` section of this documentation.
@@ -137,6 +136,6 @@ Additional Helpers
 ^^^^^^^^^^^^^^^^^^
 
 Other sub-packages provide helper functionality mostly used internally in the package, but may be of use to you.
-:ref:`Plotting <pyhdtoolkit-plotting>` gives access to helpers for `~matplotlib` plots; :ref:`models <pyhdtoolkit-models>`
+:ref:`Plotting <pyhdtoolkit-plotting>` gives access to many plotting functions; :ref:`models <pyhdtoolkit-models>`
 provides `~pydantic`-validated classes for data handling throughout the package; :ref:`optics <pyhdtoolkit-optics>` to useful
 beam optics parameters calculations; and :ref:`maths <pyhdtoolkit-maths>` to some statistical utilities.
