@@ -87,6 +87,7 @@ def set_arrow_label(
             bending of the arrow.
         fontsize (int): text size in the box.
 
+
     Returns:
         A `matploblit.text.Annotation` of the created annotation.
 
@@ -94,7 +95,6 @@ def set_arrow_label(
         .. code-block:: python
 
             >>> set_arrow_label(
-            ...     axis=ax,
             ...     label="Your label",
             ...     arrow_position=(1, 2),
             ...     label_position=(1.1 * some_value, 0.75 * another_value),
@@ -103,7 +103,7 @@ def set_arrow_label(
             ...     fontsize=25,
             ... )
     """
-    # TODO: use maybe_get_ax
+    axis, kwargs = maybe_get_ax(**kwargs)
     return axis.annotate(
         label,
         xy=arrow_position,
