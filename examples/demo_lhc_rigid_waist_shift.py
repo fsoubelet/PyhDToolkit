@@ -28,7 +28,7 @@ import pandas as pd
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching
-from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
+from pyhdtoolkit.cpymadtools.plot.lattice import plot_latwiss
 from pyhdtoolkit.utils import _misc, defaults
 
 defaults.config_logger(level="warning")
@@ -64,9 +64,9 @@ ip1s = twiss_df.s["ip1"]
 ###############################################################################
 # Let's now have a look at the IR in normal conditions.
 
-IR1_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(16, 11))
+plot_latwiss(
     madx,
-    figsize=(18, 11),
     title="LHCB1 IR1 - No Rigid Waist Shift",
     disp_ylim=(-1.5, 3),
     xoffset=ip1s,
@@ -75,8 +75,8 @@ IR1_fig = LatticePlotter.plot_latwiss(
     k1l_lim=(-6.1e-2, 6.1e-2),
     lw=1.5,
 )
-IR1_fig.axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
-for axis in IR1_fig.axes:
+plt.gcf().axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
+for axis in plt.gcf().axes:
     axis.axvline(x=0, color="grey", ls="--", lw=1.5, label="IP1")
 plt.show()
 
@@ -108,9 +108,10 @@ twiss_df_waist = madx.table.twiss.dframe().copy()
 twiss_df_waist.name = twiss_df.name.apply(lambda x: x[:-2])
 ip1s = twiss_df_waist.s["ip1"]
 
-IR1_waist_shift = LatticePlotter.plot_latwiss(
+
+plt.figure(figsize=(16, 11))
+plot_latwiss(
     madx,
-    figsize=(16, 11),
     title="LHCB1 IR1 - With Rigid Waist Shift",
     disp_ylim=(-1.5, 3),
     xoffset=ip1s,
@@ -119,8 +120,8 @@ IR1_waist_shift = LatticePlotter.plot_latwiss(
     k1l_lim=(-6.1e-2, 6.1e-2),
     lw=1.5,
 )
-IR1_waist_shift.axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
-for axis in IR1_fig.axes:
+plt.gcf().axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
+for axis in plt.gcf().axes:
     axis.axvline(x=0, color="grey", ls="--", lw=1.5, label="IP1")
 plt.show()
 
@@ -309,4 +310,4 @@ print(shift)  # markers
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.plotters`: `~.plotters.LatticePlotter`, `~.plotters.LatticePlotter.plot_latwiss`
+#    - `~.cpymadtools.plot`: `~.plot.lattice`, `~.plot.lattice.plot_latwiss`
