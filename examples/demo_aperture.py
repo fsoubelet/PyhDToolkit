@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
-from pyhdtoolkit.cpymadtools.plotters import AperturePlotter
+from pyhdtoolkit.cpymadtools.plot.aperture import plot_aperture
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -41,9 +41,7 @@ madx.call("lhc/aperture.b1.madx")
 madx.call("lhc/aper_tol.b1.madx")
 
 madx.command.twiss()
-madx.command.aperture(
-    cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14
-)
+madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
 
 ###############################################################################
 # We can now determine the exact position of the IP5 point and plot the LHC
@@ -52,18 +50,23 @@ madx.command.aperture(
 twiss_df = madx.table.twiss.dframe().copy()
 ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
 
-ir5_aperture_collision = AperturePlotter.plot_aperture(
+###############################################################################
+# And now we can plot the aperture:
+
+plt.figure(figsize=(13, 9))
+plot_aperture(
     madx,
     title="IR5, Collision Optics Aperture Tolerance",
     plot_bpms=True,
     xlimits=(ip5s - 80, ip5s + 80),
     aperture_ylim=(0, 20),
     k0l_lim=(-4e-4, 4e-4),
+    k1l_lim=(-0.08, 0.08),
     color="darkslateblue",
 )
-for axis in ir5_aperture_collision.axes:
+for axis in plt.gcf().get_axes():
     axis.axvline(x=ip5s, color="red", ls="--", lw=1.5, label="IP5")
-ir5_aperture_collision.gca().legend()
+plt.gca().legend()
 plt.show()
 
 ###############################################################################
