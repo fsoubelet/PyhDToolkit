@@ -1,5 +1,5 @@
 """
-.. _cpymadtools-plotters-tune:
+.. _cpymadtools-plot-tune:
 
 Tune Diagram Plotters
 ---------------------

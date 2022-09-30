@@ -1,5 +1,5 @@
 """
-.. _cpymadtools-plotters-lattice:
+.. _cpymadtools-plot-lattice:
 
 Lattice Plotters
 ----------------

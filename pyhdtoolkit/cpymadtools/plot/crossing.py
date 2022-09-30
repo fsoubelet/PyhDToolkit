@@ -1,5 +1,5 @@
 """
-.. _cpymadtools-plotters-crossing:
+.. _cpymadtools-plot-crossing:
 
 Crossing Scheme Plotters
 ------------------------

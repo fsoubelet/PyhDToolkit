@@ -1,5 +1,5 @@
 """
-.. _cpymadtools-plotters-utils:
+.. _cpymadtools-plot-utils:
 
 Plotting Utility Functions
 --------------------------

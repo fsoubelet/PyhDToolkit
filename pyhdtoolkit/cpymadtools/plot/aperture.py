@@ -1,5 +1,5 @@
 """
-.. _cpymadtools-plotters-aperture:
+.. _cpymadtools-plot-aperture:
 
 Aperture Plotters
 -----------------

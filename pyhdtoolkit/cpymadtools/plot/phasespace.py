@@ -1,5 +1,5 @@
 """
-.. _cpymadtools-plotters-phasespace:
+.. _cpymadtools-plot-phasespace:
 
 Phase Space Plotters
 --------------------
