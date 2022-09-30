@@ -17,50 +17,6 @@ import pandas as pd
 from cpymad.madx import Madx
 from loguru import logger
 
-# ------ Utilities ----- #
-
-
-def maybe_get_ax(**kwargs):
-    """
-    .. versionadded:: 1.0.0
-
-    Convenience function to get the axis, regardless of whether or not it is provided
-    to the plotting function itself. It used to be that the first argument of plotting
-    functions in this package had to be the 'axis' object, but that's no longer the case.
-
-    Args:
-        *args: the arguments passed to the plotting function.
-        **kwargs: the keyword arguments passed to the plotting function.
-
-    Returns:
-        The `~matplotlib.axes.Axes` object to plot on, the args and the kwargs (without the
-        'ax' argument if it initially was present). If no axis was provided, then it will be
-        created with a call to `~matplotlib.pyplot.gca`.
-
-    Examples:
-        This is to be called at the beginning of your plotting functions:
-
-        .. code-block:: python
-
-            >>> def my_plotting_function(*args, **kwargs):
-            ...     ax, kwargs = maybe_get_ax(**kwargs)
-            ...     # do stuff with ax
-            ...     ax.plot(*args, **kwargs)
-            ... )
-    """
-    logger.debug("Looking for axis object to plot on")
-    if "ax" in kwargs:
-        logger.debug("Using the provided kwargs 'ax' as the axis to plot one")
-        ax = kwargs.pop("ax")
-    elif "axis" in kwargs:
-        logger.debug("Using the provided kwargs 'axis' as the axis to plot on")
-        ax = kwargs.pop("axis")
-    else:
-        logger.debug("No axis provided, using `plt.gca()`")
-        ax = plt.gca()
-    return ax, dict(kwargs)
-
-
 # ----- Utility plotters ----- #
 
 

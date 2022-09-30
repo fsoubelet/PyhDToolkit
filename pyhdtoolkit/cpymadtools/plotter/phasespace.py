@@ -18,7 +18,7 @@ from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
 
-from pyhdtoolkit.cpymadtools.plotter.utils import maybe_get_ax
+from pyhdtoolkit.plotting.helpers import maybe_get_ax
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)

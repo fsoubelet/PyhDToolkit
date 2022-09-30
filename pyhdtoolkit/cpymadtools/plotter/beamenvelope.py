@@ -17,8 +17,8 @@ import pandas as pd
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.cpymadtools.plotter.utils import maybe_get_ax
 from pyhdtoolkit.models.beam import BeamParameters
+from pyhdtoolkit.plotting.helpers import maybe_get_ax
 
 
 def plot_envelope(

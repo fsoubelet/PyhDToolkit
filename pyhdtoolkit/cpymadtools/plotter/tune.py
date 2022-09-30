@@ -17,7 +17,7 @@ import numpy as np
 
 from loguru import logger
 
-from pyhdtoolkit.cpymadtools.plotter.utils import maybe_get_ax
+from pyhdtoolkit.plotting.helpers import maybe_get_ax
 
 ORDER_TO_ALPHA: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
 ORDER_TO_RGB: Dict[int, np.ndarray] = {
