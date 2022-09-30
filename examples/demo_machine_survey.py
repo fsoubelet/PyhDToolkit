@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
+from pyhdtoolkit.cpymadtools.plot.lattice import plot_machine_survey
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -35,13 +35,15 @@ madx.input(base_lattice)
 ###############################################################################
 # Plot the machine survey, as simplistic as possible:
 
-LatticePlotter.plot_machine_survey(madx)
+plt.figure(figsize=(16, 11))
+plot_machine_survey(madx, title="Machine Layout")
 plt.show()
 
 ###############################################################################
 # Plot the machine survey, differenciating elements and showing high order magnets:
 
-LatticePlotter.plot_machine_survey(madx, show_elements=True, high_orders=True)
+plt.figure(figsize=(16, 11))
+plot_machine_survey(madx, title="Machine Layout", show_elements=True, high_orders=True)
 plt.show()
 
 ###############################################################################
@@ -57,4 +59,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`, `~.lhc.re_cycle_sequence`
-#    - `~.cpymadtools.plotters`: `~.plotters.LatticePlotter`, `~.plotters.LatticePlotter.plot_machine_survey`
+#    - `~.cpymadtools.plot`: `~.plot.lattice`, `~.plot.lattice.plot_machine_survey`
