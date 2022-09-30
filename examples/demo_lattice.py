@@ -55,7 +55,9 @@ mu_y_cell = madx.table.summ.Q2[0] / n_cells
 title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
 plt.figure(figsize=(18, 11))
-plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
+plot_latwiss(
+    madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3
+)
 plt.tight_layout()
 plt.show()
 
