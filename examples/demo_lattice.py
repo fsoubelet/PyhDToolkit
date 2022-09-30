@@ -6,7 +6,7 @@
 Accelerator Lattice
 ===================
 
-This example shows how to use the `~.plot.lattice.plot_latwiss` function
+This example shows how to use the `~.plotting.lattice.plot_latwiss` function
 to represent your machine's layout and optics functions in a double-axis plot.
 
 In this example, we will showcase the functionality on a simple lattice, and then demonstrate the use
@@ -18,7 +18,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching, orbit
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.plot.lattice import plot_latwiss
+from pyhdtoolkit.plotting.lattice import plot_latwiss
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -46,7 +46,7 @@ matching.match_tunes_and_chromaticities(
 
 ###############################################################################
 # Plotting the combined machine layout and optics functions is done in a single call
-# to the `~.plot.lattice.plot_latwiss` function. Here, we will also set the *k0l_lim*
+# to the `~.plotting.lattice.plot_latwiss` function. Here, we will also set the *k0l_lim*
 # parameter to control the right-hand-side axis in the machine layout axis. The same
 # can be done with the *k1_lim* parameter.
 
@@ -55,9 +55,7 @@ mu_y_cell = madx.table.summ.Q2[0] / n_cells
 title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
 plt.figure(figsize=(18, 11))
-plot_latwiss(
-    madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3
-)
+plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
 plt.tight_layout()
 plt.show()
 
@@ -85,7 +83,7 @@ lhc.make_lhc_beams(lhc_madx, energy=7000)
 lhc_madx.command.use(sequence="lhcb1")
 
 ###############################################################################
-# The `~.plot.lattice.plot_latwiss` function gives the possibility to zoom on a
+# The `~.plotting.lattice.plot_latwiss` function gives the possibility to zoom on a
 # region by providing the *xlimits* parameter. Let's first determine the position
 # of points of interest through the ``TWISS`` table:
 
@@ -100,7 +98,7 @@ ip1s = twiss_df.s["ip1"]
 #
 # .. tip::
 #     In order to zoom on a region, one might be tempted to call the plot and run ``plt.xlim(...)``.
-#     However, when providing the *xlimits* parameter, `~.plot.lattice.plot_latwiss` makes a sub-selection
+#     However, when providing the *xlimits* parameter, `~.plotting.lattice.plot_latwiss` makes a sub-selection
 #     of the ``TWISS`` table before doing any plotting. This is provides a nice speedup to the plotting
 #     process, as only elements within the limits are rendered on the layout axis, instead of all elements
 #     (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
@@ -182,4 +180,4 @@ lhc_madx.exit()
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.cpymadtools.orbit`: `~.orbit.setup_lhc_orbit`
-#    - `~.plot.lattice`: `~.lattice.plot_latwiss`
+#    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`

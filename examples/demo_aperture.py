@@ -6,7 +6,7 @@
 Accelerator Aperture
 ====================
 
-This example shows how to use the `~.cpymadtools.plot.aperture.plot_aperture` function
+This example shows how to use the `~.plotting.aperture.plot_aperture` function
 to visualise the available aperture in your machine, with the LHC for example.
 """
 
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
-from pyhdtoolkit.cpymadtools.plot.aperture import plot_aperture
+from pyhdtoolkit.plotting.aperture import plot_aperture
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -41,9 +41,7 @@ madx.call("lhc/aperture.b1.madx")
 madx.call("lhc/aper_tol.b1.madx")
 
 madx.command.twiss()
-madx.command.aperture(
-    cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14
-)
+madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
 
 ###############################################################################
 # We can now determine the exact position of the IP5 point and plot the LHC
@@ -84,4 +82,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`
-#    - `~.plot.aperture`: `~.aperture.plot_aperture`
+#    - `~.plotting.aperture`: `~.plotting.aperture.plot_aperture`

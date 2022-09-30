@@ -6,19 +6,18 @@
 LHC Crossing Schemes
 ====================
 
-This example shows how to use the `~.plot.crossing.plot_two_lhc_ips_crossings` function
-to visualise the crossing schemes setup at the LHC IRs.
+This example shows how to use the `~.plotting.crossing.plot_two_lhc_ips_crossings`
+function to visualise the crossing schemes setup at the LHC IRs.
 
 .. note::
     This is very LHC-specific and will most likely not work with other machines.
 """
 import matplotlib.pyplot as plt
-import pandas as pd
 
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
-from pyhdtoolkit.cpymadtools.plot.crossing import plot_two_lhc_ips_crossings
+from pyhdtoolkit.plotting.crossing import plot_two_lhc_ips_crossings
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -69,4 +68,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
-#    - `~.plot.crossing`: `~.crossing.plot_two_lhc_ips_crossings`
+#    - `~.plotting.crossing`: `~.plotting.crossing.plot_two_lhc_ips_crossings`

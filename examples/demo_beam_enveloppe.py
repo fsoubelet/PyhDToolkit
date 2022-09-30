@@ -6,7 +6,7 @@
 Beam Enveloppe
 ==============
 
-This example shows how to use the `~.plot.beamenvelope.plot_envelope` function
+This example shows how to use the `~.plotting.envelope.plot_envelope` function
 to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
@@ -17,8 +17,8 @@ import numpy as np
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.plot.beamenvelope import plot_envelope, plot_stay_clear
 from pyhdtoolkit.models.beam import BeamParameters
+from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -158,9 +158,7 @@ plot_envelope(
     title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
     axis=axes[1],
 )
-plot_stay_clear(
-    madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2]
-)
+plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
 plt.show()
 
 ###############################################################################
@@ -215,5 +213,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.plot.beamenvelope`: `~.beamenvelope.plot_envelope`, `~.beamenvelope.plot_stay_clear`
+#    - `~.plotting.envelope`: `~.plotting.envelope.plot_envelope`, `~.plotting.envelope.plot_stay_clear`
 #    - `~.models.beam`: `~.models.beam.BeamParameters`

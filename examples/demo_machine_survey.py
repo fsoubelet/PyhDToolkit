@@ -6,7 +6,7 @@
 Machine Survey
 ==============
 
-This example shows how to use the `~.plot.lattice.plot_machine_survey` function
+This example shows how to use the `~.plotting.lattice.plot_machine_survey` function
 to represent your machine geometry in a from-the-top view.
 """
 # sphinx_gallery_thumbnail_number = 2
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.plot.lattice import plot_machine_survey
+from pyhdtoolkit.plotting.lattice import plot_machine_survey
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -59,4 +59,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`, `~.lhc.re_cycle_sequence`
-#    - `~.plot.lattice`: `~.lattice.plot_machine_survey`
+#    - `~.plotting.lattice`: `~.plotting.lattice.plot_machine_survey`
