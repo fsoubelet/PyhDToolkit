@@ -2,7 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pytest
 
-from pyhdtoolkit.plotting.helpers import set_arrow_label
+from pyhdtoolkit.plotting.utils import set_arrow_label
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")

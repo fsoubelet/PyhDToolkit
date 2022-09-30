@@ -2,7 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pytest
 
-from pyhdtoolkit.cpymadtools.plot.crossing import plot_two_lhc_ips_crossings
+from pyhdtoolkit.plotting.crossing import plot_two_lhc_ips_crossings
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")

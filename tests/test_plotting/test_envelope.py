@@ -6,8 +6,8 @@ import pytest
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.plot.beamenvelope import plot_envelope, plot_stay_clear
 from pyhdtoolkit.optics.beam import compute_beam_parameters
+from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")

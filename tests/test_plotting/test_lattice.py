@@ -8,7 +8,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
-from pyhdtoolkit.cpymadtools.plot.lattice import plot_latwiss, plot_machine_survey
+from pyhdtoolkit.plotting.lattice import plot_latwiss, plot_machine_survey
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")

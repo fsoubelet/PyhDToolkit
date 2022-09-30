@@ -10,11 +10,11 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
-from pyhdtoolkit.cpymadtools.plot.phasespace import (
+from pyhdtoolkit.cpymadtools.track import track_single_particle
+from pyhdtoolkit.plotting.phasespace import (
     plot_courant_snyder_phase_space,
     plot_courant_snyder_phase_space_colored,
 )
-from pyhdtoolkit.cpymadtools.track import track_single_particle
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")

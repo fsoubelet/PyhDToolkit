@@ -2,7 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pytest
 
-from pyhdtoolkit.cpymadtools.plot.aperture import plot_aperture
+from pyhdtoolkit.plotting.aperture import plot_aperture
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
