@@ -20,7 +20,7 @@ ELETTRA_LATTICE = INPUTS_DIR / "madx" / "elettra2_v15_VADER_2.3T.madx"
 ELETTRA_OPTICS = INPUTS_DIR / "madx" / "optics_elettra2_v15_VADER_2.3T.madx"
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_latwiss():
     """Using my CAS 19 project's base lattice."""
     with Madx(stdout=False) as madx:
@@ -41,7 +41,7 @@ def test_plot_latwiss():
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_latwiss_with_dipole_k1():
     """Using ELETTRA2.0 lattice provided by Axel."""
     elettra_parameters = {"ON_SEXT": 1, "ON_OCT": 1, "ON_RF": 1, "NRJ_GeV": 2.4, "DELTAP": 0.00095}
@@ -72,7 +72,7 @@ def test_plot_latwiss_with_dipole_k1():
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_machine_survey_with_elements():
     """Using my CAS 19 project's base lattice."""
     with Madx(stdout=False) as madx:
@@ -83,7 +83,7 @@ def test_plot_machine_survey_with_elements():
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_machine_survey_without_elements():
     """Using my CAS 19 project's base lattice."""
     with Madx(stdout=False) as madx:

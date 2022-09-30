@@ -22,16 +22,12 @@ matplotlib.use("Agg")
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_horizontal_courant_snyder_phase_space():
     """Using my CAS 19 project's base lattice."""
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         match_cas3(madx)
-        # match_tunes_and_chromaticities(
-        #     madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        # )
-
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
 
         figure, ax = plt.subplots(figsize=(10, 10))
@@ -41,22 +37,48 @@ def test_plot_horizontal_courant_snyder_phase_space():
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_horizontal_courant_snyder_phase_space_colored():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(BASE_LATTICE)
+        match_cas3(madx)
+        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+
+        figure, ax = plt.subplots(figsize=(10, 10))
+        plot_courant_snyder_phase_space_colored(madx, x_coords_stable, px_coords_stable, plane="Horizontal")
+        ax.set_xlim(-20e-3, 18e-3)
+        ax.set_ylim(-18e-3, 22e-3)
+    return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_vertical_courant_snyder_phase_space():
     """Using my CAS 19 project's base lattice."""
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         match_cas3(madx)
-        # match_tunes_and_chromaticities(
-        #     madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        # )
-
         x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
 
         figure, ax = plt.subplots(figsize=(10, 10))
         plot_courant_snyder_phase_space(madx, x_coords_stable, px_coords_stable, plane="vertical")
-        ax.set_xlim(-12e-3, 20e-3)
-        ax.set_ylim(-20e-3, 23e-3)
+        ax.set_xlim(-35e-3, 35e-3)
+        ax.set_ylim(-35e-3, 35e-3)
+    return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_vertical_courant_snyder_phase_space_colored():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(BASE_LATTICE)
+        match_cas3(madx)
+        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
+
+        figure, ax = plt.subplots(figsize=(10, 10))
+        plot_courant_snyder_phase_space_colored(madx, x_coords_stable, px_coords_stable, plane="Vertical")
+        ax.set_xlim(-35e-3, 35e-3)
+        ax.set_ylim(-35e-3, 35e-3)
     return figure
 
 
@@ -65,52 +87,11 @@ def test_plot_courant_snyder_phase_space_wrong_plane_input():
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         match_cas3(madx)
-        # match_tunes_and_chromaticities(
-        #     madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        # )
-
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
+
         with pytest.raises(ValueError):
             fig, ax = plt.subplots()
             plot_courant_snyder_phase_space(madx, x_coords_stable, px_coords_stable, plane="invalid_plane")
-
-
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
-def test_plot_horizontal_courant_snyder_phase_space_colored():
-    """Using my CAS 19 project's base lattice."""
-    with Madx(stdout=False) as madx:
-        madx.input(BASE_LATTICE)
-        match_cas3(madx)
-        # match_tunes_and_chromaticities(
-        #     madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        # )
-
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-
-        figure, ax = plt.subplots(figsize=(10, 10))
-        plot_courant_snyder_phase_space_colored(madx, x_coords_stable, px_coords_stable, plane="Horizontal")
-        ax.set_xlim(-12e-3, 20e-3)
-        ax.set_ylim(-20e-3, 23e-3)
-    return figure
-
-
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
-def test_plot_vertical_courant_snyder_phase_space_colored():
-    """Using my CAS 19 project's base lattice."""
-    with Madx(stdout=False) as madx:
-        madx.input(BASE_LATTICE)
-        match_cas3(madx)
-        # match_tunes_and_chromaticities(
-        #     madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        # )
-
-        x_coords_stable, _, px_coords_stable, _ = _perform_tracking_for_coordinates(madx)
-
-        figure, ax = plt.subplots(figsize=(10, 10))
-        plot_courant_snyder_phase_space_colored(madx, x_coords_stable, px_coords_stable, plane="Vertical")
-        ax.set_xlim(-12e-3, 20e-3)
-        ax.set_ylim(-20e-3, 23e-3)
-    return figure
 
 
 def test_plot_courant_snyder_phase_space_colored_wrong_plane_input():
@@ -118,10 +99,6 @@ def test_plot_courant_snyder_phase_space_colored_wrong_plane_input():
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         match_cas3(madx)
-        # match_tunes_and_chromaticities(
-        #     madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
-        # )
-
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
         with pytest.raises(ValueError):
             fig, ax = plt.subplots()

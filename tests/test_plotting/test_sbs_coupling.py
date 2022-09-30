@@ -10,7 +10,7 @@ INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 SBS_INPUTS = INPUTS_DIR / "sbs"
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_rdt_component(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
     figure = plot_rdt_component(
         b1_segment_df=sbs_coupling_b1_ip1,
@@ -22,7 +22,7 @@ def test_plot_rdt_component(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_full_ip(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
     figure = plot_full_ip_rdt(
         b1_segment_df=sbs_coupling_b1_ip1,
@@ -37,7 +37,7 @@ def test_plot_full_ip(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sb
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_full_ip_with_ylimits(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
     figure = plot_full_ip_rdt(
         b1_segment_df=sbs_coupling_b1_ip1,

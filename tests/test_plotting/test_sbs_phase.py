@@ -16,7 +16,7 @@ INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 SBS_INPUTS = INPUTS_DIR / "sbs"
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_one_beam(sbs_phasex, sbs_phasey, sbs_model_b2):
     figure = plot_phase_segment_one_beam(
         phase_x=sbs_phasex,
@@ -27,7 +27,7 @@ def test_plot_one_beam(sbs_phasex, sbs_phasey, sbs_model_b2):
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_both_beams(sbs_phasex, sbs_phasey, sbs_model_b2):
     # Only plotting beam 2 data on both, just for the test
     figure = plot_phase_segment_both_beams(

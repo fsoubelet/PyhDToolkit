@@ -17,15 +17,15 @@ def test_plot_tune_diagram_fails_on_too_high_order(max_order, caplog):
         assert record.levelname == "ERROR"
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
-def test_plot_tune_diagram(self):
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_tune_diagram():
     """Does not need any input."""
     figure = plt.figure(figsize=(10, 10))
     plot_tune_diagram()
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_tune_diagram_colored_by_resonance_order():
     figure = plt.figure(figsize=(10, 10))
     plot_tune_diagram(differentiate_orders=True)

@@ -8,7 +8,7 @@ from pyhdtoolkit.cpymadtools.plot.aperture import plot_aperture
 matplotlib.use("Agg")
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_aperture_cell_injection(_injection_aperture_tolerances_lhc_madx):
     madx = _injection_aperture_tolerances_lhc_madx
     madx.command.twiss(centre=True)
@@ -28,7 +28,7 @@ def test_plot_aperture_cell_injection(_injection_aperture_tolerances_lhc_madx):
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_aperture_ir5_collision(_collision_aperture_tolerances_lhc_madx):
 
     madx = _collision_aperture_tolerances_lhc_madx

@@ -17,7 +17,7 @@ INPUTS_DIR = CURRENT_DIR.parent.parent / "inputs"
 GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_horizontal():
     beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
     title = f"Horizontal Aperture at {beam_injection.pc_GeV} GeV/c"
@@ -30,7 +30,7 @@ def test_plot_envelope_horizontal():
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_vertical():
     beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
     title = f"Vertical Aperture at {beam_injection.pc_GeV} GeV/c"
@@ -43,7 +43,7 @@ def test_plot_envelope_vertical():
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_stay_clear():
     beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
     title = f"Stay-Clear at {beam_injection.pc_GeV} GeV/c"
@@ -62,7 +62,7 @@ def test_plot_stay_clear():
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_combined():
     beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
     madx = Madx(stdout=False)
