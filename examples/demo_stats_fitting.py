@@ -172,11 +172,7 @@ data.plot(
     legend=True,
     ax=ax,
 )
-param_names = (
-    (best_fit_func.shapes + ", loc, scale").split(", ")
-    if best_fit_func.shapes
-    else ["loc", "scale"]
-)
+param_names = (best_fit_func.shapes + ", loc, scale").split(", ") if best_fit_func.shapes else ["loc", "scale"]
 param_str = ", ".join([f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_params)])
 dist_str = f"{fitting.DISTRIBUTIONS[best_fit_func]}({param_str})"
 
@@ -188,6 +184,7 @@ set_arrow_label(
     label_position=(1.1 * np.mean(ax.get_xlim()), 0.75 * max(pdf.to_numpy())),
     color="indianred",
     arrow_arc_rad=0.3,
+    fontsize=25,
 )
 plt.vlines(pdf.idxmax(), ymin=0, ymax=max(pdf.to_numpy()), linestyles="--", color="indianred")
 ax.set_title(f"Best fit to distribution:\n" + dist_str)
@@ -209,11 +206,7 @@ assert np.isclose(pdf.idxmax(), 2, rtol=2e-2)
 # with ``loc=0`` and ``scale=1``, so we expect here to find a standard deviation of
 # one.
 
-factor = (
-    np.sqrt(2)
-    * scipy.special.gamma((degrees_of_freedom + 1) / 2)
-    / scipy.special.gamma(degrees_of_freedom / 2)
-)
+factor = np.sqrt(2) * scipy.special.gamma((degrees_of_freedom + 1) / 2) / scipy.special.gamma(degrees_of_freedom / 2)
 
 determined_stdev = chi_data.mean() / factor
 assert np.isclose(determined_stdev, 1, rtol=1e-2)  # nice tolerance here too

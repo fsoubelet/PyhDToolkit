@@ -158,9 +158,7 @@ plot_envelope(
     title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
     axis=axes[1],
 )
-plot_stay_clear(
-    madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2]
-)
+plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
 plt.show()
 
 ###############################################################################
@@ -168,7 +166,7 @@ plt.show()
 # Here we will plot the horizontal enveloppe for the first cell only.
 
 title = f"First Cell Horizontal Aperture at {beam_injection.pc_GeV} GeV/c"
-fig, ax = plt.subplots(figsize=(10, 5))
+fig, ax = plt.subplots(figsize=(16, 9))
 plot_envelope(madx, beam_injection, ylimits=(-0.12, 0.12), xlimits=(0, l_cell), title=title)
 plt.show()
 

@@ -55,9 +55,7 @@ mu_y_cell = madx.table.summ.Q2[0] / n_cells
 title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
 plt.figure(figsize=(18, 11))
-plot_latwiss(
-    madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3
-)
+plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
 plt.tight_layout()
 plt.show()
 
@@ -106,7 +104,7 @@ ip1s = twiss_df.s["ip1"]
 #     elements (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
 #     way to zoom on a region.
 
-plt.figure(figsize=(16, 11))
+plt.figure(figsize=(18, 11))
 plot_latwiss(
     lhc_madx,
     title="Interaction Region 1, Flat LHCB1 Setup",
@@ -126,7 +124,7 @@ plt.show()
 # *xoffset*. This is useful here to zoom closely on IP1 and see the elements'
 # positions relative to the IP marker.
 
-plt.figure(figsize=(16, 11))
+plt.figure(figsize=(18, 11))
 plot_latwiss(
     lhc_madx,
     title="IP1 Surroundings, Flat LHCB1 Setup",
@@ -150,7 +148,7 @@ plt.show()
 # showcased when looking at an LHC arc cell:
 
 plt.rcParams.update({"axes.formatter.limits": (-2, 5)})  # convenience
-plt.figure(figsize=(16, 11))
+plt.figure(figsize=(18, 11))
 plot_latwiss(
     lhc_madx,
     title="LHC Arc Cell, Flat LHCB1 Setup",

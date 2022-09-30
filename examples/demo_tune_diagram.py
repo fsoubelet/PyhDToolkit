@@ -26,7 +26,7 @@ plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this 
 # decreasing with the resonance order. The max order is set 6, as the graph becomes unreadable
 # above this value.
 
-fig, ax = plt.subplots(figsize=(8, 8))
+fig, ax = plt.subplots(figsize=(10, 10))
 plot_tune_diagram(max_order=5)
 plt.show()
 
@@ -40,7 +40,7 @@ plt.show()
 #     when determining the stability. As so, plot that value onto the graph, or it would
 #     be way out of range
 
-fig, ax = plt.subplots(figsize=(8, 8))
+fig, ax = plt.subplots(figsize=(10, 10))
 plot_tune_diagram(max_order=5)
 plt.scatter(0.35, 0.29, marker="o", color="red")  # this is close to a third order resonance
 plt.show()
@@ -51,7 +51,7 @@ plt.show()
 # line, aka knowing which resonance order is responsible for each given line. This
 # makes it easier to see the resonances near your working point.
 
-fig, ax = plt.subplots(figsize=(8, 8))
+fig, ax = plt.subplots(figsize=(10, 10))
 plot_tune_diagram(
     max_order=6,
     differentiate_orders=True,  # different orders will have a different color and linestyle

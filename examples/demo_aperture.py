@@ -41,9 +41,7 @@ madx.call("lhc/aperture.b1.madx")
 madx.call("lhc/aper_tol.b1.madx")
 
 madx.command.twiss()
-madx.command.aperture(
-    cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14
-)
+madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
 
 ###############################################################################
 # We can now determine the exact position of the IP5 point and plot the LHC
@@ -55,13 +53,13 @@ ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
 ###############################################################################
 # And now we can plot the aperture:
 
-plt.figure(figsize=(13, 9))
+plt.figure(figsize=(20, 13))
 plot_aperture(
     madx,
-    title="IR5, Collision Optics Aperture Tolerance",
+    title="IR5, Collision Optics - Beam 1 Aperture Tolerance",
     plot_bpms=True,
     xlimits=(ip5s - 80, ip5s + 80),
-    aperture_ylim=(0, 20),
+    aperture_ylim=(0, 25),
     k0l_lim=(-4e-4, 4e-4),
     k1l_lim=(-0.08, 0.08),
     color="darkslateblue",
