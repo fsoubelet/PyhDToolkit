@@ -72,4 +72,4 @@ plt.show()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `.cpymadtools.plot.tune`: `~.cpymadtools.plot.tune.plot_tune_diagram`
+#    - `~.cpymadtools.plot.tune`: `~.cpymadtools.plot.tune.plot_tune_diagram`
