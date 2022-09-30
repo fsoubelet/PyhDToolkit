@@ -12,14 +12,13 @@ to visualise the crossing schemes setup at the LHC IRs.
 .. note::
     This is very LHC-specific and will most likely not work with other machines.
 """
-import matplotlib
 import matplotlib.pyplot as plt
 import pandas as pd
 
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
-from pyhdtoolkit.cpymadtools.plotters import CrossingSchemePlotter
+from pyhdtoolkit.cpymadtools.plot.crossing import plot_two_lhc_ips_crossings
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -47,16 +46,15 @@ madx.command.use(sequence="lhcb1")
 ###############################################################################
 # Now we plot the crossing schemes, here for IP1 and IP5.
 
-CrossingSchemePlotter.plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
-plt.show()
+plt.figure(figsize=(18, 11))
+plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
 
 ###############################################################################
 # We can have a look at, say, IP2 and IP8 by simply changing the parameters, and
 # for instance also remove the highlighting of MQX and MBX elements:
 
-CrossingSchemePlotter.plot_two_lhc_ips_crossings(
-    madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False
-)
+plt.figure(figsize=(18, 11))
+plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
 
 ###############################################################################
 # Let's not forget to close the rpc connection to ``MAD-X``:
@@ -71,4 +69,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
-#    - `~.cpymadtools.plotters`: `~.plotters.CrossingSchemePlotter`, `~.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings`
+#    - `~.cpymadtools.plot`: `~.plot.crossing`, `~.plot.crossing.plot_two_lhc_ips_crossings`
