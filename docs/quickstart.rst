@@ -93,7 +93,7 @@ In the `~pyhdtoolkit.cpymadtools` one will find modules to:
 
 * Encompass existing ``MAD-X`` commands, such as for example :ref:`matching <cpymadtools-matching>` or :ref:`tracking <cpymadtools-track>`;
 * Perform useful routines with a clean pythonic interface (for instance :ref:`betatron coupling  <cpymadtools-coupling>` calculation and handling, :ref:`errors assignments <cpymadtools-errors>`);
-* Conveniently create different useful plots after a simulation thanks to the :ref:`plotters classes <cpymadtools-plotters>`;
+* Conveniently create different useful plots after a simulation thanks to the :ref:`plotting functions <cpymadtools-plot-aperture>`;
 * Run :ref:`(HL)LHC <cpymadtools-lhc>` specific functionality, mostly tailored to my work. 
 
 One can find many examples of the `~pyhdtoolkit.cpymadtools` apis' use in the :ref:`gallery <gallery>` section of this documentation.
