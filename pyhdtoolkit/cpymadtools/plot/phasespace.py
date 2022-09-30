@@ -18,8 +18,8 @@ from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
 
-from pyhdtoolkit.plotting.helpers import maybe_get_ax
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
+from pyhdtoolkit.plotting.helpers import maybe_get_ax
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())

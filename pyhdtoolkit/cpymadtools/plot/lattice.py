@@ -15,12 +15,12 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.cpymadtools.plotter.utils import (
+from pyhdtoolkit.cpymadtools.plot.utils import (
     _get_twiss_table_with_offsets_and_limits,
     make_survey_groups,
-    maybe_get_ax,
     plot_machine_layout,
 )
+from pyhdtoolkit.plotting.helpers import maybe_get_ax
 
 
 def plot_latwiss(
