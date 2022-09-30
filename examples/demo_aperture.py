@@ -6,7 +6,7 @@
 Accelerator Aperture
 ====================
 
-This example shows how to use the `~.plotters.AperturePlotter.plot_aperture` function
+This example shows how to use the `~.cpymadtools.plot.aperture.plot_aperture` function
 to visualise the available aperture in your machine, with the LHC for example.
 """
 
@@ -82,4 +82,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`
-#    - `~.cpymadtools.plot.aperture`: `~.plot.aperture.plot_aperture`
+#    - `~.plot.aperture`: `~.aperture.plot_aperture`

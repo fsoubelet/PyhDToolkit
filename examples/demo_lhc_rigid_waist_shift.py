@@ -52,8 +52,8 @@ lhc.make_lhc_beams(madx, energy=7000)
 madx.command.use(sequence="lhcb1")
 
 ###############################################################################
-# We will use the `~.plotters.LatticePlotter.plot_latwiss` function to have zoomed-in
-# look at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
+# We will use the `~.plot.lattice.plot_latwiss` function to have a zoomed-in look
+# at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
 # determine the position of points of interest through the ``TWISS`` table:
 
 madx.command.twiss()
@@ -310,4 +310,4 @@ print(shift)  # markers
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.plot.lattice`: `~.plot.lattice.plot_latwiss`
+#    - `~.plot.lattice`: `~.lattice.plot_latwiss`

@@ -21,7 +21,7 @@ plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this 
 plt.rcParams.update({"text.usetex": True, "legend.fontsize": 16})  # for these specific plots
 
 ###############################################################################
-# The functions in `pyhdtoolkit.plotting.sbs` modules usually need to be provided
+# The functions in `~pyhdtoolkit.plotting.sbs` modules usually need to be provided
 # different dataframes corresponding to specific components of segment-by-segment
 # results, which can be obtained by directly loading the output **TFS** files.
 # Let's load below the coupling results of a segment-by-segment run and related

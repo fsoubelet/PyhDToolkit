@@ -6,7 +6,7 @@
 Tune Diagram
 ============
 
-This example shows how to use the `~.plotters.TuneDiagramPlotter.plot_tune_diagram` function 
+This example shows how to use the `~.plot.tune.plot_tune_diagram` function 
 to visualise resonance lines up to certain orders.
 """
 # sphinx_gallery_thumbnail_number = -1
@@ -21,10 +21,9 @@ plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this 
 ###############################################################################
 # The tune diagram allows on to visualise resonance lines up to certain orders,
 # and to know where the working point of the machine stands compared to these resonances
-# By default, the `~pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter.plot_tune_diagram`
-# function will plot all resonance lines up to the specified order, with line thickness
-# decreasing with the resonance order. The max order is set 6, as the graph becomes unreadable
-# above this value.
+# By default, the `~.plot.tune.plot_tune_diagram` function will plot all resonance lines
+# up to the specified order, with line thickness decreasing with the resonance order.
+# The max order is set 6, as the graph becomes unreadable above this value.
 
 fig, ax = plt.subplots(figsize=(10, 10))
 plot_tune_diagram(max_order=5)
@@ -72,4 +71,4 @@ plt.show()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.plot.tune`: `~.cpymadtools.plot.tune.plot_tune_diagram`
+#    - `~.plot.tune`: `~.tune.plot_tune_diagram`

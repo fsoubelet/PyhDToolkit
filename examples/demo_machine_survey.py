@@ -6,7 +6,7 @@
 Machine Survey
 ==============
 
-This example shows how to use the `~.plotters.LatticePlotter.plot_machine_survey` function
+This example shows how to use the `~.plot.lattice.plot_machine_survey` function
 to represent your machine geometry in a from-the-top view.
 """
 # sphinx_gallery_thumbnail_number = 2
@@ -59,4 +59,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`, `~.lhc.re_cycle_sequence`
-#    - `~.cpymadtools.plot.lattice`: `~.plot.lattice.plot_machine_survey`
+#    - `~.plot.lattice`: `~.lattice.plot_machine_survey`

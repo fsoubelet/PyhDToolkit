@@ -6,7 +6,7 @@
 LHC Crossing Schemes
 ====================
 
-This example shows how to use the `~.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings` function
+This example shows how to use the `~.plot.crossing.plot_two_lhc_ips_crossings` function
 to visualise the crossing schemes setup at the LHC IRs.
 
 .. note::
@@ -69,4 +69,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
-#    - `~.cpymadtools.plot.crossing`: `~.plot.crossing.plot_two_lhc_ips_crossings`
+#    - `~.plot.crossing`: `~.crossing.plot_two_lhc_ips_crossings`

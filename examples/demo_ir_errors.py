@@ -138,6 +138,6 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    = `~cpymadtools.errors`: ~cpymadtools.errors.misalign_lhc_ir_quadrupoles`
+#    - `~.cpymadtools.errors`: `~.errors.misalign_lhc_ir_quadrupoles`
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`

@@ -6,7 +6,7 @@
 Accelerator Lattice
 ===================
 
-This example shows how to use the `~.plotters.LatticePlotter.plot_latwiss` function
+This example shows how to use the `~.plot.lattice.plot_latwiss` function
 to represent your machine's layout and optics functions in a double-axis plot.
 
 In this example, we will showcase the functionality on a simple lattice, and then demonstrate the use
@@ -46,9 +46,9 @@ matching.match_tunes_and_chromaticities(
 
 ###############################################################################
 # Plotting the combined machine layout and optics functions is done in a single call
-# to the `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss` function.
-# Here, we will also set the *k0l_lim* parameter to control the right-hand-side axis
-# in the machine layout axis. The same can be done with the *k1_lim* parameter.
+# to the `~.plot.lattice.plot_latwiss` function. Here, we will also set the *k0l_lim*
+# parameter to control the right-hand-side axis in the machine layout axis. The same
+# can be done with the *k1_lim* parameter.
 
 mu_x_cell = madx.table.summ.Q1[0] / n_cells
 mu_y_cell = madx.table.summ.Q2[0] / n_cells
@@ -83,9 +83,9 @@ lhc.make_lhc_beams(lhc_madx, energy=7000)
 lhc_madx.command.use(sequence="lhcb1")
 
 ###############################################################################
-# The `~.plotters.LatticePlotter.plot_latwiss` function gives the possibility
-# to zoom on a region by providing the *xlimits* parameter. Let's first determine
-# the position of points of interest through the ``TWISS`` table:
+# The `~.plot.lattice.plot_latwiss` function gives the possibility to zoom on a
+# region by providing the *xlimits* parameter. Let's first determine the position
+# of points of interest through the ``TWISS`` table:
 
 lhc_madx.command.twiss()
 twiss_df = lhc_madx.table.twiss.dframe().copy()
@@ -98,10 +98,10 @@ ip1s = twiss_df.s["ip1"]
 #
 # .. tip::
 #     In order to zoom on a region, one might be tempted to call the plot and run ``plt.xlim(...)``.
-#     However, when providing the *xlimits* parameter, `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss`
-#     makes a sub-selection of the ``TWISS`` table before doing any plotting. This is provides a nice speedup
-#     to the plotting process, as only elements within the limits are rendered on the layout axis, instead of all
-#     elements (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
+#     However, when providing the *xlimits* parameter, `~.plot.lattice.plot_latwiss` makes a sub-selection
+#     of the ``TWISS`` table before doing any plotting. This is provides a nice speedup to the plotting
+#     process, as only elements within the limits are rendered on the layout axis, instead of all elements
+#     (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
 #     way to zoom on a region.
 
 plt.figure(figsize=(18, 11))
@@ -140,7 +140,7 @@ plt.tight_layout()
 plt.show()
 
 ###############################################################################
-# When and only when the **k2l_lim** parameter is provided, the sextupolar elements
+# When and only when the *k2l_lim* parameter is provided, the sextupolar elements
 # are plotted on the lattice layout axis, and an additional scale is put to the right.
 # This is useful to see sextupoles when zooming in, which you would not necessarily
 # want to plot when looking at the big picture, to avoid overcrowding it. Similarly,
@@ -180,4 +180,4 @@ lhc_madx.exit()
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.cpymadtools.orbit`: `~.orbit.setup_lhc_orbit`
-#    - `~.cpymadtools.plot.lattice`: `~.plot.lattice.plot_latwiss`
+#    - `~.plot.lattice`: `~.lattice.plot_latwiss`

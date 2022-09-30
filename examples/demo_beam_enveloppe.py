@@ -6,7 +6,7 @@
 Beam Enveloppe
 ==============
 
-This example shows how to use the `~.plotters.BeamEnvelopePlotter.plot_envelope` function
+This example shows how to use the `~.plot.beamenvelope.plot_envelope` function
 to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
@@ -213,5 +213,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.plot.beamenvelope`: `~.plot.beamenvelope.plot_envelope`, `~.plot.beamenvelope.plot_stay_clear`
+#    - `~.plot.beamenvelope`: `~.beamenvelope.plot_envelope`, `~.beamenvelope.plot_stay_clear`
 #    - `~.models.beam`: `~.models.beam.BeamParameters`

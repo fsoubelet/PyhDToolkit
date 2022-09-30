@@ -6,11 +6,12 @@
 Phase Space
 ===========
 
-This example shows how to use the `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space` 
-and `~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored` functions to visualise
+This example shows how to use the `~.plot.phasespace.plot_courant_snyder_phase_space`
+and `~.plot.phasespace.plot_courant_snyder_phase_space_colored` functions to visualise
 the particles' trajectories in phase space for your machine.
 
-In this example we will generate a dummy lattice, set its working point and track particles to plot their phase space coordinates.
+In this example we will generate a dummy lattice, set its working point and track particles
+to plot their phase space coordinates.
 """
 # sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
@@ -63,9 +64,7 @@ match_tunes_and_chromaticities(
 # a particle's coordinates for each turn.
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(
-        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
-    )
+    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
     x_coords.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords.append(tracks_df["observation_point_1"].px.to_numpy())
@@ -83,8 +82,8 @@ ax.set_ylim(-18e-3, 22e-3)
 plt.show()
 
 ###############################################################################
-# Using the `~pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored`
-# function, one gets a plot in which each color corresponds to a given particle's trajectory:
+# Using the `~.plot.phasespace.plot_courant_snyder_phase_space_colored` function,
+# one gets a plot in which each color corresponds to a given particle's trajectory:
 
 fig, ax = plt.subplots(figsize=(10, 10))
 plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane="Horizontal")
@@ -124,9 +123,7 @@ match_tunes_and_chromaticities(
 x_coords_sext, px_coords_sext, y_coords_sext, py_coords_sext = [], [], [], []
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(
-        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
-    )
+    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
     x_coords_sext.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords_sext.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords_sext.append(tracks_df["observation_point_1"].px.to_numpy())
@@ -136,9 +133,7 @@ for starting_x in initial_x_coordinates:
 # Plotting the new phase space, we can clearly see the resonance's islands!
 
 fig, ax = plt.subplots(figsize=(10, 10))
-plot_courant_snyder_phase_space_colored(
-    madx, x_coords_sext, px_coords_sext, plane="Horizontal"
-)
+plot_courant_snyder_phase_space_colored(madx, x_coords_sext, px_coords_sext, plane="Horizontal")
 ax.set_xlim(-15e-3, 15e-3)
 ax.set_ylim(-15e-3, 15e-3)
 plt.show()
@@ -157,5 +152,5 @@ madx.exit()
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.plot.phasespace`: `~.plot.phasespace.plot_courant_snyder_phase_space`, `~.plot.phasespace.plot_courant_snyder_phase_space_colored`
+#    - `~.plot.phasespace`: `~.phasespace.plot_courant_snyder_phase_space`, `~.phasespace.plot_courant_snyder_phase_space_colored`
 #    - `~.cpymadtools.track`: `~.track.track_single_particle`
