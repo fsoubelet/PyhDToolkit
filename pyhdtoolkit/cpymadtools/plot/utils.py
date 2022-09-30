@@ -4,7 +4,7 @@
 Plotting Utility Functions
 --------------------------
 
-Module with functions to used throught the different `~pyhdtoolkit.cpymadtools.plotters` modules.
+Module with functions to used throught the different `~pyhdtoolkit.cpymadtools.plot` modules.
 """
 from typing import Dict, Tuple
 
