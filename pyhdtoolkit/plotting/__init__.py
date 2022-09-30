@@ -1,5 +1,5 @@
 """
-.. _cpymadtools-plot:
+.. _plotting:
 """
 from . import aperture, crossing, envelope, lattice, phasespace, tune, utils
 
