@@ -5,6 +5,8 @@ import warnings
 
 from typing import Callable
 
+from . import cpymadtools, maths, models, optics, plotting, utils
+
 # ----- Utility deprecation decorator ----- #
 
 

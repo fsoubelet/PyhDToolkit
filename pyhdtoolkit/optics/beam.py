@@ -29,9 +29,9 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
         A `~.optics.beam.BeamParameters` object with the calculated values.
     """
     e0_gev = 0.9382720813
-    e_tot_gev = np.sqrt(pc_gev ** 2 + e0_gev ** 2)
+    e_tot_gev = np.sqrt(pc_gev**2 + e0_gev**2)
     gamma_r = e_tot_gev / e0_gev
-    beta_r = pc_gev / np.sqrt(pc_gev ** 2 + e0_gev ** 2)
+    beta_r = pc_gev / np.sqrt(pc_gev**2 + e0_gev**2)
 
     return BeamParameters(
         pc_GeV=pc_gev,
@@ -80,7 +80,7 @@ class Beam:
     @property
     def beta_rel(self) -> float:
         """Relativistic beta."""
-        return np.sqrt(1 + 1 / (self.gamma_rel ** 2))
+        return np.sqrt(1 + 1 / (self.gamma_rel**2))
 
     @property
     def brho(self) -> float:
@@ -123,7 +123,7 @@ class Beam:
         Returns:
             The slip factor.
         """
-        return (1 / (self.gamma_rel ** 2)) - alpha_p
+        return (1 / (self.gamma_rel**2)) - alpha_p
 
     @staticmethod
     def gamma_transition(alpha_p: float) -> float:
