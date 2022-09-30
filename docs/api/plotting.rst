@@ -3,6 +3,24 @@
 Plotting
 ========
 
+.. automodule:: pyhdtoolkit.plotting.aperture
+   :members:
+
+.. automodule:: pyhdtoolkit.plotting.crossing
+   :members:
+
+.. automodule:: pyhdtoolkit.plotting.envelope
+   :members:
+
+.. automodule:: pyhdtoolkit.plotting.lattice
+   :members:
+
+.. automodule:: pyhdtoolkit.plotting.phasespace
+   :members:
+
+.. automodule:: pyhdtoolkit.plotting.tune
+   :members:
+
 .. automodule:: pyhdtoolkit.plotting.sbs.coupling
    :members:
 
@@ -12,5 +30,5 @@ Plotting
 .. automodule:: pyhdtoolkit.plotting.sbs.utils
    :members:
 
-.. automodule:: pyhdtoolkit.plotting.helpers
+.. automodule:: pyhdtoolkit.plotting.utils
    :members:
