@@ -243,3 +243,13 @@ ac.set_ylim(dataYLim)
 ac.set_title(f"All Fitted Distributions")
 ac.set_ylabel("Normed Hist Counts")
 plt.legend()
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.maths.stats_fitting`: `~.maths.stats_fitting.best_fit_distribution`, `~.maths.stats_fitting.make_pdf`
+#    - `~.plotting.helpers`: `~.plotting.helpers.set_arrow_label`
