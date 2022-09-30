@@ -10,51 +10,49 @@ INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 SBS_INPUTS = INPUTS_DIR / "sbs"
 
 
-class TestCouplingSbsPlotting:
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_rdt_component(self, sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
-        figure = plot_rdt_component(
-            b1_segment_df=sbs_coupling_b1_ip1,
-            b2_segment_df=sbs_coupling_b2_ip1,
-            b1_model=sbs_model_b1,
-            b2_model=sbs_model_b2,
-            ip=1,
-        )
-        return figure
+@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+def test_plot_rdt_component(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
+    figure = plot_rdt_component(
+        b1_segment_df=sbs_coupling_b1_ip1,
+        b2_segment_df=sbs_coupling_b2_ip1,
+        b1_model=sbs_model_b1,
+        b2_model=sbs_model_b2,
+        ip=1,
+    )
+    return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_full_ip(self, sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
-        figure = plot_full_ip_rdt(
-            b1_segment_df=sbs_coupling_b1_ip1,
-            b2_segment_df=sbs_coupling_b2_ip1,
-            b1_model=sbs_model_b1,
-            b2_model=sbs_model_b2,
-            ip=1,
-            rdt="f1001",
-            figsize=(12, 7),
-            # abs_ylimits=(8e-2, 14e-2),
-            # real_ylimits=(-1e-1, 1e-1),
-            # imag_ylimits=(-1e-1, 1e-1),
-            bbox_to_anchor=(0.535, 0.95),
-        )
-        return figure
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
-    def test_plot_full_ip_with_ylimits(self, sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
-        figure = plot_full_ip_rdt(
-            b1_segment_df=sbs_coupling_b1_ip1,
-            b2_segment_df=sbs_coupling_b2_ip1,
-            b1_model=sbs_model_b1,
-            b2_model=sbs_model_b2,
-            ip=1,
-            rdt="f1001",
-            figsize=(12, 7),
-            abs_ylimits=(2e-2, 15e-2),
-            real_ylimits=(-1.3e-1, 5e-2),
-            imag_ylimits=(-1.3e-1, 1e-2),
-            bbox_to_anchor=(0.535, 0.95),
-        )
-        return figure
+@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+def test_plot_full_ip(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
+    figure = plot_full_ip_rdt(
+        b1_segment_df=sbs_coupling_b1_ip1,
+        b2_segment_df=sbs_coupling_b2_ip1,
+        b1_model=sbs_model_b1,
+        b2_model=sbs_model_b2,
+        ip=1,
+        rdt="f1001",
+        figsize=(12, 7),
+        bbox_to_anchor=(0.535, 0.95),
+    )
+    return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, savefig_kwargs={"dpi": 200})
+def test_plot_full_ip_with_ylimits(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs_model_b1, sbs_model_b2):
+    figure = plot_full_ip_rdt(
+        b1_segment_df=sbs_coupling_b1_ip1,
+        b2_segment_df=sbs_coupling_b2_ip1,
+        b1_model=sbs_model_b1,
+        b2_model=sbs_model_b2,
+        ip=1,
+        rdt="f1001",
+        figsize=(12, 7),
+        abs_ylimits=(2e-2, 15e-2),
+        real_ylimits=(-1.3e-1, 5e-2),
+        imag_ylimits=(-1.3e-1, 1e-2),
+        bbox_to_anchor=(0.535, 0.95),
+    )
+    return figure
 
 
 # ----- Fixtures ----- #
