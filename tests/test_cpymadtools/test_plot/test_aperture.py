@@ -44,6 +44,7 @@ def test_plot_aperture_ir5_collision(_collision_aperture_tolerances_lhc_madx):
         xlimits=(ip5s - 80, ip5s + 80),
         aperture_ylim=(0, 25),
         k0l_lim=(-4e-4, 4e-4),
+        k1l_lim=(-6e-2, 6e-2),
         color="brown",
     )
     return figure
