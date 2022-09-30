@@ -6,8 +6,8 @@
 Gallery
 =======
 
-This page contains a gallery showcasing either plotting functionality provided in `~pyhdtoolkit.cpymadtools.plotters`,
-or plots made from results of convenient functions available in `~pyhdtoolkit`.
+This page contains a gallery showcasing either plotting functionality provided in the `cpymadtools.plot`
+submodules, or plots made from results of convenient functions available in `~pyhdtoolkit`.
 
 .. important::
     The examples shown here are plotted with a customized but simple ``rcParams`` style. If one uses
