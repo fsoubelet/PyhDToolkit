@@ -18,7 +18,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching, orbit
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.plot.lattice import plot_latwiss, plot_machine_survey
+from pyhdtoolkit.cpymadtools.plot.lattice import plot_latwiss
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
