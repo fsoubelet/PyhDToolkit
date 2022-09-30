@@ -2,7 +2,7 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pytest
 
-from pyhdtoolkit.plotting.helpers import AnnotationsPlotter
+from pyhdtoolkit.plotting.helpers import set_arrow_label
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -16,7 +16,7 @@ class TestAnnotationsPlotter:
         ax.scatter(0, 0)
         ax.set_xlim((-1, 2))
         ax.set_ylim((-1, 2))
-        AnnotationsPlotter.set_arrow_label(
+        set_arrow_label(
             axis=ax,
             label="Test label on a test point",
             color="b",

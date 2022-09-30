@@ -93,7 +93,7 @@ def set_arrow_label(
     Example:
         .. code-block:: python
 
-            >>> AnnotationsPlotter.set_arrow_label(
+            >>> set_arrow_label(
             ...     axis=ax,
             ...     label="Your label",
             ...     arrow_position=(1, 2),
@@ -103,6 +103,7 @@ def set_arrow_label(
             ...     fontsize=25,
             ... )
     """
+    # TODO: use maybe_get_ax
     return axis.annotate(
         label,
         xy=arrow_position,
