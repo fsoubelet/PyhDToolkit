@@ -18,7 +18,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching, orbit
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
+from pyhdtoolkit.cpymadtools.plot.lattice import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -52,13 +52,10 @@ matching.match_tunes_and_chromaticities(
 
 mu_x_cell = madx.table.summ.Q1[0] / n_cells
 mu_y_cell = madx.table.summ.Q2[0] / n_cells
+title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
-LatticePlotter.plot_latwiss(
-    madx,
-    title=rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$",
-    k0l_lim=(-0.15, 0.15),
-    lw=3,
-)
+plt.figure(figsize=(18, 11))
+plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
 plt.tight_layout()
 plt.show()
 
@@ -107,7 +104,8 @@ ip1s = twiss_df.s["ip1"]
 #     elements (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
 #     way to zoom on a region.
 
-IR1_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(16, 11))
+plot_latwiss(
     lhc_madx,
     title="Interaction Region 1, Flat LHCB1 Setup",
     disp_ylim=(-0.5, 2.5),
@@ -126,7 +124,8 @@ plt.show()
 # *xoffset*. This is useful here to zoom closely on IP1 and see the elements'
 # positions relative to the IP marker.
 
-IP1_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(16, 11))
+plot_latwiss(
     lhc_madx,
     title="IP1 Surroundings, Flat LHCB1 Setup",
     disp_ylim=(-3e-2, 3e-2),
@@ -149,7 +148,8 @@ plt.show()
 # showcased when looking at an LHC arc cell:
 
 plt.rcParams.update({"axes.formatter.limits": (-2, 5)})  # convenience
-arc_cell_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(16, 11))
+plot_latwiss(
     lhc_madx,
     title="LHC Arc Cell, Flat LHCB1 Setup",
     plot_bpms=True,
@@ -180,4 +180,4 @@ lhc_madx.exit()
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.cpymadtools.orbit`: `~.orbit.setup_lhc_orbit`
-#    - `~.cpymadtools.plotters`: `~.plotters.LatticePlotter`, `~.plotters.LatticePlotter.plot_latwiss`
+#    - `~.cpymadtools.plot`: `~.plot.lattice`, `~.plot.lattice.plot_latwiss`
