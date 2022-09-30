@@ -144,8 +144,9 @@ def plot_machine_layout(
     """
     .. versionadded:: 1.0.0
 
-    Draws patches elements representing the lattice layout on the given *axis*. This is the function that
-    takes care of the machine layout axis in `~.plot.lattice.plot_latwiss` and `~.plot.aperture.plot_aperture`.
+    Draws patches elements representing the lattice layout on the given *axis*. This is the function
+    that takes care of the machine layout axis in `~.plotting.lattice.plot_latwiss` and
+    `~.plotting.aperture.plot_aperture`.
 
     .. note::
         This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.
@@ -191,8 +192,8 @@ def plot_machine_layout(
         k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
-        **kwargs: any keyword argument will be transmitted to `~.plot.utils.plot_machine_layout`, later on
-            to `~.plot.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+        **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
+            to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
     """
     # pylint: disable=too-many-arguments
     twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)

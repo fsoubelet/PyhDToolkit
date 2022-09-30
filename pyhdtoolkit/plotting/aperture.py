@@ -79,8 +79,8 @@ def plot_aperture(
             height of sextupole patches.
         color (str): the color argument given to the aperture lines. Defaults to `None`, in which case
             the first color in your `rcParams`'s cycler will be used.
-        **kwargs: any keyword argument will be transmitted to `~.plot.utils.plot_machine_layout`, later on
-            to `~.plot.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+        **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
+            to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
     Example:
         .. code-block:: python

@@ -90,8 +90,8 @@ def plot_latwiss(
         k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
-        **kwargs: any keyword argument will be transmitted to `~.plot.utils.plot_machine_layout`, later on
-            to `~.plot.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+        **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
+            to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
     Example:
         .. code-block:: python
