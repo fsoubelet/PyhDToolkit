@@ -180,4 +180,4 @@ lhc_madx.exit()
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.cpymadtools.orbit`: `~.orbit.setup_lhc_orbit`
-#    - `~.cpymadtools.plot`: `~.plot.lattice`, `~.plot.lattice.plot_latwiss`
+#    - `~.cpymadtools.plot.lattice`: `~.plot.lattice.plot_latwiss`

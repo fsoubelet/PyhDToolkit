@@ -151,5 +151,5 @@ madx.exit()
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.plot`: `~.plot.phasespace`, `~.plot.phasespace.plot_courant_snyder_phase_space`, `~.plot.phasespace.plot_courant_snyder_phase_space_colored`
+#    - `~.cpymadtools.plot.phasespace`: `~.plot.phasespace.plot_courant_snyder_phase_space`, `~.plot.phasespace.plot_courant_snyder_phase_space_colored`
 #    - `~.cpymadtools.track`: `~.track.track_single_particle`

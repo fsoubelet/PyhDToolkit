@@ -59,4 +59,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`, `~.lhc.re_cycle_sequence`
-#    - `~.cpymadtools.plot`: `~.plot.lattice`, `~.plot.lattice.plot_machine_survey`
+#    - `~.cpymadtools.plot.lattice`: `~.plot.lattice.plot_machine_survey`

@@ -82,4 +82,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`
-#    - `~.cpymadtools.plot`: `~.plot.aperture`, `~.plot.aperture.plot_aperture`
+#    - `~.cpymadtools.plot.aperture`: `~.plot.aperture.plot_aperture`

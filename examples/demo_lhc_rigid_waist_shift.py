@@ -310,4 +310,4 @@ print(shift)  # markers
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.plot`: `~.plot.lattice`, `~.plot.lattice.plot_latwiss`
+#    - `~.cpymadtools.plot.lattice`: `~.plot.lattice.plot_latwiss`

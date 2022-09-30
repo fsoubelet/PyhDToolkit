@@ -69,4 +69,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
-#    - `~.cpymadtools.plot`: `~.plot.crossing`, `~.plot.crossing.plot_two_lhc_ips_crossings`
+#    - `~.cpymadtools.plot.crossing`: `~.plot.crossing.plot_two_lhc_ips_crossings`

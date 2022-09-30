@@ -209,5 +209,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.plot`: `~.plot.beamenvelope`, `~.plot.beamenvelope.plot_envelope`, `~.plot.beamenvelope.plot_stay_clear`
+#    - `~.cpymadtools.plot.beamenvelope`: `~.plot.beamenvelope.plot_envelope`, `~.plot.beamenvelope.plot_stay_clear`
 #    - `~.models.beam`: `~.models.beam.BeamParameters`
