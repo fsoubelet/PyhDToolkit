@@ -1,0 +1,22 @@
+.. _release_1.0.0:
+
+1.0.0
+-----
+
+Release `1.0.0` brings many breaking changes.
+Be sure to read these release notes carefully before upgrading, as much of the code using ``pyhdtoolki`` will need to be adapted.
+
+Breaking Changes
+~~~~~~~~~~~~~~~~
+
+* All plotting functionality has been regrouped into `~pyhdtoolkit.plotting`. The plotting classes previously found in `~pyhdtoolkit.cpymadtools.plotters` have been turned each into a single module in `~pyhdtoolkit.plotting`.
+* The `~pyhdtoolkit.cpymadtools.plotters` module has been completely removed.
+* The `~pyhdtoolkit.plotting.helpers` module has been renamed to `~pyhdtoolkit.plotting.utils` for consistency.
+
+Maintenance
+~~~~~~~~~~~
+
+* Documentation has been updated. Refer to the gallery for example uses.
+* Tests have been adapted.
+
+See `v1.0.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.0.0>`_ and the `full changes since v0.21.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.21.0...1.0.0>`_.
