@@ -126,7 +126,7 @@ def set_arrow_label(
 
 # ----- Utility plotters ----- #
 
-# TODO: auto determine limits here
+
 def plot_machine_layout(
     madx: Madx,
     axis: matplotlib.axes.Axes,
@@ -153,9 +153,10 @@ def plot_machine_layout(
         This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.
 
     .. important::
-        At the moment, it is important to give this function symmetric limits for the ``k0l_lim``, ``k1l_lim``
-        and ``k2l_lim`` arguments. Otherwise the element patches will show up vertically displaced from the
-        axis' center line.
+        If not provided, the limits for the ``k0l_lim``, ``k1l_lim`` will be auto-determined, which might
+        not be the perfect choice for you plot. When providing these limits (also for ``k2l_lim``), make
+        sure to provide symmetric values around 0 (so [-x, x]) otherwise the element patches will show up
+        vertically displaced from the axis' center line.
 
     .. warning::
         Currently the function tries to plot legends for the different layout patches. The position of the
@@ -187,9 +188,13 @@ def plot_machine_layout(
         beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
             Defaults to None, to be determined by matplotlib based on the provided beta values.
         k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
-            height of dipole patches.
+            height of dipole patches, should be symmetric. If `None` (default) is provided, then
+            the limits will be auto-determined based on the ``k0l`` values of the dipoles in the
+            plot.
         k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
-            height of quadrupole patches.
+            height of quadrupole patches, should be symmetric. If `None` (default) is provided,
+            then the limits will be auto-determined based on the ``k0l`` values of the dipoles
+            in the plot.
         k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
@@ -206,9 +211,8 @@ def plot_machine_layout(
     sextupoles_df = element_dfs["sextupoles"]
     bpms_df = element_dfs["bpms"]
 
-    k0l_lim = k0l_lim or _determine_default_knl_lim(dipoles_df, col="k0l")
-    k1l_lim = k1l_lim or _determine_default_knl_lim(quadrupoles_df, col="k1l")
-    k2l_lim = k2l_lim or _determine_default_knl_lim(sextupoles_df, col="k2l")
+    k0l_lim = k0l_lim or _determine_default_knl_lim(dipoles_df, col="k0l", coeff=2)
+    k1l_lim = k1l_lim or _determine_default_knl_lim(quadrupoles_df, col="k1l", coeff=1.3)
 
     logger.debug("Plotting machine layout")
     logger.trace(f"Plotting from axis '{axis}'")
@@ -486,7 +490,7 @@ def _get_twiss_table_with_offsets_and_limits(
     return twiss_df
 
 
-def _determine_default_knl_lim(df: pd.DataFram, col: str) -> Tuple[float, float]:
+def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> Tuple[float, float]:
     """
     .. versionadded:: 1.0.0
 
@@ -501,13 +505,15 @@ def _determine_default_knl_lim(df: pd.DataFram, col: str) -> Tuple[float, float]
         df (pd.DataFrame): a `pandas.DataFrame` with the multipoles' data.
             The ``knl`` column is used to determine the limits.
         col (str): the 'knl' column to query in the dataframe.
+        coeff (float): a scaling factor to apply to the max absolute value
+            when determining the limits.
 
     Returns:
         A `tuple` with the ylimits for the knl axis.
     """
     logger.debug(f"Determining '{col}_lim' based on plotted data")
     max_val = df[col].abs().max()
-    max_val_scaled = 1.25 * max_val
+    max_val_scaled = coeff * max_val
     return (-max_val_scaled, max_val_scaled)
 
 
