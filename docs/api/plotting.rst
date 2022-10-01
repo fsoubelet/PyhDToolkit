@@ -15,6 +15,9 @@ Plotting
 .. automodule:: pyhdtoolkit.plotting.lattice
    :members:
 
+.. automodule:: pyhdtoolkit.plotting.layout
+   :members:
+
 .. automodule:: pyhdtoolkit.plotting.phasespace
    :members:
 
