@@ -12,6 +12,8 @@ Breaking Changes
 * All plotting functionality has been regrouped into `~pyhdtoolkit.plotting`. The plotting classes previously found in `~pyhdtoolkit.cpymadtools.plotters` have been turned each into a single module in `~pyhdtoolkit.plotting`.
 * The `~pyhdtoolkit.cpymadtools.plotters` module has been completely removed.
 * The `~pyhdtoolkit.plotting.helpers` module has been renamed to `~pyhdtoolkit.plotting.utils` for consistency.
+* The `~pyhdtoolkit.plotting.sbs.utils` module has been merged into `~pyhdtoolkit.plotting.utils`.
+* The `~pyhdtoolkit.cpymadtools.plotters.DynamicAperture` functionality has been completely removed.
 
 Maintenance
 ~~~~~~~~~~~
