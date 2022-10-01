@@ -126,7 +126,7 @@ def set_arrow_label(
 
 # ----- Utility plotters ----- #
 
-
+# TODO: auto determine limits here
 def plot_machine_layout(
     madx: Madx,
     axis: matplotlib.axes.Axes,
@@ -205,6 +205,10 @@ def plot_machine_layout(
     quadrupoles_df = element_dfs["quadrupoles"]
     sextupoles_df = element_dfs["sextupoles"]
     bpms_df = element_dfs["bpms"]
+
+    k0l_lim = k0l_lim or _determine_default_knl_lim(dipoles_df, col="k0l")
+    k1l_lim = k1l_lim or _determine_default_knl_lim(quadrupoles_df, col="k1l")
+    k2l_lim = k2l_lim or _determine_default_knl_lim(sextupoles_df, col="k2l")
 
     logger.debug("Plotting machine layout")
     logger.trace(f"Plotting from axis '{axis}'")
@@ -480,6 +484,31 @@ def _get_twiss_table_with_offsets_and_limits(
     twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
     return twiss_df
+
+
+def _determine_default_knl_lim(df: pd.DataFram, col: str) -> Tuple[float, float]:
+    """
+    .. versionadded:: 1.0.0
+
+    Determine the default limits for the ``knl`` axis, when plotting machine layout.
+    This is in case `None` are provided by the user, to make sure the plot still
+    looks coherent and symmetric in `~.plotting.utils.plot_machine_layout`.
+
+    The limits are determined symmetric, using the maximum absolute value of the
+    knl column in the provided dataframe and a 1.25 scaling factor.
+
+    Args:
+        df (pd.DataFrame): a `pandas.DataFrame` with the multipoles' data.
+            The ``knl`` column is used to determine the limits.
+        col (str): the 'knl' column to query in the dataframe.
+
+    Returns:
+        A `tuple` with the ylimits for the knl axis.
+    """
+    logger.debug(f"Determining '{col}_lim' based on plotted data")
+    max_val = df[col].abs().max()
+    max_val_scaled = 1.25 * max_val
+    return (-max_val_scaled, max_val_scaled)
 
 
 def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
