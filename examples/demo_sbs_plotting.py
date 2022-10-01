@@ -21,7 +21,7 @@ plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this 
 plt.rcParams.update({"text.usetex": True, "legend.fontsize": 16})  # for these specific plots
 
 ###############################################################################
-# The functions in `pyhdtoolkit.plotting.sbs` modules usually need to be provided
+# The functions in `~pyhdtoolkit.plotting.sbs` modules usually need to be provided
 # different dataframes corresponding to specific components of segment-by-segment
 # results, which can be obtained by directly loading the output **TFS** files.
 # Let's load below the coupling results of a segment-by-segment run and related
@@ -51,7 +51,7 @@ coupling.plot_rdt_component(
     b2_model_tfs,
     ip=1,
     component="RE",
-    figsize=(8, 8),
+    figsize=(12, 12),
     b1_ylabel=r"$\mathrm{Beam\ 1}$ $\Re f_{1001}$",
     b2_ylabel=r"$\mathrm{Beam\ 2}$ $\Re f_{1001}$",
 )
@@ -77,7 +77,7 @@ coupling.plot_full_ip_rdt(
     b1_model_tfs,
     b2_model_tfs,
     ip=1,
-    figsize=(18, 9),
+    figsize=(20, 10),
     abs_ylimits=(5e-3, 6.5e-2),
     real_ylimits=(-1e-1, 1e-1),
     imag_ylimits=(-1e-1, 1e-1),
@@ -99,7 +99,7 @@ phase.plot_phase_segment_one_beam(
     phase_y=sbs_phasey,
     model=b2_model_tfs,
     ip=5,
-    figsize=(9, 10),
+    figsize=(12, 12),
 )
 plt.show()
 
@@ -117,7 +117,7 @@ phase.plot_phase_segment_both_beams(
     b1_model=b2_model_tfs,
     b2_model=b2_model_tfs,
     ip=5,
-    figsize=(18, 9),
+    figsize=(20, 10),
     bbox_to_anchor=(0.535, 0.94),
 )
 plt.show()

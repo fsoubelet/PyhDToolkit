@@ -23,6 +23,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Update apt
+        run: sudo apt-get update
+
       - name: Install LaTeX
         run: sudo apt-get install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended # texlive-fonts-extra texlive-latex-recommended ghostscript
 

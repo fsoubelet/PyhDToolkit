@@ -4,9 +4,9 @@ import pathlib
 import pytest
 import tfs
 
-from pyhdtoolkit.plotting.sbs.utils import (
-    determine_default_coupling_ylabel,
-    determine_default_phase_ylabel,
+from pyhdtoolkit.plotting.utils import (
+    _determine_default_sbs_coupling_ylabel,
+    _determine_default_sbs_phase_ylabel,
     find_ip_s_from_segment_start,
 )
 
@@ -15,54 +15,57 @@ INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 SBS_INPUTS = INPUTS_DIR / "sbs"
 
 
-class TestSbsPlottingUtils:
-    def test_find_ip_s(self, sbs_coupling_b1_ip1, sbs_model_b1):
-        assert math.isclose(
-            find_ip_s_from_segment_start(segment_df=sbs_coupling_b1_ip1, model_df=sbs_model_b1, ip=1),
-            493.25226,
-            rel_tol=1e-5,
-        )
+def test_find_ip_s(sbs_coupling_b1_ip1, sbs_model_b1):
+    assert math.isclose(
+        find_ip_s_from_segment_start(segment_df=sbs_coupling_b1_ip1, model_df=sbs_model_b1, ip=1),
+        493.25226,
+        rel_tol=1e-5,
+    )
 
-        # This one is cut by the end of sequence, tests we properly loop around
-        # Value is high because segment in test file is for IP1
-        assert math.isclose(
-            find_ip_s_from_segment_start(segment_df=sbs_coupling_b1_ip1, model_df=sbs_model_b1, ip=2),
-            3825.68884,
-            rel_tol=1e-5,
-        )
+    # This one is cut by the end of sequence, tests we properly loop around
+    # Value is high because segment in test file is for IP1
+    assert math.isclose(
+        find_ip_s_from_segment_start(segment_df=sbs_coupling_b1_ip1, model_df=sbs_model_b1, ip=2),
+        3825.68884,
+        rel_tol=1e-5,
+    )
 
-    @pytest.mark.parametrize("f1001", ["F1001", "f1001"])
-    @pytest.mark.parametrize("f1010", ["F1010", "f1010"])
-    @pytest.mark.parametrize("abs_", ["abs", "ABS", "aBs"])
-    @pytest.mark.parametrize("real", ["RE", "re", "Re", "rE"])
-    @pytest.mark.parametrize("imag", ["IM", "im", "Im", "iM"])
-    def test_coupling_ylabel(self, f1001, f1010, abs_, real, imag):
-        """Parametrization also tests case insensitiveness."""
-        assert determine_default_coupling_ylabel(f1001, abs_) == r"$|f_{1001}|$"
-        assert determine_default_coupling_ylabel(f1001, real) == r"$\Re f_{1001}$"
-        assert determine_default_coupling_ylabel(f1001, imag) == r"$\Im f_{1001}$"
 
-        assert determine_default_coupling_ylabel(f1010, abs_) == r"$|f_{1010}|$"
-        assert determine_default_coupling_ylabel(f1010, real) == r"$\Re f_{1010}$"
-        assert determine_default_coupling_ylabel(f1010, imag) == r"$\Im f_{1010}$"
+@pytest.mark.parametrize("f1001", ["F1001", "f1001"])
+@pytest.mark.parametrize("f1010", ["F1010", "f1010"])
+@pytest.mark.parametrize("abs_", ["abs", "ABS", "aBs"])
+@pytest.mark.parametrize("real", ["RE", "re", "Re", "rE"])
+@pytest.mark.parametrize("imag", ["IM", "im", "Im", "iM"])
+def test_coupling_ylabel(f1001, f1010, abs_, real, imag):
+    """Parametrization also tests case insensitiveness."""
+    assert _determine_default_sbs_coupling_ylabel(f1001, abs_) == r"$|f_{1001}|$"
+    assert _determine_default_sbs_coupling_ylabel(f1001, real) == r"$\Re f_{1001}$"
+    assert _determine_default_sbs_coupling_ylabel(f1001, imag) == r"$\Im f_{1001}$"
 
-    @pytest.mark.parametrize("rdt", ["invalid", "F1111", "nope"])
-    def test_coupling_ylabel_raises_on_invalid_rdt(self, rdt):
-        with pytest.raises(AssertionError):
-            determine_default_coupling_ylabel(rdt, "abs")
+    assert _determine_default_sbs_coupling_ylabel(f1010, abs_) == r"$|f_{1010}|$"
+    assert _determine_default_sbs_coupling_ylabel(f1010, real) == r"$\Re f_{1010}$"
+    assert _determine_default_sbs_coupling_ylabel(f1010, imag) == r"$\Im f_{1010}$"
 
-    @pytest.mark.parametrize("plane", ["x", "X", "y", "Y"])
-    def test_phase_ylabel(self, plane):
-        """Parametrization also tests case insensitiveness."""
-        if plane.upper() == "X":
-            assert determine_default_phase_ylabel(plane) == r"$\Delta \phi_{x}$"
-        else:
-            assert determine_default_phase_ylabel(plane) == r"$\Delta \phi_{y}$"
 
-    @pytest.mark.parametrize("plane", ["a", "Fb1", "nope", "not a plane"])
-    def test_phase_ylabel_raises_on_invalid_rdt(self, plane):
-        with pytest.raises(AssertionError):
-            determine_default_phase_ylabel(plane)
+@pytest.mark.parametrize("rdt", ["invalid", "F1111", "nope"])
+def test_coupling_ylabel_raises_on_invalid_rdt(rdt):
+    with pytest.raises(AssertionError):
+        _determine_default_sbs_coupling_ylabel(rdt, "abs")
+
+
+@pytest.mark.parametrize("plane", ["x", "X", "y", "Y"])
+def test_phase_ylabel(plane):
+    """Parametrization also tests case insensitiveness."""
+    if plane.upper() == "X":
+        assert _determine_default_sbs_phase_ylabel(plane) == r"$\Delta \phi_{x}$"
+    else:
+        assert _determine_default_sbs_phase_ylabel(plane) == r"$\Delta \phi_{y}$"
+
+
+@pytest.mark.parametrize("plane", ["a", "Fb1", "nope", "not a plane"])
+def test_phase_ylabel_raises_on_invalid_rdt(plane):
+    with pytest.raises(AssertionError):
+        _determine_default_sbs_phase_ylabel(plane)
 
 
 # ----- Fixtures ----- #

@@ -21,12 +21,6 @@ import tfs
 from cpymad.madx import Madx
 from loguru import logger
 
-__all__ = [
-    "make_footprint_table",
-    "get_footprint_lines",
-    "get_footprint_patches",
-]
-
 
 def make_footprint_table(
     madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
@@ -61,7 +55,7 @@ def make_footprint_table(
             >>> dynap_dframe = make_footprint_table(madx)
     """
     logger.debug(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
-    small, big = 0.05, math.sqrt(1 - 0.05 ** 2)
+    small, big = 0.05, math.sqrt(1 - 0.05**2)
     sigma_multiplier, angle_multiplier = 0.1, 0.0
 
     logger.debug("Initializing particles")

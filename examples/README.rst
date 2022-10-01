@@ -6,8 +6,8 @@
 Gallery
 =======
 
-This page contains a gallery showcasing either plotting functionality provided in `~pyhdtoolkit.cpymadtools.plotters`,
-or plots made from results of convenient functions available in `~pyhdtoolkit`.
+This page contains a gallery showcasing either plotting functionality provided in the `pyhdtoolkit.plotting`
+submodules, or plots made from results of convenient functions available in `~pyhdtoolkit`.
 
 .. important::
     The examples shown here are plotted with a customized but simple ``rcParams`` style. If one uses
@@ -42,4 +42,4 @@ or plots made from results of convenient functions available in `~pyhdtoolkit`.
 
     In both cases, re-updating the ``rcParams`` later on will always overwrite these settings.
 
-Click on any image thumbnail to see the full image and source code.
+Click on any image thumbnail to see the corresponding gallery page with full images and access to the source code.

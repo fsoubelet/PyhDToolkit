@@ -6,7 +6,7 @@
 Accelerator Lattice
 ===================
 
-This example shows how to use the `~.plotters.LatticePlotter.plot_latwiss` function
+This example shows how to use the `~.plotting.lattice.plot_latwiss` function
 to represent your machine's layout and optics functions in a double-axis plot.
 
 In this example, we will showcase the functionality on a simple lattice, and then demonstrate the use
@@ -18,7 +18,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching, orbit
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
+from pyhdtoolkit.plotting.lattice import plot_latwiss
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -46,18 +46,17 @@ matching.match_tunes_and_chromaticities(
 
 ###############################################################################
 # Plotting the combined machine layout and optics functions is done in a single call
-# to the `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss` function.
-# Here, we will also set the *k0l_lim* parameter to control the right-hand-side axis
-# in the machine layout axis. The same can be done with the *k1_lim* parameter.
+# to the `~.plotting.lattice.plot_latwiss` function. Here, we will also set the *k0l_lim*
+# parameter to control the right-hand-side axis in the machine layout axis. The same
+# can be done with the *k1_lim* parameter.
 
 mu_x_cell = madx.table.summ.Q1[0] / n_cells
 mu_y_cell = madx.table.summ.Q2[0] / n_cells
+title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
-LatticePlotter.plot_latwiss(
-    madx,
-    title=rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$",
-    k0l_lim=(-0.15, 0.15),
-    lw=3,
+plt.figure(figsize=(18, 11))
+plot_latwiss(
+    madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3
 )
 plt.tight_layout()
 plt.show()
@@ -86,9 +85,9 @@ lhc.make_lhc_beams(lhc_madx, energy=7000)
 lhc_madx.command.use(sequence="lhcb1")
 
 ###############################################################################
-# The `~.plotters.LatticePlotter.plot_latwiss` function gives the possibility
-# to zoom on a region by providing the *xlimits* parameter. Let's first determine
-# the position of points of interest through the ``TWISS`` table:
+# The `~.plotting.lattice.plot_latwiss` function gives the possibility to zoom on a
+# region by providing the *xlimits* parameter. Let's first determine the position
+# of points of interest through the ``TWISS`` table:
 
 lhc_madx.command.twiss()
 twiss_df = lhc_madx.table.twiss.dframe().copy()
@@ -101,13 +100,14 @@ ip1s = twiss_df.s["ip1"]
 #
 # .. tip::
 #     In order to zoom on a region, one might be tempted to call the plot and run ``plt.xlim(...)``.
-#     However, when providing the *xlimits* parameter, `~pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss`
-#     makes a sub-selection of the ``TWISS`` table before doing any plotting. This is provides a nice speedup
-#     to the plotting process, as only elements within the limits are rendered on the layout axis, instead of all
-#     elements (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
+#     However, when providing the *xlimits* parameter, `~.plotting.lattice.plot_latwiss` makes a sub-selection
+#     of the ``TWISS`` table before doing any plotting. This is provides a nice speedup to the plotting
+#     process, as only elements within the limits are rendered on the layout axis, instead of all elements
+#     (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
 #     way to zoom on a region.
 
-IR1_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(18, 11))
+plot_latwiss(
     lhc_madx,
     title="Interaction Region 1, Flat LHCB1 Setup",
     disp_ylim=(-0.5, 2.5),
@@ -126,7 +126,8 @@ plt.show()
 # *xoffset*. This is useful here to zoom closely on IP1 and see the elements'
 # positions relative to the IP marker.
 
-IP1_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(18, 11))
+plot_latwiss(
     lhc_madx,
     title="IP1 Surroundings, Flat LHCB1 Setup",
     disp_ylim=(-3e-2, 3e-2),
@@ -141,7 +142,7 @@ plt.tight_layout()
 plt.show()
 
 ###############################################################################
-# When and only when the **k2l_lim** parameter is provided, the sextupolar elements
+# When and only when the *k2l_lim* parameter is provided, the sextupolar elements
 # are plotted on the lattice layout axis, and an additional scale is put to the right.
 # This is useful to see sextupoles when zooming in, which you would not necessarily
 # want to plot when looking at the big picture, to avoid overcrowding it. Similarly,
@@ -149,7 +150,8 @@ plt.show()
 # showcased when looking at an LHC arc cell:
 
 plt.rcParams.update({"axes.formatter.limits": (-2, 5)})  # convenience
-arc_cell_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(18, 11))
+plot_latwiss(
     lhc_madx,
     title="LHC Arc Cell, Flat LHCB1 Setup",
     plot_bpms=True,
@@ -180,4 +182,4 @@ lhc_madx.exit()
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.cpymadtools.orbit`: `~.orbit.setup_lhc_orbit`
-#    - `~.cpymadtools.plotters`: `~.plotters.LatticePlotter`, `~.plotters.LatticePlotter.plot_latwiss`
+#    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`

@@ -6,7 +6,7 @@
 Machine Survey
 ==============
 
-This example shows how to use the `~.plotters.LatticePlotter.plot_machine_survey` function
+This example shows how to use the `~.plotting.lattice.plot_machine_survey` function
 to represent your machine geometry in a from-the-top view.
 """
 # sphinx_gallery_thumbnail_number = 2
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
-from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
+from pyhdtoolkit.plotting.lattice import plot_machine_survey
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -35,13 +35,15 @@ madx.input(base_lattice)
 ###############################################################################
 # Plot the machine survey, as simplistic as possible:
 
-LatticePlotter.plot_machine_survey(madx)
+plt.figure(figsize=(16, 11))
+plot_machine_survey(madx, title="Machine Layout")
 plt.show()
 
 ###############################################################################
 # Plot the machine survey, differenciating elements and showing high order magnets:
 
-LatticePlotter.plot_machine_survey(madx, show_elements=True, high_orders=True)
+plt.figure(figsize=(16, 11))
+plot_machine_survey(madx, title="Machine Layout", show_elements=True, high_orders=True)
 plt.show()
 
 ###############################################################################
@@ -57,4 +59,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`, `~.lhc.re_cycle_sequence`
-#    - `~.cpymadtools.plotters`: `~.plotters.LatticePlotter`, `~.plotters.LatticePlotter.plot_machine_survey`
+#    - `~.plotting.lattice`: `~.plotting.lattice.plot_machine_survey`

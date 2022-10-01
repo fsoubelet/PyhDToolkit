@@ -23,7 +23,7 @@ import scipy
 import scipy.stats as st
 
 from pyhdtoolkit.maths import stats_fitting as fitting
-from pyhdtoolkit.plotting.helpers import AnnotationsPlotter
+from pyhdtoolkit.plotting.utils import set_arrow_label
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -181,13 +181,14 @@ param_str = ", ".join([f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_par
 dist_str = f"{fitting.DISTRIBUTIONS[best_fit_func]}({param_str})"
 
 # Let's add to the plot some info on the fit's peak
-AnnotationsPlotter.set_arrow_label(
+set_arrow_label(
     axis=ax,
     label=f"Measured Mode: {pdf.idxmax():.3f}",
     arrow_position=(pdf.idxmax(), pdf.max()),
     label_position=(1.1 * np.mean(ax.get_xlim()), 0.75 * max(pdf.to_numpy())),
     color="indianred",
     arrow_arc_rad=0.3,
+    fontsize=25,
 )
 plt.vlines(pdf.idxmax(), ymin=0, ymax=max(pdf.to_numpy()), linestyles="--", color="indianred")
 ax.set_title(f"Best fit to distribution:\n" + dist_str)
@@ -251,3 +252,13 @@ ac.set_ylim(dataYLim)
 ac.set_title(f"All Fitted Distributions")
 ac.set_ylabel("Normed Hist Counts")
 plt.legend()
+
+#############################################################################
+#
+# .. admonition:: References
+#
+#    The use of the following functions, methods, classes and modules is shown
+#    in this example:
+#
+#    - `~.maths.stats_fitting`: `~.maths.stats_fitting.best_fit_distribution`, `~.maths.stats_fitting.make_pdf`
+#    - `~.plotting.utils`: `~.plotting.utils.set_arrow_label`

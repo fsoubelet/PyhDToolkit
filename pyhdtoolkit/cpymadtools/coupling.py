@@ -23,13 +23,6 @@ from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss, get_twiss_tfs
 
-__all__ = [
-    "get_closest_tune_approach",
-    "get_cminus_from_coupling_rdts",
-    "get_coupling_rdts",
-    "match_no_coupling_through_ripkens",
-]
-
 # ----- General Use ----- #
 
 

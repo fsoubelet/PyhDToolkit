@@ -75,7 +75,7 @@ class TestTune:
         assert np.allclose(qxs, ref_qxs)
         assert np.allclose(qys, ref_qys)
 
-    @pytest.mark.mpl_image_compare(tolerance=20, style="seaborn-pastel", savefig_kwargs={"dpi": 200})
+    @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
     def test_get_footprint_patches(self, _dynap_tfs_path):
         dynap_dframe = tfs.read(_dynap_tfs_path)
         dynap_dframe.headers["AMPLITUDE"] = 6

@@ -13,7 +13,7 @@ import tfs
 from loguru import logger
 from matplotlib.legend import _get_legend_handles_labels
 
-from pyhdtoolkit.plotting.sbs.utils import find_ip_s_from_segment_start
+from pyhdtoolkit.plotting.utils import find_ip_s_from_segment_start
 
 
 def plot_phase_segment_one_beam(

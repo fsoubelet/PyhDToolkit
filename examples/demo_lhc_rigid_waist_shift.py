@@ -23,12 +23,11 @@ itself.
 # sphinx_gallery_thumbnail_number = 3
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
 
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching
-from pyhdtoolkit.cpymadtools.plotters import LatticePlotter
+from pyhdtoolkit.plotting.lattice import plot_latwiss
 from pyhdtoolkit.utils import _misc, defaults
 
 defaults.config_logger(level="warning")
@@ -52,8 +51,8 @@ lhc.make_lhc_beams(madx, energy=7000)
 madx.command.use(sequence="lhcb1")
 
 ###############################################################################
-# We will use the `~.plotters.LatticePlotter.plot_latwiss` function to have zoomed-in
-# look at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
+# We will use the `~.plotting.lattice.plot_latwiss` function to have a zoomed-in look
+# at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
 # determine the position of points of interest through the ``TWISS`` table:
 
 madx.command.twiss()
@@ -64,9 +63,9 @@ ip1s = twiss_df.s["ip1"]
 ###############################################################################
 # Let's now have a look at the IR in normal conditions.
 
-IR1_fig = LatticePlotter.plot_latwiss(
+plt.figure(figsize=(18, 11))
+plot_latwiss(
     madx,
-    figsize=(18, 11),
     title="LHCB1 IR1 - No Rigid Waist Shift",
     disp_ylim=(-1.5, 3),
     xoffset=ip1s,
@@ -75,8 +74,8 @@ IR1_fig = LatticePlotter.plot_latwiss(
     k1l_lim=(-6.1e-2, 6.1e-2),
     lw=1.5,
 )
-IR1_fig.axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
-for axis in IR1_fig.axes:
+plt.gcf().axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
+for axis in plt.gcf().axes:
     axis.axvline(x=0, color="grey", ls="--", lw=1.5, label="IP1")
 plt.show()
 
@@ -108,9 +107,10 @@ twiss_df_waist = madx.table.twiss.dframe().copy()
 twiss_df_waist.name = twiss_df.name.apply(lambda x: x[:-2])
 ip1s = twiss_df_waist.s["ip1"]
 
-IR1_waist_shift = LatticePlotter.plot_latwiss(
+
+plt.figure(figsize=(18, 11))
+plot_latwiss(
     madx,
-    figsize=(16, 11),
     title="LHCB1 IR1 - With Rigid Waist Shift",
     disp_ylim=(-1.5, 3),
     xoffset=ip1s,
@@ -119,8 +119,8 @@ IR1_waist_shift = LatticePlotter.plot_latwiss(
     k1l_lim=(-6.1e-2, 6.1e-2),
     lw=1.5,
 )
-IR1_waist_shift.axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
-for axis in IR1_fig.axes:
+plt.gcf().axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
+for axis in plt.gcf().axes:
     axis.axvline(x=0, color="grey", ls="--", lw=1.5, label="IP1")
 plt.show()
 
@@ -183,7 +183,9 @@ with Madx(stdout=False) as madx:
     lhc.re_cycle_sequence(madx, sequence=f"lhcb1", start=f"MSIA.EXIT.B1")
     madx.command.use(sequence=f"lhcb1")
     lhc.make_lhc_thin(madx, sequence=f"lhcb1", slicefactor=4)
-    _misc.add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001)
+    _misc.add_markers_around_lhc_ip(
+        madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
+    )
     madx.command.twiss()
     initial_twiss = madx.table.twiss.dframe().copy()
 
@@ -284,19 +286,25 @@ print(shift)
 # Manipulating the equation to determine the waist yields:
 # :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[0]  # to calculate from the right Q1
-q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[-1]  # to calculate from the left Q1
+q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[
+    0
+]  # to calculate from the right Q1
+q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[
+    -1
+]  # to calculate from the left Q1
 
 L_star = ip_s - q1_left_s  # we calculate from left Q1
 # beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].betx[0]  # to calculate from the right
-beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].betx[-1]  # to calculate from the left
+beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].betx[
+    -1
+]  # to calculate from the left
 betaw = around_ip.betx.min()
 
 ###############################################################################
 # The analytical result (sign will swap depending on if we calculate from left
 # or right Q1) is then easily calculated. We can then compare this value to the
 # one found with the markers we previously added, and they are fairly close.
-waist = L_star - np.sqrt(beta0 * betaw - betaw ** 2)
+waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
 print(waist)  # analytical
 print(shift)  # markers
 
@@ -309,4 +317,4 @@ print(shift)  # markers
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.plotters`: `~.plotters.LatticePlotter`, `~.plotters.LatticePlotter.plot_latwiss`
+#    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`

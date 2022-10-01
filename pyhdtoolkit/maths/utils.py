@@ -78,6 +78,6 @@ def get_scaled_values_and_magnitude_string(
     magnitude = get_magnitude(max(values_array)) if force_magnitude is None else force_magnitude
     applied_magnitude = -magnitude
     logger.trace(f"Scaling data by {applied_magnitude} orders of magnitude")
-    scaled_values = values_array * (10 ** applied_magnitude)
+    scaled_values = values_array * (10**applied_magnitude)
     magnitude_string = "{" + f"{applied_magnitude}" + "}"
     return scaled_values, magnitude_string
