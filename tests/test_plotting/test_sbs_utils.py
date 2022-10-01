@@ -4,9 +4,9 @@ import pathlib
 import pytest
 import tfs
 
-from pyhdtoolkit.plotting.sbs.utils import (
-    determine_default_coupling_ylabel,
-    determine_default_phase_ylabel,
+from pyhdtoolkit.plotting.utils import (
+    _determine_default_sbs_coupling_ylabel,
+    _determine_default_sbs_phase_ylabel,
     find_ip_s_from_segment_start,
 )
 
@@ -38,34 +38,34 @@ def test_find_ip_s(sbs_coupling_b1_ip1, sbs_model_b1):
 @pytest.mark.parametrize("imag", ["IM", "im", "Im", "iM"])
 def test_coupling_ylabel(f1001, f1010, abs_, real, imag):
     """Parametrization also tests case insensitiveness."""
-    assert determine_default_coupling_ylabel(f1001, abs_) == r"$|f_{1001}|$"
-    assert determine_default_coupling_ylabel(f1001, real) == r"$\Re f_{1001}$"
-    assert determine_default_coupling_ylabel(f1001, imag) == r"$\Im f_{1001}$"
+    assert _determine_default_sbs_coupling_ylabel(f1001, abs_) == r"$|f_{1001}|$"
+    assert _determine_default_sbs_coupling_ylabel(f1001, real) == r"$\Re f_{1001}$"
+    assert _determine_default_sbs_coupling_ylabel(f1001, imag) == r"$\Im f_{1001}$"
 
-    assert determine_default_coupling_ylabel(f1010, abs_) == r"$|f_{1010}|$"
-    assert determine_default_coupling_ylabel(f1010, real) == r"$\Re f_{1010}$"
-    assert determine_default_coupling_ylabel(f1010, imag) == r"$\Im f_{1010}$"
+    assert _determine_default_sbs_coupling_ylabel(f1010, abs_) == r"$|f_{1010}|$"
+    assert _determine_default_sbs_coupling_ylabel(f1010, real) == r"$\Re f_{1010}$"
+    assert _determine_default_sbs_coupling_ylabel(f1010, imag) == r"$\Im f_{1010}$"
 
 
 @pytest.mark.parametrize("rdt", ["invalid", "F1111", "nope"])
 def test_coupling_ylabel_raises_on_invalid_rdt(rdt):
     with pytest.raises(AssertionError):
-        determine_default_coupling_ylabel(rdt, "abs")
+        _determine_default_sbs_coupling_ylabel(rdt, "abs")
 
 
 @pytest.mark.parametrize("plane", ["x", "X", "y", "Y"])
 def test_phase_ylabel(plane):
     """Parametrization also tests case insensitiveness."""
     if plane.upper() == "X":
-        assert determine_default_phase_ylabel(plane) == r"$\Delta \phi_{x}$"
+        assert _determine_default_sbs_phase_ylabel(plane) == r"$\Delta \phi_{x}$"
     else:
-        assert determine_default_phase_ylabel(plane) == r"$\Delta \phi_{y}$"
+        assert _determine_default_sbs_phase_ylabel(plane) == r"$\Delta \phi_{y}$"
 
 
 @pytest.mark.parametrize("plane", ["a", "Fb1", "nope", "not a plane"])
 def test_phase_ylabel_raises_on_invalid_rdt(plane):
     with pytest.raises(AssertionError):
-        determine_default_phase_ylabel(plane)
+        _determine_default_sbs_phase_ylabel(plane)
 
 
 # ----- Fixtures ----- #
