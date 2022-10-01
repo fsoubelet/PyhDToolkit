@@ -15,7 +15,7 @@ import tfs
 from loguru import logger
 from matplotlib.legend import _get_legend_handles_labels
 
-from pyhdtoolkit.plotting.sbs.utils import determine_default_coupling_ylabel, find_ip_s_from_segment_start
+from pyhdtoolkit.plotting.utils import _determine_default_sbs_coupling_ylabel, find_ip_s_from_segment_start
 
 
 def plot_rdt_component(
@@ -237,7 +237,7 @@ def _plot_sbs_coupling_rdt_component(
     """
     logger.debug(f"Plotting the {component.upper()} component of coupling {rdt.upper()} over the segment.")
     ax = plt.gca() if ax is None else ax
-    ylabel = determine_default_coupling_ylabel(rdt, component) if ylabel is None else ylabel
+    ylabel = _determine_default_sbs_coupling_ylabel(rdt, component) if ylabel is None else ylabel
     ax.set_ylabel(ylabel)
     ax.errorbar(
         segment_df.S,
