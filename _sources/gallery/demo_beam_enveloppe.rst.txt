@@ -24,7 +24,7 @@
 Beam Enveloppe
 ==============
 
-This example shows how to use the `~.plotters.BeamEnvelopePlotter.plot_envelope` function
+This example shows how to use the `~.plotting.envelope.plot_envelope` function
 to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
@@ -38,8 +38,8 @@ In this example we will use a very simple lattice, hard-coded below.
 
     from cpymad.madx import Madx
 
-    from pyhdtoolkit.cpymadtools.plotters import BeamEnvelopePlotter
     from pyhdtoolkit.models.beam import BeamParameters
+    from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
     from pyhdtoolkit.utils import defaults
 
     defaults.config_logger(level="warning")
@@ -218,23 +218,42 @@ inside the elements:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 142-143
+.. GENERATED FROM PYTHON SOURCE LINES 142-144
 
-We can now plot the beam enveloppe at injection, for a single cell:
+We can now plot the beam enveloppe and the stay-clear at injection, for the
+whole machine:
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-147
+.. GENERATED FROM PYTHON SOURCE LINES 144-166
 
 .. code-block:: default
 
 
-    BeamEnvelopePlotter.plot_envelope(madx, beam_injection, figsize=(18, 20))
+    fig, axes = plt.subplots(3, 1, figsize=(18, 20))
+    plot_envelope(
+        madx,
+        beam_injection,
+        ylimits=(-0.12, 0.12),
+        title=f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c",
+        axis=axes[0],
+    )
+    plot_envelope(
+        madx,
+        beam_injection,
+        ylimits=(-0.12, 0.12),
+        plane="vertical",
+        title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
+        axis=axes[1],
+    )
+    plot_stay_clear(
+        madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2]
+    )
     plt.show()
 
 
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_beam_enveloppe_001.svg
-   :alt: Horizontal aperture at 1.9 GeV/c, Vertical aperture at 1.9 GeV/c, Stay-clear envelope at 1.9 GeV/c
+   :alt: Horizontal aperture at 1.9 GeV/c, Vertical aperture at 1.9 GeV/c, Stay-Clear at 1.9 GeV/c
    :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_001.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_001_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -242,24 +261,26 @@ We can now plot the beam enveloppe at injection, for a single cell:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-150
+.. GENERATED FROM PYTHON SOURCE LINES 167-169
 
 In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
-Here we will plot the enveloppe for the first cell only.
+Here we will plot the horizontal enveloppe for the first cell only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-154
+.. GENERATED FROM PYTHON SOURCE LINES 169-175
 
 .. code-block:: default
 
 
-    BeamEnvelopePlotter.plot_envelope(madx, beam_injection, xlimits=(0, l_cell), figsize=(18, 20))
+    title = f"First Cell Horizontal Aperture at {beam_injection.pc_GeV} GeV/c"
+    fig, ax = plt.subplots(figsize=(16, 9))
+    plot_envelope(madx, beam_injection, ylimits=(-0.12, 0.12), xlimits=(0, l_cell), title=title)
     plt.show()
 
 
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_beam_enveloppe_002.svg
-   :alt: Horizontal aperture at 1.9 GeV/c, Vertical aperture at 1.9 GeV/c, Stay-clear envelope at 1.9 GeV/c
+   :alt: First Cell Horizontal Aperture at 1.9 GeV/c
    :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_002.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_002_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -267,23 +288,48 @@ Here we will plot the enveloppe for the first cell only.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-156
+.. GENERATED FROM PYTHON SOURCE LINES 176-178
 
-And similarly at top energy:
+And similarly we can plot for the cell at top energy, only by adapting the
+provided beam parameters:
 
-.. GENERATED FROM PYTHON SOURCE LINES 156-160
+.. GENERATED FROM PYTHON SOURCE LINES 178-206
 
 .. code-block:: default
 
 
-    BeamEnvelopePlotter.plot_envelope(madx, beam_flattop, xlimits=(0, l_cell), figsize=(18, 20))
+    fig, axes = plt.subplots(3, 1, figsize=(18, 20))
+    plot_envelope(
+        madx,
+        beam_injection,
+        xlimits=(0, l_cell),
+        ylimits=(-0.12, 0.12),
+        title=f"Horizontal aperture at {beam_flattop.pc_GeV} GeV/c",
+        axis=axes[0],
+    )
+    plot_envelope(
+        madx,
+        beam_injection,
+        xlimits=(0, l_cell),
+        ylimits=(-0.12, 0.12),
+        plane="vertical",
+        title=f"Vertical aperture at {beam_flattop.pc_GeV} GeV/c",
+        axis=axes[1],
+    )
+    plot_stay_clear(
+        madx,
+        beam_injection,
+        xlimits=(0, l_cell),
+        title=f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c",
+        axis=axes[2],
+    )
     plt.show()
 
 
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_beam_enveloppe_003.svg
-   :alt: Horizontal aperture at 19.0 GeV/c, Vertical aperture at 19.0 GeV/c, Stay-clear envelope at 19.0 GeV/c
+   :alt: Horizontal aperture at 19.0 GeV/c, Vertical aperture at 19.0 GeV/c, Stay-Clear at 19.0 GeV/c
    :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_003.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_003_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -291,11 +337,11 @@ And similarly at top energy:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-162
+.. GENERATED FROM PYTHON SOURCE LINES 207-208
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-165
+.. GENERATED FROM PYTHON SOURCE LINES 208-211
 
 .. code-block:: default
 
@@ -309,20 +355,20 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-173
+.. GENERATED FROM PYTHON SOURCE LINES 212-219
 
 .. admonition:: References
 
    The use of the following functions, methods, classes and modules is shown
    in this example:
 
-   - `~.cpymadtools.plotters`: `~.plotters.BeamEnvelopePlotter`, `~.plotters.BeamEnvelopePlotter.plot_envelope`
+   - `~.plotting.envelope`: `~.plotting.envelope.plot_envelope`, `~.plotting.envelope.plot_stay_clear`
    - `~.models.beam`: `~.models.beam.BeamParameters`
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.900 seconds)
+   **Total running time of the script:** ( 0 minutes  5.622 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_beam_enveloppe.py:

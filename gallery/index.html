@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery &mdash; PyhDToolkit 0.21.0 documentation</title>
+  <title>Gallery &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                0.21.0
+                1.0.0rc0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -95,7 +95,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -122,10 +121,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
@@ -337,8 +341,8 @@
              
   <section id="gallery">
 <span id="examples-index"></span><span id="id1"></span><h1>Gallery<a class="headerlink" href="#gallery" title="Permalink to this headline"></a></h1>
-<p>This page contains a gallery showcasing either plotting functionality provided in <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters" title="pyhdtoolkit.cpymadtools.plotters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotters</span></code></a>,
-or plots made from results of convenient functions available in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>.</p>
+<p>This page contains a gallery showcasing either plotting functionality provided in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.plotting</span></code>
+submodules, or plots made from results of convenient functions available in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The examples shown here are plotted with a customized but simple <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> style. If one uses
@@ -347,8 +351,8 @@ might look significantly different.</p>
 <p>The package provides a plotting style in the <a class="reference internal" href="../api/utils.html#module-pyhdtoolkit.utils.defaults" title="pyhdtoolkit.utils.defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">defaults</span></code></a> module, which should be
 compatible with the plotters. One can use the style in two ways:</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="e492718d-bf50-4177-9123-dee361c63551" name="243dd5d9-5656-45b8-86ce-1038b27c90e7" type="radio">
-</input><label class="tabbed-label" for="e492718d-bf50-4177-9123-dee361c63551">
+<input checked="checked" id="f0780660-e48e-408c-b578-3b0a45bb7143" name="9af960bc-d93b-40dd-8944-10d045be423f" type="radio">
+</input><label class="tabbed-label" for="f0780660-e48e-408c-b578-3b0a45bb7143">
 Import and Set the Style</label><div class="tabbed-content docutils">
 <p>Update the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> at runtime with:</p>
 <blockquote>
@@ -362,8 +366,8 @@ span.prompt1:before {
 <span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PLOT_PARAMS</span><span class="p">)</span></span>
 </pre></div></div></div></blockquote>
 </div>
-<input id="d0181fd8-992f-4ead-97d0-476e5f7fed47" name="243dd5d9-5656-45b8-86ce-1038b27c90e7" type="radio">
-</input><label class="tabbed-label" for="d0181fd8-992f-4ead-97d0-476e5f7fed47">
+<input id="6df94fa4-8e0c-44c1-8eac-962807bbe342" name="9af960bc-d93b-40dd-8944-10d045be423f" type="radio">
+</input><label class="tabbed-label" for="6df94fa4-8e0c-44c1-8eac-962807bbe342">
 Install and Load the Style</label><div class="tabbed-content docutils">
 <p>Do a one-time install of the style as an <strong>.mplstyle</strong> file to import in <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>:</p>
 <blockquote>
@@ -377,32 +381,32 @@ Install and Load the Style</label><div class="tabbed-content docutils">
 </div>
 <p>In both cases, re-updating the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> later on will always overwrite these settings.</p>
 </div>
-<p>Click on any image thumbnail to see the full image and source code.</p>
+<p>Click on any image thumbnail to see the corresponding gallery page with full images and access to the source code.</p>
 <div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.install_ac_dipole_as_kicker and  ~.track.track_single_p..."><img alt="AC Dipole Driven Tracking Spectrum" src="../_images/sphx_glr_demo_acd_tracking_spectra_thumb.svg" /><p><a class="reference internal" href="demo_acd_tracking_spectra.html#sphx-glr-gallery-demo-acd-tracking-spectra-py"><span class="std std-ref">AC Dipole Driven Tracking Spectrum</span></a></p>
   <div class="sphx-glr-thumbnail-title">AC Dipole Driven Tracking Spectrum</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.AperturePlotter.plot_aperture function to visualis..."><img alt="Accelerator Aperture" src="../_images/sphx_glr_demo_aperture_thumb.svg" /><p><a class="reference internal" href="demo_aperture.html#sphx-glr-gallery-demo-aperture-py"><span class="std std-ref">Accelerator Aperture</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.aperture.plot_aperture function to visualise the a..."><img alt="Accelerator Aperture" src="../_images/sphx_glr_demo_aperture_thumb.svg" /><p><a class="reference internal" href="demo_aperture.html#sphx-glr-gallery-demo-aperture-py"><span class="std std-ref">Accelerator Aperture</span></a></p>
   <div class="sphx-glr-thumbnail-title">Accelerator Aperture</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.LatticePlotter.plot_latwiss function to represent ..."><img alt="Accelerator Lattice" src="../_images/sphx_glr_demo_lattice_thumb.svg" /><p><a class="reference internal" href="demo_lattice.html#sphx-glr-gallery-demo-lattice-py"><span class="std std-ref">Accelerator Lattice</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.lattice.plot_latwiss function to represent your ma..."><img alt="Accelerator Lattice" src="../_images/sphx_glr_demo_lattice_thumb.svg" /><p><a class="reference internal" href="demo_lattice.html#sphx-glr-gallery-demo-lattice-py"><span class="std std-ref">Accelerator Lattice</span></a></p>
   <div class="sphx-glr-thumbnail-title">Accelerator Lattice</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.BeamEnvelopePlotter.plot_envelope function to visu..."><img alt="Beam Enveloppe" src="../_images/sphx_glr_demo_beam_enveloppe_thumb.svg" /><p><a class="reference internal" href="demo_beam_enveloppe.html#sphx-glr-gallery-demo-beam-enveloppe-py"><span class="std std-ref">Beam Enveloppe</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.envelope.plot_envelope function to visualise the p..."><img alt="Beam Enveloppe" src="../_images/sphx_glr_demo_beam_enveloppe_thumb.svg" /><p><a class="reference internal" href="demo_beam_enveloppe.html#sphx-glr-gallery-demo-beam-enveloppe-py"><span class="std std-ref">Beam Enveloppe</span></a></p>
   <div class="sphx-glr-thumbnail-title">Beam Enveloppe</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.maths.stats_fitting.best_fit_distribution function to deter..."><img alt="Distributions Fitting" src="../_images/sphx_glr_demo_stats_fitting_thumb.svg" /><p><a class="reference internal" href="demo_stats_fitting.html#sphx-glr-gallery-demo-stats-fitting-py"><span class="std std-ref">Distributions Fitting</span></a></p>
   <div class="sphx-glr-thumbnail-title">Distributions Fitting</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.track.track_single_particle function to track a  particle w..."><img alt="Free Tracking Spectrum" src="../_images/sphx_glr_demo_track_spectra_thumb.svg" /><p><a class="reference internal" href="demo_track_spectra.html#sphx-glr-gallery-demo-track-spectra-py"><span class="std std-ref">Free Tracking Spectrum</span></a></p>
   <div class="sphx-glr-thumbnail-title">Free Tracking Spectrum</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings f..."><img alt="LHC Crossing Schemes" src="../_images/sphx_glr_demo_lhc_crossing_schemes_thumb.svg" /><p><a class="reference internal" href="demo_lhc_crossing_schemes.html#sphx-glr-gallery-demo-lhc-crossing-schemes-py"><span class="std std-ref">LHC Crossing Schemes</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.crossing.plot_two_lhc_ips_crossings function to vi..."><img alt="LHC Crossing Schemes" src="../_images/sphx_glr_demo_lhc_crossing_schemes_thumb.svg" /><p><a class="reference internal" href="demo_lhc_crossing_schemes.html#sphx-glr-gallery-demo-lhc-crossing-schemes-py"><span class="std std-ref">LHC Crossing Schemes</span></a></p>
   <div class="sphx-glr-thumbnail-title">LHC Crossing Schemes</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.errors.misalign_lhc_ir_quadrupoles function to assign magne..."><img alt="LHC IR Errors Assignments" src="../_images/sphx_glr_demo_ir_errors_thumb.svg" /><p><a class="reference internal" href="demo_ir_errors.html#sphx-glr-gallery-demo-ir-errors-py"><span class="std std-ref">LHC IR Errors Assignments</span></a></p>
   <div class="sphx-glr-thumbnail-title">LHC IR Errors Assignments</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.apply_lhc_rigidity_waist_shift_knob  function to force ..."><img alt="LHC Rigid Waist Shift" src="../_images/sphx_glr_demo_lhc_rigid_waist_shift_thumb.svg" /><p><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#sphx-glr-gallery-demo-lhc-rigid-waist-shift-py"><span class="std std-ref">LHC Rigid Waist Shift</span></a></p>
   <div class="sphx-glr-thumbnail-title">LHC Rigid Waist Shift</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.LatticePlotter.plot_machine_survey function to rep..."><img alt="Machine Survey" src="../_images/sphx_glr_demo_machine_survey_thumb.svg" /><p><a class="reference internal" href="demo_machine_survey.html#sphx-glr-gallery-demo-machine-survey-py"><span class="std std-ref">Machine Survey</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.lattice.plot_machine_survey function to represent ..."><img alt="Machine Survey" src="../_images/sphx_glr_demo_machine_survey_thumb.svg" /><p><a class="reference internal" href="demo_machine_survey.html#sphx-glr-gallery-demo-machine-survey-py"><span class="std std-ref">Machine Survey</span></a></p>
   <div class="sphx-glr-thumbnail-title">Machine Survey</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space ..."><img alt="Phase Space" src="../_images/sphx_glr_demo_phase_space_thumb.svg" /><p><a class="reference internal" href="demo_phase_space.html#sphx-glr-gallery-demo-phase-space-py"><span class="std std-ref">Phase Space</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.phasespace.plot_courant_snyder_phase_space and ~.p..."><img alt="Phase Space" src="../_images/sphx_glr_demo_phase_space_thumb.svg" /><p><a class="reference internal" href="demo_phase_space.html#sphx-glr-gallery-demo-phase-space-py"><span class="std std-ref">Phase Space</span></a></p>
   <div class="sphx-glr-thumbnail-title">Phase Space</div>
 </div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the modules in pyhdtoolkit.plotting.sbs and their various functio..."><img alt="Segment-by-Segment Results" src="../_images/sphx_glr_demo_sbs_plotting_thumb.svg" /><p><a class="reference internal" href="demo_sbs_plotting.html#sphx-glr-gallery-demo-sbs-plotting-py"><span class="std std-ref">Segment-by-Segment Results</span></a></p>
   <div class="sphx-glr-thumbnail-title">Segment-by-Segment Results</div>
-</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.TuneDiagramPlotter.plot_tune_diagram function  to ..."><img alt="Tune Diagram" src="../_images/sphx_glr_demo_tune_diagram_thumb.svg" /><p><a class="reference internal" href="demo_tune_diagram.html#sphx-glr-gallery-demo-tune-diagram-py"><span class="std std-ref">Tune Diagram</span></a></p>
+</div><div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.tune.plot_tune_diagram function  to visualise reso..."><img alt="Tune Diagram" src="../_images/sphx_glr_demo_tune_diagram_thumb.svg" /><p><a class="reference internal" href="demo_tune_diagram.html#sphx-glr-gallery-demo-tune-diagram-py"><span class="std std-ref">Tune Diagram</span></a></p>
   <div class="sphx-glr-thumbnail-title">Tune Diagram</div>
 </div></div><div class="toctree-wrapper compound">
 </div>

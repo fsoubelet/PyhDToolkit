@@ -6,7 +6,7 @@
 Accelerator Aperture
 ====================
 
-This example shows how to use the `~.plotters.AperturePlotter.plot_aperture` function
+This example shows how to use the `~.plotting.aperture.plot_aperture` function
 to visualise the available aperture in your machine, with the LHC for example.
 """
 
@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
-from pyhdtoolkit.cpymadtools.plotters import AperturePlotter
+from pyhdtoolkit.plotting.aperture import plot_aperture
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -52,18 +52,23 @@ madx.command.aperture(
 twiss_df = madx.table.twiss.dframe().copy()
 ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
 
-ir5_aperture_collision = AperturePlotter.plot_aperture(
+###############################################################################
+# And now we can plot the aperture:
+
+plt.figure(figsize=(20, 13))
+plot_aperture(
     madx,
-    title="IR5, Collision Optics Aperture Tolerance",
+    title="IR5, Collision Optics - Beam 1 Aperture Tolerance",
     plot_bpms=True,
     xlimits=(ip5s - 80, ip5s + 80),
-    aperture_ylim=(0, 20),
+    aperture_ylim=(0, 25),
     k0l_lim=(-4e-4, 4e-4),
+    k1l_lim=(-0.08, 0.08),
     color="darkslateblue",
 )
-for axis in ir5_aperture_collision.axes:
+for axis in plt.gcf().get_axes():
     axis.axvline(x=ip5s, color="red", ls="--", lw=1.5, label="IP5")
-ir5_aperture_collision.gca().legend()
+plt.gca().legend()
 plt.show()
 
 ###############################################################################
@@ -79,4 +84,4 @@ madx.exit()
 #    in this example:
 #
 #    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`
-#    - `~.cpymadtools.plotters`: `~.plotters.AperturePlotter`, `~.plotters.AperturePlotter.plot_aperture`
+#    - `~.plotting.aperture`: `~.plotting.aperture.plot_aperture`

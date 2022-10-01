@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 0.21.0 documentation</title>
+  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                0.21.0
+                1.0.0rc0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -95,7 +95,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -122,10 +121,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
@@ -465,100 +469,100 @@ order in which they are in the machine:</p>
   <tbody>
     <tr>
       <th>mqml.6l1.b1</th>
-      <td>0.000469</td>
+      <td>0.000289</td>
       <td>0.0</td>
-      <td>0.002806</td>
+      <td>-0.000520</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5l1.b1</th>
-      <td>0.000297</td>
+      <td>0.001048</td>
       <td>0.0</td>
-      <td>-0.002243</td>
+      <td>0.000832</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4l1.b1</th>
-      <td>-0.000375</td>
+      <td>0.001306</td>
       <td>0.0</td>
-      <td>0.001495</td>
+      <td>-0.000353</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3l1</th>
-      <td>0.001224</td>
+      <td>0.000923</td>
       <td>0.0</td>
-      <td>0.005275</td>
+      <td>-0.003301</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2l1</th>
-      <td>0.000914</td>
+      <td>0.000421</td>
       <td>0.0</td>
-      <td>-0.000548</td>
+      <td>0.000111</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2l1</th>
-      <td>-0.000828</td>
+      <td>-0.000751</td>
       <td>0.0</td>
-      <td>-0.001854</td>
+      <td>0.001381</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1l1</th>
-      <td>-0.000377</td>
+      <td>-0.000362</td>
       <td>0.0</td>
-      <td>0.001002</td>
+      <td>0.001905</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1r1</th>
-      <td>0.001171</td>
+      <td>0.000179</td>
       <td>0.0</td>
-      <td>-0.001857</td>
+      <td>-0.006314</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2r1</th>
-      <td>0.000325</td>
+      <td>-0.000426</td>
       <td>0.0</td>
-      <td>0.004253</td>
+      <td>0.000519</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2r1</th>
-      <td>0.000161</td>
+      <td>0.000329</td>
       <td>0.0</td>
-      <td>0.000801</td>
+      <td>-0.000996</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3r1</th>
-      <td>-0.000014</td>
+      <td>-0.000546</td>
       <td>0.0</td>
-      <td>-0.002879</td>
+      <td>-0.001062</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4r1.b1</th>
-      <td>0.000866</td>
+      <td>0.000029</td>
       <td>0.0</td>
-      <td>0.000458</td>
+      <td>-0.000263</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5r1.b1</th>
-      <td>0.000081</td>
+      <td>-0.000920</td>
       <td>0.0</td>
-      <td>-0.002339</td>
+      <td>-0.000714</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.6r1.b1</th>
-      <td>-0.000167</td>
+      <td>0.000558</td>
       <td>0.0</td>
-      <td>0.001713</td>
+      <td>0.004369</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -598,11 +602,13 @@ chart, making use of the <a class="reference external" href="https://pandas.pyda
 <p class="admonition-title">References</p>
 <p>The use of the following functions, methods, classes and modules is shown
 in this example:</p>
-<p>= <code class="xref py py-obj docutils literal notranslate"><span class="pre">errors</span></code>: ~cpymadtools.errors.misalign_lhc_ir_quadrupoles`
-- <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a>
-- <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a></p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.errors" title="pyhdtoolkit.cpymadtools.errors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">errors</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.errors.misalign_lhc_ir_quadrupoles" title="pyhdtoolkit.cpymadtools.errors.misalign_lhc_ir_quadrupoles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles</span></code></a></p></li>
+<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a></p></li>
+<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a></p></li>
+</ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  31.246 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  44.852 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-ir-errors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/da42f6ab08c5bc8cb6606bcaeb4957d9/demo_ir_errors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_ir_errors.py</span></code></a></p>

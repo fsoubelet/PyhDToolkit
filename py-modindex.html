@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Python Module Index &mdash; PyhDToolkit 0.21.0 documentation</title>
+  <title>Python Module Index &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                0.21.0
+                1.0.0rc0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -95,7 +95,6 @@
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -122,10 +121,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/utils.html">Utils</a><ul>
@@ -398,11 +402,6 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters"><code class="xref">pyhdtoolkit.cpymadtools.plotters</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
        <a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.ptc"><code class="xref">pyhdtoolkit.cpymadtools.ptc</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
@@ -473,7 +472,27 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="api/plotting.html#module-pyhdtoolkit.plotting.helpers"><code class="xref">pyhdtoolkit.plotting.helpers</code></a></td><td>
+       <a href="api/plotting.html#module-pyhdtoolkit.plotting.aperture"><code class="xref">pyhdtoolkit.plotting.aperture</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/plotting.html#module-pyhdtoolkit.plotting.crossing"><code class="xref">pyhdtoolkit.plotting.crossing</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/plotting.html#module-pyhdtoolkit.plotting.envelope"><code class="xref">pyhdtoolkit.plotting.envelope</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/plotting.html#module-pyhdtoolkit.plotting.lattice"><code class="xref">pyhdtoolkit.plotting.lattice</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/plotting.html#module-pyhdtoolkit.plotting.phasespace"><code class="xref">pyhdtoolkit.plotting.phasespace</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>
@@ -488,7 +507,12 @@
      <tr class="cg-1">
        <td></td>
        <td>&#160;&#160;&#160;
-       <a href="api/plotting.html#module-pyhdtoolkit.plotting.sbs.utils"><code class="xref">pyhdtoolkit.plotting.sbs.utils</code></a></td><td>
+       <a href="api/plotting.html#module-pyhdtoolkit.plotting.tune"><code class="xref">pyhdtoolkit.plotting.tune</code></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&#160;&#160;&#160;
+       <a href="api/plotting.html#module-pyhdtoolkit.plotting.utils"><code class="xref">pyhdtoolkit.plotting.utils</code></a></td><td>
        <em></em></td></tr>
      <tr class="cg-1">
        <td></td>

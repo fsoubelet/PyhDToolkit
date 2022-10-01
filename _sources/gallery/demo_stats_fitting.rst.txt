@@ -45,7 +45,7 @@ it originated from.
     import scipy.stats as st
 
     from pyhdtoolkit.maths import stats_fitting as fitting
-    from pyhdtoolkit.plotting.helpers import AnnotationsPlotter
+    from pyhdtoolkit.plotting.utils import set_arrow_label
     from pyhdtoolkit.utils import defaults
 
     defaults.config_logger(level="warning")
@@ -244,7 +244,7 @@ be a good fit. Let's do a new plot with only the best fit's probability density
 function (which we get with `~.maths.stats_fitting.make_pdf` function) added onto
 the data, and determine its mode:
 
-.. GENERATED FROM PYTHON SOURCE LINES 159-198
+.. GENERATED FROM PYTHON SOURCE LINES 159-199
 
 .. code-block:: default
 
@@ -273,13 +273,14 @@ the data, and determine its mode:
     dist_str = f"{fitting.DISTRIBUTIONS[best_fit_func]}({param_str})"
 
     # Let's add to the plot some info on the fit's peak
-    AnnotationsPlotter.set_arrow_label(
+    set_arrow_label(
         axis=ax,
         label=f"Measured Mode: {pdf.idxmax():.3f}",
         arrow_position=(pdf.idxmax(), pdf.max()),
         label_position=(1.1 * np.mean(ax.get_xlim()), 0.75 * max(pdf.to_numpy())),
         color="indianred",
         arrow_arc_rad=0.3,
+        fontsize=25,
     )
     plt.vlines(pdf.idxmax(), ymin=0, ymax=max(pdf.to_numpy()), linestyles="--", color="indianred")
     ax.set_title(f"Best fit to distribution:\n" + dist_str)
@@ -291,7 +292,7 @@ the data, and determine its mode:
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: ChiSquared(df=4.00, loc=-0.00, scale=1.00)
+   :alt: Best fit to distribution: ChiSquared(df=4.01, loc=-0.00, scale=1.00)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_0x.svg 2.0x
    :class: sphx-glr-single-img
 
@@ -299,12 +300,12 @@ the data, and determine its mode:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 199-201
+.. GENERATED FROM PYTHON SOURCE LINES 200-202
 
 We expect a mode of 2, we can check that this is indeed the case. Here we leave
 a nice tolerance to ensure the documentation build does not fail.
 
-.. GENERATED FROM PYTHON SOURCE LINES 201-205
+.. GENERATED FROM PYTHON SOURCE LINES 202-206
 
 .. code-block:: default
 
@@ -319,7 +320,7 @@ a nice tolerance to ensure the documentation build does not fail.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 206-211
+.. GENERATED FROM PYTHON SOURCE LINES 207-212
 
 With this knowledge, we can now determine the standard deviation of the normal
 distribution we've used to create this chi-square distribution. Remember that
@@ -327,7 +328,7 @@ in the `chi_square_dist` function we have called `np.random.default_rng().normal
 with ``loc=0`` and ``scale=1``, so we expect here to find a standard deviation of
 one.
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-221
+.. GENERATED FROM PYTHON SOURCE LINES 212-222
 
 .. code-block:: default
 
@@ -348,14 +349,14 @@ one.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-226
+.. GENERATED FROM PYTHON SOURCE LINES 223-227
 
 Which we do :)
 
 Bonus: here's a plot of trying to fit all basic distributions to the chi
 distribution generated above.
 
-.. GENERATED FROM PYTHON SOURCE LINES 226-254
+.. GENERATED FROM PYTHON SOURCE LINES 227-256
 
 .. code-block:: default
 
@@ -390,6 +391,7 @@ distribution generated above.
 
 
 
+
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_003.svg
    :alt: All Fitted Distributions
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_003.svg, /gallery/images/sphx_glr_demo_stats_fitting_003_2_0x.svg 2.0x
@@ -399,10 +401,20 @@ distribution generated above.
 
 
 
+.. GENERATED FROM PYTHON SOURCE LINES 257-264
+
+.. admonition:: References
+
+   The use of the following functions, methods, classes and modules is shown
+   in this example:
+
+   - `~.maths.stats_fitting`: `~.maths.stats_fitting.best_fit_distribution`, `~.maths.stats_fitting.make_pdf`
+   - `~.plotting.utils`: `~.plotting.utils.set_arrow_label`
+
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.912 seconds)
+   **Total running time of the script:** ( 0 minutes  20.138 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:

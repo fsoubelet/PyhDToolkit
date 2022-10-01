@@ -50,7 +50,7 @@ to easily visualize results of segment-by-segment runs.
 
 .. GENERATED FROM PYTHON SOURCE LINES 24-29
 
-The functions in `pyhdtoolkit.plotting.sbs` modules usually need to be provided
+The functions in `~pyhdtoolkit.plotting.sbs` modules usually need to be provided
 different dataframes corresponding to specific components of segment-by-segment
 results, which can be obtained by directly loading the output **TFS** files.
 Let's load below the coupling results of a segment-by-segment run and related
@@ -98,7 +98,7 @@ given coupling RDT through the segment.
         b2_model_tfs,
         ip=1,
         component="RE",
-        figsize=(8, 8),
+        figsize=(12, 12),
         b1_ylabel=r"$\mathrm{Beam\ 1}$ $\Re f_{1001}$",
         b2_ylabel=r"$\mathrm{Beam\ 2}$ $\Re f_{1001}$",
     )
@@ -142,7 +142,7 @@ One can plot all components of a given coupling RDT for both beams with the
         b1_model_tfs,
         b2_model_tfs,
         ip=1,
-        figsize=(18, 9),
+        figsize=(20, 10),
         abs_ylimits=(5e-3, 6.5e-2),
         real_ylimits=(-1e-1, 1e-1),
         imag_ylimits=(-1e-1, 1e-1),
@@ -182,7 +182,7 @@ this example: one dataframe for each plane for Beam 2.
         phase_y=sbs_phasey,
         model=b2_model_tfs,
         ip=5,
-        figsize=(9, 10),
+        figsize=(12, 12),
     )
     plt.show()
 
@@ -218,7 +218,7 @@ function, as demonstrated below.
         b1_model=b2_model_tfs,
         b2_model=b2_model_tfs,
         ip=5,
-        figsize=(18, 9),
+        figsize=(20, 10),
         bbox_to_anchor=(0.535, 0.94),
     )
     plt.show()
@@ -248,7 +248,7 @@ function, as demonstrated below.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  9.174 seconds)
+   **Total running time of the script:** ( 0 minutes  16.154 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_sbs_plotting.py:

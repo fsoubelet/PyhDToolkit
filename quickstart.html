@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quickstart &mdash; PyhDToolkit 0.21.0 documentation</title>
+  <title>Quickstart &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                0.21.0
+                1.0.0rc0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -95,7 +95,6 @@
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -122,10 +121,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/utils.html">Utils</a><ul>
@@ -395,7 +399,6 @@ Let’s say one has initiated their <code class="docutils literal notranslate"><
 <ul class="simple">
 <li><p>Encompass existing <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> commands, such as for example <a class="reference internal" href="api/cpymadtools.html#cpymadtools-matching"><span class="std std-ref">matching</span></a> or <a class="reference internal" href="api/cpymadtools.html#cpymadtools-track"><span class="std std-ref">tracking</span></a>;</p></li>
 <li><p>Perform useful routines with a clean pythonic interface (for instance <a class="reference internal" href="api/cpymadtools.html#cpymadtools-coupling"><span class="std std-ref">betatron coupling</span></a> calculation and handling, <a class="reference internal" href="api/cpymadtools.html#cpymadtools-errors"><span class="std std-ref">errors assignments</span></a>);</p></li>
-<li><p>Conveniently create different useful plots after a simulation thanks to the <a class="reference internal" href="api/cpymadtools.html#cpymadtools-plotters"><span class="std std-ref">plotters classes</span></a>;</p></li>
 <li><p>Run <a class="reference internal" href="api/cpymadtools.html#cpymadtools-lhc"><span class="std std-ref">(HL)LHC</span></a> specific functionality, mostly tailored to my work.</p></li>
 </ul>
 <p>One can find many examples of the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymadtools</span></code> apis’ use in the <a class="reference internal" href="gallery/index.html#gallery"><span class="std std-ref">gallery</span></a> section of this documentation.</p>
@@ -427,7 +430,7 @@ functions, or perform many convenient <a class="reference internal" href="api/ut
 <section id="additional-helpers">
 <h3>Additional Helpers<a class="headerlink" href="#additional-helpers" title="Permalink to this headline"></a></h3>
 <p>Other sub-packages provide helper functionality mostly used internally in the package, but may be of use to you.
-<a class="reference internal" href="api/plotting.html#pyhdtoolkit-plotting"><span class="std std-ref">Plotting</span></a> gives access to helpers for <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a> plots; <a class="reference internal" href="api/models.html#pyhdtoolkit-models"><span class="std std-ref">models</span></a>
+<a class="reference internal" href="api/plotting.html#pyhdtoolkit-plotting"><span class="std std-ref">Plotting</span></a> gives access to many plotting functions; <a class="reference internal" href="api/models.html#pyhdtoolkit-models"><span class="std std-ref">models</span></a>
 provides <code class="xref py py-obj docutils literal notranslate"><span class="pre">pydantic</span></code>-validated classes for data handling throughout the package; <a class="reference internal" href="api/optics.html#pyhdtoolkit-optics"><span class="std std-ref">optics</span></a> to useful
 beam optics parameters calculations; and <a class="reference internal" href="api/maths.html#pyhdtoolkit-maths"><span class="std std-ref">maths</span></a> to some statistical utilities.</p>
 </section>

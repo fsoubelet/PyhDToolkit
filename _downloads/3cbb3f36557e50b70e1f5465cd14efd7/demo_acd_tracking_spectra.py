@@ -11,7 +11,7 @@ This example shows how to use the `~.lhc.install_ac_dipole_as_kicker` and
 ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
 
 In this example we will use the LHC lattice to illustrate the ACD tracking 
-workflow when using `~.cpymadtools`.
+workflow when using `~pyhdtoolkit.cpymadtools`.
 
 .. note::
     This is very similar to the :ref:`free tracking example <demo-free-tracking>` 

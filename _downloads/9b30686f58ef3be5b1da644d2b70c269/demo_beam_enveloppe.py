@@ -6,7 +6,7 @@
 Beam Enveloppe
 ==============
 
-This example shows how to use the `~.plotters.BeamEnvelopePlotter.plot_envelope` function
+This example shows how to use the `~.plotting.envelope.plot_envelope` function
 to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
@@ -17,8 +17,8 @@ import numpy as np
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.plotters import BeamEnvelopePlotter
 from pyhdtoolkit.models.beam import BeamParameters
+from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
 from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
@@ -139,22 +139,68 @@ madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e
 madx.command.twiss()
 
 ###############################################################################
-# We can now plot the beam enveloppe at injection, for a single cell:
+# We can now plot the beam enveloppe and the stay-clear at injection, for the
+# whole machine:
 
-BeamEnvelopePlotter.plot_envelope(madx, beam_injection, figsize=(18, 20))
+fig, axes = plt.subplots(3, 1, figsize=(18, 20))
+plot_envelope(
+    madx,
+    beam_injection,
+    ylimits=(-0.12, 0.12),
+    title=f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c",
+    axis=axes[0],
+)
+plot_envelope(
+    madx,
+    beam_injection,
+    ylimits=(-0.12, 0.12),
+    plane="vertical",
+    title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
+    axis=axes[1],
+)
+plot_stay_clear(
+    madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2]
+)
 plt.show()
 
 ###############################################################################
 # In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
-# Here we will plot the enveloppe for the first cell only.
+# Here we will plot the horizontal enveloppe for the first cell only.
 
-BeamEnvelopePlotter.plot_envelope(madx, beam_injection, xlimits=(0, l_cell), figsize=(18, 20))
+title = f"First Cell Horizontal Aperture at {beam_injection.pc_GeV} GeV/c"
+fig, ax = plt.subplots(figsize=(16, 9))
+plot_envelope(madx, beam_injection, ylimits=(-0.12, 0.12), xlimits=(0, l_cell), title=title)
 plt.show()
 
 ###############################################################################
-# And similarly at top energy:
+# And similarly we can plot for the cell at top energy, only by adapting the
+# provided beam parameters:
 
-BeamEnvelopePlotter.plot_envelope(madx, beam_flattop, xlimits=(0, l_cell), figsize=(18, 20))
+fig, axes = plt.subplots(3, 1, figsize=(18, 20))
+plot_envelope(
+    madx,
+    beam_injection,
+    xlimits=(0, l_cell),
+    ylimits=(-0.12, 0.12),
+    title=f"Horizontal aperture at {beam_flattop.pc_GeV} GeV/c",
+    axis=axes[0],
+)
+plot_envelope(
+    madx,
+    beam_injection,
+    xlimits=(0, l_cell),
+    ylimits=(-0.12, 0.12),
+    plane="vertical",
+    title=f"Vertical aperture at {beam_flattop.pc_GeV} GeV/c",
+    axis=axes[1],
+)
+plot_stay_clear(
+    madx,
+    beam_injection,
+    xlimits=(0, l_cell),
+    title=f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c",
+    axis=axes[2],
+)
 plt.show()
 
 ###############################################################################
@@ -169,5 +215,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.plotters`: `~.plotters.BeamEnvelopePlotter`, `~.plotters.BeamEnvelopePlotter.plot_envelope`
+#    - `~.plotting.envelope`: `~.plotting.envelope.plot_envelope`, `~.plotting.envelope.plot_stay_clear`
 #    - `~.models.beam`: `~.models.beam.BeamParameters`

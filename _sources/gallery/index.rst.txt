@@ -8,8 +8,8 @@
 Gallery
 =======
 
-This page contains a gallery showcasing either plotting functionality provided in `~pyhdtoolkit.cpymadtools.plotters`,
-or plots made from results of convenient functions available in `~pyhdtoolkit`.
+This page contains a gallery showcasing either plotting functionality provided in the `pyhdtoolkit.plotting`
+submodules, or plots made from results of convenient functions available in `~pyhdtoolkit`.
 
 .. important::
     The examples shown here are plotted with a customized but simple ``rcParams`` style. If one uses
@@ -44,7 +44,7 @@ or plots made from results of convenient functions available in `~pyhdtoolkit`.
 
     In both cases, re-updating the ``rcParams`` later on will always overwrite these settings.
 
-Click on any image thumbnail to see the full image and source code.
+Click on any image thumbnail to see the corresponding gallery page with full images and access to the source code.
 
 
 
@@ -72,7 +72,7 @@ Click on any image thumbnail to see the full image and source code.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.AperturePlotter.plot_aperture function to visualis...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.aperture.plot_aperture function to visualise the a...">
 
 .. only:: html
 
@@ -89,7 +89,7 @@ Click on any image thumbnail to see the full image and source code.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.LatticePlotter.plot_latwiss function to represent ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.lattice.plot_latwiss function to represent your ma...">
 
 .. only:: html
 
@@ -106,7 +106,7 @@ Click on any image thumbnail to see the full image and source code.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.BeamEnvelopePlotter.plot_envelope function to visu...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.envelope.plot_envelope function to visualise the p...">
 
 .. only:: html
 
@@ -157,7 +157,7 @@ Click on any image thumbnail to see the full image and source code.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings f...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.crossing.plot_two_lhc_ips_crossings function to vi...">
 
 .. only:: html
 
@@ -208,7 +208,7 @@ Click on any image thumbnail to see the full image and source code.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.LatticePlotter.plot_machine_survey function to rep...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.lattice.plot_machine_survey function to represent ...">
 
 .. only:: html
 
@@ -225,7 +225,7 @@ Click on any image thumbnail to see the full image and source code.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.phasespace.plot_courant_snyder_phase_space and ~.p...">
 
 .. only:: html
 
@@ -259,7 +259,7 @@ Click on any image thumbnail to see the full image and source code.
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotters.TuneDiagramPlotter.plot_tune_diagram function  to ...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.tune.plot_tune_diagram function  to visualise reso...">
 
 .. only:: html
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Index &mdash; PyhDToolkit 0.21.0 documentation</title>
+  <title>Index &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                0.21.0
+                1.0.0rc0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -92,7 +92,6 @@
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -119,10 +118,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/utils.html">Utils</a><ul>
@@ -380,14 +384,10 @@
 </li>
       <li><a href="api/maths.html#pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor.alpha">alpha (pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor property)</a>
 </li>
-      <li><a href="api/plotting.html#pyhdtoolkit.plotting.helpers.AnnotationsPlotter">AnnotationsPlotter (class in pyhdtoolkit.plotting.helpers)</a>
-</li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.AperturePlotter">AperturePlotter (class in pyhdtoolkit.cpymadtools.plotters)</a>
+      <li><a href="api/utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance">apply_colin_corrs_balance() (in module pyhdtoolkit.utils._misc)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance">apply_colin_corrs_balance() (in module pyhdtoolkit.utils._misc)</a>
-</li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob">apply_lhc_colinearity_knob() (in module pyhdtoolkit.cpymadtools.lhc)</a>
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob_delta">apply_lhc_colinearity_knob_delta() (in module pyhdtoolkit.cpymadtools.lhc)</a>
@@ -411,8 +411,6 @@
       <li><a href="api/models.html#pyhdtoolkit.models.htc.BaseSummary">BaseSummary (class in pyhdtoolkit.models.htc)</a>
 </li>
       <li><a href="api/optics.html#pyhdtoolkit.optics.beam.Beam">Beam (class in pyhdtoolkit.optics.beam)</a>
-</li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.BeamEnvelopePlotter">BeamEnvelopePlotter (class in pyhdtoolkit.cpymadtools.plotters)</a>
 </li>
       <li><a href="api/models.html#pyhdtoolkit.models.beam.BeamParameters">BeamParameters (class in pyhdtoolkit.models.beam)</a>
 </li>
@@ -474,8 +472,6 @@
 </li>
       <li><a href="api/optics.html#pyhdtoolkit.optics.twiss.courant_snyder_transform">courant_snyder_transform() (in module pyhdtoolkit.optics.twiss)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.CrossingSchemePlotter">CrossingSchemePlotter (class in pyhdtoolkit.cpymadtools.plotters)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -486,19 +482,13 @@
 </li>
       <li><a href="api/utils.html#pyhdtoolkit.utils.operations.ListOperations.deep_flatten">deep_flatten() (pyhdtoolkit.utils.operations.ListOperations static method)</a>
 </li>
-      <li><a href="api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.degrees_to_radians">degrees_to_radians() (pyhdtoolkit.utils.operations.NumberOperations static method)</a>
-</li>
-      <li><a href="api/plotting.html#pyhdtoolkit.plotting.sbs.utils.determine_default_coupling_ylabel">determine_default_coupling_ylabel() (in module pyhdtoolkit.plotting.sbs.utils)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/plotting.html#pyhdtoolkit.plotting.sbs.utils.determine_default_phase_ylabel">determine_default_phase_ylabel() (in module pyhdtoolkit.plotting.sbs.utils)</a>
+      <li><a href="api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.degrees_to_radians">degrees_to_radians() (pyhdtoolkit.utils.operations.NumberOperations static method)</a>
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.do_kmodulation">do_kmodulation() (in module pyhdtoolkit.cpymadtools.lhc)</a>
 </li>
       <li><a href="api/utils.html#pyhdtoolkit.utils._misc.draw_ip_locations">draw_ip_locations() (in module pyhdtoolkit.utils._misc)</a>
-</li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.DynamicAperturePlotter">DynamicAperturePlotter (class in pyhdtoolkit.cpymadtools.plotters)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -536,9 +526,9 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter.farey_sequence">farey_sequence() (pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.tune.farey_sequence">farey_sequence() (in module pyhdtoolkit.plotting.tune)</a>
 </li>
-      <li><a href="api/plotting.html#pyhdtoolkit.plotting.sbs.utils.find_ip_s_from_segment_start">find_ip_s_from_segment_start() (in module pyhdtoolkit.plotting.sbs.utils)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start">find_ip_s_from_segment_start() (in module pyhdtoolkit.plotting.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -668,8 +658,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator">LatticeGenerator (class in pyhdtoolkit.cpymadtools.generators)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter">LatticePlotter (class in pyhdtoolkit.cpymadtools.plotters)</a>
-</li>
       <li><a href="api/maths.html#pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor.leading_eigenvector">leading_eigenvector (pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor property)</a>
 </li>
       <li><a href="api/utils.html#pyhdtoolkit.utils.operations.NumberOperations.least_common_multiple">least_common_multiple() (pyhdtoolkit.utils.operations.NumberOperations static method)</a>
@@ -696,6 +684,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/models.html#pyhdtoolkit.models.madx.MADXBeam">MADXBeam (class in pyhdtoolkit.models.madx)</a>
 </li>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups">make_elements_groups() (in module pyhdtoolkit.plotting.utils)</a>
+</li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table">make_footprint_table() (in module pyhdtoolkit.cpymadtools.tune)</a>
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams">make_lhc_beams() (in module pyhdtoolkit.cpymadtools.lhc)</a>
@@ -706,6 +696,8 @@
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_sixtrack_output">make_sixtrack_output() (in module pyhdtoolkit.cpymadtools.lhc)</a>
 </li>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups">make_survey_groups() (in module pyhdtoolkit.plotting.utils)</a>
+</li>
       <li><a href="api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations.map_values">map_values() (pyhdtoolkit.utils.operations.MiscellaneousOperations static method)</a>
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities">match_chromaticities() (in module pyhdtoolkit.cpymadtools.matching)</a>
@@ -715,6 +707,8 @@
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes">match_tunes() (in module pyhdtoolkit.cpymadtools.matching)</a>
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities">match_tunes_and_chromaticities() (in module pyhdtoolkit.cpymadtools.matching)</a>
+</li>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax">maybe_get_ax() (in module pyhdtoolkit.plotting.utils)</a>
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.errors.misalign_lhc_ir_quadrupoles">misalign_lhc_ir_quadrupoles() (in module pyhdtoolkit.cpymadtools.errors)</a>
 </li>
@@ -744,8 +738,6 @@
 </li>
         <li><a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.parameters">pyhdtoolkit.cpymadtools.parameters</a>
 </li>
-        <li><a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters">pyhdtoolkit.cpymadtools.plotters</a>
-</li>
         <li><a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.ptc">pyhdtoolkit.cpymadtools.ptc</a>
 </li>
         <li><a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.track">pyhdtoolkit.cpymadtools.track</a>
@@ -774,13 +766,23 @@
 </li>
         <li><a href="api/optics.html#module-pyhdtoolkit.optics.twiss">pyhdtoolkit.optics.twiss</a>
 </li>
-        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.helpers">pyhdtoolkit.plotting.helpers</a>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.aperture">pyhdtoolkit.plotting.aperture</a>
+</li>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.crossing">pyhdtoolkit.plotting.crossing</a>
+</li>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.envelope">pyhdtoolkit.plotting.envelope</a>
+</li>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.lattice">pyhdtoolkit.plotting.lattice</a>
+</li>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.phasespace">pyhdtoolkit.plotting.phasespace</a>
 </li>
         <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.sbs.coupling">pyhdtoolkit.plotting.sbs.coupling</a>
 </li>
         <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.sbs.phase">pyhdtoolkit.plotting.sbs.phase</a>
 </li>
-        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.sbs.utils">pyhdtoolkit.plotting.sbs.utils</a>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.tune">pyhdtoolkit.plotting.tune</a>
+</li>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.utils">pyhdtoolkit.plotting.utils</a>
 </li>
         <li><a href="api/utils.html#module-pyhdtoolkit.utils._misc">pyhdtoolkit.utils._misc</a>
 </li>
@@ -827,25 +829,21 @@
 </li>
       <li><a href="api/maths.html#pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor">PhaseReconstructor (class in pyhdtoolkit.maths.nonconvex_phase_sync)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter">PhaseSpacePlotter (class in pyhdtoolkit.cpymadtools.plotters)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture">plot_aperture() (in module pyhdtoolkit.plotting.aperture)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.AperturePlotter.plot_aperture">plot_aperture() (pyhdtoolkit.cpymadtools.plotters.AperturePlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space">plot_courant_snyder_phase_space() (in module pyhdtoolkit.plotting.phasespace)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space">plot_courant_snyder_phase_space() (pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space_colored">plot_courant_snyder_phase_space_colored() (in module pyhdtoolkit.plotting.phasespace)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter.plot_courant_snyder_phase_space_colored">plot_courant_snyder_phase_space_colored() (pyhdtoolkit.cpymadtools.plotters.PhaseSpacePlotter static method)</a>
-</li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.DynamicAperturePlotter.plot_dynamic_aperture">plot_dynamic_aperture() (pyhdtoolkit.cpymadtools.plotters.DynamicAperturePlotter static method)</a>
-</li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.BeamEnvelopePlotter.plot_envelope">plot_envelope() (pyhdtoolkit.cpymadtools.plotters.BeamEnvelopePlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.envelope.plot_envelope">plot_envelope() (in module pyhdtoolkit.plotting.envelope)</a>
 </li>
       <li><a href="api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt">plot_full_ip_rdt() (in module pyhdtoolkit.plotting.sbs.coupling)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_latwiss">plot_latwiss() (pyhdtoolkit.cpymadtools.plotters.LatticePlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss">plot_latwiss() (in module pyhdtoolkit.plotting.lattice)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.plot_machine_layout">plot_machine_layout() (in module pyhdtoolkit.cpymadtools.plotters)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.utils.plot_machine_layout">plot_machine_layout() (in module pyhdtoolkit.plotting.utils)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey">plot_machine_survey() (pyhdtoolkit.cpymadtools.plotters.LatticePlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey">plot_machine_survey() (in module pyhdtoolkit.plotting.lattice)</a>
 </li>
       <li><a href="api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment">plot_phase_segment() (in module pyhdtoolkit.plotting.sbs.phase)</a>
 </li>
@@ -855,9 +853,15 @@
 </li>
       <li><a href="api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component">plot_rdt_component() (in module pyhdtoolkit.plotting.sbs.coupling)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter.plot_tune_diagram">plot_tune_diagram() (pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order">plot_resonance_lines_for_order() (in module pyhdtoolkit.plotting.tune)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.CrossingSchemePlotter.plot_two_lhc_ips_crossings">plot_two_lhc_ips_crossings() (pyhdtoolkit.cpymadtools.plotters.CrossingSchemePlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.crossing.plot_single_ir_crossing">plot_single_ir_crossing() (in module pyhdtoolkit.plotting.crossing)</a>
+</li>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.envelope.plot_stay_clear">plot_stay_clear() (in module pyhdtoolkit.plotting.envelope)</a>
+</li>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram">plot_tune_diagram() (in module pyhdtoolkit.plotting.tune)</a>
+</li>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.crossing.plot_two_lhc_ips_crossings">plot_two_lhc_ips_crossings() (in module pyhdtoolkit.plotting.crossing)</a>
 </li>
       <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.power_landau_octupoles">power_landau_octupoles() (in module pyhdtoolkit.cpymadtools.lhc)</a>
 </li>
@@ -935,13 +939,6 @@
 </li>
       </ul></li>
       <li>
-    pyhdtoolkit.cpymadtools.plotters
-
-      <ul>
-        <li><a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters">module</a>
-</li>
-      </ul></li>
-      <li>
     pyhdtoolkit.cpymadtools.ptc
 
       <ul>
@@ -955,8 +952,6 @@
         <li><a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.track">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pyhdtoolkit.cpymadtools.tune
 
@@ -978,6 +973,8 @@
         <li><a href="api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.utils">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     pyhdtoolkit.maths.nonconvex_phase_sync
 
@@ -1042,10 +1039,38 @@
 </li>
       </ul></li>
       <li>
-    pyhdtoolkit.plotting.helpers
+    pyhdtoolkit.plotting.aperture
 
       <ul>
-        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.helpers">module</a>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.aperture">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyhdtoolkit.plotting.crossing
+
+      <ul>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.crossing">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyhdtoolkit.plotting.envelope
+
+      <ul>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.envelope">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyhdtoolkit.plotting.lattice
+
+      <ul>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.lattice">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyhdtoolkit.plotting.phasespace
+
+      <ul>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.phasespace">module</a>
 </li>
       </ul></li>
       <li>
@@ -1063,10 +1088,17 @@
 </li>
       </ul></li>
       <li>
-    pyhdtoolkit.plotting.sbs.utils
+    pyhdtoolkit.plotting.tune
 
       <ul>
-        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.sbs.utils">module</a>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.tune">module</a>
+</li>
+      </ul></li>
+      <li>
+    pyhdtoolkit.plotting.utils
+
+      <ul>
+        <li><a href="api/plotting.html#module-pyhdtoolkit.plotting.utils">module</a>
 </li>
       </ul></li>
       <li>
@@ -1177,7 +1209,7 @@
 </li>
       <li><a href="api/utils.html#pyhdtoolkit.utils.operations.ListOperations.sanitize_list">sanitize_list() (pyhdtoolkit.utils.operations.ListOperations static method)</a>
 </li>
-      <li><a href="api/plotting.html#pyhdtoolkit.plotting.helpers.AnnotationsPlotter.set_arrow_label">set_arrow_label() (pyhdtoolkit.plotting.helpers.AnnotationsPlotter static method)</a>
+      <li><a href="api/plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label">set_arrow_label() (in module pyhdtoolkit.plotting.utils)</a>
 </li>
       <li><a href="api/maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict">set_distributions_dict() (in module pyhdtoolkit.maths.stats_fitting)</a>
 </li>
@@ -1209,13 +1241,11 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine.terminate">terminate() (pyhdtoolkit.utils.cmdline.CommandLine static method)</a>
 </li>
-      <li><a href="api/utils.html#pyhdtoolkit.utils.contexts.timeit">timeit() (in module pyhdtoolkit.utils.contexts)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle">track_single_particle() (in module pyhdtoolkit.cpymadtools.track)</a>
+      <li><a href="api/utils.html#pyhdtoolkit.utils.contexts.timeit">timeit() (in module pyhdtoolkit.utils.contexts)</a>
 </li>
-      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.TuneDiagramPlotter">TuneDiagramPlotter (class in pyhdtoolkit.cpymadtools.plotters)</a>
+      <li><a href="api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle">track_single_particle() (in module pyhdtoolkit.cpymadtools.track)</a>
 </li>
   </ul></td>
 </tr></table>

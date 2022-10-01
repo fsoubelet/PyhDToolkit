@@ -32,9 +32,6 @@ The ``cpymadtools`` subpackage is a collection of utilities to conveniently hand
 .. automodule:: pyhdtoolkit.cpymadtools.parameters
    :members:
 
-.. automodule:: pyhdtoolkit.cpymadtools.plotters
-   :members:
-
 .. automodule:: pyhdtoolkit.cpymadtools.ptc
    :members:
 

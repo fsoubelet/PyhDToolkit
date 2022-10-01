@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributing &mdash; PyhDToolkit 0.21.0 documentation</title>
+  <title>Contributing &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                0.21.0
+                1.0.0rc0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -95,7 +95,6 @@
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -122,10 +121,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/utils.html">Utils</a><ul>
@@ -404,8 +408,8 @@ However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</stron
 <p>Here is how to set yourself up:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="3719bead-558b-474f-a753-2d25b9d81311" name="23e19115-8a85-4e67-9bd9-c48fbafc37cc" type="radio">
-</input><label class="tabbed-label" for="3719bead-558b-474f-a753-2d25b9d81311">
+<input checked="checked" id="426b7e06-dd39-430f-af69-cc709aa26b02" name="818bc55c-7abe-4a95-b022-a709bf248046" type="radio">
+</input><label class="tabbed-label" for="426b7e06-dd39-430f-af69-cc709aa26b02">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
@@ -426,8 +430,8 @@ For instance, getting the Python version can be as simple as:</p>
 </div>
 </div>
 </div>
-<input id="bcd55557-6569-4c00-bcb6-c1e581082e5e" name="23e19115-8a85-4e67-9bd9-c48fbafc37cc" type="radio">
-</input><label class="tabbed-label" for="bcd55557-6569-4c00-bcb6-c1e581082e5e">
+<input id="0c29ba0f-31f2-402d-9e35-89f02992a674" name="818bc55c-7abe-4a95-b022-a709bf248046" type="radio">
+</input><label class="tabbed-label" for="0c29ba0f-31f2-402d-9e35-89f02992a674">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e &quot;.[test,dev,docs]&quot;
@@ -480,16 +484,16 @@ $ git merge upstream/master
 One can run the test suite in the following way:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="dce7bed4-89db-44de-97ca-1ffcf9f9c915" name="6c7c4f93-3c43-4bbd-b2f2-1fb0e6a40fed" type="radio">
-</input><label class="tabbed-label" for="dce7bed4-89db-44de-97ca-1ffcf9f9c915">
+<input checked="checked" id="6dfb6cfa-06da-4405-91da-abdfbfc3398e" name="85a876b6-b787-435e-8614-0dd2e2db860d" type="radio">
+</input><label class="tabbed-label" for="6dfb6cfa-06da-4405-91da-abdfbfc3398e">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
 </div>
-<input id="9e0354f8-aa7a-41da-b31e-bc8f4333a168" name="6c7c4f93-3c43-4bbd-b2f2-1fb0e6a40fed" type="radio">
-</input><label class="tabbed-label" for="9e0354f8-aa7a-41da-b31e-bc8f4333a168">
+<input id="e3519f56-3389-4e3c-91d0-5e90ab4173f8" name="85a876b6-b787-435e-8614-0dd2e2db860d" type="radio">
+</input><label class="tabbed-label" for="e3519f56-3389-4e3c-91d0-5e90ab4173f8">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>In your virtual environment, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest

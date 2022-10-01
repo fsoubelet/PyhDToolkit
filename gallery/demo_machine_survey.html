@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Machine Survey &mdash; PyhDToolkit 0.21.0 documentation</title>
+  <title>Machine Survey &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                0.21.0
+                1.0.0rc0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -95,7 +95,6 @@
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#plotting-wrappers">Plotting Wrappers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
@@ -122,10 +121,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-utilities">Segment-by-Segment Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-helpers">Plotting Helpers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
@@ -343,14 +347,14 @@ to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="machine-survey">
 <span id="demo-machine-survey"></span><span id="sphx-glr-gallery-demo-machine-survey-py"></span><h1>Machine Survey<a class="headerlink" href="#machine-survey" title="Permalink to this headline"></a></h1>
-<p>This example shows how to use the <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_machine_survey</span></code></a> function
+<p>This example shows how to use the <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey" title="pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_machine_survey</span></code></a> function
 to represent your machine geometry in a from-the-top view.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.generators</span> <span class="kn">import</span> <span class="n">LatticeGenerator</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.plotters</span> <span class="kn">import</span> <span class="n">LatticePlotter</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.lattice</span> <span class="kn">import</span> <a href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey" title="pyhdtoolkit.plotting.lattice.plot_machine_survey" class="sphx-glr-backref-module-pyhdtoolkit-plotting-lattice sphx-glr-backref-type-py-function"><span class="n">plot_machine_survey</span></a>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span>
 
 <a href="../api/utils.html#pyhdtoolkit.utils.defaults.config_logger" title="pyhdtoolkit.utils.defaults.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-defaults sphx-glr-backref-type-py-function"><span class="n">defaults</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
@@ -367,12 +371,14 @@ to represent your machine geometry in a from-the-top view.</p>
 </pre></div>
 </div>
 <p>Plot the machine survey, as simplistic as possible:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-plotters-LatticePlotter sphx-glr-backref-type-py-method"><span class="n">LatticePlotter</span><span class="o">.</span><span class="n">plot_machine_survey</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<a href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey" title="pyhdtoolkit.plotting.lattice.plot_machine_survey" class="sphx-glr-backref-module-pyhdtoolkit-plotting-lattice sphx-glr-backref-type-py-function"><span class="n">plot_machine_survey</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Machine Layout&quot;</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_demo_machine_survey_001.svg" srcset="../_images/sphx_glr_demo_machine_survey_001.svg, ../_images/sphx_glr_demo_machine_survey_001_2_0x.svg 2.0x" alt="Machine Layout" class = "sphx-glr-single-img"/><p>Plot the machine survey, differenciating elements and showing high order magnets:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-plotters-LatticePlotter sphx-glr-backref-type-py-method"><span class="n">LatticePlotter</span><span class="o">.</span><span class="n">plot_machine_survey</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">show_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">high_orders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<a href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey" title="pyhdtoolkit.plotting.lattice.plot_machine_survey" class="sphx-glr-backref-module-pyhdtoolkit-plotting-lattice sphx-glr-backref-type-py-function"><span class="n">plot_machine_survey</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Machine Layout&quot;</span><span class="p">,</span> <span class="n">show_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">high_orders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
@@ -386,9 +392,10 @@ to represent your machine geometry in a from-the-top view.</p>
 in this example:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.generators" title="pyhdtoolkit.cpymadtools.generators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generators</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator" title="pyhdtoolkit.cpymadtools.generators.LatticeGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LatticeGenerator</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence" title="pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">re_cycle_sequence</span></code></a></p></li>
-<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.plotters" title="pyhdtoolkit.cpymadtools.plotters"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plotters</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LatticePlotter</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey" title="pyhdtoolkit.cpymadtools.plotters.LatticePlotter.plot_machine_survey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_machine_survey</span></code></a></p></li>
+<li><p><a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.lattice" title="pyhdtoolkit.plotting.lattice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice</span></code></a>: <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey" title="pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_machine_survey</span></code></a></p></li>
 </ul>
 </div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.871 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-machine-survey-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7e283a496f5fe9ed949178b5d9d2c2b4/demo_machine_survey.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_machine_survey.py</span></code></a></p>
