@@ -3,6 +3,8 @@ import pathlib
 import pickle
 import random
 
+from mimetypes import init
+
 import numpy as np
 import pytest
 import tfs
@@ -21,6 +23,7 @@ from pyhdtoolkit.cpymadtools.constants import (
 from pyhdtoolkit.cpymadtools.lhc import (
     _all_lhc_arcs,
     _get_k_strings,
+    add_markers_around_lhc_ip,
     apply_lhc_colinearity_knob,
     apply_lhc_colinearity_knob_delta,
     apply_lhc_coupling_knob,
@@ -257,6 +260,24 @@ def test_makethin_lhc(_matched_lhc_madx):
     tracks = tracks_dict["observation_point_1"]
     assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
     assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
+
+
+@pytest.mark.parametrize("markers", [100, 1000])
+@pytest.mark.parametrize("ip", [1, 2, 5, 8])
+def test_add_ip_markers(_non_matched_lhc_madx, markers, ip):
+    madx = _non_matched_lhc_madx
+    re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
+    madx.use(sequence="lhcb1")
+    init_twiss = madx.twiss().dframe().copy()
+    ip_s = init_twiss.s[f"ip{ip:d}"]
+    init_twiss = init_twiss[init_twiss.s.between(ip_s - 15, ip_s + 15)]
+
+    make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+    add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=ip, n_markers=markers, interval=0.001)
+    new_twiss = madx.twiss().dframe().copy()
+    new_twiss = new_twiss[new_twiss.s.between(ip_s - 15, ip_s + 15)]
+
+    assert len(init_twiss) < len(new_twiss)
 
 
 @pytest.mark.parametrize("start_point", ["IP3", "MSIA.EXIT.B1"])
