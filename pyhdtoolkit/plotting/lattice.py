@@ -184,6 +184,12 @@ def plot_machine_survey(
 
     Returns:
         The `~matplotlib.axes.Axes` on which the survey is drawn.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(6, 6))
+            >>> plot_machine_survey(madx, title="Machine Layout", show_elements=True, high_orders=True)
     """
     logger.debug("Plotting machine survey")
     logger.trace("Getting machine survey from cpymad")
