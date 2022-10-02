@@ -15,6 +15,11 @@ Breaking Changes
 * The `~pyhdtoolkit.plotting.sbs.utils` module has been merged into `~pyhdtoolkit.plotting.utils`.
 * The `~pyhdtoolkit.cpymadtools.plotters.DynamicAperture` functionality has been completely removed.
 
+Enhancements
+~~~~~~~~~~~~
+
+* The machine layout plotting functionality has been made public api in a dedicated module, `~pyhdtoolkit.plotting.layout`.
+
 Maintenance
 ~~~~~~~~~~~
 
