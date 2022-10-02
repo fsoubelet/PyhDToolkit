@@ -822,6 +822,11 @@ def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int
         n_markers (int): how many markers to add on each side of the IP.
         interval (float): the distance between markers, in [m]. Giving ``interval=0.05`` will
             place a marker every 5cm (starting 5cm away from the IP on each side).
+
+    Example:
+        .. code-block:: python
+
+            >>> add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001)
     """
     logger.debug(f"Adding {n_markers:d} markers on each side of IP{ip:d}")
     madx.command.seqedit(sequence=sequence)
