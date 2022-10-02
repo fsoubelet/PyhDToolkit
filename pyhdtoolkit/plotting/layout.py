@@ -1,12 +1,13 @@
 """
-.. _plotting-utils:
+.. _plotting-layout:
 
-Plotting Utility Functions
---------------------------
+Layout Plotters
+---------------
 
-Module with functions used to represent a machine' elements in an axis, mostly used
-in different `~pyhdtoolkit.plotting` modules.
+Module with functions used to represent a machine' elements in an `~matplotlib.axes.Axes`
+object, mostly used in different `~pyhdtoolkit.plotting` modules.
 """
+from cmath import log
 from typing import Tuple
 
 import matplotlib
@@ -17,13 +18,16 @@ import pandas as pd
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.plotting.utils import _get_twiss_table_with_offsets_and_limits, make_elements_groups
+from pyhdtoolkit.plotting.utils import (
+    _get_twiss_table_with_offsets_and_limits,
+    make_elements_groups,
+    maybe_get_ax,
+)
 
 
 def plot_machine_layout(
     madx: Madx,
-    axis: matplotlib.axes.Axes,
-    title: str,
+    title: str = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
@@ -59,10 +63,7 @@ def plot_machine_layout(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
-        axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` axis on draw the elements. By definition,
-            the quadrupole elements will be drawn, and for each new element type a call to `~matplotlib.axes.Axes.twinx`
-            is made and the new elements will be drawn on the newly created twin `~matplotlib.axes.Axes`.
-            title (Optional[str]): title of the `~matplotlib.axes.Axes`.
+        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
@@ -92,9 +93,20 @@ def plot_machine_layout(
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
         **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
-            to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+            to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw``
+            etc. If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the axis
+            object to plot on. By definition, the quadrupole elements will be drawn on said axis, and for each
+            new element type to plot a call to `~matplotlib.axes.Axes.twinx` is made and the new elements will
+            be drawn on the newly created twin `~matplotlib.axes.Axes`.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(6, 2))
+            >>> plot_machine_layout(madx, title="Machine Elements", lw=3)
     """
     # pylint: disable=too-many-arguments
+    axis, kwargs = maybe_get_ax(**kwargs)
     twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
     logger.trace("Extracting element-specific dataframes")
@@ -112,7 +124,8 @@ def plot_machine_layout(
     axis.set_ylabel("$1/f=K_{1}L$ $[m^{-1}]$", color="red")  # quadrupole in red
     axis.tick_params(axis="y", labelcolor="red")
     axis.set_ylim(k1l_lim)
-    axis.set_xlim(xlimits)
+    if xlimits is not None:
+        axis.set_xlim(xlimits)
     axis.set_title(title)
     axis.plot(twiss_df.s, 0 * twiss_df.s, "k")  # 0-level line
     axis.grid(False)
@@ -277,4 +290,5 @@ def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> Tupl
     logger.debug(f"Determining '{col}_lim' based on plotted data")
     max_val = df[col].abs().max()
     max_val_scaled = coeff * max_val
+    logger.debug(f"Determined '{col}_lim' are: (-{max_val_scaled}, {max_val_scaled})")
     return (-max_val_scaled, max_val_scaled)
