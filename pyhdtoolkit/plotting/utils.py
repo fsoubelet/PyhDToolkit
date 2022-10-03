@@ -97,6 +97,43 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
     return distance
 
 
+def get_lhc_ips_positions(dataframe: pd.DataFrame) -> Dict[str, float]:
+    """
+    .. versionadded:: 1.0.0
+
+    Returns a `dict` of LHC IPs and their positions from the provided *dataframe*.
+
+    .. important::
+        This function expects the IP names to be in the dataframe's index,
+        and cased as the longitudinal coordinate column: aka uppercase names
+        (``IP1``, ``IP2``, etc) and ``S`` column; or lowercase names
+        (``ip1``, ip2``, etc) and ``s`` column.
+
+    Args:
+        dataframe (pandas.DataFrame): a `~pandas.DataFrame` containing at least
+            IP positions. A typical example is a ``TWISS`` call output.
+
+    Returns:
+        A `dict` with IP names as keys and their longitudinal locations as values.
+
+    Example:
+        .. code-block:: python
+
+            >>> twiss_df = tfs.read("twiss_output.tfs", index="NAME")
+            >>> ips = get_lhc_ips_positions(twiss_df)
+    """
+    logger.debug("Extracting IP positions from dataframe")
+    try:
+        ip_names = [f"IP{i:d}" for i in range(1, 9)]
+        ip_pos = dataframe.loc[ip_names, "S"].to_numpy()
+    except KeyError:
+        logger.trace("Attempting to extract with lowercase names")
+        ip_names = [f"ip{i:d}" for i in range(1, 9)]
+        ip_pos = dataframe.loc[ip_names, "s"].to_numpy()
+    ip_names = [name.upper() for name in ip_names]  # make sure to uppercase now
+    return dict(zip(ip_names, ip_pos))
+
+
 def make_elements_groups(
     madx: Madx, xoffset: float = 0, xlimits: Tuple[float, float] = None
 ) -> Dict[str, pd.DataFrame]:
@@ -165,6 +202,62 @@ def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
 
 
 # ----- Plotting Utilities -----#
+
+
+def draw_ip_locations(
+    ip_positions: Dict[str, float] = None,
+    lines: bool = True,
+    location: str = "outside",
+    **kwargs,
+) -> None:
+    """
+    .. versionadded:: 1.0.0
+
+    Plots the interaction points' locations into the background of your `~matplotlib.axes.Axes`.
+
+    Args:
+        ip_positions (dict): a `dict` containing IP names as keys and their longitudinal positions
+            as values, as returned by `~.get_lhc_ips_positions`.
+        lines (bool): whether to also draw vertical lines at the IP positions. Defaults to `True`.
+        location: where to show the IP names on the provided *axis*, either ``inside`` (will draw text
+            at the bottom of the axis) or ``outside`` (will draw text on top of the axis). If `None` is
+            given, then no labels are drawn. Defaults to ``outside``.
+        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as
+            the axis object to plot on.
+
+    Example:
+        .. code-block:: python
+
+            >>> twiss_df = tfs.read("twiss_output.tfs", index="NAME")
+            >>> twiss_df.plot(x="S", y=["BETX", "BETY"])
+            >>> ips = get_lhc_ips_positions(twiss_df)
+            >>> draw_ip_locations(ip_positions=ips)
+    """
+    axis, kwargs = maybe_get_ax(**kwargs)
+    xlimits = axis.get_xlim()
+    ylimits = axis.get_ylim()
+
+    # Draw for each IP
+    for ip_name, ip_xpos in ip_positions.items():
+        if xlimits[0] <= ip_xpos <= xlimits[1]:  # only plot if within plot's xlimits
+            if lines:
+                logger.debug(f"Drawing dashed axvline at location of {ip_name}")
+                axis.axvline(ip_xpos, linestyle=":", color="grey", marker="", zorder=0)
+
+            if location is not None and isinstance(location, str):
+                inside: bool = location.lower() == "inside"
+                logger.debug(f"Drawing name indicator for {ip_name}")
+                # drawing ypos is lower end of ylimits if drawing inside, higher end if drawing outside
+                ypos = ylimits[not inside] + (ylimits[1] + ylimits[0]) * 0.01
+                c = "grey" if inside else matplotlib.rcParams["text.color"]  # match axis ticks color
+                fontsize = plt.rcParams["xtick.labelsize"]  # match the xticks size
+                axis.text(ip_xpos, ypos, ip_name, color=c, ha="center", va="bottom", size=fontsize)
+
+        else:
+            logger.debug(f"Skipping {ip_name} as its position is outside of the plot's xlimits")
+
+    axis.set_xlim(xlimits)
+    axis.set_ylim(ylimits)
 
 
 def set_arrow_label(
