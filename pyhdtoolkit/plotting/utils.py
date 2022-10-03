@@ -80,7 +80,7 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
 
             >>> ip_offset_in_segment = find_ip_s_from_segment_start(
             ...     segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1
-            )
+            ... )
     """
     logger.debug(f"Determining location of IP{ip:d} from the start of segment.")
     first_element: str = segment_df.NAME.to_numpy()[0]
