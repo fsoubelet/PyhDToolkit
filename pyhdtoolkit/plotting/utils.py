@@ -61,68 +61,6 @@ def maybe_get_ax(**kwargs):
     return ax, dict(kwargs)
 
 
-def set_arrow_label(
-    axis: matplotlib.axes.Axes,
-    label: str,
-    arrow_position: Tuple[float, float],
-    label_position: Tuple[float, float],
-    color: str = "k",
-    arrow_arc_rad: float = -0.2,
-    fontsize: int = 20,
-    **kwargs,
-) -> matplotlib.text.Annotation:
-    """
-    .. versionadded:: 0.6.0
-
-    Adds on the provided `matplotlib.axes.Axes` a label box with text and an arrow from the box to a specified position.
-    Original code from :user:`Guido Sterbini <sterbini>`.
-
-    Args:
-        axis (matplotlib.axes.Axes): a `matplotlib.axes.Axes` to plot on.
-        label (str): label text to print on the axis.
-        arrow_position (Tuple[float, float]): where on the plot to point the tip of the arrow.
-        label_position (Tuple[float, float]): where on the plot the text label (and thus start
-            of the arrow) is.
-        color (str): color parameter for your arrow and label. Defaults to "k".
-        arrow_arc_rad (float): angle value defining the upwards / downwards shape of and
-            bending of the arrow.
-        fontsize (int): text size in the box.
-        **kwargs: additional keyword arguments are transmitted to `~matplotlib.axes.Axes.annotate`.
-            If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
-            axis object to plot on.
-
-    Returns:
-        A `matploblit.text.Annotation` of the created annotation.
-
-    Example:
-        .. code-block:: python
-
-            >>> set_arrow_label(
-            ...     label="Your label",
-            ...     arrow_position=(1, 2),
-            ...     label_position=(1.1 * some_value, 0.75 * another_value),
-            ...     color="indianred",
-            ...     arrow_arc_rad=0.3,
-            ...     fontsize=25,
-            ... )
-    """
-    axis, kwargs = maybe_get_ax(**kwargs)
-    return axis.annotate(
-        label,
-        xy=arrow_position,
-        xycoords="data",
-        xytext=label_position,
-        textcoords="data",
-        size=fontsize,
-        color=color,
-        va="center",
-        ha="center",
-        bbox=dict(boxstyle="round4", fc="w", color=color, lw=2),
-        arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2),
-        **kwargs,
-    )
-
-
 def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.TfsDataFrame, ip: int) -> float:
     """
     .. versionadded:: 0.19.0
@@ -224,6 +162,71 @@ def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
         "sextupoles": survey_df[survey_df.index.isin(element_dfs["sextupoles"].index.tolist())],
         "octupoles": survey_df[survey_df.index.isin(element_dfs["octupoles"].index.tolist())],
     }
+
+
+# ----- Plotting Utilities -----#
+
+
+def set_arrow_label(
+    axis: matplotlib.axes.Axes,
+    label: str,
+    arrow_position: Tuple[float, float],
+    label_position: Tuple[float, float],
+    color: str = "k",
+    arrow_arc_rad: float = -0.2,
+    fontsize: int = 20,
+    **kwargs,
+) -> matplotlib.text.Annotation:
+    """
+    .. versionadded:: 0.6.0
+
+    Adds on the provided `matplotlib.axes.Axes` a label box with text and an arrow from the box to a specified position.
+    Original code from :user:`Guido Sterbini <sterbini>`.
+
+    Args:
+        axis (matplotlib.axes.Axes): a `matplotlib.axes.Axes` to plot on.
+        label (str): label text to print on the axis.
+        arrow_position (Tuple[float, float]): where on the plot to point the tip of the arrow.
+        label_position (Tuple[float, float]): where on the plot the text label (and thus start
+            of the arrow) is.
+        color (str): color parameter for your arrow and label. Defaults to "k".
+        arrow_arc_rad (float): angle value defining the upwards / downwards shape of and
+            bending of the arrow.
+        fontsize (int): text size in the box.
+        **kwargs: additional keyword arguments are transmitted to `~matplotlib.axes.Axes.annotate`.
+            If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
+            axis object to plot on.
+
+    Returns:
+        A `matploblit.text.Annotation` of the created annotation.
+
+    Example:
+        .. code-block:: python
+
+            >>> set_arrow_label(
+            ...     label="Your label",
+            ...     arrow_position=(1, 2),
+            ...     label_position=(1.1 * some_value, 0.75 * another_value),
+            ...     color="indianred",
+            ...     arrow_arc_rad=0.3,
+            ...     fontsize=25,
+            ... )
+    """
+    axis, kwargs = maybe_get_ax(**kwargs)
+    return axis.annotate(
+        label,
+        xy=arrow_position,
+        xycoords="data",
+        xytext=label_position,
+        textcoords="data",
+        size=fontsize,
+        color=color,
+        va="center",
+        ha="center",
+        bbox=dict(boxstyle="round4", fc="w", color=color, lw=2),
+        arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color, lw=2),
+        **kwargs,
+    )
 
 
 # ----- Private Helpers ----- #
