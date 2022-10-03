@@ -35,6 +35,9 @@ The ``cpymadtools`` subpackage is a collection of utilities to conveniently hand
 .. automodule:: pyhdtoolkit.cpymadtools.ptc
    :members:
 
+.. automodule:: pyhdtoolkit.cpymadtools.setup
+   :members:
+
 .. automodule:: pyhdtoolkit.cpymadtools.track
    :members:
 
