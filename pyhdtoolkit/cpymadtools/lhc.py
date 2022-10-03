@@ -27,6 +27,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     MONITOR_TWISS_COLUMNS,
 )
 from pyhdtoolkit.cpymadtools.utils import _get_k_strings
+from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
 # ----- Setup Utlites ----- #
 
@@ -1076,6 +1077,39 @@ def get_lhc_bpms_twiss_and_rdts(madx: Madx) -> tfs.TfsDataFrame:
     twiss_tfs.NAME = twiss_tfs.NAME.str.upper()
     twiss_tfs[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_tfs, output=["rdts"])
     return twiss_tfs
+
+
+def get_sizes_at_ip(madx: Madx, ip: int, geom_emit_x: float = None, geom_emit_y: float = None) -> Tuple[float, float]:
+    """
+    .. versionadded:: 1.0.0
+
+    Get the Lebedev beam sizes (horizontal and vertical) at the provided LHC *ip*.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        ip (int): the IP to get the sizes at.
+        geom_emit_x (float): the horizontal geometrical emittance to use for the
+            calculation. If not provided, will look for the values of the
+            ``geometric_emit_x`` variable in ``MAD-X``.
+        geom_emit_y (float): the vertical geometrical emittance to use for the
+            calculation. If not provided, will look for the values of the
+            ``geometric_emit_y`` variable in ``MAD-X``.
+
+    Returns:
+        A tuple of the horizontal and vertical beam sizes at the provided *IP*.
+
+    Example:
+        .. code-block:: python
+
+            >>> ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
+    """
+    logger.debug(f"Getting horizotnal and vertical sizes at IP{ip:d} through Ripken parameters")
+    geom_emit_x = geom_emit_x or madx.globals["geometric_emit_x"]
+    geom_emit_y = geom_emit_y or madx.globals["geometric_emit_y"]
+
+    twiss_tfs = twiss.get_twiss_tfs(madx, chrom=True, ripken=True)
+    twiss_tfs = _add_beam_size_to_df(twiss_tfs, geom_emit_x, geom_emit_y)
+    return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y
 
 
 # ----- Helpers ----- #
