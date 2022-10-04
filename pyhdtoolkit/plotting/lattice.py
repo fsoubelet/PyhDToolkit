@@ -11,15 +11,16 @@ from typing import Optional, Tuple
 import matplotlib
 import matplotlib.axes
 import matplotlib.pyplot as plt
+import pandas as pd
 
 from cpymad.madx import Madx
 from loguru import logger
 
+from pyhdtoolkit.plotting.layout import plot_machine_layout
 from pyhdtoolkit.plotting.utils import (
     _get_twiss_table_with_offsets_and_limits,
     make_survey_groups,
     maybe_get_ax,
-    plot_machine_layout,
 )
 
 
@@ -183,6 +184,12 @@ def plot_machine_survey(
 
     Returns:
         The `~matplotlib.axes.Axes` on which the survey is drawn.
+
+    Example:
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(6, 6))
+            >>> plot_machine_survey(madx, title="Machine Layout", show_elements=True, high_orders=True)
     """
     logger.debug("Plotting machine survey")
     logger.trace("Getting machine survey from cpymad")

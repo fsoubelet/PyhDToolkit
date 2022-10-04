@@ -15,6 +15,18 @@ Breaking Changes
 * The `~pyhdtoolkit.plotting.sbs.utils` module has been merged into `~pyhdtoolkit.plotting.utils`.
 * The `~pyhdtoolkit.cpymadtools.plotters.DynamicAperture` functionality has been completely removed.
 
+Enhancements
+~~~~~~~~~~~~
+
+* The machine layout plotting functionality has been made public api in a dedicated module, `~pyhdtoolkit.plotting.layout`.
+* A new module has been added to the `~pyhdtoolkit.cpymadtools`, `~pyhdtoolkit.cpymadtools.setup`, with functions to conveniently set up a `~cpymad.madx.Madx` instance for either the Run 2 or Run 3 of the ``LHC``, also as a context manager.
+* A new module has been added in `~pyhdtoolkit.plotting`, `~pyhdtoolkit.plotting.layout`, to make public the API to plot a machine's element onto an axis.
+* New function in `~pyhdtoolkit.cpymadtools.lhc`, `~pyhdtoolkit.cpymadtools.lhc.add_markers_around_lhc_ip`, to do exactly that, for high granularity of calculations around the IP point.
+* New function in `~pyhdtoolkit.cpymadtools.lhc`, `~pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip`, to compute horizontal and vertical beam sizes at a given IP through ``Ripken`` parameters, which will be accurate in the presence of coupling.
+* New function in `~pyhdtoolkit.plotting.utils`, `~pyhdtoolkit.plotting.utils.get_lhc_ips_positions`, to get a `dict` of different IP elements and their ``S`` coordinates.
+* New function in `~pyhdtoolkit.plotting.utils`, `~pyhdtoolkit.plotting.utils.draw_ip_locations`, to highlight the positions of given IPs onto the current axis as vertical lines, potentially also writing out their names.
+* The element plotting functionality handled by `~pyhdtoolkit.plotting.layout.plot_machine_layout` now determines reasonable default ``ylimits`` if none were provided. This allowed removing hardcoded default values of these limits, and should help get a good looking plot for any machine by default.
+
 Maintenance
 ~~~~~~~~~~~
 

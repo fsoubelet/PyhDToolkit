@@ -28,7 +28,7 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching
 from pyhdtoolkit.plotting.lattice import plot_latwiss
-from pyhdtoolkit.utils import _misc, defaults
+from pyhdtoolkit.utils import defaults
 
 defaults.config_logger(level="warning")
 plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
@@ -183,7 +183,7 @@ with Madx(stdout=False) as madx:
     lhc.re_cycle_sequence(madx, sequence=f"lhcb1", start=f"MSIA.EXIT.B1")
     madx.command.use(sequence=f"lhcb1")
     lhc.make_lhc_thin(madx, sequence=f"lhcb1", slicefactor=4)
-    _misc.add_markers_around_lhc_ip(
+    lhc.add_markers_around_lhc_ip(
         madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
     )
     madx.command.twiss()
@@ -305,8 +305,8 @@ betaw = around_ip.betx.min()
 # or right Q1) is then easily calculated. We can then compare this value to the
 # one found with the markers we previously added, and they are fairly close.
 waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
-print(waist)  # analytical
-print(shift)  # markers
+print(f"Analytical: {waist}")
+print(f"Markers: {shift}")
 
 #############################################################################
 #
@@ -315,6 +315,6 @@ print(shift)  # markers
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`
+#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`, `~.lhc.add_markers_around_lhc_ip`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
 #    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`

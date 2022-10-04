@@ -83,7 +83,7 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     raise NotImplementedError(f"Invalid method provided")
 
 
-def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y) -> tfs.TfsDataFrame:
+def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y: float) -> tfs.TfsDataFrame:
     """
     Adds columns with the horizontal and vertical Lebedev beam sizes to a dataframe
     that already contains Ripken Twiss parameters. Assumes that the geometrical emittance

@@ -151,7 +151,7 @@ def plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwa
         order (int): the order of the resonance.
         axis (matplotlib.axes.Axes): the `~matplotlib.axes.Axes` on which to plot
             the resonance lines.
-        **kwargs: any keyword argument is given to `~matplotlib.pyplt.plot`.
+        **kwargs: any keyword argument is given to `~matplotlib.pyplot.plot`.
 
     Example:
         .. code-block:: python

@@ -20,8 +20,8 @@ def test_plot_tune_diagram_fails_on_too_high_order(max_order, caplog):
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_tune_diagram():
     """Does not need any input."""
-    figure = plt.figure(figsize=(10, 10))
-    plot_tune_diagram()
+    figure, axis = plt.subplots(figsize=(10, 10))
+    plot_tune_diagram(ax=axis)
     return figure
 
 

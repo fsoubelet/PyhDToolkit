@@ -1,13 +1,16 @@
 import math
 import pathlib
 
+import matplotlib.pyplot as plt
 import pytest
 import tfs
 
 from pyhdtoolkit.plotting.utils import (
     _determine_default_sbs_coupling_ylabel,
     _determine_default_sbs_phase_ylabel,
+    draw_ip_locations,
     find_ip_s_from_segment_start,
+    get_lhc_ips_positions,
 )
 
 CURRENT_DIR = pathlib.Path(__file__).parent
@@ -66,6 +69,19 @@ def test_phase_ylabel(plane):
 def test_phase_ylabel_raises_on_invalid_rdt(plane):
     with pytest.raises(AssertionError):
         _determine_default_sbs_phase_ylabel(plane)
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_ip_locations(_non_matched_lhc_madx):
+    # tests both querying the locations and adding them on a plot
+    madx = _non_matched_lhc_madx
+    twiss_df = madx.twiss().dframe().copy()
+    ips_dict = get_lhc_ips_positions(twiss_df)
+
+    figure, ax = plt.subplots(figsize=(10, 6))
+    twiss_df.plot(ax=ax, x="s", y=["betx", "bety"])
+    draw_ip_locations(ips_dict)
+    return figure
 
 
 # ----- Fixtures ----- #

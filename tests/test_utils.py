@@ -16,7 +16,7 @@ import pytest
 from loguru import logger
 from rich.table import Table
 
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.utils import defaults, deprecated
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.htc_monitor import (
@@ -38,11 +38,20 @@ INPUTS_DIR = CURRENT_DIR / "inputs"
 
 
 def _square(integer: int) -> int:
-    return integer**2
+    return integer ** 2
 
 
 def _to_str(integer: int) -> str:
     return str(integer)
+
+
+def test_deprecation_decorator():
+    @deprecated("This is a test")
+    def some_func(a, b):
+        return a + b
+
+    with pytest.warns(DeprecationWarning):
+        some_func(1, 2)
 
 
 @pytest.mark.skipif(sys.platform.startswith("win"), reason="Windows is a shitshow for this.")
@@ -416,7 +425,7 @@ class TestMultiProcessorExecutor:
         "function, inputs, results",
         [
             (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
+            (_square, [10 * i for i in range(10)], [e ** 2 for e in [10 * i for i in range(10)]]),
             (_to_str, list(range(6)), [str(e) for e in range(6)]),
             (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
         ],
@@ -435,7 +444,7 @@ class TestMultiThreaderExecutor:
         "function, inputs, results",
         [
             (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
+            (_square, [10 * i for i in range(10)], [e ** 2 for e in [10 * i for i in range(10)]]),
             (_to_str, list(range(6)), [str(e) for e in range(6)]),
             (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
         ],
@@ -641,6 +650,9 @@ class TestStringOperations:
     def test_snake_case_fails(self, word, error):
         with pytest.raises(error):
             StringOperations.snake_case(word)
+
+
+# ----- Fixtures ----- #
 
 
 @pytest.fixture()
