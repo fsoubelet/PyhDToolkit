@@ -206,9 +206,8 @@ class LHCSetup:
         if int(run) not in (2, 3):
             raise NotImplementedError("This setup is only possible for Run 2 and Run 3 configurations.")
         elif run == 2:
-            stdout, stderr = kwargs.pop("stdout", False), kwargs.pop("stderr", False)
             self.madx = prepare_lhc_run2(
-                opticsfile=opticsfile, beam=beam, energy=energy, stdout=stdout, stderr=stderr, **kwargs
+                opticsfile=opticsfile, beam=beam, energy=energy, slicefactor=slicefactor, **kwargs
             )
         else:
             self.madx = prepare_lhc_run3(
