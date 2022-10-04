@@ -61,7 +61,6 @@ def test_complex_cminus_from_coupling_rdts(_non_matched_lhc_madx, filtering):
     """Using LHC lattice."""
     madx = _non_matched_lhc_madx
     apply_lhc_coupling_knob(madx, 2e-3, telescopic_squeeze=True)
-    # match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
 
     complex_cminus = get_cminus_from_coupling_rdts(madx, method="teapot", filtering=filtering)
     assert np.isclose(np.abs(complex_cminus), 2e-3, rtol=1e-1)  # let's say 10% here too
