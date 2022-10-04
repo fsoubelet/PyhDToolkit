@@ -97,6 +97,7 @@
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -126,6 +127,7 @@
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html#layout-plotters">Layout Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
@@ -162,6 +164,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-0-0">Version 1.0.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.0.0.html">1.0.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-0-21-0">Version 0.21.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v0.21.0.html">0.21.0</a></li>
 </ul>
@@ -736,93 +742,6 @@ of the user as well as all users’ statistics on this scheduler cluster.</p>
 <p>The functions in here are intented for personal use, and will most likely
 <strong>not</strong> work on other people’s machines.</p>
 </div>
-<dl class="py class">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.LHCSetup">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">LHCSetup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">run</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6800</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slicefactor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#LHCSetup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.LHCSetup" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.21.0.</span></p>
-</div>
-<p>This is a context manager to prepare LHC Run 2 or Run 3 setup: calling sequences and opticsfile,
-re-cycling like the model creator, making beams, slicing, etc. For details on the achieved setups,
-look at the <a class="reference internal" href="#pyhdtoolkit.utils._misc.prepare_lhc_run2" title="pyhdtoolkit.utils._misc.prepare_lhc_run2"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_lhc_run2</span></code></a> or <a class="reference internal" href="#pyhdtoolkit.utils._misc.prepare_lhc_run3" title="pyhdtoolkit.utils._misc.prepare_lhc_run3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_lhc_run3</span></code></a> function.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>For the Run 3 setup, it is assumed that the <strong>acc-models-lhc</strong> repo is available in the root space.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Matching is <strong>not</strong> performed by this setup and should be taken care of by the user, but the working point
-should be set by the definitions in the <em>opticsfile</em>. Beware that passing specific variables as keyword arguments
-might change that working point.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>run</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- which run to set up for, should be 2 or 3. Defaults to run 3.</p></li>
-<li><p><strong>opticsfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- name of the optics file to be used. Can be the string path to the file or only the opticsfile
-name itself, which would be looked for at the <strong>acc-models-lhc/operation/optics/</strong> path. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
-which will raise an error.</p></li>
-<li><p><strong>beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- which beam to set up for. Defaults to beam 1.</p></li>
-<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- beam energy to set up for, in GeV. Defaults to 6800.</p></li>
-<li><p><strong>slicefactor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- if provided, the sequence will be sliced and made thin. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
-which leads to an unsliced sequence.</p></li>
-<li><p><strong>**kwargs</strong> -- if <code class="xref py py-obj docutils literal notranslate"><span class="pre">echo</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">warn</span></code> are found in the keyword arguments they will be transmitted as options to <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.
-Any other keyword argument is transmitted to the <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> creation call.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An instanciated context manager <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object with the required configuration.</p>
-</dd>
-<dt class="field-odd">Raises</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#NotImplementedError" title="(in Python v3.10)"><strong>NotImplementedError</strong></a> -- if the <em>run</em> argument is not 2 or 3.</p></li>
-<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.10)"><strong>AssertionError</strong></a> -- if the <em>opticsfile</em> argument is not provided.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition-example admonition">
-<p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">LHCRun3Setup</span><span class="p">(</span><span class="n">run</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">opticsfile</span><span class="o">=</span><span class="s2">&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">as</span> <span class="n">madx</span><span class="p">:</span>
-<span class="gp">... </span>   <span class="c1"># do some stuff</span>
-</pre></div>
-</div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.add_markers_around_lhc_ip">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_markers_around_lhc_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">madx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_markers</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">interval</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_markers_around_lhc_ip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_markers_around_lhc_ip" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.18.0.</span></p>
-</div>
-<p>Adds some simple marker elements left and right of an IP point, to increase the granularity of optics
-functions returned from a <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> call.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>You will most likely need to have sliced the sequence before calling this function,
-as otherwise there is a risk on getting a negative drift depending on the affected
-IP. This would lead to the remote <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> process to crash.</p>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>After editing the <em>sequence</em> to add markers, the <code class="docutils literal notranslate"><span class="pre">USE</span></code> command will be run for the changes to apply.
-This means the caveats of <code class="docutils literal notranslate"><span class="pre">USE</span></code> apply, for instance the erasing of previously defined errors, orbits
-corrections etc.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object.</p></li>
-<li><p><strong>sequence</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- which sequence to use the routine on.</p></li>
-<li><p><strong>ip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- The interaction point around which to add markers.</p></li>
-<li><p><strong>n_markers</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- how many markers to add on each side of the IP.</p></li>
-<li><p><strong>interval</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- the distance between markers, in [m]. Giving <code class="docutils literal notranslate"><span class="pre">interval=0.05</span></code> will
-place a marker every 5cm (starting 5cm away from the IP on each side).</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.apply_colin_corrs_balance">
 <span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">apply_colin_corrs_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">madx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#apply_colin_corrs_balance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.apply_colin_corrs_balance" title="Permalink to this definition"></a></dt>
@@ -839,61 +758,6 @@ be added and studied in the machine, pretending a perfect local coupling correct
 <code class="docutils literal notranslate"><span class="pre">LHC</span></code> setup.</p>
 </dd>
 </dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.call_lhc_sequence_and_optics">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">call_lhc_sequence_and_optics</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">madx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'opticsfile.22'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#call_lhc_sequence_and_optics"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.call_lhc_sequence_and_optics" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.16.0.</span></p>
-</div>
-<p>Issues a <code class="docutils literal notranslate"><span class="pre">CALL</span></code> to the <code class="docutils literal notranslate"><span class="pre">LHC</span></code> sequence and the desired opticsfile, from the appropriate
-location (either on <code class="docutils literal notranslate"><span class="pre">AFS</span></code> or locally), based on the runtime location of the code.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object.</p></li>
-<li><p><strong>opticsfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- name of the optics file to call. Defaults to <strong>opticsfile.22</strong>, which
-holds <code class="docutils literal notranslate"><span class="pre">LHC</span></code> collisions optics configuration (<code class="xref py py-obj docutils literal notranslate"><span class="pre">beta*_IP1/2/5/8=</span>&#160; <span class="pre">0.300/10.000/0.300/3.000</span> <span class="pre">;</span>
-<span class="pre">!</span> <span class="pre">Telescopic</span> <span class="pre">squeeze</span> <span class="pre">(with</span> <span class="pre">Q6&#64;300A)</span></code>).</p></li>
-</ul>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> -- If the program is running in an unknown location  (neither <code class="xref py py-obj docutils literal notranslate"><span class="pre">afs</span></code> nor <code class="xref py py-obj docutils literal notranslate"><span class="pre">local</span></code>), and the
-    files cannot be found in the expected directories.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.draw_ip_locations">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">draw_ip_locations</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.0)"><span class="pre">matplotlib.axes._axes.Axes</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip_positions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'outside'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#draw_ip_locations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.draw_ip_locations" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.18.0.</span></p>
-</div>
-<p>Plots the interaction points’ locations into the background of the provided <em>axis</em>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>axis</strong> -- <a class="reference external" href="https://matplotlib.org/stable/api/axes_api.html#matplotlib.axes.Axes" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Axes</span></code></a> to put the labels on. Defaults to <code class="xref py py-obj docutils literal notranslate"><span class="pre">plt.gca()</span></code>.</p></li>
-<li><p><strong>ip_positions</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) -- a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> containing IP names as keys and their longitudinal positions
-as values, as returned by <a class="reference internal" href="#pyhdtoolkit.utils._misc.get_lhc_ips_positions" title="pyhdtoolkit.utils._misc.get_lhc_ips_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_lhc_ips_positions</span></code></a>.</p></li>
-<li><p><strong>lines</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) -- whether to also draw vertical lines at the IP positions. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
-<li><p><strong>location</strong> -- where to show the IP names on the provided <em>axis</em>, either <code class="docutils literal notranslate"><span class="pre">inside</span></code> (will draw text
-at the bottom of the axis) or <code class="docutils literal notranslate"><span class="pre">outside</span></code> (will draw text on top of the axis). If <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a> is
-given, then no labels are drawn. Defaults to <code class="docutils literal notranslate"><span class="pre">outside</span></code>.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.fullpath">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">fullpath</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filepath</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">pathlib.Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#fullpath"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.fullpath" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.16.0.</span></p>
-</div>
-<p>Returns the full string path to the provided <em>filepath</em>, which is necessary for <code class="docutils literal notranslate"><span class="pre">AFS</span></code> paths.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -920,186 +784,12 @@ is the same for IP1 and IP5. The values returned are in meters.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.get_lhc_ips_positions">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">get_lhc_ips_positions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dataframe</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><span class="pre">Dict</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#get_lhc_ips_positions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.get_lhc_ips_positions" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.18.0.</span></p>
-</div>
-<p>Returns a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of LHC IP and their positions from the provided <em>dataframe</em>.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This function expects the IP names to be in the dataframe’s index,
-and cased as the longitudinal coordinate column: aka uppercase names
-(<code class="docutils literal notranslate"><span class="pre">IP1</span></code>, <code class="docutils literal notranslate"><span class="pre">IP2</span></code>, etc) and <code class="docutils literal notranslate"><span class="pre">S</span></code> column; or lowercase names
-(<code class="docutils literal notranslate"><span class="pre">ip1</span></code>, ip2``, etc) and <code class="docutils literal notranslate"><span class="pre">s</span></code> column.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>dataframe</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) -- a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> containing IP positions.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> with IP names as keys and their longitudinal locations as values.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.get_opticsfiles_paths">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">get_opticsfiles_paths</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.10)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#get_opticsfiles_paths"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.get_opticsfiles_paths" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.16.0.</span></p>
-</div>
-<p>Returns <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> objects to the <strong>opticsfiles</strong> from the appropriate location,
-depending on where the program is running, either on <code class="docutils literal notranslate"><span class="pre">AFS</span></code> or locally.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Only the “normal” configuration <strong>opticsfiles</strong> are returned, so those ending with
-a special suffix such as <strong>_ctpps1</strong> are ignored.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Path</span></code></a> objects to the opticsfiles.</p>
-</dd>
-<dt class="field-even">Raises</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> -- If the program is running in an unknown location (neither <code class="xref py py-obj docutils literal notranslate"><span class="pre">afs</span></code> nor <code class="xref py py-obj docutils literal notranslate"><span class="pre">local</span></code>).</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.get_size_at_ip">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">get_size_at_ip</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">madx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">ip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_emit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.10)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#get_size_at_ip"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.get_size_at_ip" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.20.0.</span></p>
-</div>
-<p>Get the Lebedev beam sides at the provided <em>IP</em>.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object.</p></li>
-<li><p><strong>ip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- the IP to get the sizes at.</p></li>
-<li><p><strong>geom_emit</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- the geometrical emittance to use for the calculation.
-If not provided, will look for the values of the <code class="docutils literal notranslate"><span class="pre">geometric_emit_x</span></code>
-and <code class="docutils literal notranslate"><span class="pre">geometric_emit_y</span></code> variables in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> itself.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A tuple of the horizontal and vertical beam sizes at the provided <em>IP</em>.</p>
-</dd>
-</dl>
-<div class="admonition-example admonition">
-<p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ip5_x</span><span class="p">,</span> <span class="n">ip5_y</span> <span class="o">=</span> <span class="n">get_size_at_ip</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</dd></dl>
-
-<dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.log_runtime_versions">
 <span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">log_runtime_versions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#log_runtime_versions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.log_runtime_versions" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.17.0.</span></p>
 </div>
 <p>Issues a <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code>-level log stating the runtime versions of both <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymad</span></code> and <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.prepare_lhc_run2">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">prepare_lhc_run2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'opticsfile.22'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">7000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></span><a class="headerlink" href="#pyhdtoolkit.utils._misc.prepare_lhc_run2" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.16.0.</span></p>
-</div>
-<p>Returns a prepared default <code class="docutils literal notranslate"><span class="pre">LHC</span></code> setup for the given <em>opticsfile</em>. Both beams are made with a default Run III
-configuration, and the <code class="docutils literal notranslate"><span class="pre">lhcb1</span></code> sequence is re-cycled from <code class="docutils literal notranslate"><span class="pre">MSIA.EXIT.B1</span></code> as in the <code class="docutils literal notranslate"><span class="pre">OMC</span></code> model_creator, and
-then <code class="docutils literal notranslate"><span class="pre">USE</span></code>-d. Specific variable settings can be given as keyword arguments.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Matching is <strong>not</strong> performed by this function and should be taken care of by the user, but the working point
-should be set by the definitions in the <em>opticsfile</em>. Beware that passing specific variables as keyword arguments
-might change that working point.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>opticsfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- name of the optics file to be used. Defaults to <strong>opticsfile.22</strong>.</p></li>
-<li><p><strong>beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- which beam to set up for. Defaults to beam 1.</p></li>
-<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- beam energy to set up for, in GeV. Defaults to 6800.</p></li>
-<li><p><strong>**kwargs</strong> -- any keyword argument pair will be used to update the <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> globals.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object with the required configuration.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.prepare_lhc_run3">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">prepare_lhc_run3</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">6800</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slicefactor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#prepare_lhc_run3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.prepare_lhc_run3" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.20.0.</span></p>
-</div>
-<p>Returns a prepared default <code class="docutils literal notranslate"><span class="pre">LHC</span></code> setup for the given <em>opticsfile</em>, for a Run 3 setup. Both beams
-are made with a default Run 3 configuration, and the provided sequence is re-cycled from <code class="docutils literal notranslate"><span class="pre">MSIA.EXIT.[B12]</span></code>
-as in the <code class="docutils literal notranslate"><span class="pre">OMC</span></code> model_creator, then <code class="docutils literal notranslate"><span class="pre">USE</span></code>-d. Specific variable settings can be given as keyword arguments.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>As this is a Run 3 setup, it is assumed that the <code class="docutils literal notranslate"><span class="pre">acc-models-lhc</span></code> repo is available in the root space.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Matching is <strong>not</strong> performed by this function and should be taken care of by the user, but the working point
-should be set by the definitions in the <em>opticsfile</em>. Beware that passing specific variables as keyword arguments
-might change that working point.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>opticsfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- name of the optics file to be used. Can be the string path to the file or only the opticsfile
-name itself, which would be looked for at the <strong>acc-models-lhc/operation/optics/</strong> path.</p></li>
-<li><p><strong>beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- which beam to set up for. Defaults to beam 1.</p></li>
-<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- beam energy to set up for, in GeV. Defaults to 6800.</p></li>
-<li><p><strong>slicefactor</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- if provided, the sequence will be sliced and made thin. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>,
-which leads to an unsliced sequence.</p></li>
-<li><p><strong>**kwargs</strong> -- if <code class="xref py py-obj docutils literal notranslate"><span class="pre">echo</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">warn</span></code> are found in the keyword arguments they will be transmitted as options to <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.
-Any other keyword argument is transmitted to the <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> creation call.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object with the required configuration.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.prepare_lhc_setup">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">prepare_lhc_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'opticsfile.22'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beam</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">7000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stderr</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#prepare_lhc_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.prepare_lhc_setup" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.16.0.</span></p>
-</div>
-<p>Returns a prepared default <code class="docutils literal notranslate"><span class="pre">LHC</span></code> setup for the given <em>opticsfile</em>. Both beams are made with a default Run III
-configuration, and the <code class="docutils literal notranslate"><span class="pre">lhcb1</span></code> sequence is re-cycled from <code class="docutils literal notranslate"><span class="pre">MSIA.EXIT.B1</span></code> as in the <code class="docutils literal notranslate"><span class="pre">OMC</span></code> model_creator, and
-then <code class="docutils literal notranslate"><span class="pre">USE</span></code>-d. Specific variable settings can be given as keyword arguments.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Matching is <strong>not</strong> performed by this function and should be taken care of by the user, but the working point
-should be set by the definitions in the <em>opticsfile</em>. Beware that passing specific variables as keyword arguments
-might change that working point.</p>
-</div>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>opticsfile</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- name of the optics file to be used. Defaults to <strong>opticsfile.22</strong>.</p></li>
-<li><p><strong>beam</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- which beam to set up for. Defaults to beam 1.</p></li>
-<li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- beam energy to set up for, in GeV. Defaults to 6800.</p></li>
-<li><p><strong>**kwargs</strong> -- any keyword argument pair will be used to update the <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> globals.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>An instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object with the required configuration.</p>
-</dd>
-</dl>
 </dd></dl>
 
 </section>

@@ -93,6 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -122,6 +123,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#layout-plotters">Layout Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
@@ -158,6 +160,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-0-0">Version 1.0.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.0.0.html">1.0.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-0-21-0">Version 0.21.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v0.21.0.html">0.21.0</a></li>
 </ul>
@@ -352,75 +358,18 @@
 
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">cpymad</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">pandas</span>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit</span> <span class="kn">import</span> <span class="n">__version__</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">errors</span><span class="p">,</span> <span class="n">lhc</span><span class="p">,</span> <span class="n">twiss</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.optics.ripken</span> <span class="kn">import</span> <span class="n">_add_beam_size_to_df</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">deprecated</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">errors</span>
 
 <span class="c1"># ----- Constants ----- #</span>
 
-<span class="n">CPUS</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span>
-<span class="n">HOME</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">())</span>
-
-<span class="c1"># Determine if running on afs or laptop / desktop</span>
-<span class="n">RUN_LOCATION</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;afs&quot;</span> <span class="k">if</span> <span class="s2">&quot;cern.ch&quot;</span> <span class="ow">in</span> <span class="n">HOME</span> <span class="ow">or</span> <span class="s2">&quot;fesoubel&quot;</span> <span class="ow">in</span> <span class="n">HOME</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;local&quot;</span> <span class="k">if</span> <span class="s2">&quot;Users&quot;</span> <span class="ow">in</span> <span class="n">HOME</span> <span class="ow">or</span> <span class="s2">&quot;/home&quot;</span> <span class="ow">in</span> <span class="n">HOME</span> <span class="k">else</span> <span class="kc">None</span><span class="p">)</span>
-<span class="p">)</span>
-
-<span class="n">PATHS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;optics2018&quot;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;/afs/cern.ch/eng/lhc/optics/runII/2018&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;local&quot;</span><span class="p">:</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;cernbox&quot;</span> <span class="o">/</span> <span class="s2">&quot;OMC&quot;</span> <span class="o">/</span> <span class="s2">&quot;MADX_scripts&quot;</span> <span class="o">/</span> <span class="s2">&quot;Local_Coupling&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;htc_outputdir&quot;</span><span class="p">:</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;Outputdata&quot;</span><span class="p">),</span>
-<span class="p">}</span>
-
-
-<span class="c1"># ----- Path and Runtime Utilities ----- #</span>
-
-
-<div class="viewcode-block" id="fullpath"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.fullpath">[docs]</a><span class="k">def</span> <span class="nf">fullpath</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.16.0</span>
-
-<span class="sd">    Returns the full string path to the provided *filepath*, which is necessary for ``AFS`` paths.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="o">.</span><span class="n">absolute</span><span class="p">())</span></div>
-
-
-<div class="viewcode-block" id="get_opticsfiles_paths"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_opticsfiles_paths">[docs]</a><span class="k">def</span> <span class="nf">get_opticsfiles_paths</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.16.0</span>
-
-<span class="sd">    Returns `pathlib.Path` objects to the **opticsfiles** from the appropriate location,</span>
-<span class="sd">    depending on where the program is running, either on ``AFS`` or locally.</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">        Only the &quot;normal&quot; configuration **opticsfiles** are returned, so those ending with</span>
-<span class="sd">        a special suffix such as **_ctpps1** are ignored.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        A `list` of `~pathlib.Path` objects to the opticsfiles.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If the program is running in an unknown location (neither `afs` nor `local`).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">RUN_LOCATION</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;afs&quot;</span><span class="p">,</span> <span class="s2">&quot;local&quot;</span><span class="p">):</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unknown runtime location, exiting&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The &#39;RUN_LOCATION&#39; variable should be either &#39;afs&#39; or &#39;local&#39;.&quot;</span><span class="p">)</span>
-
-    <span class="n">optics_dir</span><span class="p">:</span> <span class="n">Path</span> <span class="o">=</span> <span class="n">PATHS</span><span class="p">[</span><span class="s2">&quot;optics2018&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;PROTON&quot;</span> <span class="k">if</span> <span class="n">RUN_LOCATION</span> <span class="o">==</span> <span class="s2">&quot;afs&quot;</span> <span class="k">else</span> <span class="n">PATHS</span><span class="p">[</span><span class="s2">&quot;local&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;optics&quot;</span>
-    <span class="n">optics_files</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">optics_dir</span><span class="o">.</span><span class="n">iterdir</span><span class="p">())</span>
-    <span class="n">desired_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">path</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">optics_files</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">suffix</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">3</span> <span class="ow">and</span> <span class="n">path</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;opticsfile&quot;</span><span class="p">)]</span>
-    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">desired_files</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">suffix</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>  <span class="c1"># sort by the number after &#39;opticsfile.&#39;</span></div>
+<span class="n">N_CPUS</span> <span class="o">=</span> <span class="n">cpu_count</span><span class="p">()</span>
 
 
 <div class="viewcode-block" id="log_runtime_versions"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.log_runtime_versions">[docs]</a><span class="k">def</span> <span class="nf">log_runtime_versions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -434,78 +383,6 @@
 
 
 <span class="c1"># ----- MAD-X Setup Utilities ----- #</span>
-
-
-<div class="viewcode-block" id="call_lhc_sequence_and_optics"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.call_lhc_sequence_and_optics">[docs]</a><span class="k">def</span> <span class="nf">call_lhc_sequence_and_optics</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;opticsfile.22&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.16.0</span>
-
-<span class="sd">    Issues a ``CALL`` to the ``LHC`` sequence and the desired opticsfile, from the appropriate</span>
-<span class="sd">    location (either on ``AFS`` or locally), based on the runtime location of the code.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        opticsfile (str): name of the optics file to call. Defaults to **opticsfile.22**, which</span>
-<span class="sd">            holds ``LHC`` collisions optics configuration (`beta*_IP1/2/5/8=  0.300/10.000/0.300/3.000 ;</span>
-<span class="sd">            ! Telescopic squeeze (with Q6@300A)`).</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        ValueError: If the program is running in an unknown location  (neither `afs` nor `local`), and the</span>
-<span class="sd">            files cannot be found in the expected directories.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling optics&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">RUN_LOCATION</span> <span class="o">==</span> <span class="s2">&quot;afs&quot;</span><span class="p">:</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">fullpath</span><span class="p">(</span><span class="n">PATHS</span><span class="p">[</span><span class="s2">&quot;optics2018&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;lhc_as-built.seq&quot;</span><span class="p">))</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">fullpath</span><span class="p">(</span><span class="n">PATHS</span><span class="p">[</span><span class="s2">&quot;optics2018&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;PROTON&quot;</span> <span class="o">/</span> <span class="n">opticsfile</span><span class="p">))</span>
-    <span class="k">elif</span> <span class="n">RUN_LOCATION</span> <span class="o">==</span> <span class="s2">&quot;local&quot;</span><span class="p">:</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">fullpath</span><span class="p">(</span><span class="n">PATHS</span><span class="p">[</span><span class="s2">&quot;local&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;sequences&quot;</span> <span class="o">/</span> <span class="s2">&quot;lhc_as-built.seq&quot;</span><span class="p">))</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">fullpath</span><span class="p">(</span><span class="n">PATHS</span><span class="p">[</span><span class="s2">&quot;local&quot;</span><span class="p">]</span> <span class="o">/</span> <span class="s2">&quot;optics&quot;</span> <span class="o">/</span> <span class="n">opticsfile</span><span class="p">))</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Unknown runtime location, exiting&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The &#39;RUN_LOCATION&#39; variable should be either &#39;afs&#39; or &#39;local&#39;.&quot;</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="add_markers_around_lhc_ip"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.add_markers_around_lhc_ip">[docs]</a><span class="k">def</span> <span class="nf">add_markers_around_lhc_ip</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n_markers</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">interval</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.18.0</span>
-
-<span class="sd">    Adds some simple marker elements left and right of an IP point, to increase the granularity of optics</span>
-<span class="sd">    functions returned from a ``TWISS`` call.</span>
-
-<span class="sd">    .. warning::</span>
-<span class="sd">        You will most likely need to have sliced the sequence before calling this function,</span>
-<span class="sd">        as otherwise there is a risk on getting a negative drift depending on the affected</span>
-<span class="sd">        IP. This would lead to the remote ``MAD-X`` process to crash.</span>
-
-<span class="sd">    .. warning::</span>
-<span class="sd">        After editing the *sequence* to add markers, the ``USE`` command will be run for the changes to apply.</span>
-<span class="sd">        This means the caveats of ``USE`` apply, for instance the erasing of previously defined errors, orbits</span>
-<span class="sd">        corrections etc.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        sequence (str): which sequence to use the routine on.</span>
-<span class="sd">        ip (int): The interaction point around which to add markers.</span>
-<span class="sd">        n_markers (int): how many markers to add on each side of the IP.</span>
-<span class="sd">        interval (float): the distance between markers, in [m]. Giving ``interval=0.05`` will</span>
-<span class="sd">            place a marker every 5cm (starting 5cm away from the IP on each side).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding </span><span class="si">{</span><span class="n">n_markers</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> markers on each side of IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_markers</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span>
-            <span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MARKER.LEFT.IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MARKER&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=-</span><span class="n">i</span> <span class="o">*</span> <span class="n">interval</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">install</span><span class="p">(</span>
-            <span class="n">element</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MARKER.RIGHT.IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">02d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MARKER&quot;</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="n">i</span> <span class="o">*</span> <span class="n">interval</span><span class="p">,</span> <span class="n">from_</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
-        <span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">&quot;Sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39; will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.&quot;</span>
-    <span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="apply_colin_corrs_balance"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance">[docs]</a><span class="k">def</span> <span class="nf">apply_colin_corrs_balance</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -545,178 +422,6 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="prepare_lhc_setup"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.prepare_lhc_setup">[docs]</a><span class="nd">@deprecated</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Use the &#39;prepare_lhc_run2&#39; function instead.&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">prepare_lhc_setup</span><span class="p">(</span>
-    <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;opticsfile.22&quot;</span><span class="p">,</span>
-    <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span>
-    <span class="n">stdout</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">stderr</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Madx</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.16.0</span>
-
-<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*. Both beams are made with a default Run III</span>
-<span class="sd">    configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and</span>
-<span class="sd">    then ``USE``-d. Specific variable settings can be given as keyword arguments.</span>
-
-<span class="sd">    .. important::</span>
-<span class="sd">        Matching is **not** performed by this function and should be taken care of by the user, but the working point</span>
-<span class="sd">        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments</span>
-<span class="sd">        might change that working point.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        opticsfile (str): name of the optics file to be used. Defaults to **opticsfile.22**.</span>
-<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
-<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6800.</span>
-<span class="sd">        **kwargs: any keyword argument pair will be used to update the ``MAD-X`` globals.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required configuration.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">madx</span> <span class="o">=</span> <span class="n">Madx</span><span class="p">(</span><span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-    <span class="n">call_lhc_sequence_and_optics</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">opticsfile</span><span class="p">)</span>
-    <span class="n">lhc</span><span class="o">.</span><span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MSIA.EXIT.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">madx</span></div>
-
-
-<span class="n">prepare_lhc_run2</span> <span class="o">=</span> <span class="n">prepare_lhc_setup</span>
-
-
-<div class="viewcode-block" id="prepare_lhc_run3"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.prepare_lhc_run3">[docs]</a><span class="k">def</span> <span class="nf">prepare_lhc_run3</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6800</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Madx</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.20.0</span>
-
-<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams</span>
-<span class="sd">    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``</span>
-<span class="sd">    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.</span>
-
-<span class="sd">    .. important::</span>
-<span class="sd">        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space.</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">        Matching is **not** performed by this function and should be taken care of by the user, but the working point</span>
-<span class="sd">        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments</span>
-<span class="sd">        might change that working point.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile</span>
-<span class="sd">            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.</span>
-<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
-<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6800.</span>
-<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,</span>
-<span class="sd">            which leads to an unsliced sequence.</span>
-<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.</span>
-<span class="sd">            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required configuration.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating Run 3 setup MAD-X instance&quot;</span><span class="p">)</span>
-    <span class="n">echo</span><span class="p">,</span> <span class="n">warn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-
-    <span class="n">madx</span> <span class="o">=</span> <span class="n">Madx</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="n">warn</span><span class="p">)</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling sequence&quot;</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="s2">&quot;acc-models-lhc/lhc.seq&quot;</span><span class="p">)</span>
-    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">slicefactor</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;A slicefactor was provided, slicing the sequence&quot;</span><span class="p">)</span>
-        <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">)</span>
-        <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="mi">6800</span><span class="p">)</span>
-
-    <span class="n">lhc</span><span class="o">.</span><span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MSIA.EXIT.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling optics file from the &#39;operation/optics&#39; folder&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acc-models-lhc/operation/optics/</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.madx&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-
-    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">madx</span></div>
-
-
-<span class="c1"># As a context manager</span>
-<div class="viewcode-block" id="LHCSetup"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.LHCSetup">[docs]</a><span class="k">class</span> <span class="nc">LHCSetup</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.21.0</span>
-
-<span class="sd">    This is a context manager to prepare LHC Run 2 or Run 3 setup: calling sequences and opticsfile,</span>
-<span class="sd">    re-cycling like the model creator, making beams, slicing, etc. For details on the achieved setups,</span>
-<span class="sd">    look at the `prepare_lhc_run2` or `prepare_lhc_run3` function.</span>
-
-<span class="sd">    .. important::</span>
-<span class="sd">        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.</span>
-
-<span class="sd">    .. note::</span>
-<span class="sd">        Matching is **not** performed by this setup and should be taken care of by the user, but the working point</span>
-<span class="sd">        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments</span>
-<span class="sd">        might change that working point.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        run (int): which run to set up for, should be 2 or 3. Defaults to run 3.</span>
-<span class="sd">        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile</span>
-<span class="sd">            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path. Defaults to `None`,</span>
-<span class="sd">            which will raise an error.</span>
-<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
-<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6800.</span>
-<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,</span>
-<span class="sd">            which leads to an unsliced sequence.</span>
-<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.</span>
-<span class="sd">            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        An instanciated context manager `~cpymad.madx.Madx` object with the required configuration.</span>
-
-<span class="sd">    Raises:</span>
-<span class="sd">        NotImplementedError: if the *run* argument is not 2 or 3.</span>
-<span class="sd">        AssertionError: if the *opticsfile* argument is not provided.</span>
-
-<span class="sd">    Example:</span>
-
-<span class="sd">        .. code-block:: python</span>
-
-<span class="sd">            &gt;&gt;&gt; with LHCRun3Setup(run=3, opticsfile=&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;, beam=1) as madx:</span>
-<span class="sd">            ...    # do some stuff</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">run</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
-        <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6800</span><span class="p">,</span>
-        <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">):</span>
-        <span class="k">assert</span> <span class="n">opticsfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;An opticsfile must be provided&quot;</span>
-        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This setup is only possible for Run 2 and Run 3 configurations.&quot;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">run</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
-            <span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;stdout&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;stderr&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run2</span><span class="p">(</span>
-                <span class="n">opticsfile</span><span class="o">=</span><span class="n">opticsfile</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="n">beam</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">stdout</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">stderr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-            <span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run3</span><span class="p">(</span>
-                <span class="n">opticsfile</span><span class="o">=</span><span class="n">opticsfile</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="n">beam</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-            <span class="p">)</span>
-
-    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">madx</span>
-
-    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">exc_info</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
-
-
 <span class="c1"># ----- Fetching Utilities ----- #</span>
 
 
@@ -746,115 +451,6 @@
     <span class="n">betastar_y_ip5</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ip5_y_line</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
     <span class="k">assert</span> <span class="n">betastar_x_ip1</span> <span class="o">==</span> <span class="n">betastar_y_ip1</span> <span class="o">==</span> <span class="n">betastar_x_ip5</span> <span class="o">==</span> <span class="n">betastar_y_ip5</span>
     <span class="k">return</span> <span class="n">betastar_x_ip1</span>  <span class="c1"># doesn&#39;t matter which plane, they&#39;re all the same</span></div>
-
-
-<div class="viewcode-block" id="get_size_at_ip"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_size_at_ip">[docs]</a><span class="k">def</span> <span class="nf">get_size_at_ip</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">ip</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">geom_emit</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.20.0</span>
-
-<span class="sd">    Get the Lebedev beam sides at the provided *IP*.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        ip (int): the IP to get the sizes at.</span>
-<span class="sd">        geom_emit (float): the geometrical emittance to use for the calculation.</span>
-<span class="sd">            If not provided, will look for the values of the ``geometric_emit_x``</span>
-<span class="sd">            and ``geometric_emit_y`` variables in ``MAD-X`` itself.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        A tuple of the horizontal and vertical beam sizes at the provided *IP*.</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        .. code-block:: python</span>
-
-<span class="sd">            &gt;&gt;&gt; ip5_x, ip5_y = get_size_at_ip(madx, ip=5)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting &quot;</span><span class="p">)</span>
-    <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">twiss</span><span class="o">.</span><span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ripken</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">_add_beam_size_to_df</span><span class="p">(</span><span class="n">twiss_tfs</span><span class="p">,</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_x&quot;</span><span class="p">],</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_y&quot;</span><span class="p">])</span>
-    <span class="k">return</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">SIZE_X</span><span class="p">,</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">SIZE_Y</span></div>
-
-
-<span class="c1"># ----- Here for now for testing ----- #</span>
-
-
-<div class="viewcode-block" id="get_lhc_ips_positions"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_lhc_ips_positions">[docs]</a><span class="k">def</span> <span class="nf">get_lhc_ips_positions</span><span class="p">(</span><span class="n">dataframe</span><span class="p">:</span> <span class="n">pandas</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.18.0</span>
-
-<span class="sd">    Returns a `dict` of LHC IP and their positions from the provided *dataframe*.</span>
-
-<span class="sd">    .. important::</span>
-<span class="sd">        This function expects the IP names to be in the dataframe&#39;s index,</span>
-<span class="sd">        and cased as the longitudinal coordinate column: aka uppercase names</span>
-<span class="sd">        (``IP1``, ``IP2``, etc) and ``S`` column; or lowercase names</span>
-<span class="sd">        (``ip1``, ip2``, etc) and ``s`` column.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        dataframe (pandas.DataFrame): a `~pandas.DataFrame` containing IP positions.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        A `dict` with IP names as keys and their longitudinal locations as values.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting IP positions from dataframe&quot;</span><span class="p">)</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">ip_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
-        <span class="n">ip_pos</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ip_names</span><span class="p">,</span> <span class="s2">&quot;S&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Attempting to extract with lowercase names&quot;</span><span class="p">)</span>
-        <span class="n">ip_names</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ip</span><span class="si">{</span><span class="n">i</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">9</span><span class="p">)]</span>
-        <span class="n">ip_pos</span> <span class="o">=</span> <span class="n">dataframe</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">ip_names</span><span class="p">,</span> <span class="s2">&quot;s&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
-    <span class="n">ip_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">ip_names</span><span class="p">]</span>  <span class="c1"># make sure to uppercase now</span>
-    <span class="k">return</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">ip_names</span><span class="p">,</span> <span class="n">ip_pos</span><span class="p">))</span></div>
-
-
-<div class="viewcode-block" id="draw_ip_locations"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.draw_ip_locations">[docs]</a><span class="k">def</span> <span class="nf">draw_ip_locations</span><span class="p">(</span>
-    <span class="n">axis</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">ip_positions</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">lines</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;outside&quot;</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.18.0</span>
-
-<span class="sd">    Plots the interaction points&#39; locations into the background of the provided *axis*.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        axis:  `~matplotlib.axes.Axes` to put the labels on. Defaults to `plt.gca()`.</span>
-<span class="sd">        ip_positions (dict): a `dict` containing IP names as keys and their longitudinal positions</span>
-<span class="sd">            as values, as returned by `~.get_lhc_ips_positions`.</span>
-<span class="sd">        lines (bool): whether to also draw vertical lines at the IP positions. Defaults to `True`.</span>
-<span class="sd">        location: where to show the IP names on the provided *axis*, either ``inside`` (will draw text</span>
-<span class="sd">            at the bottom of the axis) or ``outside`` (will draw text on top of the axis). If `None` is</span>
-<span class="sd">            given, then no labels are drawn. Defaults to ``outside``.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">axis</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span>
-
-    <span class="n">xlimits</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
-    <span class="n">ylimits</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_ylim</span><span class="p">()</span>
-
-    <span class="c1"># Draw for each IP</span>
-    <span class="k">for</span> <span class="n">ip_name</span><span class="p">,</span> <span class="n">ip_xpos</span> <span class="ow">in</span> <span class="n">ip_positions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-        <span class="k">if</span> <span class="n">xlimits</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">ip_xpos</span> <span class="o">&lt;=</span> <span class="n">xlimits</span><span class="p">[</span><span class="mi">1</span><span class="p">]:</span>  <span class="c1"># only plot if within plot&#39;s xlimits</span>
-            <span class="k">if</span> <span class="n">lines</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Drawing dashed axvline at location of </span><span class="si">{</span><span class="n">ip_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="n">axis</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="n">ip_xpos</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">&quot;:&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;grey&quot;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-            <span class="k">if</span> <span class="n">location</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
-                <span class="n">inside</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;inside&quot;</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Drawing name indicator for </span><span class="si">{</span><span class="n">ip_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-                <span class="c1"># drawing ypos is lower end of ylimits if drawing inside, higher end if drawing outside</span>
-                <span class="n">ypos</span> <span class="o">=</span> <span class="n">ylimits</span><span class="p">[</span><span class="ow">not</span> <span class="n">inside</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">ylimits</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">ylimits</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.01</span>
-                <span class="n">c</span> <span class="o">=</span> <span class="s2">&quot;grey&quot;</span> <span class="k">if</span> <span class="n">inside</span> <span class="k">else</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;text.color&quot;</span><span class="p">]</span>  <span class="c1"># match axis ticks color</span>
-                <span class="n">fontsize</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;xtick.labelsize&quot;</span><span class="p">]</span>  <span class="c1"># match the xticks size</span>
-                <span class="n">axis</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">ip_xpos</span><span class="p">,</span> <span class="n">ypos</span><span class="p">,</span> <span class="n">ip_name</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">&quot;bottom&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">fontsize</span><span class="p">)</span>
-
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Skipping </span><span class="si">{</span><span class="n">ip_name</span><span class="si">}</span><span class="s2"> as its position is outside of the plot&#39;s xlimits&quot;</span><span class="p">)</span>
-
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="n">xlimits</span><span class="p">)</span>
-    <span class="n">axis</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="n">ylimits</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
