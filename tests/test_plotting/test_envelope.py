@@ -17,6 +17,14 @@ INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 
 
+def test_plot_enveloppe_raises_on_wrong_plane():
+    beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
+    madx = Madx(stdout=False)
+
+    with pytest.raises(ValueError):
+        plot_envelope(madx, beam_injection, plane="invalid")
+
+
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_horizontal():
     beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
