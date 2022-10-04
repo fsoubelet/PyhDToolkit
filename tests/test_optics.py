@@ -142,6 +142,23 @@ def test_courant_snyder_transform():
     np.testing.assert_array_almost_equal(u_transform, u_bar_result)
 
 
+def test_add_beam_size_to_df(_non_matched_lhc_madx):
+    madx = _non_matched_lhc_madx
+    madx.command.twiss(ripken=True)
+    df = madx.table.twiss.dframe().copy()
+    df["BETA11"] = df.beta11
+    df["BETA12"] = df.beta12
+    df["BETA21"] = df.beta21
+    df["BETA22"] = df.beta22
+
+    df = ripken._add_beam_size_to_df(df, 1e-6, 1e-6)
+    assert "SIZE_X" in df.columns
+    assert "SIZE_Y" in df.columns
+
+
+# ----- Fixtures ----- #
+
+
 @pytest.fixture()
 def _fake_coordinates() -> np.ndarray:
     return np.random.random(size=10_000) / 1e4
