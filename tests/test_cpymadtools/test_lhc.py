@@ -36,6 +36,7 @@ from pyhdtoolkit.cpymadtools.lhc import (
     get_lhc_bpms_twiss_and_rdts,
     get_lhc_tune_and_chroma_knobs,
     get_magnets_powering,
+    get_sizes_at_ip,
     install_ac_dipole_as_kicker,
     install_ac_dipole_as_matrix,
     make_lhc_beams,
@@ -456,6 +457,16 @@ def test_correct_lhc_global_coupling(_non_matched_lhc_madx, telesqueeze):
     correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
     assert madx.table.summ.dqmin[0] >= 0
     assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-7)
+
+
+@pytest.mark.parametrize("ip", [1, 5])
+def test_get_ip_beam_sizes(_non_matched_lhc_madx, ip):
+    madx = _non_matched_lhc_madx
+    hor, ver = get_sizes_at_ip(
+        madx, ip=ip, geom_emit_x=madx.globals.geometric_emit, geom_emit_y=madx.globals.geometric_emit
+    )
+    assert math.isclose(hor, 1.27415e-05, abs_tol=1e-7)
+    assert math.isclose(ver, 1.27415e-05, abs_tol=1e-7)
 
 
 # ---------------------- Private Utilities ---------------------- #
