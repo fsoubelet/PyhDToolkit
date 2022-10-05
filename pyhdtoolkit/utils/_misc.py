@@ -14,6 +14,7 @@ import shlex
 
 from multiprocessing import cpu_count
 from pathlib import Path
+from typing import Union
 
 import cpymad
 
@@ -33,6 +34,12 @@ def log_runtime_versions() -> None:
     .. versionadded:: 0.17.0
 
     Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``.
+
+    Example:
+        .. code-block:: python
+
+            >>> log_runtime_versions()
+            2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)
     """
     with Madx(stdout=False) as mad:
         logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
@@ -45,15 +52,19 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
     """
     .. versionadded:: 0.20.0
 
-    Applies the local coupling correction settings from the 2022 commissioning as
+    Applies the SbS local coupling correction settings from the 2022 commissioning as
     they were in the machine, and tilts of Q3s that would compensate for those settings.
-    This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
-    be added and studied in the machine, pretending a perfect local coupling correction.
-
+    This way the bump of each corrector is very local to MQSX3 - MQSXQ3 and other effects
+    can be added and studied, *pretending* a perfect local coupling correction.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with your
             ``LHC`` setup.
+
+    Example:
+        .. code-block:: python
+
+            >>> apply_colin_corrs_balance(madx)
     """
     # ----- Let's balance IR1 ----- #
     errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
@@ -81,7 +92,7 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
 # ----- Fetching Utilities ----- #
 
 
-def get_betastar_from_opticsfile(opticsfile: Path) -> float:
+def get_betastar_from_opticsfile(opticsfile: Union[Path, str]) -> float:
     """
     .. versionadded:: 0.16.0
 
@@ -89,8 +100,14 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     which is in the first lines. This contains a check that ensures the betastar
     is the same for IP1 and IP5. The values returned are in meters.
 
+    .. note::
+        For file in ``acc-models-lhc`` make sure to point to the strength file
+        (see example below) where the :math:`\\beta^{*}` is set, as the opticsfile
+        itself only contains call.
+
     Args:
-        opticsfile (Path): `pathlib.Path` object to the optics file.
+        opticsfile (Union[Path, str]): `pathlib.Path` object to the optics file, or
+            string of the path to the file.
 
     Returns:
         The :math:`\\beta^{*}` value parsed from the file.
@@ -98,8 +115,16 @@ def get_betastar_from_opticsfile(opticsfile: Path) -> float:
     Raises:
         AssertionError: if the :math:`\\beta^{*}` value for IP1 and IP5 is not
             the same (in both planes too).
+
+    Example:
+        .. code-block:: python
+
+            >>> get_betastar_from_opticsfile(
+            ...     "acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx"
+            ... )
+            0.3
     """
-    file_lines = opticsfile.read_text().split("\n")
+    file_lines = Path(opticsfile).read_text().split("\n")
     ip1_x_line, ip1_y_line, ip5_x_line, ip5_y_line = [line for line in file_lines if line.startswith("bet")]
     betastar_x_ip1 = float(shlex.split(ip1_x_line)[2])
     betastar_y_ip1 = float(shlex.split(ip1_y_line)[2])
