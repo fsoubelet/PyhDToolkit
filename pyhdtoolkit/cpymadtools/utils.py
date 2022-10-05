@@ -39,6 +39,12 @@ def export_madx_table(
         headers_table (str): the name of the internal table to use for headers.
             Defaults to ``SUMM``.
         **kwargs: any keyword arguments will be passed to `~tfs.writer.write_tfs`.
+
+    Example:
+        .. code-block:: python
+
+            >>> madx.command.twiss()
+            >>> export_madx_table(madx, table_name="TWISS", file_name="twiss.tfs")
     """
     file_path = Path(file_name)
     logger.debug(f"Exporting table {table_name} into '{file_path.absolute()}'")
