@@ -84,6 +84,20 @@ def test_ip_locations(_non_matched_lhc_madx):
     return figure
 
 
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_ip_locations_with_xlimits(_non_matched_lhc_madx):
+    # tests both querying the locations and adding them on a plot
+    madx = _non_matched_lhc_madx
+    twiss_df = madx.twiss().dframe().copy()
+    ips_dict = get_lhc_ips_positions(twiss_df)
+
+    figure, ax = plt.subplots(figsize=(10, 6))
+    twiss_df.plot(ax=ax, x="s", y=["betx", "bety"])
+    ax.set_xlim(8500, 18000)
+    draw_ip_locations(ips_dict)  # should only draw IPs in the range
+    return figure
+
+
 # ----- Fixtures ----- #
 
 
