@@ -16,7 +16,7 @@ import pytest
 from loguru import logger
 from rich.table import Table
 
-from pyhdtoolkit.utils import defaults, deprecated
+from pyhdtoolkit.utils import _misc, defaults, deprecated
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.htc_monitor import (
@@ -650,6 +650,22 @@ class TestStringOperations:
     def test_snake_case_fails(self, word, error):
         with pytest.raises(error):
             StringOperations.snake_case(word)
+
+
+class TestMisc:
+    def test_log_runtime(self):
+        _misc.log_runtime_versions()
+
+    def test_query_betastar_from_opticsfile(self):
+        assert _misc.get_betastar_from_opticsfile(INPUTS_DIR / "madx" / "opticsfile.22") == 0.3
+
+    def test_colin_balance_applies(self, _non_matched_lhc_madx):
+        madx = _non_matched_lhc_madx
+        _misc.apply_colin_corrs_balance(madx)
+        for side in "rl":
+            for ip in (1, 2, 5, 8):
+                assert madx.globals[f"kqsx3.{side}{ip}"] != 0
+        assert "ir_quads_errors" in madx.table.keys()
 
 
 # ----- Fixtures ----- #
