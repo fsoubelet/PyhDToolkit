@@ -31,8 +31,9 @@ def plot_rdt_component(
     r"""
     .. versionadded:: 0.19.0
 
-    Plots for Beam 1 and Beam 2 vertically a component of the given coupling *rdt* over the segment. Optionally
-    highlights the IP location.
+    Plots for Beam 1 and Beam 2 vertically a component of the given coupling *rdt* over the segment.
+    Optionally highlights the IP location. One can find an example use of this function in the
+    :ref:`segment-by-segment plotting <demo-sbs-plotting>` example gallery.
 
     Args:
         ax (matplotlib.axes.Axes): The `~matplotlib.axes.Axes` to plot on. Will get the current axis if no
@@ -116,7 +117,8 @@ def plot_full_ip_rdt(
     .. versionadded:: 0.19.0
 
     Plots all component of the given coupling *rdt* over the segment, for both Beam 1 and Beam 2. Optionally
-    highlights the IP location.
+    highlights the IP location. One can find an example use of this function in the
+    :ref:`segment-by-segment plotting <demo-sbs-plotting>` example gallery.
 
     Args:
         b1_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
