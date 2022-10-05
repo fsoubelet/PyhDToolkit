@@ -24,7 +24,8 @@ def plot_two_lhc_ips_crossings(
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing the crossing schemes at the two provided IPs.
+    Creates a plot representing the crossing schemes at the two provided IPs. One can find an example
+    use of this function in the :ref:`LHC crossing schemes <demo-crossing-schemes>` example gallery.
 
     .. note::
         This function has some heavy logic behind it, especially in how it needs to order several axes. The
@@ -165,6 +166,13 @@ def plot_single_ir_crossing(
         xlabel (str): if given, will be used for the ``xlabel`` of the axis. Defaults to `None`.
         ylabel (str): if given, will be used for the ``ylabel`` of the axis. Defaults to `None`.
         title (str): if given, will be used for the ``title`` of the axis. Defaults to `None`.
+
+    Example:
+        .. code-block:: python
+
+            >>> plot_single_ir_crossing(
+            ...     plt.gca(), b1_df, b2_df, plot_column="x", scaling=1e3, ylabel="Orbit X $[mm]$"
+            ... )
     """
     logger.trace(f"Plotting orbit '{plot_column}'")
     axis.plot(plot_df_b1.s, plot_df_b1[plot_column] * scaling, "bo", ls="-", mfc="none", alpha=0.8, label="Beam 1")

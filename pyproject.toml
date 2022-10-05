@@ -112,7 +112,6 @@ ignore_errors = true
 omit = [
   "pyhdtoolkit/cpymadtools/setup.py",
   "pyhdtoolkit/utils/htc_monitor.py",
-  "pyhdtoolkit/utils/_misc.py"
 ]
 precision = 2
 

@@ -9,7 +9,6 @@ Module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
 """
 from typing import Sequence
 
-import numpy as np
 import tfs
 
 from cpymad.madx import Madx
@@ -70,9 +69,9 @@ def get_pattern_twiss(
             >>> triplets_df = get_pattern_twiss(
             ...     madx=madx,
             ...     patterns=[
-            ...         f"MQXA.[12345][RL]1",  # Q1 and Q3 LHC
-            ...         f"MQXB.[AB][12345][RL]1",  # Q2A and Q2B LHC
-            ...         f"MQXF[AB].[AB][12345][RL]1",  # Q1 to Q3 A and B HL-LHC
+            ...         r"MQXA.[12345][RL]1",  # Q1 and Q3 LHC
+            ...         r"MQXB.[AB][12345][RL]1",  # Q2A and Q2B LHC
+            ...         r"MQXF[AB].[AB][12345][RL]1",  # Q1 to Q3 A and B HL-LHC
             ...     ],
             ... )
     """

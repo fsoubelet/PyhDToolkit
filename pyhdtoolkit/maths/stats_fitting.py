@@ -34,7 +34,8 @@ def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
     .. versionadded:: 0.5.0
 
     Sets ``DISTRIBUTIONS`` as the provided `dict`. This allows the user to define the
-    distributions to try and fit against the data.
+    distributions to try and fit against the data. One can find an example use of this
+    function in the :ref:`gallery <demo-distributions-fitting>`.
 
     Args:
         dist_dict (Dict[st.rv_continuous, str]): dictionnary with the wanted distributions,
@@ -131,7 +132,8 @@ def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: in
     .. versionadded:: 0.5.0
 
     Generates a `pandas.Series` for the distributions's Probability Distribution Function.
-    This Series will have axis values as index, and PDF values as column.
+    This Series will have axis values as index, and PDF values as column. One can find an
+    example use of this function in the :ref:`gallery <demo-distributions-fitting>`.
 
     Args:
         distribution (st.rv_continuous): a `scipy.stats` generator.

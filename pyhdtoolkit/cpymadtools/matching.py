@@ -116,7 +116,7 @@ def match_tunes_and_chromaticities(
             ...     q2_target=60.32,
             ...     dq1_target=2.0,
             ...     dq2_target=2.0,
-            ...     telescopic_squeeze=True,  # influences the knobs definition
+            ...     run3=True,  # influences the knobs definition
             ... )
     """
     if accelerator and not varied_knobs:

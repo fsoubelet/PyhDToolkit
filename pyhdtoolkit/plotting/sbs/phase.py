@@ -27,7 +27,9 @@ def plot_phase_segment_one_beam(
     .. versionadded:: 0.19.0
 
     Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
-    both planes for a given beam. Optionally highlights the IP location in the segment.
+    both planes for a given beam. Optionally highlights the IP location in the segment. One can find an
+    example use of this function in the :ref:`segment-by-segment plotting <demo-sbs-plotting>` example
+    gallery.
 
     Args:
         phase_x (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
@@ -77,7 +79,9 @@ def plot_phase_segment_both_beams(
     .. versionadded:: 0.19.0
 
     Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
-    both planes and both beams. Optionally highlights the IP location in the segment.
+    both planes and both beams. Optionally highlights the IP location in the segment. One can find an
+    example use of this function in the :ref:`segment-by-segment plotting <demo-sbs-plotting>` example
+    gallery.
 
     Args:
         b1_phase_x (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment phase result for
@@ -156,7 +160,9 @@ def plot_phase_segment(
     """
     .. versionadded:: 0.19.0
 
-    Plots a the phase for a given plane over the segment, optionally highlighting the IP location.
+    Plots a the phase for a given plane over the segment, optionally highlighting the IP location. One
+    can find an example use of this function in the :ref:`segment-by-segment plotting <demo-sbs-plotting>`
+    example gallery.
 
     Args:
         ax (matplotlib.axes.Axes): The `~matplotlib.axes.Axes` to plot on. Will get the current axis if no

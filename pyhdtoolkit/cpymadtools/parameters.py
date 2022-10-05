@@ -30,6 +30,11 @@ def query_beam_attributes(madx: Madx) -> MADXBeam:
 
     Returns:
         A validated `~.models.madx.MADXBeam` object.
+
+    Example:
+        .. code-block:: python
+
+            >>> beam_parameters = query_beam_attributes(madx)
     """
     logger.debug("Retrieving BEAM attributes from the MAD-X process")
     return MADXBeam(**dict(madx.beam))

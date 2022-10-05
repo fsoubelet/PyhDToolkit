@@ -107,7 +107,7 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> Dict[str, float]:
         This function expects the IP names to be in the dataframe's index,
         and cased as the longitudinal coordinate column: aka uppercase names
         (``IP1``, ``IP2``, etc) and ``S`` column; or lowercase names
-        (``ip1``, ip2``, etc) and ``s`` column.
+        (``ip1``, ``ip2``, etc) and ``s`` column.
 
     Args:
         dataframe (pandas.DataFrame): a `~pandas.DataFrame` containing at least
@@ -153,6 +153,11 @@ def make_elements_groups(
     Returns:
         A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing
         quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
+
+    Example:
+        .. code-block:: python
+
+            >>> element_dfs = make_elements_groups(madx)
     """
     twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
@@ -183,6 +188,11 @@ def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     Returns:
         A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing
         quadrupoles, sextupoles and octupoles. The keys are self-explanatory.
+
+    Example:
+        .. code-block:: python
+
+            >>> survey_dfs = make_survey_groups(madx)
     """
     element_dfs = make_elements_groups(madx)
     quadrupoles_focusing_df = element_dfs["quadrupoles"].query("k1l > 0")

@@ -10,16 +10,20 @@ import numpy as np
 
 
 def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) -> np.ndarray:
-    """
+    r"""
     .. versionadded:: 0.5.0
 
     Perform the Courant-Snyder transform on regular (nonchaotic) phase-space coordinates.
     Specifically, if considering the horizontal plane and noting :math:`U = (x, px)` the
-    phase-space vector, it returns :math:`\\bar{U} = (\\bar{x}, \\bar{px})` according to
-    the transform :math:`\\bar{U} = P \\cdot U`, where::
+    phase-space vector, it returns :math:`\bar{U} = (\bar{x}, \bar{px})` according to
+    the transform :math:`\bar{U} = P \cdot U`, where
 
-        P = [1/sqrt(beta_x)              0      ]
-            [alpha_x/sqrt(beta_x)   sqrt(beta_x)]
+    .. math::
+
+        P = \begin{pmatrix}
+                \frac{1}{\sqrt{\beta_x}}          &   0              \\
+                \frac{\alpha_x}{\sqrt{\beta_x}}   &  \sqrt{\beta_x}  \\
+            \end{pmatrix}
 
     Args:
         u_vector (np.ndarray): two-dimentional array of phase-space (spatial and momenta)
@@ -29,6 +33,14 @@ def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) ->
 
     Returns:
         The normalized phase-space coordinates from the Courant-Snyder transform.
+    
+    Example:
+        .. code-block:: python
+
+            >>> alfx = madx.table.twiss.alfx[0]
+            >>> betx = madx.table.twiss.betx[0]
+            >>> u = np.array([x_coords, px_coord])
+            >>> u_bar = courant_snyder_transform(u, alfx, betx)
     """
     p_matrix = np.array([[1 / np.sqrt(beta), 0], [alpha / np.sqrt(beta), np.sqrt(beta)]])
     return p_matrix @ u_vector

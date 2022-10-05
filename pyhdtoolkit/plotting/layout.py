@@ -42,9 +42,11 @@ def plot_machine_layout(
     """
     .. versionadded:: 1.0.0
 
-    Draws patches elements representing the lattice layout on the given *axis*. This is the function
-    that takes care of the machine layout axis in `~.plotting.lattice.plot_latwiss` and
-    `~.plotting.aperture.plot_aperture`.
+    Draws patches elements representing the lattice layout on the given *axis*. This is
+    the function that takes care of the machine layout axis in `~.plotting.lattice.plot_latwiss`
+    and `~.plotting.aperture.plot_aperture`. Its results can be seen in the
+    :ref:`machine lattice <demo-accelerator-lattice>` and :ref:`machine aperture <demo-accelerator-aperture>`
+    example galleries.
 
     .. note::
         This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.

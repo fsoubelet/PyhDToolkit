@@ -50,7 +50,9 @@ def prepare_lhc_run2(opticsfile: str, beam: int = 1, energy: float = 6500, slice
     Example:
         .. code-block:: python
 
-            >>> madx = prepare_lhc_run2("/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22", beam=2, stdout=True)
+            >>> madx = prepare_lhc_run2(
+            ...     "/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22", beam=2, stdout=True
+            ... )
     """
 
     def _run2_sequence_from_opticsfile(opticsfile: Path) -> Path:
@@ -112,7 +114,9 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
     Example:
         .. code-block:: python
 
-            >>> madx = prepare_lhc_run3("R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=True)
+            >>> madx = prepare_lhc_run3(
+            ...     "R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=True
+            ... )
     """
     logger.debug("Creating Run 3 setup MAD-X instance")
     echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)

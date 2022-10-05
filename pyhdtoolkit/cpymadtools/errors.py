@@ -139,7 +139,11 @@ def misalign_lhc_ir_quadrupoles(
         .. code-block:: python
 
             >>> misalign_lhc_ir_quadrupoles(
-            ...     madx, ips=[5], quadrupoles=[7, 8, 9, 10], beam=1, sides="RL", dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+            ...     madx, ips=[5],
+            ...     quadrupoles=[7, 8, 9, 10],
+            ...     beam=1,
+            ...     sides="RL",
+            ...     dpsi="1E-3 + 8E-4 * TGAUSS(2.5)",
             ... )
 
         For several error types on the elements, here ``DY`` and ``DPSI``:
