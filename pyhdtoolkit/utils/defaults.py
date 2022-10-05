@@ -142,6 +142,11 @@ def config_logger(level: Union[str, int] = "INFO", **kwargs) -> None:
         level (Union[str, int]): The logging level to set. Case-insensitive if a
             string is given. Defaults to ``INFO``.
         **kwargs: any keyword argument is transmitted to the ``logger.add`` call.
+
+    Example:
+        .. code-block:: python
+
+            >>> config_logger(level="DEBUG")
     """
     logger.remove()
     level = level.upper() if isinstance(level, str) else level
@@ -164,8 +169,6 @@ def install_mpl_style() -> None:
     .. note::
         Sometimes, matplotlib will not look for the file in its global config directory, but in the
         activated environment's site-packages data. The file is installed in both places.
-
-    One can see both options for using the style in the :ref:`examples gallery <gallery>`.
     """
     logger.info("Installing matplotlib style")
     style_content: str = "\n".join(f"{option} : {setting}" for option, setting in PLOT_PARAMS.items())
