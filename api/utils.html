@@ -518,6 +518,12 @@ string is given. Defaults to <code class="docutils literal notranslate"><span cl
 </ul>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -538,7 +544,6 @@ format the <code class="docutils literal notranslate"><span class="pre">PLOT_PAR
 <p>Sometimes, matplotlib will not look for the file in its global config directory, but in the
 activated environment’s site-packages data. The file is installed in both places.</p>
 </div>
-<p>One can see both options for using the style in the <a class="reference internal" href="../gallery/index.html#gallery"><span class="std std-ref">examples gallery</span></a>.</p>
 </dd></dl>
 
 </section>
@@ -680,6 +685,15 @@ a <a class="reference external" href="https://docs.python.org/3/library/concurre
 call, for instance <code class="xref py py-obj docutils literal notranslate"><span class="pre">[(results,</span> <span class="pre">run,</span> <span class="pre">one),</span> <span class="pre">(results,</span> <span class="pre">run,</span> <span class="pre">two),</span> <span class="pre">(results,</span> <span class="pre">run,</span> <span class="pre">three)]</span></code>.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MultiThreader</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)),</span> <span class="n">n_processes</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">[0, 1, 4, 9, 16, 25]</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 </dd></dl>
@@ -727,7 +741,7 @@ of the user as well as all users’ statistics on this scheduler cluster.</p>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">condor_q_output</span> <span class="o">=</span> <span class="n">get_the_string_as_you_wish</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tasks</span><span class="p">,</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">read_condor_q</span><span class="p">(</span><span class="n">condor_q_outout</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tasks</span><span class="p">,</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">read_condor_q</span><span class="p">(</span><span class="n">condor_q_output</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -748,30 +762,43 @@ of the user as well as all users’ statistics on this scheduler cluster.</p>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.20.0.</span></p>
 </div>
-<p>Applies the local coupling correction settings from the 2022 commissioning as
+<p>Applies the SbS local coupling correction settings from the 2022 commissioning as
 they were in the machine, and tilts of Q3s that would compensate for those settings.
-This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can
-be added and studied in the machine, pretending a perfect local coupling correction.</p>
+This way the bump of each corrector is very local to MQSX3 - MQSXQ3 and other effects
+can be added and studied, <em>pretending</em> a perfect local coupling correction.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object with your
 <code class="docutils literal notranslate"><span class="pre">LHC</span></code> setup.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">apply_colin_corrs_balance</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.get_betastar_from_opticsfile">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">get_betastar_from_opticsfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">pathlib.Path</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#get_betastar_from_opticsfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">get_betastar_from_opticsfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#get_betastar_from_opticsfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.16.0.</span></p>
 </div>
 <p>Parses the <span class="math notranslate nohighlight">\(\beta^{*}\)</span> value from the <em>opticsfile</em> content,
 which is in the first lines. This contains a check that ensures the betastar
 is the same for IP1 and IP5. The values returned are in meters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For file in <code class="docutils literal notranslate"><span class="pre">acc-models-lhc</span></code> make sure to point to the strength file
+(see example below) where the <span class="math notranslate nohighlight">\(\beta^{*}\)</span> is set, as the opticsfile
+itself only contains call.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>opticsfile</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Path</span></code>) -- <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> object to the optics file.</p>
+<dd class="field-odd"><p><strong>opticsfile</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[Path,</span> <span class="pre">str]</span></code>) -- <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> object to the optics file, or
+string of the path to the file.</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The <span class="math notranslate nohighlight">\(\beta^{*}\)</span> value parsed from the file.</p>
@@ -781,6 +808,15 @@ is the same for IP1 and IP5. The values returned are in meters.</p>
     the same (in both planes too).</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_betastar_from_opticsfile</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">0.3</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -790,6 +826,13 @@ is the same for IP1 and IP5. The values returned are in meters.</p>
 <p><span class="versionmodified added">New in version 0.17.0.</span></p>
 </div>
 <p>Issues a <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code>-level log stating the runtime versions of both <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymad</span></code> and <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.</p>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">log_runtime_versions</span><span class="p">()</span>
+<span class="go">2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 </section>

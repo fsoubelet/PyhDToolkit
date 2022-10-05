@@ -394,7 +394,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; madx = prepare_lhc_run2(&quot;/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22&quot;, beam=2, stdout=True)</span>
+<span class="sd">            &gt;&gt;&gt; madx = prepare_lhc_run2(</span>
+<span class="sd">            ...     &quot;/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22&quot;, beam=2, stdout=True</span>
+<span class="sd">            ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_run2_sequence_from_opticsfile</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
@@ -456,7 +458,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; madx = prepare_lhc_run3(&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;, slicefactor=4, stdout=True)</span>
+<span class="sd">            &gt;&gt;&gt; madx = prepare_lhc_run3(</span>
+<span class="sd">            ...     &quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;, slicefactor=4, stdout=True</span>
+<span class="sd">            ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating Run 3 setup MAD-X instance&quot;</span><span class="p">)</span>
     <span class="n">echo</span><span class="p">,</span> <span class="n">warn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>

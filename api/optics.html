@@ -460,7 +460,9 @@
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
 </div>
-<p>Calculates beam parameters from provided values, for <em>proton</em> particles.</p>
+<p>Calculates beam parameters from provided values, for <em>proton</em> particles. One can find
+an example use of this function in the <a class="reference internal" href="../gallery/demo_beam_enveloppe.html#demo-beam-enveloppe"><span class="std std-ref">beam enveloppe</span></a>
+example gallery.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -474,6 +476,25 @@
 <dd class="field-even"><p>A <code class="xref py py-obj docutils literal notranslate"><span class="pre">BeamParameters</span></code> object with the calculated values.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">params</span> <span class="o">=</span> <span class="n">compute_beam_parameters</span><span class="p">(</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="mf">2e-3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="go">Beam Parameters for particle of charge 1</span>
+<span class="go">Beam momentum = 1.900 GeV/c</span>
+<span class="go">Normalized x-emittance = 5.000 mm mrad</span>
+<span class="go">Normalized y-emittance = 5.000 mm mrad</span>
+<span class="go">Momentum deviation deltap/p = 0.002</span>
+<span class="go">-&gt; Beam total energy = 2.119 GeV</span>
+<span class="go">-&gt; Beam kinetic energy = 1.181 GeV</span>
+<span class="go">-&gt; Beam rigidity = 6.333 Tm</span>
+<span class="go">-&gt; Relativistic beta = 0.89663</span>
+<span class="go">-&gt; Relativistic gamma = 2.258</span>
+<span class="go">-&gt; Geometrical x emittance = 2.469 mm mrad</span>
+<span class="go">-&gt; Geometrical y emittance = 2.469 mm mrad</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 </section>
@@ -537,11 +558,12 @@ See the example below.</p>
 <p>Perform the Courant-Snyder transform on regular (nonchaotic) phase-space coordinates.
 Specifically, if considering the horizontal plane and noting <span class="math notranslate nohighlight">\(U = (x, px)\)</span> the
 phase-space vector, it returns <span class="math notranslate nohighlight">\(\bar{U} = (\bar{x}, \bar{px})\)</span> according to
-the transform <span class="math notranslate nohighlight">\(\bar{U} = P \cdot U\)</span>, where:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">P</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta_x</span><span class="p">)</span>              <span class="mi">0</span>      <span class="p">]</span>
-    <span class="p">[</span><span class="n">alpha_x</span><span class="o">/</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta_x</span><span class="p">)</span>   <span class="n">sqrt</span><span class="p">(</span><span class="n">beta_x</span><span class="p">)]</span>
-</pre></div>
-</div>
+the transform <span class="math notranslate nohighlight">\(\bar{U} = P \cdot U\)</span>, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}P = \begin{pmatrix}
+        \frac{1}{\sqrt{\beta_x}}          &amp;   0              \\
+        \frac{\alpha_x}{\sqrt{\beta_x}}   &amp;  \sqrt{\beta_x}  \\
+    \end{pmatrix}\end{split}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -555,6 +577,15 @@ coordinates, either horizontal or vertical.</p></li>
 <dd class="field-even"><p>The normalized phase-space coordinates from the Courant-Snyder transform.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alfx</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">betx</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">betx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">px_coord</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">u_bar</span> <span class="o">=</span> <span class="n">courant_snyder_transform</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">alfx</span><span class="p">,</span> <span class="n">betx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 </section>

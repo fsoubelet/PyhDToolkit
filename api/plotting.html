@@ -458,6 +458,14 @@ of the LHC, centered on 0 at IP position (simply done with <code class="docutils
 </ul>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plot_single_ir_crossing</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">(),</span> <span class="n">b1_df</span><span class="p">,</span> <span class="n">b2_df</span><span class="p">,</span> <span class="n">plot_column</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">scaling</span><span class="o">=</span><span class="mf">1e3</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Orbit X $[mm]$&quot;</span>
+<span class="gp">... </span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -466,7 +474,8 @@ of the LHC, centered on 0 at IP position (simply done with <code class="docutils
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.0.0.</span></p>
 </div>
-<p>Creates a plot representing the crossing schemes at the two provided IPs.</p>
+<p>Creates a plot representing the crossing schemes at the two provided IPs. One can find an example
+use of this function in the <a class="reference internal" href="../gallery/demo_lhc_crossing_schemes.html#demo-crossing-schemes"><span class="std std-ref">LHC crossing schemes</span></a> example gallery.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This function has some heavy logic behind it, especially in how it needs to order several axes. The
@@ -550,8 +559,9 @@ axis object to plot on.</p></li>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_envelope</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">beam_injection</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Horizontal aperture at </span><span class="si">{</span><span class="n">beam_injection</span><span class="o">.</span><span class="n">pc_GeV</span><span class="si">}</span><span class="s2"> GeV/c&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Horizontal aperture at </span><span class="si">{</span><span class="n">beam_injection</span><span class="o">.</span><span class="n">pc_GeV</span><span class="si">}</span><span class="s2"> GeV/c&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_envelope</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">beam_injection</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -585,8 +595,9 @@ axis object to plot on.</p></li>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_stay_clear</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">beam_flattop</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Stay-Clear at </span><span class="si">{</span><span class="n">beam_flattop</span><span class="o">.</span><span class="n">pc_GeV</span><span class="si">}</span><span class="s2"> GeV/c&quot;</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Stay-Clear at </span><span class="si">{</span><span class="n">beam_flattop</span><span class="o">.</span><span class="n">pc_GeV</span><span class="si">}</span><span class="s2"> GeV/c&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_stay_clear</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">beam_flattop</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -603,8 +614,8 @@ axis object to plot on.</p></li>
 <p><span class="versionmodified added">New in version 1.0.0.</span></p>
 </div>
 <p>Creates a plot on the current figure (<a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gcf.html#matplotlib.pyplot.gcf" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gcf</span></code></a>) representing the lattice layout and
-the :math`beta` functions along with the horizontal dispertion function. This is a very, very heavily
-refactored version of an initial implementation by <a class="reference external" href="https://github.com/sterbini">Guido Sterbini</a>. One can find
+the <span class="math notranslate nohighlight">\(\beta\)</span>-functions along with the horizontal dispertion function. This is a <em>very, very heavily
+refactored</em> version of an initial implementation by <a class="reference external" href="https://github.com/sterbini">Guido Sterbini</a>. One can find
 example uses of this function in the <a class="reference internal" href="../gallery/demo_lattice.html#demo-accelerator-lattice"><span class="std std-ref">machine lattice</span></a> example gallery.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -661,8 +672,16 @@ to <code class="xref py py-obj docutils literal notranslate"><span class="pre">_
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_latwiss</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span> <span class="n">k0l_lim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.15</span><span class="p">,</span> <span class="mf">0.15</span><span class="p">),</span> <span class="n">k1l_lim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">),</span> <span class="n">disp_ylim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">125</span><span class="p">),</span> <span class="n">lw</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">title</span> <span class="o">=</span> <span class="s2">&quot;Machine Layout&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_latwiss</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">madx</span><span class="p">,</span>
+<span class="go">        title=title,</span>
+<span class="go">        k0l_lim=(-0.15, 0.15),</span>
+<span class="go">        k1l_lim=(-0.08, 0.08),</span>
+<span class="go">        disp_ylim=(-10, 125),</span>
+<span class="go">        lw=3,</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -699,7 +718,9 @@ used as the axis object to plot on.</p></li>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_machine_survey</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Machine Layout&quot;</span><span class="p">,</span> <span class="n">show_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">high_orders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plot_machine_survey</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">madx</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Machine Survey&quot;</span><span class="p">,</span> <span class="n">show_elements</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">high_orders</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -716,9 +737,11 @@ object, mostly used in different <code class="xref py py-obj docutils literal no
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.0.0.</span></p>
 </div>
-<p>Draws patches elements representing the lattice layout on the given <em>axis</em>. This is the function
-that takes care of the machine layout axis in <a class="reference internal" href="#pyhdtoolkit.plotting.lattice.plot_latwiss" title="pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latwiss</span></code></a> and
-<a class="reference internal" href="#pyhdtoolkit.plotting.aperture.plot_aperture" title="pyhdtoolkit.plotting.aperture.plot_aperture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_aperture</span></code></a>.</p>
+<p>Draws patches elements representing the lattice layout on the given <em>axis</em>. This is
+the function that takes care of the machine layout axis in <a class="reference internal" href="#pyhdtoolkit.plotting.lattice.plot_latwiss" title="pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latwiss</span></code></a>
+and <a class="reference internal" href="#pyhdtoolkit.plotting.aperture.plot_aperture" title="pyhdtoolkit.plotting.aperture.plot_aperture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_aperture</span></code></a>. Its results can be seen in the
+<a class="reference internal" href="../gallery/demo_lattice.html#demo-accelerator-lattice"><span class="std std-ref">machine lattice</span></a> and <a class="reference internal" href="../gallery/demo_aperture.html#demo-accelerator-aperture"><span class="std std-ref">machine aperture</span></a>
+example galleries.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This current implementation can plot dipoles, quadrupoles, sextupoles and BPMs.</p>
@@ -978,7 +1001,8 @@ to plot on.</p></li>
 <p><span class="versionmodified added">New in version 0.19.0.</span></p>
 </div>
 <p>Plots all component of the given coupling <em>rdt</em> over the segment, for both Beam 1 and Beam 2. Optionally
-highlights the IP location.</p>
+highlights the IP location. One can find an example use of this function in the
+<a class="reference internal" href="../gallery/demo_sbs_plotting.html#demo-sbs-plotting"><span class="std std-ref">segment-by-segment plotting</span></a> example gallery.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1026,8 +1050,9 @@ If <code class="docutils literal notranslate"><span class="pre">bbox_to_anchor</
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.19.0.</span></p>
 </div>
-<p>Plots for Beam 1 and Beam 2 vertically a component of the given coupling <em>rdt</em> over the segment. Optionally
-highlights the IP location.</p>
+<p>Plots for Beam 1 and Beam 2 vertically a component of the given coupling <em>rdt</em> over the segment.
+Optionally highlights the IP location. One can find an example use of this function in the
+<a class="reference internal" href="../gallery/demo_sbs_plotting.html#demo-sbs-plotting"><span class="std std-ref">segment-by-segment plotting</span></a> example gallery.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1081,7 +1106,9 @@ If <code class="docutils literal notranslate"><span class="pre">b1_ylabel</span>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.19.0.</span></p>
 </div>
-<p>Plots a the phase for a given plane over the segment, optionally highlighting the IP location.</p>
+<p>Plots a the phase for a given plane over the segment, optionally highlighting the IP location. One
+can find an example use of this function in the <a class="reference internal" href="../gallery/demo_sbs_plotting.html#demo-sbs-plotting"><span class="std std-ref">segment-by-segment plotting</span></a>
+example gallery.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1113,7 +1140,9 @@ Should be either “x” or “y”, case-insensitive.</p></li>
 <p><span class="versionmodified added">New in version 0.19.0.</span></p>
 </div>
 <p>Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
-both planes and both beams. Optionally highlights the IP location in the segment.</p>
+both planes and both beams. Optionally highlights the IP location in the segment. One can find an
+example use of this function in the <a class="reference internal" href="../gallery/demo_sbs_plotting.html#demo-sbs-plotting"><span class="std std-ref">segment-by-segment plotting</span></a> example
+gallery.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1163,7 +1192,9 @@ If <code class="docutils literal notranslate"><span class="pre">bbox_to_anchor</
 <p><span class="versionmodified added">New in version 0.19.0.</span></p>
 </div>
 <p>Plots the propagated measured phase and the propagated corrected phase for the given IP segment, for
-both planes for a given beam. Optionally highlights the IP location in the segment.</p>
+both planes for a given beam. Optionally highlights the IP location in the segment. One can find an
+example use of this function in the <a class="reference internal" href="../gallery/demo_sbs_plotting.html#demo-sbs-plotting"><span class="std std-ref">segment-by-segment plotting</span></a> example
+gallery.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1269,7 +1300,7 @@ the axis object to plot on.</p></li>
 <p>This function expects the IP names to be in the dataframe’s index,
 and cased as the longitudinal coordinate column: aka uppercase names
 (<code class="docutils literal notranslate"><span class="pre">IP1</span></code>, <code class="docutils literal notranslate"><span class="pre">IP2</span></code>, etc) and <code class="docutils literal notranslate"><span class="pre">S</span></code> column; or lowercase names
-(<code class="docutils literal notranslate"><span class="pre">ip1</span></code>, ip2``, etc) and <code class="docutils literal notranslate"><span class="pre">s</span></code> column.</p>
+(<code class="docutils literal notranslate"><span class="pre">ip1</span></code>, <code class="docutils literal notranslate"><span class="pre">ip2</span></code>, etc) and <code class="docutils literal notranslate"><span class="pre">s</span></code> column.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1312,6 +1343,12 @@ is not None, using the tuple passed.</p></li>
 quadrupoles, sextupoles and octupoles. The keys are self-explanatory.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">element_dfs</span> <span class="o">=</span> <span class="n">make_elements_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -1331,6 +1368,12 @@ the survey table’s dataframe for different magnetic elements.</p>
 quadrupoles, sextupoles and octupoles. The keys are self-explanatory.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">survey_dfs</span> <span class="o">=</span> <span class="n">make_survey_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">

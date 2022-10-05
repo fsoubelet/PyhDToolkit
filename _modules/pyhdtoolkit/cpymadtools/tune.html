@@ -348,7 +348,7 @@
 <span class="sd">Tune Utilities</span>
 <span class="sd">--------------</span>
 
-<span class="sd">Module with functions to manipulate to manipulate ``MAD-X`` functionality around the tune through</span>
+<span class="sd">Module with functions to manipulate ``MAD-X`` functionality around the tune through</span>
 <span class="sd">a `~cpymad.madx.Madx` object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">import</span> <span class="nn">math</span>
@@ -399,7 +399,7 @@
 <span class="sd">            &gt;&gt;&gt; dynap_dframe = make_footprint_table(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initiating particules up to </span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> bunch sigma to create a tune footprint table&quot;</span><span class="p">)</span>
-    <span class="n">small</span><span class="p">,</span> <span class="n">big</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">small</span><span class="p">,</span> <span class="n">big</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">sigma_multiplier</span><span class="p">,</span> <span class="n">angle_multiplier</span> <span class="o">=</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Initializing particles&quot;</span><span class="p">)</span>

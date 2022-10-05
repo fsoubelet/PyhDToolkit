@@ -374,6 +374,11 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A validated `~.models.madx.MADXBeam` object.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; beam_parameters = query_beam_attributes(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving BEAM attributes from the MAD-X process&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">MADXBeam</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">beam</span><span class="p">))</span></div>

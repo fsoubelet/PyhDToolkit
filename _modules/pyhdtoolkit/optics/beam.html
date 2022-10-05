@@ -361,7 +361,9 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.12.0</span>
 
-<span class="sd">    Calculates beam parameters from provided values, for *proton* particles.</span>
+<span class="sd">    Calculates beam parameters from provided values, for *proton* particles. One can find</span>
+<span class="sd">    an example use of this function in the :ref:`beam enveloppe &lt;demo-beam-enveloppe&gt;`</span>
+<span class="sd">    example gallery.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        pc_gev (float): particle momentum, in [GeV].</span>
@@ -371,11 +373,29 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A `~.optics.beam.BeamParameters` object with the calculated values.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; params = compute_beam_parameters(1.9, 5e-6, 5e-6, 2e-3)</span>
+<span class="sd">            &gt;&gt;&gt; print(params)</span>
+<span class="sd">            Beam Parameters for particle of charge 1</span>
+<span class="sd">            Beam momentum = 1.900 GeV/c</span>
+<span class="sd">            Normalized x-emittance = 5.000 mm mrad</span>
+<span class="sd">            Normalized y-emittance = 5.000 mm mrad</span>
+<span class="sd">            Momentum deviation deltap/p = 0.002</span>
+<span class="sd">            -&gt; Beam total energy = 2.119 GeV</span>
+<span class="sd">            -&gt; Beam kinetic energy = 1.181 GeV</span>
+<span class="sd">            -&gt; Beam rigidity = 6.333 Tm</span>
+<span class="sd">            -&gt; Relativistic beta = 0.89663</span>
+<span class="sd">            -&gt; Relativistic gamma = 2.258</span>
+<span class="sd">            -&gt; Geometrical x emittance = 2.469 mm mrad</span>
+<span class="sd">            -&gt; Geometrical y emittance = 2.469 mm mrad</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">e0_gev</span> <span class="o">=</span> <span class="mf">0.9382720813</span>
-    <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">gamma_r</span> <span class="o">=</span> <span class="n">e_tot_gev</span> <span class="o">/</span> <span class="n">e0_gev</span>
-    <span class="n">beta_r</span> <span class="o">=</span> <span class="n">pc_gev</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">beta_r</span> <span class="o">=</span> <span class="n">pc_gev</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">BeamParameters</span><span class="p">(</span>
         <span class="n">pc_GeV</span><span class="o">=</span><span class="n">pc_gev</span><span class="p">,</span>
@@ -424,7 +444,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">beta_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Relativistic beta.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">brho</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -467,7 +487,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            The slip factor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="n">alpha_p</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="n">alpha_p</span></div>
 
 <div class="viewcode-block" id="Beam.gamma_transition"><a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam.gamma_transition">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">gamma_transition</span><span class="p">(</span><span class="n">alpha_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>

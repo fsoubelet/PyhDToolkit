@@ -353,7 +353,6 @@
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span>
 
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tfs</span>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
@@ -414,9 +413,9 @@
 <span class="sd">            &gt;&gt;&gt; triplets_df = get_pattern_twiss(</span>
 <span class="sd">            ...     madx=madx,</span>
 <span class="sd">            ...     patterns=[</span>
-<span class="sd">            ...         f&quot;MQXA.[12345][RL]1&quot;,  # Q1 and Q3 LHC</span>
-<span class="sd">            ...         f&quot;MQXB.[AB][12345][RL]1&quot;,  # Q2A and Q2B LHC</span>
-<span class="sd">            ...         f&quot;MQXF[AB].[AB][12345][RL]1&quot;,  # Q1 to Q3 A and B HL-LHC</span>
+<span class="sd">            ...         r&quot;MQXA.[12345][RL]1&quot;,  # Q1 and Q3 LHC</span>
+<span class="sd">            ...         r&quot;MQXB.[AB][12345][RL]1&quot;,  # Q2A and Q2B LHC</span>
+<span class="sd">            ...         r&quot;MQXF[AB].[AB][12345][RL]1&quot;,  # Q1 to Q3 A and B HL-LHC</span>
 <span class="sd">            ...     ],</span>
 <span class="sd">            ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>

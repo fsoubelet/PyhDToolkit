@@ -368,7 +368,8 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Creates a plot representing the crossing schemes at the two provided IPs.</span>
+<span class="sd">    Creates a plot representing the crossing schemes at the two provided IPs. One can find an example</span>
+<span class="sd">    use of this function in the :ref:`LHC crossing schemes &lt;demo-crossing-schemes&gt;` example gallery.</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        This function has some heavy logic behind it, especially in how it needs to order several axes. The</span>
@@ -509,6 +510,13 @@
 <span class="sd">        xlabel (str): if given, will be used for the ``xlabel`` of the axis. Defaults to `None`.</span>
 <span class="sd">        ylabel (str): if given, will be used for the ``ylabel`` of the axis. Defaults to `None`.</span>
 <span class="sd">        title (str): if given, will be used for the ``title`` of the axis. Defaults to `None`.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; plot_single_ir_crossing(</span>
+<span class="sd">            ...     plt.gca(), b1_df, b2_df, plot_column=&quot;x&quot;, scaling=1e3, ylabel=&quot;Orbit X $[mm]$&quot;</span>
+<span class="sd">            ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting orbit &#39;</span><span class="si">{</span><span class="n">plot_column</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
     <span class="n">axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_df_b1</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">plot_df_b1</span><span class="p">[</span><span class="n">plot_column</span><span class="p">]</span> <span class="o">*</span> <span class="n">scaling</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Beam 1&quot;</span><span class="p">)</span>

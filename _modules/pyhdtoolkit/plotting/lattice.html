@@ -388,8 +388,8 @@
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
 <span class="sd">    Creates a plot on the current figure (`~matplotlib.pyplot.gcf`) representing the lattice layout and</span>
-<span class="sd">    the :math`\\beta` functions along with the horizontal dispertion function. This is a very, very heavily</span>
-<span class="sd">    refactored version of an initial implementation by :user:`Guido Sterbini &lt;sterbini&gt;`. One can find</span>
+<span class="sd">    the :math:`\\beta`-functions along with the horizontal dispertion function. This is a *very, very heavily</span>
+<span class="sd">    refactored* version of an initial implementation by :user:`Guido Sterbini &lt;sterbini&gt;`. One can find</span>
 <span class="sd">    example uses of this function in the :ref:`machine lattice &lt;demo-accelerator-lattice&gt;` example gallery.</span>
 
 <span class="sd">    .. note::</span>
@@ -441,8 +441,16 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
+<span class="sd">            &gt;&gt;&gt; title = &quot;Machine Layout&quot;</span>
 <span class="sd">            &gt;&gt;&gt; plt.figure(figsize=(16, 11))</span>
-<span class="sd">            &gt;&gt;&gt; plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)</span>
+<span class="sd">            &gt;&gt;&gt; plot_latwiss(</span>
+<span class="sd">            ...     madx,</span>
+<span class="sd">                    title=title,</span>
+<span class="sd">                    k0l_lim=(-0.15, 0.15),</span>
+<span class="sd">                    k1l_lim=(-0.08, 0.08),</span>
+<span class="sd">                    disp_ylim=(-10, 125),</span>
+<span class="sd">                    lw=3,</span>
+<span class="sd">            ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="c1"># Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given</span>
@@ -533,7 +541,9 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(6, 6))</span>
-<span class="sd">            &gt;&gt;&gt; plot_machine_survey(madx, title=&quot;Machine Layout&quot;, show_elements=True, high_orders=True)</span>
+<span class="sd">            &gt;&gt;&gt; plot_machine_survey(</span>
+<span class="sd">            ...     madx, title=&quot;Machine Survey&quot;, show_elements=True, high_orders=True</span>
+<span class="sd">            ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting machine survey&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span>

@@ -354,16 +354,20 @@
 
 
 <div class="viewcode-block" id="courant_snyder_transform"><a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.twiss.courant_snyder_transform">[docs]</a><span class="k">def</span> <span class="nf">courant_snyder_transform</span><span class="p">(</span><span class="n">u_vector</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">beta</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.5.0</span>
 
 <span class="sd">    Perform the Courant-Snyder transform on regular (nonchaotic) phase-space coordinates.</span>
 <span class="sd">    Specifically, if considering the horizontal plane and noting :math:`U = (x, px)` the</span>
-<span class="sd">    phase-space vector, it returns :math:`\\bar{U} = (\\bar{x}, \\bar{px})` according to</span>
-<span class="sd">    the transform :math:`\\bar{U} = P \\cdot U`, where::</span>
+<span class="sd">    phase-space vector, it returns :math:`\bar{U} = (\bar{x}, \bar{px})` according to</span>
+<span class="sd">    the transform :math:`\bar{U} = P \cdot U`, where</span>
 
-<span class="sd">        P = [1/sqrt(beta_x)              0      ]</span>
-<span class="sd">            [alpha_x/sqrt(beta_x)   sqrt(beta_x)]</span>
+<span class="sd">    .. math::</span>
+
+<span class="sd">        P = \begin{pmatrix}</span>
+<span class="sd">                \frac{1}{\sqrt{\beta_x}}          &amp;   0              \\</span>
+<span class="sd">                \frac{\alpha_x}{\sqrt{\beta_x}}   &amp;  \sqrt{\beta_x}  \\</span>
+<span class="sd">            \end{pmatrix}</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        u_vector (np.ndarray): two-dimentional array of phase-space (spatial and momenta)</span>
@@ -373,6 +377,14 @@
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The normalized phase-space coordinates from the Courant-Snyder transform.</span>
+<span class="sd">    </span>
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; alfx = madx.table.twiss.alfx[0]</span>
+<span class="sd">            &gt;&gt;&gt; betx = madx.table.twiss.betx[0]</span>
+<span class="sd">            &gt;&gt;&gt; u = np.array([x_coords, px_coord])</span>
+<span class="sd">            &gt;&gt;&gt; u_bar = courant_snyder_transform(u, alfx, betx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">p_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">alpha</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta</span><span class="p">)]])</span>
     <span class="k">return</span> <span class="n">p_matrix</span> <span class="o">@</span> <span class="n">u_vector</span></div>

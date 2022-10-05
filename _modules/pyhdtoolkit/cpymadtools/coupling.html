@@ -535,13 +535,18 @@
 <span class="sd">        The calculated :math:`|C^{-}|` value.</span>
 
 <span class="sd">    Examples:</span>
+
+<span class="sd">        To compute the :math:`|C^{-}|` taking in consideration all elements in the sequence:</span>
+
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            &gt;&gt;&gt; complex_cminus = get_cminus_from_coupling_rdts(madx)</span>
 
+
+<span class="sd">        To simulate the calculation from a measurement, with RDTs computed at BPMs only:</span>
+
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; # To simulate the calculation from a measurement, with RDTs at BPMs only</span>
 <span class="sd">            &gt;&gt;&gt; complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=[&quot;^BPM.*B[12]$&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting coupling RDTs at selected elements thoughout the machine&quot;</span><span class="p">)</span>
@@ -579,7 +584,7 @@
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">location</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">vary_knobs</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    ..versionadded:: 0.16.0</span>
+<span class="sd">    .. versionadded:: 0.16.0</span>
 
 <span class="sd">    Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`</span>
 <span class="sd">    to be 0 at a given location.</span>

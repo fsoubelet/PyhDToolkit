@@ -486,6 +486,11 @@
 <span class="sd">        level (Union[str, int]): The logging level to set. Case-insensitive if a</span>
 <span class="sd">            string is given. Defaults to ``INFO``.</span>
 <span class="sd">        **kwargs: any keyword argument is transmitted to the ``logger.add`` call.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; config_logger(level=&quot;DEBUG&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
     <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">level</span>
@@ -508,8 +513,6 @@
 <span class="sd">    .. note::</span>
 <span class="sd">        Sometimes, matplotlib will not look for the file in its global config directory, but in the</span>
 <span class="sd">        activated environment&#39;s site-packages data. The file is installed in both places.</span>
-
-<span class="sd">    One can see both options for using the style in the :ref:`examples gallery &lt;gallery&gt;`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span>
     <span class="n">style_content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">PLOT_PARAMS</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>

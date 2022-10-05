@@ -389,7 +389,7 @@
 <span class="sd">        energy (float): beam energy, in [GeV]. Defaults to 6500.</span>
 <span class="sd">        emittance_x (float): horizontal emittance in [m]. Will be used to calculate</span>
 <span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
-<span class="sd">        emittance_x (float): vertical emittance in [m]. Will be used to calculate</span>
+<span class="sd">        emittance_y (float): vertical emittance in [m]. Will be used to calculate</span>
 <span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
 <span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.</span>
 
@@ -514,7 +514,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
-<span class="sd">    Applies the LHC colinearity knob.</span>
+<span class="sd">    Applies the a trim of the LHC colinearity knob.</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        If you don&#39;t know what this is, you really should not be using this function.</span>
@@ -553,7 +553,7 @@
 <span class="sd">    .. versionadded:: 0.21.0</span>
 
 <span class="sd">    This is essentially the same as `.apply_lhc_colinearity_knob`, but instead of a applying fixed powering</span>
-<span class="sd">    value, it applies to delta to the existing value.</span>
+<span class="sd">    value, it applies a delta to the (potentially) existing value.</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        If you don&#39;t know what this is, you really should not be using this function.</span>
@@ -593,12 +593,12 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
-<span class="sd">    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP.</span>
+<span class="sd">    Applies a trim of the LHC rigidity waist shift knob, moving the waist left or right of IP.</span>
+<span class="sd">    The waist shift is achieved by moving all four betatron waists simltaneously: unbalancing</span>
+<span class="sd">    the triplet powering knobs of the left and right-hand sides of the IP.</span>
 
 <span class="sd">    .. note::</span>
-<span class="sd">        If you don&#39;t know what this is, you really should not be using this function. The waist shift</span>
-<span class="sd">        is achieved by moving all four betatron waists simltaneously: unbalancing the triplet powering</span>
-<span class="sd">        knobs of the left and right-hand sides of the IP,</span>
+<span class="sd">        If you don&#39;t know what this is, you really should not be using this function.</span>
 
 <span class="sd">    .. warning::</span>
 <span class="sd">        Applying the shift will modify your tunes and is likely to flip them, making a subsequent matching</span>
@@ -651,7 +651,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
 
-<span class="sd">    Applies the LHC coupling knob to reach the desired :math:`|C^{-}|` value.</span>
+<span class="sd">    Applies a trim of the LHC coupling knob to reach the desired :math:`|C^{-}|` value.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
@@ -671,7 +671,7 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this coupling knob is applied&quot;</span><span class="p">)</span>
     <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
     <span class="c1"># NOTE: Only using this knob will give a dqmin very close to coupling_knob</span>
-    <span class="c1"># If one wants to also assign f&quot;CMIS.b{beam:d}{suffix}&quot; the dqmin be &gt; coupling_knob</span>
+    <span class="c1"># If one wants to also assign f&quot;CMIS.b{beam:d}{suffix}&quot; the dqmin will be &gt; coupling_knob</span>
     <span class="n">knob_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;CMRS.b</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}{</span><span class="n">suffix</span><span class="si">}</span><span class="s2">&quot;</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Knob &#39;</span><span class="si">{</span><span class="n">knob_name</span><span class="si">}</span><span class="s2">&#39; is </span><span class="si">{</span><span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob_name</span><span class="p">]</span><span class="si">}</span><span class="s2"> before implementation&quot;</span><span class="p">)</span>
@@ -690,7 +690,7 @@
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
 <span class="sd">        ir (int): The Interaction Region around which to apply the change, should be</span>
 <span class="sd">            one of [1, 2, 5, 8].</span>
-<span class="sd">        to_left (bool): If `True`, the magnet right of IP is powered of and its powering</span>
+<span class="sd">        to_left (bool): If `True`, the magnet right of IP is de-powered of and its powering</span>
 <span class="sd">            is transferred to the magnet left of IP. If `False`, then the opposite happens.</span>
 <span class="sd">            Defaults to `True`.</span>
 
@@ -790,8 +790,9 @@
 <span class="sd">    The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful</span>
 <span class="sd">    to setup some specific matching involving these elements.</span>
 
-<span class="sd">    ..important::</span>
-<span class="sd">        It is necessary to have defined a ``brho`` variable when creating your beams.</span>
+<span class="sd">    .. important::</span>
+<span class="sd">        It is necessary to have defined a ``brho`` variable when creating your beams. If one has used</span>
+<span class="sd">        `make_lhc_beams` to create the beams, this has already been done automatically.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
@@ -1171,7 +1172,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; add_markers_around_lhc_ip(madx, sequence=f&quot;lhcb1&quot;, ip=1, n_markers=1000, interval=0.001)</span>
+<span class="sd">            &gt;&gt;&gt; add_markers_around_lhc_ip(</span>
+<span class="sd">            ...     madx, sequence=f&quot;lhcb1&quot;, ip=1, n_markers=1000, interval=0.001</span>
+<span class="sd">            ... )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding </span><span class="si">{</span><span class="n">n_markers</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> markers on each side of IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
@@ -1355,15 +1358,15 @@
 <span class="sd">    .. note::</span>
 <span class="sd">        Here are below certain useful patterns for the ``LHC`` and their meaning:</span>
 
-<span class="sd">        * ``^mb\.`` :math:`\\rightarrow` main bends.</span>
-<span class="sd">        * ``^mq\.`` :math:`\\rightarrow` main quadrupoles.</span>
-<span class="sd">        * ``^ms\.`` :math:`\\rightarrow` main sextupoles.</span>
-<span class="sd">        * ``^mb[rswx]`` :math:`\\rightarrow` separation dipoles.</span>
-<span class="sd">        * ``^mq[mwxy]`` :math:`\\rightarrow` insertion quads.</span>
-<span class="sd">        * ``^mqt.1[23]`` :math:`\\rightarrow` short tuning quads (12 &amp; 13).</span>
-<span class="sd">        * ``^mqtl`` :math:`\\rightarrow` long  tuning quads.</span>
-<span class="sd">        * ``^mcbx`` :math:`\\rightarrow` crossing scheme magnets.</span>
-<span class="sd">        * ``^mcb[cy]`` :math:`\\rightarrow` crossing scheme magnets.</span>
+<span class="sd">        * ``^mb\.`` :math:`\rightarrow` main bends.</span>
+<span class="sd">        * ``^mq\.`` :math:`\rightarrow` main quadrupoles.</span>
+<span class="sd">        * ``^ms\.`` :math:`\rightarrow` main sextupoles.</span>
+<span class="sd">        * ``^mb[rswx]`` :math:`\rightarrow` separation dipoles.</span>
+<span class="sd">        * ``^mq[mwxy]`` :math:`\rightarrow` insertion quads.</span>
+<span class="sd">        * ``^mqt.1[23]`` :math:`\rightarrow` short tuning quads (12 &amp; 13).</span>
+<span class="sd">        * ``^mqtl`` :math:`\rightarrow` long  tuning quads.</span>
+<span class="sd">        * ``^mcbx`` :math:`\rightarrow` crossing scheme magnets.</span>
+<span class="sd">        * ``^mcb[cy]`` :math:`\rightarrow` crossing scheme magnets.</span>
 
 <span class="sd">        To make no selection, one can give ``patterns=[&quot;&quot;]`` and this will give back</span>
 <span class="sd">        the results for *all* elements. One can also give a specific magnet&#39;s exact</span>
@@ -1387,6 +1390,11 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        A `~tfs.TfsDataFrame` of the ``TWISS`` table, with the relevant newly defined columns</span>
 <span class="sd">        and including the elements matching the regex *patterns* that were provided.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; sextupoles_powering = get_magnets_powering(madx, patterns=[r&quot;^ms\.&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Computing magnets field and powering limits proportions&quot;</span><span class="p">)</span>
     <span class="n">NEW_COLNAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;keyword&quot;</span><span class="p">,</span> <span class="s2">&quot;ampere&quot;</span><span class="p">,</span> <span class="s2">&quot;imax&quot;</span><span class="p">,</span> <span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="s2">&quot;kn&quot;</span><span class="p">,</span> <span class="s2">&quot;kmax&quot;</span><span class="p">,</span> <span class="s2">&quot;integrated_field&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">]</span>

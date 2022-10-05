@@ -522,11 +522,12 @@ Defaults to 0, which means no filtering.</p></li>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
+<p>To compute the <span class="math notranslate nohighlight">\(|C^{-}|\)</span> taking in consideration all elements in the sequence:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">complex_cminus</span> <span class="o">=</span> <span class="n">get_cminus_from_coupling_rdts</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># To simulate the calculation from a measurement, with RDTs at BPMs only</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">complex_cminus</span> <span class="o">=</span> <span class="n">get_cminus_from_coupling_rdts</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;^BPM.*B[12]$&quot;</span><span class="p">])</span>
+<p>To simulate the calculation from a measurement, with RDTs computed at BPMs only:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">complex_cminus</span> <span class="o">=</span> <span class="n">get_cminus_from_coupling_rdts</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;^BPM.*B[12]$&quot;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -564,7 +565,9 @@ Note that <code class="docutils literal notranslate"><span class="pre">CHROM</sp
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens">
 <span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.cpymadtools.coupling.</span></span><span class="sig-name descname"><span class="pre">match_no_coupling_through_ripkens</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">madx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><span class="pre">cpymad.madx.Madx</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vary_knobs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.10)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/cpymadtools/coupling.html#match_no_coupling_through_ripkens"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens" title="Permalink to this definition"></a></dt>
-<dd><p>..versionadded:: 0.16.0</p>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 0.16.0.</span></p>
+</div>
 <p>Matching routine to get cross-term Ripken parameters <span class="math notranslate nohighlight">\(\beta_{12}\)</span> and <span class="math notranslate nohighlight">\(\beta_{21}\)</span>
 to be 0 at a given location.</p>
 <dl class="field-list simple">
@@ -642,7 +645,11 @@ Case-insensitive. Defaults to both.</p></li>
 </div>
 <p>For a tilt distribution centered on 1mrad:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">madx</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">quadrupoles</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">beam</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">sides</span><span class="o">=</span><span class="s2">&quot;RL&quot;</span><span class="p">,</span> <span class="n">dpsi</span><span class="o">=</span><span class="s2">&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;</span>
+<span class="gp">... </span>    <span class="n">madx</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">quadrupoles</span><span class="o">=</span><span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+<span class="gp">... </span>    <span class="n">beam</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">sides</span><span class="o">=</span><span class="s2">&quot;RL&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">dpsi</span><span class="o">=</span><span class="s2">&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;</span><span class="p">,</span>
 <span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
@@ -826,7 +833,9 @@ place a marker every 5cm (starting 5cm away from the IP on each side).</p></li>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_markers_around_lhc_ip</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_markers</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">add_markers_around_lhc_ip</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">ip</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_markers</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mf">0.001</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -838,7 +847,7 @@ place a marker every 5cm (starting 5cm away from the IP on each side).</p></li>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.15.0.</span></p>
 </div>
-<p>Applies the LHC colinearity knob.</p>
+<p>Applies the a trim of the LHC colinearity knob.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you don’t know what this is, you really should not be using this function.</p>
@@ -876,7 +885,7 @@ Classically 1 or 5.</p></li>
 <p><span class="versionmodified added">New in version 0.21.0.</span></p>
 </div>
 <p>This is essentially the same as <a class="reference internal" href="#pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob" title="pyhdtoolkit.cpymadtools.lhc.apply_lhc_colinearity_knob"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob</span></code></a>, but instead of a applying fixed powering
-value, it applies to delta to the existing value.</p>
+value, it applies a delta to the (potentially) existing value.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you don’t know what this is, you really should not be using this function.</p>
@@ -906,7 +915,7 @@ Classically 1 or 5.</p></li>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.15.0.</span></p>
 </div>
-<p>Applies the LHC coupling knob to reach the desired <span class="math notranslate nohighlight">\(|C^{-}|\)</span> value.</p>
+<p>Applies a trim of the LHC coupling knob to reach the desired <span class="math notranslate nohighlight">\(|C^{-}|\)</span> value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -933,12 +942,12 @@ Defaults to <a class="reference external" href="https://docs.python.org/3/librar
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.15.0.</span></p>
 </div>
-<p>Applies the LHC rigidity waist shift knob, moving the waist left or right of IP.</p>
+<p>Applies a trim of the LHC rigidity waist shift knob, moving the waist left or right of IP.
+The waist shift is achieved by moving all four betatron waists simltaneously: unbalancing
+the triplet powering knobs of the left and right-hand sides of the IP.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you don’t know what this is, you really should not be using this function. The waist shift
-is achieved by moving all four betatron waists simltaneously: unbalancing the triplet powering
-knobs of the left and right-hand sides of the IP,</p>
+<p>If you don’t know what this is, you really should not be using this function.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -986,7 +995,7 @@ other side.</p>
 <li><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object.</p></li>
 <li><p><strong>ir</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- The Interaction Region around which to apply the change, should be
 one of [1, 2, 5, 8].</p></li>
-<li><p><strong>to_left</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) -- If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, the magnet right of IP is powered of and its powering
+<li><p><strong>to_left</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) -- If <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>, the magnet right of IP is de-powered of and its powering
 is transferred to the magnet left of IP. If <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, then the opposite happens.
 Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p></li>
 </ul>
@@ -1210,15 +1219,15 @@ Squeeze configuration. Defaults to <a class="reference external" href="https://d
 <p class="admonition-title">Note</p>
 <p>Here are below certain useful patterns for the <code class="docutils literal notranslate"><span class="pre">LHC</span></code> and their meaning:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">^mb\.</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> main bends.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^mq\.</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> main quadrupoles.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^ms\.</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> main sextupoles.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^mb[rswx]</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> separation dipoles.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^mq[mwxy]</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> insertion quads.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^mqt.1[23]</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> short tuning quads (12 &amp; 13).</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^mqtl</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> long  tuning quads.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^mcbx</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> crossing scheme magnets.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">^mcb[cy]</span></code> <span class="math notranslate nohighlight">\(\\rightarrow\)</span> crossing scheme magnets.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mb\.</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> main bends.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mq\.</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> main quadrupoles.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^ms\.</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> main sextupoles.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mb[rswx]</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> separation dipoles.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mq[mwxy]</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> insertion quads.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mqt.1[23]</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> short tuning quads (12 &amp; 13).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mqtl</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> long  tuning quads.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mcbx</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> crossing scheme magnets.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">^mcb[cy]</span></code> <span class="math notranslate nohighlight">\(\rightarrow\)</span> crossing scheme magnets.</p></li>
 </ul>
 <p>To make no selection, one can give <code class="docutils literal notranslate"><span class="pre">patterns=[&quot;&quot;]</span></code> and this will give back
 the results for <em>all</em> elements. One can also give a specific magnet’s exact
@@ -1248,6 +1257,12 @@ later on to the <code class="docutils literal notranslate"><span class="pre">TWI
 and including the elements matching the regex <em>patterns</em> that were provided.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">sextupoles_powering</span> <span class="o">=</span> <span class="n">get_magnets_powering</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="sa">r</span><span class="s2">&quot;^ms\.&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">
@@ -1388,7 +1403,7 @@ It <strong>does not</strong> affect tracking.</p>
 <li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- beam energy, in [GeV]. Defaults to 6500.</p></li>
 <li><p><strong>emittance_x</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- horizontal emittance in [m]. Will be used to calculate
 geometric emittance which is then fed to the <code class="docutils literal notranslate"><span class="pre">BEAM</span></code> command.</p></li>
-<li><p><strong>emittance_x</strong> -- vertical emittance in [m]. Will be used to calculate
+<li><p><strong>emittance_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- vertical emittance in [m]. Will be used to calculate
 geometric emittance which is then fed to the <code class="docutils literal notranslate"><span class="pre">BEAM</span></code> command.</p></li>
 <li><p><strong>**kwargs</strong> -- Any keyword argument that can be given to the <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> <code class="docutils literal notranslate"><span class="pre">BEAM</span></code> command.</p></li>
 </ul>
@@ -1538,10 +1553,11 @@ and <a class="reference internal" href="../gallery/demo_track_spectra.html#demo-
 <p>Sends the <code class="docutils literal notranslate"><span class="pre">VARY</span></code> commands for the desired quadrupoles in the IR surrounding the provided <em>ip</em>.
 The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful
 to setup some specific matching involving these elements.</p>
-<dl class="simple">
-<dt>..important::</dt><dd><p>It is necessary to have defined a <code class="docutils literal notranslate"><span class="pre">brho</span></code> variable when creating your beams.</p>
-</dd>
-</dl>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is necessary to have defined a <code class="docutils literal notranslate"><span class="pre">brho</span></code> variable when creating your beams. If one has used
+<a class="reference internal" href="#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a> to create the beams, this has already been done automatically.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1781,7 +1797,7 @@ Squeeze configuration. Defaults to <a class="reference external" href="https://d
 <span class="gp">... </span>    <span class="n">q2_target</span><span class="o">=</span><span class="mf">60.32</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">dq1_target</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">dq2_target</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">telescopic_squeeze</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># influences the knobs definition</span>
+<span class="gp">... </span>    <span class="n">run3</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># influences the knobs definition</span>
 <span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1927,6 +1943,12 @@ for details.</p>
 <dd class="field-even"><p>A validated <a class="reference internal" href="models.html#pyhdtoolkit.models.madx.MADXBeam" title="pyhdtoolkit.models.madx.MADXBeam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MADXBeam</span></code></a> object.</p>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">beam_parameters</span> <span class="o">=</span> <span class="n">query_beam_attributes</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 </section>
@@ -2240,7 +2262,9 @@ the <a class="reference external" href="https://hibtc.github.io/cpymad/automod/c
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run2</span><span class="p">(</span><span class="s2">&quot;/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22&quot;</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run2</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22&quot;</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2284,7 +2308,9 @@ Any other keyword argument is transmitted to the <a class="reference external" h
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run3</span><span class="p">(</span><span class="s2">&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run3</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="s2">&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">True</span>
+<span class="gp">... </span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2355,7 +2381,7 @@ in the order they are defined in.</p>
 </section>
 <span class="target" id="module-pyhdtoolkit.cpymadtools.tune"></span><section id="tune-utilities">
 <span id="cpymadtools-tune"></span><h2>Tune Utilities<a class="headerlink" href="#tune-utilities" title="Permalink to this headline"></a></h2>
-<p>Module with functions to manipulate to manipulate <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> functionality around the tune through
+<p>Module with functions to manipulate <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> functionality around the tune through
 a <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.cpymadtools.tune.get_footprint_lines">
@@ -2581,9 +2607,9 @@ and the internal <code class="docutils literal notranslate"><span class="pre">SU
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">triplets_df</span> <span class="o">=</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span>
 <span class="gp">... </span>    <span class="n">patterns</span><span class="o">=</span><span class="p">[</span>
-<span class="gp">... </span>        <span class="sa">f</span><span class="s2">&quot;MQXA.[12345][RL]1&quot;</span><span class="p">,</span>  <span class="c1"># Q1 and Q3 LHC</span>
-<span class="gp">... </span>        <span class="sa">f</span><span class="s2">&quot;MQXB.[AB][12345][RL]1&quot;</span><span class="p">,</span>  <span class="c1"># Q2A and Q2B LHC</span>
-<span class="gp">... </span>        <span class="sa">f</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]1&quot;</span><span class="p">,</span>  <span class="c1"># Q1 to Q3 A and B HL-LHC</span>
+<span class="gp">... </span>        <span class="sa">r</span><span class="s2">&quot;MQXA.[12345][RL]1&quot;</span><span class="p">,</span>  <span class="c1"># Q1 and Q3 LHC</span>
+<span class="gp">... </span>        <span class="sa">r</span><span class="s2">&quot;MQXB.[AB][12345][RL]1&quot;</span><span class="p">,</span>  <span class="c1"># Q2A and Q2B LHC</span>
+<span class="gp">... </span>        <span class="sa">r</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]1&quot;</span><span class="p">,</span>  <span class="c1"># Q1 to Q3 A and B HL-LHC</span>
 <span class="gp">... </span>    <span class="p">],</span>
 <span class="gp">... </span><span class="p">)</span>
 </pre></div>
@@ -2653,6 +2679,13 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">SUMM</s
 </ul>
 </dd>
 </dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">export_madx_table</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">table_name</span><span class="o">=</span><span class="s2">&quot;TWISS&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="s2">&quot;twiss.tfs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </dd></dl>
 
 <dl class="py function">

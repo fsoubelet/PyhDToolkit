@@ -383,6 +383,12 @@
 <span class="sd">        headers_table (str): the name of the internal table to use for headers.</span>
 <span class="sd">            Defaults to ``SUMM``.</span>
 <span class="sd">        **kwargs: any keyword arguments will be passed to `~tfs.writer.write_tfs`.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; madx.command.twiss()</span>
+<span class="sd">            &gt;&gt;&gt; export_madx_table(madx, table_name=&quot;TWISS&quot;, file_name=&quot;twiss.tfs&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exporting table </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> into &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>

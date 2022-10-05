@@ -358,6 +358,7 @@
 
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">cpymad</span>
 
@@ -377,6 +378,12 @@
 <span class="sd">    .. versionadded:: 0.17.0</span>
 
 <span class="sd">    Issues a ``CRITICAL``-level log stating the runtime versions of both `~pyhdtoolkit`, `cpymad` and ``MAD-X``.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; log_runtime_versions()</span>
+<span class="sd">            2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">Madx</span><span class="p">(</span><span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">mad</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using: pyhdtoolkit </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> | cpymad </span><span class="si">{</span><span class="n">cpymad</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">  | </span><span class="si">{</span><span class="n">mad</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -389,15 +396,19 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.20.0</span>
 
-<span class="sd">    Applies the local coupling correction settings from the 2022 commissioning as</span>
+<span class="sd">    Applies the SbS local coupling correction settings from the 2022 commissioning as</span>
 <span class="sd">    they were in the machine, and tilts of Q3s that would compensate for those settings.</span>
-<span class="sd">    This way the bump of each corrector is very local to MQSX3 - Q3 and other effects can</span>
-<span class="sd">    be added and studied in the machine, pretending a perfect local coupling correction.</span>
-
+<span class="sd">    This way the bump of each corrector is very local to MQSX3 - MQSXQ3 and other effects</span>
+<span class="sd">    can be added and studied, *pretending* a perfect local coupling correction.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object with your</span>
 <span class="sd">            ``LHC`` setup.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; apply_colin_corrs_balance(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># ----- Let&#39;s balance IR1 ----- #</span>
     <span class="n">errors</span><span class="o">.</span><span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">beam</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">quadrupoles</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">sides</span><span class="o">=</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="n">DPSI</span><span class="o">=-</span><span class="mf">1.61e-3</span><span class="p">)</span>
@@ -425,7 +436,7 @@
 <span class="c1"># ----- Fetching Utilities ----- #</span>
 
 
-<div class="viewcode-block" id="get_betastar_from_opticsfile"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile">[docs]</a><span class="k">def</span> <span class="nf">get_betastar_from_opticsfile</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="get_betastar_from_opticsfile"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile">[docs]</a><span class="k">def</span> <span class="nf">get_betastar_from_opticsfile</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.16.0</span>
 
@@ -433,8 +444,14 @@
 <span class="sd">    which is in the first lines. This contains a check that ensures the betastar</span>
 <span class="sd">    is the same for IP1 and IP5. The values returned are in meters.</span>
 
+<span class="sd">    .. note::</span>
+<span class="sd">        For file in ``acc-models-lhc`` make sure to point to the strength file</span>
+<span class="sd">        (see example below) where the :math:`\\beta^{*}` is set, as the opticsfile</span>
+<span class="sd">        itself only contains call.</span>
+
 <span class="sd">    Args:</span>
-<span class="sd">        opticsfile (Path): `pathlib.Path` object to the optics file.</span>
+<span class="sd">        opticsfile (Union[Path, str]): `pathlib.Path` object to the optics file, or</span>
+<span class="sd">            string of the path to the file.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The :math:`\\beta^{*}` value parsed from the file.</span>
@@ -442,8 +459,16 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        AssertionError: if the :math:`\\beta^{*}` value for IP1 and IP5 is not</span>
 <span class="sd">            the same (in both planes too).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; get_betastar_from_opticsfile(</span>
+<span class="sd">            ...     &quot;acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx&quot;</span>
+<span class="sd">            ... )</span>
+<span class="sd">            0.3</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">file_lines</span> <span class="o">=</span> <span class="n">opticsfile</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">file_lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">ip1_x_line</span><span class="p">,</span> <span class="n">ip1_y_line</span><span class="p">,</span> <span class="n">ip5_x_line</span><span class="p">,</span> <span class="n">ip5_y_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_lines</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;bet&quot;</span><span class="p">)]</span>
     <span class="n">betastar_x_ip1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ip1_x_line</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">betastar_y_ip1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ip1_y_line</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>

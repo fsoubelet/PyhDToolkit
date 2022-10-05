@@ -477,6 +477,14 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            A list of tuples, each `tuple` being the returned value(s) of *function* for the given</span>
 <span class="sd">            call, for instance `[(results, run, one), (results, run, two), (results, run, three)]`.</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            .. code-block:: python</span>
+
+<span class="sd">                &gt;&gt;&gt; MultiThreader.execute_function(</span>
+<span class="sd">                ...     func=np.square, func_args=list(range(6)), n_processes=2)</span>
+<span class="sd">                ... )</span>
+<span class="sd">                [0, 1, 4, 9, 16, 25]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting multithreading with </span><span class="si">{</span><span class="n">n_threads</span><span class="si">}</span><span class="s2"> threads&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">n_threads</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>

@@ -122,7 +122,7 @@ Now we plot the crossing schemes, here for IP1 and IP5.
 
  .. code-block:: none
 
-    2022-10-04 18:19:37 | WARNING  | pyhdtoolkit.plotting.crossing:67 - You should re-call the 'USE' command on your wanted sequence after this plot!
+    2022-10-05 17:14:57 | WARNING  | pyhdtoolkit.plotting.crossing:68 - You should re-call the 'USE' command on your wanted sequence after this plot!
 
 
 
@@ -153,7 +153,7 @@ for instance also remove the highlighting of MQX and MBX elements:
 
  .. code-block:: none
 
-    2022-10-04 18:19:40 | WARNING  | pyhdtoolkit.plotting.crossing:67 - You should re-call the 'USE' command on your wanted sequence after this plot!
+    2022-10-05 17:15:00 | WARNING  | pyhdtoolkit.plotting.crossing:68 - You should re-call the 'USE' command on your wanted sequence after this plot!
 
 
 
@@ -189,7 +189,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.591 seconds)
+   **Total running time of the script:** ( 0 minutes  7.193 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_crossing_schemes.py:
