@@ -133,6 +133,14 @@ class MultiThreader:
         Returns:
             A list of tuples, each `tuple` being the returned value(s) of *function* for the given
             call, for instance `[(results, run, one), (results, run, two), (results, run, three)]`.
+
+        Example:
+            .. code-block:: python
+
+                >>> MultiThreader.execute_function(
+                ...     func=np.square, func_args=list(range(6)), n_processes=2)
+                ... )
+                [0, 1, 4, 9, 16, 25]
         """
         logger.debug(f"Starting multithreading with {n_threads} threads")
         with futures.ThreadPoolExecutor(n_threads) as ex:
