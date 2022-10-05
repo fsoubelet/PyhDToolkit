@@ -191,13 +191,18 @@ def get_cminus_from_coupling_rdts(
         The calculated :math:`|C^{-}|` value.
 
     Examples:
+
+        To compute the :math:`|C^{-}|` taking in consideration all elements in the sequence:
+
         .. code-block:: python
 
             >>> complex_cminus = get_cminus_from_coupling_rdts(madx)
 
+
+        To simulate the calculation from a measurement, with RDTs computed at BPMs only:
+
         .. code-block:: python
 
-            >>> # To simulate the calculation from a measurement, with RDTs at BPMs only
             >>> complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=["^BPM.*B[12]$"])
     """
     logger.debug(f"Getting coupling RDTs at selected elements thoughout the machine")
@@ -235,7 +240,7 @@ def match_no_coupling_through_ripkens(
     madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
     """
-    ..versionadded:: 0.16.0
+    .. versionadded:: 0.16.0
 
     Matching routine to get cross-term Ripken parameters :math:`\\beta_{12}` and :math:`\\beta_{21}`
     to be 0 at a given location.
