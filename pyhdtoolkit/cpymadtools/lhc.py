@@ -45,7 +45,7 @@ def make_lhc_beams(
         energy (float): beam energy, in [GeV]. Defaults to 6500.
         emittance_x (float): horizontal emittance in [m]. Will be used to calculate
             geometric emittance which is then fed to the ``BEAM`` command.
-        emittance_x (float): vertical emittance in [m]. Will be used to calculate
+        emittance_y (float): vertical emittance in [m]. Will be used to calculate
             geometric emittance which is then fed to the ``BEAM`` command.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.
 
@@ -170,7 +170,7 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     """
     .. versionadded:: 0.15.0
 
-    Applies the LHC colinearity knob.
+    Applies the a trim of the LHC colinearity knob.
 
     .. note::
         If you don't know what this is, you really should not be using this function.
@@ -209,7 +209,7 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, colinearity_knob_delta: float =
     .. versionadded:: 0.21.0
 
     This is essentially the same as `.apply_lhc_colinearity_knob`, but instead of a applying fixed powering
-    value, it applies to delta to the existing value.
+    value, it applies a delta to the (potentially) existing value.
 
     .. note::
         If you don't know what this is, you really should not be using this function.
@@ -249,12 +249,12 @@ def apply_lhc_rigidity_waist_shift_knob(
     """
     .. versionadded:: 0.15.0
 
-    Applies the LHC rigidity waist shift knob, moving the waist left or right of IP.
+    Applies a trim of the LHC rigidity waist shift knob, moving the waist left or right of IP.
+    The waist shift is achieved by moving all four betatron waists simltaneously: unbalancing
+    the triplet powering knobs of the left and right-hand sides of the IP.
 
     .. note::
-        If you don't know what this is, you really should not be using this function. The waist shift
-        is achieved by moving all four betatron waists simltaneously: unbalancing the triplet powering
-        knobs of the left and right-hand sides of the IP,
+        If you don't know what this is, you really should not be using this function.
 
     .. warning::
         Applying the shift will modify your tunes and is likely to flip them, making a subsequent matching
@@ -307,7 +307,7 @@ def apply_lhc_coupling_knob(
     """
     .. versionadded:: 0.15.0
 
-    Applies the LHC coupling knob to reach the desired :math:`|C^{-}|` value.
+    Applies a trim of the LHC coupling knob to reach the desired :math:`|C^{-}|` value.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -327,7 +327,7 @@ def apply_lhc_coupling_knob(
     logger.warning("You should re-match tunes & chromaticities after this coupling knob is applied")
     suffix = "_sq" if telescopic_squeeze else ""
     # NOTE: Only using this knob will give a dqmin very close to coupling_knob
-    # If one wants to also assign f"CMIS.b{beam:d}{suffix}" the dqmin be > coupling_knob
+    # If one wants to also assign f"CMIS.b{beam:d}{suffix}" the dqmin will be > coupling_knob
     knob_name = f"CMRS.b{beam:d}{suffix}"
 
     logger.trace(f"Knob '{knob_name}' is {madx.globals[knob_name]} before implementation")
@@ -346,7 +346,7 @@ def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> No
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         ir (int): The Interaction Region around which to apply the change, should be
             one of [1, 2, 5, 8].
-        to_left (bool): If `True`, the magnet right of IP is powered of and its powering
+        to_left (bool): If `True`, the magnet right of IP is de-powered of and its powering
             is transferred to the magnet left of IP. If `False`, then the opposite happens.
             Defaults to `True`.
 
@@ -446,8 +446,9 @@ def vary_independent_ir_quadrupoles(
     The independent quadrupoles for which this is implemented are Q4 to Q13 included. This is useful
     to setup some specific matching involving these elements.
 
-    ..important::
-        It is necessary to have defined a ``brho`` variable when creating your beams.
+    .. important::
+        It is necessary to have defined a ``brho`` variable when creating your beams. If one has used
+        `make_lhc_beams` to create the beams, this has already been done automatically.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -827,7 +828,9 @@ def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int
     Example:
         .. code-block:: python
 
-            >>> add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001)
+            >>> add_markers_around_lhc_ip(
+            ...     madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
+            ... )
     """
     logger.debug(f"Adding {n_markers:d} markers on each side of IP{ip:d}")
     madx.command.seqedit(sequence=sequence)
@@ -1011,15 +1014,15 @@ def get_magnets_powering(
     .. note::
         Here are below certain useful patterns for the ``LHC`` and their meaning:
 
-        * ``^mb\.`` :math:`\\rightarrow` main bends.
-        * ``^mq\.`` :math:`\\rightarrow` main quadrupoles.
-        * ``^ms\.`` :math:`\\rightarrow` main sextupoles.
-        * ``^mb[rswx]`` :math:`\\rightarrow` separation dipoles.
-        * ``^mq[mwxy]`` :math:`\\rightarrow` insertion quads.
-        * ``^mqt.1[23]`` :math:`\\rightarrow` short tuning quads (12 & 13).
-        * ``^mqtl`` :math:`\\rightarrow` long  tuning quads.
-        * ``^mcbx`` :math:`\\rightarrow` crossing scheme magnets.
-        * ``^mcb[cy]`` :math:`\\rightarrow` crossing scheme magnets.
+        * ``^mb\.`` :math:`\rightarrow` main bends.
+        * ``^mq\.`` :math:`\rightarrow` main quadrupoles.
+        * ``^ms\.`` :math:`\rightarrow` main sextupoles.
+        * ``^mb[rswx]`` :math:`\rightarrow` separation dipoles.
+        * ``^mq[mwxy]`` :math:`\rightarrow` insertion quads.
+        * ``^mqt.1[23]`` :math:`\rightarrow` short tuning quads (12 & 13).
+        * ``^mqtl`` :math:`\rightarrow` long  tuning quads.
+        * ``^mcbx`` :math:`\rightarrow` crossing scheme magnets.
+        * ``^mcb[cy]`` :math:`\rightarrow` crossing scheme magnets.
 
         To make no selection, one can give ``patterns=[""]`` and this will give back
         the results for *all* elements. One can also give a specific magnet's exact
@@ -1043,6 +1046,11 @@ def get_magnets_powering(
     Returns:
         A `~tfs.TfsDataFrame` of the ``TWISS`` table, with the relevant newly defined columns
         and including the elements matching the regex *patterns* that were provided.
+
+    Example:
+        .. code-block:: python
+
+            >>> sextupoles_powering = get_magnets_powering(madx, patterns=[r"^ms\."])
     """
     logger.debug("Computing magnets field and powering limits proportions")
     NEW_COLNAMES = ["name", "keyword", "ampere", "imax", "percent", "kn", "kmax", "integrated_field", "L"]
