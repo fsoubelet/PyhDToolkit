@@ -56,8 +56,9 @@ def plot_envelope(
     Example:
         .. code-block:: python
 
+            >>> title = f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c"
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_envelope(madx, beam_injection, title=f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c")
+            >>> plot_envelope(madx, beam_injection, title=title)
     """
     if plane.lower() not in ("horizontal", "vertical"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
@@ -135,8 +136,9 @@ def plot_stay_clear(
     Example:
         .. code-block:: python
 
+            >>> title = f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c"
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_stay_clear(madx, beam_flattop, title=f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c")
+            >>> plot_stay_clear(madx, beam_flattop, title=title)
     """
     _interpolate_madx(madx)
     twiss_hr = _get_twiss_hr_from_madx(madx, beam_params)
@@ -175,6 +177,6 @@ def _get_twiss_hr_from_madx(madx: Madx, beam_params: BeamParameters) -> pd.DataF
     twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params.eg_y_m)
     twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params.deltap_p
     twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params.deltap_p
-    twiss_hr["envelope_x"] = np.sqrt(twiss_hr.betatronic_envelope_x**2 + (twiss_hr.dx * beam_params.deltap_p) ** 2)
-    twiss_hr["envelope_y"] = np.sqrt(twiss_hr.betatronic_envelope_y**2 + (twiss_hr.dy * beam_params.deltap_p) ** 2)
+    twiss_hr["envelope_x"] = np.sqrt(twiss_hr.betatronic_envelope_x ** 2 + (twiss_hr.dx * beam_params.deltap_p) ** 2)
+    twiss_hr["envelope_y"] = np.sqrt(twiss_hr.betatronic_envelope_y ** 2 + (twiss_hr.dy * beam_params.deltap_p) ** 2)
     return twiss_hr
