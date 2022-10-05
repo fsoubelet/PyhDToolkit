@@ -4,7 +4,7 @@
 Tune Utilities
 --------------
 
-Module with functions to manipulate to manipulate ``MAD-X`` functionality around the tune through
+Module with functions to manipulate ``MAD-X`` functionality around the tune through
 a `~cpymad.madx.Madx` object.
 """
 import math
@@ -55,7 +55,7 @@ def make_footprint_table(
             >>> dynap_dframe = make_footprint_table(madx)
     """
     logger.debug(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
-    small, big = 0.05, math.sqrt(1 - 0.05**2)
+    small, big = 0.05, math.sqrt(1 - 0.05 ** 2)
     sigma_multiplier, angle_multiplier = 0.1, 0.0
 
     logger.debug("Initializing particles")
