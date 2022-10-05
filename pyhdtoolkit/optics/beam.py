@@ -19,7 +19,7 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
 
     Calculates beam parameters from provided values, for *proton* particles. One can find
     an example use of this function in the :ref:`beam enveloppe <demo-beam-enveloppe>`
-    gallery.
+    example gallery.
 
     Args:
         pc_gev (float): particle momentum, in [GeV].
