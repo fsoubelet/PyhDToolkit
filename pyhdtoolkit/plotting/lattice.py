@@ -44,8 +44,8 @@ def plot_latwiss(
     .. versionadded:: 1.0.0
 
     Creates a plot on the current figure (`~matplotlib.pyplot.gcf`) representing the lattice layout and
-    the :math`\\beta` functions along with the horizontal dispertion function. This is a very, very heavily
-    refactored version of an initial implementation by :user:`Guido Sterbini <sterbini>`. One can find
+    the :math:`\\beta`-functions along with the horizontal dispertion function. This is a *very, very heavily
+    refactored* version of an initial implementation by :user:`Guido Sterbini <sterbini>`. One can find
     example uses of this function in the :ref:`machine lattice <demo-accelerator-lattice>` example gallery.
 
     .. note::
@@ -97,8 +97,16 @@ def plot_latwiss(
     Example:
         .. code-block:: python
 
+            >>> title = "Machine Layout"
             >>> plt.figure(figsize=(16, 11))
-            >>> plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
+            >>> plot_latwiss(
+            ...     madx,
+                    title=title,
+                    k0l_lim=(-0.15, 0.15),
+                    k1l_lim=(-0.08, 0.08),
+                    disp_ylim=(-10, 125),
+                    lw=3,
+            ... )
     """
     # pylint: disable=too-many-arguments
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
@@ -189,7 +197,9 @@ def plot_machine_survey(
         .. code-block:: python
 
             >>> fig, ax = plt.subplots(figsize=(6, 6))
-            >>> plot_machine_survey(madx, title="Machine Layout", show_elements=True, high_orders=True)
+            >>> plot_machine_survey(
+            ...     madx, title="Machine Survey", show_elements=True, high_orders=True
+            ... )
     """
     logger.debug("Plotting machine survey")
     logger.trace("Getting machine survey from cpymad")
