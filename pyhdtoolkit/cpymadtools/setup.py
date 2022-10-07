@@ -15,7 +15,9 @@ from loguru import logger
 from pyhdtoolkit.cpymadtools import lhc
 
 
-def prepare_lhc_run2(opticsfile: str, beam: int = 1, energy: float = 6500, slicefactor: int = None, **kwargs) -> Madx:
+def prepare_lhc_run2(
+    opticsfile: str, beam: int = 1, use_b4: bool = False, energy: float = 6500, slicefactor: int = None, **kwargs
+) -> Madx:
     """
     .. versionadded:: 1.0.0
 
@@ -37,6 +39,8 @@ def prepare_lhc_run2(opticsfile: str, beam: int = 1, energy: float = 6500, slice
         opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
             name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
         beam (int): which beam to set up for. Defaults to beam 1.
+        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
+            purposes. Defaults to `False`.
         energy (float): beam energy to set up for, in GeV. Defaults to 6500.
         slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
             which leads to an unsliced sequence.
@@ -54,9 +58,16 @@ def prepare_lhc_run2(opticsfile: str, beam: int = 1, energy: float = 6500, slice
             ...     "/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22", beam=2, stdout=True
             ... )
     """
+    if use_b4 and beam != 2:
+        logger.error("Cannot use beam 4 sequence file for beam 1")
+        raise ValueError("Cannot use beam 4 sequence file for beam 1")
 
-    def _run2_sequence_from_opticsfile(opticsfile: Path) -> Path:
-        return opticsfile.parent.parent / "lhc_as-built.seq"
+    def _run2_sequence_from_opticsfile(opticsfile: Path, use_b4: bool = False) -> Path:
+        filename = "lhc_as-built.seq" if not use_b4 else "lhcb4_as-built.seq"
+        seqfile_path = opticsfile.parent.parent / filename
+        if not seqfile_path.is_file():
+            logger.error("Could not find sequence file '{filename}' at expected location '{seqfile_path}'")
+        return seqfile_path
 
     logger.debug("Creating Run 3 setup MAD-X instance")
     echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)
@@ -64,7 +75,7 @@ def prepare_lhc_run2(opticsfile: str, beam: int = 1, energy: float = 6500, slice
     madx = Madx(**kwargs)
     madx.option(echo=echo, warn=warn)
     logger.debug("Calling sequence")
-    madx.call(_fullpath(_run2_sequence_from_opticsfile(Path(opticsfile))))
+    madx.call(_fullpath(_run2_sequence_from_opticsfile(Path(opticsfile)), use_b4=use_b4))
     lhc.make_lhc_beams(madx, energy=energy)
 
     if slicefactor:
@@ -82,7 +93,9 @@ def prepare_lhc_run2(opticsfile: str, beam: int = 1, energy: float = 6500, slice
     return madx
 
 
-def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slicefactor: int = None, **kwargs) -> Madx:
+def prepare_lhc_run3(
+    opticsfile: str, beam: int = 1, use_b4: bool = False, energy: float = 6800, slicefactor: int = None, **kwargs
+) -> Madx:
     """
     .. versionadded:: 1.0.0
 
@@ -102,6 +115,8 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
         opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
             name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
         beam (int): which beam to set up for. Defaults to beam 1.
+        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
+            purposes. Defaults to `False`.
         energy (float): beam energy to set up for, in GeV. Defaults to 6800.
         slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,
             which leads to an unsliced sequence.
@@ -118,13 +133,19 @@ def prepare_lhc_run3(opticsfile: str, beam: int = 1, energy: float = 6800, slice
             ...     "R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=True
             ... )
     """
+    if use_b4 and beam != 2:
+        logger.error("Cannot use beam 4 sequence file for beam 1")
+        raise ValueError("Cannot use beam 4 sequence file for beam 1")
+
     logger.debug("Creating Run 3 setup MAD-X instance")
     echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)
 
     madx = Madx(**kwargs)
     madx.option(echo=echo, warn=warn)
-    logger.debug("Calling sequence")
-    madx.call("acc-models-lhc/lhc.seq")
+
+    sequence = "lhc.seq" if not use_b4 else "lhcb4.seq"
+    logger.debug(f"Calling sequence file '{sequence}'")
+    madx.call(f"acc-models-lhc/{sequence}")
     lhc.make_lhc_beams(madx, energy=energy)
 
     if slicefactor:
@@ -166,6 +187,8 @@ class LHCSetup:
             For a Run 3 setup, can be the string path to the file or only the opticsfile name itself, which would be
             looked for at the **acc-models-lhc/operation/optics/** path. Defaults to `None`, which will raise an error.
         beam (int): which beam to set up for. Defaults to beam 1.
+        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
+            purposes. Defaults to `False`.
         energy (float): beam energy to set up for, in GeV. Defaults to `None`, and is handled by either `~prepare_lhc_run2`
             or `~prepare_lhc_run3`. This means the default actually depends on the value of the **run** argument.
         slicefactor (int): if provided, the sequence will be sliced and "made thin". Defaults to `None`,
@@ -202,20 +225,25 @@ class LHCSetup:
         run: int = 3,
         opticsfile: str = None,
         beam: int = 1,
-        energy: float = 6800,
+        use_b4: bool = False,
+        energy: float = None,
         slicefactor: int = None,
         **kwargs,
     ):
         assert opticsfile is not None, "An opticsfile must be provided"
+        if use_b4 and beam != 2:
+            logger.error("Cannot use beam 4 sequence file for beam 1")
+            raise ValueError("Cannot use beam 4 sequence file for beam 1")
+
         if int(run) not in (2, 3):
             raise NotImplementedError("This setup is only possible for Run 2 and Run 3 configurations.")
         elif run == 2:
             self.madx = prepare_lhc_run2(
-                opticsfile=opticsfile, beam=beam, energy=energy, slicefactor=slicefactor, **kwargs
+                opticsfile=opticsfile, beam=beam, use_b4=use_b4, energy=energy, slicefactor=slicefactor, **kwargs
             )
         else:
             self.madx = prepare_lhc_run3(
-                opticsfile=opticsfile, beam=beam, energy=energy, slicefactor=slicefactor, **kwargs
+                opticsfile=opticsfile, beam=beam, use_b4=use_b4, energy=energy, slicefactor=slicefactor, **kwargs
             )
 
     def __enter__(self):
