@@ -181,6 +181,10 @@ class LHCSetup:
         Matching is **not** performed by this setup and should be taken care of by the user, but the working
         point should be set by the definitions in the *opticsfile*.
 
+    .. note::
+        If you intend to do tracking for beam 2, remember that the ``lhcb4`` sequence needs to be called.
+        This is handled by giving the ``use_b4`` argument as `True` to the constructor.
+
     Args:
         run (int): which run to set up for, should be 2 or 3. Defaults to run 3.
         opticsfile (str): name of the opticsfile to be used. For a Run 2 setup, should be the string path to the file.
