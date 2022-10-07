@@ -189,8 +189,7 @@ class LHCSetup:
         beam (int): which beam to set up for. Defaults to beam 1.
         use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
             purposes. Defaults to `False`.
-        energy (float): beam energy to set up for, in GeV. Defaults to `None`, and is handled by either `~prepare_lhc_run2`
-            or `~prepare_lhc_run3`. This means the default actually depends on the value of the **run** argument.
+        energy (float): beam energy to set up for, in GeV. Defaults to 6800, to match the default of run 3.
         slicefactor (int): if provided, the sequence will be sliced and "made thin". Defaults to `None`,
             which leads to an unsliced sequence.
         **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.
@@ -226,7 +225,7 @@ class LHCSetup:
         opticsfile: str = None,
         beam: int = 1,
         use_b4: bool = False,
-        energy: float = None,
+        energy: float = 6800,
         slicefactor: int = None,
         **kwargs,
     ):
