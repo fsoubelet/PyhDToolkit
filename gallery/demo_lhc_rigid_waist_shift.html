@@ -441,7 +441,7 @@ will use a setting of 1.5 to make the effect easily noticeable.</p>
 <a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-matching sphx-glr-backref-type-py-function"><span class="n">matching</span><span class="o">.</span><span class="n">match_tunes_and_chromaticities</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="s2">&quot;lhc&quot;</span><span class="p">,</span> <span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="mf">62.31</span><span class="p">,</span> <span class="mf">60.32</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-07 23:58:12 | WARNING  | pyhdtoolkit.cpymadtools.lhc:284 - You should re-match tunes &amp; chromaticities after this rigid waist shift knob is applied
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-08 13:01:13 | WARNING  | pyhdtoolkit.cpymadtools.lhc:284 - You should re-match tunes &amp; chromaticities after this rigid waist shift knob is applied
 </pre></div>
 </div>
 <p>Let’s again retrieve the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> table, then plot the new conditions in the
@@ -543,7 +543,7 @@ at the <span class="math notranslate nohighlight">\(\beta_{x,y}\)</span> functio
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">twiss_df</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.TableMap.html#cpymad.madx.TableMap" title="cpymad.madx.TableMap" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span></a><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-07 23:59:18 | WARNING  | pyhdtoolkit.cpymadtools.lhc:847 - Sequence &#39;lhcb1&#39; will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-08 13:02:27 | WARNING  | pyhdtoolkit.cpymadtools.lhc:847 - Sequence &#39;lhcb1&#39; will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
 </pre></div>
 </div>
 <p>We will use all our added markers to determine the location of the waist,
@@ -665,7 +665,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.lattice" title="pyhdtoolkit.plotting.lattice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice</span></code></a>: <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss" title="pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latwiss</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  36.634 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  55.307 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-lhc-rigid-waist-shift-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/92d99024e2e13e0ddcd6018dea27ea82/demo_lhc_rigid_waist_shift.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_lhc_rigid_waist_shift.py</span></code></a></p>
