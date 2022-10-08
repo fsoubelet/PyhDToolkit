@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributing &mdash; PyhDToolkit 1.0.0rc0 documentation</title>
+  <title>Contributing &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc0
+                1.0.0rc1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -414,8 +414,8 @@ However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</stron
 <p>Here is how to set yourself up:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="13294bb5-be4e-4354-90f1-71fde84e1875" name="b25f80f1-78f9-46db-a2f6-0a23cfe7ddde" type="radio">
-</input><label class="tabbed-label" for="13294bb5-be4e-4354-90f1-71fde84e1875">
+<input checked="checked" id="717a26ab-18ab-427a-a3b4-bc59a94321c2" name="99a93f51-8967-4146-a364-105771697cd0" type="radio">
+</input><label class="tabbed-label" for="717a26ab-18ab-427a-a3b4-bc59a94321c2">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
@@ -436,8 +436,8 @@ For instance, getting the Python version can be as simple as:</p>
 </div>
 </div>
 </div>
-<input id="95ff1dcc-5de2-4c7c-b791-e3dc15dc8469" name="b25f80f1-78f9-46db-a2f6-0a23cfe7ddde" type="radio">
-</input><label class="tabbed-label" for="95ff1dcc-5de2-4c7c-b791-e3dc15dc8469">
+<input id="fdd3096b-a746-4acf-8d08-6c3ff52882da" name="99a93f51-8967-4146-a364-105771697cd0" type="radio">
+</input><label class="tabbed-label" for="fdd3096b-a746-4acf-8d08-6c3ff52882da">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e &quot;.[test,dev,docs]&quot;
@@ -490,16 +490,16 @@ $ git merge upstream/master
 One can run the test suite in the following way:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="1577480e-a57f-4d96-8063-ed887cad1476" name="a988b81e-8a08-4f30-b7ad-64e269876c58" type="radio">
-</input><label class="tabbed-label" for="1577480e-a57f-4d96-8063-ed887cad1476">
+<input checked="checked" id="166b6271-763e-4165-a7ae-7862d21c344d" name="2aefed12-05d7-4197-9b78-9825105c0aef" type="radio">
+</input><label class="tabbed-label" for="166b6271-763e-4165-a7ae-7862d21c344d">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
 </div>
-<input id="cc2754cb-b8d7-4680-b12a-f62d9a38d7c8" name="a988b81e-8a08-4f30-b7ad-64e269876c58" type="radio">
-</input><label class="tabbed-label" for="cc2754cb-b8d7-4680-b12a-f62d9a38d7c8">
+<input id="beb491c6-c168-433b-b0b2-d797e9baa1ea" name="2aefed12-05d7-4197-9b78-9825105c0aef" type="radio">
+</input><label class="tabbed-label" for="beb491c6-c168-433b-b0b2-d797e9baa1ea">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>In your virtual environment, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest
