@@ -75,8 +75,8 @@ def make_lhc_beams(
     geometric_emit_x = madx.globals["geometric_emit_x"] = emittance_x / (energy / 0.938)
     geometric_emit_y = madx.globals["geometric_emit_y"] = emittance_y / (energy / 0.938)
 
-    bv = 1 if beam == 1 or b4 is True else -1
     for beam in (1, 2):
+        bv = 1 if beam == 1 or b4 is True else -1
         logger.trace(f"Defining beam for sequence 'lhcb{beam:d}'")
         madx.command.beam(
             sequence=f"lhcb{beam:d}",
