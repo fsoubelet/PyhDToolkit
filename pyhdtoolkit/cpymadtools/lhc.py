@@ -52,16 +52,18 @@ def make_lhc_beams(
             geometric emittance which is then fed to the ``BEAM`` command.
         emittance_y (float): vertical emittance in [m]. Will be used to calculate
             geometric emittance which is then fed to the ``BEAM`` command.
-        b4 (bool): if `True`, will consider one is using `lhb4` to do tracking on beam 2,
+        b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,
             and will properly set the ``bv`` flag to 1. Defaults to `False`.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.
 
     Examples:
+
         .. code-block:: python
 
             >>> make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)
 
-        Setting up for tracking of beam 2 (needs to call ``lhcb4`` and set ``bv` to 1):
+        Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set
+        ``bv`` to 1):
 
         .. code-block:: python
 
