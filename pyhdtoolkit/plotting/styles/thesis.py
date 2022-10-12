@@ -47,6 +47,8 @@ SMALL: Dict[str, PlotSetting] = {
     "ytick.major.width": 1,  # Width of the major ytick locators
     "ytick.labelsize": 12,  # Fontsize of the y axis tick labels
     "ytick.direction": "in",  # Show yticks towards inside of figure
+    # ----- Grids ----- #
+    "grid.linestyle": "--",  # Dashed grids (when explicitely asked for)
     # ------- Legend ------ #
     "legend.loc": "best",  # Default legend location
     "legend.frameon": True,  # Make a dedicated patch for the legend
