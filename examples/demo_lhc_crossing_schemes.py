@@ -18,9 +18,9 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
 from pyhdtoolkit.plotting.crossing import plot_two_lhc_ips_crossings
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
+logging.config_logger(level="warning")
 plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 

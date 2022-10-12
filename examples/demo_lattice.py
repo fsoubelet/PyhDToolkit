@@ -19,9 +19,9 @@ from cpymad.madx import Madx
 from pyhdtoolkit.cpymadtools import lhc, matching, orbit
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.plotting.lattice import plot_latwiss
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
+logging.config_logger(level="warning")
 plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
@@ -55,9 +55,7 @@ mu_y_cell = madx.table.summ.Q2[0] / n_cells
 title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
 plt.figure(figsize=(18, 11))
-plot_latwiss(
-    madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3
-)
+plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
 plt.tight_layout()
 plt.show()
 

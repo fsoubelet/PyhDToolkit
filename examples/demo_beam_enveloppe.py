@@ -19,9 +19,9 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
+logging.config_logger(level="warning")
 plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
@@ -158,9 +158,7 @@ plot_envelope(
     title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
     axis=axes[1],
 )
-plot_stay_clear(
-    madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2]
-)
+plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
 plt.show()
 
 ###############################################################################

@@ -16,9 +16,9 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
 from pyhdtoolkit.plotting.aperture import plot_aperture
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
+logging.config_logger(level="warning")
 plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
@@ -41,9 +41,7 @@ madx.call("lhc/aperture.b1.madx")
 madx.call("lhc/aper_tol.b1.madx")
 
 madx.command.twiss()
-madx.command.aperture(
-    cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14
-)
+madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
 
 ###############################################################################
 # We can now determine the exact position of the IP5 point and plot the LHC
