@@ -10,12 +10,17 @@ This page contains a gallery showcasing either plotting functionality provided i
 submodules, or plots made from results of convenient functions available in `~pyhdtoolkit`.
 
 .. important::
-    The examples shown here are plotted with a customized but simple ``rcParams`` style. If one uses
-    this package and sets their own preferences or uses their own **mplstyle**, the resulting plots
-    might look significantly different.
+    The examples shown here are plotted with a customized but simple ``rcParams`` style, simply for
+    visibility in these galleries. If one uses this package and sets their own preferences or uses
+    their own **mplstyle**, the resulting plots might look significantly different.
 
-    The package provides a plotting style in the `~pyhdtoolkit.utils.defaults` module, which should be 
-    compatible with the plotters. One can use the style in two ways:
+    The package provides several plotting styles in the `~pyhdtoolkit.plotting.styles` submodules,
+    which are tailored for good rendering in my LaTeX documents and are made for good compatibility
+    with the various plotters in `~pyhdtoolkit.plotting`. These styles are described in the 
+    :ref:`styles <plotting-styles>` documentation section.
+
+    One can use them in two ways, shown below with as example the ``MEDIUM`` style defined in
+    `pyhdtoolkit.plotting.styles.thesis`.
 
     .. tabbed:: Import and Set the Style
 
@@ -24,21 +29,32 @@ submodules, or plots made from results of convenient functions available in `~py
             .. prompt:: python >>>
 
                 from matplotlib import pyplot as plt
-                from pyhdtoolkit.utils.defaults import PLOT_PARAMS
+                from pyhdtoolkit.plotting.styles.thesis import MEDIUM
 
-                plt.rcParams.update(PLOT_PARAMS)
+                plt.rcParams.update(MEDIUM)
+                # plotting code here
 
-    .. tabbed:: Install and Load the Style
-
-        Do a one-time install of the style as an **.mplstyle** file to import in `~matplotlib`:
+        Or, for a temporary update of the ``rcParams``:
 
             .. prompt:: python >>>
 
                 from matplotlib import pyplot as plt
-                from pyhdtoolkit.utils import defaults
+                from pyhdtoolkit.plotting.styles.thesis import MEDIUM
 
-                defaults.install_mpl_style()  # only run this once
-                plt.style.use("phd")  # created file is 'phd.mplstyle'
+                with plt.rc_context(MEDIUM):
+                    # Plotting code here
+
+    .. tabbed:: Install the Styles and Load One
+
+        Do a one-time install of the styles as **.mplstyle** files to use in `~matplotlib`:
+
+            .. prompt:: python >>>
+
+                from matplotlib import pyplot as plt
+                from pyhdtoolkit.plotting.styles import install_mpl_styles
+
+                install_mpl_styles()  # only run this once
+                plt.style.use("thesis-medium")  # loaded from created file 'thesis-medium.mplstyle'
 
     In both cases, re-updating the ``rcParams`` later on will always overwrite these settings.
 
