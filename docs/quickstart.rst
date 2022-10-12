@@ -124,12 +124,12 @@ Alternatively one can easily parallelise an I/O-intensive function through multi
     )
 
 .. tip::
-    A useful tidbit is this line which sets up the logging level for functions in the package:
+    A useful tidbit is the following which sets up the logging level for functions in the package:
 
     .. prompt:: python >>>
 
-        from pyhdtoolkit.utils import defaults
-        defaults.config_logger(level="trace")  # the lowest level used, will give ALL logging
+        from pyhdtoolkit.utils import logging
+        logging.config_logger(level="trace")  # the lowest level used, will give ALL logging
 
 Additional Helpers
 ^^^^^^^^^^^^^^^^^^
