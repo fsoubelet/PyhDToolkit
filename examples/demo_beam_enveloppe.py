@@ -159,7 +159,9 @@ plot_envelope(
     title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
     axis=axes[1],
 )
-plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
+plot_stay_clear(
+    madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2]
+)
 plt.show()
 
 ###############################################################################

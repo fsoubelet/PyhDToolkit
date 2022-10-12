@@ -38,7 +38,7 @@ INPUTS_DIR = CURRENT_DIR / "inputs"
 
 
 def _square(integer: int) -> int:
-    return integer ** 2
+    return integer**2
 
 
 def _to_str(integer: int) -> str:
@@ -420,7 +420,7 @@ class TestMultiProcessorExecutor:
         "function, inputs, results",
         [
             (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e ** 2 for e in [10 * i for i in range(10)]]),
+            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
             (_to_str, list(range(6)), [str(e) for e in range(6)]),
             (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
         ],
@@ -439,7 +439,7 @@ class TestMultiThreaderExecutor:
         "function, inputs, results",
         [
             (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e ** 2 for e in [10 * i for i in range(10)]]),
+            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
             (_to_str, list(range(6)), [str(e) for e in range(6)]),
             (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
         ],
