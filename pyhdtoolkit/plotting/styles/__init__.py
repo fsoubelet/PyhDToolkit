@@ -22,6 +22,8 @@ PlotSetting = Union[float, bool, str, tuple]
 
 def install_mpl_styles() -> None:
     """
+    .. versionadded:: 1.0.0
+
     Installs the styles defined in the `~pyhdtoolkit.plotting.styles` submodules to disk as **.mplstyle**
     files. This way, they can be used with `~matplotlib.pyplot.style.use` without having to import them
     and update the ``rcParams`` directly.
