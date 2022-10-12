@@ -100,8 +100,7 @@ One can find many examples of the `~pyhdtoolkit.cpymadtools` apis' use in the :r
 Utilities
 ^^^^^^^^^
 
-The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up logging or
-plotting :ref:`defaults <utils-defaults>`, run external programs through the :ref:`command line <utils-cmdline>`, 
+The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up (:ref:`logging <utils-logging>`, run external programs through the :ref:`command line <utils-cmdline>`, 
 run your functions through :ref:`useful contexts <utils-contexts>`, easily wrap and :ref:`parallelise <utils-executors>`
 functions, or perform many convenient :ref:`operations <utils-operations>` on miscellaneous Python objects.
 

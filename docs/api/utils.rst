@@ -9,9 +9,6 @@ Utils
 .. automodule:: pyhdtoolkit.utils.contexts
    :members:
 
-.. automodule:: pyhdtoolkit.utils.defaults
-   :members:
-
 .. automodule:: pyhdtoolkit.utils.executors
    :members:
 

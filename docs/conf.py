@@ -193,7 +193,6 @@ panels_css_variables = {
 
 # Config for the matplotlib plot directive
 plot_formats = [("svg", 250)]
-plot_rcparams = pyhdtoolkit.utils.defaults.PLOT_PARAMS
 
 # -- Options for HTML output ----------------------------------------------
 
