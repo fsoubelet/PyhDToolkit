@@ -11,7 +11,7 @@ The text body has a fontsize of 12 points, and the figures should integrate to h
 
 The following are available:
 
-- ``SMALL``: For small simple plots to be included in a multi-figure environment (e.g. a LaTeX figure with 2 subfloats).
+- ``SMALL``: For small simple plots to be included in a multi-figure environment (e.g. a LaTeX figure with 2 subfloats). Two of these should render well when displayed side-by-side in the figure environment (``\subfloat[.9\linewidth]`` then ``\hspace{0.3cm}`` then ``\subfloat[.9\linewidth]``).
 - ``MEDIUM``: For simple plots to be included alone in a LaTeX figure environment (e.g single axis line plots, or scatters with a colorbar).
 - ``LARGE``: For more complex plots to be included alone in a LaTeX figure environment (e.g. multi-axes figures).
 """
@@ -68,7 +68,7 @@ SMALL: Dict[str, PlotSetting] = {
 MEDIUM: Dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.3,  # Width of plot lines
-    "lines.markersize": 8,
+    "lines.markersize": 5,  # Marker size, in points
     # ------ Patches ------ #
     "patch.linewidth": 1.2,  # Width of patches edge lines
     # ------ Fonts ------ #
