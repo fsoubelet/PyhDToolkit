@@ -111,7 +111,7 @@ def best_fit_distribution(
                 try:
                     if ax:
                         logger.debug(f"Plotting fitted PDF for distribution '{distname}'")
-                        pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1, lw=2)
+                        pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1)
                 except Exception:
                     logger.exception(f"Plotting distribution '{distname}' failed")
 
