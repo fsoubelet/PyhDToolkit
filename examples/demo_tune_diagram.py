@@ -12,11 +12,12 @@ to visualise resonance lines up to certain orders.
 # sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt
 
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.plotting.tune import plot_tune_diagram
 from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # The tune diagram allows on to visualise resonance lines up to certain orders,

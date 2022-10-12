@@ -26,10 +26,11 @@ from pyhdtoolkit.plotting.phasespace import (
     plot_courant_snyder_phase_space,
     plot_courant_snyder_phase_space_colored,
 )
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Define some constants, generate a simple lattice and setup your simulation:

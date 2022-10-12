@@ -16,10 +16,11 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.plotting.lattice import plot_machine_survey
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Generate a simple lattice and setup your simulation:

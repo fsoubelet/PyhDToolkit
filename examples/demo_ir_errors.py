@@ -20,10 +20,11 @@ import numpy as np
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import errors, lhc, matching
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Setup a simple LHC simulation in ``MAD-X``, at injection energy (450 GeV)

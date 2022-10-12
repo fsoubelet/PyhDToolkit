@@ -19,10 +19,11 @@ from cpymad.madx import Madx
 from pyhdtoolkit.cpymadtools import lhc, matching, orbit
 from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
 from pyhdtoolkit.plotting.lattice import plot_latwiss
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Let's start by generating a simple lattice and setup your simulation:
