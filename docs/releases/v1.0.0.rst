@@ -14,6 +14,7 @@ Breaking Changes
 * The `~pyhdtoolkit.plotting.helpers` module has been renamed to `~pyhdtoolkit.plotting.utils` for consistency.
 * The `~pyhdtoolkit.plotting.sbs.utils` module has been merged into `~pyhdtoolkit.plotting.utils`.
 * The `~pyhdtoolkit.cpymadtools.plotters.DynamicAperture` functionality has been completely removed.
+* The `~pyhdtoolkit.utils.defaults` module has been removed, and its functionality transferred in the relevant (new) places.
 
 Enhancements
 ~~~~~~~~~~~~
@@ -21,6 +22,8 @@ Enhancements
 * The machine layout plotting functionality has been made public api in a dedicated module, `~pyhdtoolkit.plotting.layout`.
 * A new module has been added to the `~pyhdtoolkit.cpymadtools`, `~pyhdtoolkit.cpymadtools.setup`, with functions to conveniently set up a `~cpymad.madx.Madx` instance for either the Run 2 or Run 3 of the ``LHC``, also as a context manager.
 * A new module has been added in `~pyhdtoolkit.plotting`, `~pyhdtoolkit.plotting.layout`, to make public the API to plot a machine's element onto an axis.
+* A new module has been added in `~pyhdtoolkit.utils`, `~pyhdtoolkit.utils.logging`, to host the logging setup functionality that was previously in `~pyhdtoolkit.utils.defaults`.
+* A new module has been added in `~pyhdtoolkit.plotting`, `~pyhdtoolkit.plotting.styles`, with various useful styles definitions and the functionality to install them locally.
 * New function in `~pyhdtoolkit.cpymadtools.lhc`, `~pyhdtoolkit.cpymadtools.lhc.add_markers_around_lhc_ip`, to do exactly that, for high granularity of calculations around the IP point.
 * New function in `~pyhdtoolkit.cpymadtools.lhc`, `~pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip`, to compute horizontal and vertical beam sizes at a given IP through ``Ripken`` parameters, which will be accurate in the presence of coupling.
 * New function in `~pyhdtoolkit.plotting.utils`, `~pyhdtoolkit.plotting.utils.get_lhc_ips_positions`, to get a `dict` of different IP elements and their ``S`` coordinates.
@@ -30,7 +33,7 @@ Enhancements
 Maintenance
 ~~~~~~~~~~~
 
-* Documentation has been updated. Refer to the gallery for example uses.
+* Documentation has been updated for all new APIs. Refer to the gallery for example uses.
 * Tests have been adapted.
 
 See `v1.0.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.0.0>`_ and the `full changes since v0.21.0 <https://github.com/fsoubelet/PyhDToolkit/compare/0.21.0...1.0.0>`_.
