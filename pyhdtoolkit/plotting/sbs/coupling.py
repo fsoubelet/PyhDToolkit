@@ -265,4 +265,4 @@ def _plot_sbs_coupling_rdt_component(
         # If model dataframe is given, find S location of IP and highlight it
         logger.debug(f"Plotting the IP location in the segment.")
         ips = find_ip_s_from_segment_start(segment_df=segment_df, model_df=model_df, ip=ip)
-        ax.axvline(ips, lw=2, ls="--", color="grey")
+        ax.axvline(ips, ls="--", color="grey")
