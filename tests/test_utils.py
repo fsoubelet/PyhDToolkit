@@ -16,7 +16,7 @@ import pytest
 from loguru import logger
 from rich.table import Table
 
-from pyhdtoolkit.utils import _misc, defaults, deprecated
+from pyhdtoolkit.utils import _misc, deprecated, logging
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.htc_monitor import (
@@ -87,24 +87,6 @@ class TestCommandLine:
     def test_terminate_pid(self, sleep_time):
         sacrificed_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
         assert CommandLine.terminate(sacrificed_process.pid) is True
-
-
-class TestDefaults:
-    def test_logger_config(self, capsys):
-        defaults.config_logger()
-        message = "This should be in stdout now"
-        logger.info(message)
-        captured = capsys.readouterr()
-        assert message in captured.out
-
-        # This is to get it back as it is by defaults for other tests
-        logger.remove()
-        logger.add(sys.stderr)
-
-    def test_mplstyle_install(self, capsys):
-        defaults.install_mpl_style()
-        assert (pathlib.Path(matplotlib.get_configdir()) / "stylelib" / "phd.mplstyle").is_file()
-        assert (pathlib.Path(plt.style.core.BASE_LIBRARY_PATH) / "phd.mplstyle").is_file()
 
 
 class TestHTCMonitor:
@@ -370,6 +352,19 @@ class TestListOperations:
             [3, 3, "c"],
             [None, 7, None],
         ]
+
+
+class TestLogging:
+    def test_logger_config(self, capsys):
+        logging.config_logger()
+        message = "This should be in stdout now"
+        logger.info(message)
+        captured = capsys.readouterr()
+        assert message in captured.out
+
+        # This is to get it back as it is by defaults for other tests
+        logger.remove()
+        logger.add(sys.stderr)
 
 
 class TestMiscellaneousOperations:
