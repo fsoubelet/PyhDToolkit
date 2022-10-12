@@ -21,6 +21,9 @@ PlotSetting = Union[float, bool, str, tuple]
 
 
 SMALL: Dict[str, PlotSetting] = {
+    # ------ Lines ------ #
+    "lines.linewidth": 1.3,  # Width of plot lines
+    "lines.markersize": 3,  # Marker size, in points
     # ------ Patches ------ #
     "patch.linewidth": 1.3,  # Width of patches edge lines
     # ------ Fonts ------ #
