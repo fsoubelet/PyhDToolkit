@@ -58,6 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#using-with-docker">Using With Docker</a></li>
 <li class="toctree-l2"><a class="reference internal" href="quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quickstart.html#plotting">Plotting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#utilities">Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="quickstart.html#additional-helpers">Additional Helpers</a></li>
 </ul>
@@ -417,8 +418,8 @@ However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</stron
 <p>Here is how to set yourself up:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="543e53f1-b6f9-47b5-90e9-f90259c18ced" name="368df5e6-6cf9-404e-bba1-0038f674f424" type="radio">
-</input><label class="tabbed-label" for="543e53f1-b6f9-47b5-90e9-f90259c18ced">
+<input checked="checked" id="57aec738-d470-4db6-839f-e6e917c2776e" name="fc8d6329-fce4-4318-b76a-4f6c755e4d01" type="radio">
+</input><label class="tabbed-label" for="57aec738-d470-4db6-839f-e6e917c2776e">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
@@ -439,8 +440,8 @@ For instance, getting the Python version can be as simple as:</p>
 </div>
 </div>
 </div>
-<input id="6de0c7a2-cbcc-40fd-9ff1-b5a3a9511bd9" name="368df5e6-6cf9-404e-bba1-0038f674f424" type="radio">
-</input><label class="tabbed-label" for="6de0c7a2-cbcc-40fd-9ff1-b5a3a9511bd9">
+<input id="95fec5f8-903b-4374-8ad9-b02468a7160c" name="fc8d6329-fce4-4318-b76a-4f6c755e4d01" type="radio">
+</input><label class="tabbed-label" for="95fec5f8-903b-4374-8ad9-b02468a7160c">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e &quot;.[test,dev,docs]&quot;
@@ -493,16 +494,16 @@ $ git merge upstream/master
 One can run the test suite in the following way:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="a0e254af-4247-427a-bc46-ead8c2b7c58d" name="1b2ba5da-68e2-4a49-8ac7-28ab1ee7c12b" type="radio">
-</input><label class="tabbed-label" for="a0e254af-4247-427a-bc46-ead8c2b7c58d">
+<input checked="checked" id="1efd17f3-ba93-4818-a217-841fe96ec261" name="ee8cd90b-37cb-4f2d-8d21-d83b87cfc3a9" type="radio">
+</input><label class="tabbed-label" for="1efd17f3-ba93-4818-a217-841fe96ec261">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
 </div>
-<input id="9f0004c2-283b-481f-b672-93a7ccdd3ec8" name="1b2ba5da-68e2-4a49-8ac7-28ab1ee7c12b" type="radio">
-</input><label class="tabbed-label" for="9f0004c2-283b-481f-b672-93a7ccdd3ec8">
+<input id="375f5ff3-bc79-41ab-aa38-f3a0888b8bb8" name="ee8cd90b-37cb-4f2d-8d21-d83b87cfc3a9" type="radio">
+</input><label class="tabbed-label" for="375f5ff3-bc79-41ab-aa38-f3a0888b8bb8">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>In your virtual environment, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest
