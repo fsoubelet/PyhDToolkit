@@ -527,4 +527,5 @@ intersphinx_mapping = {
     "tfs": ("https://pylhc.github.io/tfs/", None),
     "cpymad": ("https://hibtc.github.io/cpymad/", None),
     "optics_functions": ("https://pylhc.github.io/optics_functions/", None),
+    "loguru": ("https://loguru.readthedocs.io/en/stable/", None),
 }
