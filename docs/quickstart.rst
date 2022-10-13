@@ -64,6 +64,7 @@ The different sub-packages must be imported separately, depending on your needs:
     import pyhdtoolkit.maths
     import pyhdtoolkit.models
     import pyhdtoolkit.optics
+    import pyhdtoolkit.plotting
     import pyhdtoolkit.utils
 
 Cpymadtools
@@ -71,7 +72,7 @@ Cpymadtools
 
 The core of ``PyhDToolkit`` is the :ref:`cpymadtools <pyhdtoolkit-cpymadtools>` sub-package.
 It provides an ensemble of functionality to perform operations with and from `~cpymad.madx.Madx` objects;
-and conveniently setup, run, analyze and plot ``MAD-X`` simulations and their results.
+and conveniently setup, run and analyze ``MAD-X`` simulations and their results.
 
 All the public apis in the `~pyhdtoolkit.cpymadtools` work in the same fashion: call them with as first argument your
 `~cpymad.madx.Madx` instance, and then any `args` and `kwargs` relevant to the functionality at hand.
@@ -92,15 +93,53 @@ Then using the `~pyhdtoolkit.cpymadtools` apis goes as:
 In the `~pyhdtoolkit.cpymadtools` one will find modules to:
 
 * Encompass existing ``MAD-X`` commands, such as for example :ref:`matching <cpymadtools-matching>` or :ref:`tracking <cpymadtools-track>`;
-* Perform useful routines with a clean pythonic interface (for instance :ref:`betatron coupling  <cpymadtools-coupling>` calculation and handling, :ref:`errors assignments <cpymadtools-errors>`);
+* Perform useful routines with a clean pythonic interface (for instance :ref:`betatron coupling  <cpymadtools-coupling>` calculation and handling, :ref:`errors assignments <cpymadtools-errors>` or :ref:`table querying <cpymadtools-utils>`);
 * Run :ref:`(HL)LHC <cpymadtools-lhc>` specific functionality, mostly tailored to my work. 
 
 One can find many examples of the `~pyhdtoolkit.cpymadtools` apis' use in the :ref:`gallery <gallery>` section of this documentation.
 
+Plotting
+^^^^^^^^
+
+The :ref:`plotting <pyhdtoolkit-plotting>` sub-package provides a set of functions to create plots supporting or showcasing  the results of ``MAD-X`` simulations.
+It also provides convenience plotting utilities and a set of `matplotlib` styles that work well in conjunction with the various plotting APIs.
+
+Some public apis in `~pyhdtoolkit.plotting` can be used as standalone while others work in the same way as the `~pyhdtoolkit.cpymadtools` apis, by being called with a `~cpymad.madx.Madx` instance as first arguments and then any `args` and `kwargs` relevant to plotting.
+In the second case, relevant data for the plotting is directly queried and computed by interacting with the `~cpymad.madx.Madx` instance.
+
+Using the `~pyhdtoolkit.plotting` apis goes as:
+
+.. tabbed:: Standalone
+
+    .. prompt:: python >>>
+
+        from pyhdtoolkit.plotting.tune import plot_tune_diagram  # for instance
+        plot_tune_diagram(max_order=6, differentiate_orders=True)  # and enjoy the result!
+
+.. tabbed:: Interacting with MAD-X
+
+    Let's say one has initiated their ``MAD-X`` simulation through `~cpymad.madx.Madx` as follows:
+
+    .. prompt:: python >>>
+
+        from cpymad.madx import Madx
+        madx = Madx()
+        # do some simulation with this instance
+
+    Then using the api goes as:
+
+    .. prompt:: python >>>
+
+        from pyhdtoolkit.plotting.aperture import plot_aperture  # for instance
+        plot_aperture(madx, *args, **kwargs)  # and enjoy the result!
+
+
+One can find many examples of the `~pyhdtoolkit.plotting` apis' use in the :ref:`gallery <gallery>` section of this documentation.
+
 Utilities
 ^^^^^^^^^
 
-The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up (:ref:`logging <utils-logging>`, run external programs through the :ref:`command line <utils-cmdline>`, 
+The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up :ref:`logging <utils-logging>`, run external programs through the :ref:`command line <utils-cmdline>`, 
 run your functions through :ref:`useful contexts <utils-contexts>`, easily wrap and :ref:`parallelise <utils-executors>`
 functions, or perform many convenient :ref:`operations <utils-operations>` on miscellaneous Python objects.
 
