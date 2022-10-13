@@ -31,8 +31,8 @@ def install_mpl_styles() -> None:
     _install_style_file(thesis.SMALL, "thesis-small")
     _install_style_file(thesis.MEDIUM, "thesis-medium")
     _install_style_file(thesis.LARGE, "thesis-large")
-    _install_style_file(paper.SINGLE, "paper-single")
-    _install_style_file(paper.DOUBLE, "paper-double")
+    _install_style_file(paper.SINGLE_COLUMN, "paper-single")
+    _install_style_file(paper.DOUBLE_COLUMN, "paper-double")
 
 
 # ----- Helpers ----- #
