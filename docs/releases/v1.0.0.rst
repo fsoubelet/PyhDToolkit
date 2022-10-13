@@ -30,6 +30,7 @@ Enhancements
 * New function in `~pyhdtoolkit.plotting.utils`, `~pyhdtoolkit.plotting.utils.draw_ip_locations`, to highlight the positions of given IPs onto the current axis as vertical lines, potentially also writing out their names.
 * The element plotting functionality handled by `~pyhdtoolkit.plotting.layout.plot_machine_layout` now determines reasonable default ``ylimits`` if none were provided. This allowed removing hardcoded default values of these limits, and should help get a good looking plot for any machine by default.
 * The `~pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function can now handle the ``bv`` flag in case the user is trying to set up for tracking with B2 (which needs loading **lhcb4** and a different bv flag).
+* The `config_logger` function, now in `~pyhdtoolkit.utils.logging`, now accepts custom formats and three default formats are provided in the module.
 
 Maintenance
 ~~~~~~~~~~~

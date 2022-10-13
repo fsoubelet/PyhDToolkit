@@ -5,10 +5,12 @@
 Logging Utilities
 -----------------
 
+.. versionadded:: 1.0.0
+
 The `loguru` package is used for logging throughout `pyhdtoolkit`, and this module provides utilities to easily set up a logger configuration.
 Different pre-defined formats are provided to choose from:
 
-- ``FORMAT1``: will display the full time of the log message, its level, the calling line and the message itself.
+- ``FORMAT1``: will display the full time of the log message, its level, the calling line and the message itself. This is the default format.
 - ``FORMAT2``: similar to ``FORMAT1``, but the caller information is displayed at the end of the log line.
 - ``SIMPLE_FORMAT``: minimal, displays the local time, the level and the message.
 """
@@ -37,7 +39,7 @@ SIMPLE_FORMAT = "<green>{time:HH:mm:ss}</green> | <level>{level: <8}</level> | <
 
 def config_logger(level: Union[str, int] = "INFO", format: str = FORMAT1, **kwargs) -> None:
     """
-    .. versionadded:: 1.0.0
+    .. versionadded:: 0.8.2
 
     Resets the logger object from `loguru`, with `sys.stdout` as a sink and the
     provided *format*.
