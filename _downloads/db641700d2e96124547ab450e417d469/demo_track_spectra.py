@@ -19,10 +19,11 @@ import numpy as np
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, track
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+logging.config_logger(level="warning")
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:

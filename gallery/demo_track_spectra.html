@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Tracking Spectrum &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>Free Tracking Spectrum &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -122,6 +122,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -137,9 +140,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -363,10 +366,11 @@ particle with the <code class="docutils literal notranslate"><span class="pre">T
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">lhc</span><span class="p">,</span> <span class="n">track</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
 
-<a href="../api/utils.html#pyhdtoolkit.utils.defaults.config_logger" title="pyhdtoolkit.utils.defaults.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-defaults sphx-glr-backref-type-py-function"><span class="n">defaults</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">defaults</span><span class="o">.</span><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
+<a href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
 <p>Let’s start by setting up the LHC in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, in this case at top energy:</p>
@@ -839,7 +843,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.track" title="pyhdtoolkit.cpymadtools.track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle" title="pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_single_particle</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  29.431 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  24.273 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-track-spectra-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/db641700d2e96124547ab450e417d469/demo_track_spectra.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_track_spectra.py</span></code></a></p>

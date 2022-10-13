@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.lhc &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.lhc &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -119,6 +119,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -134,9 +137,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -377,7 +380,12 @@
 
 
 <div class="viewcode-block" id="make_lhc_beams"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams">[docs]</a><span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span> <span class="n">emittance_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="n">emittance_y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span>
+    <span class="n">emittance_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
+    <span class="n">emittance_y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
+    <span class="n">b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.15.0</span>
@@ -391,12 +399,22 @@
 <span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
 <span class="sd">        emittance_y (float): vertical emittance in [m]. Will be used to calculate</span>
 <span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
+<span class="sd">        b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,</span>
+<span class="sd">            and will properly set the ``bv`` flag to 1. Defaults to `False`.</span>
 <span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.</span>
 
-<span class="sd">    Example:</span>
+<span class="sd">    Examples:</span>
+
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            &gt;&gt;&gt; make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)</span>
+
+<span class="sd">        Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set</span>
+<span class="sd">        ``bv`` to 1):</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;NRJ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
@@ -405,11 +423,12 @@
     <span class="n">geometric_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emittance_y</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
 
     <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">bv</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">b4</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Defining beam for sequence &#39;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">beam</span><span class="p">(</span>
             <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
             <span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span>
-            <span class="n">bv</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+            <span class="n">bv</span><span class="o">=</span><span class="n">bv</span><span class="p">,</span>
             <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
             <span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span>
             <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit_x</span><span class="p">,</span>

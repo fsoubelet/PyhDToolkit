@@ -3,6 +3,17 @@
 Plotting
 ========
 
+
+.. automodule:: pyhdtoolkit.plotting.styles
+   :members:
+
+
+.. automodule:: pyhdtoolkit.plotting.styles.paper
+   :members:
+
+.. automodule:: pyhdtoolkit.plotting.styles.thesis
+   :members:
+
 .. automodule:: pyhdtoolkit.plotting.aperture
    :members:
 

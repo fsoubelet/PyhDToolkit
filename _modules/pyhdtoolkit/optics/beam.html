@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.optics.beam &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>pyhdtoolkit.optics.beam &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -119,6 +119,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -134,9 +137,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -393,9 +396,9 @@
 <span class="sd">            -&gt; Geometrical y emittance = 2.469 mm mrad</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">e0_gev</span> <span class="o">=</span> <span class="mf">0.9382720813</span>
-    <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
     <span class="n">gamma_r</span> <span class="o">=</span> <span class="n">e_tot_gev</span> <span class="o">/</span> <span class="n">e0_gev</span>
-    <span class="n">beta_r</span> <span class="o">=</span> <span class="n">pc_gev</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">beta_r</span> <span class="o">=</span> <span class="n">pc_gev</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">BeamParameters</span><span class="p">(</span>
         <span class="n">pc_GeV</span><span class="o">=</span><span class="n">pc_gev</span><span class="p">,</span>
@@ -444,7 +447,7 @@
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">beta_rel</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;Relativistic beta.&quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">brho</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
@@ -487,7 +490,7 @@
 <span class="sd">        Returns:</span>
 <span class="sd">            The slip factor.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="n">alpha_p</span></div>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma_rel</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="n">alpha_p</span></div>
 
 <div class="viewcode-block" id="Beam.gamma_transition"><a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam.gamma_transition">[docs]</a>    <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">gamma_transition</span><span class="p">(</span><span class="n">alpha_p</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>

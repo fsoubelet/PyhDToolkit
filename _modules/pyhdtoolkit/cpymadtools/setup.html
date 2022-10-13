@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.setup &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.setup &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -119,6 +119,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -134,9 +137,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -420,19 +423,19 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="n">warn</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling sequence&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">_fullpath</span><span class="p">(</span><span class="n">_run2_sequence_from_opticsfile</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)),</span> <span class="n">use_b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">))</span>
-    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
+    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">slicefactor</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;A slicefactor was provided, slicing the sequence&quot;</span><span class="p">)</span>
         <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">)</span>
-        <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
+        <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
 
     <span class="n">lhc</span><span class="o">.</span><span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MSIA.EXIT.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling optics file from the &#39;operation/optics&#39; folder&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span>
 
-    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
+    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">madx</span></div>
 
@@ -490,12 +493,12 @@
     <span class="n">sequence</span> <span class="o">=</span> <span class="s2">&quot;lhc.seq&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">use_b4</span> <span class="k">else</span> <span class="s2">&quot;lhcb4.seq&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calling sequence file &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acc-models-lhc/</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
+    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">slicefactor</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;A slicefactor was provided, slicing the sequence&quot;</span><span class="p">)</span>
         <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">)</span>
-        <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
+        <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
 
     <span class="n">lhc</span><span class="o">.</span><span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MSIA.EXIT.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
@@ -505,7 +508,7 @@
     <span class="k">else</span><span class="p">:</span>
         <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acc-models-lhc/operation/optics/</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.madx&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">)</span>
+    <span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">madx</span></div>
 

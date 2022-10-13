@@ -14,10 +14,11 @@ import matplotlib.pyplot as plt
 import tfs
 
 from pyhdtoolkit.plotting.sbs import coupling, phase
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+logging.config_logger(level="warning")
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 plt.rcParams.update({"text.usetex": True, "legend.fontsize": 16})  # for these specific plots
 
 ###############################################################################

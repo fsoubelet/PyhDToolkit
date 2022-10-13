@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Plotting &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>Plotting &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -43,7 +43,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -123,6 +123,9 @@
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -138,9 +141,9 @@
 <li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#printing-utilities">Printing Utilities</a></li>
@@ -347,9 +350,49 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-pyhdtoolkit.plotting.aperture">
-<span id="plotting"></span><span id="pyhdtoolkit-plotting"></span><h1>Plotting<a class="headerlink" href="#module-pyhdtoolkit.plotting.aperture" title="Permalink to this headline"></a></h1>
-<section id="aperture-plotters">
+  <section id="module-pyhdtoolkit.plotting.styles">
+<span id="plotting"></span><span id="pyhdtoolkit-plotting"></span><h1>Plotting<a class="headerlink" href="#module-pyhdtoolkit.plotting.styles" title="Permalink to this headline"></a></h1>
+<section id="plotting-styles">
+<span id="id1"></span><h2>Plotting Styles<a class="headerlink" href="#plotting-styles" title="Permalink to this headline"></a></h2>
+<p>The <strong>style</strong> submodules provide styles to be used with <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>, mostly tailored for my use, and for good results with the plotters in <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code>.
+Feel free to use them anyway, as they might be useful to you when using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code> submodules, or to be adapted.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyhdtoolkit.plotting.styles.install_mpl_styles">
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.plotting.styles.</span></span><span class="sig-name descname"><span class="pre">install_mpl_styles</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/plotting/styles.html#install_mpl_styles"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.plotting.styles.install_mpl_styles" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.0.</span></p>
+</div>
+<p>Installs the styles defined in the <a class="reference internal" href="#module-pyhdtoolkit.plotting.styles" title="pyhdtoolkit.plotting.styles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">styles</span></code></a> submodules to disk as <strong>.mplstyle</strong>
+files. This way, they can be used with <code class="xref py py-obj docutils literal notranslate"><span class="pre">use</span></code> without having to import them
+and update the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> directly.</p>
+</dd></dl>
+
+</section>
+<span class="target" id="module-pyhdtoolkit.plotting.styles.paper"></span><section id="paper-styles">
+<span id="plotting-styles-paper"></span><h2>Paper Styles<a class="headerlink" href="#paper-styles" title="Permalink to this headline"></a></h2>
+<p>This module contains different styles to be used with <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>, tailored for figures to be included in my journal papers.
+The end results should insert themselves seamlessly with the rest of the paper.
+All plots are included as either a single or double column figure in these papers.</p>
+<p>The following are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SINGLE_COLUMN</span></code>: For plots to be included in a single column figure environment.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">DOUBLE_COLUMN</span></code>: For plots to be included in a full width (double column) figure environment.</p></li>
+</ul>
+</section>
+<span class="target" id="module-pyhdtoolkit.plotting.styles.thesis"></span><section id="thesis-styles">
+<span id="plotting-styles-thesis"></span><h2>Thesis Styles<a class="headerlink" href="#thesis-styles" title="Permalink to this headline"></a></h2>
+<p>This module contains different styles to be used with <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>, tailored for figures to be included in my thesis document.
+The end results should insert themselves seamlessly with the rest of the paper.
+All plots are included in a LaTeX figure environment, included with <code class="docutils literal notranslate"><span class="pre">[width=0.99\columnwidth]</span></code> (and potentially subfloats inside).
+The text body has a fontsize of 12 points, and the figures should integrate to have roughly the same text size.</p>
+<p>The following are available:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">SMALL</span></code>: For small simple plots to be included in a multi-figure environment (e.g. a LaTeX figure with 2 subfloats). Two of these should render well when displayed side-by-side in the figure environment (<code class="docutils literal notranslate"><span class="pre">\subfloat[.9\linewidth]</span></code> then <code class="docutils literal notranslate"><span class="pre">\hspace{0.3cm}</span></code> then <code class="docutils literal notranslate"><span class="pre">\subfloat[.9\linewidth]</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MEDIUM</span></code>: For simple plots to be included alone in a LaTeX figure environment (e.g single axis line plots, or scatters with a colorbar like in <a class="reference internal" href="#module-pyhdtoolkit.plotting.tune" title="pyhdtoolkit.plotting.tune"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tune</span></code></a>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">LARGE</span></code>: For more complex plots to be included alone in a LaTeX figure environment (e.g. multi-axes figures such as in <a class="reference internal" href="#module-pyhdtoolkit.plotting.lattice" title="pyhdtoolkit.plotting.lattice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice</span></code></a>).</p></li>
+</ul>
+</section>
+<span class="target" id="module-pyhdtoolkit.plotting.aperture"></span><section id="aperture-plotters">
 <span id="plotting-aperture"></span><h2>Aperture Plotters<a class="headerlink" href="#aperture-plotters" title="Permalink to this headline"></a></h2>
 <p>Module with functions to create aperture plots through a <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object.</p>
 <dl class="py function">
@@ -907,7 +950,7 @@ These provide functionality to draw Farey sequences up to a desired order.</p>
 </div>
 <p>Returns the n-th farey_sequence sequence, ascending, where n is the provided <em>order</em>.
 Original code from <a class="reference external" href="https://github.com/rogeliotomas">Rogelio Tomás</a> (see Numerical Methods 2018 CAS
-proceedings, <span id="id1">Tomás <em>et al.</em> [<a class="reference internal" href="../bibliography.html#id8" title="R. Tomás, X. Buffat, J. Coello, E. Fol, and L. Malina. Imperfections and corrections. 2018. arXiv:2006.10661.">TBC+18</a>]</span>).</p>
+proceedings, <span id="id2">Tomás <em>et al.</em> [<a class="reference internal" href="../bibliography.html#id8" title="R. Tomás, X. Buffat, J. Coello, E. Fol, and L. Malina. Imperfections and corrections. 2018. arXiv:2006.10661.">TBC+18</a>]</span>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>order</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- the order up to which we want to calculate the sequence.</p>

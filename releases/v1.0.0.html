@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>1.0.0 &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>1.0.0 &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -122,6 +122,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -137,9 +140,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -349,7 +352,7 @@
   <section id="release-1-0-0">
 <span id="id1"></span><h1>1.0.0<a class="headerlink" href="#release-1-0-0" title="Permalink to this headline"></a></h1>
 <p>Release <code class="xref py py-obj docutils literal notranslate"><span class="pre">1.0.0</span></code> brings many breaking changes.
-Be sure to read these release notes carefully before upgrading, as much of the code using <code class="docutils literal notranslate"><span class="pre">pyhdtoolki</span></code> will need to be adapted.</p>
+Be sure to read these release notes carefully before upgrading, as much of the code using <code class="docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code> will need to be adapted.</p>
 <section id="breaking-changes">
 <h2>Breaking Changes<a class="headerlink" href="#breaking-changes" title="Permalink to this headline"></a></h2>
 <ul class="simple">
@@ -358,6 +361,7 @@ Be sure to read these release notes carefully before upgrading, as much of the c
 <li><p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">helpers</span></code> module has been renamed to <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.utils" title="pyhdtoolkit.plotting.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a> for consistency.</p></li>
 <li><p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code> module has been merged into <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.utils" title="pyhdtoolkit.plotting.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a>.</p></li>
 <li><p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">DynamicAperture</span></code> functionality has been completely removed.</p></li>
+<li><p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">defaults</span></code> module has been removed, and its functionality transferred in the relevant (new) places.</p></li>
 </ul>
 </section>
 <section id="enhancements">
@@ -366,17 +370,21 @@ Be sure to read these release notes carefully before upgrading, as much of the c
 <li><p>The machine layout plotting functionality has been made public api in a dedicated module, <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.layout" title="pyhdtoolkit.plotting.layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layout</span></code></a>.</p></li>
 <li><p>A new module has been added to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymadtools</span></code>, <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.setup" title="pyhdtoolkit.cpymadtools.setup"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup</span></code></a>, with functions to conveniently set up a <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> instance for either the Run 2 or Run 3 of the <code class="docutils literal notranslate"><span class="pre">LHC</span></code>, also as a context manager.</p></li>
 <li><p>A new module has been added in <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code>, <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.layout" title="pyhdtoolkit.plotting.layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">layout</span></code></a>, to make public the API to plot a machine’s element onto an axis.</p></li>
+<li><p>A new module has been added in <code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code>, <a class="reference internal" href="../api/utils.html#module-pyhdtoolkit.utils.logging" title="pyhdtoolkit.utils.logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logging</span></code></a>, to host the logging setup functionality that was previously in <code class="xref py py-obj docutils literal notranslate"><span class="pre">defaults</span></code>.</p></li>
+<li><p>A new module has been added in <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code>, <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.styles" title="pyhdtoolkit.plotting.styles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">styles</span></code></a>, with various useful styles definitions and the functionality to install them locally.</p></li>
 <li><p>New function in <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.add_markers_around_lhc_ip" title="pyhdtoolkit.cpymadtools.lhc.add_markers_around_lhc_ip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_markers_around_lhc_ip</span></code></a>, to do exactly that, for high granularity of calculations around the IP point.</p></li>
 <li><p>New function in <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip" title="pyhdtoolkit.cpymadtools.lhc.get_sizes_at_ip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_sizes_at_ip</span></code></a>, to compute horizontal and vertical beam sizes at a given IP through <code class="docutils literal notranslate"><span class="pre">Ripken</span></code> parameters, which will be accurate in the presence of coupling.</p></li>
 <li><p>New function in <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.utils" title="pyhdtoolkit.plotting.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a>, <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions" title="pyhdtoolkit.plotting.utils.get_lhc_ips_positions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_lhc_ips_positions</span></code></a>, to get a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> of different IP elements and their <code class="docutils literal notranslate"><span class="pre">S</span></code> coordinates.</p></li>
 <li><p>New function in <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.utils" title="pyhdtoolkit.plotting.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">utils</span></code></a>, <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations" title="pyhdtoolkit.plotting.utils.draw_ip_locations"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_ip_locations</span></code></a>, to highlight the positions of given IPs onto the current axis as vertical lines, potentially also writing out their names.</p></li>
 <li><p>The element plotting functionality handled by <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.layout.plot_machine_layout" title="pyhdtoolkit.plotting.layout.plot_machine_layout"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_machine_layout</span></code></a> now determines reasonable default <code class="docutils literal notranslate"><span class="pre">ylimits</span></code> if none were provided. This allowed removing hardcoded default values of these limits, and should help get a good looking plot for any machine by default.</p></li>
+<li><p>The <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a> function can now handle the <code class="docutils literal notranslate"><span class="pre">bv</span></code> flag in case the user is trying to set up for tracking with B2 (which needs loading <strong>lhcb4</strong> and a different bv flag).</p></li>
+<li><p>The <code class="xref py py-obj docutils literal notranslate"><span class="pre">config_logger</span></code> function, now in <a class="reference internal" href="../api/utils.html#module-pyhdtoolkit.utils.logging" title="pyhdtoolkit.utils.logging"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logging</span></code></a>, now accepts custom formats and three default formats are provided in the module.</p></li>
 </ul>
 </section>
 <section id="maintenance">
 <h2>Maintenance<a class="headerlink" href="#maintenance" title="Permalink to this headline"></a></h2>
 <ul class="simple">
-<li><p>Documentation has been updated. Refer to the gallery for example uses.</p></li>
+<li><p>Documentation has been updated for all new APIs. Refer to the gallery for example uses.</p></li>
 <li><p>Tests have been adapted.</p></li>
 </ul>
 <p>See <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.0.0">v1.0.0 release notes on GitHub</a> and the <a class="reference external" href="https://github.com/fsoubelet/PyhDToolkit/compare/0.21.0...1.0.0">full changes since v0.21.0</a>.</p>

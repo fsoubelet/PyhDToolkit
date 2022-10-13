@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.utils.defaults &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>pyhdtoolkit.plotting.styles &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -119,6 +119,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -134,9 +137,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -332,7 +335,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>pyhdtoolkit.utils.defaults</li>
+      <li>pyhdtoolkit.plotting.styles</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -341,17 +344,16 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for pyhdtoolkit.utils.defaults</h1><div class="highlight"><pre>
+  <h1>Source code for pyhdtoolkit.plotting.styles</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">.. _utils-defaults:</span>
+<span class="sd">.. _plotting-styles:</span>
 
-<span class="sd">Defaults Setting Utilities</span>
-<span class="sd">--------------------------</span>
+<span class="sd">Plotting Styles</span>
+<span class="sd">---------------</span>
 
-<span class="sd">Provides defaults to import for different settings, such as plotting or logging.</span>
+<span class="sd">The **style** submodules provide styles to be used with `~matplotlib`, mostly tailored for my use, and for good results with the plotters in `~pyhdtoolkit.plotting`.</span>
+<span class="sd">Feel free to use them anyway, as they might be useful to you when using the `~pyhdtoolkit.plotting` submodules, or to be adapted.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
 
@@ -360,97 +362,28 @@
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="n">ANACONDA_INSTALL</span> <span class="o">=</span> <span class="n">Path</span><span class="p">()</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;mambaforge&quot;</span>
-<span class="n">OMC_PYTHON</span> <span class="o">=</span> <span class="n">ANACONDA_INSTALL</span> <span class="o">/</span> <span class="s2">&quot;envs&quot;</span> <span class="o">/</span> <span class="s2">&quot;omc3&quot;</span> <span class="o">/</span> <span class="s2">&quot;bin&quot;</span> <span class="o">/</span> <span class="s2">&quot;python&quot;</span>
-
-<span class="n">WORK_REPOSITORIES</span> <span class="o">=</span> <span class="n">Path</span><span class="o">.</span><span class="n">home</span><span class="p">()</span> <span class="o">/</span> <span class="s2">&quot;Repositories&quot;</span> <span class="o">/</span> <span class="s2">&quot;Work&quot;</span>
-<span class="n">BETABEAT_REPO</span> <span class="o">=</span> <span class="n">WORK_REPOSITORIES</span> <span class="o">/</span> <span class="s2">&quot;Beta-Beat.src&quot;</span>
-<span class="n">OMC3_REPO</span> <span class="o">=</span> <span class="n">WORK_REPOSITORIES</span> <span class="o">/</span> <span class="s2">&quot;omc3&quot;</span>
-
-<span class="n">TBT_CONVERTER_SCRIPT</span> <span class="o">=</span> <span class="n">OMC3_REPO</span> <span class="o">/</span> <span class="s2">&quot;omc3&quot;</span> <span class="o">/</span> <span class="s2">&quot;tbt_converter.py&quot;</span>
-
-<span class="n">LOGURU_FORMAT</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">&quot;&lt;green&gt;{time:YYYY-MM-DD HH:mm:ss}&lt;/green&gt; | &quot;</span>
-    <span class="s2">&quot;&lt;level&gt;</span><span class="si">{level: &lt;8}</span><span class="s2">&lt;/level&gt; | &quot;</span>
-    <span class="s2">&quot;&lt;cyan&gt;</span><span class="si">{name}</span><span class="s2">&lt;/cyan&gt;:&lt;cyan&gt;</span><span class="si">{line}</span><span class="s2">&lt;/cyan&gt; - &quot;</span>
-    <span class="s2">&quot;&lt;level&gt;</span><span class="si">{message}</span><span class="s2">&lt;/level&gt;&quot;</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">paper</span><span class="p">,</span> <span class="n">thesis</span>
 
 <span class="n">PlotSetting</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]</span>
 
-<span class="c1"># Set those with matplotlib.pyplot.rcParams.update(PLOT_PARAMS).</span>
-<span class="c1"># Will ALWAYS be overwritten by later on definition</span>
-<span class="n">PLOT_PARAMS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="c1"># ------ Patches ------ #</span>
-    <span class="s2">&quot;patch.linewidth&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>  <span class="c1"># Width of patches edge lines</span>
-    <span class="c1"># ------ Fonts ------ #</span>
-    <span class="s2">&quot;font.family&quot;</span><span class="p">:</span> <span class="s2">&quot;sans-serif&quot;</span><span class="p">,</span>  <span class="c1"># Font family</span>
-    <span class="s2">&quot;font.style&quot;</span><span class="p">:</span> <span class="s2">&quot;normal&quot;</span><span class="p">,</span>  <span class="c1"># Style to apply to text font</span>
-    <span class="s2">&quot;font.weight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>  <span class="c1"># Bold font</span>
-    <span class="s2">&quot;font.size&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Default font size of elements</span>
-    <span class="s2">&quot;font.sans-serif&quot;</span><span class="p">:</span> <span class="s2">&quot;Helvetica&quot;</span><span class="p">,</span>  <span class="c1"># Sans-Serif font to use</span>
-    <span class="c1"># ----- Mathtext ----- #</span>
-    <span class="s2">&quot;mathtext.default&quot;</span><span class="p">:</span> <span class="s2">&quot;regular&quot;</span><span class="p">,</span>  <span class="c1"># default font for math</span>
-    <span class="c1"># ------ Text ------ #</span>
-    <span class="s2">&quot;text.usetex&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use LaTeX for text handling (Set to False if you don&#39;t have a local installation)</span>
-    <span class="s2">&quot;text.latex.preamble&quot;</span><span class="p">:</span> <span class="sa">r</span><span class="s2">&quot;\usepackage{amsmath, amssymb}&quot;</span><span class="p">,</span>  <span class="c1"># Be careful with the preamble</span>
-    <span class="c1"># ------ Axes ------ #</span>
-    <span class="s2">&quot;axes.linewidth&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>  <span class="c1"># Linewidth of axes edges</span>
-    <span class="s2">&quot;axes.grid&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Do display grid</span>
-    <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Fontsize of the axes title</span>
-    <span class="s2">&quot;axes.labelsize&quot;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span>  <span class="c1"># Fontsize of the x and y axis labels</span>
-    <span class="s2">&quot;axes.labelweight&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span>  <span class="c1"># Bold labels</span>
-    <span class="s2">&quot;axes.formatter.limits&quot;</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span>  <span class="c1"># Switch to scientific notations when order of magnitude reaches 1e3</span>
-    <span class="s2">&quot;axes.formatter.use_mathtext&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Format with i.e 10^{4} instead of 1e4</span>
-    <span class="s2">&quot;axes.formatter.useoffset&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>  <span class="c1"># Do not use the annoying offset on top of yticks</span>
-    <span class="c1"># ------ Date Formats ------ #</span>
-    <span class="s2">&quot;date.autoformatter.year&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for years display</span>
-    <span class="s2">&quot;date.autoformatter.month&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y-%m&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for months display</span>
-    <span class="s2">&quot;date.autoformatter.day&quot;</span><span class="p">:</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for days display</span>
-    <span class="s2">&quot;date.autoformatter.hour&quot;</span><span class="p">:</span> <span class="s2">&quot;%m-</span><span class="si">%d</span><span class="s2"> %H&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for seconds display</span>
-    <span class="s2">&quot;date.autoformatter.minute&quot;</span><span class="p">:</span> <span class="s2">&quot;</span><span class="si">%d</span><span class="s2"> %H:%M&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for minutes display</span>
-    <span class="s2">&quot;date.autoformatter.second&quot;</span><span class="p">:</span> <span class="s2">&quot;%H:%M:%S&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for seconds display</span>
-    <span class="s2">&quot;date.autoformatter.microsecond&quot;</span><span class="p">:</span> <span class="s2">&quot;%M:%S.</span><span class="si">%f</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># AutoDateFormatter setting for microseconds</span>
-    <span class="c1"># ------ Horizontal Ticks ------ #</span>
-    <span class="s2">&quot;xtick.major.size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># Size (length) of the major xtick locators</span>
-    <span class="s2">&quot;xtick.minor.size&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># Size (length) of the minor xtick locators</span>
-    <span class="s2">&quot;xtick.major.width&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>  <span class="c1"># Width of the major xtick locators</span>
-    <span class="s2">&quot;xtick.minor.width&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>  <span class="c1"># Width of the minor xtick locators</span>
-    <span class="s2">&quot;xtick.labelsize&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Fontsize of the x axis tick labels</span>
-    <span class="s2">&quot;xtick.direction&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>  <span class="c1"># Show xticks towards inside of figure</span>
-    <span class="s2">&quot;xtick.minor.visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Show minor xtick locators</span>
-    <span class="c1"># ------ Vertical Ticks ------ #</span>
-    <span class="s2">&quot;ytick.major.size&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>  <span class="c1"># Size (length) of the major ytick locators</span>
-    <span class="s2">&quot;ytick.minor.size&quot;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># Size (length) of the minor ytick locators</span>
-    <span class="s2">&quot;ytick.major.width&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>  <span class="c1"># Width of the major ytick locators</span>
-    <span class="s2">&quot;ytick.minor.width&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>  <span class="c1"># Width of the minor ytick locators</span>
-    <span class="s2">&quot;ytick.labelsize&quot;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span>  <span class="c1"># Fontsize of the y axis tick labels</span>
-    <span class="s2">&quot;ytick.direction&quot;</span><span class="p">:</span> <span class="s2">&quot;in&quot;</span><span class="p">,</span>  <span class="c1"># Show yticks towards inside of figure</span>
-    <span class="s2">&quot;ytick.minor.visible&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Show minor ytick locators</span>
-    <span class="c1"># ----- Grid ----- #</span>
-    <span class="s2">&quot;grid.linestyle&quot;</span><span class="p">:</span> <span class="s2">&quot;--&quot;</span><span class="p">,</span>  <span class="c1"># Which linestyle for grid lines</span>
-    <span class="s2">&quot;grid.linewidth&quot;</span><span class="p">:</span> <span class="mf">1.3</span><span class="p">,</span>  <span class="c1"># Width of the grid lines</span>
-    <span class="c1"># ------- Legend ------ #</span>
-    <span class="s2">&quot;legend.loc&quot;</span><span class="p">:</span> <span class="s2">&quot;best&quot;</span><span class="p">,</span>  <span class="c1"># Default legend location</span>
-    <span class="s2">&quot;legend.frameon&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Make a dedicated patch for the legend</span>
-    <span class="s2">&quot;legend.framealpha&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>  <span class="c1"># Legend patch transparency factor</span>
-    <span class="s2">&quot;legend.fancybox&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Use rounded box for legend background</span>
-    <span class="s2">&quot;legend.fontsize&quot;</span><span class="p">:</span> <span class="mi">22</span><span class="p">,</span>  <span class="c1"># Legend text font size</span>
-    <span class="s2">&quot;legend.title_fontsize&quot;</span><span class="p">:</span> <span class="mi">23</span><span class="p">,</span>  <span class="c1"># Legend title text font size</span>
-    <span class="c1"># ------ Figure ------ #</span>
-    <span class="s2">&quot;figure.titlesize&quot;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span>  <span class="c1"># Size of the figure title</span>
-    <span class="s2">&quot;figure.figsize&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">16</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>  <span class="c1"># Default size of the figures</span>
-    <span class="s2">&quot;figure.dpi&quot;</span><span class="p">:</span> <span class="mi">300</span><span class="p">,</span>  <span class="c1"># Figure dots per inch</span>
-    <span class="s2">&quot;figure.subplot.left&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>  <span class="c1"># Left side of the subplots of the figure</span>
-    <span class="s2">&quot;figure.subplot.right&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>  <span class="c1"># Right side of the subplots of the figure</span>
-    <span class="s2">&quot;figure.subplot.bottom&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>  <span class="c1"># Bottom side of the subplots of the figure</span>
-    <span class="s2">&quot;figure.subplot.top&quot;</span><span class="p">:</span> <span class="mf">0.90</span><span class="p">,</span>  <span class="c1"># Top side of the subplots of the figure</span>
-    <span class="s2">&quot;figure.autolayout&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>  <span class="c1"># Adjust subplot params to fit the figure (tight_layout)</span>
-    <span class="c1"># ------ Saving ------ #</span>
-    <span class="s2">&quot;savefig.dpi&quot;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>  <span class="c1"># Saved figure dots per inch</span>
-    <span class="s2">&quot;savefig.format&quot;</span><span class="p">:</span> <span class="s2">&quot;pdf&quot;</span><span class="p">,</span>  <span class="c1"># Saved figure file format</span>
-    <span class="s2">&quot;savefig.bbox&quot;</span><span class="p">:</span> <span class="s2">&quot;tight&quot;</span><span class="p">,</span>  <span class="c1"># Careful: incompatible with pipe-based animation backends</span>
-<span class="p">}</span>
+
+<div class="viewcode-block" id="install_mpl_styles"><a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.styles.install_mpl_styles">[docs]</a><span class="k">def</span> <span class="nf">install_mpl_styles</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 1.0.0</span>
+
+<span class="sd">    Installs the styles defined in the `~pyhdtoolkit.plotting.styles` submodules to disk as **.mplstyle**</span>
+<span class="sd">    files. This way, they can be used with `~matplotlib.pyplot.style.use` without having to import them</span>
+<span class="sd">    and update the ``rcParams`` directly.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_install_style_file</span><span class="p">(</span><span class="n">thesis</span><span class="o">.</span><span class="n">SMALL</span><span class="p">,</span> <span class="s2">&quot;thesis-small&quot;</span><span class="p">)</span>
+    <span class="n">_install_style_file</span><span class="p">(</span><span class="n">thesis</span><span class="o">.</span><span class="n">MEDIUM</span><span class="p">,</span> <span class="s2">&quot;thesis-medium&quot;</span><span class="p">)</span>
+    <span class="n">_install_style_file</span><span class="p">(</span><span class="n">thesis</span><span class="o">.</span><span class="n">LARGE</span><span class="p">,</span> <span class="s2">&quot;thesis-large&quot;</span><span class="p">)</span>
+    <span class="n">_install_style_file</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">SINGLE_COLUMN</span><span class="p">,</span> <span class="s2">&quot;paper-single&quot;</span><span class="p">)</span>
+    <span class="n">_install_style_file</span><span class="p">(</span><span class="n">paper</span><span class="o">.</span><span class="n">DOUBLE_COLUMN</span><span class="p">,</span> <span class="s2">&quot;paper-double&quot;</span><span class="p">)</span></div>
+
+
+<span class="c1"># ----- Helpers ----- #</span>
+
 
 <span class="c1"># This is meant for use in the sphinx-gallery to help with readability</span>
 <span class="c1"># as the default matplotlib settings are a bit small</span>
@@ -464,72 +397,46 @@
     <span class="s2">&quot;ytick.labelsize&quot;</span><span class="p">:</span> <span class="mi">18</span><span class="p">,</span>
 <span class="p">}</span>
 
-<span class="c1"># This is meant for use to guarantee single-subplot figures all align on</span>
-<span class="c1"># their axes and labels, for consistencyin my articles / thesis.</span>
-<span class="n">_FIGURE_CONSTRAINTS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;figure.constrained_layout.use&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="s2">&quot;figure.subplot.left&quot;</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span>
-    <span class="s2">&quot;figure.subplot.bottom&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>
-    <span class="s2">&quot;figure.subplot.right&quot;</span><span class="p">:</span> <span class="mf">0.99</span><span class="p">,</span>
-    <span class="s2">&quot;figure.subplot.top&quot;</span><span class="p">:</span> <span class="mf">0.77</span><span class="p">,</span>
-<span class="p">}</span>
 
-
-<div class="viewcode-block" id="config_logger"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.defaults.config_logger">[docs]</a><span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span><span class="n">level</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_install_style_file</span><span class="p">(</span><span class="n">style</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">],</span> <span class="n">stylename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.8.2</span>
+<span class="sd">    .. versionadded:: 1.0.0</span>
 
-<span class="sd">    Resets the logger object from ``loguru``, with `sys.stdout` as a sink and the</span>
-<span class="sd">    aforedefined format, which comes down to personnal preference.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        level (Union[str, int]): The logging level to set. Case-insensitive if a</span>
-<span class="sd">            string is given. Defaults to ``INFO``.</span>
-<span class="sd">        **kwargs: any keyword argument is transmitted to the ``logger.add`` call.</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        .. code-block:: python</span>
-
-<span class="sd">            &gt;&gt;&gt; config_logger(level=&quot;DEBUG&quot;)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
-    <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">level</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">LOGURU_FORMAT</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="install_mpl_style"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.defaults.install_mpl_style">[docs]</a><span class="k">def</span> <span class="nf">install_mpl_style</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.9.1</span>
-
-<span class="sd">    Writes to disk a **phd.mplstyle** file in the appropriate directories, translating to matplotlib style</span>
-<span class="sd">    format the ``PLOT_PARAMS`` defined in this module. This enables one to use the style without importing</span>
-<span class="sd">    ``PLOT_PARAMS`` directly and updating the ``rcParams``, but instead setting the style to use, as so:</span>
+<span class="sd">    Writes to disk a **&lt;name&gt;.mplstyle** file in the appropriate directories, translating to matplotlib style</span>
+<span class="sd">    format the provided style `dict`. This enables one to use the style without importing it directly and</span>
+<span class="sd">    updating the ``rcParams``, but instead setting the style to use, as so:</span>
 
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        from matplotlib import pyplot as plt</span>
-<span class="sd">        plt.style.use(&quot;phd&quot;)</span>
+<span class="sd">        plt.style.use(&quot;style-name&quot;)</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        Sometimes, matplotlib will not look for the file in its global config directory, but in the</span>
 <span class="sd">        activated environment&#39;s site-packages data. The file is installed in both places.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        style (Dict[str, PlotSetting]): The style to be written to disk. One of the styles defined</span>
+<span class="sd">            in the `~pyhdtoolkit.plotting.styles` submodules.</span>
+<span class="sd">        stylename (str): The name to associate with the style. This is the name that will be used</span>
+<span class="sd">            for the file written to disk, and will have to be `plt.use`d to use the style.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Installing matplotlib style&quot;</span><span class="p">)</span>
-    <span class="n">style_content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">PLOT_PARAMS</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing matplotlib style as &#39;</span><span class="si">{</span><span class="n">stylename</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">style_content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">style</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
     <span class="n">mpl_config_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
     <span class="n">mpl_env_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">BASE_LIBRARY_PATH</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span>
     <span class="n">mpl_config_stylelib</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">mpl_env_stylelib</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">config_style_file</span> <span class="o">=</span> <span class="n">mpl_config_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
-    <span class="n">env_style_file</span> <span class="o">=</span> <span class="n">mpl_env_stylelib</span> <span class="o">/</span> <span class="s2">&quot;phd.mplstyle&quot;</span>
+    <span class="n">config_style_file</span> <span class="o">=</span> <span class="n">mpl_config_stylelib</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">stylename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">.mplstyle&quot;</span>
+    <span class="n">env_style_file</span> <span class="o">=</span> <span class="n">mpl_env_stylelib</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">stylename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="s2">.mplstyle&quot;</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating style file at &#39;</span><span class="si">{</span><span class="n">config_style_file</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
     <span class="n">config_style_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Creating style file at &#39;</span><span class="si">{</span><span class="n">env_style_file</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
     <span class="n">env_style_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">style_content</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;(&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;)&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">))</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="s2">phd</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span></div>
+    <span class="n">logger</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;You can now use it with &#39;plt.style.use(</span><span class="se">\&quot;</span><span class="si">{</span><span class="n">stylename</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="si">}</span><span class="se">\&quot;</span><span class="s2">)&#39;&quot;</span><span class="p">)</span>
 </pre></div>
 
            </div>

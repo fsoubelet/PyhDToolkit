@@ -30,7 +30,7 @@ to represent your machine's layout and optics functions in a double-axis plot.
 In this example, we will showcase the functionality on a simple lattice, and then demonstrate the use
 of several parameters to control the plot on the example case of the LHC.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-27
+.. GENERATED FROM PYTHON SOURCE LINES 15-28
 
 .. code-block:: default
 
@@ -41,23 +41,24 @@ of several parameters to control the plot on the example case of the LHC.
     from pyhdtoolkit.cpymadtools import lhc, matching, orbit
     from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
     from pyhdtoolkit.plotting.lattice import plot_latwiss
-    from pyhdtoolkit.utils import defaults
+    from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
+    from pyhdtoolkit.utils import logging
 
-    defaults.config_logger(level="warning")
-    plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
-
-
-
+    logging.config_logger(level="warning")
+    plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-29
+
+
+
+.. GENERATED FROM PYTHON SOURCE LINES 29-30
 
 Let's start by generating a simple lattice and setup your simulation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-47
+.. GENERATED FROM PYTHON SOURCE LINES 30-48
 
 .. code-block:: default
 
@@ -86,14 +87,14 @@ Let's start by generating a simple lattice and setup your simulation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-52
+.. GENERATED FROM PYTHON SOURCE LINES 49-53
 
 Plotting the combined machine layout and optics functions is done in a single call
 to the `~.plotting.lattice.plot_latwiss` function. Here, we will also set the *k0l_lim*
 parameter to control the right-hand-side axis in the machine layout axis. The same
 can be done with the *k1_lim* parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-66
+.. GENERATED FROM PYTHON SOURCE LINES 53-67
 
 .. code-block:: default
 
@@ -123,13 +124,13 @@ can be done with the *k1_lim* parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-70
+.. GENERATED FROM PYTHON SOURCE LINES 68-71
 
 One can customise the plot more to their liking or needs thanks to the other
 function parameters. Let's showcase this with the LHC lattice, that we set up
 below:
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-76
+.. GENERATED FROM PYTHON SOURCE LINES 71-77
 
 .. code-block:: default
 
@@ -146,12 +147,12 @@ below:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-79
+.. GENERATED FROM PYTHON SOURCE LINES 78-80
 
 Let's re-cycle the sequences to avoid having IR1 split at beginning and end of
 lattice, as is the default in the LHC sequence, and setup a flat orbit.
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-87
+.. GENERATED FROM PYTHON SOURCE LINES 80-88
 
 .. code-block:: default
 
@@ -170,13 +171,13 @@ lattice, as is the default in the LHC sequence, and setup a flat orbit.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-91
+.. GENERATED FROM PYTHON SOURCE LINES 89-92
 
 The `~.plotting.lattice.plot_latwiss` function gives the possibility to zoom on a
 region by providing the *xlimits* parameter. Let's first determine the position
 of points of interest through the ``TWISS`` table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 91-97
+.. GENERATED FROM PYTHON SOURCE LINES 92-98
 
 .. code-block:: default
 
@@ -193,7 +194,7 @@ of points of interest through the ``TWISS`` table:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 98-108
+.. GENERATED FROM PYTHON SOURCE LINES 99-109
 
 We can now focus the plot in the Interaction Region 1 by providing the *xlimits*
 centered around the value we determined for *ip1s*.
@@ -206,7 +207,7 @@ centered around the value we determined for *ip1s*.
     (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
     way to zoom on a region.
 
-.. GENERATED FROM PYTHON SOURCE LINES 108-123
+.. GENERATED FROM PYTHON SOURCE LINES 109-124
 
 .. code-block:: default
 
@@ -237,14 +238,14 @@ centered around the value we determined for *ip1s*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 124-128
+.. GENERATED FROM PYTHON SOURCE LINES 125-129
 
 Using the *xoffset* parameter, one can shift the longitudinal coordinate to be
 centered on 0, with the horizontal axis showing relative position to the given
 *xoffset*. This is useful here to zoom closely on IP1 and see the elements'
 positions relative to the IP marker.
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-144
+.. GENERATED FROM PYTHON SOURCE LINES 129-145
 
 .. code-block:: default
 
@@ -276,7 +277,7 @@ positions relative to the IP marker.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-151
+.. GENERATED FROM PYTHON SOURCE LINES 146-152
 
 When and only when the *k2l_lim* parameter is provided, the sextupolar elements
 are plotted on the lattice layout axis, and an additional scale is put to the right.
@@ -285,7 +286,7 @@ want to plot when looking at the big picture, to avoid overcrowding it. Similarl
 providing the *plot_bpms* will add a small marker for BPM elements. Here it is
 showcased when looking at an LHC arc cell:
 
-.. GENERATED FROM PYTHON SOURCE LINES 151-169
+.. GENERATED FROM PYTHON SOURCE LINES 152-170
 
 .. code-block:: default
 
@@ -319,11 +320,11 @@ showcased when looking at an LHC arc cell:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-171
+.. GENERATED FROM PYTHON SOURCE LINES 171-172
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-174
+.. GENERATED FROM PYTHON SOURCE LINES 172-175
 
 .. code-block:: default
 
@@ -337,7 +338,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 175-185
+.. GENERATED FROM PYTHON SOURCE LINES 176-186
 
 .. admonition:: References
 
@@ -353,7 +354,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  22.890 seconds)
+   **Total running time of the script:** ( 0 minutes  20.768 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lattice.py:

@@ -100,8 +100,7 @@ One can find many examples of the `~pyhdtoolkit.cpymadtools` apis' use in the :r
 Utilities
 ^^^^^^^^^
 
-The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up logging or
-plotting :ref:`defaults <utils-defaults>`, run external programs through the :ref:`command line <utils-cmdline>`, 
+The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up (:ref:`logging <utils-logging>`, run external programs through the :ref:`command line <utils-cmdline>`, 
 run your functions through :ref:`useful contexts <utils-contexts>`, easily wrap and :ref:`parallelise <utils-executors>`
 functions, or perform many convenient :ref:`operations <utils-operations>` on miscellaneous Python objects.
 
@@ -125,12 +124,12 @@ Alternatively one can easily parallelise an I/O-intensive function through multi
     )
 
 .. tip::
-    A useful tidbit is this line which sets up the logging level for functions in the package:
+    A useful tidbit is the following which sets up the logging level for functions in the package:
 
     .. prompt:: python >>>
 
-        from pyhdtoolkit.utils import defaults
-        defaults.config_logger(level="trace")  # the lowest level used, will give ALL logging
+        from pyhdtoolkit.utils import logging
+        logging.config_logger(level="trace")  # the lowest level used, will give ALL logging
 
 Additional Helpers
 ^^^^^^^^^^^^^^^^^^

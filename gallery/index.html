@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gallery &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>Gallery &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -122,6 +122,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -137,9 +140,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -351,14 +354,18 @@
 submodules, or plots made from results of convenient functions available in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The examples shown here are plotted with a customized but simple <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> style. If one uses
-this package and sets their own preferences or uses their own <strong>mplstyle</strong>, the resulting plots
-might look significantly different.</p>
-<p>The package provides a plotting style in the <a class="reference internal" href="../api/utils.html#module-pyhdtoolkit.utils.defaults" title="pyhdtoolkit.utils.defaults"><code class="xref py py-obj docutils literal notranslate"><span class="pre">defaults</span></code></a> module, which should be
-compatible with the plotters. One can use the style in two ways:</p>
+<p>The examples shown here are plotted with a customized but simple <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> style, simply for
+visibility in these galleries. If one uses this package and sets their own preferences or uses
+their own <strong>mplstyle</strong>, the resulting plots might look significantly different.</p>
+<p>The package provides several plotting styles in the <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.styles" title="pyhdtoolkit.plotting.styles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">styles</span></code></a> submodules,
+which are tailored for good rendering in my LaTeX documents and are made for good compatibility
+with the various plotters in <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code>. These styles are described in the
+<a class="reference internal" href="../api/plotting.html#plotting-styles"><span class="std std-ref">styles</span></a> documentation section.</p>
+<p>One can use them in two ways, shown below with as example the <code class="docutils literal notranslate"><span class="pre">MEDIUM</span></code> style defined in
+<a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.styles.thesis" title="pyhdtoolkit.plotting.styles.thesis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.plotting.styles.thesis</span></code></a>.</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="9fb39dcb-f15a-4fee-a4b1-41b379e2d25d" name="067e9ae1-3c0e-4513-83c6-211635ccbad0" type="radio">
-</input><label class="tabbed-label" for="9fb39dcb-f15a-4fee-a4b1-41b379e2d25d">
+<input checked="checked" id="d2b9524d-a38b-4aa3-821e-3dbc87639069" name="42fed8db-2ef5-4992-bf02-052597f49e3d" type="radio">
+</input><label class="tabbed-label" for="d2b9524d-a38b-4aa3-821e-3dbc87639069">
 Import and Set the Style</label><div class="tabbed-content docutils">
 <p>Update the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code> at runtime with:</p>
 <blockquote>
@@ -367,21 +374,30 @@ span.prompt1:before {
   content: ">>> ";
 }
 </style><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
-<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.defaults</span> <span class="kn">import</span> <span class="n">PLOT_PARAMS</span></span>
+<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles.thesis</span> <span class="kn">import</span> <span class="n">MEDIUM</span></span>
 <span class="prompt1"></span>
-<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">PLOT_PARAMS</span><span class="p">)</span></span>
+<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">MEDIUM</span><span class="p">)</span></span>
+<span class="prompt1"><span class="c1"># plotting code here</span></span>
 </pre></div></div></div></blockquote>
-</div>
-<input id="47c7aff6-f902-44b3-84b2-1ab63e722e57" name="067e9ae1-3c0e-4513-83c6-211635ccbad0" type="radio">
-</input><label class="tabbed-label" for="47c7aff6-f902-44b3-84b2-1ab63e722e57">
-Install and Load the Style</label><div class="tabbed-content docutils">
-<p>Do a one-time install of the style as an <strong>.mplstyle</strong> file to import in <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>:</p>
+<p>Or, for a temporary update of the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>:</p>
 <blockquote>
 <div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
-<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span></span>
+<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles.thesis</span> <span class="kn">import</span> <span class="n">MEDIUM</span></span>
 <span class="prompt1"></span>
-<span class="prompt1"><span class="n">defaults</span><span class="o">.</span><span class="n">install_mpl_style</span><span class="p">()</span>  <span class="c1"># only run this once</span></span>
-<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;phd&quot;</span><span class="p">)</span>  <span class="c1"># created file is &#39;phd.mplstyle&#39;</span></span>
+<span class="prompt1"><span class="k">with</span> <span class="n">plt</span><span class="o">.</span><span class="n">rc_context</span><span class="p">(</span><span class="n">MEDIUM</span><span class="p">):</span></span>
+<span class="prompt1">    <span class="c1"># Plotting code here</span></span>
+</pre></div></div></div></blockquote>
+</div>
+<input id="143cc2d1-5a53-4b59-b80a-05278e201bad" name="42fed8db-2ef5-4992-bf02-052597f49e3d" type="radio">
+</input><label class="tabbed-label" for="143cc2d1-5a53-4b59-b80a-05278e201bad">
+Install the Styles and Load One</label><div class="tabbed-content docutils">
+<p>Do a one-time install of the styles as <strong>.mplstyle</strong> files to use in <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.6.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a>:</p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt1"><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span></span>
+<span class="prompt1"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <span class="n">install_mpl_styles</span></span>
+<span class="prompt1"></span>
+<span class="prompt1"><span class="n">install_mpl_styles</span><span class="p">()</span>  <span class="c1"># only run this once</span></span>
+<span class="prompt1"><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;thesis-medium&quot;</span><span class="p">)</span>  <span class="c1"># loaded from created file &#39;thesis-medium.mplstyle&#39;</span></span>
 </pre></div></div></div></blockquote>
 </div>
 </div>

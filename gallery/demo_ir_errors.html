@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -122,6 +122,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -137,9 +140,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -366,10 +369,11 @@ to assign magnet errors in the Insertion Region magnets of the LHC.</p>
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">errors</span><span class="p">,</span> <span class="n">lhc</span><span class="p">,</span> <span class="n">matching</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
 
-<a href="../api/utils.html#pyhdtoolkit.utils.defaults.config_logger" title="pyhdtoolkit.utils.defaults.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-defaults sphx-glr-backref-type-py-function"><span class="n">defaults</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">defaults</span><span class="o">.</span><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
+<a href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
 <p>Setup a simple LHC simulation in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, at injection energy (450 GeV)</p>
@@ -475,100 +479,100 @@ order in which they are in the machine:</p>
   <tbody>
     <tr>
       <th>mqml.6l1.b1</th>
-      <td>0.001342</td>
+      <td>-0.000557</td>
       <td>0.0</td>
-      <td>0.003320</td>
+      <td>0.001072</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5l1.b1</th>
-      <td>0.000569</td>
+      <td>0.001273</td>
       <td>0.0</td>
-      <td>0.001298</td>
+      <td>0.001105</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4l1.b1</th>
-      <td>0.000358</td>
+      <td>-0.001055</td>
       <td>0.0</td>
-      <td>0.002018</td>
+      <td>-0.001511</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3l1</th>
-      <td>-0.000598</td>
+      <td>-0.000301</td>
       <td>0.0</td>
-      <td>0.002241</td>
+      <td>-0.003268</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2l1</th>
-      <td>-0.001097</td>
+      <td>0.002089</td>
       <td>0.0</td>
-      <td>-0.001721</td>
+      <td>0.002247</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2l1</th>
-      <td>0.001569</td>
+      <td>0.001614</td>
       <td>0.0</td>
-      <td>-0.002616</td>
+      <td>-0.004035</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1l1</th>
-      <td>-0.000209</td>
+      <td>0.001505</td>
       <td>0.0</td>
-      <td>0.000690</td>
+      <td>-0.002937</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1r1</th>
-      <td>-0.000613</td>
+      <td>0.001668</td>
       <td>0.0</td>
-      <td>0.000009</td>
+      <td>-0.002118</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2r1</th>
-      <td>-0.000916</td>
+      <td>-0.000301</td>
       <td>0.0</td>
-      <td>0.001399</td>
+      <td>0.003580</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2r1</th>
-      <td>-0.000725</td>
+      <td>-0.000502</td>
       <td>0.0</td>
-      <td>-0.002472</td>
+      <td>0.001233</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3r1</th>
-      <td>0.000264</td>
+      <td>0.001829</td>
       <td>0.0</td>
-      <td>-0.003025</td>
+      <td>-0.003117</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4r1.b1</th>
-      <td>-0.000181</td>
+      <td>-0.000221</td>
       <td>0.0</td>
-      <td>0.000227</td>
+      <td>-0.001296</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5r1.b1</th>
-      <td>0.001244</td>
+      <td>-0.002131</td>
       <td>0.0</td>
-      <td>-0.001142</td>
+      <td>-0.003373</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.6r1.b1</th>
-      <td>0.000747</td>
+      <td>0.001434</td>
       <td>0.0</td>
-      <td>0.001232</td>
+      <td>0.005112</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -614,7 +618,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  43.849 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  41.857 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-ir-errors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/da42f6ab08c5bc8cb6606bcaeb4957d9/demo_ir_errors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_ir_errors.py</span></code></a></p>

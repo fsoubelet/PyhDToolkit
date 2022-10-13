@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LHC Rigid Waist Shift &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>LHC Rigid Waist Shift &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -43,7 +43,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -123,6 +123,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -138,9 +141,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -374,10 +377,11 @@ work on other accelerators.</p>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">lhc</span><span class="p">,</span> <span class="n">matching</span>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.lattice</span> <span class="kn">import</span> <a href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss" title="pyhdtoolkit.plotting.lattice.plot_latwiss" class="sphx-glr-backref-module-pyhdtoolkit-plotting-lattice sphx-glr-backref-type-py-function"><span class="n">plot_latwiss</span></a>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">defaults</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
 
-<a href="../api/utils.html#pyhdtoolkit.utils.defaults.config_logger" title="pyhdtoolkit.utils.defaults.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-defaults sphx-glr-backref-type-py-function"><span class="n">defaults</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
-<a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">defaults</span><span class="o">.</span><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
+<a href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
 <section id="showcasing-the-waist-shift">
@@ -441,7 +445,7 @@ will use a setting of 1.5 to make the effect easily noticeable.</p>
 <a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-matching sphx-glr-backref-type-py-function"><span class="n">matching</span><span class="o">.</span><span class="n">match_tunes_and_chromaticities</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="s2">&quot;lhc&quot;</span><span class="p">,</span> <span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="mf">62.31</span><span class="p">,</span> <span class="mf">60.32</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-08 13:01:13 | WARNING  | pyhdtoolkit.cpymadtools.lhc:284 - You should re-match tunes &amp; chromaticities after this rigid waist shift knob is applied
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-13 15:04:58 | WARNING  | pyhdtoolkit.cpymadtools.lhc:300 - You should re-match tunes &amp; chromaticities after this rigid waist shift knob is applied
 </pre></div>
 </div>
 <p>Let’s again retrieve the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> table, then plot the new conditions in the
@@ -543,7 +547,7 @@ at the <span class="math notranslate nohighlight">\(\beta_{x,y}\)</span> functio
     <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">twiss_df</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.TableMap.html#cpymad.madx.TableMap" title="cpymad.madx.TableMap" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span></a><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
 </pre></div>
 </div>
-<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-08 13:02:27 | WARNING  | pyhdtoolkit.cpymadtools.lhc:847 - Sequence &#39;lhcb1&#39; will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>2022-10-13 15:06:09 | WARNING  | pyhdtoolkit.cpymadtools.lhc:863 - Sequence &#39;lhcb1&#39; will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
 </pre></div>
 </div>
 <p>We will use all our added markers to determine the location of the waist,
@@ -665,7 +669,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.lattice" title="pyhdtoolkit.plotting.lattice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice</span></code></a>: <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss" title="pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_latwiss</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  55.307 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 3 minutes  44.122 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-lhc-rigid-waist-shift-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/92d99024e2e13e0ddcd6018dea27ea82/demo_lhc_rigid_waist_shift.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_lhc_rigid_waist_shift.py</span></code></a></p>

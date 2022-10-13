@@ -23,11 +23,12 @@ import scipy
 import scipy.stats as st
 
 from pyhdtoolkit.maths import stats_fitting as fitting
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.plotting.utils import set_arrow_label
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+logging.config_logger(level="warning")
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # We will for this example create a chi-square_ distribution with known parameters. As the

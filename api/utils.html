@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Utils &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>Utils &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -43,7 +43,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -123,6 +123,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -138,9 +141,9 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#printing-utilities">Printing Utilities</a></li>
@@ -498,55 +501,6 @@ with a <code class="xref py py-obj docutils literal notranslate"><span class="pr
 </dd></dl>
 
 </section>
-<span class="target" id="module-pyhdtoolkit.utils.defaults"></span><section id="defaults-setting-utilities">
-<span id="utils-defaults"></span><h2>Defaults Setting Utilities<a class="headerlink" href="#defaults-setting-utilities" title="Permalink to this headline"></a></h2>
-<p>Provides defaults to import for different settings, such as plotting or logging.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils.defaults.config_logger">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.defaults.</span></span><span class="sig-name descname"><span class="pre">config_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'INFO'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/defaults.html#config_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.defaults.config_logger" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.8.2.</span></p>
-</div>
-<p>Resets the logger object from <code class="docutils literal notranslate"><span class="pre">loguru</span></code>, with <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.stdout" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sys.stdout</span></code></a> as a sink and the
-aforedefined format, which comes down to personnal preference.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>level</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[str,</span> <span class="pre">int]</span></code>) -- The logging level to set. Case-insensitive if a
-string is given. Defaults to <code class="docutils literal notranslate"><span class="pre">INFO</span></code>.</p></li>
-<li><p><strong>**kwargs</strong> -- any keyword argument is transmitted to the <code class="docutils literal notranslate"><span class="pre">logger.add</span></code> call.</p></li>
-</ul>
-</dd>
-</dl>
-<div class="admonition-example admonition">
-<p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="pyhdtoolkit.utils.defaults.install_mpl_style">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.defaults.</span></span><span class="sig-name descname"><span class="pre">install_mpl_style</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/defaults.html#install_mpl_style"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.defaults.install_mpl_style" title="Permalink to this definition"></a></dt>
-<dd><div class="versionadded">
-<p><span class="versionmodified added">New in version 0.9.1.</span></p>
-</div>
-<p>Writes to disk a <strong>phd.mplstyle</strong> file in the appropriate directories, translating to matplotlib style
-format the <code class="docutils literal notranslate"><span class="pre">PLOT_PARAMS</span></code> defined in this module. This enables one to use the style without importing
-<code class="docutils literal notranslate"><span class="pre">PLOT_PARAMS</span></code> directly and updating the <code class="docutils literal notranslate"><span class="pre">rcParams</span></code>, but instead setting the style to use, as so:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="s2">&quot;phd&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Sometimes, matplotlib will not look for the file in its global config directory, but in the
-activated environment’s site-packages data. The file is installed in both places.</p>
-</div>
-</dd></dl>
-
-</section>
 <span class="target" id="module-pyhdtoolkit.utils.executors"></span><section id="executors-utilities">
 <span id="utils-executors"></span><h2>Executors Utilities<a class="headerlink" href="#executors-utilities" title="Permalink to this headline"></a></h2>
 <p>A module providing two classes to execute functions + arguments couples through either a
@@ -742,6 +696,54 @@ of the user as well as all users’ statistics on this scheduler cluster.</p>
 <p class="admonition-title">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">condor_q_output</span> <span class="o">=</span> <span class="n">get_the_string_as_you_wish</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">tasks</span><span class="p">,</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">read_condor_q</span><span class="p">(</span><span class="n">condor_q_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</dd></dl>
+
+</section>
+<span class="target" id="module-pyhdtoolkit.utils.logging"></span><section id="logging-utilities">
+<span id="utils-logging"></span><h2>Logging Utilities<a class="headerlink" href="#logging-utilities" title="Permalink to this headline"></a></h2>
+<div class="versionadded">
+<p><span class="versionmodified added">New in version 1.0.0.</span></p>
+</div>
+<p>The <a class="reference external" href="https://loguru.readthedocs.io/en/stable/api.html#module-loguru" title="(in loguru)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loguru</span></code></a> package is used for logging throughout <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>, and this module provides utilities to easily set up a logger configuration.
+Different pre-defined formats are provided to choose from:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">FORMAT1</span></code>: will display the full time of the log message, its level, the calling line and the message itself. This is the default format.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FORMAT2</span></code>: similar to <code class="docutils literal notranslate"><span class="pre">FORMAT1</span></code>, but the caller information is displayed at the end of the log line.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SIMPLE_FORMAT</span></code>: minimal, displays the local time, the level and the message.</p></li>
+</ul>
+<dl class="py function">
+<dt class="sig sig-object py" id="pyhdtoolkit.utils.logging.config_logger">
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.logging.</span></span><span class="sig-name descname"><span class="pre">config_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.10)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.10)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'INFO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&lt;green&gt;{time:YYYY-MM-DD</span> <span class="pre">HH:mm:ss}&lt;/green&gt;</span> <span class="pre">|</span> <span class="pre">&lt;level&gt;{level:</span> <span class="pre">&lt;8}&lt;/level&gt;</span> <span class="pre">|</span> <span class="pre">&lt;cyan&gt;{name}&lt;/cyan&gt;:&lt;cyan&gt;{line}&lt;/cyan&gt;</span> <span class="pre">-</span> <span class="pre">&lt;level&gt;{message}&lt;/level&gt;'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.10)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/logging.html#config_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.logging.config_logger" title="Permalink to this definition"></a></dt>
+<dd><div class="versionadded">
+<p><span class="versionmodified added">New in version 0.8.2.</span></p>
+</div>
+<p>Resets the logger object from <a class="reference external" href="https://loguru.readthedocs.io/en/stable/api.html#module-loguru" title="(in loguru)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loguru</span></code></a>, with <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.stdout" title="(in Python v3.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sys.stdout</span></code></a> as a sink and the
+provided <em>format</em>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[str,</span> <span class="pre">int]</span></code>) -- the logging level to set. Case-insensitive if a
+string is given. Can be any of the
+<a class="reference external" href="https://loguru.readthedocs.io/en/stable/api/logger.html#levels">loguru levels</a>
+or their integer values equivalents. Defaults to <code class="docutils literal notranslate"><span class="pre">INFO</span></code>.</p></li>
+<li><p><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- the format to use for the logger to display messages. Defaults
+to a pre-defined format in this module.</p></li>
+<li><p><strong>**kwargs</strong> -- any keyword argument is transmitted to the <a class="reference external" href="https://loguru.readthedocs.io/en/stable/api/logger.html#loguru._logger.Logger.add" title="(in loguru)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add</span></code></a> call.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition-example admonition">
+<p class="admonition-title">Example</p>
+<p>Using the defaults and setting the logging level:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Specifying a custom format and setting the logging level:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.logging</span> <span class="kn">import</span> <span class="n">config_logger</span><span class="p">,</span> <span class="n">SIMPLE_FORMAT</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;DEBUG&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">SIMPLE_FORMAT</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

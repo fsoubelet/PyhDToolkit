@@ -19,10 +19,11 @@ from cpymad.madx import Madx
 
 from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
-from pyhdtoolkit.utils import defaults
+from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
+from pyhdtoolkit.utils import logging
 
-defaults.config_logger(level="warning")
-plt.rcParams.update(defaults._SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
+logging.config_logger(level="warning")
+plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):

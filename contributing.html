@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributing &mdash; PyhDToolkit 1.0.0rc1 documentation</title>
+  <title>Contributing &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0rc1
+                1.0.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -122,6 +122,9 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
@@ -137,9 +140,9 @@
 <li class="toctree-l2"><a class="reference internal" href="api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/utils.html#command-line-utilities">Command Line Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/utils.html#defaults-setting-utilities">Defaults Setting Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/utils.html#executors-utilities">Executors Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html#logging-utilities">Logging Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/utils.html#operations-utilities">Operations Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/utils.html#printing-utilities">Printing Utilities</a></li>
@@ -414,8 +417,8 @@ However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</stron
 <p>Here is how to set yourself up:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="16d68c4c-cfb6-42d4-b721-e97a532992f3" name="571bf501-1118-467a-83f0-b170caa881ac" type="radio">
-</input><label class="tabbed-label" for="16d68c4c-cfb6-42d4-b721-e97a532992f3">
+<input checked="checked" id="543e53f1-b6f9-47b5-90e9-f90259c18ced" name="368df5e6-6cf9-404e-bba1-0038f674f424" type="radio">
+</input><label class="tabbed-label" for="543e53f1-b6f9-47b5-90e9-f90259c18ced">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
@@ -436,8 +439,8 @@ For instance, getting the Python version can be as simple as:</p>
 </div>
 </div>
 </div>
-<input id="046d4964-5cff-4b6c-90f7-06ab16069bcb" name="571bf501-1118-467a-83f0-b170caa881ac" type="radio">
-</input><label class="tabbed-label" for="046d4964-5cff-4b6c-90f7-06ab16069bcb">
+<input id="6de0c7a2-cbcc-40fd-9ff1-b5a3a9511bd9" name="368df5e6-6cf9-404e-bba1-0038f674f424" type="radio">
+</input><label class="tabbed-label" for="6de0c7a2-cbcc-40fd-9ff1-b5a3a9511bd9">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e &quot;.[test,dev,docs]&quot;
@@ -490,16 +493,16 @@ $ git merge upstream/master
 One can run the test suite in the following way:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="b97b9401-0bb1-4622-8ccf-11864bdb426b" name="62cfef2f-ccc9-4f48-81cb-465b0b166c99" type="radio">
-</input><label class="tabbed-label" for="b97b9401-0bb1-4622-8ccf-11864bdb426b">
+<input checked="checked" id="a0e254af-4247-427a-bc46-ead8c2b7c58d" name="1b2ba5da-68e2-4a49-8ac7-28ab1ee7c12b" type="radio">
+</input><label class="tabbed-label" for="a0e254af-4247-427a-bc46-ead8c2b7c58d">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
 </div>
-<input id="3c354749-4404-45d6-888e-a2c907f5d97a" name="62cfef2f-ccc9-4f48-81cb-465b0b166c99" type="radio">
-</input><label class="tabbed-label" for="3c354749-4404-45d6-888e-a2c907f5d97a">
+<input id="9f0004c2-283b-481f-b672-93a7ccdd3ec8" name="1b2ba5da-68e2-4a49-8ac7-28ab1ee7c12b" type="radio">
+</input><label class="tabbed-label" for="9f0004c2-283b-481f-b672-93a7ccdd3ec8">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>In your virtual environment, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.utils.cmdline &mdash; PyhDToolkit 1.0.0 documentation</title>
+  <title>pyhdtoolkit.utils.logging &mdash; PyhDToolkit 1.0.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -335,7 +335,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../index.html">Module code</a> &raquo;</li>
-      <li>pyhdtoolkit.utils.cmdline</li>
+      <li>pyhdtoolkit.utils.logging</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -344,159 +344,79 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for pyhdtoolkit.utils.cmdline</h1><div class="highlight"><pre>
+  <h1>Source code for pyhdtoolkit.utils.logging</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">.. _utils-cmdline:</span>
+<span class="sd">.. _utils-logging:</span>
 
-<span class="sd">Command Line Utilities</span>
-<span class="sd">----------------------</span>
 
-<span class="sd">Utility class and functions to help run commands and access the command line.</span>
+<span class="sd">Logging Utilities</span>
+<span class="sd">-----------------</span>
+
+<span class="sd">.. versionadded:: 1.0.0</span>
+
+<span class="sd">The `loguru` package is used for logging throughout `pyhdtoolkit`, and this module provides utilities to easily set up a logger configuration.</span>
+<span class="sd">Different pre-defined formats are provided to choose from:</span>
+
+<span class="sd">- ``FORMAT1``: will display the full time of the log message, its level, the calling line and the message itself. This is the default format.</span>
+<span class="sd">- ``FORMAT2``: similar to ``FORMAT1``, but the caller information is displayed at the end of the log line.</span>
+<span class="sd">- ``SIMPLE_FORMAT``: minimal, displays the local time, the level and the message.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="kn">import</span> <span class="nn">errno</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">signal</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Mapping</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.contexts</span> <span class="kn">import</span> <span class="n">timeit</span>
+<span class="n">FORMAT1</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;&lt;green&gt;{time:YYYY-MM-DD HH:mm:ss}&lt;/green&gt; | &quot;</span>
+    <span class="s2">&quot;&lt;level&gt;</span><span class="si">{level: &lt;8}</span><span class="s2">&lt;/level&gt; | &quot;</span>
+    <span class="s2">&quot;&lt;cyan&gt;</span><span class="si">{name}</span><span class="s2">&lt;/cyan&gt;:&lt;cyan&gt;</span><span class="si">{line}</span><span class="s2">&lt;/cyan&gt; - &quot;</span>
+    <span class="s2">&quot;&lt;level&gt;</span><span class="si">{message}</span><span class="s2">&lt;/level&gt;&quot;</span>
+<span class="p">)</span>
+
+<span class="n">FORMAT2</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">&quot;&lt;green&gt;{time:YYYY-MM-DD HH:mm:ss}&lt;/green&gt; | &quot;</span>
+    <span class="s2">&quot;&lt;level&gt;</span><span class="si">{level: &lt;8}</span><span class="s2">&lt;/level&gt; | &quot;</span>
+    <span class="s2">&quot;&lt;level&gt;</span><span class="si">{message}</span><span class="s2">&lt;/level&gt; | &quot;</span>
+    <span class="s2">&quot;&lt;cyan&gt;</span><span class="si">{name}</span><span class="s2">&lt;/cyan&gt;:&lt;cyan&gt;</span><span class="si">{line}</span><span class="s2">&lt;/cyan&gt;&quot;</span>
+<span class="p">)</span>
+
+<span class="n">SIMPLE_FORMAT</span> <span class="o">=</span> <span class="s2">&quot;&lt;green&gt;{time:HH:mm:ss}&lt;/green&gt; | &lt;level&gt;</span><span class="si">{level: &lt;8}</span><span class="s2">&lt;/level&gt; | &lt;level&gt;</span><span class="si">{message}</span><span class="s2">&lt;/level&gt;&quot;</span>
 
 
-<div class="viewcode-block" id="CommandLine"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine">[docs]</a><span class="k">class</span> <span class="nc">CommandLine</span><span class="p">:</span>
+<div class="viewcode-block" id="config_logger"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.logging.config_logger">[docs]</a><span class="k">def</span> <span class="nf">config_logger</span><span class="p">(</span><span class="n">level</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">FORMAT1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.2.0</span>
+<span class="sd">    .. versionadded:: 0.8.2</span>
 
-<span class="sd">    A high-level object to encapsulate the different methods for interacting with the commandline.</span>
+<span class="sd">    Resets the logger object from `loguru`, with `sys.stdout` as a sink and the</span>
+<span class="sd">    provided *format*.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        level (Union[str, int]): the logging level to set. Case-insensitive if a</span>
+<span class="sd">            string is given. Can be any of the</span>
+<span class="sd">            `loguru levels &lt;https://loguru.readthedocs.io/en/stable/api/logger.html#levels&gt;`_</span>
+<span class="sd">            or their integer values equivalents. Defaults to ``INFO``.</span>
+<span class="sd">        format (str): the format to use for the logger to display messages. Defaults</span>
+<span class="sd">            to a pre-defined format in this module.</span>
+<span class="sd">        **kwargs: any keyword argument is transmitted to the `~loguru._logger.Logger.add` call.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Using the defaults and setting the logging level:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; config_logger(level=&quot;DEBUG&quot;)</span>
+
+<span class="sd">        Specifying a custom format and setting the logging level:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; from pyhdtoolkit.utils.logging import config_logger, SIMPLE_FORMAT</span>
+<span class="sd">            &gt;&gt;&gt; config_logger(level=&quot;DEBUG&quot;, format=SIMPLE_FORMAT)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="CommandLine.check_pid_exists"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine.check_pid_exists">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        .. versionadded:: 0.2.0</span>
-
-<span class="sd">        Check whether the given *PID* exists in the current process table.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            pid (int): the Process ID you want to check.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            A boolean stating the result.</span>
-
-<span class="sd">        Example:</span>
-<span class="sd">            .. code-block:: python</span>
-
-<span class="sd">                &gt;&gt;&gt; CommandLine.check_pid_exists(os.getpid())</span>
-<span class="sd">                True</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="c1"># According to &quot;man 2 kill&quot;, PID 0 refers to &lt;&lt;every process in the process group of</span>
-            <span class="c1"># the calling process&gt;&gt;. Best not to go any further.</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;PID 0 refers to &#39;every process in calling processes&#39;, and should be untouched&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="c1"># Sending SIG 0 only checks if process has terminated, we&#39;re not actually terminating it</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">OSError</span> <span class="k">as</span> <span class="n">pid_checkout_error</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">pid_checkout_error</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">ESRCH</span><span class="p">:</span>  <span class="c1"># ERROR &quot;No such process&quot;</span>
-                <span class="k">return</span> <span class="kc">False</span>
-            <span class="k">if</span> <span class="p">(</span>
-                <span class="n">pid_checkout_error</span><span class="o">.</span><span class="n">errno</span> <span class="o">==</span> <span class="n">errno</span><span class="o">.</span><span class="n">EPERM</span>
-            <span class="p">):</span>  <span class="c1"># ERROR &quot;Operation not permitted&quot; -&gt; there&#39;s a process to deny access to.</span>
-                <span class="k">return</span> <span class="kc">True</span>
-            <span class="c1"># According to &quot;man 2 kill&quot; possible error values are (EINVAL, EPERM, ESRCH), therefore</span>
-            <span class="c1"># we should never get here. If so let&#39;s be explicit in considering this an error.</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="s2">&quot;Could not figure out the provided PID for some reason&quot;</span><span class="p">)</span>
-            <span class="k">raise</span>
-        <span class="k">return</span> <span class="kc">True</span></div>
-
-<div class="viewcode-block" id="CommandLine.run"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine.run">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span>
-        <span class="n">command</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">shell</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">env</span><span class="p">:</span> <span class="n">Mapping</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">bytes</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        .. versionadded:: 0.2.0</span>
-
-<span class="sd">        Runs *command* through `subprocess.Popen` and returns the tuple of `(returncode, stdout)`.</span>
-
-<span class="sd">        .. note::</span>
-<span class="sd">            Note that ``stderr`` is redirected to ``stdout``. Here *shell* is identical to the</span>
-<span class="sd">            same parameter of `subprocess.Popen`.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            command (str): string, the command you want to run.</span>
-<span class="sd">            shell (bool): same as `subprocess.Popen` argument. Setting the shell argument to a `True`</span>
-<span class="sd">                value causes `subprocess` to spawn an intermediate shell process, and tell it to run</span>
-<span class="sd">                the command. In other words, using an intermediate shell means that variables, glob</span>
-<span class="sd">                patterns, and other special shell features in the command string are processed</span>
-<span class="sd">                before the command is ran. Defaults to `True`.</span>
-<span class="sd">            env (Mapping): mapping that defines the environment variables for the new process.</span>
-<span class="sd">            timeout (float): same as the `subprocess.Popen.communicate` argument, number of seconds</span>
-<span class="sd">                to wait for a response before raising a `TimeoutExpired` exception.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            The `tuple` of `(returncode, stdout)`. Beware, the stdout will be a byte array (id est</span>
-<span class="sd">            ``b&quot;some returned text&quot;``). This output, returned as stdout, needs to be decoded properly</span>
-<span class="sd">            before you do anything with it, especially if you intend to log it into a file. While</span>
-<span class="sd">            it will most likely be &quot;utf-8&quot;, the encoding can vary from system to system so the</span>
-<span class="sd">            standard output is returned in bytes format and should be decoded later on.</span>
-
-<span class="sd">        Raises:</span>
-<span class="sd">            If the process does not terminate after *timeout* seconds, a `TimeoutExpired` exception</span>
-<span class="sd">            will be raised.</span>
-
-<span class="sd">        Examples:</span>
-<span class="sd">            .. code-block:: python</span>
-
-<span class="sd">                &gt;&gt;&gt; CommandLine.run(&quot;echo hello&quot;)</span>
-<span class="sd">                (0, b&quot;hello\\r\\n&quot;)</span>
-
-<span class="sd">            .. code-block:: python</span>
-
-<span class="sd">                &gt;&gt;&gt; import os</span>
-<span class="sd">                &gt;&gt;&gt; modified_env = os.environ.copy()</span>
-<span class="sd">                &gt;&gt;&gt; modified_env[&quot;ENV_VAR&quot;] = &quot;new_value&quot;</span>
-<span class="sd">                &gt;&gt;&gt; CommandLine.run(&quot;echo $ENV_VAR&quot;, env=modified_env)</span>
-<span class="sd">                (0, b&quot;new_value&quot;)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span><span class="k">lambda</span> <span class="n">spanned</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran command &#39;</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&#39; in a subprocess, in: </span><span class="si">{</span><span class="n">spanned</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)):</span>
-            <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
-            <span class="n">stdout</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">process</span><span class="o">.</span><span class="n">communicate</span><span class="p">(</span><span class="n">timeout</span><span class="o">=</span><span class="n">timeout</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subprocess command &#39;</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&#39; finished with exit code: </span><span class="si">{</span><span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">logger</span><span class="o">.</span><span class="n">success</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Subprocess command &#39;</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&#39; finished with exit code: </span><span class="si">{</span><span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">process</span><span class="o">.</span><span class="n">poll</span><span class="p">(),</span> <span class="n">stdout</span></div>
-
-<div class="viewcode-block" id="CommandLine.terminate"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine.terminate">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">terminate</span><span class="p">(</span><span class="n">pid</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        .. versionadded:: 0.2.0</span>
-
-<span class="sd">        Terminates the process corresponding to the given *PID*. On other platforms,</span>
-<span class="sd">        using `os.kill` with `signal.SIGTERM` to kill.</span>
-
-<span class="sd">        Args:</span>
-<span class="sd">            pid (int): the process ID to kill.</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            A boolean stating the success of the operation.</span>
-
-<span class="sd">        Example:</span>
-<span class="sd">            .. code-block:: python</span>
-
-<span class="sd">                &gt;&gt;&gt; CommandLine.terminate(500_000)  # max PID is 32768 (99999) on linux (macOS).</span>
-<span class="sd">                False</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>
-            <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process </span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2"> has successfully been terminated.&quot;</span><span class="p">)</span>
-            <span class="k">return</span> <span class="kc">True</span>
-        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Process with ID </span><span class="si">{</span><span class="n">pid</span><span class="si">}</span><span class="s2"> could not be terminated.&quot;</span><span class="p">)</span>
-        <span class="k">return</span> <span class="kc">False</span></div></div>
+    <span class="n">logger</span><span class="o">.</span><span class="n">remove</span><span class="p">()</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">level</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">stdout</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="nb">format</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </pre></div>
 
            </div>
