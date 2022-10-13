@@ -16,7 +16,7 @@ import pytest
 from loguru import logger
 from rich.table import Table
 
-from pyhdtoolkit.utils import _misc, defaults, deprecated
+from pyhdtoolkit.utils import _misc, deprecated, logging
 from pyhdtoolkit.utils.cmdline import CommandLine
 from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.htc_monitor import (
@@ -38,7 +38,7 @@ INPUTS_DIR = CURRENT_DIR / "inputs"
 
 
 def _square(integer: int) -> int:
-    return integer ** 2
+    return integer**2
 
 
 def _to_str(integer: int) -> str:
@@ -87,24 +87,6 @@ class TestCommandLine:
     def test_terminate_pid(self, sleep_time):
         sacrificed_process = subprocess.Popen(f"sleep {sleep_time}", shell=True)
         assert CommandLine.terminate(sacrificed_process.pid) is True
-
-
-class TestDefaults:
-    def test_logger_config(self, capsys):
-        defaults.config_logger()
-        message = "This should be in stdout now"
-        logger.info(message)
-        captured = capsys.readouterr()
-        assert message in captured.out
-
-        # This is to get it back as it is by defaults for other tests
-        logger.remove()
-        logger.add(sys.stderr)
-
-    def test_mplstyle_install(self, capsys):
-        defaults.install_mpl_style()
-        assert (pathlib.Path(matplotlib.get_configdir()) / "stylelib" / "phd.mplstyle").is_file()
-        assert (pathlib.Path(plt.style.core.BASE_LIBRARY_PATH) / "phd.mplstyle").is_file()
 
 
 class TestHTCMonitor:
@@ -372,6 +354,19 @@ class TestListOperations:
         ]
 
 
+class TestLogging:
+    def test_logger_config(self, capsys):
+        logging.config_logger()
+        message = "This should be in stdout now"
+        logger.info(message)
+        captured = capsys.readouterr()
+        assert message in captured.out
+
+        # This is to get it back as it is by defaults for other tests
+        logger.remove()
+        logger.add(sys.stderr)
+
+
 class TestMiscellaneousOperations:
     @pytest.mark.parametrize(
         "input1, input2, input3, result",
@@ -425,7 +420,7 @@ class TestMultiProcessorExecutor:
         "function, inputs, results",
         [
             (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e ** 2 for e in [10 * i for i in range(10)]]),
+            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
             (_to_str, list(range(6)), [str(e) for e in range(6)]),
             (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
         ],
@@ -444,7 +439,7 @@ class TestMultiThreaderExecutor:
         "function, inputs, results",
         [
             (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e ** 2 for e in [10 * i for i in range(10)]]),
+            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
             (_to_str, list(range(6)), [str(e) for e in range(6)]),
             (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
         ],

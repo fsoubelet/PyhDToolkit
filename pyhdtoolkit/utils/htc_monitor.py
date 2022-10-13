@@ -27,10 +27,10 @@ from rich.panel import Panel
 from rich.table import Table
 
 from pyhdtoolkit.models.htc import BaseSummary, ClusterSummary, HTCTaskSummary
-from pyhdtoolkit.utils import defaults
 from pyhdtoolkit.utils.cmdline import CommandLine
+from pyhdtoolkit.utils.logging import config_logger
 
-defaults.config_logger(level="ERROR")
+config_logger(level="ERROR")
 
 # ----- Data ----- #
 

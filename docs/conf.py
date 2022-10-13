@@ -193,7 +193,6 @@ panels_css_variables = {
 
 # Config for the matplotlib plot directive
 plot_formats = [("svg", 250)]
-plot_rcparams = pyhdtoolkit.utils.defaults.PLOT_PARAMS
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -528,4 +527,5 @@ intersphinx_mapping = {
     "tfs": ("https://pylhc.github.io/tfs/", None),
     "cpymad": ("https://hibtc.github.io/cpymad/", None),
     "optics_functions": ("https://pylhc.github.io/optics_functions/", None),
+    "loguru": ("https://loguru.readthedocs.io/en/stable/", None),
 }

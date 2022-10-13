@@ -9,13 +9,13 @@ Utils
 .. automodule:: pyhdtoolkit.utils.contexts
    :members:
 
-.. automodule:: pyhdtoolkit.utils.defaults
-   :members:
-
 .. automodule:: pyhdtoolkit.utils.executors
    :members:
 
 .. automodule:: pyhdtoolkit.utils.htc_monitor
+   :members:
+
+.. automodule:: pyhdtoolkit.utils.logging
    :members:
 
 .. automodule:: pyhdtoolkit.utils._misc

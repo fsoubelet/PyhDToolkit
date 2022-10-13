@@ -76,19 +76,19 @@ def prepare_lhc_run2(
     madx.option(echo=echo, warn=warn)
     logger.debug("Calling sequence")
     madx.call(_fullpath(_run2_sequence_from_opticsfile(Path(opticsfile)), use_b4=use_b4))
-    lhc.make_lhc_beams(madx, energy=energy)
+    lhc.make_lhc_beams(madx, energy=energy, b4=use_b4)
 
     if slicefactor:
         logger.debug("A slicefactor was provided, slicing the sequence")
         lhc.make_lhc_thin(madx, sequence=f"lhcb{beam:d}", slicefactor=slicefactor)
-        lhc.make_lhc_beams(madx, energy=energy)
+        lhc.make_lhc_beams(madx, energy=energy, b4=use_b4)
 
     lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
 
     logger.debug("Calling optics file from the 'operation/optics' folder")
     madx.call(opticsfile)
 
-    lhc.make_lhc_beams(madx, energy=energy)
+    lhc.make_lhc_beams(madx, energy=energy, b4=use_b4)
     madx.command.use(sequence=f"lhcb{beam:d}")
     return madx
 
@@ -146,12 +146,12 @@ def prepare_lhc_run3(
     sequence = "lhc.seq" if not use_b4 else "lhcb4.seq"
     logger.debug(f"Calling sequence file '{sequence}'")
     madx.call(f"acc-models-lhc/{sequence}")
-    lhc.make_lhc_beams(madx, energy=energy)
+    lhc.make_lhc_beams(madx, energy=energy, b4=use_b4)
 
     if slicefactor:
         logger.debug("A slicefactor was provided, slicing the sequence")
         lhc.make_lhc_thin(madx, sequence=f"lhcb{beam:d}", slicefactor=slicefactor)
-        lhc.make_lhc_beams(madx, energy=energy)
+        lhc.make_lhc_beams(madx, energy=energy, b4=use_b4)
 
     lhc.re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
 
@@ -161,7 +161,7 @@ def prepare_lhc_run3(
     else:
         madx.call(f"acc-models-lhc/operation/optics/{Path(opticsfile).with_suffix('.madx')}")
 
-    lhc.make_lhc_beams(madx, energy=energy)
+    lhc.make_lhc_beams(madx, energy=energy, b4=use_b4)
     madx.command.use(sequence=f"lhcb{beam:d}")
     return madx
 

@@ -33,7 +33,12 @@ from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
 
 def make_lhc_beams(
-    madx: Madx, energy: float = 7000, emittance_x: float = 3.75e-6, emittance_y: float = 3.75e-6, **kwargs
+    madx: Madx,
+    energy: float = 7000,
+    emittance_x: float = 3.75e-6,
+    emittance_y: float = 3.75e-6,
+    b4: bool = False,
+    **kwargs,
 ) -> None:
     """
     .. versionadded:: 0.15.0
@@ -47,12 +52,22 @@ def make_lhc_beams(
             geometric emittance which is then fed to the ``BEAM`` command.
         emittance_y (float): vertical emittance in [m]. Will be used to calculate
             geometric emittance which is then fed to the ``BEAM`` command.
+        b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,
+            and will properly set the ``bv`` flag to 1. Defaults to `False`.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.
 
-    Example:
+    Examples:
+
         .. code-block:: python
 
             >>> make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)
+
+        Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set
+        ``bv`` to 1):
+
+        .. code-block:: python
+
+            >>> make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)
     """
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
@@ -61,11 +76,12 @@ def make_lhc_beams(
     geometric_emit_y = madx.globals["geometric_emit_y"] = emittance_y / (energy / 0.938)
 
     for beam in (1, 2):
+        bv = 1 if beam == 1 or b4 is True else -1
         logger.trace(f"Defining beam for sequence 'lhcb{beam:d}'")
         madx.command.beam(
             sequence=f"lhcb{beam:d}",
             particle="proton",
-            bv=1 if beam == 1 else -1,
+            bv=bv,
             energy=energy,
             npart=1.15e11,
             ex=geometric_emit_x,
