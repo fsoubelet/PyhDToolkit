@@ -13,8 +13,8 @@
       <link rel="stylesheet" href="_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
       <link rel="stylesheet" href="_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -422,14 +422,14 @@ It also provides convenience plotting utilities and a set of <a class="reference
 In the second case, relevant data for the plotting is directly queried and computed by interacting with the <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> instance.</p>
 <p>Using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code> apis goes as:</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="d8a8521e-26c0-4f40-a6e9-09c133e8a4e5" name="d07073f5-618d-441d-a083-40e3a3c83d5b" type="radio">
-</input><label class="tabbed-label" for="d8a8521e-26c0-4f40-a6e9-09c133e8a4e5">
+<input checked="checked" id="bf41df79-5b75-4ffd-9663-1a6e0ea3ed1b" name="d35d6431-a412-4357-a007-5adf9d45215b" type="radio">
+</input><label class="tabbed-label" for="bf41df79-5b75-4ffd-9663-1a6e0ea3ed1b">
 Standalone</label><div class="tabbed-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.tune</span> <span class="kn">import</span> <span class="n">plot_tune_diagram</span>  <span class="c1"># for instance</span></span>
 <span class="prompt2"><span class="n">plot_tune_diagram</span><span class="p">(</span><span class="n">max_order</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">differentiate_orders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># and enjoy the result!</span></span>
 </pre></div></div></div>
-<input id="75290bce-6373-4b85-b412-ee524ef207e9" name="d07073f5-618d-441d-a083-40e3a3c83d5b" type="radio">
-</input><label class="tabbed-label" for="75290bce-6373-4b85-b412-ee524ef207e9">
+<input id="d301b5db-a460-4e84-8014-599e27ddb3ac" name="d35d6431-a412-4357-a007-5adf9d45215b" type="radio">
+</input><label class="tabbed-label" for="d301b5db-a460-4e84-8014-599e27ddb3ac">
 Interacting with MAD-X</label><div class="tabbed-content docutils">
 <p>Let’s say one has initiated their <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> simulation through <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span></span>
