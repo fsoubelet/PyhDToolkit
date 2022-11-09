@@ -337,9 +337,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Gallery</a> &raquo;</li>
-      <li>Free Tracking Spectrum</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Gallery</a></li>
+      <li class="breadcrumb-item active">Free Tracking Spectrum</li>
       <li class="wy-breadcrumbs-aside">
               <!-- User defined GitHub URL -->
               <a href="https://github.com/fsoubelet/PyhDToolkit" class="fa fa-github"> Edit on GitHub</a>
@@ -418,7 +418,7 @@ and be the exact name of the element as given to <code class="docutils literal n
 <strong>observation_point_n</strong> where <em>n</em> is the number of the observation point, in the
 order they are provided. In our example, we will have three observation points: the
 start of machine and the two provided BPMs.</p>
-<p>Each key holds as value a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the following columns: <em>number</em>, <em>turn</em>,
+<p>Each key holds as value a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the following columns: <em>number</em>, <em>turn</em>,
 <em>x</em>, <em>px</em>, <em>y</em>, <em>py</em>, <em>t</em>, <em>pt</em>, <em>s</em>, <em>e</em>. See for instance below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks_dict</span></a><span class="p">[</span><span class="s2">&quot;observation_point_2&quot;</span><span class="p">]</span>
 </pre></div>
@@ -605,7 +605,7 @@ start of machine and the two provided BPMs.</p>
 </div>
 <br />
 <br /><p>Once tracking data is obtained, one can easily plot the coordinates and spectrum
-using the convenience <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> plotting methods. Here it is for the
+using the convenience <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> plotting methods. Here it is for the
 first obeservation BPM we provided above:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks_dict</span></a><span class="p">[</span><span class="s2">&quot;observation_point_2&quot;</span><span class="p">]</span>  <span class="c1"># point 1 for MAD-X is start of machine as defined</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
@@ -647,7 +647,7 @@ them. This is the matter of a simple fast fourier transform:</p>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_demo_track_spectra_002.svg" srcset="../_images/sphx_glr_demo_track_spectra_002.svg, ../_images/sphx_glr_demo_track_spectra_002_2_0x.svg 2.0x" alt="demo track spectra" class = "sphx-glr-single-img"/><p>In case the user provided <code class="docutils literal notranslate"><span class="pre">ONETABLE=True</span></code> to the tracking function, then all
-observation points data will be stored in a single <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.0)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> that can
+observation points data will be stored in a single <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> that can
 be accessed with the <strong>trackone</strong> key in the returned dictionary. In that case,
 accessing the coordinates at a given observation point is done by making use of
 the DataFrame indexing syntax:</p>
@@ -844,7 +844,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.track" title="pyhdtoolkit.cpymadtools.track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle" title="pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_single_particle</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  19.774 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  20.467 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-track-spectra-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/db641700d2e96124547ab450e417d469/demo_track_spectra.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_track_spectra.py</span></code></a></p>

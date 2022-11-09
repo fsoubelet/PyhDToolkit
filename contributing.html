@@ -337,8 +337,8 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-      <li>Contributing</li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Contributing</li>
       <li class="wy-breadcrumbs-aside">
               <!-- User defined GitHub URL -->
               <a href="https://github.com/fsoubelet/PyhDToolkit" class="fa fa-github"> Edit on GitHub</a>
@@ -418,8 +418,8 @@ However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</stron
 <p>Here is how to set yourself up:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="d93f2fab-d564-4359-890c-72b141626bd8" name="eaff2416-d1a8-4fb3-b43d-8c143f84e8a3" type="radio">
-</input><label class="tabbed-label" for="d93f2fab-d564-4359-890c-72b141626bd8">
+<input checked="checked" id="b5bf3321-4e29-4829-93a3-5bd05b673653" name="2ee7f046-55fd-4200-8776-2fb1471845b5" type="radio">
+</input><label class="tabbed-label" for="b5bf3321-4e29-4829-93a3-5bd05b673653">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
@@ -440,8 +440,8 @@ For instance, getting the Python version can be as simple as:</p>
 </div>
 </div>
 </div>
-<input id="6e23f171-61af-45d1-af6e-fcb4fc2df35b" name="eaff2416-d1a8-4fb3-b43d-8c143f84e8a3" type="radio">
-</input><label class="tabbed-label" for="6e23f171-61af-45d1-af6e-fcb4fc2df35b">
+<input id="208a2330-6f41-48ab-8b1a-36ee8a5741d2" name="2ee7f046-55fd-4200-8776-2fb1471845b5" type="radio">
+</input><label class="tabbed-label" for="208a2330-6f41-48ab-8b1a-36ee8a5741d2">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e &quot;.[test,dev,docs]&quot;
@@ -494,16 +494,16 @@ $ git merge upstream/master
 One can run the test suite in the following way:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="ac0808a1-2207-4626-b511-5956e60a8d46" name="9f1208a9-4d03-4996-bce4-ee753cecf3e4" type="radio">
-</input><label class="tabbed-label" for="ac0808a1-2207-4626-b511-5956e60a8d46">
+<input checked="checked" id="6ee559dc-167a-4938-a93c-293021a5b6db" name="fef3b2dc-7067-43ed-bfef-51d52a8a6e6f" type="radio">
+</input><label class="tabbed-label" for="6ee559dc-167a-4938-a93c-293021a5b6db">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
 </div>
-<input id="732a3747-a055-443f-871c-9fc5d29903de" name="9f1208a9-4d03-4996-bce4-ee753cecf3e4" type="radio">
-</input><label class="tabbed-label" for="732a3747-a055-443f-871c-9fc5d29903de">
+<input id="d9eeec5b-a800-438a-9637-206d79d2ed8b" name="fef3b2dc-7067-43ed-bfef-51d52a8a6e6f" type="radio">
+</input><label class="tabbed-label" for="d9eeec5b-a800-438a-9637-206d79d2ed8b">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>In your virtual environment, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest
