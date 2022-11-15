@@ -16,14 +16,20 @@ from pyhdtoolkit.cpymadtools import lhc
 
 
 def prepare_lhc_run2(
-    opticsfile: str, beam: int = 1, use_b4: bool = False, energy: float = 6500, slicefactor: int = None, **kwargs
+    opticsfile: str,
+    beam: int = 1,
+    use_b4: bool = False,
+    energy: float = 6500,
+    slicefactor: int = None,
+    **kwargs,
 ) -> Madx:
     """
     .. versionadded:: 1.0.0
 
-    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 2 setup. Both beams are made with a default Run III
-    configuration, and the ``lhcb1`` sequence is re-cycled from ``MSIA.EXIT.B1`` as in the ``OMC`` model_creator, and
-    then ``USE``-d. Specific variable settings can be given as keyword arguments.
+    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 2 setup. Both beams
+    are made with a default Run 2 configuration, and the ``lhcb`` sequence for the given beam is re-cycled
+    from ``MSIA.EXIT.B{beam}`` as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings
+    can be given as keyword arguments.
 
     .. important::
         As this is a Run 2 setup, it is assumed that files are organised in the typical setup as found on ``AFS``.
@@ -66,16 +72,16 @@ def prepare_lhc_run2(
         filename = "lhc_as-built.seq" if not use_b4 else "lhcb4_as-built.seq"
         seqfile_path = opticsfile.parent.parent / filename
         if not seqfile_path.is_file():
-            logger.error("Could not find sequence file '{filename}' at expected location '{seqfile_path}'")
+            logger.error(f"Could not find sequence file '{filename}' at expected location '{seqfile_path}'")
         return seqfile_path
 
-    logger.debug("Creating Run 3 setup MAD-X instance")
+    logger.debug("Creating Run 2 setup MAD-X instance")
     echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)
 
     madx = Madx(**kwargs)
     madx.option(echo=echo, warn=warn)
     logger.debug("Calling sequence")
-    madx.call(_fullpath(_run2_sequence_from_opticsfile(Path(opticsfile)), use_b4=use_b4))
+    madx.call(_fullpath(_run2_sequence_from_opticsfile(Path(opticsfile))))
     lhc.make_lhc_beams(madx, energy=energy, b4=use_b4)
 
     if slicefactor:
