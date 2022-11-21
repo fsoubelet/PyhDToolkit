@@ -1,0 +1,27 @@
+.. _release_1.1.0:
+
+1.1.0
+-----
+
+Release `1.1.0` brings some changes to match the adapted extracted API for `beamopticsanalysis/cpymadtools`.
+Code using ``pyhdtoolkit`` will need to be adapted.
+
+Breaking Changes
+~~~~~~~~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.correctors`, `~pyhdtoolkit.cpymadtools.errors`, `~pyhdtoolkit.cpymadtools.orbit` and `~pyhdtoolkit.cpymadtools.setup` modules has been removed and their functionality included in `~pyhdtoolkit.cpymadtools.lhc`, as it was ``LHC``-specific.
+* The `~pyhdtoolkit.plotting.generators` module has been made private.
+
+Bug Fixes
+~~~~~~~~~
+
+* The `~pyhdtoolkit.cpymadtools.lhc.prepare_lhc_run2` function now properly calls the found sequence file.
+
+Maintenance
+~~~~~~~~~~~
+
+* Documentation has been updated for all new APIs. Refer to the gallery for example uses.
+* Tests and internal API usehave been adapted.
+* Some style parameters in `~pyhdtoolkit.plotting.styles.paper` have been adapted.
+
+See `v1.1.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.1.0>`_ and the `full changes since v1.0.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.0.0...1.1.0>`_.
