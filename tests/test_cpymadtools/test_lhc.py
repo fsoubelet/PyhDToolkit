@@ -3,8 +3,6 @@ import pathlib
 import pickle
 import random
 
-from mimetypes import init
-
 import numpy as np
 import pytest
 import tfs
@@ -38,6 +36,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_TRIPLETS_REGEX,
 )
 from pyhdtoolkit.cpymadtools.lhc import (
+    LHCSetup,
     _all_lhc_arcs,
     _get_k_strings,
     add_markers_around_lhc_ip,
@@ -91,8 +90,10 @@ ALL_ARC_CORRECTOR_KNOBS = (
     + LHC_KCD_KNOBS
     + LHC_KO_KNOBS
 )
-CURRENT_DIR = pathlib.Path(__file__).parent
-INPUTS_DIR = CURRENT_DIR.parent / "inputs"
+CURRENT_DIR = pathlib.Path(__file__).parent  # tests/tests_cpymadtools dir
+TESTS_DIR = CURRENT_DIR.parent  # tests directory
+INPUTS_DIR = TESTS_DIR / "inputs"
+PROTON_DIR = INPUTS_DIR / "madx" / "PROTON"
 
 
 def test_query_undefined_triplet_corrector_knobs(_bare_lhc_madx):
@@ -758,6 +759,27 @@ def test_get_irs_twiss(ir, _matched_lhc_madx):
     assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
 
 
+# ------------------- Requires acc-models-lhc ------------------- #
+
+# Only runs if the acc-models-lhc is accessible at root level
+@pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
+def test_lhc_run3_setup():
+    with LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:
+        for ip in [1, 2, 5, 8]:
+            for beam in [1, 2]:
+                for plane in ["x", "y"]:
+                    assert madx.globals[f"tar_on_{plane}ip{ip:d}b{beam:d}"] is not None
+
+
+def test_lhc_run2_setup(_proton_opticsfile):
+    # If works properly we have beams with lhc seq and old 30cm optics
+    # And there the optics are matched for specific tune values
+    with LHCSetup(run=2, opticsfile=_proton_opticsfile) as madx:
+        madx.command.twiss()
+        assert math.isclose(madx.table.summ.q1[0], 62.31, abs_tol=1e-6)
+        assert math.isclose(madx.table.summ.q2[0], 60.32, abs_tol=1e-6)
+
+
 # ---------------------- Private Utilities ---------------------- #
 
 
@@ -784,3 +806,8 @@ def _reference_kmodulation() -> pathlib.Path:
 @pytest.fixture()
 def _ips_twiss_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "ips_twiss.tfs"
+
+
+@pytest.fixture()
+def _proton_opticsfile() -> str:
+    return str((PROTON_DIR / "opticsfile.22").absolute())
