@@ -8,16 +8,10 @@ The ``cpymadtools`` subpackage is a collection of utilities to conveniently hand
 .. automodule:: pyhdtoolkit.cpymadtools.constants
    :members:
 
-.. automodule:: pyhdtoolkit.cpymadtools.correctors
-   :members:
-
 .. automodule:: pyhdtoolkit.cpymadtools.coupling
    :members:
 
-.. automodule:: pyhdtoolkit.cpymadtools.errors
-   :members:
-
-.. automodule:: pyhdtoolkit.cpymadtools.generators
+.. automodule:: pyhdtoolkit.cpymadtools._generators
    :members:
 
 .. automodule:: pyhdtoolkit.cpymadtools.lhc
@@ -26,16 +20,10 @@ The ``cpymadtools`` subpackage is a collection of utilities to conveniently hand
 .. automodule:: pyhdtoolkit.cpymadtools.matching
    :members:
 
-.. automodule:: pyhdtoolkit.cpymadtools.orbit
-   :members:
-
 .. automodule:: pyhdtoolkit.cpymadtools.parameters
    :members:
 
 .. automodule:: pyhdtoolkit.cpymadtools.ptc
-   :members:
-
-.. automodule:: pyhdtoolkit.cpymadtools.setup
    :members:
 
 .. automodule:: pyhdtoolkit.cpymadtools.track
