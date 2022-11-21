@@ -41,5 +41,8 @@ jobs:
       - name: Install package with test dependencies
         run: python -m pip install ".[test]"
 
+      - name: Get acc-models-lhc
+        run: git clone https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+
       - name: Run Tests
         run: make alltests
