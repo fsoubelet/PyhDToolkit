@@ -1233,6 +1233,50 @@ def correct_lhc_global_coupling(
     madx.command.endmatch()
 
 
+def correct_lhc_orbit(
+    madx: Madx,
+    sequence: str,
+    orbit_tolerance: float = 1e-14,
+    iterations: int = 3,
+    mode: str = "micado",
+    **kwargs,
+) -> None:
+    """
+    .. versionadded:: 0.9.0
+    Routine for orbit correction using ``MCB.*`` elements in the LHC. This uses the
+    ``CORRECT`` command in ``MAD-X`` behind the scenes, refer to the
+    `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for
+    usage information.
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        sequence (str): which sequence to use the routine on.
+        orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.
+        iterations (int): the number of iterations of the correction to perform.
+            Defaults to 3.
+        mode (str): the method to use for the correction. Defaults to ``micado`` as in
+            the `CORRECT` command.
+        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``CORRECT``
+            command, such as ``mode``, ``ncorr``, etc.
+    Example:
+        .. code-block:: python
+            >>> correct_lhc_orbit(madx, sequence="lhcb1", plane="y")
+    """
+    logger.debug("Starting orbit correction")
+    for default_kicker in ("kicker", "hkicker", "vkicker", "virtualcorrector"):
+        logger.trace(f"Disabling default corrector class '{default_kicker}'")
+        madx.command.usekick(sequence=sequence, status="off", class_=default_kicker)
+
+    logger.debug("Selecting '^MCB.*' correctors")
+    madx.command.usekick(sequence=sequence, status="on", pattern="^MCB.*")
+    madx.command.usemonitor(sequence=sequence, status="on", class_="monitor")
+
+    for _ in range(iterations):
+        logger.trace("Doing orbit correction for Y then X plane")
+        madx.twiss(chrom=True)
+        madx.command.correct(sequence=sequence, plane="y", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)
+        madx.command.correct(sequence=sequence, plane="x", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)
+
+
 # ----- Elements / Markers Installation ----- #
 
 
