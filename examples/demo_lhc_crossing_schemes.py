@@ -21,7 +21,7 @@ from pyhdtoolkit.plotting.crossing import plot_two_lhc_ips_crossings
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
-logging.config_logger(level="warning")
+logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 

@@ -16,13 +16,13 @@ import matplotlib.pyplot as plt
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools import lhc, matching, orbit
+from pyhdtoolkit.cpymadtools import lhc, matching
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 from pyhdtoolkit.plotting.lattice import plot_latwiss
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
-logging.config_logger(level="warning")
+logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
@@ -78,7 +78,7 @@ lhc_madx.call("lhc/opticsfile.22")  # collisions optics
 
 lhc.re_cycle_sequence(lhc_madx, sequence="lhcb1", start="IP3")
 lhc.re_cycle_sequence(lhc_madx, sequence="lhcb2", start="IP3")
-orbit_scheme = orbit.setup_lhc_orbit(lhc_madx, scheme="flat")
+orbit_scheme = lhc.setup_lhc_orbit(lhc_madx, scheme="flat")
 
 lhc.make_lhc_beams(lhc_madx, energy=7000)
 lhc_madx.command.use(sequence="lhcb1")
@@ -177,8 +177,7 @@ lhc_madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
+#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.setup_lhc_orbit`
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
-#    - `~.cpymadtools.orbit`: `~.orbit.setup_lhc_orbit`
 #    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`

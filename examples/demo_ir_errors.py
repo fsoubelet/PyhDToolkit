@@ -6,7 +6,7 @@
 LHC IR Errors Assignments
 =========================
 
-This example shows how to use the `~.errors.misalign_lhc_ir_quadrupoles` function
+This example shows how to use the `~.lhc.misalign_lhc_ir_quadrupoles` function
 to assign magnet errors in the Insertion Region magnets of the LHC.
 
 .. warning::
@@ -19,11 +19,11 @@ import numpy as np
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools import errors, lhc, matching
+from pyhdtoolkit.cpymadtools import lhc, matching
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
-logging.config_logger(level="warning")
+logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
@@ -56,7 +56,7 @@ madx.command.use(sequence="lhcb1")
 # Here let's apply systematic horizontal misalignment errors and tilt errors to the
 # quadrupoles Q1 to Q6 (first to sixth) on both sides of IP1:
 
-errors.misalign_lhc_ir_quadrupoles(
+lhc.misalign_lhc_ir_quadrupoles(
     madx,
     ips=[1],
     beam=1,
@@ -139,6 +139,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.errors`: `~.errors.misalign_lhc_ir_quadrupoles`
-#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`
+#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.misalign_lhc_ir_quadrupoles`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`

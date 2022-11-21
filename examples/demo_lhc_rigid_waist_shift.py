@@ -31,7 +31,7 @@ from pyhdtoolkit.plotting.lattice import plot_latwiss
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
-logging.config_logger(level="warning")
+logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
@@ -184,9 +184,7 @@ with Madx(stdout=False) as madx:
     lhc.re_cycle_sequence(madx, sequence=f"lhcb1", start=f"MSIA.EXIT.B1")
     madx.command.use(sequence=f"lhcb1")
     lhc.make_lhc_thin(madx, sequence=f"lhcb1", slicefactor=4)
-    lhc.add_markers_around_lhc_ip(
-        madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
-    )
+    lhc.add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001)
     madx.command.twiss()
     initial_twiss = madx.table.twiss.dframe().copy()
 
@@ -287,25 +285,19 @@ print(shift)
 # Manipulating the equation to determine the waist yields:
 # :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[
-    0
-]  # to calculate from the right Q1
-q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[
-    -1
-]  # to calculate from the left Q1
+q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[0]  # to calculate from the right Q1
+q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[-1]  # to calculate from the left Q1
 
 L_star = ip_s - q1_left_s  # we calculate from left Q1
 # beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].betx[0]  # to calculate from the right
-beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].betx[
-    -1
-]  # to calculate from the left
+beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].betx[-1]  # to calculate from the left
 betaw = around_ip.betx.min()
 
 ###############################################################################
 # The analytical result (sign will swap depending on if we calculate from left
 # or right Q1) is then easily calculated. We can then compare this value to the
 # one found with the markers we previously added, and they are fairly close.
-waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
+waist = L_star - np.sqrt(beta0 * betaw - betaw ** 2)
 print(f"Analytical: {waist}")
 print(f"Markers: {shift}")
 
