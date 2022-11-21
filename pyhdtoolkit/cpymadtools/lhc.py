@@ -1243,10 +1243,12 @@ def correct_lhc_orbit(
 ) -> None:
     """
     .. versionadded:: 0.9.0
+
     Routine for orbit correction using ``MCB.*`` elements in the LHC. This uses the
     ``CORRECT`` command in ``MAD-X`` behind the scenes, refer to the
     `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for
     usage information.
+
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         sequence (str): which sequence to use the routine on.
@@ -1257,8 +1259,10 @@ def correct_lhc_orbit(
             the `CORRECT` command.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``CORRECT``
             command, such as ``mode``, ``ncorr``, etc.
+
     Example:
         .. code-block:: python
+
             >>> correct_lhc_orbit(madx, sequence="lhcb1", plane="y")
     """
     logger.debug("Starting orbit correction")
@@ -1321,6 +1325,9 @@ def install_ac_dipole_as_kicker(
             This number is important in order to preserve the adiabaticity of the cycle. Defaults to 2000
             as in the LHC.
         top_turns (int): the number of turns to drive the beam for. Defaults to 6600 as in the LHC.
+
+    Example:
+        .. code-block:: python
 
     Example:
         .. code-block:: python
