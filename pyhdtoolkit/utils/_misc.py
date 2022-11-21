@@ -22,7 +22,7 @@ from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit import __version__
-from pyhdtoolkit.cpymadtools import errors
+from pyhdtoolkit.cpymadtools import lhc
 
 # ----- Constants ----- #
 
@@ -67,23 +67,23 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
             >>> apply_colin_corrs_balance(madx)
     """
     # ----- Let's balance IR1 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="R", DPSI=1.41e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="R", DPSI=1.41e-3)
     madx.globals["kqsx3.l1"] = 8e-4
     madx.globals["kqsx3.r1"] = 7e-4
     # ----- Let's balance IR2 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="L", DPSI=-2.84e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="R", DPSI=2.84e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="L", DPSI=-2.84e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[2], beam=1, quadrupoles=[3], sides="R", DPSI=2.84e-3)
     madx.globals["kqsx3.l2"] = -14e-4
     madx.globals["kqsx3.r2"] = -14e-4
     # ----- Let's balance IR5 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="L", DPSI=-1.21e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="R", DPSI=1.21e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="L", DPSI=-1.21e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[5], beam=1, quadrupoles=[3], sides="R", DPSI=1.21e-3)
     madx.globals["kqsx3.l5"] = 6e-4
     madx.globals["kqsx3.r5"] = 6e-4
     # ----- Let's balance IR8 ----- #
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="L", DPSI=-1e-3)
-    errors.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="R", DPSI=1e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="L", DPSI=-1e-3)
+    lhc.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="R", DPSI=1e-3)
     madx.globals["kqsx3.l8"] = -5e-4
     madx.globals["kqsx3.r8"] = -5e-4
     madx.command.twiss(chrom=True)
