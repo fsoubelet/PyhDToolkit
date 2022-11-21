@@ -8,7 +8,7 @@ import pytest
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.plotting.phasespace import (

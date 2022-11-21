@@ -6,7 +6,7 @@ import pytest
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.plotting.lattice import plot_latwiss, plot_machine_survey
 

@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 from pyhdtoolkit.plotting.lattice import plot_machine_survey
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
