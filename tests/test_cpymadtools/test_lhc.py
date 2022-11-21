@@ -10,10 +10,10 @@ import pytest
 import tfs
 
 from cpymad.madx import Madx
-from cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 from pandas.testing import assert_frame_equal
 
 from pyhdtoolkit.cpymadtools.constants import (
+    DEFAULT_TWISS_COLUMNS,
     LHC_ANGLE_FLAGS,
     LHC_CROSSING_ANGLE_FLAGS,
     LHC_CROSSING_SCHEMES,
