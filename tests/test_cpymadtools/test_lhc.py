@@ -37,8 +37,6 @@ from pyhdtoolkit.cpymadtools.constants import (
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,
-    _all_lhc_arcs,
-    _get_k_strings,
     add_markers_around_lhc_ip,
     apply_lhc_colinearity_knob,
     apply_lhc_colinearity_knob_delta,
@@ -74,8 +72,10 @@ from pyhdtoolkit.cpymadtools.lhc import (
     switch_magnetic_errors,
     vary_independent_ir_quadrupoles,
 )
+from pyhdtoolkit.cpymadtools.lhc._powering import _all_lhc_arcs
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.track import track_single_particle
+from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 ALL_TRIPLET_CORRECTOR_KNOBS = (
     LHC_KQSX_KNOBS + LHC_KCSX_KNOBS + LHC_KCSSX_KNOBS + LHC_KCOX_KNOBS + LHC_KCOSX_KNOBS + LHC_KCTX_KNOBS
