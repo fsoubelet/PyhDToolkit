@@ -59,5 +59,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`, `~.lhc.re_cycle_sequence`
+#    - `~.cpymadtools._generators`: `~._generators.LatticeGenerator`
 #    - `~.plotting.lattice`: `~.plotting.lattice.plot_machine_survey`

@@ -177,7 +177,7 @@ lhc_madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.setup_lhc_orbit`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._setup.setup_lhc_orbit`
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`

@@ -308,6 +308,6 @@ print(f"Markers: {shift}")
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`, `~.lhc.add_markers_around_lhc_ip`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._powering.apply_lhc_rigidity_waist_shift_knob`, `~.lhc._elements.add_markers_around_lhc_ip`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
 #    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`
