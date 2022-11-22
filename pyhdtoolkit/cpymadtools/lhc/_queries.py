@@ -1,3 +1,10 @@
+"""
+.. _lhc-queries:
+
+**Querying Utilities**
+
+The functions below are settings query utilities for the ``LHC``.
+"""
 from typing import Dict, Sequence, Union
 
 import tfs

@@ -1,4 +1,12 @@
 import numpy as np
+
+"""
+.. _lhc-routines:
+
+**Routine Utilities**
+
+The functions below are routines mimicking manipulations that would be done in the ``LHC``.
+"""
 import tfs
 
 from cpymad.madx import Madx

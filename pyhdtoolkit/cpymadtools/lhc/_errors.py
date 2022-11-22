@@ -1,3 +1,10 @@
+"""
+.. _lhc-errors:
+
+**Errors Utilities**
+
+The functions below are utilities to implement errors in elements of the ``LHC``.
+"""
 from typing import Dict, List, Sequence
 
 from cpymad.madx import Madx

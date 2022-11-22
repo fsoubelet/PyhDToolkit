@@ -1,3 +1,10 @@
+"""
+.. _lhc-mist:
+
+**Miscellaneous Utilities**
+
+The functions below are miscellaneous utilities for the ``LHC``.
+"""
 from typing import List, Tuple
 
 from cpymad.madx import Madx

@@ -1,3 +1,10 @@
+"""
+.. _lhc-elements:
+
+**Elements Utilities**
+
+The functions below are utilities to install elements or markers in the ``LHC``.
+"""
 from cpymad.madx import Madx
 from loguru import logger
 

@@ -1,3 +1,10 @@
+"""
+.. _lhc-powering:
+
+**Powering Utilities**
+
+The functions below are magnets or knobs powering utilities for the ``LHC``.
+"""
 from typing import Dict, List, Sequence
 
 from cpymad.madx import Madx

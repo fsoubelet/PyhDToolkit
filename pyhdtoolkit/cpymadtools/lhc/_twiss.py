@@ -1,3 +1,10 @@
+"""
+.. _lhc-twiss:
+
+**Twiss Utilities**
+
+The functions below are twiss utilities for the ``LHC`` insertion regions.
+"""
 from typing import Sequence
 
 import tfs
