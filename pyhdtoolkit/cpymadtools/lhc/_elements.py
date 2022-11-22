@@ -54,10 +54,7 @@ def install_ac_dipole_as_kicker(
     Example:
         .. code-block:: python
 
-    Example:
-        .. code-block:: python
-
-            >>> lhc.install_ac_dipole_as_kicker(
+            >>> install_ac_dipole_as_kicker(
             ...     madx,
             ...     deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30
             ...     deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332

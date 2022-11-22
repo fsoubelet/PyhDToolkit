@@ -399,7 +399,7 @@ def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -
     Example:
         .. code-block:: python
 
-            >>> lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
+            >>> re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
     """
     logger.debug(f"Re-cycling sequence '{sequence}' from {start}")
     madx.command.seqedit(sequence=sequence)

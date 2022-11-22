@@ -121,9 +121,10 @@ def apply_lhc_rigidity_waist_shift_knob(
     Example:
         .. code-block:: python
 
-            >>> matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.27, 60.36)
+            >>> # It is recommended to re-match tunes after this routine
+            >>> matching.match_tunes(madx, "lhc", "lhcb1", 62.27, 60.36)
             >>> apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)
-            >>> matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32)
+            >>> matching.match_tunes(madx, "lhc", "lhcb1", 62.31, 60.32)
     """
     logger.debug(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
     logger.warning("You should re-match tunes & chromaticities after this rigid waist shift knob is applied")
