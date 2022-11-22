@@ -26,6 +26,7 @@ Maintenance
 ~~~~~~~~~~~
 
 * Documentation has been updated for all new APIs. Refer to the gallery for example uses.
+* The `~pyhdtoolkit.cpymadtools._generators` being now private, they have been removed from the public API documentation.
 * Tests and internal API usehave been adapted.
 * Some style parameters in `~pyhdtoolkit.plotting.styles.paper` have been adapted.
 * The `~pyhdtoolkit.cpymadtools.lhc` module has been split up into many smaller *private* modules. The functionality of the APIs is unchanged, and they are still exposed at the `~pyhdtoolkit.cpymadtools.lhc` level.
