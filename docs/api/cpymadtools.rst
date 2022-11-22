@@ -11,10 +11,34 @@ The ``cpymadtools`` subpackage is a collection of utilities to conveniently hand
 .. automodule:: pyhdtoolkit.cpymadtools.coupling
    :members:
 
-.. automodule:: pyhdtoolkit.cpymadtools._generators
+.. automodule:: pyhdtoolkit.cpymadtools.lhc
    :members:
 
-.. automodule:: pyhdtoolkit.cpymadtools.lhc
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._coupling
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._elements
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._errors
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._misc
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._powering
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._queries
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._routines
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._setup
+   :members:
+
+.. automodule:: pyhdtoolkit.cpymadtools.lhc._twiss
    :members:
 
 .. automodule:: pyhdtoolkit.cpymadtools.matching
