@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pyhdtoolkit.cpymadtools.lhc._setup &mdash; PyhDToolkit 1.1.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-binder.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-dataframe.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/sg_gallery-rendered-html.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/clipboard.min.js"></script>
+        <script src="../../../../_static/copybutton.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> PyhDToolkit
+          </a>
+              <div class="version">
+                1.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../quickstart.html">Quickstart</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#using-with-docker">Using With Docker</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../quickstart.html#minutes-to-pyhdtoolkit">5 Minutes to PyhDToolkit</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#cpymadtools">Cpymadtools</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#plotting">Plotting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../quickstart.html#additional-helpers">Additional Helpers</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../gallery/index.html">Gallery</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_acd_tracking_spectra.html">AC Dipole Driven Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_aperture.html">Accelerator Aperture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lattice.html">Accelerator Lattice</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_beam_enveloppe.html">Beam Enveloppe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_stats_fitting.html">Distributions Fitting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_track_spectra.html">Free Tracking Spectrum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_crossing_schemes.html">LHC Crossing Schemes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_ir_errors.html">LHC IR Errors Assignments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_sbs_plotting.html">Segment-by-Segment Results</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_tune_diagram.html">Tune Diagram</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/cpymadtools.html">Cpymadtools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/maths.html">Maths</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/maths.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/models.html">Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/models.html#mad-x-models">MAD-X Models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/optics.html">Optics</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/plotting.html">Plotting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#paper-styles">Paper Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#layout-plotters">Layout Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../api/utils.html">Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#asking-for-help">Asking for Help</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#bug-reports">Bug Reports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#enhancement-proposals">Enhancement Proposals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../contributing.html#contributing-code-and-or-documentation">Contributing Code and/or Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../contributing.html#forking-the-repository">Forking the Repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../contributing.html#creating-a-development-environment">Creating a Development Environment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../contributing.html#creating-a-branch">Creating a Branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../contributing.html#running-the-test-suite">Running the Test Suite</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../contributing.html#code-standards">Code Standards</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../contributing.html#documentation">Documentation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-1-0-0">Version 1.0.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v1.0.0.html">1.0.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-21-0">Version 0.21.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.21.0.html">0.21.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-20-1">Version 0.20.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.20.1.html">0.20.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-20-0">Version 0.20.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.20.0.html">0.20.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-19-1">Version 0.19.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.19.1.html">0.19.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-19-0">Version 0.19.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.19.0.html">0.19.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-18-0">Version 0.18.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.18.0.html">0.18.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-17-0">Version 0.17.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.17.0.html">0.17.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-16-1">Version 0.16.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.16.1.html">0.16.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-16-0">Version 0.16.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.16.0.html">0.16.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-15-1">Version 0.15.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.15.1.html">0.15.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-15-0">Version 0.15.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.15.0.html">0.15.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-14-1">Version 0.14.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.14.1.html">0.14.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-14-0">Version 0.14.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.14.0.html">0.14.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-13-3">Version 0.13.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.13.3.html">0.13.3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-13-2">Version 0.13.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.13.2.html">0.13.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-13-1">Version 0.13.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.13.1.html">0.13.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-13-0">Version 0.13.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.13.0.html">0.13.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-12-0">Version 0.12.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.12.0.html">0.12.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-11-0">Version 0.11.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.11.0.html">0.11.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-10-0">Version 0.10.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.10.0.html">0.10.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-9-2">Version 0.9.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.9.2.html">0.9.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-9-1">Version 0.9.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.9.1.html">0.9.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-9-0">Version 0.9.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.9.0.html">0.9.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-8-5">Version 0.8.5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.8.5.html">0.8.5</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-8-4">Version 0.8.4</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.8.4.html">0.8.4</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-8-3">Version 0.8.3</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.8.3.html">0.8.3</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-8-2">Version 0.8.2</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.8.2.html">0.8.2</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-8-1">Version 0.8.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.8.1.html">0.8.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-8-0">Version 0.8.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.8.0.html">0.8.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-7-0">Version 0.7.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.7.0.html">0.7.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-6-0">Version 0.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.6.0.html">0.6.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-5-0">Version 0.5.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.5.0.html">0.5.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-4-1">Version 0.4.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.4.1.html">0.4.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-4-0">Version 0.4.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.4.0.html">0.4.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-3-0">Version 0.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.3.0.html">0.3.0</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-2-1">Version 0.2.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.2.1.html">0.2.1</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-0-2-0">Version 0.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v0.2.0.html">0.2.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../bibliography.html">Reference bibliography</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">PyhDToolkit</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">pyhdtoolkit.cpymadtools.lhc._setup</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for pyhdtoolkit.cpymadtools.lhc._setup</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">.. _lhc-setup:</span>
+
+<span class="sd">**Setup Utilities**</span>
+
+<span class="sd">The functions below are setup utilities for the ``LHC``, to easily get simulations ready.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.constants</span> <span class="kn">import</span> <span class="n">LHC_CROSSING_SCHEMES</span>
+
+<span class="c1"># ----- Setup Utilities ----- #</span>
+
+
+<div class="viewcode-block" id="prepare_lhc_run2"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2">[docs]</a><span class="k">def</span> <span class="nf">prepare_lhc_run2</span><span class="p">(</span>
+    <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Madx</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 1.0.0</span>
+
+<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 2 setup. Both beams</span>
+<span class="sd">    are made with a default Run 2 configuration, and the ``lhcb`` sequence for the given beam is re-cycled</span>
+<span class="sd">    from ``MSIA.EXIT.B{beam}`` as in the ``OMC`` model_creator, and then ``USE``-d. Specific variable settings</span>
+<span class="sd">    can be given as keyword arguments.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        As this is a Run 2 setup, it is assumed that files are organised in the typical setup as found on ``AFS``.</span>
+<span class="sd">        The sequence file will be looked for as a relative location from the optics file: it is assumed that next</span>
+<span class="sd">        to the sequence file is a **PROTON** or **ION** folder with the opticsfiles.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Matching is **not** performed by this function and should be taken care of by the user, but the working point</span>
+<span class="sd">        should be set by the definitions in the *opticsfile*. Beware that passing specific variables as keyword arguments</span>
+<span class="sd">        might change that working point.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile</span>
+<span class="sd">            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.</span>
+<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
+<span class="sd">        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking</span>
+<span class="sd">            purposes. Defaults to `False`.</span>
+<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6500.</span>
+<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,</span>
+<span class="sd">            which leads to an unsliced sequence.</span>
+<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options</span>
+<span class="sd">            to ``MAD-X`` (by default they are given as `False`). Any other keyword argument is transmitted to</span>
+<span class="sd">            the `~cpymad.madx.Madx` creation call.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required configuration.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; madx = prepare_lhc_run2(</span>
+<span class="sd">            ...     &quot;/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22&quot;, beam=2, stdout=True</span>
+<span class="sd">            ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_run2_sequence_from_opticsfile</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;lhc_as-built.seq&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">use_b4</span> <span class="k">else</span> <span class="s2">&quot;lhcb4_as-built.seq&quot;</span>
+        <span class="n">seqfile_path</span> <span class="o">=</span> <span class="n">opticsfile</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">filename</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">seqfile_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find sequence file &#39;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&#39; at expected location &#39;</span><span class="si">{</span><span class="n">seqfile_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">seqfile_path</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating Run 2 setup MAD-X instance&quot;</span><span class="p">)</span>
+    <span class="n">echo</span><span class="p">,</span> <span class="n">warn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">madx</span> <span class="o">=</span> <span class="n">Madx</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="n">warn</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling sequence&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">_fullpath</span><span class="p">(</span><span class="n">_run2_sequence_from_opticsfile</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">))))</span>
+    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">slicefactor</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;A slicefactor was provided, slicing the sequence&quot;</span><span class="p">)</span>
+        <span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">)</span>
+        <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+
+    <span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MSIA.EXIT.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling optics file from the &#39;operation/optics&#39; folder&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span>
+
+    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">madx</span></div>
+
+
+<div class="viewcode-block" id="prepare_lhc_run3"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3">[docs]</a><span class="k">def</span> <span class="nf">prepare_lhc_run3</span><span class="p">(</span>
+    <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6800</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Madx</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 1.0.0</span>
+
+<span class="sd">    Returns a prepared default ``LHC`` setup for the given *opticsfile*, for a Run 3 setup. Both beams</span>
+<span class="sd">    are made with a default Run 3 configuration, and the provided sequence is re-cycled from ``MSIA.EXIT.[B12]``</span>
+<span class="sd">    as in the ``OMC`` model_creator, then ``USE``-d. Specific variable settings can be given as keyword arguments.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo is available in the root space,``.</span>
+<span class="sd">        which is needed by the different files in ``acc-models-lhc``.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Matching is **not** performed by this function and should be taken care of by the user, but the working</span>
+<span class="sd">        point should be set by the variable definitions in the *opticsfile*.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile</span>
+<span class="sd">            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.</span>
+<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
+<span class="sd">        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking</span>
+<span class="sd">            purposes. Defaults to `False`.</span>
+<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6800.</span>
+<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and made thin. Defaults to `None`,</span>
+<span class="sd">            which leads to an unsliced sequence.</span>
+<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.</span>
+<span class="sd">            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instanciated `~cpymad.madx.Madx` object with the required configuration.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; madx = prepare_lhc_run3(</span>
+<span class="sd">            ...     &quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;, slicefactor=4, stdout=True</span>
+<span class="sd">            ... )</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating Run 3 setup MAD-X instance&quot;</span><span class="p">)</span>
+    <span class="n">echo</span><span class="p">,</span> <span class="n">warn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+
+    <span class="n">madx</span> <span class="o">=</span> <span class="n">Madx</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">option</span><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="n">echo</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="n">warn</span><span class="p">)</span>
+
+    <span class="n">sequence</span> <span class="o">=</span> <span class="s2">&quot;lhc.seq&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">use_b4</span> <span class="k">else</span> <span class="s2">&quot;lhcb4.seq&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calling sequence file &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acc-models-lhc/</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">slicefactor</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;A slicefactor was provided, slicing the sequence&quot;</span><span class="p">)</span>
+        <span class="n">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">)</span>
+        <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+
+    <span class="n">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;MSIA.EXIT.B</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calling optics file from the &#39;operation/optics&#39; folder&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;acc-models-lhc/operation/optics/</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s1">&#39;.madx&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="n">make_lhc_beams</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">madx</span></div>
+
+
+<div class="viewcode-block" id="LHCSetup"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup">[docs]</a><span class="k">class</span> <span class="nc">LHCSetup</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 1.0.0</span>
+
+<span class="sd">    This is a context manager to prepare an LHC Run 2 or Run 3 setup: calling sequences and opticsfile,</span>
+<span class="sd">    re-cycling as is done in the ``OMC`` model creator, making beams, potentially slicing, etc. For details</span>
+<span class="sd">    on the achieved setups, look at the `~prepare_lhc_run2` or `~prepare_lhc_run3` functions.</span>
+
+<span class="sd">    .. important::</span>
+<span class="sd">        For the Run 3 setup, it is assumed that the **acc-models-lhc** repo is available in the root space.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Matching is **not** performed by this setup and should be taken care of by the user, but the working</span>
+<span class="sd">        point should be set by the definitions in the *opticsfile*.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If you intend to do tracking for beam 2, remember that the ``lhcb4`` sequence needs to be called.</span>
+<span class="sd">        This is handled by giving the ``use_b4`` argument as `True` to the constructor.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        run (int): which run to set up for, should be 2 or 3. Defaults to run 3.</span>
+<span class="sd">        opticsfile (str): name of the opticsfile to be used. For a Run 2 setup, should be the string path to the file.</span>
+<span class="sd">            For a Run 3 setup, can be the string path to the file or only the opticsfile name itself, which would be</span>
+<span class="sd">            looked for at the **acc-models-lhc/operation/optics/** path. Defaults to `None`, which will raise an error.</span>
+<span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
+<span class="sd">        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking</span>
+<span class="sd">            purposes. Defaults to `False`.</span>
+<span class="sd">        energy (float): beam energy to set up for, in GeV. Defaults to 6800, to match the default of run 3.</span>
+<span class="sd">        slicefactor (int): if provided, the sequence will be sliced and &quot;made thin&quot;. Defaults to `None`,</span>
+<span class="sd">            which leads to an unsliced sequence.</span>
+<span class="sd">        **kwargs: if `echo` or `warn` are found in the keyword arguments they will be transmitted as options to ``MAD-X``.</span>
+<span class="sd">            Any other keyword argument is transmitted to the `~cpymad.madx.Madx` creation call.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        An instanciated context manager `~cpymad.madx.Madx` object with the required configuration.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        NotImplementedError: if the *run* argument is not 2 or 3.</span>
+<span class="sd">        AssertionError: if the *opticsfile* argument is not provided.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        Get a Run 2 setup for beam 2:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; with LHCSetup(run=2, opticsfile=&quot;2018/PROTON/opticsfile.22&quot;, beam=2) as madx:</span>
+<span class="sd">            ...    # do some stuff</span>
+
+<span class="sd">        Get a Run 3 setup for beam 1, with a sliced sequence and muted output:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; with LHCSetup(run=3, opticsfile=&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;, slicefactor=4, stdout=False) as madx:</span>
+<span class="sd">            ...    # do some stuff</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">run</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6800</span><span class="p">,</span>
+        <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">assert</span> <span class="n">opticsfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;An opticsfile must be provided&quot;</span>
+        <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This setup is only possible for Run 2 and Run 3 configurations.&quot;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">run</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run2</span><span class="p">(</span>
+                <span class="n">opticsfile</span><span class="o">=</span><span class="n">opticsfile</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="n">beam</span><span class="p">,</span> <span class="n">use_b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run3</span><span class="p">(</span>
+                <span class="n">opticsfile</span><span class="o">=</span><span class="n">opticsfile</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="n">beam</span><span class="p">,</span> <span class="n">use_b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+            <span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">madx</span>
+
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">exc_info</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">madx</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span></div>
+
+
+<span class="c1"># ----- Configuration Utlites ----- #</span>
+
+
+<div class="viewcode-block" id="make_lhc_beams"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams">[docs]</a><span class="k">def</span> <span class="nf">make_lhc_beams</span><span class="p">(</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
+    <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span>
+    <span class="n">emittance_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
+    <span class="n">emittance_y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
+    <span class="n">b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 0.15.0</span>
+
+<span class="sd">    Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        energy (float): beam energy, in [GeV]. Defaults to 6500.</span>
+<span class="sd">        emittance_x (float): horizontal emittance in [m]. Will be used to calculate</span>
+<span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
+<span class="sd">        emittance_y (float): vertical emittance in [m]. Will be used to calculate</span>
+<span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
+<span class="sd">        b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,</span>
+<span class="sd">            and will properly set the ``bv`` flag to 1. Defaults to `False`.</span>
+<span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)</span>
+
+<span class="sd">        Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set</span>
+<span class="sd">        ``bv`` to 1):</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;NRJ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;brho&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>
+    <span class="n">geometric_emit_x</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emittance_x</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+    <span class="n">geometric_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emittance_y</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
+        <span class="n">bv</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">b4</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Defining beam for sequence &#39;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">beam</span><span class="p">(</span>
+            <span class="n">sequence</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span>
+            <span class="n">bv</span><span class="o">=</span><span class="n">bv</span><span class="p">,</span>
+            <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
+            <span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span>
+            <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit_x</span><span class="p">,</span>
+            <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit_y</span><span class="p">,</span>
+            <span class="n">sige</span><span class="o">=</span><span class="mf">4.5e-4</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="make_lhc_thin"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_thin">[docs]</a><span class="k">def</span> <span class="nf">make_lhc_thin</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 0.15.0</span>
+
+<span class="sd">    Executes the ``MAKETHIN`` command for the LHC sequence as previously done in ``MAD-X`` macros.</span>
+<span class="sd">    This will use the ``teapot`` style and will enforce ``makedipedge``.</span>
+
+<span class="sd">    One can find an exemple use of this function in the :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;`</span>
+<span class="sd">    and :ref:`Free Tracking &lt;demo-free-tracking&gt;` example galleries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        sequence (str): the sequence to use for the ``MAKETHIN`` command.</span>
+<span class="sd">        slicefactor (int): the slice factor to apply in ``MAKETHIN``, which is a factor</span>
+<span class="sd">            applied to default values for different elements, as did the old macro. Defaults</span>
+<span class="sd">            to 1.</span>
+<span class="sd">        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``MAKETHN``</span>
+<span class="sd">            command, namely ``style`` (will default to ``teapot``) and the ``makedipedge``</span>
+<span class="sd">            flag (will default to `True`).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; make_lhc_thin(madx, sequence=&quot;lhcb1&quot;, slicefactor=4)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Slicing sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">four_slices_patterns</span> <span class="o">=</span> <span class="p">[</span><span class="sa">r</span><span class="s2">&quot;mbx\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrb\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrc\.&quot;</span><span class="p">,</span> <span class="sa">r</span><span class="s2">&quot;mbrs\.&quot;</span><span class="p">]</span>
+    <span class="n">four_slicefactor_patterns</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="sa">r</span><span class="s2">&quot;mqwa\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqwb\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqy\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqm\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqmc\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqml\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqtlh\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqtli\.&quot;</span><span class="p">,</span>
+        <span class="sa">r</span><span class="s2">&quot;mqt\.&quot;</span><span class="p">,</span>
+    <span class="p">]</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Defining slices for general MB and MQ elements&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MB&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;MQ&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">2</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Defining slices for triplets&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxa&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">class_</span><span class="o">=</span><span class="s2">&quot;mqxb&quot;</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">16</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Defining slices for various specifc mb elements&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">four_slices_patterns</span><span class="p">:</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Defining slices for varous specifc mq elements&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">pattern</span> <span class="ow">in</span> <span class="n">four_slicefactor_patterns</span><span class="p">:</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;makethin&quot;</span><span class="p">,</span> <span class="n">pattern</span><span class="o">=</span><span class="n">pattern</span><span class="p">,</span> <span class="n">slice_</span><span class="o">=</span><span class="mi">4</span> <span class="o">*</span> <span class="n">slicefactor</span><span class="p">)</span>
+
+    <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;teapot&quot;</span><span class="p">)</span>
+    <span class="n">makedipedge</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;makedipedge&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>  <span class="c1"># defaults to False to compensate default TEAPOT style</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">makethin</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">style</span><span class="p">,</span> <span class="n">makedipedge</span><span class="o">=</span><span class="n">makedipedge</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="re_cycle_sequence"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence">[docs]</a><span class="k">def</span> <span class="nf">re_cycle_sequence</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;IP3&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 0.15.0</span>
+
+<span class="sd">    Re-cycles the provided *sequence* from a different starting point, given as *start*.</span>
+
+<span class="sd">    One can find an exemple use of this function in the :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;`</span>
+<span class="sd">    and :ref:`Free Tracking &lt;demo-free-tracking&gt;` example galleries.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        sequence (str): the sequence to re-cycle.</span>
+<span class="sd">        start (str): element to start the new cycle from.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; re_cycle_sequence(madx, sequence=&quot;lhcb1&quot;, start=&quot;MSIA.EXIT.B1&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Re-cycling sequence &#39;</span><span class="si">{</span><span class="n">sequence</span><span class="si">}</span><span class="s2">&#39; from </span><span class="si">{</span><span class="n">start</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">cycle</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">start</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">endedit</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="lhc_orbit_variables"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables">[docs]</a><span class="k">def</span> <span class="nf">lhc_orbit_variables</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 0.8.0</span>
+
+<span class="sd">    Get the variable names used for orbit setup in the (HL)LHC. Initial implementation</span>
+<span class="sd">    credits go to :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A `tuple` with a `list` of all orbit variables, and a `dict` of additional variables,</span>
+<span class="sd">        that in the default configurations have the same value as another variable.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; variables, specials = lhc_orbit_variables()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Returning (HL)LHC orbit variables&quot;</span><span class="p">)</span>
+    <span class="n">on_variables</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;crab1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;crab5&quot;</span><span class="p">,</span>  <span class="c1"># exists only in HL-LHC</span>
+        <span class="s2">&quot;x1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sep1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;o1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;oh1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ov1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sep2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;o2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;oe2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;a2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;oh2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ov2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sep5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;o5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;oh5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ov5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sep8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;o8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;a8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sep8h&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;x8v&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;oh8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ov8&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;alice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sol_alice&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;lhcb&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sol_atlas&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;sol_cms&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;on_</span><span class="si">{</span><span class="n">var</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">on_variables</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;phi_IR</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">ir</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)]</span>
+    <span class="n">special</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;on_ssep1&quot;</span><span class="p">:</span> <span class="s2">&quot;on_sep1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_xx1&quot;</span><span class="p">:</span> <span class="s2">&quot;on_x1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_ssep5&quot;</span><span class="p">:</span> <span class="s2">&quot;on_sep5&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;on_xx5&quot;</span><span class="p">:</span> <span class="s2">&quot;on_x5&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">variables</span><span class="p">,</span> <span class="n">special</span></div>
+
+
+<div class="viewcode-block" id="setup_lhc_orbit"><a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit">[docs]</a><span class="k">def</span> <span class="nf">setup_lhc_orbit</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;flat&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 0.8.0</span>
+
+<span class="sd">    Automated orbit setup for (HL)LHC runs, for some default schemes. It is assumed that at</span>
+<span class="sd">    least sequence and optics files have been called. Initial implementation credits go to</span>
+<span class="sd">    :user:`Joschua Dilly &lt;joschd&gt;`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">        scheme (str): the default scheme to apply, as defined in the ``LHC_CROSSING_SCHEMES``</span>
+<span class="sd">            constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults to *flat*</span>
+<span class="sd">            (every orbit variable to 0).</span>
+<span class="sd">        **kwargs: Any standard crossing scheme variables (``on_x1``, ``phi_IR1``, etc). Values</span>
+<span class="sd">            given here override the values in the default scheme configurations.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        A `dict` of all orbit variables set, and their values as set in the ``MAD-X`` globals.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            &gt;&gt;&gt; orbit_setup = setup_lhc_orbit(madx, scheme=&quot;lhc_top&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LHC_CROSSING_SCHEMES</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid scheme parameter, should be one of </span><span class="si">{</span><span class="n">LHC_CROSSING_SCHEMES</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid scheme parameter given&quot;</span><span class="p">)</span>
+
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting orbit variables&quot;</span><span class="p">)</span>
+    <span class="n">variables</span><span class="p">,</span> <span class="n">special</span> <span class="o">=</span> <span class="n">lhc_orbit_variables</span><span class="p">()</span>
+
+    <span class="n">scheme_dict</span> <span class="o">=</span> <span class="n">LHC_CROSSING_SCHEMES</span><span class="p">[</span><span class="n">scheme</span><span class="p">]</span>
+    <span class="n">final_scheme</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">orbit_variable</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+        <span class="n">variable_value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">orbit_variable</span><span class="p">,</span> <span class="n">scheme_dict</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">orbit_variable</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting orbit variable &#39;</span><span class="si">{</span><span class="n">orbit_variable</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">variable_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Sets value in MAD-X globals &amp; returned dict, taken from scheme dict or kwargs if provided</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">orbit_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_scheme</span><span class="p">[</span><span class="n">orbit_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">variable_value</span>
+
+    <span class="k">for</span> <span class="n">special_variable</span><span class="p">,</span> <span class="n">copy_from</span> <span class="ow">in</span> <span class="n">special</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">special_variable_value</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">special_variable</span><span class="p">,</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">copy_from</span><span class="p">])</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Setting special orbit variable &#39;</span><span class="si">{</span><span class="n">special_variable</span><span class="si">}</span><span class="s2">&#39; to </span><span class="si">{</span><span class="n">special_variable_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="c1"># Sets value in MAD-X globals &amp; returned dict, taken from a given global or kwargs if provided</span>
+        <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">special_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">final_scheme</span><span class="p">[</span><span class="n">special_variable</span><span class="p">]</span> <span class="o">=</span> <span class="n">special_variable_value</span>
+
+    <span class="k">return</span> <span class="n">final_scheme</span></div>
+
+
+<span class="c1"># ----- Helpers ----- #</span>
+
+
+<span class="k">def</span> <span class="nf">_fullpath</span><span class="p">(</span><span class="n">filepath</span><span class="p">:</span> <span class="n">Path</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    .. versionadded:: 1.0.0</span>
+
+<span class="sd">    Returns the full string path to the provided *filepath*.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">filepath</span><span class="o">.</span><span class="n">absolute</span><span class="p">())</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2019, Felix Soubelet.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>  
+
+  <style>
+         .wy-nav-content { max-width: 67.5%; }
+  </style>
+
+
+
+</body>
+</html>

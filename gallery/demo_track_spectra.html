@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Free Tracking Spectrum &mdash; PyhDToolkit 1.0.0 documentation</title>
+  <title>Free Tracking Spectrum &mdash; PyhDToolkit 1.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0
+                1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -88,16 +88,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#correctors">Correctors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -167,6 +162,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-0-0">Version 1.0.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.0.0.html">1.0.0</a></li>
 </ul>
@@ -370,7 +369,7 @@ particle with the <code class="docutils literal notranslate"><span class="pre">T
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
 
-<a href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<a href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
@@ -379,14 +378,14 @@ particle with the <code class="docutils literal notranslate"><span class="pre">T
 <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.call" title="cpymad.madx.Madx.call" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">call</span></a><span class="p">(</span><span class="s2">&quot;lhc/lhc_as-built.seq&quot;</span><span class="p">)</span>
 <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.call" title="cpymad.madx.Madx.call" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">call</span></a><span class="p">(</span><span class="s2">&quot;lhc/opticsfile.22&quot;</span><span class="p">)</span>  <span class="c1"># collision optics</span>
 
-<a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-lhc sphx-glr-backref-type-py-function"><span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">)</span>
-<a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence" title="pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-lhc sphx-glr-backref-type-py-function"><span class="n">lhc</span><span class="o">.</span><span class="n">re_cycle_sequence</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;MSIA.EXIT.B1&quot;</span><span class="p">)</span>  <span class="c1"># as done in OMC</span>
+<span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">)</span>
+<span class="n">lhc</span><span class="o">.</span><span class="n">re_cycle_sequence</span><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;MSIA.EXIT.B1&quot;</span><span class="p">)</span>  <span class="c1"># as done in OMC</span>
 
 <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span></a><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Slicing is necessary in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> in order to perform tracking, so let’s do so.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_thin" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_thin" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-lhc sphx-glr-backref-type-py-function"><span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_thin</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_thin</span><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
 <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.use" title="cpymad.madx.Madx.use" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">use</span></a><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -418,7 +417,7 @@ and be the exact name of the element as given to <code class="docutils literal n
 <strong>observation_point_n</strong> where <em>n</em> is the number of the observation point, in the
 order they are provided. In our example, we will have three observation points: the
 start of machine and the two provided BPMs.</p>
-<p>Each key holds as value a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the following columns: <em>number</em>, <em>turn</em>,
+<p>Each key holds as value a <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the following columns: <em>number</em>, <em>turn</em>,
 <em>x</em>, <em>px</em>, <em>y</em>, <em>py</em>, <em>t</em>, <em>pt</em>, <em>s</em>, <em>e</em>. See for instance below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks_dict</span></a><span class="p">[</span><span class="s2">&quot;observation_point_2&quot;</span><span class="p">]</span>
 </pre></div>
@@ -605,7 +604,7 @@ start of machine and the two provided BPMs.</p>
 </div>
 <br />
 <br /><p>Once tracking data is obtained, one can easily plot the coordinates and spectrum
-using the convenience <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> plotting methods. Here it is for the
+using the convenience <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> plotting methods. Here it is for the
 first obeservation BPM we provided above:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a> <span class="o">=</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks_dict</span></a><span class="p">[</span><span class="s2">&quot;observation_point_2&quot;</span><span class="p">]</span>  <span class="c1"># point 1 for MAD-X is start of machine as defined</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
@@ -647,7 +646,7 @@ them. This is the matter of a simple fast fourier transform:</p>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_demo_track_spectra_002.svg" srcset="../_images/sphx_glr_demo_track_spectra_002.svg, ../_images/sphx_glr_demo_track_spectra_002_2_0x.svg 2.0x" alt="demo track spectra" class = "sphx-glr-single-img"/><p>In case the user provided <code class="docutils literal notranslate"><span class="pre">ONETABLE=True</span></code> to the tracking function, then all
-observation points data will be stored in a single <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> that can
+observation points data will be stored in a single <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> that can
 be accessed with the <strong>trackone</strong> key in the returned dictionary. In that case,
 accessing the coordinates at a given observation point is done by making use of
 the DataFrame indexing syntax:</p>
@@ -840,11 +839,11 @@ the DataFrame indexing syntax:</p>
 <p>The use of the following functions, methods, classes and modules is shown
 in this example:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence" title="pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">re_cycle_sequence</span></code></a></p></li>
+<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence" title="pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">re_cycle_sequence</span></code></a></p></li>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.track" title="pyhdtoolkit.cpymadtools.track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle" title="pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_single_particle</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  20.467 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  21.835 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-track-spectra-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/db641700d2e96124547ab450e417d469/demo_track_spectra.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_track_spectra.py</span></code></a></p>

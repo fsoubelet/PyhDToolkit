@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.twiss &mdash; PyhDToolkit 1.0.0 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.twiss &mdash; PyhDToolkit 1.1.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0
+                1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -85,16 +85,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#correctors">Correctors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -164,6 +159,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-0-0">Version 1.0.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.0.0.html">1.0.0</a></li>
 </ul>
@@ -477,68 +476,6 @@
     <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
     <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">}</span>
     <span class="k">return</span> <span class="n">twiss_tfs</span></div>
-
-
-<div class="viewcode-block" id="get_ips_twiss"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_ips_twiss">[docs]</a><span class="k">def</span> <span class="nf">get_ips_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.9.0</span>
-
-<span class="sd">    Quickly get the ``TWISS`` table for certain variables at IP locations only. The ``SUMM`` table will be</span>
-<span class="sd">    included as the `~tfs.frame.TfsDataFrame`&#39;s header dictionary.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
-<span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,</span>
-<span class="sd">            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table&#39;s sub-selection.</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        .. code-block:: python</span>
-
-<span class="sd">            &gt;&gt;&gt; ips_df = get_ips_twiss(madx, chrom=True, ripken=True)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting Twiss at IPs&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;IP&quot;</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="get_ir_twiss"><a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_ir_twiss">[docs]</a><span class="k">def</span> <span class="nf">get_ir_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="n">ir</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">DEFAULT_TWISS_COLUMNS</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    .. versionadded:: 0.9.0</span>
-
-<span class="sd">    Quickly get the ``TWISS`` table for certain variables for one Interaction Region, meaning at the IP and</span>
-<span class="sd">    Q1 to Q3 both left and right of the IP. The ``SUMM`` table will be included as the `~tfs.frame.TfsDataFrame`&#39;s</span>
-<span class="sd">    header dictionary.</span>
-
-<span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
-<span class="sd">        ir (int): which interaction region to get the TWISS for.</span>
-<span class="sd">        columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.</span>
-<span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,</span>
-<span class="sd">            ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.</span>
-
-<span class="sd">    Returns:</span>
-<span class="sd">        A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table&#39;s sub-selection.</span>
-
-<span class="sd">    Example:</span>
-<span class="sd">        .. code-block:: python</span>
-
-<span class="sd">            &gt;&gt;&gt; ir_df = get_ir_twiss(madx, chrom=True, ripken=True)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting Twiss for IR</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">get_pattern_twiss</span><span class="p">(</span>
-        <span class="n">madx</span><span class="o">=</span><span class="n">madx</span><span class="p">,</span>
-        <span class="n">columns</span><span class="o">=</span><span class="n">columns</span><span class="p">,</span>
-        <span class="n">patterns</span><span class="o">=</span><span class="p">[</span>
-            <span class="sa">f</span><span class="s2">&quot;IP</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-            <span class="sa">f</span><span class="s2">&quot;MQXA.[12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Q1 and Q3 LHC</span>
-            <span class="sa">f</span><span class="s2">&quot;MQXB.[AB][12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Q2A and Q2B LHC</span>
-            <span class="sa">f</span><span class="s2">&quot;MQXF[AB].[AB][12345][RL]</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>  <span class="c1"># Q1 to Q3 A and B HL-LHC</span>
-        <span class="p">],</span>
-        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-    <span class="p">)</span></div>
 </pre></div>
 
            </div>

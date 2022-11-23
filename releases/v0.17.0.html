@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>0.17.0 &mdash; PyhDToolkit 1.0.0 documentation</title>
+  <title>0.17.0 &mdash; PyhDToolkit 1.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0
+                1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -88,16 +88,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#correctors">Correctors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -167,6 +162,10 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../release.html">Release Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-0-0">Version 1.0.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="v1.0.0.html">1.0.0</a></li>
 </ul>
@@ -356,7 +355,7 @@
 <h2>Enhancements<a class="headerlink" href="#enhancements" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.cpymadtools.matching</span></code></a> module has two new wrapper functions, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes" title="pyhdtoolkit.cpymadtools.matching.match_tunes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes</span></code></a> and <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_chromaticities</span></code></a>, to perform matching on either tunes or chromaticities only.</p></li>
-<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.cpymadtools.lhc</span></code></a> module has a new utility function, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.get_magnets_powering" title="pyhdtoolkit.cpymadtools.lhc.get_magnets_powering"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_magnets_powering</span></code></a>, to get the percentage of magnets’ max powering used in a given configuration.</p></li>
+<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.cpymadtools.lhc</span></code></a> module has a new utility function, <code class="xref py py-obj docutils literal notranslate"><span class="pre">get_magnets_powering</span></code>, to get the percentage of magnets’ max powering used in a given configuration.</p></li>
 <li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.utils" title="pyhdtoolkit.cpymadtools.utils"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.cpymadtools.utils</span></code></a> module has a new function, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table" title="pyhdtoolkit.cpymadtools.utils.export_madx_table"><code class="xref py py-obj docutils literal notranslate"><span class="pre">export_madx_table</span></code></a>, to conveniently export an internal table to disk with proper regex filtering in a way that can be read by <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> later on.</p></li>
 <li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.constants" title="pyhdtoolkit.cpymadtools.constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.cpymadtools.constants</span></code></a> module now includes a regex for the <code class="xref py py-obj docutils literal notranslate"><span class="pre">(HL)LHC</span></code> triplets. Beware that <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> itself does not understand all regex features.</p></li>
 </ul>

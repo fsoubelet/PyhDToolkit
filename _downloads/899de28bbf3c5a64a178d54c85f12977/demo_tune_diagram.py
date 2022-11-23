@@ -16,7 +16,7 @@ from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.plotting.tune import plot_tune_diagram
 from pyhdtoolkit.utils import logging
 
-logging.config_logger(level="warning")
+logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################

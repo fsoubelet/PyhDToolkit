@@ -51,7 +51,7 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
     from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
     from pyhdtoolkit.utils import logging
 
-    logging.config_logger(level="warning")
+    logging.config_logger(level="error")
     plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
@@ -141,13 +141,6 @@ Here we will choose for the settings the same values as we use in operation in t
 
 
 
-
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    2022-11-09 19:26:13 | WARNING  | pyhdtoolkit.cpymadtools.lhc:702 - This AC Dipole is implemented as a kicker and will not affect TWISS functions!
-    2022-11-09 19:26:13 | WARNING  | pyhdtoolkit.cpymadtools.lhc:747 - Sequence LHCB1 is now re-USEd for changes to take effect. Beware that this will reset it, remove errors etc.
 
 
 
@@ -314,14 +307,14 @@ Let's not forget to close the rpc connection to ``MAD-X``:
    The use of the following functions, methods, classes and modules is shown
    in this example:
 
-   - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.make_lhc_thin`, `~.lhc.install_ac_dipole_as_kicker`
+   - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._setup.make_lhc_thin`, `~.lhc._elements.install_ac_dipole_as_kicker`
    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
    - `~.cpymadtools.track`: `~.track.track_single_particle`
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 2 minutes  46.544 seconds)
+   **Total running time of the script:** ( 2 minutes  53.301 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_acd_tracking_spectra.py:

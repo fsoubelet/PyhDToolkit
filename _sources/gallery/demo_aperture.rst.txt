@@ -41,7 +41,7 @@ to visualise the available aperture in your machine, with the LHC for example.
     from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
     from pyhdtoolkit.utils import logging
 
-    logging.config_logger(level="warning")
+    logging.config_logger(level="error")
     plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
@@ -81,7 +81,7 @@ Setup a simple LHC simulation in ``MAD-X``, at injection energy (450 GeV)
 We now call the aperture definitions and tolerances, then task ``MAD-X`` with
 computing the available aperture:
 
-.. GENERATED FROM PYTHON SOURCE LINES 40-49
+.. GENERATED FROM PYTHON SOURCE LINES 40-47
 
 .. code-block:: default
 
@@ -90,9 +90,7 @@ computing the available aperture:
     madx.call("lhc/aper_tol.b1.madx")
 
     madx.command.twiss()
-    madx.command.aperture(
-        cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14
-    )
+    madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
 
 
 
@@ -101,12 +99,12 @@ computing the available aperture:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-52
+.. GENERATED FROM PYTHON SOURCE LINES 48-50
 
 We can now determine the exact position of the IP5 point and plot the LHC
 injection aperture:
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-56
+.. GENERATED FROM PYTHON SOURCE LINES 50-54
 
 .. code-block:: default
 
@@ -121,11 +119,11 @@ injection aperture:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-58
+.. GENERATED FROM PYTHON SOURCE LINES 55-56
 
 And now we can plot the aperture:
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-75
+.. GENERATED FROM PYTHON SOURCE LINES 56-73
 
 .. code-block:: default
 
@@ -158,11 +156,11 @@ And now we can plot the aperture:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-77
+.. GENERATED FROM PYTHON SOURCE LINES 74-75
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-80
+.. GENERATED FROM PYTHON SOURCE LINES 75-78
 
 .. code-block:: default
 
@@ -176,20 +174,20 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-88
+.. GENERATED FROM PYTHON SOURCE LINES 79-86
 
 .. admonition:: References
 
    The use of the following functions, methods, classes and modules is shown
    in this example:
 
-   - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`
+   - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`
    - `~.plotting.aperture`: `~.plotting.aperture.plot_aperture`
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  40.525 seconds)
+   **Total running time of the script:** ( 0 minutes  44.932 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_aperture.py:

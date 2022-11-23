@@ -38,13 +38,13 @@ of several parameters to control the plot on the example case of the LHC.
 
     from cpymad.madx import Madx
 
-    from pyhdtoolkit.cpymadtools import lhc, matching, orbit
-    from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+    from pyhdtoolkit.cpymadtools import lhc, matching
+    from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
     from pyhdtoolkit.plotting.lattice import plot_latwiss
     from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
     from pyhdtoolkit.utils import logging
 
-    logging.config_logger(level="warning")
+    logging.config_logger(level="error")
     plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
@@ -94,7 +94,7 @@ to the `~.plotting.lattice.plot_latwiss` function. Here, we will also set the *k
 parameter to control the right-hand-side axis in the machine layout axis. The same
 can be done with the *k1_lim* parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-67
+.. GENERATED FROM PYTHON SOURCE LINES 53-65
 
 .. code-block:: default
 
@@ -104,9 +104,7 @@ can be done with the *k1_lim* parameter.
     title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
     plt.figure(figsize=(18, 11))
-    plot_latwiss(
-        madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3
-    )
+    plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
     plt.tight_layout()
     plt.show()
 
@@ -124,13 +122,13 @@ can be done with the *k1_lim* parameter.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 68-71
+.. GENERATED FROM PYTHON SOURCE LINES 66-69
 
 One can customise the plot more to their liking or needs thanks to the other
 function parameters. Let's showcase this with the LHC lattice, that we set up
 below:
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-77
+.. GENERATED FROM PYTHON SOURCE LINES 69-75
 
 .. code-block:: default
 
@@ -147,19 +145,19 @@ below:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-80
+.. GENERATED FROM PYTHON SOURCE LINES 76-78
 
 Let's re-cycle the sequences to avoid having IR1 split at beginning and end of
 lattice, as is the default in the LHC sequence, and setup a flat orbit.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-88
+.. GENERATED FROM PYTHON SOURCE LINES 78-86
 
 .. code-block:: default
 
 
     lhc.re_cycle_sequence(lhc_madx, sequence="lhcb1", start="IP3")
     lhc.re_cycle_sequence(lhc_madx, sequence="lhcb2", start="IP3")
-    orbit_scheme = orbit.setup_lhc_orbit(lhc_madx, scheme="flat")
+    orbit_scheme = lhc.setup_lhc_orbit(lhc_madx, scheme="flat")
 
     lhc.make_lhc_beams(lhc_madx, energy=7000)
     lhc_madx.command.use(sequence="lhcb1")
@@ -171,13 +169,13 @@ lattice, as is the default in the LHC sequence, and setup a flat orbit.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-92
+.. GENERATED FROM PYTHON SOURCE LINES 87-90
 
 The `~.plotting.lattice.plot_latwiss` function gives the possibility to zoom on a
 region by providing the *xlimits* parameter. Let's first determine the position
 of points of interest through the ``TWISS`` table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-98
+.. GENERATED FROM PYTHON SOURCE LINES 90-96
 
 .. code-block:: default
 
@@ -194,7 +192,7 @@ of points of interest through the ``TWISS`` table:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-109
+.. GENERATED FROM PYTHON SOURCE LINES 97-107
 
 We can now focus the plot in the Interaction Region 1 by providing the *xlimits*
 centered around the value we determined for *ip1s*.
@@ -207,7 +205,7 @@ centered around the value we determined for *ip1s*.
     (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
     way to zoom on a region.
 
-.. GENERATED FROM PYTHON SOURCE LINES 109-124
+.. GENERATED FROM PYTHON SOURCE LINES 107-122
 
 .. code-block:: default
 
@@ -238,14 +236,14 @@ centered around the value we determined for *ip1s*.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-129
+.. GENERATED FROM PYTHON SOURCE LINES 123-127
 
 Using the *xoffset* parameter, one can shift the longitudinal coordinate to be
 centered on 0, with the horizontal axis showing relative position to the given
 *xoffset*. This is useful here to zoom closely on IP1 and see the elements'
 positions relative to the IP marker.
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-145
+.. GENERATED FROM PYTHON SOURCE LINES 127-143
 
 .. code-block:: default
 
@@ -277,7 +275,7 @@ positions relative to the IP marker.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-152
+.. GENERATED FROM PYTHON SOURCE LINES 144-150
 
 When and only when the *k2l_lim* parameter is provided, the sextupolar elements
 are plotted on the lattice layout axis, and an additional scale is put to the right.
@@ -286,7 +284,7 @@ want to plot when looking at the big picture, to avoid overcrowding it. Similarl
 providing the *plot_bpms* will add a small marker for BPM elements. Here it is
 showcased when looking at an LHC arc cell:
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-170
+.. GENERATED FROM PYTHON SOURCE LINES 150-168
 
 .. code-block:: default
 
@@ -320,11 +318,11 @@ showcased when looking at an LHC arc cell:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 171-172
+.. GENERATED FROM PYTHON SOURCE LINES 169-170
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 172-175
+.. GENERATED FROM PYTHON SOURCE LINES 170-173
 
 .. code-block:: default
 
@@ -338,23 +336,22 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-186
+.. GENERATED FROM PYTHON SOURCE LINES 174-183
 
 .. admonition:: References
 
    The use of the following functions, methods, classes and modules is shown
    in this example:
 
-   - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`
+   - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._setup.setup_lhc_orbit`
    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
-   - `~.cpymadtools.orbit`: `~.orbit.setup_lhc_orbit`
    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  15.681 seconds)
+   **Total running time of the script:** ( 0 minutes  18.043 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lattice.py:

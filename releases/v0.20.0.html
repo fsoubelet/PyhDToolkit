@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>0.20.0 &mdash; PyhDToolkit 1.0.0 documentation</title>
+  <title>0.20.0 &mdash; PyhDToolkit 1.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -43,7 +43,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0
+                1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -89,16 +89,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#correctors">Correctors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -168,6 +163,10 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="../release.html">Release Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-0-0">Version 1.0.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="v1.0.0.html">1.0.0</a></li>
 </ul>
@@ -359,9 +358,9 @@
 <li><p>The <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach" title="pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_closest_tune_approach</span></code></a> function now supports the <code class="xref py py-obj docutils literal notranslate"><span class="pre">run3</span></code> boolean argument introduced in version <code class="xref py py-obj docutils literal notranslate"><span class="pre">0.19.1</span></code>, which is used for the <code class="docutils literal notranslate"><span class="pre">LHC</span></code> case.</p></li>
 <li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.coupling" title="pyhdtoolkit.cpymadtools.coupling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coupling</span></code></a> module now has a new function, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts" title="pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_coupling_rdts</span></code></a>, which will return the coupling Resonance Driving Terms throughout all elements in the sequence as columns added to the <code class="xref py py-obj docutils literal notranslate"><span class="pre">tfs.TfsDataFrame</span></code> returned after a <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> call.</p></li>
 <li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.coupling" title="pyhdtoolkit.cpymadtools.coupling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">coupling</span></code></a> module now has a new function, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts" title="pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_cminus_from_coupling_rdts</span></code></a>, which first calls the new <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts" title="pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_coupling_rdts</span></code></a> and then wraps the <a class="reference external" href="https://pylhc.github.io/optics_functions/modules/coupling.html#optics_functions.coupling.closest_tune_approach" title="(in optics_functions v0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">optics_functions.coupling.closest_tune_approach</span></code></a> to provide an estimate of the <span class="math notranslate nohighlight">\(C^{-}\)</span> according to the desired calculation method.</p></li>
-<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a> module now has a new function, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.carry_colinearity_knob_over" title="pyhdtoolkit.cpymadtools.lhc.carry_colinearity_knob_over"><code class="xref py py-obj docutils literal notranslate"><span class="pre">carry_colinearity_knob_over</span></code></a>, which will carry over the powering of <code class="docutils literal notranslate"><span class="pre">MQSX</span></code> magnets around an IP to a single side.</p></li>
-<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a> module now has a new function, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.correct_lhc_global_coupling" title="pyhdtoolkit.cpymadtools.lhc.correct_lhc_global_coupling"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correct_lhc_global_coupling</span></code></a>, which will runs a tricky routine to minimize the global <span class="math notranslate nohighlight">\(|C^{-}|\)</span> through the <code class="docutils literal notranslate"><span class="pre">dqmin</span></code> variable.</p></li>
-<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a> module now has a new function, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.do_kmodulation" title="pyhdtoolkit.cpymadtools.lhc.do_kmodulation"><code class="xref py py-obj docutils literal notranslate"><span class="pre">do_kmodulation</span></code></a> which simulates a <code class="xref py py-obj docutils literal notranslate"><span class="pre">K-Modulation</span></code> of an inner triplet quadrupole <code class="docutils literal notranslate"><span class="pre">Q1</span></code> in a desired IR, and returns a <code class="xref py py-obj docutils literal notranslate"><span class="pre">tfs.TfsDataFrame</span></code> of the results.</p></li>
+<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a> module now has a new function, <code class="xref py py-obj docutils literal notranslate"><span class="pre">carry_colinearity_knob_over</span></code>, which will carry over the powering of <code class="docutils literal notranslate"><span class="pre">MQSX</span></code> magnets around an IP to a single side.</p></li>
+<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a> module now has a new function, <code class="xref py py-obj docutils literal notranslate"><span class="pre">correct_lhc_global_coupling</span></code>, which will runs a tricky routine to minimize the global <span class="math notranslate nohighlight">\(|C^{-}|\)</span> through the <code class="docutils literal notranslate"><span class="pre">dqmin</span></code> variable.</p></li>
+<li><p>The <a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a> module now has a new function, <code class="xref py py-obj docutils literal notranslate"><span class="pre">do_kmodulation</span></code> which simulates a <code class="xref py py-obj docutils literal notranslate"><span class="pre">K-Modulation</span></code> of an inner triplet quadrupole <code class="docutils literal notranslate"><span class="pre">Q1</span></code> in a desired IR, and returns a <code class="xref py py-obj docutils literal notranslate"><span class="pre">tfs.TfsDataFrame</span></code> of the results.</p></li>
 </ul>
 </section>
 <section id="documentation">

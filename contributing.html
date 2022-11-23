@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contributing &mdash; PyhDToolkit 1.0.0 documentation</title>
+  <title>Contributing &mdash; PyhDToolkit 1.1.0 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0
+                1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -88,16 +88,11 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#useful-constants">Useful Constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#correctors">Correctors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -167,6 +162,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="releases/v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="release.html#version-1-0-0">Version 1.0.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="releases/v1.0.0.html">1.0.0</a></li>
 </ul>
@@ -418,8 +417,8 @@ However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</stron
 <p>Here is how to set yourself up:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="b5bf3321-4e29-4829-93a3-5bd05b673653" name="2ee7f046-55fd-4200-8776-2fb1471845b5" type="radio">
-</input><label class="tabbed-label" for="b5bf3321-4e29-4829-93a3-5bd05b673653">
+<input checked="checked" id="d5e011fb-52b4-4710-8bcf-dddb9bba1f5a" name="b09b0404-b1cb-4956-b69b-20aca5173c84" type="radio">
+</input><label class="tabbed-label" for="d5e011fb-52b4-4710-8bcf-dddb9bba1f5a">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
@@ -440,8 +439,8 @@ For instance, getting the Python version can be as simple as:</p>
 </div>
 </div>
 </div>
-<input id="208a2330-6f41-48ab-8b1a-36ee8a5741d2" name="2ee7f046-55fd-4200-8776-2fb1471845b5" type="radio">
-</input><label class="tabbed-label" for="208a2330-6f41-48ab-8b1a-36ee8a5741d2">
+<input id="bc555735-a5a2-40f8-b528-d48a332b0815" name="b09b0404-b1cb-4956-b69b-20aca5173c84" type="radio">
+</input><label class="tabbed-label" for="bc555735-a5a2-40f8-b528-d48a332b0815">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e &quot;.[test,dev,docs]&quot;
@@ -494,16 +493,16 @@ $ git merge upstream/master
 One can run the test suite in the following way:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="6ee559dc-167a-4938-a93c-293021a5b6db" name="fef3b2dc-7067-43ed-bfef-51d52a8a6e6f" type="radio">
-</input><label class="tabbed-label" for="6ee559dc-167a-4938-a93c-293021a5b6db">
+<input checked="checked" id="f8bb3637-cb7b-4ead-9325-7cce7f4abf65" name="6119d86f-93d5-48eb-901e-125c92017be2" type="radio">
+</input><label class="tabbed-label" for="f8bb3637-cb7b-4ead-9325-7cce7f4abf65">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
 </div>
-<input id="d9eeec5b-a800-438a-9637-206d79d2ed8b" name="fef3b2dc-7067-43ed-bfef-51d52a8a6e6f" type="radio">
-</input><label class="tabbed-label" for="d9eeec5b-a800-438a-9637-206d79d2ed8b">
+<input id="728e9953-b1c8-4fe6-85d4-ee4b6070f5a5" name="6119d86f-93d5-48eb-901e-125c92017be2" type="radio">
+</input><label class="tabbed-label" for="728e9953-b1c8-4fe6-85d4-ee4b6070f5a5">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>In your virtual environment, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest

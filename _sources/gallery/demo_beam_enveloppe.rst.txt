@@ -43,7 +43,7 @@ In this example we will use a very simple lattice, hard-coded below.
     from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
     from pyhdtoolkit.utils import logging
 
-    logging.config_logger(level="warning")
+    logging.config_logger(level="error")
     plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
@@ -224,7 +224,7 @@ inside the elements:
 We can now plot the beam enveloppe and the stay-clear at injection, for the
 whole machine:
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-167
+.. GENERATED FROM PYTHON SOURCE LINES 145-165
 
 .. code-block:: default
 
@@ -245,9 +245,7 @@ whole machine:
         title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
         axis=axes[1],
     )
-    plot_stay_clear(
-        madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2]
-    )
+    plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
     plt.show()
 
 
@@ -262,12 +260,12 @@ whole machine:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-170
+.. GENERATED FROM PYTHON SOURCE LINES 166-168
 
 In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
 Here we will plot the horizontal enveloppe for the first cell only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-176
+.. GENERATED FROM PYTHON SOURCE LINES 168-174
 
 .. code-block:: default
 
@@ -289,12 +287,12 @@ Here we will plot the horizontal enveloppe for the first cell only.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 177-179
+.. GENERATED FROM PYTHON SOURCE LINES 175-177
 
 And similarly we can plot for the cell at top energy, only by adapting the
 provided beam parameters:
 
-.. GENERATED FROM PYTHON SOURCE LINES 179-207
+.. GENERATED FROM PYTHON SOURCE LINES 177-205
 
 .. code-block:: default
 
@@ -338,11 +336,11 @@ provided beam parameters:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 208-209
+.. GENERATED FROM PYTHON SOURCE LINES 206-207
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 209-212
+.. GENERATED FROM PYTHON SOURCE LINES 207-210
 
 .. code-block:: default
 
@@ -356,7 +354,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 213-220
+.. GENERATED FROM PYTHON SOURCE LINES 211-218
 
 .. admonition:: References
 
@@ -369,7 +367,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  3.369 seconds)
+   **Total running time of the script:** ( 0 minutes  3.996 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_beam_enveloppe.py:

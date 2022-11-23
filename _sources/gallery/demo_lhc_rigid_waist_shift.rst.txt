@@ -52,7 +52,7 @@ itself.
     from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
     from pyhdtoolkit.utils import logging
 
-    logging.config_logger(level="warning")
+    logging.config_logger(level="error")
     plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
@@ -195,12 +195,6 @@ to make sure we do not deviate.
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    2022-11-09 19:30:37 | WARNING  | pyhdtoolkit.cpymadtools.lhc:300 - You should re-match tunes & chromaticities after this rigid waist shift knob is applied
-
 
 
 
@@ -326,7 +320,7 @@ at the :math:`\beta_{x,y}` functions.
 Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
 2022 commissioning to speed up this file's execution time.
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-204
+.. GENERATED FROM PYTHON SOURCE LINES 174-202
 
 .. code-block:: default
 
@@ -343,9 +337,7 @@ Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
         lhc.re_cycle_sequence(madx, sequence=f"lhcb1", start=f"MSIA.EXIT.B1")
         madx.command.use(sequence=f"lhcb1")
         lhc.make_lhc_thin(madx, sequence=f"lhcb1", slicefactor=4)
-        lhc.add_markers_around_lhc_ip(
-            madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
-        )
+        lhc.add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001)
         madx.command.twiss()
         initial_twiss = madx.table.twiss.dframe().copy()
 
@@ -364,22 +356,16 @@ Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
 
 
 
-.. rst-class:: sphx-glr-script-out
-
- .. code-block:: none
-
-    2022-11-09 19:31:34 | WARNING  | pyhdtoolkit.cpymadtools.lhc:863 - Sequence 'lhcb1' will be USEd for new markers to be taken in consideration, beware that this will erase errors etc.
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 205-208
+.. GENERATED FROM PYTHON SOURCE LINES 203-206
 
 We will use all our added markers to determine the location of the waist,
 by simply finding with good resolution the minima of the :math:`\beta_{x,y}`
 functions.
 
-.. GENERATED FROM PYTHON SOURCE LINES 208-218
+.. GENERATED FROM PYTHON SOURCE LINES 206-216
 
 .. code-block:: default
 
@@ -400,13 +386,13 @@ functions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 219-222
+.. GENERATED FROM PYTHON SOURCE LINES 217-220
 
 We can also plot the :math:`\beta_{x,y}` functions before and after the
 application of the rigid waist shift. Here one can clearly see the shift of
 the waist between the two configurations
 
-.. GENERATED FROM PYTHON SOURCE LINES 222-268
+.. GENERATED FROM PYTHON SOURCE LINES 220-266
 
 .. code-block:: default
 
@@ -468,12 +454,12 @@ the waist between the two configurations
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 269-271
+.. GENERATED FROM PYTHON SOURCE LINES 267-269
 
 The value of the waist is then simply the distance between the IP and the
 location of the found minima. Here is the value, in meters:
 
-.. GENERATED FROM PYTHON SOURCE LINES 271-275
+.. GENERATED FROM PYTHON SOURCE LINES 269-273
 
 .. code-block:: default
 
@@ -494,7 +480,7 @@ location of the found minima. Here is the value, in meters:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 276-289
+.. GENERATED FROM PYTHON SOURCE LINES 274-287
 
 Let's now determine this value using the Eq. 10 formula in
 :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`:
@@ -510,23 +496,17 @@ to figure out.
 Manipulating the equation to determine the waist yields:
 :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-.. GENERATED FROM PYTHON SOURCE LINES 289-304
+.. GENERATED FROM PYTHON SOURCE LINES 287-296
 
 .. code-block:: default
 
 
-    q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[
-        0
-    ]  # to calculate from the right Q1
-    q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[
-        -1
-    ]  # to calculate from the left Q1
+    q1_right_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].s[0]  # to calculate from the right Q1
+    q1_left_s = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].s[-1]  # to calculate from the left Q1
 
     L_star = ip_s - q1_left_s  # we calculate from left Q1
     # beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].betx[0]  # to calculate from the right
-    beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].betx[
-        -1
-    ]  # to calculate from the left
+    beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1l1")].betx[-1]  # to calculate from the left
     betaw = around_ip.betx.min()
 
 
@@ -536,17 +516,17 @@ Manipulating the equation to determine the waist yields:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 305-308
+.. GENERATED FROM PYTHON SOURCE LINES 297-300
 
 The analytical result (sign will swap depending on if we calculate from left
 or right Q1) is then easily calculated. We can then compare this value to the
 one found with the markers we previously added, and they are fairly close.
 
-.. GENERATED FROM PYTHON SOURCE LINES 308-312
+.. GENERATED FROM PYTHON SOURCE LINES 300-304
 
 .. code-block:: default
 
-    waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
+    waist = L_star - np.sqrt(beta0 * betaw - betaw ** 2)
     print(f"Analytical: {waist}")
     print(f"Markers: {shift}")
 
@@ -564,21 +544,21 @@ one found with the markers we previously added, and they are fairly close.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 313-321
+.. GENERATED FROM PYTHON SOURCE LINES 305-313
 
 .. admonition:: References
 
    The use of the following functions, methods, classes and modules is shown
    in this example:
 
-   - `~.cpymadtools.lhc`: `~.lhc.make_lhc_beams`, `~.lhc.re_cycle_sequence`, `~.lhc.apply_lhc_rigidity_waist_shift_knob`, `~.lhc.add_markers_around_lhc_ip`
+   - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._powering.apply_lhc_rigidity_waist_shift_knob`, `~.lhc._elements.add_markers_around_lhc_ip`
    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  7.409 seconds)
+   **Total running time of the script:** ( 3 minutes  33.202 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:

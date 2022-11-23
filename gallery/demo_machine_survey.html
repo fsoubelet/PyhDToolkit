@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Machine Survey &mdash; PyhDToolkit 1.0.0 documentation</title>
+  <title>Machine Survey &mdash; PyhDToolkit 1.1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.0.0
+                1.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -88,16 +88,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../api.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#correctors">Correctors</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#errors-assignments">Errors Assignments</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lattice-generators">Lattice Generators</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#orbit-handling">Orbit Handling</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#mad-x-setup-utilities">MAD-X Setup Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
@@ -167,6 +162,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-0">Version 1.1.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.0.html">1.1.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-0-0">Version 1.0.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.0.0.html">1.0.0</a></li>
 </ul>
@@ -363,17 +362,17 @@ to represent your machine geometry in a from-the-top view.</p>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
 
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.generators</span> <span class="kn">import</span> <span class="n">LatticeGenerator</span>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools._generators</span> <span class="kn">import</span> <span class="n">LatticeGenerator</span>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.lattice</span> <span class="kn">import</span> <a href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey" title="pyhdtoolkit.plotting.lattice.plot_machine_survey" class="sphx-glr-backref-module-pyhdtoolkit-plotting-lattice sphx-glr-backref-type-py-function"><span class="n">plot_machine_survey</span></a>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
 
-<a href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;warning&quot;</span><span class="p">)</span>
+<a href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger" class="sphx-glr-backref-module-pyhdtoolkit-utils-logging sphx-glr-backref-type-py-function"><span class="n">logging</span><span class="o">.</span><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">)</span>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
 <p>Generate a simple lattice and setup your simulation:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_lattice</span></a> <span class="o">=</span> <a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator.generate_base_cas_lattice" title="pyhdtoolkit.cpymadtools.generators.LatticeGenerator.generate_base_cas_lattice" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-generators-LatticeGenerator sphx-glr-backref-type-py-method"><span class="n">LatticeGenerator</span><span class="o">.</span><span class="n">generate_base_cas_lattice</span></a><span class="p">()</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://docs.python.org/3/library/stdtypes.html#str" title="builtins.str" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">base_lattice</span></a> <span class="o">=</span> <span class="n">LatticeGenerator</span><span class="o">.</span><span class="n">generate_base_cas_lattice</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>Input the lattice into <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, no more needed here</p>
@@ -402,10 +401,11 @@ to represent your machine geometry in a from-the-top view.</p>
 <p>The use of the following functions, methods, classes and modules is shown
 in this example:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.generators" title="pyhdtoolkit.cpymadtools.generators"><code class="xref py py-obj docutils literal notranslate"><span class="pre">generators</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.generators.LatticeGenerator" title="pyhdtoolkit.cpymadtools.generators.LatticeGenerator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LatticeGenerator</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence" title="pyhdtoolkit.cpymadtools.lhc.re_cycle_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">re_cycle_sequence</span></code></a></p></li>
+<li><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">_generators</span></code>: <code class="xref py py-obj docutils literal notranslate"><span class="pre">LatticeGenerator</span></code></p></li>
 <li><p><a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.lattice" title="pyhdtoolkit.plotting.lattice"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lattice</span></code></a>: <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey" title="pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_machine_survey</span></code></a></p></li>
 </ul>
 </div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.017 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-machine-survey-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7e283a496f5fe9ed949178b5d9d2c2b4/demo_machine_survey.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_machine_survey.py</span></code></a></p>

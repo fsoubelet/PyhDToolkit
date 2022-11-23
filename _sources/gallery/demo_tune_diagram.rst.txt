@@ -37,7 +37,7 @@ to visualise resonance lines up to certain orders.
     from pyhdtoolkit.plotting.tune import plot_tune_diagram
     from pyhdtoolkit.utils import logging
 
-    logging.config_logger(level="warning")
+    logging.config_logger(level="error")
     plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 
@@ -160,7 +160,7 @@ It is now much easier to identify the resonances lines near our working point :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.594 seconds)
+   **Total running time of the script:** ( 0 minutes  12.105 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_tune_diagram.py:

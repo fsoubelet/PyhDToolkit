@@ -17,7 +17,7 @@ from pyhdtoolkit.plotting.sbs import coupling, phase
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
-logging.config_logger(level="warning")
+logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 plt.rcParams.update({"text.usetex": True, "legend.fontsize": 16})  # for these specific plots
 
