@@ -7,7 +7,7 @@ from cpymad.madx import Madx
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
 
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.ptc import get_amplitude_detuning, get_rdts, ptc_track_particle, ptc_twiss
 

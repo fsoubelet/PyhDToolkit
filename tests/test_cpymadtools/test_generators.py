@@ -2,7 +2,7 @@ import random
 
 import pytest
 
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 
 
 def test_base_cas_lattice_generation():

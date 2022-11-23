@@ -19,7 +19,7 @@ import numpy as np
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.cpymadtools.generators import LatticeGenerator
+from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.track import track_single_particle
 from pyhdtoolkit.plotting.phasespace import (
@@ -29,7 +29,7 @@ from pyhdtoolkit.plotting.phasespace import (
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
-logging.config_logger(level="warning")
+logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
@@ -65,9 +65,7 @@ match_tunes_and_chromaticities(
 # a particle's coordinates for each turn.
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(
-        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
-    )
+    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
     x_coords.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords.append(tracks_df["observation_point_1"].px.to_numpy())
@@ -126,9 +124,7 @@ match_tunes_and_chromaticities(
 x_coords_sext, px_coords_sext, y_coords_sext, py_coords_sext = [], [], [], []
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(
-        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
-    )
+    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
     x_coords_sext.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords_sext.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords_sext.append(tracks_df["observation_point_1"].px.to_numpy())
@@ -138,9 +134,7 @@ for starting_x in initial_x_coordinates:
 # Plotting the new phase space, we can clearly see the resonance's islands!
 
 fig, ax = plt.subplots(figsize=(10, 10))
-plot_courant_snyder_phase_space_colored(
-    madx, x_coords_sext, px_coords_sext, plane="Horizontal"
-)
+plot_courant_snyder_phase_space_colored(madx, x_coords_sext, px_coords_sext, plane="Horizontal")
 ax.set_xlim(-15e-3, 15e-3)
 ax.set_ylim(-15e-3, 15e-3)
 plt.show()
@@ -157,7 +151,7 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
+#    - `~.cpymadtools._generators`: `~._generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.plotting.phasespace`: `~.plotting.phasespace.plot_courant_snyder_phase_space`, `~.plotting.phasespace.plot_courant_snyder_phase_space_colored`
 #    - `~.cpymadtools.track`: `~.track.track_single_particle`

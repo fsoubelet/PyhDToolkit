@@ -9,6 +9,7 @@ Module with utility functions to do mundane operations with `~cpymad.madx.Madx` 
 from pathlib import Path
 from typing import List, Union
 
+import pandas as pd
 import tfs
 
 from cpymad.madx import Madx
@@ -84,7 +85,11 @@ def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> t
             >>> twiss_tfs = get_table_tfs(madx, table_name="TWISS")
     """
     logger.debug(f"Extracting table {table_name} into a TfsDataFrame")
-    dframe = tfs.TfsDataFrame(madx.table[table_name].dframe())
+    # Converting to dict and then DataFrame because the madx.table.name.dframe()
+    # method sometimes complains about element names and crashes (mostly seen)
+    # when exporting error tables.
+    dframe = pd.DataFrame.from_dict(dict(madx.table[table_name]))
+    dframe = tfs.TfsDataFrame(dframe)
     dframe.columns = dframe.columns.str.upper()
 
     if "NAME" in dframe.columns:
