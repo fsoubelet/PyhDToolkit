@@ -16,6 +16,7 @@ Bug Fixes
 ~~~~~~~~~
 
 * The `~pyhdtoolkit.cpymadtools.lhc.prepare_lhc_run2` function now properly calls the found sequence file.
+* The `~pyhdtoolkit.cpymadtools.utils.get_table_tfs` function now avoids using the `.dframe()` method of tables and converts them to a dict, then to a DataFrame to export. The previous implementation would sometimes crash on certain element names, or in cases of sliced sequences.
 
 Enhancements
 ~~~~~~~~~~~~
