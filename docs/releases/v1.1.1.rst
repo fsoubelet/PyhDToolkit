@@ -1,0 +1,16 @@
+.. _release_1.1.1:
+
+1.1.1
+-----
+
+Release `1.1.1` brings a few fixes and settings changes.
+
+Bug Fixes
+~~~~~~~~~
+
+* Various functions in the `~pyhdtoolkit.cpymadtools` submodules do not use the ``CHROM`` flag by default (in ``TWISS`` or matching routines). Providing ``CHROM`` is still possible through ``kwargs``.
+* Many calls to `.copy()` following a call to `.dframe()` when querying a ``MAD-X`` table have been removed, as they were redundant.
+* A few values in the available plotting settings were changed.
+
+
+See `v1.1.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.1.1>`_ and the `full changes since v1.0.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.1.0...1.1.1>`_.
