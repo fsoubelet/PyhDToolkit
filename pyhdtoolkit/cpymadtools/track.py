@@ -92,9 +92,9 @@ def track_single_particle(
     madx.command.endtrack()
     if onetable:  # user asked for ONETABLE, there will only be one table 'trackone' given back by MAD-X
         logger.debug("Because of option ONETABLE only one table 'TRACKONE' exists to be returned.")
-        return {"trackone": madx.table.trackone.dframe().copy()}
+        return {"trackone": madx.table.trackone.dframe()}
     return {
-        f"observation_point_{point:d}": madx.table[f"track.obs{point:04d}.p0001"].dframe().copy()
+        f"observation_point_{point:d}": madx.table[f"track.obs{point:04d}.p0001"].dframe()
         for point in range(1, len(observation_points) + 2)  # len(observation_points) + 1 for start of
         # machine + 1 because MAD-X starts indexing these at 1
     }

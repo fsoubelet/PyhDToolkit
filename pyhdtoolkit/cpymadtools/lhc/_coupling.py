@@ -49,7 +49,7 @@ def correct_lhc_global_coupling(
 
     real_knob, imag_knob = f"CMRS.b{beam:d}{suffix}", f"CMIS.b{beam:d}{suffix}"
     logger.debug(f"Matching using the coupling knobs '{real_knob}' and '{imag_knob}'")
-    madx.command.match(chrom=True, sequence=sequence)
+    madx.command.match(sequence=sequence)
     madx.command.gweight(dqmin=1, Q1=0)
     madx.command.global_(dqmin=0, Q1=62.28)
     madx.command.vary(name=real_knob, step=1.0e-8)
@@ -77,9 +77,7 @@ def get_lhc_bpms_twiss_and_rdts(madx: Madx) -> tfs.TfsDataFrame:
 
             >>> twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
     """
-    twiss_tfs = twiss.get_pattern_twiss(  # need chromatic flag as we're dealing with coupling
-        madx, patterns=["^BPM.*B[12]$"], columns=MONITOR_TWISS_COLUMNS, chrom=True
-    )
+    twiss_tfs = twiss.get_pattern_twiss(madx, patterns=["^BPM.*B[12]$"], columns=MONITOR_TWISS_COLUMNS)
     twiss_tfs.columns = twiss_tfs.columns.str.upper()  # optics_functions needs capitalized names
     twiss_tfs.NAME = twiss_tfs.NAME.str.upper()
     twiss_tfs[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_tfs, output=["rdts"])

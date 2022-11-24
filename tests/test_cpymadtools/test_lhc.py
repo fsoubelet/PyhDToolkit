@@ -176,7 +176,7 @@ def test_misalign_lhc_ir_quadrupoles(_non_matched_lhc_madx, ips, sides, quadrupo
         dx="1E-3 * TGAUSS(2.5)",
         dpsi="1E-3 * TGAUSS(2.5)",
     )
-    error_table = madx.table["ir_quads_errors"].dframe().copy()
+    error_table = madx.table["ir_quads_errors"].dframe()
     assert all(error_table["dx"] != 0)
     assert all(error_table["dpsi"] != 0)
 
@@ -184,7 +184,7 @@ def test_misalign_lhc_ir_quadrupoles(_non_matched_lhc_madx, ips, sides, quadrupo
 def test_misalign_lhc_ir_quadrupoles_specific_value(_non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
     misalign_lhc_ir_quadrupoles(madx, ips=[1, 5], quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001")
-    error_table = madx.table["ir_quads_errors"].dframe().copy()
+    error_table = madx.table["ir_quads_errors"].dframe()
     assert all(error_table["dy"] == 0.001)
 
 
@@ -219,7 +219,7 @@ def test_misalign_lhc_triplets(_non_matched_lhc_madx):
     # for coverage as this calls `misalign_lhc_ir_quadrupoles` tested above
     madx = _non_matched_lhc_madx
     misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-3 * TGAUSS(2.5)", dpsi="1E-3 * TGAUSS(2.5)")
-    error_table = madx.table["triplet_errors"].dframe().copy()
+    error_table = madx.table["triplet_errors"].dframe()
     assert all(error_table["dx"] != 0)
     assert all(error_table["dpsi"] != 0)
 
@@ -500,9 +500,9 @@ def test_install_ac_dipole_as_kicker(top_turns, _matched_lhc_madx):
 
 def test_install_ac_dipole_matrix(_matched_lhc_madx):
     madx = _matched_lhc_madx
-    twiss_before = madx.twiss().dframe().copy()
+    twiss_before = madx.twiss().dframe()
     install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012)
-    twiss_after = madx.twiss().dframe().copy()
+    twiss_after = madx.twiss().dframe()
 
     for acd_name in ("hacmap", "vacmap"):
         assert acd_name in madx.elements
@@ -536,13 +536,13 @@ def test_add_ip_markers(_non_matched_lhc_madx, markers, ip):
     madx = _non_matched_lhc_madx
     re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
     madx.use(sequence="lhcb1")
-    init_twiss = madx.twiss().dframe().copy()
+    init_twiss = madx.twiss().dframe()
     ip_s = init_twiss.s[f"ip{ip:d}"]
     init_twiss = init_twiss[init_twiss.s.between(ip_s - 15, ip_s + 15)]
 
     make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
     add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=ip, n_markers=markers, interval=0.001)
-    new_twiss = madx.twiss().dframe().copy()
+    new_twiss = madx.twiss().dframe()
     new_twiss = new_twiss[new_twiss.s.between(ip_s - 15, ip_s + 15)]
 
     assert len(init_twiss) < len(new_twiss)
@@ -555,7 +555,7 @@ def test_re_cycling(_bare_lhc_madx, start_point):
     make_lhc_beams(madx)
     madx.command.use(sequence="lhcb1")
     madx.twiss()
-    twiss = madx.table.twiss.dframe().copy()
+    twiss = madx.table.twiss.dframe()
     assert start_point.lower() in twiss.name[0].lower()
 
 

@@ -86,7 +86,7 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
     lhc.misalign_lhc_ir_quadrupoles(madx, ips=[8], beam=1, quadrupoles=[3], sides="R", DPSI=1e-3)
     madx.globals["kqsx3.l8"] = -5e-4
     madx.globals["kqsx3.r8"] = -5e-4
-    madx.command.twiss(chrom=True)
+    madx.command.twiss()
 
 
 # ----- Fetching Utilities ----- #

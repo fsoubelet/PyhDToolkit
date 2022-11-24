@@ -129,7 +129,7 @@ def correct_lhc_global_coupling(
 
     real_knob, imag_knob = f"CMRS.b{beam:d}{suffix}", f"CMIS.b{beam:d}{suffix}"
     logger.debug(f"Matching using the coupling knobs '{real_knob}' and '{imag_knob}'")
-    madx.command.match(chrom=True, sequence=sequence)
+    madx.command.match(sequence=sequence)
     madx.command.gweight(dqmin=1, Q1=0)
     madx.command.global_(dqmin=0, Q1=62.28)
     madx.command.vary(name=real_knob, step=1.0e-8)
@@ -181,6 +181,6 @@ def correct_lhc_orbit(
 
     for _ in range(iterations):
         logger.trace("Doing orbit correction for Y then X plane")
-        madx.twiss(chrom=True)
+        madx.command.twiss()
         madx.command.correct(sequence=sequence, plane="y", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)
         madx.command.correct(sequence=sequence, plane="x", flag="ring", error=orbit_tolerance, mode=mode, **kwargs)

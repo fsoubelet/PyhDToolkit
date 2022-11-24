@@ -98,7 +98,7 @@ def plot_aperture(
     logger.debug("Plotting aperture limits and machine layout")
     logger.debug("Getting Twiss dataframe from cpymad")
     madx.command.twiss(centre=True)
-    twiss_df: pd.DataFrame = madx.table.twiss.dframe().copy()
+    twiss_df: pd.DataFrame = madx.table.twiss.dframe()
     aperture_df = pd.DataFrame.from_dict(dict(madx.table.aperture))  # slicing -> issues with .dframe()
 
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given

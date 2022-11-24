@@ -75,7 +75,7 @@ def test_phase_ylabel_raises_on_invalid_rdt(plane):
 def test_ip_locations(_non_matched_lhc_madx):
     # tests both querying the locations and adding them on a plot
     madx = _non_matched_lhc_madx
-    twiss_df = madx.twiss().dframe().copy()
+    twiss_df = madx.twiss().dframe()
     ips_dict = get_lhc_ips_positions(twiss_df)
 
     figure, ax = plt.subplots(figsize=(10, 6))
@@ -88,7 +88,7 @@ def test_ip_locations(_non_matched_lhc_madx):
 def test_ip_locations_with_xlimits(_non_matched_lhc_madx):
     # tests both querying the locations and adding them on a plot
     madx = _non_matched_lhc_madx
-    twiss_df = madx.twiss().dframe().copy()
+    twiss_df = madx.twiss().dframe()
     ips_dict = get_lhc_ips_positions(twiss_df)
 
     figure, ax = plt.subplots(figsize=(10, 6))

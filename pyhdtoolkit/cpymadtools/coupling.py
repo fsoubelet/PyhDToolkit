@@ -51,12 +51,6 @@ def get_closest_tune_approach(
         This assumes the sequence has previously been matched to the user's desired working point, as if not
         explicitely given, the appropriate targets will be determined from the ``MAD-X`` internal tables.
 
-    .. important::
-        This is hard-coded to use the ``CHROM`` flag when performing matching, since we expect to be in
-        the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
-        tunes might cause ``LMDIF`` to fail, as the knobs become dependent. For this reason, only tune matching is
-        performed here, and chromaticities are voluntarily ignored.
-
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
@@ -99,7 +93,7 @@ def get_closest_tune_approach(
         tune_knobs, _ = lhc_knobs[:2], lhc_knobs[2:]  # first two for tune & last two for chroma, not used
 
     logger.debug("Running TWISS to update SUMM and TWISS tables")
-    madx.command.twiss(chrom=True)
+    madx.command.twiss()
 
     logger.debug("Saving knob values to restore after closest tune approach")
     varied_knobs = varied_knobs or tune_knobs  # if accelerator was given we've extracted this already
@@ -142,7 +136,7 @@ def get_closest_tune_approach(
     logger.debug("Restoring saved knobs")
     with madx.batch():
         madx.globals.update(saved_knobs)
-    madx.command.twiss(chrom=True)  # make sure TWISS and SUMM tables are returned to their original state
+    madx.command.twiss()  # make sure TWISS and SUMM tables are returned to their original state
 
     return cminus
 
@@ -206,7 +200,7 @@ def get_cminus_from_coupling_rdts(
             >>> complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=["^BPM.*B[12]$"])
     """
     logger.debug(f"Getting coupling RDTs at selected elements thoughout the machine")
-    twiss_with_rdts = get_pattern_twiss(madx, patterns=patterns, columns=MONITOR_TWISS_COLUMNS, chrom=True)
+    twiss_with_rdts = get_pattern_twiss(madx, patterns=patterns, columns=MONITOR_TWISS_COLUMNS)
     twiss_with_rdts.columns = twiss_with_rdts.columns.str.upper()  # optics_functions needs capitalized names
     twiss_with_rdts[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_with_rdts, output=["rdts"])
 
@@ -263,7 +257,7 @@ def match_no_coupling_through_ripkens(
     madx.input("do_ripken: macro = {twiss, ripken=True;}")  # cpymad needs .input for macros
 
     logger.debug("Matching Parameters")
-    madx.command.match(sequence=sequence, use_macro=True, chrom=True)
+    madx.command.match(sequence=sequence, use_macro=True)
     for knob in vary_knobs:
         madx.command.vary(name=knob)
     madx.command.use_macro(name="do_ripken")
@@ -283,7 +277,6 @@ def get_coupling_rdts(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         **kwargs: any keyword argument will be transmitted to the ``TWISS`` command in ``MAD-X``.
-            Note that ``CHROM`` is already provided as it is needed for the RDTs' calculation.
 
     Returns:
         A `~tfs.TfsDataFrame` with columns of the ``TWISS`` table, and two complex columns for the
@@ -294,7 +287,7 @@ def get_coupling_rdts(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
 
             >>> twiss_rdts = get_coupling_rdts(madx)
     """
-    twiss_tfs = get_twiss_tfs(madx, chrom=True, **kwargs)
+    twiss_tfs = get_twiss_tfs(madx, **kwargs)
     twiss_tfs[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_tfs, output=["rdts"])
     return twiss_tfs
 

@@ -197,6 +197,6 @@ def get_sizes_at_ip(madx: Madx, ip: int, geom_emit_x: float = None, geom_emit_y:
     geom_emit_x = geom_emit_x or madx.globals["geometric_emit_x"]
     geom_emit_y = geom_emit_y or madx.globals["geometric_emit_y"]
 
-    twiss_tfs = twiss.get_twiss_tfs(madx, chrom=True, ripken=True)
+    twiss_tfs = twiss.get_twiss_tfs(madx, ripken=True)
     twiss_tfs = _add_beam_size_to_df(twiss_tfs, geom_emit_x, geom_emit_y)
     return twiss_tfs.loc[f"IP{ip:d}"].SIZE_X, twiss_tfs.loc[f"IP{ip:d}"].SIZE_Y

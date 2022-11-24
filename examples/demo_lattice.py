@@ -89,7 +89,7 @@ lhc_madx.command.use(sequence="lhcb1")
 # of points of interest through the ``TWISS`` table:
 
 lhc_madx.command.twiss()
-twiss_df = lhc_madx.table.twiss.dframe().copy()
+twiss_df = lhc_madx.table.twiss.dframe()
 twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
 ip1s = twiss_df.s["ip1"]
 

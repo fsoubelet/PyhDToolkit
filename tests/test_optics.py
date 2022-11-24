@@ -145,7 +145,7 @@ def test_courant_snyder_transform():
 def test_add_beam_size_to_df(_non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
     madx.command.twiss(ripken=True)
-    df = madx.table.twiss.dframe().copy()
+    df = madx.table.twiss.dframe()
     df["BETA11"] = df.beta11
     df["BETA12"] = df.beta12
     df["BETA21"] = df.beta21

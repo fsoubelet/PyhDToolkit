@@ -70,12 +70,12 @@ def plot_two_lhc_ips_crossings(
     logger.debug("Getting TWISS table for LHCB1")
     madx.use(sequence="lhcb1")
     madx.command.twiss(centre=True)
-    twiss_df_b1 = madx.table.twiss.dframe().copy()
+    twiss_df_b1 = madx.table.twiss.dframe()
 
     logger.debug("Getting TWISS table for LHCB2")
     madx.use(sequence="lhcb2")
     madx.command.twiss(centre=True)
-    twiss_df_b2 = madx.table.twiss.dframe().copy()
+    twiss_df_b2 = madx.table.twiss.dframe()
 
     logger.trace("Determining exact locations of IP points")
     first_ip_s = twiss_df_b1.s[f"ip{first_ip}"]

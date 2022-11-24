@@ -57,7 +57,7 @@ madx.command.use(sequence="lhcb1")
 # determine the position of points of interest through the ``TWISS`` table:
 
 madx.command.twiss()
-twiss_df = madx.table.twiss.dframe().copy()
+twiss_df = madx.table.twiss.dframe()
 twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
 ip1s = twiss_df.s["ip1"]
 
@@ -104,7 +104,7 @@ matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0,
 # Let's again retrieve the ``TWISS`` table, then plot the new conditions in the
 # Interaction Region.
 
-twiss_df_waist = madx.table.twiss.dframe().copy()
+twiss_df_waist = madx.table.twiss.dframe()
 twiss_df_waist.name = twiss_df.name.apply(lambda x: x[:-2])
 ip1s = twiss_df_waist.s["ip1"]
 
@@ -186,7 +186,7 @@ with Madx(stdout=False) as madx:
     lhc.make_lhc_thin(madx, sequence=f"lhcb1", slicefactor=4)
     lhc.add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001)
     madx.command.twiss()
-    initial_twiss = madx.table.twiss.dframe().copy()
+    initial_twiss = madx.table.twiss.dframe()
 
     # Calling pre-calculated and re-matched waist shift knobs
     for knobfile in b1_knobs:
@@ -197,7 +197,7 @@ with Madx(stdout=False) as madx:
     matching.match_tunes_and_chromaticities(madx, "lhc", f"lhcb1", 62.31, 60.32, 2.0, 2.0)
 
     madx.command.twiss()
-    twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df = madx.table.twiss.dframe()
 
 ###############################################################################
 # We will use all our added markers to determine the location of the waist,

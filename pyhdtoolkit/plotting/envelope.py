@@ -172,11 +172,11 @@ def _interpolate_madx(madx: Madx) -> None:
 def _get_twiss_hr_from_madx(madx: Madx, beam_params: BeamParameters) -> pd.DataFrame:
     """Get twiss hr from the provided MAD-X instance."""
     logger.trace("Getting Twiss dframe from MAD-X")
-    twiss_hr: pd.DataFrame = madx.table.twiss.dframe().copy()
+    twiss_hr: pd.DataFrame = madx.table.twiss.dframe()
     twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params.eg_x_m)
     twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params.eg_y_m)
     twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params.deltap_p
     twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params.deltap_p
-    twiss_hr["envelope_x"] = np.sqrt(twiss_hr.betatronic_envelope_x**2 + (twiss_hr.dx * beam_params.deltap_p) ** 2)
-    twiss_hr["envelope_y"] = np.sqrt(twiss_hr.betatronic_envelope_y**2 + (twiss_hr.dy * beam_params.deltap_p) ** 2)
+    twiss_hr["envelope_x"] = np.sqrt(twiss_hr.betatronic_envelope_x ** 2 + (twiss_hr.dx * beam_params.deltap_p) ** 2)
+    twiss_hr["envelope_y"] = np.sqrt(twiss_hr.betatronic_envelope_y ** 2 + (twiss_hr.dy * beam_params.deltap_p) ** 2)
     return twiss_hr
