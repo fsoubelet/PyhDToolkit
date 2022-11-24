@@ -34,7 +34,7 @@ def test_amplitude_detuning(tmp_path, _ampdet_tfs_path, _matched_base_lattice):
     ampdet_df = get_amplitude_detuning(madx, file=tmp_path / "here.tfs")
 
     assert (tmp_path / "here.tfs").is_file()
-    assert_frame_equal(reference_df, ampdet_df)
+    assert_frame_equal(reference_df, ampdet_df, rtol=1e-2)
 
 
 def test_rdts(tmp_path, _rdts_tfs_path):
@@ -46,7 +46,7 @@ def test_rdts(tmp_path, _rdts_tfs_path):
     rdts_df = get_rdts(madx, file=tmp_path / "here.tfs")
 
     assert (tmp_path / "here.tfs").is_file()
-    assert_frame_equal(reference_df.set_index("NAME"), rdts_df.set_index("NAME"))
+    assert_frame_equal(reference_df.set_index("NAME"), rdts_df.set_index("NAME"), rtol=5e-3)
 
 
 def test_ptc_twiss(tmp_path, _matched_base_lattice, _ptc_twiss_tfs_path):
