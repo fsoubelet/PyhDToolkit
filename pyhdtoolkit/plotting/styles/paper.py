@@ -21,7 +21,7 @@ PlotSetting = Union[float, bool, str, tuple]
 SINGLE_COLUMN: Dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.3,  # Width of plot lines
-    "lines.markersize": 2,  # Marker size, in points
+    "lines.markersize": 5,  # Marker size, in points
     # ------ Patches ------ #
     "patch.linewidth": 1.2,  # Width of patches edge lines
     # ------ Fonts ------ #
@@ -54,7 +54,7 @@ SINGLE_COLUMN: Dict[str, PlotSetting] = {
     "legend.frameon": True,  # Make a dedicated patch for the legend
     "legend.framealpha": 0.85,  # Legend patch transparency factor
     "legend.fancybox": True,  # Use rounded box for legend background
-    "legend.fontsize": 24,  # Legend text font size
+    "legend.fontsize": 20,  # Legend text font size
     # ------ Figure ------ #
     "figure.figsize": (11, 7),  # Size of the figure
     "figure.titlesize": 20,  # Size of the figure title

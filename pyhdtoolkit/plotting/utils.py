@@ -201,7 +201,7 @@ def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     logger.debug("Getting different element groups dframes from MAD-X survey")
     madx.command.survey()
 
-    survey_df = madx.table.survey.dframe().copy()
+    survey_df = madx.table.survey.dframe()
     return {
         "dipoles": survey_df[survey_df.index.isin(element_dfs["dipoles"].index.tolist())],
         "quad_foc": survey_df[survey_df.index.isin(quadrupoles_focusing_df.index.tolist())],
@@ -356,7 +356,7 @@ def _get_twiss_table_with_offsets_and_limits(
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.trace("Getting TWISS table from MAD-X")
     madx.command.twiss()
-    twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df = madx.table.twiss.dframe()
     twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
     return twiss_df

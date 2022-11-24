@@ -45,7 +45,7 @@ def lebedev_beam_size(
 
             >>> geom_emit_x = madx.globals["geometric_emit_x"]
             >>> geom_emit_y = madx.globals["geometric_emit_y"]
-            >>> twiss_tfs = madx.twiss(ripken=True).dframe().copy()
+            >>> twiss_tfs = madx.twiss(ripken=True).dframe()
             >>> horizontal_size = lebedev_beam_size(
                     twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y
                 )

@@ -33,7 +33,7 @@ def test_plot_aperture_ir5_collision(_collision_aperture_tolerances_lhc_madx):
 
     madx = _collision_aperture_tolerances_lhc_madx
     madx.command.twiss(centre=True)
-    twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df = madx.table.twiss.dframe()
     ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
 
     figure = plt.figure(figsize=(18, 11))

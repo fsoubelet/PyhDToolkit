@@ -200,7 +200,7 @@ dependencies:
   - stack_data=0.2.0
   - statsmodels=0.13.2
   - sympy=1.9
-  - tfs-pandas=3.1.0
+  - tfs-pandas=3.2.1
   - threadpoolctl=3.1.0
   - tk=8.6.12
   - tomli=2.0.1
@@ -225,6 +225,6 @@ dependencies:
     - importlib-resources==5.4.0
     - minrpc==0.1.0
     - optics-functions==0.1.2
-    - pyhdtoolkit==1.1.0
+    - pyhdtoolkit==1.1.1
     - pynaff==1.1.4
-    - scipy==1.9.0
+    - scipy==1.9.3

@@ -66,9 +66,6 @@ def match_tunes_and_chromaticities(
         If explicit knobs are provided, these will always be used. On other machines the knobs should be provided
         explicitly, always.
 
-    .. important::
-        The matching is always performed with the ``CHROM`` option on.
-
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
@@ -129,7 +126,7 @@ def match_tunes_and_chromaticities(
     def match(*args, **kwargs):
         """Create matching commands for kwarg targets, varying the given args."""
         logger.debug(f"Executing matching commands, using sequence '{sequence}'")
-        madx.command.match(chrom=True)
+        madx.command.match()
         logger.trace(f"Targets are given as {kwargs}")
         madx.command.global_(sequence=sequence, **kwargs)
         for variable_name in args:
@@ -138,7 +135,7 @@ def match_tunes_and_chromaticities(
         madx.command.lmdif(calls=calls, tolerance=tolerance)
         madx.command.endmatch()
         logger.trace("Performing routine TWISS")
-        madx.twiss(chrom=True)  # prevents errors if the user forgets to TWISS before querying tables
+        madx.command.twiss()  # prevents errors if the user forgets to TWISS before querying tables
 
     # Case of a combined matching: both tune and chroma targets have been provided
     if q1_target is not None and q2_target is not None and dq1_target is not None and dq2_target is not None:
@@ -190,9 +187,6 @@ def match_tunes(
     .. note::
         This is a wrapper around the `~.match_tunes_and_chromaticities` function. Refer to its documentation
         for usage details.
-
-    .. important::
-        The matching is always performed with the ``CHROM`` option on.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
@@ -274,9 +268,6 @@ def match_chromaticities(
     .. note::
         This is a wrapper around the `~.match_tunes_and_chromaticities` function. Refer to its documentation
         for usage details.
-
-    .. important::
-        The matching is always performed with the ``CHROM`` option on.
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.

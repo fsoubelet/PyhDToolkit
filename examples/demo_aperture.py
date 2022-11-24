@@ -48,7 +48,7 @@ madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=
 # We can now determine the exact position of the IP5 point and plot the LHC
 # injection aperture:
 
-twiss_df = madx.table.twiss.dframe().copy()
+twiss_df = madx.table.twiss.dframe()
 ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
 
 ###############################################################################

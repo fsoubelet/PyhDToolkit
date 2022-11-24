@@ -86,7 +86,7 @@ def get_pattern_twiss(
     madx.twiss(**kwargs)
 
     logger.trace("Extracting relevant parts of the TWISS table")
-    twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe().copy())
+    twiss_df = tfs.TfsDataFrame(madx.table.twiss.dframe())
     twiss_df.headers = {var.upper(): madx.table.summ[var][0] for var in madx.table.summ}
     twiss_df = twiss_df[madx.table.twiss.selected_columns()].iloc[madx.table.twiss.selected_rows()]
 
