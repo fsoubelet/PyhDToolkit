@@ -677,6 +677,8 @@ def test_get_bpms_coupling_rdts(_non_matched_lhc_madx, _reference_twiss_rdts):
     twiss_with_rdts["F1010R"] = twiss_with_rdts.F1010.apply(np.real)
     twiss_with_rdts["F1010I"] = twiss_with_rdts.F1010.apply(np.imag)
     twiss_with_rdts = twiss_with_rdts.drop(columns=["F1001", "F1010"]).set_index("NAME")
+    # Only care to compare the coupling RDTs columns
+    twiss_with_rdts = twiss_with_rdts.loc[:, ["F1001R", "F1001I", "F1010R", "F1010I"]]
 
     reference = tfs.read(_reference_twiss_rdts, index="NAME")
     assert_frame_equal(twiss_with_rdts, reference)
