@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cpymadtools &mdash; PyhDToolkit 1.1.0 documentation</title>
+  <title>Cpymadtools &mdash; PyhDToolkit 1.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -43,7 +43,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -163,6 +163,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-0">Version 1.1.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.0.html">1.1.0</a></li>
 </ul>
@@ -377,13 +381,6 @@ under the hood.</p>
 <p>This assumes the sequence has previously been matched to the user’s desired working point, as if not
 explicitely given, the appropriate targets will be determined from the <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> internal tables.</p>
 </div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>This is hard-coded to use the <code class="docutils literal notranslate"><span class="pre">CHROM</span></code> flag when performing matching, since we expect to be in
-the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the
-tunes might cause <code class="docutils literal notranslate"><span class="pre">LMDIF</span></code> to fail, as the knobs become dependent. For this reason, only tune matching is
-performed here, and chromaticities are voluntarily ignored.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -493,8 +490,7 @@ at all elements in the currently active sequence from a <code class="docutils li
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object.</p></li>
-<li><p><strong>**kwargs</strong> -- any keyword argument will be transmitted to the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> command in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.
-Note that <code class="docutils literal notranslate"><span class="pre">CHROM</span></code> is already provided as it is needed for the RDTs’ calculation.</p></li>
+<li><p><strong>**kwargs</strong> -- any keyword argument will be transmitted to the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> command in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -550,16 +546,16 @@ that are specific to LHC and HLLHC machines.</p>
 level, but any user is free to import and use them directly from the private modules if they
 wish to do so. In short, the two options below are both valid:</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="731d6902-e927-4133-a6dc-4841f9783aa4" name="8461b1d4-fdf7-49ee-a002-d55ca0a6a1a5" type="radio">
-</input><label class="tabbed-label" for="731d6902-e927-4133-a6dc-4841f9783aa4">
+<input checked="checked" id="47f40b24-6de1-4414-8dac-4534c982919f" name="858cea34-b38f-41ea-9278-4446e0c9266e" type="radio">
+</input><label class="tabbed-label" for="47f40b24-6de1-4414-8dac-4534c982919f">
 Importing from the lhc module</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.lhc</span> <span class="kn">import</span> <span class="n">LHCSetup</span>
 <span class="c1"># use this now</span>
 </pre></div>
 </div>
 </div>
-<input id="3c11212f-45ec-460e-bb25-f000b4b31eec" name="8461b1d4-fdf7-49ee-a002-d55ca0a6a1a5" type="radio">
-</input><label class="tabbed-label" for="3c11212f-45ec-460e-bb25-f000b4b31eec">
+<input id="f6cae525-1969-4ca8-95fe-b605e02face9" name="858cea34-b38f-41ea-9278-4446e0c9266e" type="radio">
+</input><label class="tabbed-label" for="f6cae525-1969-4ca8-95fe-b605e02face9">
 Importing from the private module</label><div class="tabbed-content docutils">
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.lhc._setup</span> <span class="kn">import</span> <span class="n">LHCSetup</span>
 <span class="c1"># use this now</span>
@@ -1961,10 +1957,6 @@ to the desired target values.</p>
 <p>This is a wrapper around the <a class="reference internal" href="#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a> function. Refer to its documentation
 for usage details.</p>
 </div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The matching is always performed with the <code class="docutils literal notranslate"><span class="pre">CHROM</span></code> option on.</p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -2022,10 +2014,6 @@ the desired target values.</p>
 <p class="admonition-title">Note</p>
 <p>This is a wrapper around the <a class="reference internal" href="#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a> function. Refer to its documentation
 for usage details.</p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The matching is always performed with the <code class="docutils literal notranslate"><span class="pre">CHROM</span></code> option on.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -2109,10 +2097,6 @@ knobs will be automatically set accordingly to the provided targets. Note that o
 set, so if tune targets only are provided, then tune knobs only will be used, and not chromaticity knobs.
 If explicit knobs are provided, these will always be used. On other machines the knobs should be provided
 explicitly, always.</p>
-</div>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>The matching is always performed with the <code class="docutils literal notranslate"><span class="pre">CHROM</span></code> option on.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>

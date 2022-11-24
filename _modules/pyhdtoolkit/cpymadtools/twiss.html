@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.twiss &mdash; PyhDToolkit 1.1.0 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.twiss &mdash; PyhDToolkit 1.1.1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -159,6 +159,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-0">Version 1.1.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.0.html">1.1.0</a></li>
 </ul>
@@ -433,7 +437,7 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Extracting relevant parts of the TWISS table&quot;</span><span class="p">)</span>
-    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">())</span>
     <span class="n">twiss_df</span><span class="o">.</span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="n">var</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">[</span><span class="n">var</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">var</span> <span class="ow">in</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">summ</span><span class="p">}</span>
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">selected_columns</span><span class="p">()]</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">selected_rows</span><span class="p">()]</span>
 

@@ -72,7 +72,7 @@ lhc.misalign_lhc_ir_quadrupoles(
 
 madx.command.use(sequence="lhcb1")
 matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
-error_table = madx.table.ir_quads_errors.dframe().copy()
+error_table = madx.table.ir_quads_errors.dframe()
 
 ###############################################################################
 # Let's quickly re-arrange the resulting `~pandas.DataFrame` to align with the

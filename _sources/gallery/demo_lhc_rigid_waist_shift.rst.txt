@@ -117,7 +117,7 @@ determine the position of points of interest through the ``TWISS`` table:
 
 
     madx.command.twiss()
-    twiss_df = madx.table.twiss.dframe().copy()
+    twiss_df = madx.table.twiss.dframe()
     twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
     ip1s = twiss_df.s["ip1"]
 
@@ -208,7 +208,7 @@ Interaction Region.
 .. code-block:: default
 
 
-    twiss_df_waist = madx.table.twiss.dframe().copy()
+    twiss_df_waist = madx.table.twiss.dframe()
     twiss_df_waist.name = twiss_df.name.apply(lambda x: x[:-2])
     ip1s = twiss_df_waist.s["ip1"]
 
@@ -339,7 +339,7 @@ Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
         lhc.make_lhc_thin(madx, sequence=f"lhcb1", slicefactor=4)
         lhc.add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001)
         madx.command.twiss()
-        initial_twiss = madx.table.twiss.dframe().copy()
+        initial_twiss = madx.table.twiss.dframe()
 
         # Calling pre-calculated and re-matched waist shift knobs
         for knobfile in b1_knobs:
@@ -350,7 +350,7 @@ Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
         matching.match_tunes_and_chromaticities(madx, "lhc", f"lhcb1", 62.31, 60.32, 2.0, 2.0)
 
         madx.command.twiss()
-        twiss_df = madx.table.twiss.dframe().copy()
+        twiss_df = madx.table.twiss.dframe()
 
 
 
@@ -558,7 +558,7 @@ one found with the markers we previously added, and they are fairly close.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 3 minutes  33.654 seconds)
+   **Total running time of the script:** ( 0 minutes  41.843 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:

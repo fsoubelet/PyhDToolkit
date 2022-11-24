@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Optics &mdash; PyhDToolkit 1.1.0 documentation</title>
+  <title>Optics &mdash; PyhDToolkit 1.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -43,7 +43,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -163,6 +163,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-0">Version 1.1.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.0.html">1.1.0</a></li>
 </ul>
@@ -536,7 +540,7 @@ See the example below.</p>
 <p class="admonition-title">Example</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">geom_emit_x</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_x&quot;</span><span class="p">]</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">geom_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_y&quot;</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">ripken</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">ripken</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">horizontal_size</span> <span class="o">=</span> <span class="n">lebedev_beam_size</span><span class="p">(</span>
 <span class="go">        twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y</span>
 <span class="go">    )</span>

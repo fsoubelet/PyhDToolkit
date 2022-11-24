@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.crossing &mdash; PyhDToolkit 1.1.0 documentation</title>
+  <title>pyhdtoolkit.plotting.crossing &mdash; PyhDToolkit 1.1.1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -159,6 +159,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-0">Version 1.1.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.0.html">1.1.0</a></li>
 </ul>
@@ -417,12 +421,12 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting TWISS table for LHCB1&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">centre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">twiss_df_b1</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">twiss_df_b1</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting TWISS table for LHCB2&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">use</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb2&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">centre</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">twiss_df_b2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">twiss_df_b2</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Determining exact locations of IP points&quot;</span><span class="p">)</span>
     <span class="n">first_ip_s</span> <span class="o">=</span> <span class="n">twiss_df_b1</span><span class="o">.</span><span class="n">s</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;ip</span><span class="si">{</span><span class="n">first_ip</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span>

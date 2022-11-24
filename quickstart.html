@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quickstart &mdash; PyhDToolkit 1.1.0 documentation</title>
+  <title>Quickstart &mdash; PyhDToolkit 1.1.1 documentation</title>
       <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -162,6 +162,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="release.html#version-1-1-0">Version 1.1.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="releases/v1.1.0.html">1.1.0</a></li>
 </ul>
@@ -421,14 +425,14 @@ It also provides convenience plotting utilities and a set of <a class="reference
 In the second case, relevant data for the plotting is directly queried and computed by interacting with the <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> instance.</p>
 <p>Using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code> apis goes as:</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="724a198a-81c2-4662-91a4-6737e21ad921" name="f2571723-b711-4117-be1d-286271175c5b" type="radio">
-</input><label class="tabbed-label" for="724a198a-81c2-4662-91a4-6737e21ad921">
+<input checked="checked" id="e58970dc-80f6-4cb4-a734-61fa8136903e" name="db11c312-357f-4212-b923-0c80641411ad" type="radio">
+</input><label class="tabbed-label" for="e58970dc-80f6-4cb4-a734-61fa8136903e">
 Standalone</label><div class="tabbed-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.tune</span> <span class="kn">import</span> <span class="n">plot_tune_diagram</span>  <span class="c1"># for instance</span></span>
 <span class="prompt2"><span class="n">plot_tune_diagram</span><span class="p">(</span><span class="n">max_order</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">differentiate_orders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># and enjoy the result!</span></span>
 </pre></div></div></div>
-<input id="3689f831-f0d3-4fc0-94e3-c93d74a49547" name="f2571723-b711-4117-be1d-286271175c5b" type="radio">
-</input><label class="tabbed-label" for="3689f831-f0d3-4fc0-94e3-c93d74a49547">
+<input id="09cea2ee-6c3a-4151-80f8-5fb5e8edf75a" name="db11c312-357f-4212-b923-0c80641411ad" type="radio">
+</input><label class="tabbed-label" for="09cea2ee-6c3a-4151-80f8-5fb5e8edf75a">
 Interacting with MAD-X</label><div class="tabbed-content docutils">
 <p>Let’s say one has initiated their <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> simulation through <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.10)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span></span>

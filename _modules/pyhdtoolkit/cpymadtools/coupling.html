@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.coupling &mdash; PyhDToolkit 1.1.0 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.coupling &mdash; PyhDToolkit 1.1.1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -39,7 +39,7 @@
             <a href="../../../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -159,6 +159,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-1-0">Version 1.1.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.1.0.html">1.1.0</a></li>
 </ul>
@@ -398,12 +402,6 @@
 <span class="sd">        This assumes the sequence has previously been matched to the user&#39;s desired working point, as if not</span>
 <span class="sd">        explicitely given, the appropriate targets will be determined from the ``MAD-X`` internal tables.</span>
 
-<span class="sd">    .. important::</span>
-<span class="sd">        This is hard-coded to use the ``CHROM`` flag when performing matching, since we expect to be in</span>
-<span class="sd">        the presence of betatron coupling. In this case, attempting to match chromaticities at the same time as the</span>
-<span class="sd">        tunes might cause ``LMDIF`` to fail, as the knobs become dependent. For this reason, only tune matching is</span>
-<span class="sd">        performed here, and chromaticities are voluntarily ignored.</span>
-
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
 <span class="sd">        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.</span>
@@ -446,7 +444,7 @@
         <span class="n">tune_knobs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">lhc_knobs</span><span class="p">[:</span><span class="mi">2</span><span class="p">],</span> <span class="n">lhc_knobs</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>  <span class="c1"># first two for tune &amp; last two for chroma, not used</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Running TWISS to update SUMM and TWISS tables&quot;</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Saving knob values to restore after closest tune approach&quot;</span><span class="p">)</span>
     <span class="n">varied_knobs</span> <span class="o">=</span> <span class="n">varied_knobs</span> <span class="ow">or</span> <span class="n">tune_knobs</span>  <span class="c1"># if accelerator was given we&#39;ve extracted this already</span>
@@ -489,7 +487,7 @@
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Restoring saved knobs&quot;</span><span class="p">)</span>
     <span class="k">with</span> <span class="n">madx</span><span class="o">.</span><span class="n">batch</span><span class="p">():</span>
         <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">saved_knobs</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># make sure TWISS and SUMM tables are returned to their original state</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">twiss</span><span class="p">()</span>  <span class="c1"># make sure TWISS and SUMM tables are returned to their original state</span>
 
     <span class="k">return</span> <span class="n">cminus</span></div>
 
@@ -553,7 +551,7 @@
 <span class="sd">            &gt;&gt;&gt; complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=[&quot;^BPM.*B[12]$&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting coupling RDTs at selected elements thoughout the machine&quot;</span><span class="p">)</span>
-    <span class="n">twiss_with_rdts</span> <span class="o">=</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="n">patterns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">MONITOR_TWISS_COLUMNS</span><span class="p">,</span> <span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">twiss_with_rdts</span> <span class="o">=</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="n">patterns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">MONITOR_TWISS_COLUMNS</span><span class="p">)</span>
     <span class="n">twiss_with_rdts</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">twiss_with_rdts</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1"># optics_functions needs capitalized names</span>
     <span class="n">twiss_with_rdts</span><span class="p">[[</span><span class="s2">&quot;F1001&quot;</span><span class="p">,</span> <span class="s2">&quot;F1010&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coupling_via_cmatrix</span><span class="p">(</span><span class="n">twiss_with_rdts</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rdts&quot;</span><span class="p">])</span>
 
@@ -610,7 +608,7 @@
     <span class="n">madx</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="s2">&quot;do_ripken: macro = {twiss, ripken=True;}&quot;</span><span class="p">)</span>  <span class="c1"># cpymad needs .input for macros</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Matching Parameters&quot;</span><span class="p">)</span>
-    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">use_macro</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">,</span> <span class="n">use_macro</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">knob</span> <span class="ow">in</span> <span class="n">vary_knobs</span><span class="p">:</span>
         <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">vary</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">knob</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use_macro</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;do_ripken&quot;</span><span class="p">)</span>
@@ -630,7 +628,6 @@
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
 <span class="sd">        **kwargs: any keyword argument will be transmitted to the ``TWISS`` command in ``MAD-X``.</span>
-<span class="sd">            Note that ``CHROM`` is already provided as it is needed for the RDTs&#39; calculation.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A `~tfs.TfsDataFrame` with columns of the ``TWISS`` table, and two complex columns for the</span>
@@ -641,7 +638,7 @@
 
 <span class="sd">            &gt;&gt;&gt; twiss_rdts = get_coupling_rdts(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">chrom</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">twiss_tfs</span><span class="p">[[</span><span class="s2">&quot;F1001&quot;</span><span class="p">,</span> <span class="s2">&quot;F1010&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coupling_via_cmatrix</span><span class="p">(</span><span class="n">twiss_tfs</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rdts&quot;</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">twiss_tfs</span></div>
 

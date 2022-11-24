@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 1.1.0 documentation</title>
+  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 1.1.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -42,7 +42,7 @@
             <a href="../index.html" class="icon icon-home"> PyhDToolkit
           </a>
               <div class="version">
-                1.1.0
+                1.1.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -162,6 +162,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-1">Version 1.1.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.1.html">1.1.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-0">Version 1.1.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.0.html">1.1.0</a></li>
 </ul>
@@ -415,7 +419,7 @@ quadrupoles Q1 to Q6 (first to sixth) on both sides of IP1:</p>
 internal <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> tables through <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymad</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span></a><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
 <a href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" class="sphx-glr-backref-module-pyhdtoolkit-cpymadtools-matching sphx-glr-backref-type-py-function"><span class="n">matching</span><span class="o">.</span><span class="n">match_tunes_and_chromaticities</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="s2">&quot;lhc&quot;</span><span class="p">,</span> <span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="mf">62.31</span><span class="p">,</span> <span class="mf">60.32</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">)</span>
-<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error_table</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.TableMap.html#cpymad.madx.TableMap" title="cpymad.madx.TableMap" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">ir_quads_errors</span><span class="o">.</span><span class="n">dframe</span></a><span class="p">()</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error_table</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.TableMap.html#cpymad.madx.TableMap" title="cpymad.madx.TableMap" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">ir_quads_errors</span><span class="o">.</span><span class="n">dframe</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <p>Let’s quickly re-arrange the resulting <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> to align with the
@@ -479,100 +483,100 @@ order in which they are in the machine:</p>
   <tbody>
     <tr>
       <th>mqml.6l1.b1</th>
-      <td>0.000764</td>
+      <td>-0.000765</td>
       <td>0.0</td>
-      <td>-0.000822</td>
+      <td>0.001363</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5l1.b1</th>
-      <td>-0.001279</td>
+      <td>0.000690</td>
       <td>0.0</td>
-      <td>0.002854</td>
+      <td>-0.003032</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4l1.b1</th>
-      <td>0.000173</td>
+      <td>-0.001024</td>
       <td>0.0</td>
-      <td>-0.006303</td>
+      <td>0.003079</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3l1</th>
-      <td>0.000560</td>
+      <td>-0.001164</td>
       <td>0.0</td>
-      <td>-0.000013</td>
+      <td>0.001421</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2l1</th>
-      <td>0.000319</td>
+      <td>0.000398</td>
       <td>0.0</td>
-      <td>-0.003828</td>
+      <td>0.005230</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2l1</th>
-      <td>0.000761</td>
+      <td>-0.000522</td>
       <td>0.0</td>
-      <td>-0.000206</td>
+      <td>-0.000309</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1l1</th>
-      <td>0.000637</td>
+      <td>0.000768</td>
       <td>0.0</td>
-      <td>0.000703</td>
+      <td>-0.002365</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1r1</th>
-      <td>-0.000704</td>
+      <td>-0.000310</td>
       <td>0.0</td>
-      <td>-0.002233</td>
+      <td>-0.003206</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2r1</th>
-      <td>0.000853</td>
+      <td>0.001378</td>
       <td>0.0</td>
-      <td>-0.000946</td>
+      <td>-0.006925</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2r1</th>
-      <td>-0.000653</td>
+      <td>-0.000485</td>
       <td>0.0</td>
-      <td>0.003115</td>
+      <td>0.003781</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3r1</th>
-      <td>-0.000356</td>
+      <td>0.001345</td>
       <td>0.0</td>
-      <td>-0.002148</td>
+      <td>-0.005088</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4r1.b1</th>
-      <td>0.000085</td>
+      <td>-0.000978</td>
       <td>0.0</td>
-      <td>-0.004151</td>
+      <td>-0.002540</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5r1.b1</th>
-      <td>-0.000962</td>
+      <td>-0.000203</td>
       <td>0.0</td>
-      <td>0.002070</td>
+      <td>-0.000470</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.6r1.b1</th>
-      <td>-0.000531</td>
+      <td>0.000221</td>
       <td>0.0</td>
-      <td>-0.002589</td>
+      <td>0.002493</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -617,7 +621,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  39.308 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  7.232 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-ir-errors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/da42f6ab08c5bc8cb6606bcaeb4957d9/demo_ir_errors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_ir_errors.py</span></code></a></p>
