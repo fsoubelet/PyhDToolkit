@@ -11,9 +11,12 @@ from typing import List
 
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
 import pytest
 
 from loguru import logger
+from numpy.testing import assert_array_equal
 from rich.table import Table
 
 from pyhdtoolkit.utils import _misc, deprecated, logging
@@ -662,6 +665,21 @@ class TestMisc:
                 assert madx.globals[f"kqsx3.{side}{ip}"] != 0
         assert "ir_quads_errors" in madx.table.keys()
 
+    @pytest.mark.parametrize("drop", [True, False])
+    def test_complex_columns_split(self, _complex_columns_df, drop):
+        original = _complex_columns_df
+        split = _misc.split_complex_columns(original, drop)
+
+        for col in original.columns:
+            assert f"{col}_REAL" in split.columns
+            assert f"{col}_IMAG" in split.columns
+
+            assert_array_equal(np.real(original[col]), split[f"{col}_REAL"].to_numpy())
+            assert_array_equal(np.imag(original[col]), split[f"{col}_IMAG"].to_numpy())
+
+            if drop is True:
+                assert col not in split.columns
+
 
 # ----- Fixtures ----- #
 
@@ -707,3 +725,9 @@ def _correct_cluster_summary() -> ClusterSummary:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_cluster_summary.pkl"
     with pickle_file_path.open("rb") as file:
         return pickle.load(file)
+
+
+@pytest.fixture()
+def _complex_columns_df() -> pd.DataFrame:
+    array = np.random.rand(50, 5) + 1j * np.random.rand(50, 5)
+    return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])

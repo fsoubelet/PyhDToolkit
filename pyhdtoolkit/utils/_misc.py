@@ -17,6 +17,8 @@ from pathlib import Path
 from typing import Union
 
 import cpymad
+import numpy as np
+import pandas as pd
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -43,6 +45,37 @@ def log_runtime_versions() -> None:
     """
     with Madx(stdout=False) as mad:
         logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
+
+
+# ----- DataFrames Utilities ----- #
+
+
+def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
+    """
+    Find complex valued columns in *df* and split them into a column for the real and imaginary parts each.
+    New columns will be named like the existing ones, with ``_REAL`` or ``_IMAG`` appended.
+
+    Args:
+        df (tfs.TfsDataFrame): the dataframe to split columns in.
+        drop (bool): whether to drop the original complex columns or not. Defaults to ``False``.
+
+    Returns:
+        A new `~pandas.DataFrame` with the complex columns split into real and imaginary parts, and
+        the original complex columns potentially dropped.
+
+    Exemple:
+        .. code-block:: python
+
+            >>> df = split_complex_columns(df, drop=True)
+    """
+    res = df.copy()
+    complex_columns = res.select_dtypes(include="complex").columns
+    for column in complex_columns:
+        res[f"{column}_REAL"] = np.real(res[column])
+        res[f"{column}_IMAG"] = np.imag(res[column])
+    if drop is True:
+        res = res.drop(columns=complex_columns)
+    return res
 
 
 # ----- MAD-X Setup Utilities ----- #
