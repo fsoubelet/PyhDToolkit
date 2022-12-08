@@ -14,6 +14,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import pytest
+import tfs
 
 from loguru import logger
 from numpy.testing import assert_array_equal
@@ -680,6 +681,18 @@ class TestMisc:
             if drop is True:
                 assert col not in split.columns
 
+    def test_bpm_noise_addition(self, _rdts_df):
+        original = tfs.read(_rdts_df)
+        original = original.loc[original.index.str.contains("bpm", case=False)]
+
+        ir_noisy = _misc.add_noise_to_ir_bpms(original, max_index=5, stdev=1e-2)
+        with pytest.raises(AssertionError):
+            pd.testing.assert_frame_equal(original, ir_noisy)
+
+        arc_noisy = _misc.add_noise_to_arc_bpms(original, min_index=5, stdev=1e-2)
+        with pytest.raises(AssertionError):
+            pd.testing.assert_frame_equal(original, arc_noisy)
+
 
 # ----- Fixtures ----- #
 
@@ -731,3 +744,8 @@ def _correct_cluster_summary() -> ClusterSummary:
 def _complex_columns_df() -> pd.DataFrame:
     array = np.random.rand(50, 5) + 1j * np.random.rand(50, 5)
     return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])
+
+
+@pytest.fixture()
+def _rdts_df() -> pathlib.Path:
+    return INPUTS_DIR / "cpymadtools" / "lhc_coupling_bump.tfs"

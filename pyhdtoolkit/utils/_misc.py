@@ -14,7 +14,7 @@ import shlex
 
 from multiprocessing import cpu_count
 from pathlib import Path
-from typing import Union
+from typing import Sequence, Union
 
 import cpymad
 import numpy as np
@@ -25,10 +25,12 @@ from loguru import logger
 
 from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import lhc
+from pyhdtoolkit.cpymadtools.constants import LHC_IR_BPM_REGEX
 
 # ----- Constants ----- #
 
 N_CPUS = cpu_count()
+RNG = np.random.default_rng()
 
 
 def log_runtime_versions() -> None:
@@ -76,6 +78,88 @@ def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
     if drop is True:
         res = res.drop(columns=complex_columns)
     return res
+
+
+def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns: Sequence[str] = None) -> pd.DataFrame:
+    """
+    Selects the appropriate IR BPMs according to the max index provided, and adds gaussian noise
+    to each relevant column with the provided standard deviation.
+
+    .. important::
+        The BPM names should be in the index of the dataframe. Selection is case-insensitive.
+
+    Args:
+        df (pandas.DataFrame): the dataframe to add noise to.
+        max_index (int): the maximum index of the IR BPMs to add noise to. This number is
+            inclusive (i.e. the BPMs with this index will be selected).
+        stdev (float): the standard deviation of the gaussian noise to add.
+        columns (Sequence[str]): the columns to add noise to. If not given, all columns will be used.
+            Defaults to ``None``.
+
+    Returns:
+        A new `~pandas.DataFrame` with the noise added to the wanted columns.
+
+    Example:
+        .. code-block:: python
+
+            >>> df = add_noise_to_ir_bpms(df, max_index=5, stdev=1e-6, columns=["DPSI"])
+    """
+    result = df.copy()
+    selected_bpms = LHC_IR_BPM_REGEX.format(max_index=max_index)
+    columns = columns or result.columns
+
+    logger.debug(f"Adding noise to IR BPMs up to index {max_index} (included), with standard deviation {stdev}")
+    array_length = len(result[result.index.str.match(selected_bpms, case=False)])
+    logger.trace(f"Number of affected BPMs: {array_length}")
+
+    for column in columns:
+        logger.trace(f"Adding noise to column {column}")
+        result[column][result.index.str.match(selected_bpms, case=False)] += RNG.normal(0, stdev, array_length)
+    return result
+
+
+def add_noise_to_arc_bpms(
+    df: pd.DataFrame, min_index: int, stdev: float, columns: Sequence[str] = None
+) -> pd.DataFrame:
+    """
+    Selects the appropriate non-IR BPMs according to the min index provided, and adds gaussian noise
+    to each relevant column with the provided standard deviation.
+
+    .. warning::
+        This selects BPMs by ommission. It will find all IR BPMs up to *min_index* and will excluse
+        these from the selection.
+
+    .. important::
+        The BPM names should be in the index of the dataframe. Selection is case-insensitive.
+
+    Args:
+        df (pandas.DataFrame): the dataframe to add noise to.
+        min_index (int): the minimum index of the BPMs to add noise to. See warning caveat right
+            above. This number is inclusive (i.e. the BPMs with this index will be selected).
+        stdev (float): the standard deviation of the gaussian noise to add.
+        columns (Sequence[str]): the columns to add noise to. If not given, all columns will be used.
+            Defaults to ``None``.
+
+    Returns:
+        A new `~pandas.DataFrame` with the noise added to the wanted columns.
+
+    Example:
+        .. code-block:: python
+
+            >>> df = add_noise_to_arc_bpms(df, min_index=8, stdev=1e-6, columns=["DPSI"])
+    """
+    result = df.copy()
+    ir_bpms = LHC_IR_BPM_REGEX.format(max_index=min(1, min_index - 1))  # so that provided min_index is included
+    columns = columns or result.columns
+
+    logger.debug(f"Adding noise to arc BPMs from index {min_index} (included), with standard deviation {stdev}")
+    array_length = len(result[~result.index.str.match(ir_bpms, case=False)])  # exclusive selection
+    logger.trace(f"Number of affected BPMs: {array_length}")
+
+    for column in columns:
+        logger.trace(f"Adding noise to column {column}")
+        result[column][~result.index.str.match(ir_bpms, case=False)] += RNG.normal(0, stdev, array_length)
+    return result
 
 
 # ----- MAD-X Setup Utilities ----- #
