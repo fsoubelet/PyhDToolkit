@@ -54,6 +54,8 @@ def log_runtime_versions() -> None:
 
 def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
     """
+    .. versionadded:: 1.2.0
+
     Find complex valued columns in *df* and split them into a column for the real and imaginary parts each.
     New columns will be named like the existing ones, with ``_REAL`` or ``_IMAG`` appended.
 
@@ -82,6 +84,8 @@ def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
 
 def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns: Sequence[str] = None) -> pd.DataFrame:
     """
+    .. versionadded:: 1.2.0
+
     Selects the appropriate IR BPMs according to the max index provided, and adds gaussian noise
     to each relevant column with the provided standard deviation.
 
@@ -122,6 +126,8 @@ def add_noise_to_arc_bpms(
     df: pd.DataFrame, min_index: int, stdev: float, columns: Sequence[str] = None
 ) -> pd.DataFrame:
     """
+    .. versionadded:: 1.2.0
+
     Selects the appropriate non-IR BPMs according to the min index provided, and adds gaussian noise
     to each relevant column with the provided standard deviation.
 
