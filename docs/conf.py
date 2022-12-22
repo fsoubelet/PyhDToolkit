@@ -36,6 +36,10 @@ from sphinx_gallery.sorting import ExampleTitleSortKey
 
 import pyhdtoolkit
 
+# This is to tell Sphinx how to print some specific type annotations
+# See: https://stackoverflow.com/a/67483317
+# See: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_type_aliases
+autodoc_type_aliases = {"ArrayLike": "ArrayLike"}
 
 # To use SVG outputs when scraping matplotlib figures for the sphinx-gallery
 class matplotlib_svg_scraper(object):
