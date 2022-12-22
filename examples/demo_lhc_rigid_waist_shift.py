@@ -297,7 +297,7 @@ betaw = around_ip.betx.min()
 # The analytical result (sign will swap depending on if we calculate from left
 # or right Q1) is then easily calculated. We can then compare this value to the
 # one found with the markers we previously added, and they are fairly close.
-waist = L_star - np.sqrt(beta0 * betaw - betaw ** 2)
+waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
 print(f"Analytical: {waist}")
 print(f"Markers: {shift}")
 
