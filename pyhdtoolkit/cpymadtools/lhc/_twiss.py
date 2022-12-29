@@ -38,7 +38,7 @@ def get_ips_twiss(madx: Madx, /, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS,
             >>> ips_df = get_ips_twiss(madx, chrom=True, ripken=True)
     """
     logger.debug("Getting Twiss at IPs")
-    return twiss.get_pattern_twiss(madx=madx, columns=columns, patterns=["IP"], **kwargs)
+    return twiss.get_pattern_twiss(madx, columns=columns, patterns=["IP"], **kwargs)
 
 
 def get_ir_twiss(madx: Madx, /, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
@@ -66,7 +66,7 @@ def get_ir_twiss(madx: Madx, /, ir: int, columns: Sequence[str] = DEFAULT_TWISS_
     """
     logger.debug(f"Getting Twiss for IR{ir:d}")
     return twiss.get_pattern_twiss(
-        madx=madx,
+        madx,
         columns=columns,
         patterns=[
             f"IP{ir:d}",

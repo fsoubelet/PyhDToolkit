@@ -275,7 +275,7 @@ def match_tunes(
             ... )
     """
     match_tunes_and_chromaticities(
-        madx=madx,
+        madx,
         accelerator=accelerator,
         sequence=sequence,
         q1_target=q1_target,
@@ -377,7 +377,7 @@ def match_chromaticities(
             ... )
     """
     match_tunes_and_chromaticities(
-        madx=madx,
+        madx,
         accelerator=accelerator,
         sequence=sequence,
         q1_target=None,
