@@ -26,6 +26,7 @@ from pyhdtoolkit.plotting.utils import (
 
 def plot_latwiss(
     madx: Madx,
+    /,
     title: Optional[str] = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
@@ -65,7 +66,7 @@ def plot_latwiss(
         overlap.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
@@ -166,6 +167,7 @@ def plot_latwiss(
 
 def plot_machine_survey(
     madx: Madx,
+    /,
     title: str = None,
     show_elements: bool = False,
     high_orders: bool = False,
@@ -180,7 +182,7 @@ def plot_machine_survey(
     example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         show_elements (bool): if `True`, will try to plot by differentiating elements.
             Defaults to `False`.

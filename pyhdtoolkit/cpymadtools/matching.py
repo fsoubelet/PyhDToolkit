@@ -18,6 +18,7 @@ from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 
 def match_tunes_and_chromaticities(
     madx: Madx,
+    /,
     accelerator: str = None,
     sequence: Optional[str] = None,
     q1_target: float = None,
@@ -68,7 +69,7 @@ def match_tunes_and_chromaticities(
         will always be used. On other machines the knobs should be provided explicitly, always.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
@@ -190,6 +191,7 @@ def match_tunes_and_chromaticities(
 
 def match_tunes(
     madx: Madx,
+    /,
     accelerator: str = None,
     sequence: Optional[str] = None,
     q1_target: float = None,
@@ -212,7 +214,7 @@ def match_tunes(
         to its documentation for usage details.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
@@ -291,6 +293,7 @@ def match_tunes(
 
 def match_chromaticities(
     madx: Madx,
+    /,
     accelerator: str = None,
     sequence: Optional[str] = None,
     dq1_target: float = None,
@@ -313,7 +316,7 @@ def match_chromaticities(
         Refer to its documentation for usage details.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly

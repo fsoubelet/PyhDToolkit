@@ -22,6 +22,7 @@ from pyhdtoolkit.plotting.utils import maybe_get_ax
 
 def plot_envelope(
     madx: Madx,
+    /,
     beam_params: BeamParameters,
     xlimits: Tuple[float, float] = None,
     ylimits: Tuple[float, float] = None,
@@ -37,7 +38,7 @@ def plot_envelope(
     function in the :ref:`beam enveloppe <demo-beam-enveloppe>` example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         beam_params (BeamParameters): a validated `~.models.beam.BeamParameters` object one can
             get from `~.optics.beam.compute_beam_parameters`.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
@@ -108,6 +109,7 @@ def plot_envelope(
 
 def plot_stay_clear(
     madx: Madx,
+    /,
     beam_params: BeamParameters,
     xlimits: Tuple[float, float] = None,
     title: str = None,
@@ -121,7 +123,7 @@ def plot_stay_clear(
     example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         beam_params (BeamParameters): a validated `~.models.beam.BeamParameters` object one can
             get from `~.optics.beam.compute_beam_parameters`.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
@@ -159,7 +161,7 @@ def plot_stay_clear(
 # ----- Helpers ----- #
 
 
-def _interpolate_madx(madx: Madx) -> None:
+def _interpolate_madx(madx: Madx, /) -> None:
     """Run interpolation on the provided MAD-X instance with default slice values."""
     logger.debug("Running interpolation in MAD-X")
     madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
@@ -169,7 +171,7 @@ def _interpolate_madx(madx: Madx) -> None:
     madx.command.twiss()
 
 
-def _get_twiss_hr_from_madx(madx: Madx, beam_params: BeamParameters) -> pd.DataFrame:
+def _get_twiss_hr_from_madx(madx: Madx, /, beam_params: BeamParameters) -> pd.DataFrame:
     """Get twiss hr from the provided MAD-X instance."""
     logger.trace("Getting Twiss dframe from MAD-X")
     twiss_hr: pd.DataFrame = madx.table.twiss.dframe()

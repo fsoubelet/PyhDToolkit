@@ -16,7 +16,7 @@ from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 
 
 def correct_lhc_global_coupling(
-    madx: Madx, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
+    madx: Madx, /, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
 ) -> None:
     """
     .. versionadded:: 0.20.0
@@ -30,7 +30,7 @@ def correct_lhc_global_coupling(
         trick, but it is not a perfect solution.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         beam (int): which beam you want to perform the matching for, should be `1` or
             `2`. Defaults to `1`.
         telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
@@ -58,7 +58,7 @@ def correct_lhc_global_coupling(
     madx.command.endmatch()
 
 
-def get_lhc_bpms_twiss_and_rdts(madx: Madx) -> tfs.TfsDataFrame:
+def get_lhc_bpms_twiss_and_rdts(madx: Madx, /) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.19.0
 
@@ -66,7 +66,7 @@ def get_lhc_bpms_twiss_and_rdts(madx: Madx) -> tfs.TfsDataFrame:
     are also computed through a CMatrix approach via  `optics_functions.coupling.coupling_via_cmatrix`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
 
     Returns:
         A `~tfs.frame.TfsDataFrame` of the ``TWISS`` table with basic default columns, as well as one

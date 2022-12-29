@@ -20,7 +20,7 @@ from pyhdtoolkit.cpymadtools.utils import get_table_tfs
 
 
 def get_amplitude_detuning(
-    madx: Madx, order: int = 2, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 2, file: Union[Path, str] = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -41,7 +41,7 @@ def get_amplitude_detuning(
         closed orbit calculation) and ``normal=True`` (activate calculation of the Normal Form).
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         order (int): maximum derivative order coefficient (only 0, 1 or 2 implemented in ``PTC``).
             Defaults to 2.
         file (Union[Path, str]): path to output file. Defaults to `None`.
@@ -113,7 +113,7 @@ def get_amplitude_detuning(
 
 
 def get_rdts(
-    madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -135,7 +135,7 @@ def get_rdts(
         through the provided `~cpymad.madx.Madx` instance.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         order (int): map order for derivative evaluation of Twiss parameters. Defaults to 4.
         file (Union[Path, str]): path to output file. Default to `None`.
         fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
@@ -174,7 +174,13 @@ def get_rdts(
 
 
 def ptc_twiss(
-    madx: Madx, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, table: str = "ptc_twiss", **kwargs
+    madx: Madx,
+    /,
+    order: int = 4,
+    file: Union[Path, str] = None,
+    fringe: bool = False,
+    table: str = "ptc_twiss",
+    **kwargs,
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.12.0
@@ -198,7 +204,7 @@ def ptc_twiss(
         which will then be available through the provided `~cpymad.madx.Madx` instance.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         order (int): map order for derivative evaluation of ``TWISS`` parameters. Defaults to 4.
         file (Union[Path, str]): path to output file. Default to `None`.
         fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
@@ -239,6 +245,7 @@ def ptc_twiss(
 
 def ptc_track_particle(
     madx: Madx,
+    /,
     initial_coordinates: Tuple[float, float, float, float, float, float],
     nturns: int,
     sequence: Optional[str] = None,

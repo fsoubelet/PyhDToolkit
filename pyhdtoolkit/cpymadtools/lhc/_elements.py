@@ -11,6 +11,7 @@ from loguru import logger
 
 def install_ac_dipole_as_kicker(
     madx: Madx,
+    /,
     deltaqx: float,
     deltaqy: float,
     sigma_x: float,
@@ -39,7 +40,7 @@ def install_ac_dipole_as_kicker(
     :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>` example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.
         deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.
         sigma_x (float): the horizontal amplitude to drive the beam to, in bunch sigma.
@@ -118,7 +119,7 @@ def install_ac_dipole_as_kicker(
     madx.use(sequence=f"lhcb{beam:d}")
 
 
-def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam: int = 1) -> None:
+def install_ac_dipole_as_matrix(madx: Madx, /, deltaqx: float, deltaqy: float, beam: int = 1) -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -137,7 +138,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
         It **does not** affect tracking.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         deltaqx (float): the deltaQx (horizontal tune excitation) used by the AC dipole.
         deltaqy (float): the deltaQy (vertical tune excitation) used by the AC dipole.
         beam (int): the LHC beam to install the AC Dipole into, either 1 or 2. Defaults to 1.
@@ -183,7 +184,7 @@ def install_ac_dipole_as_matrix(madx: Madx, deltaqx: float, deltaqy: float, beam
     madx.use(sequence=f"lhcb{beam:d}")
 
 
-def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int, interval: float) -> None:
+def add_markers_around_lhc_ip(madx: Madx, /, sequence: str, ip: int, n_markers: int, interval: float) -> None:
     """
     .. versionadded:: 1.0.0
 
@@ -201,7 +202,7 @@ def add_markers_around_lhc_ip(madx: Madx, sequence: str, ip: int, n_markers: int
         corrections etc.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         sequence (str): which sequence to use the routine on.
         ip (int): The interaction point around which to add markers.
         n_markers (int): how many markers to add on each side of the IP.

@@ -25,7 +25,7 @@ LHC_IR_QUADS_PATTERNS: Dict[int, List[str]] = {
 
 
 def misalign_lhc_triplets(
-    madx: Madx, ip: int, sides: Sequence[str] = ("r", "l"), table: str = "triplet_errors", **kwargs
+    madx: Madx, /, ip: int, sides: Sequence[str] = ("r", "l"), table: str = "triplet_errors", **kwargs
 ) -> None:
     """
     .. versionadded:: 0.9.0
@@ -36,7 +36,7 @@ def misalign_lhc_triplets(
     information.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         ip (int): the interaction point around which to apply errors.
         sides (Sequence[str]): sides of the IP to apply error on the triplets, either L or R or both.
             Case-insensitive. Defaults to both.
@@ -64,6 +64,7 @@ def misalign_lhc_triplets(
 
 def misalign_lhc_ir_quadrupoles(
     madx: Madx,
+    /,
     ips: Sequence[int],
     beam: int,
     quadrupoles: Sequence[int],
@@ -92,7 +93,7 @@ def misalign_lhc_ir_quadrupoles(
         command, which is guaranteed to work. See the last provided example below.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         ips (Sequence[int]): the interaction point(s) around which to apply errors.
         beam (int): beam number to apply the errors to. Unlike triplet quadrupoles which are single
             aperture, Q4 to Q10 are not and will need this information.

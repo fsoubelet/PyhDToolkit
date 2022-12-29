@@ -17,7 +17,13 @@ from loguru import logger
 
 
 def export_madx_table(
-    madx: Madx, table_name: str, file_name: Union[Path, str], pattern: str = None, headers_table: str = "SUMM", **kwargs
+    madx: Madx,
+    /,
+    table_name: str,
+    file_name: Union[Path, str],
+    pattern: str = None,
+    headers_table: str = "SUMM",
+    **kwargs,
 ) -> None:
     """
     .. versionadded:: 0.17.0
@@ -32,7 +38,7 @@ def export_madx_table(
         they will be given default values so the **TFS** file can be read by ``MAD-X``.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         table_name (str): the name of the internal table to retrieve.
         file_name (str): the name of the file to export to.
         pattern (str): if given, will be used as a regular expression to filter the extracted
@@ -63,14 +69,14 @@ def export_madx_table(
     tfs.write(file_path, dframe, **kwargs)
 
 
-def get_table_tfs(madx: Madx, table_name: str, headers_table: str = "SUMM") -> tfs.TfsDataFrame:
+def get_table_tfs(madx: Madx, /, table_name: str, headers_table: str = "SUMM") -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.11.0
 
     Turns an internal table from the ``MAD-X`` process into a `~tfs.frame.TfsDataFrame`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         table_name (str): the name of the internal table to retrieve.
         headers_table (str): the name of the internal table to use for headers.
             Defaults to ``SUMM``.

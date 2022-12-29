@@ -139,7 +139,7 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
 
 
 def make_elements_groups(
-    madx: Madx, xoffset: float = 0, xlimits: tuple[float, float] = None
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None
 ) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 1.0.0
@@ -148,7 +148,7 @@ def make_elements_groups(
     the twiss table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
             to center a plot around a specific point or element, which would then become located at s = 0.
         xlimits (tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this
@@ -179,7 +179,7 @@ def make_elements_groups(
     }
 
 
-def make_survey_groups(madx: Madx) -> dict[str, pd.DataFrame]:
+def make_survey_groups(madx: Madx, /) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 1.0.0
 
@@ -187,7 +187,7 @@ def make_survey_groups(madx: Madx) -> dict[str, pd.DataFrame]:
     the survey table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
 
     Returns:
         A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing
@@ -404,7 +404,7 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
 
 
 def _get_twiss_table_with_offsets_and_limits(
-    madx: Madx, xoffset: float = 0, xlimits: tuple[float, float] = None
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None
 ) -> pd.DataFrame:
     """
     .. versionadded:: 1.0.0
@@ -413,7 +413,7 @@ def _get_twiss_table_with_offsets_and_limits(
     the given `xoffset`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         xoffset (float): An offset applied to the S coordinate in the dataframe.
         xlimits (tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
             this is not `None`, using the tuple passed.

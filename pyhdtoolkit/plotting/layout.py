@@ -27,6 +27,7 @@ from pyhdtoolkit.plotting.utils import (
 
 def plot_machine_layout(
     madx: Madx,
+    /,
     title: str = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
@@ -64,7 +65,7 @@ def plot_machine_layout(
         plotted elements don't overlap.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located

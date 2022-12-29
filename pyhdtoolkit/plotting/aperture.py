@@ -19,6 +19,7 @@ from pyhdtoolkit.plotting.layout import plot_machine_layout
 
 def plot_aperture(
     madx: Madx,
+    /,
     title: Optional[str] = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
@@ -55,7 +56,7 @@ def plot_aperture(
         overlap.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         title (Optional[str]): title of the figure.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located

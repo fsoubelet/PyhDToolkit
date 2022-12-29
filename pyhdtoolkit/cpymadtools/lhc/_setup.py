@@ -263,6 +263,7 @@ class LHCSetup:
 
 def make_lhc_beams(
     madx: Madx,
+    /,
     energy: float = 7000,
     emittance_x: float = 3.75e-6,
     emittance_y: float = 3.75e-6,
@@ -275,7 +276,7 @@ def make_lhc_beams(
     Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         energy (float): beam energy, in [GeV]. Defaults to 6500.
         emittance_x (float): horizontal emittance in [m]. Will be used to calculate
             geometric emittance which is then fed to the ``BEAM`` command.
@@ -320,7 +321,7 @@ def make_lhc_beams(
         )
 
 
-def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
+def make_lhc_thin(madx: Madx, /, sequence: str, slicefactor: int = 1, **kwargs) -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -382,7 +383,7 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
 
 
-def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
+def re_cycle_sequence(madx: Madx, /, sequence: str = "lhcb1", start: str = "IP3") -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -469,7 +470,7 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     return variables, special
 
 
-def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, float]:
+def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> Dict[str, float]:
     """
     .. versionadded:: 0.8.0
 
@@ -478,7 +479,7 @@ def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, flo
     :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         scheme (str): the default scheme to apply, as defined in the ``LHC_CROSSING_SCHEMES``
             constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults to *flat*
             (every orbit variable to 0).

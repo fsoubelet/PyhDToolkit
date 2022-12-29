@@ -24,6 +24,7 @@ SORTED_COLORS = [name for hsv, name in BY_HSV]
 
 def plot_courant_snyder_phase_space(
     madx: Madx,
+    /,
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
@@ -38,7 +39,7 @@ def plot_courant_snyder_phase_space(
     use of this function in the :ref:`phase space <demo-phase-space>` example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
             ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
         pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the
@@ -90,6 +91,7 @@ def plot_courant_snyder_phase_space(
 
 def plot_courant_snyder_phase_space_colored(
     madx: Madx,
+    /,
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
@@ -106,7 +108,7 @@ def plot_courant_snyder_phase_space_colored(
     the :ref:`phase space <demo-phase-space>` example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         u_coordinates (np.ndarray): `~numpy.ndarray` of particles' coordinates for the given plane. Here
             ``u_coordinates[0]`` should be the tracked coordinates for the first particle and so on.
         pu_coordinates (np.ndarray): `~numpy.ndarray` of particles' momentum coordinates for the

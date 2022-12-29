@@ -23,7 +23,7 @@ from loguru import logger
 
 
 def make_footprint_table(
-    madx: Madx, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
+    madx: Madx, /, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.9.0
@@ -37,7 +37,7 @@ def make_footprint_table(
         this function.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         sigma (float): the maximum amplitude of the tracked particles, in bunch :math:`\\sigma`. Defaults
             to 5.
         dense (bool): if set to `True`, an increased number of particles will be tracked. Defaults to `False`.

@@ -28,6 +28,7 @@ from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss, get_twiss_tfs
 
 def get_closest_tune_approach(
     madx: Madx,
+    /,
     accelerator: str = None,
     sequence: str = None,
     varied_knobs: Sequence[str] = None,
@@ -52,7 +53,7 @@ def get_closest_tune_approach(
         explicitely given, the appropriate targets will be determined from the ``MAD-X`` internal tables.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         accelerator (Optional[str]): name of the accelerator, used to determmine knobs if *variables* is not given.
             Automatic determination will only work for `LHC` and `HLLHC`.
         sequence (str): name of the sequence you want to activate for the tune matching.
@@ -143,6 +144,7 @@ def get_closest_tune_approach(
 
 def get_cminus_from_coupling_rdts(
     madx: Madx,
+    /,
     patterns: Sequence[str] = [""],
     method: str = "teapot",
     qx: float = None,
@@ -166,7 +168,7 @@ def get_cminus_from_coupling_rdts(
         value will be a real number.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         patterns (Sequence[str]): the different patterns (such as ``MQX`` or ``BPM``) of elements
             to use when computing the coupling RDTs. Defaults to `[""]` which will select and use
             all elements in the ``TWISS`` outputs.
@@ -231,7 +233,7 @@ def get_cminus_from_coupling_rdts(
 
 
 def match_no_coupling_through_ripkens(
-    madx: Madx, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
+    madx: Madx, /, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
 ) -> None:
     """
     .. versionadded:: 0.16.0
@@ -240,7 +242,7 @@ def match_no_coupling_through_ripkens(
     to be 0 at a given location.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         sequence (str): name of the sequence to activate for the matching.
         location (str): the name of the element at which one wants the cross-term Ripkens to be 0.
         vary_knobs (Sequence[str]): the variables names to ``VARY`` in the ``MAD-X`` routine.
@@ -267,7 +269,7 @@ def match_no_coupling_through_ripkens(
     madx.command.endmatch()
 
 
-def get_coupling_rdts(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
+def get_coupling_rdts(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.20.0
 
@@ -275,7 +277,7 @@ def get_coupling_rdts(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     at all elements in the currently active sequence from a ``TWISS`` call.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         **kwargs: any keyword argument will be transmitted to the ``TWISS`` command in ``MAD-X``.
 
     Returns:

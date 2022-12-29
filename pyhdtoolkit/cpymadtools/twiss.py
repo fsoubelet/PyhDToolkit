@@ -21,6 +21,7 @@ from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 
 def get_pattern_twiss(
     madx: Madx,
+    /,
     columns: Sequence[str] = None,
     patterns: Sequence[str] = [""],
     **kwargs,
@@ -42,7 +43,7 @@ def get_pattern_twiss(
         section `Regular Expressions` for details on what is implemented in ``MAD-X`` itself.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         columns (Sequence[str]): the variables to be returned, as columns in the `~tfs.frame.TfsDataFrame`.
             Defaults to `None`, which will return all available columns.
         patterns (Sequence[str]): the different element patterns (such as ``MQX`` or ``BPM``) to be applied
@@ -95,7 +96,7 @@ def get_pattern_twiss(
     return twiss_df
 
 
-def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
+def get_twiss_tfs(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.8.3
 
@@ -105,7 +106,7 @@ def get_twiss_tfs(madx: Madx, **kwargs) -> tfs.TfsDataFrame:
     returning the dframe to you.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
             ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.    Keyword Args:
 

@@ -19,6 +19,7 @@ from loguru import logger
 
 def track_single_particle(
     madx: Madx,
+    /,
     initial_coordinates: Tuple[float, float, float, float, float, float],
     nturns: int,
     sequence: Optional[str] = None,
