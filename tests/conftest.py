@@ -34,7 +34,7 @@ def _matched_base_lattice() -> Madx:
             dq2_target=100,
             varied_knobs=["kqf", "kqd", "ksf", "ksd"],
         )
-        yield from madx
+        yield madx
 
 
 @pytest.fixture()
@@ -43,7 +43,7 @@ def _bare_lhc_madx() -> Madx:
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
-        yield from madx
+        yield madx
 
 
 @pytest.fixture()
@@ -67,7 +67,7 @@ def _non_matched_lhc_madx() -> Madx:
             ey=geometric_emit,
         )
         madx.use(sequence="lhcb1")
-        yield from madx
+        yield madx
 
 
 @pytest.fixture()
@@ -92,7 +92,7 @@ def _matched_lhc_madx() -> Madx:
         )
         madx.use(sequence="lhcb1")
         match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
-        yield from madx
+        yield madx
 
 
 @pytest.fixture()
@@ -105,7 +105,7 @@ def _cycled_lhc_sequences() -> Madx:
         lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
         lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
         lhc.make_lhc_beams(madx, energy=6500)
-        yield from madx
+        yield madx
 
 
 @pytest.fixture()
@@ -122,7 +122,7 @@ def _injection_aperture_tolerances_lhc_madx() -> Madx:
 
         madx.command.twiss()
         madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
-        yield from madx
+        yield madx
 
 
 @pytest.fixture()
@@ -139,4 +139,4 @@ def _collision_aperture_tolerances_lhc_madx() -> Madx:
 
         madx.command.twiss()
         madx.command.aperture(cor=0.002, dp=8.6e-4, halo="{6,6,6,6}", bbeat=1.05, dparx=0.14, dpary=0.14)
-        yield from madx
+        yield madx
