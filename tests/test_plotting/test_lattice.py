@@ -31,7 +31,7 @@ def test_plot_latwiss():
 
         figure = plt.figure(figsize=(18, 11))
         plot_latwiss(
-            madx=madx,
+            madx,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
             beta_ylim=(5, 75),
@@ -60,7 +60,7 @@ def test_plot_latwiss_with_dipole_k1():
 
         figure = plt.figure(figsize=(18, 11))
         plot_latwiss(
-            madx=madx,
+            madx,
             title="Elettra Cell",
             xlimits=(x0, x1),
             k0l_lim=(-7e-2, 7e-2),
@@ -79,7 +79,7 @@ def test_plot_machine_survey_with_elements():
         madx.input(BASE_LATTICE)
 
         figure = plt.figure(figsize=(16, 11))
-        plot_machine_survey(madx=madx, show_elements=True, high_orders=True)
+        plot_machine_survey(madx, show_elements=True, high_orders=True)
     return figure
 
 
@@ -89,5 +89,5 @@ def test_plot_machine_survey_without_elements():
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         figure = plt.figure(figsize=(16, 11))
-        plot_machine_survey(madx=madx, show_elements=False, high_orders=True)
+        plot_machine_survey(madx, show_elements=False, high_orders=True)
     return figure
