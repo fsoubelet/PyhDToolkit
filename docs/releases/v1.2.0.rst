@@ -24,6 +24,7 @@ Documentation
 Maintenance
 ~~~~~~~~~~~
 
+* The `madx` argument is now positional only in all APIs involving it (APIs in `~pyhdtoolkit.cpymadtools` and `~pyhdtoolkit.plotting`).
 * The `~numpy` dependency is now capped at version `<1.24.0`, as when using this new version some `~matplotlib` functions are broken.
 * Various type hints from the `typing` module, such as `Dict` or `List`, have been superseeded by the default, now-standard builtins (such as `dict` or `list`).
 
