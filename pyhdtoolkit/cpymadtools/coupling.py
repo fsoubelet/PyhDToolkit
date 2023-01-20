@@ -273,7 +273,7 @@ def get_coupling_rdts(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.20.0
 
-    Computed the coupling Resonance Driving Tensors (RDTs) :math:`f_{1001}` and :math:`f_{1010}`
+    Computed the coupling Resonance Driving Terms (RDTs) :math:`f_{1001}` and :math:`f_{1010}`
     at all elements in the currently active sequence from a ``TWISS`` call.
 
     Args:
