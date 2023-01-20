@@ -195,7 +195,7 @@ def get_sizes_at_ip(
 
             >>> ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
     """
-    logger.debug(f"Getting horizotnal and vertical sizes at IP{ip:d} through Ripken parameters")
+    logger.debug(f"Getting horizontal and vertical sizes at IP{ip:d} through Ripken parameters")
     geom_emit_x = geom_emit_x or madx.globals["geometric_emit_x"]
     geom_emit_y = geom_emit_y or madx.globals["geometric_emit_y"]
 
