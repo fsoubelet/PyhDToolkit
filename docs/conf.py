@@ -148,6 +148,7 @@ extensions = [
     "sphinx_panels",  # Create panels in a grid layout or as drop-downs
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
     "sphinx-prompt",  # prompt symbols will not be copy-pastable
+    "sphinx_codeautolink",  # Automatically link example code to documentation source
 ]
 
 # Config for autosectionlabel extension
