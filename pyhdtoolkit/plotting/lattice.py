@@ -39,6 +39,7 @@ def plot_latwiss(
     k0l_lim: Tuple[float, float] = None,
     k1l_lim: Tuple[float, float] = None,
     k2l_lim: Tuple[float, float] = None,
+    k3l_lim: Tuple[float, float] = None,
     **kwargs,
 ) -> None:
     """
@@ -86,12 +87,19 @@ def plot_latwiss(
         beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
             Defaults to None, to be determined by matplotlib based on the provided beta values.
         k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
-            height of dipole patches. Defaults to `None`.
+            height of dipole patches, should be symmetric. If `None` (default) is provided, then
+            the limits will be auto-determined based on the ``k0l`` values of the dipoles in the
+            plot.
         k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
-            height of quadrupole patches. Defaults to `None`.
+            height of quadrupole patches, should be symmetric. If `None` (default) is provided,
+            then the limits will be auto-determined based on the ``k0l`` values of the dipoles
+            in the plot.
         k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
             the figure, and the provided values act as vertical axis limits for the k2l values used for the
             height of sextupole patches.
+        k3l_lim (Tuple[float, float]): if given, octupole patches will be plotted on the layout subplot of
+            the figure, and the provided values act as vertical axis limits for the k3l values used for the
+            height of octupole patches.
         **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
             to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
@@ -131,6 +139,7 @@ def plot_latwiss(
         k0l_lim=k0l_lim,
         k1l_lim=k1l_lim,
         k2l_lim=k2l_lim,
+        k3l_lim=k3l_lim,
         **kwargs,
     )
 
