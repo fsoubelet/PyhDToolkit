@@ -404,7 +404,7 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
 
 
 def _get_twiss_table_with_offsets_and_limits(
-    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None, **kwargs
 ) -> pd.DataFrame:
     """
     .. versionadded:: 1.0.0
@@ -417,13 +417,14 @@ def _get_twiss_table_with_offsets_and_limits(
         xoffset (float): An offset applied to the S coordinate in the dataframe.
         xlimits (tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
             this is not `None`, using the tuple passed.
+        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``TWISS` command.
 
     Returns:
         The ``TWISS`` dataframe from ``MAD-X``, with the limits and offset applied, if any.
     """
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.trace("Getting TWISS table from MAD-X")
-    madx.command.twiss()
+    madx.command.twiss(**kwargs)
     twiss_df = madx.table.twiss.dframe()
     twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
