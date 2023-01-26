@@ -105,6 +105,8 @@ def plot_machine_layout(
             object to plot on. By definition, the quadrupole elements will be drawn on said axis, and for each
             new element type to plot a call to `~matplotlib.axes.Axes.twinx` is made and the new elements will
             be drawn on the newly created twin `~matplotlib.axes.Axes`.
+            If ``bpms_legend`` is given as False and BPMs are plotted, the BPM legend will not be plotted on
+            the layout axis.
 
     Example:
         .. code-block:: python
@@ -114,6 +116,7 @@ def plot_machine_layout(
     """
     # pylint: disable=too-many-arguments
     axis, kwargs = maybe_get_ax(**kwargs)
+    bpms_legend = kwargs.pop("bpms_legend", True)
     twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
     logger.trace("Extracting element-specific dataframes")
@@ -170,7 +173,7 @@ def plot_machine_layout(
                     **kwargs,
                 )
             plotted_elements += 1
-        logger.trace(f"Plotted {plotted_elements} dipole elements")
+        logger.debug(f"Plotted {plotted_elements} dipole elements")
         dipole_patches_axis.legend(loc=1)
 
     if plot_quadrupoles:
@@ -188,7 +191,7 @@ def plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        logger.trace(f"Plotted {plotted_elements} quadrupole elements")
+        logger.debug(f"Plotted {plotted_elements} quadrupole elements")
         axis.legend(loc=2)
 
     if k2l_lim:
@@ -196,7 +199,7 @@ def plot_machine_layout(
         sextupoles_patches_axis = axis.twinx()
         sextupoles_patches_axis.set_ylabel("$K_{2}L$ $[m^{-2}]$", color="darkgoldenrod")
         sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
-        sextupoles_patches_axis.spines["right"].set_position(("axes", 1.1))
+        sextupoles_patches_axis.spines["right"].set_position(("axes", 1.12))
         sextupoles_patches_axis.set_ylim(k2l_lim)
         plotted_elements = 0
         for sextupole_name, octupole in sextupoles_df.iterrows():
@@ -211,16 +214,18 @@ def plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        logger.trace(f"Plotted {plotted_elements} sextupole elements")
+        logger.debug(f"Plotted {plotted_elements} sextupole elements")
         sextupoles_patches_axis.legend(loc=3)
         sextupoles_patches_axis.grid(False)
 
     if k3l_lim:
         logger.trace("Plotting octupole patches")
         octupoles_patches_axis = axis.twinx()
-        octupoles_patches_axis.set_ylabel("$K_{3}L$ $[m^{-3}]$", color="cyan")
-        octupoles_patches_axis.tick_params(axis="y", labelcolor="cyan")
-        octupoles_patches_axis.spines["left"].set_position(("axes", 1.1))
+        octupoles_patches_axis.set_ylabel("$K_{3}L$ $[m^{-3}]$", color="forestgreen")
+        octupoles_patches_axis.tick_params(axis="y", labelcolor="forestgreen")
+        octupoles_patches_axis.yaxis.set_label_position("left")
+        octupoles_patches_axis.yaxis.tick_left()
+        octupoles_patches_axis.spines["left"].set_position(("axes", -0.14))
         octupoles_patches_axis.set_ylim(k3l_lim)
         plotted_elements = 0
         for octupole_name, octupole in octupoles_df.iterrows():
@@ -230,14 +235,14 @@ def plot_machine_layout(
                 octupole,
                 height=octupole.k3l,
                 v_offset=octupole.k3l / 2,
-                color="cyan",
+                color="forestgreen",
                 label="MO" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
             plotted_elements += 1
-        logger.trace(f"Plotted {plotted_elements} octupole elements")
-        sextupoles_patches_axis.legend(loc=4)
-        sextupoles_patches_axis.grid(False)
+        logger.debug(f"Plotted {plotted_elements} octupole elements")
+        octupoles_patches_axis.legend(loc=4)
+        octupoles_patches_axis.grid(False)
 
     if plot_bpms:
         logger.trace("Plotting BPM patches")
@@ -257,8 +262,16 @@ def plot_machine_layout(
                 **kwargs,
             )
             plotted_elements += 1
-        logger.trace(f"Plotted {plotted_elements} BPMs")
-        bpm_patches_axis.legend(loc=5)
+        logger.debug(f"Plotted {plotted_elements} BPMs")
+        logger.trace("Determining BPM legend location")
+        if bpms_legend is True:
+            if k2l_lim is not None and k3l_lim is not None:
+                bpm_legend_loc = 8  # all corners are taken, we go bottom center
+            elif k2l_lim is not None:
+                bpm_legend_loc = 4  # sextupoles are here but not octupoles, we go bottom left
+            elif k3l_lim is not None:
+                bpm_legend_loc = 3  # octuoles are here but not sextupoles, we go bottom right
+            bpm_patches_axis.legend(loc=bpm_legend_loc)
         bpm_patches_axis.grid(False)
 
 
