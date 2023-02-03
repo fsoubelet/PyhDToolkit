@@ -174,7 +174,8 @@ def plot_machine_layout(
                 )
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} dipole elements")
-        dipole_patches_axis.legend(loc=1)
+        if plotted_elements > 0:  # If we plotted at least one dipole, we need to plot the legend
+            dipole_patches_axis.legend(loc=1)
 
     if plot_quadrupoles:
         logger.trace("Plotting quadrupole patches")
@@ -192,7 +193,8 @@ def plot_machine_layout(
             )
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} quadrupole elements")
-        axis.legend(loc=2)
+        if plotted_elements > 0:  # If we plotted at least one quadrupole, we need to plot the legend
+            axis.legend(loc=2)
 
     if k2l_lim:
         logger.trace("Plotting sextupole patches")
@@ -215,8 +217,9 @@ def plot_machine_layout(
             )
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} sextupole elements")
-        sextupoles_patches_axis.legend(loc=3)
         sextupoles_patches_axis.grid(False)
+        if plotted_elements > 0:  # If we plotted at least one sextupole, we need to plot the legend
+            sextupoles_patches_axis.legend(loc=3)
 
     if k3l_lim:
         logger.trace("Plotting octupole patches")
@@ -241,8 +244,9 @@ def plot_machine_layout(
             )
             plotted_elements += 1
         logger.debug(f"Plotted {plotted_elements} octupole elements")
-        octupoles_patches_axis.legend(loc=4)
         octupoles_patches_axis.grid(False)
+        if plotted_elements > 0:  # If we plotted at least one octupole, we need to plot the legend
+            octupoles_patches_axis.legend(loc=4)
 
     if plot_bpms:
         logger.trace("Plotting BPM patches")
@@ -271,7 +275,10 @@ def plot_machine_layout(
                 bpm_legend_loc = 4  # sextupoles are here but not octupoles, we go bottom left
             elif k3l_lim is not None:
                 bpm_legend_loc = 3  # octuoles are here but not sextupoles, we go bottom right
-            bpm_patches_axis.legend(loc=bpm_legend_loc)
+            else:
+                bpm_legend_loc = "best"  # can't easily determine the best position, go automatic and leave to the user
+            if plotted_elements > 0:  # If we plotted at least one BPM, we need to plot the legend
+                bpm_patches_axis.legend(loc=bpm_legend_loc)
         bpm_patches_axis.grid(False)
 
 
