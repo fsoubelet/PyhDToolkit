@@ -261,9 +261,10 @@ def ptc_track_particle(
     use of this function is similar to that of `~.track.track_single_particle`.
 
     .. important::
-        The ``PTC_CREATE_LAYOUT`` command is issued with ``model=3`` (``SixTrack`` model), ``method=4``
-        (integration order), ``nst=3`` (number of integration steps, aka body slices for elements) and
-        ``exact=True`` (use exact Hamiltonian, not an approximated one).
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3`` (``SixTrack`` model),
+        ``method=4`` (integration order), ``nst=3`` (number of integration steps, aka body slices for
+        elements) and ``exact=True`` (use exact Hamiltonian, not an approximated one). These can be 
+        provided as keyword arguments to override them.
 
         The ``PTC_TRACK`` command is explicitely given ``ELEMENT_BY_ELEMENT=True`` to force element by
         element tracking mode.
@@ -288,8 +289,11 @@ def ptc_track_particle(
             tracking.
         onetable (bool): flag to combine all observation points data into a single table. Defaults to `False`.
         fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
-        **kwargs: Any keyword argument is transmitted to the ``PTC_TRACK`` command such as the ``CLOSED_ORBIT``
-            flag to activate closed orbit calculation before tracking. Refer to the
+        **kwargs: Some parameters for the ``PTC`` universe creation can be given as keyword arguments.
+            They are `model`, `method`, `nst`, `exact` and `element_by_element` for the ``PTC_TRACK``
+            command. Their default values are listed higher up in this docstring. Any remaining keyword
+            argument is transmitted to the ``PTC_TRACK`` command such as the `CLOSED_ORBIT` flag to activate
+            closed orbit calculation before tracking. Refer to the
             `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for options.
 
     Returns:
@@ -308,10 +312,26 @@ def ptc_track_particle(
             >>> tracks_dict = ptc_track_particle(
             ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
             ... )
+        
+        One can also specify parameters for the ``PTC`` universe:
+
+        .. code-block:: python
+
+            >>> tracks_dict = ptc_track_particle(
+            ...     madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
+            ...     model=3, method=6, nst=3, exact=True
+            ... )
     """
     logger.debug("Performing single particle PTC (thick) tracking")
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]
     observation_points = observation_points if observation_points else []
+
+    logger.debug("Looking for PTC universe parameters in keyword arguments")
+    model = kwargs.pop("model", 3)
+    method = kwargs.pop("method", 4)
+    nst = kwargs.pop("nst", 3)
+    exact = kwargs.pop("exact", True)
+    element_by_element = kwargs.pop("element_by_element", True)
 
     if isinstance(sequence, str):
         logger.warning(f"Sequence '{sequence}' was provided and will be USEd, beware that this will erase errors etc.")
@@ -322,7 +342,7 @@ def ptc_track_particle(
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
-    madx.ptc_create_layout(model=3, method=4, nst=3, exact=True)
+    madx.ptc_create_layout(model=model, method=method, nst=nst, exact=exact)
 
     logger.trace("Incorporating MAD-X alignment errors")
     madx.ptc_align()  # use madx alignment errors
@@ -335,7 +355,7 @@ def ptc_track_particle(
         logger.trace(f"Setting observation point for tracking with OBSERVE at element '{element}'")
         madx.command.ptc_observe(place=element)
 
-    madx.command.ptc_track(turns=nturns, element_by_element=True, onetable=onetable, **kwargs)
+    madx.command.ptc_track(turns=nturns, element_by_element=element_by_element, onetable=onetable, **kwargs)
     madx.ptc_end()
 
     if onetable:  # user asked for ONETABLE, there will only be one table 'trackone' given back by MAD-X
