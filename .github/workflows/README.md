@@ -1,4 +1,4 @@
-# Continous Integration Workflows
+# Continuous Integration Workflows
 
 This package implements different workflows for CI.
 They are organised as follows.
