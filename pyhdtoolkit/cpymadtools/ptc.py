@@ -25,10 +25,11 @@ def get_amplitude_detuning(
     """
     .. versionadded:: 0.7.0
 
-    Calculates amplitude detuning coefficients via ``PTC_NORMAL``, with sensible defaults set for
-    other relevant ``PTC`` commands used in the process. The result table is returned as a
-    `~tfs.frame.TfsDataFrame`, the headers of which are the contents of the internal ``SUMM`` table.
-    This is a heavily refactored version of an initial implementation by :user:`Joschua Dilly <joschd>`.
+    Calculates amplitude detuning coefficients via ``PTC_NORMAL``, with sensible
+    defaults set for other relevant ``PTC`` commands used in the process. The
+    result table is returned as a `~tfs.frame.TfsDataFrame`, the headers of which
+    are the contents of the internal ``SUMM`` table. This is a heavily refactored
+    version of an initial implementation by :user:`Joschua Dilly <joschd>`.
 
     .. important::
         The ``PTC_CREATE_LAYOUT`` command is issued with ``model=3`` (``SixTrack`` model), ``method=4``
@@ -155,7 +156,7 @@ def get_rdts(
             keyword argument is transmitted to the ``PTC_TWISS`` command.
 
     Returns:
-        A `TfsDataframe` with the calculated RDTs.
+        A `~tfs.frame.TfsDataFrame` with the calculated RDTs.
 
     Example:
         .. code-block:: python
@@ -247,7 +248,7 @@ def ptc_twiss(
             keyword argument is transmitted to the ``PTC_TWISS`` command.
             
     Returns:
-        A `TfsDataframe` with the calculated ``TWISS`` parameters.
+        A `~tfs.frame.TfsDataFrame` with the calculated ``TWISS`` parameters.
 
     Example:
         .. code-block:: python
@@ -358,7 +359,7 @@ def ptc_track_particle(
         they are defined in.
 
         If the user has set ``onetable`` to `True`, only one entry is in the dictionary
-        under the key ``trackone`` and it has the combined table as a pandas DataFrame
+        under the key ``trackone`` and it has the combined table as a `~pandas.DataFrame`
         for value.
 
     Example:
