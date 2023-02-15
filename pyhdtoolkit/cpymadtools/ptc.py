@@ -257,54 +257,65 @@ def ptc_track_particle(
     """
     .. versionadded:: 0.12.0
 
-    Tracks a single particle for *nturns* through ``PTC_TRACK``, based on its initial coordinates. The
-    use of this function is similar to that of `~.track.track_single_particle`.
+    Tracks a single particle for *nturns* through ``PTC_TRACK``, based on its initial
+    coordinates. The use of this function is similar to that of
+    `~.track.track_single_particle`.
 
     .. important::
-        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3`` (``SixTrack`` model),
-        ``method=4`` (integration order), ``nst=3`` (number of integration steps, aka body slices for
-        elements) and ``exact=True`` (use exact Hamiltonian, not an approximated one). These can be 
-        provided as keyword arguments to override them.
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3``
+        (``SixTrack`` model), ``method=4`` (integration order), ``nst=3`` (number of
+        integration steps, aka body slices for elements) and ``exact=True`` (use exact
+        Hamiltonian, not an approximated one). These can be provided as keyword
+        arguments to override them.
 
-        The ``PTC_TRACK`` command is explicitely given ``ELEMENT_BY_ELEMENT=True`` to force element by
-        element tracking mode.
+        The ``PTC_TRACK`` command is given ``ELEMENT_BY_ELEMENT=True`` by default to
+        force element by element tracking mode.
 
     .. warning::
-        If the *sequence* argument is given a string value, the ``USE`` command will be ran on the provided
-        sequence name. This means the caveats of ``USE`` apply, for instance the erasing of previously
-        defined errors, orbits corrections etc. In this case a warning will be logged but the function will
-        proceed. If `None` is given (by default) then the sequence already in use will be the one tracking
-        is performed on.
+        If the *sequence* argument is given a string value, the ``USE`` command will be
+        ran on the provided sequence name. This means the caveats of ``USE`` apply, for
+        instance the erasing of previously defined errors, orbits corrections etc. In
+        this case a warning will be logged but the function will proceed. If `None` is
+        given (by default) then the sequence already in use will be the one tracking is
+        performed on.
 
     Args:
         madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
-        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the ``X, PX,
-            Y, PY, T, PT`` starting coordinates of the particle to track. Defaults to all 0 if `None` given.
+        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple
+            with the ``X, PX, Y, PY, T, PT`` starting coordinates of the particle to
+            track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.
-        sequence (Optional[str]): the sequence to use for tracking. If no value is provided, it is assumed
-            that a sequence is already defined and in use, and this one will be picked up by ``MAD-X``.
-            Beware of the dangers of giving a sequence that will be used by ``MAD-X``, see the warning below
+        sequence (Optional[str]): the sequence to use for tracking. If no value is
+            provided, it is assumed that a sequence is already defined and in use,
+            and this one will be picked up by ``MAD-X``. Beware of the dangers of
+            giving a sequence that will be used by ``MAD-X``, see the warning below
             for more information.
-        observation_points (Sequence[str]): sequence of all element names at which to ``OBSERVE`` during the
-            tracking.
-        onetable (bool): flag to combine all observation points data into a single table. Defaults to `False`.
-        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
-        **kwargs: Some parameters for the ``PTC`` universe creation can be given as keyword arguments.
-            They are `model`, `method`, `nst`, `exact` and `element_by_element` for the ``PTC_TRACK``
-            command. Their default values are listed higher up in this docstring. Any remaining keyword
-            argument is transmitted to the ``PTC_TRACK`` command such as the `CLOSED_ORBIT` flag to activate
-            closed orbit calculation before tracking. Refer to the
-            `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for options.
+        observation_points (Sequence[str]): sequence of all element names at which to
+            ``OBSERVE`` during the tracking.
+        onetable (bool): flag to combine all observation points data into a single
+            table. Defaults to `False`.
+        fringe (bool): boolean flag to include fringe field effects in the calculation.
+            Defaults to `False`.
+        **kwargs: Some parameters for the ``PTC`` universe creation can be given as
+            keyword arguments. They are `model`, `method`, `nst`, `exact` and
+            `element_by_element` for the ``PTC_TRACK`` command. Their default values
+            are listed higher up in this docstring. Any remaining keyword argument is
+            transmitted to the ``PTC_TRACK`` command such as the `CLOSED_ORBIT` flag
+            to activate closed orbit calculation before tracking. Refer to the
+            `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
+            for options.
 
     Returns:
-        A `dict` with a copy of the track table's dataframe for each defined observation point,
-        with as columns the coordinates ``x, px, y, py, t, pt, s and e`` (energy). The keys of the dictionary
-        are simply named ``observation_point_1``, ``observation_point_2`` etc. The first observation point
-        always corresponds to the start of machine, the others correspond to the ones manually defined,
-        in the order they are defined in.
+        A `dict` with a copy of the track table's dataframe for each defined observation
+        point, with as columns the coordinates ``x, px, y, py, t, pt, s and e`` (energy).
+        The keys of the dictionary are simply named ``observation_point_1``,
+        ``observation_point_2`` etc. The first observation point always corresponds to the
+        start of machine, the others correspond to the ones manually defined, in the order
+        they are defined in.
 
-        If the user has set ``onetable`` to `True`, only one entry is in the dictionary under the key
-        ``trackone`` and it has the combined table as a pandas DataFrame for value.
+        If the user has set ``onetable`` to `True`, only one entry is in the dictionary
+        under the key ``trackone`` and it has the combined table as a pandas DataFrame
+        for value.
 
     Example:
         .. code-block:: python
