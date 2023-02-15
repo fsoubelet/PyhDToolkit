@@ -33,7 +33,13 @@ jobs:
         run: python -m pip install ".[test]"
 
       - name: Run Tests
-        run: make quicktests
+        run: python -m pytest -k "not test_cpymadtools" -n auto -v --mpl --mpl-results-path=results
+      
+      - name: Upload pytest-mpl results
+        uses: actions/upload-artifact@v3
+        with:
+          name: pytest-mpl-results
+          path: results
 
   cpymad_tests:
     needs: quick_tests
