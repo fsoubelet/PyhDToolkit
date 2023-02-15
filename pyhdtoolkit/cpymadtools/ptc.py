@@ -32,25 +32,34 @@ def get_amplitude_detuning(
     version of an initial implementation by :user:`Joschua Dilly <joschd>`.
 
     .. important::
-        The ``PTC_CREATE_LAYOUT`` command is issued with ``model=3`` (``SixTrack`` model), ``method=4``
-        (integration order), ``nst=3`` (number of integration steps, aka body slices for elements) and
-        ``exact=True`` (use exact Hamiltonian, not an approximated one).
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3``
+        (``SixTrack`` model), ``method=4`` (integration order), ``nst=3`` (number of
+        integration steps, aka body slices for elements) and ``exact=True`` (use exact
+        Hamiltonian, not an approximated one). These can be provided as keyword
+        arguments to override them.
 
-        The ``PTC_NORMAL`` command is explicitely given ``icase=6`` to enforce 6D calculations (see the
-        `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for details),
-        ``no=5`` (map order for derivative evaluation of Twiss parameters), ``closedorbit=True`` (triggers
-        closed orbit calculation) and ``normal=True`` (activate calculation of the Normal Form).
+        The ``PTC_NORMAL`` command is explicitely given ``icase=6`` by default to
+        enforce 6D calculations (see the
+        `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
+        for details), ``no=5`` (map order for derivative evaluation of Twiss parameters),
+        ``closedorbit=True`` (triggers closed orbit calculation) and ``normal=True``
+        (activate calculation of the Normal Form).
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        order (int): maximum derivative order coefficient (only 0, 1 or 2 implemented in ``PTC``).
-            Defaults to 2.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            Positional only.
+        order (int): maximum derivative order coefficient (only 0, 1 or 2
+            implemented in ``PTC``). Defaults to 2.
         file (Union[Path, str]): path to output file. Defaults to `None`.
-        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to
-            ``False``.
-        **kwargs: any keyword argument is transmitted to the ``PTC_NORMAL`` command. See above which
-            arguments are already set for ``PTC_NORMAL`` to avoid trying to override them.
-
+        fringe (bool): boolean flag to include fringe field effects in the
+            calculation. Defaults to ``False``.
+        **kwargs: Some parameters for the ``PTC`` universe creation can be given as
+            keyword arguments. They are `model`, `method`, `nst` and `exact`. The
+            `icase`, `no`, `closed_orbit` and `normal` kwargs can be given for the
+            ``PTC_NORMAL`` command. Their default values are listed higher up in this
+            docstring. Any remaining keyword argument is transmitted to the
+            ``PTC_NORMAL`` command.
+    
     Returns:
         A `~tfs.frame.TfsDataframe` with the calculated coefficients.
 
@@ -63,11 +72,23 @@ def get_amplitude_detuning(
         logger.error(f"Maximum amplitude detuning order in PTC is 2, but {order:d} was requested")
         raise NotImplementedError("PTC amplitude detuning is not implemented for order > 2")
 
+    logger.debug("Looking for PTC universe parameters in keyword arguments")
+    model = kwargs.pop("model", 3)
+    method = kwargs.pop("method", 4)
+    nst = kwargs.pop("nst", 3)
+    exact = kwargs.pop("exact", True)
+
+    logger.debug("Looking for PTC NORMAL parameters in keyword arguments")
+    icase = kwargs.pop("icase", 6)
+    no = kwargs.pop("no", 5)
+    closed_orbit = kwargs.pop("closed_orbit", True)
+    normal = kwargs.pop("normal", True)
+
     logger.debug("Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
-    madx.ptc_create_layout(model=3, method=4, nst=3, exact=True)
+    madx.ptc_create_layout(model=model, method=method, nst=nst, exact=exact)
 
     logger.trace("Incorporating MAD-X alignment errors")
     madx.ptc_align()  # use madx alignment errors
@@ -100,7 +121,7 @@ def get_amplitude_detuning(
         madx.select_ptc_normal("anhy=0, 2, 0")  # d^2Qy/dey^2
 
     logger.debug("Executing PTC Normal")
-    madx.ptc_normal(icase=6, no=5, closed_orbit=True, normal=True, **kwargs)
+    madx.ptc_normal(icase=icase, no=no, closed_orbit=closed_orbit, normal=normal, **kwargs)
     madx.ptc_end()
 
     dframe = get_table_tfs(madx, table_name="normal_results")
