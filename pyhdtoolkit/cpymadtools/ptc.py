@@ -118,29 +118,41 @@ def get_rdts(
     """
     .. versionadded:: 0.7.0
 
-    Calculate the resonance driving terms up to *order* via ``PTC_TWISS``, with sensible defaults
-    set for other relevant ``PTC`` commands. The result table is returned as a `~tfs.frame.TfsDataFrame`,
-    the headers of which are the contents of the internal ``SUMM`` table. This is a heavily refactored
+    Calculate the resonance driving terms up to *order* via ``PTC_TWISS``,
+    with sensible defaults set for other relevant ``PTC`` commands. The result
+    table is returned as a `~tfs.frame.TfsDataFrame`, the headers of which are
+    the contents of the internal ``SUMM`` table. This is a heavily refactored
     version of an initial implementation by :user:`Joschua Dilly <joschd>`.
 
     .. important::
-        The ``PTC_CREATE_LAYOUT`` command is issued with ``model=3`` (``SixTrack`` model), ``method=4``
-        (integration order), ``nst=3`` (number of integration steps, aka body slices for elements) and
-        ``exact=True`` (use exact Hamiltonian, not an approximated one).
+        The default values used for the ``PTC_CREATE_LAYOUT`` command are ``model=3``
+        (``SixTrack`` model), ``method=4`` (integration order), ``nst=3`` (number of
+        integration steps, aka body slices for elements) and ``exact=True`` (use exact
+        Hamiltonian, not an approximated one). These can be provided as keyword
+        arguments to override them.
 
-        The ``PTC_NORMAL`` command is explicitely given ``icase=6`` to enforce 6D calculations (see the
-        `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_ for details),
-        ``trackrdts=True`` (for this function to fullfill its purpose) and ``normal=True`` to trigger
-        saving the normal form analysis results in a table called ``NONLIN`` which will then be available
-        through the provided `~cpymad.madx.Madx` instance.
+        The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
+        calculations (see the 
+        `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
+        for details), and ``normal=True`` to trigger saving the normal form analysis
+        results in a table called ``NONLIN`` which will then be available through the
+        provided `~cpymad.madx.Madx` instance.
+
+        These default values can be changed through keyword arguments.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        order (int): map order for derivative evaluation of Twiss parameters. Defaults to 4.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            Positional only.
+        order (int): map order for derivative evaluation of Twiss parameters.
+            Defaults to 4.
         file (Union[Path, str]): path to output file. Default to `None`.
-        fringe (bool): boolean flag to include fringe field effects in the calculation. Defaults to `False`.
-        **kwargs: any keyword argument is transmitted to the ``PTC_TWISS`` command. See above which arguments
-            are already set for ``PTC_TWISS`` to avoid trying to override them.
+        fringe (bool): boolean flag to include fringe field effects in the
+            calculation. Defaults to `False`.
+        **kwargs: Some parameters for the ``PTC`` universe creation can be given as
+            keyword arguments. They are `model`, `method`, `nst` and `exact`. The
+            `icase` and `normal` ones can be given for the ``PTC_TWISS`` command.
+            Their default values are listed higher up in this docstring. Any remaining
+            keyword argument is transmitted to the ``PTC_TWISS`` command.
 
     Returns:
         A `TfsDataframe` with the calculated RDTs.
@@ -150,18 +162,26 @@ def get_rdts(
 
             >>> rdts_df = get_rdts(madx, order=3, fringe=True)
     """
+    logger.debug("Looking for PTC universe parameters in keyword arguments")
+    model = kwargs.pop("model", 3)
+    method = kwargs.pop("method", 4)
+    nst = kwargs.pop("nst", 3)
+    exact = kwargs.pop("exact", True)
+    icase = kwargs.pop("icase", 6)
+    normal = kwargs.pop("normal", True)
+
     logger.debug("Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
-    madx.ptc_create_layout(model=3, method=4, nst=3, exact=True)
+    madx.ptc_create_layout(model=model, method=method, nst=nst, exact=exact)
 
     logger.trace("Incorporating MAD-X alignment errors")
     madx.ptc_align()  # use madx alignment errors
     madx.ptc_setswitch(fringe=fringe)
 
     logger.debug("Executing PTC Twiss")
-    madx.ptc_twiss(icase=6, no=order, normal=True, trackrdts=True, **kwargs)
+    madx.ptc_twiss(icase=icase, no=order, normal=normal, trackrdts=True, **kwargs)
     madx.ptc_end()
 
     dframe = get_table_tfs(madx, table_name="twissrdt", headers_table="ptc_twiss_summary")
@@ -200,10 +220,6 @@ def ptc_twiss(
         integration steps, aka body slices for elements) and ``exact=True`` (use exact
         Hamiltonian, not an approximated one). These can be provided as keyword
         arguments to override them.
-
-        The ``PTC_TRACK`` command is given ``ELEMENT_BY_ELEMENT=True`` by default to
-        force element by element tracking mode.
-
 
         The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
         calculations (see the 
@@ -296,6 +312,8 @@ def ptc_track_particle(
 
         The ``PTC_TRACK`` command is given ``ELEMENT_BY_ELEMENT=True`` by default to
         force element by element tracking mode.
+
+        These default values can be changed through keyword arguments.
 
     .. warning::
         If the *sequence* argument is given a string value, the ``USE`` command will be
