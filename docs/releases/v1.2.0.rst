@@ -9,10 +9,17 @@ Enhancements
 ~~~~~~~~~~~~
 
 * The `pyhdtoolkit.plotting.utils` module has a new function, `~pyhdtoolkit.plotting.utils.draw_confidence_ellipse`, to plot the covariance ellipse of two arrays.
+* The `pyhdtoolkit.plotting.layout.plot_machine_layout` function (and those relying on it) can now plot octupole patches.
 * An experimental utility function was added to split a complex-valued columns from a dataframe into two real-valued ones. It might join the public API in a future release, and is for now available as `~pyhdtoolkit.utils._misc.split_complex_columns`.
 * An experimental utility function was added to add noise to the ``LHC`` *IR* BPMs in a given dataframe column. It might join the public API in a future release, and is for now available as `~pyhdtoolkit.utils._misc.add_noise_to_ir_bpms`.
 * An experimental utility function was added to add noise to the ``LHC`` *arc* BPMs in a given dataframe column. It might join the public API in a future release, and is for now available as `~pyhdtoolkit.utils._misc.add_noise_to_arc_bpms`. 
 * The functions in the `pyhdtoolkit.cpymadtools.ptc` module can now be given values for the ``PTC`` universe creation and called commands parameters through keyword arguments. The documentation has been updated with information on the available parameters.
+
+Bug Fixes
+~~~~~~~~~
+
+* The `pyhdtoolkit.plotting.layout.plot_machine_layout` function now only adds a legend for element patches of a certain type if at least one element was drawn.
+* The `pyhdtoolkit.plotting.layout.plot_machine_layout` function now tries to properly determine legend locations based on which elements were drawn.
 
 Documentation
 ~~~~~~~~~~~~~
