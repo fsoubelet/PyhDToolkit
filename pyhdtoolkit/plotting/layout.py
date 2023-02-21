@@ -204,13 +204,13 @@ def plot_machine_layout(
         sextupoles_patches_axis.spines["right"].set_position(("axes", 1.12))
         sextupoles_patches_axis.set_ylim(k2l_lim)
         plotted_elements = 0
-        for sextupole_name, octupole in sextupoles_df.iterrows():
+        for sextupole_name, sextupole in sextupoles_df.iterrows():
             logger.trace(f"Plotting sextupole element '{sextupole_name}'")
             _plot_lattice_series(
                 sextupoles_patches_axis,
-                octupole,
-                height=octupole.k2l,
-                v_offset=octupole.k2l / 2,
+                sextupole,
+                height=sextupole.k2l,
+                v_offset=sextupole.k2l / 2,
                 color="goldenrod",
                 label="MS" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
