@@ -133,8 +133,8 @@ def plot_latwiss(
             >>> plot_latwiss(
             ...     madx,
             ...     title=title,
-            ...     k0l_lim=0.15,
-            ...     k1l_lim=0.08,
+            ...     k0l_lim=0.15,  # identical to k0l_lim=(-0.15, 0.15)
+            ...     k1l_lim=0.08,  # identical to k1l_lim=(-0.08, 0.08)
             ...     disp_ylim=(-10, 125),
             ...     lw=3,
             ... )
