@@ -16,6 +16,7 @@ matplotlib.use("Agg")
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
+OCT_LATTICE = LatticeGenerator.generate_oneoct_cas_lattice()
 ELETTRA_LATTICE = INPUTS_DIR / "madx" / "elettra2_v15_VADER_2.3T.madx"
 ELETTRA_OPTICS = INPUTS_DIR / "madx" / "optics_elettra2_v15_VADER_2.3T.madx"
 
@@ -61,6 +62,33 @@ def test_plot_latwiss_single_value_ylimts_inputs():
             plot_bpms=True,
         )
     return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_latwiss_with_octupoles():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(OCT_LATTICE)
+        madx.input("koct = -15;")
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        figure = plt.figure(figsize=(18, 11))
+        plot_latwiss(
+            madx,
+            title="Project 3 Octupole Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            k1l_lim=-1e-1,  # tests that negative values are handled correctly too
+            k2l_lim=0.6,
+            k3l_lim=25,
+            lw=2,
+            plot_bpms=True,
+        )
+        plt.tight_layout()
+    return figure
+
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_latwiss_with_dipole_k1():
