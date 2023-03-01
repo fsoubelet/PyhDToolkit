@@ -42,6 +42,27 @@ def test_plot_latwiss():
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_latwiss_single_value_ylimts_inputs():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(BASE_LATTICE)
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        figure = plt.figure(figsize=(18, 11))
+        plot_latwiss(
+            madx,
+            title="Project 3 Base Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            k1l_lim=8e-2,
+            k2l_lim=0.35,
+            plot_bpms=True,
+        )
+    return figure
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_latwiss_with_dipole_k1():
     """Using ELETTRA2.0 lattice provided by Axel."""
     elettra_parameters = {"ON_SEXT": 1, "ON_OCT": 1, "ON_RF": 1, "NRJ_GeV": 2.4, "DELTAP": 0.00095}
