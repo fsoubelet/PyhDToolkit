@@ -7,8 +7,7 @@ Layout Plotters
 Module with functions used to represent a machine' elements in an `~matplotlib.axes.Axes`
 object, mostly used in different `~pyhdtoolkit.plotting` modules.
 """
-from cmath import log
-from typing import Tuple
+from typing import Union
 
 import matplotlib
 import matplotlib.axes
@@ -30,15 +29,15 @@ def plot_machine_layout(
     /,
     title: str = None,
     xoffset: float = 0,
-    xlimits: Tuple[float, float] = None,
+    xlimits: tuple[float, float] = None,
     plot_dipoles: bool = True,
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    k0l_lim: Tuple[float, float] = None,
-    k1l_lim: Tuple[float, float] = None,
-    k2l_lim: Tuple[float, float] = None,
-    k3l_lim: Tuple[float, float] = None,
+    k0l_lim: Union[tuple[float, float], float, int] = None,
+    k1l_lim: Union[tuple[float, float], float, int] = None,
+    k2l_lim: Union[tuple[float, float], float, int] = None,
+    k3l_lim: Union[tuple[float, float], float, int] = None,
     **kwargs,
 ) -> None:
     """
@@ -71,7 +70,7 @@ def plot_machine_layout(
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+        xlimits (tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
             not ``None``, using the tuple passed.
         plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
             the figure. Defaults to `True`. Dipoles are plotted in blue.
@@ -81,24 +80,24 @@ def plot_machine_layout(
             subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
         plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
             represent Beam Position Monitors. BPMs are plotted in dark grey.
-        disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
-            Defaults to (-10, 125).
-        beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
-            Defaults to None, to be determined by matplotlib based on the provided beta values.
-        k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
-            height of dipole patches, should be symmetric. If `None` (default) is provided, then
-            the limits will be auto-determined based on the ``k0l`` values of the dipoles in the
-            plot.
-        k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
-            height of quadrupole patches, should be symmetric. If `None` (default) is provided,
-            then the limits will be auto-determined based on the ``k0l`` values of the dipoles
+        k0l_lim (Union[tuple[float, float], float, int]): vertical axis limits for the ``k0l``
+            values used for the height of dipole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
+            then the limits will be auto-determined based on the ``k0l`` values of the dipoles in
+            the plot.
+        k1l_lim (Union[tuple[float, float], float, int]): vertical axis limits for the ``k1l``
+            values used for the height of quadrupole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
+            then the limits will be auto-determined based on the ``k0l`` values of the quadrupoles
             in the plot.
-        k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
-            the figure, and the provided values act as vertical axis limits for the k2l values used for the
-            height of sextupole patches.
-        k3l_lim (Tuple[float, float]): if given, octupole patches will be plotted on the layout subplot of
-            the figure, and the provided values act as vertical axis limits for the k3l values used for the
-            height of octupole patches.
+        k2l_lim (Union[tuple[float, float], float, int]): if given, sextupole patches will be plotted
+            on the layout subplot of the figure. If given, acts as vertical axis limits for the k2l
+            values used for the height of sextupole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric).
+        k3l_lim (Union[tuple[float, float], float, int]): if given, octupole patches will be plotted
+            on the layout subplot of the figure. If given, acts as vertical axis limits for the k3l
+            values used for the height of octupole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric).
         **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
             to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw``
             etc. If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the axis
@@ -127,8 +126,17 @@ def plot_machine_layout(
     octupoles_df = element_dfs["octupoles"]
     bpms_df = element_dfs["bpms"]
 
-    k0l_lim = k0l_lim or _determine_default_knl_lim(dipoles_df, col="k0l", coeff=2)
-    k1l_lim = k1l_lim or _determine_default_knl_lim(quadrupoles_df, col="k1l", coeff=1.3)
+    logger.trace("Determining the ylimits for k0l and k1l patches")
+    k0l_lim = (
+        _ylim_from_input(k0l_lim, "k0l_lim")
+        if k0l_lim is not None
+        else _determine_default_knl_lim(dipoles_df, col="k0l", coeff=2)
+    )
+    k1l_lim = (
+        _ylim_from_input(k1l_lim, "k1l_lim")
+        if k1l_lim is not None
+        else _determine_default_knl_lim(quadrupoles_df, col="k1l", coeff=1.3)
+    )
 
     logger.debug("Plotting machine layout")
     logger.trace(f"Plotting from axis '{axis}'")
@@ -202,6 +210,7 @@ def plot_machine_layout(
         sextupoles_patches_axis.set_ylabel("$K_{2}L$ $[m^{-2}]$", color="darkgoldenrod")
         sextupoles_patches_axis.tick_params(axis="y", labelcolor="darkgoldenrod")
         sextupoles_patches_axis.spines["right"].set_position(("axes", 1.12))
+        k2l_lim = _ylim_from_input(k2l_lim, "k2l_lim")
         sextupoles_patches_axis.set_ylim(k2l_lim)
         plotted_elements = 0
         for sextupole_name, sextupole in sextupoles_df.iterrows():
@@ -229,6 +238,7 @@ def plot_machine_layout(
         octupoles_patches_axis.yaxis.set_label_position("left")
         octupoles_patches_axis.yaxis.tick_left()
         octupoles_patches_axis.spines["left"].set_position(("axes", -0.14))
+        k3l_lim = _ylim_from_input(k3l_lim, "k3l_lim")
         octupoles_patches_axis.set_ylim(k3l_lim)
         plotted_elements = 0
         for octupole_name, octupole in octupoles_df.iterrows():
@@ -276,7 +286,9 @@ def plot_machine_layout(
             elif k3l_lim is not None:
                 bpm_legend_loc = 3  # octuoles are here but not sextupoles, we go bottom right
             else:
-                bpm_legend_loc = "best"  # can't easily determine the best position, go automatic and leave to the user
+                bpm_legend_loc = (
+                    "best"  # can't easily determine the best position, go automatic and leave to the user
+                )
             if plotted_elements > 0:  # If we plotted at least one BPM, we need to plot the legend
                 bpm_patches_axis.legend(loc=bpm_legend_loc)
         bpm_patches_axis.grid(False)
@@ -322,7 +334,41 @@ def _plot_lattice_series(
     )
 
 
-def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> Tuple[float, float]:
+def _ylim_from_input(
+    ylim: Union[tuple[float, float], float, int], name_for_error: str = "knl_lim"
+) -> tuple[float, float]:
+    """
+    .. versionadded:: 1.2.0
+
+    Determines the ylimits for a given axis from the input provided by the user.
+    This is used in `~.plotting.utils.plot_machine_layout` and handles different
+    inputs from the user, such as a tuple, a float and an int.
+
+    Args:
+        ylim (tuple[float, float], float, int): the input provided by the user.
+        name_for_error (str): the name of the variable to use in the error message.
+
+    Returns:
+        A tuple for the ylimits from the input.
+
+    Raises:
+        TypeError: if the input is not a tuple, a float or an int.
+    """
+    if isinstance(ylim, tuple):
+        return ylim
+    elif isinstance(ylim, (float, int)):
+        if ylim >= 0:
+            return (-ylim, ylim)
+        else:
+            return (ylim, -ylim)
+    else:
+        raise TypeError(
+            f"Invalid type for '{name_for_error}': {type(ylim)}. "
+            "Should be a tuple, a float or an int. Can also be give as None."
+        )
+
+
+def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> tuple[float, float]:
     """
     .. versionadded:: 1.0.0
 
