@@ -90,6 +90,16 @@ def test_plot_latwiss_with_octupoles():
     return figure
 
 
+def test_plot_layout_raises_on_wrong_limits_type():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(BASE_LATTICE)
+        plt.figure(figsize=(18, 11))
+        
+        with pytest.raises(TypeError):
+            plot_latwiss(madx, k1l_lim=[8e-2])
+
+
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_latwiss_with_dipole_k1():
     """Using ELETTRA2.0 lattice provided by Axel."""
