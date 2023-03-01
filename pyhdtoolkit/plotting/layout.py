@@ -7,7 +7,7 @@ Layout Plotters
 Module with functions used to represent a machine' elements in an `~matplotlib.axes.Axes`
 object, mostly used in different `~pyhdtoolkit.plotting` modules.
 """
-from typing import Union
+from typing import Tuple, Union
 
 import matplotlib
 import matplotlib.axes
@@ -29,15 +29,15 @@ def plot_machine_layout(
     /,
     title: str = None,
     xoffset: float = 0,
-    xlimits: tuple[float, float] = None,
+    xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    k0l_lim: Union[tuple[float, float], float, int] = None,
-    k1l_lim: Union[tuple[float, float], float, int] = None,
-    k2l_lim: Union[tuple[float, float], float, int] = None,
-    k3l_lim: Union[tuple[float, float], float, int] = None,
+    k0l_lim: Union[Tuple[float, float], float, int] = None,
+    k1l_lim: Union[Tuple[float, float], float, int] = None,
+    k2l_lim: Union[Tuple[float, float], float, int] = None,
+    k3l_lim: Union[Tuple[float, float], float, int] = None,
     **kwargs,
 ) -> None:
     """
@@ -70,7 +70,7 @@ def plot_machine_layout(
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
-        xlimits (tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
+        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
             not ``None``, using the tuple passed.
         plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
             the figure. Defaults to `True`. Dipoles are plotted in blue.
@@ -80,21 +80,21 @@ def plot_machine_layout(
             subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
         plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
             represent Beam Position Monitors. BPMs are plotted in dark grey.
-        k0l_lim (Union[tuple[float, float], float, int]): vertical axis limits for the ``k0l``
+        k0l_lim (Union[Tuple[float, float], float, int]): vertical axis limits for the ``k0l``
             values used for the height of dipole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
             then the limits will be auto-determined based on the ``k0l`` values of the dipoles in
             the plot.
-        k1l_lim (Union[tuple[float, float], float, int]): vertical axis limits for the ``k1l``
+        k1l_lim (Union[Tuple[float, float], float, int]): vertical axis limits for the ``k1l``
             values used for the height of quadrupole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
             then the limits will be auto-determined based on the ``k0l`` values of the quadrupoles
             in the plot.
-        k2l_lim (Union[tuple[float, float], float, int]): if given, sextupole patches will be plotted
+        k2l_lim (Union[Tuple[float, float], float, int]): if given, sextupole patches will be plotted
             on the layout subplot of the figure. If given, acts as vertical axis limits for the k2l
             values used for the height of sextupole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric).
-        k3l_lim (Union[tuple[float, float], float, int]): if given, octupole patches will be plotted
+        k3l_lim (Union[Tuple[float, float], float, int]): if given, octupole patches will be plotted
             on the layout subplot of the figure. If given, acts as vertical axis limits for the k3l
             values used for the height of octupole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric).
@@ -335,8 +335,8 @@ def _plot_lattice_series(
 
 
 def _ylim_from_input(
-    ylim: Union[tuple[float, float], float, int], name_for_error: str = "knl_lim"
-) -> tuple[float, float]:
+    ylim: Union[Tuple[float, float], float, int], name_for_error: str = "knl_lim"
+) -> Tuple[float, float]:
     """
     .. versionadded:: 1.2.0
 
@@ -345,7 +345,7 @@ def _ylim_from_input(
     inputs from the user, such as a tuple, a float and an int.
 
     Args:
-        ylim (tuple[float, float], float, int): the input provided by the user.
+        ylim (Tuple[float, float], float, int): the input provided by the user.
         name_for_error (str): the name of the variable to use in the error message.
 
     Returns:
@@ -368,7 +368,7 @@ def _ylim_from_input(
         )
 
 
-def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> tuple[float, float]:
+def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> Tuple[float, float]:
     """
     .. versionadded:: 1.0.0
 
