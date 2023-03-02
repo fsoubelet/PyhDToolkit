@@ -69,6 +69,7 @@ def prepare_lhc_run2(
         seqfile_path = opticsfile.parent.parent / filename
         if not seqfile_path.is_file():
             logger.error(f"Could not find sequence file '{filename}' at expected location '{seqfile_path}'")
+            raise ValueError(f"No sequence file found at '{seqfile_path}'")
         return seqfile_path
 
     logger.debug("Creating Run 2 setup MAD-X instance")
