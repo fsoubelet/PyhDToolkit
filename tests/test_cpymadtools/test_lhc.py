@@ -783,6 +783,14 @@ def test_lhc_run3_setup_context_manager(slicefactor):
                 for plane in ["x", "y"]:
                     assert madx.globals[f"tar_on_{plane}ip{ip:d}b{beam:d}"] is not None
 
+@pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
+def test_lhc_run3_setup_context_manager_fullpath_to_opticsfile():
+    with LHCSetup(opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx") as madx:
+        for ip in [1, 2, 5, 8]:
+            for beam in [1, 2]:
+                for plane in ["x", "y"]:
+                    assert madx.globals[f"tar_on_{plane}ip{ip:d}b{beam:d}"] is not None
+
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_raises_on_wrong_b4_conditions(_proton_opticsfile):
