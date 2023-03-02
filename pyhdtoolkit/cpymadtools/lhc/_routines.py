@@ -95,6 +95,7 @@ def do_kmodulation(
     return results
 
 
+# This is a duplicate of the function in _coupling.py, merge at some point
 def correct_lhc_global_coupling(
     madx: Madx, /, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
 ) -> None:

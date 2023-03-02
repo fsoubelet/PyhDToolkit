@@ -37,6 +37,7 @@ from pyhdtoolkit.cpymadtools.constants import (
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,
+    _coupling,
     add_markers_around_lhc_ip,
     apply_lhc_colinearity_knob,
     apply_lhc_colinearity_knob_delta,
@@ -726,14 +727,27 @@ def test_carry_colinearity_knob_over(_non_matched_lhc_madx, ir):
 
 
 @pytest.mark.parametrize("telesqueeze", [True, False])
-def test_correct_lhc_global_coupling(_non_matched_lhc_madx, telesqueeze):
+def test_correct_lhc_global_coupling_routine(_non_matched_lhc_madx, telesqueeze):
     madx = _non_matched_lhc_madx
     madx.globals["CMRS.b1"] = 0.001
     madx.globals["CMIS.b1"] = 0.001
-    madx.command.twiss(chrom=True)
+    madx.command.twiss()
     assert madx.table.summ.dqmin[0] > 0
 
     correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
+    assert madx.table.summ.dqmin[0] >= 0
+    assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-7)
+
+
+@pytest.mark.parametrize("telesqueeze", [True, False])
+def test_correct_lhc_global_coupling_from_coupling_module(_non_matched_lhc_madx, telesqueeze):
+    madx = _non_matched_lhc_madx
+    madx.globals["CMRS.b1"] = 0.001
+    madx.globals["CMIS.b1"] = 0.001
+    madx.command.twiss()
+    assert madx.table.summ.dqmin[0] > 0
+
+    _coupling.correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
     assert madx.table.summ.dqmin[0] >= 0
     assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-7)
 
@@ -812,6 +826,8 @@ def test_lhc_run3_setup_raises_on_wrong_b4_conditions(_proton_opticsfile):
     with pytest.raises(ValueError):  # using b4 with beam1 setup crashes
         madx = prepare_lhc_run3(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True)
 
+
+# ------------------- Run2 Setup Tests ------------------- #
 
 @pytest.mark.parametrize("slicefactor", [None, 4])
 def test_lhc_run2_setup_context_manager(_proton_opticsfile, slicefactor):

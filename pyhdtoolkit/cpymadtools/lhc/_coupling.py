@@ -15,6 +15,7 @@ from pyhdtoolkit.cpymadtools import twiss
 from pyhdtoolkit.cpymadtools.constants import MONITOR_TWISS_COLUMNS
 
 
+# This is a duplicate of the function in _routines.py, merge at some point
 def correct_lhc_global_coupling(
     madx: Madx, /, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
 ) -> None:
