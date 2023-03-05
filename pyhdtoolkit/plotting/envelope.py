@@ -115,11 +115,11 @@ def plot_beam_enveloppe(
 # ----- Helpers ----- #
 
 
-# def _interpolate_madx(madx: Madx, /) -> None:
-#     """Run interpolation on the provided MAD-X instance with default slice values."""
-#     logger.debug("Running interpolation in MAD-X")
-#     madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
-#     madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
-#     madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e")
-#     madx.command.select(flag="interpolate", class_="rbend", slice_=10, range_="#s/#e")
-#     madx.command.twiss()
+def _interpolate_madx(madx: Madx, /) -> None:
+    """Run interpolation on the provided MAD-X instance with default slice values."""
+    logger.debug("Running interpolation in MAD-X")
+    madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
+    madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
+    madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e")
+    madx.command.select(flag="interpolate", class_="rbend", slice_=10, range_="#s/#e")
+    madx.command.twiss()
