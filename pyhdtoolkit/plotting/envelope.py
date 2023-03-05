@@ -16,7 +16,7 @@ from loguru import logger
 from pyhdtoolkit.plotting.utils import maybe_get_ax
 
 
-def plot_beam_enveloppe(
+def plot_beam_envelope(
     madx: Madx,
     /,
     sequence: str,
@@ -59,7 +59,7 @@ def plot_beam_enveloppe(
         .. code-block:: python
 
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_beam_enveloppe(madx, "lhcb1", "x", nsigma=3)
+            >>> plot_beam_envelope(madx, "lhcb1", "x", nsigma=3)
             >>> plt.show()
 
         In order to do the same plot but have all values in millimeters:
@@ -67,7 +67,7 @@ def plot_beam_enveloppe(
         .. code-block:: python
 
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_beam_enveloppe(madx, "lhcb1", "x", nsigma=3, scale=1e3)
+            >>> plot_beam_envelope(madx, "lhcb1", "x", nsigma=3, scale=1e3)
             >>> plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
             >>> plt.show()
     """

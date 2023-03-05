@@ -17,7 +17,7 @@ import numpy as np
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.plotting.envelope import plot_beam_enveloppe
+from pyhdtoolkit.plotting.envelope import plot_beam_envelope
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
@@ -131,14 +131,14 @@ madx.command.twiss()
 figure, axes = plt.subplots(2, 1, sharex=True, figsize=(16, 11))
 
 # First let's plot 1 sigma and 2.5 sigma horizontal enveloppes
-plot_beam_enveloppe(madx, "cas19", "x", nsigma=1, scale=1e3, ax=axes[0])
-plot_beam_enveloppe(madx, "cas19", "horizontal", nsigma=2.5, scale=1e3, ax=axes[0])
+plot_beam_envelope(madx, "cas19", "x", nsigma=1, scale=1e3, ax=axes[0])
+plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5, scale=1e3, ax=axes[0])
 plt.setp(axes[0], ylabel="X [mm]")
 axes[0].legend()
 
 # Then plot 1 sigma and 2.5 sigma vertical enveloppes
-plot_beam_enveloppe(madx, "cas19", "y", nsigma=1, scale=1e3, ax=axes[1])
-plot_beam_enveloppe(madx, "cas19", "vertical", nsigma=2.5, scale=1e3, ax=axes[1])
+plot_beam_envelope(madx, "cas19", "y", nsigma=1, scale=1e3, ax=axes[1])
+plot_beam_envelope(madx, "cas19", "vertical", nsigma=2.5, scale=1e3, ax=axes[1])
 plt.setp(axes[1], xlabel="S [m]", ylabel="Y [mm]")
 axes[1].legend()
 
@@ -151,8 +151,8 @@ plt.show()
 # 5 cells only.
 
 fig, ax = plt.subplots(figsize=(16, 9))
-plot_beam_enveloppe(madx, "cas19", "x", nsigma=1, scale=1e3, xlimits=(0, 5 * l_cell))
-plot_beam_enveloppe(madx, "cas19", "x", nsigma=2.5, scale=1e3, xlimits=(0, 5 * l_cell))
+plot_beam_envelope(madx, "cas19", "x", nsigma=1, scale=1e3, xlimits=(0, 5 * l_cell))
+plot_beam_envelope(madx, "cas19", "x", nsigma=2.5, scale=1e3, xlimits=(0, 5 * l_cell))
 plt.setp(ax, xlabel="S [m]", ylabel="X [mm]", title="First 5 Cells Horizontal Enveloppe")
 ax.legend()
 plt.show()
@@ -169,4 +169,4 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.plotting.envelope`: `~.plotting.envelope.plot_beam_enveloppe`
+#    - `~.plotting.envelope`: `~.plotting.envelope.plot_beam_envelope`

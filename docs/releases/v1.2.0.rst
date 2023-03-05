@@ -8,7 +8,7 @@ Release `1.2.0` brings some new features and dependency changes.
 Changes
 ~~~~~~~
 
-* The `pyhdtoolkit.plotting.envelope` functions `plot_envelope` and `plot_stay_clear` have been removed. They are replaced by a new one, `plot_beam_enveloppe`, which handles all enveloppe calculations directly from the `MAD-X` instance. Documentation and examples have been updated.
+* The `pyhdtoolkit.plotting.envelope` functions `plot_envelope` and `plot_stay_clear` have been removed. They are replaced by a new one, `plot_beam_envelope`, which handles all enveloppe calculations directly from the `MAD-X` instance. Documentation and examples have been updated.
 
 Enhancements
 ~~~~~~~~~~~~
