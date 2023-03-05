@@ -8,177 +8,118 @@ Module with functions to create beam enveloppe plots through a `~cpymad.madx.Mad
 """
 from typing import Tuple
 
-import matplotlib
-import matplotlib.axes
 import numpy as np
-import pandas as pd
 
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.plotting.utils import maybe_get_ax
 
 
-def plot_envelope(
+def plot_beam_enveloppe(
     madx: Madx,
     /,
-    beam_params: BeamParameters,
+    sequence: str,
+    plane: str,
+    nsigma: float = 1,
+    scale: float = 1,
     xlimits: Tuple[float, float] = None,
-    ylimits: Tuple[float, float] = None,
-    plane: str = "Horizontal",
-    title: str = None,
     **kwargs,
-) -> matplotlib.axes.Axes:
+) -> None:
     """
-    .. versionadded:: 1.0.0
+    .. versionadded:: 1.2.0
 
-    Creates a plot representing an estimation of the beam stay-clear enveloppe through the machine,
-    as well as an estimation of the aperture limits of elements. One can find an example use of this
-    function in the :ref:`beam enveloppe <demo-beam-enveloppe>` example gallery.
+    Draws the beam enveloppe around the beam orbit on the given *axis*. The enveloppe is
+    determined from the active sequence's beam's parameters.
+
+    One can find an example use of this function in the
+    :ref:`beam enveloppe <demo-beam-enveloppe>` example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        beam_params (BeamParameters): a validated `~.models.beam.BeamParameters` object one can
-            get from `~.optics.beam.compute_beam_parameters`.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
-            not ``None``, using the tuple passed.
-        ylimits (Tuple[float, float]): the y limits for the horizontal plane plot (so
-            that machine geometry doesn't make the  plot look shrinked). Defaults to `None`.
-        plane (str): the physical plane to plot for, should be either ``Horizontal`` or ``Vertical``,
-            and is case-insensitive. Defaults to ``Horizontal``.
-        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
-        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
-            axis object to plot on.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            Positional only.
+        sequence (str): the name of the sequence to plot the beam enveloppe for,
+            should be the active sequence. Case-insensitive.
+        plane (str): the physical plane to plot for, should be either `x`, `horizontal`,
+            `y` or `vertical`, and is case-insensitive.
+        nsigma (float): the standard deviation to use for the beam enveloppe calculation.
+            A value of 3 will draw the 3 sigma beam enveloppe. Defaults to 1.
+        scale (float): a scaling factor to apply to the beam orbit and beam enveloppe, for
+            the user to adjust to their wanted scale. Defaults to 1 (values in [m]).
+        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if
+            this is not ``None``, using the tuple passed. Defaults to ``None``.
+        **kwargs: any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command.
+            If either `ax` or `axis` is found in the kwargs, the corresponding value is used
+            as the axis object to plot on.
 
-    Returns:
-            The `~matplotlib.axes.Axes` on which the beam envelope is drawn.
+    Raises:
+        ValueError: if the *plane* argument is not one of `x`, `horizontal`, `y` or `vertical`.
 
-    Example:
+    Examples:
         .. code-block:: python
 
-            >>> title = f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c"
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_envelope(madx, beam_injection, title=title)
+            >>> plot_beam_enveloppe(madx, "lhcb1", "x", nsigma=3)
+            >>> plt.show()
+
+        In order to do the same plot but have all values in millimeters:
+
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(10, 9))
+            >>> plot_beam_enveloppe(madx, "lhcb1", "x", nsigma=3, scale=1e3)
+            >>> plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
+            >>> plt.show()
     """
-    if plane.lower() not in ("horizontal", "vertical"):
-        logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
-        raise ValueError("Invalid plane value")
     # pylint: disable=too-many-arguments
-    # We need to interpolate in order to get high resolution along the S direction
-    logger.debug("Plotting estimated machine aperture and beam envelope")
+    if plane.lower() not in ("x", "y", "horizontal", "vertical"):
+        logger.error(f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'")
+        raise ValueError("Invalid 'plane' argument.")
 
-    _interpolate_madx(madx)
-    twiss_hr = _get_twiss_hr_from_madx(madx, beam_params)
-    machine = twiss_hr[twiss_hr.apertype == "ellipse"]
-
+    logger.debug(f"Plotting machine orbit and {nsigma:.2f}sigma beam envelope")
     axis, kwargs = maybe_get_ax(**kwargs)
 
-    if plane.lower() == "horizontal":
-        logger.debug("Plotting the horizontal aperture")
-        axis.plot(twiss_hr.s, twiss_hr.envelope_x, color="b")
-        axis.plot(twiss_hr.s, -twiss_hr.envelope_x, color="b")
-        axis.fill_between(twiss_hr.s, twiss_hr.envelope_x, -twiss_hr.envelope_x, color="b", alpha=0.25)
-        axis.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_x, -3 * twiss_hr.envelope_x, color="b", alpha=0.25)
-        axis.fill_between(machine.s, machine.aper_1, machine.aper_1 * 100, color="k", alpha=0.5)
-        axis.fill_between(machine.s, -machine.aper_1, -machine.aper_1 * 100, color="k", alpha=0.5)
-        axis.plot(machine.s, machine.aper_1, "k.-")
-        axis.plot(machine.s, -machine.aper_1, "k.-")
-        axis.set_ylabel(r"$X \ [m]$")
-        axis.set_xlabel(r"$S \ [m]$")
-    else:
-        logger.debug("Plotting the vertical aperture")
-        axis.plot(twiss_hr.s, twiss_hr.envelope_y, color="r")
-        axis.plot(twiss_hr.s, -twiss_hr.envelope_y, color="r")
-        axis.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis.fill_between(twiss_hr.s, twiss_hr.envelope_y, -twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis.fill_between(twiss_hr.s, 3 * twiss_hr.envelope_y, -3 * twiss_hr.envelope_y, color="r", alpha=0.25)
-        axis.fill_between(machine.s, machine.aper_2, machine.aper_2 * 100, color="k", alpha=0.5)
-        axis.fill_between(machine.s, -machine.aper_2, -machine.aper_2 * 100, color="k", alpha=0.5)
-        axis.plot(machine.s, machine.aper_2, "k.-")
-        axis.plot(machine.s, -machine.aper_2, "k.-")
-        axis.set_ylabel(r"$Y \ [m]$")
-        axis.set_xlabel(r"$S \ [m]$")
+    logger.debug("Getting Twiss dframe from MAD-X")
+    plane_letter = "x" if plane.lower() in ("x", "horizontal") else "y"
+    twiss_df = madx.twiss(**kwargs).dframe()
+    if xlimits is not None:
+        axis.set_xlim(xlimits)
+        twiss_df = twiss_df[twiss_df.s.between(*xlimits)]
 
-    axis.set_xlim(xlimits)
-    axis.set_ylim(ylimits)
-    axis.set_title(title)
-    return axis
+    logger.debug(f"Extracting beam parameters for the '{sequence}' sequence")
+    geom_emit = madx.sequence[sequence].beam[f"e{plane_letter}"]
+    sige = madx.sequence[sequence].beam.sige
+    orbit = twiss_df[plane_letter] * scale  # with scaling factor, by default 1
 
+    logger.debug("Calculating beam enveloppe")
+    one_sigma = np.sqrt(
+        geom_emit * twiss_df[f"bet{plane_letter}"] + (sige * twiss_df[f"d{plane_letter}"]) ** 2
+    )
+    enveloppe = nsigma * one_sigma * scale  # with scaling factor, by default 1
 
-def plot_stay_clear(
-    madx: Madx,
-    /,
-    beam_params: BeamParameters,
-    xlimits: Tuple[float, float] = None,
-    title: str = None,
-    **kwargs,
-) -> matplotlib.axes.Axes:
-    """
-    .. versionadded:: 1.0.0
-
-    Creates a plot representing an estimation of the beam stay-clear through the machine,
-    One can find an example use of this function in the :ref:`beam enveloppe <demo-beam-enveloppe>`
-    example gallery.
-
-    Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        beam_params (BeamParameters): a validated `~.models.beam.BeamParameters` object one can
-            get from `~.optics.beam.compute_beam_parameters`.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
-            not ``None``, using the tuple passed.
-        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
-        **kwargs: If either `ax` or `axis` is found in the kwargs, the corresponding value is used as the
-            axis object to plot on.
-
-    Returns:
-            The `~matplotlib.axes.Axes` on which the stay-clear is drawn.
-
-    Example:
-        .. code-block:: python
-
-            >>> title = f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c"
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_stay_clear(madx, beam_flattop, title=title)
-    """
-    _interpolate_madx(madx)
-    twiss_hr = _get_twiss_hr_from_madx(madx, beam_params)
-    machine = twiss_hr[twiss_hr.apertype == "ellipse"]
-
-    logger.debug("Plotting the stay-clear envelope")
-    axis, kwargs = maybe_get_ax(**kwargs)
-    axis.plot(machine.s, machine.aper_1 / machine.envelope_x, ".-b", label="Horizontal")
-    axis.plot(machine.s, machine.aper_2 / machine.envelope_y, ".-r", label="Vertical")
-    axis.set_xlim(xlimits)
-    axis.set_ylabel(r"$\mathrm{n1}$")
-    axis.set_xlabel(r"$S \ [m]$")
-    axis.legend()
-    axis.set_title(title)
-    return axis
+    # Plot a line for the orbit, then fill between orbit + enveloppe and orbit - enveloppe
+    logger.debug("Plotting orbit and beam enveloppe")
+    alpha = np.clip(1 - (1 - np.exp(-nsigma / 2.35)), 0.05, 0.8)  # lighter shade for higher sigma
+    plane_color = "b" if plane_letter == "x" else "r"  # blue for horizontal, red for vertical
+    axis.plot(twiss_df.s, twiss_df[plane_letter], color=plane_color)
+    axis.fill_between(
+        twiss_df.s,
+        orbit + enveloppe,
+        orbit - enveloppe,
+        alpha=alpha,
+        color=plane_color,
+        label=rf"{nsigma}$\sigma$",
+    )
 
 
 # ----- Helpers ----- #
 
 
-def _interpolate_madx(madx: Madx, /) -> None:
-    """Run interpolation on the provided MAD-X instance with default slice values."""
-    logger.debug("Running interpolation in MAD-X")
-    madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
-    madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
-    madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e")
-    madx.command.select(flag="interpolate", class_="rbend", slice_=10, range_="#s/#e")
-    madx.command.twiss()
-
-
-def _get_twiss_hr_from_madx(madx: Madx, /, beam_params: BeamParameters) -> pd.DataFrame:
-    """Get twiss hr from the provided MAD-X instance."""
-    logger.trace("Getting Twiss dframe from MAD-X")
-    twiss_hr: pd.DataFrame = madx.table.twiss.dframe()
-    twiss_hr["betatronic_envelope_x"] = np.sqrt(twiss_hr.betx * beam_params.eg_x_m)
-    twiss_hr["betatronic_envelope_y"] = np.sqrt(twiss_hr.bety * beam_params.eg_y_m)
-    twiss_hr["dispersive_envelope_x"] = twiss_hr.dx * beam_params.deltap_p
-    twiss_hr["dispersive_envelope_y"] = twiss_hr.dy * beam_params.deltap_p
-    twiss_hr["envelope_x"] = np.sqrt(twiss_hr.betatronic_envelope_x**2 + (twiss_hr.dx * beam_params.deltap_p) ** 2)
-    twiss_hr["envelope_y"] = np.sqrt(twiss_hr.betatronic_envelope_y**2 + (twiss_hr.dy * beam_params.deltap_p) ** 2)
-    return twiss_hr
+# def _interpolate_madx(madx: Madx, /) -> None:
+#     """Run interpolation on the provided MAD-X instance with default slice values."""
+#     logger.debug("Running interpolation in MAD-X")
+#     madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
+#     madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
+#     madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e")
+#     madx.command.select(flag="interpolate", class_="rbend", slice_=10, range_="#s/#e")
+#     madx.command.twiss()
