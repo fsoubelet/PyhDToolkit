@@ -4,17 +4,20 @@
 Aperture Plotters
 -----------------
 
-Module with functions to create aperture plots through a `~cpymad.madx.Madx` object.
+Module with functions to create aperture plots through a `~cpymad.madx.Madx`
+object.
 """
 from typing import Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 
 from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.plotting.layout import plot_machine_layout
+from pyhdtoolkit.plotting.utils import maybe_get_ax
 
 
 def plot_aperture(
@@ -39,8 +42,8 @@ def plot_aperture(
     .. versionadded:: 1.0.0
 
     Creates a plot representing the lattice layout and the aperture tolerance
-    across the machine. The tolerance is based on the aperture table. One can
-    find an example use of this function in the
+    across the machine. The tolerance is based on the ``n1`` values in the
+    aperture table. One can find an example use of this function in the
     :ref:`machine aperture <demo-accelerator-aperture>` example gallery.
 
     .. important::
@@ -167,7 +170,9 @@ def plot_aperture(
     # Plotting aperture values on remaining two thirds of the figure
     logger.debug("Plotting aperture values")
     aperture_axis = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis)
-    aperture_axis.plot(aperture_df.s, aperture_df.n1, marker=".", ls="-", lw=0.8, color=color, label="Aperture Limits")
+    aperture_axis.plot(
+        aperture_df.s, aperture_df.n1, marker=".", ls="-", lw=0.8, color=color, label="Aperture Limits"
+    )
     aperture_axis.fill_between(aperture_df.s, aperture_df.n1, aperture_df.n1.max(), interpolate=True, color=color)
     aperture_axis.legend()
     aperture_axis.set_ylabel(r"$n_{1} \ [\sigma]$")
@@ -180,3 +185,154 @@ def plot_aperture(
     if xlimits:
         logger.debug("Setting xlim for longitudinal coordinate")
         plt.xlim(xlimits)
+
+
+def plot_real_apertures(
+    madx, /, plane: str, scale: float = 1, xlimits: Tuple[float, float] = None, **kwargs
+) -> None:
+    """
+    .. versionadded:: 1.2.0
+
+    Determine and plot the "real" physical apertures of elements in the
+    sequence. A data point is extrapolated at the beginning and the end
+    of each element, with values based on the ``aper_1`` and ``aper_2``
+    columns in the ``TWISS`` table. One can find an example use of this
+    function in the :ref:`machine aperture <demo-accelerator-aperture>`
+    example gallery. Original code from :user:`Elias Waagaard <ewaagaard>`.
+
+    .. important::
+        This function assumes the user has previously made a call to the
+        ``APERTURE`` command in ``MAD-X``, as it will query relevant values
+        from the ``aperture`` table.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            Positional only.
+        plane (str): the physical plane to plot for, should be either `x`,
+            `horizontal`, `y` or `vertical`, and is case-insensitive.
+        scale (float): a scaling factor to apply to the beam orbit and beam
+            enveloppe, for the user to adjust to their wanted scale. Defaults
+            to 1 (values in [m]).
+        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+            coordinate) if this is not ``None``, using the tuple passed.
+            Defaults to ``None``.
+        **kwargs: any keyword argument that can be given to the ``MAD-X``
+            ``TWISS`` command. If either `ax` or `axis` is found in the
+            kwargs, the corresponding value is used as the axis object to
+            plot on.
+
+    Raises:
+        ValueError: if the *plane* argument is not one of `x`, `horizontal`,
+        `y` or `vertical`.
+
+    Examples:
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(10, 9))
+            >>> plot_real_apertures(madx, "x")
+            >>> plt.show()
+
+        In order to do the same plot but have all values in millimeters:
+
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(10, 9))
+            >>> plot_real_apertures(madx, "x", scale=1e3)
+            >>> plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
+            >>> plt.show()
+    """
+    # pylint: disable=too-many-arguments
+    if plane.lower() not in ("x", "y", "horizontal", "vertical"):
+        logger.error(f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'")
+        raise ValueError("Invalid 'plane' argument.")
+
+    logger.debug(f"Plotting real element apertures")
+    axis, kwargs = maybe_get_ax(**kwargs)
+
+    if xlimits is not None:
+        axis.set_xlim(xlimits)
+
+    positions, apertures = _get_positions_and_real_apertures(madx, plane, xlimits, **kwargs)
+    apertures = apertures * scale
+
+    logger.trace("Plotting apertures")
+    # previously drawstyle="steps", but do not use if entry and exit aperture offset differs
+    axis.fill_between(positions, apertures, 0.5 * scale, color="black", alpha=0.4, label="_nolegend_")
+    axis.fill_between(positions, -1 * apertures, -0.5 * scale, color="black", alpha=0.4, label="_nolegend_")
+    axis.plot(positions, apertures, "k", label="_nolegend_")
+    axis.plot(positions, -1 * apertures, "k", label="_nolegend_")
+
+
+# ----- Helpers ----- #
+
+
+def _get_positions_and_real_apertures(
+    madx, /, plane: str, xlimits: Tuple[float, float] = None, **kwargs
+) -> Tuple[np.ndarray, np.ndarray]:
+    """
+    .. versionadded:: 1.2.0
+
+    Determines the "real" physical apertures of elements in the sequence.
+    This is done by extrapolating a data point at the beginning and the end
+    of each element, with values based on the ``aper_1`` and ``aper_2``
+    columns in the ``TWISS`` table. Original code from
+    :user:`Elias Waagaard <ewaagaard>`.
+
+    .. important::
+        This function assumes the user has previously made a call to the
+        ``APERTURE`` command in ``MAD-X``, as it will query relevant values
+        from the ``aperture`` table.
+
+    Args:
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            Positional only.
+        plane (str): the physical plane to plot for, should be either `x`,
+            `horizontal`, `y` or `vertical`, and is case-insensitive.
+        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+            coordinate) if this is not ``None``, using the tuple passed.
+            Defaults to ``None``.
+        **kwargs: any keyword argument that can be given to the ``MAD-X``
+            ``TWISS`` command.
+
+    Returns:
+        A `~numpy.ndarray` of the longitudinal positions for the data
+        points, and another `~numpy.ndarray` with the aperture values
+        at these positions.
+    """
+    logger.debug("Getting Twiss dframe from MAD-X")
+    madx.command.select(flag="twiss", column=["aper_1", "aper_2"])  # make sure we to get these two
+    twiss_df = madx.twiss(**kwargs).dframe()
+    madx.command.select(flag="twiss", clear=True)  # clean up
+
+    logger.trace("Determining aperture column to use")
+    plane_number = 1 if plane.lower() in ("x", "horizontal") else 2
+    apercol = f"aper_{plane_number:d}"
+
+    if xlimits is not None:
+        twiss_df = twiss_df[twiss_df.s.between(*xlimits)]
+
+    # Initiate arrays for new aperture and positions,
+    # these need to be lists as we will insert elements
+    new_aper = twiss_df[apercol].tolist()
+    new_pos = twiss_df.s.tolist()
+    indices = []
+
+    logger.trace("Finding non-zero aperture elements")
+    for i in range(len(twiss_df[apercol]) - 1, 0, -1):
+        if twiss_df[apercol][i] != 0:
+            new_aper.insert(i, twiss_df[apercol][i])
+            indices.append(i)
+    indices = list(reversed(indices))
+
+    logger.trace("Extrapolating data at beginning of elements")
+    counter = 0# Keep track of exact position in new array with counter
+    for j in indices:
+        new_pos.insert(j + counter, (twiss_df.s[j] - twiss_df.l[j]))
+        counter += 1
+
+    # Replace all zeros with Nan
+    apertures = np.array(new_aper)
+    apertures[apertures == 0] = np.nan
+    positions = np.array(new_pos)
+
+    return positions, apertures
