@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_demo_beam_enveloppe.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_demo_beam_enveloppe.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -38,8 +38,7 @@ In this example we will use a very simple lattice, hard-coded below.
 
     from cpymad.madx import Madx
 
-    from pyhdtoolkit.models.beam import BeamParameters
-    from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
+    from pyhdtoolkit.plotting.envelope import plot_beam_envelope
     from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
     from pyhdtoolkit.utils import logging
 
@@ -53,47 +52,20 @@ In this example we will use a very simple lattice, hard-coded below.
 
 
 
+
 .. GENERATED FROM PYTHON SOURCE LINES 29-30
-
-Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):
-
-.. GENERATED FROM PYTHON SOURCE LINES 30-48
-
-.. code-block:: default
-
-
-    beam_injection = BeamParameters(
-        charge=1,
-        pc_GeV=1.9,
-        E_0_GeV=0.9382720813,
-        en_x_m=5e-6,
-        en_y_m=5e-6,
-        deltap_p=2e-3,
-    )
-    beam_flattop = BeamParameters(
-        charge=1,
-        pc_GeV=19,
-        E_0_GeV=0.9382720813,
-        en_x_m=5e-6,
-        en_y_m=5e-6,
-        deltap_p=2e-4,
-    )
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 49-50
 
 Define relevant constants.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-70
+.. GENERATED FROM PYTHON SOURCE LINES 30-55
 
 .. code-block:: default
 
+
+    pc_GeV = 19  # Beam momentum [GeV]
+    B_rho_Tm = pc_GeV / 0.3  # Magnetic rigidity [Tm]
+    E_0_GeV = 0.9382720813  # proton rest mass [GeV]
+    E_tot_GeV = np.sqrt(pc_GeV**2 + E_0_GeV**2)
 
     circumference = 500.0  # machine circumference [m]
     n_cells = 25
@@ -106,8 +78,8 @@ Define relevant constants.
     n_quadrupoles = 2 * n_cells
     n_dipoles = 4 * n_cells  # four dipoles per cell
     dipole_angle = 2 * np.pi / n_dipoles  # [rad]
-    dipole_field = dipole_angle * beam_flattop.B_rho_Tm / l_bend  # [T]
-    quadrupole_gradient = 1 / f_m * beam_flattop.B_rho_Tm / l_quad  # [T/m]
+    dipole_field = dipole_angle * B_rho_Tm / l_bend  # [T]
+    quadrupole_gradient = 1 / f_m * B_rho_Tm / l_quad  # [T/m]
 
     r_quadrupole = 0.065  # [m]
     v_gap_dipole = 0.065  # [m]
@@ -121,11 +93,11 @@ Define relevant constants.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-72
+.. GENERATED FROM PYTHON SOURCE LINES 56-57
 
 Now let's setup ``MAD-X`` and input a very simple lattice.
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-133
+.. GENERATED FROM PYTHON SOURCE LINES 57-118
 
 .. code-block:: default
 
@@ -180,7 +152,7 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
     option, warn=true;
 
     ! DEFINE BEAM PARAMETERS AND PROPERTIES
-    beam, particle=proton, sequence=cas19, energy={beam_injection.E_tot_GeV}, exn={beam_injection.en_x_m}, eyn={beam_injection.en_y_m}, sige={beam_injection.en_y_m};
+    beam, particle=proton, sequence=cas19, energy={E_tot_GeV}, exn=5e-6, eyn=5e-6, sige=5e-6;
     use, sequence=cas19;
     select, flag=twiss, column=apertype, aper_1, aper_2;
 
@@ -197,12 +169,12 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-136
+.. GENERATED FROM PYTHON SOURCE LINES 119-121
 
 Now let's run an interpolation to be able to see the value of the optics functions
-inside the elements:
+inside the elements, this gives us higher resolution:
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-142
+.. GENERATED FROM PYTHON SOURCE LINES 121-127
 
 .. code-block:: default
 
@@ -219,128 +191,80 @@ inside the elements:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-145
+.. GENERATED FROM PYTHON SOURCE LINES 128-131
 
-We can now plot the beam enveloppe and the stay-clear at injection, for the
-whole machine:
+We can now plot the beam enveloppe for the whole machine. Here notice we use
+the *scale* argument to convert the units to mm, this makes for nicer yticks
+values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 145-165
+.. GENERATED FROM PYTHON SOURCE LINES 131-147
 
 .. code-block:: default
 
+    figure, axes = plt.subplots(2, 1, sharex=True, figsize=(16, 11))
 
-    fig, axes = plt.subplots(3, 1, figsize=(18, 20))
-    plot_envelope(
-        madx,
-        beam_injection,
-        ylimits=(-0.12, 0.12),
-        title=f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c",
-        axis=axes[0],
-    )
-    plot_envelope(
-        madx,
-        beam_injection,
-        ylimits=(-0.12, 0.12),
-        plane="vertical",
-        title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
-        axis=axes[1],
-    )
-    plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
+    # First let's plot 1 sigma and 2.5 sigma horizontal enveloppes
+    plot_beam_envelope(madx, "cas19", "x", nsigma=1, scale=1e3, ax=axes[0])
+    plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5, scale=1e3, ax=axes[0])
+    plt.setp(axes[0], ylabel="X [mm]")
+    axes[0].legend()
+
+    # Then plot 1 sigma and 2.5 sigma vertical enveloppes
+    plot_beam_envelope(madx, "cas19", "y", nsigma=1, scale=1e3, ax=axes[1])
+    plot_beam_envelope(madx, "cas19", "vertical", nsigma=2.5, scale=1e3, ax=axes[1])
+    plt.setp(axes[1], xlabel="S [m]", ylabel="Y [mm]")
+    axes[1].legend()
+
     plt.show()
 
 
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_beam_enveloppe_001.svg
-   :alt: Horizontal aperture at 1.9 GeV/c, Vertical aperture at 1.9 GeV/c, Stay-Clear at 1.9 GeV/c
-   :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_001.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_001_2_0x.svg 2.0x
+   :alt: demo beam enveloppe
+   :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_001.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_001_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-168
+.. GENERATED FROM PYTHON SOURCE LINES 148-152
 
-In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
-Here we will plot the horizontal enveloppe for the first cell only.
+Notice how the shading automatically adapts based on the *nsigma* argument.
+In order to have a look at the enveloppe in a specific region, we can give the
+*xlimits* argument. Here we will plot the horizontal enveloppe for the first
+5 cells only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-174
+.. GENERATED FROM PYTHON SOURCE LINES 152-160
 
 .. code-block:: default
 
 
-    title = f"First Cell Horizontal Aperture at {beam_injection.pc_GeV} GeV/c"
     fig, ax = plt.subplots(figsize=(16, 9))
-    plot_envelope(madx, beam_injection, ylimits=(-0.12, 0.12), xlimits=(0, l_cell), title=title)
+    plot_beam_envelope(madx, "cas19", "x", nsigma=1, scale=1e3, xlimits=(0, 5 * l_cell))
+    plot_beam_envelope(madx, "cas19", "x", nsigma=2.5, scale=1e3, xlimits=(0, 5 * l_cell))
+    plt.setp(ax, xlabel="S [m]", ylabel="X [mm]", title="First 5 Cells Horizontal Enveloppe")
+    ax.legend()
     plt.show()
 
 
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_beam_enveloppe_002.svg
-   :alt: First Cell Horizontal Aperture at 1.9 GeV/c
-   :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_002.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_002_2_0x.svg 2.0x
+   :alt: First 5 Cells Horizontal Enveloppe
+   :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_002.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 175-177
-
-And similarly we can plot for the cell at top energy, only by adapting the
-provided beam parameters:
-
-.. GENERATED FROM PYTHON SOURCE LINES 177-205
-
-.. code-block:: default
-
-
-    fig, axes = plt.subplots(3, 1, figsize=(18, 20))
-    plot_envelope(
-        madx,
-        beam_injection,
-        xlimits=(0, l_cell),
-        ylimits=(-0.12, 0.12),
-        title=f"Horizontal aperture at {beam_flattop.pc_GeV} GeV/c",
-        axis=axes[0],
-    )
-    plot_envelope(
-        madx,
-        beam_injection,
-        xlimits=(0, l_cell),
-        ylimits=(-0.12, 0.12),
-        plane="vertical",
-        title=f"Vertical aperture at {beam_flattop.pc_GeV} GeV/c",
-        axis=axes[1],
-    )
-    plot_stay_clear(
-        madx,
-        beam_injection,
-        xlimits=(0, l_cell),
-        title=f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c",
-        axis=axes[2],
-    )
-    plt.show()
-
-
-
-
-.. image-sg:: /gallery/images/sphx_glr_demo_beam_enveloppe_003.svg
-   :alt: Horizontal aperture at 19.0 GeV/c, Vertical aperture at 19.0 GeV/c, Stay-Clear at 19.0 GeV/c
-   :srcset: /gallery/images/sphx_glr_demo_beam_enveloppe_003.svg, /gallery/images/sphx_glr_demo_beam_enveloppe_003_2_0x.svg 2.0x
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 206-207
+.. GENERATED FROM PYTHON SOURCE LINES 161-162
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 207-210
+.. GENERATED FROM PYTHON SOURCE LINES 162-165
 
 .. code-block:: default
 
@@ -354,20 +278,14 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 211-218
+.. GENERATED FROM PYTHON SOURCE LINES 166-172
 
 .. admonition:: References
 
    The use of the following functions, methods, classes and modules is shown
    in this example:
 
-   - `~.plotting.envelope`: `~.plotting.envelope.plot_envelope`, `~.plotting.envelope.plot_stay_clear`
-   - `~.models.beam`: `~.models.beam.BeamParameters`
-
-
-.. rst-class:: sphx-glr-timing
-
-   **Total running time of the script:** ( 0 minutes  2.622 seconds)
+   - `~.plotting.envelope`: `~.plotting.envelope.plot_beam_envelope`
 
 
 .. _sphx_glr_download_gallery_demo_beam_enveloppe.py:
@@ -375,6 +293,8 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

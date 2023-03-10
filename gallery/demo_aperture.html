@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accelerator Aperture &mdash; PyhDToolkit 1.1.1 documentation</title>
+  <title>Accelerator Aperture &mdash; PyhDToolkit 1.2.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/plot_directive.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-codeautolink.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/sphinx-dropdown.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-bootstrap.min.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -39,14 +39,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> PyhDToolkit
+
+          
+          
+          <a href="../index.html">
+            
           </a>
               <div class="version">
-                1.1.1
+                1.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -81,6 +85,11 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="demo_machine_survey.html">Machine Survey</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo_phase_space.html">Phase Space</a></li>
+<li class="toctree-l2"><a class="reference internal" href="demo_lhc_setup.html">Quick LHC Setup</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="demo_lhc_setup.html#preparing-the-lhc-setups">Preparing the LHC setups</a></li>
+<li class="toctree-l3"><a class="reference internal" href="demo_lhc_setup.html#as-a-context-manager">As a context manager</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="demo_sbs_plotting.html">Segment-by-Segment Results</a></li>
 <li class="toctree-l2"><a class="reference internal" href="demo_tune_diagram.html">Tune Diagram</a></li>
 </ul>
@@ -89,59 +98,180 @@
 <li class="toctree-l2"><a class="reference internal" href="../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach"><code class="docutils literal notranslate"><span class="pre">get_closest_tune_approach()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_cminus_from_coupling_rdts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_coupling_rdts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens"><code class="docutils literal notranslate"><span class="pre">match_no_coupling_through_ripkens()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.get_lhc_bpms_twiss_and_rdts"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_twiss_and_rdts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.add_markers_around_lhc_ip"><code class="docutils literal notranslate"><span class="pre">add_markers_around_lhc_ip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_kicker"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_matrix"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_triplets"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_triplets()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_bpms_list"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_list()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_tune_and_chroma_knobs"><code class="docutils literal notranslate"><span class="pre">get_lhc_tune_and_chroma_knobs()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_sizes_at_ip"><code class="docutils literal notranslate"><span class="pre">get_sizes_at_ip()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.make_sixtrack_output"><code class="docutils literal notranslate"><span class="pre">make_sixtrack_output()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.reset_lhc_bump_flags"><code class="docutils literal notranslate"><span class="pre">reset_lhc_bump_flags()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob_delta"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob_delta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_coupling_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_coupling_knob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_rigidity_waist_shift_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_rigidity_waist_shift_knob()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.carry_colinearity_knob_over"><code class="docutils literal notranslate"><span class="pre">carry_colinearity_knob_over()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.deactivate_lhc_arc_sextupoles"><code class="docutils literal notranslate"><span class="pre">deactivate_lhc_arc_sextupoles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.power_landau_octupoles"><code class="docutils literal notranslate"><span class="pre">power_landau_octupoles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.switch_magnetic_errors"><code class="docutils literal notranslate"><span class="pre">switch_magnetic_errors()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.vary_independent_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">vary_independent_ir_quadrupoles()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_current_orbit_setup"><code class="docutils literal notranslate"><span class="pre">get_current_orbit_setup()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_magnets_powering"><code class="docutils literal notranslate"><span class="pre">get_magnets_powering()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_arc_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_arc_correctors_powering()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_triplet_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_triplet_correctors_powering()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.do_kmodulation"><code class="docutils literal notranslate"><span class="pre">do_kmodulation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"><code class="docutils literal notranslate"><span class="pre">LHCSetup</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables"><code class="docutils literal notranslate"><span class="pre">lhc_orbit_variables()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="docutils literal notranslate"><span class="pre">make_lhc_beams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_thin"><code class="docutils literal notranslate"><span class="pre">make_lhc_thin()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run2()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run3()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="docutils literal notranslate"><span class="pre">re_cycle_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">setup_lhc_orbit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ips_twiss"><code class="docutils literal notranslate"><span class="pre">get_ips_twiss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ir_twiss"><code class="docutils literal notranslate"><span class="pre">get_ir_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_chromaticities()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes"><code class="docutils literal notranslate"><span class="pre">match_tunes()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#parameters">Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.parameters.query_beam_attributes"><code class="docutils literal notranslate"><span class="pre">query_beam_attributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_amplitude_detuning"><code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_rdts"><code class="docutils literal notranslate"><span class="pre">get_rdts()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_track_particle"><code class="docutils literal notranslate"><span class="pre">ptc_track_particle()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_twiss"><code class="docutils literal notranslate"><span class="pre">ptc_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="docutils literal notranslate"><span class="pre">track_single_particle()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines"><code class="docutils literal notranslate"><span class="pre">get_footprint_lines()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_patches"><code class="docutils literal notranslate"><span class="pre">get_footprint_patches()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table"><code class="docutils literal notranslate"><span class="pre">make_footprint_table()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss"><code class="docutils literal notranslate"><span class="pre">get_pattern_twiss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_twiss_tfs"><code class="docutils literal notranslate"><span class="pre">get_twiss_tfs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table"><code class="docutils literal notranslate"><span class="pre">export_madx_table()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.get_table_tfs"><code class="docutils literal notranslate"><span class="pre">get_table_tfs()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/maths.html">Maths</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor"><code class="docutils literal notranslate"><span class="pre">PhaseReconstructor</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/maths.html#stats-fitting">Stats Fitting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#pyhdtoolkit.maths.stats_fitting.best_fit_distribution"><code class="docutils literal notranslate"><span class="pre">best_fit_distribution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#pyhdtoolkit.maths.stats_fitting.make_pdf"><code class="docutils literal notranslate"><span class="pre">make_pdf()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict"><code class="docutils literal notranslate"><span class="pre">set_distributions_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/maths.html#utilities">Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#pyhdtoolkit.maths.utils.get_magnitude"><code class="docutils literal notranslate"><span class="pre">get_magnitude()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/maths.html#pyhdtoolkit.maths.utils.get_scaled_values_and_magnitude_string"><code class="docutils literal notranslate"><span class="pre">get_scaled_values_and_magnitude_string()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/models.html">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/models.html#particle-beam-models">Particle Beam Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#pyhdtoolkit.models.beam.BeamParameters"><code class="docutils literal notranslate"><span class="pre">BeamParameters</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/models.html#htcondor-models">HTCondor Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#pyhdtoolkit.models.htc.BaseSummary"><code class="docutils literal notranslate"><span class="pre">BaseSummary</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#pyhdtoolkit.models.htc.ClusterSummary"><code class="docutils literal notranslate"><span class="pre">ClusterSummary</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#pyhdtoolkit.models.htc.HTCTaskSummary"><code class="docutils literal notranslate"><span class="pre">HTCTaskSummary</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/models.html#mad-x-models">MAD-X Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#pyhdtoolkit.models.madx.MADXBeam"><code class="docutils literal notranslate"><span class="pre">MADXBeam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/models.html#pyhdtoolkit.models.madx.ParticleEnum"><code class="docutils literal notranslate"><span class="pre">ParticleEnum</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/optics.html">Optics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/optics.html#beam-optics">Beam Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/optics.html#pyhdtoolkit.optics.beam.Beam"><code class="docutils literal notranslate"><span class="pre">Beam</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/optics.html#pyhdtoolkit.optics.beam.compute_beam_parameters"><code class="docutils literal notranslate"><span class="pre">compute_beam_parameters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/optics.html#pyhdtoolkit.optics.ripken.lebedev_beam_size"><code class="docutils literal notranslate"><span class="pre">lebedev_beam_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/optics.html#twiss-optics">Twiss Optics</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/optics.html#pyhdtoolkit.optics.twiss.courant_snyder_transform"><code class="docutils literal notranslate"><span class="pre">courant_snyder_transform()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/plotting.html">Plotting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-styles">Plotting Styles</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.styles.install_mpl_styles"><code class="docutils literal notranslate"><span class="pre">install_mpl_styles()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#paper-styles">Paper Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture"><code class="docutils literal notranslate"><span class="pre">plot_aperture()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures"><code class="docutils literal notranslate"><span class="pre">plot_physical_apertures()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_single_ir_crossing"><code class="docutils literal notranslate"><span class="pre">plot_single_ir_crossing()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_two_lhc_ips_crossings"><code class="docutils literal notranslate"><span class="pre">plot_two_lhc_ips_crossings()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.envelope.plot_beam_envelope"><code class="docutils literal notranslate"><span class="pre">plot_beam_envelope()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="docutils literal notranslate"><span class="pre">plot_latwiss()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="docutils literal notranslate"><span class="pre">plot_machine_survey()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#layout-plotters">Layout Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.layout.plot_machine_layout"><code class="docutils literal notranslate"><span class="pre">plot_machine_layout()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space_colored"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space_colored()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.tune.farey_sequence"><code class="docutils literal notranslate"><span class="pre">farey_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order"><code class="docutils literal notranslate"><span class="pre">plot_resonance_lines_for_order()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram"><code class="docutils literal notranslate"><span class="pre">plot_tune_diagram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt"><code class="docutils literal notranslate"><span class="pre">plot_full_ip_rdt()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component"><code class="docutils literal notranslate"><span class="pre">plot_rdt_component()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.draw_confidence_ellipse"><code class="docutils literal notranslate"><span class="pre">draw_confidence_ellipse()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations"><code class="docutils literal notranslate"><span class="pre">draw_ip_locations()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start"><code class="docutils literal notranslate"><span class="pre">find_ip_s_from_segment_start()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions"><code class="docutils literal notranslate"><span class="pre">get_lhc_ips_positions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups"><code class="docutils literal notranslate"><span class="pre">make_elements_groups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups"><code class="docutils literal notranslate"><span class="pre">make_survey_groups()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax"><code class="docutils literal notranslate"><span class="pre">maybe_get_ax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label"><code class="docutils literal notranslate"><span class="pre">set_arrow_label()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine"><code class="docutils literal notranslate"><span class="pre">CommandLine</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#context-utilities">Context Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.contexts.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#executors-utilities">Executors Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.executors.MultiProcessor"><code class="docutils literal notranslate"><span class="pre">MultiProcessor</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.executors.MultiThreader"><code class="docutils literal notranslate"><span class="pre">MultiThreader</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.htc_monitor.query_condor_q"><code class="docutils literal notranslate"><span class="pre">query_condor_q()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q"><code class="docutils literal notranslate"><span class="pre">read_condor_q()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#logging-utilities">Logging Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger"><code class="docutils literal notranslate"><span class="pre">config_logger()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_arc_bpms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_ir_bpms()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance"><code class="docutils literal notranslate"><span class="pre">apply_colin_corrs_balance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile"><code class="docutils literal notranslate"><span class="pre">get_betastar_from_opticsfile()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils._misc.log_runtime_versions"><code class="docutils literal notranslate"><span class="pre">log_runtime_versions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils._misc.split_complex_columns"><code class="docutils literal notranslate"><span class="pre">split_complex_columns()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#operations-utilities">Operations Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.operations.ListOperations"><code class="docutils literal notranslate"><span class="pre">ListOperations</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations"><code class="docutils literal notranslate"><span class="pre">MiscellaneousOperations</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations"><code class="docutils literal notranslate"><span class="pre">NumberOperations</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.operations.StringOperations"><code class="docutils literal notranslate"><span class="pre">StringOperations</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../api/utils.html#printing-utilities">Printing Utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.printutil.Background"><code class="docutils literal notranslate"><span class="pre">Background</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.printutil.Foreground"><code class="docutils literal notranslate"><span class="pre">Foreground</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="../api/utils.html#pyhdtoolkit.utils.printutil.Styles"><code class="docutils literal notranslate"><span class="pre">Styles</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -162,6 +292,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-2-0">Version 1.2.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.2.0.html">1.2.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-1-1">Version 1.1.1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.1.1.html">1.1.1</a></li>
 </ul>
@@ -340,7 +474,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Gallery</a></li>
       <li class="breadcrumb-item active">Accelerator Aperture</li>
       <li class="wy-breadcrumbs-aside">
@@ -355,11 +489,11 @@
              
   <div class="sphx-glr-download-link-note admonition note">
 <p class="admonition-title">Note</p>
-<p>Click <a class="reference internal" href="#sphx-glr-download-gallery-demo-aperture-py"><span class="std std-ref">here</span></a>
+<p><a class="reference internal" href="#sphx-glr-download-gallery-demo-aperture-py"><span class="std std-ref">Go to the end</span></a>
 to download the full example code</p>
 </div>
 <section class="sphx-glr-example-title" id="accelerator-aperture">
-<span id="demo-accelerator-aperture"></span><span id="sphx-glr-gallery-demo-aperture-py"></span><h1>Accelerator Aperture<a class="headerlink" href="#accelerator-aperture" title="Permalink to this headline"></a></h1>
+<span id="demo-accelerator-aperture"></span><span id="sphx-glr-gallery-demo-aperture-py"></span><h1>Accelerator Aperture<a class="headerlink" href="#accelerator-aperture" title="Permalink to this heading"></a></h1>
 <p>This example shows how to use the <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture" title="pyhdtoolkit.plotting.aperture.plot_aperture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_aperture</span></code></a> function
 to visualise the available aperture in your machine, with the LHC for example.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
@@ -367,7 +501,7 @@ to visualise the available aperture in your machine, with the LHC for example.</
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">lhc</span>
-<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.aperture</span> <span class="kn">import</span> <a href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture" title="pyhdtoolkit.plotting.aperture.plot_aperture" class="sphx-glr-backref-module-pyhdtoolkit-plotting-aperture sphx-glr-backref-type-py-function"><span class="n">plot_aperture</span></a>
+<span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.aperture</span> <span class="kn">import</span> <a href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture" title="pyhdtoolkit.plotting.aperture.plot_aperture" class="sphx-glr-backref-module-pyhdtoolkit-plotting-aperture sphx-glr-backref-type-py-function"><span class="n">plot_aperture</span></a><span class="p">,</span> <a href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures" title="pyhdtoolkit.plotting.aperture.plot_physical_apertures" class="sphx-glr-backref-module-pyhdtoolkit-plotting-aperture sphx-glr-backref-type-py-function"><span class="n">plot_physical_apertures</span></a>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.utils</span> <span class="kn">import</span> <span class="n">logging</span>
 
@@ -413,13 +547,31 @@ injection aperture:</p>
     <span class="n">k1l_lim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">0.08</span><span class="p">,</span> <span class="mf">0.08</span><span class="p">),</span>
     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;darkslateblue&quot;</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="k">for</span> <span class="n">axis</span> <span class="ow">in</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gcf.html#matplotlib.pyplot.gcf" title="matplotlib.pyplot.gcf" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span></a><span class="p">()</span><span class="o">.</span><span class="n">get_axes</span><span class="p">():</span>
+<span class="k">for</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.html#matplotlib.axes.Axes" title="matplotlib.axes.Axes" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axis</span></a> <span class="ow">in</span> <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gcf.html#matplotlib.pyplot.gcf" title="matplotlib.pyplot.gcf" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gcf</span></a><span class="p">()</span><span class="o">.</span><span class="n">get_axes</span><span class="p">():</span>
     <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.axvline.html#matplotlib.axes.Axes.axvline" title="matplotlib.axes.Axes.axvline" class="sphx-glr-backref-module-matplotlib-axes sphx-glr-backref-type-py-method"><span class="n">axis</span><span class="o">.</span><span class="n">axvline</span></a><span class="p">(</span><span class="n">x</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">ip5s</span></a><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;IP5&quot;</span><span class="p">)</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">()</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_demo_aperture_001.svg" srcset="../_images/sphx_glr_demo_aperture_001.svg, ../_images/sphx_glr_demo_aperture_001_2_0x.svg 2.0x" alt="IR5, Collision Optics - Beam 1 Aperture Tolerance" class = "sphx-glr-single-img"/><p>Let’s not forget to close the rpc connection to <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>:</p>
+<img src="../_images/sphx_glr_demo_aperture_001.svg" srcset="../_images/sphx_glr_demo_aperture_001.svg, ../_images/sphx_glr_demo_aperture_001_2_00x.svg 2.00x" alt="IR5, Collision Optics - Beam 1 Aperture Tolerance" class = "sphx-glr-single-img"/><p>We can also go for a different type of aperture plot, which tries to give
+the elements’ real physical apertures, with the <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures" title="pyhdtoolkit.plotting.aperture.plot_physical_apertures"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_physical_apertures</span></code></a>
+function:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<a href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures" title="pyhdtoolkit.plotting.aperture.plot_physical_apertures" class="sphx-glr-backref-module-pyhdtoolkit-plotting-aperture sphx-glr-backref-type-py-function"><span class="n">plot_physical_apertures</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">(),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;S [m]&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;X [m]&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylim.html#matplotlib.pyplot.ylim" title="matplotlib.pyplot.ylim" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span></a><span class="p">(</span><span class="o">-</span><span class="mf">0.035</span><span class="p">,</span> <span class="mf">0.035</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_demo_aperture_002.svg" srcset="../_images/sphx_glr_demo_aperture_002.svg, ../_images/sphx_glr_demo_aperture_002_2_00x.svg 2.00x" alt="demo aperture" class = "sphx-glr-single-img"/><p>We can give a <code class="docutils literal notranslate"><span class="pre">scale</span></code> argument to change the scale of the Y-axis. Let’s make
+it in centimeters here:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.figure.html#matplotlib.pyplot.figure" title="matplotlib.pyplot.figure" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">figure</span></a><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+<a href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures" title="pyhdtoolkit.plotting.aperture.plot_physical_apertures" class="sphx-glr-backref-module-pyhdtoolkit-plotting-aperture sphx-glr-backref-type-py-function"><span class="n">plot_physical_apertures</span></a><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">plane</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1e2</span><span class="p">)</span>  <span class="c1"># just give the scaling factor</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.setp.html#matplotlib.pyplot.setp" title="matplotlib.pyplot.setp" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">setp</span></a><span class="p">(</span><a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.gca.html#matplotlib.pyplot.gca" title="matplotlib.pyplot.gca" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">gca</span></a><span class="p">(),</span> <span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;S [m]&quot;</span><span class="p">,</span> <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Y [cm]&quot;</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.ylim.html#matplotlib.pyplot.ylim" title="matplotlib.pyplot.ylim" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">ylim</span></a><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.xlim.html#matplotlib.pyplot.xlim" title="matplotlib.pyplot.xlim" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span></a><span class="p">(</span><span class="mi">9000</span><span class="p">,</span> <span class="mi">11_000</span><span class="p">)</span>
+</pre></div>
+</div>
+<img src="../_images/sphx_glr_demo_aperture_003.svg" srcset="../_images/sphx_glr_demo_aperture_003.svg, ../_images/sphx_glr_demo_aperture_003_2_00x.svg 2.00x" alt="demo aperture" class = "sphx-glr-single-img"/><p>Let’s not forget to close the rpc connection to <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.exit" title="cpymad.madx.Madx.exit" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">exit</span></a><span class="p">()</span>
 </pre></div>
 </div>
@@ -432,7 +584,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.aperture" title="pyhdtoolkit.plotting.aperture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">aperture</span></code></a>: <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture" title="pyhdtoolkit.plotting.aperture.plot_aperture"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_aperture</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.374 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  36.381 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-aperture-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/7cabb3812f439b2e815915ddd304a9ea/demo_aperture.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_aperture.py</span></code></a></p>

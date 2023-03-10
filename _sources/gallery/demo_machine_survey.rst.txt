@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_demo_machine_survey.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_demo_machine_survey.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -105,7 +105,7 @@ Plot the machine survey, as simplistic as possible:
 
 .. image-sg:: /gallery/images/sphx_glr_demo_machine_survey_001.svg
    :alt: Machine Layout
-   :srcset: /gallery/images/sphx_glr_demo_machine_survey_001.svg, /gallery/images/sphx_glr_demo_machine_survey_001_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_machine_survey_001.svg, /gallery/images/sphx_glr_demo_machine_survey_001_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -130,7 +130,7 @@ Plot the machine survey, differenciating elements and showing high order magnets
 
 .. image-sg:: /gallery/images/sphx_glr_demo_machine_survey_002.svg
    :alt: Machine Layout
-   :srcset: /gallery/images/sphx_glr_demo_machine_survey_002.svg, /gallery/images/sphx_glr_demo_machine_survey_002_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_machine_survey_002.svg, /gallery/images/sphx_glr_demo_machine_survey_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -171,6 +171,8 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

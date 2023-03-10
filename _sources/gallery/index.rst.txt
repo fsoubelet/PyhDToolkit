@@ -76,7 +76,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_acd_tracking_spectra_thumb.svg
-    :alt: AC Dipole Driven Tracking Spectrum
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_acd_tracking_spectra.py`
 
@@ -93,7 +93,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_aperture_thumb.svg
-    :alt: Accelerator Aperture
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_aperture.py`
 
@@ -110,7 +110,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_lattice_thumb.svg
-    :alt: Accelerator Lattice
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_lattice.py`
 
@@ -127,7 +127,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_beam_enveloppe_thumb.svg
-    :alt: Beam Enveloppe
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_beam_enveloppe.py`
 
@@ -144,7 +144,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_stats_fitting_thumb.svg
-    :alt: Distributions Fitting
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_stats_fitting.py`
 
@@ -161,7 +161,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_track_spectra_thumb.svg
-    :alt: Free Tracking Spectrum
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_track_spectra.py`
 
@@ -178,7 +178,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_lhc_crossing_schemes_thumb.svg
-    :alt: LHC Crossing Schemes
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_lhc_crossing_schemes.py`
 
@@ -195,7 +195,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_ir_errors_thumb.svg
-    :alt: LHC IR Errors Assignments
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_ir_errors.py`
 
@@ -212,7 +212,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_lhc_rigid_waist_shift_thumb.svg
-    :alt: LHC Rigid Waist Shift
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_lhc_rigid_waist_shift.py`
 
@@ -229,7 +229,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_machine_survey_thumb.svg
-    :alt: Machine Survey
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_machine_survey.py`
 
@@ -246,7 +246,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_phase_space_thumb.svg
-    :alt: Phase Space
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_phase_space.py`
 
@@ -258,12 +258,29 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
+    <div class="sphx-glr-thumbcontainer" tooltip="These examples show how to use the functions in pyhdtoolkit.cpymadtools.lhc._setup managers to ...">
+
+.. only:: html
+
+  .. image:: /gallery/images/thumb/sphx_glr_demo_lhc_setup_thumb.svg
+    :alt:
+
+  :ref:`sphx_glr_gallery_demo_lhc_setup.py`
+
+.. raw:: html
+
+      <div class="sphx-glr-thumbnail-title">Quick LHC Setup</div>
+    </div>
+
+
+.. raw:: html
+
     <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the modules in pyhdtoolkit.plotting.sbs and their various functio...">
 
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_sbs_plotting_thumb.svg
-    :alt: Segment-by-Segment Results
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_sbs_plotting.py`
 
@@ -280,7 +297,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 .. only:: html
 
   .. image:: /gallery/images/thumb/sphx_glr_demo_tune_diagram_thumb.svg
-    :alt: Tune Diagram
+    :alt:
 
   :ref:`sphx_glr_gallery_demo_tune_diagram.py`
 
@@ -309,6 +326,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
    /gallery/demo_lhc_rigid_waist_shift
    /gallery/demo_machine_survey
    /gallery/demo_phase_space
+   /gallery/demo_lhc_setup
    /gallery/demo_sbs_plotting
    /gallery/demo_tune_diagram
 

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_demo_track_spectra.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_demo_track_spectra.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -369,7 +369,7 @@ first obeservation BPM we provided above:
 
 .. image-sg:: /gallery/images/sphx_glr_demo_track_spectra_001.svg
    :alt: demo track spectra
-   :srcset: /gallery/images/sphx_glr_demo_track_spectra_001.svg, /gallery/images/sphx_glr_demo_track_spectra_001_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_track_spectra_001.svg, /gallery/images/sphx_glr_demo_track_spectra_001_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -430,7 +430,7 @@ One can then plot the spectra by plotting the computed values against the tune s
 
 .. image-sg:: /gallery/images/sphx_glr_demo_track_spectra_002.svg
    :alt: demo track spectra
-   :srcset: /gallery/images/sphx_glr_demo_track_spectra_002.svg, /gallery/images/sphx_glr_demo_track_spectra_002_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_track_spectra_002.svg, /gallery/images/sphx_glr_demo_track_spectra_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -669,7 +669,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  12.049 seconds)
+   **Total running time of the script:** ( 0 minutes  18.543 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_track_spectra.py:
@@ -677,6 +677,8 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_demo_lattice.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_demo_lattice.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -58,7 +58,7 @@ of several parameters to control the plot on the example case of the LHC.
 
 Let's start by generating a simple lattice and setup your simulation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-48
+.. GENERATED FROM PYTHON SOURCE LINES 30-47
 
 .. code-block:: default
 
@@ -71,8 +71,7 @@ Let's start by generating a simple lattice and setup your simulation:
 
     matching.match_tunes_and_chromaticities(
         madx,
-        None,
-        "CAS3",
+        sequence="CAS3",
         q1_target=6.335,
         q2_target=6.29,
         dq1_target=100,
@@ -87,14 +86,14 @@ Let's start by generating a simple lattice and setup your simulation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-53
+.. GENERATED FROM PYTHON SOURCE LINES 48-52
 
 Plotting the combined machine layout and optics functions is done in a single call
 to the `~.plotting.lattice.plot_latwiss` function. Here, we will also set the *k0l_lim*
 parameter to control the right-hand-side axis in the machine layout axis. The same
 can be done with the *k1_lim* parameter.
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-65
+.. GENERATED FROM PYTHON SOURCE LINES 52-64
 
 .. code-block:: default
 
@@ -115,20 +114,20 @@ can be done with the *k1_lim* parameter.
 
 .. image-sg:: /gallery/images/sphx_glr_demo_lattice_001.svg
    :alt: Base Lattice, $\mu_{x, cell}=0.264, \ \mu_{y, cell}=0.262$
-   :srcset: /gallery/images/sphx_glr_demo_lattice_001.svg, /gallery/images/sphx_glr_demo_lattice_001_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_lattice_001.svg, /gallery/images/sphx_glr_demo_lattice_001_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-69
+.. GENERATED FROM PYTHON SOURCE LINES 65-68
 
 One can customise the plot more to their liking or needs thanks to the other
 function parameters. Let's showcase this with the LHC lattice, that we set up
 below:
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-75
+.. GENERATED FROM PYTHON SOURCE LINES 68-74
 
 .. code-block:: default
 
@@ -145,12 +144,12 @@ below:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 76-78
+.. GENERATED FROM PYTHON SOURCE LINES 75-77
 
 Let's re-cycle the sequences to avoid having IR1 split at beginning and end of
 lattice, as is the default in the LHC sequence, and setup a flat orbit.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-86
+.. GENERATED FROM PYTHON SOURCE LINES 77-85
 
 .. code-block:: default
 
@@ -169,13 +168,13 @@ lattice, as is the default in the LHC sequence, and setup a flat orbit.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-90
+.. GENERATED FROM PYTHON SOURCE LINES 86-89
 
 The `~.plotting.lattice.plot_latwiss` function gives the possibility to zoom on a
 region by providing the *xlimits* parameter. Let's first determine the position
 of points of interest through the ``TWISS`` table:
 
-.. GENERATED FROM PYTHON SOURCE LINES 90-96
+.. GENERATED FROM PYTHON SOURCE LINES 89-95
 
 .. code-block:: default
 
@@ -192,7 +191,7 @@ of points of interest through the ``TWISS`` table:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 97-107
+.. GENERATED FROM PYTHON SOURCE LINES 96-106
 
 We can now focus the plot in the Interaction Region 1 by providing the *xlimits*
 centered around the value we determined for *ip1s*.
@@ -205,7 +204,7 @@ centered around the value we determined for *ip1s*.
     (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
     way to zoom on a region.
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-122
+.. GENERATED FROM PYTHON SOURCE LINES 106-121
 
 .. code-block:: default
 
@@ -229,21 +228,21 @@ centered around the value we determined for *ip1s*.
 
 .. image-sg:: /gallery/images/sphx_glr_demo_lattice_002.svg
    :alt: Interaction Region 1, Flat LHCB1 Setup
-   :srcset: /gallery/images/sphx_glr_demo_lattice_002.svg, /gallery/images/sphx_glr_demo_lattice_002_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_lattice_002.svg, /gallery/images/sphx_glr_demo_lattice_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 123-127
+.. GENERATED FROM PYTHON SOURCE LINES 122-126
 
 Using the *xoffset* parameter, one can shift the longitudinal coordinate to be
 centered on 0, with the horizontal axis showing relative position to the given
 *xoffset*. This is useful here to zoom closely on IP1 and see the elements'
 positions relative to the IP marker.
 
-.. GENERATED FROM PYTHON SOURCE LINES 127-143
+.. GENERATED FROM PYTHON SOURCE LINES 126-142
 
 .. code-block:: default
 
@@ -268,14 +267,14 @@ positions relative to the IP marker.
 
 .. image-sg:: /gallery/images/sphx_glr_demo_lattice_003.svg
    :alt: IP1 Surroundings, Flat LHCB1 Setup
-   :srcset: /gallery/images/sphx_glr_demo_lattice_003.svg, /gallery/images/sphx_glr_demo_lattice_003_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_lattice_003.svg, /gallery/images/sphx_glr_demo_lattice_003_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-150
+.. GENERATED FROM PYTHON SOURCE LINES 143-149
 
 When and only when the *k2l_lim* parameter is provided, the sextupolar elements
 are plotted on the lattice layout axis, and an additional scale is put to the right.
@@ -284,7 +283,7 @@ want to plot when looking at the big picture, to avoid overcrowding it. Similarl
 providing the *plot_bpms* will add a small marker for BPM elements. Here it is
 showcased when looking at an LHC arc cell:
 
-.. GENERATED FROM PYTHON SOURCE LINES 150-168
+.. GENERATED FROM PYTHON SOURCE LINES 149-167
 
 .. code-block:: default
 
@@ -311,18 +310,18 @@ showcased when looking at an LHC arc cell:
 
 .. image-sg:: /gallery/images/sphx_glr_demo_lattice_004.svg
    :alt: LHC Arc Cell, Flat LHCB1 Setup
-   :srcset: /gallery/images/sphx_glr_demo_lattice_004.svg, /gallery/images/sphx_glr_demo_lattice_004_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_lattice_004.svg, /gallery/images/sphx_glr_demo_lattice_004_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-170
+.. GENERATED FROM PYTHON SOURCE LINES 168-169
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 170-173
+.. GENERATED FROM PYTHON SOURCE LINES 169-172
 
 .. code-block:: default
 
@@ -336,7 +335,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 174-183
+.. GENERATED FROM PYTHON SOURCE LINES 173-182
 
 .. admonition:: References
 
@@ -351,7 +350,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.250 seconds)
+   **Total running time of the script:** ( 0 minutes  13.806 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lattice.py:
@@ -359,6 +358,8 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

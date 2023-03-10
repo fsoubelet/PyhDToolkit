@@ -192,9 +192,9 @@ with Madx(stdout=False) as madx:
     for knobfile in b1_knobs:
         madx.call(knobfile)
 
-    matching.match_tunes(madx, "lhc", f"lhcb1", 62.31, 60.32)
-    matching.match_chromaticities(madx, "lhc", f"lhcb1", 2.0, 2.0)
-    matching.match_tunes_and_chromaticities(madx, "lhc", f"lhcb1", 62.31, 60.32, 2.0, 2.0)
+    matching.match_tunes(madx, "lhc", "lhcb1", 62.31, 60.32)
+    matching.match_chromaticities(madx, "lhc", "lhcb1", 2.0, 2.0)
+    matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
 
     madx.command.twiss()
     twiss_df = madx.table.twiss.dframe()
@@ -297,7 +297,7 @@ betaw = around_ip.betx.min()
 # The analytical result (sign will swap depending on if we calculate from left
 # or right Q1) is then easily calculated. We can then compare this value to the
 # one found with the markers we previously added, and they are fairly close.
-waist = L_star - np.sqrt(beta0 * betaw - betaw ** 2)
+waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
 print(f"Analytical: {waist}")
 print(f"Markers: {shift}")
 

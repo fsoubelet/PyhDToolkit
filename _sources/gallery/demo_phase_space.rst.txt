@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_demo_phase_space.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_demo_phase_space.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -88,7 +88,7 @@ Define some constants, generate a simple lattice and setup your simulation:
 
 Input the lattice into ``MAD-X``, and match to a desired working point:
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-62
+.. GENERATED FROM PYTHON SOURCE LINES 48-61
 
 .. code-block:: default
 
@@ -97,8 +97,7 @@ Input the lattice into ``MAD-X``, and match to a desired working point:
     madx.input(base_lattice)
     match_tunes_and_chromaticities(
         madx,
-        None,
-        "CAS3",
+        sequence="CAS3",
         q1_target=6.335,
         q2_target=6.29,
         dq1_target=100,
@@ -113,13 +112,13 @@ Input the lattice into ``MAD-X``, and match to a desired working point:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-66
+.. GENERATED FROM PYTHON SOURCE LINES 62-65
 
 We can then perform tracking on a range of particles. Here the **x_coords**, **px_coords**,
 **y_coords** and **py_coords** become lists of arrays, in which each element has the array of
 a particle's coordinates for each turn.
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-74
+.. GENERATED FROM PYTHON SOURCE LINES 65-73
 
 .. code-block:: default
 
@@ -138,13 +137,13 @@ a particle's coordinates for each turn.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 75-78
+.. GENERATED FROM PYTHON SOURCE LINES 74-77
 
 Now we can plot these coordinates in phase space, here for the horizontal plane.
 Note that the function automatically calculates the normalized coordinates and
 plots these.
 
-.. GENERATED FROM PYTHON SOURCE LINES 78-85
+.. GENERATED FROM PYTHON SOURCE LINES 77-84
 
 .. code-block:: default
 
@@ -160,19 +159,19 @@ plots these.
 
 .. image-sg:: /gallery/images/sphx_glr_demo_phase_space_001.svg
    :alt: demo phase space
-   :srcset: /gallery/images/sphx_glr_demo_phase_space_001.svg, /gallery/images/sphx_glr_demo_phase_space_001_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_phase_space_001.svg, /gallery/images/sphx_glr_demo_phase_space_001_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-88
+.. GENERATED FROM PYTHON SOURCE LINES 85-87
 
 Using the `~.plotting.phasespace.plot_courant_snyder_phase_space_colored` function,
 one gets a plot in which each color corresponds to a given particle's trajectory:
 
-.. GENERATED FROM PYTHON SOURCE LINES 88-95
+.. GENERATED FROM PYTHON SOURCE LINES 87-94
 
 .. code-block:: default
 
@@ -188,14 +187,14 @@ one gets a plot in which each color corresponds to a given particle's trajectory
 
 .. image-sg:: /gallery/images/sphx_glr_demo_phase_space_002.svg
    :alt: demo phase space
-   :srcset: /gallery/images/sphx_glr_demo_phase_space_002.svg, /gallery/images/sphx_glr_demo_phase_space_002_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_phase_space_002.svg, /gallery/images/sphx_glr_demo_phase_space_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 96-102
+.. GENERATED FROM PYTHON SOURCE LINES 95-101
 
 We can see the phase space evolve as the machine's working conditions change.
 In our case, this dummy lattice is meant for classes and is very robust, so if
@@ -204,7 +203,7 @@ one wants significant change, a solution is to excite a resonance!
 To do so, we will use a similar lattice equipped with a sextupole, which we will
 use to excite the resonance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-110
+.. GENERATED FROM PYTHON SOURCE LINES 101-109
 
 .. code-block:: default
 
@@ -223,19 +222,18 @@ use to excite the resonance.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-112
+.. GENERATED FROM PYTHON SOURCE LINES 110-111
 
 Let's get close to the third order resonance and track particles.
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-133
+.. GENERATED FROM PYTHON SOURCE LINES 111-131
 
 .. code-block:: default
 
 
     match_tunes_and_chromaticities(
         madx,
-        None,
-        "CAS3",
+        sequence="CAS3",
         q1_target=6.335,
         q2_target=6.29,
         dq1_target=100,
@@ -259,11 +257,11 @@ Let's get close to the third order resonance and track particles.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-135
+.. GENERATED FROM PYTHON SOURCE LINES 132-133
 
 Plotting the new phase space, we can clearly see the resonance's islands!
 
-.. GENERATED FROM PYTHON SOURCE LINES 135-142
+.. GENERATED FROM PYTHON SOURCE LINES 133-140
 
 .. code-block:: default
 
@@ -279,18 +277,18 @@ Plotting the new phase space, we can clearly see the resonance's islands!
 
 .. image-sg:: /gallery/images/sphx_glr_demo_phase_space_003.svg
    :alt: demo phase space
-   :srcset: /gallery/images/sphx_glr_demo_phase_space_003.svg, /gallery/images/sphx_glr_demo_phase_space_003_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_phase_space_003.svg, /gallery/images/sphx_glr_demo_phase_space_003_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-144
+.. GENERATED FROM PYTHON SOURCE LINES 141-142
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 144-147
+.. GENERATED FROM PYTHON SOURCE LINES 142-145
 
 .. code-block:: default
 
@@ -304,7 +302,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-157
+.. GENERATED FROM PYTHON SOURCE LINES 146-155
 
 .. admonition:: References
 
@@ -319,7 +317,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  27.595 seconds)
+   **Total running time of the script:** ( 0 minutes  32.548 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_phase_space.py:
@@ -327,6 +325,8 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

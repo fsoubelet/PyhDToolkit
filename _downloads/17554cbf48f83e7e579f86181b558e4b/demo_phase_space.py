@@ -50,8 +50,7 @@ madx = Madx(stdout=False)
 madx.input(base_lattice)
 match_tunes_and_chromaticities(
     madx,
-    None,
-    "CAS3",
+    sequence="CAS3",
     q1_target=6.335,
     q2_target=6.29,
     dq1_target=100,
@@ -112,8 +111,7 @@ madx.input("ks1 = 0.1;")  # powering the sextupole
 
 match_tunes_and_chromaticities(
     madx,
-    None,
-    "CAS3",
+    sequence="CAS3",
     q1_target=6.335,
     q2_target=6.29,
     dq1_target=100,

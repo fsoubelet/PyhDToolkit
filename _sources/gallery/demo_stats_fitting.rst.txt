@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_demo_stats_fitting.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_demo_stats_fitting.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -231,7 +231,7 @@ the `~.maths.stats_fitting.best_fit_distribution` function:
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_001.svg
    :alt: All Fitted Distributions
-   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_001.svg, /gallery/images/sphx_glr_demo_stats_fitting_001_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_001.svg, /gallery/images/sphx_glr_demo_stats_fitting_001_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -290,7 +290,7 @@ the data, and determine its mode:
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
    :alt: Best fit to distribution: ChiSquared(df=3.97, loc=0.00, scale=1.00)
-   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -387,7 +387,7 @@ distribution generated above.
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_003.svg
    :alt: All Fitted Distributions
-   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_003.svg, /gallery/images/sphx_glr_demo_stats_fitting_003_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_003.svg, /gallery/images/sphx_glr_demo_stats_fitting_003_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -407,7 +407,7 @@ distribution generated above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.427 seconds)
+   **Total running time of the script:** ( 0 minutes  11.106 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:
@@ -415,6 +415,8 @@ distribution generated above.
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python

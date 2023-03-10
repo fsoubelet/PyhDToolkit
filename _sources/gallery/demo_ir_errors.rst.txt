@@ -10,7 +10,7 @@
     .. note::
         :class: sphx-glr-download-link-note
 
-        Click :ref:`here <sphx_glr_download_gallery_demo_ir_errors.py>`
+        :ref:`Go to the end <sphx_glr_download_gallery_demo_ir_errors.py>`
         to download the full example code
 
 .. rst-class:: sphx-glr-example-title
@@ -242,100 +242,100 @@ order in which they are in the machine:
       <tbody>
         <tr>
           <th>mqml.6l1.b1</th>
-          <td>-0.000765</td>
+          <td>-0.000281</td>
           <td>0.0</td>
-          <td>0.001363</td>
+          <td>0.000181</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5l1.b1</th>
-          <td>0.000690</td>
+          <td>-0.001055</td>
           <td>0.0</td>
-          <td>-0.003032</td>
+          <td>0.000046</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4l1.b1</th>
-          <td>-0.001024</td>
+          <td>-0.000555</td>
           <td>0.0</td>
-          <td>0.003079</td>
+          <td>-0.001407</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3l1</th>
-          <td>-0.001164</td>
+          <td>-0.001244</td>
           <td>0.0</td>
-          <td>0.001421</td>
+          <td>-0.001494</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2l1</th>
-          <td>0.000398</td>
+          <td>0.000622</td>
           <td>0.0</td>
-          <td>0.005230</td>
+          <td>0.000910</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2l1</th>
-          <td>-0.000522</td>
+          <td>-0.000521</td>
           <td>0.0</td>
-          <td>-0.000309</td>
+          <td>-0.007020</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1l1</th>
-          <td>0.000768</td>
+          <td>0.001277</td>
           <td>0.0</td>
-          <td>-0.002365</td>
+          <td>-0.001281</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1r1</th>
-          <td>-0.000310</td>
+          <td>-0.000490</td>
           <td>0.0</td>
-          <td>-0.003206</td>
+          <td>0.001228</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2r1</th>
-          <td>0.001378</td>
+          <td>-0.000070</td>
           <td>0.0</td>
-          <td>-0.006925</td>
+          <td>-0.005291</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2r1</th>
-          <td>-0.000485</td>
+          <td>-0.000348</td>
           <td>0.0</td>
-          <td>0.003781</td>
+          <td>0.002530</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3r1</th>
-          <td>0.001345</td>
+          <td>-0.001706</td>
           <td>0.0</td>
-          <td>-0.005088</td>
+          <td>0.002933</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4r1.b1</th>
-          <td>-0.000978</td>
+          <td>0.000382</td>
           <td>0.0</td>
-          <td>-0.002540</td>
+          <td>0.006960</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5r1.b1</th>
-          <td>-0.000203</td>
+          <td>0.001118</td>
           <td>0.0</td>
-          <td>-0.000470</td>
+          <td>-0.000910</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.6r1.b1</th>
-          <td>0.000221</td>
+          <td>-0.000070</td>
           <td>0.0</td>
-          <td>0.002493</td>
+          <td>-0.002522</td>
           <td>0.0</td>
         </tr>
       </tbody>
@@ -395,7 +395,7 @@ chart, making use of the `~pandas.DataFrame` plotting capabilities:
 
 .. image-sg:: /gallery/images/sphx_glr_demo_ir_errors_001.svg
    :alt: Applied Errors
-   :srcset: /gallery/images/sphx_glr_demo_ir_errors_001.svg, /gallery/images/sphx_glr_demo_ir_errors_001_2_0x.svg 2.0x
+   :srcset: /gallery/images/sphx_glr_demo_ir_errors_001.svg, /gallery/images/sphx_glr_demo_ir_errors_001_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
 
@@ -433,7 +433,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  7.232 seconds)
+   **Total running time of the script:** ( 0 minutes  9.269 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_ir_errors.py:
@@ -441,6 +441,8 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 .. only:: html
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
+
+
 
 
     .. container:: sphx-glr-download sphx-glr-download-python
