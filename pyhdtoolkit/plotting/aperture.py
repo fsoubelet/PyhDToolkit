@@ -6,7 +6,7 @@ Aperture Plotters
 
 Module with functions to create aperture plots through a `~cpymad.madx.Madx` object.
 """
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -24,64 +24,99 @@ def plot_aperture(
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     plot_dipoles: bool = True,
+    plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
     aperture_ylim: Tuple[float, float] = None,
-    k0l_lim: Tuple[float, float] = None,
-    k1l_lim: Tuple[float, float] = None,
-    k2l_lim: Tuple[float, float] = None,
+    k0l_lim: Union[Tuple[float, float], float, int] = None,
+    k1l_lim: Union[Tuple[float, float], float, int] = None,
+    k2l_lim: Union[Tuple[float, float], float, int] = None,
+    k3l_lim: Union[Tuple[float, float], float, int] = None,
     color: str = None,
     **kwargs,
 ) -> None:
     """
     .. versionadded:: 1.0.0
 
-    Creates a plot representing nicely the lattice layout and the aperture tolerance across the machine.
-    One can find an example use of this function in the :ref:`machine aperture <demo-accelerator-aperture>`
-    example gallery.
+    Creates a plot representing the lattice layout and the aperture tolerance
+    across the machine. The tolerance is based on the aperture table. One can
+    find an example use of this function in the
+    :ref:`machine aperture <demo-accelerator-aperture>` example gallery.
 
     .. important::
-        This function assumes the user has previously made a call to the ``APERTURE`` command in ``MAD-X``,
-        as it will query relevant values from the ``aperture`` table.
+        This function assumes the user has previously made a call to the
+        ``APERTURE`` command in ``MAD-X``, as it will query relevant values
+        from the ``aperture`` table.
 
     .. note::
-        This function has some heavy logic behind it, especially in how it needs to order several axes. The
-        easiest way to go about using it is to manually create and empty figure with the desired properties
-        (size, etc) then call this function. See the example below or the gallery for more details.
+        This function has some heavy logic behind it, especially in how it
+        needs to order several axes. The easiest way to go about using it is
+        to manually create and empty figure with the desired properties (size,
+        etc) then call this function. See the example below or the gallery for
+        more details.
 
     .. warning::
-        Currently the function tries to plot legends for the different layout patches. The position of the
-        different legends has been hardcoded in corners and might require users to tweak the axis limits
-        (through ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and plotted elements don't
-        overlap.
+        Currently the function tries to plot legends for the different layout
+        patches. The position of the different legends has been hardcoded in
+        corners and might require users to tweak the axis limits (through
+        ``k0l_lim``, ``k1l_lim`` and ``k2l_lim``) to ensure legend labels and
+        plotted elements don't overlap.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            Positional only.
         title (Optional[str]): title of the figure.
-        xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
-            you want to center a plot around a specific point or element, which would then become located
-            at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is
-            not ``None``, using the tuple passed.
-        plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of
-            the figure. Defaults to `True`. Dipoles are plotted in blue.
-        plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted on the layout
-            subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.
-        plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
-            represent Beam Position Monitors. BPMs are plotted in dark grey.
-        aperture_ylim (Tuple[float, float]): vertical axis limits for the aperture values. Defaults to
-            `None`, to be determined by matplotlib based on the provided values.
-        k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
-            height of dipole patches. Defaults to `None`.
-        k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
-            height of quadrupole patches. Defaults to `None`.
-        k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
-            the figure, and the provided values act as vertical axis limits for the k2l values used for the
-            height of sextupole patches.
-        color (str): the color argument given to the aperture lines. Defaults to `None`, in which case
-            the first color in your `rcParams`'s cycler will be used.
-        **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
-            to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+        xoffset (float): An offset applied to the ``S`` coordinate before
+            plotting. This is useful if you want to center a plot around a
+            specific point or element, which would then become located at
+            :math:`s = 0`. Beware this offset is applied before applying the
+            *xlimits*. Defaults to 0.
+        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+            coordinate) if this is not ``None``, using the tuple passed.
+        plot_dipoles (bool): if `True`, dipole patches will be plotted on
+            the layout subplot of the figure. Defaults to `True`. Dipoles
+            are plotted in blue.
+        plot_dipole_k1 (bool): if `True`, dipole elements with a quadrupolar
+            gradient will have this gradient plotted as a quadrupole patch.
+            Defaults to `False`.
+        plot_quadrupoles (bool): if `True`, quadrupole patches will be plotted
+            on the layout subplot of the figure. Defaults to `True`.
+            Quadrupoles are plotted in red.
+        plot_bpms (bool): if `True`, additional patches will be plotted on the
+            layout subplot to represent Beam Position Monitors. BPMs are
+            plotted in dark grey.
+        aperture_ylim (Tuple[float, float]): vertical axis limits for the
+            aperture values. Defaults to `None`, to be determined by matplotlib
+            based on the provided values.
+        k0l_lim (Union[Tuple[float, float], float, int]): vertical axis limits
+            for the ``k0l`` values used for the height of dipole patches. Can
+            be given as a single value (float, int) or a tuple (in which case
+            it should be symmetric). If `None` (default) is given, then the
+            limits will be auto-determined based on the ``k0l`` values of the
+            dipoles in the plot.
+        k1l_lim (Union[Tuple[float, float], float, int]): vertical axis limits
+            for the ``k1l`` values used for the height of quadrupole patches.
+            Can be given as a single value (float, int) or a tuple (in which
+            case it should be symmetric). If `None` (default) is given, then
+            the limits will be auto-determined based on the ``k0l`` values of
+            the quadrupoles in the plot.
+        k2l_lim (Union[Tuple[float, float], float, int]): if given, sextupole
+            patches will be plotted on the layout subplot of the figure. If
+            given, acts as vertical axis limits for the k2l values used for
+            the height of sextupole patches. Can be given as a single value
+            (float, int) or a tuple (in which case it should be symmetric).
+        k3l_lim (Union[Tuple[float, float], float, int]): if given, octupole
+            patches will be plotted on the layout subplot of the figure. If
+            given, acts as vertical axis limits for the k3l values used for
+            the height of octupole patches. Can be given as a single value
+            (float, int) or a tuple (in which case it should be symmetric).
+        color (str): the color argument given to the aperture lines. Defaults
+            to `None`, in which case the first color in your `rcParams`'s
+            cycler will be used.
+        **kwargs: any keyword argument will be transmitted to
+            `~.plotting.utils.plot_machine_layout`, later on to
+            `~.plotting.utils._plot_lattice_series`, and then
+            `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
 
     Example:
         .. code-block:: python
@@ -119,11 +154,13 @@ def plot_aperture(
         xoffset=xoffset,
         xlimits=xlimits,
         plot_dipoles=plot_dipoles,
+        plot_dipole_k1=plot_dipole_k1,
         plot_quadrupoles=plot_quadrupoles,
         plot_bpms=plot_bpms,
         k0l_lim=k0l_lim,
         k1l_lim=k1l_lim,
         k2l_lim=k2l_lim,
+        k3l_lim=k3l_lim,
         **kwargs,
     )
 
