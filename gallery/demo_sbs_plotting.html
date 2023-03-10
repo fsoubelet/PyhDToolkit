@@ -513,11 +513,11 @@ different dataframes corresponding to specific components of segment-by-segment
 results, which can be obtained by directly loading the output <strong>TFS</strong> files.
 Let’s load below the coupling results of a segment-by-segment run and related
 model files.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b1_model_tfs</span></a> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b1_twiss_elements.dat&quot;</span><span class="p">)</span>
-<a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b2_model_tfs</span></a> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2_twiss_elements.dat&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b1_model_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b1_twiss_elements.dat&quot;</span><span class="p">)</span>
+<span class="n">b2_model_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2_twiss_elements.dat&quot;</span><span class="p">)</span>
 
-<a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">couple_b1_tfs</span></a> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b1_sbscouple_IP1.out&quot;</span><span class="p">)</span>
-<a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">couple_b2_tfs</span></a> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2_sbscouple_IP1.out&quot;</span><span class="p">)</span>
+<span class="n">couple_b1_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b1_sbscouple_IP1.out&quot;</span><span class="p">)</span>
+<span class="n">couple_b2_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2_sbscouple_IP1.out&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>One can now easily plot these results in a few lines with functions from the
@@ -531,10 +531,10 @@ will then be highlighted in the plot.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we plot the real part of the f1001 coupling resonance driving term (default rdt plotted)</span>
 <a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component" title="pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-coupling sphx-glr-backref-type-py-function"><span class="n">coupling</span><span class="o">.</span><span class="n">plot_rdt_component</span></a><span class="p">(</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">couple_b1_tfs</span></a><span class="p">,</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">couple_b2_tfs</span></a><span class="p">,</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b1_model_tfs</span></a><span class="p">,</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b2_model_tfs</span></a><span class="p">,</span>
+    <span class="n">couple_b1_tfs</span><span class="p">,</span>
+    <span class="n">couple_b2_tfs</span><span class="p">,</span>
+    <span class="n">b1_model_tfs</span><span class="p">,</span>
+    <span class="n">b2_model_tfs</span><span class="p">,</span>
     <span class="n">ip</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">component</span><span class="o">=</span><span class="s2">&quot;RE&quot;</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
@@ -557,10 +557,10 @@ axis. Keyword arguments can be used to specify properties of the figure and
 set the position of the legend.</p>
 </div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt" title="pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-coupling sphx-glr-backref-type-py-function"><span class="n">coupling</span><span class="o">.</span><span class="n">plot_full_ip_rdt</span></a><span class="p">(</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">couple_b1_tfs</span></a><span class="p">,</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">couple_b2_tfs</span></a><span class="p">,</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b1_model_tfs</span></a><span class="p">,</span>
-    <a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b2_model_tfs</span></a><span class="p">,</span>
+    <span class="n">couple_b1_tfs</span><span class="p">,</span>
+    <span class="n">couple_b2_tfs</span><span class="p">,</span>
+    <span class="n">b1_model_tfs</span><span class="p">,</span>
+    <span class="n">b2_model_tfs</span><span class="p">,</span>
     <span class="n">ip</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
     <span class="n">abs_ylimits</span><span class="o">=</span><span class="p">(</span><span class="mf">5e-3</span><span class="p">,</span> <span class="mf">6.5e-2</span><span class="p">),</span>
@@ -575,13 +575,13 @@ set the position of the legend.</p>
 functions in <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.sbs.phase" title="pyhdtoolkit.plotting.sbs.phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phase</span></code></a>. The plotting logic is the same as above,
 with the simplification that no component has to be chosen. Let’s load data for
 this example: one dataframe for each plane for Beam 2.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasex</span></a> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2sbsphasext_IP5.out&quot;</span><span class="p">)</span>
-<a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasey</span></a> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2sbsphaseyt_IP5.out&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sbs_phasex</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2sbsphasext_IP5.out&quot;</span><span class="p">)</span>
+<span class="n">sbs_phasey</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2sbsphaseyt_IP5.out&quot;</span><span class="p">)</span>
 
 <a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-phase sphx-glr-backref-type-py-function"><span class="n">phase</span><span class="o">.</span><span class="n">plot_phase_segment_one_beam</span></a><span class="p">(</span>
-    <span class="n">phase_x</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasex</span></a><span class="p">,</span>
-    <span class="n">phase_y</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasey</span></a><span class="p">,</span>
-    <span class="n">model</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b2_model_tfs</span></a><span class="p">,</span>
+    <span class="n">phase_x</span><span class="o">=</span><span class="n">sbs_phasex</span><span class="p">,</span>
+    <span class="n">phase_y</span><span class="o">=</span><span class="n">sbs_phasey</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">b2_model_tfs</span><span class="p">,</span>
     <span class="n">ip</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">12</span><span class="p">),</span>
 <span class="p">)</span>
@@ -592,12 +592,12 @@ this example: one dataframe for each plane for Beam 2.</p>
 a single call with the <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams</span></code></a>
 function, as demonstrated below.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-phase sphx-glr-backref-type-py-function"><span class="n">phase</span><span class="o">.</span><span class="n">plot_phase_segment_both_beams</span></a><span class="p">(</span>
-    <span class="n">b1_phase_x</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasex</span></a><span class="p">,</span>
-    <span class="n">b1_phase_y</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasey</span></a><span class="p">,</span>
-    <span class="n">b2_phase_x</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasex</span></a><span class="p">,</span>
-    <span class="n">b2_phase_y</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">sbs_phasey</span></a><span class="p">,</span>
-    <span class="n">b1_model</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b2_model_tfs</span></a><span class="p">,</span>
-    <span class="n">b2_model</span><span class="o">=</span><a href="https://pylhc.github.io/tfs/modules/index.html#tfs.frame.TfsDataFrame" title="tfs.frame.TfsDataFrame" class="sphx-glr-backref-module-tfs-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">b2_model_tfs</span></a><span class="p">,</span>
+    <span class="n">b1_phase_x</span><span class="o">=</span><span class="n">sbs_phasex</span><span class="p">,</span>
+    <span class="n">b1_phase_y</span><span class="o">=</span><span class="n">sbs_phasey</span><span class="p">,</span>
+    <span class="n">b2_phase_x</span><span class="o">=</span><span class="n">sbs_phasex</span><span class="p">,</span>
+    <span class="n">b2_phase_y</span><span class="o">=</span><span class="n">sbs_phasey</span><span class="p">,</span>
+    <span class="n">b1_model</span><span class="o">=</span><span class="n">b2_model_tfs</span><span class="p">,</span>
+    <span class="n">b2_model</span><span class="o">=</span><span class="n">b2_model_tfs</span><span class="p">,</span>
     <span class="n">ip</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
     <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.535</span><span class="p">,</span> <span class="mf">0.94</span><span class="p">),</span>
@@ -614,7 +614,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.sbs.phase" title="pyhdtoolkit.plotting.sbs.phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phase</span></code></a>: <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam</span></code></a>, <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.890 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.690 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-sbs-plotting-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/ab3ed099c57146ff8b9d76dbf2af1409/demo_sbs_plotting.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_sbs_plotting.py</span></code></a></p>
