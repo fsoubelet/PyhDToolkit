@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
+from pyhdtoolkit.plotting.aperture import plot_real_apertures
 from pyhdtoolkit.plotting.envelope import plot_beam_envelope
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.plotting.utils import draw_ip_locations, get_lhc_ips_positions
@@ -110,29 +111,39 @@ with lhc.LHCSetup(run=3, opticsfile="R2022a_A11mC11mA10mL10m.madx", stdout=False
 
 ###############################################################################
 # Notice we don't need to call ``madx.exit()`` as the context manager takes care
-# of that. Now, the same with betastar = 30cm optics
+# of that. Now, the same with betastar = 30cm optics. We can also easily add the
+# element apertures on top of the plot:
 
 with lhc.LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) as madx:
+    # We'll need to call these to have aperture limitations
+    madx.call("lhc/aperture.b1.madx")
+    madx.call("lhc/aper_tol.b1.madx")
+    
     df = twiss.get_twiss_tfs(madx)
     ips = get_lhc_ips_positions(df)
-    limits = (ips["IP5"] - 500, ips["IP5"] + 500)
+    limits = (ips["IP5"] - 350, ips["IP5"] + 350)
 
     with plt.rc_context(_SPHINX_GALLERY_PARAMS):
-        fig, axes = plt.subplots(2, 1, sharex=True, figsize=(18, 10))
+        fig, axes = plt.subplots(2, 1, sharex=True, figsize=(18, 13))
 
-        plot_beam_envelope(madx, "lhcb1", "x", 1, scale=1e3, xlimits=limits, ax=axes[0])
+        plot_real_apertures(madx, plane="x", scale=1e3, xlimits=limits, ax=axes[0])
         plot_beam_envelope(madx, "lhcb1", "x", 3, scale=1e3, xlimits=limits, ax=axes[0])
+        plot_beam_envelope(madx, "lhcb1", "x", 6, scale=1e3, xlimits=limits, ax=axes[0])
+        plot_beam_envelope(madx, "lhcb1", "x", 11, scale=1e3, xlimits=limits, ax=axes[0])
         axes[0].set_ylabel("X [mm]")
 
-        plot_beam_envelope(madx, "lhcb1", "y", 1, scale=1e3, xlimits=limits, ax=axes[1])
+        plot_real_apertures(madx, plane="y", scale=1e3, xlimits=limits, ax=axes[1])
         plot_beam_envelope(madx, "lhcb1", "y", 3, scale=1e3, xlimits=limits, ax=axes[1])
+        plot_beam_envelope(madx, "lhcb1", "y", 6, scale=1e3, xlimits=limits, ax=axes[1])
+        plot_beam_envelope(madx, "lhcb1", "y", 11, scale=1e3, xlimits=limits, ax=axes[1])
         axes[1].set_ylabel("Y [mm]")
         axes[1].set_xlabel("S [m]")
 
         for axis in axes:
             axis.legend()
+            axis.set_ylim(-45, 45)
             axis.yaxis.set_major_locator(plt.MaxNLocator(5))
-            draw_ip_locations(ips, location="inside", ax=axis)
+            draw_ip_locations(ips, ax=axis)
 
         fig.suptitle(r"LHC $\beta^{\ast} = 30$cm Optics")
         fig.align_ylabels(axes)
@@ -183,5 +194,6 @@ with plt.rc_context(_SPHINX_GALLERY_PARAMS):
 #
 #    - `~.cpymadtools.coupling`: `~.coupling.get_coupling_rdts`
 #    - `~.cpymadtools.lhc`: `~.lhc.apply_lhc_colinearity_knob`, `~.lhc.apply_lhc_coupling_knob`, `~.lhc._setup.LHCSetup`, `~.lhc._setup.prepare_lhc_run3`
+#    - `~.plotting.aperture`: `~.plotting.aperture.plot_real_apertures`
 #    - `~.plotting.envelope`: `~.plotting.envelope.plot_beam_envelope`
 #    - `~.plotting.utils`:  `~.plotting.utils.draw_ip_locations`, `~.plotting.utils.get_lhc_ips_positions`
