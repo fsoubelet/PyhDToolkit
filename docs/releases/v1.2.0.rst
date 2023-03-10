@@ -13,6 +13,7 @@ Changes
 Enhancements
 ~~~~~~~~~~~~
 
+* The `pyhdtoolkit.plotting.aperture` module has a new function, `~pyhdtoolkit.plotting.aperture.plot_real_apertures`, to try and plot the physical apertures of elements on the given axis.
 * The `pyhdtoolkit.plotting.utils` module has a new function, `~pyhdtoolkit.plotting.utils.draw_confidence_ellipse`, to plot the covariance ellipse of two arrays.
 * The `pyhdtoolkit.plotting.layout.plot_machine_layout` function (and those relying on it) can now plot octupole patches.
 * The `pyhdtoolkit.plotting.layout.plot_machine_layout` function (and those relying on it) can now handle single values given for ylimits of different elements in the machine layout. For instance now `k1l_lim=5e-2` is valid and equivalent to `k1l_lim=(-5e-2, 5e-2)`.
