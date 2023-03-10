@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
-from pyhdtoolkit.plotting.aperture import plot_aperture, plot_real_apertures
+from pyhdtoolkit.plotting.aperture import plot_aperture, plot_physical_apertures
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
@@ -73,11 +73,11 @@ plt.show()
 
 ###############################################################################
 # We can also go for a different type of aperture plot, which tries to give 
-# the elements' real physical apertures, with the `~.plotting.aperture.plot_real_apertures`
+# the elements' real physical apertures, with the `~.plotting.aperture.plot_physical_apertures`
 # function:
 
 plt.figure(figsize=(18, 10))
-plot_real_apertures(madx, plane="x")
+plot_physical_apertures(madx, plane="x")
 plt.setp(plt.gca(), xlabel="S [m]", ylabel="X [m]")
 plt.ylim(-0.035, 0.035)
 
@@ -86,7 +86,7 @@ plt.ylim(-0.035, 0.035)
 # it in centimeters here:
 
 plt.figure(figsize=(18, 10))
-plot_real_apertures(madx, plane="x", scale=1e2)  # just give the scaling factor
+plot_physical_apertures(madx, plane="x", scale=1e2)  # just give the scaling factor
 plt.setp(plt.gca(), xlabel="S [m]", ylabel="Y [cm]")
 plt.ylim(-4, 4)
 plt.xlim(9000, 11_000)

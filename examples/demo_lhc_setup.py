@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
-from pyhdtoolkit.plotting.aperture import plot_real_apertures
+from pyhdtoolkit.plotting.aperture import plot_physical_apertures
 from pyhdtoolkit.plotting.envelope import plot_beam_envelope
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.plotting.utils import draw_ip_locations, get_lhc_ips_positions
@@ -126,13 +126,13 @@ with lhc.LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) a
     with plt.rc_context(_SPHINX_GALLERY_PARAMS):
         fig, axes = plt.subplots(2, 1, sharex=True, figsize=(18, 13))
 
-        plot_real_apertures(madx, plane="x", scale=1e3, xlimits=limits, ax=axes[0])
+        plot_physical_apertures(madx, plane="x", scale=1e3, xlimits=limits, ax=axes[0])
         plot_beam_envelope(madx, "lhcb1", "x", 3, scale=1e3, xlimits=limits, ax=axes[0])
         plot_beam_envelope(madx, "lhcb1", "x", 6, scale=1e3, xlimits=limits, ax=axes[0])
         plot_beam_envelope(madx, "lhcb1", "x", 11, scale=1e3, xlimits=limits, ax=axes[0])
         axes[0].set_ylabel("X [mm]")
 
-        plot_real_apertures(madx, plane="y", scale=1e3, xlimits=limits, ax=axes[1])
+        plot_physical_apertures(madx, plane="y", scale=1e3, xlimits=limits, ax=axes[1])
         plot_beam_envelope(madx, "lhcb1", "y", 3, scale=1e3, xlimits=limits, ax=axes[1])
         plot_beam_envelope(madx, "lhcb1", "y", 6, scale=1e3, xlimits=limits, ax=axes[1])
         plot_beam_envelope(madx, "lhcb1", "y", 11, scale=1e3, xlimits=limits, ax=axes[1])
@@ -194,6 +194,6 @@ with plt.rc_context(_SPHINX_GALLERY_PARAMS):
 #
 #    - `~.cpymadtools.coupling`: `~.coupling.get_coupling_rdts`
 #    - `~.cpymadtools.lhc`: `~.lhc.apply_lhc_colinearity_knob`, `~.lhc.apply_lhc_coupling_knob`, `~.lhc._setup.LHCSetup`, `~.lhc._setup.prepare_lhc_run3`
-#    - `~.plotting.aperture`: `~.plotting.aperture.plot_real_apertures`
+#    - `~.plotting.aperture`: `~.plotting.aperture.plot_physical_apertures`
 #    - `~.plotting.envelope`: `~.plotting.envelope.plot_beam_envelope`
 #    - `~.plotting.utils`:  `~.plotting.utils.draw_ip_locations`, `~.plotting.utils.get_lhc_ips_positions`

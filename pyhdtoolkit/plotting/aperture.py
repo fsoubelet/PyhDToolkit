@@ -187,7 +187,7 @@ def plot_aperture(
         plt.xlim(xlimits)
 
 
-def plot_real_apertures(
+def plot_physical_apertures(
     madx, /, plane: str, scale: float = 1, xlimits: Tuple[float, float] = None, **kwargs
 ) -> None:
     """
@@ -229,7 +229,7 @@ def plot_real_apertures(
         .. code-block:: python
 
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_real_apertures(madx, "x")
+            >>> plot_physical_apertures(madx, "x")
             >>> plt.show()
 
         In order to do the same plot but have all values in millimeters:
@@ -237,7 +237,7 @@ def plot_real_apertures(
         .. code-block:: python
 
             >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_real_apertures(madx, "x", scale=1e3)
+            >>> plot_physical_apertures(madx, "x", scale=1e3)
             >>> plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
             >>> plt.show()
     """
