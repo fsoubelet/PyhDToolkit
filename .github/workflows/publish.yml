@@ -28,9 +28,9 @@ jobs:
       - name: Build wheels and sdist
         run: make build
 
-      - name: Publish package to PyPI
-        if: ${{ success() }}
-        env:
-          PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
-          PYPI_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
-        run: hatch publish -u "$PYPI_USERNAME" -p "$PYPI_PASSWORD" --yes
+      - name: Publish a Python distribution to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          verbose: true
+          print_hash: true
+          password: ${{ secrets.PYPI_API_TOKEN }}
