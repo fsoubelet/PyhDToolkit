@@ -29,8 +29,8 @@ def plot_beam_envelope(
     """
     .. versionadded:: 1.2.0
 
-    Draws the beam enveloppe around the beam orbit on the given *axis*. The enveloppe is
-    determined from the active sequence's beam's parameters.
+    Draws the beam enveloppe around the beam orbit on the given *axis*.
+    The enveloppe is determined from the active sequence's beam's parameters.
 
     One can find an example use of this function in the
     :ref:`beam enveloppe <demo-beam-enveloppe>` example gallery.
@@ -38,22 +38,27 @@ def plot_beam_envelope(
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             Positional only.
-        sequence (str): the name of the sequence to plot the beam enveloppe for,
-            should be the active sequence. Case-insensitive.
-        plane (str): the physical plane to plot for, should be either `x`, `horizontal`,
-            `y` or `vertical`, and is case-insensitive.
-        nsigma (float): the standard deviation to use for the beam enveloppe calculation.
-            A value of 3 will draw the 3 sigma beam enveloppe. Defaults to 1.
-        scale (float): a scaling factor to apply to the beam orbit and beam enveloppe, for
-            the user to adjust to their wanted scale. Defaults to 1 (values in [m]).
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if
-            this is not ``None``, using the tuple passed. Defaults to ``None``.
-        **kwargs: any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command.
-            If either `ax` or `axis` is found in the kwargs, the corresponding value is used
-            as the axis object to plot on.
+        sequence (str): the name of the sequence to plot the beam enveloppe
+            for, should be the active sequence. Case-insensitive.
+        plane (str): the physical plane to plot for, should be either `x`,
+            `horizontal`, `y` or `vertical`, and is case-insensitive.
+        nsigma (float): the standard deviation to use for the beam enveloppe
+            calculation. A value of 3 will draw the 3 sigma beam enveloppe.
+                Defaults to 1.
+        scale (float): a scaling factor to apply to the beam orbit and beam
+            enveloppe, for the user to adjust to their wanted scale. Defaults
+            to 1 (values in [m]).
+        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+            coordinate) if this is not ``None``, using the tuple passed.
+            Defaults to ``None``.
+        **kwargs: any keyword argument that can be given to the ``MAD-X``
+            ``TWISS`` command. If either `ax` or `axis` is found in the
+            kwargs, the corresponding value is used as the axis object to
+            plot on.
 
     Raises:
-        ValueError: if the *plane* argument is not one of `x`, `horizontal`, `y` or `vertical`.
+        ValueError: if the *plane* argument is not one of `x`, `horizontal`,
+        `y` or `vertical`.
 
     Examples:
         .. code-block:: python
