@@ -34,7 +34,7 @@ jobs:
         run: python -m pip install ".[test]"
 
       - name: Get acc-models-lhc
-        run: git clone https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+        run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
 
       - name: Run all tests
         run: make alltests

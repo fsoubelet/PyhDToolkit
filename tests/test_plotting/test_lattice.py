@@ -16,6 +16,7 @@ matplotlib.use("Agg")
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
+OCT_LATTICE = LatticeGenerator.generate_oneoct_cas_lattice()
 ELETTRA_LATTICE = INPUTS_DIR / "madx" / "elettra2_v15_VADER_2.3T.madx"
 ELETTRA_OPTICS = INPUTS_DIR / "madx" / "optics_elettra2_v15_VADER_2.3T.madx"
 
@@ -31,7 +32,7 @@ def test_plot_latwiss():
 
         figure = plt.figure(figsize=(18, 11))
         plot_latwiss(
-            madx=madx,
+            madx,
             title="Project 3 Base Lattice",
             xlimits=(-50, 1_050),
             beta_ylim=(5, 75),
@@ -39,6 +40,64 @@ def test_plot_latwiss():
             plot_bpms=True,
         )
     return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_latwiss_single_value_ylimts_inputs():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(BASE_LATTICE)
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        figure = plt.figure(figsize=(18, 11))
+        plot_latwiss(
+            madx,
+            title="Project 3 Base Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            k1l_lim=8e-2,
+            k2l_lim=0.35,
+            plot_bpms=True,
+        )
+    return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_latwiss_with_octupoles():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(OCT_LATTICE)
+        madx.input("koct = -15;")
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        figure = plt.figure(figsize=(18, 11))
+        plot_latwiss(
+            madx,
+            title="Project 3 Octupole Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            k1l_lim=-1e-1,  # tests that negative values are handled correctly too
+            k2l_lim=0.6,
+            k3l_lim=25,
+            lw=2,
+            plot_bpms=True,
+        )
+        plt.tight_layout()
+    return figure
+
+
+def test_plot_layout_raises_on_wrong_limits_type():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(BASE_LATTICE)
+        plt.figure(figsize=(18, 11))
+        
+        with pytest.raises(TypeError):
+            plot_latwiss(madx, k1l_lim=[8e-2])
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
@@ -60,7 +119,7 @@ def test_plot_latwiss_with_dipole_k1():
 
         figure = plt.figure(figsize=(18, 11))
         plot_latwiss(
-            madx=madx,
+            madx,
             title="Elettra Cell",
             xlimits=(x0, x1),
             k0l_lim=(-7e-2, 7e-2),
@@ -79,7 +138,7 @@ def test_plot_machine_survey_with_elements():
         madx.input(BASE_LATTICE)
 
         figure = plt.figure(figsize=(16, 11))
-        plot_machine_survey(madx=madx, show_elements=True, high_orders=True)
+        plot_machine_survey(madx, show_elements=True, high_orders=True)
     return figure
 
 
@@ -89,5 +148,5 @@ def test_plot_machine_survey_without_elements():
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         figure = plt.figure(figsize=(16, 11))
-        plot_machine_survey(madx=madx, show_elements=False, high_orders=True)
+        plot_machine_survey(madx, show_elements=False, high_orders=True)
     return figure

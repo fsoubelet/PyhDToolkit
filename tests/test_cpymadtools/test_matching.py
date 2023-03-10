@@ -26,7 +26,7 @@ def test_tune_and_chroma_matching(q1_target, q2_target, dq1_target, dq2_target, 
     assert madx.table.summ.dq2[0] != dq2_target
 
     match_tunes_and_chromaticities(
-        madx=madx,
+        madx,
         sequence="CAS3",
         q1_target=q1_target,
         q2_target=q2_target,
@@ -64,7 +64,7 @@ def test_tune_only_matching(q1_target, q2_target, telescopic_squeeze):
     assert madx.table.summ.q2[0] != q2_target
 
     match_tunes_and_chromaticities(
-        madx=madx,
+        madx,
         sequence="CAS3",
         q1_target=q1_target,
         q2_target=q2_target,
@@ -86,7 +86,7 @@ def test_tune_matching_wrapper(q1_target, q2_target, telescopic_squeeze):
     assert madx.table.summ.q2[0] != q2_target
 
     match_tunes(
-        madx=madx,
+        madx,
         sequence="CAS3",
         q1_target=q1_target,
         q2_target=q2_target,
@@ -108,7 +108,7 @@ def test_chroma_only_matching(dq1_target, dq2_target, telescopic_squeeze):
     assert madx.table.summ.dq2[0] != dq2_target
 
     match_tunes_and_chromaticities(
-        madx=madx,
+        madx,
         sequence="CAS3",
         dq1_target=dq1_target,
         dq2_target=dq2_target,
@@ -130,7 +130,7 @@ def test_chroma_matching_wrapper(dq1_target, dq2_target, telescopic_squeeze):
     assert madx.table.summ.dq2[0] != dq2_target
 
     match_chromaticities(
-        madx=madx,
+        madx,
         sequence="CAS3",
         dq1_target=dq1_target,
         dq2_target=dq2_target,

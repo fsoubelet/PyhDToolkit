@@ -16,7 +16,7 @@ from pyhdtoolkit.cpymadtools.lhc._twiss import get_ir_twiss
 
 
 def do_kmodulation(
-    madx: Madx, ir: int = 1, side: str = "right", steps: int = 100, stepsize: float = 3e-8, **kwargs
+    madx: Madx, /, ir: int = 1, side: str = "right", steps: int = 100, stepsize: float = 3e-8, **kwargs
 ) -> tfs.TfsDataFrame:
     r"""
     .. versionadded:: 0.20.0
@@ -35,7 +35,7 @@ def do_kmodulation(
         :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         ir (int): the IR in which to perform the modulation. Defaults to 1.
         side (str): which side of the IP to use the Q1 to perform the modulation.
             Should be either ``right`` or ``left``, case-insensitive. Defaults to
@@ -95,8 +95,9 @@ def do_kmodulation(
     return results
 
 
+# This is a duplicate of the function in _coupling.py, merge at some point
 def correct_lhc_global_coupling(
-    madx: Madx, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
+    madx: Madx, /, beam: int = 1, telescopic_squeeze: bool = True, calls: int = 100, tolerance: float = 1.0e-21
 ) -> None:
     """
     .. versionadded:: 0.20.0
@@ -110,7 +111,7 @@ def correct_lhc_global_coupling(
         trick, but it is not a perfect solution.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         beam (int): which beam you want to perform the matching for, should be `1` or
             `2`. Defaults to `1`.
         telescopic_squeeze (bool): If set to `True`, uses the coupling knobs
@@ -140,6 +141,7 @@ def correct_lhc_global_coupling(
 
 def correct_lhc_orbit(
     madx: Madx,
+    /,
     sequence: str,
     orbit_tolerance: float = 1e-14,
     iterations: int = 3,
@@ -155,7 +157,7 @@ def correct_lhc_orbit(
     usage information.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         sequence (str): which sequence to use the routine on.
         orbit_tolerance (float): the tolerance for the correction. Defaults to 1e-14.
         iterations (int): the number of iterations of the correction to perform.

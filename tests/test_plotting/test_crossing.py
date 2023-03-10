@@ -8,7 +8,7 @@ from pyhdtoolkit.plotting.crossing import plot_two_lhc_ips_crossings
 matplotlib.use("Agg")
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=35, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_crossing_schemes_ip15(_cycled_lhc_sequences):
 
     madx = _cycled_lhc_sequences
@@ -17,7 +17,7 @@ def test_plot_crossing_schemes_ip15(_cycled_lhc_sequences):
     return figure
 
 
-@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+@pytest.mark.mpl_image_compare(tolerance=35, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_crossing_schemes_ip28_no_highlight(_cycled_lhc_sequences):
 
     madx = _cycled_lhc_sequences

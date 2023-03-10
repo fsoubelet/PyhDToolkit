@@ -36,6 +36,10 @@ from sphinx_gallery.sorting import ExampleTitleSortKey
 
 import pyhdtoolkit
 
+# This is to tell Sphinx how to print some specific type annotations
+# See: https://stackoverflow.com/a/67483317
+# See: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_type_aliases
+autodoc_type_aliases = {"ArrayLike": "ArrayLike"}
 
 # To use SVG outputs when scraping matplotlib figures for the sphinx-gallery
 class matplotlib_svg_scraper(object):
@@ -144,6 +148,7 @@ extensions = [
     "sphinx_panels",  # Create panels in a grid layout or as drop-downs
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
     "sphinx-prompt",  # prompt symbols will not be copy-pastable
+    "sphinx_codeautolink",  # Automatically link example code to documentation source
 ]
 
 # Config for autosectionlabel extension

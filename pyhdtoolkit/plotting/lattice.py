@@ -6,17 +6,16 @@ Lattice Plotters
 
 Module with functions to create lattice plots through a `~cpymad.madx.Madx` object.
 """
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Union
 
 import matplotlib
 import matplotlib.axes
 import matplotlib.pyplot as plt
-import pandas as pd
 
 from cpymad.madx import Madx
 from loguru import logger
 
-from pyhdtoolkit.plotting.layout import plot_machine_layout
+from pyhdtoolkit.plotting.layout import _ylim_from_input, plot_machine_layout
 from pyhdtoolkit.plotting.utils import (
     _get_twiss_table_with_offsets_and_limits,
     make_survey_groups,
@@ -26,6 +25,7 @@ from pyhdtoolkit.plotting.utils import (
 
 def plot_latwiss(
     madx: Madx,
+    /,
     title: Optional[str] = None,
     xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
@@ -33,11 +33,12 @@ def plot_latwiss(
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    disp_ylim: Tuple[float, float] = None,
-    beta_ylim: Tuple[float, float] = None,
-    k0l_lim: Tuple[float, float] = None,
-    k1l_lim: Tuple[float, float] = None,
-    k2l_lim: Tuple[float, float] = None,
+    disp_ylim: Union[Tuple[float, float], float, int] = None,
+    beta_ylim: Union[Tuple[float, float], float, int] = None,
+    k0l_lim: Union[Tuple[float, float], float, int] = None,
+    k1l_lim: Union[Tuple[float, float], float, int] = None,
+    k2l_lim: Union[Tuple[float, float], float, int] = None,
+    k3l_lim: Union[Tuple[float, float], float, int] = None,
     **kwargs,
 ) -> None:
     """
@@ -65,7 +66,7 @@ def plot_latwiss(
         overlap.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
@@ -81,18 +82,33 @@ def plot_latwiss(
         plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to
             represent Beam Position Monitors. BPMs are plotted in dark grey.
         disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.
-            Defaults to `None`.
+            Can be given as a single value (float, int) or a tuple (in which case it should be
+            symmetric). Defaults to (-10, 125).
         beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.
-            Defaults to None, to be determined by matplotlib based on the provided beta values.
-        k0l_lim (Tuple[float, float]): vertical axis limits for the ``k0l`` values used for the
-            height of dipole patches. Defaults to `None`.
-        k1l_lim (Tuple[float, float]): vertical axis limits for the ``k1l`` values used for the
-            height of quadrupole patches. Defaults to `None`.
-        k2l_lim (Tuple[float, float]): if given, sextupole patches will be plotted on the layout subplot of
-            the figure, and the provided values act as vertical axis limits for the k2l values used for the
-            height of sextupole patches.
-        **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`, later on
-            to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`, such as ``lw`` etc.
+            Can be given as a single value (float, int) or a tuple (in which case it should be
+            symmetric). Defaults to `None`, to be determined by `~matplotlib` based on the
+            plotted beta values.
+        k0l_lim (Union[Tuple[float, float], float, int]): vertical axis limits for the ``k0l``
+            values used for the height of dipole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
+            then the limits will be auto-determined based on the ``k0l`` values of the dipoles in
+            the plot.
+        k1l_lim (Union[Tuple[float, float], float, int]): vertical axis limits for the ``k1l``
+            values used for the height of quadrupole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
+            then the limits will be auto-determined based on the ``k0l`` values of the quadrupoles
+            in the plot.
+        k2l_lim (Union[Tuple[float, float], float, int]): if given, sextupole patches will be plotted
+            on the layout subplot of the figure. If given, acts as vertical axis limits for the k2l
+            values used for the height of sextupole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric).
+        k3l_lim (Union[Tuple[float, float], float, int]): if given, octupole patches will be plotted
+            on the layout subplot of the figure. If given, acts as vertical axis limits for the k3l
+            values used for the height of octupole patches. Can be given as a single value (float,
+            int) or a tuple (in which case it should be symmetric).
+        **kwargs: any keyword argument will be transmitted to `~.plotting.utils.plot_machine_layout`,
+            later on to `~.plotting.utils._plot_lattice_series`, and then `~matplotlib.patches.Rectangle`,
+            such as ``lw`` etc.
 
     Example:
         .. code-block:: python
@@ -101,11 +117,26 @@ def plot_latwiss(
             >>> plt.figure(figsize=(16, 11))
             >>> plot_latwiss(
             ...     madx,
-                    title=title,
-                    k0l_lim=(-0.15, 0.15),
-                    k1l_lim=(-0.08, 0.08),
-                    disp_ylim=(-10, 125),
-                    lw=3,
+            ...     title=title,
+            ...     k0l_lim=(-0.15, 0.15),
+            ...     k1l_lim=(-0.08, 0.08),
+            ...     disp_ylim=(-10, 125),
+            ...     lw=3,
+            ... )
+
+        One can provide ylimits for the machine layout patches as single values:
+
+        .. code-block:: python
+
+            >>> title = "Machine Layout"
+            >>> plt.figure(figsize=(16, 11))
+            >>> plot_latwiss(
+            ...     madx,
+            ...     title=title,
+            ...     k0l_lim=0.15,  # identical to k0l_lim=(-0.15, 0.15)
+            ...     k1l_lim=0.08,  # identical to k1l_lim=(-0.08, 0.08)
+            ...     disp_ylim=(-10, 125),
+            ...     lw=3,
             ... )
     """
     # pylint: disable=too-many-arguments
@@ -130,6 +161,7 @@ def plot_latwiss(
         k0l_lim=k0l_lim,
         k1l_lim=k1l_lim,
         k2l_lim=k2l_lim,
+        k3l_lim=k3l_lim,
         **kwargs,
     )
 
@@ -153,10 +185,12 @@ def plot_latwiss(
 
     if beta_ylim:
         logger.debug("Setting ylim for betatron functions plot")
+        beta_ylim = _ylim_from_input(beta_ylim, "beta_ylim")
         betatron_axis.set_ylim(beta_ylim)
 
     if disp_ylim:
         logger.debug("Setting ylim for dispersion plot")
+        disp_ylim = _ylim_from_input(disp_ylim, "beta_ylim")
         dispertion_axis.set_ylim(disp_ylim)
 
     if xlimits:
@@ -166,6 +200,7 @@ def plot_latwiss(
 
 def plot_machine_survey(
     madx: Madx,
+    /,
     title: str = None,
     show_elements: bool = False,
     high_orders: bool = False,
@@ -180,7 +215,7 @@ def plot_machine_survey(
     example gallery.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
         show_elements (bool): if `True`, will try to plot by differentiating elements.
             Defaults to `False`.
@@ -219,13 +254,21 @@ def plot_machine_survey(
             label="Dipoles",
             **kwargs,
         )
-        plt.scatter(element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF")
-        plt.scatter(element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD")
+        plt.scatter(
+            element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF"
+        )
+        plt.scatter(
+            element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD"
+        )
 
         if high_orders:
             logger.debug("Plotting high order magnetic elements (up to octupoles)")
-            plt.scatter(element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS")
-            plt.scatter(element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO")
+            plt.scatter(
+                element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS"
+            )
+            plt.scatter(
+                element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO"
+            )
         plt.legend(loc=2)
 
     else:

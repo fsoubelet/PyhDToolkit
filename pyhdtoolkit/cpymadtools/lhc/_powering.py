@@ -11,7 +11,7 @@ from cpymad.madx import Madx
 from loguru import logger
 
 
-def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir: int = None) -> None:
+def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0, ir: int = None) -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -26,7 +26,7 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
         of the IP, and a powering decrease of the ``MQSX`` *left* of the IP.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         colinearity_knob_value (float): Units of the colinearity knob to apply. Defaults to 0 so users
             don't mess up local IR coupling by mistake. This should be a positive integer, normally between 1
             and 10.
@@ -49,7 +49,7 @@ def apply_lhc_colinearity_knob(madx: Madx, colinearity_knob_value: float = 0, ir
     logger.debug(f"Set '{left_knob}' to {madx.globals[left_knob]}")
 
 
-def apply_lhc_colinearity_knob_delta(madx: Madx, colinearity_knob_delta: float = 0, ir: int = None) -> None:
+def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: float = 0, ir: int = None) -> None:
     """
     .. versionadded:: 0.21.0
 
@@ -60,7 +60,7 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, colinearity_knob_delta: float =
         If you don't know what this is, you really should not be using this function.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         colinearity_knob_delta (float): Units of the colinearity knob to vary the existing powerings with.
             Defaults to 0.
         ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
@@ -89,7 +89,7 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, colinearity_knob_delta: float =
 
 
 def apply_lhc_rigidity_waist_shift_knob(
-    madx: Madx, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
+    madx: Madx, /, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
 ) -> None:
     """
     .. versionadded:: 0.15.0
@@ -109,7 +109,7 @@ def apply_lhc_rigidity_waist_shift_knob(
         works well.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         rigidty_waist_shift_value (float): Units of the rigidity waist shift knob (positive values only).
         ir (int): The Interaction Region to apply the knob to, should be one of [1, 2, 5, 8].
             Classically 1 or 5.
@@ -148,7 +148,7 @@ def apply_lhc_rigidity_waist_shift_knob(
 
 
 def apply_lhc_coupling_knob(
-    madx: Madx, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
+    madx: Madx, /, coupling_knob: float = 0, beam: int = 1, telescopic_squeeze: bool = True
 ) -> None:
     """
     .. versionadded:: 0.15.0
@@ -156,7 +156,7 @@ def apply_lhc_coupling_knob(
     Applies a trim of the LHC coupling knob to reach the desired :math:`|C^{-}|` value.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         coupling_knob (float): Desired value for the Cminus, typically a few units of ``1E-3``.
             Defaults to 0 so users don't mess up coupling by mistake.
         beam (int): beam to apply the knob to. Defaults to beam 1.
@@ -181,7 +181,7 @@ def apply_lhc_coupling_knob(
     logger.debug(f"Set '{knob_name}' to {madx.globals[knob_name]}")
 
 
-def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> None:
+def carry_colinearity_knob_over(madx: Madx, /, ir: int, to_left: bool = True) -> None:
     """
     .. versionadded:: 0.20.0
 
@@ -189,7 +189,7 @@ def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> No
     other side.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         ir (int): The Interaction Region around which to apply the change, should be
             one of [1, 2, 5, 8].
         to_left (bool): If `True`, the magnet right of IP is de-powered of and its powering
@@ -216,14 +216,14 @@ def carry_colinearity_knob_over(madx: Madx, ir: int, to_left: bool = True) -> No
     logger.debug("New powerings applied")
 
 
-def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_arc: bool = False) -> None:
+def power_landau_octupoles(madx: Madx, /, beam: int, mo_current: float, defective_arc: bool = False) -> None:
     """
     .. versionadded:: 0.15.0
 
     Powers the Landau octupoles in the (HL)LHC.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         beam (int): beam to use.
         mo_current (float): `MO` powering, in [A].
         defective_arc: If set to `True`, the ``KOD`` in Arc 56 are powered for less ``Imax``.
@@ -253,14 +253,14 @@ def power_landau_octupoles(madx: Madx, beam: int, mo_current: float, defective_a
         madx.globals["KOD.A56B1"] = strength * 4.65 / 6  # defective MO group
 
 
-def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
+def deactivate_lhc_arc_sextupoles(madx: Madx, /, beam: int) -> None:
     """
     .. versionadded:: 0.15.0
 
     Deactivates all arc sextupoles in the (HL)LHC.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         beam (int): beam to use.
 
     Example:
@@ -283,7 +283,7 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, beam: int) -> None:
 
 
 def vary_independent_ir_quadrupoles(
-    madx: Madx, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
+    madx: Madx, /, quad_numbers: Sequence[int], ip: int, sides: Sequence[str] = ("r", "l"), beam: int = 1
 ) -> None:
     """
     .. versionadded:: 0.15.0
@@ -297,7 +297,7 @@ def vary_independent_ir_quadrupoles(
         `make_lhc_beams` to create the beams, this has already been done automatically.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         quad_numbers (Sequence[int]): quadrupoles to be varied, by number (aka position from IP).
         ip (int): the IP around which to apply the instructions.
         sides (Sequence[str]): the sides of IP to act on. Should be `R` for right and `L` for left,
@@ -345,7 +345,7 @@ def vary_independent_ir_quadrupoles(
             )
 
 
-def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
+def switch_magnetic_errors(madx: Madx, /, **kwargs) -> None:
     """
     .. versionadded:: 0.7.0
 
@@ -353,7 +353,7 @@ def switch_magnetic_errors(madx: Madx, **kwargs) -> None:
     Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         **kwargs: The setting works through keyword arguments, and several specific
             kwargs are expected. `default` sets global default to this value (defaults to `False`).
             `AB#` sets the default for all of that order, the order being the `#` number. `A#` or

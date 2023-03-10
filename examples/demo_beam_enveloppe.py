@@ -17,36 +17,21 @@ import numpy as np
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.models.beam import BeamParameters
-from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
+from pyhdtoolkit.plotting.envelope import plot_beam_envelope
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
-###############################################################################
-# Define beam parameters for injection and top energy (1.9 GeV -> 19 GeV):
-
-beam_injection = BeamParameters(
-    charge=1,
-    pc_GeV=1.9,
-    E_0_GeV=0.9382720813,
-    en_x_m=5e-6,
-    en_y_m=5e-6,
-    deltap_p=2e-3,
-)
-beam_flattop = BeamParameters(
-    charge=1,
-    pc_GeV=19,
-    E_0_GeV=0.9382720813,
-    en_x_m=5e-6,
-    en_y_m=5e-6,
-    deltap_p=2e-4,
-)
 
 ###############################################################################
 # Define relevant constants.
+
+pc_GeV = 19  # Beam momentum [GeV]
+B_rho_Tm = pc_GeV / 0.3  # Magnetic rigidity [Tm]
+E_0_GeV = 0.9382720813  # proton rest mass [GeV]
+E_tot_GeV = np.sqrt(pc_GeV**2 + E_0_GeV**2)
 
 circumference = 500.0  # machine circumference [m]
 n_cells = 25
@@ -59,8 +44,8 @@ f_m = l_cell / (2 * np.sqrt(2))  # pi/2 phase advance in thin lens approximation
 n_quadrupoles = 2 * n_cells
 n_dipoles = 4 * n_cells  # four dipoles per cell
 dipole_angle = 2 * np.pi / n_dipoles  # [rad]
-dipole_field = dipole_angle * beam_flattop.B_rho_Tm / l_bend  # [T]
-quadrupole_gradient = 1 / f_m * beam_flattop.B_rho_Tm / l_quad  # [T/m]
+dipole_field = dipole_angle * B_rho_Tm / l_bend  # [T]
+quadrupole_gradient = 1 / f_m * B_rho_Tm / l_quad  # [T/m]
 
 r_quadrupole = 0.065  # [m]
 v_gap_dipole = 0.065  # [m]
@@ -120,7 +105,7 @@ endsequence;
 option, warn=true;
 
 ! DEFINE BEAM PARAMETERS AND PROPERTIES
-beam, particle=proton, sequence=cas19, energy={beam_injection.E_tot_GeV}, exn={beam_injection.en_x_m}, eyn={beam_injection.en_y_m}, sige={beam_injection.en_y_m};
+beam, particle=proton, sequence=cas19, energy={E_tot_GeV}, exn=5e-6, eyn=5e-6, sige=5e-6;
 use, sequence=cas19;
 select, flag=twiss, column=apertype, aper_1, aper_2;
 
@@ -132,7 +117,7 @@ twiss;
 
 ###############################################################################
 # Now let's run an interpolation to be able to see the value of the optics functions
-# inside the elements:
+# inside the elements, this gives us higher resolution:
 
 madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
 madx.command.select(flag="interpolate", class_="quadrupole", slice_=8, range_="#s/#e")
@@ -140,66 +125,36 @@ madx.command.select(flag="interpolate", class_="sbend", slice_=10, range_="#s/#e
 madx.command.twiss()
 
 ###############################################################################
-# We can now plot the beam enveloppe and the stay-clear at injection, for the
-# whole machine:
+# We can now plot the beam enveloppe for the whole machine. Here notice we use
+# the *scale* argument to convert the units to mm, this makes for nicer yticks
+# values:
+figure, axes = plt.subplots(2, 1, sharex=True, figsize=(16, 11))
 
-fig, axes = plt.subplots(3, 1, figsize=(18, 20))
-plot_envelope(
-    madx,
-    beam_injection,
-    ylimits=(-0.12, 0.12),
-    title=f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c",
-    axis=axes[0],
-)
-plot_envelope(
-    madx,
-    beam_injection,
-    ylimits=(-0.12, 0.12),
-    plane="vertical",
-    title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
-    axis=axes[1],
-)
-plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
+# First let's plot 1 sigma and 2.5 sigma horizontal enveloppes
+plot_beam_envelope(madx, "cas19", "x", nsigma=1, scale=1e3, ax=axes[0])
+plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5, scale=1e3, ax=axes[0])
+plt.setp(axes[0], ylabel="X [mm]")
+axes[0].legend()
+
+# Then plot 1 sigma and 2.5 sigma vertical enveloppes
+plot_beam_envelope(madx, "cas19", "y", nsigma=1, scale=1e3, ax=axes[1])
+plot_beam_envelope(madx, "cas19", "vertical", nsigma=2.5, scale=1e3, ax=axes[1])
+plt.setp(axes[1], xlabel="S [m]", ylabel="Y [mm]")
+axes[1].legend()
+
 plt.show()
 
 ###############################################################################
-# In order to have a look at the enveloppe inside a single cell, we can specify *xlimits*.
-# Here we will plot the horizontal enveloppe for the first cell only.
+# Notice how the shading automatically adapts based on the *nsigma* argument.
+# In order to have a look at the enveloppe in a specific region, we can give the
+# *xlimits* argument. Here we will plot the horizontal enveloppe for the first
+# 5 cells only.
 
-title = f"First Cell Horizontal Aperture at {beam_injection.pc_GeV} GeV/c"
 fig, ax = plt.subplots(figsize=(16, 9))
-plot_envelope(madx, beam_injection, ylimits=(-0.12, 0.12), xlimits=(0, l_cell), title=title)
-plt.show()
-
-###############################################################################
-# And similarly we can plot for the cell at top energy, only by adapting the
-# provided beam parameters:
-
-fig, axes = plt.subplots(3, 1, figsize=(18, 20))
-plot_envelope(
-    madx,
-    beam_injection,
-    xlimits=(0, l_cell),
-    ylimits=(-0.12, 0.12),
-    title=f"Horizontal aperture at {beam_flattop.pc_GeV} GeV/c",
-    axis=axes[0],
-)
-plot_envelope(
-    madx,
-    beam_injection,
-    xlimits=(0, l_cell),
-    ylimits=(-0.12, 0.12),
-    plane="vertical",
-    title=f"Vertical aperture at {beam_flattop.pc_GeV} GeV/c",
-    axis=axes[1],
-)
-plot_stay_clear(
-    madx,
-    beam_injection,
-    xlimits=(0, l_cell),
-    title=f"Stay-Clear at {beam_flattop.pc_GeV} GeV/c",
-    axis=axes[2],
-)
+plot_beam_envelope(madx, "cas19", "x", nsigma=1, scale=1e3, xlimits=(0, 5 * l_cell))
+plot_beam_envelope(madx, "cas19", "x", nsigma=2.5, scale=1e3, xlimits=(0, 5 * l_cell))
+plt.setp(ax, xlabel="S [m]", ylabel="X [mm]", title="First 5 Cells Horizontal Enveloppe")
+ax.legend()
 plt.show()
 
 ###############################################################################
@@ -214,5 +169,4 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.plotting.envelope`: `~.plotting.envelope.plot_envelope`, `~.plotting.envelope.plot_stay_clear`
-#    - `~.models.beam`: `~.models.beam.BeamParameters`
+#    - `~.plotting.envelope`: `~.plotting.envelope.plot_beam_envelope`

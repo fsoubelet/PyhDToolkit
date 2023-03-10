@@ -19,7 +19,7 @@ from loguru import logger
 
 
 def plot_two_lhc_ips_crossings(
-    madx: Madx, first_ip: int, second_ip: int, ir_limit: float = 275, highlight_mqx_and_mbx: bool = True
+    madx: Madx, /, first_ip: int, second_ip: int, ir_limit: float = 275, highlight_mqx_and_mbx: bool = True
 ) -> None:
     """
     .. versionadded:: 1.0.0
@@ -44,7 +44,7 @@ def plot_two_lhc_ips_crossings(
         before. Please re-``use`` your wanted sequence after calling this function!
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         first_ip (int): the first of the two IPs to plot crossing schemes for.
         second_ip (int): the second of the two IPs to plot crossing schemes for.
         ir_limit (float): the amount of meters to keep left and right of the IP point. Will also

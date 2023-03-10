@@ -16,7 +16,7 @@ from pyhdtoolkit.cpymadtools import twiss
 from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 
 
-def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
+def get_ips_twiss(madx: Madx, /, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.9.0
 
@@ -24,7 +24,7 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
     included as the `~tfs.frame.TfsDataFrame`'s header dictionary.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
             ``ripken``, ``centre``; or starting coordinates with ``betx``, ``bety`` etc.
@@ -38,10 +38,10 @@ def get_ips_twiss(madx: Madx, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **
             >>> ips_df = get_ips_twiss(madx, chrom=True, ripken=True)
     """
     logger.debug("Getting Twiss at IPs")
-    return twiss.get_pattern_twiss(madx=madx, columns=columns, patterns=["IP"], **kwargs)
+    return twiss.get_pattern_twiss(madx, columns=columns, patterns=["IP"], **kwargs)
 
 
-def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
+def get_ir_twiss(madx: Madx, /, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COLUMNS, **kwargs) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.9.0
 
@@ -50,7 +50,7 @@ def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COL
     header dictionary.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         ir (int): which interaction region to get the TWISS for.
         columns (Sequence[str]): the variables to be returned, as columns in the DataFrame.
         **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``TWISS`` command, such as ``chrom``,
@@ -66,7 +66,7 @@ def get_ir_twiss(madx: Madx, ir: int, columns: Sequence[str] = DEFAULT_TWISS_COL
     """
     logger.debug(f"Getting Twiss for IR{ir:d}")
     return twiss.get_pattern_twiss(
-        madx=madx,
+        madx,
         columns=columns,
         patterns=[
             f"IP{ir:d}",

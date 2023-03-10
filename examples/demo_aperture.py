@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
-from pyhdtoolkit.plotting.aperture import plot_aperture
+from pyhdtoolkit.plotting.aperture import plot_aperture, plot_physical_apertures
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
 
@@ -69,6 +69,27 @@ for axis in plt.gcf().get_axes():
     axis.axvline(x=ip5s, color="red", ls="--", lw=1.5, label="IP5")
 plt.gca().legend()
 plt.show()
+
+
+###############################################################################
+# We can also go for a different type of aperture plot, which tries to give 
+# the elements' real physical apertures, with the `~.plotting.aperture.plot_physical_apertures`
+# function:
+
+plt.figure(figsize=(18, 10))
+plot_physical_apertures(madx, plane="x")
+plt.setp(plt.gca(), xlabel="S [m]", ylabel="X [m]")
+plt.ylim(-0.035, 0.035)
+
+###############################################################################
+# We can give a ``scale`` argument to change the scale of the Y-axis. Let's make
+# it in centimeters here:
+
+plt.figure(figsize=(18, 10))
+plot_physical_apertures(madx, plane="x", scale=1e2)  # just give the scaling factor
+plt.setp(plt.gca(), xlabel="S [m]", ylabel="Y [cm]")
+plt.ylim(-4, 4)
+plt.xlim(9000, 11_000)
 
 ###############################################################################
 # Let's not forget to close the rpc connection to ``MAD-X``:

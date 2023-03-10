@@ -6,16 +6,20 @@ Plotting Utility Functions
 
 Module with functions to used throught the different `~pyhdtoolkit.plotting` modules.
 """
-from typing import Dict, Tuple
+from __future__ import annotations  # important for Sphinx to generate short type signatures!
 
 import matplotlib
 import matplotlib.axes
 import matplotlib.pyplot as plt
+import matplotlib.transforms as transforms
+import numpy as np
 import pandas as pd
 import tfs
 
 from cpymad.madx import Madx
 from loguru import logger
+from matplotlib.patches import Ellipse
+from numpy.typing import ArrayLike
 
 # ------ General Utilities ----- #
 
@@ -50,7 +54,7 @@ def maybe_get_ax(**kwargs):
     """
     logger.debug("Looking for axis object to plot on")
     if "ax" in kwargs:
-        logger.debug("Using the provided kwargs 'ax' as the axis to plot one")
+        logger.debug("Using the provided kwargs 'ax' as the axis to plot on")
         ax = kwargs.pop("ax")
     elif "axis" in kwargs:
         logger.debug("Using the provided kwargs 'axis' as the axis to plot on")
@@ -97,7 +101,7 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
     return distance
 
 
-def get_lhc_ips_positions(dataframe: pd.DataFrame) -> Dict[str, float]:
+def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
     """
     .. versionadded:: 1.0.0
 
@@ -135,8 +139,8 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> Dict[str, float]:
 
 
 def make_elements_groups(
-    madx: Madx, xoffset: float = 0, xlimits: Tuple[float, float] = None
-) -> Dict[str, pd.DataFrame]:
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None
+) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 1.0.0
 
@@ -144,10 +148,10 @@ def make_elements_groups(
     the twiss table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         xoffset (float): An offset applied to the S coordinate before plotting. This is useful is you want
             to center a plot around a specific point or element, which would then become located at s = 0.
-        xlimits (Tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this
+        xlimits (tuple[float, float]): will only consider elements within xlim (for the s coordinate) if this
             is not None, using the tuple passed.
 
     Returns:
@@ -175,7 +179,7 @@ def make_elements_groups(
     }
 
 
-def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
+def make_survey_groups(madx: Madx, /) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 1.0.0
 
@@ -183,7 +187,7 @@ def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
     the survey table's dataframe for different magnetic elements.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
 
     Returns:
         A `dict` containing a `pd.DataFrame` for dipoles, focusing quadrupoles, defocusing
@@ -215,7 +219,7 @@ def make_survey_groups(madx: Madx) -> Dict[str, pd.DataFrame]:
 
 
 def draw_ip_locations(
-    ip_positions: Dict[str, float] = None,
+    ip_positions: dict[str, float] = None,
     lines: bool = True,
     location: str = "outside",
     **kwargs,
@@ -271,10 +275,9 @@ def draw_ip_locations(
 
 
 def set_arrow_label(
-    axis: matplotlib.axes.Axes,
     label: str,
-    arrow_position: Tuple[float, float],
-    label_position: Tuple[float, float],
+    arrow_position: tuple[float, float],
+    label_position: tuple[float, float],
     color: str = "k",
     arrow_arc_rad: float = -0.2,
     fontsize: int = 20,
@@ -289,8 +292,8 @@ def set_arrow_label(
     Args:
         axis (matplotlib.axes.Axes): a `matplotlib.axes.Axes` to plot on.
         label (str): label text to print on the axis.
-        arrow_position (Tuple[float, float]): where on the plot to point the tip of the arrow.
-        label_position (Tuple[float, float]): where on the plot the text label (and thus start
+        arrow_position (tuple[float, float]): where on the plot to point the tip of the arrow.
+        label_position (tuple[float, float]): where on the plot the text label (and thus start
             of the arrow) is.
         color (str): color parameter for your arrow and label. Defaults to "k".
         arrow_arc_rad (float): angle value defining the upwards / downwards shape of and
@@ -332,11 +335,76 @@ def set_arrow_label(
     )
 
 
+def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, facecolor="none", **kwargs) -> Ellipse:
+    """
+    .. versionadded:: 1.2.0
+
+    Plot the covariance confidence ellipse of *x* and *y*. This code is taken from the
+    `matplotlib gallery <https://matplotlib.org/stable/gallery/statistics/confidence_ellipse.html>`_.
+
+    .. note::
+        One might want to provide the `edgecolor` to this function.
+
+    Args:
+        x (ArrayLike): array-like, should be of shape (n,).
+        y (ArrayLike): array-like, should be of shape (n,).
+        n_std (float): The number of standard deviations of the data to
+            highlight, to determine the ellipse's radiuses.
+        facecolor (str): The facecolor of the ellipse.
+        **kwargs: Any keyword argument will be forwarded to `~matplotlib.patches.Ellipse`.
+            If either `ax` or `axis` is found in the kwargs, the corresponding value is
+            used as the axis object to plot on.
+
+    Returns:
+        The corresponding `~matplotlib.patches.Ellipse` object added to the axis.
+
+    Example:
+        .. code-block:: python
+
+            >>> x = np.random.normal(size=1000)
+            >>> y = np.random.normal(size=1000)
+            >>> plt.plot(x, y, ".", markersize=0.8)
+            >>> draw_confidence_ellipse(x, y, n_std=2.5, edgecolor="red")
+    """
+    axis, kwargs = maybe_get_ax(**kwargs)
+    x = np.array(x)
+    y = np.array(y)
+
+    if x.size != y.size:
+        logger.error(f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given.")
+        raise ValueError(f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given.")
+
+    logger.debug("Computing covariance matrix and pearson correlation coefficient")
+    covariance_matrix = np.cov(x, y)
+    pearson = covariance_matrix[0, 1] / np.sqrt(covariance_matrix[0, 0] * covariance_matrix[1, 1])
+
+    # Using a special case to obtain the eigenvalues of this two-dimensionl dataset.
+    logger.debug("Computing radiuses of the ellipse")
+    radius_x = np.sqrt(1 + pearson)
+    radius_y = np.sqrt(1 - pearson)
+    ellipse = Ellipse((0, 0), width=radius_x * 2, height=radius_y * 2, facecolor=facecolor, **kwargs)
+
+    # Calculating the stdev of x from the square root of the variance and multiplying
+    # with the given number of standard deviations.
+    scale_x = np.sqrt(covariance_matrix[0, 0]) * n_std
+    mean_x = np.mean(x)
+
+    # Calculating the stdev of y from the square root of the variance and multiplying
+    # with the given number of standard deviations.
+    scale_y = np.sqrt(covariance_matrix[1, 1]) * n_std
+    mean_y = np.mean(y)
+
+    logger.debug("Preparing and drawing ellipse patch")
+    transf = transforms.Affine2D().rotate_deg(45).scale(scale_x, scale_y).translate(mean_x, mean_y)
+    ellipse.set_transform(transf + axis.transData)
+    return axis.add_patch(ellipse)
+
+
 # ----- Private Helpers ----- #
 
 
 def _get_twiss_table_with_offsets_and_limits(
-    madx: Madx, xoffset: float = 0, xlimits: Tuple[float, float] = None
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None, **kwargs
 ) -> pd.DataFrame:
     """
     .. versionadded:: 1.0.0
@@ -345,17 +413,18 @@ def _get_twiss_table_with_offsets_and_limits(
     the given `xoffset`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         xoffset (float): An offset applied to the S coordinate in the dataframe.
-        xlimits (Tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
+        xlimits (tuple[float, float]): will only consider elements within xlimits (for the s coordinate) if
             this is not `None`, using the tuple passed.
+        **kwargs: any keyword argument will be transmitted to the ``MAD-X`` ``TWISS` command.
 
     Returns:
         The ``TWISS`` dataframe from ``MAD-X``, with the limits and offset applied, if any.
     """
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
     logger.trace("Getting TWISS table from MAD-X")
-    madx.command.twiss()
+    madx.command.twiss(**kwargs)
     twiss_df = madx.table.twiss.dframe()
     twiss_df.s = twiss_df.s - xoffset
     twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df

@@ -2,7 +2,9 @@ import matplotlib
 import matplotlib.pyplot as plt
 import pytest
 
-from pyhdtoolkit.plotting.aperture import plot_aperture
+from cpymad.madx import Madx
+
+from pyhdtoolkit.plotting.aperture import plot_aperture, plot_physical_apertures
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -48,3 +50,46 @@ def test_plot_aperture_ir5_collision(_collision_aperture_tolerances_lhc_madx):
         color="brown",
     )
     return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_physical_apertures_ir5_collision_hozirontal(_collision_aperture_tolerances_lhc_madx):
+
+    madx = _collision_aperture_tolerances_lhc_madx
+    madx.command.twiss()
+    twiss_df = madx.table.twiss.dframe()
+    ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
+
+    figure = plt.figure(figsize=(18, 11))
+    limits = (ip5s - 350, ip5s + 350)
+    plot_physical_apertures(madx, plane="x", xlimits=limits, scale=1e2)
+
+    plt.ylim(-5, 5)
+    plt.ylabel("X [cm]")
+    plt.xlabel("S [m]")
+    return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_physical_apertures_ir5_collision_vertical(_collision_aperture_tolerances_lhc_madx):
+
+    madx = _collision_aperture_tolerances_lhc_madx
+    madx.command.twiss()
+    twiss_df = madx.table.twiss.dframe()
+    ip5s = twiss_df.s[twiss_df.name.str.contains("ip5")].to_numpy()[0]
+
+    figure = plt.figure(figsize=(18, 11))
+    limits = (ip5s - 350, ip5s + 350)
+    plot_physical_apertures(madx, plane="y", xlimits=limits, scale=1e3)
+
+    plt.ylim(-50, 50)
+    plt.ylabel("Y [mm]")
+    plt.xlabel("S [m]")
+    return figure
+
+
+def test_plot_physical_apertures_raises_on_wrong_plane():
+    madx = Madx(stdout=False)
+
+    with pytest.raises(ValueError):
+        plot_physical_apertures(madx, plane="invalid")

@@ -22,7 +22,7 @@ from pyhdtoolkit.cpymadtools.constants import (
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
 
-def make_sixtrack_output(madx: Madx, energy: int) -> None:
+def make_sixtrack_output(madx: Madx, /, energy: int) -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -30,7 +30,7 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
     :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         energy (float): beam energy, in [GeV].
 
     Example:
@@ -50,14 +50,14 @@ def make_sixtrack_output(madx: Madx, energy: int) -> None:
     madx.sixtrack(cavall=True, radius=0.017)  # this value is only ok for HL(LHC) magnet radius
 
 
-def reset_lhc_bump_flags(madx: Madx) -> None:
+def reset_lhc_bump_flags(madx: Madx, /) -> None:
     """
     .. versionadded:: 0.15.0
 
     Resets all LHC IP bump flags to 0.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
 
     Example:
         .. code-block:: python
@@ -142,7 +142,7 @@ def get_lhc_tune_and_chroma_knobs(
     }[accelerator.upper()]
 
 
-def get_lhc_bpms_list(madx: Madx) -> List[str]:
+def get_lhc_bpms_list(madx: Madx, /) -> List[str]:
     """
     .. versionadded:: 0.16.0
 
@@ -169,14 +169,16 @@ def get_lhc_bpms_list(madx: Madx) -> List[str]:
     return bpms_df.NAME.tolist()
 
 
-def get_sizes_at_ip(madx: Madx, ip: int, geom_emit_x: float = None, geom_emit_y: float = None) -> Tuple[float, float]:
+def get_sizes_at_ip(
+    madx: Madx, /, ip: int, geom_emit_x: float = None, geom_emit_y: float = None
+) -> Tuple[float, float]:
     """
     .. versionadded:: 1.0.0
 
     Get the Lebedev beam sizes (horizontal and vertical) at the provided LHC *ip*.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         ip (int): the IP to get the sizes at.
         geom_emit_x (float): the horizontal geometrical emittance to use for the
             calculation. If not provided, will look for the values of the
@@ -193,7 +195,7 @@ def get_sizes_at_ip(madx: Madx, ip: int, geom_emit_x: float = None, geom_emit_y:
 
             >>> ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
     """
-    logger.debug(f"Getting horizotnal and vertical sizes at IP{ip:d} through Ripken parameters")
+    logger.debug(f"Getting horizontal and vertical sizes at IP{ip:d} through Ripken parameters")
     geom_emit_x = geom_emit_x or madx.globals["geometric_emit_x"]
     geom_emit_y = geom_emit_y or madx.globals["geometric_emit_y"]
 

@@ -6,8 +6,7 @@ import pytest
 
 from cpymad.madx import Madx
 
-from pyhdtoolkit.optics.beam import compute_beam_parameters
-from pyhdtoolkit.plotting.envelope import plot_envelope, plot_stay_clear
+from pyhdtoolkit.plotting.envelope import _interpolate_madx, plot_beam_envelope
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -18,78 +17,70 @@ GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 
 
 def test_plot_enveloppe_raises_on_wrong_plane():
-    beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
     madx = Madx(stdout=False)
 
     with pytest.raises(ValueError):
-        plot_envelope(madx, beam_injection, plane="invalid")
+        plot_beam_envelope(madx, "lhcb1", plane="invalid")
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_envelope_with_xlimits():
+    with Madx(stdout=False) as madx:
+        madx.call(str(GUIDO_LATTICE))
+        _interpolate_madx(madx)  # let's interpolate for a smoother plot
+
+        figure, ax = plt.subplots(figsize=(12, 7))
+        # Let's plot 1 sigma and 2.5 sigma enveloppes
+        plot_beam_envelope(madx, "cas19", "x", nsigma=1, xlimits=(200, 300), centre=True)
+        plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5, xlimits=(200, 300),  centre=True)
+        plt.setp(ax, xlabel="S [m]", ylabel="X [m]")
+        plt.legend()
+        return figure
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_horizontal():
-    beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
-    title = f"Horizontal Aperture at {beam_injection.pc_GeV} GeV/c"
+    with Madx(stdout=False) as madx:
+        madx.call(str(GUIDO_LATTICE))
 
-    madx = Madx(stdout=False)
-    madx.call(str(GUIDO_LATTICE))
-
-    figure = plt.figure(figsize=(16, 9))
-    plot_envelope(madx, beam_injection, ylimits=(-0.12, 0.12), title=title)
-    return figure
+        figure, ax = plt.subplots(figsize=(12, 7))
+        # Let's plot 1 sigma and 2.5 sigma enveloppes
+        plot_beam_envelope(madx, "cas19", "x", nsigma=1)
+        plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5)
+        plt.setp(ax, xlabel="S [m]", ylabel="X [m]")
+        plt.legend()
+        return figure
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_vertical():
-    beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
-    title = f"Vertical Aperture at {beam_injection.pc_GeV} GeV/c"
+    with Madx(stdout=False) as madx:
+        madx.call(str(GUIDO_LATTICE))
 
-    madx = Madx(stdout=False)
-    madx.call(str(GUIDO_LATTICE))
-
-    figure = plt.figure(figsize=(16, 9))
-    plot_envelope(madx, beam_injection, plane="vertical", ylimits=(-0.12, 0.12), title=title)
-    return figure
-
-
-@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
-def test_plot_stay_clear():
-    beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
-    title = f"Stay-Clear at {beam_injection.pc_GeV} GeV/c"
-    l_cell = 20  # only plot first cell for this one, tests xlimits param
-
-    madx = Madx(stdout=False)
-    madx.call(str(GUIDO_LATTICE))
-
-    figure = plt.figure(figsize=(16, 9))
-    plot_stay_clear(
-        madx,
-        beam_injection,
-        xlimits=(0, l_cell),
-        title=title,
-    )
-    return figure
+        figure, ax = plt.subplots(figsize=(12, 7))
+        # Let's plot 1 sigma and 2.5 sigma enveloppes
+        plot_beam_envelope(madx, "cas19", "y", nsigma=1, scale=1e3)
+        plot_beam_envelope(madx, "cas19", "vertical", nsigma=2.5, scale=1e3)
+        plt.setp(ax, xlabel="S [m]", ylabel="Y [mm]")
+        plt.legend()
+        return figure
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_envelope_combined():
-    beam_injection = compute_beam_parameters(1.9, en_x_m=5e-6, en_y_m=5e-6, deltap_p=2e-3)
-    madx = Madx(stdout=False)
-    madx.call(str(GUIDO_LATTICE))
-    figure, axes = plt.subplots(3, 1, figsize=(18, 20))
-    plot_envelope(
-        madx,
-        beam_injection,
-        ylimits=(-0.12, 0.12),
-        title=f"Horizontal aperture at {beam_injection.pc_GeV} GeV/c",
-        axis=axes[0],
-    )
-    plot_envelope(
-        madx,
-        beam_injection,
-        ylimits=(-0.12, 0.12),
-        plane="vertical",
-        title=f"Vertical aperture at {beam_injection.pc_GeV} GeV/c",
-        axis=axes[1],
-    )
-    plot_stay_clear(madx, beam_injection, title=f"Stay-Clear at {beam_injection.pc_GeV} GeV/c", axis=axes[2])
-    return figure
+    with Madx(stdout=False) as madx:
+        madx.call(str(GUIDO_LATTICE))
+        figure, axes = plt.subplots(2, 1, sharex=True, figsize=(12, 10))
+
+        # First let's plot 1 sigma and 2.5 sigma horizontal enveloppes
+        plot_beam_envelope(madx, "cas19", "x", nsigma=1, scale=1e3, ax=axes[0])
+        plot_beam_envelope(madx, "cas19", "horizontal", nsigma=2.5, scale=1e3, ax=axes[0])
+        plt.setp(axes[0], ylabel="X [mm]")
+        axes[0].legend()
+
+        # Then plot 1 sigma and 2.5 sigma vertical enveloppes
+        plot_beam_envelope(madx, "cas19", "y", nsigma=1, scale=1e3, ax=axes[1])
+        plot_beam_envelope(madx, "cas19", "vertical", nsigma=2.5, scale=1e3, ax=axes[1])
+        plt.setp(axes[1], xlabel="S [m]", ylabel="Y [mm]")
+        axes[1].legend()
+
+        return figure

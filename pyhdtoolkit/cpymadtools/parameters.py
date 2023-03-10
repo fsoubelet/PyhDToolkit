@@ -16,7 +16,7 @@ from pyhdtoolkit.models.madx import MADXBeam
 # ----- Utilities ----- #
 
 
-def query_beam_attributes(madx: Madx) -> MADXBeam:
+def query_beam_attributes(madx: Madx, /) -> MADXBeam:
     """
     .. versionadded:: 0.12.0
 
@@ -26,7 +26,7 @@ def query_beam_attributes(madx: Madx) -> MADXBeam:
     for details.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
 
     Returns:
         A validated `~.models.madx.MADXBeam` object.

@@ -26,7 +26,7 @@ def _matched_base_lattice() -> Madx:
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         match_tunes_and_chromaticities(
-            madx=madx,
+            madx,
             sequence="CAS3",
             q1_target=6.335,
             q2_target=6.29,
@@ -105,7 +105,6 @@ def _cycled_lhc_sequences() -> Madx:
         lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
         lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
         lhc.make_lhc_beams(madx, energy=6500)
-
         yield madx
 
 

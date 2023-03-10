@@ -38,8 +38,8 @@ def prepare_lhc_run2(
         might change that working point.
 
     Args:
-        opticsfile (str): name of the optics file to be used. Can be the string path to the file or only the opticsfile
-            name itself, which would be looked for at the **acc-models-lhc/operation/optics/** path.
+        opticsfile (str): the relative string path or a `Path` object to the opticsfile location. This will 
+            be used to determine the location of the sequence file, see the admonition above.
         beam (int): which beam to set up for. Defaults to beam 1.
         use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
             purposes. Defaults to `False`.
@@ -69,6 +69,7 @@ def prepare_lhc_run2(
         seqfile_path = opticsfile.parent.parent / filename
         if not seqfile_path.is_file():
             logger.error(f"Could not find sequence file '{filename}' at expected location '{seqfile_path}'")
+            raise ValueError(f"No sequence file found at '{seqfile_path}'")
         return seqfile_path
 
     logger.debug("Creating Run 2 setup MAD-X instance")
@@ -263,6 +264,7 @@ class LHCSetup:
 
 def make_lhc_beams(
     madx: Madx,
+    /,
     energy: float = 7000,
     emittance_x: float = 3.75e-6,
     emittance_y: float = 3.75e-6,
@@ -275,7 +277,7 @@ def make_lhc_beams(
     Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         energy (float): beam energy, in [GeV]. Defaults to 6500.
         emittance_x (float): horizontal emittance in [m]. Will be used to calculate
             geometric emittance which is then fed to the ``BEAM`` command.
@@ -320,7 +322,7 @@ def make_lhc_beams(
         )
 
 
-def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> None:
+def make_lhc_thin(madx: Madx, /, sequence: str, slicefactor: int = 1, **kwargs) -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -382,7 +384,7 @@ def make_lhc_thin(madx: Madx, sequence: str, slicefactor: int = 1, **kwargs) -> 
     madx.command.makethin(sequence=sequence, style=style, makedipedge=makedipedge)
 
 
-def re_cycle_sequence(madx: Madx, sequence: str = "lhcb1", start: str = "IP3") -> None:
+def re_cycle_sequence(madx: Madx, /, sequence: str = "lhcb1", start: str = "IP3") -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -469,7 +471,7 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     return variables, special
 
 
-def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, float]:
+def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> Dict[str, float]:
     """
     .. versionadded:: 0.8.0
 
@@ -478,7 +480,7 @@ def setup_lhc_orbit(madx: Madx, scheme: str = "flat", **kwargs) -> Dict[str, flo
     :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         scheme (str): the default scheme to apply, as defined in the ``LHC_CROSSING_SCHEMES``
             constant. Accepted values are keys of `LHC_CROSSING_SCHEMES`. Defaults to *flat*
             (every orbit variable to 0).

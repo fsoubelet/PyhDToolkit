@@ -34,7 +34,7 @@ from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 
 def get_magnets_powering(
-    madx: Madx, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: Union[str, float] = None, **kwargs
+    madx: Madx, /, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: Union[str, float] = None, **kwargs
 ) -> tfs.TfsDataFrame:
     r"""
     .. versionadded:: 0.17.0
@@ -62,7 +62,7 @@ def get_magnets_powering(
         The ``TWISS`` flag will be fully cleared after running this function.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         patterns (Sequence[str]): a list of regex patterns to define which elements
             should be selected and included in the returned table. Defaults to selecting
             the main bends, quads and sextupoles. See the note admonition above for
@@ -89,7 +89,7 @@ def get_magnets_powering(
     return twiss.get_pattern_twiss(madx, columns=NEW_COLNAMES, patterns=patterns, **kwargs)
 
 
-def query_arc_correctors_powering(madx: Madx) -> Dict[str, float]:
+def query_arc_correctors_powering(madx: Madx, /) -> Dict[str, float]:
     """
     .. versionadded:: 0.15.0
 
@@ -120,32 +120,32 @@ def query_arc_correctors_powering(madx: Madx) -> Dict[str, float]:
     result.update({knob: 100 * _knob_value(madx, knob) / k_mqs_max for knob in LHC_KQS_KNOBS})
 
     logger.debug("Querying arc sextupole correctors (MSs) powering")
-    k_ms_max = 1.280 * 2 / 0.017 ** 2 / madx.globals.brho  # 1.28 T @ 17 mm
+    k_ms_max = 1.280 * 2 / 0.017**2 / madx.globals.brho  # 1.28 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_ms_max for knob in LHC_KSF_KNOBS})
 
     logger.debug("Querying arc skew sextupole correctors (MSSs) powering")
-    k_mss_max = 1.280 * 2 / 0.017 ** 2 / madx.globals.brho  # 1.28 T @ 17 mm
+    k_mss_max = 1.280 * 2 / 0.017**2 / madx.globals.brho  # 1.28 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mss_max for knob in LHC_KSS_KNOBS})
 
     logger.debug("Querying arc spool piece (skew) sextupole correctors (MCSs) powering")
-    k_mcs_max = 0.471 * 2 / 0.017 ** 2 / madx.globals.brho  # 0.471 T @ 17 mm
+    k_mcs_max = 0.471 * 2 / 0.017**2 / madx.globals.brho  # 0.471 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mcs_max for knob in LHC_KCS_KNOBS})
 
     logger.debug("Querying arc spool piece (skew) octupole correctors (MCOs) powering")
-    k_mco_max = 0.040 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.04 T @ 17 mm
+    k_mco_max = 0.040 * 6 / 0.017**3 / madx.globals.brho  # 0.04 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mco_max for knob in LHC_KCO_KNOBS})
 
     logger.debug("Querying arc spool piece (skew) decapole correctors (MCDs) powering")
-    k_mcd_max = 0.100 * 24 / 0.017 ** 4 / madx.globals.brho  # 0.1 T @ 17 mm
+    k_mcd_max = 0.100 * 24 / 0.017**4 / madx.globals.brho  # 0.1 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mcd_max for knob in LHC_KCD_KNOBS})
 
     logger.debug("Querying arc short straight sections octupole correctors (MOs) powering")
-    k_mo_max = 0.29 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.29 T @ 17 mm
+    k_mo_max = 0.29 * 6 / 0.017**3 / madx.globals.brho  # 0.29 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mo_max for knob in LHC_KO_KNOBS})
     return result
 
 
-def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
+def query_triplet_correctors_powering(madx: Madx, /) -> Dict[str, float]:
     """
     .. versionadded:: 0.15.0
 
@@ -172,28 +172,28 @@ def query_triplet_correctors_powering(madx: Madx) -> Dict[str, float]:
     result.update({knob: 100 * _knob_value(madx, knob) / k_mqsx_max for knob in LHC_KQSX_KNOBS})
 
     logger.debug("Querying triplet sextupole correctors (MCSXs) powering")
-    k_mcsx_max = 0.028 * 2 / 0.017 ** 2 / madx.globals.brho  # 0.028 T @ 17 mm
+    k_mcsx_max = 0.028 * 2 / 0.017**2 / madx.globals.brho  # 0.028 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mcsx_max for knob in LHC_KCSX_KNOBS})
 
     logger.debug("Querying triplet skew sextupole correctors (MCSSXs) powering")
-    k_mcssx_max = 0.11 * 2 / 0.017 ** 2 / madx.globals.brho  # 0.11 T @ 17 mm
+    k_mcssx_max = 0.11 * 2 / 0.017**2 / madx.globals.brho  # 0.11 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mcssx_max for knob in LHC_KCSSX_KNOBS})
 
     logger.debug("Querying triplet octupole correctors (MCOXs) powering")
-    k_mcox_max = 0.045 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.045 T @ 17 mm
+    k_mcox_max = 0.045 * 6 / 0.017**3 / madx.globals.brho  # 0.045 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mcox_max for knob in LHC_KCOX_KNOBS})
 
     logger.debug("Querying triplet skew octupole correctors (MCOSXs) powering")
-    k_mcosx_max = 0.048 * 6 / 0.017 ** 3 / madx.globals.brho  # 0.048 T @ 17 mm
+    k_mcosx_max = 0.048 * 6 / 0.017**3 / madx.globals.brho  # 0.048 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mcosx_max for knob in LHC_KCOSX_KNOBS})
 
     logger.debug("Querying triplet decapole correctors (MCTXs) powering")
-    k_mctx_max = 0.01 * 120 / 0.017 ** 5 / madx.globals.brho  # 0.010 T @ 17 mm
+    k_mctx_max = 0.01 * 120 / 0.017**5 / madx.globals.brho  # 0.010 T @ 17 mm
     result.update({knob: 100 * _knob_value(madx, knob) / k_mctx_max for knob in LHC_KCTX_KNOBS})
     return result
 
 
-def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
+def get_current_orbit_setup(madx: Madx, /) -> Dict[str, float]:
     """
     .. versionadded:: 0.8.0
 
@@ -201,7 +201,7 @@ def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
     :user:`Joschua Dilly <joschd>`.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
 
     Returns:
         A `dict` of all orbit variables set, and their values as set in the ``MAD-X`` globals.
@@ -219,7 +219,7 @@ def get_current_orbit_setup(madx: Madx) -> Dict[str, float]:
 # ----- Helpers ----- #
 
 
-def _list_field_currents(madx: Madx, brho: Union[str, float] = None) -> None:
+def _list_field_currents(madx: Madx, /, brho: Union[str, float] = None) -> None:
     """
     Creates additional columns for the ``TWISS`` table with the magnets' total fields
     and currents, to help later on determine which proportion of their maximum powering
@@ -233,7 +233,7 @@ def _list_field_currents(madx: Madx, brho: Union[str, float] = None) -> None:
         those are defined.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         brho (Union[str, float]): optional, an explicit definition for the magnetic
             rigidity in :math:`Tm^{-1}`. If not given, it will be assumed that
             a ``brho`` quantity is defined in the ``MAD-X`` globals and this one will
@@ -266,13 +266,13 @@ def _list_field_currents(madx: Madx, brho: Union[str, float] = None) -> None:
     madx.globals["integrated_field"] = "field * length"
 
 
-def _knob_value(madx: Madx, knob: str) -> float:
+def _knob_value(madx: Madx, /, knob: str) -> float:
     """
     Queryies the current value of a given *knob* name in the ``MAD-X`` process, and defaults
     to 0 (as ``MAD-X`` does) in case that knob has not been defined in the current process.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
         knob (str): the name the knob.
 
     Returns:
