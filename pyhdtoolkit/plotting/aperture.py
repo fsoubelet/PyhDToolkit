@@ -257,8 +257,8 @@ def plot_real_apertures(
 
     logger.trace("Plotting apertures")
     # previously drawstyle="steps", but do not use if entry and exit aperture offset differs
-    axis.fill_between(positions, apertures, 0.5 * scale, color="black", alpha=0.4, label="_nolegend_")
-    axis.fill_between(positions, -1 * apertures, -0.5 * scale, color="black", alpha=0.4, label="_nolegend_")
+    axis.fill_between(positions, apertures, 0.2 * scale, color="black", alpha=0.4, label="_nolegend_")
+    axis.fill_between(positions, -1 * apertures, -0.2 * scale, color="black", alpha=0.4, label="_nolegend_")
     axis.plot(positions, apertures, "k", label="_nolegend_")
     axis.plot(positions, -1 * apertures, "k", label="_nolegend_")
 
