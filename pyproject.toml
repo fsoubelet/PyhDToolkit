@@ -79,7 +79,7 @@ test = [
 dev = [
   "black >= 22.1",
   "isort >= 5.10",
-  "pylint >= 2.4",
+  "ruff >= 0.0.250",
 ]
 docs = [
   "Sphinx >= 4.4",
@@ -173,68 +173,6 @@ show_error_codes = true
 warn_redundant_casts = true
 ignore_missing_imports = true
 follow_imports = "skip"
-
-[tool.pylint]
-[tool.pylint.master]
-jobs="1"    # Auto-detect the number of processors
-ignore-patterns='''
-    \.eggs
-    |\.git
-    |build
-    |dist
-    |conf.py
-'''
-persistent="no"
-load-plugins=""
-limit-inference-results="100"
-suggestion-mode="yes"
-unsafe-load-any-extension="no"
-extension-pkg-whitelist=""
-exit-zero="no"
-from-stdin="no"
-
-[tool.pylint.messages_control]
-disable = [
-    "attribute-defined-outside-init",
-    "bad-continuation",
-    "expression-not-assigned",
-    "invalid-name",
-    "import-error",
-    "logging-format-interpolation",
-    "protected-access",
-    "too-few-public-methods",
-    "too-many-instance-attributes",
-    "format",  # handled by black
-]
-
-[tool.pylint.reports]
-output-format="text"
-msg-template="{path}:{line}:{column}: Pylint: {msg}. [{msg_id}: {symbol}]"
-
-[tool.pylint.basic]
-argument-naming-style="snake_case"
-attr-naming-style="snake_case"
-class-attribute-naming-style="snake_case"
-class-naming-style="PascalCase"
-const-naming-style="UPPER_CASE"
-function-naming-style="snake_case"
-inlinevar-naming-style="snake_case"
-method-naming-style="snake_case"
-module-naming-style="snake_case"
-variable-naming-style="snake_case"
-
-[tool.pylint.design]
-max-args="10"
-max-attributes="10"
-max-locals="15"
-max-public-methods="20"
-max-returns="5"
-
-[tool.pylint.'SIMILARITIES']
-ignore-comments=['yes']
-ignore-docstrings=['yes']
-ignore-imports=['no']
-min-similarity-lines=4
 
 [tool.interrogate]
 ignore-init-method = true
