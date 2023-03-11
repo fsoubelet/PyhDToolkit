@@ -14,6 +14,11 @@ import pathlib
 import sys
 import warnings
 
+from sphinx_gallery.scrapers import matplotlib_scraper
+from sphinx_gallery.sorting import ExampleTitleSortKey
+
+import pyhdtoolkit
+
 # ignore numpy warnings, see:
 # https://stackoverflow.com/questions/40845304/runtimewarning-numpy-dtype-size-changed-may-indicate-binary-incompatibility
 warnings.filterwarnings("ignore", message="numpy.dtype size changed")
@@ -30,11 +35,6 @@ TOPLEVEL_DIR = pathlib.Path(__file__).parent.parent.absolute()
 
 if str(TOPLEVEL_DIR) not in sys.path:
     sys.path.insert(0, str(TOPLEVEL_DIR))
-
-from sphinx_gallery.scrapers import matplotlib_scraper
-from sphinx_gallery.sorting import ExampleTitleSortKey
-
-import pyhdtoolkit
 
 # This is to tell Sphinx how to print some specific type annotations
 # See: https://stackoverflow.com/a/67483317

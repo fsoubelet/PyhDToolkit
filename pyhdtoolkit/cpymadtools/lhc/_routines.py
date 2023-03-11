@@ -1,5 +1,3 @@
-import numpy as np
-
 """
 .. _lhc-routines:
 
@@ -7,6 +5,7 @@ import numpy as np
 
 The functions below are routines mimicking manipulations that would be done in the ``LHC``.
 """
+import numpy as np
 import tfs
 
 from cpymad.madx import Madx
