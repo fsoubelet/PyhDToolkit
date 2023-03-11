@@ -154,6 +154,7 @@ exclude = '''
 '''
 
 [tool.ruff]
+ignore = ["E501"]
 line-length = 120
 
 # Allow unused variables when underscore-prefixed.

@@ -83,7 +83,7 @@ def plot_two_lhc_ips_crossings(
 
     # ----- Plotting figure ----- #
     logger.debug(f"Plotting crossing schemes for IP{first_ip} and IP{second_ip}")
-    figure = plt.gcf()
+    # figure = plt.gcf()
     first_ip_x_axis = plt.subplot2grid((2, 2), (0, 0), colspan=1, rowspan=1)
     first_ip_y_axis = plt.subplot2grid((2, 2), (1, 0), colspan=1, rowspan=1)
     second_ip_x_axis = plt.subplot2grid((2, 2), (0, 1), colspan=1, rowspan=1)

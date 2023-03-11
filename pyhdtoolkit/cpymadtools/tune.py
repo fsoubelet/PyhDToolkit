@@ -203,7 +203,7 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
             "Cannot group tune points according to starting angles and amplitudes. Try changing "
             "the 'AMPLITUDE' value in the provided TfsDataFrame's headers."
         )
-        raise
+        raise tune_grouping_error
 
     logger.debug("Determining polygon vertices")
     sx = A.shape[0] - 1

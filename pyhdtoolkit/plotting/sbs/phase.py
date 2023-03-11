@@ -53,7 +53,7 @@ def plot_phase_segment_one_beam(
             ... )
     """
     logger.debug("Plotting the phase for both planes over the segment.")
-    legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.535, 0.97))
+    # legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.535, 0.97))
     figure, (ax1, ax2) = plt.subplots(2, 1, **kwargs)
 
     plot_phase_segment(ax1, segment_df=phase_x, model_df=model, plane="x", ip=ip)

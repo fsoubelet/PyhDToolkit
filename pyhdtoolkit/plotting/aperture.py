@@ -148,7 +148,7 @@ def plot_aperture(
     aperture_df = aperture_df[aperture_df.s.between(*xlimits)] if xlimits else aperture_df
 
     # Create a subplot for the lattice patches (takes a third of figure)
-    figure = plt.gcf()
+    # figure = plt.gcf()
     quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
     plot_machine_layout(
         madx,
