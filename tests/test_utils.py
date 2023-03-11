@@ -582,7 +582,7 @@ class TestStringOperations:
         assert StringOperations.capitalize(string_input, lower_rest=lower) == result
 
     @pytest.mark.parametrize("string_input, lower, error", [(1, True, TypeError), (_square, False, TypeError)])
-    def test_camel_case_fails(self, string_input, lower, error):
+    def test_camel_capitalize_fails(self, string_input, lower, error):
         with pytest.raises(error):
             StringOperations.capitalize(string_input, lower_rest=lower)
 
