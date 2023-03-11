@@ -5,7 +5,7 @@ import tfs
 
 from pandas.testing import assert_frame_equal
 
-from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS  # for coverage
+from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS  # noqa: F401  |  for coverage
 from pyhdtoolkit.cpymadtools.twiss import get_twiss_tfs
 
 CURRENT_DIR = pathlib.Path(__file__).parent

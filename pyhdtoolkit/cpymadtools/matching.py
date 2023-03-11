@@ -6,7 +6,7 @@ Matching Routines
 
 Module with functions to perform ``MAD-X`` matchings through a `~cpymad.madx.Madx` object.
 """
-from typing import Dict, Optional, Sequence, Tuple
+from typing import Optional, Sequence
 
 from cpymad.madx import Madx
 from loguru import logger

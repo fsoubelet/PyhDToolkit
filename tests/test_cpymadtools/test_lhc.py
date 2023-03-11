@@ -10,6 +10,7 @@ import tfs
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
 
+from pyhdtoolkit.cpymadtools.constants import LHC_TRIPLETS_REGEX  # noqa: F401  |  for coverage
 from pyhdtoolkit.cpymadtools.constants import (
     DEFAULT_TWISS_COLUMNS,
     LHC_ANGLE_FLAGS,
@@ -33,7 +34,6 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_KSF_KNOBS,
     LHC_KSS_KNOBS,
     LHC_PARALLEL_SEPARATION_FLAGS,
-    LHC_TRIPLETS_REGEX,
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,

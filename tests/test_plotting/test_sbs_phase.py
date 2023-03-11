@@ -1,7 +1,5 @@
 import pathlib
 
-from multiprocessing.sharedctypes import Value
-
 import pytest
 import tfs
 

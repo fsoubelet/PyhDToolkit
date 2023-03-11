@@ -2,7 +2,6 @@ import pathlib
 
 import matplotlib
 import matplotlib.pyplot as plt
-import pytest
 
 from pyhdtoolkit.plotting.styles import install_mpl_styles
 
