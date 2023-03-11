@@ -246,7 +246,7 @@ def plot_physical_apertures(
         logger.error(f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'")
         raise ValueError("Invalid 'plane' argument.")
 
-    logger.debug(f"Plotting real element apertures")
+    logger.debug("Plotting real element apertures")
     axis, kwargs = maybe_get_ax(**kwargs)
 
     if xlimits is not None:

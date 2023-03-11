@@ -209,8 +209,8 @@ def install_ac_dipole_as_matrix(madx: Madx, /, deltaqx: float, deltaqy: float, b
     madx.input(f"vacmap43 = 2 * (cos(2*pi*{q2_dipole}) - cos(2*pi*{q2})) / (betyac * sin(2*pi*{q2}));")
 
     logger.debug("Defining matrix elements for transverse planes")
-    madx.input(f"hacmap: matrix, l=0, rm21=hacmap21;")
-    madx.input(f"vacmap: matrix, l=0, rm43=vacmap43;")
+    madx.input("hacmap: matrix, l=0, rm21=hacmap21;")
+    madx.input("vacmap: matrix, l=0, rm43=vacmap43;")
 
     logger.debug(f"Installing AC Dipole matrix with driven tunes of Qx_D = {q1_dipole:.5f}  |  Qy_D = {q2_dipole:.5f}")
     madx.command.seqedit(sequence=f"lhcb{beam:d}")

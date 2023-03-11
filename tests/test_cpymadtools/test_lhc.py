@@ -548,7 +548,7 @@ def test_add_ip_markers(_non_matched_lhc_madx, markers, ip):
     init_twiss = init_twiss[init_twiss.s.between(ip_s - 15, ip_s + 15)]
 
     make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
-    add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=ip, n_markers=markers, interval=0.001)
+    add_markers_around_lhc_ip(madx, sequence="lhcb1", ip=ip, n_markers=markers, interval=0.001)
     new_twiss = madx.twiss().dframe()
     new_twiss = new_twiss[new_twiss.s.between(ip_s - 15, ip_s + 15)]
 
