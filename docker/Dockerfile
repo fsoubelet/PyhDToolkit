@@ -5,11 +5,32 @@
 # STEP 1 - Base image
 FROM jupyter/base-notebook
 
-# STEP 2 & 3 - Label and environment file
+# STEP 2 - Label
 LABEL maintainer="Felix Soubelet <felix.soubelet@cern.ch>"
-COPY docker/environment.yml /home/jovyan/environment.yml
 
-# STEP 4 - Create the PHD conda environment
-RUN conda env create --file ./environment.yml --force \
-    && /opt/conda/bin/conda clean --all --quiet --yes \
-    && /opt/conda/envs/PHD/bin/ipython kernel install --user --name=PHD
+# STEP 3 - Let mamba install packages
+RUN mamba install --yes \
+    black \
+    click \
+    fastparquet \
+    h5py \
+    hdf5 \
+    ipykernel \
+    isort \
+    joblib \
+    loguru \
+    matplotlib \
+    numpy \
+    pandas \
+    pendulum \
+    pyarrow \
+    pydantic \
+    requests \
+    rich \
+    scikit-learn \
+    sdds \
+    sympy \
+    tfs-pandas \
+    scipy && \
+    python -m pip install pyhdtoolkit pynaff && \
+    conda clean --all --quiet --yes \
