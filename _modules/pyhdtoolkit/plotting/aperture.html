@@ -633,7 +633,7 @@
     <span class="n">aperture_df</span> <span class="o">=</span> <span class="n">aperture_df</span><span class="p">[</span><span class="n">aperture_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">between</span><span class="p">(</span><span class="o">*</span><span class="n">xlimits</span><span class="p">)]</span> <span class="k">if</span> <span class="n">xlimits</span> <span class="k">else</span> <span class="n">aperture_df</span>
 
     <span class="c1"># Create a subplot for the lattice patches (takes a third of figure)</span>
-    <span class="n">figure</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">gcf</span><span class="p">()</span>
+    <span class="c1"># figure = plt.gcf()</span>
     <span class="n">quadrupole_patches_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">plot_machine_layout</span><span class="p">(</span>
         <span class="n">madx</span><span class="p">,</span>
@@ -731,7 +731,7 @@
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;plane&#39; argument should be &#39;x&#39;, &#39;horizontal&#39;, &#39;y&#39; or &#39;vertical&#39; not &#39;</span><span class="si">{</span><span class="n">plane</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;plane&#39; argument.&quot;</span><span class="p">)</span>
 
-    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting real element apertures&quot;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting real element apertures&quot;</span><span class="p">)</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
     <span class="k">if</span> <span class="n">xlimits</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>

@@ -221,7 +221,7 @@ the `~.maths.stats_fitting.best_fit_distribution` function:
     best_fit_func, best_fit_params = fitting.best_fit_distribution(data, 200, ax)
     ax.set_ylim(data_y_lim)
 
-    ax.set_title(f"All Fitted Distributions")
+    ax.set_title("All Fitted Distributions")
     ax.set_ylabel("Normed Hist Counts")
     plt.legend()
     plt.show()
@@ -280,7 +280,7 @@ the data, and determine its mode:
         fontsize=25,
     )
     plt.vlines(pdf.idxmax(), ymin=0, ymax=max(pdf.to_numpy()), linestyles="--", color="indianred")
-    ax.set_title(f"Best fit to distribution:\n" + dist_str)
+    ax.set_title("Best fit to distribution:\n" + dist_str)
     ax.set_ylabel("Normed Hist Counts")
     ax.set_xlabel("x")
     ax.legend()
@@ -289,7 +289,7 @@ the data, and determine its mode:
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: ChiSquared(df=4.01, loc=-0.00, scale=1.00)
+   :alt: Best fit to distribution: ChiSquared(df=4.04, loc=0.01, scale=0.99)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
@@ -378,7 +378,7 @@ distribution generated above.
     # Find best fit candidate
     best_fit_func, best_fit_params = fitting.best_fit_distribution(chi_data, 200, ac)
     ac.set_ylim(dataYLim)
-    ac.set_title(f"All Fitted Distributions")
+    ac.set_title("All Fitted Distributions")
     ac.set_ylabel("Normed Hist Counts")
     plt.legend()
 
@@ -407,7 +407,7 @@ distribution generated above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  11.262 seconds)
+   **Total running time of the script:** ( 0 minutes  11.656 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:

@@ -688,7 +688,7 @@
             <span class="s2">&quot;Cannot group tune points according to starting angles and amplitudes. Try changing &quot;</span>
             <span class="s2">&quot;the &#39;AMPLITUDE&#39; value in the provided TfsDataFrame&#39;s headers.&quot;</span>
         <span class="p">)</span>
-        <span class="k">raise</span>
+        <span class="k">raise</span> <span class="n">tune_grouping_error</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Determining polygon vertices&quot;</span><span class="p">)</span>
     <span class="n">sx</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>

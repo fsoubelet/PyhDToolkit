@@ -147,7 +147,7 @@ data_y_lim = ax.get_ylim()
 best_fit_func, best_fit_params = fitting.best_fit_distribution(data, 200, ax)
 ax.set_ylim(data_y_lim)
 
-ax.set_title(f"All Fitted Distributions")
+ax.set_title("All Fitted Distributions")
 ax.set_ylabel("Normed Hist Counts")
 plt.legend()
 plt.show()
@@ -188,7 +188,7 @@ set_arrow_label(
     fontsize=25,
 )
 plt.vlines(pdf.idxmax(), ymin=0, ymax=max(pdf.to_numpy()), linestyles="--", color="indianred")
-ax.set_title(f"Best fit to distribution:\n" + dist_str)
+ax.set_title("Best fit to distribution:\n" + dist_str)
 ax.set_ylabel("Normed Hist Counts")
 ax.set_xlabel("x")
 ax.legend()
@@ -242,7 +242,7 @@ dataYLim = ac.get_ylim()
 # Find best fit candidate
 best_fit_func, best_fit_params = fitting.best_fit_distribution(chi_data, 200, ac)
 ac.set_ylim(dataYLim)
-ac.set_title(f"All Fitted Distributions")
+ac.set_title("All Fitted Distributions")
 ac.set_ylabel("Normed Hist Counts")
 plt.legend()
 

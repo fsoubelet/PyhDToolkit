@@ -31,12 +31,11 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 .. note::
     This is obviously very specific to the LHC machine.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-29
+.. GENERATED FROM PYTHON SOURCE LINES 16-28
 
 .. code-block:: default
 
     import matplotlib.pyplot as plt
-    import numpy as np
 
     from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
     from pyhdtoolkit.plotting.aperture import plot_physical_apertures
@@ -55,7 +54,7 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-44
+.. GENERATED FROM PYTHON SOURCE LINES 30-43
 
 Preparing the LHC setups
 ------------------------
@@ -71,7 +70,7 @@ both beams defined.
     is available in the root space, which is needed by the different files in
     ``acc-models-lhc``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-63
+.. GENERATED FROM PYTHON SOURCE LINES 43-62
 
 .. code-block:: default
 
@@ -106,11 +105,11 @@ both beams defined.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-65
+.. GENERATED FROM PYTHON SOURCE LINES 63-64
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-68
+.. GENERATED FROM PYTHON SOURCE LINES 64-67
 
 .. code-block:: default
 
@@ -124,7 +123,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 69-79
+.. GENERATED FROM PYTHON SOURCE LINES 68-78
 
 As a context manager
 --------------------
@@ -137,7 +136,7 @@ These quick setups, with context manager option, allow to do quick "one-shot"
 simulations with the LHC. For example, one can very quickly compare apertures
 around say IP5 for two optics files as below:
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-112
+.. GENERATED FROM PYTHON SOURCE LINES 78-111
 
 .. code-block:: default
 
@@ -186,13 +185,13 @@ around say IP5 for two optics files as below:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-116
+.. GENERATED FROM PYTHON SOURCE LINES 112-115
 
 Notice we don't need to call ``madx.exit()`` as the context manager takes care
 of that. Now, the same with betastar = 30cm optics. We can also easily add the
 element apertures on top of the plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-154
+.. GENERATED FROM PYTHON SOURCE LINES 115-153
 
 .. code-block:: default
 
@@ -246,12 +245,12 @@ element apertures on top of the plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 155-157
+.. GENERATED FROM PYTHON SOURCE LINES 154-156
 
 If one wants to have a look at, say, coupling RDTs throughout the machine, for
 both beams when applying the coupling knob:
 
-.. GENERATED FROM PYTHON SOURCE LINES 157-188
+.. GENERATED FROM PYTHON SOURCE LINES 156-187
 
 .. code-block:: default
 
@@ -298,7 +297,7 @@ both beams when applying the coupling knob:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 189-199
+.. GENERATED FROM PYTHON SOURCE LINES 188-198
 
 .. admonition:: References
 
@@ -314,7 +313,7 @@ both beams when applying the coupling knob:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  28.831 seconds)
+   **Total running time of the script:** ( 0 minutes  28.684 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_setup.py:
