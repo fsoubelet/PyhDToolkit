@@ -315,7 +315,7 @@ def ptc_twiss(
     icase = kwargs.pop("icase", 6)
     normal = kwargs.pop("normal", True)
 
-    logger.debug(f"Creating PTC universe")
+    logger.debug("Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")
@@ -448,7 +448,7 @@ def ptc_track_particle(
         logger.debug(f"Using sequence '{sequence}' for tracking")
         madx.use(sequence=sequence)
 
-    logger.debug(f"Creating PTC universe")
+    logger.debug("Creating PTC universe")
     madx.ptc_create_universe()
 
     logger.trace("Creating PTC layout")

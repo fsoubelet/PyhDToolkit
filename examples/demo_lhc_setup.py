@@ -15,7 +15,6 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 """
 # sphinx_gallery_thumbnail_number = 3
 import matplotlib.pyplot as plt
-import numpy as np
 
 from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
 from pyhdtoolkit.plotting.aperture import plot_physical_apertures

@@ -146,7 +146,7 @@ def plot_latwiss(
     xlimits = (twiss_df.s.min(), twiss_df.s.max()) if xlimits is None else xlimits
 
     # Create a subplot for the lattice patches (takes a third of figure)
-    figure = plt.gcf()
+    # figure = plt.gcf()
     quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
     plot_machine_layout(
         madx,

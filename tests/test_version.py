@@ -1,8 +1,6 @@
 import platform
 import sys
 
-import pytest
-
 from pyhdtoolkit.version import VERSION, version_info
 
 

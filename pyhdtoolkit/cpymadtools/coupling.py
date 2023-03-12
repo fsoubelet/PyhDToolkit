@@ -201,7 +201,7 @@ def get_cminus_from_coupling_rdts(
 
             >>> complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=["^BPM.*B[12]$"])
     """
-    logger.debug(f"Getting coupling RDTs at selected elements thoughout the machine")
+    logger.debug("Getting coupling RDTs at selected elements thoughout the machine")
     twiss_with_rdts = get_pattern_twiss(madx, patterns=patterns, columns=MONITOR_TWISS_COLUMNS)
     twiss_with_rdts.columns = twiss_with_rdts.columns.str.upper()  # optics_functions needs capitalized names
     twiss_with_rdts[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_with_rdts, output=["rdts"])

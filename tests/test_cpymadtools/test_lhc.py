@@ -10,6 +10,7 @@ import tfs
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
 
+from pyhdtoolkit.cpymadtools.constants import LHC_TRIPLETS_REGEX  # noqa: F401  |  for coverage
 from pyhdtoolkit.cpymadtools.constants import (
     DEFAULT_TWISS_COLUMNS,
     LHC_ANGLE_FLAGS,
@@ -33,7 +34,6 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_KSF_KNOBS,
     LHC_KSS_KNOBS,
     LHC_PARALLEL_SEPARATION_FLAGS,
-    LHC_TRIPLETS_REGEX,
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,
@@ -548,7 +548,7 @@ def test_add_ip_markers(_non_matched_lhc_madx, markers, ip):
     init_twiss = init_twiss[init_twiss.s.between(ip_s - 15, ip_s + 15)]
 
     make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
-    add_markers_around_lhc_ip(madx, sequence=f"lhcb1", ip=ip, n_markers=markers, interval=0.001)
+    add_markers_around_lhc_ip(madx, sequence="lhcb1", ip=ip, n_markers=markers, interval=0.001)
     new_twiss = madx.twiss().dframe()
     new_twiss = new_twiss[new_twiss.s.between(ip_s - 15, ip_s + 15)]
 
@@ -810,21 +810,21 @@ def test_lhc_run3_setup_context_manager_fullpath_to_opticsfile():
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_b4_conditions():
     with pytest.raises(ValueError):  # using b4 with beam1 setup crashes
-        with LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True) as madx:
+        with LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True) as madx:  # noqa: F841
             pass
 
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_run_value():
     with pytest.raises(NotImplementedError):  # using b4 with beam1 setup crashes
-        with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:
+        with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:  # noqa: F841
             pass
 
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_raises_on_wrong_b4_conditions(_proton_opticsfile):
     with pytest.raises(ValueError):  # using b4 with beam1 setup crashes
-        madx = prepare_lhc_run3(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True)
+        _ = prepare_lhc_run3(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True)
 
 
 # ------------------- Run2 Setup Tests ------------------- #
@@ -841,12 +841,12 @@ def test_lhc_run2_setup_context_manager(_proton_opticsfile, slicefactor):
 
 def test_lhc_run2_setup_raises_on_wrong_b4_conditions(_proton_opticsfile):
     with pytest.raises(ValueError):  # using b4 with beam1 setup crashes
-        madx = prepare_lhc_run2(opticsfile=_proton_opticsfile, beam=1, use_b4=True)
+        _ = prepare_lhc_run2(opticsfile=_proton_opticsfile, beam=1, use_b4=True)
 
 
 def test_lhc_run2_setup_raises_on_absent_sequence_file():
     with pytest.raises(ValueError):  # will not find the sequence file from this opticsfile value
-        madx = prepare_lhc_run2(opticsfile="some/place/here.madx")
+        _ = prepare_lhc_run2(opticsfile="some/place/here.madx")
 
 
 # ---------------------- Private Utilities ---------------------- #

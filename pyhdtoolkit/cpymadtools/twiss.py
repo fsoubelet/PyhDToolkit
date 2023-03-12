@@ -76,6 +76,7 @@ def get_pattern_twiss(
             ...     ],
             ... )
     """
+    columns = columns or DEFAULT_TWISS_COLUMNS
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)
 

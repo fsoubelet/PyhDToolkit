@@ -79,4 +79,4 @@ class BeamParameters(BaseModel):
         )
 
     def __str__(self) -> str:
-        return f""
+        return ""

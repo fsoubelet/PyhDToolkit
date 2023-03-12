@@ -60,10 +60,10 @@ def export_madx_table(
         logger.debug(f"Setting NAME column as index and filtering extracted table with regex pattern '{pattern}'")
         dframe = dframe.set_index("NAME").filter(regex=pattern, axis="index").reset_index()
     if "NAME" not in dframe.headers:
-        logger.debug(f"No 'NAME' header found, adding a default value 'EXPORT'")
+        logger.debug("No 'NAME' header found, adding a default value 'EXPORT'")
         dframe.headers["NAME"] = "EXPORT"
     if "TYPE" not in dframe.headers:
-        logger.debug(f"No 'TYPE' header found, adding a default value 'EXPORT'")
+        logger.debug("No 'TYPE' header found, adding a default value 'EXPORT'")
         dframe.headers["TYPE"] = "EXPORT"
     logger.debug("Writing to disk")
     tfs.write(file_path, dframe, **kwargs)

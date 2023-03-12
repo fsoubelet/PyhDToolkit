@@ -52,8 +52,8 @@ def plot_phase_segment_one_beam(
             ...     sbs_phasex, sbs_phasey, model=b2_model_tfs, ip=5, figsize=(8, 8)
             ... )
     """
-    logger.debug(f"Plotting the phase for both planes over the segment.")
-    legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.535, 0.97))
+    logger.debug("Plotting the phase for both planes over the segment.")
+    # legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.535, 0.97))
     figure, (ax1, ax2) = plt.subplots(2, 1, **kwargs)
 
     plot_phase_segment(ax1, segment_df=phase_x, model_df=model, plane="x", ip=ip)
@@ -118,7 +118,7 @@ def plot_phase_segment_both_beams(
             ...     bbox_to_anchor=(0.535, 0.94),
             ... )
     """
-    logger.debug(f"Plotting the phase for both planes over the segment.")
+    logger.debug("Plotting the phase for both planes over the segment.")
     legend_bbox_to_anchor = kwargs.pop("bbox_to_anchor", (0.535, 0.97))
     figure, ((b1x, b2x), (b1y, b2y)) = plt.subplots(2, 2, sharex=True, sharey="row", **kwargs)
 
@@ -212,6 +212,6 @@ def plot_phase_segment(
     )
     if model_df is not None and isinstance(model_df, tfs.TfsDataFrame):
         # If model dataframe is given, find S location of IP and highlight it
-        logger.debug(f"Plotting the IP location in the segment.")
+        logger.debug("Plotting the IP location in the segment.")
         ips = find_ip_s_from_segment_start(segment_df=segment_df, model_df=model_df, ip=ip)
         ax.axvline(ips, ls="--", color="grey")

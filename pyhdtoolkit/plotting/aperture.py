@@ -148,7 +148,7 @@ def plot_aperture(
     aperture_df = aperture_df[aperture_df.s.between(*xlimits)] if xlimits else aperture_df
 
     # Create a subplot for the lattice patches (takes a third of figure)
-    figure = plt.gcf()
+    # figure = plt.gcf()
     quadrupole_patches_axis = plt.subplot2grid((3, 3), (0, 0), colspan=3, rowspan=1)
     plot_machine_layout(
         madx,
@@ -246,7 +246,7 @@ def plot_physical_apertures(
         logger.error(f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'")
         raise ValueError("Invalid 'plane' argument.")
 
-    logger.debug(f"Plotting real element apertures")
+    logger.debug("Plotting real element apertures")
     axis, kwargs = maybe_get_ax(**kwargs)
 
     if xlimits is not None:

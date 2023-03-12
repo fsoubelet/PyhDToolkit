@@ -23,7 +23,7 @@ def test_make_footprint_table(_non_matched_lhc_madx, tmp_path, sigma, dense):
     export_file = tmp_path / "out.tfs"
     madx = _non_matched_lhc_madx
     re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
-    orbit_scheme = setup_lhc_orbit(madx, scheme="flat")
+    _ = setup_lhc_orbit(madx, scheme="flat")
     madx.use(sequence="lhcb1")
     match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0, telescopic_squeeze=True)
 
@@ -55,11 +55,11 @@ def test_make_footprint_table(_non_matched_lhc_madx, tmp_path, sigma, dense):
 def test_make_footprint_table_crashes_without_slicing(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
     re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
-    orbit_scheme = setup_lhc_orbit(madx, scheme="flat")
+    _ = setup_lhc_orbit(madx, scheme="flat")
     madx.use(sequence="lhcb1")
 
     with pytest.raises(RuntimeError):
-        foot = make_footprint_table(madx, sigma=2)
+        _ = make_footprint_table(madx, sigma=2)
 
     for record in caplog.records:
         assert record.levelname == "ERROR"
@@ -96,7 +96,7 @@ def test_get_footprint_patches_raises_wrong_shape(_dynap_tfs_path, caplog):
     dynap_dframe = tfs.read(_dynap_tfs_path)
 
     with pytest.raises(ValueError):
-        polygons = get_footprint_patches(dynap_dframe)
+        _ = get_footprint_patches(dynap_dframe)
 
     for record in caplog.records:
         assert record.levelname == "ERROR"
