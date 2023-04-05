@@ -12,6 +12,7 @@ from typing import Tuple, Union
 import matplotlib
 import matplotlib.axes
 import matplotlib.patches as patches
+import numpy as np
 import pandas as pd
 
 from cpymad.madx import Madx
@@ -172,7 +173,8 @@ def plot_machine_layout(
     dipole_patches_axis = axis.twinx()
     dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ $[rad]$", color="royalblue")  # dipoles in blue
     dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
-    dipole_patches_axis.set_ylim(k0l_lim)
+    if not np.nan in k0l_lim:
+        dipole_patches_axis.set_ylim(k0l_lim) 
     dipole_patches_axis.grid(False)
 
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'
@@ -210,12 +212,14 @@ def plot_machine_layout(
         plotted_elements = 0
         for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
             logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
+            element_k = quadrupole.k1l if quadrupole.k1l !=0 else quadrupole.k1sl  # can be skew quadrupole
             _plot_lattice_series(
                 axis,
                 quadrupole,
-                height=quadrupole.k1l,
-                v_offset=quadrupole.k1l / 2,
+                height=element_k,
+                v_offset=element_k / 2,
                 color="r",
+                hatch=None if quadrupole.k1l != 0 else "///",  # hatch skew quadrupoles
                 label="MQ" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
@@ -235,12 +239,14 @@ def plot_machine_layout(
         plotted_elements = 0
         for sextupole_name, sextupole in sextupoles_df.iterrows():
             logger.trace(f"Plotting sextupole element '{sextupole_name}'")
+            element_k = sextupole.k2l if sextupole.k2l !=0 else sextupole.k2sl  # can be skew sextupole
             _plot_lattice_series(
                 sextupoles_patches_axis,
                 sextupole,
-                height=sextupole.k2l,
-                v_offset=sextupole.k2l / 2,
+                height=element_k,
+                v_offset=element_k / 2,
                 color="goldenrod",
+                hatch=None if sextupole.k2l != 0 else "\\\\\\",  # hatch skew sextupoles
                 label="MS" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
@@ -263,12 +269,14 @@ def plot_machine_layout(
         plotted_elements = 0
         for octupole_name, octupole in octupoles_df.iterrows():
             logger.trace(f"Plotting octupole element '{octupole_name}'")
+            element_k = octupole.k3l if octupole.k3l else octupole.k3sl  # can be skew octupole
             _plot_lattice_series(
                 octupoles_patches_axis,
                 octupole,
                 height=octupole.k3l,
                 v_offset=octupole.k3l / 2,
                 color="forestgreen",
+                hatch=None if octupole.k3l != 0 else "xxx",  # hatch skew octupoles
                 label="MO" if plotted_elements == 0 else None,  # avoid duplicating legend labels
                 **kwargs,
             )
