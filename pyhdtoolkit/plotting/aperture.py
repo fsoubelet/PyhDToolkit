@@ -260,10 +260,8 @@ def plot_physical_apertures(
     logger.debug("Plotting real element apertures")
     axis, kwargs = maybe_get_ax(**kwargs)
 
-    if xlimits is not None:
-        axis.set_xlim(xlimits)
-    
-    positions, apertures = _get_positions_and_real_apertures(madx, plane, xlimits, **kwargs)
+    positions, apertures = _get_positions_and_real_apertures(madx, plane, **kwargs)
+    logger.trace(f"Applying scale ({scale}) and offset ({xoffset})")
     positions = positions - xoffset
     apertures = apertures * scale
 
@@ -273,6 +271,10 @@ def plot_physical_apertures(
     axis.fill_between(positions, -1 * apertures, -0.2 * scale, color="black", alpha=0.4, label="_nolegend_")
     axis.plot(positions, apertures, "k", label="_nolegend_")
     axis.plot(positions, -1 * apertures, "k", label="_nolegend_")
+
+    if xlimits:
+        logger.trace("Setting xlim for longitudinal coordinate")
+        axis.set_xlim(xlimits)
 
 
 # ----- Helpers ----- #
@@ -346,5 +348,4 @@ def _get_positions_and_real_apertures(
     apertures = np.array(new_aper)
     apertures[apertures == 0] = np.nan
     positions = np.array(new_pos)
-
     return positions, apertures
