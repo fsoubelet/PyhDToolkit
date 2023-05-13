@@ -188,7 +188,13 @@ def plot_aperture(
 
 
 def plot_physical_apertures(
-    madx, /, plane: str, scale: float = 1, xlimits: Tuple[float, float] = None, **kwargs
+    madx,
+    /,
+    plane: str,
+    scale: float = 1,
+    xoffset: float = 0,
+    xlimits: Tuple[float, float] = None,
+    **kwargs,
 ) -> None:
     """
     .. versionadded:: 1.2.0
@@ -213,6 +219,11 @@ def plot_physical_apertures(
         scale (float): a scaling factor to apply to the beam orbit and beam
             enveloppe, for the user to adjust to their wanted scale. Defaults
             to 1 (values in [m]).
+        xoffset (float): An offset applied to the ``S`` coordinate before
+            plotting. This is useful if you want to center a plot around a
+            specific point or element, which would then become located
+            at :math:`s = 0`. Beware this offset is applied before applying
+            the *xlimits*. Defaults to 0.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
@@ -251,8 +262,9 @@ def plot_physical_apertures(
 
     if xlimits is not None:
         axis.set_xlim(xlimits)
-
+    
     positions, apertures = _get_positions_and_real_apertures(madx, plane, xlimits, **kwargs)
+    positions = positions - xoffset
     apertures = apertures * scale
 
     logger.trace("Plotting apertures")
@@ -325,7 +337,7 @@ def _get_positions_and_real_apertures(
     indices = list(reversed(indices))
 
     logger.trace("Extrapolating data at beginning of elements")
-    counter = 0# Keep track of exact position in new array with counter
+    counter = 0  # Keep track of exact position in new array with counter
     for j in indices:
         new_pos.insert(j + counter, (twiss_df.s[j] - twiss_df.l[j]))
         counter += 1
