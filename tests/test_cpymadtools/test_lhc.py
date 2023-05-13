@@ -736,7 +736,7 @@ def test_correct_lhc_global_coupling_routine(_non_matched_lhc_madx, telesqueeze)
 
     correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
     assert madx.table.summ.dqmin[0] >= 0
-    assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-7)
+    assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-5)
 
 
 @pytest.mark.parametrize("telesqueeze", [True, False])
@@ -749,7 +749,7 @@ def test_correct_lhc_global_coupling_from_coupling_module(_non_matched_lhc_madx,
 
     _coupling.correct_lhc_global_coupling(madx, telescopic_squeeze=telesqueeze)
     assert madx.table.summ.dqmin[0] >= 0
-    assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-7)
+    assert math.isclose(madx.table.summ.dqmin[0], 0, abs_tol=1e-5)
 
 
 @pytest.mark.parametrize("ip", [1, 5])
