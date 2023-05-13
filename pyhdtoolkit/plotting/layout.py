@@ -212,7 +212,7 @@ def plot_machine_layout(
         plotted_elements = 0
         for quadrupole_name, quadrupole in quadrupoles_df.iterrows():
             logger.trace(f"Plotting quadrupole element '{quadrupole_name}'")
-            element_k = quadrupole.k1l if quadrupole.k1l !=0 else quadrupole.k1sl  # can be skew quadrupole
+            element_k = quadrupole.k1l if quadrupole.k1l != 0 else quadrupole.k1sl  # can be skew quadrupole
             _plot_lattice_series(
                 axis,
                 quadrupole,
@@ -239,7 +239,7 @@ def plot_machine_layout(
         plotted_elements = 0
         for sextupole_name, sextupole in sextupoles_df.iterrows():
             logger.trace(f"Plotting sextupole element '{sextupole_name}'")
-            element_k = sextupole.k2l if sextupole.k2l !=0 else sextupole.k2sl  # can be skew sextupole
+            element_k = sextupole.k2l if sextupole.k2l != 0 else sextupole.k2sl  # can be skew sextupole
             _plot_lattice_series(
                 sextupoles_patches_axis,
                 sextupole,
@@ -320,6 +320,33 @@ def plot_machine_layout(
             if plotted_elements > 0:  # If we plotted at least one BPM, we need to plot the legend
                 bpm_patches_axis.legend(loc=bpm_legend_loc)
         bpm_patches_axis.grid(False)
+
+
+def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
+    """
+    This is a convenience function to update the scale of the elements layout
+    patches as well as the corresponding y-axis label.
+
+    Args:
+        scale (float): the scale factor to apply to the patches. The new 
+            height of the patches will be ``scale * original_height``.
+        ylabel (str): the new label for the y-axis.
+        **kwargs: If either `ax` or `axis` is found in the kwargs, the
+            corresponding value is used as the axis object to plot on,
+            otherwise the current axis is used.
+    
+    Example:
+        .. code-block:: python
+
+            >>> fig, ax = plt.subplots(figsize=(6, 2))
+            >>> plot_machine_layout(madx, title="Machine Elements", lw=3)
+            >>> scale_patches(ax=fig.axes[0], scale=100, ylabel=r"$K_{1}L$ $[10^{-2} m^{-1}]$")
+    """
+    axis, kwargs = maybe_get_ax(**kwargs)
+    axis.set_ylabel(ylabel)
+    for patch in axis.patches:
+        h = patch.get_height()
+        patch.set_height(scale * h)
 
 
 # ----- Helpers ----- #
@@ -407,7 +434,7 @@ def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> Tupl
 
     Determine the default limits for the ``knl`` axis, when plotting machine
     layout. This is in case `None` are provided by the user, to make sure the
-    plot still looks coherent and symmetric in 
+    plot still looks coherent and symmetric in
     `~.plotting.utils.plot_machine_layout`.
 
     The limits are determined symmetric, using the maximum absolute value of
