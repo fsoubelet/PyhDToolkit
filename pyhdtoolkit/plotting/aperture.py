@@ -281,7 +281,7 @@ def plot_physical_apertures(
 
 
 def _get_positions_and_real_apertures(
-    madx, /, plane: str, xlimits: Tuple[float, float] = None, **kwargs
+    madx, /, plane: str, xoffset: float = 0, xlimits: Tuple[float, float] = None, **kwargs
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
     .. versionadded:: 1.2.0
@@ -302,6 +302,11 @@ def _get_positions_and_real_apertures(
             Positional only.
         plane (str): the physical plane to plot for, should be either `x`,
             `horizontal`, `y` or `vertical`, and is case-insensitive.
+        xoffset (float): An offset applied to the ``S`` coordinate before
+            plotting. This is useful if you want to center a plot around a
+            specific point or element, which would then become located
+            at :math:`s = 0`. Beware this offset is applied before applying
+            the *xlimits*. Defaults to 0.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
@@ -317,6 +322,7 @@ def _get_positions_and_real_apertures(
     madx.command.select(flag="twiss", column=["aper_1", "aper_2"])  # make sure we to get these two
     twiss_df = madx.twiss(**kwargs).dframe()
     madx.command.select(flag="twiss", clear=True)  # clean up
+    twiss_df.s = twiss_df.s - xoffset
 
     logger.trace("Determining aperture column to use")
     plane_number = 1 if plane.lower() in ("x", "horizontal") else 2
