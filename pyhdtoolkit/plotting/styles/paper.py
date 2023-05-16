@@ -59,8 +59,8 @@ SINGLE_COLUMN: Dict[str, PlotSetting] = {
     "figure.figsize": (11, 7),  # Size of the figure
     "figure.titlesize": 20,  # Size of the figure title
     "figure.subplot.left": 0.13,  # Left side limit of the subplots of the figure
-    "figure.subplot.top": 0.92,  # Top side limit of the subplots of the figure
-    "figure.subplot.bottom": 0.15,  # Bottom side limit of the subplots of the figure
+    "figure.subplot.top": 0.9,  # Top side limit of the subplots of the figure
+    "figure.subplot.bottom": 0.1,  # Bottom side limit of the subplots of the figure
     # ------ Saving ------ #
     "savefig.dpi": 400,  # Saved figure dots per inch
     "savefig.format": "pdf",  # Saved figure file format

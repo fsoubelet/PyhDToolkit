@@ -188,7 +188,13 @@ def plot_aperture(
 
 
 def plot_physical_apertures(
-    madx, /, plane: str, scale: float = 1, xlimits: Tuple[float, float] = None, **kwargs
+    madx,
+    /,
+    plane: str,
+    scale: float = 1,
+    xoffset: float = 0,
+    xlimits: Tuple[float, float] = None,
+    **kwargs,
 ) -> None:
     """
     .. versionadded:: 1.2.0
@@ -213,6 +219,11 @@ def plot_physical_apertures(
         scale (float): a scaling factor to apply to the beam orbit and beam
             enveloppe, for the user to adjust to their wanted scale. Defaults
             to 1 (values in [m]).
+        xoffset (float): An offset applied to the ``S`` coordinate before
+            plotting. This is useful if you want to center a plot around a
+            specific point or element, which would then become located
+            at :math:`s = 0`. Beware this offset is applied before applying
+            the *xlimits*. Defaults to 0.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
@@ -249,10 +260,9 @@ def plot_physical_apertures(
     logger.debug("Plotting real element apertures")
     axis, kwargs = maybe_get_ax(**kwargs)
 
-    if xlimits is not None:
-        axis.set_xlim(xlimits)
-
-    positions, apertures = _get_positions_and_real_apertures(madx, plane, xlimits, **kwargs)
+    positions, apertures = _get_positions_and_real_apertures(madx, plane, **kwargs)
+    logger.trace(f"Applying scale ({scale}) and offset ({xoffset})")
+    positions = positions - xoffset
     apertures = apertures * scale
 
     logger.trace("Plotting apertures")
@@ -262,12 +272,16 @@ def plot_physical_apertures(
     axis.plot(positions, apertures, "k", label="_nolegend_")
     axis.plot(positions, -1 * apertures, "k", label="_nolegend_")
 
+    if xlimits:
+        logger.trace("Setting xlim for longitudinal coordinate")
+        axis.set_xlim(xlimits)
+
 
 # ----- Helpers ----- #
 
 
 def _get_positions_and_real_apertures(
-    madx, /, plane: str, xlimits: Tuple[float, float] = None, **kwargs
+    madx, /, plane: str, xoffset: float = 0, xlimits: Tuple[float, float] = None, **kwargs
 ) -> Tuple[np.ndarray, np.ndarray]:
     """
     .. versionadded:: 1.2.0
@@ -288,6 +302,11 @@ def _get_positions_and_real_apertures(
             Positional only.
         plane (str): the physical plane to plot for, should be either `x`,
             `horizontal`, `y` or `vertical`, and is case-insensitive.
+        xoffset (float): An offset applied to the ``S`` coordinate before
+            plotting. This is useful if you want to center a plot around a
+            specific point or element, which would then become located
+            at :math:`s = 0`. Beware this offset is applied before applying
+            the *xlimits*. Defaults to 0.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
@@ -303,6 +322,7 @@ def _get_positions_and_real_apertures(
     madx.command.select(flag="twiss", column=["aper_1", "aper_2"])  # make sure we to get these two
     twiss_df = madx.twiss(**kwargs).dframe()
     madx.command.select(flag="twiss", clear=True)  # clean up
+    twiss_df.s = twiss_df.s - xoffset
 
     logger.trace("Determining aperture column to use")
     plane_number = 1 if plane.lower() in ("x", "horizontal") else 2
@@ -325,7 +345,7 @@ def _get_positions_and_real_apertures(
     indices = list(reversed(indices))
 
     logger.trace("Extrapolating data at beginning of elements")
-    counter = 0# Keep track of exact position in new array with counter
+    counter = 0  # Keep track of exact position in new array with counter
     for j in indices:
         new_pos.insert(j + counter, (twiss_df.s[j] - twiss_df.l[j]))
         counter += 1
@@ -334,5 +354,4 @@ def _get_positions_and_real_apertures(
     apertures = np.array(new_aper)
     apertures[apertures == 0] = np.nan
     positions = np.array(new_pos)
-
     return positions, apertures

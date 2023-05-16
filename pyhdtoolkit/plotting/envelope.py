@@ -23,6 +23,7 @@ def plot_beam_envelope(
     plane: str,
     nsigma: float = 1,
     scale: float = 1,
+    xoffset: float = 0,
     xlimits: Tuple[float, float] = None,
     **kwargs,
 ) -> None:
@@ -48,6 +49,11 @@ def plot_beam_envelope(
         scale (float): a scaling factor to apply to the beam orbit and beam
             enveloppe, for the user to adjust to their wanted scale. Defaults
             to 1 (values in [m]).
+        xoffset (float): An offset applied to the ``S`` coordinate before
+            plotting. This is useful if you want to center a plot around a
+            specific point or element, which would then become located
+            at :math:`s = 0`. Beware this offset is applied before applying
+            the *xlimits*. Defaults to 0.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
@@ -87,6 +93,8 @@ def plot_beam_envelope(
     logger.debug("Getting Twiss dframe from MAD-X")
     plane_letter = "x" if plane.lower() in ("x", "horizontal") else "y"
     twiss_df = madx.twiss(**kwargs).dframe()
+    twiss_df.s = twiss_df.s - xoffset
+
     if xlimits is not None:
         axis.set_xlim(xlimits)
         twiss_df = twiss_df[twiss_df.s.between(*xlimits)]
