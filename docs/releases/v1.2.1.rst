@@ -1,13 +1,24 @@
-.. _release_1.2.0:
+.. _release_1.2.1:
 
-1.2.0
+1.2.1
 -----
 
 Release `1.2.1` brings a few fixes.
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.plotting.aperture.plot_physical_apertures` now has an ``xoffset`` argument similar to the one of the other plotting functions.
+* The `pyhdtoolkit.plotting.envelope.plot_beam_envelope` now has an ``xoffset`` argument similar to the one of the other plotting functions.
 
 Bug Fixes
 ~~~~~~~~~
 
 * The `pyhdtoolkit.plotting.layout.plot_machine_layout` function will now plot skew elements too, with a hatching pattern to differentiate them from their normal counterparts.
+
+Maintenance
+~~~~~~~~~~~
+
+* The `pyhdtoolkit.plotting.styles.paper.SINGLE_COLUMN` matplotlib style has been adjusted to be tighter at the edges of the figure when saving to a file.
 
 See `v1.2.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.2.1>`_ and the `full changes since v1.2.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.2.0...1.2.1>`_.
