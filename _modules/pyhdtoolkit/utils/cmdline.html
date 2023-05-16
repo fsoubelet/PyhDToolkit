@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.utils.cmdline &mdash; PyhDToolkit 1.2.0 documentation</title>
+  <title>pyhdtoolkit.utils.cmdline &mdash; PyhDToolkit 1.3.0 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -13,17 +13,18 @@
       <link rel="stylesheet" href="../../../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/sphinx-dropdown.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/panels-bootstrap.min.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
         <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -43,7 +44,7 @@
             
           </a>
               <div class="version">
-                1.2.0
+                1.3.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -95,180 +96,59 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../api/cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#useful-constants">Useful Constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach"><code class="docutils literal notranslate"><span class="pre">get_closest_tune_approach()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_cminus_from_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens"><code class="docutils literal notranslate"><span class="pre">match_no_coupling_through_ripkens()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.get_lhc_bpms_twiss_and_rdts"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_twiss_and_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.add_markers_around_lhc_ip"><code class="docutils literal notranslate"><span class="pre">add_markers_around_lhc_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_kicker"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_matrix"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_matrix()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_triplets"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_triplets()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_bpms_list"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_list()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_tune_and_chroma_knobs"><code class="docutils literal notranslate"><span class="pre">get_lhc_tune_and_chroma_knobs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_sizes_at_ip"><code class="docutils literal notranslate"><span class="pre">get_sizes_at_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.make_sixtrack_output"><code class="docutils literal notranslate"><span class="pre">make_sixtrack_output()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.reset_lhc_bump_flags"><code class="docutils literal notranslate"><span class="pre">reset_lhc_bump_flags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob_delta"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob_delta()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_coupling_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_coupling_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_rigidity_waist_shift_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_rigidity_waist_shift_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.carry_colinearity_knob_over"><code class="docutils literal notranslate"><span class="pre">carry_colinearity_knob_over()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.deactivate_lhc_arc_sextupoles"><code class="docutils literal notranslate"><span class="pre">deactivate_lhc_arc_sextupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.power_landau_octupoles"><code class="docutils literal notranslate"><span class="pre">power_landau_octupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.switch_magnetic_errors"><code class="docutils literal notranslate"><span class="pre">switch_magnetic_errors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.vary_independent_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">vary_independent_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_current_orbit_setup"><code class="docutils literal notranslate"><span class="pre">get_current_orbit_setup()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_magnets_powering"><code class="docutils literal notranslate"><span class="pre">get_magnets_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_arc_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_arc_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_triplet_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_triplet_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.do_kmodulation"><code class="docutils literal notranslate"><span class="pre">do_kmodulation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"><code class="docutils literal notranslate"><span class="pre">LHCSetup</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables"><code class="docutils literal notranslate"><span class="pre">lhc_orbit_variables()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="docutils literal notranslate"><span class="pre">make_lhc_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_thin"><code class="docutils literal notranslate"><span class="pre">make_lhc_thin()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="docutils literal notranslate"><span class="pre">re_cycle_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">setup_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ips_twiss"><code class="docutils literal notranslate"><span class="pre">get_ips_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ir_twiss"><code class="docutils literal notranslate"><span class="pre">get_ir_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_chromaticities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes"><code class="docutils literal notranslate"><span class="pre">match_tunes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.parameters.query_beam_attributes"><code class="docutils literal notranslate"><span class="pre">query_beam_attributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_amplitude_detuning"><code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_rdts"><code class="docutils literal notranslate"><span class="pre">get_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_track_particle"><code class="docutils literal notranslate"><span class="pre">ptc_track_particle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_twiss"><code class="docutils literal notranslate"><span class="pre">ptc_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tracking-routines">Tracking Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="docutils literal notranslate"><span class="pre">track_single_particle()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#tune-utilities">Tune Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines"><code class="docutils literal notranslate"><span class="pre">get_footprint_lines()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_patches"><code class="docutils literal notranslate"><span class="pre">get_footprint_patches()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table"><code class="docutils literal notranslate"><span class="pre">make_footprint_table()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#twiss-routines">TWISS Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss"><code class="docutils literal notranslate"><span class="pre">get_pattern_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_twiss_tfs"><code class="docutils literal notranslate"><span class="pre">get_twiss_tfs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table"><code class="docutils literal notranslate"><span class="pre">export_madx_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.utils.get_table_tfs"><code class="docutils literal notranslate"><span class="pre">get_table_tfs()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/maths.html">Maths</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor"><code class="docutils literal notranslate"><span class="pre">PhaseReconstructor</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#stats-fitting">Stats Fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.best_fit_distribution"><code class="docutils literal notranslate"><span class="pre">best_fit_distribution()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.make_pdf"><code class="docutils literal notranslate"><span class="pre">make_pdf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict"><code class="docutils literal notranslate"><span class="pre">set_distributions_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#utilities">Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.utils.get_magnitude"><code class="docutils literal notranslate"><span class="pre">get_magnitude()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/maths.html#pyhdtoolkit.maths.utils.get_scaled_values_and_magnitude_string"><code class="docutils literal notranslate"><span class="pre">get_scaled_values_and_magnitude_string()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/models.html">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#particle-beam-models">Particle Beam Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.beam.BeamParameters"><code class="docutils literal notranslate"><span class="pre">BeamParameters</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#htcondor-models">HTCondor Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.htc.BaseSummary"><code class="docutils literal notranslate"><span class="pre">BaseSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.htc.ClusterSummary"><code class="docutils literal notranslate"><span class="pre">ClusterSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.htc.HTCTaskSummary"><code class="docutils literal notranslate"><span class="pre">HTCTaskSummary</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#mad-x-models">MAD-X Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.madx.MADXBeam"><code class="docutils literal notranslate"><span class="pre">MADXBeam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/models.html#pyhdtoolkit.models.madx.ParticleEnum"><code class="docutils literal notranslate"><span class="pre">ParticleEnum</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/optics.html">Optics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#beam-optics">Beam Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.beam.Beam"><code class="docutils literal notranslate"><span class="pre">Beam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.beam.compute_beam_parameters"><code class="docutils literal notranslate"><span class="pre">compute_beam_parameters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#ripken-parameters">Ripken Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.ripken.lebedev_beam_size"><code class="docutils literal notranslate"><span class="pre">lebedev_beam_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#twiss-optics">Twiss Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/optics.html#pyhdtoolkit.optics.twiss.courant_snyder_transform"><code class="docutils literal notranslate"><span class="pre">courant_snyder_transform()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/plotting.html">Plotting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-styles">Plotting Styles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.styles.install_mpl_styles"><code class="docutils literal notranslate"><span class="pre">install_mpl_styles()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#paper-styles">Paper Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#aperture-plotters">Aperture Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture"><code class="docutils literal notranslate"><span class="pre">plot_aperture()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures"><code class="docutils literal notranslate"><span class="pre">plot_physical_apertures()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_single_ir_crossing"><code class="docutils literal notranslate"><span class="pre">plot_single_ir_crossing()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.crossing.plot_two_lhc_ips_crossings"><code class="docutils literal notranslate"><span class="pre">plot_two_lhc_ips_crossings()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.envelope.plot_beam_envelope"><code class="docutils literal notranslate"><span class="pre">plot_beam_envelope()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#lattice-plotters">Lattice Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="docutils literal notranslate"><span class="pre">plot_latwiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="docutils literal notranslate"><span class="pre">plot_machine_survey()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#layout-plotters">Layout Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.layout.plot_machine_layout"><code class="docutils literal notranslate"><span class="pre">plot_machine_layout()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space_colored"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space_colored()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.farey_sequence"><code class="docutils literal notranslate"><span class="pre">farey_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order"><code class="docutils literal notranslate"><span class="pre">plot_resonance_lines_for_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram"><code class="docutils literal notranslate"><span class="pre">plot_tune_diagram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt"><code class="docutils literal notranslate"><span class="pre">plot_full_ip_rdt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component"><code class="docutils literal notranslate"><span class="pre">plot_rdt_component()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_confidence_ellipse"><code class="docutils literal notranslate"><span class="pre">draw_confidence_ellipse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations"><code class="docutils literal notranslate"><span class="pre">draw_ip_locations()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start"><code class="docutils literal notranslate"><span class="pre">find_ip_s_from_segment_start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions"><code class="docutils literal notranslate"><span class="pre">get_lhc_ips_positions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups"><code class="docutils literal notranslate"><span class="pre">make_elements_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups"><code class="docutils literal notranslate"><span class="pre">make_survey_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax"><code class="docutils literal notranslate"><span class="pre">maybe_get_ax()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label"><code class="docutils literal notranslate"><span class="pre">set_arrow_label()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../api/utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#command-line-utilities">Command Line Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.cmdline.CommandLine"><code class="docutils literal notranslate"><span class="pre">CommandLine</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.contexts.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#executors-utilities">Executors Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.executors.MultiProcessor"><code class="docutils literal notranslate"><span class="pre">MultiProcessor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.executors.MultiThreader"><code class="docutils literal notranslate"><span class="pre">MultiThreader</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.query_condor_q"><code class="docutils literal notranslate"><span class="pre">query_condor_q()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q"><code class="docutils literal notranslate"><span class="pre">read_condor_q()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#logging-utilities">Logging Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.logging.config_logger"><code class="docutils literal notranslate"><span class="pre">config_logger()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_arc_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_ir_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance"><code class="docutils literal notranslate"><span class="pre">apply_colin_corrs_balance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile"><code class="docutils literal notranslate"><span class="pre">get_betastar_from_opticsfile()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.log_runtime_versions"><code class="docutils literal notranslate"><span class="pre">log_runtime_versions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils._misc.split_complex_columns"><code class="docutils literal notranslate"><span class="pre">split_complex_columns()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#operations-utilities">Operations Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.ListOperations"><code class="docutils literal notranslate"><span class="pre">ListOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations"><code class="docutils literal notranslate"><span class="pre">MiscellaneousOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.NumberOperations"><code class="docutils literal notranslate"><span class="pre">NumberOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.operations.StringOperations"><code class="docutils literal notranslate"><span class="pre">StringOperations</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#printing-utilities">Printing Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.printutil.Background"><code class="docutils literal notranslate"><span class="pre">Background</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.printutil.Foreground"><code class="docutils literal notranslate"><span class="pre">Foreground</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../../api/utils.html#pyhdtoolkit.utils.printutil.Styles"><code class="docutils literal notranslate"><span class="pre">Styles</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -289,6 +169,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-3-0">Version 1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.3.0.html">1.3.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-2-0">Version 1.2.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.2.0.html">1.2.0</a></li>
 </ul>

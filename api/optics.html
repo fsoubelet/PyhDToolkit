@@ -2,9 +2,9 @@
 
 <html class="writer-html5" lang="en">
 <head>
-<meta charset="utf-8"/><meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<meta charset="utf-8"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Optics — PyhDToolkit 1.2.0 documentation</title>
+<title>Optics — PyhDToolkit 1.3.0 documentation</title>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css" rel="stylesheet" type="text/css"/>
@@ -14,16 +14,17 @@
 <link href="../_static/sg_gallery-binder.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery-dataframe.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery-rendered-html.css" rel="stylesheet" type="text/css"/>
-<link href="../_static/sphinx-dropdown.css" rel="stylesheet" type="text/css"/>
-<link href="../_static/panels-bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/css/custom.css" rel="stylesheet" type="text/css"/>
 <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script>
+<script src="../_static/underscore.js"></script>
 <script src="../_static/doctools.js"></script>
-<script src="../_static/sphinx_highlight.js"></script>
 <script src="../_static/clipboard.min.js"></script>
 <script src="../_static/copybutton.js"></script>
 <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +42,7 @@
 <a href="../index.html">
 </a>
 <div class="version">
-                1.2.0
+                1.3.0
               </div>
 <div role="search">
 <form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
@@ -93,180 +94,59 @@
 <li class="toctree-l2"><a class="reference internal" href="cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#useful-constants">Useful Constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach"><code class="docutils literal notranslate"><span class="pre">get_closest_tune_approach()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_cminus_from_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens"><code class="docutils literal notranslate"><span class="pre">match_no_coupling_through_ripkens()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.get_lhc_bpms_twiss_and_rdts"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_twiss_and_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.add_markers_around_lhc_ip"><code class="docutils literal notranslate"><span class="pre">add_markers_around_lhc_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_kicker"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_matrix"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_matrix()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_triplets"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_triplets()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_bpms_list"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_list()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_tune_and_chroma_knobs"><code class="docutils literal notranslate"><span class="pre">get_lhc_tune_and_chroma_knobs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_sizes_at_ip"><code class="docutils literal notranslate"><span class="pre">get_sizes_at_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.make_sixtrack_output"><code class="docutils literal notranslate"><span class="pre">make_sixtrack_output()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.reset_lhc_bump_flags"><code class="docutils literal notranslate"><span class="pre">reset_lhc_bump_flags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob_delta"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob_delta()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_coupling_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_coupling_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_rigidity_waist_shift_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_rigidity_waist_shift_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.carry_colinearity_knob_over"><code class="docutils literal notranslate"><span class="pre">carry_colinearity_knob_over()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.deactivate_lhc_arc_sextupoles"><code class="docutils literal notranslate"><span class="pre">deactivate_lhc_arc_sextupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.power_landau_octupoles"><code class="docutils literal notranslate"><span class="pre">power_landau_octupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.switch_magnetic_errors"><code class="docutils literal notranslate"><span class="pre">switch_magnetic_errors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.vary_independent_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">vary_independent_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_current_orbit_setup"><code class="docutils literal notranslate"><span class="pre">get_current_orbit_setup()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_magnets_powering"><code class="docutils literal notranslate"><span class="pre">get_magnets_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_arc_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_arc_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_triplet_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_triplet_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.do_kmodulation"><code class="docutils literal notranslate"><span class="pre">do_kmodulation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"><code class="docutils literal notranslate"><span class="pre">LHCSetup</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables"><code class="docutils literal notranslate"><span class="pre">lhc_orbit_variables()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="docutils literal notranslate"><span class="pre">make_lhc_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_thin"><code class="docutils literal notranslate"><span class="pre">make_lhc_thin()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="docutils literal notranslate"><span class="pre">re_cycle_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">setup_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ips_twiss"><code class="docutils literal notranslate"><span class="pre">get_ips_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ir_twiss"><code class="docutils literal notranslate"><span class="pre">get_ir_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_chromaticities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes"><code class="docutils literal notranslate"><span class="pre">match_tunes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.parameters.query_beam_attributes"><code class="docutils literal notranslate"><span class="pre">query_beam_attributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_amplitude_detuning"><code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_rdts"><code class="docutils literal notranslate"><span class="pre">get_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_track_particle"><code class="docutils literal notranslate"><span class="pre">ptc_track_particle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_twiss"><code class="docutils literal notranslate"><span class="pre">ptc_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tracking-routines">Tracking Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="docutils literal notranslate"><span class="pre">track_single_particle()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tune-utilities">Tune Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines"><code class="docutils literal notranslate"><span class="pre">get_footprint_lines()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_patches"><code class="docutils literal notranslate"><span class="pre">get_footprint_patches()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table"><code class="docutils literal notranslate"><span class="pre">make_footprint_table()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#twiss-routines">TWISS Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss"><code class="docutils literal notranslate"><span class="pre">get_pattern_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_twiss_tfs"><code class="docutils literal notranslate"><span class="pre">get_twiss_tfs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table"><code class="docutils literal notranslate"><span class="pre">export_madx_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.utils.get_table_tfs"><code class="docutils literal notranslate"><span class="pre">get_table_tfs()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="maths.html">Maths</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor"><code class="docutils literal notranslate"><span class="pre">PhaseReconstructor</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="maths.html#stats-fitting">Stats Fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.stats_fitting.best_fit_distribution"><code class="docutils literal notranslate"><span class="pre">best_fit_distribution()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.stats_fitting.make_pdf"><code class="docutils literal notranslate"><span class="pre">make_pdf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict"><code class="docutils literal notranslate"><span class="pre">set_distributions_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="maths.html#utilities">Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.utils.get_magnitude"><code class="docutils literal notranslate"><span class="pre">get_magnitude()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.utils.get_scaled_values_and_magnitude_string"><code class="docutils literal notranslate"><span class="pre">get_scaled_values_and_magnitude_string()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="models.html#particle-beam-models">Particle Beam Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.beam.BeamParameters"><code class="docutils literal notranslate"><span class="pre">BeamParameters</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="models.html#htcondor-models">HTCondor Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.BaseSummary"><code class="docutils literal notranslate"><span class="pre">BaseSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.ClusterSummary"><code class="docutils literal notranslate"><span class="pre">ClusterSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.HTCTaskSummary"><code class="docutils literal notranslate"><span class="pre">HTCTaskSummary</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="models.html#mad-x-models">MAD-X Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.madx.MADXBeam"><code class="docutils literal notranslate"><span class="pre">MADXBeam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.madx.ParticleEnum"><code class="docutils literal notranslate"><span class="pre">ParticleEnum</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Optics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#beam-optics">Beam Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.optics.beam.Beam"><code class="docutils literal notranslate"><span class="pre">Beam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.optics.beam.compute_beam_parameters"><code class="docutils literal notranslate"><span class="pre">compute_beam_parameters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ripken-parameters">Ripken Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.optics.ripken.lebedev_beam_size"><code class="docutils literal notranslate"><span class="pre">lebedev_beam_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#twiss-optics">Twiss Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.optics.twiss.courant_snyder_transform"><code class="docutils literal notranslate"><span class="pre">courant_snyder_transform()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#plotting-styles">Plotting Styles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.styles.install_mpl_styles"><code class="docutils literal notranslate"><span class="pre">install_mpl_styles()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#paper-styles">Paper Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#aperture-plotters">Aperture Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture"><code class="docutils literal notranslate"><span class="pre">plot_aperture()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures"><code class="docutils literal notranslate"><span class="pre">plot_physical_apertures()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.crossing.plot_single_ir_crossing"><code class="docutils literal notranslate"><span class="pre">plot_single_ir_crossing()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.crossing.plot_two_lhc_ips_crossings"><code class="docutils literal notranslate"><span class="pre">plot_two_lhc_ips_crossings()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.envelope.plot_beam_envelope"><code class="docutils literal notranslate"><span class="pre">plot_beam_envelope()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#lattice-plotters">Lattice Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="docutils literal notranslate"><span class="pre">plot_latwiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="docutils literal notranslate"><span class="pre">plot_machine_survey()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#layout-plotters">Layout Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.layout.plot_machine_layout"><code class="docutils literal notranslate"><span class="pre">plot_machine_layout()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space_colored"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space_colored()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.tune.farey_sequence"><code class="docutils literal notranslate"><span class="pre">farey_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order"><code class="docutils literal notranslate"><span class="pre">plot_resonance_lines_for_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram"><code class="docutils literal notranslate"><span class="pre">plot_tune_diagram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt"><code class="docutils literal notranslate"><span class="pre">plot_full_ip_rdt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component"><code class="docutils literal notranslate"><span class="pre">plot_rdt_component()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.draw_confidence_ellipse"><code class="docutils literal notranslate"><span class="pre">draw_confidence_ellipse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations"><code class="docutils literal notranslate"><span class="pre">draw_ip_locations()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start"><code class="docutils literal notranslate"><span class="pre">find_ip_s_from_segment_start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions"><code class="docutils literal notranslate"><span class="pre">get_lhc_ips_positions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups"><code class="docutils literal notranslate"><span class="pre">make_elements_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups"><code class="docutils literal notranslate"><span class="pre">make_survey_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax"><code class="docutils literal notranslate"><span class="pre">maybe_get_ax()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label"><code class="docutils literal notranslate"><span class="pre">set_arrow_label()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="utils.html">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#command-line-utilities">Command Line Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.cmdline.CommandLine"><code class="docutils literal notranslate"><span class="pre">CommandLine</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.contexts.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#executors-utilities">Executors Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.executors.MultiProcessor"><code class="docutils literal notranslate"><span class="pre">MultiProcessor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.executors.MultiThreader"><code class="docutils literal notranslate"><span class="pre">MultiThreader</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#htcondor-monitoring">HTCondor Monitoring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.htc_monitor.query_condor_q"><code class="docutils literal notranslate"><span class="pre">query_condor_q()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q"><code class="docutils literal notranslate"><span class="pre">read_condor_q()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#logging-utilities">Logging Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.logging.config_logger"><code class="docutils literal notranslate"><span class="pre">config_logger()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_arc_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_ir_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils._misc.apply_colin_corrs_balance"><code class="docutils literal notranslate"><span class="pre">apply_colin_corrs_balance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile"><code class="docutils literal notranslate"><span class="pre">get_betastar_from_opticsfile()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils._misc.log_runtime_versions"><code class="docutils literal notranslate"><span class="pre">log_runtime_versions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils._misc.split_complex_columns"><code class="docutils literal notranslate"><span class="pre">split_complex_columns()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#operations-utilities">Operations Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.operations.ListOperations"><code class="docutils literal notranslate"><span class="pre">ListOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.operations.MiscellaneousOperations"><code class="docutils literal notranslate"><span class="pre">MiscellaneousOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.operations.NumberOperations"><code class="docutils literal notranslate"><span class="pre">NumberOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.operations.StringOperations"><code class="docutils literal notranslate"><span class="pre">StringOperations</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="utils.html#printing-utilities">Printing Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.printutil.Background"><code class="docutils literal notranslate"><span class="pre">Background</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.printutil.Foreground"><code class="docutils literal notranslate"><span class="pre">Foreground</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="utils.html#pyhdtoolkit.utils.printutil.Styles"><code class="docutils literal notranslate"><span class="pre">Styles</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -287,6 +167,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-3-0">Version 1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.3.0.html">1.3.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-2-0">Version 1.2.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.2.0.html">1.2.0</a></li>
 </ul>
@@ -479,11 +363,10 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
 <section id="module-pyhdtoolkit.optics.beam">
-<span id="optics"></span><span id="pyhdtoolkit-optics"></span><h1>Optics<a class="headerlink" href="#module-pyhdtoolkit.optics.beam" title="Permalink to this heading"></a></h1>
+<span id="optics"></span><span id="pyhdtoolkit-optics"></span><h1>Optics<a class="headerlink" href="#module-pyhdtoolkit.optics.beam" title="Permalink to this headline"></a></h1>
 <section id="beam-optics">
-<span id="optics-beam"></span><h2>Beam Optics<a class="headerlink" href="#beam-optics" title="Permalink to this heading"></a></h2>
+<span id="optics-beam"></span><h2>Beam Optics<a class="headerlink" href="#beam-optics" title="Permalink to this headline"></a></h2>
 <p>Module implementing various functionality for simple beam parameter calculations.</p>
-</section>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyhdtoolkit.optics.beam.Beam">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.optics.beam.</span></span><span class="sig-name descname"><span class="pre">Beam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">emittance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">938.27208816</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/beam.html#Beam"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.beam.Beam" title="Permalink to this definition"></a></dt>
@@ -495,7 +378,7 @@
 <dt class="sig sig-object py" id="pyhdtoolkit.optics.beam.Beam.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">energy</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">emittance</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">m0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">938.27208816</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/beam.html#Beam.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.beam.Beam.__init__" title="Permalink to this definition"></a></dt>
 <dd><dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>energy</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- energy of the particles in your beam, in [GeV].</p></li>
 <li><p><strong>emittance</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- beam emittance, in [m].</p></li>
@@ -523,10 +406,10 @@
 <p><span class="math notranslate nohighlight">\(\eta = 0\)</span> at transition energy (<span class="math notranslate nohighlight">\(\eta &lt; 0\)</span> above transition).</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>alpha_p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- momentum compaction factor.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The slip factor.</p>
 </dd>
 </dl>
@@ -541,10 +424,10 @@
 <em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">gamma_transition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/beam.html#Beam.gamma_transition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.beam.Beam.gamma_transition" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the relativistic <span class="math notranslate nohighlight">\(\gamma\)</span> corresponding to the transition energy.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>alpha_p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- momentum compaction factor.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The relativistic <span class="math notranslate nohighlight">\(\gamma\)</span> value at the transition energy.</p>
 </dd>
 </dl>
@@ -559,13 +442,13 @@
 <span class="sig-name descname"><span class="pre">revolution_frequency</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">circumference</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">26658.8832</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">speed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">299792458.0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/beam.html#Beam.revolution_frequency"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.beam.Beam.revolution_frequency" title="Permalink to this definition"></a></dt>
 <dd><p>Returns the revolution frequency of the beam’s particles around the accelerator.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>circumference</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- the machine circumference in [m]. Defaults to that of the LHC.</p></li>
 <li><p><strong>speed</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- the particles’ speed in the machine, in [m/s]. Defaults to c.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The revolution frequency, in [turns/s].</p>
 </dd>
 </dl>
@@ -578,7 +461,7 @@
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.optics.beam.compute_beam_parameters">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.optics.beam.</span></span><span class="sig-name descname"><span class="pre">compute_beam_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_gev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">en_x_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">en_y_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deltap_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#pyhdtoolkit.models.beam.BeamParameters" title="pyhdtoolkit.models.beam.BeamParameters"><span class="pre">BeamParameters</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/beam.html#compute_beam_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.beam.compute_beam_parameters" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.optics.beam.</span></span><span class="sig-name descname"><span class="pre">compute_beam_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pc_gev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">en_x_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">en_y_m</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">deltap_p</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="models.html#pyhdtoolkit.models.beam.BeamParameters" title="pyhdtoolkit.models.beam.BeamParameters"><span class="pre">pyhdtoolkit.models.beam.BeamParameters</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/beam.html#compute_beam_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.beam.compute_beam_parameters" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.12.0.</span></p>
 </div>
@@ -586,7 +469,7 @@
 an example use of this function in the <a class="reference internal" href="../gallery/demo_beam_enveloppe.html#demo-beam-enveloppe"><span class="std std-ref">beam enveloppe</span></a>
 example gallery.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>pc_gev</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- particle momentum, in [GeV].</p></li>
 <li><p><strong>en_x_m</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- horizontal emittance, in [m].</p></li>
@@ -594,7 +477,7 @@ example gallery.</p>
 <li><p><strong>deltap_p</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- momentum deviation.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <code class="xref py py-obj docutils literal notranslate"><span class="pre">BeamParameters</span></code> object with the calculated values.</p>
 </dd>
 </dl>
@@ -618,13 +501,13 @@ example gallery.</p>
 </div>
 </div>
 </dd></dl>
-<span class="target" id="module-pyhdtoolkit.optics.ripken"></span><section id="ripken-parameters">
-<span id="optics-ripken"></span><h2>Ripken Parameters<a class="headerlink" href="#ripken-parameters" title="Permalink to this heading"></a></h2>
-<p>Module implementing various calculations based on the <span id="id1">Willeke and Ripken [<a class="reference internal" href="../bibliography.html#id5" title="F. Willeke and G. Ripken. Methods of beam optics. In AIP Conference Proceedings, volume 184, 758–819. FERMILAB/ CORNELL UNIVERSITY, USA, 1989. AIP. ISSN: 0094243X. URL: http://aip.scitation.org/doi/abs/10.1063/1.38050, doi:10.1063/1.38050.">WR89</a>]</span> optics parameters.</p>
 </section>
+<span class="target" id="module-pyhdtoolkit.optics.ripken"></span><section id="ripken-parameters">
+<span id="optics-ripken"></span><h2>Ripken Parameters<a class="headerlink" href="#ripken-parameters" title="Permalink to this headline"></a></h2>
+<p>Module implementing various calculations based on the <span id="id1">Willeke and Ripken [<a class="reference internal" href="../bibliography.html#id5" title="F. Willeke and G. Ripken. Methods of beam optics. In AIP Conference Proceedings, volume 184, 758–819. FERMILAB/ CORNELL UNIVERSITY, USA, 1989. AIP. ISSN: 0094243X. URL: http://aip.scitation.org/doi/abs/10.1063/1.38050, doi:10.1063/1.38050.">WR89</a>]</span> optics parameters.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.optics.ripken.lebedev_beam_size">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.optics.ripken.</span></span><span class="sig-name descname"><span class="pre">lebedev_beam_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta1_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_emit_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_emit_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/ripken.html#lebedev_beam_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.ripken.lebedev_beam_size" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.optics.ripken.</span></span><span class="sig-name descname"><span class="pre">lebedev_beam_size</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">beta1_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2_</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_emit_x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">geom_emit_y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/ripken.html#lebedev_beam_size"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.ripken.lebedev_beam_size" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.8.2.</span></p>
 </div>
@@ -637,7 +520,7 @@ beam size, but use <span class="math notranslate nohighlight">\(\beta_{12}\)</sp
 See the example below.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>beta1</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[float,</span> <span class="pre">np.ndarray]</span></code>) -- value(s) for the beta1x or beta1y Ripken parameter.</p></li>
 <li><p><strong>beta2</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[float,</span> <span class="pre">np.ndarray]</span></code>) -- value(s) for the beta2x or beta2y Ripken parameter.</p></li>
@@ -645,7 +528,7 @@ See the example below.</p>
 <li><p><strong>geom_emit_y</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- geometric emittante of the vertical plane, in [m].</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The beam size (horizontal or vertical) according to Lebedev &amp; Bogacz, as
 <span class="math notranslate nohighlight">\(\sqrt{\epsilon_x * \beta_{1,\_}^2 + \epsilon_y * \beta_{2,\_}^2}\)</span>.</p>
 </dd>
@@ -665,13 +548,13 @@ See the example below.</p>
 </div>
 </div>
 </dd></dl>
-<span class="target" id="module-pyhdtoolkit.optics.twiss"></span><section id="twiss-optics">
-<span id="optics-twiss"></span><h2>Twiss Optics<a class="headerlink" href="#twiss-optics" title="Permalink to this heading"></a></h2>
-<p>Module implementing various calculations based on the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> optics parameters.</p>
 </section>
+<span class="target" id="module-pyhdtoolkit.optics.twiss"></span><section id="twiss-optics">
+<span id="optics-twiss"></span><h2>Twiss Optics<a class="headerlink" href="#twiss-optics" title="Permalink to this headline"></a></h2>
+<p>Module implementing various calculations based on the <code class="docutils literal notranslate"><span class="pre">TWISS</span></code> optics parameters.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.optics.twiss.courant_snyder_transform">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.optics.twiss.</span></span><span class="sig-name descname"><span class="pre">courant_snyder_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_vector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/twiss.html#courant_snyder_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.twiss.courant_snyder_transform" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.optics.twiss.</span></span><span class="sig-name descname"><span class="pre">courant_snyder_transform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">u_vector</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.24)"><span class="pre">numpy.ndarray</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/optics/twiss.html#courant_snyder_transform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.optics.twiss.courant_snyder_transform" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.5.0.</span></p>
 </div>
@@ -685,7 +568,7 @@ the transform <span class="math notranslate nohighlight">\(\bar{U} = P \cdot U\)
         \frac{\alpha_x}{\sqrt{\beta_x}}   &amp;  \sqrt{\beta_x}  \\
     \end{pmatrix}\end{split}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>u_vector</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">np.ndarray</span></code>) -- two-dimentional array of phase-space (spatial and momenta)
 coordinates, either horizontal or vertical.</p></li>
@@ -693,7 +576,7 @@ coordinates, either horizontal or vertical.</p></li>
 <li><p><strong>beta</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- beta twiss parameter in the appropriate plane.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The normalized phase-space coordinates from the Courant-Snyder transform.</p>
 </dd>
 </dl>
@@ -707,6 +590,7 @@ coordinates, either horizontal or vertical.</p></li>
 </div>
 </div>
 </dd></dl>
+</section>
 </section>
 </div>
 </div>

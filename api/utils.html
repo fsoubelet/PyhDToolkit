@@ -2,9 +2,9 @@
 
 <html class="writer-html5" lang="en">
 <head>
-<meta charset="utf-8"/><meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
+<meta charset="utf-8"/><meta content="Docutils 0.17.1: http://docutils.sourceforge.net/" name="generator"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Utils — PyhDToolkit 1.2.0 documentation</title>
+<title>Utils — PyhDToolkit 1.3.0 documentation</title>
 <link href="../_static/pygments.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/css/theme.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/copybutton.css" rel="stylesheet" type="text/css"/>
@@ -14,16 +14,17 @@
 <link href="../_static/sg_gallery-binder.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery-dataframe.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/sg_gallery-rendered-html.css" rel="stylesheet" type="text/css"/>
-<link href="../_static/sphinx-dropdown.css" rel="stylesheet" type="text/css"/>
-<link href="../_static/panels-bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" rel="stylesheet" type="text/css"/>
+<link href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" rel="stylesheet" type="text/css"/>
 <link href="../_static/css/custom.css" rel="stylesheet" type="text/css"/>
 <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+<script src="../_static/jquery.js"></script>
+<script src="../_static/underscore.js"></script>
 <script src="../_static/doctools.js"></script>
-<script src="../_static/sphinx_highlight.js"></script>
 <script src="../_static/clipboard.min.js"></script>
 <script src="../_static/copybutton.js"></script>
 <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -41,7 +42,7 @@
 <a href="../index.html">
 </a>
 <div class="version">
-                1.2.0
+                1.3.0
               </div>
 <div role="search">
 <form action="../search.html" class="wy-form" id="rtd-search-form" method="get">
@@ -93,180 +94,59 @@
 <li class="toctree-l2"><a class="reference internal" href="cpymadtools.html">Cpymadtools</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#useful-constants">Useful Constants</a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#betatron-coupling-utilities">Betatron Coupling Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_closest_tune_approach"><code class="docutils literal notranslate"><span class="pre">get_closest_tune_approach()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_cminus_from_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_cminus_from_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.get_coupling_rdts"><code class="docutils literal notranslate"><span class="pre">get_coupling_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.coupling.match_no_coupling_through_ripkens"><code class="docutils literal notranslate"><span class="pre">match_no_coupling_through_ripkens()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#lhc-specific-utilities">LHC-Specific Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._coupling.get_lhc_bpms_twiss_and_rdts"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_twiss_and_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.add_markers_around_lhc_ip"><code class="docutils literal notranslate"><span class="pre">add_markers_around_lhc_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_kicker"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_kicker()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._elements.install_ac_dipole_as_matrix"><code class="docutils literal notranslate"><span class="pre">install_ac_dipole_as_matrix()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_triplets"><code class="docutils literal notranslate"><span class="pre">misalign_lhc_triplets()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_bpms_list"><code class="docutils literal notranslate"><span class="pre">get_lhc_bpms_list()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_lhc_tune_and_chroma_knobs"><code class="docutils literal notranslate"><span class="pre">get_lhc_tune_and_chroma_knobs()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.get_sizes_at_ip"><code class="docutils literal notranslate"><span class="pre">get_sizes_at_ip()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.make_sixtrack_output"><code class="docutils literal notranslate"><span class="pre">make_sixtrack_output()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._misc.reset_lhc_bump_flags"><code class="docutils literal notranslate"><span class="pre">reset_lhc_bump_flags()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_colinearity_knob_delta"><code class="docutils literal notranslate"><span class="pre">apply_lhc_colinearity_knob_delta()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_coupling_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_coupling_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.apply_lhc_rigidity_waist_shift_knob"><code class="docutils literal notranslate"><span class="pre">apply_lhc_rigidity_waist_shift_knob()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.carry_colinearity_knob_over"><code class="docutils literal notranslate"><span class="pre">carry_colinearity_knob_over()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.deactivate_lhc_arc_sextupoles"><code class="docutils literal notranslate"><span class="pre">deactivate_lhc_arc_sextupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.power_landau_octupoles"><code class="docutils literal notranslate"><span class="pre">power_landau_octupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.switch_magnetic_errors"><code class="docutils literal notranslate"><span class="pre">switch_magnetic_errors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._powering.vary_independent_ir_quadrupoles"><code class="docutils literal notranslate"><span class="pre">vary_independent_ir_quadrupoles()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_current_orbit_setup"><code class="docutils literal notranslate"><span class="pre">get_current_orbit_setup()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.get_magnets_powering"><code class="docutils literal notranslate"><span class="pre">get_magnets_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_arc_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_arc_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._queries.query_triplet_correctors_powering"><code class="docutils literal notranslate"><span class="pre">query_triplet_correctors_powering()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_global_coupling"><code class="docutils literal notranslate"><span class="pre">correct_lhc_global_coupling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.correct_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">correct_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._routines.do_kmodulation"><code class="docutils literal notranslate"><span class="pre">do_kmodulation()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.LHCSetup"><code class="docutils literal notranslate"><span class="pre">LHCSetup</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables"><code class="docutils literal notranslate"><span class="pre">lhc_orbit_variables()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="docutils literal notranslate"><span class="pre">make_lhc_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_thin"><code class="docutils literal notranslate"><span class="pre">make_lhc_thin()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run2()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="docutils literal notranslate"><span class="pre">prepare_lhc_run3()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="docutils literal notranslate"><span class="pre">re_cycle_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit"><code class="docutils literal notranslate"><span class="pre">setup_lhc_orbit()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ips_twiss"><code class="docutils literal notranslate"><span class="pre">get_ips_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._twiss.get_ir_twiss"><code class="docutils literal notranslate"><span class="pre">get_ir_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#matching-routines">Matching Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_chromaticities()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes"><code class="docutils literal notranslate"><span class="pre">match_tunes()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#parameters">Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.parameters.query_beam_attributes"><code class="docutils literal notranslate"><span class="pre">query_beam_attributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#ptc-routines">PTC Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_amplitude_detuning"><code class="docutils literal notranslate"><span class="pre">get_amplitude_detuning()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_rdts"><code class="docutils literal notranslate"><span class="pre">get_rdts()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_track_particle"><code class="docutils literal notranslate"><span class="pre">ptc_track_particle()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.ptc_twiss"><code class="docutils literal notranslate"><span class="pre">ptc_twiss()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tracking-routines">Tracking Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="docutils literal notranslate"><span class="pre">track_single_particle()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#tune-utilities">Tune Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines"><code class="docutils literal notranslate"><span class="pre">get_footprint_lines()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_patches"><code class="docutils literal notranslate"><span class="pre">get_footprint_patches()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table"><code class="docutils literal notranslate"><span class="pre">make_footprint_table()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#twiss-routines">TWISS Routines</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_pattern_twiss"><code class="docutils literal notranslate"><span class="pre">get_pattern_twiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.twiss.get_twiss_tfs"><code class="docutils literal notranslate"><span class="pre">get_twiss_tfs()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#miscellaneous-utilities">Miscellaneous Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.utils.export_madx_table"><code class="docutils literal notranslate"><span class="pre">export_madx_table()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="cpymadtools.html#pyhdtoolkit.cpymadtools.utils.get_table_tfs"><code class="docutils literal notranslate"><span class="pre">get_table_tfs()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="maths.html">Maths</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="maths.html#nonconvex-phase-synchronization">Nonconvex Phase Synchronization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.nonconvex_phase_sync.PhaseReconstructor"><code class="docutils literal notranslate"><span class="pre">PhaseReconstructor</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="maths.html#stats-fitting">Stats Fitting</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.stats_fitting.best_fit_distribution"><code class="docutils literal notranslate"><span class="pre">best_fit_distribution()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.stats_fitting.make_pdf"><code class="docutils literal notranslate"><span class="pre">make_pdf()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict"><code class="docutils literal notranslate"><span class="pre">set_distributions_dict()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="maths.html#utilities">Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.utils.get_magnitude"><code class="docutils literal notranslate"><span class="pre">get_magnitude()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="maths.html#pyhdtoolkit.maths.utils.get_scaled_values_and_magnitude_string"><code class="docutils literal notranslate"><span class="pre">get_scaled_values_and_magnitude_string()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">Models</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="models.html#particle-beam-models">Particle Beam Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.beam.BeamParameters"><code class="docutils literal notranslate"><span class="pre">BeamParameters</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="models.html#htcondor-models">HTCondor Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.BaseSummary"><code class="docutils literal notranslate"><span class="pre">BaseSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.ClusterSummary"><code class="docutils literal notranslate"><span class="pre">ClusterSummary</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.HTCTaskSummary"><code class="docutils literal notranslate"><span class="pre">HTCTaskSummary</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="models.html#mad-x-models">MAD-X Models</a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.madx.MADXBeam"><code class="docutils literal notranslate"><span class="pre">MADXBeam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="models.html#pyhdtoolkit.models.madx.ParticleEnum"><code class="docutils literal notranslate"><span class="pre">ParticleEnum</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="optics.html">Optics</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="optics.html#beam-optics">Beam Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="optics.html#pyhdtoolkit.optics.beam.Beam"><code class="docutils literal notranslate"><span class="pre">Beam</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="optics.html#pyhdtoolkit.optics.beam.compute_beam_parameters"><code class="docutils literal notranslate"><span class="pre">compute_beam_parameters()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="optics.html#ripken-parameters">Ripken Parameters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="optics.html#pyhdtoolkit.optics.ripken.lebedev_beam_size"><code class="docutils literal notranslate"><span class="pre">lebedev_beam_size()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="optics.html#twiss-optics">Twiss Optics</a></li>
-<li class="toctree-l3"><a class="reference internal" href="optics.html#pyhdtoolkit.optics.twiss.courant_snyder_transform"><code class="docutils literal notranslate"><span class="pre">courant_snyder_transform()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="plotting.html">Plotting</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#plotting-styles">Plotting Styles</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.styles.install_mpl_styles"><code class="docutils literal notranslate"><span class="pre">install_mpl_styles()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#paper-styles">Paper Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#thesis-styles">Thesis Styles</a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#aperture-plotters">Aperture Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.aperture.plot_aperture"><code class="docutils literal notranslate"><span class="pre">plot_aperture()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.aperture.plot_physical_apertures"><code class="docutils literal notranslate"><span class="pre">plot_physical_apertures()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#crossing-scheme-plotters">Crossing Scheme Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.crossing.plot_single_ir_crossing"><code class="docutils literal notranslate"><span class="pre">plot_single_ir_crossing()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.crossing.plot_two_lhc_ips_crossings"><code class="docutils literal notranslate"><span class="pre">plot_two_lhc_ips_crossings()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#beam-enveloppe-plotters">Beam Enveloppe Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.envelope.plot_beam_envelope"><code class="docutils literal notranslate"><span class="pre">plot_beam_envelope()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#lattice-plotters">Lattice Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.lattice.plot_latwiss"><code class="docutils literal notranslate"><span class="pre">plot_latwiss()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.lattice.plot_machine_survey"><code class="docutils literal notranslate"><span class="pre">plot_machine_survey()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#layout-plotters">Layout Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.layout.plot_machine_layout"><code class="docutils literal notranslate"><span class="pre">plot_machine_layout()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#phase-space-plotters">Phase Space Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.phasespace.plot_courant_snyder_phase_space_colored"><code class="docutils literal notranslate"><span class="pre">plot_courant_snyder_phase_space_colored()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#tune-diagram-plotters">Tune Diagram Plotters</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.tune.farey_sequence"><code class="docutils literal notranslate"><span class="pre">farey_sequence()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order"><code class="docutils literal notranslate"><span class="pre">plot_resonance_lines_for_order()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram"><code class="docutils literal notranslate"><span class="pre">plot_tune_diagram()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#segment-by-segment-coupling">Segment-by-Segment Coupling</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt"><code class="docutils literal notranslate"><span class="pre">plot_full_ip_rdt()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component"><code class="docutils literal notranslate"><span class="pre">plot_rdt_component()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#segment-by-segment-phase">Segment-by-Segment Phase</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="plotting.html#plotting-utility-functions">Plotting Utility Functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.draw_confidence_ellipse"><code class="docutils literal notranslate"><span class="pre">draw_confidence_ellipse()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.draw_ip_locations"><code class="docutils literal notranslate"><span class="pre">draw_ip_locations()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.find_ip_s_from_segment_start"><code class="docutils literal notranslate"><span class="pre">find_ip_s_from_segment_start()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.get_lhc_ips_positions"><code class="docutils literal notranslate"><span class="pre">get_lhc_ips_positions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.make_elements_groups"><code class="docutils literal notranslate"><span class="pre">make_elements_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.make_survey_groups"><code class="docutils literal notranslate"><span class="pre">make_survey_groups()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.maybe_get_ax"><code class="docutils literal notranslate"><span class="pre">maybe_get_ax()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="plotting.html#pyhdtoolkit.plotting.utils.set_arrow_label"><code class="docutils literal notranslate"><span class="pre">set_arrow_label()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Utils</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#command-line-utilities">Command Line Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.cmdline.CommandLine"><code class="docutils literal notranslate"><span class="pre">CommandLine</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#context-utilities">Context Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.contexts.timeit"><code class="docutils literal notranslate"><span class="pre">timeit()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#executors-utilities">Executors Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.executors.MultiProcessor"><code class="docutils literal notranslate"><span class="pre">MultiProcessor</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.executors.MultiThreader"><code class="docutils literal notranslate"><span class="pre">MultiThreader</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#htcondor-monitoring">HTCondor Monitoring</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.htc_monitor.query_condor_q"><code class="docutils literal notranslate"><span class="pre">query_condor_q()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.htc_monitor.read_condor_q"><code class="docutils literal notranslate"><span class="pre">read_condor_q()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#logging-utilities">Logging Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.logging.config_logger"><code class="docutils literal notranslate"><span class="pre">config_logger()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#miscellanous-personnal-utilities">Miscellanous Personnal Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_arc_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms"><code class="docutils literal notranslate"><span class="pre">add_noise_to_ir_bpms()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils._misc.apply_colin_corrs_balance"><code class="docutils literal notranslate"><span class="pre">apply_colin_corrs_balance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile"><code class="docutils literal notranslate"><span class="pre">get_betastar_from_opticsfile()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils._misc.log_runtime_versions"><code class="docutils literal notranslate"><span class="pre">log_runtime_versions()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils._misc.split_complex_columns"><code class="docutils literal notranslate"><span class="pre">split_complex_columns()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#operations-utilities">Operations Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.operations.ListOperations"><code class="docutils literal notranslate"><span class="pre">ListOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.operations.MiscellaneousOperations"><code class="docutils literal notranslate"><span class="pre">MiscellaneousOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.operations.NumberOperations"><code class="docutils literal notranslate"><span class="pre">NumberOperations</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.operations.StringOperations"><code class="docutils literal notranslate"><span class="pre">StringOperations</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#printing-utilities">Printing Utilities</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.printutil.Background"><code class="docutils literal notranslate"><span class="pre">Background</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.printutil.Foreground"><code class="docutils literal notranslate"><span class="pre">Foreground</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#pyhdtoolkit.utils.printutil.Styles"><code class="docutils literal notranslate"><span class="pre">Styles</span></code></a></li>
 </ul>
 </li>
 </ul>
@@ -287,6 +167,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-3-0">Version 1.3.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.3.0.html">1.3.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-2-0">Version 1.2.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.2.0.html">1.2.0</a></li>
 </ul>
@@ -479,11 +363,10 @@
 <div class="document" itemscope="itemscope" itemtype="http://schema.org/Article" role="main">
 <div itemprop="articleBody">
 <section id="module-pyhdtoolkit.utils.cmdline">
-<span id="utils"></span><span id="pyhdtoolkit-utils"></span><h1>Utils<a class="headerlink" href="#module-pyhdtoolkit.utils.cmdline" title="Permalink to this heading"></a></h1>
+<span id="utils"></span><span id="pyhdtoolkit-utils"></span><h1>Utils<a class="headerlink" href="#module-pyhdtoolkit.utils.cmdline" title="Permalink to this headline"></a></h1>
 <section id="command-line-utilities">
-<span id="utils-cmdline"></span><h2>Command Line Utilities<a class="headerlink" href="#command-line-utilities" title="Permalink to this heading"></a></h2>
+<span id="utils-cmdline"></span><h2>Command Line Utilities<a class="headerlink" href="#command-line-utilities" title="Permalink to this headline"></a></h2>
 <p>Utility class and functions to help run commands and access the command line.</p>
-</section>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.cmdline.CommandLine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.cmdline.</span></span><span class="sig-name descname"><span class="pre">CommandLine</span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/cmdline.html#CommandLine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.cmdline.CommandLine" title="Permalink to this definition"></a></dt>
@@ -499,10 +382,10 @@
 </div>
 <p>Check whether the given <em>PID</em> exists in the current process table.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- the Process ID you want to check.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean stating the result.</p>
 </dd>
 </dl>
@@ -516,7 +399,7 @@
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.cmdline.CommandLine.run">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.11)"><span class="pre">Mapping</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/cmdline.html#CommandLine.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.cmdline.CommandLine.run" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.11)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/cmdline.html#CommandLine.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.cmdline.CommandLine.run" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
@@ -527,7 +410,7 @@
 same parameter of <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.Popen" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subprocess.Popen</span></code></a>.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>command</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- string, the command you want to run.</p></li>
 <li><p><strong>shell</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) -- same as <a class="reference external" href="https://docs.python.org/3/library/subprocess.html#subprocess.Popen" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">subprocess.Popen</span></code></a> argument. Setting the shell argument to a <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>
@@ -540,14 +423,14 @@ before the command is ran. Defaults to <a class="reference external" href="https
 to wait for a response before raising a <code class="xref py py-obj docutils literal notranslate"><span class="pre">TimeoutExpired</span></code> exception.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <code class="xref py py-obj docutils literal notranslate"><span class="pre">(returncode,</span> <span class="pre">stdout)</span></code>. Beware, the stdout will be a byte array (id est
 <code class="docutils literal notranslate"><span class="pre">b"some</span> <span class="pre">returned</span> <span class="pre">text"</span></code>). This output, returned as stdout, needs to be decoded properly
 before you do anything with it, especially if you intend to log it into a file. While
 it will most likely be “utf-8”, the encoding can vary from system to system so the
 standard output is returned in bytes format and should be decoded later on.</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dt class="field-odd">Raises</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>If the process does not terminate after timeout seconds</strong><strong>, </strong><strong>a TimeoutExpired exception</strong> -- </p></li>
 <li><p><strong>will be raised.</strong> -- </p></li>
@@ -578,10 +461,10 @@ standard output is returned in bytes format and should be decoded later on.</p>
 <p>Terminates the process corresponding to the given <em>PID</em>. On other platforms,
 using <a class="reference external" href="https://docs.python.org/3/library/os.html#os.kill" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">os.kill</span></code></a> with <a class="reference external" href="https://docs.python.org/3/library/signal.html#signal.SIGTERM" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signal.SIGTERM</span></code></a> to kill.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>pid</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- the process ID to kill.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean stating the success of the operation.</p>
 </dd>
 </dl>
@@ -594,10 +477,10 @@ using <a class="reference external" href="https://docs.python.org/3/library/os.h
 </div>
 </dd></dl>
 </dd></dl>
-<span class="target" id="module-pyhdtoolkit.utils.contexts"></span><section id="context-utilities">
-<span id="utils-contexts"></span><h2>Context Utilities<a class="headerlink" href="#context-utilities" title="Permalink to this heading"></a></h2>
-<p>Provides useful contexts to use functions in.</p>
 </section>
+<span class="target" id="module-pyhdtoolkit.utils.contexts"></span><section id="context-utilities">
+<span id="utils-contexts"></span><h2>Context Utilities<a class="headerlink" href="#context-utilities" title="Permalink to this headline"></a></h2>
+<p>Provides useful contexts to use functions in.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.contexts.timeit">
 <span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.contexts.</span></span><span class="sig-name descname"><span class="pre">timeit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><span class="pre">Callable</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Iterator" title="(in Python v3.11)"><span class="pre">Iterator</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/contexts.html#timeit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.contexts.timeit" title="Permalink to this definition"></a></dt>
@@ -607,11 +490,11 @@ using <a class="reference external" href="https://docs.python.org/3/library/os.h
 <p>Returns the time elapsed when executing code in the context via <em>function</em>.
 Original code from is from <a class="reference external" href="https://github.com/jaimecp89">Jaime Coello de Portugal</a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- any callable taking one argument. This was conceived
 with a <code class="xref py py-obj docutils literal notranslate"><span class="pre">lambda</span></code> in mind.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The elapsed time as an argument for the provided function.</p>
 </dd>
 </dl>
@@ -624,8 +507,9 @@ with a <code class="xref py py-obj docutils literal notranslate"><span class="pr
 </div>
 </div>
 </dd></dl>
+</section>
 <span class="target" id="module-pyhdtoolkit.utils.executors"></span><section id="executors-utilities">
-<span id="utils-executors"></span><h2>Executors Utilities<a class="headerlink" href="#executors-utilities" title="Permalink to this heading"></a></h2>
+<span id="utils-executors"></span><h2>Executors Utilities<a class="headerlink" href="#executors-utilities" title="Permalink to this headline"></a></h2>
 <p>A module providing two classes to execute functions + arguments couples through either a
 multiprocessing approach, or a multithreading approach. Before using these, here are a few
 tidbits to keep in mind:</p>
@@ -641,7 +525,6 @@ speedup because there isn’t a general rule.</p></li>
 </ul>
 <p>For instance the default value of <code class="xref py py-obj docutils literal notranslate"><span class="pre">m</span></code> in <a class="reference external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ThreadPoolExecutor" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ThreadPoolExecutor</span></code></a> is set to 5 which
 I think is quite random.</p>
-</section>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.executors.MultiProcessor">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.executors.</span></span><span class="sig-name descname"><span class="pre">MultiProcessor</span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/executors.html#MultiProcessor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.executors.MultiProcessor" title="Permalink to this definition"></a></dt>
@@ -679,7 +562,7 @@ I think is quite random.</p>
 <p>Do not fire up more processes than you have cores! Never!</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>func</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- the function to call.</p></li>
 <li><p><strong>func_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) -- list of the different parameters for each call. If <em>function</em>
@@ -690,7 +573,7 @@ cores! If <em>n_processes</em> is <a class="reference external" href="https://do
 will default it to the number of processors on the machine.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of tuples, each <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> being the returned value(s) of <em>function</em> for the given
 call, for instance <code class="xref py py-obj docutils literal notranslate"><span class="pre">[(results,</span> <span class="pre">run,</span> <span class="pre">one),</span> <span class="pre">(results,</span> <span class="pre">run,</span> <span class="pre">two),</span> <span class="pre">(results,</span> <span class="pre">run,</span> <span class="pre">three)]</span></code>.</p>
 </dd>
@@ -742,7 +625,7 @@ executed, the excess threads would be idle and you wouldd lose the time spent
 to fire them up.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>func</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- the function to call.</p></li>
 <li><p><strong>func_args</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></a>) -- list of the different parameters for each call. If <em>function</em>
@@ -756,7 +639,7 @@ the number of workers should be higher than the number of workers for
 a <a class="reference external" href="https://docs.python.org/3/library/concurrent.futures.html#concurrent.futures.ProcessPoolExecutor" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ProcessPoolExecutor</span></code></a>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of tuples, each <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> being the returned value(s) of <em>function</em> for the given
 call, for instance <code class="xref py py-obj docutils literal notranslate"><span class="pre">[(results,</span> <span class="pre">run,</span> <span class="pre">one),</span> <span class="pre">(results,</span> <span class="pre">run,</span> <span class="pre">two),</span> <span class="pre">(results,</span> <span class="pre">run,</span> <span class="pre">three)]</span></code>.</p>
 </dd>
@@ -772,8 +655,9 @@ call, for instance <code class="xref py py-obj docutils literal notranslate"><sp
 </div>
 </dd></dl>
 </dd></dl>
+</section>
 <span class="target" id="module-pyhdtoolkit.utils.htc_monitor"></span><section id="htcondor-monitoring">
-<span id="utils-htc-monitor"></span><h2>HTCondor Monitoring<a class="headerlink" href="#htcondor-monitoring" title="Permalink to this heading"></a></h2>
+<span id="utils-htc-monitor"></span><h2>HTCondor Monitoring<a class="headerlink" href="#htcondor-monitoring" title="Permalink to this headline"></a></h2>
 <p>A module with utility to query the HTCondor queue, process the returned data
 and display it nicely.</p>
 <div class="admonition note">
@@ -782,7 +666,6 @@ and display it nicely.</p>
 functionality is made public API and one shoule be able to build a different
 monitor from the functions in here.</p>
 </div>
-</section>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.htc_monitor.query_condor_q">
 <span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.htc_monitor.</span></span><span class="sig-name descname"><span class="pre">query_condor_q</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/htc_monitor.html#query_condor_q"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.htc_monitor.query_condor_q" title="Permalink to this definition"></a></dt>
@@ -794,17 +677,17 @@ to get the status of the caller’ jobs.</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.htc_monitor.read_condor_q">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.htc_monitor.</span></span><span class="sig-name descname"><span class="pre">read_condor_q</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.HTCTaskSummary" title="pyhdtoolkit.models.htc.HTCTaskSummary"><span class="pre">HTCTaskSummary</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.ClusterSummary" title="pyhdtoolkit.models.htc.ClusterSummary"><span class="pre">ClusterSummary</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/htc_monitor.html#read_condor_q"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.htc_monitor.read_condor_q" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.htc_monitor.</span></span><span class="sig-name descname"><span class="pre">read_condor_q</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">report</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.List" title="(in Python v3.11)"><span class="pre">List</span></a><span class="p"><span class="pre">[</span></span><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.HTCTaskSummary" title="pyhdtoolkit.models.htc.HTCTaskSummary"><span class="pre">pyhdtoolkit.models.htc.HTCTaskSummary</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="models.html#pyhdtoolkit.models.htc.ClusterSummary" title="pyhdtoolkit.models.htc.ClusterSummary"><span class="pre">pyhdtoolkit.models.htc.ClusterSummary</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/htc_monitor.html#read_condor_q"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.htc_monitor.read_condor_q" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.9.0.</span></p>
 </div>
 <p>Splits information from different parts of the <code class="docutils literal notranslate"><span class="pre">condor_q</span></code> command’s output
 into one clean, validated data structure.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>report</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- the utf-8 decoded string returned by the <code class="docutils literal notranslate"><span class="pre">condor_q</span></code> command.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a>. The first element is a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of each task summary given by <code class="docutils literal notranslate"><span class="pre">condor_q</span></code>,
 each as a validated <code class="xref py py-obj docutils literal notranslate"><span class="pre">HTCTaskSummary`</span></code> object. The second element is a
 validated <a class="reference internal" href="models.html#pyhdtoolkit.models.htc.ClusterSummary" title="pyhdtoolkit.models.htc.ClusterSummary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ClusterSummary</span></code></a> object with scheduler identification and summaries
@@ -819,8 +702,9 @@ of the user as well as all users’ statistics on this scheduler cluster.</p>
 </div>
 </div>
 </dd></dl>
+</section>
 <span class="target" id="module-pyhdtoolkit.utils.logging"></span><section id="logging-utilities">
-<span id="utils-logging"></span><h2>Logging Utilities<a class="headerlink" href="#logging-utilities" title="Permalink to this heading"></a></h2>
+<span id="utils-logging"></span><h2>Logging Utilities<a class="headerlink" href="#logging-utilities" title="Permalink to this headline"></a></h2>
 <div class="versionadded">
 <p><span class="versionmodified added">New in version 1.0.0.</span></p>
 </div>
@@ -831,17 +715,16 @@ Different pre-defined formats are provided to choose from:</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">FORMAT2</span></code>: similar to <code class="docutils literal notranslate"><span class="pre">FORMAT1</span></code>, but the caller information is displayed at the end of the log line.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">SIMPLE_FORMAT</span></code>: minimal, displays the local time, the level and the message.</p></li>
 </ul>
-</section>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.logging.config_logger">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.logging.</span></span><span class="sig-name descname"><span class="pre">config_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'INFO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&lt;green&gt;{time:YYYY-MM-DD</span> <span class="pre">HH:mm:ss}&lt;/green&gt;</span> <span class="pre">|</span> <span class="pre">&lt;level&gt;{level:</span> <span class="pre">&lt;8}&lt;/level&gt;</span> <span class="pre">|</span> <span class="pre">&lt;cyan&gt;{name}&lt;/cyan&gt;:&lt;cyan&gt;{line}&lt;/cyan&gt;</span> <span class="pre">-</span> <span class="pre">&lt;level&gt;{message}&lt;/level&gt;'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/logging.html#config_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.logging.config_logger" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.logging.</span></span><span class="sig-name descname"><span class="pre">config_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'INFO'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">format</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'&lt;green&gt;{time:YYYY-MM-DD</span> <span class="pre">HH:mm:ss}&lt;/green&gt;</span> <span class="pre">|</span> <span class="pre">&lt;level&gt;{level:</span> <span class="pre">&lt;8}&lt;/level&gt;</span> <span class="pre">|</span> <span class="pre">&lt;cyan&gt;{name}&lt;/cyan&gt;:&lt;cyan&gt;{line}&lt;/cyan&gt;</span> <span class="pre">-</span> <span class="pre">&lt;level&gt;{message}&lt;/level&gt;'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/logging.html#config_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.logging.config_logger" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.8.2.</span></p>
 </div>
 <p>Resets the logger object from <a class="reference external" href="https://loguru.readthedocs.io/en/stable/api.html#module-loguru" title="(in loguru)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">loguru</span></code></a>, with <a class="reference external" href="https://docs.python.org/3/library/sys.html#sys.stdout" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sys.stdout</span></code></a> as a sink and the
 provided <em>format</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>level</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[str,</span> <span class="pre">int]</span></code>) -- the logging level to set. Case-insensitive if a
 string is given. Can be any of the
@@ -866,18 +749,18 @@ to a pre-defined format in this module.</p></li>
 </div>
 </div>
 </dd></dl>
+</section>
 <span class="target" id="module-pyhdtoolkit.utils._misc"></span><section id="miscellanous-personnal-utilities">
-<span id="utils-misc"></span><h2>Miscellanous Personnal Utilities<a class="headerlink" href="#miscellanous-personnal-utilities" title="Permalink to this heading"></a></h2>
+<span id="utils-misc"></span><h2>Miscellanous Personnal Utilities<a class="headerlink" href="#miscellanous-personnal-utilities" title="Permalink to this headline"></a></h2>
 <p>Private module that provides miscellaneous personnal utility functions.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>The functions in here are intented for personal use, and will most likely
 <strong>not</strong> work on other people’s machines.</p>
 </div>
-</section>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.add_noise_to_arc_bpms">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_arc_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><span class="pre">DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><span class="pre">DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_arc_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_arc_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_arc_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.2.0.</span></p>
 </div>
@@ -893,9 +776,9 @@ these from the selection.</p>
 <p>The BPM names should be in the index of the dataframe. Selection is case-insensitive.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) -- the dataframe to add noise to.</p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) -- the dataframe to add noise to.</p></li>
 <li><p><strong>min_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- the minimum index of the BPMs to add noise to. See warning caveat right
 above. This number is inclusive (i.e. the BPMs with this index will be selected).</p></li>
 <li><p><strong>stdev</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- the standard deviation of the gaussian noise to add.</p></li>
@@ -903,8 +786,8 @@ above. This number is inclusive (i.e. the BPMs with this index will be selected)
 Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the noise added to the wanted columns.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the noise added to the wanted columns.</p>
 </dd>
 </dl>
 <div class="admonition-example admonition">
@@ -916,7 +799,7 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.add_noise_to_ir_bpms">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_ir_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><span class="pre">DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><span class="pre">DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_ir_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_ir_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_ir_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.2.0.</span></p>
 </div>
@@ -927,9 +810,9 @@ to each relevant column with the provided standard deviation.</p>
 <p>The BPM names should be in the index of the dataframe. Selection is case-insensitive.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) -- the dataframe to add noise to.</p></li>
+<li><p><strong>df</strong> (<a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-class docutils literal notranslate"><span class="pre">pandas.DataFrame</span></code></a>) -- the dataframe to add noise to.</p></li>
 <li><p><strong>max_index</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- the maximum index of the IR BPMs to add noise to. This number is
 inclusive (i.e. the BPMs with this index will be selected).</p></li>
 <li><p><strong>stdev</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></a>) -- the standard deviation of the gaussian noise to add.</p></li>
@@ -937,8 +820,8 @@ inclusive (i.e. the BPMs with this index will be selected).</p></li>
 Defaults to <code class="docutils literal notranslate"><span class="pre">None</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the noise added to the wanted columns.</p>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the noise added to the wanted columns.</p>
 </dd>
 </dl>
 <div class="admonition-example admonition">
@@ -950,7 +833,7 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.apply_colin_corrs_balance">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">apply_colin_corrs_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">madx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.12)"><span class="pre">Madx</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#apply_colin_corrs_balance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.apply_colin_corrs_balance" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">apply_colin_corrs_balance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">madx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.14)"><span class="pre">cpymad.madx.Madx</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><span class="pre">None</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#apply_colin_corrs_balance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.apply_colin_corrs_balance" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.20.0.</span></p>
 </div>
@@ -959,8 +842,8 @@ they were in the machine, and tilts of Q3s that would compensate for those setti
 This way the bump of each corrector is very local to MQSX3 - MQSXQ3 and other effects
 can be added and studied, <em>pretending</em> a perfect local coupling correction.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.12)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object with your
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>madx</strong> (<a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">cpymad.madx.Madx</span></code></a>) -- an instanciated <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> object with your
 <code class="docutils literal notranslate"><span class="pre">LHC</span></code> setup.</p>
 </dd>
 </dl>
@@ -973,7 +856,7 @@ can be added and studied, <em>pretending</em> a perfect local coupling correctio
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.get_betastar_from_opticsfile">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">get_betastar_from_opticsfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">Path</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#get_betastar_from_opticsfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">get_betastar_from_opticsfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opticsfile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><span class="pre">pathlib.Path</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#get_betastar_from_opticsfile"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.16.0.</span></p>
 </div>
@@ -987,14 +870,14 @@ is the same for IP1 and IP5. The values returned are in meters.</p>
 itself only contains call.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>opticsfile</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[Path,</span> <span class="pre">str]</span></code>) -- <a class="reference external" href="https://docs.python.org/3/library/pathlib.html#pathlib.Path" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pathlib.Path</span></code></a> object to the optics file, or
 string of the path to the file.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The <span class="math notranslate nohighlight">\(\beta^{*}\)</span> value parsed from the file.</p>
 </dd>
-<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dt class="field-odd">Raises</dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#AssertionError" title="(in Python v3.11)"><strong>AssertionError</strong></a> -- if the <span class="math notranslate nohighlight">\(\beta^{*}\)</span> value for IP1 and IP5 is not
     the same (in both planes too).</p>
 </dd>
@@ -1026,21 +909,21 @@ string of the path to the file.</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.split_complex_columns">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">split_complex_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><span class="pre">DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><span class="pre">DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#split_complex_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.split_complex_columns" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">split_complex_columns</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">drop</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#split_complex_columns"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.split_complex_columns" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.2.0.</span></p>
 </div>
 <p>Find complex valued columns in <em>df</em> and split them into a column for the real and imaginary parts each.
 New columns will be named like the existing ones, with <code class="docutils literal notranslate"><span class="pre">_REAL</span></code> or <code class="docutils literal notranslate"><span class="pre">_IMAG</span></code> appended.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>df</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">tfs.TfsDataFrame</span></code>) -- the dataframe to split columns in.</p></li>
 <li><p><strong>drop</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) -- whether to drop the original complex columns or not. Defaults to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A new <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v1.5.3)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the complex columns split into real and imaginary parts, and
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A new <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> with the complex columns split into real and imaginary parts, and
 the original complex columns potentially dropped.</p>
 </dd>
 </dl>
@@ -1051,15 +934,15 @@ the original complex columns potentially dropped.</p>
 </dd>
 </dl>
 </dd></dl>
+</section>
 <span class="target" id="module-pyhdtoolkit.utils.operations"></span><section id="operations-utilities">
-<span id="utils-operations"></span><h2>Operations Utilities<a class="headerlink" href="#operations-utilities" title="Permalink to this heading"></a></h2>
+<span id="utils-operations"></span><h2>Operations Utilities<a class="headerlink" href="#operations-utilities" title="Permalink to this headline"></a></h2>
 <p>A collection classes with utility functions to perform common / convenient
 operations on the classic Python structures.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This module contains un-used code and will be removed in a future release.</p>
 </div>
-</section>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.ListOperations">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.operations.</span></span><span class="sig-name descname"><span class="pre">ListOperations</span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#ListOperations"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.ListOperations" title="Permalink to this definition"></a></dt>
@@ -1075,10 +958,10 @@ operations on the classic Python structures.</p>
 </div>
 <p>Returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if all the values in a flat list are unique, <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> otherwise.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> if all elements are unique, <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> otherwise.</p>
 </dd>
 </dl>
@@ -1092,7 +975,7 @@ operations on the classic Python structures.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.ListOperations.average_by">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">average_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence:</span> <span class="pre">~typing.Sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">ListOperations.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#ListOperations.average_by"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.ListOperations.average_by" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">average_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence:</span> <span class="pre">typing.Sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">ListOperations.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#ListOperations.average_by"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.ListOperations.average_by" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
@@ -1100,13 +983,13 @@ operations on the classic Python structures.</p>
 provided function. Use <a class="reference external" href="https://docs.python.org/3/library/functions.html#map" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map</span></code></a> to map each element to the value returned by <em>function</em>.
 Uses <a class="reference external" href="https://docs.python.org/3/library/functions.html#sum" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sum</span></code></a> to sum all of the mapped values, divided by <a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">len</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- function to apply to elements of the sequence.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The average of each element’s result through <em>function</em>.</p>
 </dd>
 </dl>
@@ -1131,13 +1014,13 @@ element in the collection belongs to the first group; otherwise, it belongs to t
 second group. Uses list comprehension and <a class="reference external" href="https://docs.python.org/3/library/functions.html#enumerate" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">enumerate</span></code></a> to add elements to groups,
 based on <em>filter</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>filters</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List[bool]</span></code>) -- a list of booleans.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of two lists, one for each boolean output of the filters.</p>
 </dd>
 </dl>
@@ -1160,14 +1043,14 @@ element in the input sequence belongs to. If the function returns <a class="refe
 belongs to the first group; otherwise it belongs to the second group. Uses list
 comprehension to add elements to groups, based on <em>function</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- a callable on the elements of <em>sequence</em>, that should return a
 boolean.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A list of two lists, as groups of elements of <em>sequence</em> classified depending on their
 result when passed to <em>function</em>.</p>
 </dd>
@@ -1191,13 +1074,13 @@ than that of <em>sequence</em>, return <em>sequence</em> to avoid unnecessary ne
 <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#range" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">range</span></code></a> to create a list of the desired size. Uses <a class="reference external" href="https://docs.python.org/3/library/functions.html#map" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map</span></code></a> on that
 list and fills it with splices of <em>sequence</em>. Finally, returns the created list.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></a>) -- the size of the wanted sublists.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of lists of length <code class="xref py py-obj docutils literal notranslate"><span class="pre">size</span></code> (except maybe the last element), with
 elements from <em>sequence</em>.</p>
 </dd>
@@ -1218,10 +1101,10 @@ elements from <em>sequence</em>.</p>
 </div>
 <p>Recursively deep flattens <em>sequence</em>, no matter the nesting levels.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> with all elements of <em>sequence</em>, but flattened.</p>
 </dd>
 </dl>
@@ -1235,7 +1118,7 @@ elements from <em>sequence</em>.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.ListOperations.eval_none">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eval_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence:</span> <span class="pre">~typing.Sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">ListOperations.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#ListOperations.eval_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.ListOperations.eval_none" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eval_none</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence:</span> <span class="pre">typing.Sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">ListOperations.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#ListOperations.eval_none"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.ListOperations.eval_none" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
@@ -1244,14 +1127,14 @@ in <em>sequence</em>, <a class="reference external" href="https://docs.python.or
 returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> based on function. Omit the seconds argument, <em>function</em>, to check
 if all elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- a callable on elements of <em>sequence</em> that should return
 a boolean.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean. See first line of docstring.</p>
 </dd>
 </dl>
@@ -1269,7 +1152,7 @@ a boolean.</p></li>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.ListOperations.eval_some">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eval_some</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence:</span> <span class="pre">~typing.Sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function:</span> <span class="pre">~typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">ListOperations.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#ListOperations.eval_some"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.ListOperations.eval_some" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">eval_some</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence:</span> <span class="pre">typing.Sequence</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function:</span> <span class="pre">typing.Callable</span> <span class="pre">=</span> <span class="pre">&lt;function</span> <span class="pre">ListOperations.&lt;lambda&gt;&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#ListOperations.eval_some"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.ListOperations.eval_some" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
@@ -1278,13 +1161,13 @@ a boolean.</p></li>
 element returns <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> based on <em>function</em>. Omit the seconds argument, <em>function</em>, to check
 if all elements are <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- a callable on elements of <em>sequence</em> that should return a boolean.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean. See first line of docstring.</p>
 </dd>
 </dl>
@@ -1308,7 +1191,7 @@ if all elements are <a class="reference external" href="https://docs.python.org/
 </div>
 <p>Return all array indices at which <em>element</em> is located.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>element</strong> -- any reference element to check.</p></li>
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence containing objects comparable to <em>elements</em>.
@@ -1316,7 +1199,7 @@ A <a class="reference external" href="https://docs.python.org/3/library/string.h
 won’t be comparable.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of all indices at which <em>element</em> is found in <em>sequence</em>. Empty list if
 <em>element</em> is not present in <em>sequence</em> at all.</p>
 </dd>
@@ -1339,14 +1222,14 @@ won’t be comparable.</p></li>
 combination with <a class="reference external" href="https://docs.python.org/3/library/functions.html#map" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">map</span></code></a> and <em>function</em> to map the values of <em>sequence</em> to the
 keys of an object. Uses list comprehension to map each element to the appropriate key.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- a callable on the elements of <em>sequence</em> that should return a
 boolean.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a> with keys <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, each having as value a list of all elements of
 <em>sequence</em> that were evaluated to respectively <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> or <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> through <em>function</em>.</p>
 </dd>
@@ -1369,10 +1252,10 @@ boolean.</p></li>
 Uses <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#set" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set</span></code></a> on the given <em>sequence</em> to remove duplicates, then compares its length
 with that of <em>sequence</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean indicating the presence of duplicates in <em>sequence</em>.</p>
 </dd>
 </dl>
@@ -1392,10 +1275,10 @@ with that of <em>sequence</em>.</p>
 </div>
 <p>Returns a random element from <em>sequence</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A random element from <em>sequence</em> in a list (to manage potentially
 nested sequences as input).</p>
 </dd>
@@ -1417,10 +1300,10 @@ nested sequences as input).</p>
 <p>Removes falsey values from a <em>sequence</em>. Uses <a class="reference external" href="https://docs.python.org/3/library/functions.html#filter" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">filter</span></code></a> to filter out falsey
 values (<a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">0</span></code>, and <code class="xref py py-obj docutils literal notranslate"><span class="pre">""</span></code>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The sequence without falsey values.</p>
 </dd>
 </dl>
@@ -1443,10 +1326,10 @@ Uses an improved version of the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle">Fisher-Yates algorithm</a>
 to reorder the elements.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A copy of <em>sequence</em> with original elements at a random index.</p>
 </dd>
 </dl>
@@ -1473,10 +1356,10 @@ of its functionality, and is used in <a class="reference internal" href="#pyhdto
 <p>This only works if all elements in <em>sequence</em> are iterables.</p>
 </div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The sequence flattened, see first docstring sentence.</p>
 </dd>
 </dl>
@@ -1500,14 +1383,14 @@ Creates a <a class="reference external" href="https://docs.python.org/3/library/
 comprehension in combination with <em>function</em> on each one to only keep values not contained
 in the previously created set of the other.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lst_1</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>lst_2</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- a callable on elements of <em>seq_1</em> and <em>seq_2</em>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>, see first docstring sentence reference.</p>
 </dd>
 </dl>
@@ -1543,14 +1426,14 @@ comprehension in combination with <em>function</em> on <em>seq_2</em> to only ke
 contained in the previously created set, _lst_1. Finally, create a set from the
 previous result and _lst_1, and transform it into a <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>lst_1</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>lst_2</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of elements.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- a callable on elements of <em>seq_1</em> and <em>seq_2</em>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>, see first docstring sentence reference.</p>
 </dd>
 </dl>
@@ -1578,13 +1461,13 @@ on the position of elements in the original sequences. Essentially, a list conta
 the arguments. Loops for max_length times grouping elements. If lengths of sequences
 vary, uses <em>fill_value</em> to adjust the smaller ones (defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#None" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>).</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>*args</strong> -- a number (&gt;= 2) of different iterables.</p></li>
 <li><p><strong>fillvalue</strong> -- value to use in case of length mismatch.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> with the proper level of nesting, and original elements zipped.</p>
 </dd>
 </dl>
@@ -1614,10 +1497,10 @@ vary, uses <em>fill_value</em> to adjust the smaller ones (defaults to <a class=
 longest one. If multiple objects have the same length, the first one will be returned.
 Usess <a class="reference external" href="https://docs.python.org/3/library/functions.html#max" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">max</span></code></a> with <a class="reference external" href="https://docs.python.org/3/library/functions.html#len" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">len</span></code></a> as the key to return the item with the greatest length.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>*args</strong> -- any number (&gt;= 2) of iterables.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The longest elements of provided iterables.</p>
 </dd>
 </dl>
@@ -1642,13 +1525,13 @@ and values generated by running <em>function</em> on the <em>obj</em>’s values
 Uses <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict.keys" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict.keys</span></code></a> to iterate over the object’s keys, assigning the
 values produced by <em>function</em> to each key of a new object.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a>) -- a dictionary.</p></li>
 <li><p><strong>function</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Callable</span></code>) -- a callable on values of <code class="xref py py-obj docutils literal notranslate"><span class="pre">obj</span></code>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A new dictionary with the results.</p>
 </dd>
 </dl>
@@ -1673,7 +1556,7 @@ values produced by <em>function</em> to each key of a new object.</p>
 <p>A class to group some common / useful operations on numbers.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.NumberOperations.clamp_number">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clamp_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.clamp_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.clamp_number" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">clamp_number</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">num</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">a_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b_val</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.clamp_number"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.clamp_number" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
@@ -1681,14 +1564,14 @@ values produced by <em>function</em> to each key of a new object.</p>
 and <em>b_val</em>. If <em>num</em> falls within the range, returns <em>num</em>. Otherwise, return the
 nearest number in the range.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>num</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) -- a number (float  / int)</p></li>
 <li><p><strong>a_val</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) -- a number (float  / int)</p></li>
 <li><p><strong>b_val</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) -- a number (float  / int)</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A number (float  / int), being the nearest to <em>num</em> in the range [<em>a_val</em>, <em>b_val</em>].</p>
 </dd>
 </dl>
@@ -1706,20 +1589,20 @@ nearest number in the range.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.NumberOperations.degrees_to_radians">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">degrees_to_radians</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deg_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.degrees_to_radians"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.degrees_to_radians" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">degrees_to_radians</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">deg_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decompose</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.degrees_to_radians"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.degrees_to_radians" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
 <p>Converts an angle from degrees to radians. Uses <a class="reference external" href="https://docs.python.org/3/library/math.html#math.pi" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">math.pi</span></code></a> and the degree
 to radian formula to convert the provided <em>deg_value</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>deg_value</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) -- angle value in degrees.</p></li>
 <li><p><strong>decompose</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) -- boolean option to return a more verbose result. Defaults to <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a>.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The angle value in radians.</p>
 </dd>
 </dl>
@@ -1737,18 +1620,18 @@ to radian formula to convert the provided <em>deg_value</em>.</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.NumberOperations.greatest_common_divisor">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">greatest_common_divisor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.greatest_common_divisor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.greatest_common_divisor" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">greatest_common_divisor</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sequence</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.greatest_common_divisor"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.greatest_common_divisor" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
 <p>Calculates the greatest common divisor of a sequence of numbers.
 Uses <code class="xref py py-obj docutils literal notranslate"><span class="pre">reduce</span></code> and <a class="reference external" href="https://docs.python.org/3/library/math.html#math.gcd" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">math.gcd</span></code></a> over the given <em>sequence</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>sequence</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Sequence</span></code>) -- a sequence of numbers (floats are advised against as this would
 become a very heavy computation).</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The greatest common divisor of all elements in <em>sequence</em>.</p>
 </dd>
 </dl>
@@ -1766,20 +1649,20 @@ become a very heavy computation).</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.NumberOperations.is_divisible_by">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_divisible_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dividend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">divisor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.is_divisible_by"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.is_divisible_by" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">is_divisible_by</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dividend</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divisor</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.is_divisible_by"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.is_divisible_by" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
 <p>Checks if the first numeric argument is divisible by the second one.
 Uses the modulo operator (<code class="xref py py-obj docutils literal notranslate"><span class="pre">%</span></code>) to check if the remainder is equal to 0.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>dividend</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) -- a number.</p></li>
 <li><p><strong>divisor</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) -- a number.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean stating if <em>dividend</em> can be divided by <em>divisor</em>.</p>
 </dd>
 </dl>
@@ -1801,11 +1684,11 @@ Uses the modulo operator (<code class="xref py py-obj docutils literal notransla
 that uses either <code class="xref py py-obj docutils literal notranslate"><span class="pre">list.extend</span></code> or <code class="xref py py-obj docutils literal notranslate"><span class="pre">list.append</span></code> on each element of s sequence to flatten
 it. Uses <a class="reference external" href="https://docs.python.org/3/library/math.html#math.gcd" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">math.gcd</span></code></a> and lcm(x,y) = (x * y) / gcd(x,y) to determine the least common multiple.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>*args</strong> -- any number (&gt;= 2) of numbers (floats are advised against as this would become a
 very heavy computation).</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The least common multiple of all provided numbers.</p>
 </dd>
 </dl>
@@ -1823,17 +1706,17 @@ very heavy computation).</p>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.operations.NumberOperations.radians_to_degrees">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">radians_to_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.radians_to_degrees"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.radians_to_degrees" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">radians_to_degrees</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rad_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Union" title="(in Python v3.11)"><span class="pre">Union</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/operations.html#NumberOperations.radians_to_degrees"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.operations.NumberOperations.radians_to_degrees" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
 <p>Converts an angle from radians to degrees. Uses <a class="reference external" href="https://docs.python.org/3/library/math.html#math.pi" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">math.pi</span></code></a> and the radian
 to degree formula to convert the provided <em>rad_value</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>rad_value</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Union[int,</span> <span class="pre">float]</span></code>) -- angle value in degrees.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The angle value in degrees.</p>
 </dd>
 </dl>
@@ -1866,10 +1749,10 @@ to degree formula to convert the provided <em>rad_value</em>.</p>
 <p>Converts a <a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">string</span></code></a> to camelCase. Breaks the string into words and combines
 them capitalizing the first letter of each word, using a regexp, <code class="xref py py-obj docutils literal notranslate"><span class="pre">title</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">lower</span></code>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- a string.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The same <a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">string</span></code></a> best adapted to camelCase.</p>
 </dd>
 </dl>
@@ -1895,13 +1778,13 @@ them capitalizing the first letter of each word, using a regexp, <code class="xr
 Omit the <em>lower_rest</em> parameter to keep the rest of the string intact, or set
 it to <a class="reference external" href="https://docs.python.org/3/library/constants.html#True" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">True</span></code></a> to convert to lowercase.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- a string.</p></li>
 <li><p><strong>lower_rest</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) -- boolean option to lower all elements starting from the second.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The <a class="reference external" href="https://docs.python.org/3/library/string.html#module-string" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">string</span></code></a>, capitalized.</p>
 </dd>
 </dl>
@@ -1929,13 +1812,13 @@ to remove spaces from both strings. Compares the lengths of the two strings,
 return <a class="reference external" href="https://docs.python.org/3/library/constants.html#False" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">False</span></code></a> if they are not equal. Uses <a class="reference external" href="https://docs.python.org/3/library/functions.html#sorted" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sorted</span></code></a> on both strings and
 compares the results.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>str_1</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- a string.</p></li>
 <li><p><strong>str_2</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- a string.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean stating whether <code class="xref py py-obj docutils literal notranslate"><span class="pre">str_1</span></code> is an anagram of <code class="xref py py-obj docutils literal notranslate"><span class="pre">str_2</span></code> or not.</p>
 </dd>
 </dl>
@@ -1961,10 +1844,10 @@ compares the results.</p>
 Uses <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str.lower" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str.lower</span></code></a> and <a class="reference external" href="https://docs.python.org/3/library/re.html#re.sub" title="(in Python v3.11)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">re.sub</span></code></a> to convert to lowercase and remove non-alphanumeric
 characters from the given string. Then compare the new string with its reverse.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- a string.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>A boolean stating whether <em>text</em> is a palindrome or not.</p>
 </dd>
 </dl>
@@ -1989,10 +1872,10 @@ characters from the given string. Then compare the new string with its reverse.<
 <p>Converts a string to kebab-case. Breaks the string into words and
 combines them adding <code class="xref py py-obj docutils literal notranslate"><span class="pre">-</span></code> as a separator, using a regexp.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- a string.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The same string best adapted to kebab_case.</p>
 </dd>
 </dl>
@@ -2017,10 +1900,10 @@ combines them adding <code class="xref py py-obj docutils literal notranslate"><
 <p>Converts a string to snake_case. Breaks the string into words and
 combines them adding <code class="xref py py-obj docutils literal notranslate"><span class="pre">_</span></code> as a separator, using a regexp.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>text</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) -- a string.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The same string best adapted to snake_case.</p>
 </dd>
 </dl>
@@ -2037,15 +1920,15 @@ combines them adding <code class="xref py py-obj docutils literal notranslate"><
 </div>
 </dd></dl>
 </dd></dl>
+</section>
 <span class="target" id="module-pyhdtoolkit.utils.printutil"></span><section id="printing-utilities">
-<span id="utils-printutils"></span><h2>Printing Utilities<a class="headerlink" href="#printing-utilities" title="Permalink to this heading"></a></h2>
+<span id="utils-printutils"></span><h2>Printing Utilities<a class="headerlink" href="#printing-utilities" title="Permalink to this headline"></a></h2>
 <p>A class utility class to allow me printing text in color, bold, etc.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>This module’s functionality is superseeded by the <code class="docutils literal notranslate"><span class="pre">rich</span></code> package, and it will be
 removed in a future release.</p>
 </div>
-</section>
 <dl class="py class">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.printutil.Background">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils.printutil.</span></span><span class="sig-name descname"><span class="pre">Background</span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/printutil.html#Background"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.printutil.Background" title="Permalink to this definition"></a></dt>
@@ -2070,6 +1953,7 @@ removed in a future release.</p>
 </div>
 <p>ANSI style escape sequences for a terminal output.</p>
 </dd></dl>
+</section>
 </section>
 </div>
 </div>
