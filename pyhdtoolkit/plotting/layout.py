@@ -324,6 +324,8 @@ def plot_machine_layout(
 
 def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
     """
+    .. versionadded:: 1.0.0
+
     This is a convenience function to update the scale of the elements layout
     patches as well as the corresponding y-axis label.
 
