@@ -84,9 +84,7 @@ def plot_beam_envelope(
     """
     # pylint: disable=too-many-arguments
     if plane.lower() not in ("x", "y", "horizontal", "vertical"):
-        logger.error(
-            f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'"
-        )
+        logger.error(f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'")
         raise ValueError("Invalid 'plane' argument.")
 
     logger.debug(f"Plotting machine orbit and {nsigma:.2f}sigma beam envelope")
