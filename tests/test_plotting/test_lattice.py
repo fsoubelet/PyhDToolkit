@@ -9,6 +9,7 @@ from cpymad.madx import Madx
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.plotting.lattice import plot_latwiss, plot_machine_survey
+from pyhdtoolkit.plotting.layout import scale_patches
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 matplotlib.use("Agg")
@@ -39,6 +40,32 @@ def test_plot_latwiss():
             k2l_lim=(-0.25, 0.25),
             plot_bpms=True,
         )
+    return figure
+
+
+@pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
+def test_plot_latwiss_with_scaled_patches():
+    """Using my CAS 19 project's base lattice."""
+    with Madx(stdout=False) as madx:
+        madx.input(BASE_LATTICE)
+        match_tunes_and_chromaticities(
+            madx, None, "CAS3", 6.335, 6.29, 100, 100, varied_knobs=["kqf", "kqd", "ksf", "ksd"]
+        )
+
+        figure = plt.figure(figsize=(18, 11))
+        plot_latwiss(
+            madx,
+            title="Project 3 Base Lattice",
+            xlimits=(-50, 1_050),
+            beta_ylim=(5, 75),
+            k0l_lim=115,
+            k1l_lim=8,
+            k2l_lim=(-0.25, 0.25),
+            plot_bpms=True,
+        )
+        # Scale all bends and quads patches
+        scale_patches(ax=figure.axes[0], scale=100, ylabel=r"$K_{1}L$ $[10^{-2} m^{-1}]$")
+        scale_patches(ax=figure.axes[1], scale=1000, ylabel=r"$K_{0}L$ $[mrad]$")
     return figure
 
 
