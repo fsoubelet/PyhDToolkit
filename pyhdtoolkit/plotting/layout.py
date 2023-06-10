@@ -148,10 +148,12 @@ def plot_machine_layout(
     bpms_df = element_dfs["bpms"]
 
     logger.trace("Determining the ylimits for k0l and k1l patches")
+    # Assume lattice doesnt mix 'k0l' and 'angle' for dipoles powering
+    dipoles_power_column = "k0l" if dipoles_df.k0l.any() else "angle"
     k0l_lim = (
         _ylim_from_input(k0l_lim, "k0l_lim")
         if k0l_lim is not None
-        else _determine_default_knl_lim(dipoles_df, col="k0l", coeff=2)
+        else _determine_default_knl_lim(dipoles_df, col=dipoles_power_column, coeff=2)
     )
     k1l_lim = (
         _ylim_from_input(k1l_lim, "k1l_lim")
@@ -182,7 +184,7 @@ def plot_machine_layout(
         plotted_elements = 0  # will help us not declare a label for legend at every patch
         for dipole_name, dipole in dipoles_df.iterrows():
             logger.trace(f"Plotting dipole element '{dipole_name}'")
-            bend_value = dipole.k0l if dipole.k0l != 0 else dipole.angle
+            bend_value = dipole.k0l if dipole.k0l != 0 else dipole.angle  # check for each element
             _plot_lattice_series(
                 dipole_patches_axis,
                 dipole,
