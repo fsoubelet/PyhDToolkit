@@ -1,0 +1,13 @@
+.. _release_1.3.0:
+
+1.3.0
+-----
+
+Release `1.3.0` is a light bug fix.
+
+Bug Fixes
+~~~~~~~~~
+
+* The `pyhdtoolkit.plotting.layout.plot_machine_layout` function will now correctly auto-determine y-axis limits for dipoles if the `angle` attribute is used for their powering. This assumes only one of `k0l` and `angle` is used for all dipoles and gives priority to the former when determining limits. Dipole patches elements are plotted no matter which variable is used.
+
+See `v1.3.1 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.3.1>`_ and the `full changes since v1.3.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.3.0...1.3.1>`_.
