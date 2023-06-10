@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.layout &mdash; PyhDToolkit 1.3.0 documentation</title>
+  <title>pyhdtoolkit.plotting.layout &mdash; PyhDToolkit 1.3.1 documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
@@ -44,7 +44,7 @@
             
           </a>
               <div class="version">
-                1.3.0
+                1.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -169,6 +169,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-3-1">Version 1.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.3.1.html">1.3.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-3-0">Version 1.3.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.3.0.html">1.3.0</a></li>
 </ul>
@@ -517,10 +521,12 @@
     <span class="n">bpms_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;bpms&quot;</span><span class="p">]</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Determining the ylimits for k0l and k1l patches&quot;</span><span class="p">)</span>
+    <span class="c1"># Assume lattice doesnt mix &#39;k0l&#39; and &#39;angle&#39; for dipoles powering</span>
+    <span class="n">dipoles_power_column</span> <span class="o">=</span> <span class="s2">&quot;k0l&quot;</span> <span class="k">if</span> <span class="n">dipoles_df</span><span class="o">.</span><span class="n">k0l</span><span class="o">.</span><span class="n">any</span><span class="p">()</span> <span class="k">else</span> <span class="s2">&quot;angle&quot;</span>
     <span class="n">k0l_lim</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">_ylim_from_input</span><span class="p">(</span><span class="n">k0l_lim</span><span class="p">,</span> <span class="s2">&quot;k0l_lim&quot;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">k0l_lim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-        <span class="k">else</span> <span class="n">_determine_default_knl_lim</span><span class="p">(</span><span class="n">dipoles_df</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;k0l&quot;</span><span class="p">,</span> <span class="n">coeff</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">else</span> <span class="n">_determine_default_knl_lim</span><span class="p">(</span><span class="n">dipoles_df</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">dipoles_power_column</span><span class="p">,</span> <span class="n">coeff</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
     <span class="p">)</span>
     <span class="n">k1l_lim</span> <span class="o">=</span> <span class="p">(</span>
         <span class="n">_ylim_from_input</span><span class="p">(</span><span class="n">k1l_lim</span><span class="p">,</span> <span class="s2">&quot;k1l_lim&quot;</span><span class="p">)</span>
@@ -551,7 +557,7 @@
         <span class="n">plotted_elements</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># will help us not declare a label for legend at every patch</span>
         <span class="k">for</span> <span class="n">dipole_name</span><span class="p">,</span> <span class="n">dipole</span> <span class="ow">in</span> <span class="n">dipoles_df</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting dipole element &#39;</span><span class="si">{</span><span class="n">dipole_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-            <span class="n">bend_value</span> <span class="o">=</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="n">angle</span>
+            <span class="n">bend_value</span> <span class="o">=</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="k">if</span> <span class="n">dipole</span><span class="o">.</span><span class="n">k0l</span> <span class="o">!=</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">dipole</span><span class="o">.</span><span class="n">angle</span>  <span class="c1"># check for each element</span>
             <span class="n">_plot_lattice_series</span><span class="p">(</span>
                 <span class="n">dipole_patches_axis</span><span class="p">,</span>
                 <span class="n">dipole</span><span class="p">,</span>

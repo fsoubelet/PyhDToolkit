@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 1.3.0 documentation</title>
+  <title>LHC IR Errors Assignments &mdash; PyhDToolkit 1.3.1 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -47,7 +47,7 @@
             
           </a>
               <div class="version">
-                1.3.0
+                1.3.1
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -172,6 +172,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-3-1">Version 1.3.1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../releases/v1.3.1.html">1.3.1</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../release.html#version-1-3-0">Version 1.3.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../releases/v1.3.0.html">1.3.0</a></li>
 </ul>
@@ -440,7 +444,7 @@ internal <code class="docutils literal notranslate"><span class="pre">MAD-X</spa
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error_table</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.TableMap.html#cpymad.madx.TableMap" title="cpymad.madx.TableMap" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">ir_quads_errors</span><span class="o">.</span><span class="n">dframe</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<p>Let’s quickly re-arrange the resulting <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> to align with the
+<p>Let’s quickly re-arrange the resulting <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> to align with the
 order in which they are in the machine:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error_table</span><span class="o">.</span><span class="n">name</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error_table</span><span class="o">.</span><span class="n">name</span><span class="o">.</span><span class="n">apply</span></a><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
 <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error_table</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.set_index.html#pandas.DataFrame.set_index" title="pandas.DataFrame.set_index" class="sphx-glr-backref-module-pandas sphx-glr-backref-type-py-method"><span class="n">error_table</span><span class="o">.</span><span class="n">set_index</span></a><span class="p">(</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -501,100 +505,100 @@ order in which they are in the machine:</p>
   <tbody>
     <tr>
       <th>mqml.6l1.b1</th>
-      <td>0.001690</td>
+      <td>2.889361e-04</td>
       <td>0.0</td>
-      <td>0.000649</td>
+      <td>0.002536</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5l1.b1</th>
-      <td>0.000132</td>
+      <td>-8.641041e-04</td>
       <td>0.0</td>
-      <td>0.001433</td>
+      <td>0.001569</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4l1.b1</th>
-      <td>0.000514</td>
+      <td>-1.441822e-03</td>
       <td>0.0</td>
-      <td>-0.003400</td>
+      <td>-0.006284</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3l1</th>
-      <td>-0.000797</td>
+      <td>-6.945207e-05</td>
       <td>0.0</td>
-      <td>-0.001698</td>
+      <td>-0.001356</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2l1</th>
-      <td>-0.001007</td>
+      <td>-1.499407e-03</td>
       <td>0.0</td>
-      <td>-0.003302</td>
+      <td>0.002551</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2l1</th>
-      <td>0.000607</td>
+      <td>-9.183630e-04</td>
       <td>0.0</td>
-      <td>0.004580</td>
+      <td>0.003565</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1l1</th>
-      <td>-0.000337</td>
+      <td>-5.497212e-04</td>
       <td>0.0</td>
-      <td>-0.000482</td>
+      <td>0.002431</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1r1</th>
-      <td>0.000320</td>
+      <td>1.951423e-03</td>
       <td>0.0</td>
-      <td>0.000807</td>
+      <td>-0.002367</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2r1</th>
-      <td>0.000633</td>
+      <td>5.323978e-04</td>
       <td>0.0</td>
-      <td>0.000625</td>
+      <td>0.002577</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2r1</th>
-      <td>-0.000050</td>
+      <td>-1.315604e-04</td>
       <td>0.0</td>
-      <td>0.000430</td>
+      <td>0.000096</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3r1</th>
-      <td>0.000482</td>
+      <td>1.013755e-03</td>
       <td>0.0</td>
-      <td>-0.001695</td>
+      <td>-0.002021</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4r1.b1</th>
-      <td>0.000587</td>
+      <td>-9.617273e-07</td>
       <td>0.0</td>
-      <td>0.001497</td>
+      <td>0.001961</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5r1.b1</th>
-      <td>0.000720</td>
+      <td>8.598884e-04</td>
       <td>0.0</td>
-      <td>0.004273</td>
+      <td>0.006459</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.6r1.b1</th>
-      <td>-0.001380</td>
+      <td>-2.135866e-04</td>
       <td>0.0</td>
-      <td>0.000878</td>
+      <td>0.000413</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -608,7 +612,7 @@ order in which they are in the machine:</p>
 </pre></div>
 </div>
 <p>We can visualise the distribution of errors across these magnets with a bar
-chart, making use of the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> plotting capabilities:</p>
+chart, making use of the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataFrame</span></code></a> plotting capabilities:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="numpy.ndarray" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">axes</span></a> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">error_table</span></a><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
     <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;dx&quot;</span><span class="p">,</span> <span class="s2">&quot;dpsi&quot;</span><span class="p">],</span>
     <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
@@ -639,7 +643,7 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  12.832 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.713 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-ir-errors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/da42f6ab08c5bc8cb6606bcaeb4957d9/demo_ir_errors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_ir_errors.py</span></code></a></p>
