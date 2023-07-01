@@ -45,6 +45,7 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: Implementation :: CPython",
     "Topic :: Scientific/Engineering",
     "Topic :: Scientific/Engineering :: Physics",
@@ -61,7 +62,7 @@ dependencies = [
   "loguru < 1.0",
   "cpymad >= 1.9",
   "rich >= 12.0",
-  "pydantic >= 1.0",
+  "pydantic >= 2.0",
   "pendulum >= 2.0",
   "optics-functions >= 0.1",
 ]
