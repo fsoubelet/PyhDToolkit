@@ -152,13 +152,13 @@ def _make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
     for i, source in enumerate(["query", "user", "cluster"]):
         table.add_row(
             "Query" if i == 0 else ("All Users" if i == 2 else owner_name),
-            str(cluster.dict()[source]["jobs"]),
-            str(cluster.dict()[source]["completed"]),
-            str(cluster.dict()[source]["running"]),
-            str(cluster.dict()[source]["idle"]),
-            str(cluster.dict()[source]["held"]),
-            str(cluster.dict()[source]["suspended"]),
-            str(cluster.dict()[source]["removed"]),
+            str(cluster.model_dump()[source]["jobs"]),
+            str(cluster.model_dump()[source]["completed"]),
+            str(cluster.model_dump()[source]["running"]),
+            str(cluster.model_dump()[source]["idle"]),
+            str(cluster.model_dump()[source]["held"]),
+            str(cluster.model_dump()[source]["suspended"]),
+            str(cluster.model_dump()[source]["removed"]),
         )
     return table
 
