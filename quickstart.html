@@ -455,14 +455,14 @@ It also provides convenience plotting utilities and a set of <a class="reference
 In the second case, relevant data for the plotting is directly queried and computed by interacting with the <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> instance.</p>
 <p>Using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code> apis goes as:</p>
 <div class="tabbed-set docutils">
-<input checked="checked" id="8ecc3d39-3377-4ab6-835d-dedacbecd7b9" name="3dc2f742-34b8-4e58-8a8a-bcbfb2fb10c8" type="radio">
-</input><label class="tabbed-label" for="8ecc3d39-3377-4ab6-835d-dedacbecd7b9">
+<input checked="checked" id="c3ba3499-efe4-425b-9824-cfdf3bfabdb3" name="68e1f920-6886-4a7c-83aa-7450fb54ead4" type="radio">
+</input><label class="tabbed-label" for="c3ba3499-efe4-425b-9824-cfdf3bfabdb3">
 Standalone</label><div class="tabbed-content docutils">
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.tune</span> <span class="kn">import</span> <span class="n">plot_tune_diagram</span>  <span class="c1"># for instance</span></span>
 <span class="prompt2"><span class="n">plot_tune_diagram</span><span class="p">(</span><span class="n">max_order</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">differentiate_orders</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># and enjoy the result!</span></span>
 </pre></div></div></div>
-<input id="a3bab0b4-9f78-4ca1-9375-ab9d3f6e263a" name="3dc2f742-34b8-4e58-8a8a-bcbfb2fb10c8" type="radio">
-</input><label class="tabbed-label" for="a3bab0b4-9f78-4ca1-9375-ab9d3f6e263a">
+<input id="15d4a59c-b929-4586-856b-acd7f0b1d09e" name="68e1f920-6886-4a7c-83aa-7450fb54ead4" type="radio">
+</input><label class="tabbed-label" for="15d4a59c-b929-4586-856b-acd7f0b1d09e">
 Interacting with MAD-X</label><div class="tabbed-content docutils">
 <p>Let’s say one has initiated their <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> simulation through <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span class="prompt2"><span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span></span>
