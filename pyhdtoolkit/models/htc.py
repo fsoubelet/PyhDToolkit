@@ -9,7 +9,7 @@ Module with ``pydantic`` models to validate and store data obtained by querying 
 from typing import Union
 
 from pendulum import DateTime
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class BaseSummary(BaseModel):
@@ -47,6 +47,8 @@ class HTCTaskSummary(BaseModel):
 
     Class to encompass and validate a specific job's line in the ``condor_q`` output.
     """
+    # This is so pydantic accepts pendulum.DateTime as a validated type
+    model_config = ConfigDict(arbitrary_types_allowed=True)
 
     owner: str
     batch_name: int
