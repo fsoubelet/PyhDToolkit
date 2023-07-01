@@ -1,0 +1,13 @@
+.. _release_1.3.1:
+
+1.3.2
+-----
+
+Release `1.3.2` is a small compatibility release.
+
+Maintenance
+~~~~~~~~~~~
+
+* The version requirement on `pydantic` has been constrained to `>=1.0,<2.0` to guarantee code bases compatibility.
+
+See `v1.3.2 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.3.2>`_ and the `full changes since v1.3.1 <https://github.com/fsoubelet/PyhDToolkit/compare/1.3.1...1.3.2>`_.
