@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        python-version: [3.9]
+        python-version: [3.11]
 
     steps:
       - uses: actions/checkout@v3
@@ -32,6 +32,9 @@ jobs:
       - name: Install optipng, dvipng and cm-super
         run: sudo apt-get install -y optipng dvipng cm-super
 
+      - name: Get acc-models-lhc
+        run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
@@ -42,17 +45,9 @@ jobs:
       - name: Install package with doc dependencies
         run: python -m pip install ".[docs]"
 
-      # Sometimes the minrpc client will close while documentation builds and I don't know why
-      # Forcing several successive builds here and hoping it works out (sphinx-gallery 
-      # checks for the existence of already built examples to avoid re-running them, so
-      # once the gallery is built successive builds will just re-generate the html, very quickly)
       - name: Build documentation
         continue-on-error: true
         run: make docs
-
-      # - name: Build documentation (2/n)
-      #   continue-on-error: true
-      #   run: make docs
 
       # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
       - name: Upload build artifacts
@@ -63,10 +58,9 @@ jobs:
           path: doc_build
           retention-days: 7
 
+      # Upload the doc to github pages branch and publish if from a push to master
       - name: Upload documentation to gh-pages
         if: success() && github.ref == 'refs/heads/master'  # only for pushes to master
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: doc_build
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Now default
-          # BRANCH: gh-pages  # now default
