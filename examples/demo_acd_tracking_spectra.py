@@ -19,7 +19,7 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
     element. It is recommended to read that tutorial first as this one will focus 
     on the specificities of the AC Dipole setup.
 
-.. note::
+.. important::
     This example requires the `acc-models-lhc` repository to be cloned locally. One
     can get it by running the following command:
 
