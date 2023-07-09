@@ -35,6 +35,9 @@ jobs:
       - name: Get acc-models-lhc
         run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
 
+      - name: Move acc-models-lhc to examples folder
+        run: mv acc-models-lhc examples/
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v4
         with:
