@@ -35,12 +35,12 @@ logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
-# Let's start by setting up the LHC in ``MAD-X``, in this case at injection energy.
-# To understand the function below have a look at the :ref:`lhc setup example 
-# <demo-lhc-setup>`.
+# Let's start by setting up the LHC in ``MAD-X``, in this case at injection 
+# optics and energy. To understand the function below have a look at the
+# :ref:`lhc setup example <demo-lhc-setup>`.
 
 madx: Madx = lhc.prepare_lhc_run3(
-    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx",
+    opticsfile="examples/acc-models-lhc/operation/optics/R2022a_A11mC11mA10mL10m.madx",
     energy=450,  # given in GeV
     stdout=False
 )
