@@ -111,7 +111,8 @@ with lhc.LHCSetup(run=3, opticsfile="R2022a_A11mC11mA10mL10m.madx", stdout=False
 ###############################################################################
 # Notice we don't need to call ``madx.exit()`` as the context manager takes care
 # of that. Now, the same with betastar = 30cm optics. We can also easily add the
-# element apertures on top of the plot:
+# element apertures on top of the plot (notice how we get this result with only
+# 28 lines of code!):
 
 with lhc.LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) as madx:
     # We'll need to call these to have aperture limitations
