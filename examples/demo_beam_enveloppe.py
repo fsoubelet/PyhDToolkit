@@ -68,7 +68,7 @@ ldip = {l_bend};
 ! Define bending magnet as multipole, we have 4 bending magnets per cell
 !mb:multipole, knl={{2.0*pi/(4*n_cells)}};
 
-mb: sbend, l=ldip, angle=2.0*pi/(4*n_cells), apertype=ellipse, aperture= {{{h_gap_dipole}, {v_gap_dipole}}};
+mb: sbend, l=ldip, angle=2.0*pi/(4*n_cells), apertype=ellipse, aperture={{{h_gap_dipole}, {v_gap_dipole}}};
 f = {f_m};
 
 ! Define quadrupoles as multipoles 
@@ -78,7 +78,7 @@ qf: quadrupole, l=lq, K1:=1/f/lq  + qtrim_f/lq, apertype=ellipse, aperture={{{r_
 qd: quadrupole, l=lq, K1:=-1/f/lq + qtrim_d/lq, apertype=ellipse, aperture={{{r_quadrupole}, {r_quadrupole}}};
 
 ! Define the sextupoles as multipole
-!ATTENTION: must use knl:= and NOT knl= to match later! 
+! ATTENTION: must use knl:= and NOT knl= to match later! 
 lsex = 0.00001; ! dummy length, only used in the sequence
 msf: multipole, knl:={{0,0,ksf}};
 msd: multipole, knl:={{0,0,ksd}};
