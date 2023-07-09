@@ -36,10 +36,16 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 # They return a `cpyamad.Madx` instance with the LHC sequence and optics loaded,
 # both beams defined.
 #
-# .. important::
-#     As this is a Run 3 setup, it is assumed that the ``acc-models-lhc`` repo
-#     is available in the root space, which is needed by the different files in
-#     ``acc-models-lhc``.
+# .. note::
+#     This example requires the `acc-models-lhc` repository to be cloned locally. One
+#     can get it by running the following command:
+
+#     .. code-block:: bash
+
+#         git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+
+#     Here I set the 2022 branch for stability and reproducibility of the documentation
+#     builds, but you can use any branch you want.
 
 # We need to give an opticsfile at the very least, other arguments are optional
 madx = lhc.prepare_lhc_run3(

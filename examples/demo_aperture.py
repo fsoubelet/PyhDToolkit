@@ -119,5 +119,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc.prepare_lhc_run3`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.prepare_lhc_run3`
 #    - `~.plotting.aperture`: `~.plotting.aperture.plot_aperture`, `~.plotting.aperture.plot_physical_apertures`
