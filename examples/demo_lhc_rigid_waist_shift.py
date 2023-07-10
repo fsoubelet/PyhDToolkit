@@ -9,26 +9,43 @@ LHC Rigid Waist Shift
 This example shows how to use the `~.lhc.apply_lhc_rigidity_waist_shift_knob` 
 function to force a waist shift at a given IP and break the symmetry of the 
 :math:`\\beta`-functions in the Interaction Region. This is done by 
-over-powering one triplet and under-powering the other, by the same powering
-delta.
+over-powering one triplet knob and under-powering the other, by the same
+powering delta.
 
 We will do a comparison of the interaction region situation before and after 
 applying a rigid waist shift, and look in more details at the waist shift 
 itself.
 
 .. note::
-    This is very specific to the LHC machine and the implementation would not 
-    work on other accelerators.
+    This is very specific to the LHC machine and the implementation in these
+    functions would not work on other accelerators.
+
+.. important::
+    This example requires the `acc-models-lhc` repository to be cloned locally. One
+    can get it by running the following command:
+
+    .. code-block:: bash
+
+        git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+
+    Here I set the 2022 branch for stability and reproducibility of the documentation
+    builds, but you can use any branch you want.
 """
 # sphinx_gallery_thumbnail_number = 3
+from collections import namedtuple
+from multiprocessing import cpu_count
+
 import matplotlib.pyplot as plt
 import numpy as np
+import tfs
 
 from cpymad.madx import Madx
+from joblib import Parallel, delayed
 
-from pyhdtoolkit.cpymadtools import lhc, matching
+from pyhdtoolkit.cpymadtools import lhc, matching, twiss
 from pyhdtoolkit.plotting.lattice import plot_latwiss
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
+from pyhdtoolkit.plotting.utils import draw_ip_locations, get_lhc_ips_positions
 from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="error")
@@ -37,29 +54,23 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 ###############################################################################
 # Showcasing the Waist Shift
 # --------------------------
-# Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
+# Let's start by setting up the LHC in ``MAD-X``, in this case at top energy.
+# To understand the function below have a look at the :ref:`lhc setup example
+# <demo-lhc-setup>`.
 
-madx = Madx(stdout=False)
-madx.call("lhc/lhc_as-built.seq")
-madx.call("lhc/opticsfile.22")  # collision optics
-
-###############################################################################
-# Let's re-cycle the sequences to avoid having IR1 split at beginning and end of lattice,
-# as is the default in the LHC sequence:
-
-lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
-lhc.make_lhc_beams(madx, energy=7000)
-madx.command.use(sequence="lhcb1")
+madx: Madx = lhc.prepare_lhc_run3(
+    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx",
+    stdout=False,
+)
 
 ###############################################################################
 # We will use the `~.plotting.lattice.plot_latwiss` function to have a zoomed-in look
 # at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
-# determine the position of points of interest through the ``TWISS`` table:
+# get the IP postitions with `~.plotting.utils.get_lhc_ips_positions`:
 
-madx.command.twiss()
-twiss_df = madx.table.twiss.dframe()
-twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
-ip1s = twiss_df.s["ip1"]
+nominal_df = twiss.get_twiss_tfs(madx)
+ips = get_lhc_ips_positions(nominal_df)
+ip1s = ips["IP1"]
 
 ###############################################################################
 # Let's now have a look at the IR in normal conditions.
@@ -68,11 +79,11 @@ plt.figure(figsize=(18, 11))
 plot_latwiss(
     madx,
     title="LHCB1 IR1 - No Rigid Waist Shift",
-    disp_ylim=(-1.5, 3),
+    disp_ylim=(-0.4, 1.9),
     xoffset=ip1s,
     xlimits=(-200, 200),
-    k0l_lim=(-2e-3, 2e-3),
-    k1l_lim=(-6.1e-2, 6.1e-2),
+    k0l_lim=2.25e-3,
+    k1l_lim=6.1e-2,
     lw=1.5,
 )
 plt.gcf().axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
@@ -81,7 +92,7 @@ for axis in plt.gcf().axes:
 plt.show()
 
 ###############################################################################
-# Notice the (anti)symmetry of the :math:`\beta_{x,y}` functions and triplet
+# Notice the (anti-)symmetry of the :math:`\beta_{x,y}` functions and triplet
 # quadrupoles powering on the right and left-hand side of the IP. Let's now apply
 # a rigid waist shift - meaning all four betatron waists moving simultaneously - by
 # changing the triplets powering. This is handled by the convenient function
@@ -99,25 +110,21 @@ plt.show()
 
 lhc.apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=1)
 matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
+waist_df = twiss.get_twiss_tfs(madx)
 
 ###############################################################################
 # Let's again retrieve the ``TWISS`` table, then plot the new conditions in the
 # Interaction Region.
 
-twiss_df_waist = madx.table.twiss.dframe()
-twiss_df_waist.name = twiss_df.name.apply(lambda x: x[:-2])
-ip1s = twiss_df_waist.s["ip1"]
-
-
 plt.figure(figsize=(18, 11))
 plot_latwiss(
     madx,
     title="LHCB1 IR1 - With Rigid Waist Shift",
-    disp_ylim=(-1.5, 3),
+    disp_ylim=(-0.4, 1.9),
     xoffset=ip1s,
     xlimits=(-200, 200),
-    k0l_lim=(-2e-3, 2e-3),
-    k1l_lim=(-6.1e-2, 6.1e-2),
+    k0l_lim=2.25e-3,
+    k1l_lim=6.1e-2,
     lw=1.5,
 )
 plt.gcf().axes[-2].set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
@@ -127,28 +134,35 @@ plt.show()
 
 ###############################################################################
 # Comparing to the previous plot, one can notice two things:
-#  - The triplet quadrupoles powering has changed and is not (anti-)symmetric anymore.
+#  - The triplet quadrupoles powering has changed.
 #  - The :math:`\beta_{x,y}` functions symmetry has been broken.
 #
 # One can compare the :math:`\beta_{x,y}` functions before and after the rigid
 # waist shift with a simple plot:
 
-plt.figure(figsize=(16, 10))
-plt.plot(twiss_df.s - ip1s, twiss_df.betx * 1e-3, "b-", label=r"$\beta_{x}^{n}$")
-plt.plot(twiss_df_waist.s - ip1s, twiss_df_waist.betx * 1e-3, "b--", label=r"$\beta_{x}^{w}$")
+fig, ax = plt.subplots(figsize=(16, 10))
+ax.plot(nominal_df.S - ip1s, 1e-3 * nominal_df.BETX, "b-", label=r"$\beta_x^n$")
+ax.plot(waist_df.S - ip1s, 1e-3 * waist_df.BETX, "b--", label=r"$\beta_x^w$")
 
-plt.plot(twiss_df.s - ip1s, twiss_df.bety * 1e-3, "r-", label=r"$\beta_{y}^{n}$")
-plt.plot(twiss_df_waist.s - ip1s, twiss_df_waist.bety * 1e-3, "r--", label=r"$\beta_{y}^{w}$")
+ax.plot(nominal_df.S - ip1s, 1e-3 * nominal_df.BETY, "r-", label=r"$\beta_y^n$")
+ax.plot(waist_df.S - ip1s, 1e-3 * waist_df.BETY, "r--", label=r"$\beta_y^w$")
 
-plt.xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
-plt.ylabel(r"$\beta_{x,y}\ \mathrm{[km]}$")
-plt.xlim(-200, 200)
-plt.ylim(-5e-1, 9)
-plt.legend()
+ax.set_xlabel(r"$\mathrm{Distance\ to\ IP1\ [m]}$")
+ax.set_ylabel(r"$\beta_{x,y}\ \mathrm{[km]}$")
+ax.set_xlim(-215, 215)
+ax.set_ylim(-0.7, 9.3)
+
+ax.xaxis.set_major_locator(plt.MaxNLocator(5))
+ax.yaxis.set_major_locator(plt.MaxNLocator(5))
+draw_ip_locations({"IP1": 0}, location="inside")
+ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1), ncols=4)
+
+plt.tight_layout()
 plt.show()
 
 ###############################################################################
-# Here the subscript **n** stands for nominal, and **w** for the waist shift.
+# Here the subscript **n** stands for the nominal scenario, and **w** for the
+# rigid waist shift scenario.
 #
 # .. tip::
 #   The differences observed will vary depending on the strength of the knob,
@@ -162,7 +176,7 @@ madx.exit()
 # Determining the Waist Shift
 # ---------------------------
 # Let's now determine the value of the waist, aka the amount by which we have
-# shifted the waist compared to the IP point location. To do so, we will use
+# shifted the waist compared to the IP point location. To this end, we will use
 # both an analytical approach and a more brute force one through simulations.
 #
 # Let's set up a rigid waist shift, with the addition of many *marker* elements
@@ -197,7 +211,7 @@ with Madx(stdout=False) as madx:
     matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
 
     madx.command.twiss()
-    twiss_df = madx.table.twiss.dframe()
+    nominal_df = madx.table.twiss.dframe()
 
 ###############################################################################
 # We will use all our added markers to determine the location of the waist,
@@ -205,20 +219,20 @@ with Madx(stdout=False) as madx:
 # functions.
 
 initial_twiss.name = initial_twiss.name.apply(lambda x: x[:-2])
-twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
-ip_s = twiss_df.s["ip1"]
+nominal_df.name = nominal_df.name.apply(lambda x: x[:-2])
+ip_s = nominal_df.s["ip1"]
 slimits = (ip_s - 10, ip_s + 10)
 
-around_ip = twiss_df[twiss_df.s.between(*slimits)]
+around_ip = nominal_df[nominal_df.s.between(*slimits)]
 initial_twiss = initial_twiss[initial_twiss.s.between(*slimits)]
 waist_location = around_ip.s[around_ip.betx == around_ip.betx.min()][0]
 
 ###############################################################################
 # We can also plot the :math:`\beta_{x,y}` functions before and after the
 # application of the rigid waist shift. Here one can clearly see the shift of
-# the waist between the two configurations
+# the waist between the two configurations.
 
-fig, axis = plt.subplots(figsize=(15, 10))
+fig, axis = plt.subplots(figsize=(16, 10))
 
 axis.plot(
     around_ip.s - ip_s,
@@ -226,7 +240,7 @@ axis.plot(
     ls="-",
     color="blue",
     marker=".",
-    label=r"$\beta_x^{\mathrm{waist}}$",
+    label=r"$\beta_x^w$",
 )
 axis.plot(
     around_ip.s - ip_s,
@@ -234,11 +248,11 @@ axis.plot(
     ls="-",
     color="orange",
     marker=".",
-    label=r"$\beta_y^{\mathrm{waist}}$",
+    label=r"$\beta_y^w$",
 )
 
-axis.axvline(0, color="purple", ls="--", lw=1.5, label=r"$\mathrm{IP1}$")
-axis.axvline(waist_location - ip_s, color="green", ls="--", lw=1.5, label=r"$\mathrm{Waist}$")
+axis.axvline(0, color="purple", ls="--", lw=1.5, label="IP1")
+axis.axvline(waist_location - ip_s, color="green", ls="--", lw=1.5, label="Waist")
 axis.axvspan(waist_location - ip_s, 0, color="red", alpha=0.1)
 
 axis.plot(
@@ -247,7 +261,7 @@ axis.plot(
     ls="-.",
     color="blue",
     alpha=0.5,
-    label=r"$\beta_x^{\mathrm{nominal}}$",
+    label=r"$\beta_x^n$",
 )
 axis.plot(
     initial_twiss.s - ip_s,
@@ -255,7 +269,7 @@ axis.plot(
     ls="-.",
     color="orange",
     alpha=0.5,
-    label=r"$\beta_y^{\mathrm{nominal}}$",
+    label=r"$\beta_y^n$",
 )
 
 plt.xlabel(r"$\mathrm{Distance \ to \ IP1 \ [m]}$")
@@ -277,20 +291,20 @@ print(shift)
 #
 # where :math:`\beta_0` is the :math:`\beta` function at the end of the
 # quadrupole (Q1, end closest to IP); :math:`\beta_w`` is the :math:`\beta`
-# function at the waist itself (found as min of :math:`\beta` function in the
-# region); :math:`L^{*}` is the distance from close end of quadrupole (Q1) to
-# the IP point itself; and :math:`w` is the waist displacement we are looking
+# function at the waist itself (found as the minimum of the :math:`\beta`-function
+# in the region); :math:`L^{*}` is the distance from close end of quadrupole (Q1)
+# to the IP point itself; and :math:`w` is the waist displacement we are looking
 # to figure out.
 #
 # Manipulating the equation to determine the waist yields:
 # :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-q1_right_s = twiss_df[twiss_df.name.str.contains("mqxa.1r1")].s[0]  # to calculate from the right Q1
-q1_left_s = twiss_df[twiss_df.name.str.contains("mqxa.1l1")].s[-1]  # to calculate from the left Q1
+q1_right_s = nominal_df[nominal_df.name.str.contains("mqxa.1r1")].s[0]  # to calculate from the right Q1
+q1_left_s = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].s[-1]  # to calculate from the left Q1
 
 L_star = ip_s - q1_left_s  # we calculate from left Q1
-# beta0 = twiss_df[twiss_df.name.str.contains(f"mqxa.1r1")].betx[0]  # to calculate from the right
-beta0 = twiss_df[twiss_df.name.str.contains("mqxa.1l1")].betx[-1]  # to calculate from the left
+# beta0 = nominal_df[nominal_df.name.str.contains(f"mqxa.1r1")].betx[0]  # to calculate from the right
+beta0 = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].betx[-1]  # to calculate from the left
 betaw = around_ip.betx.min()
 
 ###############################################################################
@@ -301,6 +315,104 @@ waist = L_star - np.sqrt(beta0 * betaw - betaw**2)
 print(f"Analytical: {waist}")
 print(f"Markers: {shift}")
 
+###############################################################################
+# Seeing the effect through values of the knob
+# --------------------------------------------
+# We can use the above to determine these values for different knob settings.
+# First, let's define some structures and functions.
+
+Waist = namedtuple("Waist", ["x", "y"])
+BetasIP = namedtuple("Betas", ["x", "y"])
+Result = namedtuple("Result", ["waists", "betas"])
+
+
+def find_waists(current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame) -> Waist:
+    initial = initial_twiss.copy()
+    ip_s = current_twiss.S[f"IP1"]
+    slimits = (ip_s - 10, ip_s + 10)
+
+    around_ip = current_twiss[current_twiss.S.between(*slimits)]
+    initial = initial[initial.S.between(*slimits)].copy()
+    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()][0]
+    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()][0]
+    initial = initial_twiss.copy()
+    ip_s = current_twiss.S[f"IP1"]
+    slimits = (ip_s - 10, ip_s + 10)
+
+    around_ip = current_twiss[current_twiss.S.between(*slimits)]
+    initial = initial[initial.S.between(*slimits)].copy()
+    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()][0]
+    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()][0]
+    return Waist(ip_s - hor_waist_location, ip_s - ver_waist_location)
+
+
+def find_betashifts(
+    current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame
+) -> BetasIP:
+    delta_betx = current_twiss.BETX["IP1"] - initial_twiss.BETX["IP1"]
+    delta_bety = current_twiss.BETY["IP1"] - initial_twiss.BETY["IP1"]
+    return BetasIP(delta_betx, delta_bety)
+
+
+def simulation(knob_value: float) -> Result:
+    with lhc.LHCSetup(
+        run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False
+    ) as madx:
+        lhc.add_markers_around_lhc_ip(
+            madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
+        )
+        ref_twiss = twiss.get_twiss_tfs(madx)
+        lhc.apply_lhc_rigidity_waist_shift_knob(madx, knob_value, ir=1)
+        new_twiss = twiss.get_twiss_tfs(madx)
+        reswaists = find_waists(new_twiss, ref_twiss)
+        resbetas = find_betashifts(new_twiss, ref_twiss)
+        return Result(reswaists, resbetas)
+
+
+#############################################################################
+# Let's now run the simulation for different knob values:
+
+parameter_space = np.linspace(-1, 1, 50)
+results: list[Result] = Parallel(n_jobs=cpu_count(), backend="threading", verbose=0)(
+    delayed(simulation)(knob_value=knobval) for knobval in parameter_space
+)
+
+waist_x = np.array([res.waists.x for res in results])
+waist_y = np.array([res.waists.y for res in results])
+
+deltabetx = np.array([res.betas.x for res in results])
+deltabety = np.array([res.betas.y for res in results])
+
+#############################################################################
+# We can now plot the results:
+
+fig, axis = plt.subplots(figsize=(16, 10))
+
+axis.plot(parameter_space, 1e2 * waist_x, "C0", marker="s", markersize=4)
+axis.tick_params(axis="y", colors="C0")
+axis.yaxis.label.set_color("C0")
+axis.xaxis.set_major_locator(plt.MaxNLocator(5))
+
+axis2 = axis.twinx()
+axis2.yaxis.set_label_position("right")
+axis2.yaxis.label.set_color("C1")
+axis2.yaxis.tick_right()
+axis2.tick_params(axis="y", colors="C1")
+axis2.plot(parameter_space, 1e2 * deltabetx, "C1", marker="o", ls="-", markersize=4, label="Horizontal")
+axis2.plot(parameter_space, 1e2 * deltabety, "C2", marker="o", ls="--", markersize=4, label="Vertical")
+axis2.legend(loc="lower center", bbox_to_anchor=(0.5, 1), ncols=2)
+
+axis.set_xlabel("Knob Setting")
+axis.set_ylabel(r"$\mathrm{Waist_{X,Y}}$ Shift [cm]")
+axis2.set_ylabel(r"$\Delta \beta^{\ast}$ [cm]")
+
+plt.show()
+
+#############################################################################
+# Let's not forget to close the rpc connection to ``MAD-X``:
+
+madx.exit()
+
 #############################################################################
 #
 # .. admonition:: References
@@ -308,6 +420,8 @@ print(f"Markers: {shift}")
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._powering.apply_lhc_rigidity_waist_shift_knob`, `~.lhc._elements.add_markers_around_lhc_ip`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.prepare_lhc_run3`, `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._powering.apply_lhc_rigidity_waist_shift_knob`, `~.lhc._setup.make_lhc_thin`, `~.lhc._elements.add_markers_around_lhc_ip`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes`, `~.matching.match_chromaticities`, `~.matching.match_tunes_and_chromaticities`
+#    - `~.cpymadtools.twiss`: `~.twiss.get_twiss_tfs`
 #    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`
+#    - `~.plotting.utils`: `~.plotting.utils.draw_ip_locations`, `~.plotting.utils.get_lhc_ips_positions`
