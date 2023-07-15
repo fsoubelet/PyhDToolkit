@@ -67,9 +67,9 @@ def track_single_particle(
     Example:
         .. code-block:: python
 
-            >>> tracks_dict = track_single_particle(
-            ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
-            ... )
+            tracks_dict = track_single_particle(
+                madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
+            )
     """
     logger.debug("Performing single particle MAD-X (thin) tracking")
     onetable = kwargs.get("onetable", False) if "onetable" in kwargs else kwargs.get("ONETABLE", False)

@@ -36,7 +36,7 @@ def make_sixtrack_output(madx: Madx, /, energy: int) -> None:
     Example:
         .. code-block:: python
 
-            >>> make_sixtrack_output(madx, energy=6800)
+            make_sixtrack_output(madx, energy=6800)
     """
     logger.debug("Preparing outputs for SixTrack")
 
@@ -62,7 +62,7 @@ def reset_lhc_bump_flags(madx: Madx, /) -> None:
     Example:
         .. code-block:: python
 
-            >>> reset_lhc_bump_flags(madx)
+            reset_lhc_bump_flags(madx)
     """
     logger.debug("Resetting all LHC IP bump flags")
     ALL_BUMPS = (
@@ -101,18 +101,18 @@ def get_lhc_tune_and_chroma_knobs(
     Examples:
         .. code-block:: python
 
-            >>> get_lhc_tune_and_chroma_knobs("LHC", beam=1, telescopic_squeeze=False)
-            ('dQx.b1', 'dQy.b1', 'dQpx.b1', 'dQpy.b1')
+            get_lhc_tune_and_chroma_knobs("LHC", beam=1, telescopic_squeeze=False)
+            # gives ('dQx.b1', 'dQy.b1', 'dQpx.b1', 'dQpy.b1')
 
         .. code-block:: python
 
-            >>> get_lhc_tune_and_chroma_knobs("LHC", beam=2, run3=True)
-            ('dQx.b2_op', 'dQx.b2_op', 'dQpx.b2_op', 'dQpx.b2_op')
+            get_lhc_tune_and_chroma_knobs("LHC", beam=2, run3=True)
+            # gives ('dQx.b2_op', 'dQx.b2_op', 'dQpx.b2_op', 'dQpx.b2_op')
 
         .. code-block:: python
 
-            >>> get_lhc_tune_and_chroma_knobs("HLLHC", beam=2)
-            ('kqtf.b2_sq', 'kqtd.b2_sq', 'ksf.b2_sq', 'ksd.b2_sq')
+            get_lhc_tune_and_chroma_knobs("HLLHC", beam=2)
+            # gives ('kqtf.b2_sq', 'kqtd.b2_sq', 'ksf.b2_sq', 'ksd.b2_sq')
     """
     beam = 2 if beam == 4 else beam
     if run3:
@@ -162,7 +162,7 @@ def get_lhc_bpms_list(madx: Madx, /) -> List[str]:
     Example:
         .. code-block:: python
 
-            >>> observation_bpms = get_lhc_bpms_list(madx)
+            observation_bpms = get_lhc_bpms_list(madx)
     """
     twiss_df = twiss.get_twiss_tfs(madx).reset_index()
     bpms_df = twiss_df[twiss_df.NAME.str.contains("^bpm.*B[12]$", case=False, regex=True)]
@@ -193,7 +193,7 @@ def get_sizes_at_ip(
     Example:
         .. code-block:: python
 
-            >>> ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
+            ip5_x, ip5_y = get_size_at_ip(madx, ip=5)
     """
     logger.debug(f"Getting horizontal and vertical sizes at IP{ip:d} through Ripken parameters")
     geom_emit_x = geom_emit_x or madx.globals["geometric_emit_x"]

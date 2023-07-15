@@ -51,13 +51,13 @@ def misalign_lhc_triplets(
 
         .. code-block:: python
 
-            >>> misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-5 * TGAUSS(2.5)")
+            misalign_lhc_triplets(madx, ip=1, sides="RL", dx="1E-5 * TGAUSS(2.5)")
 
         A random, gaussian truncated ``DPSI`` misalignment:
 
         .. code-block:: python
 
-            >>> misalign_lhc_triplets(madx, ip=5, sides="RL", dpsi="0.001 * TGAUSS(2.5)")
+            misalign_lhc_triplets(madx, ip=5, sides="RL", dpsi="0.001 * TGAUSS(2.5)")
     """
     misalign_lhc_ir_quadrupoles(madx, ips=[ip], beam=None, quadrupoles=(1, 2, 3), sides=sides, table=table, **kwargs)
 
@@ -111,35 +111,35 @@ def misalign_lhc_ir_quadrupoles(
 
         .. code-block:: python
 
-            >>> misalign_lhc_ir_quadrupoles(
-            ...     madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
-            ... )
+            misalign_lhc_ir_quadrupoles(
+                madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides="RL", dx="1E-5"
+            )
 
         For a tilt distribution centered on 1mrad:
 
         .. code-block:: python
 
-            >>> misalign_lhc_ir_quadrupoles(
-            ...     madx, ips=[5],
-            ...     quadrupoles=[7, 8, 9, 10],
-            ...     beam=1,
-            ...     sides="RL",
-            ...     dpsi="1E-3 + 8E-4 * TGAUSS(2.5)",
-            ... )
+            misalign_lhc_ir_quadrupoles(
+                madx, ips=[5],
+                quadrupoles=[7, 8, 9, 10],
+                beam=1,
+                sides="RL",
+                dpsi="1E-3 + 8E-4 * TGAUSS(2.5)",
+            )
 
         For several error types on the elements, here ``DY`` and ``DPSI``:
 
         .. code-block:: python
 
-            >>> misalign_lhc_ir_quadrupoles(
-            ...     madx,
-            ...     ips=[1, 5],
-            ...     quadrupoles=list(range(1, 11)),
-            ...     beam=1,
-            ...     sides="RL",
-            ...     dy=1e-5,  # ok too as cpymad converts this to a string first
-            ...     dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
-            ... )
+            misalign_lhc_ir_quadrupoles(
+                madx,
+                ips=[1, 5],
+                quadrupoles=list(range(1, 11)),
+                beam=1,
+                sides="RL",
+                dy=1e-5,  # ok too as cpymad converts this to a string first
+                dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+            )
     """
     if any(ip not in (1, 2, 5, 8) for ip in ips):
         logger.error("The IP number provided is invalid, not applying any error.")

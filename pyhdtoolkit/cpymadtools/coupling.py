@@ -76,15 +76,15 @@ def get_closest_tune_approach(
     Example:
         .. code-block:: python
 
-            >>> # Say we have set the LHC coupling knobs to 1e-3
-            >>> dqmin = get_closest_tune_approach(
-            ...     madx,
-            ...     "lhc",                    # will find the knobs automatically
-            ...     sequence="lhcb1",
-            ...     telescopic_squeeze=True,  # influences the knobs definition
-            ...     run3=True,                # influences the knobs definition (LHC Run 3)
-            ... )
-            0.001
+            # Say we have set the LHC coupling knobs to 1e-3
+            dqmin = get_closest_tune_approach(
+                madx,
+                "lhc",                    # will find the knobs automatically
+                sequence="lhcb1",
+                telescopic_squeeze=True,  # influences the knobs definition
+                run3=True,                # influences the knobs definition (LHC Run 3)
+            )
+            # returns 0.001
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
@@ -192,14 +192,14 @@ def get_cminus_from_coupling_rdts(
 
         .. code-block:: python
 
-            >>> complex_cminus = get_cminus_from_coupling_rdts(madx)
+            complex_cminus = get_cminus_from_coupling_rdts(madx)
 
 
         To simulate the calculation from a measurement, with RDTs computed at BPMs only:
 
         .. code-block:: python
 
-            >>> complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=["^BPM.*B[12]$"])
+            complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=["^BPM.*B[12]$"])
     """
     logger.debug("Getting coupling RDTs at selected elements thoughout the machine")
     twiss_with_rdts = get_pattern_twiss(madx, patterns=patterns, columns=MONITOR_TWISS_COLUMNS)
@@ -250,9 +250,9 @@ def match_no_coupling_through_ripkens(
     Example:
         .. code-block:: python
 
-            >>> match_no_coupling_through_ripkens(
-            ...     madx, sequence="lhcb1", location="IP5", vary_knobs=["kqsx.3l5", "kqsx.3r5"]
-            ... )
+            match_no_coupling_through_ripkens(
+                madx, sequence="lhcb1", location="IP5", vary_knobs=["kqsx.3l5", "kqsx.3r5"]
+            )
     """
     logger.debug(f"Matching Ripken parameters for no coupling at location {location}")
     logger.debug("Creating macro to update Ripkens")
@@ -287,7 +287,7 @@ def get_coupling_rdts(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
     Example:
         .. code-block:: python
 
-            >>> twiss_rdts = get_coupling_rdts(madx)
+            twiss_rdts = get_coupling_rdts(madx)
     """
     twiss_tfs = get_twiss_tfs(madx, **kwargs)
     twiss_tfs[["F1001", "F1010"]] = coupling_via_cmatrix(twiss_tfs, output=["rdts"])
@@ -310,8 +310,8 @@ def _fractional_tune(tune: float) -> float:
     Example:
         .. code-block:: python
 
-            >>> _fractional_tune(62.31)
-            0.31
+            _fractional_tune(62.31)
+            ## returns 0.31
     """
     return tune - int(tune)  # ok since int truncates to lower integer
 

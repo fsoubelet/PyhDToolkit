@@ -99,16 +99,16 @@ def match_tunes_and_chromaticities(
 
         .. code-block:: python
 
-            >>> matching.match_tunes_and_chromaticities(
-            ...     madx,
-            ...     None,              # this is not LHC or HLLHC
-            ...     sequence="CAS3",
-            ...     q1_target=6.335,
-            ...     q2_target=6.29,
-            ...     dq1_target=100,
-            ...     dq2_target=100,
-            ...     varied_knobs=["kqf", "kqd", "ksf", "ksd"],
-            ... )
+            matching.match_tunes_and_chromaticities(
+                madx,
+                None,              # this is not LHC or HLLHC
+                sequence="CAS3",
+                q1_target=6.335,
+                q2_target=6.29,
+                dq1_target=100,
+                dq2_target=100,
+                varied_knobs=["kqf", "kqd", "ksf", "ksd"],
+            )
 
         Note that since the ``accelerator`` and ``sequence`` arguments default to `None`,
         they can be omitted. In this case the sequence currently in use will be used for
@@ -116,29 +116,29 @@ def match_tunes_and_chromaticities(
 
         .. code-block:: python
 
-            >>> matching.match_tunes_and_chromaticities(
-            ...     madx,
-            ...     q1_target=6.335,
-            ...     q2_target=6.29,
-            ...     dq1_target=100,
-            ...     dq2_target=100,
-            ...     varied_knobs=["kqf", "kqd", "ksf", "ksd"],
-            ... )
+            matching.match_tunes_and_chromaticities(
+                madx,
+                q1_target=6.335,
+                q2_target=6.29,
+                dq1_target=100,
+                dq2_target=100,
+                varied_knobs=["kqf", "kqd", "ksf", "ksd"],
+            )
 
         Matching the ``lhcb1`` sequence of the ``LHC`` lattice:
 
         .. code-block:: python
 
-            >>> matching.match_tunes_and_chromaticities(
-            ...     madx,
-            ...     "lhc",                    # will find the knobs automatically
-            ...     sequence="lhcb1",
-            ...     q1_target=62.31,
-            ...     q2_target=60.32,
-            ...     dq1_target=2.0,
-            ...     dq2_target=2.0,
-            ...     run3=True,  # influences the knobs definition
-            ... )
+            matching.match_tunes_and_chromaticities(
+                madx,
+                "lhc",                    # will find the knobs automatically
+                sequence="lhcb1",
+                q1_target=62.31,
+                q2_target=60.32,
+                dq1_target=2.0,
+                dq2_target=2.0,
+                run3=True,  # influences the knobs definition
+            )
     """
     if accelerator and not varied_knobs:
         logger.trace(f"Getting knobs from default {accelerator.upper()} values")
@@ -240,14 +240,14 @@ def match_tunes(
 
         .. code-block:: python
 
-            >>> matching.match_tunes(
-            ...     madx,
-            ...     None,              # this is not LHC or HLLHC
-            ...     sequence="CAS3",
-            ...     q1_target=6.335,
-            ...     q2_target=6.29,
-            ...     varied_knobs=["kqf", "kqd"],  # only tune knobs
-            ... )
+            matching.match_tunes(
+                madx,
+                None,              # this is not LHC or HLLHC
+                sequence="CAS3",
+                q1_target=6.335,
+                q2_target=6.29,
+                varied_knobs=["kqf", "kqd"],  # only tune knobs
+            )
 
         Note that since the ``accelerator`` and ``sequence`` arguments default to `None`,
         they can be omitted. In this case the sequence currently in use will be used for
@@ -255,24 +255,24 @@ def match_tunes(
 
         .. code-block:: python
 
-            >>> matching.match_tunes_and_chromaticities(
-            ...     madx,
-            ...     q1_target=6.335,
-            ...     q2_target=6.29,
-            ...     varied_knobs=["kqf", "kqd"],  # only tune knobs
-            ... )
+            matching.match_tunes_and_chromaticities(
+                madx,
+                q1_target=6.335,
+                q2_target=6.29,
+                varied_knobs=["kqf", "kqd"],  # only tune knobs
+            )
 
         Matching the LHC lattice:
 
         .. code-block:: python
 
-            >>> matching.match_tunes(
-            ...     madx,
-            ...     "lhc",                    # will find the knobs automatically
-            ...     sequence="lhcb1",
-            ...     q1_target=62.31,
-            ...     q2_target=60.32,
-            ... )
+            matching.match_tunes(
+                madx,
+                "lhc",                    # will find the knobs automatically
+                sequence="lhcb1",
+                q1_target=62.31,
+                q2_target=60.32,
+            )
     """
     match_tunes_and_chromaticities(
         madx,
@@ -342,14 +342,14 @@ def match_chromaticities(
 
         .. code-block:: python
 
-            >>> matching.match_chromaticities(
-            ...     madx,
-            ...     None,              # this is not LHC or HLLHC
-            ...     sequence="CAS3",
-            ...     dq1_target=100,
-            ...     dq2_target=100,
-            ...     varied_knobs=["ksf", "ksd"],  # only chroma knobs
-            ... )
+            matching.match_chromaticities(
+                madx,
+                None,              # this is not LHC or HLLHC
+                sequence="CAS3",
+                dq1_target=100,
+                dq2_target=100,
+                varied_knobs=["ksf", "ksd"],  # only chroma knobs
+            )
 
         Note that since the ``accelerator`` and ``sequence`` arguments default to `None`,
         they can be omitted. In this case the sequence currently in use will be used for
@@ -357,24 +357,24 @@ def match_chromaticities(
 
         .. code-block:: python
 
-            >>> matching.match_tunes_and_chromaticities(
-            ...     madx,
-            ...     dq1_target=100,
-            ...     dq2_target=100,
-            ...     varied_knobs=["ksf", "ksd"],  # only chroma knobs
-            ... )
+            matching.match_tunes_and_chromaticities(
+                madx,
+                dq1_target=100,
+                dq2_target=100,
+                varied_knobs=["ksf", "ksd"],  # only chroma knobs
+            )
 
         Matching the LHC lattice:
 
         .. code-block:: python
 
-            >>> matching.match_chromaticities(
-            ...     madx,
-            ...     "lhc",                    # will find the knobs automatically
-            ...     sequence="lhcb1",
-            ...     dq1_target=2.0,
-            ...     dq2_target=2.0,
-            ... )
+            matching.match_chromaticities(
+                madx,
+                "lhc",                    # will find the knobs automatically
+                sequence="lhcb1",
+                dq1_target=2.0,
+                dq2_target=2.0,
+            )
     """
     match_tunes_and_chromaticities(
         madx,

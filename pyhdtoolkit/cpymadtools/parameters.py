@@ -34,7 +34,7 @@ def query_beam_attributes(madx: Madx, /) -> MADXBeam:
     Example:
         .. code-block:: python
 
-            >>> beam_parameters = query_beam_attributes(madx)
+            beam_parameters = query_beam_attributes(madx)
     """
     logger.debug("Retrieving BEAM attributes from the MAD-X process")
     return MADXBeam(**dict(madx.beam))

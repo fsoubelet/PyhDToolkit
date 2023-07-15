@@ -50,8 +50,8 @@ def export_madx_table(
     Example:
         .. code-block:: python
 
-            >>> madx.command.twiss()
-            >>> export_madx_table(madx, table_name="TWISS", file_name="twiss.tfs")
+            madx.command.twiss()
+            export_madx_table(madx, table_name="TWISS", file_name="twiss.tfs")
     """
     file_path = Path(file_name)
     logger.debug(f"Exporting table {table_name} into '{file_path.absolute()}'")
@@ -88,7 +88,7 @@ def get_table_tfs(madx: Madx, /, table_name: str, headers_table: str = "SUMM") -
     Examples:
         .. code-block:: python
 
-            >>> twiss_tfs = get_table_tfs(madx, table_name="TWISS")
+            twiss_tfs = get_table_tfs(madx, table_name="TWISS")
     """
     logger.debug(f"Extracting table {table_name} into a TfsDataFrame")
     # Converting to dict and then DataFrame because the madx.table.name.dframe()
