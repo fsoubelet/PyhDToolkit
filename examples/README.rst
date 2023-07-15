@@ -26,7 +26,7 @@ submodules, or plots made from results of convenient functions available in `~py
 
         Update the ``rcParams`` at runtime with:
 
-            .. prompt:: python >>>
+            .. prompt:: python
 
                 from matplotlib import pyplot as plt
                 from pyhdtoolkit.plotting.styles.thesis import MEDIUM
@@ -36,7 +36,7 @@ submodules, or plots made from results of convenient functions available in `~py
 
         Or, for a temporary update of the ``rcParams``:
 
-            .. prompt:: python >>>
+            .. prompt:: python
 
                 from matplotlib import pyplot as plt
                 from pyhdtoolkit.plotting.styles.thesis import MEDIUM
@@ -48,7 +48,7 @@ submodules, or plots made from results of convenient functions available in `~py
 
         Do a one-time install of the styles as **.mplstyle** files to use in `~matplotlib`:
 
-            .. prompt:: python >>>
+            .. prompt:: python
 
                 from matplotlib import pyplot as plt
                 from pyhdtoolkit.plotting.styles import install_mpl_styles
