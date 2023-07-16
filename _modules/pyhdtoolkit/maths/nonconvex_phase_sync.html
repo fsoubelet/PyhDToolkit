@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -457,17 +458,17 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; real_noised_measurements = np.ndarray(...)</span>
-<span class="sd">            &gt;&gt;&gt; C_herm = np.exp(1j * np.deg2rad(RealNoisedMeas))</span>
-<span class="sd">            &gt;&gt;&gt; pr = PhaseReconstructor(C_herm)</span>
-<span class="sd">            &gt;&gt;&gt; complex_eigenvector_method_result = pr.get_eigenvector_estimator(</span>
-<span class="sd">            ...     pr.leading_eigenvector</span>
-<span class="sd">            ... )</span>
-<span class="sd">            &gt;&gt;&gt; reconstructed = np.abs(</span>
-<span class="sd">            ...     pr.convert_complex_result_to_phase_values(</span>
-<span class="sd">            ...         complex_eigenvector_method_result, deg=True</span>
-<span class="sd">            ...     )</span>
-<span class="sd">            ... ).reshape(n_observation_points)</span>
+<span class="sd">            real_noised_measurements = np.ndarray(...)</span>
+<span class="sd">            C_herm = np.exp(1j * np.deg2rad(RealNoisedMeas))</span>
+<span class="sd">            pr = PhaseReconstructor(C_herm)</span>
+<span class="sd">            complex_eigenvector_method_result = pr.get_eigenvector_estimator(</span>
+<span class="sd">                pr.leading_eigenvector</span>
+<span class="sd">            )</span>
+<span class="sd">            reconstructed = np.abs(</span>
+<span class="sd">                pr.convert_complex_result_to_phase_values(</span>
+<span class="sd">                    complex_eigenvector_method_result, deg=True</span>
+<span class="sd">                )</span>
+<span class="sd">            ).reshape(n_observation_points)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">{</span>

@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -429,9 +430,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; import scipy.stats as st</span>
-<span class="sd">            &gt;&gt;&gt; tested_dists = {st.chi: &quot;Chi&quot;, st.expon: &quot;Exponential&quot;, st.laplace: &quot;Laplace&quot;}</span>
-<span class="sd">            &gt;&gt;&gt; set_distributions_dict(tested_dists)</span>
+<span class="sd">            import scipy.stats as st</span>
+<span class="sd">            tested_dists = {st.chi: &quot;Chi&quot;, st.expon: &quot;Exponential&quot;, st.laplace: &quot;Laplace&quot;}</span>
+<span class="sd">            set_distributions_dict(tested_dists)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=global-statement</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting tested distributions&quot;</span><span class="p">)</span>
@@ -463,7 +464,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)</span>
+<span class="sd">            best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-locals</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting histogram of original data, in </span><span class="si">{</span><span class="n">bins</span><span class="si">}</span><span class="s2"> bins&quot;</span><span class="p">)</span>
@@ -527,8 +528,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)</span>
-<span class="sd">            &gt;&gt;&gt; pdf = fitting.make_pdf(best_fit_func, best_fit_params)</span>
+<span class="sd">            best_fit_func, best_fit_params = best_fit_distribution(data, 200, axis)</span>
+<span class="sd">            pdf = fitting.make_pdf(best_fit_func, best_fit_params)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Separate parts of parameters</span>
     <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">params</span>

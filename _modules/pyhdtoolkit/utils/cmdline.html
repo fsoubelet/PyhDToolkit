@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -423,7 +424,7 @@
 <span class="sd">        Example:</span>
 <span class="sd">            .. code-block:: python</span>
 
-<span class="sd">                &gt;&gt;&gt; CommandLine.check_pid_exists(os.getpid())</span>
+<span class="sd">                CommandLine.check_pid_exists(os.getpid())</span>
 <span class="sd">                True</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">pid</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
@@ -485,16 +486,16 @@
 <span class="sd">        Examples:</span>
 <span class="sd">            .. code-block:: python</span>
 
-<span class="sd">                &gt;&gt;&gt; CommandLine.run(&quot;echo hello&quot;)</span>
-<span class="sd">                (0, b&quot;hello\\r\\n&quot;)</span>
+<span class="sd">                CommandLine.run(&quot;echo hello&quot;)</span>
+<span class="sd">                # returns (0, b&quot;hello\\r\\n&quot;)</span>
 
 <span class="sd">            .. code-block:: python</span>
 
-<span class="sd">                &gt;&gt;&gt; import os</span>
-<span class="sd">                &gt;&gt;&gt; modified_env = os.environ.copy()</span>
-<span class="sd">                &gt;&gt;&gt; modified_env[&quot;ENV_VAR&quot;] = &quot;new_value&quot;</span>
-<span class="sd">                &gt;&gt;&gt; CommandLine.run(&quot;echo $ENV_VAR&quot;, env=modified_env)</span>
-<span class="sd">                (0, b&quot;new_value&quot;)</span>
+<span class="sd">                import os</span>
+<span class="sd">                modified_env = os.environ.copy()</span>
+<span class="sd">                modified_env[&quot;ENV_VAR&quot;] = &quot;new_value&quot;</span>
+<span class="sd">                CommandLine.run(&quot;echo $ENV_VAR&quot;, env=modified_env)</span>
+<span class="sd">                # returns (0, b&quot;new_value&quot;)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="n">timeit</span><span class="p">(</span><span class="k">lambda</span> <span class="n">spanned</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ran command &#39;</span><span class="si">{</span><span class="n">command</span><span class="si">}</span><span class="s2">&#39; in a subprocess, in: </span><span class="si">{</span><span class="n">spanned</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)):</span>
             <span class="n">process</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="n">shell</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span> <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">STDOUT</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
@@ -522,8 +523,8 @@
 <span class="sd">        Example:</span>
 <span class="sd">            .. code-block:: python</span>
 
-<span class="sd">                &gt;&gt;&gt; CommandLine.terminate(500_000)  # max PID is 32768 (99999) on linux (macOS).</span>
-<span class="sd">                False</span>
+<span class="sd">                CommandLine.terminate(500_000)  # max PID is 32768 (99999) on linux (macOS).</span>
+<span class="sd">                # returns False</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">pid</span><span class="p">):</span>
             <span class="n">os</span><span class="o">.</span><span class="n">kill</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="n">signal</span><span class="o">.</span><span class="n">SIGTERM</span><span class="p">)</span>

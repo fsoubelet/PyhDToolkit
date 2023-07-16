@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -418,10 +419,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; alfx = madx.table.twiss.alfx[0]</span>
-<span class="sd">            &gt;&gt;&gt; betx = madx.table.twiss.betx[0]</span>
-<span class="sd">            &gt;&gt;&gt; u = np.array([x_coords, px_coord])</span>
-<span class="sd">            &gt;&gt;&gt; u_bar = courant_snyder_transform(u, alfx, betx)</span>
+<span class="sd">            alfx = madx.table.twiss.alfx[0]</span>
+<span class="sd">            betx = madx.table.twiss.betx[0]</span>
+<span class="sd">            u = np.array([x_coords, px_coord])</span>
+<span class="sd">            u_bar = courant_snyder_transform(u, alfx, betx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">p_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">alpha</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">beta</span><span class="p">)]])</span>
     <span class="k">return</span> <span class="n">p_matrix</span> <span class="o">@</span> <span class="n">u_vector</span></div>

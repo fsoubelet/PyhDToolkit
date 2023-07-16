@@ -18,6 +18,17 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
     with the difference that there is special care to take to install the AC Dipole 
     element. It is recommended to read that tutorial first as this one will focus 
     on the specificities of the AC Dipole setup.
+
+.. important::
+    This example requires the `acc-models-lhc` repository to be cloned locally. One
+    can get it by running the following command:
+
+    .. code-block:: bash
+
+        git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+
+    Here I set the 2022 branch for stability and reproducibility of the documentation
+    builds, but you can use any branch you want.
 """
 import matplotlib.pyplot as plt
 import numpy as np
@@ -33,19 +44,20 @@ logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
-# Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
+# Let's start by setting up the LHC in ``MAD-X``, in this case at top energy.
+# To understand the function below have a look at the :ref:`lhc setup example 
+# <demo-lhc-setup>`.
 
-madx = Madx(stdout=False)
-madx.call("lhc/lhc_as-built.seq")
-madx.call("lhc/opticsfile.22")  # collision optics
-
-lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
-lhc.make_lhc_beams(madx)
-madx.command.use(sequence="lhcb1")
+madx: Madx = lhc.prepare_lhc_run3(
+    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx",
+    stdout=False
+)
 matching.match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
 
 ###############################################################################
 # Slicing is necessary in ``MAD-X`` in order to perform tracking, so let's do so.
+# We could have asked for the slicing directly in the `~.lhc.prepare_lhc_run3`
+# function call too!
 
 lhc.make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
 madx.use(sequence="lhcb1")
@@ -128,8 +140,8 @@ spectrum = spectrum[spectrum.tunes.between(0, 0.5)]  # do not care about other h
 #
 #     .. code-block:: python
 #
-#      >>> qxd = spectrum.tunes[spectrum.horizontal == spectrum.horizontal.max()].to_numpy()[0]
-#      >>> qyd = spectrum.tunes[spectrum.vertical == spectrum.vertical.max()].to_numpy()[0]
+#      qxd = spectrum.tunes[spectrum.horizontal == spectrum.horizontal.max()].to_numpy()[0]
+#      qyd = spectrum.tunes[spectrum.vertical == spectrum.vertical.max()].to_numpy()[0]
 #
 # One can now plot the spectra, and here we will add two stem lines at the position of the
 # determined driven tunes to highlight them.
@@ -164,6 +176,6 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._setup.make_lhc_thin`, `~.lhc._elements.install_ac_dipole_as_kicker`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.prepare_lhc_run3`, `~.lhc._elements.install_ac_dipole_as_kicker`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.cpymadtools.track`: `~.track.track_single_particle`

@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -417,7 +418,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)</span>
+<span class="sd">            apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying Colinearity knob with a unit setting of </span><span class="si">{</span><span class="n">colinearity_knob_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this colinearity knob is applied&quot;</span><span class="p">)</span>
@@ -450,7 +451,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)</span>
+<span class="sd">            apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying Colinearity knob delta of </span><span class="si">{</span><span class="n">colinearity_knob_delta</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this delta is applied&quot;</span><span class="p">)</span>
@@ -502,10 +503,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; # It is recommended to re-match tunes after this routine</span>
-<span class="sd">            &gt;&gt;&gt; matching.match_tunes(madx, &quot;lhc&quot;, &quot;lhcb1&quot;, 62.27, 60.36)</span>
-<span class="sd">            &gt;&gt;&gt; apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)</span>
-<span class="sd">            &gt;&gt;&gt; matching.match_tunes(madx, &quot;lhc&quot;, &quot;lhcb1&quot;, 62.31, 60.32)</span>
+<span class="sd">            # It is recommended to re-match tunes after this routine</span>
+<span class="sd">            matching.match_tunes(madx, &quot;lhc&quot;, &quot;lhcb1&quot;, 62.27, 60.36)</span>
+<span class="sd">            apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)</span>
+<span class="sd">            matching.match_tunes(madx, &quot;lhc&quot;, &quot;lhcb1&quot;, 62.31, 60.32)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Applying Rigidity Waist Shift knob with a unit setting of </span><span class="si">{</span><span class="n">rigidty_waist_shift_value</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-match tunes &amp; chromaticities after this rigid waist shift knob is applied&quot;</span><span class="p">)</span>
@@ -547,7 +548,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)</span>
+<span class="sd">            apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># NOTE: for maintainers, no `_op` suffix on ATS coupling knobs, only `_sq` even in Run 3</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Applying coupling knob&quot;</span><span class="p">)</span>
@@ -580,7 +581,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; carry_colinearity_knob_over(madx, ir=5, to_left=True)</span>
+<span class="sd">            carry_colinearity_knob_over(madx, ir=5, to_left=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">side</span> <span class="o">=</span> <span class="s2">&quot;left&quot;</span> <span class="k">if</span> <span class="n">to_left</span> <span class="k">else</span> <span class="s2">&quot;right&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Carrying colinearity knob powering around IP</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> over to the </span><span class="si">{</span><span class="n">side</span><span class="si">}</span><span class="s2"> side&quot;</span><span class="p">)</span>
@@ -612,7 +613,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)</span>
+<span class="sd">            power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">brho</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">nrj</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>  <span class="c1"># clight is MAD-X constant</span>
@@ -647,7 +648,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; deactivate_lhc_arc_sextupoles(madx, beam=1)</span>
+<span class="sd">            deactivate_lhc_arc_sextupoles(madx, beam=1)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56</span>
     <span class="c1"># KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56</span>
@@ -688,9 +689,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; vary_independent_ir_quadrupoles(</span>
-<span class="sd">            ...     madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=(&quot;r&quot;, &quot;l&quot;)</span>
-<span class="sd">            ... )</span>
+<span class="sd">            vary_independent_ir_quadrupoles(</span>
+<span class="sd">                madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=(&quot;r&quot;, &quot;l&quot;)</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span>
@@ -748,17 +749,17 @@
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; random_kwargs = {}</span>
-<span class="sd">            &gt;&gt;&gt; for order in range(1, 16):</span>
-<span class="sd">            ...     for ab in &quot;AB&quot;:</span>
-<span class="sd">            ...         random_kwargs[f&quot;{ab}{order:d}&quot;] = random.randint(0, 20)</span>
-<span class="sd">            &gt;&gt;&gt; switch_magnetic_errors(madx, **random_kwargs)</span>
+<span class="sd">            random_kwargs = {}</span>
+<span class="sd">            for order in range(1, 16):</span>
+<span class="sd">                for ab in &quot;AB&quot;:</span>
+<span class="sd">                    random_kwargs[f&quot;{ab}{order:d}&quot;] = random.randint(0, 20)</span>
+<span class="sd">            switch_magnetic_errors(madx, **random_kwargs)</span>
 
-<span class="sd">        Set a given value for ``B6`` order magnetic errors:</span>
+<span class="sd">        Set a given value for ``B6`` order magnetic errors only:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; switch_magnetic_errors(madx, &quot;B6&quot;=1e-4)</span>
+<span class="sd">            switch_magnetic_errors(madx, {&quot;B6&quot;: 1e-4})</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting magnetic errors&quot;</span><span class="p">)</span>
     <span class="n">global_default</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>

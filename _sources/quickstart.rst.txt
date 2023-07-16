@@ -51,14 +51,14 @@ Any jupyter notebook or Python files in the mounted directory can then be used o
 
 One can use the library by simply importing it:
 
-.. prompt:: python >>>
+.. prompt:: python
 
     import pyhdtoolkit
 
 This will include only the core components of ``PyhDToolkit``.
 The different sub-packages must be imported separately, depending on your needs:
 
-.. prompt:: python >>>
+.. prompt:: python
 
     import pyhdtoolkit.cpymadtools
     import pyhdtoolkit.maths
@@ -78,14 +78,14 @@ All the public apis in the `~pyhdtoolkit.cpymadtools` work in the same fashion: 
 `~cpymad.madx.Madx` instance, and then any `args` and `kwargs` relevant to the functionality at hand.
 Let's say one has initiated their ``MAD-X`` simulation through `~cpymad.madx.Madx` as follows:
 
-.. prompt:: python >>>
+.. prompt:: python
 
     from cpymad.madx import Madx
     madx = Madx()
 
 Then using the `~pyhdtoolkit.cpymadtools` apis goes as:
 
-.. prompt:: python >>>
+.. prompt:: python
 
     from pyhdtoolkit.cpymadtools import super_cool_function  # pretend it exists ;)
     super_cool_function(madx, *args, **kwargs)
@@ -111,7 +111,7 @@ Using the `~pyhdtoolkit.plotting` apis goes as:
 
 .. tabbed:: Standalone
 
-    .. prompt:: python >>>
+    .. prompt:: python
 
         from pyhdtoolkit.plotting.tune import plot_tune_diagram  # for instance
         plot_tune_diagram(max_order=6, differentiate_orders=True)  # and enjoy the result!
@@ -120,7 +120,7 @@ Using the `~pyhdtoolkit.plotting` apis goes as:
 
     Let's say one has initiated their ``MAD-X`` simulation through `~cpymad.madx.Madx` as follows:
 
-    .. prompt:: python >>>
+    .. prompt:: python
 
         from cpymad.madx import Madx
         madx = Madx()
@@ -128,7 +128,7 @@ Using the `~pyhdtoolkit.plotting` apis goes as:
 
     Then using the api goes as:
 
-    .. prompt:: python >>>
+    .. prompt:: python
 
         from pyhdtoolkit.plotting.aperture import plot_aperture  # for instance
         plot_aperture(madx, *args, **kwargs)  # and enjoy the result!
@@ -145,14 +145,14 @@ functions, or perform many convenient :ref:`operations <utils-operations>` on mi
 
 For instance, one can safely run an input at the commandline with:
 
-.. prompt:: python >>>
+.. prompt:: python
 
     from pyhdtoolkit.utils.cmdline import CommandLine
     CommandLine.run("sleep 5")
 
 Alternatively one can easily parallelise an I/O-intensive function through multithreading with:
 
-.. prompt:: python >>>
+.. prompt:: python
 
     from pyhdtoolkit.utils.executors import MultiThreader
     Threader = MultiThreader()
@@ -165,7 +165,7 @@ Alternatively one can easily parallelise an I/O-intensive function through multi
 .. tip::
     A useful tidbit is the following which sets up the logging level for functions in the package:
 
-    .. prompt:: python >>>
+    .. prompt:: python
 
         from pyhdtoolkit.utils import logging
         logging.config_logger(level="trace")  # the lowest level used, will give ALL logging

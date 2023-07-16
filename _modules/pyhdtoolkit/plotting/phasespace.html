@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -438,8 +439,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(10, 9))</span>
-<span class="sd">            &gt;&gt;&gt; plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane=&quot;Horizontal&quot;)</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(10, 9))</span>
+<span class="sd">            plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane=&quot;Horizontal&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plane should be either Horizontal or Vertical but &#39;</span><span class="si">{</span><span class="n">plane</span><span class="si">}</span><span class="s2">&#39; was given&quot;</span><span class="p">)</span>
@@ -508,8 +509,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(10, 9))</span>
-<span class="sd">            &gt;&gt;&gt; plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane=&quot;Horizontal&quot;)</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(10, 9))</span>
+<span class="sd">            plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane=&quot;Horizontal&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;HORIZONTAL&quot;</span><span class="p">,</span> <span class="s2">&quot;VERTICAL&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plane should be either horizontal or vertical but &#39;</span><span class="si">{</span><span class="n">plane</span><span class="si">}</span><span class="s2">&#39; was given&quot;</span><span class="p">)</span>

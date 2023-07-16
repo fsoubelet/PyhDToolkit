@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -434,7 +435,7 @@
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; tune_results = do_kmodulation(madx, ir=1, side=&quot;right&quot;, steps=100, stepsize=3e-8)</span>
+<span class="sd">            tune_results = do_kmodulation(madx, ir=1, side=&quot;right&quot;, steps=100, stepsize=3e-8)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">element</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;MQXA.1R</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">side</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;MQXA.1L</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="n">powering_variable</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;KTQX1.R</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">if</span> <span class="n">side</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;KTQX1.L</span><span class="si">{</span><span class="n">ir</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -502,7 +503,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; correct_lhc_global_coupling(madx, sequence=&quot;lhcb1&quot;, telescopic_squeeze=True)</span>
+<span class="sd">            correct_lhc_global_coupling(madx, sequence=&quot;lhcb1&quot;, telescopic_squeeze=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
     <span class="n">sequence</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -550,7 +551,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; correct_lhc_orbit(madx, sequence=&quot;lhcb1&quot;, plane=&quot;y&quot;)</span>
+<span class="sd">            correct_lhc_orbit(madx, sequence=&quot;lhcb1&quot;, plane=&quot;y&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Starting orbit correction&quot;</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">default_kicker</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;kicker&quot;</span><span class="p">,</span> <span class="s2">&quot;hkicker&quot;</span><span class="p">,</span> <span class="s2">&quot;vkicker&quot;</span><span class="p">,</span> <span class="s2">&quot;virtualcorrector&quot;</span><span class="p">):</span>

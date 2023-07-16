@@ -28,7 +28,7 @@ submodules, or plots made from results of convenient functions available in `~py
 
         Update the ``rcParams`` at runtime with:
 
-            .. prompt:: python >>>
+            .. prompt:: python
 
                 from matplotlib import pyplot as plt
                 from pyhdtoolkit.plotting.styles.thesis import MEDIUM
@@ -38,7 +38,7 @@ submodules, or plots made from results of convenient functions available in `~py
 
         Or, for a temporary update of the ``rcParams``:
 
-            .. prompt:: python >>>
+            .. prompt:: python
 
                 from matplotlib import pyplot as plt
                 from pyhdtoolkit.plotting.styles.thesis import MEDIUM
@@ -50,7 +50,7 @@ submodules, or plots made from results of convenient functions available in `~py
 
         Do a one-time install of the styles as **.mplstyle** files to use in `~matplotlib`:
 
-            .. prompt:: python >>>
+            .. prompt:: python
 
                 from matplotlib import pyplot as plt
                 from pyhdtoolkit.plotting.styles import install_mpl_styles
@@ -88,7 +88,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.aperture.plot_aperture function to visualise the a...">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.aperture.plot_aperture and  ~.plotting.aperture.pl...">
 
 .. only:: html
 

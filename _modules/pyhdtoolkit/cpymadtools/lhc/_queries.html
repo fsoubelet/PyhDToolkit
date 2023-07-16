@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -461,7 +462,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; sextupoles_powering = get_magnets_powering(madx, patterns=[r&quot;^ms\.&quot;])</span>
+<span class="sd">            sextupoles_powering = get_magnets_powering(madx, patterns=[r&quot;^ms\.&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Computing magnets field and powering limits proportions&quot;</span><span class="p">)</span>
     <span class="n">NEW_COLNAMES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="s2">&quot;keyword&quot;</span><span class="p">,</span> <span class="s2">&quot;ampere&quot;</span><span class="p">,</span> <span class="s2">&quot;imax&quot;</span><span class="p">,</span> <span class="s2">&quot;percent&quot;</span><span class="p">,</span> <span class="s2">&quot;kn&quot;</span><span class="p">,</span> <span class="s2">&quot;kmax&quot;</span><span class="p">,</span> <span class="s2">&quot;integrated_field&quot;</span><span class="p">,</span> <span class="s2">&quot;L&quot;</span><span class="p">]</span>
@@ -487,7 +488,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; arc_knobs = query_arc_correctors_powering(madx)</span>
+<span class="sd">            arc_knobs = query_arc_correctors_powering(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Querying triplets correctors powering&quot;</span><span class="p">)</span>
     <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -543,7 +544,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; triplet_knobs = query_triplet_correctors_powering(madx)</span>
+<span class="sd">            triplet_knobs = query_triplet_correctors_powering(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Querying triplets correctors powering&quot;</span><span class="p">)</span>
     <span class="n">result</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
@@ -590,7 +591,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; orbit_setup = get_current_orbit_setup(madx)</span>
+<span class="sd">            orbit_setup = get_current_orbit_setup(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting orbit variables from global table&quot;</span><span class="p">)</span>
     <span class="n">variables</span><span class="p">,</span> <span class="n">specials</span> <span class="o">=</span> <span class="n">lhc_orbit_variables</span><span class="p">()</span>
@@ -662,8 +663,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; _knob_value(madx, knob=&quot;underfined_for_sure&quot;)</span>
-<span class="sd">            0</span>
+<span class="sd">            _knob_value(madx, knob=&quot;underfined_for_sure&quot;)  # returns 0</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="n">knob</span><span class="p">]</span>

@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -457,15 +458,15 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; # Say we have set the LHC coupling knobs to 1e-3</span>
-<span class="sd">            &gt;&gt;&gt; dqmin = get_closest_tune_approach(</span>
-<span class="sd">            ...     madx,</span>
-<span class="sd">            ...     &quot;lhc&quot;,                    # will find the knobs automatically</span>
-<span class="sd">            ...     sequence=&quot;lhcb1&quot;,</span>
-<span class="sd">            ...     telescopic_squeeze=True,  # influences the knobs definition</span>
-<span class="sd">            ...     run3=True,                # influences the knobs definition (LHC Run 3)</span>
-<span class="sd">            ... )</span>
-<span class="sd">            0.001</span>
+<span class="sd">            # Say we have set the LHC coupling knobs to 1e-3</span>
+<span class="sd">            dqmin = get_closest_tune_approach(</span>
+<span class="sd">                madx,</span>
+<span class="sd">                &quot;lhc&quot;,                    # will find the knobs automatically</span>
+<span class="sd">                sequence=&quot;lhcb1&quot;,</span>
+<span class="sd">                telescopic_squeeze=True,  # influences the knobs definition</span>
+<span class="sd">                run3=True,                # influences the knobs definition (LHC Run 3)</span>
+<span class="sd">            )</span>
+<span class="sd">            # returns 0.001</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">accelerator</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">varied_knobs</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting knobs from default </span><span class="si">{</span><span class="n">accelerator</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> values&quot;</span><span class="p">)</span>
@@ -573,14 +574,14 @@
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; complex_cminus = get_cminus_from_coupling_rdts(madx)</span>
+<span class="sd">            complex_cminus = get_cminus_from_coupling_rdts(madx)</span>
 
 
 <span class="sd">        To simulate the calculation from a measurement, with RDTs computed at BPMs only:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=[&quot;^BPM.*B[12]$&quot;])</span>
+<span class="sd">            complex_cminus = get_cminus_from_coupling_rdts(madx, patterns=[&quot;^BPM.*B[12]$&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting coupling RDTs at selected elements thoughout the machine&quot;</span><span class="p">)</span>
     <span class="n">twiss_with_rdts</span> <span class="o">=</span> <span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="n">patterns</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">MONITOR_TWISS_COLUMNS</span><span class="p">)</span>
@@ -631,9 +632,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; match_no_coupling_through_ripkens(</span>
-<span class="sd">            ...     madx, sequence=&quot;lhcb1&quot;, location=&quot;IP5&quot;, vary_knobs=[&quot;kqsx.3l5&quot;, &quot;kqsx.3r5&quot;]</span>
-<span class="sd">            ... )</span>
+<span class="sd">            match_no_coupling_through_ripkens(</span>
+<span class="sd">                madx, sequence=&quot;lhcb1&quot;, location=&quot;IP5&quot;, vary_knobs=[&quot;kqsx.3l5&quot;, &quot;kqsx.3r5&quot;]</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matching Ripken parameters for no coupling at location </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating macro to update Ripkens&quot;</span><span class="p">)</span>
@@ -668,7 +669,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; twiss_rdts = get_coupling_rdts(madx)</span>
+<span class="sd">            twiss_rdts = get_coupling_rdts(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">twiss_tfs</span><span class="p">[[</span><span class="s2">&quot;F1001&quot;</span><span class="p">,</span> <span class="s2">&quot;F1010&quot;</span><span class="p">]]</span> <span class="o">=</span> <span class="n">coupling_via_cmatrix</span><span class="p">(</span><span class="n">twiss_tfs</span><span class="p">,</span> <span class="n">output</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;rdts&quot;</span><span class="p">])</span>
@@ -691,8 +692,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; _fractional_tune(62.31)</span>
-<span class="sd">            0.31</span>
+<span class="sd">            _fractional_tune(62.31)</span>
+<span class="sd">            ## returns 0.31</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">tune</span> <span class="o">-</span> <span class="nb">int</span><span class="p">(</span><span class="n">tune</span><span class="p">)</span>  <span class="c1"># ok since int truncates to lower integer</span>
 

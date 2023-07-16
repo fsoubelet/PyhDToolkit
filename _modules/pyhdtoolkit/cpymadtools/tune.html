@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -433,7 +434,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; dynap_dframe = make_footprint_table(madx)</span>
+<span class="sd">            dynap_dframe = make_footprint_table(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Initiating particules up to </span><span class="si">{</span><span class="n">sigma</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> bunch sigma to create a tune footprint table&quot;</span><span class="p">)</span>
     <span class="n">small</span><span class="p">,</span> <span class="n">big</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="mf">0.05</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
@@ -521,9 +522,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; dynap_tfs = make_footprint_table(madx)</span>
-<span class="sd">            &gt;&gt;&gt; qxs, qys = get_footprint_lines(dynap_tfs)</span>
-<span class="sd">            &gt;&gt;&gt; plt.plot(qxs, qys, &quot;o--&quot;, label=&quot;Tune Footprint from DYNAP Table&quot;)</span>
+<span class="sd">            dynap_tfs = make_footprint_table(madx)</span>
+<span class="sd">            qxs, qys = get_footprint_lines(dynap_tfs)</span>
+<span class="sd">            plt.plot(qxs, qys, &quot;o--&quot;, label=&quot;Tune Footprint from DYNAP Table&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Determining footprint plottable&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Retrieving AMPLITUDE, ANGLE and DSIGMA data from TfsDataFrame headers&quot;</span><span class="p">)</span>
@@ -563,10 +564,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, axis = plt.subplots()</span>
-<span class="sd">            &gt;&gt;&gt; dynap_tfs = make_footprint_table(madx)</span>
-<span class="sd">            &gt;&gt;&gt; footprint_polygons = get_footprint_patches(dynap_tfs)</span>
-<span class="sd">            &gt;&gt;&gt; axis.add_collection(footprint_polygons)</span>
+<span class="sd">            fig, axis = plt.subplots()</span>
+<span class="sd">            dynap_tfs = make_footprint_table(madx)</span>
+<span class="sd">            footprint_polygons = get_footprint_patches(dynap_tfs)</span>
+<span class="sd">            axis.add_collection(footprint_polygons)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Determining footprint polygons&quot;</span><span class="p">)</span>
     <span class="n">angle</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s2">&quot;ANGLE&quot;</span><span class="p">]</span>

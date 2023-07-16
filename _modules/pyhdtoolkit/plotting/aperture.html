@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -505,14 +506,14 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; plt.figure(figsize=(16, 11))</span>
-<span class="sd">            &gt;&gt;&gt; plot_aperture(</span>
-<span class="sd">            ...     madx, plot_bpms=True,</span>
-<span class="sd">            ...     aperture_ylim=(0, 20),</span>
-<span class="sd">            ...     k0l_lim=(-4e-4, 4e-4),</span>
-<span class="sd">            ...     k1l_lim=(-0.08, 0.08),</span>
-<span class="sd">            ...     color=&quot;darkslateblue&quot;,</span>
-<span class="sd">            ... )</span>
+<span class="sd">            plt.figure(figsize=(16, 11))</span>
+<span class="sd">            plot_aperture(</span>
+<span class="sd">                madx, plot_bpms=True,</span>
+<span class="sd">                aperture_ylim=(0, 20),</span>
+<span class="sd">                k0l_lim=(-4e-4, 4e-4),</span>
+<span class="sd">                k1l_lim=(-0.08, 0.08),</span>
+<span class="sd">                color=&quot;darkslateblue&quot;,</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting aperture limits and machine layout&quot;</span><span class="p">)</span>
@@ -620,18 +621,18 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(10, 9))</span>
-<span class="sd">            &gt;&gt;&gt; plot_physical_apertures(madx, &quot;x&quot;)</span>
-<span class="sd">            &gt;&gt;&gt; plt.show()</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(10, 9))</span>
+<span class="sd">            plot_physical_apertures(madx, &quot;x&quot;)</span>
+<span class="sd">            plt.show()</span>
 
 <span class="sd">        In order to do the same plot but have all values in millimeters:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(10, 9))</span>
-<span class="sd">            &gt;&gt;&gt; plot_physical_apertures(madx, &quot;x&quot;, scale=1e3)</span>
-<span class="sd">            &gt;&gt;&gt; plt.setp(ax, xlabel=&quot;S [m]&quot;, ylabel=&quot;X [mm]&quot;)</span>
-<span class="sd">            &gt;&gt;&gt; plt.show()</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(10, 9))</span>
+<span class="sd">            plot_physical_apertures(madx, &quot;x&quot;, scale=1e3)</span>
+<span class="sd">            plt.setp(ax, xlabel=&quot;S [m]&quot;, ylabel=&quot;X [mm]&quot;)</span>
+<span class="sd">            plt.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">):</span>

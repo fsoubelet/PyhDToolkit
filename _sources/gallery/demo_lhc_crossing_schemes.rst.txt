@@ -28,7 +28,7 @@ This example shows how to use the `~.plotting.crossing.plot_two_lhc_ips_crossing
 function to visualise the crossing schemes setup at the LHC IRs.
 
 .. note::
-    This is very LHC-specific and will most likely not work with other machines.
+    This is very LHC-specific and will not work with other machines.
 
 .. GENERATED FROM PYTHON SOURCE LINES 15-28
 
@@ -56,7 +56,7 @@ function to visualise the crossing schemes setup at the LHC IRs.
 
 .. GENERATED FROM PYTHON SOURCE LINES 29-30
 
-Setup a simple LHC simulation in ``MAD-X``, with collision optics (at 7 TeV):
+Setup a simple LHC simulation in ``MAD-X``, with collision optics (at 6.8 TeV):
 
 .. GENERATED FROM PYTHON SOURCE LINES 30-36
 
@@ -77,9 +77,9 @@ Setup a simple LHC simulation in ``MAD-X``, with collision optics (at 7 TeV):
 
 .. GENERATED FROM PYTHON SOURCE LINES 37-40
 
-Let's re-cycle the sequences to avoid having IR1 split at beginning and end of lattice,
-as is the default in the LHC sequence. Note that it is important to re-cycle both
-sequences from the same points for the plots later on.
+Let's explicitely re-cycle both sequences to avoid having IR1 split at beginning
+and end of lattice. Note that it is important to re-cycle both sequences from 
+the same points for the plots later on.
 
 .. GENERATED FROM PYTHON SOURCE LINES 40-46
 
@@ -88,7 +88,7 @@ sequences from the same points for the plots later on.
 
     lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
     lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
-    lhc.make_lhc_beams(madx, energy=7000)
+    lhc.make_lhc_beams(madx, energy=6800)  # necessary after re-cycling sequences
     madx.command.use(sequence="lhcb1")
 
 
@@ -102,13 +102,15 @@ sequences from the same points for the plots later on.
 
 Now we plot the crossing schemes, here for IP1 and IP5.
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-52
+.. GENERATED FROM PYTHON SOURCE LINES 48-54
 
 .. code-block:: default
 
 
-    plt.figure(figsize=(18, 11))
+    fig1 = plt.figure(figsize=(18, 11))
     plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
+    fig1.align_ylabels([fig1.axes[0], fig1.axes[1]])
+    plt.show()
 
 
 
@@ -122,18 +124,20 @@ Now we plot the crossing schemes, here for IP1 and IP5.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 53-55
+.. GENERATED FROM PYTHON SOURCE LINES 55-57
 
 We can have a look at, say, IP2 and IP8 by simply changing the parameters, and
 for instance also remove the highlighting of MQX and MBX elements:
 
-.. GENERATED FROM PYTHON SOURCE LINES 55-59
+.. GENERATED FROM PYTHON SOURCE LINES 57-63
 
 .. code-block:: default
 
 
-    plt.figure(figsize=(18, 11))
+    fig2 = plt.figure(figsize=(18, 11))
     plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
+    fig2.align_ylabels([fig2.axes[0], fig2.axes[1]])
+    plt.show()
 
 
 
@@ -147,11 +151,11 @@ for instance also remove the highlighting of MQX and MBX elements:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 60-61
+.. GENERATED FROM PYTHON SOURCE LINES 64-65
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-64
+.. GENERATED FROM PYTHON SOURCE LINES 65-68
 
 .. code-block:: default
 
@@ -165,7 +169,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-72
+.. GENERATED FROM PYTHON SOURCE LINES 69-76
 
 .. admonition:: References
 
@@ -178,7 +182,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  6.893 seconds)
+   **Total running time of the script:** ( 0 minutes  5.848 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_crossing_schemes.py:

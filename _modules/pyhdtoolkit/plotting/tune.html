@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -490,8 +491,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(6, 6))</span>
-<span class="sd">            &gt;&gt;&gt; plot_tune_diagram(ax=ax, max_order=4, differentiate_orders=True)</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(6, 6))</span>
+<span class="sd">            plot_tune_diagram(ax=ax, max_order=4, differentiate_orders=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">max_order</span> <span class="o">&gt;</span> <span class="mi">6</span> <span class="ow">or</span> <span class="n">max_order</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Plotting is not supported outside of 1st-6th order (and not recommended)&quot;</span><span class="p">)</span>
@@ -537,8 +538,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(6, 6))</span>
-<span class="sd">            &gt;&gt;&gt; plot_resonance_lines_for_order(order=3, axis=ax, color=&quot;blue&quot;)</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(6, 6))</span>
+<span class="sd">            plot_resonance_lines_for_order(order=3, axis=ax, color=&quot;blue&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">order_label</span> <span class="o">=</span> <span class="n">ORDER_TO_LABEL</span><span class="p">[</span><span class="n">order</span><span class="p">]</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting </span><span class="si">{</span><span class="n">order_label</span><span class="si">}</span><span class="s2"> resonance lines&quot;</span><span class="p">)</span>

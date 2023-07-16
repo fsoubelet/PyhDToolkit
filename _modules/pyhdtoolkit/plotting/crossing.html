@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -438,13 +439,13 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; plt.figure(figsize=(18, 12))</span>
-<span class="sd">            &gt;&gt;&gt; plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)</span>
+<span class="sd">            plt.figure(figsize=(18, 12))</span>
+<span class="sd">            plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; plt.figure(figsize=(16, 11))</span>
-<span class="sd">            &gt;&gt;&gt; plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)</span>
+<span class="sd">            plt.figure(figsize=(16, 11))</span>
+<span class="sd">            plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;You should re-call the &#39;USE&#39; command on your wanted sequence after this plot!&quot;</span><span class="p">)</span>
     <span class="c1"># ----- Getting Twiss table dframe for each beam ----- #</span>
@@ -551,9 +552,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; plot_single_ir_crossing(</span>
-<span class="sd">            ...     plt.gca(), b1_df, b2_df, plot_column=&quot;x&quot;, scaling=1e3, ylabel=&quot;Orbit X $[mm]$&quot;</span>
-<span class="sd">            ... )</span>
+<span class="sd">            plot_single_ir_crossing(</span>
+<span class="sd">                plt.gca(), b1_df, b2_df, plot_column=&quot;x&quot;, scaling=1e3, ylabel=&quot;Orbit X $[mm]$&quot;</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting orbit &#39;</span><span class="si">{</span><span class="n">plot_column</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
     <span class="n">axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">plot_df_b1</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">plot_df_b1</span><span class="p">[</span><span class="n">plot_column</span><span class="p">]</span> <span class="o">*</span> <span class="n">scaling</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">mfc</span><span class="o">=</span><span class="s2">&quot;none&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Beam 1&quot;</span><span class="p">)</span>

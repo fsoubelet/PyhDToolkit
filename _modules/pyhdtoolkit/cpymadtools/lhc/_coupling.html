@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -423,7 +424,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; correct_lhc_global_coupling(madx, sequence=&quot;lhcb1&quot;, telescopic_squeeze=True)</span>
+<span class="sd">            correct_lhc_global_coupling(madx, sequence=&quot;lhcb1&quot;, telescopic_squeeze=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">suffix</span> <span class="o">=</span> <span class="s2">&quot;_sq&quot;</span> <span class="k">if</span> <span class="n">telescopic_squeeze</span> <span class="k">else</span> <span class="s2">&quot;&quot;</span>
     <span class="n">sequence</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;lhcb</span><span class="si">{</span><span class="n">beam</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span>
@@ -457,7 +458,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)</span>
+<span class="sd">            twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">twiss</span><span class="o">.</span><span class="n">get_pattern_twiss</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">patterns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;^BPM.*B[12]$&quot;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="n">MONITOR_TWISS_COLUMNS</span><span class="p">)</span>
     <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  <span class="c1"># optics_functions needs capitalized names</span>

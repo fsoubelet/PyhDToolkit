@@ -76,6 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -400,13 +401,13 @@ import pyhdtoolkit
 Information about other packages installed can be obtained by executing <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">freeze</span></code> (if using <a class="reference external" href="https://pip.pypa.io/en/stable/">pip</a>) or <code class="docutils literal notranslate"><span class="pre">conda</span> <span class="pre">env</span> <span class="pre">export</span></code> (if using <a class="reference external" href="https://docs.conda.io/en/latest/">conda</a>) from the terminal.
 A convenience function is provided in the <code class="xref py py-obj docutils literal notranslate"><span class="pre">version</span></code> module:</p>
 <blockquote>
-<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pyhdtoolkit</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pyhdtoolkit</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version_info</span><span class="p">())</span>
-<span class="go">    PyhDToolkit version: 0.21.0</span>
-<span class="go">           Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit</span>
-<span class="go">         Python version: 3.10.6</span>
-<span class="go">  Python implementation: 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:41:54) [Clang 13.0.1 ]</span>
-<span class="go">               Platform: macOS-12.5.1-x86_64-i386-64bit</span>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyhdtoolkit</span>
+<a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#print" title="print"><span class="nb">print</span></a><span class="p">(</span><span class="n">pyhdtoolkit</span><span class="o">.</span><span class="n">version</span><span class="o">.</span><span class="n">version_info</span><span class="p">())</span>
+<span class="c1">#    PyhDToolkit version: 0.21.0</span>
+<span class="c1">#           Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit</span>
+<span class="c1">#         Python version: 3.10.6</span>
+<span class="c1">#  Python implementation: 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:41:54) [Clang 13.0.1 ]</span>
+<span class="c1">#               Platform: macOS-12.5.1-x86_64-i386-64bit</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -441,8 +442,8 @@ However, as the <strong>pyproject.toml</strong> file is fully <strong>PEP</stron
 <p>Here is how to set yourself up:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="10778cca-ad29-4d2f-a1b5-bc1293c06662" name="1e766be1-567c-452e-922a-9a54fdf49a00" type="radio"/>
-<label class="tabbed-label" for="10778cca-ad29-4d2f-a1b5-bc1293c06662">
+<input checked="checked" id="9ad9dd2e-72a6-4786-a9e6-b705ec460ad1" name="65151e82-0649-4e44-9352-ed2df486877c" type="radio"/>
+<label class="tabbed-label" for="9ad9dd2e-72a6-4786-a9e6-b705ec460ad1">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>Assuming you have <code class="docutils literal notranslate"><span class="pre">hatch</span></code> in your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>, once in the root of the repository setting yourself up is as easy as:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch env create
@@ -463,8 +464,8 @@ For instance, getting the Python version can be as simple as:</p>
 </div>
 </div>
 </div>
-<input id="6a2a5c37-e4f5-48c3-bb04-8cf6465927a5" name="1e766be1-567c-452e-922a-9a54fdf49a00" type="radio"/>
-<label class="tabbed-label" for="6a2a5c37-e4f5-48c3-bb04-8cf6465927a5">
+<input id="7ac3bfac-7712-48d8-b42c-930f4ea44c8f" name="65151e82-0649-4e44-9352-ed2df486877c" type="radio"/>
+<label class="tabbed-label" for="7ac3bfac-7712-48d8-b42c-930f4ea44c8f">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>If you want to skip using <code class="docutils literal notranslate"><span class="pre">Hatch</span></code>, you can create a virtual environment yourself and then <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> the package in editable mode:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pip install -e ".[test,dev,docs]"
@@ -517,16 +518,16 @@ $ git merge upstream/master
 One can run the test suite in the following way:</p>
 <blockquote>
 <div><div class="tabbed-set docutils">
-<input checked="checked" id="e0dfbaf8-94f1-44dc-8bbd-abe421120e0c" name="4e3c0c2c-0b62-4a0a-99a0-fc0e7e9d4d75" type="radio"/>
-<label class="tabbed-label" for="e0dfbaf8-94f1-44dc-8bbd-abe421120e0c">
+<input checked="checked" id="3075e080-fbc5-46c7-884f-378423d2e5d6" name="0d545300-3cfa-4a8d-85bc-4264d96eefd3" type="radio"/>
+<label class="tabbed-label" for="3075e080-fbc5-46c7-884f-378423d2e5d6">
 Using Hatch</label><div class="tabbed-content docutils">
 <p>The simplest way to run the test suite using <code class="docutils literal notranslate"><span class="pre">hatch</span></code> is:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ hatch run python -m pytest
 </pre></div>
 </div>
 </div>
-<input id="8fff2c26-8823-41a3-942e-accbad7da6f7" name="4e3c0c2c-0b62-4a0a-99a0-fc0e7e9d4d75" type="radio"/>
-<label class="tabbed-label" for="8fff2c26-8823-41a3-942e-accbad7da6f7">
+<input id="5b2d618f-5ca7-4560-a239-675db32fa33d" name="0d545300-3cfa-4a8d-85bc-4264d96eefd3" type="radio"/>
+<label class="tabbed-label" for="5b2d618f-5ca7-4560-a239-675db32fa33d">
 Without Hatch</label><div class="tabbed-content docutils">
 <p>In your virtual environment, run:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>$ python -m pytest

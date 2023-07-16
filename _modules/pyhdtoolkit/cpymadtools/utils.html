@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -431,8 +432,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; madx.command.twiss()</span>
-<span class="sd">            &gt;&gt;&gt; export_madx_table(madx, table_name=&quot;TWISS&quot;, file_name=&quot;twiss.tfs&quot;)</span>
+<span class="sd">            madx.command.twiss()</span>
+<span class="sd">            export_madx_table(madx, table_name=&quot;TWISS&quot;, file_name=&quot;twiss.tfs&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">file_name</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Exporting table </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> into &#39;</span><span class="si">{</span><span class="n">file_path</span><span class="o">.</span><span class="n">absolute</span><span class="p">()</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
@@ -469,7 +470,7 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; twiss_tfs = get_table_tfs(madx, table_name=&quot;TWISS&quot;)</span>
+<span class="sd">            twiss_tfs = get_table_tfs(madx, table_name=&quot;TWISS&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Extracting table </span><span class="si">{</span><span class="n">table_name</span><span class="si">}</span><span class="s2"> into a TfsDataFrame&quot;</span><span class="p">)</span>
     <span class="c1"># Converting to dict and then DataFrame because the madx.table.name.dframe()</span>

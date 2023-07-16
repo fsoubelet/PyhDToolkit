@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -421,12 +422,12 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; Processor = MultiProcessor()</span>
-<span class="sd">            &gt;&gt;&gt; results_one_tuple_per_run = Processor.execute_function(</span>
-<span class="sd">            ...     func=your_cpu_heavy_function,</span>
-<span class="sd">            ...     func_args=list_of_args_for_each_call,</span>
-<span class="sd">            ...     n_processes=some_int_up_to_you,</span>
-<span class="sd">            ... )</span>
+<span class="sd">            Processor = MultiProcessor()</span>
+<span class="sd">            results_one_tuple_per_run = Processor.execute_function(</span>
+<span class="sd">                func=your_cpu_heavy_function,</span>
+<span class="sd">                func_args=list_of_args_for_each_call,</span>
+<span class="sd">                n_processes=some_int_up_to_you,</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="MultiProcessor.execute_function"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.executors.MultiProcessor.execute_function">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -455,10 +456,10 @@
 <span class="sd">        Example:</span>
 <span class="sd">            .. code-block:: python</span>
 
-<span class="sd">                &gt;&gt;&gt; MultiProcessor.execute_function(</span>
-<span class="sd">                ...     func=np.square, func_args=list(range(6)), n_processes=2)</span>
-<span class="sd">                ... )</span>
-<span class="sd">                [0, 1, 4, 9, 16, 25]</span>
+<span class="sd">                MultiProcessor.execute_function(</span>
+<span class="sd">                    func=np.square, func_args=list(range(6)), n_processes=2</span>
+<span class="sd">                )</span>
+<span class="sd">                # returns [0, 1, 4, 9, 16, 25]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting multiprocessing with </span><span class="si">{</span><span class="n">n_processes</span><span class="si">}</span><span class="s2"> processes&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">futures</span><span class="o">.</span><span class="n">ProcessPoolExecutor</span><span class="p">(</span><span class="n">n_processes</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>
@@ -479,12 +480,12 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; Threader = MultiThreader()</span>
-<span class="sd">            &gt;&gt;&gt; results_one_tuple_per_run = Threader.execute_function(</span>
-<span class="sd">            ...     func=your_io_heavy_function,</span>
-<span class="sd">            ...     func_args=list_of_args_for_each_call,</span>
-<span class="sd">            ...     n_processes=some_int_up_to_you,</span>
-<span class="sd">            ... )</span>
+<span class="sd">            Threader = MultiThreader()</span>
+<span class="sd">            results_one_tuple_per_run = Threader.execute_function(</span>
+<span class="sd">                func=your_io_heavy_function,</span>
+<span class="sd">                func_args=list_of_args_for_each_call,</span>
+<span class="sd">                n_processes=some_int_up_to_you,</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="MultiThreader.execute_function"><a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.executors.MultiThreader.execute_function">[docs]</a>    <span class="nd">@staticmethod</span>
@@ -518,10 +519,10 @@
 <span class="sd">        Example:</span>
 <span class="sd">            .. code-block:: python</span>
 
-<span class="sd">                &gt;&gt;&gt; MultiThreader.execute_function(</span>
-<span class="sd">                ...     func=np.square, func_args=list(range(6)), n_processes=2)</span>
-<span class="sd">                ... )</span>
-<span class="sd">                [0, 1, 4, 9, 16, 25]</span>
+<span class="sd">                MultiThreader.execute_function(</span>
+<span class="sd">                    func=np.square, func_args=list(range(6)), n_processes=2</span>
+<span class="sd">                )</span>
+<span class="sd">                # returns [0, 1, 4, 9, 16, 25]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Starting multithreading with </span><span class="si">{</span><span class="n">n_threads</span><span class="si">}</span><span class="s2"> threads&quot;</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">futures</span><span class="o">.</span><span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">n_threads</span><span class="p">)</span> <span class="k">as</span> <span class="n">ex</span><span class="p">:</span>

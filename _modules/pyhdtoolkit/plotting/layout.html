@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -457,9 +458,9 @@
 <span class="sd">            Defaults to `None`.</span>
 <span class="sd">        xoffset (float): An offset applied to the ``S`` coordinate before</span>
 <span class="sd">            plotting. This is useful if you want to center a plot around a</span>
-<span class="sd">                specific point or element, which would then become located</span>
-<span class="sd">            at :math:`s = 0`. Beware this offset is applied before applying</span>
-<span class="sd">            the *xlimits*. Defaults to 0.</span>
+<span class="sd">            specific point or element, which would then become located at</span>
+<span class="sd">            the :math:`s = 0` position. Beware this offset is applied before</span>
+<span class="sd">            applying the *xlimits*. Defaults to 0.</span>
 <span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the ``s``</span>
 <span class="sd">            coordinate) if this is not ``None``, using the tuple passed.</span>
 <span class="sd">        plot_dipoles (bool): if `True`, dipole patches will be plotted on</span>
@@ -512,8 +513,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(6, 2))</span>
-<span class="sd">            &gt;&gt;&gt; plot_machine_layout(madx, title=&quot;Machine Elements&quot;, lw=3)</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(6, 2))</span>
+<span class="sd">            plot_machine_layout(madx, title=&quot;Machine Elements&quot;, lw=3)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -723,9 +724,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(6, 2))</span>
-<span class="sd">            &gt;&gt;&gt; plot_machine_layout(madx, title=&quot;Machine Elements&quot;, lw=3)</span>
-<span class="sd">            &gt;&gt;&gt; scale_patches(ax=fig.axes[0], scale=100, ylabel=r&quot;$K_{1}L$ $[10^{-2} m^{-1}]$&quot;)</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(6, 2))</span>
+<span class="sd">            plot_machine_layout(madx, title=&quot;Machine Elements&quot;, lw=3)</span>
+<span class="sd">            scale_patches(ax=fig.axes[0], scale=100, ylabel=r&quot;$K_{1}L$ $[10^{-2} m^{-1}]$&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="n">ylabel</span><span class="p">)</span>

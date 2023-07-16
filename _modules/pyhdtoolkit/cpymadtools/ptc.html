@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -447,16 +448,16 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; ampdet_coeffs = get_amplitude_detuning(madx, order=2, closedorbit=True)</span>
+<span class="sd">            ampdet_coeffs = get_amplitude_detuning(madx, order=2, closedorbit=True)</span>
 
 <span class="sd">        One can also specify parameters for the ``PTC`` universe and the ``PTC_NORMAL``</span>
 <span class="sd">        command:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; tracks_dict = get_amplitude_detuning(</span>
-<span class="sd">            ...     madx, order=3, model=3, exact=True, icase=5, no=6</span>
-<span class="sd">            ... )</span>
+<span class="sd">            tracks_dict = get_amplitude_detuning(</span>
+<span class="sd">                madx, order=3, model=3, exact=True, icase=5, no=6</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum amplitude detuning order in PTC is 2, but </span><span class="si">{</span><span class="n">order</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> was requested&quot;</span><span class="p">)</span>
@@ -572,16 +573,16 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; rdts_df = get_rdts(madx, order=3, fringe=True)</span>
+<span class="sd">            rdts_df = get_rdts(madx, order=3, fringe=True)</span>
 
 <span class="sd">        One can also specify parameters for the ``PTC`` universe and the ``PTC_TWISS``</span>
 <span class="sd">        command:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; tracks_dict = get_rdts(</span>
-<span class="sd">            ...     madx, order=3, model=3, method=6, nst=3, exact=True, icase=5</span>
-<span class="sd">            ... )</span>
+<span class="sd">            tracks_dict = get_rdts(</span>
+<span class="sd">                madx, order=3, model=3, method=6, nst=3, exact=True, icase=5</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Looking for PTC universe parameters in keyword arguments&quot;</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -675,16 +676,16 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; twiss_ptc_df = ptc_twiss(madx, order=3)</span>
+<span class="sd">            twiss_ptc_df = ptc_twiss(madx, order=3)</span>
 
 <span class="sd">        One can also specify parameters for the ``PTC`` universe and the ``PTC_TWISS``</span>
 <span class="sd">        command:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; tracks_dict = ptc_twiss(</span>
-<span class="sd">            ...     madx, order=3, model=3, method=6, nst=3, exact=True, icase=5</span>
-<span class="sd">            ... )</span>
+<span class="sd">            tracks_dict = ptc_twiss(</span>
+<span class="sd">                madx, order=3, model=3, method=6, nst=3, exact=True, icase=5</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Looking for PTC universe parameters in keyword arguments&quot;</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -798,18 +799,18 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; tracks_dict = ptc_track_particle(</span>
-<span class="sd">            ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)</span>
-<span class="sd">            ... )</span>
+<span class="sd">            tracks_dict = ptc_track_particle(</span>
+<span class="sd">                madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)</span>
+<span class="sd">            )</span>
 
 <span class="sd">        One can also specify parameters for the ``PTC`` universe:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; tracks_dict = ptc_track_particle(</span>
-<span class="sd">            ...     madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),</span>
-<span class="sd">            ...     model=3, method=6, nst=3, exact=True</span>
-<span class="sd">            ... )</span>
+<span class="sd">            tracks_dict = ptc_track_particle(</span>
+<span class="sd">                madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),</span>
+<span class="sd">                model=3, method=6, nst=3, exact=True</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Performing single particle PTC (thick) tracking&quot;</span><span class="p">)</span>
     <span class="n">start</span> <span class="o">=</span> <span class="n">initial_coordinates</span> <span class="k">if</span> <span class="n">initial_coordinates</span> <span class="k">else</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>

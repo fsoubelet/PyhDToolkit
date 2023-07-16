@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -423,8 +424,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; log_runtime_versions()</span>
-<span class="sd">            2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)</span>
+<span class="sd">            log_runtime_versions()</span>
+<span class="sd">            # 2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">with</span> <span class="n">Madx</span><span class="p">(</span><span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">mad</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Using: pyhdtoolkit </span><span class="si">{</span><span class="n">__version__</span><span class="si">}</span><span class="s2"> | cpymad </span><span class="si">{</span><span class="n">cpymad</span><span class="o">.</span><span class="n">__version__</span><span class="si">}</span><span class="s2">  | </span><span class="si">{</span><span class="n">mad</span><span class="o">.</span><span class="n">version</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
@@ -451,7 +452,7 @@
 <span class="sd">    Exemple:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; df = split_complex_columns(df, drop=True)</span>
+<span class="sd">            df = split_complex_columns(df, drop=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">complex_columns</span> <span class="o">=</span> <span class="n">res</span><span class="o">.</span><span class="n">select_dtypes</span><span class="p">(</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;complex&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">columns</span>
@@ -487,7 +488,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; df = add_noise_to_ir_bpms(df, max_index=5, stdev=1e-6, columns=[&quot;DPSI&quot;])</span>
+<span class="sd">            df = add_noise_to_ir_bpms(df, max_index=5, stdev=1e-6, columns=[&quot;DPSI&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">selected_bpms</span> <span class="o">=</span> <span class="n">LHC_IR_BPM_REGEX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">max_index</span><span class="o">=</span><span class="n">max_index</span><span class="p">)</span>
@@ -533,7 +534,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; df = add_noise_to_arc_bpms(df, min_index=8, stdev=1e-6, columns=[&quot;DPSI&quot;])</span>
+<span class="sd">            df = add_noise_to_arc_bpms(df, min_index=8, stdev=1e-6, columns=[&quot;DPSI&quot;])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
     <span class="n">ir_bpms</span> <span class="o">=</span> <span class="n">LHC_IR_BPM_REGEX</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">max_index</span><span class="o">=</span><span class="nb">min</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">min_index</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># so that provided min_index is included</span>
@@ -568,7 +569,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; apply_colin_corrs_balance(madx)</span>
+<span class="sd">            apply_colin_corrs_balance(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># ----- Let&#39;s balance IR1 ----- #</span>
     <span class="n">lhc</span><span class="o">.</span><span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">beam</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">quadrupoles</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">sides</span><span class="o">=</span><span class="s2">&quot;L&quot;</span><span class="p">,</span> <span class="n">DPSI</span><span class="o">=-</span><span class="mf">1.61e-3</span><span class="p">)</span>
@@ -623,10 +624,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; get_betastar_from_opticsfile(</span>
-<span class="sd">            ...     &quot;acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx&quot;</span>
-<span class="sd">            ... )</span>
-<span class="sd">            0.3</span>
+<span class="sd">            get_betastar_from_opticsfile(</span>
+<span class="sd">                &quot;acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx&quot;</span>
+<span class="sd">            )</span>
+<span class="sd">            # returns 0.3</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">ip1_x_line</span><span class="p">,</span> <span class="n">ip1_y_line</span><span class="p">,</span> <span class="n">ip5_x_line</span><span class="p">,</span> <span class="n">ip5_y_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_lines</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;bet&quot;</span><span class="p">)]</span>

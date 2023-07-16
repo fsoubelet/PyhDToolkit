@@ -82,6 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="demo_machine_survey.html">Machine Survey</a></li>
@@ -394,10 +395,20 @@ to download the full example code</p>
 particle with the <code class="docutils literal notranslate"><span class="pre">TRACK</span></code> command of <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, and visualise its coordinates and spectrum.</p>
 <p>In this example we will use the LHC lattice to illustrate the tracking workflow when using
 <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymadtools</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This example requires the <code class="xref py py-obj docutils literal notranslate"><span class="pre">acc-models-lhc</span></code> repository to be cloned locally. One
+can get it by running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span><span class="m">2022</span><span class="w"> </span>https://gitlab.cern.ch/acc-models/acc-models-lhc.git<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Here I set the 2022 branch for stability and reproducibility of the documentation
+builds, but you can use any branch you want.</p>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a>
+<span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools</span> <span class="kn">import</span> <span class="n">lhc</span><span class="p">,</span> <span class="n">track</span>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.styles</span> <span class="kn">import</span> <a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a>
@@ -407,20 +418,12 @@ particle with the <code class="docutils literal notranslate"><span class="pre">T
 <a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
-<p>Let’s start by setting up the LHC in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, in this case at top energy:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a><span class="p">(</span><span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.call" title="cpymad.madx.Madx.call" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">call</span></a><span class="p">(</span><span class="s2">&quot;lhc/lhc_as-built.seq&quot;</span><span class="p">)</span>
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.call" title="cpymad.madx.Madx.call" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">call</span></a><span class="p">(</span><span class="s2">&quot;lhc/opticsfile.22&quot;</span><span class="p">)</span>  <span class="c1"># collision optics</span>
-
-<span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">)</span>
-<span class="n">lhc</span><span class="o">.</span><span class="n">re_cycle_sequence</span><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="s2">&quot;MSIA.EXIT.B1&quot;</span><span class="p">)</span>  <span class="c1"># as done in OMC</span>
-
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span></a><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Slicing is necessary in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> in order to perform tracking, so let’s do so.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_thin</span><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.use" title="cpymad.madx.Madx.use" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">use</span></a><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
+<p>Let’s start by setting up the LHC in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, in this case at collision
+optics and energy and with a sliced lattice. To understand the function below
+have a look at the <a class="reference internal" href="demo_lhc_setup.html#demo-lhc-setup"><span class="std std-ref">lhc setup example</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a> <span class="o">=</span> <span class="n">lhc</span><span class="o">.</span><span class="n">prepare_lhc_run3</span><span class="p">(</span>
+    <span class="n">opticsfile</span><span class="o">=</span><span class="s2">&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Now we can track a particle. By default, the “start of machine” as <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> sees it
@@ -492,66 +495,66 @@ start of machine and the two provided BPMs.</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>1.0</td>
-      <td>-0.001226</td>
-      <td>0.000056</td>
-      <td>0.000068</td>
-      <td>-0.000003</td>
-      <td>0.000002</td>
+      <td>-0.001098</td>
+      <td>0.000050</td>
+      <td>0.000004</td>
+      <td>2.959826e-07</td>
+      <td>-3.763407e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>2.0</td>
-      <td>-0.000349</td>
-      <td>0.000017</td>
-      <td>0.000623</td>
-      <td>-0.000029</td>
-      <td>0.000013</td>
+      <td>-0.000320</td>
+      <td>0.000016</td>
+      <td>0.000661</td>
+      <td>-3.082253e-05</td>
+      <td>-3.564916e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>3.0</td>
-      <td>0.001479</td>
-      <td>-0.000069</td>
-      <td>-0.000590</td>
-      <td>0.000027</td>
-      <td>0.000024</td>
+      <td>0.001329</td>
+      <td>-0.000062</td>
+      <td>-0.000555</td>
+      <td>2.540655e-05</td>
+      <td>-3.491807e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>4.0</td>
-      <td>-0.000756</td>
-      <td>0.000034</td>
-      <td>-0.000117</td>
-      <td>0.000006</td>
-      <td>0.000038</td>
+      <td>-0.000676</td>
+      <td>0.000031</td>
+      <td>-0.000183</td>
+      <td>8.936081e-06</td>
+      <td>-3.810800e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>5.0</td>
-      <td>-0.000920</td>
-      <td>0.000043</td>
-      <td>0.000689</td>
-      <td>-0.000032</td>
-      <td>0.000050</td>
+      <td>-0.000830</td>
+      <td>0.000039</td>
+      <td>0.000710</td>
+      <td>-3.298023e-05</td>
+      <td>-3.456599e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>...</th>
@@ -570,66 +573,66 @@ start of machine and the two provided BPMs.</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>1019.0</td>
-      <td>0.001491</td>
-      <td>-0.000069</td>
-      <td>0.000679</td>
-      <td>-0.000032</td>
-      <td>0.012288</td>
+      <td>0.001344</td>
+      <td>-0.000062</td>
+      <td>0.000734</td>
+      <td>-3.397093e-05</td>
+      <td>-6.461261e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>1020.0</td>
-      <td>-0.000488</td>
+      <td>-0.000490</td>
       <td>0.000022</td>
-      <td>-0.000517</td>
-      <td>0.000024</td>
-      <td>0.012303</td>
+      <td>-0.000286</td>
+      <td>1.280504e-05</td>
+      <td>-6.776840e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>1021.0</td>
-      <td>-0.001131</td>
-      <td>0.000053</td>
-      <td>-0.000236</td>
-      <td>0.000011</td>
-      <td>0.012315</td>
+      <td>-0.000981</td>
+      <td>0.000046</td>
+      <td>-0.000489</td>
+      <td>2.299814e-05</td>
+      <td>-6.557071e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>1022.0</td>
-      <td>0.001308</td>
-      <td>-0.000060</td>
-      <td>0.000720</td>
-      <td>-0.000033</td>
-      <td>0.012324</td>
+      <td>0.001198</td>
+      <td>-0.000055</td>
+      <td>0.000694</td>
+      <td>-3.203857e-05</td>
+      <td>-6.574820e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
     <tr>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>1023.0</td>
-      <td>0.000160</td>
-      <td>-0.000008</td>
-      <td>-0.000372</td>
-      <td>0.000017</td>
-      <td>0.012339</td>
+      <td>0.000089</td>
+      <td>-0.000005</td>
+      <td>-0.000102</td>
+      <td>4.251582e-06</td>
+      <td>-6.764902e-07</td>
       <td>0.0</td>
       <td>0.0</td>
-      <td>7000.0</td>
+      <td>6800.0</td>
     </tr>
   </tbody>
 </table>
@@ -661,7 +664,7 @@ them. This is the matter of a simple fast fourier transform:</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To get the tunes of the particle, one can find the peak of the spectra.</p>
+<p>To get the fractional tunes of the particle, one can find the peak of the spectra.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">qx</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">tunes</span><span class="p">[</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">horizontal</span> <span class="o">==</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">horizontal</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">qy</span> <span class="o">=</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">tunes</span><span class="p">[</span><a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">vertical</span> <span class="o">==</span> <a href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="pandas.core.frame.DataFrame" class="sphx-glr-backref-module-pandas-core-frame sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">tracks</span></a><span class="o">.</span><span class="n">vertical</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
@@ -677,6 +680,7 @@ them. This is the matter of a simple fast fourier transform:</p>
     <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;Spectrum [a.u]&quot;</span><span class="p">,</span>
     <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">18</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span>
 <span class="p">)</span>
+<a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
 <img src="../_images/sphx_glr_demo_track_spectra_002.svg" srcset="../_images/sphx_glr_demo_track_spectra_002.svg, ../_images/sphx_glr_demo_track_spectra_002_2_00x.svg 2.00x" alt="demo track spectra" class = "sphx-glr-single-img"/><p>In case the user provided <code class="docutils literal notranslate"><span class="pre">ONETABLE=True</span></code> to the tracking function, then all
@@ -733,11 +737,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>1.0</td>
-      <td>-0.001226</td>
-      <td>0.000056</td>
-      <td>0.000068</td>
-      <td>-0.000003</td>
-      <td>0.000002</td>
+      <td>-0.001098</td>
+      <td>0.000050</td>
+      <td>0.000004</td>
+      <td>2.959826e-07</td>
+      <td>-3.763407e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -746,11 +750,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>2.0</td>
-      <td>-0.000349</td>
-      <td>0.000017</td>
-      <td>0.000623</td>
-      <td>-0.000029</td>
-      <td>0.000013</td>
+      <td>-0.000320</td>
+      <td>0.000016</td>
+      <td>0.000661</td>
+      <td>-3.082253e-05</td>
+      <td>-3.564916e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -759,11 +763,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>3.0</td>
-      <td>0.001479</td>
-      <td>-0.000069</td>
-      <td>-0.000590</td>
-      <td>0.000027</td>
-      <td>0.000024</td>
+      <td>0.001329</td>
+      <td>-0.000062</td>
+      <td>-0.000555</td>
+      <td>2.540655e-05</td>
+      <td>-3.491807e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -772,11 +776,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>4.0</td>
-      <td>-0.000756</td>
-      <td>0.000034</td>
-      <td>-0.000117</td>
-      <td>0.000006</td>
-      <td>0.000038</td>
+      <td>-0.000676</td>
+      <td>0.000031</td>
+      <td>-0.000183</td>
+      <td>8.936081e-06</td>
+      <td>-3.810800e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -785,11 +789,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>5.0</td>
-      <td>-0.000920</td>
-      <td>0.000043</td>
-      <td>0.000689</td>
-      <td>-0.000032</td>
-      <td>0.000050</td>
+      <td>-0.000830</td>
+      <td>0.000039</td>
+      <td>0.000710</td>
+      <td>-3.298023e-05</td>
+      <td>-3.456599e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -798,11 +802,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>6.0</td>
-      <td>0.001422</td>
-      <td>-0.000066</td>
-      <td>-0.000460</td>
-      <td>0.000021</td>
-      <td>0.000060</td>
+      <td>0.001274</td>
+      <td>-0.000059</td>
+      <td>-0.000407</td>
+      <td>1.847747e-05</td>
+      <td>-3.640162e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -811,11 +815,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>7.0</td>
-      <td>-0.000137</td>
+      <td>-0.000119</td>
       <td>0.000005</td>
-      <td>-0.000296</td>
-      <td>0.000014</td>
-      <td>0.000074</td>
+      <td>-0.000362</td>
+      <td>1.715175e-05</td>
+      <td>-3.759093e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -824,11 +828,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>8.0</td>
-      <td>-0.001320</td>
-      <td>0.000062</td>
-      <td>0.000710</td>
-      <td>-0.000033</td>
-      <td>0.000087</td>
+      <td>-0.001186</td>
+      <td>0.000055</td>
+      <td>0.000715</td>
+      <td>-3.307915e-05</td>
+      <td>-3.426777e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -837,11 +841,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>9.0</td>
-      <td>0.001093</td>
-      <td>-0.000050</td>
-      <td>-0.000299</td>
-      <td>0.000013</td>
-      <td>0.000097</td>
+      <td>0.000974</td>
+      <td>-0.000045</td>
+      <td>-0.000233</td>
+      <td>1.033764e-05</td>
+      <td>-3.780484e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -850,11 +854,11 @@ the DataFrame indexing syntax:</p>
       <th>bpmsw.1l1.b1_doros</th>
       <td>1.0</td>
       <td>10.0</td>
-      <td>0.000514</td>
-      <td>-0.000025</td>
-      <td>-0.000458</td>
-      <td>0.000022</td>
-      <td>0.000109</td>
+      <td>0.000467</td>
+      <td>-0.000022</td>
+      <td>-0.000518</td>
+      <td>2.430951e-05</td>
+      <td>-3.636226e-07</td>
       <td>0.0</td>
       <td>23497.790616</td>
       <td>0.0</td>
@@ -873,11 +877,11 @@ the DataFrame indexing syntax:</p>
 <p>The use of the following functions, methods, classes and modules is shown
 in this example:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence" title="pyhdtoolkit.cpymadtools.lhc._setup.re_cycle_sequence"><code class="xref py py-obj docutils literal notranslate"><span class="pre">re_cycle_sequence</span></code></a></p></li>
+<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3" title="pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_lhc_run3</span></code></a></p></li>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.track" title="pyhdtoolkit.cpymadtools.track"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.track.track_single_particle" title="pyhdtoolkit.cpymadtools.track.track_single_particle"><code class="xref py py-obj docutils literal notranslate"><span class="pre">track_single_particle</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  16.964 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  17.052 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-track-spectra-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/db641700d2e96124547ab450e417d469/demo_track_spectra.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_track_spectra.py</span></code></a></p>

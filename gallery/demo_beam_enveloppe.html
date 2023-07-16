@@ -82,6 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="demo_machine_survey.html">Machine Survey</a></li>
@@ -445,7 +446,7 @@ to visualise the particle beam’s enveloppe in your machine.</p>
 <span class="s2">! Define bending magnet as multipole, we have 4 bending magnets per cell</span>
 <span class="s2">!mb:multipole, knl=</span><span class="se">{{</span><span class="s2">2.0*pi/(4*n_cells)</span><span class="se">}}</span><span class="s2">;</span>
 
-<span class="s2">mb: sbend, l=ldip, angle=2.0*pi/(4*n_cells), apertype=ellipse, aperture= </span><span class="se">{{</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">h_gap_dipole</span></a><span class="si">}</span><span class="s2">, </span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">v_gap_dipole</span></a><span class="si">}</span><span class="se">}}</span><span class="s2">;</span>
+<span class="s2">mb: sbend, l=ldip, angle=2.0*pi/(4*n_cells), apertype=ellipse, aperture=</span><span class="se">{{</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">h_gap_dipole</span></a><span class="si">}</span><span class="s2">, </span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">v_gap_dipole</span></a><span class="si">}</span><span class="se">}}</span><span class="s2">;</span>
 <span class="s2">f = </span><span class="si">{</span><a href="https://numpy.org/doc/stable/reference/arrays.scalars.html#numpy.float64" title="numpy.float64" class="sphx-glr-backref-module-numpy sphx-glr-backref-type-py-attribute"><span class="n">f_m</span></a><span class="si">}</span><span class="s2">;</span>
 
 <span class="s2">! Define quadrupoles as multipoles</span>
@@ -455,7 +456,7 @@ to visualise the particle beam’s enveloppe in your machine.</p>
 <span class="s2">qd: quadrupole, l=lq, K1:=-1/f/lq + qtrim_d/lq, apertype=ellipse, aperture=</span><span class="se">{{</span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">r_quadrupole</span></a><span class="si">}</span><span class="s2">, </span><span class="si">{</span><a href="https://docs.python.org/3/library/functions.html#float" title="builtins.float" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">r_quadrupole</span></a><span class="si">}</span><span class="se">}}</span><span class="s2">;</span>
 
 <span class="s2">! Define the sextupoles as multipole</span>
-<span class="s2">!ATTENTION: must use knl:= and NOT knl= to match later!</span>
+<span class="s2">! ATTENTION: must use knl:= and NOT knl= to match later!</span>
 <span class="s2">lsex = 0.00001; ! dummy length, only used in the sequence</span>
 <span class="s2">msf: multipole, knl:=</span><span class="se">{{</span><span class="s2">0,0,ksf</span><span class="se">}}</span><span class="s2">;</span>
 <span class="s2">msd: multipole, knl:=</span><span class="se">{{</span><span class="s2">0,0,ksd</span><span class="se">}}</span><span class="s2">;</span>

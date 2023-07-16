@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -429,9 +430,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig = plot_phase_segment_one_beam(</span>
-<span class="sd">            ...     sbs_phasex, sbs_phasey, model=b2_model_tfs, ip=5, figsize=(8, 8)</span>
-<span class="sd">            ... )</span>
+<span class="sd">            fig = plot_phase_segment_one_beam(</span>
+<span class="sd">                sbs_phasex, sbs_phasey, model=b2_model_tfs, ip=5, figsize=(8, 8)</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting the phase for both planes over the segment.&quot;</span><span class="p">)</span>
     <span class="c1"># legend_bbox_to_anchor = kwargs.pop(&quot;bbox_to_anchor&quot;, (0.535, 0.97))</span>
@@ -487,17 +488,17 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig = plot_phase_segment_both_beams(</span>
-<span class="sd">            ...     phasex_b1_tfs,</span>
-<span class="sd">            ...     phasey_b1_tfs,</span>
-<span class="sd">            ...     phasex_b2_tfs,</span>
-<span class="sd">            ...     phasey_b2_tfs,</span>
-<span class="sd">            ...     b1_model_tfs,</span>
-<span class="sd">            ...     b2_model_tfs,</span>
-<span class="sd">            ...     ip=1,</span>
-<span class="sd">            ...     figsize=(18, 9),</span>
-<span class="sd">            ...     bbox_to_anchor=(0.535, 0.94),</span>
-<span class="sd">            ... )</span>
+<span class="sd">            fig = plot_phase_segment_both_beams(</span>
+<span class="sd">                phasex_b1_tfs,</span>
+<span class="sd">                phasey_b1_tfs,</span>
+<span class="sd">                phasex_b2_tfs,</span>
+<span class="sd">                phasey_b2_tfs,</span>
+<span class="sd">                b1_model_tfs,</span>
+<span class="sd">                b2_model_tfs,</span>
+<span class="sd">                ip=1,</span>
+<span class="sd">                figsize=(18, 9),</span>
+<span class="sd">                bbox_to_anchor=(0.535, 0.94),</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting the phase for both planes over the segment.&quot;</span><span class="p">)</span>
     <span class="n">legend_bbox_to_anchor</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;bbox_to_anchor&quot;</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.535</span><span class="p">,</span> <span class="mf">0.97</span><span class="p">))</span>
@@ -560,7 +561,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; plot_phase_segment(ax, segment_df b1_model_tfs, plane=&quot;x&quot;, ip=1)</span>
+<span class="sd">            plot_phase_segment(ax, segment_df, b1_model_tfs, plane=&quot;x&quot;, ip=1)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The provided plane is invalid, should be either &#39;x&#39; or &#39;y&#39;, case-insensitively.&quot;</span><span class="p">)</span>

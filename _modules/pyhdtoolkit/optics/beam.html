@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -414,20 +415,20 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; params = compute_beam_parameters(1.9, 5e-6, 5e-6, 2e-3)</span>
-<span class="sd">            &gt;&gt;&gt; print(params)</span>
-<span class="sd">            Beam Parameters for particle of charge 1</span>
-<span class="sd">            Beam momentum = 1.900 GeV/c</span>
-<span class="sd">            Normalized x-emittance = 5.000 mm mrad</span>
-<span class="sd">            Normalized y-emittance = 5.000 mm mrad</span>
-<span class="sd">            Momentum deviation deltap/p = 0.002</span>
-<span class="sd">            -&gt; Beam total energy = 2.119 GeV</span>
-<span class="sd">            -&gt; Beam kinetic energy = 1.181 GeV</span>
-<span class="sd">            -&gt; Beam rigidity = 6.333 Tm</span>
-<span class="sd">            -&gt; Relativistic beta = 0.89663</span>
-<span class="sd">            -&gt; Relativistic gamma = 2.258</span>
-<span class="sd">            -&gt; Geometrical x emittance = 2.469 mm mrad</span>
-<span class="sd">            -&gt; Geometrical y emittance = 2.469 mm mrad</span>
+<span class="sd">            params = compute_beam_parameters(1.9, 5e-6, 5e-6, 2e-3)</span>
+<span class="sd">            print(params)</span>
+<span class="sd">            # Beam Parameters for particle of charge 1</span>
+<span class="sd">            # Beam momentum = 1.900 GeV/c</span>
+<span class="sd">            # Normalized x-emittance = 5.000 mm mrad</span>
+<span class="sd">            # Normalized y-emittance = 5.000 mm mrad</span>
+<span class="sd">            # Momentum deviation deltap/p = 0.002</span>
+<span class="sd">            # -&gt; Beam total energy = 2.119 GeV</span>
+<span class="sd">            # -&gt; Beam kinetic energy = 1.181 GeV</span>
+<span class="sd">            # -&gt; Beam rigidity = 6.333 Tm</span>
+<span class="sd">            # -&gt; Relativistic beta = 0.89663</span>
+<span class="sd">            # -&gt; Relativistic gamma = 2.258</span>
+<span class="sd">            # -&gt; Geometrical x emittance = 2.469 mm mrad</span>
+<span class="sd">            # -&gt; Geometrical y emittance = 2.469 mm mrad</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">e0_gev</span> <span class="o">=</span> <span class="mf">0.9382720813</span>
     <span class="n">e_tot_gev</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">pc_gev</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">e0_gev</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>

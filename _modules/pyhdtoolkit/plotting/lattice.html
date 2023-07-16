@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -494,31 +495,31 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; title = &quot;Machine Layout&quot;</span>
-<span class="sd">            &gt;&gt;&gt; plt.figure(figsize=(16, 11))</span>
-<span class="sd">            &gt;&gt;&gt; plot_latwiss(</span>
-<span class="sd">            ...     madx,</span>
-<span class="sd">            ...     title=title,</span>
-<span class="sd">            ...     k0l_lim=(-0.15, 0.15),</span>
-<span class="sd">            ...     k1l_lim=(-0.08, 0.08),</span>
-<span class="sd">            ...     disp_ylim=(-10, 125),</span>
-<span class="sd">            ...     lw=3,</span>
-<span class="sd">            ... )</span>
+<span class="sd">            title = &quot;Machine Layout&quot;</span>
+<span class="sd">            plt.figure(figsize=(16, 11))</span>
+<span class="sd">            plot_latwiss(</span>
+<span class="sd">                madx,</span>
+<span class="sd">                title=title,</span>
+<span class="sd">                k0l_lim=(-0.15, 0.15),</span>
+<span class="sd">                k1l_lim=(-0.08, 0.08),</span>
+<span class="sd">                disp_ylim=(-10, 125),</span>
+<span class="sd">                lw=3,</span>
+<span class="sd">            )</span>
 
 <span class="sd">        One can provide ylimits for the machine layout patches as single values:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; title = &quot;Machine Layout&quot;</span>
-<span class="sd">            &gt;&gt;&gt; plt.figure(figsize=(16, 11))</span>
-<span class="sd">            &gt;&gt;&gt; plot_latwiss(</span>
-<span class="sd">            ...     madx,</span>
-<span class="sd">            ...     title=title,</span>
-<span class="sd">            ...     k0l_lim=0.15,  # identical to k0l_lim=(-0.15, 0.15)</span>
-<span class="sd">            ...     k1l_lim=0.08,  # identical to k1l_lim=(-0.08, 0.08)</span>
-<span class="sd">            ...     disp_ylim=(-10, 125),</span>
-<span class="sd">            ...     lw=3,</span>
-<span class="sd">            ... )</span>
+<span class="sd">            title = &quot;Machine Layout&quot;</span>
+<span class="sd">            plt.figure(figsize=(16, 11))</span>
+<span class="sd">            plot_latwiss(</span>
+<span class="sd">                madx,</span>
+<span class="sd">                title=title,</span>
+<span class="sd">                k0l_lim=0.15,  # identical to k0l_lim=(-0.15, 0.15)</span>
+<span class="sd">                k1l_lim=0.08,  # identical to k1l_lim=(-0.08, 0.08)</span>
+<span class="sd">                disp_ylim=(-10, 125),</span>
+<span class="sd">                lw=3,</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="c1"># Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given</span>
@@ -612,10 +613,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(6, 6))</span>
-<span class="sd">            &gt;&gt;&gt; plot_machine_survey(</span>
-<span class="sd">            ...     madx, title=&quot;Machine Survey&quot;, show_elements=True, high_orders=True</span>
-<span class="sd">            ... )</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(6, 6))</span>
+<span class="sd">            plot_machine_survey(</span>
+<span class="sd">                madx, title=&quot;Machine Survey&quot;, show_elements=True, high_orders=True</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting machine survey&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Getting machine survey from cpymad&quot;</span><span class="p">)</span>

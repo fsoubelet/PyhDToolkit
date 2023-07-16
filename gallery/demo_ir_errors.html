@@ -82,6 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="demo_machine_survey.html">Machine Survey</a></li>
@@ -397,6 +398,16 @@ to assign magnet errors in the Insertion Region magnets of the LHC.</p>
 <p>The implementation of this function makes it valid only for LHC IP IRs, which are
 1, 2, 5 and 8. Other IRs have different layouts that are incompatible.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This example requires the <code class="xref py py-obj docutils literal notranslate"><span class="pre">acc-models-lhc</span></code> repository to be cloned locally. One
+can get it by running the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>-b<span class="w"> </span><span class="m">2022</span><span class="w"> </span>https://gitlab.cern.ch/acc-models/acc-models-lhc.git<span class="w"> </span>--depth<span class="w"> </span><span class="m">1</span>
+</pre></div>
+</div>
+<p>Here I set the 2022 branch for stability and reproducibility of the documentation
+builds, but you can use any branch you want.</p>
+</div>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
@@ -410,23 +421,20 @@ to assign magnet errors in the Insertion Region magnets of the LHC.</p>
 <a href="https://docs.python.org/3/library/stdtypes.html#dict.update" title="builtins.dict.update" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-method"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span></a><span class="p">(</span><a href="https://docs.python.org/3/library/stdtypes.html#dict" title="builtins.dict" class="sphx-glr-backref-module-builtins sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">_SPHINX_GALLERY_PARAMS</span></a><span class="p">)</span>  <span class="c1"># for readability of this tutorial</span>
 </pre></div>
 </div>
-<p>Setup a simple LHC simulation in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, at injection energy (450 GeV)</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a> <span class="o">=</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a><span class="p">(</span><span class="n">stdout</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">option</span></a><span class="p">(</span><span class="n">echo</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">warn</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.call" title="cpymad.madx.Madx.call" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">call</span></a><span class="p">(</span><span class="s2">&quot;lhc/lhc_as-built.seq&quot;</span><span class="p">)</span>
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx.call" title="cpymad.madx.Madx.call" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-method"><span class="n">madx</span><span class="o">.</span><span class="n">call</span></a><span class="p">(</span><span class="s2">&quot;lhc/opticsfile.22&quot;</span><span class="p">)</span>  <span class="c1"># collision optics</span>
+<p>Let’s start by setting up the LHC in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, in this case at injection
+optics and energy. To understand the function below have a look at the
+<a class="reference internal" href="demo_lhc_setup.html#demo-lhc-setup"><span class="std std-ref">lhc setup example</span></a>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">:</span> <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class"><span class="n">Madx</span></a> <span class="o">=</span> <span class="n">lhc</span><span class="o">.</span><span class="n">prepare_lhc_run3</span><span class="p">(</span>
+    <span class="n">opticsfile</span><span class="o">=</span><span class="s2">&quot;acc-models-lhc/operation/optics/R2022a_A11mC11mA10mL10m.madx&quot;</span><span class="p">,</span>
+    <span class="n">energy</span><span class="o">=</span><span class="mi">450</span><span class="p">,</span>  <span class="c1"># given in GeV</span>
+    <span class="n">stdout</span><span class="o">=</span><span class="kc">False</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 <p>Importantly in <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>, when dealing with RNG one should set a generator and
 seed, which we do below:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">option</span></a><span class="p">(</span><span class="n">rand</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">randid</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html#numpy.random.randint" title="numpy.random.randint" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">))</span>  <span class="c1"># random number generator</span>
 <a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">eoption</span></a><span class="p">(</span><span class="n">seed</span><span class="o">=</span><a href="https://numpy.org/doc/stable/reference/random/generated/numpy.random.randint.html#numpy.random.randint" title="numpy.random.randint" class="sphx-glr-backref-module-numpy-random sphx-glr-backref-type-py-function"><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span></a><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">999999999</span><span class="p">))</span>  <span class="c1"># not using default seed</span>
-</pre></div>
-</div>
-<p>Let’s define beams and use the <strong>lhcb1</strong> sequence.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">lhc</span><span class="o">.</span><span class="n">make_lhc_beams</span><span class="p">(</span><a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="cpymad.madx.Madx" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span></a><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="mi">7000</span><span class="p">)</span>
-<a href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Command.html#cpymad.madx.Command" title="cpymad.madx.Command" class="sphx-glr-backref-module-cpymad-madx sphx-glr-backref-type-py-class sphx-glr-backref-instance"><span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">use</span></a><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="s2">&quot;lhcb1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>We can now install errors in the IR quadrupoles. Note that this function accepts
@@ -513,100 +521,100 @@ order in which they are in the machine:</p>
   <tbody>
     <tr>
       <th>mqml.6l1.b1</th>
-      <td>-0.000253</td>
+      <td>-0.000213</td>
       <td>0.0</td>
-      <td>-0.006026</td>
+      <td>0.003622</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5l1.b1</th>
-      <td>0.001525</td>
+      <td>-0.000443</td>
       <td>0.0</td>
-      <td>-0.001101</td>
+      <td>-0.006859</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4l1.b1</th>
-      <td>-0.000845</td>
+      <td>0.000519</td>
       <td>0.0</td>
-      <td>0.003324</td>
+      <td>0.000563</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3l1</th>
-      <td>0.001092</td>
+      <td>0.000083</td>
       <td>0.0</td>
-      <td>-0.000357</td>
+      <td>-0.004750</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2l1</th>
-      <td>-0.000752</td>
+      <td>0.000054</td>
       <td>0.0</td>
-      <td>0.001361</td>
+      <td>-0.000885</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2l1</th>
-      <td>-0.000312</td>
+      <td>0.000042</td>
       <td>0.0</td>
-      <td>-0.000453</td>
+      <td>-0.000089</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1l1</th>
-      <td>0.001338</td>
+      <td>0.001080</td>
       <td>0.0</td>
-      <td>-0.001333</td>
+      <td>-0.001286</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.1r1</th>
-      <td>-0.000711</td>
+      <td>0.000635</td>
       <td>0.0</td>
-      <td>-0.003454</td>
+      <td>-0.001352</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.a2r1</th>
-      <td>-0.000590</td>
+      <td>0.000349</td>
       <td>0.0</td>
-      <td>0.001139</td>
+      <td>0.006571</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxb.b2r1</th>
-      <td>0.000640</td>
+      <td>0.002339</td>
       <td>0.0</td>
-      <td>-0.001434</td>
+      <td>0.000584</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqxa.3r1</th>
-      <td>-0.000204</td>
+      <td>0.000166</td>
       <td>0.0</td>
-      <td>-0.001654</td>
+      <td>-0.001623</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqy.4r1.b1</th>
-      <td>0.000912</td>
+      <td>0.000124</td>
       <td>0.0</td>
-      <td>0.000394</td>
+      <td>0.008536</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.5r1.b1</th>
-      <td>-0.002132</td>
+      <td>-0.001463</td>
       <td>0.0</td>
-      <td>-0.002002</td>
+      <td>0.006596</td>
       <td>0.0</td>
     </tr>
     <tr>
       <th>mqml.6r1.b1</th>
-      <td>0.000995</td>
+      <td>0.000940</td>
       <td>0.0</td>
-      <td>-0.004832</td>
+      <td>-0.004282</td>
       <td>0.0</td>
     </tr>
   </tbody>
@@ -647,11 +655,11 @@ chart, making use of the <a class="reference external" href="https://pandas.pyda
 <p>The use of the following functions, methods, classes and modules is shown
 in this example:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams" title="pyhdtoolkit.cpymadtools.lhc._setup.make_lhc_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">make_lhc_beams</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles" title="pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles</span></code></a></p></li>
+<li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.lhc" title="pyhdtoolkit.cpymadtools.lhc"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lhc</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3" title="pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3"><code class="xref py py-obj docutils literal notranslate"><span class="pre">prepare_lhc_run3</span></code></a>, <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles" title="pyhdtoolkit.cpymadtools.lhc._errors.misalign_lhc_ir_quadrupoles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">misalign_lhc_ir_quadrupoles</span></code></a></p></li>
 <li><p><a class="reference internal" href="../api/cpymadtools.html#module-pyhdtoolkit.cpymadtools.matching" title="pyhdtoolkit.cpymadtools.matching"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matching</span></code></a>: <a class="reference internal" href="../api/cpymadtools.html#pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities" title="pyhdtoolkit.cpymadtools.matching.match_tunes_and_chromaticities"><code class="xref py py-obj docutils literal notranslate"><span class="pre">match_tunes_and_chromaticities</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  9.029 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  10.713 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-ir-errors-py">
 <div class="sphx-glr-download sphx-glr-download-python docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/da42f6ab08c5bc8cb6606bcaeb4957d9/demo_ir_errors.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_ir_errors.py</span></code></a></p>

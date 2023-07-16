@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -475,8 +476,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; condor_q_output = get_the_string_as_you_wish(...)</span>
-<span class="sd">            &gt;&gt;&gt; tasks, cluster = read_condor_q(condor_q_output)</span>
+<span class="sd">            condor_q_output = get_the_string_as_you_wish(...)</span>
+<span class="sd">            tasks, cluster = read_condor_q(condor_q_output)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">next_line_is_task_report</span> <span class="o">=</span> <span class="kc">False</span>

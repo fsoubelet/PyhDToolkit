@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -417,7 +418,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; make_sixtrack_output(madx, energy=6800)</span>
+<span class="sd">            make_sixtrack_output(madx, energy=6800)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Preparing outputs for SixTrack&quot;</span><span class="p">)</span>
 
@@ -443,7 +444,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; reset_lhc_bump_flags(madx)</span>
+<span class="sd">            reset_lhc_bump_flags(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Resetting all LHC IP bump flags&quot;</span><span class="p">)</span>
     <span class="n">ALL_BUMPS</span> <span class="o">=</span> <span class="p">(</span>
@@ -482,18 +483,18 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; get_lhc_tune_and_chroma_knobs(&quot;LHC&quot;, beam=1, telescopic_squeeze=False)</span>
-<span class="sd">            (&#39;dQx.b1&#39;, &#39;dQy.b1&#39;, &#39;dQpx.b1&#39;, &#39;dQpy.b1&#39;)</span>
+<span class="sd">            get_lhc_tune_and_chroma_knobs(&quot;LHC&quot;, beam=1, telescopic_squeeze=False)</span>
+<span class="sd">            # gives (&#39;dQx.b1&#39;, &#39;dQy.b1&#39;, &#39;dQpx.b1&#39;, &#39;dQpy.b1&#39;)</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; get_lhc_tune_and_chroma_knobs(&quot;LHC&quot;, beam=2, run3=True)</span>
-<span class="sd">            (&#39;dQx.b2_op&#39;, &#39;dQx.b2_op&#39;, &#39;dQpx.b2_op&#39;, &#39;dQpx.b2_op&#39;)</span>
+<span class="sd">            get_lhc_tune_and_chroma_knobs(&quot;LHC&quot;, beam=2, run3=True)</span>
+<span class="sd">            # gives (&#39;dQx.b2_op&#39;, &#39;dQx.b2_op&#39;, &#39;dQpx.b2_op&#39;, &#39;dQpx.b2_op&#39;)</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; get_lhc_tune_and_chroma_knobs(&quot;HLLHC&quot;, beam=2)</span>
-<span class="sd">            (&#39;kqtf.b2_sq&#39;, &#39;kqtd.b2_sq&#39;, &#39;ksf.b2_sq&#39;, &#39;ksd.b2_sq&#39;)</span>
+<span class="sd">            get_lhc_tune_and_chroma_knobs(&quot;HLLHC&quot;, beam=2)</span>
+<span class="sd">            # gives (&#39;kqtf.b2_sq&#39;, &#39;kqtd.b2_sq&#39;, &#39;ksf.b2_sq&#39;, &#39;ksd.b2_sq&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">beam</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">4</span> <span class="k">else</span> <span class="n">beam</span>
     <span class="k">if</span> <span class="n">run3</span><span class="p">:</span>
@@ -543,7 +544,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; observation_bpms = get_lhc_bpms_list(madx)</span>
+<span class="sd">            observation_bpms = get_lhc_bpms_list(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">twiss</span><span class="o">.</span><span class="n">get_twiss_tfs</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
     <span class="n">bpms_df</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">&quot;^bpm.*B[12]$&quot;</span><span class="p">,</span> <span class="n">case</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">regex</span><span class="o">=</span><span class="kc">True</span><span class="p">)]</span>
@@ -574,7 +575,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; ip5_x, ip5_y = get_size_at_ip(madx, ip=5)</span>
+<span class="sd">            ip5_x, ip5_y = get_size_at_ip(madx, ip=5)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Getting horizontal and vertical sizes at IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> through Ripken parameters&quot;</span><span class="p">)</span>
     <span class="n">geom_emit_x</span> <span class="o">=</span> <span class="n">geom_emit_x</span> <span class="ow">or</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_x&quot;</span><span class="p">]</span>

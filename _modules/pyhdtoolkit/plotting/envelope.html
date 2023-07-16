@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -426,7 +427,7 @@
 <span class="sd">            `horizontal`, `y` or `vertical`, and is case-insensitive.</span>
 <span class="sd">        nsigma (float): the standard deviation to use for the beam enveloppe</span>
 <span class="sd">            calculation. A value of 3 will draw the 3 sigma beam enveloppe.</span>
-<span class="sd">                Defaults to 1.</span>
+<span class="sd">            Defaults to 1.</span>
 <span class="sd">        scale (float): a scaling factor to apply to the beam orbit and beam</span>
 <span class="sd">            enveloppe, for the user to adjust to their wanted scale. Defaults</span>
 <span class="sd">            to 1 (values in [m]).</span>
@@ -450,18 +451,18 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(10, 9))</span>
-<span class="sd">            &gt;&gt;&gt; plot_beam_envelope(madx, &quot;lhcb1&quot;, &quot;x&quot;, nsigma=3)</span>
-<span class="sd">            &gt;&gt;&gt; plt.show()</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(10, 9))</span>
+<span class="sd">            plot_beam_envelope(madx, &quot;lhcb1&quot;, &quot;x&quot;, nsigma=3)</span>
+<span class="sd">            plt.show()</span>
 
 <span class="sd">        In order to do the same plot but have all values in millimeters:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; fig, ax = plt.subplots(figsize=(10, 9))</span>
-<span class="sd">            &gt;&gt;&gt; plot_beam_envelope(madx, &quot;lhcb1&quot;, &quot;x&quot;, nsigma=3, scale=1e3)</span>
-<span class="sd">            &gt;&gt;&gt; plt.setp(ax, xlabel=&quot;S [m]&quot;, ylabel=&quot;X [mm]&quot;)</span>
-<span class="sd">            &gt;&gt;&gt; plt.show()</span>
+<span class="sd">            fig, ax = plt.subplots(figsize=(10, 9))</span>
+<span class="sd">            plot_beam_envelope(madx, &quot;lhcb1&quot;, &quot;x&quot;, nsigma=3, scale=1e3)</span>
+<span class="sd">            plt.setp(ax, xlabel=&quot;S [m]&quot;, ylabel=&quot;X [mm]&quot;)</span>
+<span class="sd">            plt.show()</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">):</span>

@@ -30,7 +30,18 @@ particle with the ``TRACK`` command of ``MAD-X``, and visualise its coordinates 
 In this example we will use the LHC lattice to illustrate the tracking workflow when using
 `~.cpymadtools`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 15-27
+.. important::
+    This example requires the `acc-models-lhc` repository to be cloned locally. One
+    can get it by running the following command:
+
+    .. code-block:: bash
+
+        git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+
+    Here I set the 2022 branch for stability and reproducibility of the documentation
+    builds, but you can use any branch you want.
+
+.. GENERATED FROM PYTHON SOURCE LINES 26-38
 
 .. code-block:: default
 
@@ -53,42 +64,20 @@ In this example we will use the LHC lattice to illustrate the tracking workflow 
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
+.. GENERATED FROM PYTHON SOURCE LINES 40-43
 
-Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
+Let's start by setting up the LHC in ``MAD-X``, in this case at collision 
+optics and energy and with a sliced lattice. To understand the function below
+have a look at the :ref:`lhc setup example <demo-lhc-setup>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-40
-
-.. code-block:: default
-
-
-    madx = Madx(stdout=False)
-    madx.call("lhc/lhc_as-built.seq")
-    madx.call("lhc/opticsfile.22")  # collision optics
-
-    lhc.make_lhc_beams(madx)
-    lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")  # as done in OMC
-
-    madx.command.use(sequence="lhcb1")
-
-
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 41-42
-
-Slicing is necessary in ``MAD-X`` in order to perform tracking, so let's do so.
-
-.. GENERATED FROM PYTHON SOURCE LINES 42-46
+.. GENERATED FROM PYTHON SOURCE LINES 43-48
 
 .. code-block:: default
 
 
-    lhc.make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
-    madx.use(sequence="lhcb1")
+    madx = lhc.prepare_lhc_run3(
+        opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False
+    )
 
 
 
@@ -97,7 +86,7 @@ Slicing is necessary in ``MAD-X`` in order to perform tracking, so let's do so.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-58
+.. GENERATED FROM PYTHON SOURCE LINES 49-60
 
 Now we can track a particle. By default, the "start of machine" as ``MAD-X`` sees it
 is where coordinates will be registered each turn. It is possible with this function
@@ -111,7 +100,7 @@ please refer to the API reference for more information.
     When providing additional observation points, each element must be a string,
     and be the exact name of the element as given to ``MAD-X``.
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-71
+.. GENERATED FROM PYTHON SOURCE LINES 60-73
 
 .. code-block:: default
 
@@ -135,7 +124,7 @@ please refer to the API reference for more information.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 72-79
+.. GENERATED FROM PYTHON SOURCE LINES 74-81
 
 The function returns a dictionary with an entry per observation point, named
 **observation_point_n** where *n* is the number of the observation point, in the
@@ -145,7 +134,7 @@ start of machine and the two provided BPMs.
 Each key holds as value a `~pandas.DataFrame` with the following columns: *number*, *turn*,
 *x*, *px*, *y*, *py*, *t*, *pt*, *s*, *e*. See for instance below:
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-82
+.. GENERATED FROM PYTHON SOURCE LINES 81-84
 
 .. code-block:: default
 
@@ -195,66 +184,66 @@ Each key holds as value a `~pandas.DataFrame` with the following columns: *numbe
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>1.0</td>
-          <td>-0.001226</td>
-          <td>0.000056</td>
-          <td>0.000068</td>
-          <td>-0.000003</td>
-          <td>0.000002</td>
+          <td>-0.001098</td>
+          <td>0.000050</td>
+          <td>0.000004</td>
+          <td>2.959826e-07</td>
+          <td>-3.763407e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>2.0</td>
-          <td>-0.000349</td>
-          <td>0.000017</td>
-          <td>0.000623</td>
-          <td>-0.000029</td>
-          <td>0.000013</td>
+          <td>-0.000320</td>
+          <td>0.000016</td>
+          <td>0.000661</td>
+          <td>-3.082253e-05</td>
+          <td>-3.564916e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>3.0</td>
-          <td>0.001479</td>
-          <td>-0.000069</td>
-          <td>-0.000590</td>
-          <td>0.000027</td>
-          <td>0.000024</td>
+          <td>0.001329</td>
+          <td>-0.000062</td>
+          <td>-0.000555</td>
+          <td>2.540655e-05</td>
+          <td>-3.491807e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>4.0</td>
-          <td>-0.000756</td>
-          <td>0.000034</td>
-          <td>-0.000117</td>
-          <td>0.000006</td>
-          <td>0.000038</td>
+          <td>-0.000676</td>
+          <td>0.000031</td>
+          <td>-0.000183</td>
+          <td>8.936081e-06</td>
+          <td>-3.810800e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>5.0</td>
-          <td>-0.000920</td>
-          <td>0.000043</td>
-          <td>0.000689</td>
-          <td>-0.000032</td>
-          <td>0.000050</td>
+          <td>-0.000830</td>
+          <td>0.000039</td>
+          <td>0.000710</td>
+          <td>-3.298023e-05</td>
+          <td>-3.456599e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>...</th>
@@ -273,66 +262,66 @@ Each key holds as value a `~pandas.DataFrame` with the following columns: *numbe
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>1019.0</td>
-          <td>0.001491</td>
-          <td>-0.000069</td>
-          <td>0.000679</td>
-          <td>-0.000032</td>
-          <td>0.012288</td>
+          <td>0.001344</td>
+          <td>-0.000062</td>
+          <td>0.000734</td>
+          <td>-3.397093e-05</td>
+          <td>-6.461261e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>1020.0</td>
-          <td>-0.000488</td>
+          <td>-0.000490</td>
           <td>0.000022</td>
-          <td>-0.000517</td>
-          <td>0.000024</td>
-          <td>0.012303</td>
+          <td>-0.000286</td>
+          <td>1.280504e-05</td>
+          <td>-6.776840e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>1021.0</td>
-          <td>-0.001131</td>
-          <td>0.000053</td>
-          <td>-0.000236</td>
-          <td>0.000011</td>
-          <td>0.012315</td>
+          <td>-0.000981</td>
+          <td>0.000046</td>
+          <td>-0.000489</td>
+          <td>2.299814e-05</td>
+          <td>-6.557071e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>1022.0</td>
-          <td>0.001308</td>
-          <td>-0.000060</td>
-          <td>0.000720</td>
-          <td>-0.000033</td>
-          <td>0.012324</td>
+          <td>0.001198</td>
+          <td>-0.000055</td>
+          <td>0.000694</td>
+          <td>-3.203857e-05</td>
+          <td>-6.574820e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
         <tr>
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>1023.0</td>
-          <td>0.000160</td>
-          <td>-0.000008</td>
-          <td>-0.000372</td>
-          <td>0.000017</td>
-          <td>0.012339</td>
+          <td>0.000089</td>
+          <td>-0.000005</td>
+          <td>-0.000102</td>
+          <td>4.251582e-06</td>
+          <td>-6.764902e-07</td>
           <td>0.0</td>
           <td>0.0</td>
-          <td>7000.0</td>
+          <td>6800.0</td>
         </tr>
       </tbody>
     </table>
@@ -342,13 +331,13 @@ Each key holds as value a `~pandas.DataFrame` with the following columns: *numbe
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 83-86
+.. GENERATED FROM PYTHON SOURCE LINES 85-88
 
 Once tracking data is obtained, one can easily plot the coordinates and spectrum
 using the convenience `~pandas.DataFrame` plotting methods. Here it is for the
 first obeservation BPM we provided above:
 
-.. GENERATED FROM PYTHON SOURCE LINES 86-98
+.. GENERATED FROM PYTHON SOURCE LINES 88-100
 
 .. code-block:: default
 
@@ -376,12 +365,12 @@ first obeservation BPM we provided above:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-101
+.. GENERATED FROM PYTHON SOURCE LINES 101-103
 
 In order to plot the spectra of the particle motion, one should first compute
 them. This is the matter of a simple fast fourier transform:
 
-.. GENERATED FROM PYTHON SOURCE LINES 101-106
+.. GENERATED FROM PYTHON SOURCE LINES 103-108
 
 .. code-block:: default
 
@@ -397,10 +386,10 @@ them. This is the matter of a simple fast fourier transform:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-116
+.. GENERATED FROM PYTHON SOURCE LINES 109-118
 
 .. tip::
-    To get the tunes of the particle, one can find the peak of the spectra.
+    To get the fractional tunes of the particle, one can find the peak of the spectra.
 
     .. code-block:: python
 
@@ -409,7 +398,7 @@ them. This is the matter of a simple fast fourier transform:
 
 One can then plot the spectra by plotting the computed values against the tune space:
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-128
+.. GENERATED FROM PYTHON SOURCE LINES 118-130
 
 .. code-block:: default
 
@@ -423,7 +412,7 @@ One can then plot the spectra by plotting the computed values against the tune s
         ylabel="Spectrum [a.u]",
         figsize=(18, 10),
     )
-
+    plt.show()
 
 
 
@@ -437,7 +426,7 @@ One can then plot the spectra by plotting the computed values against the tune s
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 129-134
+.. GENERATED FROM PYTHON SOURCE LINES 131-136
 
 In case the user provided ``ONETABLE=True`` to the tracking function, then all
 observation points data will be stored in a single `~pandas.DataFrame` that can
@@ -445,7 +434,7 @@ be accessed with the **trackone** key in the returned dictionary. In that case,
 accessing the coordinates at a given observation point is done by making use of
 the DataFrame indexing syntax:
 
-.. GENERATED FROM PYTHON SOURCE LINES 134-147
+.. GENERATED FROM PYTHON SOURCE LINES 136-149
 
 .. code-block:: default
 
@@ -505,11 +494,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>1.0</td>
-          <td>-0.001226</td>
-          <td>0.000056</td>
-          <td>0.000068</td>
-          <td>-0.000003</td>
-          <td>0.000002</td>
+          <td>-0.001098</td>
+          <td>0.000050</td>
+          <td>0.000004</td>
+          <td>2.959826e-07</td>
+          <td>-3.763407e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -518,11 +507,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>2.0</td>
-          <td>-0.000349</td>
-          <td>0.000017</td>
-          <td>0.000623</td>
-          <td>-0.000029</td>
-          <td>0.000013</td>
+          <td>-0.000320</td>
+          <td>0.000016</td>
+          <td>0.000661</td>
+          <td>-3.082253e-05</td>
+          <td>-3.564916e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -531,11 +520,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>3.0</td>
-          <td>0.001479</td>
-          <td>-0.000069</td>
-          <td>-0.000590</td>
-          <td>0.000027</td>
-          <td>0.000024</td>
+          <td>0.001329</td>
+          <td>-0.000062</td>
+          <td>-0.000555</td>
+          <td>2.540655e-05</td>
+          <td>-3.491807e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -544,11 +533,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>4.0</td>
-          <td>-0.000756</td>
-          <td>0.000034</td>
-          <td>-0.000117</td>
-          <td>0.000006</td>
-          <td>0.000038</td>
+          <td>-0.000676</td>
+          <td>0.000031</td>
+          <td>-0.000183</td>
+          <td>8.936081e-06</td>
+          <td>-3.810800e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -557,11 +546,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>5.0</td>
-          <td>-0.000920</td>
-          <td>0.000043</td>
-          <td>0.000689</td>
-          <td>-0.000032</td>
-          <td>0.000050</td>
+          <td>-0.000830</td>
+          <td>0.000039</td>
+          <td>0.000710</td>
+          <td>-3.298023e-05</td>
+          <td>-3.456599e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -570,11 +559,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>6.0</td>
-          <td>0.001422</td>
-          <td>-0.000066</td>
-          <td>-0.000460</td>
-          <td>0.000021</td>
-          <td>0.000060</td>
+          <td>0.001274</td>
+          <td>-0.000059</td>
+          <td>-0.000407</td>
+          <td>1.847747e-05</td>
+          <td>-3.640162e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -583,11 +572,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>7.0</td>
-          <td>-0.000137</td>
+          <td>-0.000119</td>
           <td>0.000005</td>
-          <td>-0.000296</td>
-          <td>0.000014</td>
-          <td>0.000074</td>
+          <td>-0.000362</td>
+          <td>1.715175e-05</td>
+          <td>-3.759093e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -596,11 +585,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>8.0</td>
-          <td>-0.001320</td>
-          <td>0.000062</td>
-          <td>0.000710</td>
-          <td>-0.000033</td>
-          <td>0.000087</td>
+          <td>-0.001186</td>
+          <td>0.000055</td>
+          <td>0.000715</td>
+          <td>-3.307915e-05</td>
+          <td>-3.426777e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -609,11 +598,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>9.0</td>
-          <td>0.001093</td>
-          <td>-0.000050</td>
-          <td>-0.000299</td>
-          <td>0.000013</td>
-          <td>0.000097</td>
+          <td>0.000974</td>
+          <td>-0.000045</td>
+          <td>-0.000233</td>
+          <td>1.033764e-05</td>
+          <td>-3.780484e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -622,11 +611,11 @@ the DataFrame indexing syntax:
           <th>bpmsw.1l1.b1_doros</th>
           <td>1.0</td>
           <td>10.0</td>
-          <td>0.000514</td>
-          <td>-0.000025</td>
-          <td>-0.000458</td>
-          <td>0.000022</td>
-          <td>0.000109</td>
+          <td>0.000467</td>
+          <td>-0.000022</td>
+          <td>-0.000518</td>
+          <td>2.430951e-05</td>
+          <td>-3.636226e-07</td>
           <td>0.0</td>
           <td>23497.790616</td>
           <td>0.0</td>
@@ -638,11 +627,11 @@ the DataFrame indexing syntax:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-149
+.. GENERATED FROM PYTHON SOURCE LINES 150-151
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 149-152
+.. GENERATED FROM PYTHON SOURCE LINES 151-154
 
 .. code-block:: default
 
@@ -656,20 +645,20 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 153-160
+.. GENERATED FROM PYTHON SOURCE LINES 155-162
 
 .. admonition:: References
 
    The use of the following functions, methods, classes and modules is shown
    in this example:
 
-   - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`
+   - `~.cpymadtools.lhc`: `~.lhc._setup.prepare_lhc_run3`
    - `~.cpymadtools.track`: `~.track.track_single_particle`
 
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  16.964 seconds)
+   **Total running time of the script:** ( 0 minutes  17.052 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_track_spectra.py:

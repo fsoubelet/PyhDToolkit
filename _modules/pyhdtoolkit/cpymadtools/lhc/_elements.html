@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -422,9 +423,9 @@
 <span class="sd">    :ref:`AC Dipole Tracking &lt;demo-ac-dipole-tracking&gt;` example gallery.</span>
 
 <span class="sd">    .. warning::</span>
-<span class="sd">        Installing the AC Dipole modifies the sequence, which will then be</span>
-<span class="sd">        ``USE``d at the end of this function. This will remove any errors</span>
-<span class="sd">        that were installed in the sequence.</span>
+<span class="sd">        Installing the AC Dipole modifies the sequence, and the ``USE``</span>
+<span class="sd">        command will be called again at the end of this function. This</span>
+<span class="sd">        will remove any errors that were installed in the sequence.</span>
 
 <span class="sd">        As the errors impact the optics functions which are used during the</span>
 <span class="sd">        installation of the AC Dipole, it would not be correct to implement</span>
@@ -459,17 +460,17 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; install_ac_dipole_as_kicker(</span>
-<span class="sd">            ...     madx,</span>
-<span class="sd">            ...     deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30</span>
-<span class="sd">            ...     deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332</span>
-<span class="sd">            ...     sigma_x=2,  # bunch amplitude kick in the horizontal plane</span>
-<span class="sd">            ...     sigma_y=2,  # bunch amplitude kick in the vertical plane</span>
-<span class="sd">            ...     beam=1,  # beam for which to install and kick</span>
-<span class="sd">            ...     start_turn=100,  # when to turn on the AC Dipole</span>
-<span class="sd">            ...     ramp_turns=2000,  # how many turns to ramp up/down the AC Dipole</span>
-<span class="sd">            ...     top_turns=6600,  # how many turns to keep the AC Dipole at full kick</span>
-<span class="sd">            ... )</span>
+<span class="sd">            install_ac_dipole_as_kicker(</span>
+<span class="sd">                madx,</span>
+<span class="sd">                deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30</span>
+<span class="sd">                deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332</span>
+<span class="sd">                sigma_x=2,  # bunch amplitude kick in the horizontal plane</span>
+<span class="sd">                sigma_y=2,  # bunch amplitude kick in the vertical plane</span>
+<span class="sd">                beam=1,  # beam for which to install and kick</span>
+<span class="sd">                start_turn=100,  # when to turn on the AC Dipole</span>
+<span class="sd">                ramp_turns=2000,  # how many turns to ramp up/down the AC Dipole</span>
+<span class="sd">                top_turns=6600,  # how many turns to keep the AC Dipole at full kick</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a kicker and will not affect TWISS functions!&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam&quot;</span><span class="p">)</span>
@@ -545,9 +546,9 @@
 <span class="sd">        affect tracking.</span>
 
 <span class="sd">    .. warning::</span>
-<span class="sd">        Installing the AC Dipole modifies the sequence, which will then be</span>
-<span class="sd">        ``USE``d at the end of this function. This will remove any errors</span>
-<span class="sd">        that were installed in the sequence.</span>
+<span class="sd">        Installing the AC Dipole modifies the sequence, and the ``USE``</span>
+<span class="sd">        command will be called again at the end of this function. This</span>
+<span class="sd">        will remove any errors that were installed in the sequence.</span>
 
 <span class="sd">        As the errors impact the optics functions which are used during the</span>
 <span class="sd">        installation of the AC Dipole, it would not be correct to implement</span>
@@ -570,7 +571,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)</span>
+<span class="sd">            install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;This AC Dipole is implemented as a matrix and will not affect particle tracking!&quot;</span><span class="p">)</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;This routine should be done after &#39;match&#39;, &#39;twiss&#39; and &#39;makethin&#39; for the appropriate beam.&quot;</span><span class="p">)</span>
@@ -645,9 +646,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; add_markers_around_lhc_ip(</span>
-<span class="sd">            ...     madx, sequence=f&quot;lhcb1&quot;, ip=1, n_markers=1000, interval=0.001</span>
-<span class="sd">            ... )</span>
+<span class="sd">            add_markers_around_lhc_ip(</span>
+<span class="sd">                madx, sequence=f&quot;lhcb1&quot;, ip=1, n_markers=1000, interval=0.001</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Adding </span><span class="si">{</span><span class="n">n_markers</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> markers on each side of IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">seqedit</span><span class="p">(</span><span class="n">sequence</span><span class="o">=</span><span class="n">sequence</span><span class="p">)</span>

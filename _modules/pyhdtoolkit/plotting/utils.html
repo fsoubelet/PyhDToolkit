@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -427,11 +428,10 @@
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; def my_plotting_function(*args, **kwargs):</span>
-<span class="sd">            ...     ax, kwargs = maybe_get_ax(**kwargs)</span>
-<span class="sd">            ...     # do stuff with ax</span>
-<span class="sd">            ...     ax.plot(*args, **kwargs)</span>
-<span class="sd">            ... )</span>
+<span class="sd">            def my_plotting_function(*args, **kwargs):</span>
+<span class="sd">                ax, kwargs = maybe_get_ax(**kwargs)</span>
+<span class="sd">                # do stuff with ax</span>
+<span class="sd">                ax.plot(*args, **kwargs)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Looking for axis object to plot on&quot;</span><span class="p">)</span>
     <span class="k">if</span> <span class="s2">&quot;ax&quot;</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="p">:</span>
@@ -463,9 +463,9 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; ip_offset_in_segment = find_ip_s_from_segment_start(</span>
-<span class="sd">            ...     segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1</span>
-<span class="sd">            ... )</span>
+<span class="sd">            ip_offset_in_segment = find_ip_s_from_segment_start(</span>
+<span class="sd">                segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Determining location of IP</span><span class="si">{</span><span class="n">ip</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> from the start of segment.&quot;</span><span class="p">)</span>
     <span class="n">first_element</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">segment_df</span><span class="o">.</span><span class="n">NAME</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
@@ -504,8 +504,8 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; twiss_df = tfs.read(&quot;twiss_output.tfs&quot;, index=&quot;NAME&quot;)</span>
-<span class="sd">            &gt;&gt;&gt; ips = get_lhc_ips_positions(twiss_df)</span>
+<span class="sd">            twiss_df = tfs.read(&quot;twiss_output.tfs&quot;, index=&quot;NAME&quot;)</span>
+<span class="sd">            ips = get_lhc_ips_positions(twiss_df)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Extracting IP positions from dataframe&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
@@ -542,7 +542,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; element_dfs = make_elements_groups(madx)</span>
+<span class="sd">            element_dfs = make_elements_groups(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">twiss_df</span> <span class="o">=</span> <span class="n">_get_twiss_table_with_offsets_and_limits</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">)</span>
 
@@ -577,7 +577,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; survey_dfs = make_survey_groups(madx)</span>
+<span class="sd">            survey_dfs = make_survey_groups(madx)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">element_dfs</span> <span class="o">=</span> <span class="n">make_elements_groups</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
     <span class="n">quadrupoles_focusing_df</span> <span class="o">=</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quadrupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;k1l &gt; 0&quot;</span><span class="p">)</span>
@@ -623,10 +623,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; twiss_df = tfs.read(&quot;twiss_output.tfs&quot;, index=&quot;NAME&quot;)</span>
-<span class="sd">            &gt;&gt;&gt; twiss_df.plot(x=&quot;S&quot;, y=[&quot;BETX&quot;, &quot;BETY&quot;])</span>
-<span class="sd">            &gt;&gt;&gt; ips = get_lhc_ips_positions(twiss_df)</span>
-<span class="sd">            &gt;&gt;&gt; draw_ip_locations(ip_positions=ips)</span>
+<span class="sd">            twiss_df = tfs.read(&quot;twiss_output.tfs&quot;, index=&quot;NAME&quot;)</span>
+<span class="sd">            twiss_df.plot(x=&quot;S&quot;, y=[&quot;BETX&quot;, &quot;BETY&quot;])</span>
+<span class="sd">            ips = get_lhc_ips_positions(twiss_df)</span>
+<span class="sd">            draw_ip_locations(ip_positions=ips)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">xlimits</span> <span class="o">=</span> <span class="n">axis</span><span class="o">.</span><span class="n">get_xlim</span><span class="p">()</span>
@@ -690,14 +690,14 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; set_arrow_label(</span>
-<span class="sd">            ...     label=&quot;Your label&quot;,</span>
-<span class="sd">            ...     arrow_position=(1, 2),</span>
-<span class="sd">            ...     label_position=(1.1 * some_value, 0.75 * another_value),</span>
-<span class="sd">            ...     color=&quot;indianred&quot;,</span>
-<span class="sd">            ...     arrow_arc_rad=0.3,</span>
-<span class="sd">            ...     fontsize=25,</span>
-<span class="sd">            ... )</span>
+<span class="sd">            set_arrow_label(</span>
+<span class="sd">                label=&quot;Your label&quot;,</span>
+<span class="sd">                arrow_position=(1, 2),</span>
+<span class="sd">                label_position=(1.1 * some_value, 0.75 * another_value),</span>
+<span class="sd">                color=&quot;indianred&quot;,</span>
+<span class="sd">                arrow_arc_rad=0.3,</span>
+<span class="sd">                fontsize=25,</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">axis</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span>
@@ -742,10 +742,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; x = np.random.normal(size=1000)</span>
-<span class="sd">            &gt;&gt;&gt; y = np.random.normal(size=1000)</span>
-<span class="sd">            &gt;&gt;&gt; plt.plot(x, y, &quot;.&quot;, markersize=0.8)</span>
-<span class="sd">            &gt;&gt;&gt; draw_confidence_ellipse(x, y, n_std=2.5, edgecolor=&quot;red&quot;)</span>
+<span class="sd">            x = np.random.normal(size=1000)</span>
+<span class="sd">            y = np.random.normal(size=1000)</span>
+<span class="sd">            plt.plot(x, y, &quot;.&quot;, markersize=0.8)</span>
+<span class="sd">            draw_confidence_ellipse(x, y, n_std=2.5, edgecolor=&quot;red&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
@@ -830,7 +830,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; coupling_label = _determine_default_sbs_coupling_ylabel(rdt=&quot;f1001&quot;, component=&quot;RE&quot;)</span>
+<span class="sd">            coupling_label = _determine_default_sbs_coupling_ylabel(rdt=&quot;f1001&quot;, component=&quot;RE&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Determining a default label for the </span><span class="si">{</span><span class="n">component</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> component of coupling </span><span class="si">{</span><span class="n">rdt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">rdt</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;F1001&quot;</span><span class="p">,</span> <span class="s2">&quot;F1010&quot;</span><span class="p">)</span>
@@ -862,7 +862,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; phase_label = _determine_default_sbs_phase_ylabel(plane=&quot;X&quot;)</span>
+<span class="sd">            phase_label = _determine_default_sbs_phase_ylabel(plane=&quot;X&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Determining a default label for the </span><span class="si">{</span><span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2"> phase plane.&quot;</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">plane</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;X&quot;</span><span class="p">,</span> <span class="s2">&quot;Y&quot;</span><span class="p">)</span>

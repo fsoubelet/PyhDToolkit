@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -495,20 +496,20 @@ example gallery.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">params</span> <span class="o">=</span> <span class="n">compute_beam_parameters</span><span class="p">(</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="mf">2e-3</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
-<span class="go">Beam Parameters for particle of charge 1</span>
-<span class="go">Beam momentum = 1.900 GeV/c</span>
-<span class="go">Normalized x-emittance = 5.000 mm mrad</span>
-<span class="go">Normalized y-emittance = 5.000 mm mrad</span>
-<span class="go">Momentum deviation deltap/p = 0.002</span>
-<span class="go">-&gt; Beam total energy = 2.119 GeV</span>
-<span class="go">-&gt; Beam kinetic energy = 1.181 GeV</span>
-<span class="go">-&gt; Beam rigidity = 6.333 Tm</span>
-<span class="go">-&gt; Relativistic beta = 0.89663</span>
-<span class="go">-&gt; Relativistic gamma = 2.258</span>
-<span class="go">-&gt; Geometrical x emittance = 2.469 mm mrad</span>
-<span class="go">-&gt; Geometrical y emittance = 2.469 mm mrad</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">params</span> <span class="o">=</span> <span class="n">compute_beam_parameters</span><span class="p">(</span><span class="mf">1.9</span><span class="p">,</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="mf">5e-6</span><span class="p">,</span> <span class="mf">2e-3</span><span class="p">)</span>
+<a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#print" title="print"><span class="nb">print</span></a><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+<span class="c1"># Beam Parameters for particle of charge 1</span>
+<span class="c1"># Beam momentum = 1.900 GeV/c</span>
+<span class="c1"># Normalized x-emittance = 5.000 mm mrad</span>
+<span class="c1"># Normalized y-emittance = 5.000 mm mrad</span>
+<span class="c1"># Momentum deviation deltap/p = 0.002</span>
+<span class="c1"># -&gt; Beam total energy = 2.119 GeV</span>
+<span class="c1"># -&gt; Beam kinetic energy = 1.181 GeV</span>
+<span class="c1"># -&gt; Beam rigidity = 6.333 Tm</span>
+<span class="c1"># -&gt; Relativistic beta = 0.89663</span>
+<span class="c1"># -&gt; Relativistic gamma = 2.258</span>
+<span class="c1"># -&gt; Geometrical x emittance = 2.469 mm mrad</span>
+<span class="c1"># -&gt; Geometrical y emittance = 2.469 mm mrad</span>
 </pre></div>
 </div>
 </div>
@@ -547,15 +548,15 @@ See the example below.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">geom_emit_x</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">"geometric_emit_x"</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">geom_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">"geometric_emit_y"</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">ripken</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">horizontal_size</span> <span class="o">=</span> <span class="n">lebedev_beam_size</span><span class="p">(</span>
-<span class="go">        twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y</span>
-<span class="go">    )</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">vertical_size</span> <span class="o">=</span> <span class="n">lebedev_beam_size</span><span class="p">(</span>
-<span class="go">        twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y</span>
-<span class="go">    )</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">geom_emit_x</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">"geometric_emit_x"</span><span class="p">]</span>
+<span class="n">geom_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">"geometric_emit_y"</span><span class="p">]</span>
+<span class="n">twiss_tfs</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">twiss</span><span class="p">(</span><span class="n">ripken</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">dframe</span><span class="p">()</span>
+<span class="n">horizontal_size</span> <span class="o">=</span> <span class="n">lebedev_beam_size</span><span class="p">(</span>
+    <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">beta11</span><span class="p">,</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">beta21</span><span class="p">,</span> <span class="n">geom_emit_x</span><span class="p">,</span> <span class="n">geom_emit_y</span>
+<span class="p">)</span>
+<span class="n">vertical_size</span> <span class="o">=</span> <span class="n">lebedev_beam_size</span><span class="p">(</span>
+    <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">beta12</span><span class="p">,</span> <span class="n">twiss_tfs</span><span class="o">.</span><span class="n">beta22</span><span class="p">,</span> <span class="n">geom_emit_x</span><span class="p">,</span> <span class="n">geom_emit_y</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -594,10 +595,10 @@ coordinates, either horizontal or vertical.</p></li>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">alfx</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">betx</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">betx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">px_coord</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">u_bar</span> <span class="o">=</span> <span class="n">courant_snyder_transform</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">alfx</span><span class="p">,</span> <span class="n">betx</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">alfx</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">alfx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">betx</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">twiss</span><span class="o">.</span><span class="n">betx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">x_coords</span><span class="p">,</span> <span class="n">px_coord</span><span class="p">])</span>
+<span class="n">u_bar</span> <span class="o">=</span> <span class="n">courant_snyder_transform</span><span class="p">(</span><span class="n">u</span><span class="p">,</span> <span class="n">alfx</span><span class="p">,</span> <span class="n">betx</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>

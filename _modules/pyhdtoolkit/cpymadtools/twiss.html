@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -442,20 +443,20 @@
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; ips_df = get_pattern_twiss(madx=madx, patterns=[&quot;IP&quot;])</span>
+<span class="sd">            ips_df = get_pattern_twiss(madx=madx, patterns=[&quot;IP&quot;])</span>
 
 <span class="sd">        To get (HL)LHC IR1 triplets:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; triplets_df = get_pattern_twiss(</span>
-<span class="sd">            ...     madx=madx,</span>
-<span class="sd">            ...     patterns=[</span>
-<span class="sd">            ...         r&quot;MQXA.[12345][RL]1&quot;,  # Q1 and Q3 LHC</span>
-<span class="sd">            ...         r&quot;MQXB.[AB][12345][RL]1&quot;,  # Q2A and Q2B LHC</span>
-<span class="sd">            ...         r&quot;MQXF[AB].[AB][12345][RL]1&quot;,  # Q1 to Q3 A and B HL-LHC</span>
-<span class="sd">            ...     ],</span>
-<span class="sd">            ... )</span>
+<span class="sd">            triplets_df = get_pattern_twiss(</span>
+<span class="sd">                madx=madx,</span>
+<span class="sd">                patterns=[</span>
+<span class="sd">                    r&quot;MQXA.[12345][RL]1&quot;,  # Q1 and Q3 LHC</span>
+<span class="sd">                    r&quot;MQXB.[AB][12345][RL]1&quot;,  # Q2A and Q2B LHC</span>
+<span class="sd">                    r&quot;MQXF[AB].[AB][12345][RL]1&quot;,  # Q1 to Q3 A and B HL-LHC</span>
+<span class="sd">                ],</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">columns</span> <span class="o">=</span> <span class="n">columns</span> <span class="ow">or</span> <span class="n">DEFAULT_TWISS_COLUMNS</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Clearing &#39;TWISS&#39; flag&quot;</span><span class="p">)</span>
@@ -498,7 +499,7 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; twiss_df = get_twiss_tfs(madx, chrom=True, ripken=True)</span>
+<span class="sd">            twiss_df = get_twiss_tfs(madx, chrom=True, ripken=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Clearing &#39;TWISS&#39; flag&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">select</span><span class="p">(</span><span class="n">flag</span><span class="o">=</span><span class="s2">&quot;twiss&quot;</span><span class="p">,</span> <span class="n">clear</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

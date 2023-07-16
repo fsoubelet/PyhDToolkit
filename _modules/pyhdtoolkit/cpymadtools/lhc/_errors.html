@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -432,13 +433,13 @@
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; misalign_lhc_triplets(madx, ip=1, sides=&quot;RL&quot;, dx=&quot;1E-5 * TGAUSS(2.5)&quot;)</span>
+<span class="sd">            misalign_lhc_triplets(madx, ip=1, sides=&quot;RL&quot;, dx=&quot;1E-5 * TGAUSS(2.5)&quot;)</span>
 
 <span class="sd">        A random, gaussian truncated ``DPSI`` misalignment:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; misalign_lhc_triplets(madx, ip=5, sides=&quot;RL&quot;, dpsi=&quot;0.001 * TGAUSS(2.5)&quot;)</span>
+<span class="sd">            misalign_lhc_triplets(madx, ip=5, sides=&quot;RL&quot;, dpsi=&quot;0.001 * TGAUSS(2.5)&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">misalign_lhc_ir_quadrupoles</span><span class="p">(</span><span class="n">madx</span><span class="p">,</span> <span class="n">ips</span><span class="o">=</span><span class="p">[</span><span class="n">ip</span><span class="p">],</span> <span class="n">beam</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">quadrupoles</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">sides</span><span class="o">=</span><span class="n">sides</span><span class="p">,</span> <span class="n">table</span><span class="o">=</span><span class="n">table</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
@@ -492,35 +493,35 @@
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; misalign_lhc_ir_quadrupoles(</span>
-<span class="sd">            ...     madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides=&quot;RL&quot;, dx=&quot;1E-5&quot;</span>
-<span class="sd">            ... )</span>
+<span class="sd">            misalign_lhc_ir_quadrupoles(</span>
+<span class="sd">                madx, ips=[1], quadrupoles=[1, 2, 3, 4, 5, 6], beam=1, sides=&quot;RL&quot;, dx=&quot;1E-5&quot;</span>
+<span class="sd">            )</span>
 
 <span class="sd">        For a tilt distribution centered on 1mrad:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; misalign_lhc_ir_quadrupoles(</span>
-<span class="sd">            ...     madx, ips=[5],</span>
-<span class="sd">            ...     quadrupoles=[7, 8, 9, 10],</span>
-<span class="sd">            ...     beam=1,</span>
-<span class="sd">            ...     sides=&quot;RL&quot;,</span>
-<span class="sd">            ...     dpsi=&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;,</span>
-<span class="sd">            ... )</span>
+<span class="sd">            misalign_lhc_ir_quadrupoles(</span>
+<span class="sd">                madx, ips=[5],</span>
+<span class="sd">                quadrupoles=[7, 8, 9, 10],</span>
+<span class="sd">                beam=1,</span>
+<span class="sd">                sides=&quot;RL&quot;,</span>
+<span class="sd">                dpsi=&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;,</span>
+<span class="sd">            )</span>
 
 <span class="sd">        For several error types on the elements, here ``DY`` and ``DPSI``:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; misalign_lhc_ir_quadrupoles(</span>
-<span class="sd">            ...     madx,</span>
-<span class="sd">            ...     ips=[1, 5],</span>
-<span class="sd">            ...     quadrupoles=list(range(1, 11)),</span>
-<span class="sd">            ...     beam=1,</span>
-<span class="sd">            ...     sides=&quot;RL&quot;,</span>
-<span class="sd">            ...     dy=1e-5,  # ok too as cpymad converts this to a string first</span>
-<span class="sd">            ...     dpsi=&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;</span>
-<span class="sd">            ... )</span>
+<span class="sd">            misalign_lhc_ir_quadrupoles(</span>
+<span class="sd">                madx,</span>
+<span class="sd">                ips=[1, 5],</span>
+<span class="sd">                quadrupoles=list(range(1, 11)),</span>
+<span class="sd">                beam=1,</span>
+<span class="sd">                sides=&quot;RL&quot;,</span>
+<span class="sd">                dy=1e-5,  # ok too as cpymad converts this to a string first</span>
+<span class="sd">                dpsi=&quot;1E-3 + 8E-4 * TGAUSS(2.5)&quot;</span>
+<span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">ip</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">)</span> <span class="k">for</span> <span class="n">ip</span> <span class="ow">in</span> <span class="n">ips</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;The IP number provided is invalid, not applying any error.&quot;</span><span class="p">)</span>

@@ -33,13 +33,13 @@ Please include the following items in a bug report:
    
     .. code-block:: python
    
-        >>> import pyhdtoolkit
-        >>> print(pyhdtoolkit.version.version_info())
-            PyhDToolkit version: 0.21.0
-                   Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit
-                 Python version: 3.10.6
-          Python implementation: 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:41:54) [Clang 13.0.1 ]
-                       Platform: macOS-12.5.1-x86_64-i386-64bit
+        import pyhdtoolkit
+        print(pyhdtoolkit.version.version_info())
+        #    PyhDToolkit version: 0.21.0
+        #           Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit
+        #         Python version: 3.10.6
+        #  Python implementation: 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:41:54) [Clang 13.0.1 ]
+        #               Platform: macOS-12.5.1-x86_64-i386-64bit
 
 Enhancement Proposals
 ---------------------

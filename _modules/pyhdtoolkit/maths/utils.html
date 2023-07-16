@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../../../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -414,18 +415,18 @@
 <span class="sd">    Examples:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; get_magnitude(10)</span>
-<span class="sd">            1</span>
+<span class="sd">            get_magnitude(10)</span>
+<span class="sd">            # returns 1</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; get_magnitude(0.0311)</span>
-<span class="sd">            -2</span>
+<span class="sd">            get_magnitude(0.0311)</span>
+<span class="sd">            # returns -2</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; get_magnitude(1e-7)</span>
-<span class="sd">            -7</span>
+<span class="sd">            get_magnitude(1e-7)</span>
+<span class="sd">            # returns -7</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">value</span><span class="p">))))</span></div>
 
@@ -451,10 +452,10 @@
 <span class="sd">    Example:</span>
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            &gt;&gt;&gt; import numpy as np</span>
-<span class="sd">            &gt;&gt;&gt; q = np.array([-330,  230,  430, -720,  750, -110,  410, -340, -950, -630])</span>
-<span class="sd">            &gt;&gt;&gt; get_scaled_values_and_magnitude_string(q)</span>
-<span class="sd">            (array([-3.3,  2.3,  4.3, -7.2,  7.5, -1.1,  4.1, -3.4, -9.5, -6.3]), &#39;{-2}&#39;)</span>
+<span class="sd">            import numpy as np</span>
+<span class="sd">            q = np.array([-330,  230,  430, -720,  750, -110,  410, -340, -950, -630])</span>
+<span class="sd">            get_scaled_values_and_magnitude_string(q)</span>
+<span class="sd">            # returns (array([-3.3,  2.3,  4.3, -7.2,  7.5, -1.1,  4.1, -3.4, -9.5, -6.3]), &#39;{-2}&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">magnitude</span> <span class="o">=</span> <span class="n">get_magnitude</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">values_array</span><span class="p">))</span> <span class="k">if</span> <span class="n">force_magnitude</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">force_magnitude</span>
     <span class="n">applied_magnitude</span> <span class="o">=</span> <span class="o">-</span><span class="n">magnitude</span>

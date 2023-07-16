@@ -77,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html">LHC Rigid Waist Shift</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#showcasing-the-waist-shift">Showcasing the Waist Shift</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#determining-the-waist-shift">Determining the Waist Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../gallery/demo_lhc_rigid_waist_shift.html#seeing-the-effect-through-values-of-the-knob">Seeing the effect through values of the knob</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../gallery/demo_machine_survey.html">Machine Survey</a></li>
@@ -403,15 +404,15 @@
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CommandLine</span><span class="o">.</span><span class="n">check_pid_exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">())</span>
+<span class="kc">True</span>
 </pre></div>
 </div>
 </div>
 </dd></dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils.cmdline.CommandLine.run">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.11)"><span class="pre">Mapping</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/cmdline.html#CommandLine.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.cmdline.CommandLine.run" title="Permalink to this definition"></a></dt>
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">command</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">shell</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><span class="pre">bool</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">env</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Mapping" title="(in Python v3.11)"><span class="pre">Mapping</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeout</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.11)"><span class="pre">Tuple</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#bytes" title="(in Python v3.11)"><span class="pre">bytes</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/cmdline.html#CommandLine.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils.cmdline.CommandLine.run" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 0.2.0.</span></p>
 </div>
@@ -451,15 +452,15 @@ standard output is returned in bytes format and should be decoded later on.</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"echo hello"</span><span class="p">)</span>
-<span class="go">(0, b"hello\r\n")</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"echo hello"</span><span class="p">)</span>
+<span class="c1"># returns (0, b"hello\r\n")</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">modified_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">modified_env</span><span class="p">[</span><span class="s2">"ENV_VAR"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"new_value"</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"echo $ENV_VAR"</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">modified_env</span><span class="p">)</span>
-<span class="go">(0, b"new_value")</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/os.html#module-os" title="os"><span class="nn">os</span></a>
+<span class="n">modified_env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">modified_env</span><span class="p">[</span><span class="s2">"ENV_VAR"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"new_value"</span>
+<span class="n">CommandLine</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s2">"echo $ENV_VAR"</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">modified_env</span><span class="p">)</span>
+<span class="c1"># returns (0, b"new_value")</span>
 </pre></div>
 </div>
 </div>
@@ -482,8 +483,8 @@ using <a class="reference external" href="https://docs.python.org/3/library/os.h
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">CommandLine</span><span class="o">.</span><span class="n">terminate</span><span class="p">(</span><span class="mi">500_000</span><span class="p">)</span>  <span class="c1"># max PID is 32768 (99999) on linux (macOS).</span>
-<span class="go">False</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">CommandLine</span><span class="o">.</span><span class="n">terminate</span><span class="p">(</span><span class="mi">500_000</span><span class="p">)</span>  <span class="c1"># max PID is 32768 (99999) on linux (macOS).</span>
+<span class="c1"># returns False</span>
 </pre></div>
 </div>
 </div>
@@ -512,9 +513,9 @@ with a <code class="xref py py-obj docutils literal notranslate"><span class="pr
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">timeit</span><span class="p">(</span><span class="k">lambda</span> <span class="n">spanned</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Did some stuff in </span><span class="si">{</span><span class="n">spanned</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)):</span>
-<span class="gp">... </span>    <span class="n">some_stuff</span><span class="p">()</span>
-<span class="gp">... </span>    <span class="n">some_other_stuff</span><span class="p">()</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">timeit</span><span class="p">(</span><span class="k">lambda</span> <span class="n">spanned</span><span class="p">:</span> <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Did some stuff in </span><span class="si">{</span><span class="n">spanned</span><span class="si">}</span><span class="s2"> seconds"</span><span class="p">)):</span>
+    <span class="n">some_stuff</span><span class="p">()</span>
+    <span class="n">some_other_stuff</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -553,12 +554,12 @@ I think is quite random.</p>
 </div>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Processor</span> <span class="o">=</span> <span class="n">MultiProcessor</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">results_one_tuple_per_run</span> <span class="o">=</span> <span class="n">Processor</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">func</span><span class="o">=</span><span class="n">your_cpu_heavy_function</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">func_args</span><span class="o">=</span><span class="n">list_of_args_for_each_call</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">n_processes</span><span class="o">=</span><span class="n">some_int_up_to_you</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Processor</span> <span class="o">=</span> <span class="n">MultiProcessor</span><span class="p">()</span>
+<span class="n">results_one_tuple_per_run</span> <span class="o">=</span> <span class="n">Processor</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">your_cpu_heavy_function</span><span class="p">,</span>
+    <span class="n">func_args</span><span class="o">=</span><span class="n">list_of_args_for_each_call</span><span class="p">,</span>
+    <span class="n">n_processes</span><span class="o">=</span><span class="n">some_int_up_to_you</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -592,10 +593,10 @@ call, for instance <code class="xref py py-obj docutils literal notranslate"><sp
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MultiProcessor</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)),</span> <span class="n">n_processes</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">[0, 1, 4, 9, 16, 25]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MultiProcessor</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">6</span><span class="p">)),</span> <span class="n">n_processes</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="c1"># returns [0, 1, 4, 9, 16, 25]</span>
 </pre></div>
 </div>
 </div>
@@ -614,12 +615,12 @@ call, for instance <code class="xref py py-obj docutils literal notranslate"><sp
 </div>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Threader</span> <span class="o">=</span> <span class="n">MultiThreader</span><span class="p">()</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">results_one_tuple_per_run</span> <span class="o">=</span> <span class="n">Threader</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">func</span><span class="o">=</span><span class="n">your_io_heavy_function</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">func_args</span><span class="o">=</span><span class="n">list_of_args_for_each_call</span><span class="p">,</span>
-<span class="gp">... </span>    <span class="n">n_processes</span><span class="o">=</span><span class="n">some_int_up_to_you</span><span class="p">,</span>
-<span class="gp">... </span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">Threader</span> <span class="o">=</span> <span class="n">MultiThreader</span><span class="p">()</span>
+<span class="n">results_one_tuple_per_run</span> <span class="o">=</span> <span class="n">Threader</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">your_io_heavy_function</span><span class="p">,</span>
+    <span class="n">func_args</span><span class="o">=</span><span class="n">list_of_args_for_each_call</span><span class="p">,</span>
+    <span class="n">n_processes</span><span class="o">=</span><span class="n">some_int_up_to_you</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -658,10 +659,10 @@ call, for instance <code class="xref py py-obj docutils literal notranslate"><sp
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MultiThreader</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">6</span><span class="p">)),</span> <span class="n">n_processes</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">[0, 1, 4, 9, 16, 25]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MultiThreader</span><span class="o">.</span><span class="n">execute_function</span><span class="p">(</span>
+    <span class="n">func</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">,</span> <span class="n">func_args</span><span class="o">=</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">6</span><span class="p">)),</span> <span class="n">n_processes</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="c1"># returns [0, 1, 4, 9, 16, 25]</span>
 </pre></div>
 </div>
 </div>
@@ -708,8 +709,8 @@ of the user as well as all users’ statistics on this scheduler cluster.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">condor_q_output</span> <span class="o">=</span> <span class="n">get_the_string_as_you_wish</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">tasks</span><span class="p">,</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">read_condor_q</span><span class="p">(</span><span class="n">condor_q_output</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">condor_q_output</span> <span class="o">=</span> <span class="n">get_the_string_as_you_wish</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">tasks</span><span class="p">,</span> <span class="n">cluster</span> <span class="o">=</span> <span class="n">read_condor_q</span><span class="p">(</span><span class="n">condor_q_output</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -751,12 +752,12 @@ to a pre-defined format in this module.</p></li>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
 <p>Using the defaults and setting the logging level:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>Specifying a custom format and setting the logging level:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">pyhdtoolkit.utils.logging</span> <span class="kn">import</span> <span class="n">config_logger</span><span class="p">,</span> <span class="n">SIMPLE_FORMAT</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">config_logger</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">SIMPLE_FORMAT</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <a class="sphinx-codeautolink-a" href="../api/utils.html#module-pyhdtoolkit.utils.logging" title="pyhdtoolkit.utils.logging"><span class="nn">pyhdtoolkit.utils.logging</span></a> <span class="kn">import</span> <a class="sphinx-codeautolink-a" href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger"><span class="n">config_logger</span></a><span class="p">,</span> <span class="n">SIMPLE_FORMAT</span>
+<a class="sphinx-codeautolink-a" href="../api/utils.html#pyhdtoolkit.utils.logging.config_logger" title="pyhdtoolkit.utils.logging.config_logger"><span class="n">config_logger</span></a><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="s2">"DEBUG"</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="n">SIMPLE_FORMAT</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -772,7 +773,7 @@ to a pre-defined format in this module.</p></li>
 </div>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.add_noise_to_arc_bpms">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_arc_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_arc_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_arc_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">min_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_arc_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.2.0.</span></p>
 </div>
@@ -804,14 +805,14 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">add_noise_to_arc_bpms</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">min_index</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">stdev</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"DPSI"</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">add_noise_to_arc_bpms</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">min_index</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">stdev</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"DPSI"</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pyhdtoolkit.utils._misc.add_noise_to_ir_bpms">
-<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_ir_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><span class="pre">Optional</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_ir_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms" title="Permalink to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">pyhdtoolkit.utils._misc.</span></span><span class="sig-name descname"><span class="pre">add_noise_to_ir_bpms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_index</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.11)"><span class="pre">int</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.11)"><span class="pre">float</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">columns</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Sequence" title="(in Python v3.11)"><span class="pre">Sequence</span></a><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><span class="pre">str</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.html#pandas.DataFrame" title="(in pandas v2.0.3)"><span class="pre">pandas.core.frame.DataFrame</span></a></span></span><a class="reference internal" href="../_modules/pyhdtoolkit/utils/_misc.html#add_noise_to_ir_bpms"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms" title="Permalink to this definition"></a></dt>
 <dd><div class="versionadded">
 <p><span class="versionmodified added">New in version 1.2.0.</span></p>
 </div>
@@ -838,7 +839,7 @@ Defaults to <code class="docutils literal notranslate"><span class="pre">None</s
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">add_noise_to_ir_bpms</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">max_index</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stdev</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"DPSI"</span><span class="p">])</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">add_noise_to_ir_bpms</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">max_index</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">stdev</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"DPSI"</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -861,7 +862,7 @@ can be added and studied, <em>pretending</em> a perfect local coupling correctio
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">apply_colin_corrs_balance</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">apply_colin_corrs_balance</span><span class="p">(</span><span class="n">madx</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -896,10 +897,10 @@ string of the path to the file.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">get_betastar_from_opticsfile</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="s2">"acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx"</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">0.3</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">get_betastar_from_opticsfile</span><span class="p">(</span>
+    <span class="s2">"acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx"</span>
+<span class="p">)</span>
+<span class="c1"># returns 0.3</span>
 </pre></div>
 </div>
 </div>
@@ -913,8 +914,8 @@ string of the path to the file.</p>
 <p>Issues a <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code>-level log stating the runtime versions of both <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit</span></code>, <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymad</span></code> and <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code>.</p>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">log_runtime_versions</span><span class="p">()</span>
-<span class="go">2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">log_runtime_versions</span><span class="p">()</span>
+<span class="c1"># 2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)</span>
 </pre></div>
 </div>
 </div>
@@ -940,7 +941,7 @@ the original complex columns potentially dropped.</p>
 </dd>
 </dl>
 <dl>
-<dt>Exemple:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">split_complex_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<dt>Exemple:</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">split_complex_columns</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </dd>
@@ -979,8 +980,8 @@ operations on the classic Python structures.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">all_unique</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">all_unique</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="c1"># returns True</span>
 </pre></div>
 </div>
 </div>
@@ -1007,10 +1008,10 @@ Uses <a class="reference external" href="https://docs.python.org/3/library/funct
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">average_by</span><span class="p">(</span>
-<span class="gp">... </span>  <span class="p">[{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span> <span class="p">{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">6</span><span class="p">}],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">'n'</span><span class="p">]</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">5.0</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">average_by</span><span class="p">(</span>
+  <span class="p">[{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">4</span><span class="p">},</span> <span class="p">{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">8</span><span class="p">},</span> <span class="p">{</span><span class="s1">'n'</span><span class="p">:</span> <span class="mi">6</span><span class="p">}],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">'n'</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="c1"># returns 5.0</span>
 </pre></div>
 </div>
 </div>
@@ -1038,8 +1039,8 @@ based on <em>filter</em>.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">bifurcate</span><span class="p">([</span><span class="s1">'beep'</span><span class="p">,</span> <span class="s1">'boop'</span><span class="p">,</span> <span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
-<span class="go">[['beep', 'boop', 'bar'], ['foo']]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">bifurcate</span><span class="p">([</span><span class="s1">'beep'</span><span class="p">,</span> <span class="s1">'boop'</span><span class="p">,</span> <span class="s1">'foo'</span><span class="p">,</span> <span class="s1">'bar'</span><span class="p">],</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="c1"># returns [['beep', 'boop', 'bar'], ['foo']]</span>
 </pre></div>
 </div>
 </div>
@@ -1069,8 +1070,8 @@ result when passed to <em>function</em>.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">bifurcate_by</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-<span class="go">[[0, 2, 4], [1, 3]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">bifurcate_by</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1"># returns [[0, 2, 4], [1, 3]]</span>
 </pre></div>
 </div>
 </div>
@@ -1099,8 +1100,8 @@ elements from <em>sequence</em>.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">chunk_list</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
-<span class="go">[[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">chunk_list</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">10</span><span class="p">)),</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># returns [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]</span>
 </pre></div>
 </div>
 </div>
@@ -1122,8 +1123,8 @@ elements from <em>sequence</em>.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">deep_flatten</span><span class="p">([[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]])</span>
-<span class="go">["a", "b", 1, 2, None True, False]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">deep_flatten</span><span class="p">([[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="kc">None</span><span class="p">,</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]])</span>
+<span class="c1"># returns ["a", "b", 1, 2, None True, False]</span>
 </pre></div>
 </div>
 </div>
@@ -1152,12 +1153,12 @@ a boolean.</p></li>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_none</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_none</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># returns True</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_none</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">False</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_none</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># returns False</span>
 </pre></div>
 </div>
 </div>
@@ -1185,12 +1186,12 @@ if all elements are <a class="reference external" href="https://docs.python.org/
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_some</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_some</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># returns True</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_some</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">False</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">eval_some</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># returns False</span>
 </pre></div>
 </div>
 </div>
@@ -1218,8 +1219,8 @@ won’t be comparable.</p></li>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">get_indices</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="go">[0, 7, 8]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">get_indices</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="c1"># returns [0, 7, 8]</span>
 </pre></div>
 </div>
 </div>
@@ -1248,8 +1249,8 @@ boolean.</p></li>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-<span class="go">{True: [0, 2, 4], False: [1, 3]}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">group_by</span><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="c1"># returns {True: [0, 2, 4], False: [1, 3]}</span>
 </pre></div>
 </div>
 </div>
@@ -1273,8 +1274,8 @@ with that of <em>sequence</em>.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">has_duplicates</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">has_duplicates</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="c1"># returns True</span>
 </pre></div>
 </div>
 </div>
@@ -1297,8 +1298,8 @@ nested sequences as input).</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">sample</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
-<span class="go">2</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">sample</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+<span class="c1"># returns 2</span>
 </pre></div>
 </div>
 </div>
@@ -1321,8 +1322,8 @@ values (<a class="reference external" href="https://docs.python.org/3/library/co
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">sanitize_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="go">[1, "a", 2, 6]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">sanitize_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="c1"># returns [1, "a", 2, 6]</span>
 </pre></div>
 </div>
 </div>
@@ -1347,8 +1348,8 @@ to reorder the elements.</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">shuffle</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
-<span class="go">['b', 1, False, 2, 'a']</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">shuffle</span><span class="p">([</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+<span class="c1"># returns ['b', 1, False, 2, 'a']</span>
 </pre></div>
 </div>
 </div>
@@ -1377,8 +1378,8 @@ of its functionality, and is used in <a class="reference internal" href="#pyhdto
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">spread</span><span class="p">([</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))])</span>
-<span class="go">[0, 1, 2, 3, 4, 0, 1, 2, 3, 4]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">spread</span><span class="p">([</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">5</span><span class="p">))])</span>
+<span class="c1"># returns [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]</span>
 </pre></div>
 </div>
 </div>
@@ -1408,12 +1409,12 @@ in the previously created set of the other.</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">symmetric_difference_by</span><span class="p">([</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">],</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">)</span>
-<span class="go">[1.2, 3.4]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">symmetric_difference_by</span><span class="p">([</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">3.4</span><span class="p">],</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">)</span>
+<span class="c1"># returns [1.2, 3.4]</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">symmetric_difference_by</span><span class="p">([</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
-<span class="go">[2.1]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">symmetric_difference_by</span><span class="p">([</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1"># returns [2.1]</span>
 </pre></div>
 </div>
 </div>
@@ -1451,8 +1452,8 @@ previous result and _lst_1, and transform it into a <a class="reference external
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">union_by</span><span class="p">([</span><span class="mf">2.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">],</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">)</span>
-<span class="go">[1.2, 2.1]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">union_by</span><span class="p">([</span><span class="mf">2.1</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">],</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">)</span>
+<span class="c1"># returns [1.2, 2.1]</span>
 </pre></div>
 </div>
 </div>
@@ -1485,8 +1486,8 @@ vary, uses <em>fill_value</em> to adjust the smaller ones (defaults to <a class=
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">ListOperations</span><span class="o">.</span><span class="n">zipper</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
-<span class="go">[[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ListOperations</span><span class="o">.</span><span class="n">zipper</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">])</span>
+<span class="c1"># returns [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]</span>
 </pre></div>
 </div>
 </div>
@@ -1518,10 +1519,10 @@ Usess <a class="reference external" href="https://docs.python.org/3/library/func
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MiscellaneousOperations</span><span class="o">.</span><span class="n">longest_item</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">100</span><span class="p">)),</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">list(range(100))</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MiscellaneousOperations</span><span class="o">.</span><span class="n">longest_item</span><span class="p">(</span>
+    <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">100</span><span class="p">)),</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">50</span><span class="p">))</span>
+<span class="p">)</span>
+<span class="c1"># returns list(range(100))</span>
 </pre></div>
 </div>
 </div>
@@ -1549,11 +1550,11 @@ values produced by <em>function</em> to each key of a new object.</p>
 </dl>
 <div class="admonition-example admonition">
 <p class="admonition-title">Example</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">MiscellaneousOperations</span><span class="o">.</span><span class="n">map_values</span><span class="p">(</span>
-<span class="gp">... </span>    <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="s2">"b"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)),</span> <span class="s2">"c"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">15</span><span class="p">))},</span>
-<span class="gp">... </span>    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-<span class="gp">... </span><span class="p">)</span>
-<span class="go">{"a": 5, "b": 10, "c": 15}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">MiscellaneousOperations</span><span class="o">.</span><span class="n">map_values</span><span class="p">(</span>
+    <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">5</span><span class="p">)),</span> <span class="s2">"b"</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">10</span><span class="p">)),</span> <span class="s2">"c"</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#list" title="list"><span class="nb">list</span></a><span class="p">(</span><a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/stdtypes.html#range" title="range"><span class="nb">range</span></a><span class="p">(</span><span class="mi">15</span><span class="p">))},</span>
+    <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <a class="sphinx-codeautolink-a" href="https://docs.python.org/3/library/functions.html#len" title="len"><span class="nb">len</span></a><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="c1"># returns {"a": 5, "b": 10, "c": 15}</span>
 </pre></div>
 </div>
 </div>
@@ -1589,12 +1590,12 @@ nearest number in the range.</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">clamp_number</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="go">5</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">clamp_number</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="c1"># returns 5</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">clamp_number</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
-<span class="go">23</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">clamp_number</span><span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">)</span>
+<span class="c1"># returns 23</span>
 </pre></div>
 </div>
 </div>
@@ -1620,12 +1621,12 @@ to radian formula to convert the provided <em>deg_value</em>.</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">degrees_to_radians</span><span class="p">(</span><span class="mi">160</span><span class="p">)</span>
-<span class="go">2.792526803190927</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">degrees_to_radians</span><span class="p">(</span><span class="mi">160</span><span class="p">)</span>
+<span class="c1"># returns 2.792526803190927</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">degrees_to_radians</span><span class="p">(</span><span class="mi">360</span><span class="p">,</span> <span class="n">decompose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">(2, "pi", "rad")</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">degrees_to_radians</span><span class="p">(</span><span class="mi">360</span><span class="p">,</span> <span class="n">decompose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># returns (2, "pi", "rad")</span>
 </pre></div>
 </div>
 </div>
@@ -1649,12 +1650,12 @@ become a very heavy computation).</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">greatest_common_divisor</span><span class="p">([</span><span class="mi">54</span><span class="p">,</span> <span class="mi">24</span><span class="p">])</span>
-<span class="go">6</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">greatest_common_divisor</span><span class="p">([</span><span class="mi">54</span><span class="p">,</span> <span class="mi">24</span><span class="p">])</span>
+<span class="c1"># returns 6</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">greatest_common_divisor</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">378</span><span class="p">,</span> <span class="mi">582</span><span class="p">,</span> <span class="mi">738</span><span class="p">])</span>
-<span class="go">6</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">greatest_common_divisor</span><span class="p">([</span><span class="mi">30</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">378</span><span class="p">,</span> <span class="mi">582</span><span class="p">,</span> <span class="mi">738</span><span class="p">])</span>
+<span class="c1"># returns 6</span>
 </pre></div>
 </div>
 </div>
@@ -1680,8 +1681,8 @@ Uses the modulo operator (<code class="xref py py-obj docutils literal notransla
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">is_divisible_by</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
-<span class="go">False</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">is_divisible_by</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mi">15</span><span class="p">)</span>
+<span class="c1"># returns False</span>
 </pre></div>
 </div>
 </div>
@@ -1706,12 +1707,12 @@ very heavy computation).</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">least_common_multiple</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-<span class="go">20</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">least_common_multiple</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="c1"># returns 20</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">least_common_multiple</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">632</span><span class="p">)</span>
-<span class="go">53720</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">least_common_multiple</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">632</span><span class="p">)</span>
+<span class="c1"># returns 53720</span>
 </pre></div>
 </div>
 </div>
@@ -1734,12 +1735,12 @@ to degree formula to convert the provided <em>rad_value</em>.</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">radians_to_degrees</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-<span class="go">360</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">radians_to_degrees</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+<span class="c1"># returns 360</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">radians_to_degrees</span><span class="p">(</span><span class="mf">2.710</span><span class="p">)</span>
-<span class="go">155.2715624804531</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">NumberOperations</span><span class="o">.</span><span class="n">radians_to_degrees</span><span class="p">(</span><span class="mf">2.710</span><span class="p">)</span>
+<span class="c1"># returns 155.2715624804531</span>
 </pre></div>
 </div>
 </div>
@@ -1770,12 +1771,12 @@ them capitalizing the first letter of each word, using a regexp, <code class="xr
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">camel_case</span><span class="p">(</span><span class="s2">"a_snake_case_name"</span><span class="p">)</span>
-<span class="go">"aSnakeCaseName"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">camel_case</span><span class="p">(</span><span class="s2">"a_snake_case_name"</span><span class="p">)</span>
+<span class="c1"># returns "aSnakeCaseName"</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">camel_case</span><span class="p">(</span><span class="s2">"A Title Case Name"</span><span class="p">)</span>
-<span class="go">"aTitleCaseName"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">camel_case</span><span class="p">(</span><span class="s2">"A Title Case Name"</span><span class="p">)</span>
+<span class="c1"># returns "aTitleCaseName"</span>
 </pre></div>
 </div>
 </div>
@@ -1802,12 +1803,12 @@ it to <a class="reference external" href="https://docs.python.org/3/library/cons
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(</span><span class="s2">"astringtocapitalize"</span><span class="p">)</span>
-<span class="go">"Astringtocapitalize"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(</span><span class="s2">"astringtocapitalize"</span><span class="p">)</span>
+<span class="c1"># returns "Astringtocapitalize"</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(</span><span class="s2">"astRIngTocApItalizE"</span><span class="p">,</span> <span class="n">lower_rest</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="go">"Astringtocapitalize"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">capitalize</span><span class="p">(</span><span class="s2">"astRIngTocApItalizE"</span><span class="p">,</span> <span class="n">lower_rest</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1"># returns "Astringtocapitalize"</span>
 </pre></div>
 </div>
 </div>
@@ -1836,12 +1837,12 @@ compares the results.</p>
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_anagram</span><span class="p">(</span><span class="s2">"Tom Marvolo Riddle"</span><span class="p">,</span> <span class="s2">"I am Lord Voldemort"</span><span class="p">)</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_anagram</span><span class="p">(</span><span class="s2">"Tom Marvolo Riddle"</span><span class="p">,</span> <span class="s2">"I am Lord Voldemort"</span><span class="p">)</span>
+<span class="c1"># returns True</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_anagram</span><span class="p">(</span><span class="s2">"A first string"</span><span class="p">,</span> <span class="s2">"Definitely not an anagram"</span><span class="p">)</span>
-<span class="go">False</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_anagram</span><span class="p">(</span><span class="s2">"A first string"</span><span class="p">,</span> <span class="s2">"Definitely not an anagram"</span><span class="p">)</span>
+<span class="c1"># returns False</span>
 </pre></div>
 </div>
 </div>
@@ -1865,12 +1866,12 @@ characters from the given string. Then compare the new string with its reverse.<
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">"racecar"</span><span class="p">)</span>
-<span class="go">True</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">"racecar"</span><span class="p">)</span>
+<span class="c1"># returns True</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">"definitelynot"</span><span class="p">)</span>
-<span class="go">False</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">is_palindrome</span><span class="p">(</span><span class="s2">"definitelynot"</span><span class="p">)</span>
+<span class="c1"># returns False</span>
 </pre></div>
 </div>
 </div>
@@ -1893,12 +1894,12 @@ combines them adding <code class="xref py py-obj docutils literal notranslate"><
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">kebab_case</span><span class="p">(</span><span class="s2">"camel Case"</span><span class="p">)</span>
-<span class="go">"camel-case"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">kebab_case</span><span class="p">(</span><span class="s2">"camel Case"</span><span class="p">)</span>
+<span class="c1"># returns "camel-case"</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">kebab_case</span><span class="p">(</span><span class="s2">"snake_case"</span><span class="p">)</span>
-<span class="go">"snake-case"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">kebab_case</span><span class="p">(</span><span class="s2">"snake_case"</span><span class="p">)</span>
+<span class="c1"># returns "snake-case"</span>
 </pre></div>
 </div>
 </div>
@@ -1921,12 +1922,12 @@ combines them adding <code class="xref py py-obj docutils literal notranslate"><
 </dl>
 <div class="admonition-examples admonition">
 <p class="admonition-title">Examples</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">snake_case</span><span class="p">(</span><span class="s2">"A bunch of words"</span><span class="p">)</span>
-<span class="go">"a_bunch_of_words"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">snake_case</span><span class="p">(</span><span class="s2">"A bunch of words"</span><span class="p">)</span>
+<span class="c1"># returns "a_bunch_of_words"</span>
 </pre></div>
 </div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">StringOperations</span><span class="o">.</span><span class="n">snake_case</span><span class="p">(</span><span class="s2">"camelCase"</span><span class="p">)</span>
-<span class="go">"camelcase"</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">StringOperations</span><span class="o">.</span><span class="n">snake_case</span><span class="p">(</span><span class="s2">"camelCase"</span><span class="p">)</span>
+<span class="c1"># returns "camelcase"</span>
 </pre></div>
 </div>
 </div>

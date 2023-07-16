@@ -11,6 +11,17 @@ particle with the ``TRACK`` command of ``MAD-X``, and visualise its coordinates 
 
 In this example we will use the LHC lattice to illustrate the tracking workflow when using
 `~.cpymadtools`.
+
+.. important::
+    This example requires the `acc-models-lhc` repository to be cloned locally. One
+    can get it by running the following command:
+
+    .. code-block:: bash
+
+        git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+
+    Here I set the 2022 branch for stability and reproducibility of the documentation
+    builds, but you can use any branch you want.
 """
 # sphinx_gallery_thumbnail_number = -1
 import matplotlib.pyplot as plt
@@ -26,22 +37,13 @@ logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
-# Let's start by setting up the LHC in ``MAD-X``, in this case at top energy:
+# Let's start by setting up the LHC in ``MAD-X``, in this case at collision 
+# optics and energy and with a sliced lattice. To understand the function below
+# have a look at the :ref:`lhc setup example <demo-lhc-setup>`.
 
-madx = Madx(stdout=False)
-madx.call("lhc/lhc_as-built.seq")
-madx.call("lhc/opticsfile.22")  # collision optics
-
-lhc.make_lhc_beams(madx)
-lhc.re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")  # as done in OMC
-
-madx.command.use(sequence="lhcb1")
-
-###############################################################################
-# Slicing is necessary in ``MAD-X`` in order to perform tracking, so let's do so.
-
-lhc.make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
-madx.use(sequence="lhcb1")
+madx = lhc.prepare_lhc_run3(
+    opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False
+)
 
 ###############################################################################
 # Now we can track a particle. By default, the "start of machine" as ``MAD-X`` sees it
@@ -105,7 +107,7 @@ tracks["tunes"] = np.linspace(0, 1, len(tracks))  # used for x-axis when plottin
 
 ###############################################################################
 # .. tip::
-#     To get the tunes of the particle, one can find the peak of the spectra.
+#     To get the fractional tunes of the particle, one can find the peak of the spectra.
 #
 #     .. code-block:: python
 #
@@ -123,7 +125,7 @@ tracks.plot(
     ylabel="Spectrum [a.u]",
     figsize=(18, 10),
 )
-
+plt.show()
 
 ###############################################################################
 # In case the user provided ``ONETABLE=True`` to the tracking function, then all
@@ -156,5 +158,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.prepare_lhc_run3`
 #    - `~.cpymadtools.track`: `~.track.track_single_particle`
