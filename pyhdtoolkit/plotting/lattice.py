@@ -113,31 +113,31 @@ def plot_latwiss(
     Example:
         .. code-block:: python
 
-            >>> title = "Machine Layout"
-            >>> plt.figure(figsize=(16, 11))
-            >>> plot_latwiss(
-            ...     madx,
-            ...     title=title,
-            ...     k0l_lim=(-0.15, 0.15),
-            ...     k1l_lim=(-0.08, 0.08),
-            ...     disp_ylim=(-10, 125),
-            ...     lw=3,
-            ... )
+            title = "Machine Layout"
+            plt.figure(figsize=(16, 11))
+            plot_latwiss(
+                madx,
+                title=title,
+                k0l_lim=(-0.15, 0.15),
+                k1l_lim=(-0.08, 0.08),
+                disp_ylim=(-10, 125),
+                lw=3,
+            )
 
         One can provide ylimits for the machine layout patches as single values:
 
         .. code-block:: python
 
-            >>> title = "Machine Layout"
-            >>> plt.figure(figsize=(16, 11))
-            >>> plot_latwiss(
-            ...     madx,
-            ...     title=title,
-            ...     k0l_lim=0.15,  # identical to k0l_lim=(-0.15, 0.15)
-            ...     k1l_lim=0.08,  # identical to k1l_lim=(-0.08, 0.08)
-            ...     disp_ylim=(-10, 125),
-            ...     lw=3,
-            ... )
+            title = "Machine Layout"
+            plt.figure(figsize=(16, 11))
+            plot_latwiss(
+                madx,
+                title=title,
+                k0l_lim=0.15,  # identical to k0l_lim=(-0.15, 0.15)
+                k1l_lim=0.08,  # identical to k1l_lim=(-0.08, 0.08)
+                disp_ylim=(-10, 125),
+                lw=3,
+            )
     """
     # pylint: disable=too-many-arguments
     # Restrict the span of twiss_df to avoid plotting all elements then cropping when xlimits is given
@@ -231,10 +231,10 @@ def plot_machine_survey(
     Example:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(6, 6))
-            >>> plot_machine_survey(
-            ...     madx, title="Machine Survey", show_elements=True, high_orders=True
-            ... )
+            fig, ax = plt.subplots(figsize=(6, 6))
+            plot_machine_survey(
+                madx, title="Machine Survey", show_elements=True, high_orders=True
+            )
     """
     logger.debug("Plotting machine survey")
     logger.trace("Getting machine survey from cpymad")

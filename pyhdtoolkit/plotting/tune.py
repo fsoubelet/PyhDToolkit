@@ -109,8 +109,8 @@ def plot_tune_diagram(
     Example:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(6, 6))
-            >>> plot_tune_diagram(ax=ax, max_order=4, differentiate_orders=True)
+            fig, ax = plt.subplots(figsize=(6, 6))
+            plot_tune_diagram(ax=ax, max_order=4, differentiate_orders=True)
     """
     if max_order > 6 or max_order < 1:
         logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
@@ -156,8 +156,8 @@ def plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwa
     Example:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(6, 6))
-            >>> plot_resonance_lines_for_order(order=3, axis=ax, color="blue")
+            fig, ax = plt.subplots(figsize=(6, 6))
+            plot_resonance_lines_for_order(order=3, axis=ax, color="blue")
     """
     order_label = ORDER_TO_LABEL[order]
     logger.debug(f"Plotting {order_label} resonance lines")

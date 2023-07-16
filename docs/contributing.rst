@@ -33,8 +33,8 @@ Please include the following items in a bug report:
    
     .. code-block:: python
    
-        >>> import pyhdtoolkit
-        >>> print(pyhdtoolkit.version.version_info())
+        import pyhdtoolkit
+        print(pyhdtoolkit.version.version_info())
             PyhDToolkit version: 0.21.0
                    Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit
                  Python version: 3.10.6

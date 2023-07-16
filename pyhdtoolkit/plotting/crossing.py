@@ -57,13 +57,13 @@ def plot_two_lhc_ips_crossings(
     Examples:
         .. code-block:: python
 
-            >>> plt.figure(figsize=(18, 12))
-            >>> plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
+            plt.figure(figsize=(18, 12))
+            plot_two_lhc_ips_crossings(madx, first_ip=1, second_ip=5)
 
         .. code-block:: python
 
-            >>> plt.figure(figsize=(16, 11))
-            >>> plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
+            plt.figure(figsize=(16, 11))
+            plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
     """
     logger.warning("You should re-call the 'USE' command on your wanted sequence after this plot!")
     # ----- Getting Twiss table dframe for each beam ----- #
@@ -170,9 +170,9 @@ def plot_single_ir_crossing(
     Example:
         .. code-block:: python
 
-            >>> plot_single_ir_crossing(
-            ...     plt.gca(), b1_df, b2_df, plot_column="x", scaling=1e3, ylabel="Orbit X $[mm]$"
-            ... )
+            plot_single_ir_crossing(
+                plt.gca(), b1_df, b2_df, plot_column="x", scaling=1e3, ylabel="Orbit X $[mm]$"
+            )
     """
     logger.trace(f"Plotting orbit '{plot_column}'")
     axis.plot(plot_df_b1.s, plot_df_b1[plot_column] * scaling, "bo", ls="-", mfc="none", alpha=0.8, label="Beam 1")

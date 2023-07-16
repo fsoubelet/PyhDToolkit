@@ -76,17 +76,17 @@ class PhaseReconstructor:
     Example:
         .. code-block:: python
 
-            >>> real_noised_measurements = np.ndarray(...)
-            >>> C_herm = np.exp(1j * np.deg2rad(RealNoisedMeas))
-            >>> pr = PhaseReconstructor(C_herm)
-            >>> complex_eigenvector_method_result = pr.get_eigenvector_estimator(
-            ...     pr.leading_eigenvector
-            ... )
-            >>> reconstructed = np.abs(
-            ...     pr.convert_complex_result_to_phase_values(
-            ...         complex_eigenvector_method_result, deg=True
-            ...     )
-            ... ).reshape(n_observation_points)
+            real_noised_measurements = np.ndarray(...)
+            C_herm = np.exp(1j * np.deg2rad(RealNoisedMeas))
+            pr = PhaseReconstructor(C_herm)
+            complex_eigenvector_method_result = pr.get_eigenvector_estimator(
+                pr.leading_eigenvector
+            )
+            reconstructed = np.abs(
+                pr.convert_complex_result_to_phase_values(
+                    complex_eigenvector_method_result, deg=True
+                )
+            ).reshape(n_observation_points)
     """
 
     __slots__ = {

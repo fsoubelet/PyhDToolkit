@@ -140,8 +140,8 @@ spectrum = spectrum[spectrum.tunes.between(0, 0.5)]  # do not care about other h
 #
 #     .. code-block:: python
 #
-#      >>> qxd = spectrum.tunes[spectrum.horizontal == spectrum.horizontal.max()].to_numpy()[0]
-#      >>> qyd = spectrum.tunes[spectrum.vertical == spectrum.vertical.max()].to_numpy()[0]
+#      qxd = spectrum.tunes[spectrum.horizontal == spectrum.horizontal.max()].to_numpy()[0]
+#      qyd = spectrum.tunes[spectrum.vertical == spectrum.vertical.max()].to_numpy()[0]
 #
 # One can now plot the spectra, and here we will add two stem lines at the position of the
 # determined driven tunes to highlight them.

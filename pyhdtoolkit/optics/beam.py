@@ -33,8 +33,8 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
     Example:
         .. code-block:: python
 
-            >>> params = compute_beam_parameters(1.9, 5e-6, 5e-6, 2e-3)
-            >>> print(params)
+            params = compute_beam_parameters(1.9, 5e-6, 5e-6, 2e-3)
+            print(params)
             Beam Parameters for particle of charge 1
             Beam momentum = 1.900 GeV/c
             Normalized x-emittance = 5.000 mm mrad

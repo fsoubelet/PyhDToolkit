@@ -58,14 +58,14 @@ def config_logger(level: Union[str, int] = "INFO", format: str = FORMAT1, **kwar
 
         .. code-block:: python
 
-            >>> config_logger(level="DEBUG")
+            config_logger(level="DEBUG")
 
         Specifying a custom format and setting the logging level:
 
         .. code-block:: python
 
-            >>> from pyhdtoolkit.utils.logging import config_logger, SIMPLE_FORMAT
-            >>> config_logger(level="DEBUG", format=SIMPLE_FORMAT)
+            from pyhdtoolkit.utils.logging import config_logger, SIMPLE_FORMAT
+            config_logger(level="DEBUG", format=SIMPLE_FORMAT)
     """
     logger.remove()
     level = level.upper() if isinstance(level, str) else level

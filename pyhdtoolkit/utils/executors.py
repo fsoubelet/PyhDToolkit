@@ -40,12 +40,12 @@ class MultiProcessor:
     Example:
         .. code-block:: python
 
-            >>> Processor = MultiProcessor()
-            >>> results_one_tuple_per_run = Processor.execute_function(
-            ...     func=your_cpu_heavy_function,
-            ...     func_args=list_of_args_for_each_call,
-            ...     n_processes=some_int_up_to_you,
-            ... )
+            Processor = MultiProcessor()
+            results_one_tuple_per_run = Processor.execute_function(
+                func=your_cpu_heavy_function,
+                func_args=list_of_args_for_each_call,
+                n_processes=some_int_up_to_you,
+            )
     """
 
     @staticmethod
@@ -74,10 +74,10 @@ class MultiProcessor:
         Example:
             .. code-block:: python
 
-                >>> MultiProcessor.execute_function(
-                ...     func=np.square, func_args=list(range(6)), n_processes=2)
-                ... )
-                [0, 1, 4, 9, 16, 25]
+                MultiProcessor.execute_function(
+                    func=np.square, func_args=list(range(6)), n_processes=2)
+                )
+                # returns [0, 1, 4, 9, 16, 25]
         """
         logger.debug(f"Starting multiprocessing with {n_processes} processes")
         with futures.ProcessPoolExecutor(n_processes) as ex:
@@ -98,12 +98,12 @@ class MultiThreader:
     Example:
         .. code-block:: python
 
-            >>> Threader = MultiThreader()
-            >>> results_one_tuple_per_run = Threader.execute_function(
-            ...     func=your_io_heavy_function,
-            ...     func_args=list_of_args_for_each_call,
-            ...     n_processes=some_int_up_to_you,
-            ... )
+            Threader = MultiThreader()
+            results_one_tuple_per_run = Threader.execute_function(
+                func=your_io_heavy_function,
+                func_args=list_of_args_for_each_call,
+                n_processes=some_int_up_to_you,
+            )
     """
 
     @staticmethod
@@ -137,10 +137,10 @@ class MultiThreader:
         Example:
             .. code-block:: python
 
-                >>> MultiThreader.execute_function(
-                ...     func=np.square, func_args=list(range(6)), n_processes=2)
-                ... )
-                [0, 1, 4, 9, 16, 25]
+                MultiThreader.execute_function(
+                    func=np.square, func_args=list(range(6)), n_processes=2)
+                )
+                # returns [0, 1, 4, 9, 16, 25]
         """
         logger.debug(f"Starting multithreading with {n_threads} threads")
         with futures.ThreadPoolExecutor(n_threads) as ex:

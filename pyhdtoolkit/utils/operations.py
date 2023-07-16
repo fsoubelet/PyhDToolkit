@@ -44,8 +44,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.all_unique([1, 2, 3, 5, 12, 0])
-              True
+              ListOperations.all_unique([1, 2, 3, 5, 12, 0])
+              # returns True
         """
         return len(sequence) == len(set(sequence))
 
@@ -68,10 +68,10 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.average_by(
-              ...   [{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']
-              ... )
-              5.0
+              ListOperations.average_by(
+                [{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']
+              )
+              # returns 5.0
         """
         return float(sum(map(function, sequence), 0.0) / len(sequence))
 
@@ -95,8 +95,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
-              [['beep', 'boop', 'bar'], ['foo']]
+              ListOperations.bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
+              # returns [['beep', 'boop', 'bar'], ['foo']]
         """
         return [
             [x for i, x in enumerate(sequence) if filters[i]],
@@ -125,8 +125,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.bifurcate_by(list(range(5)), lambda x: x % 2 == 0)
-              [[0, 2, 4], [1, 3]]
+              ListOperations.bifurcate_by(list(range(5)), lambda x: x % 2 == 0)
+              # returns [[0, 2, 4], [1, 3]]
         """
         return [[x for x in sequence if function(x)], [x for x in sequence if not function(x)]]
 
@@ -151,8 +151,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.chunk_list(list(range(10)), 3)
-              [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
+              ListOperations.chunk_list(list(range(10)), 3)
+              # returns [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]
         """
         if size > len(sequence):
             return sequence
@@ -174,8 +174,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.deep_flatten([["a", "b"], [1, 2], None, [True, False]])
-              ["a", "b", 1, 2, None True, False]
+              ListOperations.deep_flatten([["a", "b"], [1, 2], None, [True, False]])
+              # returns ["a", "b", 1, 2, None True, False]
         """
         return (
             [elem for sublist in sequence for elem in ListOperations.deep_flatten(sublist)]
@@ -204,13 +204,13 @@ class ListOperations:
         Examples:
             .. code-block:: python
 
-              >>> ListOperations.eval_none([0, 0, 1, 0], lambda x: x >= 2)
-              True
+              ListOperations.eval_none([0, 0, 1, 0], lambda x: x >= 2)
+              # returns True
 
             .. code-block:: python
 
-              >>> ListOperations.eval_none([0, 1, 2, 0], lambda x: x >= 2)
-              False
+              ListOperations.eval_none([0, 1, 2, 0], lambda x: x >= 2)
+              # returns False
         """
         return not any(map(function, sequence))
 
@@ -234,13 +234,13 @@ class ListOperations:
         Examples:
             .. code-block:: python
 
-              >>> ListOperations.eval_some([0, 1, 2, 0], lambda x: x >= 2)
-              True
+              ListOperations.eval_some([0, 1, 2, 0], lambda x: x >= 2)
+              # returns True
 
             .. code-block:: python
 
-              >>> ListOperations.eval_some([0, 0, 1, 0], lambda x: x >= 2)
-              False
+              ListOperations.eval_some([0, 0, 1, 0], lambda x: x >= 2)
+              # returns False
         """
         return any(map(function, sequence))
 
@@ -264,8 +264,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2])
-              [0, 7, 8]
+              ListOperations.get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2])
+              # returns [0, 7, 8]
         """
         return [i for (y, i) in zip(sequence, range(len(sequence))) if element == y]
 
@@ -290,8 +290,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.group_by(list(range(5)), lambda x: x % 2 == 0)
-              {True: [0, 2, 4], False: [1, 3]}
+              ListOperations.group_by(list(range(5)), lambda x: x % 2 == 0)
+              # returns {True: [0, 2, 4], False: [1, 3]}
         """
         groups = {}
         for key in list(map(function, sequence)):
@@ -316,8 +316,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.has_duplicates([1, 2, 1])
-              True
+              ListOperations.has_duplicates([1, 2, 1])
+              # returns True
         """
         return len(sequence) != len(set(sequence))
 
@@ -338,8 +338,8 @@ class ListOperations:
         Examples:
             .. code-block:: python
 
-              >>> ListOperations.sample(["a", "b", 1, 2, False])
-              2
+              ListOperations.sample(["a", "b", 1, 2, False])
+              # returns 2
         """
         return sequence[random.randint(0, len(sequence) - 1)]
 
@@ -360,8 +360,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.sanitize_list([1, False, "a", 2, "", None, 6, 0])
-              [1, "a", 2, 6]
+              ListOperations.sanitize_list([1, False, "a", 2, "", None, 6, 0])
+              # returns [1, "a", 2, 6]
         """
         return list(filter(bool, sequence))
 
@@ -384,8 +384,8 @@ class ListOperations:
         Examples:
             .. code-block:: python
 
-              >>> ListOperations.shuffle(["a", "b", 1, 2, False])
-              ['b', 1, False, 2, 'a']
+              ListOperations.shuffle(["a", "b", 1, 2, False])
+              # returns ['b', 1, False, 2, 'a']
         """
         temp_list = copy.deepcopy(sequence)
         amount_to_shuffle = len(temp_list)
@@ -420,8 +420,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.spread([list(range(5)), list(range(5))])
-              [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
+              ListOperations.spread([list(range(5)), list(range(5))])
+              # returns [0, 1, 2, 3, 4, 0, 1, 2, 3, 4]
         """
         return list(itertools.chain.from_iterable(sequence))
 
@@ -447,13 +447,13 @@ class ListOperations:
         Examples:
             .. code-block:: python
 
-              >>> ListOperations.symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor)
-              [1.2, 3.4]
+              ListOperations.symmetric_difference_by([2.1, 1.2], [2.3, 3.4], math.floor)
+              # returns [1.2, 3.4]
 
             .. code-block:: python
 
-              >>> ListOperations.symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x >= 2)
-              [2.1]
+              ListOperations.symmetric_difference_by([2.1, 1.2], [0.5, 1.2], lambda x: x >= 2)
+              # returns [2.1]
         """
         _lst_1, _lst_2 = set(map(function, seq_1)), set(map(function, seq_2))
 
@@ -491,8 +491,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.union_by([2.1], [1.2, 2.3], math.floor)
-              [1.2, 2.1]
+              ListOperations.union_by([2.1], [1.2, 2.3], math.floor)
+              # returns [1.2, 2.1]
         """
         _lst_1 = set(map(function, seq_1))
         return sorted(list(set(seq_1 + [item for item in seq_2 if function(item) not in _lst_1])))
@@ -522,8 +522,8 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              >>> ListOperations.zipper([1, 2, 3], [2, 5, 3, 7], ["a", "b", "c"])
-              [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]
+              ListOperations.zipper([1, 2, 3], [2, 5, 3, 7], ["a", "b", "c"])
+              # returns [[1, 2, 'a'], [2, 5, 'b'], [3, 3, 'c'], [None, 7, None]]
         """
         max_length = max(len(lst) for lst in args)
         return [[args[k][i] if i < len(args[k]) else fillvalue for k in range(len(args))] for i in range(max_length)]
@@ -554,10 +554,10 @@ class MiscellaneousOperations:
         Example:
             .. code-block:: python
 
-              >>> MiscellaneousOperations.longest_item(
-              ...     list(range(5)), list(range(100)), list(range(50))
-              ... )
-              list(range(100))
+              MiscellaneousOperations.longest_item(
+                  list(range(5)), list(range(100)), list(range(50))
+              )
+              # returns list(range(100))
         """
         return max(args, key=len)
 
@@ -581,11 +581,11 @@ class MiscellaneousOperations:
         Example:
             .. code-block:: python
 
-              >>> MiscellaneousOperations.map_values(
-              ...     {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
-              ...     lambda x: len(x)
-              ... )
-              {"a": 5, "b": 10, "c": 15}
+              MiscellaneousOperations.map_values(
+                  {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
+                  lambda x: len(x)
+              )
+              # returns {"a": 5, "b": 10, "c": 15}
         """
         ret = {}
         for key in obj:
@@ -620,13 +620,13 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              >>> NumberOperations.clamp_number(17, 4, 5)
-              5
+              NumberOperations.clamp_number(17, 4, 5)
+              # returns 5
 
             .. code-block:: python
 
-              >>> NumberOperations.clamp_number(23, 20, 30)
-              23
+              NumberOperations.clamp_number(23, 20, 30)
+              # returns 23
         """
         return max(min(num, max(a_val, b_val)), min(a_val, b_val))
 
@@ -650,13 +650,13 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              >>> NumberOperations.degrees_to_radians(160)
-              2.792526803190927
+              NumberOperations.degrees_to_radians(160)
+              # returns 2.792526803190927
 
             .. code-block:: python
 
-              >>> NumberOperations.degrees_to_radians(360, decompose=True)
-              (2, "pi", "rad")
+              NumberOperations.degrees_to_radians(360, decompose=True)
+              # returns (2, "pi", "rad")
         """
         if decompose:
             return deg_value / 180, "pi", "rad"
@@ -680,13 +680,13 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              >>> NumberOperations.greatest_common_divisor([54, 24])
-              6
+              NumberOperations.greatest_common_divisor([54, 24])
+              # returns 6
 
             .. code-block:: python
 
-              >>> NumberOperations.greatest_common_divisor([30, 132, 378, 582, 738])
-              6
+              NumberOperations.greatest_common_divisor([30, 132, 378, 582, 738])
+              # returns 6
         """
         return reduce(math.gcd, sequence)
 
@@ -708,8 +708,8 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              >>> NumberOperations.is_divisible_by(35, 15)
-              False
+              NumberOperations.is_divisible_by(35, 15)
+              # returns False
         """
         return dividend % divisor == 0
 
@@ -732,13 +732,13 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              >>> NumberOperations.least_common_multiple(4, 5)
-              20
+              NumberOperations.least_common_multiple(4, 5)
+              # returns 20
 
             .. code-block:: python
 
-              >>> NumberOperations.least_common_multiple(2, 5, 17, 632)
-              53720
+              NumberOperations.least_common_multiple(2, 5, 17, 632)
+              # returns 53720
         """
         numbers = list(ListOperations.spread(list(args)))
 
@@ -765,13 +765,13 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              >>> NumberOperations.radians_to_degrees(2* math.pi)
-              360
+              NumberOperations.radians_to_degrees(2* math.pi)
+              # returns 360
 
             .. code-block:: python
 
-              >>> NumberOperations.radians_to_degrees(2.710)
-              155.2715624804531
+              NumberOperations.radians_to_degrees(2.710)
+              # returns 155.2715624804531
         """
         return (rad_value * 180.0) / math.pi
 
@@ -800,13 +800,13 @@ class StringOperations:
         Examples:
             .. code-block:: python
 
-              >>> StringOperations.camel_case("a_snake_case_name")
-              "aSnakeCaseName"
+              StringOperations.camel_case("a_snake_case_name")
+              # returns "aSnakeCaseName"
 
             .. code-block:: python
 
-              >>> StringOperations.camel_case("A Title Case Name")
-              "aTitleCaseName"
+              StringOperations.camel_case("A Title Case Name")
+              # returns "aTitleCaseName"
         """
         text = re.sub(r"(\s|_|-)+", " ", text).title().replace(" ", "")
         return text[0].lower() + text[1:]
@@ -830,13 +830,13 @@ class StringOperations:
         Examples:
             .. code-block:: python
 
-              >>> StringOperations.capitalize("astringtocapitalize")
-              "Astringtocapitalize"
+              StringOperations.capitalize("astringtocapitalize")
+              # returns "Astringtocapitalize"
 
             .. code-block:: python
 
-              >>> StringOperations.capitalize("astRIngTocApItalizE", lower_rest=True)
-              "Astringtocapitalize"
+              StringOperations.capitalize("astRIngTocApItalizE", lower_rest=True)
+              # returns "Astringtocapitalize"
         """
         return text[:1].upper() + (text[1:].lower() if lower_rest else text[1:])
 
@@ -861,13 +861,13 @@ class StringOperations:
         Examples:
             .. code-block:: python
 
-              >>> StringOperations.is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort")
-              True
+              StringOperations.is_anagram("Tom Marvolo Riddle", "I am Lord Voldemort")
+              # returns True
 
             .. code-block:: python
 
-              >>> StringOperations.is_anagram("A first string", "Definitely not an anagram")
-              False
+              StringOperations.is_anagram("A first string", "Definitely not an anagram")
+              # returns False
         """
         _str1, _str2 = (
             str_1.replace(" ", "").replace("'", ""),
@@ -893,13 +893,13 @@ class StringOperations:
         Examples:
             .. code-block:: python
 
-              >>> StringOperations.is_palindrome("racecar")
-              True
+              StringOperations.is_palindrome("racecar")
+              # returns True
 
             .. code-block:: python
 
-              >>> StringOperations.is_palindrome("definitelynot")
-              False
+              StringOperations.is_palindrome("definitelynot")
+              # returns False
         """
         s_reverse = re.sub(r"[\W_]", "", text.lower())
         return s_reverse == s_reverse[::-1]
@@ -921,13 +921,13 @@ class StringOperations:
         Examples:
             .. code-block:: python
 
-              >>> StringOperations.kebab_case("camel Case")
-              "camel-case"
+              StringOperations.kebab_case("camel Case")
+              # returns "camel-case"
 
             .. code-block:: python
 
-              >>> StringOperations.kebab_case("snake_case")
-              "snake-case"
+              StringOperations.kebab_case("snake_case")
+              # returns "snake-case"
         """
         return re.sub(
             r"(\s|_|-)+",
@@ -956,13 +956,13 @@ class StringOperations:
         Examples:
             .. code-block:: python
 
-              >>> StringOperations.snake_case("A bunch of words")
-              "a_bunch_of_words"
+              StringOperations.snake_case("A bunch of words")
+              # returns "a_bunch_of_words"
 
             .. code-block:: python
 
-              >>> StringOperations.snake_case("camelCase")
-              "camelcase"
+              StringOperations.snake_case("camelCase")
+              # returns "camelcase"
         """
         return re.sub(
             r"(\s|_|-)+",

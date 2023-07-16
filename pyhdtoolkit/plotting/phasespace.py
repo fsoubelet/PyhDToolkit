@@ -57,8 +57,8 @@ def plot_courant_snyder_phase_space(
     Example:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane="Horizontal")
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane="Horizontal")
     """
     if plane.lower() not in ("horizontal", "vertical"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
@@ -127,8 +127,8 @@ def plot_courant_snyder_phase_space_colored(
     Example:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane="Horizontal")
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane="Horizontal")
     """
     if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
         logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")

@@ -69,18 +69,18 @@ def plot_beam_envelope(
     Examples:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_beam_envelope(madx, "lhcb1", "x", nsigma=3)
-            >>> plt.show()
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_beam_envelope(madx, "lhcb1", "x", nsigma=3)
+            plt.show()
 
         In order to do the same plot but have all values in millimeters:
 
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_beam_envelope(madx, "lhcb1", "x", nsigma=3, scale=1e3)
-            >>> plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
-            >>> plt.show()
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_beam_envelope(madx, "lhcb1", "x", nsigma=3, scale=1e3)
+            plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
+            plt.show()
     """
     # pylint: disable=too-many-arguments
     if plane.lower() not in ("x", "y", "horizontal", "vertical"):
