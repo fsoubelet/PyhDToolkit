@@ -158,5 +158,5 @@ madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.prepare_lhc_run3`
 #    - `~.cpymadtools.track`: `~.track.track_single_particle`
