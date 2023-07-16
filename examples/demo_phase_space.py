@@ -8,10 +8,11 @@ Phase Space
 
 This example shows how to use the `~.plotting.phasespace.plot_courant_snyder_phase_space`
 and `~.plotting.phasespace.plot_courant_snyder_phase_space_colored` functions to visualise
-the particles' trajectories in phase space for your machine.
+the particles' normalized coordinates' phase space for your machine.
 
-In this example we will generate a dummy lattice, set its working point and track particles
-to plot their phase space coordinates.
+In this example we will generate a dummy lattice, set its working point and track particles.
+The transformation to normalized, or Courant-Snyder, coordinates is handled by the plotting
+functions.
 """
 # sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
@@ -38,7 +39,7 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 base_lattice: str = LatticeGenerator.generate_base_cas_lattice()
 
 n_particles: int = 150
-n_turns: int = 1000  # just enough to do a full revolution in phase space
+n_turns: int = 1000  # will be just enough to do a full revolution in phase space
 initial_x_coordinates = np.linspace(1e-4, 0.05, n_particles)
 
 x_coords, px_coords, y_coords, py_coords = [], [], [], []
@@ -64,7 +65,9 @@ match_tunes_and_chromaticities(
 # a particle's coordinates for each turn.
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
+    tracks_df = track_single_particle(
+        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
+    )
     x_coords.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords.append(tracks_df["observation_point_1"].px.to_numpy())
@@ -76,9 +79,13 @@ for starting_x in initial_x_coordinates:
 # plots these.
 
 fig, ax = plt.subplots(figsize=(10, 10))
-plot_courant_snyder_phase_space(madx, x_coords, px_coords, plane="Horizontal")
-ax.set_xlim(-20e-3, 18e-3)
-ax.set_ylim(-18e-3, 22e-3)
+plot_courant_snyder_phase_space(
+    madx, 1e3 * np.array(x_coords), 1e3 * np.array(px_coords), plane="Horizontal"
+)
+ax.set_xlabel(r"$\hat{x}$ [$10^{3}$]")
+ax.set_ylabel(r"$\hat{p}_x$ [$10^{3}$]")
+ax.set_xlim(-20, 18)
+ax.set_ylim(-18, 22)
 plt.show()
 
 ###############################################################################
@@ -86,21 +93,29 @@ plt.show()
 # one gets a plot in which each color corresponds to a given particle's trajectory:
 
 fig, ax = plt.subplots(figsize=(10, 10))
-plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane="Horizontal")
-ax.set_xlim(-20e-3, 18e-3)
-ax.set_ylim(-18e-3, 22e-3)
+plot_courant_snyder_phase_space_colored(
+    madx, 1e3 * np.array(x_coords), 1e3 * np.array(px_coords), plane="Horizontal"
+)
+ax.set_xlabel(r"$\hat{x}$ [$10^{3}$]")
+ax.set_ylabel(r"$\hat{p}_x$ [$10^{3}$]")
+ax.set_xlim(-20, 18)
+ax.set_ylim(-18, 22)
 plt.show()
 
 ###############################################################################
-# We can see the phase space evolve as the machine's working conditions change.
-# In our case, this dummy lattice is meant for classes and is very robust, so if
-# one wants significant change, a solution is to excite a resonance!
+# Let's close the rpc connection to ``MAD-X``:
+madx.exit()
+
+###############################################################################
+# We can see the evolvution of particles through the normalized phase space during
+# tracking: each point in a given line correspond to a given turn. In our case,
+# this dummy lattice was created for lectures and is very robust. If one wants
+# significant change, a good solution is to excite a resonance!
 #
 # To do so, we will use a similar lattice equipped with a sextupole, which we will
-# use to excite the resonance.
+# use to excite a third order resonance.
 
 perturbed_lattice = LatticeGenerator.generate_onesext_cas_lattice()
-madx.exit()  # close the previous rpc connection
 
 madx = Madx(stdout=False)
 madx.input(perturbed_lattice)
@@ -132,9 +147,13 @@ for starting_x in initial_x_coordinates:
 # Plotting the new phase space, we can clearly see the resonance's islands!
 
 fig, ax = plt.subplots(figsize=(10, 10))
-plot_courant_snyder_phase_space_colored(madx, x_coords_sext, px_coords_sext, plane="Horizontal")
-ax.set_xlim(-15e-3, 15e-3)
-ax.set_ylim(-15e-3, 15e-3)
+plot_courant_snyder_phase_space_colored(
+    madx, 1e3 * np.array(x_coords_sext), 1e3 * np.array(px_coords_sext), plane="Horizontal"
+)
+ax.set_xlabel(r"$\hat{x}$ [$10^{3}$]")
+ax.set_ylabel(r"$\hat{p}_x$ [$10^{3}$]")
+ax.set_xlim(-15, 15)
+ax.set_ylim(-15, 15)
 plt.show()
 
 ###############################################################################
