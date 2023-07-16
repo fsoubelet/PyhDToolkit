@@ -37,10 +37,10 @@ def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) ->
     Example:
         .. code-block:: python
 
-            >>> alfx = madx.table.twiss.alfx[0]
-            >>> betx = madx.table.twiss.betx[0]
-            >>> u = np.array([x_coords, px_coord])
-            >>> u_bar = courant_snyder_transform(u, alfx, betx)
+            alfx = madx.table.twiss.alfx[0]
+            betx = madx.table.twiss.betx[0]
+            u = np.array([x_coords, px_coord])
+            u_bar = courant_snyder_transform(u, alfx, betx)
     """
     p_matrix = np.array([[1 / np.sqrt(beta), 0], [alpha / np.sqrt(beta), np.sqrt(beta)]])
     return p_matrix @ u_vector

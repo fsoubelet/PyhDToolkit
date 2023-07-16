@@ -66,16 +66,16 @@ def get_amplitude_detuning(
     Example:
         .. code-block:: python
 
-            >>> ampdet_coeffs = get_amplitude_detuning(madx, order=2, closedorbit=True)
+            ampdet_coeffs = get_amplitude_detuning(madx, order=2, closedorbit=True)
 
         One can also specify parameters for the ``PTC`` universe and the ``PTC_NORMAL``
         command:
 
         .. code-block:: python
 
-            >>> tracks_dict = get_amplitude_detuning(
-            ...     madx, order=3, model=3, exact=True, icase=5, no=6
-            ... )
+            tracks_dict = get_amplitude_detuning(
+                madx, order=3, model=3, exact=True, icase=5, no=6
+            )
     """
     if order >= 3:
         logger.error(f"Maximum amplitude detuning order in PTC is 2, but {order:d} was requested")
@@ -191,16 +191,16 @@ def get_rdts(
     Example:
         .. code-block:: python
 
-            >>> rdts_df = get_rdts(madx, order=3, fringe=True)
+            rdts_df = get_rdts(madx, order=3, fringe=True)
 
         One can also specify parameters for the ``PTC`` universe and the ``PTC_TWISS``
         command:
 
         .. code-block:: python
 
-            >>> tracks_dict = get_rdts(
-            ...     madx, order=3, model=3, method=6, nst=3, exact=True, icase=5
-            ... )
+            tracks_dict = get_rdts(
+                madx, order=3, model=3, method=6, nst=3, exact=True, icase=5
+            )
     """
     logger.debug("Looking for PTC universe parameters in keyword arguments")
     model = kwargs.pop("model", 3)
@@ -294,16 +294,16 @@ def ptc_twiss(
     Example:
         .. code-block:: python
 
-            >>> twiss_ptc_df = ptc_twiss(madx, order=3)
+            twiss_ptc_df = ptc_twiss(madx, order=3)
 
         One can also specify parameters for the ``PTC`` universe and the ``PTC_TWISS``
         command:
 
         .. code-block:: python
 
-            >>> tracks_dict = ptc_twiss(
-            ...     madx, order=3, model=3, method=6, nst=3, exact=True, icase=5
-            ... )
+            tracks_dict = ptc_twiss(
+                madx, order=3, model=3, method=6, nst=3, exact=True, icase=5
+            )
     """
     logger.debug("Looking for PTC universe parameters in keyword arguments")
     model = kwargs.pop("model", 3)
@@ -417,18 +417,18 @@ def ptc_track_particle(
     Example:
         .. code-block:: python
 
-            >>> tracks_dict = ptc_track_particle(
-            ...     madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
-            ... )
+            tracks_dict = ptc_track_particle(
+                madx, nturns=1023, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0)
+            )
 
         One can also specify parameters for the ``PTC`` universe:
 
         .. code-block:: python
 
-            >>> tracks_dict = ptc_track_particle(
-            ...     madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
-            ...     model=3, method=6, nst=3, exact=True
-            ... )
+            tracks_dict = ptc_track_particle(
+                madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
+                model=3, method=6, nst=3, exact=True
+            )
     """
     logger.debug("Performing single particle PTC (thick) tracking")
     start = initial_coordinates if initial_coordinates else [0, 0, 0, 0, 0, 0]

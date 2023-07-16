@@ -124,14 +124,14 @@ def plot_aperture(
     Example:
         .. code-block:: python
 
-            >>> plt.figure(figsize=(16, 11))
-            >>> plot_aperture(
-            ...     madx, plot_bpms=True,
-            ...     aperture_ylim=(0, 20),
-            ...     k0l_lim=(-4e-4, 4e-4),
-            ...     k1l_lim=(-0.08, 0.08),
-            ...     color="darkslateblue",
-            ... )
+            plt.figure(figsize=(16, 11))
+            plot_aperture(
+                madx, plot_bpms=True,
+                aperture_ylim=(0, 20),
+                k0l_lim=(-4e-4, 4e-4),
+                k1l_lim=(-0.08, 0.08),
+                color="darkslateblue",
+            )
     """
     # pylint: disable=too-many-arguments
     logger.debug("Plotting aperture limits and machine layout")
@@ -239,18 +239,18 @@ def plot_physical_apertures(
     Examples:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_physical_apertures(madx, "x")
-            >>> plt.show()
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_physical_apertures(madx, "x")
+            plt.show()
 
         In order to do the same plot but have all values in millimeters:
 
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_physical_apertures(madx, "x", scale=1e3)
-            >>> plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
-            >>> plt.show()
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_physical_apertures(madx, "x", scale=1e3)
+            plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
+            plt.show()
     """
     # pylint: disable=too-many-arguments
     if plane.lower() not in ("x", "y", "horizontal", "vertical"):

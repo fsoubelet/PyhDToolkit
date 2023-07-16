@@ -103,7 +103,7 @@ def chi_dist(num: int, meas_used: int) -> np.ndarray:
 #
 #     .. math::
 #
-#        \sigma_{0} = \sqrt{\frac{index\_at\_peak}{(N - 3)}}
+#        \sigma_{0} = \sqrt{\frac{\mathrm{index\_at\_peak}}{(N - 3)}}
 #
 # Enough talk, see below an example with :math:`N = 5` measurements.
 
@@ -155,8 +155,8 @@ plt.show()
 ###############################################################################
 # That's nice. We can already see that only the chi-squared distrubtion seems to
 # be a good fit. Let's do a new plot with only the best fit's probability density
-# function (which we get with `~.maths.stats_fitting.make_pdf` function) added onto
-# the data, and determine its mode:
+# function (which we get with the `~.maths.stats_fitting.make_pdf` function) added
+# onto the data, and determine its mode:
 
 # Let's get the PDF of the best fit
 pdf: pd.Series = fitting.make_pdf(best_fit_func, best_fit_params)

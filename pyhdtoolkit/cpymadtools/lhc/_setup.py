@@ -56,9 +56,9 @@ def prepare_lhc_run2(
     Example:
         .. code-block:: python
 
-            >>> madx = prepare_lhc_run2(
-            ...     "/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22", beam=2, stdout=True
-            ... )
+            madx = prepare_lhc_run2(
+                "/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22", beam=2, stdout=True
+            )
     """
     if use_b4 and beam != 2:
         logger.error("Cannot use beam 4 sequence file for beam 1")
@@ -132,9 +132,9 @@ def prepare_lhc_run3(
     Example:
         .. code-block:: python
 
-            >>> madx = prepare_lhc_run3(
-            ...     "R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=True
-            ... )
+            madx = prepare_lhc_run3(
+                "R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=True
+            )
     """
     if use_b4 and beam != 2:
         logger.error("Cannot use beam 4 sequence file for beam 1")
@@ -215,15 +215,15 @@ class LHCSetup:
 
         .. code-block:: python
 
-            >>> with LHCSetup(run=2, opticsfile="2018/PROTON/opticsfile.22", beam=2) as madx:
-            ...    # do some stuff
+            with LHCSetup(run=2, opticsfile="2018/PROTON/opticsfile.22", beam=2) as madx:
+               pass  # do some stuff
 
         Get a Run 3 setup for beam 1, with a sliced sequence and muted output:
 
         .. code-block:: python
 
-            >>> with LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False) as madx:
-            ...    # do some stuff
+            with LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False) as madx:
+               pass  # do some stuff
     """
 
     def __init__(
@@ -291,14 +291,14 @@ def make_lhc_beams(
 
         .. code-block:: python
 
-            >>> make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)
+            make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)
 
         Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set
         ``bv`` to 1):
 
         .. code-block:: python
 
-            >>> make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)
+            make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)
     """
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
@@ -345,7 +345,7 @@ def make_lhc_thin(madx: Madx, /, sequence: str, slicefactor: int = 1, **kwargs) 
     Example:
         .. code-block:: python
 
-            >>> make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
+            make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
     """
     logger.debug(f"Slicing sequence '{sequence}'")
     madx.select(flag="makethin", clear=True)
@@ -401,7 +401,7 @@ def re_cycle_sequence(madx: Madx, /, sequence: str = "lhcb1", start: str = "IP3"
     Example:
         .. code-block:: python
 
-            >>> re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
+            re_cycle_sequence(madx, sequence="lhcb1", start="MSIA.EXIT.B1")
     """
     logger.debug(f"Re-cycling sequence '{sequence}' from {start}")
     madx.command.seqedit(sequence=sequence)
@@ -424,7 +424,7 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     Example:
         .. code-block:: python
 
-            >>> variables, specials = lhc_orbit_variables()
+            variables, specials = lhc_orbit_variables()
     """
     logger.trace("Returning (HL)LHC orbit variables")
     on_variables = (
@@ -493,7 +493,7 @@ def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> Dict[str, 
     Example:
         .. code-block:: python
 
-            >>> orbit_setup = setup_lhc_orbit(madx, scheme="lhc_top")
+            orbit_setup = setup_lhc_orbit(madx, scheme="lhc_top")
     """
     if scheme not in LHC_CROSSING_SCHEMES.keys():
         logger.error(f"Invalid scheme parameter, should be one of {LHC_CROSSING_SCHEMES.keys()}")

@@ -94,8 +94,8 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
     Example:
         .. code-block:: python
 
-            >>> condor_q_output = get_the_string_as_you_wish(...)
-            >>> tasks, cluster = read_condor_q(condor_q_output)
+            condor_q_output = get_the_string_as_you_wish(...)
+            tasks, cluster = read_condor_q(condor_q_output)
     """
     tasks: List[HTCTaskSummary] = []
     next_line_is_task_report = False

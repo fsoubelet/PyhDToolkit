@@ -80,7 +80,7 @@ def get_magnets_powering(
     Example:
         .. code-block:: python
 
-            >>> sextupoles_powering = get_magnets_powering(madx, patterns=[r"^ms\."])
+            sextupoles_powering = get_magnets_powering(madx, patterns=[r"^ms\."])
     """
     logger.debug("Computing magnets field and powering limits proportions")
     NEW_COLNAMES = ["name", "keyword", "ampere", "imax", "percent", "kn", "kmax", "integrated_field", "L"]
@@ -106,7 +106,7 @@ def query_arc_correctors_powering(madx: Madx, /) -> Dict[str, float]:
     Example:
         .. code-block:: python
 
-            >>> arc_knobs = query_arc_correctors_powering(madx)
+            arc_knobs = query_arc_correctors_powering(madx)
     """
     logger.debug("Querying triplets correctors powering")
     result: Dict[str, float] = {}
@@ -162,7 +162,7 @@ def query_triplet_correctors_powering(madx: Madx, /) -> Dict[str, float]:
     Example:
         .. code-block:: python
 
-            >>> triplet_knobs = query_triplet_correctors_powering(madx)
+            triplet_knobs = query_triplet_correctors_powering(madx)
     """
     logger.debug("Querying triplets correctors powering")
     result: Dict[str, float] = {}
@@ -209,7 +209,7 @@ def get_current_orbit_setup(madx: Madx, /) -> Dict[str, float]:
     Example:
         .. code-block:: python
 
-            >>> orbit_setup = get_current_orbit_setup(madx)
+            orbit_setup = get_current_orbit_setup(madx)
     """
     logger.debug("Extracting orbit variables from global table")
     variables, specials = lhc_orbit_variables()
@@ -281,8 +281,7 @@ def _knob_value(madx: Madx, /, knob: str) -> float:
     Example:
         .. code-block:: python
 
-            >>> _knob_value(madx, knob="underfined_for_sure")
-            0
+            _knob_value(madx, knob="underfined_for_sure")  # returns 0
     """
     try:
         return madx.globals[knob]

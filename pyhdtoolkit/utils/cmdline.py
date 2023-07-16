@@ -42,7 +42,7 @@ class CommandLine:
         Example:
             .. code-block:: python
 
-                >>> CommandLine.check_pid_exists(os.getpid())
+                CommandLine.check_pid_exists(os.getpid())
                 True
         """
         if pid == 0:
@@ -104,16 +104,16 @@ class CommandLine:
         Examples:
             .. code-block:: python
 
-                >>> CommandLine.run("echo hello")
-                (0, b"hello\\r\\n")
+                CommandLine.run("echo hello")
+                # returns (0, b"hello\\r\\n")
 
             .. code-block:: python
 
-                >>> import os
-                >>> modified_env = os.environ.copy()
-                >>> modified_env["ENV_VAR"] = "new_value"
-                >>> CommandLine.run("echo $ENV_VAR", env=modified_env)
-                (0, b"new_value")
+                import os
+                modified_env = os.environ.copy()
+                modified_env["ENV_VAR"] = "new_value"
+                CommandLine.run("echo $ENV_VAR", env=modified_env)
+                # returns (0, b"new_value")
         """
         with timeit(lambda spanned: logger.info(f"Ran command '{command}' in a subprocess, in: {spanned:.4f} seconds")):
             process = subprocess.Popen(command, shell=shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, env=env)
@@ -141,8 +141,8 @@ class CommandLine:
         Example:
             .. code-block:: python
 
-                >>> CommandLine.terminate(500_000)  # max PID is 32768 (99999) on linux (macOS).
-                False
+                CommandLine.terminate(500_000)  # max PID is 32768 (99999) on linux (macOS).
+                # returns False
         """
         if CommandLine.check_pid_exists(pid):
             os.kill(pid, signal.SIGTERM)

@@ -42,7 +42,7 @@ def correct_lhc_global_coupling(
     Example:
         .. code-block:: python
 
-            >>> correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
+            correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
     """
     suffix = "_sq" if telescopic_squeeze else ""
     sequence = f"lhcb{beam:d}"
@@ -76,7 +76,7 @@ def get_lhc_bpms_twiss_and_rdts(madx: Madx, /) -> tfs.TfsDataFrame:
     Example:
         .. code-block:: python
 
-            >>> twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
+            twiss_with_rdts = get_lhc_bpms_twiss_and_rdts(madx)
     """
     twiss_tfs = twiss.get_pattern_twiss(madx, patterns=["^BPM.*B[12]$"], columns=MONITOR_TWISS_COLUMNS)
     twiss_tfs.columns = twiss_tfs.columns.str.upper()  # optics_functions needs capitalized names

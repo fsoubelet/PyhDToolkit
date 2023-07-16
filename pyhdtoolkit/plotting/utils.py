@@ -46,11 +46,10 @@ def maybe_get_ax(**kwargs):
 
         .. code-block:: python
 
-            >>> def my_plotting_function(*args, **kwargs):
-            ...     ax, kwargs = maybe_get_ax(**kwargs)
-            ...     # do stuff with ax
-            ...     ax.plot(*args, **kwargs)
-            ... )
+            def my_plotting_function(*args, **kwargs):
+                ax, kwargs = maybe_get_ax(**kwargs)
+                # do stuff with ax
+                ax.plot(*args, **kwargs)
     """
     logger.debug("Looking for axis object to plot on")
     if "ax" in kwargs:
@@ -82,9 +81,9 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
     Example:
         .. code-block:: python
 
-            >>> ip_offset_in_segment = find_ip_s_from_segment_start(
-            ...     segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1
-            ... )
+            ip_offset_in_segment = find_ip_s_from_segment_start(
+                segment_df=sbsphaseext_IP1, model_df=twiss_elements, ip=1
+            )
     """
     logger.debug(f"Determining location of IP{ip:d} from the start of segment.")
     first_element: str = segment_df.NAME.to_numpy()[0]
@@ -123,8 +122,8 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
     Example:
         .. code-block:: python
 
-            >>> twiss_df = tfs.read("twiss_output.tfs", index="NAME")
-            >>> ips = get_lhc_ips_positions(twiss_df)
+            twiss_df = tfs.read("twiss_output.tfs", index="NAME")
+            ips = get_lhc_ips_positions(twiss_df)
     """
     logger.debug("Extracting IP positions from dataframe")
     try:
@@ -161,7 +160,7 @@ def make_elements_groups(
     Example:
         .. code-block:: python
 
-            >>> element_dfs = make_elements_groups(madx)
+            element_dfs = make_elements_groups(madx)
     """
     twiss_df = _get_twiss_table_with_offsets_and_limits(madx, xoffset, xlimits)
 
@@ -196,7 +195,7 @@ def make_survey_groups(madx: Madx, /) -> dict[str, pd.DataFrame]:
     Example:
         .. code-block:: python
 
-            >>> survey_dfs = make_survey_groups(madx)
+            survey_dfs = make_survey_groups(madx)
     """
     element_dfs = make_elements_groups(madx)
     quadrupoles_focusing_df = element_dfs["quadrupoles"].query("k1l > 0")
@@ -242,10 +241,10 @@ def draw_ip_locations(
     Example:
         .. code-block:: python
 
-            >>> twiss_df = tfs.read("twiss_output.tfs", index="NAME")
-            >>> twiss_df.plot(x="S", y=["BETX", "BETY"])
-            >>> ips = get_lhc_ips_positions(twiss_df)
-            >>> draw_ip_locations(ip_positions=ips)
+            twiss_df = tfs.read("twiss_output.tfs", index="NAME")
+            twiss_df.plot(x="S", y=["BETX", "BETY"])
+            ips = get_lhc_ips_positions(twiss_df)
+            draw_ip_locations(ip_positions=ips)
     """
     axis, kwargs = maybe_get_ax(**kwargs)
     xlimits = axis.get_xlim()
@@ -309,14 +308,14 @@ def set_arrow_label(
     Example:
         .. code-block:: python
 
-            >>> set_arrow_label(
-            ...     label="Your label",
-            ...     arrow_position=(1, 2),
-            ...     label_position=(1.1 * some_value, 0.75 * another_value),
-            ...     color="indianred",
-            ...     arrow_arc_rad=0.3,
-            ...     fontsize=25,
-            ... )
+            set_arrow_label(
+                label="Your label",
+                arrow_position=(1, 2),
+                label_position=(1.1 * some_value, 0.75 * another_value),
+                color="indianred",
+                arrow_arc_rad=0.3,
+                fontsize=25,
+            )
     """
     axis, kwargs = maybe_get_ax(**kwargs)
     return axis.annotate(
@@ -361,10 +360,10 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
     Example:
         .. code-block:: python
 
-            >>> x = np.random.normal(size=1000)
-            >>> y = np.random.normal(size=1000)
-            >>> plt.plot(x, y, ".", markersize=0.8)
-            >>> draw_confidence_ellipse(x, y, n_std=2.5, edgecolor="red")
+            x = np.random.normal(size=1000)
+            y = np.random.normal(size=1000)
+            plt.plot(x, y, ".", markersize=0.8)
+            draw_confidence_ellipse(x, y, n_std=2.5, edgecolor="red")
     """
     axis, kwargs = maybe_get_ax(**kwargs)
     x = np.array(x)
@@ -449,7 +448,7 @@ def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
     Example:
         .. code-block:: python
 
-            >>> coupling_label = _determine_default_sbs_coupling_ylabel(rdt="f1001", component="RE")
+            coupling_label = _determine_default_sbs_coupling_ylabel(rdt="f1001", component="RE")
     """
     logger.debug(f"Determining a default label for the {component.upper()} component of coupling {rdt.upper()}.")
     assert rdt.upper() in ("F1001", "F1010")
@@ -481,7 +480,7 @@ def _determine_default_sbs_phase_ylabel(plane: str) -> str:
     Example:
         .. code-block:: python
 
-            >>> phase_label = _determine_default_sbs_phase_ylabel(plane="X")
+            phase_label = _determine_default_sbs_phase_ylabel(plane="X")
     """
     logger.debug(f"Determining a default label for the {plane.upper()} phase plane.")
     assert plane.upper() in ("X", "Y")

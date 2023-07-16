@@ -53,7 +53,7 @@ def do_kmodulation(
 
         .. code-block:: python
 
-            >>> tune_results = do_kmodulation(madx, ir=1, side="right", steps=100, stepsize=3e-8)
+            tune_results = do_kmodulation(madx, ir=1, side="right", steps=100, stepsize=3e-8)
     """
     element = f"MQXA.1R{ir:d}" if side.lower() == "right" else f"MQXA.1L{ir:d}"
     powering_variable = f"KTQX1.R{ir:d}" if side.lower() == "right" else f"KTQX1.L{ir:d}"
@@ -121,7 +121,7 @@ def correct_lhc_global_coupling(
     Example:
         .. code-block:: python
 
-            >>> correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
+            correct_lhc_global_coupling(madx, sequence="lhcb1", telescopic_squeeze=True)
     """
     suffix = "_sq" if telescopic_squeeze else ""
     sequence = f"lhcb{beam:d}"
@@ -169,7 +169,7 @@ def correct_lhc_orbit(
     Example:
         .. code-block:: python
 
-            >>> correct_lhc_orbit(madx, sequence="lhcb1", plane="y")
+            correct_lhc_orbit(madx, sequence="lhcb1", plane="y")
     """
     logger.debug("Starting orbit correction")
     for default_kicker in ("kicker", "hkicker", "vkicker", "virtualcorrector"):

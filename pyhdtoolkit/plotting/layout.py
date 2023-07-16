@@ -76,9 +76,9 @@ def plot_machine_layout(
             Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before
             plotting. This is useful if you want to center a plot around a
-                specific point or element, which would then become located
-            at :math:`s = 0`. Beware this offset is applied before applying
-            the *xlimits*. Defaults to 0.
+            specific point or element, which would then become located at
+            the :math:`s = 0` position. Beware this offset is applied before
+            applying the *xlimits*. Defaults to 0.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
         plot_dipoles (bool): if `True`, dipole patches will be plotted on
@@ -131,8 +131,8 @@ def plot_machine_layout(
     Example:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(6, 2))
-            >>> plot_machine_layout(madx, title="Machine Elements", lw=3)
+            fig, ax = plt.subplots(figsize=(6, 2))
+            plot_machine_layout(madx, title="Machine Elements", lw=3)
     """
     # pylint: disable=too-many-arguments
     axis, kwargs = maybe_get_ax(**kwargs)
@@ -342,9 +342,9 @@ def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
     Example:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(6, 2))
-            >>> plot_machine_layout(madx, title="Machine Elements", lw=3)
-            >>> scale_patches(ax=fig.axes[0], scale=100, ylabel=r"$K_{1}L$ $[10^{-2} m^{-1}]$")
+            fig, ax = plt.subplots(figsize=(6, 2))
+            plot_machine_layout(madx, title="Machine Elements", lw=3)
+            scale_patches(ax=fig.axes[0], scale=100, ylabel=r"$K_{1}L$ $[10^{-2} m^{-1}]$")
     """
     axis, kwargs = maybe_get_ax(**kwargs)
     axis.set_ylabel(ylabel)

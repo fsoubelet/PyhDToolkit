@@ -42,8 +42,8 @@ def log_runtime_versions() -> None:
     Example:
         .. code-block:: python
 
-            >>> log_runtime_versions()
-            2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)
+            log_runtime_versions()
+            # 2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)
     """
     with Madx(stdout=False) as mad:
         logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
@@ -70,7 +70,7 @@ def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
     Exemple:
         .. code-block:: python
 
-            >>> df = split_complex_columns(df, drop=True)
+            df = split_complex_columns(df, drop=True)
     """
     res = df.copy()
     complex_columns = res.select_dtypes(include="complex").columns
@@ -106,7 +106,7 @@ def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns
     Example:
         .. code-block:: python
 
-            >>> df = add_noise_to_ir_bpms(df, max_index=5, stdev=1e-6, columns=["DPSI"])
+            df = add_noise_to_ir_bpms(df, max_index=5, stdev=1e-6, columns=["DPSI"])
     """
     result = df.copy()
     selected_bpms = LHC_IR_BPM_REGEX.format(max_index=max_index)
@@ -152,7 +152,7 @@ def add_noise_to_arc_bpms(
     Example:
         .. code-block:: python
 
-            >>> df = add_noise_to_arc_bpms(df, min_index=8, stdev=1e-6, columns=["DPSI"])
+            df = add_noise_to_arc_bpms(df, min_index=8, stdev=1e-6, columns=["DPSI"])
     """
     result = df.copy()
     ir_bpms = LHC_IR_BPM_REGEX.format(max_index=min(1, min_index - 1))  # so that provided min_index is included
@@ -187,7 +187,7 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
     Example:
         .. code-block:: python
 
-            >>> apply_colin_corrs_balance(madx)
+            apply_colin_corrs_balance(madx)
     """
     # ----- Let's balance IR1 ----- #
     lhc.misalign_lhc_ir_quadrupoles(madx, ips=[1], beam=1, quadrupoles=[3], sides="L", DPSI=-1.61e-3)
@@ -242,10 +242,10 @@ def get_betastar_from_opticsfile(opticsfile: Union[Path, str]) -> float:
     Example:
         .. code-block:: python
 
-            >>> get_betastar_from_opticsfile(
-            ...     "acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx"
-            ... )
-            0.3
+            get_betastar_from_opticsfile(
+                "acc-models-lhc/strengths/ATS_Nominal/2022/squeeze/ats_30cm.madx"
+            )
+            # returns 0.3
     """
     file_lines = Path(opticsfile).read_text().split("\n")
     ip1_x_line, ip1_y_line, ip5_x_line, ip5_y_line = [line for line in file_lines if line.startswith("bet")]

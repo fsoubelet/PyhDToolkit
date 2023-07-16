@@ -64,27 +64,27 @@ madx.exit()
 ###############################################################################
 # One can customise the plot more to their liking or needs thanks to the other
 # function parameters. Let's showcase this with the LHC lattice, that we set up
-# below:
+# below.
+#
+# .. important::
+#     This example requires the `acc-models-lhc` repository to be cloned locally. One
+#     can get it by running the following command:
+#
+#     .. code-block:: bash
+#
+#         git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
+#
+#     Here I set the 2022 branch for stability and reproducibility of the documentation
+#     builds, but you can use any branch you want.
 
-lhc_madx = Madx(stdout=False)
-lhc_madx.option(echo=False, warn=False)
-lhc_madx.call("lhc/lhc_as-built.seq")
-lhc_madx.call("lhc/opticsfile.22")  # collisions optics
+lhc_madx: Madx = lhc.prepare_lhc_run3(
+    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx",
+    stdout=False
+)
 
 ###############################################################################
-# Let's re-cycle the sequences to avoid having IR1 split at beginning and end of
-# lattice, as is the default in the LHC sequence, and setup a flat orbit.
-
-lhc.re_cycle_sequence(lhc_madx, sequence="lhcb1", start="IP3")
-lhc.re_cycle_sequence(lhc_madx, sequence="lhcb2", start="IP3")
-orbit_scheme = lhc.setup_lhc_orbit(lhc_madx, scheme="flat")
-
-lhc.make_lhc_beams(lhc_madx, energy=7000)
-lhc_madx.command.use(sequence="lhcb1")
-
-###############################################################################
-# The `~.plotting.lattice.plot_latwiss` function gives the possibility to zoom on a
-# region by providing the *xlimits* parameter. Let's first determine the position
+# The `~.plotting.lattice.plot_latwiss` function gives the possibility to zoom on
+# a region by providing the *xlimits* parameter. Let's first determine the position
 # of points of interest through the ``TWISS`` table:
 
 lhc_madx.command.twiss()
@@ -101,13 +101,13 @@ ip1s = twiss_df.s["ip1"]
 #     However, when providing the *xlimits* parameter, `~.plotting.lattice.plot_latwiss` makes a sub-selection
 #     of the ``TWISS`` table before doing any plotting. This is provides a nice speedup to the plotting
 #     process, as only elements within the limits are rendered on the layout axis, instead of all elements
-#     (which can be a lot, and lengthy for big machines such as the LHC). It is therefore the recommended
+#     (which can be a lot, and quite lengthy for big machines such as the LHC). It is therefore the recommended
 #     way to zoom on a region.
 
 plt.figure(figsize=(18, 11))
 plot_latwiss(
     lhc_madx,
-    title="Interaction Region 1, Flat LHCB1 Setup",
+    title="Interaction Region 1",
     disp_ylim=(-0.5, 2.5),
     xlimits=(ip1s - 457, ip1s + 457),
     k0l_lim=(-1.3e-2, 1.3e-2),
@@ -127,7 +127,7 @@ plt.show()
 plt.figure(figsize=(18, 11))
 plot_latwiss(
     lhc_madx,
-    title="IP1 Surroundings, Flat LHCB1 Setup",
+    title="IP1 Surroundings",
     disp_ylim=(-3e-2, 3e-2),
     xoffset=ip1s,
     xlimits=(-85, 85),
@@ -151,7 +151,7 @@ plt.rcParams.update({"axes.formatter.limits": (-2, 5)})  # convenience
 plt.figure(figsize=(18, 11))
 plot_latwiss(
     lhc_madx,
-    title="LHC Arc Cell, Flat LHCB1 Setup",
+    title="LHC Arc Cell",
     plot_bpms=True,
     disp_ylim=(-0.5, 20),
     beta_ylim=(0, 200),
@@ -176,7 +176,7 @@ lhc_madx.exit()
 #    The use of the following functions, methods, classes and modules is shown
 #    in this example:
 #
-#    - `~.cpymadtools.lhc`: `~.lhc._setup.make_lhc_beams`, `~.lhc._setup.re_cycle_sequence`, `~.lhc._setup.setup_lhc_orbit`
+#    - `~.cpymadtools.lhc`: `~.lhc._setup.prepare_lhc_run3`, `~.lhc._setup.setup_lhc_orbit`
 #    - `~.cpymadtools.generators`: `~.generators.LatticeGenerator`
 #    - `~.cpymadtools.matching`: `~.matching.match_tunes_and_chromaticities`
 #    - `~.plotting.lattice`: `~.plotting.lattice.plot_latwiss`

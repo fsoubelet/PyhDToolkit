@@ -61,20 +61,20 @@ def get_pattern_twiss(
 
         .. code-block:: python
 
-            >>> ips_df = get_pattern_twiss(madx=madx, patterns=["IP"])
+            ips_df = get_pattern_twiss(madx=madx, patterns=["IP"])
 
         To get (HL)LHC IR1 triplets:
 
         .. code-block:: python
 
-            >>> triplets_df = get_pattern_twiss(
-            ...     madx=madx,
-            ...     patterns=[
-            ...         r"MQXA.[12345][RL]1",  # Q1 and Q3 LHC
-            ...         r"MQXB.[AB][12345][RL]1",  # Q2A and Q2B LHC
-            ...         r"MQXF[AB].[AB][12345][RL]1",  # Q1 to Q3 A and B HL-LHC
-            ...     ],
-            ... )
+            triplets_df = get_pattern_twiss(
+                madx=madx,
+                patterns=[
+                    r"MQXA.[12345][RL]1",  # Q1 and Q3 LHC
+                    r"MQXB.[AB][12345][RL]1",  # Q2A and Q2B LHC
+                    r"MQXF[AB].[AB][12345][RL]1",  # Q1 to Q3 A and B HL-LHC
+                ],
+            )
     """
     columns = columns or DEFAULT_TWISS_COLUMNS
     logger.trace("Clearing 'TWISS' flag")
@@ -117,7 +117,7 @@ def get_twiss_tfs(madx: Madx, /, **kwargs) -> tfs.TfsDataFrame:
     Example:
         .. code-block:: python
 
-            >>> twiss_df = get_twiss_tfs(madx, chrom=True, ripken=True)
+            twiss_df = get_twiss_tfs(madx, chrom=True, ripken=True)
     """
     logger.trace("Clearing 'TWISS' flag")
     madx.select(flag="twiss", clear=True)

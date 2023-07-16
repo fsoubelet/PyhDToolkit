@@ -41,9 +41,9 @@ def install_ac_dipole_as_kicker(
     :ref:`AC Dipole Tracking <demo-ac-dipole-tracking>` example gallery.
 
     .. warning::
-        Installing the AC Dipole modifies the sequence, which will then be
-        ``USE``d at the end of this function. This will remove any errors
-        that were installed in the sequence.
+        Installing the AC Dipole modifies the sequence, and the ``USE``
+        command will be called again at the end of this function. This
+        will remove any errors that were installed in the sequence.
 
         As the errors impact the optics functions which are used during the
         installation of the AC Dipole, it would not be correct to implement
@@ -78,17 +78,17 @@ def install_ac_dipole_as_kicker(
     Example:
         .. code-block:: python
 
-            >>> install_ac_dipole_as_kicker(
-            ...     madx,
-            ...     deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30
-            ...     deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332
-            ...     sigma_x=2,  # bunch amplitude kick in the horizontal plane
-            ...     sigma_y=2,  # bunch amplitude kick in the vertical plane
-            ...     beam=1,  # beam for which to install and kick
-            ...     start_turn=100,  # when to turn on the AC Dipole
-            ...     ramp_turns=2000,  # how many turns to ramp up/down the AC Dipole
-            ...     top_turns=6600,  # how many turns to keep the AC Dipole at full kick
-            ... )
+            install_ac_dipole_as_kicker(
+                madx,
+                deltaqx=-0.01,  # driven horizontal tune to Qxd = 62.31 - 0.01 = 62.30
+                deltaqy=0.012,  # driven vertical tune to Qyd = 60.32 + 0.012 = 60.332
+                sigma_x=2,  # bunch amplitude kick in the horizontal plane
+                sigma_y=2,  # bunch amplitude kick in the vertical plane
+                beam=1,  # beam for which to install and kick
+                start_turn=100,  # when to turn on the AC Dipole
+                ramp_turns=2000,  # how many turns to ramp up/down the AC Dipole
+                top_turns=6600,  # how many turns to keep the AC Dipole at full kick
+            )
     """
     logger.warning("This AC Dipole is implemented as a kicker and will not affect TWISS functions!")
     logger.debug("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam")
@@ -164,9 +164,9 @@ def install_ac_dipole_as_matrix(madx: Madx, /, deltaqx: float, deltaqy: float, b
         affect tracking.
 
     .. warning::
-        Installing the AC Dipole modifies the sequence, which will then be
-        ``USE``d at the end of this function. This will remove any errors
-        that were installed in the sequence.
+        Installing the AC Dipole modifies the sequence, and the ``USE``
+        command will be called again at the end of this function. This
+        will remove any errors that were installed in the sequence.
 
         As the errors impact the optics functions which are used during the
         installation of the AC Dipole, it would not be correct to implement
@@ -189,7 +189,7 @@ def install_ac_dipole_as_matrix(madx: Madx, /, deltaqx: float, deltaqy: float, b
     Example:
         .. code-block:: python
 
-            >>> install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)
+            install_ac_dipole_as_matrix(madx, deltaqx=-0.01, deltaqy=0.012, beam=1)
     """
     logger.warning("This AC Dipole is implemented as a matrix and will not affect particle tracking!")
     logger.debug("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam.")
@@ -264,9 +264,9 @@ def add_markers_around_lhc_ip(madx: Madx, /, sequence: str, ip: int, n_markers: 
     Example:
         .. code-block:: python
 
-            >>> add_markers_around_lhc_ip(
-            ...     madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
-            ... )
+            add_markers_around_lhc_ip(
+                madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
+            )
     """
     logger.debug(f"Adding {n_markers:d} markers on each side of IP{ip:d}")
     madx.command.seqedit(sequence=sequence)

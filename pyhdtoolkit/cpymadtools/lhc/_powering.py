@@ -36,7 +36,7 @@ def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0,
     Example:
         .. code-block:: python
 
-            >>> apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)
+            apply_lhc_colinearity_knob(madx, colinearity_knob_value=5, ir=1)
     """
     logger.debug(f"Applying Colinearity knob with a unit setting of {colinearity_knob_value}")
     logger.warning("You should re-match tunes & chromaticities after this colinearity knob is applied")
@@ -69,7 +69,7 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: floa
     Example:
         .. code-block:: python
 
-            >>> apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)
+            apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=3.5, ir=1)
     """
     logger.debug(f"Applying Colinearity knob delta of {colinearity_knob_delta}")
     logger.warning("You should re-match tunes & chromaticities after this delta is applied")
@@ -121,10 +121,10 @@ def apply_lhc_rigidity_waist_shift_knob(
     Example:
         .. code-block:: python
 
-            >>> # It is recommended to re-match tunes after this routine
-            >>> matching.match_tunes(madx, "lhc", "lhcb1", 62.27, 60.36)
-            >>> apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)
-            >>> matching.match_tunes(madx, "lhc", "lhcb1", 62.31, 60.32)
+            # It is recommended to re-match tunes after this routine
+            matching.match_tunes(madx, "lhc", "lhcb1", 62.27, 60.36)
+            apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=1.5, ir=5)
+            matching.match_tunes(madx, "lhc", "lhcb1", 62.31, 60.32)
     """
     logger.debug(f"Applying Rigidity Waist Shift knob with a unit setting of {rigidty_waist_shift_value}")
     logger.warning("You should re-match tunes & chromaticities after this rigid waist shift knob is applied")
@@ -166,7 +166,7 @@ def apply_lhc_coupling_knob(
     Example:
         .. code-block:: python
 
-            >>> apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)
+            apply_lhc_coupling_knob(madx, coupling_knob=5e-4, beam=1)
     """
     # NOTE: for maintainers, no `_op` suffix on ATS coupling knobs, only `_sq` even in Run 3
     logger.debug("Applying coupling knob")
@@ -199,7 +199,7 @@ def carry_colinearity_knob_over(madx: Madx, /, ir: int, to_left: bool = True) ->
     Example:
         .. code-block:: python
 
-            >>> carry_colinearity_knob_over(madx, ir=5, to_left=True)
+            carry_colinearity_knob_over(madx, ir=5, to_left=True)
     """
     side = "left" if to_left else "right"
     logger.debug(f"Carrying colinearity knob powering around IP{ir:d} over to the {side} side")
@@ -231,7 +231,7 @@ def power_landau_octupoles(madx: Madx, /, beam: int, mo_current: float, defectiv
     Example:
         .. code-block:: python
 
-            >>> power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)
+            power_landau_octupoles(madx, beam=1, mo_current=350, defect_arc=True)
     """
     try:
         brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
@@ -266,7 +266,7 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, /, beam: int) -> None:
     Example:
         .. code-block:: python
 
-            >>> deactivate_lhc_arc_sextupoles(madx, beam=1)
+            deactivate_lhc_arc_sextupoles(madx, beam=1)
     """
     # KSF1 and KSD2 - Strong sextupoles of sectors 81/12/45/56
     # KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56
@@ -307,9 +307,9 @@ def vary_independent_ir_quadrupoles(
     Example:
         .. code-block:: python
 
-            >>> vary_independent_ir_quadrupoles(
-            ...     madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=("r", "l")
-            ... )
+            vary_independent_ir_quadrupoles(
+                madx, quad_numbers=[10, 11, 12, 13], ip=1, sides=("r", "l")
+            )
     """
     if (
         ip not in (1, 2, 5, 8)
@@ -367,17 +367,17 @@ def switch_magnetic_errors(madx: Madx, /, **kwargs) -> None:
 
         .. code-block:: python
 
-            >>> random_kwargs = {}
-            >>> for order in range(1, 16):
-            ...     for ab in "AB":
-            ...         random_kwargs[f"{ab}{order:d}"] = random.randint(0, 20)
-            >>> switch_magnetic_errors(madx, **random_kwargs)
+            random_kwargs = {}
+            for order in range(1, 16):
+                for ab in "AB":
+                    random_kwargs[f"{ab}{order:d}"] = random.randint(0, 20)
+            switch_magnetic_errors(madx, **random_kwargs)
 
-        Set a given value for ``B6`` order magnetic errors:
+        Set a given value for ``B6`` order magnetic errors only:
 
         .. code-block:: python
 
-            >>> switch_magnetic_errors(madx, "B6"=1e-4)
+            switch_magnetic_errors(madx, {"B6": 1e-4})
     """
     logger.debug("Setting magnetic errors")
     global_default = kwargs.get("default", False)

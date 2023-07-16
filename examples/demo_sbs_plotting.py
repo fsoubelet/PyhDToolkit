@@ -19,10 +19,9 @@ from pyhdtoolkit.utils import logging
 
 logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
-plt.rcParams.update({"text.usetex": True, "legend.fontsize": 16})  # for these specific plots
 
 ###############################################################################
-# The functions in `~pyhdtoolkit.plotting.sbs` modules usually need to be provided
+# The functions in `.pyhdtoolkit.plotting.sbs` modules usually need to be provided
 # different dataframes corresponding to specific components of segment-by-segment
 # results, which can be obtained by directly loading the output **TFS** files.
 # Let's load below the coupling results of a segment-by-segment run and related
@@ -36,7 +35,7 @@ couple_b2_tfs = tfs.read("sbs/b2_sbscouple_IP1.out")
 
 ###############################################################################
 # One can now easily plot these results in a few lines with functions from the
-# `~.plotting.sbs.coupling` module. Here we will plot a single component of a
+# `.plotting.sbs.coupling` module. Here we will plot a single component of a
 # given coupling RDT through the segment.
 #
 # .. tip::
@@ -78,11 +77,11 @@ coupling.plot_full_ip_rdt(
     b1_model_tfs,
     b2_model_tfs,
     ip=1,
-    figsize=(20, 10),
+    figsize=(20, 11),
     abs_ylimits=(5e-3, 6.5e-2),
     real_ylimits=(-1e-1, 1e-1),
     imag_ylimits=(-1e-1, 1e-1),
-    bbox_to_anchor=(0.535, 0.945),
+    bbox_to_anchor=(0.535, 0.935),
 )
 plt.show()
 
@@ -104,7 +103,6 @@ phase.plot_phase_segment_one_beam(
 )
 plt.show()
 
-
 ###############################################################################
 # Similarly to the coupling example, one can plot the results for both beams in
 # a single call with the `~.plotting.sbs.phase.plot_phase_segment_both_beams`
@@ -118,8 +116,8 @@ phase.plot_phase_segment_both_beams(
     b1_model=b2_model_tfs,
     b2_model=b2_model_tfs,
     ip=5,
-    figsize=(20, 10),
-    bbox_to_anchor=(0.535, 0.94),
+    figsize=(20, 11),
+    bbox_to_anchor=(0.535, 0.935),
 )
 plt.show()
 

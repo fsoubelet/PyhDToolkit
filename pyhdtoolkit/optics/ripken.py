@@ -43,15 +43,15 @@ def lebedev_beam_size(
     Example:
         .. code-block:: python
 
-            >>> geom_emit_x = madx.globals["geometric_emit_x"]
-            >>> geom_emit_y = madx.globals["geometric_emit_y"]
-            >>> twiss_tfs = madx.twiss(ripken=True).dframe()
-            >>> horizontal_size = lebedev_beam_size(
-                    twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y
-                )
-            >>> vertical_size = lebedev_beam_size(
-                    twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y
-                )
+            geom_emit_x = madx.globals["geometric_emit_x"]
+            geom_emit_y = madx.globals["geometric_emit_y"]
+            twiss_tfs = madx.twiss(ripken=True).dframe()
+            horizontal_size = lebedev_beam_size(
+                twiss_tfs.beta11, twiss_tfs.beta21, geom_emit_x, geom_emit_y
+            )
+            vertical_size = lebedev_beam_size(
+                twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y
+            )
     """
     logger.trace("Computing beam size according to Lebedev formula: sqrt(epsx * b1_^2 + epsy * b2_^2)")
     return np.sqrt(geom_emit_x * beta1_ + geom_emit_y * beta2_)

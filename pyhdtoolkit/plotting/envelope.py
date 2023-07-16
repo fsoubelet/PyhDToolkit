@@ -45,7 +45,7 @@ def plot_beam_envelope(
             `horizontal`, `y` or `vertical`, and is case-insensitive.
         nsigma (float): the standard deviation to use for the beam enveloppe
             calculation. A value of 3 will draw the 3 sigma beam enveloppe.
-                Defaults to 1.
+            Defaults to 1.
         scale (float): a scaling factor to apply to the beam orbit and beam
             enveloppe, for the user to adjust to their wanted scale. Defaults
             to 1 (values in [m]).
@@ -69,18 +69,18 @@ def plot_beam_envelope(
     Examples:
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_beam_envelope(madx, "lhcb1", "x", nsigma=3)
-            >>> plt.show()
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_beam_envelope(madx, "lhcb1", "x", nsigma=3)
+            plt.show()
 
         In order to do the same plot but have all values in millimeters:
 
         .. code-block:: python
 
-            >>> fig, ax = plt.subplots(figsize=(10, 9))
-            >>> plot_beam_envelope(madx, "lhcb1", "x", nsigma=3, scale=1e3)
-            >>> plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
-            >>> plt.show()
+            fig, ax = plt.subplots(figsize=(10, 9))
+            plot_beam_envelope(madx, "lhcb1", "x", nsigma=3, scale=1e3)
+            plt.setp(ax, xlabel="S [m]", ylabel="X [mm]")
+            plt.show()
     """
     # pylint: disable=too-many-arguments
     if plane.lower() not in ("x", "y", "horizontal", "vertical"):

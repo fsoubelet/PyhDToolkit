@@ -52,7 +52,7 @@ def make_footprint_table(
     Example:
         .. code-block:: python
 
-            >>> dynap_dframe = make_footprint_table(madx)
+            dynap_dframe = make_footprint_table(madx)
     """
     logger.debug(f"Initiating particules up to {sigma:d} bunch sigma to create a tune footprint table")
     small, big = 0.05, math.sqrt(1 - 0.05**2)
@@ -140,9 +140,9 @@ def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.
     Example:
         .. code-block:: python
 
-            >>> dynap_tfs = make_footprint_table(madx)
-            >>> qxs, qys = get_footprint_lines(dynap_tfs)
-            >>> plt.plot(qxs, qys, "o--", label="Tune Footprint from DYNAP Table")
+            dynap_tfs = make_footprint_table(madx)
+            qxs, qys = get_footprint_lines(dynap_tfs)
+            plt.plot(qxs, qys, "o--", label="Tune Footprint from DYNAP Table")
     """
     logger.debug("Determining footprint plottable")
     logger.debug("Retrieving AMPLITUDE, ANGLE and DSIGMA data from TfsDataFrame headers")
@@ -182,10 +182,10 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
     Example:
         .. code-block:: python
 
-            >>> fig, axis = plt.subplots()
-            >>> dynap_tfs = make_footprint_table(madx)
-            >>> footprint_polygons = get_footprint_patches(dynap_tfs)
-            >>> axis.add_collection(footprint_polygons)
+            fig, axis = plt.subplots()
+            dynap_tfs = make_footprint_table(madx)
+            footprint_polygons = get_footprint_patches(dynap_tfs)
+            axis.add_collection(footprint_polygons)
     """
     logger.debug("Determining footprint polygons")
     angle = dynap_dframe.headers["ANGLE"]
