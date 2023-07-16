@@ -12,6 +12,10 @@ function to force a waist shift at a given IP and break the symmetry of the
 over-powering one triplet knob and under-powering the other, by the same
 powering delta.
 
+In :cite:t:`PRAB:Soubelet:Rigid_Waist_Shift_Method_Local_Coupling_Correction_LHC_IR`
+(2023) one can find out about studies and achievements at the LHC done with the Rigid
+Waist Shift.
+
 We will do a comparison of the interaction region situation before and after 
 applying a rigid waist shift, and look in more details at the waist shift 
 itself.
