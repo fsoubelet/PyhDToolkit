@@ -75,7 +75,7 @@ class MultiProcessor:
             .. code-block:: python
 
                 MultiProcessor.execute_function(
-                    func=np.square, func_args=list(range(6)), n_processes=2)
+                    func=np.square, func_args=list(range(6)), n_processes=2
                 )
                 # returns [0, 1, 4, 9, 16, 25]
         """
@@ -138,7 +138,7 @@ class MultiThreader:
             .. code-block:: python
 
                 MultiThreader.execute_function(
-                    func=np.square, func_args=list(range(6)), n_processes=2)
+                    func=np.square, func_args=list(range(6)), n_processes=2
                 )
                 # returns [0, 1, 4, 9, 16, 25]
         """

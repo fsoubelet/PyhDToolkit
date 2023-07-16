@@ -76,9 +76,9 @@ def plot_machine_layout(
             Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before
             plotting. This is useful if you want to center a plot around a
-                specific point or element, which would then become located
-            at :math:`s = 0`. Beware this offset is applied before applying
-            the *xlimits*. Defaults to 0.
+            specific point or element, which would then become located at
+            the :math:`s = 0` position. Beware this offset is applied before
+            applying the *xlimits*. Defaults to 0.
         xlimits (Tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
         plot_dipoles (bool): if `True`, dipole patches will be plotted on

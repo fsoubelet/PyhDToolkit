@@ -35,18 +35,18 @@ def compute_beam_parameters(pc_gev: float, en_x_m: float, en_y_m: float, deltap_
 
             params = compute_beam_parameters(1.9, 5e-6, 5e-6, 2e-3)
             print(params)
-            Beam Parameters for particle of charge 1
-            Beam momentum = 1.900 GeV/c
-            Normalized x-emittance = 5.000 mm mrad
-            Normalized y-emittance = 5.000 mm mrad
-            Momentum deviation deltap/p = 0.002
-            -> Beam total energy = 2.119 GeV
-            -> Beam kinetic energy = 1.181 GeV
-            -> Beam rigidity = 6.333 Tm
-            -> Relativistic beta = 0.89663
-            -> Relativistic gamma = 2.258
-            -> Geometrical x emittance = 2.469 mm mrad
-            -> Geometrical y emittance = 2.469 mm mrad
+            # Beam Parameters for particle of charge 1
+            # Beam momentum = 1.900 GeV/c
+            # Normalized x-emittance = 5.000 mm mrad
+            # Normalized y-emittance = 5.000 mm mrad
+            # Momentum deviation deltap/p = 0.002
+            # -> Beam total energy = 2.119 GeV
+            # -> Beam kinetic energy = 1.181 GeV
+            # -> Beam rigidity = 6.333 Tm
+            # -> Relativistic beta = 0.89663
+            # -> Relativistic gamma = 2.258
+            # -> Geometrical x emittance = 2.469 mm mrad
+            # -> Geometrical y emittance = 2.469 mm mrad
     """
     e0_gev = 0.9382720813
     e_tot_gev = np.sqrt(pc_gev**2 + e0_gev**2)

@@ -50,7 +50,6 @@ def maybe_get_ax(**kwargs):
                 ax, kwargs = maybe_get_ax(**kwargs)
                 # do stuff with ax
                 ax.plot(*args, **kwargs)
-            )
     """
     logger.debug("Looking for axis object to plot on")
     if "ax" in kwargs:

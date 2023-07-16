@@ -179,7 +179,7 @@ def plot_phase_segment(
     Example:
         .. code-block:: python
 
-            plot_phase_segment(ax, segment_df b1_model_tfs, plane="x", ip=1)
+            plot_phase_segment(ax, segment_df, b1_model_tfs, plane="x", ip=1)
     """
     if plane.upper() not in ("X", "Y"):
         logger.error("The provided plane is invalid, should be either 'x' or 'y', case-insensitively.")

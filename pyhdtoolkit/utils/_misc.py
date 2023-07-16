@@ -43,7 +43,7 @@ def log_runtime_versions() -> None:
         .. code-block:: python
 
             log_runtime_versions()
-            2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)
+            # 2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)
     """
     with Madx(stdout=False) as mad:
         logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")

@@ -45,7 +45,7 @@ def plot_beam_envelope(
             `horizontal`, `y` or `vertical`, and is case-insensitive.
         nsigma (float): the standard deviation to use for the beam enveloppe
             calculation. A value of 3 will draw the 3 sigma beam enveloppe.
-                Defaults to 1.
+            Defaults to 1.
         scale (float): a scaling factor to apply to the beam orbit and beam
             enveloppe, for the user to adjust to their wanted scale. Defaults
             to 1 (values in [m]).
