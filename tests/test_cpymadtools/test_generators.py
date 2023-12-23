@@ -35,8 +35,8 @@ def test_tripleterrors_study_reference():
         ("", ""),
         ("95", "195"),
         ("105038", "0.001"),
-        (str(random.randint(0, 1e7)), str(random.randint(0, 1e7))),
-        (random.randint(0, 1e7), random.randint(0, 1e7)),
+        (str(random.randint(0, int(1e7))), str(random.randint(0, int(1e7)))),
+        (random.randint(0, int(1e7)), random.randint(0, int(1e7))),
     ],
 )
 def test_tripleterrors_study_tferror_job(randseed, tferror):
@@ -55,8 +55,8 @@ def test_tripleterrors_study_tferror_job(randseed, tferror):
         ("", ""),
         ("95", "195"),
         ("105038", "0.001"),
-        (str(random.randint(0, 1e7)), str(random.randint(0, 1e7))),
-        (random.randint(0, 1e7), random.randint(0, 1e7)),
+        (str(random.randint(0, int(1e7))), str(random.randint(0, int(1e7)))),
+        (random.randint(0, int(1e7)), random.randint(0, int(1e7))),
     ],
 )
 def test_tripleterrors_study_mserror_job(randseed, mserror):
