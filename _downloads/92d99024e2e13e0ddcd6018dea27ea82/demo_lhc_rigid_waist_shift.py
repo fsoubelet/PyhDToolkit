@@ -229,7 +229,7 @@ slimits = (ip_s - 10, ip_s + 10)
 
 around_ip = nominal_df[nominal_df.s.between(*slimits)]
 initial_twiss = initial_twiss[initial_twiss.s.between(*slimits)]
-waist_location = around_ip.s[around_ip.betx == around_ip.betx.min()][0]
+waist_location = around_ip.s[around_ip.betx == around_ip.betx.min()].iloc[0]
 
 ###############################################################################
 # We can also plot the :math:`\beta_{x,y}` functions before and after the
@@ -303,12 +303,12 @@ print(shift)
 # Manipulating the equation to determine the waist yields:
 # :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-q1_right_s = nominal_df[nominal_df.name.str.contains("mqxa.1r1")].s[0]  # to calculate from the right Q1
-q1_left_s = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].s[-1]  # to calculate from the left Q1
+q1_right_s = nominal_df[nominal_df.name.str.contains("mqxa.1r1")].s.iloc[0]  # to calculate from the right Q1
+q1_left_s = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].s.iloc[-1]  # to calculate from the left Q1
 
 L_star = ip_s - q1_left_s  # we calculate from left Q1
-# beta0 = nominal_df[nominal_df.name.str.contains(f"mqxa.1r1")].betx[0]  # to calculate from the right
-beta0 = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].betx[-1]  # to calculate from the left
+# beta0 = nominal_df[nominal_df.name.str.contains(f"mqxa.1r1")].betx.iloc[0]  # to calculate from the right
+beta0 = nominal_df[nominal_df.name.str.contains("mqxa.1l1")].betx.iloc[-1]  # to calculate from the left
 betaw = around_ip.betx.min()
 
 ###############################################################################
@@ -337,16 +337,16 @@ def find_waists(current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame
 
     around_ip = current_twiss[current_twiss.S.between(*slimits)]
     initial = initial[initial.S.between(*slimits)].copy()
-    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()][0]
-    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()][0]
+    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
+    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
     initial = initial_twiss.copy()
     ip_s = current_twiss.S[f"IP1"]
     slimits = (ip_s - 10, ip_s + 10)
 
     around_ip = current_twiss[current_twiss.S.between(*slimits)]
     initial = initial[initial.S.between(*slimits)].copy()
-    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()][0]
-    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()][0]
+    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
+    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
     return Waist(ip_s - hor_waist_location, ip_s - ver_waist_location)
 
 

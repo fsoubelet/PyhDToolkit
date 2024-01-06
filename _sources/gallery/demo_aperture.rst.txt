@@ -41,7 +41,7 @@ available aperture in your machine, with the LHC used for this example.
 
 .. GENERATED FROM PYTHON SOURCE LINES 24-37
 
-.. code-block:: default
+.. code-block:: Python
 
 
     import matplotlib.pyplot as plt
@@ -71,7 +71,7 @@ optics and energy. To understand the function below have a look at the
 
 .. GENERATED FROM PYTHON SOURCE LINES 41-48
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx: Madx = lhc.prepare_lhc_run3(
@@ -94,7 +94,7 @@ computing the available aperture:
 
 .. GENERATED FROM PYTHON SOURCE LINES 51-58
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.call("lhc/aperture.b1.madx")
@@ -118,7 +118,7 @@ injection aperture:
 
 .. GENERATED FROM PYTHON SOURCE LINES 62-66
 
-.. code-block:: default
+.. code-block:: Python
 
 
     twiss_df = madx.table.twiss.dframe()
@@ -139,7 +139,7 @@ gives aperture information in terms of beam sigma.
 
 .. GENERATED FROM PYTHON SOURCE LINES 70-88
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.figure(figsize=(20, 13))
@@ -179,7 +179,7 @@ function:
 
 .. GENERATED FROM PYTHON SOURCE LINES 92-99
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.figure(figsize=(18, 10))
@@ -207,7 +207,7 @@ it in centimeters here:
 
 .. GENERATED FROM PYTHON SOURCE LINES 102-110
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.figure(figsize=(18, 10))
@@ -235,7 +235,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 112-115
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -260,7 +260,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  31.121 seconds)
+   **Total running time of the script:** (0 minutes 25.448 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_aperture.py:
@@ -269,16 +269,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_aperture.ipynb <demo_aperture.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_aperture.py <demo_aperture.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_aperture.ipynb <demo_aperture.ipynb>`
 
 
 .. only:: html

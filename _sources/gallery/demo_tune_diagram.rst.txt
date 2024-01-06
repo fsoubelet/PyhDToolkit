@@ -29,7 +29,7 @@ to visualise resonance lines up to certain orders.
 
 .. GENERATED FROM PYTHON SOURCE LINES 12-21
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
 
@@ -57,7 +57,7 @@ The max order is set 6, as the graph becomes unreadable above this value.
 
 .. GENERATED FROM PYTHON SOURCE LINES 28-33
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -89,7 +89,7 @@ fractional part of the tunes is what determines stability.
 
 .. GENERATED FROM PYTHON SOURCE LINES 42-48
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -118,7 +118,7 @@ makes it easier to see the resonances near your working point.
 
 .. GENERATED FROM PYTHON SOURCE LINES 53-65
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -160,7 +160,7 @@ It is now much easier to identify the resonances lines near our working point :)
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.988 seconds)
+   **Total running time of the script:** (0 minutes 9.084 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_tune_diagram.py:
@@ -169,16 +169,13 @@ It is now much easier to identify the resonances lines near our working point :)
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_tune_diagram.ipynb <demo_tune_diagram.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_tune_diagram.py <demo_tune_diagram.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_tune_diagram.ipynb <demo_tune_diagram.ipynb>`
 
 
 .. only:: html

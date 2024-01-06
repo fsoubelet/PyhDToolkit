@@ -44,7 +44,7 @@ to assign magnet errors in the Insertion Region magnets of the LHC.
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-39
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -73,7 +73,7 @@ optics and energy. To understand the function below have a look at the
 
 .. GENERATED FROM PYTHON SOURCE LINES 44-51
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx: Madx = lhc.prepare_lhc_run3(
@@ -96,7 +96,7 @@ seed, which we do below:
 
 .. GENERATED FROM PYTHON SOURCE LINES 54-58
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.option(rand="best", randid=np.random.randint(1, 11))  # random number generator
@@ -120,7 +120,7 @@ quadrupoles Q1 to Q6 (first to sixth) on both sides of IP1:
 
 .. GENERATED FROM PYTHON SOURCE LINES 65-76
 
-.. code-block:: default
+.. code-block:: Python
 
 
     lhc.misalign_lhc_ir_quadrupoles(
@@ -147,7 +147,7 @@ internal ``MAD-X`` tables through `~cpymad`:
 
 .. GENERATED FROM PYTHON SOURCE LINES 79-84
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.command.use(sequence="lhcb1")
@@ -168,7 +168,7 @@ order in which they are in the machine:
 
 .. GENERATED FROM PYTHON SOURCE LINES 87-111
 
-.. code-block:: default
+.. code-block:: Python
 
 
     error_table.name = error_table.name.apply(lambda x: x[:-2])
@@ -236,100 +236,100 @@ order in which they are in the machine:
       <tbody>
         <tr>
           <th>mqml.6l1.b1</th>
-          <td>-0.000213</td>
+          <td>0.000909</td>
           <td>0.0</td>
-          <td>0.003622</td>
+          <td>-0.001385</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5l1.b1</th>
-          <td>-0.000443</td>
+          <td>-0.000212</td>
           <td>0.0</td>
-          <td>-0.006859</td>
+          <td>0.000290</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4l1.b1</th>
-          <td>0.000519</td>
+          <td>0.000707</td>
           <td>0.0</td>
-          <td>0.000563</td>
+          <td>0.002396</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3l1</th>
-          <td>0.000083</td>
+          <td>0.001153</td>
           <td>0.0</td>
-          <td>-0.004750</td>
+          <td>-0.001186</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2l1</th>
-          <td>0.000054</td>
+          <td>0.000700</td>
           <td>0.0</td>
-          <td>-0.000885</td>
+          <td>-0.005146</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2l1</th>
-          <td>0.000042</td>
+          <td>0.000380</td>
           <td>0.0</td>
-          <td>-0.000089</td>
+          <td>0.001715</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1l1</th>
-          <td>0.001080</td>
+          <td>-0.000665</td>
           <td>0.0</td>
-          <td>-0.001286</td>
+          <td>-0.002008</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1r1</th>
-          <td>0.000635</td>
+          <td>0.000158</td>
           <td>0.0</td>
-          <td>-0.001352</td>
+          <td>0.003269</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2r1</th>
-          <td>0.000349</td>
+          <td>-0.000813</td>
           <td>0.0</td>
-          <td>0.006571</td>
+          <td>0.001646</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2r1</th>
-          <td>0.002339</td>
+          <td>-0.001996</td>
           <td>0.0</td>
-          <td>0.000584</td>
+          <td>-0.006411</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3r1</th>
-          <td>0.000166</td>
+          <td>-0.000063</td>
           <td>0.0</td>
-          <td>-0.001623</td>
+          <td>-0.001187</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4r1.b1</th>
-          <td>0.000124</td>
+          <td>0.000479</td>
           <td>0.0</td>
-          <td>0.008536</td>
+          <td>0.001633</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5r1.b1</th>
-          <td>-0.001463</td>
+          <td>0.000211</td>
           <td>0.0</td>
-          <td>0.006596</td>
+          <td>0.002024</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.6r1.b1</th>
-          <td>0.000940</td>
+          <td>0.001211</td>
           <td>0.0</td>
-          <td>-0.004282</td>
+          <td>0.003025</td>
           <td>0.0</td>
         </tr>
       </tbody>
@@ -345,7 +345,7 @@ We can also check that all these elements have been correctly affected:
 
 .. GENERATED FROM PYTHON SOURCE LINES 113-117
 
-.. code-block:: default
+.. code-block:: Python
 
 
     assert all(error_table["dx"] != 0)
@@ -365,7 +365,7 @@ chart, making use of the `~pandas.DataFrame` plotting capabilities:
 
 .. GENERATED FROM PYTHON SOURCE LINES 120-137
 
-.. code-block:: default
+.. code-block:: Python
 
 
     axes = error_table.plot(
@@ -402,7 +402,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 139-142
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -427,7 +427,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  10.713 seconds)
+   **Total running time of the script:** (0 minutes 8.071 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_ir_errors.py:
@@ -436,16 +436,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_ir_errors.ipynb <demo_ir_errors.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_ir_errors.py <demo_ir_errors.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_ir_errors.ipynb <demo_ir_errors.ipynb>`
 
 
 .. only:: html

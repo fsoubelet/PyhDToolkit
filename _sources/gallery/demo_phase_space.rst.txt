@@ -34,7 +34,7 @@ functions.
 
 .. GENERATED FROM PYTHON SOURCE LINES 17-35
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -67,7 +67,7 @@ Define some constants, generate a simple lattice and setup your simulation:
 
 .. GENERATED FROM PYTHON SOURCE LINES 38-47
 
-.. code-block:: default
+.. code-block:: Python
 
 
     base_lattice: str = LatticeGenerator.generate_base_cas_lattice()
@@ -91,7 +91,7 @@ Input the lattice into ``MAD-X``, and match to a desired working point:
 
 .. GENERATED FROM PYTHON SOURCE LINES 49-62
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx = Madx(stdout=False)
@@ -121,7 +121,7 @@ a particle's coordinates for each turn.
 
 .. GENERATED FROM PYTHON SOURCE LINES 66-76
 
-.. code-block:: default
+.. code-block:: Python
 
 
     for starting_x in initial_x_coordinates:
@@ -148,7 +148,7 @@ plots these.
 
 .. GENERATED FROM PYTHON SOURCE LINES 80-91
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -180,7 +180,7 @@ one gets a plot in which each color corresponds to a given particle's trajectory
 
 .. GENERATED FROM PYTHON SOURCE LINES 94-105
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -211,7 +211,7 @@ Let's close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 107-109
 
-.. code-block:: default
+.. code-block:: Python
 
     madx.exit()
 
@@ -234,7 +234,7 @@ use to excite a third order resonance.
 
 .. GENERATED FROM PYTHON SOURCE LINES 117-124
 
-.. code-block:: default
+.. code-block:: Python
 
 
     perturbed_lattice = LatticeGenerator.generate_onesext_cas_lattice()
@@ -256,7 +256,7 @@ Let's get close to the third order resonance and track particles.
 
 .. GENERATED FROM PYTHON SOURCE LINES 126-146
 
-.. code-block:: default
+.. code-block:: Python
 
 
     match_tunes_and_chromaticities(
@@ -291,7 +291,7 @@ Plotting the new phase space, we can clearly see the resonance's islands!
 
 .. GENERATED FROM PYTHON SOURCE LINES 148-159
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, ax = plt.subplots(figsize=(10, 10))
@@ -322,7 +322,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 161-164
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -349,7 +349,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  29.051 seconds)
+   **Total running time of the script:** (0 minutes 23.805 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_phase_space.py:
@@ -358,16 +358,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_phase_space.ipynb <demo_phase_space.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_phase_space.py <demo_phase_space.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_phase_space.ipynb <demo_phase_space.ipynb>`
 
 
 .. only:: html

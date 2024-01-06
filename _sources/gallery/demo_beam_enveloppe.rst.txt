@@ -31,7 +31,7 @@ In this example we will use a very simple lattice, hard-coded below.
 
 .. GENERATED FROM PYTHON SOURCE LINES 14-27
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -59,7 +59,7 @@ Define relevant constants.
 
 .. GENERATED FROM PYTHON SOURCE LINES 30-55
 
-.. code-block:: default
+.. code-block:: Python
 
 
     pc_GeV = 19  # Beam momentum [GeV]
@@ -99,7 +99,7 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
 
 .. GENERATED FROM PYTHON SOURCE LINES 57-118
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx = Madx(stdout=False)
@@ -176,7 +176,7 @@ inside the elements, this gives us higher resolution:
 
 .. GENERATED FROM PYTHON SOURCE LINES 121-127
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.command.select(flag="interpolate", class_="drift", slice_=4, range_="#s/#e")
@@ -199,7 +199,7 @@ values:
 
 .. GENERATED FROM PYTHON SOURCE LINES 131-147
 
-.. code-block:: default
+.. code-block:: Python
 
     figure, axes = plt.subplots(2, 1, sharex=True, figsize=(16, 11))
 
@@ -238,7 +238,7 @@ In order to have a look at the enveloppe in a specific region, we can give the
 
 .. GENERATED FROM PYTHON SOURCE LINES 152-160
 
-.. code-block:: default
+.. code-block:: Python
 
 
     fig, ax = plt.subplots(figsize=(16, 9))
@@ -266,7 +266,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 162-165
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -294,16 +294,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_beam_enveloppe.ipynb <demo_beam_enveloppe.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_beam_enveloppe.py <demo_beam_enveloppe.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_beam_enveloppe.ipynb <demo_beam_enveloppe.ipynb>`
 
 
 .. only:: html

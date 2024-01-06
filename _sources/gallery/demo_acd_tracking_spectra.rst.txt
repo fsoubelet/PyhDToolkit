@@ -50,7 +50,7 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 33-46
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -80,7 +80,7 @@ To understand the function below have a look at the :ref:`lhc setup example
 
 .. GENERATED FROM PYTHON SOURCE LINES 50-57
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx: Madx = lhc.prepare_lhc_run3(
@@ -104,7 +104,7 @@ function call too!
 
 .. GENERATED FROM PYTHON SOURCE LINES 61-65
 
-.. code-block:: default
+.. code-block:: Python
 
 
     lhc.make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
@@ -135,7 +135,7 @@ Here we will choose for the settings the same values as we use in operation in t
 
 .. GENERATED FROM PYTHON SOURCE LINES 79-92
 
-.. code-block:: default
+.. code-block:: Python
 
 
     lhc.install_ac_dipole_as_kicker(
@@ -164,7 +164,7 @@ in the :ref:`free tracking example <demo-free-tracking>`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 95-103
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks_dict = track.track_single_particle(
@@ -188,7 +188,7 @@ element through the turns, here in the horizontal plane:
 
 .. GENERATED FROM PYTHON SOURCE LINES 106-118
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks = tracks_dict["observation_point_2"]  # this is BPM.15L2.B1
@@ -228,7 +228,7 @@ case, the flat-top starts at turn :math:`100 + 2000 = 2100`, and ends at turn
 
 .. GENERATED FROM PYTHON SOURCE LINES 128-135
 
-.. code-block:: default
+.. code-block:: Python
 
 
     spectrum = pd.DataFrame()
@@ -261,7 +261,7 @@ determined driven tunes to highlight them.
 
 .. GENERATED FROM PYTHON SOURCE LINES 148-167
 
-.. code-block:: default
+.. code-block:: Python
 
 
     qxd = spectrum.tunes[spectrum.horizontal == spectrum.horizontal.max()].to_numpy()[0]
@@ -300,7 +300,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 169-172
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -326,7 +326,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 1 minutes  4.915 seconds)
+   **Total running time of the script:** (0 minutes 50.097 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_acd_tracking_spectra.py:
@@ -335,16 +335,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_acd_tracking_spectra.ipynb <demo_acd_tracking_spectra.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_acd_tracking_spectra.py <demo_acd_tracking_spectra.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_acd_tracking_spectra.ipynb <demo_acd_tracking_spectra.ipynb>`
 
 
 .. only:: html

@@ -44,7 +44,7 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-41
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
 
@@ -79,7 +79,7 @@ sequence, etc. See below for a typical B1 example:
 
 .. GENERATED FROM PYTHON SOURCE LINES 50-61
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx = Madx(stdout=False)
@@ -122,7 +122,7 @@ are passed to the `~cpymad.madx.Madx` creation call. For instance:
 
 .. GENERATED FROM PYTHON SOURCE LINES 79-99
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # One could give the optics name only and it will be found automatically assuming the
@@ -162,7 +162,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 101-104
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -186,7 +186,7 @@ above becomes:
 
 .. GENERATED FROM PYTHON SOURCE LINES 112-127
 
-.. code-block:: default
+.. code-block:: Python
 
 
     with lhc.LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) as madx:
@@ -226,7 +226,7 @@ IP5 for two different optics. Here below for the 2022 proton injection optics:
 
 .. GENERATED FROM PYTHON SOURCE LINES 134-165
 
-.. code-block:: default
+.. code-block:: Python
 
 
     with lhc.LHCSetup(run=3, opticsfile="R2022a_A11mC11mA10mL10m.madx", stdout=False) as madx:
@@ -279,7 +279,7 @@ element apertures on top of the plot (notice how we get this result with only
 
 .. GENERATED FROM PYTHON SOURCE LINES 169-207
 
-.. code-block:: default
+.. code-block:: Python
 
 
     with lhc.LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) as madx:
@@ -338,7 +338,7 @@ both beams when applying the coupling knob:
 
 .. GENERATED FROM PYTHON SOURCE LINES 210-240
 
-.. code-block:: default
+.. code-block:: Python
 
 
     with lhc.LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) as madx:
@@ -400,7 +400,7 @@ That's it, happy simulations!
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  43.696 seconds)
+   **Total running time of the script:** (0 minutes 33.188 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_setup.py:
@@ -409,16 +409,13 @@ That's it, happy simulations!
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_lhc_setup.ipynb <demo_lhc_setup.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_lhc_setup.py <demo_lhc_setup.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_lhc_setup.ipynb <demo_lhc_setup.ipynb>`
 
 
 .. only:: html

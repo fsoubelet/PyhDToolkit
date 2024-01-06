@@ -29,7 +29,7 @@ to represent your machine geometry in a from-the-top view.
 
 .. GENERATED FROM PYTHON SOURCE LINES 12-24
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
 
@@ -56,7 +56,7 @@ Generate a simple lattice and setup your simulation:
 
 .. GENERATED FROM PYTHON SOURCE LINES 27-30
 
-.. code-block:: default
+.. code-block:: Python
 
 
     base_lattice = LatticeGenerator.generate_base_cas_lattice()
@@ -74,7 +74,7 @@ Input the lattice into ``MAD-X``, no more needed here
 
 .. GENERATED FROM PYTHON SOURCE LINES 32-36
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx = Madx(stdout=False)
@@ -93,7 +93,7 @@ Plot the machine survey, as simplistic as possible:
 
 .. GENERATED FROM PYTHON SOURCE LINES 38-43
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.figure(figsize=(16, 11))
@@ -118,7 +118,7 @@ Plot the machine survey, differenciating elements and showing high order magnets
 
 .. GENERATED FROM PYTHON SOURCE LINES 45-50
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.figure(figsize=(16, 11))
@@ -143,7 +143,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 52-55
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -172,16 +172,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_machine_survey.ipynb <demo_machine_survey.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_machine_survey.py <demo_machine_survey.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_machine_survey.ipynb <demo_machine_survey.ipynb>`
 
 
 .. only:: html

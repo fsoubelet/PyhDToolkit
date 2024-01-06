@@ -36,7 +36,7 @@ it originated from.
 
 .. GENERATED FROM PYTHON SOURCE LINES 18-32
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -73,7 +73,7 @@ By repeating so a few thousand times, we get a chi-square distribution.
 
 .. GENERATED FROM PYTHON SOURCE LINES 43-83
 
-.. code-block:: default
+.. code-block:: Python
 
 
 
@@ -152,7 +152,7 @@ Enough talk, see below an example with :math:`N = 5` measurements.
 
 .. GENERATED FROM PYTHON SOURCE LINES 109-121
 
-.. code-block:: default
+.. code-block:: Python
 
 
     measurements_used = 5
@@ -180,7 +180,7 @@ distributions we will try to fit to the data:
 
 .. GENERATED FROM PYTHON SOURCE LINES 124-132
 
-.. code-block:: default
+.. code-block:: Python
 
 
     DISTRIBUTIONS = {
@@ -204,7 +204,7 @@ the `~.maths.stats_fitting.best_fit_distribution` function:
 
 .. GENERATED FROM PYTHON SOURCE LINES 135-155
 
-.. code-block:: default
+.. code-block:: Python
 
 
     ax = data.plot(
@@ -247,7 +247,7 @@ onto the data, and determine its mode:
 
 .. GENERATED FROM PYTHON SOURCE LINES 160-196
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Let's get the PDF of the best fit
@@ -289,7 +289,7 @@ onto the data, and determine its mode:
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: Chi(df=1.28, loc=0.01, scale=4.33)
+   :alt: Best fit to distribution: ChiSquared(df=4.02, loc=-0.00, scale=1.00)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
@@ -304,7 +304,7 @@ a nice tolerance to ensure the documentation build does not fail.
 
 .. GENERATED FROM PYTHON SOURCE LINES 199-203
 
-.. code-block:: default
+.. code-block:: Python
 
 
     assert np.isclose(pdf.idxmax(), 2, rtol=2e-2)
@@ -312,14 +312,7 @@ a nice tolerance to ensure the documentation build does not fail.
 
 
 
-.. rst-class:: sphx-glr-script-out
 
-.. code-block:: pytb
-
-    Traceback (most recent call last):
-      File "/home/runner/work/PyhDToolkit/PyhDToolkit/examples/demo_stats_fitting.py", line 200, in <module>
-        assert np.isclose(pdf.idxmax(), 2, rtol=2e-2)
-    AssertionError
 
 
 
@@ -334,13 +327,19 @@ one.
 
 .. GENERATED FROM PYTHON SOURCE LINES 209-215
 
-.. code-block:: default
+.. code-block:: Python
 
 
     factor = np.sqrt(2) * scipy.special.gamma((degrees_of_freedom + 1) / 2) / scipy.special.gamma(degrees_of_freedom / 2)
 
     determined_stdev = chi_data.mean() / factor
     assert np.isclose(determined_stdev, 1, rtol=1e-2)  # nice tolerance here too
+
+
+
+
+
+
 
 
 .. GENERATED FROM PYTHON SOURCE LINES 216-220
@@ -352,7 +351,7 @@ distribution generated above.
 
 .. GENERATED FROM PYTHON SOURCE LINES 220-249
 
-.. code-block:: default
+.. code-block:: Python
 
 
     # Let's reset the distributions dict
@@ -384,6 +383,17 @@ distribution generated above.
     plt.legend()
 
 
+
+
+.. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_003.svg
+   :alt: All Fitted Distributions
+   :srcset: /gallery/images/sphx_glr_demo_stats_fitting_003.svg, /gallery/images/sphx_glr_demo_stats_fitting_003_2_00x.svg 2.00x
+   :class: sphx-glr-single-img
+
+
+
+
+
 .. GENERATED FROM PYTHON SOURCE LINES 250-257
 
 .. admonition:: References
@@ -397,7 +407,7 @@ distribution generated above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  8.531 seconds)
+   **Total running time of the script:** (0 minutes 8.556 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:
@@ -406,16 +416,13 @@ distribution generated above.
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_stats_fitting.ipynb <demo_stats_fitting.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_stats_fitting.py <demo_stats_fitting.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_stats_fitting.ipynb <demo_stats_fitting.ipynb>`
 
 
 .. only:: html

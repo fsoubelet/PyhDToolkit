@@ -43,7 +43,7 @@ In this example we will use the LHC lattice to illustrate the tracking workflow 
 
 .. GENERATED FROM PYTHON SOURCE LINES 26-38
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -72,7 +72,7 @@ have a look at the :ref:`lhc setup example <demo-lhc-setup>`.
 
 .. GENERATED FROM PYTHON SOURCE LINES 43-48
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx = lhc.prepare_lhc_run3(
@@ -102,7 +102,7 @@ please refer to the API reference for more information.
 
 .. GENERATED FROM PYTHON SOURCE LINES 60-73
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks_dict = track.track_single_particle(
@@ -136,7 +136,7 @@ Each key holds as value a `~pandas.DataFrame` with the following columns: *numbe
 
 .. GENERATED FROM PYTHON SOURCE LINES 81-84
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks_dict["observation_point_2"]
@@ -339,7 +339,7 @@ first obeservation BPM we provided above:
 
 .. GENERATED FROM PYTHON SOURCE LINES 88-100
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks = tracks_dict["observation_point_2"]  # point 1 for MAD-X is start of machine as defined
@@ -372,7 +372,7 @@ them. This is the matter of a simple fast fourier transform:
 
 .. GENERATED FROM PYTHON SOURCE LINES 103-108
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks["horizontal"] = np.abs(np.fft.fft(tracks["x"]))  # x spectrum
@@ -400,7 +400,7 @@ One can then plot the spectra by plotting the computed values against the tune s
 
 .. GENERATED FROM PYTHON SOURCE LINES 118-130
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks.plot(
@@ -436,7 +436,7 @@ the DataFrame indexing syntax:
 
 .. GENERATED FROM PYTHON SOURCE LINES 136-149
 
-.. code-block:: default
+.. code-block:: Python
 
 
     tracks_dict = track.track_single_particle(
@@ -633,7 +633,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 151-154
 
-.. code-block:: default
+.. code-block:: Python
 
 
     madx.exit()
@@ -658,7 +658,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  17.052 seconds)
+   **Total running time of the script:** (0 minutes 13.361 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_track_spectra.py:
@@ -667,16 +667,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_track_spectra.ipynb <demo_track_spectra.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_track_spectra.py <demo_track_spectra.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_track_spectra.ipynb <demo_track_spectra.ipynb>`
 
 
 .. only:: html

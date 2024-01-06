@@ -32,7 +32,7 @@ of several parameters to control the plot on the example case of the LHC.
 
 .. GENERATED FROM PYTHON SOURCE LINES 15-28
 
-.. code-block:: default
+.. code-block:: Python
 
     import matplotlib.pyplot as plt
 
@@ -60,7 +60,7 @@ Let's start by generating a simple lattice and setup your simulation:
 
 .. GENERATED FROM PYTHON SOURCE LINES 30-47
 
-.. code-block:: default
+.. code-block:: Python
 
 
     n_cells: int = 24
@@ -95,7 +95,7 @@ can be done with the *k1_lim* parameter.
 
 .. GENERATED FROM PYTHON SOURCE LINES 52-64
 
-.. code-block:: default
+.. code-block:: Python
 
 
     mu_x_cell = madx.table.summ.Q1[0] / n_cells
@@ -140,7 +140,7 @@ below.
 
 .. GENERATED FROM PYTHON SOURCE LINES 79-85
 
-.. code-block:: default
+.. code-block:: Python
 
 
     lhc_madx: Madx = lhc.prepare_lhc_run3(
@@ -163,7 +163,7 @@ of points of interest through the ``TWISS`` table:
 
 .. GENERATED FROM PYTHON SOURCE LINES 89-95
 
-.. code-block:: default
+.. code-block:: Python
 
 
     lhc_madx.command.twiss()
@@ -193,7 +193,7 @@ centered around the value we determined for *ip1s*.
 
 .. GENERATED FROM PYTHON SOURCE LINES 106-121
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.figure(figsize=(18, 11))
@@ -231,7 +231,7 @@ positions relative to the IP marker.
 
 .. GENERATED FROM PYTHON SOURCE LINES 126-142
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.figure(figsize=(18, 11))
@@ -272,7 +272,7 @@ showcased when looking at an LHC arc cell:
 
 .. GENERATED FROM PYTHON SOURCE LINES 149-167
 
-.. code-block:: default
+.. code-block:: Python
 
 
     plt.rcParams.update({"axes.formatter.limits": (-2, 5)})  # convenience
@@ -310,7 +310,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. GENERATED FROM PYTHON SOURCE LINES 169-172
 
-.. code-block:: default
+.. code-block:: Python
 
 
     lhc_madx.exit()
@@ -337,7 +337,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** ( 0 minutes  13.344 seconds)
+   **Total running time of the script:** (0 minutes 9.965 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lattice.py:
@@ -346,16 +346,13 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
   .. container:: sphx-glr-footer sphx-glr-footer-example
 
+    .. container:: sphx-glr-download sphx-glr-download-jupyter
 
-
+      :download:`Download Jupyter notebook: demo_lattice.ipynb <demo_lattice.ipynb>`
 
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_lattice.py <demo_lattice.py>`
-
-    .. container:: sphx-glr-download sphx-glr-download-jupyter
-
-      :download:`Download Jupyter notebook: demo_lattice.ipynb <demo_lattice.ipynb>`
 
 
 .. only:: html

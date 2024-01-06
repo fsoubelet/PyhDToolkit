@@ -14,8 +14,8 @@
       <link rel="stylesheet" href="../_static/sg_gallery-binder.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-dataframe.css" type="text/css" />
       <link rel="stylesheet" href="../_static/sg_gallery-rendered-html.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/panels-bootstrap.5fd3999ee7762ccc51105388f4a9d115.css" type="text/css" />
       <link rel="stylesheet" href="../_static/panels-variables.4b15212bc2faf4da239d738a7cf8e545.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/custom.css" type="text/css" />
   <!--[if lt IE 9]>
@@ -393,7 +393,7 @@ to download the full example code</p>
 <span id="demo-sbs-plotting"></span><span id="sphx-glr-gallery-demo-sbs-plotting-py"></span><h1>Segment-by-Segment Results<a class="headerlink" href="#segment-by-segment-results" title="Permalink to this headline"></a></h1>
 <p>This example shows how to use the modules in <code class="xref py py-obj docutils literal notranslate"><span class="pre">pyhdtoolkit.plotting.sbs</span></code> and their various functions
 to easily visualize results of segment-by-segment runs.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">tfs</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.sbs</span> <span class="kn">import</span> <span class="n">coupling</span><span class="p">,</span> <span class="n">phase</span>
@@ -409,11 +409,21 @@ different dataframes corresponding to specific components of segment-by-segment
 results, which can be obtained by directly loading the output <strong>TFS</strong> files.
 Let’s load below the coupling results of a segment-by-segment run and related
 model files.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">b1_model_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b1_twiss_elements.dat&quot;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">b1_model_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b1_twiss_elements.dat&quot;</span><span class="p">)</span>
 <span class="n">b2_model_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2_twiss_elements.dat&quot;</span><span class="p">)</span>
 
 <span class="n">couple_b1_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b1_sbscouple_IP1.out&quot;</span><span class="p">)</span>
 <span class="n">couple_b2_tfs</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2_sbscouple_IP1.out&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.7/x64/lib/python3.11/site-packages/tfs/frame.py:266: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+/opt/hostedtoolcache/Python/3.11.7/x64/lib/python3.11/site-packages/tfs/frame.py:266: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+/opt/hostedtoolcache/Python/3.11.7/x64/lib/python3.11/site-packages/tfs/frame.py:266: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+/opt/hostedtoolcache/Python/3.11.7/x64/lib/python3.11/site-packages/tfs/frame.py:266: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
 </pre></div>
 </div>
 <p>One can now easily plot these results in a few lines with functions from the
@@ -425,7 +435,7 @@ given coupling RDT through the segment.</p>
 used to determine the position of the IP point in the segment, and this position
 will then be highlighted in the plot.</p>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we plot the real part of the f1001 coupling resonance driving term (default rdt plotted)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Here we plot the real part of the f1001 coupling resonance driving term (default rdt plotted)</span>
 <a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component" title="pyhdtoolkit.plotting.sbs.coupling.plot_rdt_component" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-coupling sphx-glr-backref-type-py-function"><span class="n">coupling</span><span class="o">.</span><span class="n">plot_rdt_component</span></a><span class="p">(</span>
     <span class="n">couple_b1_tfs</span><span class="p">,</span>
     <span class="n">couple_b2_tfs</span><span class="p">,</span>
@@ -452,7 +462,7 @@ moment, these limits apply to the plots of both beams as they share their y
 axis. Keyword arguments can be used to specify properties of the figure and
 set the position of the legend.</p>
 </div>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt" title="pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-coupling sphx-glr-backref-type-py-function"><span class="n">coupling</span><span class="o">.</span><span class="n">plot_full_ip_rdt</span></a><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt" title="pyhdtoolkit.plotting.sbs.coupling.plot_full_ip_rdt" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-coupling sphx-glr-backref-type-py-function"><span class="n">coupling</span><span class="o">.</span><span class="n">plot_full_ip_rdt</span></a><span class="p">(</span>
     <span class="n">couple_b1_tfs</span><span class="p">,</span>
     <span class="n">couple_b2_tfs</span><span class="p">,</span>
     <span class="n">b1_model_tfs</span><span class="p">,</span>
@@ -471,7 +481,7 @@ set the position of the legend.</p>
 functions in <a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.sbs.phase" title="pyhdtoolkit.plotting.sbs.phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phase</span></code></a>. The plotting logic is the same as above,
 with the simplification that no component has to be chosen. Let’s load data for
 this example: one dataframe for each plane for Beam 2.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sbs_phasex</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2sbsphasext_IP5.out&quot;</span><span class="p">)</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">sbs_phasex</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2sbsphasext_IP5.out&quot;</span><span class="p">)</span>
 <span class="n">sbs_phasey</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;sbs/b2sbsphaseyt_IP5.out&quot;</span><span class="p">)</span>
 
 <a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-phase sphx-glr-backref-type-py-function"><span class="n">phase</span><span class="o">.</span><span class="n">plot_phase_segment_one_beam</span></a><span class="p">(</span>
@@ -484,10 +494,16 @@ this example: one dataframe for each plane for Beam 2.</p>
 <a href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.show.html#matplotlib.pyplot.show" title="matplotlib.pyplot.show" class="sphx-glr-backref-module-matplotlib-pyplot sphx-glr-backref-type-py-function"><span class="n">plt</span><span class="o">.</span><span class="n">show</span></a><span class="p">()</span>
 </pre></div>
 </div>
-<img src="../_images/sphx_glr_demo_sbs_plotting_003.svg" srcset="../_images/sphx_glr_demo_sbs_plotting_003.svg, ../_images/sphx_glr_demo_sbs_plotting_003_2_00x.svg 2.00x" alt="demo sbs plotting" class = "sphx-glr-single-img"/><p>Similarly to the coupling example, one can plot the results for both beams in
+<img src="../_images/sphx_glr_demo_sbs_plotting_003.svg" srcset="../_images/sphx_glr_demo_sbs_plotting_003.svg, ../_images/sphx_glr_demo_sbs_plotting_003_2_00x.svg 2.00x" alt="demo sbs plotting" class = "sphx-glr-single-img"/><div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/opt/hostedtoolcache/Python/3.11.7/x64/lib/python3.11/site-packages/tfs/frame.py:266: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+/opt/hostedtoolcache/Python/3.11.7/x64/lib/python3.11/site-packages/tfs/frame.py:266: FutureWarning: use_inf_as_na option is deprecated and will be removed in a future version. Convert inf values to NaN before operating instead.
+  with pd.option_context(&#39;mode.use_inf_as_na&#39;, True):
+</pre></div>
+</div>
+<p>Similarly to the coupling example, one can plot the results for both beams in
 a single call with the <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams</span></code></a>
 function, as demonstrated below.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-phase sphx-glr-backref-type-py-function"><span class="n">phase</span><span class="o">.</span><span class="n">plot_phase_segment_both_beams</span></a><span class="p">(</span>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><a href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" class="sphx-glr-backref-module-pyhdtoolkit-plotting-sbs-phase sphx-glr-backref-type-py-function"><span class="n">phase</span><span class="o">.</span><span class="n">plot_phase_segment_both_beams</span></a><span class="p">(</span>
     <span class="n">b1_phase_x</span><span class="o">=</span><span class="n">sbs_phasex</span><span class="p">,</span>
     <span class="n">b1_phase_y</span><span class="o">=</span><span class="n">sbs_phasey</span><span class="p">,</span>
     <span class="n">b2_phase_x</span><span class="o">=</span><span class="n">sbs_phasex</span><span class="p">,</span>
@@ -510,13 +526,13 @@ in this example:</p>
 <li><p><a class="reference internal" href="../api/plotting.html#module-pyhdtoolkit.plotting.sbs.phase" title="pyhdtoolkit.plotting.sbs.phase"><code class="xref py py-obj docutils literal notranslate"><span class="pre">phase</span></code></a>: <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_one_beam"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_phase_segment_one_beam</span></code></a>, <a class="reference internal" href="../api/plotting.html#pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams" title="pyhdtoolkit.plotting.sbs.phase.plot_phase_segment_both_beams"><code class="xref py py-obj docutils literal notranslate"><span class="pre">plot_phase_segment_both_beams</span></code></a></p></li>
 </ul>
 </div>
-<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  2.848 seconds)</p>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> (0 minutes 2.697 seconds)</p>
 <div class="sphx-glr-footer sphx-glr-footer-example docutils container" id="sphx-glr-download-gallery-demo-sbs-plotting-py">
-<div class="sphx-glr-download sphx-glr-download-python docutils container">
-<p><a class="reference download internal" download="" href="../_downloads/ab3ed099c57146ff8b9d76dbf2af1409/demo_sbs_plotting.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_sbs_plotting.py</span></code></a></p>
-</div>
 <div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
 <p><a class="reference download internal" download="" href="../_downloads/813c3bff0f25029ff9ae3f0d0dc0751f/demo_sbs_plotting.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">demo_sbs_plotting.ipynb</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../_downloads/ab3ed099c57146ff8b9d76dbf2af1409/demo_sbs_plotting.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">demo_sbs_plotting.py</span></code></a></p>
 </div>
 </div>
 <p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
