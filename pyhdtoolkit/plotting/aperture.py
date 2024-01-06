@@ -339,15 +339,15 @@ def _get_positions_and_real_apertures(
 
     logger.trace("Finding non-zero aperture elements")
     for i in range(len(twiss_df[apercol]) - 1, 0, -1):
-        if twiss_df[apercol][i] != 0:
-            new_aper.insert(i, twiss_df[apercol][i])
+        if twiss_df[apercol].iloc[i] != 0:
+            new_aper.insert(i, twiss_df[apercol].iloc[i])
             indices.append(i)
     indices = list(reversed(indices))
 
     logger.trace("Extrapolating data at beginning of elements")
     counter = 0  # Keep track of exact position in new array with counter
     for j in indices:
-        new_pos.insert(j + counter, (twiss_df.s[j] - twiss_df.l[j]))
+        new_pos.insert(j + counter, (twiss_df.s.iloc[j] - twiss_df.l.iloc[j]))
         counter += 1
 
     # Replace all zeros with Nan

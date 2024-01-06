@@ -74,8 +74,8 @@ def test_match_no_coupling_through_ripken(_non_matched_lhc_madx, variable, power
     match_no_coupling_through_ripkens(madx, "lhcb1", location="IP1", vary_knobs=[variable])
     twiss_df = madx.twiss(chrom=True, ripken=True).dframe()
     twiss_df.name = twiss_df.name.apply(lambda x: x[:-2])
-    assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21[0], 0, abs_tol=1e-10)
-    assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21[0], 0, abs_tol=1e-10)
+    assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21.iloc[0], 0, abs_tol=1e-10)
+    assert math.isclose(twiss_df[twiss_df.name == "ip1"].beta21.iloc[0], 0, abs_tol=1e-10)
 
 
 def test_get_coupling_rdts(_non_matched_lhc_madx, _coupling_bump_script, _correct_bump_rdts_path):
