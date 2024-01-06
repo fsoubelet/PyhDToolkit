@@ -141,8 +141,8 @@ def test_plot_latwiss_with_dipole_k1():
         madx.command.twiss(sequence="ring")
 
         init_twiss = madx.table.twiss.dframe()
-        x0 = init_twiss.s[init_twiss.name == "ll:1"][0]
-        x1 = init_twiss.s[init_twiss.name == "ll:3"][0]
+        x0 = init_twiss.s[init_twiss.name == "ll:1"].iloc[0]
+        x1 = init_twiss.s[init_twiss.name == "ll:3"].iloc[0]
 
         figure = plt.figure(figsize=(18, 11))
         plot_latwiss(

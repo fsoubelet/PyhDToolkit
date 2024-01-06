@@ -80,7 +80,7 @@ class TestCommandLine:
         with pytest.raises(subprocess.TimeoutExpired):
             CommandLine.run(f"sleep {sleep_time}", timeout=0.1)
 
-    @pytest.mark.parametrize("pid", [random.randint(1e6, 5e6) for _ in range(10)])
+    @pytest.mark.parametrize("pid", [random.randint(int(1e6), int(5e6)) for _ in range(10)])
     def test_terminate_nonexistent_pid(self, pid):
         """Default max PID is 32768 on linux, 99999 on macOS."""
         assert CommandLine.terminate(pid) is False

@@ -322,7 +322,7 @@ def test_orbit_correction(_bare_lhc_madx):
     assert madx.table.summ["xcorms"][0] > 1e-3
 
     correct_lhc_orbit(madx, sequence="lhcb1")
-    assert math.isclose(madx.table.summ["xcorms"], 0, abs_tol=1e-5)
+    assert math.isclose(madx.table.summ["xcorms"][0], 0, abs_tol=1e-5)
 
 
 def test_all_lhc_arcs():
@@ -563,7 +563,7 @@ def test_re_cycling(_bare_lhc_madx, start_point):
     madx.command.use(sequence="lhcb1")
     madx.twiss()
     twiss = madx.table.twiss.dframe()
-    assert start_point.lower() in twiss.name[0].lower()
+    assert start_point.lower() in twiss.name.iloc[0].lower()
 
 
 def test_resetting_lhc_bump_flags(_bare_lhc_madx):

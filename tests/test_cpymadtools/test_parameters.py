@@ -9,7 +9,7 @@ def test_query_default_madx_beam():
     beam = query_beam_attributes(madx)
 
     assert isinstance(beam, MADXBeam)
-    for attribute in beam.dict():
+    for attribute in beam.model_dump():
         assert getattr(beam, attribute) == madx.beam[attribute]
 
 
@@ -18,5 +18,5 @@ def test_query_lhc_madx_beam(_non_matched_lhc_madx):
     beam = query_beam_attributes(madx)
 
     assert isinstance(beam, MADXBeam)
-    for attribute in beam.dict():
+    for attribute in beam.model_dump():
         assert getattr(beam, attribute) == madx.beam[attribute]
