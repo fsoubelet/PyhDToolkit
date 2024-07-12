@@ -6,6 +6,7 @@ import pytest
 from pyhdtoolkit.models.beam import BeamParameters
 from pyhdtoolkit.optics import ripken, twiss
 from pyhdtoolkit.optics.beam import Beam, compute_beam_parameters
+from pyhdtoolkit.optics.rdt import determine_rdt_line, rdt_to_order_and_type
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
@@ -154,6 +155,32 @@ def test_add_beam_size_to_df(_non_matched_lhc_madx):
     df = ripken._add_beam_size_to_df(df, 1e-6, 1e-6)
     assert "SIZE_X" in df.columns
     assert "SIZE_Y" in df.columns
+
+
+def test_rdt_order_and_type():
+    assert rdt_to_order_and_type(1001) == "skew_quadrupole"
+    assert rdt_to_order_and_type(1010) == "skew_quadrupole"
+    assert rdt_to_order_and_type(1020) == "normal_sextupole"
+    assert rdt_to_order_and_type(2002) == "normal_octupole"
+    assert rdt_to_order_and_type(1003) == "skew_octupole"
+    assert rdt_to_order_and_type(1004) ==  "normal_decapole"
+    assert rdt_to_order_and_type(3003) == "skew_dodecapole"
+    assert rdt_to_order_and_type(4004) == "normal_hexadecapole"
+
+    with pytest.raises(KeyError):
+        rdt_to_order_and_type(8888)
+        rdt_to_order_and_type(1090)
+
+
+def test_rdt_spectrum_line():
+    # Some simple coupling RDTs lines
+    assert determine_rdt_line(1001, "X") == (0, 1, 0)
+    assert determine_rdt_line(1010, "Y") == (-1, 0, 0)
+    assert determine_rdt_line("0220", "X") == (3, -2, 0)
+
+    with pytest.raises(KeyError):
+        determine_rdt_line("0220", "Z")
+
 
 
 # ----- Fixtures ----- #
