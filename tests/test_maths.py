@@ -6,59 +6,12 @@ import numpy as np
 import pytest
 import scipy.stats as st
 
-import pyhdtoolkit.maths.nonconvex_phase_sync as nps
-
 from pyhdtoolkit.maths import stats_fitting
 from pyhdtoolkit.maths import utils as mutils
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
 REF_DISTRIBUTIONS = deepcopy(stats_fitting.DISTRIBUTIONS)
-
-
-class TestPhaseReconstructor:
-    """
-    Only testing that the final result is good, considering if anything in between goes wrong the
-    end result will be way off. Introduced noise doesn't have more than 1 degree stdev,
-    as the highest I've found in LHC was 0.7270 for the low-low bpm combination. Number of BPMs
-    varyto emulate different machines, 569 is here specifically because it's how many we have in
-    the LHC right now (minus shenanigans of double plane BPMs).
-    """
-
-    @pytest.mark.parametrize("input_matrix", [np.random.rand(250, 250), np.random.rand(2, 10)])
-    @pytest.mark.parametrize("expected_exception", [ValueError])
-    def test_non_hermitian_input(self, input_matrix, expected_exception):
-        with pytest.raises(expected_exception):
-            _ = nps.PhaseReconstructor(input_matrix)
-
-    @pytest.mark.flaky(max_runs=3, min_passes=1)
-    @pytest.mark.parametrize("noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1])
-    @pytest.mark.parametrize("n_bpms", [50, 250, 500, 569, 750])
-    def test_reconstructor_matrix(self, noise_stdev_degrees, n_bpms):
-        signal = _create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
-        m_meas = _create_meas_matrix_from_values_array(signal)
-        m_noise = _create_2d_gaussian_noise(mean=0, stdev=noise_stdev_degrees, shape=m_meas.shape)
-        c_hermitian = np.exp(1j * np.deg2rad(m_meas + m_noise))
-
-        pr = nps.PhaseReconstructor(c_hermitian)
-        assert isinstance(pr.reconstructor_matrix, np.ndarray)
-        assert pr.reconstructor_matrix.shape == c_hermitian.shape
-
-    @pytest.mark.flaky(max_runs=3, min_passes=1)
-    @pytest.mark.parametrize("noise_stdev_degrees", [0.15, 0.25, 0.35, 0.45, 0.55, 0.65, 0.75, 0.85, 1])
-    @pytest.mark.parametrize("n_bpms", [50, 250, 500, 569, 750])
-    def test_reconstruction(self, noise_stdev_degrees, n_bpms):
-        signal = _create_random_phase_values(low=0, high=80, n_values=n_bpms, dist="uniform")
-        m_meas = _create_meas_matrix_from_values_array(signal)
-        m_noise = _create_2d_gaussian_noise(mean=0, stdev=noise_stdev_degrees, shape=m_meas.shape)
-        m_noised_meas = m_meas + m_noise
-        c_hermitian = np.exp(1j * np.deg2rad(m_noised_meas))
-        pr = nps.PhaseReconstructor(c_hermitian)
-        complex_eigenvector_method_result = pr.reconstruct_complex_phases_evm()
-        reconstructed = np.abs(
-            pr.convert_complex_result_to_phase_values(complex_eigenvector_method_result, deg=True)
-        ).reshape(n_bpms)
-        assert np.allclose(reconstructed, signal, atol=0.1, rtol=1e-1)
 
 
 @pytest.mark.parametrize(
