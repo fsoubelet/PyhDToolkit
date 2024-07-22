@@ -42,7 +42,7 @@ if str(TOPLEVEL_DIR) not in sys.path:
 autodoc_type_aliases = {"ArrayLike": "ArrayLike"}
 
 # To use SVG outputs when scraping matplotlib figures for the sphinx-gallery
-class matplotlib_svg_scraper(object):
+class matplotlib_svg_scraper:
     def __repr__(self):
         return self.__class__.__name__
 
@@ -177,13 +177,13 @@ sphinx_gallery_conf = {
     "examples_dirs": ["../examples"],  # directory where to find plotting scripts
     "gallery_dirs": ["gallery"],  # directory where to store generated plots
     "filename_pattern": "^((?!sgskip).)*$",  # which files to execute, taken from matplotlib
-    "subsection_order": ExampleTitleSortKey,
-    "within_subsection_order": ExampleTitleSortKey,
+    # "subsection_order": ExampleTitleSortKey,
+    # "within_subsection_order": ExampleTitleSortKey,
     "reference_url": {"pyhdtoolkit": None},  # Sets up intersphinx in gallery code
     "backreferences_dir": "gen_modules/backreferences",  # where function/class granular galleries are stored
     # Modules for which function/class level galleries are created
     "doc_module": "pyhdtoolkit",
-    "image_scrapers": (matplotlib_svg_scraper(),),  # scrape gallery as SVG
+    # "image_scrapers": (matplotlib_svg_scraper(),),  # scrape gallery as SVG
     "image_srcset": ["2x"],  # use srcset twice as dense for high-resolution images display
     "min_reported_time": 2,  # minimum execution time to enable reporting
     "remove_config_comments": True,  # remove config comments from the code
@@ -353,9 +353,7 @@ latex_elements["babel"] = r"\usepackage{babel}"
 # Font configuration
 # Fix fontspec converting " into right curly quotes in PDF
 # cf https://github.com/sphinx-doc/sphinx/pull/6888/
-latex_elements[
-    "fontenc"
-] = r"""
+latex_elements["fontenc"] = r"""
 \usepackage{fontspec}
 \defaultfontfeatures[\rmfamily,\sffamily,\ttfamily]{}
 """
@@ -407,9 +405,7 @@ latex_elements["fontpkg"] = fontpkg
 
 
 # Additional stuff for the LaTeX preamble.
-latex_elements[
-    "preamble"
-] = r"""
+latex_elements["preamble"] = r"""
    % Show Parts and Chapters in Table of Contents
    \setcounter{tocdepth}{0}
    % One line per author on title page
