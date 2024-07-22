@@ -15,6 +15,7 @@ Highlights
 * Monitor HTCondor_ jobs.
 
 .. dropdown:: Useful Quick Links
+    :open:
     :animate: fade-in-slide-down
 
     .. grid:: 2
