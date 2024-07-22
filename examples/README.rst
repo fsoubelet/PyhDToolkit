@@ -22,39 +22,41 @@ submodules, or plots made from results of convenient functions available in `~py
     One can use them in two ways, shown below with as example the ``MEDIUM`` style defined in
     `pyhdtoolkit.plotting.styles.thesis`.
 
-    .. tabbed:: Import and Set the Style
+    .. tab-set::
 
-        Update the ``rcParams`` at runtime with:
+        .. tab-item:: Import and Set the Style
 
-            .. prompt:: python
+            Update the ``rcParams`` at runtime with:
 
-                from matplotlib import pyplot as plt
-                from pyhdtoolkit.plotting.styles.thesis import MEDIUM
+                .. prompt:: python
 
-                plt.rcParams.update(MEDIUM)
-                # plotting code here
+                    from matplotlib import pyplot as plt
+                    from pyhdtoolkit.plotting.styles.thesis import MEDIUM
 
-        Or, for a temporary update of the ``rcParams``:
+                    plt.rcParams.update(MEDIUM)
+                    # plotting code here
 
-            .. prompt:: python
+            Or, for a temporary update of the ``rcParams``:
 
-                from matplotlib import pyplot as plt
-                from pyhdtoolkit.plotting.styles.thesis import MEDIUM
+                .. prompt:: python
 
-                with plt.rc_context(MEDIUM):
-                    # Plotting code here
+                    from matplotlib import pyplot as plt
+                    from pyhdtoolkit.plotting.styles.thesis import MEDIUM
 
-    .. tabbed:: Install the Styles and Load One
+                    with plt.rc_context(MEDIUM):
+                        # Plotting code here
 
-        Do a one-time install of the styles as **.mplstyle** files to use in `~matplotlib`:
+        .. tab-item:: Install the Styles and Load One
 
-            .. prompt:: python
+            Do a one-time install of the styles as **.mplstyle** files to use in `~matplotlib`:
 
-                from matplotlib import pyplot as plt
-                from pyhdtoolkit.plotting.styles import install_mpl_styles
+              .. prompt:: python
 
-                install_mpl_styles()  # only run this once
-                plt.style.use("thesis-medium")  # loaded from created file 'thesis-medium.mplstyle'
+                  from matplotlib import pyplot as plt
+                  from pyhdtoolkit.plotting.styles import install_mpl_styles
+
+                  install_mpl_styles()  # only run this once
+                  plt.style.use("thesis-medium")  # loaded from created file 'thesis-medium.mplstyle'
 
     In both cases, re-updating the ``rcParams`` later on will always overwrite these settings.
 
