@@ -179,7 +179,6 @@ sphinx_gallery_conf = {
     "filename_pattern": "^((?!sgskip).)*$",  # which files to execute, taken from matplotlib
     # "subsection_order": ExampleTitleSortKey,
     # "within_subsection_order": ExampleTitleSortKey,
-    "reference_url": {"pyhdtoolkit": None},  # Sets up intersphinx in gallery code
     "backreferences_dir": "gen_modules/backreferences",  # where function/class granular galleries are stored
     # Modules for which function/class level galleries are created
     "doc_module": "pyhdtoolkit",
