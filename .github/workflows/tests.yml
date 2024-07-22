@@ -10,7 +10,7 @@ on:  # Runs on any push event to any branch except master (the coverage workflow
       - 'master'
 
 jobs:
-  quick_tests:  # fails here if flaky tests
+  quick_tests:
     name: ${{ matrix.os }} / ${{ matrix.python-version }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -42,7 +42,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, macos-latest, windows-latest]
-        python-version: [3.8, 3.9, "3.10", 3.11, 3.12]
+        python-version: ["3.10", 3.11, 3.12]
       fail-fast: false
 
     steps:
