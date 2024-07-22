@@ -6,6 +6,9 @@ Optics
 .. automodule:: pyhdtoolkit.optics.beam
    :members:
 
+.. automodule:: pyhdtoolkit.optics.rdt
+   :members:
+
 .. automodule:: pyhdtoolkit.optics.ripken
    :members:
 

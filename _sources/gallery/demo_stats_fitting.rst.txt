@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_demo_stats_fitting.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -289,7 +289,7 @@ onto the data, and determine its mode:
 
 
 .. image-sg:: /gallery/images/sphx_glr_demo_stats_fitting_002.svg
-   :alt: Best fit to distribution: ChiSquared(df=4.02, loc=-0.00, scale=1.00)
+   :alt: Best fit to distribution: ChiSquared(df=3.97, loc=0.00, scale=1.01)
    :srcset: /gallery/images/sphx_glr_demo_stats_fitting_002.svg, /gallery/images/sphx_glr_demo_stats_fitting_002_2_00x.svg 2.00x
    :class: sphx-glr-single-img
 
@@ -407,7 +407,7 @@ distribution generated above.
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 8.556 seconds)
+   **Total running time of the script:** (0 minutes 9.657 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_stats_fitting.py:
@@ -423,6 +423,10 @@ distribution generated above.
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_stats_fitting.py <demo_stats_fitting.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: demo_stats_fitting.zip <demo_stats_fitting.zip>`
 
 
 .. only:: html

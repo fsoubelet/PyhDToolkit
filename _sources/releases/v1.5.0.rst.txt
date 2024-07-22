@@ -1,0 +1,27 @@
+.. _release_1.4.0:
+
+1.4.0
+-----
+
+Release `1.5.0` is a small compatibility and cleanup release.
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.optics` package has a new module, `rdt`, with some utility functions.
+
+Changes
+~~~~~~~
+
+* The `pyhdtoolkit.maths.nonconvex_phase_sync` module has been removed.
+
+Maintenance
+~~~~~~~~~~~
+
+* The version requirement on `numpy` has been updated to `>=2.0`.
+* Various dependencies have had their minimum required version increased.
+* Fixed various deprecation and future warnings through the package.
+* Documentation has been updated in several places.
+* Documentation has been upgraded to use `sphinx-design` instead of the now deprecated `sphinx-panels`.
+
+See `v1.5.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.5.0>`_ and the `full changes since v1.4.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.4.0...1.5.0>`_.

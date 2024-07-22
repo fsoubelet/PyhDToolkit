@@ -11,7 +11,7 @@
         :class: sphx-glr-download-link-note
 
         :ref:`Go to the end <sphx_glr_download_gallery_demo_ir_errors.py>`
-        to download the full example code
+        to download the full example code.
 
 .. rst-class:: sphx-glr-example-title
 
@@ -236,100 +236,100 @@ order in which they are in the machine:
       <tbody>
         <tr>
           <th>mqml.6l1.b1</th>
-          <td>0.000909</td>
+          <td>0.000580</td>
           <td>0.0</td>
-          <td>-0.001385</td>
+          <td>-0.001294</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5l1.b1</th>
-          <td>-0.000212</td>
+          <td>0.000074</td>
           <td>0.0</td>
-          <td>0.000290</td>
+          <td>-0.003721</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4l1.b1</th>
-          <td>0.000707</td>
+          <td>0.001237</td>
           <td>0.0</td>
-          <td>0.002396</td>
+          <td>-0.000841</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3l1</th>
-          <td>0.001153</td>
+          <td>-0.000899</td>
           <td>0.0</td>
-          <td>-0.001186</td>
+          <td>0.001822</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2l1</th>
-          <td>0.000700</td>
+          <td>-0.000484</td>
           <td>0.0</td>
-          <td>-0.005146</td>
+          <td>0.004479</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2l1</th>
-          <td>0.000380</td>
+          <td>0.000771</td>
           <td>0.0</td>
-          <td>0.001715</td>
+          <td>0.000880</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1l1</th>
-          <td>-0.000665</td>
+          <td>-0.000398</td>
           <td>0.0</td>
-          <td>-0.002008</td>
+          <td>-0.001656</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1r1</th>
-          <td>0.000158</td>
+          <td>-0.000307</td>
           <td>0.0</td>
-          <td>0.003269</td>
+          <td>-0.000122</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2r1</th>
-          <td>-0.000813</td>
+          <td>0.000519</td>
           <td>0.0</td>
-          <td>0.001646</td>
+          <td>0.003548</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2r1</th>
-          <td>-0.001996</td>
+          <td>0.001743</td>
           <td>0.0</td>
-          <td>-0.006411</td>
+          <td>0.001067</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3r1</th>
-          <td>-0.000063</td>
+          <td>0.000972</td>
           <td>0.0</td>
-          <td>-0.001187</td>
+          <td>-0.000149</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4r1.b1</th>
-          <td>0.000479</td>
+          <td>0.000854</td>
           <td>0.0</td>
-          <td>0.001633</td>
+          <td>-0.002059</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5r1.b1</th>
-          <td>0.000211</td>
+          <td>-0.000844</td>
           <td>0.0</td>
-          <td>0.002024</td>
+          <td>0.003745</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.6r1.b1</th>
-          <td>0.001211</td>
+          <td>0.000559</td>
           <td>0.0</td>
-          <td>0.003025</td>
+          <td>0.004826</td>
           <td>0.0</td>
         </tr>
       </tbody>
@@ -427,7 +427,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 8.071 seconds)
+   **Total running time of the script:** (0 minutes 8.689 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_ir_errors.py:
@@ -443,6 +443,10 @@ Let's not forget to close the rpc connection to ``MAD-X``:
     .. container:: sphx-glr-download sphx-glr-download-python
 
       :download:`Download Python source code: demo_ir_errors.py <demo_ir_errors.py>`
+
+    .. container:: sphx-glr-download sphx-glr-download-zip
+
+      :download:`Download zipped: demo_ir_errors.zip <demo_ir_errors.zip>`
 
 
 .. only:: html

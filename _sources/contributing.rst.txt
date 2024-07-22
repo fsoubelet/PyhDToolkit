@@ -35,11 +35,11 @@ Please include the following items in a bug report:
    
         import pyhdtoolkit
         print(pyhdtoolkit.version.version_info())
-        #    PyhDToolkit version: 0.21.0
+        #    PyhDToolkit version: 1.4.0
         #           Install path: /Users/felixsoubelet/Repositories/Work/PyhDToolkit/pyhdtoolkit
-        #         Python version: 3.10.6
-        #  Python implementation: 3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:41:54) [Clang 13.0.1 ]
-        #               Platform: macOS-12.5.1-x86_64-i386-64bit
+        #         Python version: 3.12.4
+        #  Python implementation: 3.12.4 | packaged by conda-forge | (main, Jun 17 2024, 10:13:44) [Clang 16.0.6 ]
+        #               Platform: macOS-14.4.1-arm64-arm-64bit
 
 Enhancement Proposals
 ---------------------
@@ -60,9 +60,9 @@ The PyhDToolkit source code is hosted on GitHub at the following location:
 You will need your own fork to work on the code: go to the link above and hit the **Fork** button.
 Then clone your fork to your local machine::
 
-    $ git clone git@github.com:your-user-name/PyhDToolkit.git
-    $ cd PyhDToolkit
-    $ git remote add upstream git@github.com:fsoubelet/PyhDToolkit.git
+    git clone git@github.com:your-user-name/PyhDToolkit.git
+    cd PyhDToolkit
+    git remote add upstream git@github.com:fsoubelet/PyhDToolkit.git
 
 Creating a Development Environment
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -72,30 +72,35 @@ However, as the **pyproject.toml** file is fully **PEP**-compliant, using ``Hatc
 
 Here is how to set yourself up:
 
-    .. tabbed:: Using Hatch
+    .. tab-set::
+        :sync-group: hatch
 
-        Assuming you have ``hatch`` in your ``PATH``, once in the root of the repository setting yourself up is as easy as::
+        .. tab-item:: Using Hatch
+            :sync: with
 
-            $ hatch env create
+            Assuming you have ``hatch`` in your ``PATH``, once in the root of the repository setting yourself up is as easy as::
 
-        With this, ``hatch`` will create a new virtual environment and install in there the package as well as its runtime and development dependencies.
-        The installation is similar to the editable mode from ``pip``.
-        You can enter the environment by running::
+                hatch env create
 
-            $ hatch shell
+            With this, ``hatch`` will create a new virtual environment and install in there the package as well as its runtime and development dependencies.
+            The installation is similar to the editable mode from ``pip``.
+            You can enter the environment by running::
 
-        .. tip::
+                hatch shell
 
-            Start your commands with **hatch run** to have ``hatch`` run them in the virtual environment, if you don't wish to activate it.
-            For instance, getting the Python version can be as simple as::
+            .. tip::
 
-                $ hatch run python --version
+                Start your commands with **hatch run** to have ``hatch`` run them in the virtual environment, if you don't wish to activate it.
+                For instance, getting the Python version can be as simple as::
 
-    .. tabbed:: Without Hatch
+                    hatch run python --version
 
-        If you want to skip using ``Hatch``, you can create a virtual environment yourself and then ``pip install`` the package in editable mode::
+        .. tab-item:: Without Hatch
+            :sync: without
 
-            $ python -m pip install -e ".[test,dev,docs]"
+            If you want to skip using ``Hatch``, you can create a virtual environment yourself and then ``pip install`` the package in editable mode::
+
+                python -m pip install -e ".[test,dev,docs]"
 
 .. note::
    
@@ -103,7 +108,7 @@ Here is how to set yourself up:
    These targets assume you are in the appropriate environment, either one that you manage or one created by ``Hatch`` and entered with `hatch shell`.
    You can list them by running::
         
-        $ make help
+        make help
 
 Creating a Branch
 ~~~~~~~~~~~~~~~~~
@@ -113,26 +118,26 @@ Before you do any new work or submit a pull request, please open an issue on Git
 It's best to synchronize your fork with the upstream repository, then create a new, separate branch for each piece of work you want to do.
 E.g.::
 
-    $ git checkout master
-    $ git fetch upstream
-    $ git rebase upstream/master
-    $ git checkout -b shiny-new-feature
-    $ git push -u origin shiny-new-feature
+    git checkout master
+    git fetch upstream
+    git rebase upstream/master
+    git checkout -b shiny-new-feature
+    git push -u origin shiny-new-feature
 
 This changes your working directory to the **shiny-new-feature** branch.
 Keep any changes in this branch specific to one bug or feature, so it is clear what the branch brings.
 
 To update this branch with the latest code from ``PyhDToolkit``, you can retrieve the changes from the master branch and perform a rebase::
 
-    $ git fetch upstream
-    $ git rebase upstream/master
+    git fetch upstream
+    git rebase upstream/master
 
 This will replay your commits on top of the latest ``PyhDToolkit`` git master.
 If this leads to merge conflicts, these need to be resolved *before* submitting a pull request.
 Alternatively, you can merge the changes in from upstream/master instead of rebasing, which can be simpler::
 
-    $ git fetch upstream
-    $ git merge upstream/master
+    git fetch upstream
+    git merge upstream/master
 
 Again, any conflicts need to be resolved *before* submitting a pull request.
 
@@ -142,24 +147,29 @@ Running the Test Suite
 The repository includes a suite of unit tests you should run to check your changes.
 One can run the test suite in the following way:
 
-    .. tabbed:: Using Hatch
+    .. tab-set::
+        :sync-group: hatch
 
-        The simplest way to run the test suite using ``hatch`` is::
+        .. tab-item:: Using Hatch
+            :sync: with
 
-            $ hatch run python -m pytest
+            The simplest way to run the test suite using ``hatch`` is::
 
-    .. tabbed:: Without Hatch
+                hatch run python -m pytest
 
-        In your virtual environment, run::
+        .. tab-item:: Without Hatch
+            :sync: without
 
-            $ python -m pytest
+            In your virtual environment, run::
+
+                python -m pytest
 
 .. tip::
 
     A convenient ``make`` target exists for tests, which taps into the power of ``pytest-xdist`` and parallelises tests through your cpu cores.
     If you are ok using this option, which can drastically speed up the runtime of the suite, simply run::
 
-        $ make alltests
+        make alltests
 
 All tests are automatically run via **GitHub Actions** for every push onto the main repository, and in every pull request.
 The test suite **must** pass before code can be accepted.
@@ -177,7 +187,7 @@ Formatting is enforced using the ``black`` tool, and imports sorting with ``isor
    Configuration for ``black`` and ``isort`` is written into the **pyproject.toml** file.
    A ``make`` target is available to run these tools::
 
-       $ make format
+       make format
 
 `Type hints <https://www.python.org/dev/peps/pep-0484>`_ are required for all user-facing classes and functions.
 As much as possible, types are enforced with the help of the ``mypy`` tool.
@@ -187,8 +197,8 @@ Additionally, code quality is kept in check with the ``pylint`` tool.
 
    Some ``make`` targets are available to run these tools::
    
-       $ make lint
-       $ make typing
+       make lint
+       make typing
 
 Documentation
 ~~~~~~~~~~~~~
@@ -203,7 +213,7 @@ All user-facing classes and functions should be included in the API documentatio
 
 The documentation can be built locally by running::
 
-    $ make doc
+    make docs
 
 The static HTML pages will be available in a newly created **doc_build** folder.
 

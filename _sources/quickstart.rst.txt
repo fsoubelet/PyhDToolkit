@@ -109,29 +109,31 @@ In the second case, relevant data for the plotting is directly queried and compu
 
 Using the `~pyhdtoolkit.plotting` apis goes as:
 
-.. tabbed:: Standalone
+.. tab-set::
 
-    .. prompt:: python
+    .. tab-item:: Standalone
 
-        from pyhdtoolkit.plotting.tune import plot_tune_diagram  # for instance
-        plot_tune_diagram(max_order=6, differentiate_orders=True)  # and enjoy the result!
+        .. prompt:: python
 
-.. tabbed:: Interacting with MAD-X
+            from pyhdtoolkit.plotting.tune import plot_tune_diagram  # for instance
+            plot_tune_diagram(max_order=6, differentiate_orders=True)  # and enjoy the result!
 
-    Let's say one has initiated their ``MAD-X`` simulation through `~cpymad.madx.Madx` as follows:
+    .. tab-item:: Interacting with MAD-X
 
-    .. prompt:: python
+        Let's say one has initiated their ``MAD-X`` simulation through `~cpymad.madx.Madx` as follows:
 
-        from cpymad.madx import Madx
-        madx = Madx()
-        # do some simulation with this instance
+        .. prompt:: python
 
-    Then using the api goes as:
+            from cpymad.madx import Madx
+            madx = Madx()
+            # do some simulation with this instance
 
-    .. prompt:: python
+        Then using the api goes as:
 
-        from pyhdtoolkit.plotting.aperture import plot_aperture  # for instance
-        plot_aperture(madx, *args, **kwargs)  # and enjoy the result!
+        .. prompt:: python
+
+            from pyhdtoolkit.plotting.aperture import plot_aperture  # for instance
+            plot_aperture(madx, *args, **kwargs)  # and enjoy the result!
 
 
 One can find many examples of the `~pyhdtoolkit.plotting` apis' use in the :ref:`gallery <gallery>` section of this documentation.
