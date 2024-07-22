@@ -11,12 +11,9 @@ on:  # Runs everytime a release is added to the repository
 
 jobs:
   deploy:
-    name: ${{ matrix.os }} / ${{ matrix.python-version }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:  # only lowest supported python on ubuntu-latest
-        os: [ubuntu-latest]
-        python-version: [3.11]
+    runs-on: ubuntu-latest
+    env:
+        python-version: 3.12
 
 
     steps:
@@ -32,5 +29,5 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           verbose: true
-          print_hash: true
+          print-hash: true
           password: ${{ secrets.PYPI_API_TOKEN }}
