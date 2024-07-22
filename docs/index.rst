@@ -75,10 +75,6 @@ Install the package from ``PyPI``::
 
     python -m pip install pyhdtoolkit
 
-To install the latest development version of PyhDToolkit, you can use ``pip`` with the latest GitHub master::
-
-    python -m pip install git+https://github.com/fsoubelet/PyhDToolkit.git
-
 To set up a development environment, see the :doc:`contributing instructions <contributing>`.
 
 Contents
