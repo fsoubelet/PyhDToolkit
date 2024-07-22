@@ -16,71 +16,56 @@ Highlights
 
 .. dropdown:: Useful Quick Links
     :animate: fade-in-slide-down
-    :title: text-center
 
-    .. panels::
-        :card: + intro-card text-center
-        :body: text-center
+    .. grid:: 2
 
-        ---
-        :img-top: _static/index_getting_started.png
+        .. grid-item-card::  Getting Started
+            :text-align: center
 
-        Getting Started
-        ^^^^^^^^^^^^^^^
+            Check out the quickstart guide, an introduction to the package's main contents and concepts.
 
-        Check out the quickstart guide, an introduction to the package's main contents and concepts.
+            .. button-ref:: quickstart
+                :align: center
+                :color: primary
+                :expand:
+                :click-parent:
 
-        +++
+        .. grid-item-card::  Examples
+            :text-align: center
 
-        .. link-button:: quickstart
-            :type: ref
-            :text: Quickstart
-            :classes: btn-outline-primary btn-block stretched-link
+            Access various tutorials showcasing the capabilities of the package, including plots.
 
-        ---
-        :img-top: _static/index_gallery.png
+            .. button-ref:: gallery/index
+                :align: center
+                :color: primary
+                :expand:
+                :click-parent:
 
-        Examples
-        ^^^^^^^^
+    .. grid:: 2
 
-        Access various tutorials showcasing the capabilities of the package, including plots.
+        .. grid-item-card::  API Reference
+            :text-align: center
 
-        +++
+            A detailed description of how the methods work and which parameters can be used.
 
-        .. link-button:: gallery/index
-            :type: ref
-            :text: Gallery
-            :classes: btn-outline-primary btn-block stretched-link
+            .. button-ref:: api
+                :align: center
+                :color: primary
+                :expand:
+                :click-parent:
 
-        ---
-        :img-top: _static/index_api.png
+        .. grid-item-card::  Bibliography
+            :text-align: center
 
-        API Reference
-        ^^^^^^^^^^^^^
+            A compilation of the various papers referenced throughout this documentaion.
 
-        A detailed description of how the methods work and which parameters can be used.
+            .. button-ref:: bibliography
+                :align: center
+                :color: primary
+                :expand:
+                :click-parent:
 
-        +++
 
-        .. link-button:: api
-            :type: ref
-            :text: Reference
-            :classes: btn-outline-primary btn-block stretched-link
-
-        ---
-        :img-top: _static/index_bibliography.png
-
-        Bibliography
-        ^^^^^^^^^^^^
-
-        A compilation of the various papers are referenced throughout this documentation.
-
-        +++
-
-        .. link-button:: bibliography
-            :type: ref
-            :text: Bibliography
-            :classes: btn-outline-primary btn-block stretched-link
 
 Installation
 ------------
