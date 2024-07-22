@@ -488,3 +488,12 @@ def _determine_default_sbs_phase_ylabel(plane: str) -> str:
     beginning = r"\Delta "
     term = r"\phi_{x}" if plane.upper() == "X" else r"\phi_{y}"
     return r"$" + beginning + term + r"$"
+
+# ----- Sphinx Gallery Scraper ----- #
+
+# To use SVG outputs when scraping matplotlib figures for the sphinx-gallery, see:
+# https://sphinx-gallery.github.io/stable/advanced.html#example-3-matplotlib-with-svg-format
+def _matplotlib_svg_scraper(*args, **kwargs):
+    from sphinx_gallery.scrapers import matplotlib_scraper
+    kwargs.pop("format", None)
+    return matplotlib_scraper(*args, format="svg", **kwargs)

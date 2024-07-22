@@ -13,20 +13,22 @@ that are specific to LHC and HLLHC machines.
     **_misc**, **_setup** etc). They are still all accessible at the `pyhdtoolkit.cpymadtools.lhc`
     level, but any user is free to import and use them directly from the private modules if they
     wish to do so. In short, the two options below are both valid:
-    
-    .. tabbed:: Importing from the lhc module
-        
-        .. code-block:: python
-        
-            from pyhdtoolkit.cpymadtools.lhc import LHCSetup
-            # use this now
-    
-    .. tabbed:: Importing from the private module
 
-        .. code-block:: python
+    .. tab-set::
+
+        .. tab-item:: Importing from the lhc module
+
+            .. code-block:: python
         
-            from pyhdtoolkit.cpymadtools.lhc._setup import LHCSetup
-            # use this now
+                from pyhdtoolkit.cpymadtools.lhc import LHCSetup
+                # use this now
+
+        .. tab-item:: Importing from the private module
+
+            .. code-block:: python
+        
+                from pyhdtoolkit.cpymadtools.lhc._setup import LHCSetup
+                # use this now
 """
 from ._coupling import get_lhc_bpms_twiss_and_rdts
 from ._elements import add_markers_around_lhc_ip, install_ac_dipole_as_kicker, install_ac_dipole_as_matrix

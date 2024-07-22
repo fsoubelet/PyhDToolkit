@@ -1,4 +1,4 @@
-"""
+r"""
 .. _plotting-styles-thesis:
 
 Thesis Styles

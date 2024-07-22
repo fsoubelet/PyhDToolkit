@@ -13,22 +13,22 @@ on:  # Runs on all push events to master branch and any push related to a pull r
 
 jobs:
   coverage:
-    name: ${{ matrix.os }} / ${{ matrix.python-version }}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:  # only lowest supported python on ubuntu-latest
-        os: [ubuntu-latest]
-        python-version: [3.11]
+    runs-on: ubuntu-latest
+    env:
+        python-version: 3.12
 
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python ${{ env.python-version }}
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
-          cache: pip
+          python-version: ${{ env.python-version }}
+          cache: 'pip'
           cache-dependency-path: '**/pyproject.toml'
+
+      - name: Upgrade pip, setuptools and wheel
+        run: python -m pip install --upgrade pip setuptools wheel
 
       - name: Install package with test dependencies
         run: python -m pip install ".[test]"
@@ -40,6 +40,6 @@ jobs:
         run: make alltests
 
       - name: Upload Coverage to Codecov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

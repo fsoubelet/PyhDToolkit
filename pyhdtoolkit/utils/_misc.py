@@ -118,7 +118,7 @@ def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns
 
     for column in columns:
         logger.trace(f"Adding noise to column {column}")
-        result[column][result.index.str.match(selected_bpms, case=False)] += RNG.normal(0, stdev, array_length)
+        result.loc[result.index.str.match(selected_bpms, case=False), column] += RNG.normal(0, stdev, array_length)
     return result
 
 
@@ -164,7 +164,7 @@ def add_noise_to_arc_bpms(
 
     for column in columns:
         logger.trace(f"Adding noise to column {column}")
-        result[column][~result.index.str.match(ir_bpms, case=False)] += RNG.normal(0, stdev, array_length)
+        result.loc[~result.index.str.match(ir_bpms, case=False), column] += RNG.normal(0, stdev, array_length)
     return result
 
 

@@ -14,9 +14,6 @@ import pathlib
 import sys
 import warnings
 
-from sphinx_gallery.scrapers import matplotlib_scraper
-from sphinx_gallery.sorting import ExampleTitleSortKey
-
 import pyhdtoolkit
 
 # ignore numpy warnings, see:
@@ -28,7 +25,7 @@ warnings.filterwarnings("ignore", message="numpy.ufunc size changed")
 warnings.filterwarnings(
     "ignore",
     category=UserWarning,
-    message="Matplotlib is currently using agg, which is a" " non-GUI backend, so cannot show the figure.",
+    message="Matplotlib is currently using agg, which is a non-GUI backend, so cannot show the figure.",
 )
 
 TOPLEVEL_DIR = pathlib.Path(__file__).parent.parent.absolute()
@@ -40,14 +37,6 @@ if str(TOPLEVEL_DIR) not in sys.path:
 # See: https://stackoverflow.com/a/67483317
 # See: https://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html#confval-autodoc_type_aliases
 autodoc_type_aliases = {"ArrayLike": "ArrayLike"}
-
-# To use SVG outputs when scraping matplotlib figures for the sphinx-gallery
-class matplotlib_svg_scraper(object):
-    def __repr__(self):
-        return self.__class__.__name__
-
-    def __call__(self, *args, **kwargs):
-        return matplotlib_scraper(*args, format="svg", **kwargs)
 
 
 # -- Project information -----------------------------------------------------
@@ -145,7 +134,8 @@ extensions = [
     "sphinx_copybutton",  # Add a "copy" button to code blocks
     "sphinx_gallery.gen_gallery",  # Build an HTML gallery of examples from a set of Python scripts
     "sphinx_issues",  # Link to project's issue tracker
-    "sphinx_panels",  # Create panels in a grid layout or as drop-downs
+    # "sphinx_panels",  # Create panels in a grid layout or as drop-downs
+    "sphinx_design",  # successor to sphinx_panels, for grid layouts and drop-downs
     "matplotlib.sphinxext.plot_directive",  # Include a Matplotlib plot in a Sphinx document
     "sphinx-prompt",  # prompt symbols will not be copy-pastable
     "sphinx_codeautolink",  # Automatically link example code to documentation source
@@ -176,19 +166,16 @@ sphinx_gallery_conf = {
     "examples_dirs": ["../examples"],  # directory where to find plotting scripts
     "gallery_dirs": ["gallery"],  # directory where to store generated plots
     "filename_pattern": "^((?!sgskip).)*$",  # which files to execute, taken from matplotlib
-    "subsection_order": ExampleTitleSortKey,
-    "within_subsection_order": ExampleTitleSortKey,
-    "reference_url": {"pyhdtoolkit": None},  # Sets up intersphinx in gallery code
     "backreferences_dir": "gen_modules/backreferences",  # where function/class granular galleries are stored
     # Modules for which function/class level galleries are created
     "doc_module": "pyhdtoolkit",
-    "image_scrapers": (matplotlib_svg_scraper(),),  # scrape gallery as SVG
+    "image_scrapers": ("pyhdtoolkit.plotting.utils._matplotlib_svg_scraper",),  # scrape gallery as SVG
     "image_srcset": ["2x"],  # use srcset twice as dense for high-resolution images display
     "min_reported_time": 2,  # minimum execution time to enable reporting
     "remove_config_comments": True,  # remove config comments from the code
     "capture_repr": ("_repr_html_",),
     "compress_images": ("images", "thumbnails", "-o1"),
-    "only_warn_on_example_error": True,  # keep the build going if an example fails, very important for doc workflow
+    "only_warn_on_example_error": True,  # keep the build going if an example fails, important for doc workflow
 }
 
 # Config for the sphinx_panels extension
@@ -352,9 +339,7 @@ latex_elements["babel"] = r"\usepackage{babel}"
 # Font configuration
 # Fix fontspec converting " into right curly quotes in PDF
 # cf https://github.com/sphinx-doc/sphinx/pull/6888/
-latex_elements[
-    "fontenc"
-] = r"""
+latex_elements["fontenc"] = r"""
 \usepackage{fontspec}
 \defaultfontfeatures[\rmfamily,\sffamily,\ttfamily]{}
 """
@@ -406,9 +391,7 @@ latex_elements["fontpkg"] = fontpkg
 
 
 # Additional stuff for the LaTeX preamble.
-latex_elements[
-    "preamble"
-] = r"""
+latex_elements["preamble"] = r"""
    % Show Parts and Chapters in Table of Contents
    \setcounter{tocdepth}{0}
    % One line per author on title page
