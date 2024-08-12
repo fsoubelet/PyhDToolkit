@@ -374,7 +374,8 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
 
     if x.size != y.size:
         logger.error(f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given.")
-        raise ValueError(f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given.")
+        msg = f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given."
+        raise ValueError(msg)
 
     logger.debug("Computing covariance matrix and pearson correlation coefficient")
     covariance_matrix = np.cov(x, y)
