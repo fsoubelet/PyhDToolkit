@@ -5,7 +5,6 @@
 
 The functions below are miscellaneous utilities for the ``LHC``.
 """
-from typing import Tuple
 
 from cpymad.madx import Madx
 from loguru import logger

@@ -7,8 +7,8 @@ PTC Routines
 Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a
 `~cpymad.madx.Madx` object.
 """
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Dict, Optional, Sequence, Tuple, Union
 
 import pandas as pd
 import tfs
@@ -19,7 +19,7 @@ from pyhdtoolkit.cpymadtools.utils import get_table_tfs
 
 
 def get_amplitude_detuning(
-    madx: Madx, /, order: int = 2, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 2, file: Path | str = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -49,7 +49,7 @@ def get_amplitude_detuning(
             Positional only.
         order (int): maximum derivative order coefficient (only 0, 1 or 2
             implemented in ``PTC``). Defaults to 2.
-        file (Union[Path, str]): path to output file. Defaults to `None`.
+        file (Path | str): path to output file. Defaults to `None`.
         fringe (bool): boolean flag to include fringe field effects in the
             calculation. Defaults to ``False``.
         **kwargs: Some parameters for the ``PTC`` universe creation can be given as
@@ -143,7 +143,7 @@ def get_amplitude_detuning(
 
 
 def get_rdts(
-    madx: Madx, /, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 4, file: Path | str = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -175,7 +175,7 @@ def get_rdts(
             Positional only.
         order (int): map order for derivative evaluation of Twiss parameters.
             Defaults to 4.
-        file (Union[Path, str]): path to output file. Default to `None`.
+        file (Path | str): path to output file. Default to `None`.
         fringe (bool): boolean flag to include fringe field effects in the
             calculation. Defaults to `False`.
         **kwargs: Some parameters for the ``PTC`` universe creation can be given as
@@ -238,7 +238,7 @@ def ptc_twiss(
     madx: Madx,
     /,
     order: int = 4,
-    file: Union[Path, str] = None,
+    file: Path | str = None,
     fringe: bool = False,
     table: str = "ptc_twiss",
     **kwargs,
@@ -276,7 +276,7 @@ def ptc_twiss(
             Positional only.
         order (int): map order for derivative evaluation of ``TWISS`` parameters.
             Defaults to 4.
-        file (Union[Path, str]): path to output file. Default to `None`.
+        file (Path | str): path to output file. Default to `None`.
         fringe (bool): boolean flag to include fringe field effects in the calculation.
             Defaults to `False`.
         table (str): the name of the internal table in which to save the results.
@@ -342,7 +342,7 @@ def ptc_track_particle(
     /,
     initial_coordinates: tuple[float, float, float, float, float, float],
     nturns: int,
-    sequence: Optional[str] = None,
+    sequence: str | None = None,
     observation_points: Sequence[str] = None,
     onetable: bool = False,
     fringe: bool = False,
@@ -381,7 +381,7 @@ def ptc_track_particle(
             with the ``X, PX, Y, PY, T, PT`` starting coordinates of the particle to
             track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.
-        sequence (Optional[str]): the sequence to use for tracking. If no value is
+        sequence (str | None): the sequence to use for tracking. If no value is
             provided, it is assumed that a sequence is already defined and in use,
             and this one will be picked up by ``MAD-X``. Beware of the dangers of
             giving a sequence that will be used by ``MAD-X``, see the warning below

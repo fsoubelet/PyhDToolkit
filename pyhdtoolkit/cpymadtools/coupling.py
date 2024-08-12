@@ -8,7 +8,7 @@ Betatron Coupling Utilities
 Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object, that
 retate to betatron coupling in the machine.
 """
-from typing import Dict, Sequence, Tuple
+from collections.abc import Sequence
 
 import numpy as np
 import tfs

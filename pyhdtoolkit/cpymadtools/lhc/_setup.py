@@ -6,7 +6,6 @@
 The functions below are setup utilities for the ``LHC``, to easily get simulations ready.
 """
 from pathlib import Path
-from typing import Dict, Tuple
 
 from cpymad.madx import Madx
 from loguru import logger

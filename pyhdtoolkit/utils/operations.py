@@ -16,8 +16,8 @@ import itertools
 import math
 import random
 import re
+from collections.abc import Callable, Sequence
 from functools import reduce
-from typing import Callable, Dict, Sequence, Tuple, Union
 
 
 class ListOperations:
@@ -266,7 +266,7 @@ class ListOperations:
               ListOperations.get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2])
               # returns [0, 7, 8]
         """
-        return [i for (y, i) in zip(sequence, range(len(sequence))) if element == y]
+        return [i for (y, i) in zip(sequence, range(len(sequence)), strict=False) if element == y]
 
     @staticmethod
     def group_by(sequence: Sequence, function: Callable) -> dict[str, list]:
@@ -600,7 +600,7 @@ class NumberOperations:
     """
 
     @staticmethod
-    def clamp_number(num: Union[int, float], a_val: Union[int, float], b_val: Union[int, float]) -> Union[int, float]:
+    def clamp_number(num: float, a_val: float, b_val: float) -> float:
         """
         .. versionadded:: 0.2.0
 
@@ -609,9 +609,9 @@ class NumberOperations:
         nearest number in the range.
 
         Args:
-            num (Union[int, float]): a number (float  / int)
-            a_val (Union[int, float]): a number (float  / int)
-            b_val (Union[int, float]): a number (float  / int)
+            num (float): a number (float  / int)
+            a_val (float): a number (float  / int)
+            b_val (float): a number (float  / int)
 
         Returns:
             A number (float  / int), being the nearest to *num* in the range [*a_val*, *b_val*].
@@ -631,8 +631,8 @@ class NumberOperations:
 
     @staticmethod
     def degrees_to_radians(
-        deg_value: Union[int, float], decompose: bool = False
-    ) -> Union[tuple[float, str, str], int, float]:
+        deg_value: float, decompose: bool = False
+    ) -> tuple[float, str, str] | float:
         """
         .. versionadded:: 0.2.0
 
@@ -640,7 +640,7 @@ class NumberOperations:
         to radian formula to convert the provided *deg_value*.
 
         Args:
-            deg_value (Union[int, float]): angle value in degrees.
+            deg_value (float): angle value in degrees.
             decompose (bool): boolean option to return a more verbose result. Defaults to `False`.
 
         Returns:
@@ -662,7 +662,7 @@ class NumberOperations:
         return (deg_value * math.pi) / 180.0
 
     @staticmethod
-    def greatest_common_divisor(sequence: Sequence) -> Union[int, float]:
+    def greatest_common_divisor(sequence: Sequence) -> float:
         """
         .. versionadded:: 0.2.0
 
@@ -690,7 +690,7 @@ class NumberOperations:
         return reduce(math.gcd, sequence)
 
     @staticmethod
-    def is_divisible_by(dividend: Union[int, float], divisor: Union[int, float]) -> bool:
+    def is_divisible_by(dividend: float, divisor: float) -> bool:
         """
         .. versionadded:: 0.2.0
 
@@ -698,8 +698,8 @@ class NumberOperations:
         Uses the modulo operator (`%`) to check if the remainder is equal to 0.
 
         Args:
-            dividend (Union[int, float]): a number.
-            divisor (Union[int, float]): a number.
+            dividend (float): a number.
+            divisor (float): a number.
 
         Returns:
             A boolean stating if *dividend* can be divided by *divisor*.
@@ -748,7 +748,7 @@ class NumberOperations:
         return reduce(lambda x, y: _lcm(x, y), numbers)
 
     @staticmethod
-    def radians_to_degrees(rad_value: Union[int, float]) -> Union[int, float]:
+    def radians_to_degrees(rad_value: float) -> float:
         """
         .. versionadded:: 0.2.0
 
@@ -756,7 +756,7 @@ class NumberOperations:
         to degree formula to convert the provided *rad_value*.
 
         Args:
-            rad_value (Union[int, float]): angle value in degrees.
+            rad_value (float): angle value in degrees.
 
         Returns:
             The angle value in degrees.

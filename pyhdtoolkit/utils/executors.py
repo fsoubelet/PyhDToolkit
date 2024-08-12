@@ -21,8 +21,8 @@ For instance the default value of `m` in `~concurrent.futures.ThreadPoolExecutor
 I think is quite random.
 """
 
+from collections.abc import Callable
 from concurrent import futures
-from typing import Callable
 
 from loguru import logger
 

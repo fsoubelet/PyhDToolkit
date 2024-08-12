@@ -15,7 +15,6 @@ Different pre-defined formats are provided to choose from:
 - ``SIMPLE_FORMAT``: minimal, displays the local time, the level and the message.
 """
 import sys
-from typing import Union
 
 from loguru import logger
 
@@ -36,7 +35,7 @@ FORMAT2 = (
 SIMPLE_FORMAT = "<green>{time:HH:mm:ss}</green> | <level>{level: <8}</level> | <level>{message}</level>"
 
 
-def config_logger(level: Union[str, int] = "INFO", format: str = FORMAT1, **kwargs) -> None:
+def config_logger(level: str | int = "INFO", format: str = FORMAT1, **kwargs) -> None:
     """
     .. versionadded:: 0.8.2
 

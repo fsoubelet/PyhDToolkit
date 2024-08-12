@@ -7,7 +7,6 @@ Layout Plotters
 Module with functions used to represent a machine' elements in an `~matplotlib.axes.Axes`
 object, mostly used in different `~pyhdtoolkit.plotting` modules.
 """
-from typing import Tuple, Union
 
 import matplotlib
 import matplotlib.axes
@@ -34,10 +33,10 @@ def plot_machine_layout(
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    k0l_lim: Union[tuple[float, float], float, int] = None,
-    k1l_lim: Union[tuple[float, float], float, int] = None,
-    k2l_lim: Union[tuple[float, float], float, int] = None,
-    k3l_lim: Union[tuple[float, float], float, int] = None,
+    k0l_lim: tuple[float, float] | float = None,
+    k1l_lim: tuple[float, float] | float = None,
+    k2l_lim: tuple[float, float] | float = None,
+    k3l_lim: tuple[float, float] | float = None,
     **kwargs,
 ) -> None:
     """
@@ -92,24 +91,24 @@ def plot_machine_layout(
         plot_bpms (bool): if `True`, additional patches will be plotted on the
             layout subplot to represent Beam Position Monitors. BPMs are
             plotted in dark grey.
-        k0l_lim (Union[tuple[float, float], float, int]): vertical axis limits
+        k0l_lim (tuple[float, float] | float): vertical axis limits
             for the ``k0l`` values used for the height of dipole patches. Can
             be given as a single value (float, int) or a tuple (in which case
             it should be symmetric). If `None` (default) is given, then the
             limits will be auto-determined based on the ``k0l`` values of the
             dipoles in the plot.
-        k1l_lim (Union[tuple[float, float], float, int]): vertical axis limits
+        k1l_lim (tuple[float, float] | float): vertical axis limits
             for the ``k1l`` values used for the height of quadrupole patches.
             Can be given as a single value (float, int) or a tuple (in which
             case it should be symmetric). If `None` (default) is given, then
             the limits will be auto-determined based on the ``k0l`` values of
             the quadrupoles in the plot.
-        k2l_lim (Union[tuple[float, float], float, int]): if given, sextupole
+        k2l_lim (tuple[float, float] | float): if given, sextupole
             patches will be plotted on the layout subplot of the figure. If
             given, acts as vertical axis limits for the k2l values used for
             the height of sextupole patches. Can be given as a single value
             (float, int) or a tuple (in which case it should be symmetric).
-        k3l_lim (Union[tuple[float, float], float, int]): if given, octupole
+        k3l_lim (tuple[float, float] | float): if given, octupole
             patches will be plotted on the layout subplot of the figure. If
             given, acts as vertical axis limits for the k3l values used for
             the height of octupole patches. Can be given as a single value
@@ -396,7 +395,7 @@ def _plot_lattice_series(
 
 
 def _ylim_from_input(
-    ylim: Union[tuple[float, float], float, int], name_for_error: str = "knl_lim"
+    ylim: tuple[float, float] | float, name_for_error: str = "knl_lim"
 ) -> tuple[float, float]:
     """
     .. versionadded:: 1.2.0

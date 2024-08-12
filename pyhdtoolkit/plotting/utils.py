@@ -133,7 +133,7 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
         ip_names = [f"ip{i:d}" for i in range(1, 9)]
         ip_pos = dataframe.loc[ip_names, "s"].to_numpy()
     ip_names = [name.upper() for name in ip_names]  # make sure to uppercase now
-    return dict(zip(ip_names, ip_pos))
+    return dict(zip(ip_names, ip_pos, strict=False))
 
 
 def make_elements_groups(

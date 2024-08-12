@@ -13,7 +13,7 @@ The following are available:
 - ``SINGLE_COLUMN``: For plots to be included in a single column figure environment.
 - ``DOUBLE_COLUMN``: For plots to be included in a full width (double column) figure environment.
 """
-from typing import Dict, Union
+from typing import Union
 
 PlotSetting = Union[float, bool, str, tuple]
 

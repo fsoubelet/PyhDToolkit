@@ -6,7 +6,6 @@ Beam Enveloppe Plotters
 
 Module with functions to create beam enveloppe plots through a `~cpymad.madx.Madx` object.
 """
-from typing import Tuple
 
 import numpy as np
 from cpymad.madx import Madx

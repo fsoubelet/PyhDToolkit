@@ -5,7 +5,7 @@
 
 The functions below are magnets or knobs powering utilities for the ``LHC``.
 """
-from typing import Dict, Sequence
+from collections.abc import Sequence
 
 from cpymad.madx import Madx
 from loguru import logger

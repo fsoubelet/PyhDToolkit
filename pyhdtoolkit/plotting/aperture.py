@@ -7,7 +7,6 @@ Aperture Plotters
 Module with functions to create aperture plots through a `~cpymad.madx.Madx`
 object.
 """
-from typing import Optional, Tuple, Union
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -22,7 +21,7 @@ from pyhdtoolkit.plotting.utils import maybe_get_ax
 def plot_aperture(
     madx: Madx,
     /,
-    title: Optional[str] = None,
+    title: str | None = None,
     xoffset: float = 0,
     xlimits: tuple[float, float] = None,
     plot_dipoles: bool = True,
@@ -30,10 +29,10 @@ def plot_aperture(
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
     aperture_ylim: tuple[float, float] = None,
-    k0l_lim: Union[tuple[float, float], float, int] = None,
-    k1l_lim: Union[tuple[float, float], float, int] = None,
-    k2l_lim: Union[tuple[float, float], float, int] = None,
-    k3l_lim: Union[tuple[float, float], float, int] = None,
+    k0l_lim: tuple[float, float] | float = None,
+    k1l_lim: tuple[float, float] | float = None,
+    k2l_lim: tuple[float, float] | float = None,
+    k3l_lim: tuple[float, float] | float = None,
     color: str = None,
     **kwargs,
 ) -> None:
@@ -67,7 +66,7 @@ def plot_aperture(
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
             Positional only.
-        title (Optional[str]): title of the figure.
+        title (str | None): title of the figure.
         xoffset (float): An offset applied to the ``S`` coordinate before
             plotting. This is useful if you want to center a plot around a
             specific point or element, which would then become located at
@@ -90,24 +89,24 @@ def plot_aperture(
         aperture_ylim (tuple[float, float]): vertical axis limits for the
             aperture values. Defaults to `None`, to be determined by matplotlib
             based on the provided values.
-        k0l_lim (Union[tuple[float, float], float, int]): vertical axis limits
+        k0l_lim (tuple[float, float] | float): vertical axis limits
             for the ``k0l`` values used for the height of dipole patches. Can
             be given as a single value (float, int) or a tuple (in which case
             it should be symmetric). If `None` (default) is given, then the
             limits will be auto-determined based on the ``k0l`` values of the
             dipoles in the plot.
-        k1l_lim (Union[tuple[float, float], float, int]): vertical axis limits
+        k1l_lim (tuple[float, float] | float): vertical axis limits
             for the ``k1l`` values used for the height of quadrupole patches.
             Can be given as a single value (float, int) or a tuple (in which
             case it should be symmetric). If `None` (default) is given, then
             the limits will be auto-determined based on the ``k0l`` values of
             the quadrupoles in the plot.
-        k2l_lim (Union[tuple[float, float], float, int]): if given, sextupole
+        k2l_lim (tuple[float, float] | float): if given, sextupole
             patches will be plotted on the layout subplot of the figure. If
             given, acts as vertical axis limits for the k2l values used for
             the height of sextupole patches. Can be given as a single value
             (float, int) or a tuple (in which case it should be symmetric).
-        k3l_lim (Union[tuple[float, float], float, int]): if given, octupole
+        k3l_lim (tuple[float, float] | float): if given, octupole
             patches will be plotted on the layout subplot of the figure. If
             given, acts as vertical axis limits for the k3l values used for
             the height of octupole patches. Can be given as a single value

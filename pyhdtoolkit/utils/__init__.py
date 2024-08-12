@@ -2,7 +2,7 @@ import functools
 import inspect
 import traceback
 import warnings
-from typing import Callable
+from collections.abc import Callable
 
 from . import cmdline, contexts, executors, htc_monitor, logging, operations, printutil
 

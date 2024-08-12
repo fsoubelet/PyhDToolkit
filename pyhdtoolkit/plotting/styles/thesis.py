@@ -15,7 +15,7 @@ The following are available:
 - ``MEDIUM``: For simple plots to be included alone in a LaTeX figure environment (e.g single axis line plots, or scatters with a colorbar like in `~pyhdtoolkit.plotting.tune`).
 - ``LARGE``: For more complex plots to be included alone in a LaTeX figure environment (e.g. multi-axes figures such as in `~pyhdtoolkit.plotting.lattice`).
 """
-from typing import Dict, Union
+from typing import Union
 
 PlotSetting = Union[float, bool, str, tuple]
 

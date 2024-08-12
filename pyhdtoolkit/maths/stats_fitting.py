@@ -7,7 +7,6 @@ Stats Fitting
 Module implementing methods to find the best fit of statistical distributions to data.
 """
 import warnings
-from typing import Dict, Tuple, Union
 
 import matplotlib
 import matplotlib.pyplot as plt  # noqa: F401 | if omitted, get AttributeError: module 'matplotlib' has no attribute 'axes'
@@ -57,7 +56,7 @@ def set_distributions_dict(dist_dict: dict[st.rv_continuous, str]) -> None:
 
 
 def best_fit_distribution(
-    data: Union[pd.Series, np.ndarray], bins: int = 200, ax: matplotlib.axes.Axes = None
+    data: pd.Series | np.ndarray, bins: int = 200, ax: matplotlib.axes.Axes = None
 ) -> tuple[st.rv_continuous, tuple[float, ...]]:
     """
     .. versionadded:: 0.5.0

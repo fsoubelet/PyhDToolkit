@@ -7,7 +7,6 @@ Particle Beam Models
 Module with ``pydantic`` models to validate and store data structures relative to particle beams.
 """
 from math import sqrt
-from typing import Optional
 
 from pydantic import BaseModel
 
@@ -20,12 +19,12 @@ class BeamParameters(BaseModel):
     One can find a usage example in the :ref:`beam enveloppe demo <demo-beam-enveloppe>`.
     """
 
-    pc_GeV: Optional[float] = None  # Beam momentum [GeV]
-    E_0_GeV: Optional[float] = 0.9382720813  # Particle rest mass energy [GeV], defaults to that of a proton
-    charge: Optional[float] = 1  # Particle charge in [e], defaults to that of a proton
-    en_x_m: Optional[float] = None  # Horizontal normalized emittance [m]
-    en_y_m: Optional[float] = None  # Vertical normalized emittance [m]
-    deltap_p: Optional[float] = None  # Momentum deviation
+    pc_GeV: float | None = None  # Beam momentum [GeV]
+    E_0_GeV: float | None = 0.9382720813  # Particle rest mass energy [GeV], defaults to that of a proton
+    charge: float | None = 1  # Particle charge in [e], defaults to that of a proton
+    en_x_m: float | None = None  # Horizontal normalized emittance [m]
+    en_y_m: float | None = None  # Vertical normalized emittance [m]
+    deltap_p: float | None = None  # Momentum deviation
 
     @property
     def B_rho_Tm(self) -> float:

@@ -6,7 +6,7 @@ Matching Routines
 
 Module with functions to perform ``MAD-X`` matchings through a `~cpymad.madx.Madx` object.
 """
-from typing import Optional, Sequence
+from collections.abc import Sequence
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -20,7 +20,7 @@ def match_tunes_and_chromaticities(
     madx: Madx,
     /,
     accelerator: str = None,
-    sequence: Optional[str] = None,
+    sequence: str | None = None,
     q1_target: float = None,
     q2_target: float = None,
     dq1_target: float = None,
@@ -70,7 +70,7 @@ def match_tunes_and_chromaticities(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
+        accelerator (str | None): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
             through ``varied_knobs``.
@@ -193,7 +193,7 @@ def match_tunes(
     madx: Madx,
     /,
     accelerator: str = None,
-    sequence: Optional[str] = None,
+    sequence: str | None = None,
     q1_target: float = None,
     q2_target: float = None,
     varied_knobs: Sequence[str] = None,
@@ -215,7 +215,7 @@ def match_tunes(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
+        accelerator (str | None): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
             through ``varied_knobs``.
@@ -295,7 +295,7 @@ def match_chromaticities(
     madx: Madx,
     /,
     accelerator: str = None,
-    sequence: Optional[str] = None,
+    sequence: str | None = None,
     dq1_target: float = None,
     dq2_target: float = None,
     varied_knobs: Sequence[str] = None,
@@ -317,7 +317,7 @@ def match_chromaticities(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
+        accelerator (str | None): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
             through ``varied_knobs``.

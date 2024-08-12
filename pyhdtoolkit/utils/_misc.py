@@ -11,9 +11,9 @@ Private module that provides miscellaneous personnal utility functions.
     **not** work on other people's machines.
 """
 import shlex
+from collections.abc import Sequence
 from multiprocessing import cpu_count
 from pathlib import Path
-from typing import Sequence, Union
 
 import cpymad
 import numpy as np
@@ -213,7 +213,7 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
 # ----- Fetching Utilities ----- #
 
 
-def get_betastar_from_opticsfile(opticsfile: Union[Path, str]) -> float:
+def get_betastar_from_opticsfile(opticsfile: Path | str) -> float:
     """
     .. versionadded:: 0.16.0
 

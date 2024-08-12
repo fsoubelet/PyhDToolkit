@@ -7,7 +7,6 @@ Miscellaneous Utilities
 Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
 from pathlib import Path
-from typing import Union
 
 import pandas as pd
 import tfs
@@ -19,7 +18,7 @@ def export_madx_table(
     madx: Madx,
     /,
     table_name: str,
-    file_name: Union[Path, str],
+    file_name: Path | str,
     pattern: str = None,
     headers_table: str = "SUMM",
     **kwargs,

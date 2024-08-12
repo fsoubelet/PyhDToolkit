@@ -6,7 +6,6 @@ Ripken Parameters
 
 Module implementing various calculations based on the :cite:t:`Ripken:optics:1989` optics parameters.
 """
-from typing import Union
 
 import numpy as np
 import tfs
@@ -16,8 +15,8 @@ from loguru import logger
 
 
 def lebedev_beam_size(
-    beta1_: Union[float, np.ndarray], beta2_: Union[float, np.ndarray], geom_emit_x: float, geom_emit_y: float
-) -> Union[float, np.ndarray]:
+    beta1_: float | np.ndarray, beta2_: float | np.ndarray, geom_emit_x: float, geom_emit_y: float
+) -> float | np.ndarray:
     """
     .. versionadded:: 0.8.2
 
@@ -30,8 +29,8 @@ def lebedev_beam_size(
         See the example below.
 
     Args:
-        beta1_ (Union[float, np.ndarray]): value(s) for the beta1x or beta1y Ripken parameter.
-        beta2_ (Union[float, np.ndarray]): value(s) for the beta2x or beta2y Ripken parameter.
+        beta1_ (float | np.ndarray): value(s) for the beta1x or beta1y Ripken parameter.
+        beta2_ (float | np.ndarray): value(s) for the beta2x or beta2y Ripken parameter.
         geom_emit_x (float): geometric emittance of the horizontal plane, in [m].
         geom_emit_y (float): geometric emittante of the vertical plane, in [m].
 

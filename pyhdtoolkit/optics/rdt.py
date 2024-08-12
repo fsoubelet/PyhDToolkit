@@ -7,16 +7,15 @@ Resonance Driving Terms Utilities
 Module implementing utilities for the handling of resonance driving terms.
 """
 
-from typing import Tuple, Union
 
 
-def rdt_to_order_and_type(rdt: Union[int, str]) -> str:
+def rdt_to_order_and_type(rdt: int | str) -> str:
     """
     Decompose the input RDT into its four various components
     and return the type of RDT (normal or skew) and its order.
 
     Args:
-        rdt (Union[int, str]): the RDT to decompose.
+        rdt (int | str): the RDT to decompose.
 
     Returns:
         A string with the type and (magnet) order of
@@ -39,13 +38,13 @@ def rdt_to_order_and_type(rdt: Union[int, str]) -> str:
     return f"{rdt_type}_{orders[j + k + l + m]}"
 
 
-def determine_rdt_line(rdt: Union[int, str], plane: str) -> tuple[int, int, int]:
+def determine_rdt_line(rdt: int | str, plane: str) -> tuple[int, int, int]:
     """
     Find the given line to look for in the spectral analysis of
     the given plane that corresponds to the given RDT.
 
     Args:
-        rdt (Union[int, str]): the RDT to look for.
+        rdt (int | str): the RDT to look for.
         plane (str): the plane to look for the RDT in.
 
     Returns:

@@ -5,7 +5,7 @@
 
 The functions below are settings query utilities for the ``LHC``.
 """
-from typing import Dict, Sequence, Union
+from collections.abc import Sequence
 
 import tfs
 from cpymad.madx import Madx
@@ -33,7 +33,7 @@ from pyhdtoolkit.cpymadtools.utils import _get_k_strings
 
 
 def get_magnets_powering(
-    madx: Madx, /, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: Union[str, float] = None, **kwargs
+    madx: Madx, /, patterns: Sequence[str] = [r"^mb\.", r"^mq\.", r"^ms\."], brho: str | float = None, **kwargs
 ) -> tfs.TfsDataFrame:
     r"""
     .. versionadded:: 0.17.0
@@ -218,7 +218,7 @@ def get_current_orbit_setup(madx: Madx, /) -> dict[str, float]:
 # ----- Helpers ----- #
 
 
-def _list_field_currents(madx: Madx, /, brho: Union[str, float] = None) -> None:
+def _list_field_currents(madx: Madx, /, brho: str | float = None) -> None:
     """
     Creates additional columns for the ``TWISS`` table with the magnets' total fields
     and currents, to help later on determine which proportion of their maximum powering

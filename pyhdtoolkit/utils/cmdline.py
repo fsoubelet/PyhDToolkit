@@ -11,7 +11,7 @@ import errno
 import os
 import signal
 import subprocess
-from typing import Mapping, Optional, Tuple
+from collections.abc import Mapping
 
 from loguru import logger
 
@@ -68,7 +68,7 @@ class CommandLine:
     @staticmethod
     def run(
         command: str, shell: bool = True, env: Mapping = None, timeout: float = None
-    ) -> tuple[Optional[int], bytes]:
+    ) -> tuple[int | None, bytes]:
         """
         .. versionadded:: 0.2.0
 

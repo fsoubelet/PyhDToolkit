@@ -6,7 +6,6 @@ Lattice Plotters
 
 Module with functions to create lattice plots through a `~cpymad.madx.Madx` object.
 """
-from typing import Optional, Tuple, Union
 
 import matplotlib
 import matplotlib.axes
@@ -25,19 +24,19 @@ from pyhdtoolkit.plotting.utils import (
 def plot_latwiss(
     madx: Madx,
     /,
-    title: Optional[str] = None,
+    title: str | None = None,
     xoffset: float = 0,
     xlimits: tuple[float, float] = None,
     plot_dipoles: bool = True,
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    disp_ylim: Union[tuple[float, float], float, int] = None,
-    beta_ylim: Union[tuple[float, float], float, int] = None,
-    k0l_lim: Union[tuple[float, float], float, int] = None,
-    k1l_lim: Union[tuple[float, float], float, int] = None,
-    k2l_lim: Union[tuple[float, float], float, int] = None,
-    k3l_lim: Union[tuple[float, float], float, int] = None,
+    disp_ylim: tuple[float, float] | float = None,
+    beta_ylim: tuple[float, float] | float = None,
+    k0l_lim: tuple[float, float] | float = None,
+    k1l_lim: tuple[float, float] | float = None,
+    k2l_lim: tuple[float, float] | float = None,
+    k3l_lim: tuple[float, float] | float = None,
     **kwargs,
 ) -> None:
     """
@@ -66,7 +65,7 @@ def plot_latwiss(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
+        title (str | None): if provided, is set as title of the plot. Defaults to `None`.
         xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if
             you want to center a plot around a specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.
@@ -87,21 +86,21 @@ def plot_latwiss(
             Can be given as a single value (float, int) or a tuple (in which case it should be
             symmetric). Defaults to `None`, to be determined by `~matplotlib` based on the
             plotted beta values.
-        k0l_lim (Union[tuple[float, float], float, int]): vertical axis limits for the ``k0l``
+        k0l_lim (tuple[float, float] | float): vertical axis limits for the ``k0l``
             values used for the height of dipole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
             then the limits will be auto-determined based on the ``k0l`` values of the dipoles in
             the plot.
-        k1l_lim (Union[tuple[float, float], float, int]): vertical axis limits for the ``k1l``
+        k1l_lim (tuple[float, float] | float): vertical axis limits for the ``k1l``
             values used for the height of quadrupole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric). If `None` (default) is given,
             then the limits will be auto-determined based on the ``k0l`` values of the quadrupoles
             in the plot.
-        k2l_lim (Union[tuple[float, float], float, int]): if given, sextupole patches will be plotted
+        k2l_lim (tuple[float, float] | float): if given, sextupole patches will be plotted
             on the layout subplot of the figure. If given, acts as vertical axis limits for the k2l
             values used for the height of sextupole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric).
-        k3l_lim (Union[tuple[float, float], float, int]): if given, octupole patches will be plotted
+        k3l_lim (tuple[float, float] | float): if given, octupole patches will be plotted
             on the layout subplot of the figure. If given, acts as vertical axis limits for the k3l
             values used for the height of octupole patches. Can be given as a single value (float,
             int) or a tuple (in which case it should be symmetric).
@@ -215,7 +214,7 @@ def plot_machine_survey(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.
+        title (str | None): if provided, is set as title of the plot. Defaults to `None`.
         show_elements (bool): if `True`, will try to plot by differentiating elements.
             Defaults to `False`.
         high_orders (bool): if `True`, plots sextupoles and octupoles if *show_elements* is `True`,

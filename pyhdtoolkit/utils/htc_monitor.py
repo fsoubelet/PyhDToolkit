@@ -14,7 +14,6 @@ and display it nicely.
 """
 import re
 import time
-from typing import Tuple
 
 import pendulum
 from loguru import logger

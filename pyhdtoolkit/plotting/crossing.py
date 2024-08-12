@@ -6,7 +6,6 @@ Crossing Scheme Plotters
 
 Module with functions to plot LHC crossing schemes through a `~cpymad.madx.Madx` object.
 """
-from typing import Union
 
 import matplotlib
 import matplotlib.axes
@@ -186,7 +185,7 @@ def plot_single_ir_crossing(
 
 
 def _highlight_mbx_and_mqx(
-    axis: matplotlib.axes.Axes, plot_df: Union[pd.DataFrame, tfs.TfsDataFrame], ip: int, **kwargs
+    axis: matplotlib.axes.Axes, plot_df: pd.DataFrame | tfs.TfsDataFrame, ip: int, **kwargs
 ) -> None:
     """
     .. versionadded:: 1.0.0

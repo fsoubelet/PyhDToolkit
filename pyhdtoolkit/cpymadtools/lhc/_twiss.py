@@ -5,7 +5,7 @@
 
 The functions below are twiss utilities for the ``LHC`` insertion regions.
 """
-from typing import Sequence
+from collections.abc import Sequence
 
 import tfs
 from cpymad.madx import Madx
