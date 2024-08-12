@@ -20,6 +20,7 @@ from pyhdtoolkit.cpymadtools.constants import (
 )
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
+_BEAM4: int = 4  # LHC beam 4 is special case
 _VRF_THRESHOLD: int = 5000
 
 def make_sixtrack_output(madx: Madx, /, energy: int) -> None:
@@ -65,7 +66,7 @@ def reset_lhc_bump_flags(madx: Madx, /) -> None:
             reset_lhc_bump_flags(madx)
     """
     logger.debug("Resetting all LHC IP bump flags")
-    ALL_BUMPS = (
+    all_bumps = (
         LHC_ANGLE_FLAGS
         + LHC_CROSSING_ANGLE_FLAGS
         + LHC_EXPERIMENT_STATE_FLAGS
@@ -74,7 +75,7 @@ def reset_lhc_bump_flags(madx: Madx, /) -> None:
         + LHC_PARALLEL_SEPARATION_FLAGS
     )
     with madx.batch():
-        madx.globals.update({bump: 0 for bump in ALL_BUMPS})
+        madx.globals.update({bump: 0 for bump in all_bumps})
 
 
 def get_lhc_tune_and_chroma_knobs(
@@ -124,7 +125,8 @@ def get_lhc_tune_and_chroma_knobs(
 
     if accelerator.upper() not in ("LHC", "HLLHC"):
         logger.error("Invalid accelerator name, only 'LHC' and 'HLLHC' implemented")
-        raise NotImplementedError(f"Accelerator '{accelerator}' not implemented.")
+        msg = f"Accelerator '{accelerator}' not implemented."
+        raise NotImplementedError(msg)
 
     return {
         "LHC": (

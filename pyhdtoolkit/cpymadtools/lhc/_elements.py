@@ -247,7 +247,7 @@ def add_markers_around_lhc_ip(madx: Madx, /, sequence: str, ip: int, n_markers: 
         be run for the changes to apply. This means the caveats of ``USE``
         apply, for instance the erasing of previously defined errors, orbits
         corrections etc.
-        
+
         Therefore, it is recommended to install the errors and save them with
         the ``ESAVE`` or ``ETABLE`` command, call this function, then
         re-implement the errors with the ``SETERR`` command.

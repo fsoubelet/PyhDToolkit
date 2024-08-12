@@ -163,7 +163,7 @@ exclude = '''
 '''
 
 [tool.ruff]
-ignore = ["E501"]
+ignore = ["E501", "FBT001", "FBT002"]
 line-length = 120
 
 # Exclude a variety of commonly ignored directories.

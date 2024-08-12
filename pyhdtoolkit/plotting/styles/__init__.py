@@ -8,7 +8,6 @@ The **style** submodules provide styles to be used with `~matplotlib`, mostly ta
 Feel free to use them anyway, as they might be useful to you when using the `~pyhdtoolkit.plotting` submodules, or to be adapted.
 """
 from pathlib import Path
-from typing import Union
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -16,7 +15,7 @@ from loguru import logger
 
 from . import paper, thesis  # noqa: TID252
 
-PlotSetting = Union[float, bool, str, tuple]
+PlotSetting = float | bool | str | tuple
 
 
 def install_mpl_styles() -> None:

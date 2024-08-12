@@ -129,9 +129,9 @@ LHC_KQS_KNOBS: list[str] = [f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
     [f"kqs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b2" for sector in [1, 3, 5, 7]]
 # fmt: on
 LHC_KSF_KNOBS: list[str] = [  # sextupole correctors
-    f"ks{family}{id}.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
+    f"ks{family}{beam_id}.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
     for beam in [1, 2]
-    for id in [1, 2]
+    for beam_id in [1, 2]
     for family in ["f", "d"]
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]

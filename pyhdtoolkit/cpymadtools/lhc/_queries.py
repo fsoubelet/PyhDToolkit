@@ -82,10 +82,10 @@ def get_magnets_powering(
             sextupoles_powering = get_magnets_powering(madx, patterns=[r"^ms\."])
     """
     logger.debug("Computing magnets field and powering limits proportions")
-    NEW_COLNAMES = ["name", "keyword", "ampere", "imax", "percent", "kn", "kmax", "integrated_field", "L"]
-    NEW_COLNAMES = list(set(NEW_COLNAMES + kwargs.pop("columns", [])))  # in case user gives explicit columns
+    new_colnames = ["name", "keyword", "ampere", "imax", "percent", "kn", "kmax", "integrated_field", "L"]
+    new_colnames = list(set(new_colnames + kwargs.pop("columns", [])))  # in case user gives explicit columns
     _list_field_currents(madx, brho=brho)
-    return twiss.get_pattern_twiss(madx, columns=NEW_COLNAMES, patterns=patterns, **kwargs)
+    return twiss.get_pattern_twiss(madx, columns=new_colnames, patterns=patterns, **kwargs)
 
 
 def query_arc_correctors_powering(madx: Madx, /) -> dict[str, float]:

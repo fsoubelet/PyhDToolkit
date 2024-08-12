@@ -417,7 +417,7 @@ def _ylim_from_input(
     """
     if isinstance(ylim, tuple):
         return ylim
-    elif isinstance(ylim, (float, int)):
+    elif isinstance(ylim, float | int):
         if ylim >= 0:
             return (-ylim, ylim)
         else:

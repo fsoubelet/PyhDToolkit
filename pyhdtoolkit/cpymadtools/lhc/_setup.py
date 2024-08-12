@@ -72,7 +72,8 @@ def prepare_lhc_run2(
         seqfile_path = opticsfile.parent.parent / filename
         if not seqfile_path.is_file():
             logger.error(f"Could not find sequence file '{filename}' at expected location '{seqfile_path}'")
-            raise ValueError(f"No sequence file found at '{seqfile_path}'")
+            msg = f"No sequence file found at '{seqfile_path}'"
+            raise ValueError(msg)
         return seqfile_path
 
     logger.debug("Creating Run 2 setup MAD-X instance")
@@ -240,7 +241,9 @@ class LHCSetup:
         slicefactor: int | None = None,
         **kwargs,
     ):
-        assert opticsfile is not None, "An opticsfile must be provided"
+        if opticsfile is None:  # don't want to move arg and mess users code
+            msg = "An opticsfile must be provided"
+            raise ValueError(msg)
         if use_b4 and beam != _BEAM_FOR_B4:
             logger.error("Cannot use beam 4 sequence file for beam 1")
             msg = "Cannot use beam 4 sequence file for beam 1"
@@ -249,7 +252,7 @@ class LHCSetup:
         if int(run) not in (2, 3):
             msg = "This setup is only possible for Run 2 and Run 3 configurations."
             raise NotImplementedError(msg)
-        elif run == _RUN2:
+        if run == _RUN2:
             self.madx = prepare_lhc_run2(
                 opticsfile=opticsfile, beam=beam, use_b4=use_b4, energy=energy, slicefactor=slicefactor, **kwargs
             )
@@ -501,7 +504,7 @@ def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> dict[str, 
 
             orbit_setup = setup_lhc_orbit(madx, scheme="lhc_top")
     """
-    if scheme not in LHC_CROSSING_SCHEMES.keys():
+    if scheme not in LHC_CROSSING_SCHEMES:
         logger.error(f"Invalid scheme parameter, should be one of {LHC_CROSSING_SCHEMES.keys()}")
         msg = "Invalid scheme parameter given"
         raise ValueError(msg)
