@@ -367,7 +367,7 @@ def test_landau_powering(current, _non_matched_lhc_madx):
 def test_landau_powering_fails_on_missing_nrj(caplog):
     madx = Madx(stdout=False)
 
-    with pytest.raises(EnvironmentError):
+    with pytest.raises(AttributeError):
         power_landau_octupoles(madx, 100, 1)
 
     for record in caplog.records:
