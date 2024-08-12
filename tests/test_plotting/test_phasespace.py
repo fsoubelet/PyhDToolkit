@@ -87,8 +87,7 @@ def test_plot_courant_snyder_phase_space_wrong_plane_input():
         match_cas3(madx)
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
 
-        with pytest.raises(ValueError):
-            fig, ax = plt.subplots()
+        with pytest.raises(ValueError, match="Invalid 'plane' argument."):
             plot_courant_snyder_phase_space(madx, x_coords_stable, px_coords_stable, plane="invalid_plane")
 
 
@@ -98,7 +97,7 @@ def test_plot_courant_snyder_phase_space_colored_wrong_plane_input():
         madx.input(BASE_LATTICE)
         match_cas3(madx)
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match="Invalid 'plane' argument."):
             plot_courant_snyder_phase_space_colored(madx, x_coords_stable, px_coords_stable, plane="invalid_plane")
 
 

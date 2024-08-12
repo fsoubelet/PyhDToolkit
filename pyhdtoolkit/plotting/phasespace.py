@@ -62,7 +62,7 @@ def plot_courant_snyder_phase_space(
     """
     if plane.lower() not in ("horizontal", "vertical"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
-        msg = "Invalid 'plane' value."
+        msg = "Invalid 'plane' argument."
         raise ValueError(msg)
 
     logger.debug("Plotting phase space for normalized Courant-Snyder coordinates")
@@ -135,7 +135,7 @@ def plot_courant_snyder_phase_space_colored(
     """
     if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
         logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
-        msg = "Invalid 'plane' value."
+        msg = "Invalid 'plane' argument."
         raise ValueError(msg)
 
     # Getting a sufficiently long array of colors to use

@@ -90,5 +90,5 @@ def test_plot_physical_apertures_ir5_collision_vertical(_collision_aperture_tole
 def test_plot_physical_apertures_raises_on_wrong_plane():
     madx = Madx(stdout=False)
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'plane' argument."):
         plot_physical_apertures(madx, plane="invalid")

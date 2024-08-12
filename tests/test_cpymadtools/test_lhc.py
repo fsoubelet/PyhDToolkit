@@ -194,7 +194,7 @@ def test_misalign_lhc_ir_quadrupoles_specific_value(_non_matched_lhc_madx):
 
 def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_side(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid"):
         misalign_lhc_ir_quadrupoles(madx, ips=[8], quadrupoles=[1], beam=2, sides="Z", dy="0.001")
 
     for record in caplog.records:
@@ -203,7 +203,7 @@ def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_side(_non_matched_lhc_madx,
 
 def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_ip(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid"):
         misalign_lhc_ir_quadrupoles(madx, ips=[100], quadrupoles=[1], beam=2, sides="R", dy="0.001")
 
     for record in caplog.records:
@@ -212,7 +212,7 @@ def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_ip(_non_matched_lhc_madx, c
 
 def test_misalign_lhc_ir_quadrupoles_raises_on_wrong_beam(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid"):
         misalign_lhc_ir_quadrupoles(madx, ips=[2], quadrupoles=[1], beam=10, sides="L", dy="0.001")
 
     for record in caplog.records:
@@ -275,7 +275,7 @@ def test_lhc_orbit_variables():
 def test_lhc_orbit_setup_fals_on_unknown_scheme(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid scheme parameter given"):
         setup_lhc_orbit(madx, scheme="unknown")
 
     for record in caplog.records:
@@ -342,7 +342,7 @@ def test_k_strings(orient, result):
 
 
 def test_k_strings_fails_on_wront_orient(caplog):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'orientation' parameter"):
         _ = _get_k_strings(orientation="qqq")
 
     for record in caplog.records:
@@ -434,7 +434,7 @@ def test_colinearity_knob_delta(knob_delta, ir, _non_matched_lhc_madx):
 def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid value for parameter 'side'."):
         apply_lhc_rigidity_waist_shift_knob(madx, 1, 1, "invalid")
 
     for record in caplog.records:
@@ -568,7 +568,7 @@ def test_re_cycling(_bare_lhc_madx, start_point):
 def test_resetting_lhc_bump_flags(_bare_lhc_madx):
     madx = _bare_lhc_madx
     make_lhc_beams(madx)
-    ALL_BUMPS = (
+    all_bumps = (
         LHC_ANGLE_FLAGS
         + LHC_CROSSING_ANGLE_FLAGS
         + LHC_EXPERIMENT_STATE_FLAGS
@@ -577,11 +577,11 @@ def test_resetting_lhc_bump_flags(_bare_lhc_madx):
         + LHC_PARALLEL_SEPARATION_FLAGS
     )
     with madx.batch():
-        madx.globals.update({bump: random.random() for bump in ALL_BUMPS})
-    assert all(madx.globals[bump] != 0 for bump in ALL_BUMPS)
+        madx.globals.update({bump: random.random() for bump in all_bumps})
+    assert all(madx.globals[bump] != 0 for bump in all_bumps)
 
     reset_lhc_bump_flags(madx)
-    assert all(madx.globals[bump] == 0 for bump in ALL_BUMPS)
+    assert all(madx.globals[bump] == 0 for bump in all_bumps)
 
 
 def test_vary_independent_ir_quads(_non_matched_lhc_madx):
@@ -594,7 +594,7 @@ def test_vary_independent_ir_quads(_non_matched_lhc_madx):
 
 def test_vary_independent_ir_quads_raises_on_wrong_side(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'quad_numbers', 'ip', 'sides' argument"):
         vary_independent_ir_quadrupoles(madx, quad_numbers=[4], ip=1, sides="Z")
 
     for record in caplog.records:
@@ -603,7 +603,7 @@ def test_vary_independent_ir_quads_raises_on_wrong_side(_non_matched_lhc_madx, c
 
 def test_vary_independent_ir_quads_raises_on_wrong_ip(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'quad_numbers', 'ip', 'sides' argument"):
         vary_independent_ir_quadrupoles(madx, quad_numbers=[4], ip=100, sides="R")
 
     for record in caplog.records:
@@ -612,7 +612,7 @@ def test_vary_independent_ir_quads_raises_on_wrong_ip(_non_matched_lhc_madx, cap
 
 def test_vary_independent_ir_quads_raises_on_wrong_quads(_non_matched_lhc_madx, caplog):
     madx = _non_matched_lhc_madx
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'quad_numbers', 'ip', 'sides' argument"):
         vary_independent_ir_quadrupoles(madx, quad_numbers=[5, 20, 100], ip=1, sides="R")
 
     for record in caplog.records:
@@ -808,21 +808,21 @@ def test_lhc_run3_setup_context_manager_fullpath_to_opticsfile():
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_b4_conditions():
-    with pytest.raises(ValueError):  # using b4 with beam1 setup crashes
+    with pytest.raises(ValueError, match="Cannot use beam 4 sequence file for beam 1"):  # using b4 with beam1 setup crashes  # noqa: SIM117
         with LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True) as madx:  # noqa: F841
             pass
 
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_run_value():
-    with pytest.raises(NotImplementedError):  # using b4 with beam1 setup crashes
+    with pytest.raises(NotImplementedError, match="This setup is only possible for Run 2 and Run 3 configurations."):  # using b4 with beam1 setup crashes  # noqa: SIM117
         with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:  # noqa: F841
             pass
 
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
-def test_lhc_run3_setup_raises_on_wrong_b4_conditions(_proton_opticsfile):
-    with pytest.raises(ValueError):  # using b4 with beam1 setup crashes
+def test_lhc_run3_setup_raises_on_wrong_b4_conditions():
+    with pytest.raises(ValueError, match="Cannot use beam 4 sequence file for beam 1"):  # using b4 with beam1 setup crashes
         _ = prepare_lhc_run3(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True)
 
 
@@ -839,12 +839,12 @@ def test_lhc_run2_setup_context_manager(_proton_opticsfile, slicefactor):
 
 
 def test_lhc_run2_setup_raises_on_wrong_b4_conditions(_proton_opticsfile):
-    with pytest.raises(ValueError):  # using b4 with beam1 setup crashes
+    with pytest.raises(ValueError, match="Cannot use beam 4 sequence file for beam 1"):  # using b4 with beam1 setup crashes
         _ = prepare_lhc_run2(opticsfile=_proton_opticsfile, beam=1, use_b4=True)
 
 
 def test_lhc_run2_setup_raises_on_absent_sequence_file():
-    with pytest.raises(ValueError):  # will not find the sequence file from this opticsfile value
+    with pytest.raises(ValueError, match="No sequence file found at"):  # will not find the sequence file from this opticsfile value
         _ = prepare_lhc_run2(opticsfile="some/place/here.madx")
 
 

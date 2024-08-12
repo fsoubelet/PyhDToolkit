@@ -197,12 +197,13 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
         a[0, :, 1] = dynap_dframe["tuny"].to_numpy()[0]
         a[1:, :, 0] = dynap_dframe["tunx"].to_numpy()[1:].reshape(-1, angle)
         a[1:, :, 1] = dynap_dframe["tuny"].to_numpy()[1:].reshape(-1, angle)
-    except ValueError:
+    except ValueError as dynap_error:
         logger.exception(
             "Cannot group tune points according to starting angles and amplitudes. Try changing "
             "the 'AMPLITUDE' value in the provided TfsDataFrame's headers."
         )
-        raise
+        msg = "Invalid AMPLITUDE value in the provided TfsDataFrame headers"
+        raise ValueError(msg) from dynap_error
 
     logger.debug("Determining polygon vertices")
     sx = a.shape[0] - 1

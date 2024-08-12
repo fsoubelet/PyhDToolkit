@@ -96,7 +96,7 @@ def test_get_footprint_patches(_dynap_tfs_path):
 def test_get_footprint_patches_raises_wrong_shape(_dynap_tfs_path, caplog):
     dynap_dframe = tfs.read(_dynap_tfs_path)
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid AMPLITUDE value in the provided TfsDataFrame headers"):
         _ = get_footprint_patches(dynap_dframe)
 
     for record in caplog.records:

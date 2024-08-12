@@ -16,19 +16,18 @@ SBS_INPUTS = INPUTS_DIR / "sbs"
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_one_beam(sbs_phasex, sbs_phasey, sbs_model_b2):
-    figure = plot_phase_segment_one_beam(
+    return plot_phase_segment_one_beam(
         phase_x=sbs_phasex,
         phase_y=sbs_phasey,
         model=sbs_model_b2,
         ip=5,
     )
-    return figure
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
 def test_plot_both_beams(sbs_phasex, sbs_phasey, sbs_model_b2):
     # Only plotting beam 2 data on both, just for the test
-    figure = plot_phase_segment_both_beams(
+    return plot_phase_segment_both_beams(
         b1_phase_x=sbs_phasex,
         b1_phase_y=sbs_phasey,
         b2_phase_x=sbs_phasex,
@@ -39,12 +38,11 @@ def test_plot_both_beams(sbs_phasex, sbs_phasey, sbs_model_b2):
         figsize=(12, 6),
         bbox_to_anchor=(0.535, 0.94),
     )
-    return figure
 
 
 @pytest.mark.parametrize("wrongplane", ["not", "accepted", "incorrect", ""])
 def test_plot_phase_segment_raises_on_wrong_plane(wrongplane, sbs_phasex, sbs_model_b2):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'plane' argument."):
         plot_phase_segment(segment_df=sbs_phasex, model_df=sbs_model_b2, plane=wrongplane)
 
 

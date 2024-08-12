@@ -11,7 +11,7 @@ mpl.use("Agg")
 
 @pytest.mark.parametrize("max_order", [0, 10, -5])
 def test_plot_tune_diagram_fails_on_too_high_order(max_order, caplog):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="The 'max_order' argument should be between 1 and 6 included"):
         plot_tune_diagram(max_order=max_order)
 
     for record in caplog.records:

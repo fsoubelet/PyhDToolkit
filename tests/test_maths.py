@@ -128,7 +128,8 @@ def _create_random_phase_values(low: float, high: float, n_values: int, dist: st
     elif dist == "uniform":
         values = np.sort(np.random.default_rng().uniform(low, high, n_values))
     else:
-        raise ValueError("Provided parameter 'distribution' should be either 'linspace' or 'uniform'.")
+        msg = "Provided parameter 'distribution' should be either 'linspace' or 'uniform'."
+        raise ValueError(msg)
     values[0] = 0
     return values
 

@@ -52,13 +52,13 @@ def _non_matched_lhc_madx() -> Madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
-        NRJ = madx.globals["NRJ"] = 6500
+        nrj = madx.globals["NRJ"] = 6500
         madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
         geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
         madx.command.beam(
             sequence="lhcb1",
             bv=1,
-            energy=NRJ,
+            energy=nrj,
             particle="proton",
             npart=1.0e10,
             kbunch=1,
@@ -76,13 +76,13 @@ def _matched_lhc_madx() -> Madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
-        NRJ = madx.globals["NRJ"] = 6500
+        nrj = madx.globals["NRJ"] = 6500
         madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
         geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
         madx.command.beam(
             sequence="lhcb1",
             bv=1,
-            energy=NRJ,
+            energy=nrj,
             particle="proton",
             npart=1.0e10,
             kbunch=1,

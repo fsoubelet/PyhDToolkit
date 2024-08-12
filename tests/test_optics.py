@@ -122,7 +122,7 @@ def test_beam_size(_fake_coordinates):
 
 def test_beam_size_raises(_fake_coordinates):
     with pytest.raises(NotImplementedError):
-        _ = ripken._beam_size(_fake_coordinates, method="not_real")
+        _ = ripken._beam_size(_fake_coordinates, method="not_real")  # noqa: SLF001
 
 
 @pytest.mark.parametrize("beta11", [0.3312])
@@ -169,6 +169,7 @@ def test_rdt_order_and_type():
 
     with pytest.raises(KeyError):
         rdt_to_order_and_type(8888)
+    with pytest.raises(KeyError):
         rdt_to_order_and_type(1090)
 
 

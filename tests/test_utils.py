@@ -255,7 +255,7 @@ class TestListOperations:
         assert ListOperations.group_by(array, func) == result
 
     @pytest.mark.parametrize(
-        ("array", "result"), 
+        ("array", "result"),
         [
             ([1, 2, 1], True),
             (list(range(10)), False),
@@ -436,7 +436,7 @@ class TestMultiProcessorExecutor:
         assert MultiProcessor.execute_function(func=function, func_args=inputs, n_processes=processes) == results
 
     def test_multiprocessing_zero_processes(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match="max_workers must be greater than 0"):
             MultiProcessor.execute_function(func=_square, func_args=list(range(6)), n_processes=0)
 
 
@@ -455,7 +455,7 @@ class TestMultiThreaderExecutor:
         assert MultiThreader.execute_function(func=function, func_args=inputs, n_threads=threads) == results
 
     def test_multithreading_zero_threads(self):
-        with pytest.raises(ValueError):
+        with pytest.raises(ValueError, match="max_workers must be greater than 0"):
             MultiThreader.execute_function(func=_square, func_args=list(range(6)), n_threads=0)
 
 

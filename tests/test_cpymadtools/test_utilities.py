@@ -18,7 +18,7 @@ def test_k_strings(orient, result):
 
 
 def test_k_strings_wrong_orientation_raises():
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'orientation' parameter"):
         _get_k_strings(stop=5, orientation="wrong")
 
 

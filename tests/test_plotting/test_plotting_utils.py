@@ -54,7 +54,7 @@ def test_coupling_ylabel(f1001, f1010, abs_, real, imag):
 
 @pytest.mark.parametrize("rdt", ["invalid", "F1111", "nope"])
 def test_coupling_ylabel_raises_on_invalid_rdt(rdt):
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValueError, match="Invalid RDT for coupling plot."):
         _determine_default_sbs_coupling_ylabel(rdt, "abs")
 
 
@@ -68,8 +68,8 @@ def test_phase_ylabel(plane):
 
 
 @pytest.mark.parametrize("plane", ["a", "Fb1", "nope", "not a plane"])
-def test_phase_ylabel_raises_on_invalid_rdt(plane):
-    with pytest.raises(AssertionError):
+def test_phase_ylabel_raises_on_invalid_plane(plane):
+    with pytest.raises(ValueError, match="Invalid plane for phase plot."):
         _determine_default_sbs_phase_ylabel(plane)
 
 
