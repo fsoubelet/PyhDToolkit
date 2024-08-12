@@ -237,11 +237,11 @@ ac = chi_data.plot(
     label="Generated Chi Distribution",
     figsize=(20, 12),
 )
-dataYLim = ac.get_ylim()
+data_ylim = ac.get_ylim()
 
 # Find best fit candidate
 best_fit_func, best_fit_params = fitting.best_fit_distribution(chi_data, 200, ac)
-ac.set_ylim(dataYLim)
+ac.set_ylim(data_ylim)
 ac.set_title("All Fitted Distributions")
 ac.set_ylabel("Normed Hist Counts")
 plt.legend()

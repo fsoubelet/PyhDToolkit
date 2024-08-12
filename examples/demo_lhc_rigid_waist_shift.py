@@ -36,8 +36,8 @@ itself.
     builds, but you can use any branch you want.
 """
 # sphinx_gallery_thumbnail_number = 3
-from collections import namedtuple
 from multiprocessing import cpu_count
+from typing import NamedTuple
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -324,9 +324,9 @@ print(f"Markers: {shift}")
 # We can use the above to determine these values for different knob settings.
 # First, let's define some structures and functions.
 
-Waist = namedtuple("Waist", ["x", "y"])
-BetasIP = namedtuple("Betas", ["x", "y"])
-Result = namedtuple("Result", ["waists", "betas"])
+Waist = NamedTuple("Waist", ["x", "y"])
+BetasIP = NamedTuple("Betas", ["x", "y"])
+Result = NamedTuple("Result", ["waists", "betas"])
 
 
 def find_waists(current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame) -> Waist:
