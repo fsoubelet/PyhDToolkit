@@ -69,7 +69,8 @@ def query_condor_q() -> str:
     if return_code == 0:
         return condor_status
     else:
-        raise ChildProcessError("Checking htcondor status failed")
+        msg = "Checking htcondor status failed"
+        raise ChildProcessError(msg)
 
 
 def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:

@@ -340,7 +340,7 @@ class ListOperations:
               ListOperations.sample(["a", "b", 1, 2, False])
               # returns 2
         """
-        return sequence[random.randint(0, len(sequence) - 1)]
+        return sequence[random.randint(0, len(sequence) - 1)]  # noqa: S311
 
     @staticmethod
     def sanitize_list(sequence: Sequence) -> list:
@@ -389,7 +389,7 @@ class ListOperations:
         temp_list = copy.deepcopy(sequence)
         amount_to_shuffle = len(temp_list)
         while amount_to_shuffle > 1:
-            rand_index = int(math.floor(random.random() * amount_to_shuffle))
+            rand_index = int(math.floor(random.random() * amount_to_shuffle))  # noqa: S311
             amount_to_shuffle -= 1
             temp_list[rand_index], temp_list[amount_to_shuffle] = (
                 temp_list[amount_to_shuffle],
@@ -494,7 +494,7 @@ class ListOperations:
               # returns [1.2, 2.1]
         """
         _lst_1 = set(map(function, seq_1))
-        return sorted(list(set(seq_1 + [item for item in seq_2 if function(item) not in _lst_1])))
+        return sorted(set(seq_1 + [item for item in seq_2 if function(item) not in _lst_1]))
 
     @staticmethod
     def zipper(*args, fillvalue=None) -> list:

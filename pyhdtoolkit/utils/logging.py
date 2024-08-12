@@ -35,7 +35,7 @@ FORMAT2 = (
 SIMPLE_FORMAT = "<green>{time:HH:mm:ss}</green> | <level>{level: <8}</level> | <level>{message}</level>"
 
 
-def config_logger(level: str | int = "INFO", format: str = FORMAT1, **kwargs) -> None:
+def config_logger(level: str | int = "INFO", fmt: str = FORMAT1, **kwargs) -> None:
     """
     .. versionadded:: 0.8.2
 
@@ -47,7 +47,7 @@ def config_logger(level: str | int = "INFO", format: str = FORMAT1, **kwargs) ->
             string is given. Can be any of the
             `loguru levels <https://loguru.readthedocs.io/en/stable/api/logger.html#levels>`_
             or their integer values equivalents. Defaults to ``INFO``.
-        format (str): the format to use for the logger to display messages. Defaults
+        fmt (str): the format to use for the logger to display messages. Defaults
             to a pre-defined format in this module.
         **kwargs: any keyword argument is transmitted to the `~loguru._logger.Logger.add` call.
 
@@ -67,4 +67,4 @@ def config_logger(level: str | int = "INFO", format: str = FORMAT1, **kwargs) ->
     """
     logger.remove()
     level = level.upper() if isinstance(level, str) else level
-    logger.add(sys.stdout, level=level, format=format, **kwargs)
+    logger.add(sys.stdout, level=level, format=fmt, **kwargs)
