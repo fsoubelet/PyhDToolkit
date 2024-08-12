@@ -19,7 +19,7 @@ from pyhdtoolkit.cpymadtools.utils import get_table_tfs
 
 
 def get_amplitude_detuning(
-    madx: Madx, /, order: int = 2, file: Path | str = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 2, file: Path | str | None = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -143,7 +143,7 @@ def get_amplitude_detuning(
 
 
 def get_rdts(
-    madx: Madx, /, order: int = 4, file: Path | str = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 4, file: Path | str | None = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -238,7 +238,7 @@ def ptc_twiss(
     madx: Madx,
     /,
     order: int = 4,
-    file: Path | str = None,
+    file: Path | str | None = None,
     fringe: bool = False,
     table: str = "ptc_twiss",
     **kwargs,
@@ -343,7 +343,7 @@ def ptc_track_particle(
     initial_coordinates: tuple[float, float, float, float, float, float],
     nturns: int,
     sequence: str | None = None,
-    observation_points: Sequence[str] = None,
+    observation_points: Sequence[str] | None = None,
     onetable: bool = False,
     fringe: bool = False,
     **kwargs,

@@ -169,7 +169,7 @@ def get_lhc_bpms_list(madx: Madx, /) -> list[str]:
 
 
 def get_sizes_at_ip(
-    madx: Madx, /, ip: int, geom_emit_x: float = None, geom_emit_y: float = None
+    madx: Madx, /, ip: int, geom_emit_x: float | None = None, geom_emit_y: float | None = None
 ) -> tuple[float, float]:
     """
     .. versionadded:: 1.0.0

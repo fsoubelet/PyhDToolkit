@@ -19,7 +19,7 @@ def export_madx_table(
     /,
     table_name: str,
     file_name: Path | str,
-    pattern: str = None,
+    pattern: str | None = None,
     headers_table: str = "SUMM",
     **kwargs,
 ) -> None:

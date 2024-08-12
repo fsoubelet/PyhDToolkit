@@ -19,7 +19,7 @@ def plot_phase_segment_one_beam(
     phase_x: tfs.TfsDataFrame,
     phase_y: tfs.TfsDataFrame,
     model: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
@@ -71,7 +71,7 @@ def plot_phase_segment_both_beams(
     b2_phase_y: tfs.TfsDataFrame,
     b1_model: tfs.TfsDataFrame = None,
     b2_model: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
@@ -154,7 +154,7 @@ def plot_phase_segment(
     segment_df: tfs.TfsDataFrame = None,
     model_df: tfs.TfsDataFrame = None,
     plane: str = "x",
-    ip: int = None,
+    ip: int | None = None,
 ) -> None:
     """
     .. versionadded:: 0.19.0

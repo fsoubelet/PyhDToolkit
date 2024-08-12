@@ -26,17 +26,17 @@ from pyhdtoolkit.plotting.utils import (
 def plot_machine_layout(
     madx: Madx,
     /,
-    title: str = None,
+    title: str | None = None,
     xoffset: float = 0,
-    xlimits: tuple[float, float] = None,
+    xlimits: tuple[float, float] | None = None,
     plot_dipoles: bool = True,
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    k0l_lim: tuple[float, float] | float = None,
-    k1l_lim: tuple[float, float] | float = None,
-    k2l_lim: tuple[float, float] | float = None,
-    k3l_lim: tuple[float, float] | float = None,
+    k0l_lim: tuple[float, float] | float | None = None,
+    k1l_lim: tuple[float, float] | float | None = None,
+    k2l_lim: tuple[float, float] | float | None = None,
+    k3l_lim: tuple[float, float] | float | None = None,
     **kwargs,
 ) -> None:
     """

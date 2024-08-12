@@ -11,7 +11,7 @@ from cpymad.madx import Madx
 from loguru import logger
 
 
-def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0, ir: int = None) -> None:
+def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0, ir: int | None = None) -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -49,7 +49,7 @@ def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0,
     logger.debug(f"Set '{left_knob}' to {madx.globals[left_knob]}")
 
 
-def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: float = 0, ir: int = None) -> None:
+def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: float = 0, ir: int | None = None) -> None:
     """
     .. versionadded:: 0.21.0
 
@@ -89,7 +89,7 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: floa
 
 
 def apply_lhc_rigidity_waist_shift_knob(
-    madx: Madx, /, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
+    madx: Madx, /, rigidty_waist_shift_value: float = 0, ir: int | None = None, side: str = "left"
 ) -> None:
     """
     .. versionadded:: 0.15.0

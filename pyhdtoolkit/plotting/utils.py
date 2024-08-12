@@ -137,7 +137,7 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
 
 
 def make_elements_groups(
-    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None
 ) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 1.0.0
@@ -217,7 +217,7 @@ def make_survey_groups(madx: Madx, /) -> dict[str, pd.DataFrame]:
 
 
 def draw_ip_locations(
-    ip_positions: dict[str, float] = None,
+    ip_positions: dict[str, float] | None = None,
     lines: bool = True,
     location: str = "outside",
     **kwargs,
@@ -402,7 +402,7 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
 
 
 def _get_twiss_table_with_offsets_and_limits(
-    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None, **kwargs
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None, **kwargs
 ) -> pd.DataFrame:
     """
     .. versionadded:: 1.0.0

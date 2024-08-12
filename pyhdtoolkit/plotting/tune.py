@@ -69,8 +69,8 @@ def farey_sequence(order: int) -> list[tuple[int, int]]:
 
 
 def plot_tune_diagram(
-    title: str = None,
-    legend_title: str = None,
+    title: str | None = None,
+    legend_title: str | None = None,
     max_order: int = 6,
     differentiate_orders: bool = False,
     **kwargs,

@@ -80,7 +80,7 @@ def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
     return res
 
 
-def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns: Sequence[str] = None) -> pd.DataFrame:
+def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns: Sequence[str] | None = None) -> pd.DataFrame:
     """
     .. versionadded:: 1.2.0
 
@@ -121,7 +121,7 @@ def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns
 
 
 def add_noise_to_arc_bpms(
-    df: pd.DataFrame, min_index: int, stdev: float, columns: Sequence[str] = None
+    df: pd.DataFrame, min_index: int, stdev: float, columns: Sequence[str] | None = None
 ) -> pd.DataFrame:
     """
     .. versionadded:: 1.2.0

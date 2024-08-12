@@ -22,7 +22,7 @@ def plot_beam_envelope(
     nsigma: float = 1,
     scale: float = 1,
     xoffset: float = 0,
-    xlimits: tuple[float, float] = None,
+    xlimits: tuple[float, float] | None = None,
     **kwargs,
 ) -> None:
     """

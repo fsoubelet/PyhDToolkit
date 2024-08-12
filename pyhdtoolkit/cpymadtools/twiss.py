@@ -21,7 +21,7 @@ from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 def get_pattern_twiss(
     madx: Madx,
     /,
-    columns: Sequence[str] = None,
+    columns: Sequence[str] | None = None,
     patterns: Sequence[str] = [""],
     **kwargs,
 ) -> tfs.TfsDataFrame:

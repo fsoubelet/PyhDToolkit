@@ -27,7 +27,7 @@ def plot_courant_snyder_phase_space(
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
-    title: str = None,
+    title: str | None = None,
     **kwargs,
 ) -> matplotlib.axes.Axes:
     """
@@ -94,7 +94,7 @@ def plot_courant_snyder_phase_space_colored(
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
-    title: str = None,
+    title: str | None = None,
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """

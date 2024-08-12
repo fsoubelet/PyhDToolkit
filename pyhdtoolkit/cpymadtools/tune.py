@@ -20,7 +20,7 @@ from loguru import logger
 
 
 def make_footprint_table(
-    madx: Madx, /, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
+    madx: Madx, /, sigma: float = 5, dense: bool = False, file: str | None = None, cleanup: bool = True, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.9.0

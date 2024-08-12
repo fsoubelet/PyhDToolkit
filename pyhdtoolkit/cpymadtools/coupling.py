@@ -28,12 +28,12 @@ from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss, get_twiss_tfs
 def get_closest_tune_approach(
     madx: Madx,
     /,
-    accelerator: str = None,
-    sequence: str = None,
-    varied_knobs: Sequence[str] = None,
+    accelerator: str | None = None,
+    sequence: str | None = None,
+    varied_knobs: Sequence[str] | None = None,
     telescopic_squeeze: bool = True,
     run3: bool = False,
-    explicit_targets: tuple[float, float] = None,
+    explicit_targets: tuple[float, float] | None = None,
     step: float = 1e-7,
     calls: int = 100,
     tolerance: float = 1e-21,
@@ -146,8 +146,8 @@ def get_cminus_from_coupling_rdts(
     /,
     patterns: Sequence[str] = [""],
     method: str = "teapot",
-    qx: float = None,
-    qy: float = None,
+    qx: float | None = None,
+    qy: float | None = None,
     filtering: float = 0,
 ) -> float:
     """
@@ -232,7 +232,7 @@ def get_cminus_from_coupling_rdts(
 
 
 def match_no_coupling_through_ripkens(
-    madx: Madx, /, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
+    madx: Madx, /, sequence: str | None = None, location: str | None = None, vary_knobs: Sequence[str] | None = None
 ) -> None:
     """
     .. versionadded:: 0.16.0

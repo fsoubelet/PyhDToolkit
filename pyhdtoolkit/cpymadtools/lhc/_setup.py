@@ -16,7 +16,7 @@ from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES
 
 
 def prepare_lhc_run2(
-    opticsfile: str, beam: int = 1, use_b4: bool = False, energy: float = 6500, slicefactor: int = None, **kwargs
+    opticsfile: str, beam: int = 1, use_b4: bool = False, energy: float = 6500, slicefactor: int | None = None, **kwargs
 ) -> Madx:
     """
     .. versionadded:: 1.0.0
@@ -96,7 +96,7 @@ def prepare_lhc_run2(
 
 
 def prepare_lhc_run3(
-    opticsfile: str, beam: int = 1, use_b4: bool = False, energy: float = 6800, slicefactor: int = None, **kwargs
+    opticsfile: str, beam: int = 1, use_b4: bool = False, energy: float = 6800, slicefactor: int | None = None, **kwargs
 ) -> Madx:
     """
     .. versionadded:: 1.0.0
@@ -228,11 +228,11 @@ class LHCSetup:
     def __init__(
         self,
         run: int = 3,
-        opticsfile: str = None,
+        opticsfile: str | None = None,
         beam: int = 1,
         use_b4: bool = False,
         energy: float = 6800,
-        slicefactor: int = None,
+        slicefactor: int | None = None,
         **kwargs,
     ):
         assert opticsfile is not None, "An opticsfile must be provided"

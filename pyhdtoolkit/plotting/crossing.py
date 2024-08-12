@@ -140,9 +140,9 @@ def plot_single_ir_crossing(
     plot_df_b2: pd.DataFrame,
     plot_column: str,
     scaling: float = 1,
-    ylabel: str = None,
-    xlabel: str = None,
-    title: str = None,
+    ylabel: str | None = None,
+    xlabel: str | None = None,
+    title: str | None = None,
 ) -> None:
     """
     .. versionadded:: 1.0.0

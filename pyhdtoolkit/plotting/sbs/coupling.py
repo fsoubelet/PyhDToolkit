@@ -21,7 +21,7 @@ def plot_rdt_component(
     b2_segment_df: tfs.TfsDataFrame,
     b1_model: tfs.TfsDataFrame = None,
     b2_model: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     rdt: str = "F1001",
     component: str = "ABS",
     **kwargs,
@@ -104,11 +104,11 @@ def plot_full_ip_rdt(
     b2_segment_df: tfs.TfsDataFrame,
     b1_model: tfs.TfsDataFrame = None,
     b2_model: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     rdt: str = "F1001",
-    abs_ylimits: tuple[float, float] = None,
-    real_ylimits: tuple[float, float] = None,
-    imag_ylimits: tuple[float, float] = None,
+    abs_ylimits: tuple[float, float] | None = None,
+    real_ylimits: tuple[float, float] | None = None,
+    imag_ylimits: tuple[float, float] | None = None,
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """
@@ -211,10 +211,10 @@ def _plot_sbs_coupling_rdt_component(
     ax: matplotlib.axes.Axes,
     segment_df: tfs.TfsDataFrame,
     model_df: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     rdt: str = "F1001",
     component: str = "ABS",
-    ylabel: str = None,
+    ylabel: str | None = None,
 ) -> None:
     """
     Plots a component of the given coupling RDT over the segment, optionally highlighting the IP location.

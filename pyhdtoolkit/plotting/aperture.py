@@ -23,17 +23,17 @@ def plot_aperture(
     /,
     title: str | None = None,
     xoffset: float = 0,
-    xlimits: tuple[float, float] = None,
+    xlimits: tuple[float, float] | None = None,
     plot_dipoles: bool = True,
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    aperture_ylim: tuple[float, float] = None,
-    k0l_lim: tuple[float, float] | float = None,
-    k1l_lim: tuple[float, float] | float = None,
-    k2l_lim: tuple[float, float] | float = None,
-    k3l_lim: tuple[float, float] | float = None,
-    color: str = None,
+    aperture_ylim: tuple[float, float] | None = None,
+    k0l_lim: tuple[float, float] | float | None = None,
+    k1l_lim: tuple[float, float] | float | None = None,
+    k2l_lim: tuple[float, float] | float | None = None,
+    k3l_lim: tuple[float, float] | float | None = None,
+    color: str | None = None,
     **kwargs,
 ) -> None:
     """
@@ -191,7 +191,7 @@ def plot_physical_apertures(
     plane: str,
     scale: float = 1,
     xoffset: float = 0,
-    xlimits: tuple[float, float] = None,
+    xlimits: tuple[float, float] | None = None,
     **kwargs,
 ) -> None:
     """
@@ -279,7 +279,7 @@ def plot_physical_apertures(
 
 
 def _get_positions_and_real_apertures(
-    madx, /, plane: str, xoffset: float = 0, xlimits: tuple[float, float] = None, **kwargs
+    madx, /, plane: str, xoffset: float = 0, xlimits: tuple[float, float] | None = None, **kwargs
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     .. versionadded:: 1.2.0

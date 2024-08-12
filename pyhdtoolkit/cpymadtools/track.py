@@ -22,7 +22,7 @@ def track_single_particle(
     initial_coordinates: tuple[float, float, float, float, float, float],
     nturns: int,
     sequence: str | None = None,
-    observation_points: Sequence[str] = None,
+    observation_points: Sequence[str] | None = None,
     **kwargs,
 ) -> dict[str, pd.DataFrame]:
     """
