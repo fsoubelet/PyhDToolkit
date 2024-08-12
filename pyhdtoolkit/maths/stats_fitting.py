@@ -51,7 +51,7 @@ def set_distributions_dict(dist_dict: dict[st.rv_continuous, str]) -> None:
     """
     # pylint: disable=global-statement
     logger.debug("Setting tested distributions")
-    global DISTRIBUTIONS
+    global DISTRIBUTIONS  # noqa: PLW0603
     DISTRIBUTIONS = dist_dict
 
 
@@ -102,14 +102,14 @@ def best_fit_distribution(
                 *args, loc, scale = params
 
                 logger.debug(f"Calculating PDF goodness of fit and error for distribution '{distname}'")
-                pdf = distribution.pdf(x, loc=loc, scale=scale, *args)
+                pdf = distribution.pdf(x, *args, loc=loc, scale=scale)
                 sse = np.sum(np.power(y - pdf, 2.0))
 
                 try:
                     if ax:
                         logger.debug(f"Plotting fitted PDF for distribution '{distname}'")
                         pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1)
-                except Exception:
+                except Exception:  # noqa: BLE001
                     logger.exception(f"Plotting distribution '{distname}' failed")
 
                 logger.debug(f"Identifying if distribution '{distname}' is a better fit than previous tries")
@@ -117,7 +117,7 @@ def best_fit_distribution(
                     best_distribution = distribution
                     best_params = params
                     best_sse = sse
-        except Exception:
+        except Exception:  # noqa: BLE001
             logger.exception(f"Trying to fit distribution '{distname}' failed and aborted")
 
     logger.info(f"Found a best fit: '{DISTRIBUTIONS[best_distribution]}' distribution")
@@ -157,5 +157,5 @@ def make_pdf(distribution: st.rv_continuous, params: tuple[float, ...], size: in
 
     logger.debug("Building PDF")
     x = np.linspace(start, end, size)
-    y = distribution.pdf(x, loc=loc, scale=scale, *args)
+    y = distribution.pdf(x, *args, loc=loc, scale=scale)
     return pd.Series(y, x)
