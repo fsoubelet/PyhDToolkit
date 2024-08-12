@@ -313,9 +313,7 @@ def plot_machine_layout(
             elif k3l_lim is not None:
                 bpm_legend_loc = 3  # octuoles are here but not sextupoles, we go bottom right
             else:
-                bpm_legend_loc = (
-                    "best"  # can't easily determine the best position, go automatic and leave to the user
-                )
+                bpm_legend_loc = "best"  # can't easily determine the best position, go automatic and leave to the user
             if plotted_elements > 0:  # If we plotted at least one BPM, we need to plot the legend
                 bpm_patches_axis.legend(loc=bpm_legend_loc)
         bpm_patches_axis.grid(False)
@@ -335,7 +333,7 @@ def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
         **kwargs: If either `ax` or `axis` is found in the kwargs, the
             corresponding value is used as the axis object to plot on,
             otherwise the current axis is used.
-    
+
     Example:
         .. code-block:: python
 
@@ -393,9 +391,7 @@ def _plot_lattice_series(
     )
 
 
-def _ylim_from_input(
-    ylim: tuple[float, float] | float, name_for_error: str = "knl_lim"
-) -> tuple[float, float]:
+def _ylim_from_input(ylim: tuple[float, float] | float, name_for_error: str = "knl_lim") -> tuple[float, float]:
     """
     .. versionadded:: 1.2.0
 
@@ -415,18 +411,17 @@ def _ylim_from_input(
     Raises:
         TypeError: if the input is not a tuple, a float or an int.
     """
+    if not isinstance(ylim, tuple | float | int):
+        msg = f"Invalid type for '{name_for_error}': {type(ylim)}. "
+        raise TypeError(msg)
+
     if isinstance(ylim, tuple):
         return ylim
-    elif isinstance(ylim, float | int):
-        if ylim >= 0:
-            return (-ylim, ylim)
-        else:
-            return (ylim, -ylim)
-    else:
-        raise TypeError(
-            f"Invalid type for '{name_for_error}': {type(ylim)}. "
-            "Should be a tuple, a float or an int. Can also be give as None."
-        )
+
+    # otherwise we have float | int
+    if ylim >= 0:
+        return (-ylim, ylim)
+    return (ylim, -ylim)
 
 
 def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> tuple[float, float]:
