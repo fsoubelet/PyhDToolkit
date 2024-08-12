@@ -455,8 +455,12 @@ def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
             coupling_label = _determine_default_sbs_coupling_ylabel(rdt="f1001", component="RE")
     """
     logger.debug(f"Determining a default label for the {component.upper()} component of coupling {rdt.upper()}.")
-    assert rdt.upper() in ("F1001", "F1010")
-    assert component.upper() in ("ABS", "RE", "IM")
+    if rdt.upper() not in ("F1001", "F1010"):
+        msg = "Invalid RDT for coupling plot."
+        raise ValueError(msg)
+    if component.upper() not in ("ABS", "RE", "IM"):
+        msg = "Invalid component for coupling RDT."
+        raise ValueError(msg)
 
     if component.upper() == "ABS":
         opening = closing = "|"
