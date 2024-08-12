@@ -48,8 +48,8 @@ class MADXBeam(BaseModel):
     et: float  # Longitudinal emittance in [m]
     exn: float  # Normalized horizontal emittance in [m] (beta * gamma * ex)
     eyn: float  # Normalized vertical emittance in [m]  *beta * gamma * ey)
-    sigt: float  # The bunch length c σt in [m]
-    sige: float  # The relative energy spread σE /E in [1].
+    sigt: float  # The bunch length c σt in [m]  # noqa: RUF003
+    sige: float  # The relative energy spread σE /E in [1].  # noqa: RUF003
     kbunch: PositiveInt  # The number of particle bunches in the machine in [1]
     npart: PositiveInt  # The number of particles per bunch in [1]
     bcurrent: float  # The bunch current, in [A]

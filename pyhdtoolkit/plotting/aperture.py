@@ -344,10 +344,9 @@ def _get_positions_and_real_apertures(
     indices = list(reversed(indices))
 
     logger.trace("Extrapolating data at beginning of elements")
-    counter = 0  # Keep track of exact position in new array with counter
-    for j in indices:
+    # counter keeps track of exact position in new array with counter
+    for counter, j in enumerate(indices):
         new_pos.insert(j + counter, (twiss_df.s.iloc[j] - twiss_df.l.iloc[j]))
-        counter += 1
 
     # Replace all zeros with Nan
     apertures = np.array(new_aper)
