@@ -30,7 +30,7 @@ def test_tripleterrors_study_reference():
 
 
 @pytest.mark.parametrize(
-    "randseed, tferror",
+    ("randseed", "tferror"),
     [
         ("", ""),
         ("95", "195"),
@@ -50,7 +50,7 @@ def test_tripleterrors_study_tferror_job(randseed, tferror):
 
 
 @pytest.mark.parametrize(
-    "randseed, mserror",
+    ("randseed", "mserror"),
     [
         ("", ""),
         ("95", "195"),

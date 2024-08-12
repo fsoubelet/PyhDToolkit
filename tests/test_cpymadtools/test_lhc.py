@@ -330,7 +330,7 @@ def test_all_lhc_arcs():
 
 
 @pytest.mark.parametrize(
-    "orient, result",
+    ("orient", "result"),
     [
         ["straight", ["K0L", "K1L", "K2L", "K3L", "K4L"]],
         ["skew", ["K0SL", "K1SL", "K2SL", "K3SL", "K4SL"]],

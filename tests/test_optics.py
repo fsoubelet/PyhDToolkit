@@ -46,14 +46,14 @@ def test_lhc_revolution_frequency():
 
 
 @pytest.mark.parametrize(
-    "alpha_p, result",
+    ("alpha_p", "result"),
     [(0, 2.083077890845299e-08), (1e-5, -9.979169221091548e-06), (-500, 500.0000000208308)],
 )
 def test_eta(alpha_p, result):
     assert Beam(6500, 2.5e-6).eta(alpha_p) == result
 
 
-@pytest.mark.parametrize("alpha_p, result", [(1e-5, 316.2277660168379), (500, 0.044721359549995794)])
+@pytest.mark.parametrize(("alpha_p", "result"), [(1e-5, 316.2277660168379), (500, 0.044721359549995794)])
 def test_gamma_transition(alpha_p, result):
     assert Beam(6500, 2.5e-6).gamma_transition(alpha_p) == result
 
@@ -64,7 +64,7 @@ def test_gamma_transition_raises():
 
 
 @pytest.mark.parametrize(
-    "pc_gev, en_x_m, en_y_m, delta_p, result",
+    ("pc_gev", "en_x_m", "en_y_m", "delta_p", "result"),
     [
         (
             1.9,

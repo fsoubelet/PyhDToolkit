@@ -6,7 +6,7 @@ from pyhdtoolkit.cpymadtools.utils import _get_k_strings, export_madx_table, get
 
 
 @pytest.mark.parametrize(
-    "orient, result",
+    ("orient", "result"),
     [
         ["straight", ["K0L", "K1L", "K2L", "K3L", "K4L"]],
         ["skew", ["K0SL", "K1SL", "K2SL", "K3SL", "K4SL"]],

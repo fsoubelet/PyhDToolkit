@@ -90,7 +90,7 @@ def test_make_pdf(degrees_of_freedom):
     pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
 
 
-@pytest.mark.parametrize("value, result", [(1, 0), (10, 1), (0.0311, -2), (5e-7, -7)])
+@pytest.mark.parametrize(("value", "result"), [(1, 0), (10, 1), (0.0311, -2), (5e-7, -7)])
 def test_magnitude(value, result):
     assert mutils.get_magnitude(value) == result
 
