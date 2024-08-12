@@ -7,7 +7,7 @@ Miscellanous Personnal Utilities
 Private module that provides miscellaneous personnal utility functions.
 
 .. warning::
-    The functions in here are intented for personal use, and will most likely 
+    The functions in here are intented for personal use, and will most likely
     **not** work on other people's machines.
 """
 import shlex

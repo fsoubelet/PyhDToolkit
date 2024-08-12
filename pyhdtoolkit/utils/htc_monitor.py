@@ -4,12 +4,12 @@
 HTCondor Monitoring
 -------------------
 
-A module with utility to query the HTCondor queue, process the returned data 
+A module with utility to query the HTCondor queue, process the returned data
 and display it nicely.
 
 .. note::
-    This module is meant to be called as a script, but some of the individual 
-    functionality is made public API and one shoule be able to build a different 
+    This module is meant to be called as a script, but some of the individual
+    functionality is made public API and one shoule be able to build a different
     monitor from the functions in here.
 """
 import re

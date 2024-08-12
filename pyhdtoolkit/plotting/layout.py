@@ -329,7 +329,7 @@ def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
     patches as well as the corresponding y-axis label.
 
     Args:
-        scale (float): the scale factor to apply to the patches. The new 
+        scale (float): the scale factor to apply to the patches. The new
             height of the patches will be ``scale * original_height``.
         ylabel (str): the new label for the y-axis.
         **kwargs: If either `ax` or `axis` is found in the kwargs, the

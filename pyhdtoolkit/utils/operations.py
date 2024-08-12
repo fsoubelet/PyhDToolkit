@@ -4,7 +4,7 @@
 Operations Utilities
 --------------------
 
-A collection classes with utility functions to perform common / convenient 
+A collection classes with utility functions to perform common / convenient
 operations on the classic Python structures.
 
 .. warning::

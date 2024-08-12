@@ -162,7 +162,7 @@ def get_rdts(
         arguments to override them.
 
         The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
-        calculations (see the 
+        calculations (see the
         `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
         for details), and ``normal=True`` to trigger saving the normal form analysis
         results in a table called ``NONLIN`` which will then be available through the
@@ -263,7 +263,7 @@ def ptc_twiss(
         arguments to override them.
 
         The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
-        calculations (see the 
+        calculations (see the
         `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
         for details), and ``normal=True`` to trigger saving the normal form analysis
         results in a table called ``NONLIN`` which will then be available through the

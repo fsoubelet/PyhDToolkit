@@ -37,7 +37,7 @@ def prepare_lhc_run2(
         might change that working point.
 
     Args:
-        opticsfile (str): the relative string path or a `Path` object to the opticsfile location. This will 
+        opticsfile (str): the relative string path or a `Path` object to the opticsfile location. This will
             be used to determine the location of the sequence file, see the admonition above.
         beam (int): which beam to set up for. Defaults to beam 1.
         use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking
