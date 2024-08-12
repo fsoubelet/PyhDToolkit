@@ -104,7 +104,7 @@ def test_ip_locations_with_xlimits(_non_matched_lhc_madx):
 def test_confidence_ellipse_subplots():
     """Confidence ellipse on three correlated datasets in subplots."""
     np.random.seed(0)
-    PARAMETERS = {
+    parameters = {
         "Positive correlation": [[0.85, 0.35], [0.15, -0.65]],
         "Negative correlation": [[0.9, -0.4], [0.1, -0.6]],
         "Weak correlation": [[1, 0], [0, 1]],
@@ -113,7 +113,7 @@ def test_confidence_ellipse_subplots():
     scale = 3, 5
 
     figure, axs = plt.subplots(1, 3, figsize=(9, 3))
-    for ax, (title, dependency) in zip(axs, PARAMETERS.items(), strict=False):
+    for ax, (title, dependency) in zip(axs, parameters.items(), strict=False):
         x, y = get_correlated_dataset(800, dependency, mu, scale)
         ax.scatter(x, y, s=0.5)
         ax.axvline(c="grey", lw=1)

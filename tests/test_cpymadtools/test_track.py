@@ -19,7 +19,7 @@ def test_single_particle_tracking(_matched_base_lattice, obs_points):
     assert len(tracks_dict.keys()) == len(obs_points) + 1
     for tracks in tracks_dict.values():
         assert isinstance(tracks, DataFrame)
-        assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
+        assert all(coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e"))
 
 
 def test_single_particle_tracking_with_onepass(_matched_base_lattice):
@@ -33,4 +33,4 @@ def test_single_particle_tracking_with_onepass(_matched_base_lattice):
     assert "trackone" in tracks_dict
     tracks = tracks_dict["trackone"]
     assert isinstance(tracks, DataFrame)
-    assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
+    assert all(coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e"))

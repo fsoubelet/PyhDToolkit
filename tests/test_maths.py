@@ -87,7 +87,7 @@ def test_make_pdf(degrees_of_freedom):
     data: np.ndarray = st.chi2(degrees_of_freedom).rvs(50_000)
     best_fit_func, best_fit_params = stats_fitting.best_fit_distribution(data, 200)
     pdf = stats_fitting.make_pdf(best_fit_func, best_fit_params)
-    pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
+    assert pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
 
 
 @pytest.mark.parametrize(("value", "result"), [(1, 0), (10, 1), (0.0311, -2), (5e-7, -7)])

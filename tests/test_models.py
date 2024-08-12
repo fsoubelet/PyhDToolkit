@@ -14,5 +14,5 @@ def test_beam_parameters():
     assert math.isclose(beam.beta_r, 0.8966300434726596)
     assert math.isclose(beam.eg_x_m, 2.469137056052632e-06)
     assert math.isclose(beam.eg_y_m, 2.469137056052632e-06)
-    print(beam.__str__())
-    print(beam.__repr__())
+    beam.__str__()
+    beam.__repr__()

@@ -533,7 +533,7 @@ def test_makethin_lhc(_matched_lhc_madx):
     assert isinstance(tracks_dict, dict)
     tracks = tracks_dict["observation_point_1"]
     assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
-    assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
+    assert all(coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e"))
 
 
 @pytest.mark.parametrize("markers", [100, 1000])
@@ -781,7 +781,7 @@ def test_get_irs_twiss(ir, _matched_lhc_madx):
 
     extra_columns = ["k0l", "k0sl", "k1l", "k1sl", "k2l", "k2sl", "sig11", "sig12", "sig21", "sig22"]
     ir_extra_columns_df = get_ir_twiss(madx, ir=ir, columns=DEFAULT_TWISS_COLUMNS + extra_columns)
-    assert all([colname in ir_extra_columns_df.columns for colname in extra_columns])
+    assert all(colname in ir_extra_columns_df.columns for colname in extra_columns)
 
 
 # ------------------- Requires acc-models-lhc ------------------- #
