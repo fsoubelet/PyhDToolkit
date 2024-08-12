@@ -54,5 +54,5 @@ def determine_rdt_line(rdt: int | str, plane: str) -> tuple[int, int, int]:
         which means the line located at 1 * Qy = Qy.
     """
     j, k, l, m = map(int, str(rdt))  # noqa: E741
-    lines = dict(X=(1 - j + k, m - l, 0), Y=(k - j, 1 - l + m, 0))
+    lines = {"X": (1 - j + k, m - l, 0), "Y": (k - j, 1 - l + m, 0)}
     return lines[plane]

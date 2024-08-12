@@ -331,8 +331,8 @@ def set_arrow_label(
         color=color,
         va="center",
         ha="center",
-        bbox=dict(boxstyle="round4", fc="w", color=color),
-        arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color),
+        bbox={"boxstyle": "round4", "fc": "w", "color": color},
+        arrowprops={"arrowstyle": "-|>", "connectionstyle": "arc3,rad=" + str(arrow_arc_rad), "fc": "w", "color": color},
         **kwargs,
     )
 

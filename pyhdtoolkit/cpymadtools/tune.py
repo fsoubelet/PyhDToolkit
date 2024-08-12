@@ -93,19 +93,19 @@ def make_footprint_table(
 
     tfs_dframe = tfs.TfsDataFrame(
         data=madx.table.dynaptune.dframe(),
-        headers=dict(
-            NAME="DYNAPTUNE",
-            TYPE="DYNAPTUNE",
-            TITLE="FOOTPRINT TABLE",
-            MADX_VERSION=str(madx.version).upper(),
-            ORIGIN="pyhdtoolkit.cpymadtools.tune.make_footprint_table() function",
-            ANGLE=7,  # default of the function
-            AMPLITUDE=sigma,
-            DSIGMA=1 if not dense else 0.5,
-            ANGLE_MEANING="Number of different starting angles used for each starting amplitude",
-            AMPLITUDE_MEANING="Up to which bunch sigma the starting amplitudes were ramped up",
-            DSIGMA_MEANING="Increment value of AMPLITUDE at each new starting amplitude",
-        ),
+        headers={
+            "NAME": "DYNAPTUNE",
+            "TYPE": "DYNAPTUNE",
+            "TITLE": "FOOTPRINT TABLE",
+            "MADX_VERSION": str(madx.version).upper(),
+            "ORIGIN": "pyhdtoolkit.cpymadtools.tune.make_footprint_table() function",
+            "ANGLE": 7,  # default of the function
+            "AMPLITUDE": sigma,
+            "DSIGMA": 1 if not dense else 0.5,
+            "ANGLE_MEANING": "Number of different starting angles used for each starting amplitude",
+            "AMPLITUDE_MEANING": "Up to which bunch sigma the starting amplitudes were ramped up",
+            "DSIGMA_MEANING": "Increment value of AMPLITUDE at each new starting amplitude",
+        },
     )
     tfs_dframe = tfs_dframe.reset_index(drop=True)
 
