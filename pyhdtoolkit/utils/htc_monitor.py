@@ -98,7 +98,7 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
     tasks: list[HTCTaskSummary] = []
     next_line_is_task_report = False
 
-    for line in report.split("\n"):
+    for line in report.splitlines():
         if line.startswith("-- Schedd:"):  # extract scheduler information
             scheduler_id = _process_scheduler_information_line(line)
 
@@ -106,7 +106,7 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
             next_line_is_task_report = True
 
         elif next_line_is_task_report:  # extract task report information
-            if line != "\n" and line != "":
+            if line not in ("\n", ""):
                 tasks.append(_process_task_summary_line(line))
             else:  # an empty line denotes the end of the task report(s)
                 next_line_is_task_report = False
@@ -117,7 +117,7 @@ def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
                 query_summary = _process_cluster_summary_line(line, "query")
             elif "all users" in line:  # last line
                 full_summary = _process_cluster_summary_line(line, "all users")
-            elif line != "\n" and line != "":  # user line, whoever the user is
+            elif line not in ("\n", ""):  # user line, whoever the user is
                 owner_summary = _process_cluster_summary_line(line, querying_owner)
     cluster_summary = ClusterSummary(
         scheduler_id=scheduler_id, query=query_summary, user=owner_summary, cluster=full_summary
