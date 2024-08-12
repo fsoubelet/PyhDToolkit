@@ -5,6 +5,7 @@
 
 The functions below are utilities to implement errors in elements of the ``LHC``.
 """
+
 from collections.abc import Sequence
 
 from cpymad.madx import Madx
@@ -122,7 +123,8 @@ def misalign_lhc_ir_quadrupoles(
         .. code-block:: python
 
             misalign_lhc_ir_quadrupoles(
-                madx, ips=[5],
+                madx,
+                ips=[5],
                 quadrupoles=[7, 8, 9, 10],
                 beam=1,
                 sides="RL",
@@ -140,7 +142,7 @@ def misalign_lhc_ir_quadrupoles(
                 beam=1,
                 sides="RL",
                 dy=1e-5,  # ok too as cpymad converts this to a string first
-                dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+                dpsi="1E-3 + 8E-4 * TGAUSS(2.5)",
             )
     """
     if any(ip not in (1, 2, 5, 8) for ip in ips):

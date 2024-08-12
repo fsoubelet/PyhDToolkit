@@ -7,6 +7,7 @@ MAD-X Models
 Module with ``pydantic`` models to validate and store data obtained by interacting
 with the ``MAD-X`` process through `cpymad`.
 """
+
 from enum import Enum
 
 from pydantic import BaseModel, PositiveFloat, PositiveInt

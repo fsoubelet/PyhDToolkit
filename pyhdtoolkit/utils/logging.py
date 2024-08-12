@@ -14,6 +14,7 @@ Different pre-defined formats are provided to choose from:
 - ``FORMAT2``: similar to ``FORMAT1``, but the caller information is displayed at the end of the log line.
 - ``SIMPLE_FORMAT``: minimal, displays the local time, the level and the message.
 """
+
 import sys
 
 from loguru import logger
@@ -63,6 +64,7 @@ def config_logger(level: str | int = "INFO", fmt: str = FORMAT1, **kwargs) -> No
         .. code-block:: python
 
             from pyhdtoolkit.utils.logging import config_logger, SIMPLE_FORMAT
+
             config_logger(level="DEBUG", format=SIMPLE_FORMAT)
     """
     logger.remove()

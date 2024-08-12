@@ -124,7 +124,8 @@ def plot_aperture(
 
             plt.figure(figsize=(16, 11))
             plot_aperture(
-                madx, plot_bpms=True,
+                madx,
+                plot_bpms=True,
                 aperture_ylim=(0, 20),
                 k0l_lim=(-4e-4, 4e-4),
                 k1l_lim=(-0.08, 0.08),
@@ -168,9 +169,7 @@ def plot_aperture(
     # Plotting aperture values on remaining two thirds of the figure
     logger.debug("Plotting aperture values")
     aperture_axis = plt.subplot2grid((3, 3), (1, 0), colspan=3, rowspan=2, sharex=quadrupole_patches_axis)
-    aperture_axis.plot(
-        aperture_df.s, aperture_df.n1, marker=".", ls="-", lw=0.8, color=color, label="Aperture Limits"
-    )
+    aperture_axis.plot(aperture_df.s, aperture_df.n1, marker=".", ls="-", lw=0.8, color=color, label="Aperture Limits")
     aperture_axis.fill_between(aperture_df.s, aperture_df.n1, aperture_df.n1.max(), interpolate=True, color=color)
     aperture_axis.legend()
     aperture_axis.set_ylabel(r"$n_{1} \ [\sigma]$")

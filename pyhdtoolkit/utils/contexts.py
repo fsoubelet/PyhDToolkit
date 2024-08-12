@@ -6,6 +6,7 @@ Context Utilities
 
 Provides useful contexts to use functions in.
 """
+
 import time
 from collections.abc import Callable, Iterator
 from contextlib import contextmanager
@@ -29,7 +30,9 @@ def timeit(function: Callable) -> Iterator[None]:
     Example:
         .. code-block:: python
 
-            with timeit(lambda spanned: logger.debug(f"Did some stuff in {spanned} seconds")):
+            with timeit(
+                lambda spanned: logger.debug(f"Did some stuff in {spanned} seconds")
+            ):
                 some_stuff()
                 some_other_stuff()
     """

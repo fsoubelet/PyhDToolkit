@@ -8,6 +8,7 @@ Betatron Coupling Utilities
 Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object, that
 retate to betatron coupling in the machine.
 """
+
 from collections.abc import Sequence
 
 import numpy as np
@@ -78,10 +79,10 @@ def get_closest_tune_approach(
             # Say we have set the LHC coupling knobs to 1e-3
             dqmin = get_closest_tune_approach(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 telescopic_squeeze=True,  # influences the knobs definition
-                run3=True,                # influences the knobs definition (LHC Run 3)
+                run3=True,  # influences the knobs definition (LHC Run 3)
             )
             # returns 0.001
     """

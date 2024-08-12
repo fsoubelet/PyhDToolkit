@@ -5,6 +5,7 @@
 
 The functions below are routines mimicking manipulations that would be done in the ``LHC``.
 """
+
 import numpy as np
 import tfs
 from cpymad.madx import Madx
@@ -52,7 +53,9 @@ def do_kmodulation(
 
         .. code-block:: python
 
-            tune_results = do_kmodulation(madx, ir=1, side="right", steps=100, stepsize=3e-8)
+            tune_results = do_kmodulation(
+                madx, ir=1, side="right", steps=100, stepsize=3e-8
+            )
     """
     element = f"MQXA.1R{ir:d}" if side.lower() == "right" else f"MQXA.1L{ir:d}"
     powering_variable = f"KTQX1.R{ir:d}" if side.lower() == "right" else f"KTQX1.L{ir:d}"

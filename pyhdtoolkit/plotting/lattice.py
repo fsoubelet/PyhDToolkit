@@ -251,21 +251,13 @@ def plot_machine_survey(
             label="Dipoles",
             **kwargs,
         )
-        plt.scatter(
-            element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF"
-        )
-        plt.scatter(
-            element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD"
-        )
+        plt.scatter(element_dfs["quad_foc"].z, element_dfs["quad_foc"].x, marker="o", color="blue", label="QF")
+        plt.scatter(element_dfs["quad_defoc"].z, element_dfs["quad_defoc"].x, marker="o", color="red", label="QD")
 
         if high_orders:
             logger.debug("Plotting high order magnetic elements (up to octupoles)")
-            plt.scatter(
-                element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS"
-            )
-            plt.scatter(
-                element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO"
-            )
+            plt.scatter(element_dfs["sextupoles"].z, element_dfs["sextupoles"].x, marker=".", color="m", label="MS")
+            plt.scatter(element_dfs["octupoles"].z, element_dfs["octupoles"].x, marker=".", color="cyan", label="MO")
         plt.legend(loc=2)
 
     else:

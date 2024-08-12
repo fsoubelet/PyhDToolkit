@@ -16,7 +16,6 @@ The following are available:
 - ``LARGE``: For more complex plots to be included alone in a LaTeX figure environment (e.g. multi-axes figures such as in `~pyhdtoolkit.plotting.lattice`).
 """
 
-
 PlotSetting = float | bool | str | tuple
 
 

@@ -104,9 +104,7 @@ def plot_beam_envelope(
     orbit = twiss_df[plane_letter] * scale  # with scaling factor, by default 1
 
     logger.debug("Calculating beam enveloppe")
-    one_sigma = np.sqrt(
-        geom_emit * twiss_df[f"bet{plane_letter}"] + (sige * twiss_df[f"d{plane_letter}"]) ** 2
-    )
+    one_sigma = np.sqrt(geom_emit * twiss_df[f"bet{plane_letter}"] + (sige * twiss_df[f"d{plane_letter}"]) ** 2)
     enveloppe = nsigma * one_sigma * scale  # with scaling factor, by default 1
 
     # Plot a line for the orbit, then fill between orbit + enveloppe and orbit - enveloppe

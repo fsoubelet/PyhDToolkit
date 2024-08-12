@@ -109,6 +109,7 @@ class CommandLine:
             .. code-block:: python
 
                 import os
+
                 modified_env = os.environ.copy()
                 modified_env["ENV_VAR"] = "new_value"
                 CommandLine.run("echo $ENV_VAR", env=modified_env)

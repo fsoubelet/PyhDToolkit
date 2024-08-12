@@ -7,6 +7,7 @@ Tune Utilities
 Module with functions to manipulate ``MAD-X`` functionality around the tune through
 a `~cpymad.madx.Madx` object.
 """
+
 import math
 import sys
 from pathlib import Path
@@ -250,7 +251,7 @@ def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
     return string_rep
 
 
-def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[dict[str, float]]]:
+def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[dict[str, float]]]:  # noqa: ARG001
     """
     Creates appropriate tune points groups from the arcane string representation returned by
     `~.tune._get_dynap_string_rep` based on starting amplitude and angle for each particle.

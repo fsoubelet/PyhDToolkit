@@ -46,6 +46,7 @@ class HTCTaskSummary(BaseModel):
 
     Class to encompass and validate a specific job's line in the ``condor_q`` output.
     """
+
     # This is so pydantic accepts pendulum.DateTime as a validated type
     model_config = ConfigDict(arbitrary_types_allowed=True)
 

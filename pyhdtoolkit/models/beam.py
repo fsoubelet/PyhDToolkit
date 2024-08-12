@@ -6,6 +6,7 @@ Particle Beam Models
 
 Module with ``pydantic`` models to validate and store data structures relative to particle beams.
 """
+
 from math import sqrt
 
 from pydantic import BaseModel

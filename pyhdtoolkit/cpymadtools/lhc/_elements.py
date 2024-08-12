@@ -5,10 +5,12 @@
 
 The functions below are utilities to install elements or markers in the ``LHC``.
 """
+
 from cpymad.madx import Madx
 from loguru import logger
 
 _MAX_TRACKING_TOP_TURNS: int = 6600
+
 
 def install_ac_dipole_as_kicker(
     madx: Madx,

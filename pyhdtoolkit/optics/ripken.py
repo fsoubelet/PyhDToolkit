@@ -82,7 +82,6 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     return np.sqrt(np.mean(np.square(coordinates_distribution)))  # rms
 
 
-
 def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y: float) -> tfs.TfsDataFrame:
     """
     Adds columns with the horizontal and vertical Lebedev beam sizes to a dataframe

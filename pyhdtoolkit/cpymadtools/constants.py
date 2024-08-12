@@ -6,6 +6,7 @@ Useful Constants
 
 Specific constants to be used in `~.cpymadtools` functions, to help with consistency.
 """
+
 _MAX_SECTOR_VALUE: int = 8
 
 # fmt: off
@@ -136,16 +137,24 @@ LHC_KSF_KNOBS: list[str] = [  # sextupole correctors
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KSS_KNOBS: list[str] = [  # skew sextupole correctors
-    f"kss.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kss.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCS_KNOBS: list[str] = [  # spool piece (skew) sextupoles
-    f"kcs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kcs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCO_KNOBS: list[str] = [  # spool piece (skew) octupoles
-    f"kco.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kco.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCD_KNOBS: list[str] = [  # spool piece (skew) decapoles
-    f"kcd.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kcd.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
+    for beam in [1, 2]
+    for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KO_KNOBS: list[str] = [  # octupoles in arc short straight sections
     f"ko{family}.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"

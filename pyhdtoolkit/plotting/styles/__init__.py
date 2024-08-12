@@ -7,6 +7,7 @@ Plotting Styles
 The **style** submodules provide styles to be used with `~matplotlib`, mostly tailored for my use, and for good results with the plotters in `~pyhdtoolkit.plotting`.
 Feel free to use them anyway, as they might be useful to you when using the `~pyhdtoolkit.plotting` submodules, or to be adapted.
 """
+
 from pathlib import Path
 
 import matplotlib as mpl
@@ -60,6 +61,7 @@ def _install_style_file(style: dict[str, PlotSetting], stylename) -> None:
     .. code-block:: python
 
         from matplotlib import pyplot as plt
+
         plt.style.use("style-name")
 
     .. note::

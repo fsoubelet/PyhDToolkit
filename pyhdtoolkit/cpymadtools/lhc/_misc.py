@@ -23,6 +23,7 @@ from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 _BEAM4: int = 4  # LHC beam 4 is special case
 _VRF_THRESHOLD: int = 5000
 
+
 def make_sixtrack_output(madx: Madx, /, energy: int) -> None:
     """
     .. versionadded:: 0.15.0

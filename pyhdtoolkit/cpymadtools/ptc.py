@@ -7,6 +7,7 @@ PTC Routines
 Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a
 `~cpymad.madx.Madx` object.
 """
+
 from collections.abc import Sequence
 from pathlib import Path
 
@@ -19,6 +20,7 @@ from pyhdtoolkit.cpymadtools.utils import get_table_tfs
 
 _MAX_PTC_AMPDET_ORDER: int = 2
 _MIN_PTC_AMPDET_ORDER: int = 1
+
 
 def get_amplitude_detuning(
     madx: Madx, /, order: int = 2, file: Path | str | None = None, fringe: bool = False, **kwargs
@@ -428,8 +430,13 @@ def ptc_track_particle(
         .. code-block:: python
 
             tracks_dict = ptc_track_particle(
-                madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
-                model=3, method=6, nst=3, exact=True
+                madx,
+                nturns=10,
+                initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
+                model=3,
+                method=6,
+                nst=3,
+                exact=True,
             )
     """
     logger.debug("Performing single particle PTC (thick) tracking")

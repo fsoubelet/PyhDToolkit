@@ -6,6 +6,7 @@ Plotting Utility Functions
 
 Module with functions to used throught the different `~pyhdtoolkit.plotting` modules.
 """
+
 from __future__ import annotations  # important for Sphinx to generate short type signatures!
 
 from typing import TYPE_CHECKING
@@ -332,7 +333,12 @@ def set_arrow_label(
         va="center",
         ha="center",
         bbox={"boxstyle": "round4", "fc": "w", "color": color},
-        arrowprops={"arrowstyle": "-|>", "connectionstyle": "arc3,rad=" + str(arrow_arc_rad), "fc": "w", "color": color},
+        arrowprops={
+            "arrowstyle": "-|>",
+            "connectionstyle": "arc3,rad=" + str(arrow_arc_rad),
+            "fc": "w",
+            "color": color,
+        },
         **kwargs,
     )
 
@@ -430,8 +436,7 @@ def _get_twiss_table_with_offsets_and_limits(
     madx.command.twiss(**kwargs)
     twiss_df = madx.table.twiss.dframe()
     twiss_df.s = twiss_df.s - xoffset
-    twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
-    return twiss_df
+    return twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
 
 
 def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
@@ -452,7 +457,9 @@ def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
     Example:
         .. code-block:: python
 
-            coupling_label = _determine_default_sbs_coupling_ylabel(rdt="f1001", component="RE")
+            coupling_label = _determine_default_sbs_coupling_ylabel(
+                rdt="f1001", component="RE"
+            )
     """
     logger.debug(f"Determining a default label for the {component.upper()} component of coupling {rdt.upper()}.")
     if rdt.upper() not in ("F1001", "F1010"):
@@ -491,17 +498,22 @@ def _determine_default_sbs_phase_ylabel(plane: str) -> str:
             phase_label = _determine_default_sbs_phase_ylabel(plane="X")
     """
     logger.debug(f"Determining a default label for the {plane.upper()} phase plane.")
-    assert plane.upper() in ("X", "Y")
+    if plane.upper() not in ("X", "Y"):
+        msg = "Invalid plane for phase plot."
+        raise ValueError(msg)
 
     beginning = r"\Delta "
     term = r"\phi_{x}" if plane.upper() == "X" else r"\phi_{y}"
     return r"$" + beginning + term + r"$"
 
+
 # ----- Sphinx Gallery Scraper ----- #
+
 
 # To use SVG outputs when scraping matplotlib figures for the sphinx-gallery, see:
 # https://sphinx-gallery.github.io/stable/advanced.html#example-3-matplotlib-with-svg-format
 def _matplotlib_svg_scraper(*args, **kwargs):
     from sphinx_gallery.scrapers import matplotlib_scraper
+
     kwargs.pop("format", None)
     return matplotlib_scraper(*args, format="svg", **kwargs)

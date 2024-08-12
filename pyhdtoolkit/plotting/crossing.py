@@ -60,7 +60,9 @@ def plot_two_lhc_ips_crossings(
         .. code-block:: python
 
             plt.figure(figsize=(16, 11))
-            plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
+            plot_two_lhc_ips_crossings(
+                madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False
+            )
     """
     logger.warning("You should re-call the 'USE' command on your wanted sequence after this plot!")
     # ----- Getting Twiss table dframe for each beam ----- #
@@ -168,7 +170,12 @@ def plot_single_ir_crossing(
         .. code-block:: python
 
             plot_single_ir_crossing(
-                plt.gca(), b1_df, b2_df, plot_column="x", scaling=1e3, ylabel="Orbit X $[mm]$"
+                plt.gca(),
+                b1_df,
+                b2_df,
+                plot_column="x",
+                scaling=1e3,
+                ylabel="Orbit X $[mm]$",
             )
     """
     logger.trace(f"Plotting orbit '{plot_column}'")
@@ -183,9 +190,7 @@ def plot_single_ir_crossing(
 # ----- Helpers ----- #
 
 
-def _highlight_mbx_and_mqx(
-    axis: Axes, plot_df: pd.DataFrame | tfs.TfsDataFrame, ip: int, **kwargs
-) -> None:
+def _highlight_mbx_and_mqx(axis: Axes, plot_df: pd.DataFrame | tfs.TfsDataFrame, ip: int, **kwargs) -> None:
     """
     .. versionadded:: 1.0.0
 

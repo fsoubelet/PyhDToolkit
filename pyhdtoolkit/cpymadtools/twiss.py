@@ -7,6 +7,7 @@ TWISS Routines
 Module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
 `~cpymad.madx.Madx` object.
 """
+
 from collections.abc import Sequence
 
 import tfs

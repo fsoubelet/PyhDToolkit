@@ -6,6 +6,7 @@ Matching Routines
 
 Module with functions to perform ``MAD-X`` matchings through a `~cpymad.madx.Madx` object.
 """
+
 from collections.abc import Sequence
 
 from cpymad.madx import Madx
@@ -101,7 +102,7 @@ def match_tunes_and_chromaticities(
 
             matching.match_tunes_and_chromaticities(
                 madx,
-                None,              # this is not LHC or HLLHC
+                None,  # this is not LHC or HLLHC
                 sequence="CAS3",
                 q1_target=6.335,
                 q2_target=6.29,
@@ -131,7 +132,7 @@ def match_tunes_and_chromaticities(
 
             matching.match_tunes_and_chromaticities(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 q1_target=62.31,
                 q2_target=60.32,
@@ -242,7 +243,7 @@ def match_tunes(
 
             matching.match_tunes(
                 madx,
-                None,              # this is not LHC or HLLHC
+                None,  # this is not LHC or HLLHC
                 sequence="CAS3",
                 q1_target=6.335,
                 q2_target=6.29,
@@ -268,7 +269,7 @@ def match_tunes(
 
             matching.match_tunes(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 q1_target=62.31,
                 q2_target=60.32,
@@ -344,7 +345,7 @@ def match_chromaticities(
 
             matching.match_chromaticities(
                 madx,
-                None,              # this is not LHC or HLLHC
+                None,  # this is not LHC or HLLHC
                 sequence="CAS3",
                 dq1_target=100,
                 dq2_target=100,
@@ -370,7 +371,7 @@ def match_chromaticities(
 
             matching.match_chromaticities(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 dq1_target=2.0,
                 dq2_target=2.0,

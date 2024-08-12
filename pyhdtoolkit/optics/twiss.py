@@ -6,6 +6,7 @@ Twiss Optics
 
 Module implementing various calculations based on the ``TWISS`` optics parameters.
 """
+
 import numpy as np
 
 

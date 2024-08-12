@@ -10,6 +10,7 @@ Private module that provides miscellaneous personnal utility functions.
     The functions in here are intented for personal use, and will most likely
     **not** work on other people's machines.
 """
+
 import shlex
 from collections.abc import Sequence
 from multiprocessing import cpu_count
@@ -80,7 +81,9 @@ def split_complex_columns(df: pd.DataFrame, drop: bool = False) -> pd.DataFrame:
     return res
 
 
-def add_noise_to_ir_bpms(df: pd.DataFrame, max_index: int, stdev: float, columns: Sequence[str] | None = None) -> pd.DataFrame:
+def add_noise_to_ir_bpms(
+    df: pd.DataFrame, max_index: int, stdev: float, columns: Sequence[str] | None = None
+) -> pd.DataFrame:
     """
     .. versionadded:: 1.2.0
 
@@ -213,13 +216,13 @@ def apply_colin_corrs_balance(madx: Madx) -> None:
 # ----- Fetching Utilities ----- #
 
 
-def get_betastar_from_opticsfile(opticsfile: Path | str) -> float:
+def get_betastar_from_opticsfile(opticsfile: Path | str, check_symmetry: bool = True) -> float:
     """
     .. versionadded:: 0.16.0
 
     Parses the :math:`\\beta^{*}` value from the *opticsfile* content,
-    which is in the first lines. This contains a check that ensures the betastar
-    is the same for IP1 and IP5. The values returned are in meters.
+    which is in the first lines. This contains an optional check to ensure
+    the betastar is the same for IP1 and IP5. The values returned are in meters.
 
     .. note::
         For file in ``acc-models-lhc`` make sure to point to the strength file
@@ -251,5 +254,7 @@ def get_betastar_from_opticsfile(opticsfile: Path | str) -> float:
     betastar_y_ip1 = float(shlex.split(ip1_y_line)[2])
     betastar_x_ip5 = float(shlex.split(ip5_x_line)[2])
     betastar_y_ip5 = float(shlex.split(ip5_y_line)[2])
-    assert betastar_x_ip1 == betastar_y_ip1 == betastar_x_ip5 == betastar_y_ip5
+    if check_symmetry and not (betastar_x_ip1 == betastar_y_ip1 == betastar_x_ip5 == betastar_y_ip5):
+        msg = "The betastar values for IP1 and IP5 are not the same in both planes."
+        raise AssertionError(msg)
     return betastar_x_ip1  # doesn't matter which plane, they're all the same

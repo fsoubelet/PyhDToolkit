@@ -6,6 +6,7 @@ Segment-by-Segment Phase
 
 Functions to plot phase values of Segment-by-Segment results.
 """
+
 import matplotlib.pyplot as plt
 import tfs
 from loguru import logger

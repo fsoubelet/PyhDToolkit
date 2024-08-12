@@ -5,6 +5,7 @@
 
 The functions below are setup utilities for the ``LHC``, to easily get simulations ready.
 """
+
 from pathlib import Path
 
 from cpymad.madx import Madx
@@ -59,7 +60,9 @@ def prepare_lhc_run2(
         .. code-block:: python
 
             madx = prepare_lhc_run2(
-                "/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22", beam=2, stdout=True
+                "/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22",
+                beam=2,
+                stdout=True,
             )
     """
     if use_b4 and beam != _BEAM_FOR_B4:
@@ -221,14 +224,19 @@ class LHCSetup:
         .. code-block:: python
 
             with LHCSetup(run=2, opticsfile="2018/PROTON/opticsfile.22", beam=2) as madx:
-               pass  # do some stuff
+                pass  # do some stuff
 
         Get a Run 3 setup for beam 1, with a sliced sequence and muted output:
 
         .. code-block:: python
 
-            with LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False) as madx:
-               pass  # do some stuff
+            with LHCSetup(
+                run=3,
+                opticsfile="R2022a_A30cmC30cmA10mL200cm.madx",
+                slicefactor=4,
+                stdout=False,
+            ) as madx:
+                pass  # do some stuff
     """
 
     def __init__(

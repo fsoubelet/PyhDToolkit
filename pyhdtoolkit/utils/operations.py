@@ -68,7 +68,7 @@ class ListOperations:
             .. code-block:: python
 
               ListOperations.average_by(
-                [{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']
+                  [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}], lambda x: x["n"]
               )
               # returns 5.0
         """
@@ -94,7 +94,9 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              ListOperations.bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
+              ListOperations.bifurcate(
+                  ["beep", "boop", "foo", "bar"], [True, True, False, True]
+              )
               # returns [['beep', 'boop', 'bar'], ['foo']]
         """
         return [
@@ -582,7 +584,7 @@ class MiscellaneousOperations:
 
               MiscellaneousOperations.map_values(
                   {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
-                  lambda x: len(x)
+                  lambda x: len(x),
               )
               # returns {"a": 5, "b": 10, "c": 15}
         """
@@ -630,9 +632,7 @@ class NumberOperations:
         return max(min(num, max(a_val, b_val)), min(a_val, b_val))
 
     @staticmethod
-    def degrees_to_radians(
-        deg_value: float, decompose: bool = False
-    ) -> tuple[float, str, str] | float:
+    def degrees_to_radians(deg_value: float, decompose: bool = False) -> tuple[float, str, str] | float:
         """
         .. versionadded:: 0.2.0
 
@@ -764,7 +764,7 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              NumberOperations.radians_to_degrees(2* math.pi)
+              NumberOperations.radians_to_degrees(2 * math.pi)
               # returns 360
 
             .. code-block:: python

@@ -7,6 +7,7 @@ Tracking Routines
 Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality through a
 `~cpymad.madx.Madx` object.
 """
+
 from collections.abc import Sequence
 
 import pandas as pd

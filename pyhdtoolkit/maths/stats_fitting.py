@@ -6,6 +6,7 @@ Stats Fitting
 
 Module implementing methods to find the best fit of statistical distributions to data.
 """
+
 import warnings
 
 import matplotlib.pyplot as plt  # noqa: F401 | if omitted, get AttributeError: module 'matplotlib' has no attribute 'axes'
@@ -46,6 +47,7 @@ def set_distributions_dict(dist_dict: dict[st.rv_continuous, str]) -> None:
         .. code-block:: python
 
             import scipy.stats as st
+
             tested_dists = {st.chi: "Chi", st.expon: "Exponential", st.laplace: "Laplace"}
             set_distributions_dict(tested_dists)
     """

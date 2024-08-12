@@ -7,6 +7,7 @@ Tune Diagram Plotters
 Module with functions to create tune diagram plots.
 These provide functionality to draw Farey sequences up to a desired order.
 """
+
 from functools import partial
 
 import numpy as np

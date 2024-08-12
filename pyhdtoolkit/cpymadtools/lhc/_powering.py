@@ -5,6 +5,7 @@
 
 The functions below are magnets or knobs powering utilities for the ``LHC``.
 """
+
 from collections.abc import Sequence
 
 from cpymad.madx import Madx
@@ -13,6 +14,7 @@ from loguru import logger
 _BEAM4: int = 4  # LHC beam 4 is special case
 _QUAD_CIRCUIT_HAS_B: int = 7  # Q7 has a .b in the circuit name
 _MAX_IR_QUAD_NUMBER: int = 11  # beyond Q11 are MQTs etc
+
 
 def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0, ir: int | None = None) -> None:
     """
