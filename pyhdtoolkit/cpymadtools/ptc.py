@@ -60,7 +60,7 @@ def get_amplitude_detuning(
             ``PTC_NORMAL`` command. Their default values are listed higher up in this
             docstring. Any remaining keyword argument is transmitted to the
             ``PTC_NORMAL`` command.
-    
+
     Returns:
         A `~tfs.frame.TfsDataframe` with the calculated coefficients.
 
@@ -289,7 +289,7 @@ def ptc_twiss(
             `icase` and `normal` ones can be given for the ``PTC_TWISS`` command.
             Their default values are listed higher up in this docstring. Any remaining
             keyword argument is transmitted to the ``PTC_TWISS`` command.
-            
+
     Returns:
         A `~tfs.frame.TfsDataFrame` with the calculated ``TWISS`` parameters.
 

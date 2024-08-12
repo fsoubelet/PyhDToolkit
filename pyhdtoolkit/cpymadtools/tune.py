@@ -191,25 +191,25 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
 
     logger.debug("Grouping tune points according to starting angles and amplitudes")
     try:
-        A = np.zeros([amplitude, angle, 2])
-        A[0, :, 0] = dynap_dframe["tunx"].to_numpy()[0]
-        A[0, :, 1] = dynap_dframe["tuny"].to_numpy()[0]
-        A[1:, :, 0] = dynap_dframe["tunx"].to_numpy()[1:].reshape(-1, angle)
-        A[1:, :, 1] = dynap_dframe["tuny"].to_numpy()[1:].reshape(-1, angle)
-    except ValueError as tune_grouping_error:
+        a = np.zeros([amplitude, angle, 2])
+        a[0, :, 0] = dynap_dframe["tunx"].to_numpy()[0]
+        a[0, :, 1] = dynap_dframe["tuny"].to_numpy()[0]
+        a[1:, :, 0] = dynap_dframe["tunx"].to_numpy()[1:].reshape(-1, angle)
+        a[1:, :, 1] = dynap_dframe["tuny"].to_numpy()[1:].reshape(-1, angle)
+    except ValueError:
         logger.exception(
             "Cannot group tune points according to starting angles and amplitudes. Try changing "
             "the 'AMPLITUDE' value in the provided TfsDataFrame's headers."
         )
-        raise tune_grouping_error
+        raise
 
     logger.debug("Determining polygon vertices")
-    sx = A.shape[0] - 1
-    sy = A.shape[1] - 1
-    p1 = A[:-1, :-1, :].reshape(sx * sy, 2)[:, :]
-    p2 = A[1:, :-1, :].reshape(sx * sy, 2)[:]
-    p3 = A[1:, 1:, :].reshape(sx * sy, 2)[:]
-    p4 = A[:-1, 1:, :].reshape(sx * sy, 2)[:]
+    sx = a.shape[0] - 1
+    sy = a.shape[1] - 1
+    p1 = a[:-1, :-1, :].reshape(sx * sy, 2)[:, :]
+    p2 = a[1:, :-1, :].reshape(sx * sy, 2)[:]
+    p3 = a[1:, 1:, :].reshape(sx * sy, 2)[:]
+    p4 = a[:-1, 1:, :].reshape(sx * sy, 2)[:]
     polygons = np.stack((p1, p2, p3, p4))  # Stack endpoints to form polygons
     polygons = np.transpose(polygons, (1, 0, 2))  # transpose polygons
 
@@ -297,14 +297,12 @@ class _Footprint:
     def get_h_tune(self, ampl, angl):
         if len(self._tunes[ampl]) <= angl < self._maxnangl:
             return self._tunes[ampl][len(self._tunes[ampl]) - 1]["H"]
-        else:
-            return self._tunes[ampl][angl]["H"]
+        return self._tunes[ampl][angl]["H"]
 
     def get_v_tune(self, ampl, angl):
         if len(self._tunes[ampl]) <= angl < self._maxnangl:
             return self._tunes[ampl][len(self._tunes[ampl]) - 1]["V"]
-        else:
-            return self._tunes[ampl][angl]["V"]
+        return self._tunes[ampl][angl]["V"]
 
     def get_plottable(self) -> tuple[list[float], list[float]]:
         qxs, qys = [], []

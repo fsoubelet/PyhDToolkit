@@ -66,7 +66,7 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     Args:
         coordinates_distribution (np.ndarray): ensemble of coordinates of the particle distributon.
         method (str): the method of calculation to use, either 'std' (using the standard deviation as the
-            beam size) or 'rms' (root mean square).
+            beam size) or 'rms' (root mean square). Case-insensitive.
 
     Returns:
         The computed beam size.
@@ -74,12 +74,13 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     Raises:
         NotImplementedError: If the required *method* is neither std nor rms.
     """
+    if method.lower() not in ("std", "rms"):
+        msg = "Invalid method provided"
+        raise NotImplementedError(msg)
     if method == "std":
         return coordinates_distribution.std()
-    elif method == "rms":
-        return np.sqrt(np.mean(np.square(coordinates_distribution)))
-    msg = "Invalid method provided"
-    raise NotImplementedError(msg)
+    return np.sqrt(np.mean(np.square(coordinates_distribution)))  # rms
+
 
 
 def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y: float) -> tfs.TfsDataFrame:
