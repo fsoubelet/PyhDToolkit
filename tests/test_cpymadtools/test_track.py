@@ -30,7 +30,7 @@ def test_single_particle_tracking_with_onepass(_matched_base_lattice):
 
     assert isinstance(tracks_dict, dict)
     assert len(tracks_dict.keys()) == 1  # should be only one because of ONETABLE option
-    assert "trackone" in tracks_dict.keys()
+    assert "trackone" in tracks_dict
     tracks = tracks_dict["trackone"]
     assert isinstance(tracks, DataFrame)
     assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])

@@ -302,8 +302,8 @@ def test_get_orbit_setup(_non_matched_lhc_madx):
     setup = get_current_orbit_setup(madx)
 
     assert isinstance(setup, dict)
-    assert all(orbit_var in setup.keys() for orbit_var in lhc_orbit_variables()[0])
-    assert all(special_var in setup.keys() for special_var in lhc_orbit_variables()[1])
+    assert all(orbit_var in setup for orbit_var in lhc_orbit_variables()[0])
+    assert all(special_var in setup for special_var in lhc_orbit_variables()[1])
 
 
 def test_orbit_correction(_bare_lhc_madx):

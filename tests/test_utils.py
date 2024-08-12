@@ -659,7 +659,7 @@ class TestMisc:
         for side in "rl":
             for ip in (1, 2, 5, 8):
                 assert madx.globals[f"kqsx3.{side}{ip}"] != 0
-        assert "ir_quads_errors" in madx.table.keys()
+        assert "ir_quads_errors" in madx.table
 
     @pytest.mark.parametrize("drop", [True, False])
     def test_complex_columns_split(self, _complex_columns_df, drop):
