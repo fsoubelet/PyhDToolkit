@@ -13,7 +13,6 @@ from typing import Dict, List, Tuple
 import matplotlib
 import matplotlib.axes
 import numpy as np
-
 from loguru import logger
 
 from pyhdtoolkit.plotting.utils import maybe_get_ax

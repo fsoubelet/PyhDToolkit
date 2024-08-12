@@ -4,7 +4,6 @@ import pathlib
 import numpy as np
 import pytest
 import tfs
-
 from optics_functions.constants import F1001, F1010
 from optics_functions.coupling import split_complex_columns
 from pandas.testing import assert_frame_equal
@@ -92,11 +91,11 @@ def test_get_coupling_rdts(_non_matched_lhc_madx, _coupling_bump_script, _correc
 # ---------------------- Private Utilities ---------------------- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _coupling_bump_script() -> pathlib.Path:
     return INPUTS_DIR / "madx" / "lhc_coupling_bump.madx"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _correct_bump_rdts_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "lhc_coupling_bump.tfs"

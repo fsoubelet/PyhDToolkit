@@ -7,7 +7,6 @@ Stats Fitting
 Module implementing methods to find the best fit of statistical distributions to data.
 """
 import warnings
-
 from typing import Dict, Tuple, Union
 
 import matplotlib
@@ -15,7 +14,6 @@ import matplotlib.pyplot as plt  # noqa: F401 | if omitted, get AttributeError: 
 import numpy as np
 import pandas as pd
 import scipy.stats as st
-
 from loguru import logger
 
 # Distributions to check #

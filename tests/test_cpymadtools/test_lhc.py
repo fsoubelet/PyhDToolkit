@@ -6,11 +6,9 @@ import random
 import numpy as np
 import pytest
 import tfs
-
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
 
-from pyhdtoolkit.cpymadtools.constants import LHC_TRIPLETS_REGEX  # noqa: F401  |  for coverage
 from pyhdtoolkit.cpymadtools.constants import (
     DEFAULT_TWISS_COLUMNS,
     LHC_ANGLE_FLAGS,
@@ -34,6 +32,7 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_KSF_KNOBS,
     LHC_KSS_KNOBS,
     LHC_PARALLEL_SEPARATION_FLAGS,
+    LHC_TRIPLETS_REGEX,  # noqa: F401  |  for coverage
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,
@@ -852,31 +851,31 @@ def test_lhc_run2_setup_raises_on_absent_sequence_file():
 # ---------------------- Private Utilities ---------------------- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _magnets_fields_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "magnets_fields.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _correct_bpms_list() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "correct_bpms_list.pkl"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _reference_twiss_rdts() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "twiss_with_rdts.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _reference_kmodulation() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "kmodulation.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _ips_twiss_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "ips_twiss.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _proton_opticsfile() -> str:
     return str((PROTON_DIR / "opticsfile.22").absolute())

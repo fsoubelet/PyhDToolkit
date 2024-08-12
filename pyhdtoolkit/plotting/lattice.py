@@ -11,7 +11,6 @@ from typing import Optional, Tuple, Union
 import matplotlib
 import matplotlib.axes
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 from loguru import logger
 

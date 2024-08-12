@@ -2,7 +2,6 @@ import pathlib
 
 import pytest
 import tfs
-
 from cpymad.madx import Madx
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
@@ -93,16 +92,16 @@ def test_single_particle_ptc_track_with_onepass(_matched_base_lattice):
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _ampdet_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "ampdet.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _rdts_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "rdts.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _ptc_twiss_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "ptc_twiss.tfs"

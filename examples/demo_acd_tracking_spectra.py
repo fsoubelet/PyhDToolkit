@@ -33,7 +33,6 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching, track
@@ -45,7 +44,7 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Let's start by setting up the LHC in ``MAD-X``, in this case at top energy.
-# To understand the function below have a look at the :ref:`lhc setup example 
+# To understand the function below have a look at the :ref:`lhc setup example
 # <demo-lhc-setup>`.
 
 madx: Madx = lhc.prepare_lhc_run3(

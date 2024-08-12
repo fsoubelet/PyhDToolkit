@@ -12,7 +12,6 @@ from typing import Dict, Sequence, Tuple
 
 import numpy as np
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix

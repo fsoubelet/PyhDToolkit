@@ -1,5 +1,4 @@
 import pathlib
-
 from copy import deepcopy
 
 import numpy as np
@@ -28,7 +27,7 @@ REF_DISTRIBUTIONS = deepcopy(stats_fitting.DISTRIBUTIONS)
 )
 def test_setting_distributions_dict(input_dict):
     stats_fitting.set_distributions_dict(input_dict)
-    assert stats_fitting.DISTRIBUTIONS == input_dict
+    assert input_dict == stats_fitting.DISTRIBUTIONS
 
 
 @pytest.mark.flaky(max_runs=3, min_passes=1)
@@ -165,16 +164,16 @@ def _create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.nda
     return upper_triangle - upper_triangle.T
 
 
-@pytest.fixture()
+@pytest.fixture
 def _to_scale() -> np.ndarray:
     return np.load(INPUTS_DIR / "maths" / "to_scale.npy")
 
 
-@pytest.fixture()
+@pytest.fixture
 def _scaled() -> np.ndarray:
     return np.load(INPUTS_DIR / "maths" / "scaled.npy")
 
 
-@pytest.fixture()
+@pytest.fixture
 def _force_scaled() -> np.ndarray:
     return np.load(INPUTS_DIR / "maths" / "force_scaled.npy")

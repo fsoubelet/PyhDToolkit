@@ -12,7 +12,6 @@ from typing import Dict, Optional, Sequence, Tuple, Union
 
 import pandas as pd
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -207,7 +206,7 @@ def get_rdts(
     method = kwargs.pop("method", 4)
     nst = kwargs.pop("nst", 3)
     exact = kwargs.pop("exact", True)
-    
+
     logger.debug("Looking for PTC_TWISS parameters in keyword arguments")
     icase = kwargs.pop("icase", 6)
     normal = kwargs.pop("normal", True)
@@ -310,7 +309,7 @@ def ptc_twiss(
     method = kwargs.pop("method", 4)
     nst = kwargs.pop("nst", 3)
     exact = kwargs.pop("exact", True)
-    
+
     logger.debug("Looking for PTC_TWISS parameters in keyword arguments")
     icase = kwargs.pop("icase", 6)
     normal = kwargs.pop("normal", True)
@@ -439,7 +438,7 @@ def ptc_track_particle(
     method = kwargs.pop("method", 4)
     nst = kwargs.pop("nst", 3)
     exact = kwargs.pop("exact", True)
-    
+
     logger.debug("Looking for PTC_TRACK parameters in keyword arguments")
     element_by_element = kwargs.pop("element_by_element", True)
 

@@ -14,7 +14,6 @@ In this example we will use a very simple lattice, hard-coded below.
 # sphinx_gallery_thumbnail_number = 1
 import matplotlib.pyplot as plt
 import numpy as np
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.plotting.envelope import plot_beam_envelope

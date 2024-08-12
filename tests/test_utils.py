@@ -6,14 +6,12 @@ import pickle
 import random
 import subprocess
 import sys
-
 from typing import List
 
 import numpy as np
 import pandas as pd
 import pytest
 import tfs
-
 from loguru import logger
 from numpy.testing import assert_array_equal
 from rich.table import Table
@@ -695,7 +693,7 @@ class TestMisc:
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _condor_q_output() -> str:
     condor_q_output = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
 OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
@@ -713,7 +711,7 @@ Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running,
     return condor_q_output
 
 
-@pytest.fixture()
+@pytest.fixture
 def _taskless_condor_q_output() -> str:
     taskless_condor_q_output = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
 OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
@@ -724,26 +722,26 @@ Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running,
     return taskless_condor_q_output
 
 
-@pytest.fixture()
+@pytest.fixture
 def _correct_user_tasks() -> List[HTCTaskSummary]:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_user_tasks.pkl"
     with pickle_file_path.open("rb") as file:
         return pickle.load(file)
 
 
-@pytest.fixture()
+@pytest.fixture
 def _correct_cluster_summary() -> ClusterSummary:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_cluster_summary.pkl"
     with pickle_file_path.open("rb") as file:
         return pickle.load(file)
 
 
-@pytest.fixture()
+@pytest.fixture
 def _complex_columns_df() -> pd.DataFrame:
     array = np.random.rand(50, 5) + 1j * np.random.rand(50, 5)
     return pd.DataFrame(data=array, columns=["A", "B", "C", "D", "E"])
 
 
-@pytest.fixture()
+@pytest.fixture
 def _rdts_df() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "lhc_coupling_bump.tfs"

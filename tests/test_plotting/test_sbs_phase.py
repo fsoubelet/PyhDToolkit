@@ -51,16 +51,16 @@ def test_plot_phase_segment_raises_on_wrong_plane(wrongplane, sbs_phasex, sbs_mo
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_phasex() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b2sbsphasext_IP5.out")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_phasey() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b2sbsphaseyt_IP5.out")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_model_b2() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b2_twiss_elements.dat")

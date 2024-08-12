@@ -26,7 +26,6 @@ available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 """
 # sphinx_gallery_thumbnail_number = 4
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import coupling, lhc, twiss
@@ -70,7 +69,7 @@ madx.exit()
 # to set up the LHC simulations quickly and effortlessly:
 # `~.cpymadtools.lhc._setup.setup_lhc.prepare_lhc_run2` and
 # `~.cpymadtools.lhc._setup.setup_lhc.prepare_lhc_run3`.
-# 
+#
 # They both return a `cpyamad.Madx` instance with the desired LHC sequence and
 # optics loaded, beams defined for both ``lhcb1`` and ``lhcb2`` sequences,
 # potentially sliced lattices etc. The very minimum required at function call
@@ -126,7 +125,7 @@ with lhc.LHCSetup(run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=F
 
 ###############################################################################
 # Notice we don't need to call ``madx.exit()`` as the context manager takes care
-# of that. 
+# of that.
 #
 # These quick setups, with context manager option, allow to do quick "one-shot"
 # simulations. For example, one can very quickly compare beam sizes around say
@@ -171,7 +170,7 @@ with lhc.LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", stdout=False) a
     # We'll need to call these to have aperture limitations
     madx.call("lhc/aperture.b1.madx")
     madx.call("lhc/aper_tol.b1.madx")
-    
+
     df = twiss.get_twiss_tfs(madx)
     ips = get_lhc_ips_positions(df)
     limits = (ips["IP5"] - 350, ips["IP5"] + 350)

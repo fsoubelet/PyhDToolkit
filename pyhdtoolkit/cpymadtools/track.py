@@ -10,7 +10,6 @@ Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality through a
 from typing import Dict, Optional, Sequence, Tuple
 
 import pandas as pd
-
 from cpymad.madx import Madx
 from loguru import logger
 

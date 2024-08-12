@@ -11,12 +11,11 @@ from typing import Tuple, Union
 
 import matplotlib
 import matplotlib.axes
-import matplotlib.patches as patches
 import numpy as np
 import pandas as pd
-
 from cpymad.madx import Madx
 from loguru import logger
+from matplotlib import patches
 
 from pyhdtoolkit.plotting.utils import (
     _get_twiss_table_with_offsets_and_limits,
@@ -175,8 +174,8 @@ def plot_machine_layout(
     dipole_patches_axis = axis.twinx()
     dipole_patches_axis.set_ylabel("$\\theta=K_{0}L$ $[rad]$", color="royalblue")  # dipoles in blue
     dipole_patches_axis.tick_params(axis="y", labelcolor="royalblue")
-    if not np.nan in k0l_lim:
-        dipole_patches_axis.set_ylim(k0l_lim) 
+    if np.nan not in k0l_lim:
+        dipole_patches_axis.set_ylim(k0l_lim)
     dipole_patches_axis.grid(False)
 
     if plot_dipoles:  # beware 'sbend' and 'rbend' have an 'angle' value and not a 'k0l'

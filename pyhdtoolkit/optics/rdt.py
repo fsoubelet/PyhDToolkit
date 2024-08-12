@@ -7,7 +7,7 @@ Resonance Driving Terms Utilities
 Module implementing utilities for the handling of resonance driving terms.
 """
 
-from typing import Union, Tuple
+from typing import Tuple, Union
 
 
 def rdt_to_order_and_type(rdt: Union[int, str]) -> str:

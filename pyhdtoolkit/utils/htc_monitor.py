@@ -14,11 +14,9 @@ and display it nicely.
 """
 import re
 import time
-
 from typing import List, Tuple
 
 import pendulum
-
 from loguru import logger
 from rich import box
 from rich.console import Group

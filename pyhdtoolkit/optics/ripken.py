@@ -10,7 +10,6 @@ from typing import Union
 
 import numpy as np
 import tfs
-
 from loguru import logger
 
 # ----- Setup Utilites ----- #

@@ -9,7 +9,6 @@ Functions to plot phase values of Segment-by-Segment results.
 import matplotlib
 import matplotlib.pyplot as plt
 import tfs
-
 from loguru import logger
 from matplotlib.legend import _get_legend_handles_labels
 

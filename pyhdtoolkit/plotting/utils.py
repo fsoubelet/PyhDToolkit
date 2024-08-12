@@ -11,13 +11,12 @@ from __future__ import annotations  # important for Sphinx to generate short typ
 import matplotlib
 import matplotlib.axes
 import matplotlib.pyplot as plt
-import matplotlib.transforms as transforms
 import numpy as np
 import pandas as pd
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
+from matplotlib import transforms
 from matplotlib.patches import Ellipse
 from numpy.typing import ArrayLike
 
@@ -87,8 +86,8 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
     """
     logger.debug(f"Determining location of IP{ip:d} from the start of segment.")
     first_element: str = segment_df.NAME.to_numpy()[0]
-    first_element_s_in_model = model_df[model_df.NAME == first_element].S.to_numpy()[0]
-    ip_s_in_model = model_df[model_df.NAME == f"IP{ip:d}"].S.to_numpy()[0]
+    first_element_s_in_model = model_df[first_element == model_df.NAME].S.to_numpy()[0]
+    ip_s_in_model = model_df[f"IP{ip:d}" == model_df.NAME].S.to_numpy()[0]
 
     # Handle case where IP segment is cut and by end of sequence and the IP is at beginning of machine
     if ip_s_in_model < first_element_s_in_model:

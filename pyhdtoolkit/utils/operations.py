@@ -16,7 +16,6 @@ import itertools
 import math
 import random
 import re
-
 from functools import reduce
 from typing import Callable, Dict, List, Sequence, Tuple, Union
 
@@ -184,7 +183,7 @@ class ListOperations:
         )
 
     @staticmethod
-    def eval_none(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
+    def eval_none(sequence: Sequence, function: Callable = lambda x: bool(x)) -> bool:
         """
         .. versionadded:: 0.2.0
 
@@ -215,7 +214,7 @@ class ListOperations:
         return not any(map(function, sequence))
 
     @staticmethod
-    def eval_some(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
+    def eval_some(sequence: Sequence, function: Callable = lambda x: bool(x)) -> bool:
         """
         .. versionadded:: 0.2.0
 

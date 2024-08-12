@@ -5,7 +5,6 @@ import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator

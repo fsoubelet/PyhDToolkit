@@ -7,7 +7,6 @@ Context Utilities
 Provides useful contexts to use functions in.
 """
 import time
-
 from contextlib import contextmanager
 from typing import Callable, Iterator
 

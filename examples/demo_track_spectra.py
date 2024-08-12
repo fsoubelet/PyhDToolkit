@@ -27,8 +27,6 @@ In this example we will use the LHC lattice to illustrate the tracking workflow 
 import matplotlib.pyplot as plt
 import numpy as np
 
-from cpymad.madx import Madx
-
 from pyhdtoolkit.cpymadtools import lhc, track
 from pyhdtoolkit.plotting.styles import _SPHINX_GALLERY_PARAMS
 from pyhdtoolkit.utils import logging
@@ -37,7 +35,7 @@ logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
-# Let's start by setting up the LHC in ``MAD-X``, in this case at collision 
+# Let's start by setting up the LHC in ``MAD-X``, in this case at collision
 # optics and energy and with a sliced lattice. To understand the function below
 # have a look at the :ref:`lhc setup example <demo-lhc-setup>`.
 

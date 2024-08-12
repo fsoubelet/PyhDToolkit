@@ -11,7 +11,6 @@ Private module that provides miscellaneous personnal utility functions.
     **not** work on other people's machines.
 """
 import shlex
-
 from multiprocessing import cpu_count
 from pathlib import Path
 from typing import Sequence, Union
@@ -19,7 +18,6 @@ from typing import Sequence, Union
 import cpymad
 import numpy as np
 import pandas as pd
-
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -248,7 +246,7 @@ def get_betastar_from_opticsfile(opticsfile: Union[Path, str]) -> float:
             # returns 0.3
     """
     file_lines = Path(opticsfile).read_text().split("\n")
-    ip1_x_line, ip1_y_line, ip5_x_line, ip5_y_line = [line for line in file_lines if line.startswith("bet")]
+    ip1_x_line, ip1_y_line, ip5_x_line, ip5_y_line = (line for line in file_lines if line.startswith("bet"))
     betastar_x_ip1 = float(shlex.split(ip1_x_line)[2])
     betastar_y_ip1 = float(shlex.split(ip1_y_line)[2])
     betastar_x_ip5 = float(shlex.split(ip5_x_line)[2])

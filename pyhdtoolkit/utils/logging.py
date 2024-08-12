@@ -15,7 +15,6 @@ Different pre-defined formats are provided to choose from:
 - ``SIMPLE_FORMAT``: minimal, displays the local time, the level and the message.
 """
 import sys
-
 from typing import Union
 
 from loguru import logger

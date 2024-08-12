@@ -186,6 +186,6 @@ def test_rdt_spectrum_line():
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _fake_coordinates() -> np.ndarray:
     return np.random.random(size=10_000) / 1e4

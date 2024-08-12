@@ -11,7 +11,6 @@ from typing import List, Union
 
 import pandas as pd
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 

@@ -58,21 +58,21 @@ def test_plot_full_ip_with_ylimits(sbs_coupling_b1_ip1, sbs_coupling_b2_ip1, sbs
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_model_b1() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b1_twiss_elements.dat")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_model_b2() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b2_twiss_elements.dat")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_coupling_b1_ip1() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b1_sbscouple_IP1.out")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_coupling_b2_ip1() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b2_sbscouple_IP1.out")

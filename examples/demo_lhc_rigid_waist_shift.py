@@ -42,7 +42,6 @@ from multiprocessing import cpu_count
 import matplotlib.pyplot as plt
 import numpy as np
 import tfs
-
 from cpymad.madx import Madx
 from joblib import Parallel, delayed
 
@@ -332,21 +331,21 @@ Result = namedtuple("Result", ["waists", "betas"])
 
 def find_waists(current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame) -> Waist:
     initial = initial_twiss.copy()
-    ip_s = current_twiss.S[f"IP1"]
+    ip_s = current_twiss.S["IP1"]
     slimits = (ip_s - 10, ip_s + 10)
 
     around_ip = current_twiss[current_twiss.S.between(*slimits)]
     initial = initial[initial.S.between(*slimits)].copy()
-    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
-    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
+    hor_waist_location = around_ip.S[around_ip.BETX.min() == around_ip.BETX].iloc[0]
+    ver_waist_location = around_ip.S[around_ip.BETY.min() == around_ip.BETY].iloc[0]
     initial = initial_twiss.copy()
-    ip_s = current_twiss.S[f"IP1"]
+    ip_s = current_twiss.S["IP1"]
     slimits = (ip_s - 10, ip_s + 10)
 
     around_ip = current_twiss[current_twiss.S.between(*slimits)]
     initial = initial[initial.S.between(*slimits)].copy()
-    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
-    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
+    hor_waist_location = around_ip.S[around_ip.BETX.min() == around_ip.BETX].iloc[0]
+    ver_waist_location = around_ip.S[around_ip.BETY.min() == around_ip.BETY].iloc[0]
     return Waist(ip_s - hor_waist_location, ip_s - ver_waist_location)
 
 
@@ -363,7 +362,7 @@ def simulation(knob_value: float) -> Result:
         run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False
     ) as madx:
         lhc.add_markers_around_lhc_ip(
-            madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
+            madx, sequence="lhcb1", ip=1, n_markers=1000, interval=0.001
         )
         ref_twiss = twiss.get_twiss_tfs(madx)
         lhc.apply_lhc_rigidity_waist_shift_knob(madx, knob_value, ir=1)

@@ -12,7 +12,6 @@ from typing import Dict, Union
 
 import matplotlib
 import matplotlib.pyplot as plt
-
 from loguru import logger
 
 from . import paper, thesis

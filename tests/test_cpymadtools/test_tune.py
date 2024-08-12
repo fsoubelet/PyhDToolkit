@@ -105,11 +105,11 @@ def test_get_footprint_patches_raises_wrong_shape(_dynap_tfs_path, caplog):
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _plottable_footprint_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "plottable_footprint.npz"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _dynap_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "dynap.tfs"

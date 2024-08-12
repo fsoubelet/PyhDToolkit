@@ -13,7 +13,6 @@ import matplotlib.axes
 import matplotlib.pyplot as plt
 import pandas as pd
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 

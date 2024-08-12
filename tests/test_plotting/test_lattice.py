@@ -3,7 +3,6 @@ import pathlib
 import matplotlib
 import matplotlib.pyplot as plt
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
@@ -122,7 +121,7 @@ def test_plot_layout_raises_on_wrong_limits_type():
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         plt.figure(figsize=(18, 11))
-        
+
         with pytest.raises(TypeError):
             plot_latwiss(madx, k1l_lim=[8e-2])
 
