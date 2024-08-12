@@ -155,7 +155,7 @@ class ListOperations:
         """
         if size > len(sequence):
             return sequence
-        return list(map(lambda x: sequence[x * size : x * size + size], list(range(math.ceil(len(sequence) / size)))))
+        return [sequence[x * size : x * size + size] for x in list(range(math.ceil(len(sequence) / size)))]
 
     @staticmethod
     def deep_flatten(sequence: Sequence) -> list:
