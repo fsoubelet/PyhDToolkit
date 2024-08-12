@@ -174,19 +174,3 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 # Assume Python 3.10+.
 target-version = "py310"
-
-[tool.interrogate]
-ignore-init-method = true
-ignore-init-module = true
-ignore-magic = false
-ignore-semiprivate = false
-ignore-private = false
-ignore-property-decorators = false
-ignore-module = false
-fail-under = 95
-exclude = ["tests"]
-ignore-regex = []
-verbose = 2
-quiet = false
-whitelist-regex = []
-color = true
