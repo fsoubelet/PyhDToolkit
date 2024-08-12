@@ -229,9 +229,9 @@ def _highlight_mbx_and_mqx(
     logger.trace("Highlighting MBX and MQX areas on a twin axis")
     patches_axis = axis.twinx()
     patches_axis.get_yaxis().set_visible(False)
-    patches_axis.axvspan(*left_mbx_lim, color="orange", lw=2, alpha=0.2, label="MBX")
-    patches_axis.axvspan(*left_mqx_lim, color="grey", lw=2, alpha=0.2, label="MQX")
+    patches_axis.axvspan(*left_mbx_lim, color="orange", lw=2, alpha=0.2, label="MBX", **kwargs)
+    patches_axis.axvspan(*left_mqx_lim, color="grey", lw=2, alpha=0.2, label="MQX", **kwargs)
     patches_axis.axvline(x=0, color="grey", ls="--", label=f"IP{ip}")
-    patches_axis.axvspan(*right_mqx_lim, color="grey", lw=2, alpha=0.2)  # no label duplication
-    patches_axis.axvspan(*right_mbx_lim, color="orange", lw=2, alpha=0.2)  # no label duplication
+    patches_axis.axvspan(*right_mqx_lim, color="grey", lw=2, alpha=0.2, **kwargs)  # no label duplication
+    patches_axis.axvspan(*right_mbx_lim, color="orange", lw=2, alpha=0.2, **kwargs)  # no label duplication
     patches_axis.legend(loc=4)
