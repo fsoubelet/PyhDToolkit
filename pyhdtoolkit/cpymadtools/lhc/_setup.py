@@ -324,7 +324,7 @@ def make_lhc_beams(
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
     madx.globals["brho"] = energy * 1e9 / madx.globals.clight
-    
+
     # TODO: remove accepting the old emittance_x and emittance_y args in the future
     emittance_x = kwargs.pop("emittance_x", None)
     emittance_y = kwargs.pop("emittance_y", None)

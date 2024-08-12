@@ -113,7 +113,7 @@ def test_confidence_ellipse_subplots():
     scale = 3, 5
 
     figure, axs = plt.subplots(1, 3, figsize=(9, 3))
-    for ax, (title, dependency) in zip(axs, PARAMETERS.items()):
+    for ax, (title, dependency) in zip(axs, PARAMETERS.items(), strict=False):
         x, y = get_correlated_dataset(800, dependency, mu, scale)
         ax.scatter(x, y, s=0.5)
         ax.axvline(c="grey", lw=1)

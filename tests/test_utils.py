@@ -6,7 +6,6 @@ import pickle
 import random
 import subprocess
 import sys
-from typing import List
 
 import numpy as np
 import pandas as pd
@@ -723,7 +722,7 @@ Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running,
 
 
 @pytest.fixture
-def _correct_user_tasks() -> List[HTCTaskSummary]:
+def _correct_user_tasks() -> list[HTCTaskSummary]:
     pickle_file_path = INPUTS_DIR / "utils" / "correct_user_tasks.pkl"
     with pickle_file_path.open("rb") as file:
         return pickle.load(file)

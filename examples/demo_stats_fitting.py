@@ -174,7 +174,7 @@ data.plot(
     ax=ax,
 )
 param_names = (best_fit_func.shapes + ", loc, scale").split(", ") if best_fit_func.shapes else ["loc", "scale"]
-param_str = ", ".join([f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_params)])
+param_str = ", ".join([f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_params, strict=False)])
 dist_str = f"{fitting.DISTRIBUTIONS[best_fit_func]}({param_str})"
 
 # Let's add to the plot some info on the fit's peak

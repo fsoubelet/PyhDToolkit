@@ -1,5 +1,4 @@
 from functools import partial
-from typing import Tuple
 
 import matplotlib
 import matplotlib.pyplot as plt
@@ -118,7 +117,7 @@ match_cas3 = partial(
 )
 
 
-def _perform_tracking_for_coordinates(madx: Madx) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def _perform_tracking_for_coordinates(madx: Madx) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Tracks 100 particles on 500 turns.
     This modifies inplace the state of the provided cpymad_instance.
