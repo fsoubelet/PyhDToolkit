@@ -20,6 +20,7 @@ from pyhdtoolkit.cpymadtools.constants import (
 )
 from pyhdtoolkit.optics.ripken import _add_beam_size_to_df
 
+_VRF_THRESHOLD: int = 5000
 
 def make_sixtrack_output(madx: Madx, /, energy: int) -> None:
     """
@@ -40,7 +41,7 @@ def make_sixtrack_output(madx: Madx, /, energy: int) -> None:
     logger.debug("Preparing outputs for SixTrack")
 
     logger.debug("Powering RF cavities")
-    madx.globals["VRF400"] = 8 if energy < 5000 else 16  # is 6 at injection for protons iirc?
+    madx.globals["VRF400"] = 8 if energy < _VRF_THRESHOLD else 16  # is 6 at injection for protons iirc?
     madx.globals["LAGRF400.B1"] = 0.5  # cavity phase difference in units of 2pi
     madx.globals["LAGRF400.B2"] = 0.0
 
@@ -113,7 +114,7 @@ def get_lhc_tune_and_chroma_knobs(
             get_lhc_tune_and_chroma_knobs("HLLHC", beam=2)
             # gives ('kqtf.b2_sq', 'kqtd.b2_sq', 'ksf.b2_sq', 'ksd.b2_sq')
     """
-    beam = 2 if beam == 4 else beam
+    beam = 2 if beam == _BEAM4 else beam
     if run3:
         suffix = "_op"
     elif telescopic_squeeze:

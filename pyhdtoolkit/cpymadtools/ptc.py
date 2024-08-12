@@ -17,6 +17,8 @@ from loguru import logger
 
 from pyhdtoolkit.cpymadtools.utils import get_table_tfs
 
+_MAX_PTC_AMPDET_ORDER: int = 2
+_MIN_PTC_AMPDET_ORDER: int = 1
 
 def get_amplitude_detuning(
     madx: Madx, /, order: int = 2, file: Path | str | None = None, fringe: bool = False, **kwargs
@@ -76,7 +78,7 @@ def get_amplitude_detuning(
                 madx, order=3, model=3, exact=True, icase=5, no=6
             )
     """
-    if order >= 3:
+    if order > _MAX_PTC_AMPDET_ORDER:
         logger.error(f"Maximum amplitude detuning order in PTC is 2, but {order:d} was requested")
         msg = "PTC amplitude detuning is not implemented for order > 2"
         raise NotImplementedError(msg)
@@ -111,7 +113,7 @@ def get_amplitude_detuning(
     # ANH = anharmonicities (ex, ey, deltap), works only with parameters as full strings
     # could be done nicer with permutations ...
     logger.trace("Selecting anharmonicities")
-    if order >= 1:
+    if order >= _MIN_PTC_AMPDET_ORDER:
         # madx.select_ptc_normal('anhx=0, 0, 1')  # dQx/ddp
         # madx.select_ptc_normal('anhy=0, 0, 1')  # dQy/ddp
         madx.select_ptc_normal("anhx=1, 0, 0")  # dQx/dex
@@ -119,7 +121,7 @@ def get_amplitude_detuning(
         madx.select_ptc_normal("anhy=1, 0, 0")  # dQy/dex
         madx.select_ptc_normal("anhy=0, 1, 0")  # dQy/dey
 
-    if order >= 2:
+    if order >= _MAX_PTC_AMPDET_ORDER:
         # madx.select_ptc_normal('anhx=0, 0, 2')  # d^2Qx/ddp^2
         # madx.select_ptc_normal('anhy=0, 0, 2')  # d^2Qy/ddp^2
         madx.select_ptc_normal("anhx=2, 0, 0")  # d^2Qx/dex^2

@@ -10,6 +10,9 @@ from collections.abc import Sequence
 from cpymad.madx import Madx
 from loguru import logger
 
+_BEAM4: int = 4  # LHC beam 4 is special case
+_QUAD_CIRCUIT_HAS_B: int = 7  # Q7 has a .b in the circuit name
+_MAX_IR_QUAD_NUMBER: int = 11  # beyond Q11 are MQTs etc
 
 def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0, ir: int | None = None) -> None:
     """
@@ -243,7 +246,7 @@ def power_landau_octupoles(madx: Madx, /, beam: int, mo_current: float, defectiv
 
     logger.debug(f"Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.")
     strength = mo_current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
-    beam = 2 if beam == 4 else beam
+    beam = 2 if beam == _BEAM4 else beam
 
     for arc in _all_lhc_arcs(beam):
         for fd in "FD":
@@ -274,7 +277,7 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, /, beam: int) -> None:
     # KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56
     # Rest: Weak sextupoles in sectors 78/23/34/67
     logger.debug(f"Deactivating all arc sextupoles for beam {beam}.")
-    beam = 2 if beam == 4 else beam
+    beam = 2 if beam == _BEAM4 else beam
 
     for arc in _all_lhc_arcs(beam):
         for fd in "FD":
@@ -341,10 +344,10 @@ def vary_independent_ir_quadrupoles(
         for side in sides:
             logger.debug(f"Sending vary command for Q{quad}{side.upper()}{ip}")
             madx.command.vary(
-                name=f"kq{'t' if quad >= 11 else ''}{'l' if quad == 11 else ''}{quad}.{side}{ip}b{beam}",
+                name=f"kq{'t' if quad >= _MAX_IR_QUAD_NUMBER else ''}{'l' if quad == _MAX_IR_QUAD_NUMBER else ''}{quad}.{side}{ip}b{beam}",
                 step=1e-7,
-                lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
-                upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+                lower=f"-{circuit}.{'b' if quad == _QUAD_CIRCUIT_HAS_B else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+                upper=f"+{circuit}.{'b' if quad == _QUAD_CIRCUIT_HAS_B else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
             )
 
 

@@ -31,7 +31,7 @@ class LatticeGenerator:
         """
         return """
 option, -info, -warn;
-TITLE, ’CAS2019 Project Team 3’;
+TITLE, 'CAS2019 Project Team 3';
 
 ! PARAMETERS
 circumference = 1000.0;
@@ -104,7 +104,7 @@ twiss;
         """
         return """
 option, -info, -warn;
-TITLE, ’CAS2019 Project Team 3’;
+TITLE, 'CAS2019 Project Team 3';
 
 ! PARAMETERS
 circumference = 1000.0;
@@ -194,7 +194,7 @@ twiss;
         """
         return """
 option, -info, -warn;
-TITLE, ’CAS2019 Project Team 3’;
+TITLE, 'CAS2019 Project Team 3';
 
 ! PARAMETERS
 circumference = 1000.0;

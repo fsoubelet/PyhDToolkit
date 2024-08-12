@@ -149,7 +149,7 @@ def _make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
     table = _default_cluster_table()
     for i, source in enumerate(["query", "user", "cluster"]):
         table.add_row(
-            "Query" if i == 0 else ("All Users" if i == 2 else owner_name),
+            "Query" if i == 0 else ("All Users" if i == 2 else owner_name),  # noqa: PLR2004
             str(cluster.model_dump()[source]["jobs"]),
             str(cluster.model_dump()[source]["completed"]),
             str(cluster.model_dump()[source]["running"]),

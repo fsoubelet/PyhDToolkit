@@ -6,6 +6,7 @@ Useful Constants
 
 Specific constants to be used in `~.cpymadtools` functions, to help with consistency.
 """
+_MAX_SECTOR_VALUE: int = 8
 
 # fmt: off
 DEFAULT_TWISS_COLUMNS: list[str] = ["name", "s", "x", "y", "l", "px", "py", "betx", "bety", "alfx", "alfy",
@@ -113,7 +114,7 @@ LHC_KCTX_KNOBS: list[str] = [f"kctx3.{side}{ip}" for side in ("r", "l") for ip i
 
 # ----- LHC Arc Correctors Knobs ----- #
 LHC_KQTF_KNOBS: list[str] = [  # tune trims, focusing and defocusing families, for each beam
-    f"kqt{family}.a{sector}{sector+1 if sector < 8 else 1}.b{beam}"
+    f"kqt{family}.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}.b{beam}"
     for beam in [1, 2]
     for family in ["f", "d"]
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
@@ -122,32 +123,32 @@ LHC_KQTF_KNOBS: list[str] = [  # tune trims, focusing and defocusing families, f
 # skew quadrupoles in arc short straight sections
 LHC_KQS_KNOBS: list[str] = [f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
     [f"kqs.l{ip}b1" for ip in [2, 4, 6, 8]] + \
-    [f"kqs.a{sector}{sector+1 if sector < 8 else 1}b1" for sector in [2, 4, 6, 8]] + \
+    [f"kqs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b1" for sector in [2, 4, 6, 8]] + \
     [f"kqs.r{ip}b2" for ip in [2, 4, 6, 8]] + \
     [f"kqs.l" f"{ip}b2" for ip in [3, 5, 7, 1]] + \
-    [f"kqs.a{sector}{sector+1 if sector < 8 else 1}b2" for sector in [1, 3, 5, 7]]
+    [f"kqs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b2" for sector in [1, 3, 5, 7]]
 # fmt: on
 LHC_KSF_KNOBS: list[str] = [  # sextupole correctors
-    f"ks{family}{id}.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    f"ks{family}{id}.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
     for beam in [1, 2]
     for id in [1, 2]
     for family in ["f", "d"]
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KSS_KNOBS: list[str] = [  # skew sextupole correctors
-    f"kss.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kss.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCS_KNOBS: list[str] = [  # spool piece (skew) sextupoles
-    f"kcs.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kcs.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCO_KNOBS: list[str] = [  # spool piece (skew) octupoles
-    f"kco.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kco.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KCD_KNOBS: list[str] = [  # spool piece (skew) decapoles
-    f"kcd.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
+    f"kcd.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 LHC_KO_KNOBS: list[str] = [  # octupoles in arc short straight sections
-    f"ko{family}.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
+    f"ko{family}.a{sector}{sector+1 if sector < _MAX_SECTOR_VALUE else 1}b{beam}"
     for beam in [1, 2]
     for family in ["f", "d"]
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]

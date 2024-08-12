@@ -10,6 +10,8 @@ from collections.abc import Sequence
 from cpymad.madx import Madx
 from loguru import logger
 
+_MAX_TRIPLET_NUMBER: int = 3
+
 LHC_IR_QUADS_PATTERNS: dict[int, list[str]] = {
     1: ["^MQXA.1{side}{ip:d}", "^MQXFA.[AB]1{side}{ip:d}"],  # Q1 LHC, Q1A & Q1B HL-LHC
     2: ["^MQXB.[AB]2{side}{ip:d}", "^MQXB.[AB]2{side}{ip:d}"],  # Q2A & Q2B LHC, Q2A & Q2B HL-LHC
@@ -165,7 +167,7 @@ def misalign_lhc_ir_quadrupoles(
             for quad_number in quadrupoles:
                 for quad_pattern in LHC_IR_QUADS_PATTERNS[quad_number]:
                     # Triplets are single aperture and don't need beam information, others do
-                    if quad_number <= 3:
+                    if quad_number <= _MAX_TRIPLET_NUMBER:
                         madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip))
                     else:
                         madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip, beam=beam))

@@ -62,12 +62,12 @@ def make_footprint_table(
         angle = 15 * angle_multiplier * math.pi / 180
         if angle_multiplier == 0:
             madx.command.start(fx=sigma_multiplier * big, fy=sigma_multiplier * small)
-        elif angle_multiplier == 6:
+        elif angle_multiplier == 6:  # noqa: PLR2004
             madx.command.start(fx=sigma_multiplier * small, fy=sigma_multiplier * big)
         else:
             madx.command.start(fx=sigma_multiplier * math.cos(angle), fy=sigma_multiplier * math.sin(angle))
         angle_multiplier += 0.5
-        if int(angle_multiplier) == 7:
+        if int(angle_multiplier) == 7:  # noqa: PLR2004
             angle_multiplier = 0
             sigma_multiplier += 1 if not dense else 0.5
 

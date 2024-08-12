@@ -12,6 +12,9 @@ from loguru import logger
 
 from pyhdtoolkit.cpymadtools.constants import LHC_CROSSING_SCHEMES
 
+_BEAM_FOR_B4: int = 2  # LHC beam 4 uses lhcb2 sequence
+_RUN2: int = 2
+
 # ----- Setup Utilities ----- #
 
 
@@ -59,7 +62,7 @@ def prepare_lhc_run2(
                 "/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22", beam=2, stdout=True
             )
     """
-    if use_b4 and beam != 2:
+    if use_b4 and beam != _BEAM_FOR_B4:
         logger.error("Cannot use beam 4 sequence file for beam 1")
         msg = "Cannot use beam 4 sequence file for beam 1"
         raise ValueError(msg)
@@ -136,7 +139,7 @@ def prepare_lhc_run3(
                 "R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=True
             )
     """
-    if use_b4 and beam != 2:
+    if use_b4 and beam != _BEAM_FOR_B4:
         logger.error("Cannot use beam 4 sequence file for beam 1")
         msg = "Cannot use beam 4 sequence file for beam 1"
         raise ValueError(msg)
@@ -238,7 +241,7 @@ class LHCSetup:
         **kwargs,
     ):
         assert opticsfile is not None, "An opticsfile must be provided"
-        if use_b4 and beam != 2:
+        if use_b4 and beam != _BEAM_FOR_B4:
             logger.error("Cannot use beam 4 sequence file for beam 1")
             msg = "Cannot use beam 4 sequence file for beam 1"
             raise ValueError(msg)
@@ -246,7 +249,7 @@ class LHCSetup:
         if int(run) not in (2, 3):
             msg = "This setup is only possible for Run 2 and Run 3 configurations."
             raise NotImplementedError(msg)
-        elif run == 2:
+        elif run == _RUN2:
             self.madx = prepare_lhc_run2(
                 opticsfile=opticsfile, beam=beam, use_b4=use_b4, energy=energy, slicefactor=slicefactor, **kwargs
             )

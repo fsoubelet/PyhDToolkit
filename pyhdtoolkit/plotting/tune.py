@@ -109,7 +109,7 @@ def plot_tune_diagram(
             fig, ax = plt.subplots(figsize=(6, 6))
             plot_tune_diagram(ax=ax, max_order=4, differentiate_orders=True)
     """
-    if max_order > 6 or max_order < 1:
+    if max_order > 6 or max_order < 1:  # noqa: PLR2004
         logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
         msg = "The 'max_order' argument should be between 1 and 6 included"
         raise ValueError(msg)
