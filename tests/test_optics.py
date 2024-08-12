@@ -113,9 +113,9 @@ def test_beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, result):
 
 
 def test_beam_size(_fake_coordinates):
-    assert np.allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())
+    assert np.allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())  # noqa: SLF001
     assert np.allclose(
-        ripken._beam_size(_fake_coordinates, method="rms"),
+        ripken._beam_size(_fake_coordinates, method="rms"),  # noqa: SLF001
         np.sqrt(np.mean(np.square(_fake_coordinates))),
     )
 
@@ -152,7 +152,7 @@ def test_add_beam_size_to_df(_non_matched_lhc_madx):
     df["BETA21"] = df.beta21
     df["BETA22"] = df.beta22
 
-    df = ripken._add_beam_size_to_df(df, 1e-6, 1e-6)
+    df = ripken._add_beam_size_to_df(df, 1e-6, 1e-6)  # noqa: SLF001
     assert "SIZE_X" in df.columns
     assert "SIZE_Y" in df.columns
 

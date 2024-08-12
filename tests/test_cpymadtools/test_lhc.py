@@ -402,33 +402,33 @@ def test_get_lhc_bpms_list(_non_matched_lhc_madx, _correct_bpms_list):
 
 
 @pytest.mark.parametrize("knob_value", [-5, 10])
-@pytest.mark.parametrize("IR", [1, 2, 5, 8])
-def test_colinearity_knob(knob_value, IR, _non_matched_lhc_madx):
+@pytest.mark.parametrize("ir", [1, 2, 5, 8])
+def test_colinearity_knob(knob_value, ir, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
-    apply_lhc_colinearity_knob(madx, colinearity_knob_value=knob_value, ir=IR)
+    apply_lhc_colinearity_knob(madx, colinearity_knob_value=knob_value, ir=ir)
 
-    assert madx.globals[f"KQSX3.R{IR:d}"] == knob_value * 1e-4
-    assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * knob_value * 1e-4
+    assert madx.globals[f"KQSX3.R{ir:d}"] == knob_value * 1e-4
+    assert madx.globals[f"KQSX3.L{ir:d}"] == -1 * knob_value * 1e-4
 
 
 @pytest.mark.parametrize("knob_delta", [-3, 5])
-@pytest.mark.parametrize("IR", [1, 2, 5, 8])
-def test_colinearity_knob_delta(knob_delta, IR, _non_matched_lhc_madx):
+@pytest.mark.parametrize("ir", [1, 2, 5, 8])
+def test_colinearity_knob_delta(knob_delta, ir, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
     # Assign a value first to make it trickier
     init = 1.5e-4
-    madx.globals[f"KQSX3.R{IR:d}"] = init
-    madx.globals[f"KQSX3.L{IR:d}"] = -1 * init
+    madx.globals[f"KQSX3.R{ir:d}"] = init
+    madx.globals[f"KQSX3.L{ir:d}"] = -1 * init
 
     # We started from 0 so it should be this value
-    apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=knob_delta, ir=IR)
-    assert madx.globals[f"KQSX3.R{IR:d}"] == init + knob_delta * 1e-4
-    assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * init - knob_delta * 1e-4
+    apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=knob_delta, ir=ir)
+    assert madx.globals[f"KQSX3.R{ir:d}"] == init + knob_delta * 1e-4
+    assert madx.globals[f"KQSX3.L{ir:d}"] == -1 * init - knob_delta * 1e-4
 
     # Now change the knob value and check that the delta is applied
-    apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=knob_delta, ir=IR)
-    assert madx.globals[f"KQSX3.R{IR:d}"] == init + 2 * knob_delta * 1e-4
-    assert madx.globals[f"KQSX3.L{IR:d}"] == -1 * init - 2 * knob_delta * 1e-4
+    apply_lhc_colinearity_knob_delta(madx, colinearity_knob_delta=knob_delta, ir=ir)
+    assert madx.globals[f"KQSX3.R{ir:d}"] == init + 2 * knob_delta * 1e-4
+    assert madx.globals[f"KQSX3.L{ir:d}"] == -1 * init - 2 * knob_delta * 1e-4
 
 
 def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
@@ -443,14 +443,14 @@ def test_rigidity_knob_fails_on_invalid_side(caplog, _non_matched_lhc_madx):
 
 @pytest.mark.parametrize("side", ["left", "right"])
 @pytest.mark.parametrize("knob_value", [1, 2])
-@pytest.mark.parametrize("IR", [1, 2, 5, 8])
-def test_rigidity_knob(side, knob_value, IR, _non_matched_lhc_madx):
+@pytest.mark.parametrize("ir", [1, 2, 5, 8])
+def test_rigidity_knob(side, knob_value, ir, _non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
-    right_knob, left_knob = (f"kqx.r{IR:d}", f"kqx.l{IR:d}")
+    right_knob, left_knob = (f"kqx.r{ir:d}", f"kqx.l{ir:d}")
     current_right_knob = madx.globals[right_knob]
     current_left_knob = madx.globals[left_knob]
 
-    apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=knob_value, ir=IR, side=side)
+    apply_lhc_rigidity_waist_shift_knob(madx, rigidty_waist_shift_value=knob_value, ir=ir, side=side)
 
     if side == "left":
         assert madx.globals[right_knob] == (1 - knob_value * 0.005) * current_right_knob
@@ -578,10 +578,10 @@ def test_resetting_lhc_bump_flags(_bare_lhc_madx):
     )
     with madx.batch():
         madx.globals.update({bump: random.random() for bump in ALL_BUMPS})
-    assert all([madx.globals[bump] != 0 for bump in ALL_BUMPS])
+    assert all(madx.globals[bump] != 0 for bump in ALL_BUMPS)
 
     reset_lhc_bump_flags(madx)
-    assert all([madx.globals[bump] == 0 for bump in ALL_BUMPS])
+    assert all(madx.globals[bump] == 0 for bump in ALL_BUMPS)
 
 
 def test_vary_independent_ir_quads(_non_matched_lhc_madx):

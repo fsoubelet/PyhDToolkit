@@ -1,6 +1,7 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
+from matplotlib.text import Text
 
 from pyhdtoolkit.plotting.tune import plot_tune_diagram
 
@@ -45,4 +46,4 @@ def test_plot_tune_diagram_arguments(figure_title, legend_title, max_order, diff
         differentiate_orders=differentiate,
     )
     assert ax.get_title() == figure_title
-    assert isinstance(ax.legend().get_title(), matplotlib.text.Text)
+    assert isinstance(ax.legend().get_title(), Text)

@@ -63,8 +63,8 @@ class TestCommandLine:
             CommandLine.check_pid_exists("not_an_integer")
 
     def test_run_cmd(self):
-        assert type(CommandLine.run("echo hello")) is tuple
-        assert type(CommandLine.run("echo hello")[1]) is bytes
+        assert isinstance(CommandLine.run("echo hello"), tuple)
+        assert isinstance(CommandLine.run("echo hello")[1], bytes)
         assert CommandLine.run("echo hello") == (0, b"hello\n")
         modified_env = os.environ.copy()
         modified_env["TEST_VAR"] = "Check_me_string"
@@ -188,7 +188,7 @@ class TestListOperations:
         [
             (list(range(10)), 3, [[0, 1, 2], [3, 4, 5], [6, 7, 8], [9]]),
             (list(range(10)), 20, list(range(10))),
-            (list(), 5, list()),
+            ([], 5, []),
         ],
     )
     def test_chunk_list(self, array, size, result):
