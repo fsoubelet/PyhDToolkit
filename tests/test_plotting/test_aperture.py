@@ -1,4 +1,4 @@
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
 from cpymad.madx import Madx
@@ -6,7 +6,7 @@ from cpymad.madx import Madx
 from pyhdtoolkit.plotting.aperture import plot_aperture, plot_physical_apertures
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})

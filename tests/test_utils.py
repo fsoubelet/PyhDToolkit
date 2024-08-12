@@ -126,7 +126,7 @@ class TestHTCMonitor:
 
 
 class TestListOperations:
-    @pytest.mark.parametrize(("args", "result"), [([1, 2, 3, 5, 12, 0], True), ([1, 1, 1], False), (list(), True)])
+    @pytest.mark.parametrize(("args", "result"), [([1, 2, 3, 5, 12, 0], True), ([1, 1, 1], False), ([], True)])
     def test_all_unique(self, args, result):
         assert ListOperations.all_unique(args) is result
 
@@ -292,7 +292,8 @@ class TestListOperations:
     )
     def test_shuffle_list(self, array):
         shuffled = ListOperations.shuffle(array)
-        assert shuffled != array and set(shuffled) == set(array)
+        assert shuffled != array
+        assert set(shuffled) == set(array)
 
     @pytest.mark.parametrize(
         ("array", "result"),
@@ -694,7 +695,7 @@ class TestMisc:
 
 @pytest.fixture
 def _condor_q_output() -> str:
-    condor_q_output = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
+    return """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
 OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
 fesoubel ID: 8489182   4/21 21:04      7     14      _     21 8489182.0-20
 fesoubel ID: 8489183   4/21 21:04      2     19      _     21 8489183.0-20
@@ -707,18 +708,16 @@ fesoubel ID: 8489185   4/21 21:06      _      3     18     21 8489193.0-20
 Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
 Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
 Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended"""
-    return condor_q_output
 
 
 @pytest.fixture
 def _taskless_condor_q_output() -> str:
-    taskless_condor_q_output = """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
+    return """-- Schedd: bigbird08.cern.ch : <188.185.72.155:9618?... @ 04/22/21 12:26:02
 OWNER    BATCH_NAME     SUBMITTED   DONE   RUN    IDLE  TOTAL JOB_IDS
 
 Total for query: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
 Total for fesoubel: 63 jobs; 0 completed, 0 removed, 1 idle, 62 running, 0 held, 0 suspended
 Total for all users: 7279 jobs; 1 completed, 1 removed, 3351 idle, 3724 running, 202 held, 0 suspended"""
-    return taskless_condor_q_output
 
 
 @pytest.fixture

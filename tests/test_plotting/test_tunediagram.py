@@ -1,11 +1,11 @@
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
 
 from pyhdtoolkit.plotting.tune import plot_tune_diagram
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 
 @pytest.mark.parametrize("max_order", [0, 10, -5])

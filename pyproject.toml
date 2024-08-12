@@ -163,7 +163,12 @@ exclude = '''
 '''
 
 [tool.ruff]
-ignore = ["E501", "FBT001", "FBT002"]
+ignore = [
+  "E501",  # line-too-long
+  "FBT001",  # boolean-type-hint-positional-argument
+  "FBT002",  #  	boolean-default-value-positional-argument
+  "PT019",  # pytest-fixture-param-without-value (but suggested solution fails)
+]
 line-length = 120
 
 # Exclude a variety of commonly ignored directories.

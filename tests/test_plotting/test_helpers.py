@@ -1,11 +1,11 @@
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
 
 from pyhdtoolkit.plotting.utils import set_arrow_label
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})

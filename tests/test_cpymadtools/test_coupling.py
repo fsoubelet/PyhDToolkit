@@ -21,6 +21,7 @@ CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
 
 
+
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 def test_closest_tune_approach(_non_matched_lhc_madx, telescopic_squeeze):
     """Using LHC lattice."""

@@ -1,6 +1,6 @@
 from functools import partial
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
@@ -15,7 +15,7 @@ from pyhdtoolkit.plotting.phasespace import (
 )
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
