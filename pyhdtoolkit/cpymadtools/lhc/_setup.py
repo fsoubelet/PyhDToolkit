@@ -61,7 +61,8 @@ def prepare_lhc_run2(
     """
     if use_b4 and beam != 2:
         logger.error("Cannot use beam 4 sequence file for beam 1")
-        raise ValueError("Cannot use beam 4 sequence file for beam 1")
+        msg = "Cannot use beam 4 sequence file for beam 1"
+        raise ValueError(msg)
 
     def _run2_sequence_from_opticsfile(opticsfile: Path, use_b4: bool = False) -> Path:
         filename = "lhc_as-built.seq" if not use_b4 else "lhcb4_as-built.seq"
@@ -137,7 +138,8 @@ def prepare_lhc_run3(
     """
     if use_b4 and beam != 2:
         logger.error("Cannot use beam 4 sequence file for beam 1")
-        raise ValueError("Cannot use beam 4 sequence file for beam 1")
+        msg = "Cannot use beam 4 sequence file for beam 1"
+        raise ValueError(msg)
 
     logger.debug("Creating Run 3 setup MAD-X instance")
     echo, warn = kwargs.pop("echo", False), kwargs.pop("warn", False)
@@ -238,10 +240,12 @@ class LHCSetup:
         assert opticsfile is not None, "An opticsfile must be provided"
         if use_b4 and beam != 2:
             logger.error("Cannot use beam 4 sequence file for beam 1")
-            raise ValueError("Cannot use beam 4 sequence file for beam 1")
+            msg = "Cannot use beam 4 sequence file for beam 1"
+            raise ValueError(msg)
 
         if int(run) not in (2, 3):
-            raise NotImplementedError("This setup is only possible for Run 2 and Run 3 configurations.")
+            msg = "This setup is only possible for Run 2 and Run 3 configurations."
+            raise NotImplementedError(msg)
         elif run == 2:
             self.madx = prepare_lhc_run2(
                 opticsfile=opticsfile, beam=beam, use_b4=use_b4, energy=energy, slicefactor=slicefactor, **kwargs
@@ -496,7 +500,8 @@ def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> dict[str, 
     """
     if scheme not in LHC_CROSSING_SCHEMES.keys():
         logger.error(f"Invalid scheme parameter, should be one of {LHC_CROSSING_SCHEMES.keys()}")
-        raise ValueError("Invalid scheme parameter given")
+        msg = "Invalid scheme parameter given"
+        raise ValueError(msg)
 
     logger.debug("Getting orbit variables")
     variables, special = lhc_orbit_variables()

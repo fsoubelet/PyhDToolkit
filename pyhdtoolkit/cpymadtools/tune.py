@@ -80,7 +80,8 @@ def make_footprint_table(
             "Remote MAD-X process crashed, most likely because you did not slice the sequence "
             "before running DYNAP. Restart and slice before calling this function."
         )
-        raise RuntimeError("DYNAP command crashed the MAD-X process") from madx_crash
+        msg = "DYNAP command crashed the MAD-X process"
+        raise RuntimeError(msg) from madx_crash
 
     if cleanup and sys.platform not in ("win32", "cygwin"):
         # fails on Windows due to its I/O system, since MAD-X still has "control" of the files

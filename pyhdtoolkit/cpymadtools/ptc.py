@@ -78,7 +78,8 @@ def get_amplitude_detuning(
     """
     if order >= 3:
         logger.error(f"Maximum amplitude detuning order in PTC is 2, but {order:d} was requested")
-        raise NotImplementedError("PTC amplitude detuning is not implemented for order > 2")
+        msg = "PTC amplitude detuning is not implemented for order > 2"
+        raise NotImplementedError(msg)
 
     logger.debug("Looking for PTC universe parameters in keyword arguments")
     model = kwargs.pop("model", 3)

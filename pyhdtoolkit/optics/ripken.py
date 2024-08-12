@@ -78,7 +78,8 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
         return coordinates_distribution.std()
     elif method == "rms":
         return np.sqrt(np.mean(np.square(coordinates_distribution)))
-    raise NotImplementedError("Invalid method provided")
+    msg = "Invalid method provided"
+    raise NotImplementedError(msg)
 
 
 def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y: float) -> tfs.TfsDataFrame:

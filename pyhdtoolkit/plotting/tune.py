@@ -111,7 +111,8 @@ def plot_tune_diagram(
     """
     if max_order > 6 or max_order < 1:
         logger.error("Plotting is not supported outside of 1st-6th order (and not recommended)")
-        raise ValueError("The 'max_order' argument should be between 1 and 6 included")
+        msg = "The 'max_order' argument should be between 1 and 6 included"
+        raise ValueError(msg)
 
     logger.debug(f"Plotting resonance lines up to {ORDER_TO_LABEL[max_order]}")
     axis, kwargs = maybe_get_ax(**kwargs)

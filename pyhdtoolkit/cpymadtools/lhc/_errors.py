@@ -143,13 +143,16 @@ def misalign_lhc_ir_quadrupoles(
     """
     if any(ip not in (1, 2, 5, 8) for ip in ips):
         logger.error("The IP number provided is invalid, not applying any error.")
-        raise ValueError("Invalid 'ips' parameter")
+        msg = "Invalid 'ips' parameter"
+        raise ValueError(msg)
     if beam and beam not in (1, 2, 3, 4):
         logger.error("The beam number provided is invalid, not applying any error.")
-        raise ValueError("Invalid 'beam' parameter")
+        msg = "Invalid 'beam' parameter"
+        raise ValueError(msg)
     if any(side.upper() not in ("R", "L") for side in sides):
         logger.error("The side provided is invalid, not applying any error.")
-        raise ValueError("Invalid 'sides' parameter")
+        msg = "Invalid 'sides' parameter"
+        raise ValueError(msg)
 
     sides = [side.upper() for side in sides]
     logger.debug("Clearing error flag")

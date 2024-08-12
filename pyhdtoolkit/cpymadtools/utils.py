@@ -124,7 +124,8 @@ def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> 
     """
     if orientation not in ("straight", "skew", "both"):
         logger.error(f"Orientation '{orientation}' is not accepted, should be one of 'straight', 'skew', 'both'.")
-        raise ValueError("Invalid 'orientation' parameter")
+        msg = "Invalid 'orientation' parameter"
+        raise ValueError(msg)
 
     if orientation == "straight":
         orientation = ("",)

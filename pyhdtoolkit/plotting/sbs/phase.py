@@ -183,7 +183,8 @@ def plot_phase_segment(
     """
     if plane.upper() not in ("X", "Y"):
         logger.error("The provided plane is invalid, should be either 'x' or 'y', case-insensitively.")
-        raise ValueError("Invalid 'plane' parameter")
+        msg = "Invalid 'plane' parameter"
+        raise ValueError(msg)
     plane = plane.upper()
 
     logger.debug(f"Plotting phase for plane {plane.upper()} over the segment")

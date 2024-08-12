@@ -253,7 +253,8 @@ def plot_physical_apertures(
     # pylint: disable=too-many-arguments
     if plane.lower() not in ("x", "y", "horizontal", "vertical"):
         logger.error(f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'")
-        raise ValueError("Invalid 'plane' argument.")
+        msg = "Invalid 'plane' argument."
+        raise ValueError(msg)
 
     logger.debug("Plotting real element apertures")
     axis, kwargs = maybe_get_ax(**kwargs)
