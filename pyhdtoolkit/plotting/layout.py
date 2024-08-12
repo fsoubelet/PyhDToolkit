@@ -8,13 +8,12 @@ Module with functions used to represent a machine' elements in an `~matplotlib.a
 object, mostly used in different `~pyhdtoolkit.plotting` modules.
 """
 
-import matplotlib
-import matplotlib.axes
 import numpy as np
 import pandas as pd
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import patches
+from matplotlib.axes import Axes
 
 from pyhdtoolkit.plotting.utils import (
     _get_twiss_table_with_offsets_and_limits,
@@ -355,7 +354,7 @@ def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
 
 
 def _plot_lattice_series(
-    ax: matplotlib.axes.Axes,
+    ax: Axes,
     series: pd.DataFrame,
     height: float = 1.0,
     v_offset: float = 0.0,

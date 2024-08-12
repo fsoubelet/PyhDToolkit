@@ -7,11 +7,10 @@ Lattice Plotters
 Module with functions to create lattice plots through a `~cpymad.madx.Madx` object.
 """
 
-import matplotlib
-import matplotlib.axes
 import matplotlib.pyplot as plt
 from cpymad.madx import Madx
 from loguru import logger
+from matplotlib.axes import Axes
 
 from pyhdtoolkit.plotting.layout import _ylim_from_input, plot_machine_layout
 from pyhdtoolkit.plotting.utils import (
@@ -203,7 +202,7 @@ def plot_machine_survey(
     show_elements: bool = False,
     high_orders: bool = False,
     **kwargs,
-) -> matplotlib.axes.Axes:
+) -> Axes:
     """
     .. versionadded:: 1.0.0
 

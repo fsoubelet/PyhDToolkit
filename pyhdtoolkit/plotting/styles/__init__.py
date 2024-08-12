@@ -8,13 +8,13 @@ The **style** submodules provide styles to be used with `~matplotlib`, mostly ta
 Feel free to use them anyway, as they might be useful to you when using the `~pyhdtoolkit.plotting` submodules, or to be adapted.
 """
 from pathlib import Path
-from typing import Dict, Union
+from typing import Union
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 from loguru import logger
 
-from . import paper, thesis
+from . import paper, thesis  # noqa: TID252
 
 PlotSetting = Union[float, bool, str, tuple]
 
@@ -75,7 +75,7 @@ def _install_style_file(style: dict[str, PlotSetting], stylename) -> None:
     """
     logger.info(f"Installing matplotlib style as '{stylename}'")
     style_content: str = "\n".join(f"{option} : {setting}" for option, setting in style.items())
-    mpl_config_stylelib = Path(matplotlib.get_configdir()) / "stylelib"
+    mpl_config_stylelib = Path(mpl.get_configdir()) / "stylelib"
     mpl_env_stylelib = Path(plt.style.core.BASE_LIBRARY_PATH)
 
     logger.debug("Ensuring matplotlib 'stylelib' directory exists")

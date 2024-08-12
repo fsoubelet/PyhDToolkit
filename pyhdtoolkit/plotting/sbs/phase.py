@@ -6,10 +6,11 @@ Segment-by-Segment Phase
 
 Functions to plot phase values of Segment-by-Segment results.
 """
-import matplotlib
 import matplotlib.pyplot as plt
 import tfs
 from loguru import logger
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 from matplotlib.legend import _get_legend_handles_labels
 
 from pyhdtoolkit.plotting.utils import find_ip_s_from_segment_start
@@ -21,7 +22,7 @@ def plot_phase_segment_one_beam(
     model: tfs.TfsDataFrame = None,
     ip: int | None = None,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> Figure:
     """
     .. versionadded:: 0.19.0
 
@@ -73,7 +74,7 @@ def plot_phase_segment_both_beams(
     b2_model: tfs.TfsDataFrame = None,
     ip: int | None = None,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> Figure:
     """
     .. versionadded:: 0.19.0
 
@@ -150,7 +151,7 @@ def plot_phase_segment_both_beams(
 
 
 def plot_phase_segment(
-    ax: matplotlib.axes.Axes = None,
+    ax: Axes = None,
     segment_df: tfs.TfsDataFrame = None,
     model_df: tfs.TfsDataFrame = None,
     plane: str = "x",

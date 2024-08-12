@@ -9,10 +9,9 @@ These provide functionality to draw Farey sequences up to a desired order.
 """
 from functools import partial
 
-import matplotlib
-import matplotlib.axes
 import numpy as np
 from loguru import logger
+from matplotlib.axes import Axes
 
 from pyhdtoolkit.plotting.utils import maybe_get_ax
 
@@ -74,7 +73,7 @@ def plot_tune_diagram(
     max_order: int = 6,
     differentiate_orders: bool = False,
     **kwargs,
-) -> matplotlib.axes.Axes:
+) -> Axes:
     """
     .. versionadded:: 1.0.0
 
@@ -138,7 +137,7 @@ def plot_tune_diagram(
     return axis
 
 
-def plot_resonance_lines_for_order(order: int, axis: matplotlib.axes.Axes, **kwargs) -> None:
+def plot_resonance_lines_for_order(order: int, axis: Axes, **kwargs) -> None:
     """
     .. versionadded:: 1.0.0
 

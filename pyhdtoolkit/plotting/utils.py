@@ -8,17 +8,21 @@ Module with functions to used throught the different `~pyhdtoolkit.plotting` mod
 """
 from __future__ import annotations  # important for Sphinx to generate short type signatures!
 
-import matplotlib
-import matplotlib.axes
+from typing import TYPE_CHECKING
+
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
-import pandas as pd
-import tfs
-from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import transforms
 from matplotlib.patches import Ellipse
-from numpy.typing import ArrayLike
+
+if TYPE_CHECKING:
+    import pandas as pd
+    from cpymad.madx import Madx
+    from matplotlib.text import Annotation
+    from numpy.typing import ArrayLike
+    from tfs import TfsDataFrame
 
 # ------ General Utilities ----- #
 
@@ -63,7 +67,7 @@ def maybe_get_ax(**kwargs):
     return ax, dict(kwargs)
 
 
-def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.TfsDataFrame, ip: int) -> float:
+def find_ip_s_from_segment_start(segment_df: TfsDataFrame, model_df: TfsDataFrame, ip: int) -> float:
     """
     .. versionadded:: 0.19.0
 
@@ -261,7 +265,7 @@ def draw_ip_locations(
                 logger.debug(f"Drawing name indicator for {ip_name}")
                 # drawing ypos is lower end of ylimits if drawing inside, higher end if drawing outside
                 ypos = ylimits[not inside] + (ylimits[1] + ylimits[0]) * 0.01
-                c = "grey" if inside else matplotlib.rcParams["text.color"]  # match axis ticks color
+                c = "grey" if inside else mpl.rcParams["text.color"]  # match axis ticks color
                 fontsize = plt.rcParams["xtick.labelsize"]  # match the xticks size
                 axis.text(ip_xpos, ypos, ip_name, color=c, ha="center", va="bottom", size=fontsize)
 
@@ -280,7 +284,7 @@ def set_arrow_label(
     arrow_arc_rad: float = -0.2,
     fontsize: int = 20,
     **kwargs,
-) -> matplotlib.text.Annotation:
+) -> Annotation:
     """
     .. versionadded:: 0.6.0
 

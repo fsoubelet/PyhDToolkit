@@ -7,13 +7,12 @@ Crossing Scheme Plotters
 Module with functions to plot LHC crossing schemes through a `~cpymad.madx.Madx` object.
 """
 
-import matplotlib
-import matplotlib.axes
 import matplotlib.pyplot as plt
 import pandas as pd
 import tfs
 from cpymad.madx import Madx
 from loguru import logger
+from matplotlib.axes import Axes
 
 
 def plot_two_lhc_ips_crossings(
@@ -135,7 +134,7 @@ def plot_two_lhc_ips_crossings(
 
 
 def plot_single_ir_crossing(
-    axis: matplotlib.axes.Axes,
+    axis: Axes,
     plot_df_b1: pd.DataFrame,
     plot_df_b2: pd.DataFrame,
     plot_column: str,
@@ -185,7 +184,7 @@ def plot_single_ir_crossing(
 
 
 def _highlight_mbx_and_mqx(
-    axis: matplotlib.axes.Axes, plot_df: pd.DataFrame | tfs.TfsDataFrame, ip: int, **kwargs
+    axis: Axes, plot_df: pd.DataFrame | tfs.TfsDataFrame, ip: int, **kwargs
 ) -> None:
     """
     .. versionadded:: 1.0.0

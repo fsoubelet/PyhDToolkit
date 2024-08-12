@@ -6,12 +6,12 @@ Phase Space Plotters
 
 Module with functions to create phase space plots through a `~cpymad.madx.Madx` object.
 """
-import matplotlib
-import matplotlib.axes
 import numpy as np
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.plotting.utils import maybe_get_ax
@@ -29,7 +29,7 @@ def plot_courant_snyder_phase_space(
     plane: str = "Horizontal",
     title: str | None = None,
     **kwargs,
-) -> matplotlib.axes.Axes:
+) -> Axes:
     """
     .. versionadded:: 1.0.0
 
@@ -96,7 +96,7 @@ def plot_courant_snyder_phase_space_colored(
     plane: str = "Horizontal",
     title: str | None = None,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> Figure:
     """
     .. versionadded:: 1.0.0
 
