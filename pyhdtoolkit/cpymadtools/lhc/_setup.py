@@ -283,8 +283,8 @@ def make_lhc_beams(
     madx: Madx,
     /,
     energy: float = 7000,
-    emittance_x: float = 3.75e-6,
-    emittance_y: float = 3.75e-6,
+    nemitt_x: float = 3.75e-6,
+    nemitt_y: float = 3.75e-6,
     b4: bool = False,
     **kwargs,
 ) -> None:
@@ -294,34 +294,49 @@ def make_lhc_beams(
     Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.
 
     Args:
-        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
+        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.
+            Positional only.
         energy (float): beam energy, in [GeV]. Defaults to 6500.
-        emittance_x (float): horizontal emittance in [m]. Will be used to calculate
-            geometric emittance which is then fed to the ``BEAM`` command.
-        emittance_y (float): vertical emittance in [m]. Will be used to calculate
-            geometric emittance which is then fed to the ``BEAM`` command.
+        nemitt_x (float): normalized horizontal emittance in [m]. Will
+            be used to calculate geometric emittance which is then fed to
+            the ``BEAM`` command.
+        nemitt_y (float): normalized vertical emittance in [m]. Will be
+            used to calculate geometric emittance which is then fed to
+            the ``BEAM`` command.
         b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,
             and will properly set the ``bv`` flag to 1. Defaults to `False`.
-        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.
+        **kwargs: Old accepted `emittance_x` and `emittance_y` are looked for and used
+            if provided. Any other keyword argument is given to the ``MAD-X`` ``BEAM`` command.
 
     Examples:
 
         .. code-block:: python
 
-            make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)
+            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6)
 
         Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set
         ``bv`` to 1):
 
         .. code-block:: python
 
-            make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)
+            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6, b4=True)
     """
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
     madx.globals["brho"] = energy * 1e9 / madx.globals.clight
-    geometric_emit_x = madx.globals["geometric_emit_x"] = emittance_x / (energy / 0.938)
-    geometric_emit_y = madx.globals["geometric_emit_y"] = emittance_y / (energy / 0.938)
+    
+    # TODO: remove accepting the old emittance_x and emittance_y args in the future
+    emittance_x = kwargs.pop("emittance_x", None)
+    emittance_y = kwargs.pop("emittance_y", None)
+    if emittance_x is not None or emittance_y is not None:
+        logger.warning("Providing ambiguous 'emittance_[xy]' is deprecated, use 'nemitt_[xy]' instead")
+        nemitt_x = emittance_x if emittance_x is not None else nemitt_x  # prioritize old ones if given
+        nemitt_y = emittance_y if emittance_y is not None else nemitt_y  # prioritize old ones if given
+    geometric_emit_x = madx.globals["geometric_emit_x"] = nemitt_x / (energy / 0.938)
+    geometric_emit_y = madx.globals["geometric_emit_y"] = nemitt_y / (energy / 0.938)
+
+    n_part = kwargs.pop("npart", 1.15e11)  # keep default, let user override
+    sigma_e = kwargs.pop("sige", 4.5e-4)  # keep default, let user override
 
     for beam in (1, 2):
         bv = 1 if beam == 1 or b4 is True else -1
@@ -331,10 +346,10 @@ def make_lhc_beams(
             particle="proton",
             bv=bv,
             energy=energy,
-            npart=1.15e11,
+            npart=n_part,
             ex=geometric_emit_x,
             ey=geometric_emit_y,
-            sige=4.5e-4,
+            sige=sigma_e,
             **kwargs,
         )
 
