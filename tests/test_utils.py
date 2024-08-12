@@ -166,7 +166,7 @@ class TestListOperations:
         [
             (["beep", "boop", "foo", "bar", "baz"], None, TypeError),
             (["beep", "boop", "foo", "bar", "baz"], [], IndexError),
-            ([["beep", "boop", "foo", "bar"], [True, False, False], IndexError]),
+            (["beep", "boop", "foo", "bar"], [True, False, False], IndexError),
         ],
     )
     def test_bifurcate_fails(self, inputs, filters, error):
@@ -255,7 +255,13 @@ class TestListOperations:
         assert ListOperations.group_by(array, func) == result
 
     @pytest.mark.parametrize(
-        ("array", "result"), [([1, 2, 1], True), ([list(range(10)), False]), ([], False), ([True, True], True)]
+        ("array", "result"), 
+        [
+            ([1, 2, 1], True),
+            (list(range(10)), False),
+            ([], False),
+            ([True, True], True)
+        ]
     )
     def test_has_duplicates(self, array, result):
         assert ListOperations.has_duplicates(array) is result
