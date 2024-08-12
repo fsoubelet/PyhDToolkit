@@ -87,7 +87,7 @@ def test_make_pdf(degrees_of_freedom):
     data: np.ndarray = st.chi2(degrees_of_freedom).rvs(50_000)
     best_fit_func, best_fit_params = stats_fitting.best_fit_distribution(data, 200)
     pdf = stats_fitting.make_pdf(best_fit_func, best_fit_params)
-    assert pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
+    pdf.idxmax() == pytest.approx(degrees_of_freedom - 2, rel=1e-2)
 
 
 @pytest.mark.parametrize(("value", "result"), [(1, 0), (10, 1), (0.0311, -2), (5e-7, -7)])
@@ -108,61 +108,6 @@ def test_mag_and_string_forced_scale(_to_scale, _force_scaled):
 
 
 # ---------------------- Utilities ---------------------- #
-
-
-def _create_random_phase_values(low: float, high: float, n_values: int, dist: str) -> np.ndarray:
-    """
-    Returns fake generated phase values. They are ascending by default.
-
-    Args:
-        low: lowest value, first value will always be 0.
-        high: highest value.
-        n_values: number of values to generate.
-        dist: distribution type required. Will be uniform or linspace.
-
-    Returns:
-        A `numpy.ndarray` of shape (n_values,) with the generated values.
-    """
-    if dist == "linspace":
-        values = np.linspace(low, high, n_values)
-    elif dist == "uniform":
-        values = np.sort(np.random.default_rng().uniform(low, high, n_values))
-    else:
-        msg = "Provided parameter 'distribution' should be either 'linspace' or 'uniform'."
-        raise ValueError(msg)
-    values[0] = 0
-    return values
-
-
-def _create_meas_matrix_from_values_array(values_array: np.ndarray) -> np.ndarray:
-    """
-    For testing purposes. Returns the deltas measurements matrix from an array of values.
-
-    Args:
-        values_array: the values of phases at your N BPMs, in a (1, N) shaped `numpy.ndarray`.
-
-    Returns:
-        The matrix, as a `numpy.ndarray`.
-    """
-    return np.array([[i - j for i in values_array] for j in values_array], dtype=float)
-
-
-def _create_2d_gaussian_noise(mean: float, stdev: float, shape: tuple) -> np.ndarray:
-    """
-    Generates a 2D Gaussian distribution, makes it antisymmetric and returns it.
-
-    Args:
-        mean:  mean of the distribution, should be 0 for us (since we add to the ideal M_meas).
-        stdev:  standard deviation of the distribution, should be in degrees if M_meas is given
-        in degrees, in radians otherwise.
-        shape: the shape of the matrix to create, should be M_meas.shape, aka (n_bpms, n_bpms).
-
-    Returns:
-        A  Gaussian, anti-symmetric, 2D-shaped `numpy.ndarray`.
-    """
-    gaussian_2d_mat = np.random.default_rng().normal(mean, stdev, size=shape)
-    upper_triangle = np.triu(gaussian_2d_mat)
-    return upper_triangle - upper_triangle.T
 
 
 @pytest.fixture
