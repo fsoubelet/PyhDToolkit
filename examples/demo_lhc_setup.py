@@ -7,7 +7,7 @@ Quick LHC Setup
 ===============
 
 These examples show how to use the functions in `pyhdtoolkit.cpymadtools.lhc._setup`
-managers to easily and quickly set up LHC simulations. These are exported and 
+managers to easily and quickly set up LHC simulations. These are exported and
 available at the level of the `pyhdtoolkit.cpymadtools.lhc` module.
 
 .. note::

@@ -6,7 +6,7 @@
 Accelerator Aperture
 ====================
 
-This example shows how to use the `~.plotting.aperture.plot_aperture` and 
+This example shows how to use the `~.plotting.aperture.plot_aperture` and
 `~.plotting.aperture.plot_physical_apertures` functions to visualise the
 available aperture in your machine, with the LHC used for this example.
 

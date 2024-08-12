@@ -6,17 +6,17 @@
 AC Dipole Driven Tracking Spectrum
 ==================================
 
-This example shows how to use the `~.lhc.install_ac_dipole_as_kicker` and 
-`~.track.track_single_particle` function to track a  particle with the 
+This example shows how to use the `~.lhc.install_ac_dipole_as_kicker` and
+`~.track.track_single_particle` function to track a  particle with the
 ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
 
-In this example we will use the LHC lattice to illustrate the ACD tracking 
+In this example we will use the LHC lattice to illustrate the ACD tracking
 workflow when using `~pyhdtoolkit.cpymadtools`.
 
 .. note::
-    This is very similar to the :ref:`free tracking example <demo-free-tracking>` 
-    with the difference that there is special care to take to install the AC Dipole 
-    element. It is recommended to read that tutorial first as this one will focus 
+    This is very similar to the :ref:`free tracking example <demo-free-tracking>`
+    with the difference that there is special care to take to install the AC Dipole
+    element. It is recommended to read that tutorial first as this one will focus
     on the specificities of the AC Dipole setup.
 
 .. important::

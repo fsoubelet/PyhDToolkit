@@ -6,7 +6,7 @@
 Free Tracking Spectrum
 ======================
 
-This example shows how to use the `~.track.track_single_particle` function to track a 
+This example shows how to use the `~.track.track_single_particle` function to track a
 particle with the ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
 
 In this example we will use the LHC lattice to illustrate the tracking workflow when using

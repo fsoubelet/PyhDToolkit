@@ -125,7 +125,7 @@ extensions = [
     "sphinx.ext.coverage",  # Collect doc coverage stats
     "sphinx.ext.doctest",  # Test snippets in the documentation
     "sphinx.ext.githubpages",  # Publish HTML docs in GitHub Pages
-    "sphinx.ext.intersphinx",  # Link to other projects’ documentation
+    "sphinx.ext.intersphinx",  # Link to other projects' documentation
     "sphinx.ext.mathjax",  # Render math via JavaScript
     "sphinx.ext.napoleon",  # Support for NumPy and Google style docstrings
     "sphinx.ext.todo",  # Support for todo items
@@ -214,7 +214,7 @@ html_theme_options = {
 #
 html_static_path = ["_static"]
 
-# A dictionary of values to pass into the template engine’s context for all
+# A dictionary of values to pass into the template engine's context for all
 # pages. Single values can also be put in this dictionary using the
 # -A command-line option of sphinx-build.
 html_context = {

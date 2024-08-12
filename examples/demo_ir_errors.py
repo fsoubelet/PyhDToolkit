@@ -10,7 +10,7 @@ This example shows how to use the `~.lhc.misalign_lhc_ir_quadrupoles` function
 to assign magnet errors in the Insertion Region magnets of the LHC.
 
 .. warning::
-    The implementation of this function makes it valid only for LHC IP IRs, which are 
+    The implementation of this function makes it valid only for LHC IP IRs, which are
     1, 2, 5 and 8. Other IRs have different layouts that are incompatible.
 
 .. important::
