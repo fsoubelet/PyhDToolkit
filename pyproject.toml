@@ -175,14 +175,6 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 # Assume Python 3.10+.
 target-version = "py310"
 
-[tool.mypy]
-pretty = true
-strict_optional = false
-show_error_codes = true
-warn_redundant_casts = true
-ignore_missing_imports = true
-follow_imports = "skip"
-
 [tool.interrogate]
 ignore-init-method = true
 ignore-init-module = true
