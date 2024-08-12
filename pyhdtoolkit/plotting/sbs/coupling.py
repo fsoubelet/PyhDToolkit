@@ -107,9 +107,9 @@ def plot_full_ip_rdt(
     b2_model: tfs.TfsDataFrame = None,
     ip: int = None,
     rdt: str = "F1001",
-    abs_ylimits: Tuple[float, float] = None,
-    real_ylimits: Tuple[float, float] = None,
-    imag_ylimits: Tuple[float, float] = None,
+    abs_ylimits: tuple[float, float] = None,
+    real_ylimits: tuple[float, float] = None,
+    imag_ylimits: tuple[float, float] = None,
     **kwargs,
 ) -> matplotlib.figure.Figure:
     """

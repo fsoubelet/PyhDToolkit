@@ -10,7 +10,7 @@ a `~cpymad.madx.Madx` object.
 import math
 import sys
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
 
 import matplotlib.collections
 import matplotlib.patches
@@ -116,7 +116,7 @@ def make_footprint_table(
     return tfs_dframe
 
 
-def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.ndarray]:
+def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> tuple[np.ndarray, np.ndarray]:
     """
     .. versionadded:: 0.12.0
 
@@ -250,7 +250,7 @@ def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
     return string_rep
 
 
-def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[Dict[str, float]]]:
+def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[dict[str, float]]]:
     """
     Creates appropriate tune points groups from the arcane string representation returned by
     `~.tune._get_dynap_string_rep` based on starting amplitude and angle for each particle.
@@ -269,7 +269,7 @@ def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[D
         by `~.tune.get_footprint_lines`.
     """
     logger.debug("Constructing tune points groups based on starting amplitudes and angles")
-    tune_groups: List[List[Dict[str, float]]] = []
+    tune_groups: list[list[dict[str, float]]] = []
     items = dynap_string_rep.strip().split(",")
     amplitude = int(items[1])
     current = 2
@@ -288,7 +288,7 @@ def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[D
 class _Footprint:
     """More dark magic from the past here, close your eyes my friends."""
 
-    def __init__(self, tune_groups: List[List[Dict[str, float]]], amplitude: int, angle: int, dsigma: float):
+    def __init__(self, tune_groups: list[list[dict[str, float]]], amplitude: int, angle: int, dsigma: float):
         self._tunes = tune_groups
         self._maxnangl = angle
         self._nampl = amplitude
@@ -306,7 +306,7 @@ class _Footprint:
         else:
             return self._tunes[ampl][angl]["V"]
 
-    def get_plottable(self) -> Tuple[List[float], List[float]]:
+    def get_plottable(self) -> tuple[list[float], list[float]]:
         qxs, qys = [], []
         for i in np.arange(0, self._nampl - 1, 2):
             for j in np.arange(self._maxnangl):

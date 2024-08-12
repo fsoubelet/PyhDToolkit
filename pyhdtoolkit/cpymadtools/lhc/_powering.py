@@ -5,7 +5,7 @@
 
 The functions below are magnets or knobs powering utilities for the ``LHC``.
 """
-from typing import Dict, List, Sequence
+from typing import Dict, Sequence
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -321,7 +321,7 @@ def vary_independent_ir_quadrupoles(
 
     logger.debug(f"Preparing a knob involving quadrupoles {quad_numbers}")
     # Each quad has a specific power circuit used for their k1 boundaries
-    power_circuits: Dict[int, str] = {
+    power_circuits: dict[int, str] = {
         4: "mqy",
         5: "mqml",
         6: "mqml",
@@ -398,7 +398,7 @@ def switch_magnetic_errors(madx: Madx, /, **kwargs) -> None:
 # ----- Helpers ----- #
 
 
-def _all_lhc_arcs(beam: int) -> List[str]:
+def _all_lhc_arcs(beam: int) -> list[str]:
     """
     Generates and returns the names of all LHC arcs for a given beam.
     Initial implementation credits go to :user:`Joschua Dilly <joschd>`.

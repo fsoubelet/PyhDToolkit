@@ -8,7 +8,7 @@ Module with functions to create tune diagram plots.
 These provide functionality to draw Farey sequences up to a desired order.
 """
 from functools import partial
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
 
 import matplotlib
 import matplotlib.axes
@@ -17,8 +17,8 @@ from loguru import logger
 
 from pyhdtoolkit.plotting.utils import maybe_get_ax
 
-ORDER_TO_ALPHA: Dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
-ORDER_TO_RGB: Dict[int, np.ndarray] = {
+ORDER_TO_ALPHA: dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
+ORDER_TO_RGB: dict[int, np.ndarray] = {
     1: np.array([152, 52, 48]) / 255,  # a brown
     2: np.array([57, 119, 175]) / 255,  # a blue
     3: np.array([239, 133, 54]) / 255,  # an orange
@@ -26,7 +26,7 @@ ORDER_TO_RGB: Dict[int, np.ndarray] = {
     5: np.array([197, 57, 50]) / 255,  # a red
     6: np.array([141, 107, 184]) / 255,  # a purple
 }
-ORDER_TO_LINESTYLE: Dict[int, str] = {
+ORDER_TO_LINESTYLE: dict[int, str] = {
     1: "solid",
     2: "solid",
     3: "solid",
@@ -34,8 +34,8 @@ ORDER_TO_LINESTYLE: Dict[int, str] = {
     5: "dashed",
     6: "dashed",
 }
-ORDER_TO_LINEWIDTH: Dict[int, float] = {1: 2, 2: 1.75, 3: 1.5, 4: 1.25, 5: 1, 6: 0.75}
-ORDER_TO_LABEL: Dict[int, str] = {
+ORDER_TO_LINEWIDTH: dict[int, float] = {1: 2, 2: 1.75, 3: 1.5, 4: 1.25, 5: 1, 6: 0.75}
+ORDER_TO_LABEL: dict[int, str] = {
     1: "1st order",
     2: "2nd order",
     3: "3rd order",
@@ -45,7 +45,7 @@ ORDER_TO_LABEL: Dict[int, str] = {
 }
 
 
-def farey_sequence(order: int) -> List[Tuple[int, int]]:
+def farey_sequence(order: int) -> list[tuple[int, int]]:
     """
     .. versionadded:: 1.0.0
 

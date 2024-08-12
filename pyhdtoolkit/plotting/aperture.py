@@ -24,16 +24,16 @@ def plot_aperture(
     /,
     title: Optional[str] = None,
     xoffset: float = 0,
-    xlimits: Tuple[float, float] = None,
+    xlimits: tuple[float, float] = None,
     plot_dipoles: bool = True,
     plot_dipole_k1: bool = False,
     plot_quadrupoles: bool = True,
     plot_bpms: bool = False,
-    aperture_ylim: Tuple[float, float] = None,
-    k0l_lim: Union[Tuple[float, float], float, int] = None,
-    k1l_lim: Union[Tuple[float, float], float, int] = None,
-    k2l_lim: Union[Tuple[float, float], float, int] = None,
-    k3l_lim: Union[Tuple[float, float], float, int] = None,
+    aperture_ylim: tuple[float, float] = None,
+    k0l_lim: Union[tuple[float, float], float, int] = None,
+    k1l_lim: Union[tuple[float, float], float, int] = None,
+    k2l_lim: Union[tuple[float, float], float, int] = None,
+    k3l_lim: Union[tuple[float, float], float, int] = None,
     color: str = None,
     **kwargs,
 ) -> None:
@@ -73,7 +73,7 @@ def plot_aperture(
             specific point or element, which would then become located at
             :math:`s = 0`. Beware this offset is applied before applying the
             *xlimits*. Defaults to 0.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+        xlimits (tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
         plot_dipoles (bool): if `True`, dipole patches will be plotted on
             the layout subplot of the figure. Defaults to `True`. Dipoles
@@ -87,27 +87,27 @@ def plot_aperture(
         plot_bpms (bool): if `True`, additional patches will be plotted on the
             layout subplot to represent Beam Position Monitors. BPMs are
             plotted in dark grey.
-        aperture_ylim (Tuple[float, float]): vertical axis limits for the
+        aperture_ylim (tuple[float, float]): vertical axis limits for the
             aperture values. Defaults to `None`, to be determined by matplotlib
             based on the provided values.
-        k0l_lim (Union[Tuple[float, float], float, int]): vertical axis limits
+        k0l_lim (Union[tuple[float, float], float, int]): vertical axis limits
             for the ``k0l`` values used for the height of dipole patches. Can
             be given as a single value (float, int) or a tuple (in which case
             it should be symmetric). If `None` (default) is given, then the
             limits will be auto-determined based on the ``k0l`` values of the
             dipoles in the plot.
-        k1l_lim (Union[Tuple[float, float], float, int]): vertical axis limits
+        k1l_lim (Union[tuple[float, float], float, int]): vertical axis limits
             for the ``k1l`` values used for the height of quadrupole patches.
             Can be given as a single value (float, int) or a tuple (in which
             case it should be symmetric). If `None` (default) is given, then
             the limits will be auto-determined based on the ``k0l`` values of
             the quadrupoles in the plot.
-        k2l_lim (Union[Tuple[float, float], float, int]): if given, sextupole
+        k2l_lim (Union[tuple[float, float], float, int]): if given, sextupole
             patches will be plotted on the layout subplot of the figure. If
             given, acts as vertical axis limits for the k2l values used for
             the height of sextupole patches. Can be given as a single value
             (float, int) or a tuple (in which case it should be symmetric).
-        k3l_lim (Union[Tuple[float, float], float, int]): if given, octupole
+        k3l_lim (Union[tuple[float, float], float, int]): if given, octupole
             patches will be plotted on the layout subplot of the figure. If
             given, acts as vertical axis limits for the k3l values used for
             the height of octupole patches. Can be given as a single value
@@ -192,7 +192,7 @@ def plot_physical_apertures(
     plane: str,
     scale: float = 1,
     xoffset: float = 0,
-    xlimits: Tuple[float, float] = None,
+    xlimits: tuple[float, float] = None,
     **kwargs,
 ) -> None:
     """
@@ -223,7 +223,7 @@ def plot_physical_apertures(
             specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying
             the *xlimits*. Defaults to 0.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+        xlimits (tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
         **kwargs: any keyword argument that can be given to the ``MAD-X``
@@ -280,8 +280,8 @@ def plot_physical_apertures(
 
 
 def _get_positions_and_real_apertures(
-    madx, /, plane: str, xoffset: float = 0, xlimits: Tuple[float, float] = None, **kwargs
-) -> Tuple[np.ndarray, np.ndarray]:
+    madx, /, plane: str, xoffset: float = 0, xlimits: tuple[float, float] = None, **kwargs
+) -> tuple[np.ndarray, np.ndarray]:
     """
     .. versionadded:: 1.2.0
 
@@ -306,7 +306,7 @@ def _get_positions_and_real_apertures(
             specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying
             the *xlimits*. Defaults to 0.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+        xlimits (tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
         **kwargs: any keyword argument that can be given to the ``MAD-X``

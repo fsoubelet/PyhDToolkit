@@ -6,13 +6,12 @@ Useful Constants
 
 Specific constants to be used in `~.cpymadtools` functions, to help with consistency.
 """
-from typing import Dict, List, Set
 
 # fmt: off
-DEFAULT_TWISS_COLUMNS: List[str] = ["name", "s", "x", "y", "l", "px", "py", "betx", "bety", "alfx", "alfy",
+DEFAULT_TWISS_COLUMNS: list[str] = ["name", "s", "x", "y", "l", "px", "py", "betx", "bety", "alfx", "alfy",
                                     "dx", "dy", "mux", "muy", "r11", "r12", "r21", "r22", "beta11", "beta12",
                                     "beta21", "beta22"]
-MONITOR_TWISS_COLUMNS: List[str] = ["name", "s", "betx", "bety", "alfx", "alfy", "mux", "muy", "dx", "dy",
+MONITOR_TWISS_COLUMNS: list[str] = ["name", "s", "betx", "bety", "alfx", "alfy", "mux", "muy", "dx", "dy",
                                     "dpx", "dpy", "x", "y", "ddx", "ddy", "k1l", "k1sl", "k2l", "k3l", "k4l",
                                     "wx", "wy", "phix", "phiy", "dmux", "dmuy", "keyword", "dbx", "dby",
                                     "r11", "r12", "r21", "r22"]
@@ -25,7 +24,7 @@ LHC_IR_BPM_REGEX = r"BPM\S?\S?\.[0-{max_index}][LR][1258]\.*"
 LHC_TRIPLETS_REGEX = "^MQXF?[AB].[AB]?[123][RL][1258]"
 
 # This might not be accurate anymore
-LHC_CROSSING_SCHEMES: Dict[str, Dict[str, float]] = {
+LHC_CROSSING_SCHEMES: dict[str, dict[str, float]] = {
     "flat": {},
     "lhc_inj": {
         "on_x1": -170,
@@ -79,41 +78,41 @@ LHC_CROSSING_SCHEMES: Dict[str, Dict[str, float]] = {
 }
 
 # ----- LHC IP bump flags ----- #
-LHC_CROSSING_ANGLE_FLAGS: List[str] = [f"on_x{ip}" for ip in [1, 2, 5, 8]] + [
+LHC_CROSSING_ANGLE_FLAGS: list[str] = [f"on_x{ip}" for ip in [1, 2, 5, 8]] + [
     "on_x1h",
     "on_x5v",
     "on_s_x1h",
     "on_s_x5v",
 ]
-LHC_PARALLEL_SEPARATION_FLAGS: List[str] = [f"on_sep{ip}" for ip in [1, 2, 5, 8]] + [
+LHC_PARALLEL_SEPARATION_FLAGS: list[str] = [f"on_sep{ip}" for ip in [1, 2, 5, 8]] + [
     "on_sep1v",
     "on_sep5h",
     "on_s_sep1v",
     "on_s_sep5h",
 ]
 # Offset is in the plane of the crossing angle
-LHC_IP_OFFSET_FLAGS: List[str] = (
+LHC_IP_OFFSET_FLAGS: list[str] = (
     [f"on_o{ip}" for ip in [1, 2, 5, 8]]
     + ["on_o1h"]
     + [f"on_oh{ip}" for ip in [1, 5]]
     + [f"on_ov{ip}" for ip in [1, 2, 5]]
 )
 # Angle is in the same plane as the separation
-LHC_ANGLE_FLAGS: List[str] = [f"on_a{ip}" for ip in [1, 2, 5, 8]] + ["on_a1v"]
+LHC_ANGLE_FLAGS: list[str] = [f"on_a{ip}" for ip in [1, 2, 5, 8]] + ["on_a1v"]
 # Magnetic fields or solenoids powering status
-LHC_EXPERIMENT_STATE_FLAGS: List[str] = ["on_alice", "on_lhcb", "on_sol_atlas", "on_sol_cms", "on_sol_alice"]
-LHC_IP2_SPECIAL_FLAG: List[str] = ["on_oe2"]  # TODO: ask Tobias or Stephane F.
+LHC_EXPERIMENT_STATE_FLAGS: list[str] = ["on_alice", "on_lhcb", "on_sol_atlas", "on_sol_cms", "on_sol_alice"]
+LHC_IP2_SPECIAL_FLAG: list[str] = ["on_oe2"]  # TODO: ask Tobias or Stephane F.
 
 # ----- LHC Triplet Correctors Knobs ----- #
-LHC_KQSX_KNOBS: List[str] = [f"kqsx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # skew quad
-LHC_KCSX_KNOBS: List[str] = [f"kcsx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # sextupole
-LHC_KCSSX_KNOBS: List[str] = [f"kcssx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # skew sext
-LHC_KCOX_KNOBS: List[str] = [f"kcox3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # octupole
-LHC_KCOSX_KNOBS: List[str] = [f"kcosx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # skew oct
-LHC_KCTX_KNOBS: List[str] = [f"kctx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # decapole
+LHC_KQSX_KNOBS: list[str] = [f"kqsx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # skew quad
+LHC_KCSX_KNOBS: list[str] = [f"kcsx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # sextupole
+LHC_KCSSX_KNOBS: list[str] = [f"kcssx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # skew sext
+LHC_KCOX_KNOBS: list[str] = [f"kcox3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # octupole
+LHC_KCOSX_KNOBS: list[str] = [f"kcosx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # skew oct
+LHC_KCTX_KNOBS: list[str] = [f"kctx3.{side}{ip}" for side in ("r", "l") for ip in (1, 2, 5, 8)]  # decapole
 
 # ----- LHC Arc Correctors Knobs ----- #
-LHC_KQTF_KNOBS: List[str] = [  # tune trims, focusing and defocusing families, for each beam
+LHC_KQTF_KNOBS: list[str] = [  # tune trims, focusing and defocusing families, for each beam
     f"kqt{family}.a{sector}{sector+1 if sector < 8 else 1}.b{beam}"
     for beam in [1, 2]
     for family in ["f", "d"]
@@ -121,40 +120,40 @@ LHC_KQTF_KNOBS: List[str] = [  # tune trims, focusing and defocusing families, f
 ]
 # fmt: off
 # skew quadrupoles in arc short straight sections
-LHC_KQS_KNOBS: List[str] = [f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
+LHC_KQS_KNOBS: list[str] = [f"kqs.r{ip}b1" for ip in [1, 3, 5, 7]] + \
     [f"kqs.l{ip}b1" for ip in [2, 4, 6, 8]] + \
     [f"kqs.a{sector}{sector+1 if sector < 8 else 1}b1" for sector in [2, 4, 6, 8]] + \
     [f"kqs.r{ip}b2" for ip in [2, 4, 6, 8]] + \
     [f"kqs.l" f"{ip}b2" for ip in [3, 5, 7, 1]] + \
     [f"kqs.a{sector}{sector+1 if sector < 8 else 1}b2" for sector in [1, 3, 5, 7]]
 # fmt: on
-LHC_KSF_KNOBS: List[str] = [  # sextupole correctors
+LHC_KSF_KNOBS: list[str] = [  # sextupole correctors
     f"ks{family}{id}.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
     for beam in [1, 2]
     for id in [1, 2]
     for family in ["f", "d"]
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
-LHC_KSS_KNOBS: List[str] = [  # skew sextupole correctors
+LHC_KSS_KNOBS: list[str] = [  # skew sextupole correctors
     f"kss.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
-LHC_KCS_KNOBS: List[str] = [  # spool piece (skew) sextupoles
+LHC_KCS_KNOBS: list[str] = [  # spool piece (skew) sextupoles
     f"kcs.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
-LHC_KCO_KNOBS: List[str] = [  # spool piece (skew) octupoles
+LHC_KCO_KNOBS: list[str] = [  # spool piece (skew) octupoles
     f"kco.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
-LHC_KCD_KNOBS: List[str] = [  # spool piece (skew) decapoles
+LHC_KCD_KNOBS: list[str] = [  # spool piece (skew) decapoles
     f"kcd.a{sector}{sector+1 if sector < 8 else 1}b{beam}" for beam in [1, 2] for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
-LHC_KO_KNOBS: List[str] = [  # octupoles in arc short straight sections
+LHC_KO_KNOBS: list[str] = [  # octupoles in arc short straight sections
     f"ko{family}.a{sector}{sector+1 if sector < 8 else 1}b{beam}"
     for beam in [1, 2]
     for family in ["f", "d"]
     for sector in [1, 2, 3, 4, 5, 6, 7, 8]
 ]
 
-HLLHC_CORRECTOR_LIMITS: Dict[str, float] = {  # All values are defined as multiples of 0.3/Energy
+HLLHC_CORRECTOR_LIMITS: dict[str, float] = {  # All values are defined as multiples of 0.3/Energy
     "MQSX1": 0.600 / 0.050,  # 0.6 T.m @ 50 mm in IR1&IR5
     "MQSX2": 1.360 / 0.017,  # 1.36 T @ 17 mm in IR2&IR8
     # ------------- #
@@ -188,6 +187,6 @@ HLLHC_CORRECTOR_LIMITS: Dict[str, float] = {  # All values are defined as multip
     "MO": 0.29 * 6 / (0.017**3),  # 0.29 T @ 17 mm
 }
 
-FD_FAMILIES: Set[str] = {"MO", "MS", "MQT"}  # Magnets that have F and D families
-TWO_FAMILIES: Set[str] = {"MS"}  # Magnets that have 1 and 2 families
-SPECIAL_FAMILIES: Set[str] = {"MQS"}  # Magnets in every second arc
+FD_FAMILIES: set[str] = {"MO", "MS", "MQT"}  # Magnets that have F and D families
+TWO_FAMILIES: set[str] = {"MS"}  # Magnets that have 1 and 2 families
+SPECIAL_FAMILIES: set[str] = {"MQS"}  # Magnets in every second arc

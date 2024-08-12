@@ -88,7 +88,7 @@ def get_magnets_powering(
     return twiss.get_pattern_twiss(madx, columns=NEW_COLNAMES, patterns=patterns, **kwargs)
 
 
-def query_arc_correctors_powering(madx: Madx, /) -> Dict[str, float]:
+def query_arc_correctors_powering(madx: Madx, /) -> dict[str, float]:
     """
     .. versionadded:: 0.15.0
 
@@ -108,7 +108,7 @@ def query_arc_correctors_powering(madx: Madx, /) -> Dict[str, float]:
             arc_knobs = query_arc_correctors_powering(madx)
     """
     logger.debug("Querying triplets correctors powering")
-    result: Dict[str, float] = {}
+    result: dict[str, float] = {}
 
     logger.debug("Querying arc tune trim quadrupole correctors (MQTs) powering")
     k_mqt_max = 120 / madx.globals.brho  # 120 T/m
@@ -144,7 +144,7 @@ def query_arc_correctors_powering(madx: Madx, /) -> Dict[str, float]:
     return result
 
 
-def query_triplet_correctors_powering(madx: Madx, /) -> Dict[str, float]:
+def query_triplet_correctors_powering(madx: Madx, /) -> dict[str, float]:
     """
     .. versionadded:: 0.15.0
 
@@ -164,7 +164,7 @@ def query_triplet_correctors_powering(madx: Madx, /) -> Dict[str, float]:
             triplet_knobs = query_triplet_correctors_powering(madx)
     """
     logger.debug("Querying triplets correctors powering")
-    result: Dict[str, float] = {}
+    result: dict[str, float] = {}
 
     logger.debug("Querying triplet skew quadrupole correctors (MQSXs) powering")
     k_mqsx_max = 1.360 / 0.017 / madx.globals.brho  # 1.36 T @ 17mm
@@ -192,7 +192,7 @@ def query_triplet_correctors_powering(madx: Madx, /) -> Dict[str, float]:
     return result
 
 
-def get_current_orbit_setup(madx: Madx, /) -> Dict[str, float]:
+def get_current_orbit_setup(madx: Madx, /) -> dict[str, float]:
     """
     .. versionadded:: 0.8.0
 

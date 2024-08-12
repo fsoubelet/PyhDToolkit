@@ -17,7 +17,7 @@ import scipy.stats as st
 from loguru import logger
 
 # Distributions to check #
-DISTRIBUTIONS: Dict[st.rv_continuous, str] = {
+DISTRIBUTIONS: dict[st.rv_continuous, str] = {
     st.chi: "Chi",
     st.chi2: "Chi-Square",
     st.expon: "Exponential",
@@ -27,7 +27,7 @@ DISTRIBUTIONS: Dict[st.rv_continuous, str] = {
 }
 
 
-def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
+def set_distributions_dict(dist_dict: dict[st.rv_continuous, str]) -> None:
     """
     .. versionadded:: 0.5.0
 
@@ -36,7 +36,7 @@ def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
     function in the :ref:`gallery <demo-distributions-fitting>`.
 
     Args:
-        dist_dict (Dict[st.rv_continuous, str]): dictionnary with the wanted distributions,
+        dist_dict (dict[st.rv_continuous, str]): dictionnary with the wanted distributions,
             in the format of ``DISTRIBUTIONS``, aka with `scipy.stats` generator objects as
             keys, and a string representation of their name as value.
 
@@ -58,7 +58,7 @@ def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
 
 def best_fit_distribution(
     data: Union[pd.Series, np.ndarray], bins: int = 200, ax: matplotlib.axes.Axes = None
-) -> Tuple[st.rv_continuous, Tuple[float, ...]]:
+) -> tuple[st.rv_continuous, tuple[float, ...]]:
     """
     .. versionadded:: 0.5.0
 
@@ -125,7 +125,7 @@ def best_fit_distribution(
     return best_distribution, best_params
 
 
-def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: int = 25_000) -> pd.Series:
+def make_pdf(distribution: st.rv_continuous, params: tuple[float, ...], size: int = 25_000) -> pd.Series:
     """
     .. versionadded:: 0.5.0
 
@@ -135,7 +135,7 @@ def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: in
 
     Args:
         distribution (st.rv_continuous): a `scipy.stats` generator.
-        params (Tuple[float, ...]): the parameters for this generator given back by the fit.
+        params (tuple[float, ...]): the parameters for this generator given back by the fit.
         size (int): the number of points to evaluate.
 
     Returns:

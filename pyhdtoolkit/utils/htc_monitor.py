@@ -14,7 +14,7 @@ and display it nicely.
 """
 import re
 import time
-from typing import List, Tuple
+from typing import Tuple
 
 import pendulum
 from loguru import logger
@@ -73,7 +73,7 @@ def query_condor_q() -> str:
         raise ChildProcessError("Checking htcondor status failed")
 
 
-def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
+def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
     """
     .. versionadded:: 0.9.0
 
@@ -95,7 +95,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
             condor_q_output = get_the_string_as_you_wish(...)
             tasks, cluster = read_condor_q(condor_q_output)
     """
-    tasks: List[HTCTaskSummary] = []
+    tasks: list[HTCTaskSummary] = []
     next_line_is_task_report = False
 
     for line in report.split("\n"):
@@ -128,7 +128,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
 # ----- Output Formating ----- #
 
 
-def _make_tasks_table(tasks: List[HTCTaskSummary]) -> Table:
+def _make_tasks_table(tasks: list[HTCTaskSummary]) -> Table:
     table = _default_tasks_table()
     date_display_format = "dddd, D MMM YY at LT (zz)"  # example: Wednesday, 21 Apr 21 9:04 PM (CEST)
     for task in tasks:

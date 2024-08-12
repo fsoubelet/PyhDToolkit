@@ -50,7 +50,7 @@ def get_magnitude(value: float) -> int:
 
 def get_scaled_values_and_magnitude_string(
     values_array: Union[pd.DataFrame, np.ndarray], force_magnitude: float = None
-) -> Tuple[Union[pd.DataFrame, np.ndarray], str]:
+) -> tuple[Union[pd.DataFrame, np.ndarray], str]:
     """
     .. versionadded:: 0.8.2
 

@@ -23,7 +23,7 @@ def plot_beam_envelope(
     nsigma: float = 1,
     scale: float = 1,
     xoffset: float = 0,
-    xlimits: Tuple[float, float] = None,
+    xlimits: tuple[float, float] = None,
     **kwargs,
 ) -> None:
     """
@@ -53,7 +53,7 @@ def plot_beam_envelope(
             specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying
             the *xlimits*. Defaults to 0.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+        xlimits (tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
         **kwargs: any keyword argument that can be given to the ``MAD-X``

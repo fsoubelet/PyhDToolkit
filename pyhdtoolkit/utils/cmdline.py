@@ -68,7 +68,7 @@ class CommandLine:
     @staticmethod
     def run(
         command: str, shell: bool = True, env: Mapping = None, timeout: float = None
-    ) -> Tuple[Optional[int], bytes]:
+    ) -> tuple[Optional[int], bytes]:
         """
         .. versionadded:: 0.2.0
 

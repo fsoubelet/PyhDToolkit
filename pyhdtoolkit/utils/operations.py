@@ -17,7 +17,7 @@ import math
 import random
 import re
 from functools import reduce
-from typing import Callable, Dict, List, Sequence, Tuple, Union
+from typing import Callable, Dict, Sequence, Tuple, Union
 
 
 class ListOperations:
@@ -75,7 +75,7 @@ class ListOperations:
         return float(sum(map(function, sequence), 0.0) / len(sequence))
 
     @staticmethod
-    def bifurcate(sequence: Sequence, filters: List[bool]) -> Sequence:
+    def bifurcate(sequence: Sequence, filters: list[bool]) -> Sequence:
         """
         .. versionadded:: 0.2.0
 
@@ -86,7 +86,7 @@ class ListOperations:
 
         Args:
             sequence (Sequence): a sequence of elements.
-            filters (List[bool]): a list of booleans.
+            filters (list[bool]): a list of booleans.
 
         Returns:
             A list of two lists, one for each boolean output of the filters.
@@ -244,7 +244,7 @@ class ListOperations:
         return any(map(function, sequence))
 
     @staticmethod
-    def get_indices(element, sequence: Sequence) -> List[int]:
+    def get_indices(element, sequence: Sequence) -> list[int]:
         """
         .. versionadded:: 0.2.0
 
@@ -269,7 +269,7 @@ class ListOperations:
         return [i for (y, i) in zip(sequence, range(len(sequence))) if element == y]
 
     @staticmethod
-    def group_by(sequence: Sequence, function: Callable) -> Dict[str, list]:
+    def group_by(sequence: Sequence, function: Callable) -> dict[str, list]:
         """
         .. versionadded:: 0.2.0
 
@@ -632,7 +632,7 @@ class NumberOperations:
     @staticmethod
     def degrees_to_radians(
         deg_value: Union[int, float], decompose: bool = False
-    ) -> Union[Tuple[float, str, str], int, float]:
+    ) -> Union[tuple[float, str, str], int, float]:
         """
         .. versionadded:: 0.2.0
 

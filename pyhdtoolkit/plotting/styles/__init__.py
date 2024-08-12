@@ -39,7 +39,7 @@ def install_mpl_styles() -> None:
 
 # This is meant for use in the sphinx-gallery to help with readability
 # as the default matplotlib settings are a bit small
-_SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
+_SPHINX_GALLERY_PARAMS: dict[str, PlotSetting] = {
     "figure.autolayout": True,
     "figure.titlesize": 28,
     "axes.titlesize": 28,
@@ -50,7 +50,7 @@ _SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
 }
 
 
-def _install_style_file(style: Dict[str, PlotSetting], stylename) -> None:
+def _install_style_file(style: dict[str, PlotSetting], stylename) -> None:
     """
     .. versionadded:: 1.0.0
 
@@ -68,7 +68,7 @@ def _install_style_file(style: Dict[str, PlotSetting], stylename) -> None:
         activated environment's site-packages data. The file is installed in both places.
 
     Args:
-        style (Dict[str, PlotSetting]): The style to be written to disk. One of the styles defined
+        style (dict[str, PlotSetting]): The style to be written to disk. One of the styles defined
             in the `~pyhdtoolkit.plotting.styles` submodules.
         stylename (str): The name to associate with the style. This is the name that will be used
             for the file written to disk, and will have to be `plt.use`d to use the style.

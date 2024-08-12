@@ -18,7 +18,7 @@ from typing import Dict, Union
 PlotSetting = Union[float, bool, str, tuple]
 
 
-SINGLE_COLUMN: Dict[str, PlotSetting] = {
+SINGLE_COLUMN: dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.3,  # Width of plot lines
     "lines.markersize": 5,  # Marker size, in points
@@ -66,7 +66,7 @@ SINGLE_COLUMN: Dict[str, PlotSetting] = {
     "savefig.format": "pdf",  # Saved figure file format
 }
 
-DOUBLE_COLUMN: Dict[str, PlotSetting] = {
+DOUBLE_COLUMN: dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.7,  # Width of plot lines
     "lines.markersize": 3,

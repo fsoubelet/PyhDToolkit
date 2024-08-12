@@ -340,14 +340,14 @@ def ptc_twiss(
 def ptc_track_particle(
     madx: Madx,
     /,
-    initial_coordinates: Tuple[float, float, float, float, float, float],
+    initial_coordinates: tuple[float, float, float, float, float, float],
     nturns: int,
     sequence: Optional[str] = None,
     observation_points: Sequence[str] = None,
     onetable: bool = False,
     fringe: bool = False,
     **kwargs,
-) -> Dict[str, pd.DataFrame]:
+) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 0.12.0
 
@@ -377,7 +377,7 @@ def ptc_track_particle(
 
     Args:
         madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
-        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple
+        initial_coordinates (tuple[float, float, float, float, float, float]): a tuple
             with the ``X, PX, Y, PY, T, PT`` starting coordinates of the particle to
             track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.

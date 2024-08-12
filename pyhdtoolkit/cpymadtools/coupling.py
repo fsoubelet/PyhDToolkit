@@ -33,7 +33,7 @@ def get_closest_tune_approach(
     varied_knobs: Sequence[str] = None,
     telescopic_squeeze: bool = True,
     run3: bool = False,
-    explicit_targets: Tuple[float, float] = None,
+    explicit_targets: tuple[float, float] = None,
     step: float = 1e-7,
     calls: int = 100,
     tolerance: float = 1e-21,
@@ -62,7 +62,7 @@ def get_closest_tune_approach(
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
             Squeeze configuration. Defaults to `True` since `v0.9.0`.
         run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
-        explicit_targets (Tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.
+        explicit_targets (tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.
             Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to
             `None`.
         step (float): step size to use when varying knobs.
@@ -97,7 +97,7 @@ def get_closest_tune_approach(
 
     logger.debug("Saving knob values to restore after closest tune approach")
     varied_knobs = varied_knobs or tune_knobs  # if accelerator was given we've extracted this already
-    saved_knobs: Dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
+    saved_knobs: dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
     logger.trace(f"Saved knobs are {saved_knobs}")
 
     if explicit_targets:

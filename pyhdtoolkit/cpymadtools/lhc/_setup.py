@@ -6,7 +6,7 @@
 The functions below are setup utilities for the ``LHC``, to easily get simulations ready.
 """
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, Tuple
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -410,7 +410,7 @@ def re_cycle_sequence(madx: Madx, /, sequence: str = "lhcb1", start: str = "IP3"
     madx.command.endedit()
 
 
-def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
+def lhc_orbit_variables() -> tuple[list[str], dict[str, str]]:
     """
     .. versionadded:: 0.8.0
 
@@ -471,7 +471,7 @@ def lhc_orbit_variables() -> Tuple[List[str], Dict[str, str]]:
     return variables, special
 
 
-def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> Dict[str, float]:
+def setup_lhc_orbit(madx: Madx, /, scheme: str = "flat", **kwargs) -> dict[str, float]:
     """
     .. versionadded:: 0.8.0
 

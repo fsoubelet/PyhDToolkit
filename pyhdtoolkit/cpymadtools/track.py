@@ -19,12 +19,12 @@ from loguru import logger
 def track_single_particle(
     madx: Madx,
     /,
-    initial_coordinates: Tuple[float, float, float, float, float, float],
+    initial_coordinates: tuple[float, float, float, float, float, float],
     nturns: int,
     sequence: Optional[str] = None,
     observation_points: Sequence[str] = None,
     **kwargs,
-) -> Dict[str, pd.DataFrame]:
+) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 0.8.0
 
@@ -34,7 +34,7 @@ def track_single_particle(
 
     Args:
         madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
-        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the ``X, PX,
+        initial_coordinates (tuple[float, float, float, float, float, float]): a tuple with the ``X, PX,
             Y, PY, T, PT`` starting coordinates of the particle to track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.
         sequence (Optional[str]): the sequence to use for tracking. If no value is provided, it is assumed

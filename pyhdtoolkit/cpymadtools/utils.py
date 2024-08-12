@@ -7,7 +7,7 @@ Miscellaneous Utilities
 Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
 from pathlib import Path
-from typing import List, Union
+from typing import Union
 
 import pandas as pd
 import tfs
@@ -109,7 +109,7 @@ def get_table_tfs(madx: Madx, /, table_name: str, headers_table: str = "SUMM") -
 # ----- Helpers ----- #
 
 
-def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
+def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> list[str]:
     """
     Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).
     Initial implementation credits go to :user:`Joschua Dilly <joschd>`.

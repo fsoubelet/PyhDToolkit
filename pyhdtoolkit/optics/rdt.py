@@ -39,7 +39,7 @@ def rdt_to_order_and_type(rdt: Union[int, str]) -> str:
     return f"{rdt_type}_{orders[j + k + l + m]}"
 
 
-def determine_rdt_line(rdt: Union[int, str], plane: str) -> Tuple[int, int, int]:
+def determine_rdt_line(rdt: Union[int, str], plane: str) -> tuple[int, int, int]:
     """
     Find the given line to look for in the spectral analysis of
     the given plane that corresponds to the given RDT.

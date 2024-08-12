@@ -5,7 +5,7 @@
 
 The functions below are miscellaneous utilities for the ``LHC``.
 """
-from typing import List, Tuple
+from typing import Tuple
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -79,7 +79,7 @@ def reset_lhc_bump_flags(madx: Madx, /) -> None:
 
 def get_lhc_tune_and_chroma_knobs(
     accelerator: str, beam: int = 1, telescopic_squeeze: bool = True, run3: bool = False
-) -> Tuple[str, str, str, str]:
+) -> tuple[str, str, str, str]:
     """
     .. versionadded:: 0.16.0
 
@@ -142,7 +142,7 @@ def get_lhc_tune_and_chroma_knobs(
     }[accelerator.upper()]
 
 
-def get_lhc_bpms_list(madx: Madx, /) -> List[str]:
+def get_lhc_bpms_list(madx: Madx, /) -> list[str]:
     """
     .. versionadded:: 0.16.0
 
@@ -171,7 +171,7 @@ def get_lhc_bpms_list(madx: Madx, /) -> List[str]:
 
 def get_sizes_at_ip(
     madx: Madx, /, ip: int, geom_emit_x: float = None, geom_emit_y: float = None
-) -> Tuple[float, float]:
+) -> tuple[float, float]:
     """
     .. versionadded:: 1.0.0
 

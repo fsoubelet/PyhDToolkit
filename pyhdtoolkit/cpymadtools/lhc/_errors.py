@@ -5,12 +5,12 @@
 
 The functions below are utilities to implement errors in elements of the ``LHC``.
 """
-from typing import Dict, List, Sequence
+from typing import Dict, Sequence
 
 from cpymad.madx import Madx
 from loguru import logger
 
-LHC_IR_QUADS_PATTERNS: Dict[int, List[str]] = {
+LHC_IR_QUADS_PATTERNS: dict[int, list[str]] = {
     1: ["^MQXA.1{side}{ip:d}", "^MQXFA.[AB]1{side}{ip:d}"],  # Q1 LHC, Q1A & Q1B HL-LHC
     2: ["^MQXB.[AB]2{side}{ip:d}", "^MQXB.[AB]2{side}{ip:d}"],  # Q2A & Q2B LHC, Q2A & Q2B HL-LHC
     3: ["^MQXA.3{side}{ip:d}", "^MQXFA.[AB]3{side}{ip:d}"],  # Q3 LHC, Q3A & Q3B HL-LHC
