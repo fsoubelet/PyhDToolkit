@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.optics.rdt &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.optics.rdt &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -518,18 +522,16 @@
 <span class="sd">Module implementing utilities for the handling of resonance driving terms.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Tuple</span>
-
 
 <div class="viewcode-block" id="rdt_to_order_and_type">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.rdt.rdt_to_order_and_type">[docs]</a>
-<span class="k">def</span> <span class="nf">rdt_to_order_and_type</span><span class="p">(</span><span class="n">rdt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">rdt_to_order_and_type</span><span class="p">(</span><span class="n">rdt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Decompose the input RDT into its four various components</span>
 <span class="sd">    and return the type of RDT (normal or skew) and its order.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        rdt (Union[int, str]): the RDT to decompose.</span>
+<span class="sd">        rdt (int | str): the RDT to decompose.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        A string with the type and (magnet) order of</span>
@@ -537,31 +539,29 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">rdt</span><span class="p">))</span>  <span class="c1"># noqa: E741</span>
     <span class="n">rdt_type</span> <span class="o">=</span> <span class="s2">&quot;normal&quot;</span> <span class="k">if</span> <span class="p">(</span><span class="n">l</span> <span class="o">+</span> <span class="n">m</span><span class="p">)</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="s2">&quot;skew&quot;</span>
-    <span class="n">orders</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
-        <span class="p">(</span>
-            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;dipole&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;sextupole&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="s2">&quot;octupole&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="s2">&quot;decapole&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="s2">&quot;dodecapole&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="s2">&quot;tetradecapole&quot;</span><span class="p">),</span>
-            <span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;hexadecapole&quot;</span><span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
+    <span class="n">orders</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;dipole&quot;</span><span class="p">,</span>
+        <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;quadrupole&quot;</span><span class="p">,</span>
+        <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;sextupole&quot;</span><span class="p">,</span>
+        <span class="mi">4</span><span class="p">:</span> <span class="s2">&quot;octupole&quot;</span><span class="p">,</span>
+        <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;decapole&quot;</span><span class="p">,</span>
+        <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;dodecapole&quot;</span><span class="p">,</span>
+        <span class="mi">7</span><span class="p">:</span> <span class="s2">&quot;tetradecapole&quot;</span><span class="p">,</span>
+        <span class="mi">8</span><span class="p">:</span> <span class="s2">&quot;hexadecapole&quot;</span><span class="p">,</span>
+    <span class="p">}</span>
     <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">rdt_type</span><span class="si">}</span><span class="s2">_</span><span class="si">{</span><span class="n">orders</span><span class="p">[</span><span class="n">j</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">m</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span></div>
 
 
 
 <div class="viewcode-block" id="determine_rdt_line">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.rdt.determine_rdt_line">[docs]</a>
-<span class="k">def</span> <span class="nf">determine_rdt_line</span><span class="p">(</span><span class="n">rdt</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">determine_rdt_line</span><span class="p">(</span><span class="n">rdt</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the given line to look for in the spectral analysis of</span>
 <span class="sd">    the given plane that corresponds to the given RDT.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        rdt (Union[int, str]): the RDT to look for.</span>
+<span class="sd">        rdt (int | str): the RDT to look for.</span>
 <span class="sd">        plane (str): the plane to look for the RDT in.</span>
 
 <span class="sd">    Returns:</span>
@@ -571,7 +571,7 @@
 <span class="sd">        which means the line located at 1 * Qy = Qy.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">m</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">rdt</span><span class="p">))</span>  <span class="c1"># noqa: E741</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span> <span class="o">-</span> <span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Y</span><span class="o">=</span><span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="n">j</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;X&quot;</span><span class="p">:</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">j</span> <span class="o">+</span> <span class="n">k</span><span class="p">,</span> <span class="n">m</span> <span class="o">-</span> <span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="s2">&quot;Y&quot;</span><span class="p">:</span> <span class="p">(</span><span class="n">k</span> <span class="o">-</span> <span class="n">j</span><span class="p">,</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">l</span> <span class="o">+</span> <span class="n">m</span><span class="p">,</span> <span class="mi">0</span><span class="p">)}</span>
     <span class="k">return</span> <span class="n">lines</span><span class="p">[</span><span class="n">plane</span><span class="p">]</span></div>
 
 </pre></div>

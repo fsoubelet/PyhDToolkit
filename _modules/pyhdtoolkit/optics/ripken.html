@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.optics.ripken &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.optics.ripken &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -517,11 +521,9 @@
 
 <span class="sd">Module implementing various calculations based on the :cite:t:`Ripken:optics:1989` optics parameters.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tfs</span>
-
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="c1"># ----- Setup Utilites ----- #</span>
@@ -530,8 +532,8 @@
 <div class="viewcode-block" id="lebedev_beam_size">
 <a class="viewcode-back" href="../../../api/optics.html#pyhdtoolkit.optics.ripken.lebedev_beam_size">[docs]</a>
 <span class="k">def</span> <span class="nf">lebedev_beam_size</span><span class="p">(</span>
-    <span class="n">beta1_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">beta2_</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">geom_emit_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">geom_emit_y</span><span class="p">:</span> <span class="nb">float</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="n">beta1_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">beta2_</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">geom_emit_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">geom_emit_y</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.8.2</span>
 
@@ -544,8 +546,8 @@
 <span class="sd">        See the example below.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        beta1_ (Union[float, np.ndarray]): value(s) for the beta1x or beta1y Ripken parameter.</span>
-<span class="sd">        beta2_ (Union[float, np.ndarray]): value(s) for the beta2x or beta2y Ripken parameter.</span>
+<span class="sd">        beta1_ (float | np.ndarray): value(s) for the beta1x or beta1y Ripken parameter.</span>
+<span class="sd">        beta2_ (float | np.ndarray): value(s) for the beta2x or beta2y Ripken parameter.</span>
 <span class="sd">        geom_emit_x (float): geometric emittance of the horizontal plane, in [m].</span>
 <span class="sd">        geom_emit_y (float): geometric emittante of the vertical plane, in [m].</span>
 
@@ -582,7 +584,7 @@
 <span class="sd">    Args:</span>
 <span class="sd">        coordinates_distribution (np.ndarray): ensemble of coordinates of the particle distributon.</span>
 <span class="sd">        method (str): the method of calculation to use, either &#39;std&#39; (using the standard deviation as the</span>
-<span class="sd">            beam size) or &#39;rms&#39; (root mean square).</span>
+<span class="sd">            beam size) or &#39;rms&#39; (root mean square). Case-insensitive.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        The computed beam size.</span>
@@ -590,11 +592,12 @@
 <span class="sd">    Raises:</span>
 <span class="sd">        NotImplementedError: If the required *method* is neither std nor rms.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">method</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;std&quot;</span><span class="p">,</span> <span class="s2">&quot;rms&quot;</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid method provided&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;std&quot;</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">coordinates_distribution</span><span class="o">.</span><span class="n">std</span><span class="p">()</span>
-    <span class="k">elif</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;rms&quot;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">coordinates_distribution</span><span class="p">)))</span>
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Invalid method provided&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="n">coordinates_distribution</span><span class="p">)))</span>  <span class="c1"># rms</span>
 
 
 <span class="k">def</span> <span class="nf">_add_beam_size_to_df</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">,</span> <span class="n">geom_emit_x</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">geom_emit_y</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>

@@ -28,7 +28,7 @@ This example shows how to use the `~.lhc.misalign_lhc_ir_quadrupoles` function
 to assign magnet errors in the Insertion Region magnets of the LHC.
 
 .. warning::
-    The implementation of this function makes it valid only for LHC IP IRs, which are 
+    The implementation of this function makes it valid only for LHC IP IRs, which are
     1, 2, 5 and 8. Other IRs have different layouts that are incompatible.
 
 .. important::
@@ -42,13 +42,12 @@ to assign magnet errors in the Insertion Region magnets of the LHC.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 
-.. GENERATED FROM PYTHON SOURCE LINES 27-39
+.. GENERATED FROM PYTHON SOURCE LINES 27-38
 
 .. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
-
     from cpymad.madx import Madx
 
     from pyhdtoolkit.cpymadtools import lhc, matching
@@ -65,13 +64,13 @@ to assign magnet errors in the Insertion Region magnets of the LHC.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-44
+.. GENERATED FROM PYTHON SOURCE LINES 40-43
 
-Let's start by setting up the LHC in ``MAD-X``, in this case at injection 
+Let's start by setting up the LHC in ``MAD-X``, in this case at injection
 optics and energy. To understand the function below have a look at the
 :ref:`lhc setup example <demo-lhc-setup>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-51
+.. GENERATED FROM PYTHON SOURCE LINES 43-50
 
 .. code-block:: Python
 
@@ -89,12 +88,12 @@ optics and energy. To understand the function below have a look at the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-54
+.. GENERATED FROM PYTHON SOURCE LINES 51-53
 
 Importantly in ``MAD-X``, when dealing with RNG one should set a generator and
 seed, which we do below:
 
-.. GENERATED FROM PYTHON SOURCE LINES 54-58
+.. GENERATED FROM PYTHON SOURCE LINES 53-57
 
 .. code-block:: Python
 
@@ -109,7 +108,7 @@ seed, which we do below:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-65
+.. GENERATED FROM PYTHON SOURCE LINES 58-64
 
 We can now install errors in the IR quadrupoles. Note that this function accepts
 keyword arguments for the error definition, and any *kwarg* will be passed to the
@@ -118,7 +117,7 @@ keyword arguments for the error definition, and any *kwarg* will be passed to th
 Here let's apply systematic horizontal misalignment errors and tilt errors to the
 quadrupoles Q1 to Q6 (first to sixth) on both sides of IP1:
 
-.. GENERATED FROM PYTHON SOURCE LINES 65-76
+.. GENERATED FROM PYTHON SOURCE LINES 64-75
 
 .. code-block:: Python
 
@@ -140,12 +139,12 @@ quadrupoles Q1 to Q6 (first to sixth) on both sides of IP1:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-79
+.. GENERATED FROM PYTHON SOURCE LINES 76-78
 
 Let's match to our working point, and retrieve the errors directly through the
 internal ``MAD-X`` tables through `~cpymad`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-84
+.. GENERATED FROM PYTHON SOURCE LINES 78-83
 
 .. code-block:: Python
 
@@ -161,12 +160,12 @@ internal ``MAD-X`` tables through `~cpymad`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-87
+.. GENERATED FROM PYTHON SOURCE LINES 84-86
 
 Let's quickly re-arrange the resulting `~pandas.DataFrame` to align with the
 order in which they are in the machine:
 
-.. GENERATED FROM PYTHON SOURCE LINES 87-111
+.. GENERATED FROM PYTHON SOURCE LINES 86-110
 
 .. code-block:: Python
 
@@ -236,100 +235,100 @@ order in which they are in the machine:
       <tbody>
         <tr>
           <th>mqml.6l1.b1</th>
-          <td>0.000079</td>
+          <td>-0.001182</td>
           <td>0.0</td>
-          <td>-0.001168</td>
+          <td>-0.003108</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5l1.b1</th>
-          <td>0.001513</td>
+          <td>0.000353</td>
           <td>0.0</td>
-          <td>-0.001783</td>
+          <td>0.001317</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4l1.b1</th>
-          <td>0.000014</td>
+          <td>0.000990</td>
           <td>0.0</td>
-          <td>0.004212</td>
+          <td>-0.002922</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3l1</th>
-          <td>-0.000578</td>
+          <td>0.000772</td>
           <td>0.0</td>
-          <td>0.000082</td>
+          <td>0.000584</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2l1</th>
-          <td>-0.000848</td>
+          <td>-0.000187</td>
           <td>0.0</td>
-          <td>0.000108</td>
+          <td>-0.000493</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2l1</th>
-          <td>0.001162</td>
+          <td>-0.000627</td>
           <td>0.0</td>
-          <td>-0.001927</td>
+          <td>0.001224</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1l1</th>
-          <td>0.000358</td>
+          <td>0.000248</td>
           <td>0.0</td>
-          <td>0.002644</td>
+          <td>-0.004305</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.1r1</th>
-          <td>0.000517</td>
+          <td>-0.000278</td>
           <td>0.0</td>
-          <td>-0.002498</td>
+          <td>0.000072</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.a2r1</th>
-          <td>0.001264</td>
+          <td>0.000660</td>
           <td>0.0</td>
-          <td>0.001181</td>
+          <td>0.000166</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxb.b2r1</th>
-          <td>0.000503</td>
+          <td>-0.000295</td>
           <td>0.0</td>
-          <td>-0.000286</td>
+          <td>0.004435</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqxa.3r1</th>
-          <td>-0.000608</td>
+          <td>-0.000982</td>
           <td>0.0</td>
-          <td>-0.002351</td>
+          <td>-0.000778</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqy.4r1.b1</th>
-          <td>-0.001282</td>
+          <td>0.000208</td>
           <td>0.0</td>
-          <td>0.000665</td>
+          <td>0.000273</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.5r1.b1</th>
-          <td>0.000740</td>
+          <td>-0.000263</td>
           <td>0.0</td>
-          <td>-0.004317</td>
+          <td>-0.003788</td>
           <td>0.0</td>
         </tr>
         <tr>
           <th>mqml.6r1.b1</th>
-          <td>-0.001220</td>
+          <td>-0.000679</td>
           <td>0.0</td>
-          <td>-0.000210</td>
+          <td>0.000554</td>
           <td>0.0</td>
         </tr>
       </tbody>
@@ -339,11 +338,11 @@ order in which they are in the machine:
     <br />
     <br />
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-113
+.. GENERATED FROM PYTHON SOURCE LINES 111-112
 
 We can also check that all these elements have been correctly affected:
 
-.. GENERATED FROM PYTHON SOURCE LINES 113-117
+.. GENERATED FROM PYTHON SOURCE LINES 112-116
 
 .. code-block:: Python
 
@@ -358,12 +357,12 @@ We can also check that all these elements have been correctly affected:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 118-120
+.. GENERATED FROM PYTHON SOURCE LINES 117-119
 
 We can visualise the distribution of errors across these magnets with a bar
 chart, making use of the `~pandas.DataFrame` plotting capabilities:
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-137
+.. GENERATED FROM PYTHON SOURCE LINES 119-136
 
 .. code-block:: Python
 
@@ -396,11 +395,11 @@ chart, making use of the `~pandas.DataFrame` plotting capabilities:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 138-139
+.. GENERATED FROM PYTHON SOURCE LINES 137-138
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 139-142
+.. GENERATED FROM PYTHON SOURCE LINES 138-141
 
 .. code-block:: Python
 
@@ -414,7 +413,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 143-150
+.. GENERATED FROM PYTHON SOURCE LINES 142-149
 
 .. admonition:: References
 
@@ -427,7 +426,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 9.692 seconds)
+   **Total running time of the script:** (0 minutes 9.191 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_ir_errors.py:

@@ -24,9 +24,9 @@
 LHC Rigid Waist Shift
 =====================
 
-This example shows how to use the `~.lhc.apply_lhc_rigidity_waist_shift_knob` 
-function to force a waist shift at a given IP and break the symmetry of the 
-:math:`\beta`-functions in the Interaction Region. This is done by 
+This example shows how to use the `~.lhc.apply_lhc_rigidity_waist_shift_knob`
+function to force a waist shift at a given IP and break the symmetry of the
+:math:`\beta`-functions in the Interaction Region. This is done by
 over-powering one triplet knob and under-powering the other, by the same
 powering delta.
 
@@ -34,8 +34,8 @@ In :cite:t:`PRAB:Soubelet:Rigid_Waist_Shift_Method_Local_Coupling_Correction_LHC
 (2023) one can find out about studies and achievements at the LHC done with the Rigid
 Waist Shift.
 
-We will do a comparison of the interaction region situation before and after 
-applying a rigid waist shift, and look in more details at the waist shift 
+We will do a comparison of the interaction region situation before and after
+applying a rigid waist shift, and look in more details at the waist shift
 itself.
 
 .. note::
@@ -53,17 +53,16 @@ itself.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-57
+.. GENERATED FROM PYTHON SOURCE LINES 38-56
 
 .. code-block:: Python
 
-    from collections import namedtuple
     from multiprocessing import cpu_count
+    from typing import NamedTuple
 
     import matplotlib.pyplot as plt
     import numpy as np
     import tfs
-
     from cpymad.madx import Madx
     from joblib import Parallel, delayed
 
@@ -83,7 +82,7 @@ itself.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-64
+.. GENERATED FROM PYTHON SOURCE LINES 58-63
 
 Showcasing the Waist Shift
 --------------------------
@@ -91,7 +90,7 @@ Let's start by setting up the LHC in ``MAD-X``, in this case at top energy.
 To understand the function below have a look at the :ref:`lhc setup example
 <demo-lhc-setup>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 64-70
+.. GENERATED FROM PYTHON SOURCE LINES 63-69
 
 .. code-block:: Python
 
@@ -108,13 +107,13 @@ To understand the function below have a look at the :ref:`lhc setup example
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 71-74
+.. GENERATED FROM PYTHON SOURCE LINES 70-73
 
 We will use the `~.plotting.lattice.plot_latwiss` function to have a zoomed-in look
 at the Interaction Region 1 by providing the *xlimits* parameter. Let's first
 get the IP postitions with `~.plotting.utils.get_lhc_ips_positions`:
 
-.. GENERATED FROM PYTHON SOURCE LINES 74-79
+.. GENERATED FROM PYTHON SOURCE LINES 73-78
 
 .. code-block:: Python
 
@@ -130,11 +129,11 @@ get the IP postitions with `~.plotting.utils.get_lhc_ips_positions`:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-81
+.. GENERATED FROM PYTHON SOURCE LINES 79-80
 
 Let's now have a look at the IR in normal conditions.
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-98
+.. GENERATED FROM PYTHON SOURCE LINES 80-97
 
 .. code-block:: Python
 
@@ -167,7 +166,7 @@ Let's now have a look at the IR in normal conditions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 99-114
+.. GENERATED FROM PYTHON SOURCE LINES 98-113
 
 Notice the (anti-)symmetry of the :math:`\beta_{x,y}` functions and triplet
 quadrupoles powering on the right and left-hand side of the IP. Let's now apply
@@ -185,7 +184,7 @@ to make sure we do not deviate.
    knob powering. The individual triplet magnets trims are not affected. Here we
    will use a setting of 1.5 to make the effect easily noticeable.
 
-.. GENERATED FROM PYTHON SOURCE LINES 114-119
+.. GENERATED FROM PYTHON SOURCE LINES 113-118
 
 .. code-block:: Python
 
@@ -201,12 +200,12 @@ to make sure we do not deviate.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 120-122
+.. GENERATED FROM PYTHON SOURCE LINES 119-121
 
 Let's again retrieve the ``TWISS`` table, then plot the new conditions in the
 Interaction Region.
 
-.. GENERATED FROM PYTHON SOURCE LINES 122-139
+.. GENERATED FROM PYTHON SOURCE LINES 121-138
 
 .. code-block:: Python
 
@@ -239,7 +238,7 @@ Interaction Region.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 140-146
+.. GENERATED FROM PYTHON SOURCE LINES 139-145
 
 Comparing to the previous plot, one can notice two things:
  - The triplet quadrupoles powering has changed.
@@ -248,7 +247,7 @@ Comparing to the previous plot, one can notice two things:
 One can compare the :math:`\beta_{x,y}` functions before and after the rigid
 waist shift with a simple plot:
 
-.. GENERATED FROM PYTHON SOURCE LINES 146-167
+.. GENERATED FROM PYTHON SOURCE LINES 145-166
 
 .. code-block:: Python
 
@@ -285,7 +284,7 @@ waist shift with a simple plot:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-176
+.. GENERATED FROM PYTHON SOURCE LINES 167-175
 
 Here the subscript **n** stands for the nominal scenario, and **w** for the
 rigid waist shift scenario.
@@ -296,7 +295,7 @@ rigid waist shift scenario.
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 176-179
+.. GENERATED FROM PYTHON SOURCE LINES 175-178
 
 .. code-block:: Python
 
@@ -310,7 +309,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 180-192
+.. GENERATED FROM PYTHON SOURCE LINES 179-191
 
 Determining the Waist Shift
 ---------------------------
@@ -325,7 +324,7 @@ at the :math:`\beta_{x,y}` functions.
 Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
 2022 commissioning to speed up this file's execution time.
 
-.. GENERATED FROM PYTHON SOURCE LINES 192-220
+.. GENERATED FROM PYTHON SOURCE LINES 191-219
 
 .. code-block:: Python
 
@@ -364,13 +363,13 @@ Let's do so for the LHC 2022 optics, with pre-calculated knobs use in the LHC
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 221-224
+.. GENERATED FROM PYTHON SOURCE LINES 220-223
 
 We will use all our added markers to determine the location of the waist,
 by simply finding with good resolution the minima of the :math:`\beta_{x,y}`
 functions.
 
-.. GENERATED FROM PYTHON SOURCE LINES 224-234
+.. GENERATED FROM PYTHON SOURCE LINES 223-233
 
 .. code-block:: Python
 
@@ -391,13 +390,13 @@ functions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 235-238
+.. GENERATED FROM PYTHON SOURCE LINES 234-237
 
 We can also plot the :math:`\beta_{x,y}` functions before and after the
 application of the rigid waist shift. Here one can clearly see the shift of
 the waist between the two configurations.
 
-.. GENERATED FROM PYTHON SOURCE LINES 238-284
+.. GENERATED FROM PYTHON SOURCE LINES 237-283
 
 .. code-block:: Python
 
@@ -459,12 +458,12 @@ the waist between the two configurations.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 285-287
+.. GENERATED FROM PYTHON SOURCE LINES 284-286
 
 The value of the waist is then simply the distance between the IP and the
 location of the found minima. Here is the value, in meters:
 
-.. GENERATED FROM PYTHON SOURCE LINES 287-291
+.. GENERATED FROM PYTHON SOURCE LINES 286-290
 
 .. code-block:: Python
 
@@ -485,7 +484,7 @@ location of the found minima. Here is the value, in meters:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 292-305
+.. GENERATED FROM PYTHON SOURCE LINES 291-304
 
 Let's now determine this value using the Eq. 10 formula in
 :cite:t:`Carlier:AccuracyFeasibilityMeasurement2017`:
@@ -501,7 +500,7 @@ to figure out.
 Manipulating the equation to determine the waist yields:
 :math:`w = L^{*} - \sqrt{\beta_0 \beta_w - \beta_w^2}`
 
-.. GENERATED FROM PYTHON SOURCE LINES 305-314
+.. GENERATED FROM PYTHON SOURCE LINES 304-313
 
 .. code-block:: Python
 
@@ -521,13 +520,13 @@ Manipulating the equation to determine the waist yields:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 315-318
+.. GENERATED FROM PYTHON SOURCE LINES 314-317
 
 The analytical result (sign will swap depending on if we calculate from left
 or right Q1) is then easily calculated. We can then compare this value to the
 one found with the markers we previously added, and they are fairly close.
 
-.. GENERATED FROM PYTHON SOURCE LINES 318-322
+.. GENERATED FROM PYTHON SOURCE LINES 317-321
 
 .. code-block:: Python
 
@@ -549,40 +548,40 @@ one found with the markers we previously added, and they are fairly close.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 323-327
+.. GENERATED FROM PYTHON SOURCE LINES 322-326
 
 Seeing the effect through values of the knob
 --------------------------------------------
 We can use the above to determine these values for different knob settings.
 First, let's define some structures and functions.
 
-.. GENERATED FROM PYTHON SOURCE LINES 327-376
+.. GENERATED FROM PYTHON SOURCE LINES 326-375
 
 .. code-block:: Python
 
 
-    Waist = namedtuple("Waist", ["x", "y"])
-    BetasIP = namedtuple("Betas", ["x", "y"])
-    Result = namedtuple("Result", ["waists", "betas"])
+    Waist = NamedTuple("Waist", ["x", "y"])
+    BetasIP = NamedTuple("Betas", ["x", "y"])
+    Result = NamedTuple("Result", ["waists", "betas"])
 
 
     def find_waists(current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame) -> Waist:
         initial = initial_twiss.copy()
-        ip_s = current_twiss.S[f"IP1"]
+        ip_s = current_twiss.S["IP1"]
         slimits = (ip_s - 10, ip_s + 10)
 
         around_ip = current_twiss[current_twiss.S.between(*slimits)]
         initial = initial[initial.S.between(*slimits)].copy()
-        hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
-        ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
+        hor_waist_location = around_ip.S[around_ip.BETX.min() == around_ip.BETX].iloc[0]
+        ver_waist_location = around_ip.S[around_ip.BETY.min() == around_ip.BETY].iloc[0]
         initial = initial_twiss.copy()
-        ip_s = current_twiss.S[f"IP1"]
+        ip_s = current_twiss.S["IP1"]
         slimits = (ip_s - 10, ip_s + 10)
 
         around_ip = current_twiss[current_twiss.S.between(*slimits)]
         initial = initial[initial.S.between(*slimits)].copy()
-        hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
-        ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
+        hor_waist_location = around_ip.S[around_ip.BETX.min() == around_ip.BETX].iloc[0]
+        ver_waist_location = around_ip.S[around_ip.BETY.min() == around_ip.BETY].iloc[0]
         return Waist(ip_s - hor_waist_location, ip_s - ver_waist_location)
 
 
@@ -599,7 +598,7 @@ First, let's define some structures and functions.
             run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False
         ) as madx:
             lhc.add_markers_around_lhc_ip(
-                madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
+                madx, sequence="lhcb1", ip=1, n_markers=1000, interval=0.001
             )
             ref_twiss = twiss.get_twiss_tfs(madx)
             lhc.apply_lhc_rigidity_waist_shift_knob(madx, knob_value, ir=1)
@@ -611,16 +610,30 @@ First, let's define some structures and functions.
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+.. code-block:: pytb
+
+    Traceback (most recent call last):
+      File "/home/runner/work/PyhDToolkit/PyhDToolkit/examples/demo_lhc_rigid_waist_shift.py", line 327, in <module>
+        Waist = NamedTuple("Waist", ["x", "y"])
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/opt/hostedtoolcache/Python/3.12.4/x64/lib/python3.12/typing.py", line 2860, in NamedTuple
+        nt = _make_nmtuple(typename, fields, module=_caller())
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+      File "/opt/hostedtoolcache/Python/3.12.4/x64/lib/python3.12/typing.py", line 2782, in _make_nmtuple
+        fields = [n for n, t in types]
+                        ^^^^
+    ValueError: not enough values to unpack (expected 2, got 1)
 
 
 
 
-
-.. GENERATED FROM PYTHON SOURCE LINES 377-378
+.. GENERATED FROM PYTHON SOURCE LINES 376-377
 
 Let's now run the simulation for different knob values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 378-390
+.. GENERATED FROM PYTHON SOURCE LINES 377-389
 
 .. code-block:: Python
 
@@ -637,17 +650,11 @@ Let's now run the simulation for different knob values:
     deltabety = np.array([res.betas.y for res in results])
 
 
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 391-392
+.. GENERATED FROM PYTHON SOURCE LINES 390-391
 
 We can now plot the results:
 
-.. GENERATED FROM PYTHON SOURCE LINES 392-415
+.. GENERATED FROM PYTHON SOURCE LINES 391-414
 
 .. code-block:: Python
 
@@ -675,22 +682,11 @@ We can now plot the results:
     plt.show()
 
 
-
-
-.. image-sg:: /gallery/images/sphx_glr_demo_lhc_rigid_waist_shift_005.svg
-   :alt: demo lhc rigid waist shift
-   :srcset: /gallery/images/sphx_glr_demo_lhc_rigid_waist_shift_005.svg, /gallery/images/sphx_glr_demo_lhc_rigid_waist_shift_005_2_00x.svg 2.00x
-   :class: sphx-glr-single-img
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 416-417
+.. GENERATED FROM PYTHON SOURCE LINES 415-416
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 417-420
+.. GENERATED FROM PYTHON SOURCE LINES 416-419
 
 .. code-block:: Python
 
@@ -698,13 +694,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
     madx.exit()
 
 
-
-
-
-
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 421-431
+.. GENERATED FROM PYTHON SOURCE LINES 420-430
 
 .. admonition:: References
 
@@ -720,7 +710,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (4 minutes 6.207 seconds)
+   **Total running time of the script:** (0 minutes 42.711 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_lhc_rigid_waist_shift.py:

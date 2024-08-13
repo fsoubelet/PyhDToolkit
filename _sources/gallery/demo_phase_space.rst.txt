@@ -32,13 +32,12 @@ In this example we will generate a dummy lattice, set its working point and trac
 The transformation to normalized, or Courant-Snyder, coordinates is handled by the plotting
 functions.
 
-.. GENERATED FROM PYTHON SOURCE LINES 17-35
+.. GENERATED FROM PYTHON SOURCE LINES 17-34
 
 .. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
-
     from cpymad.madx import Madx
 
     from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
@@ -61,11 +60,11 @@ functions.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-38
+.. GENERATED FROM PYTHON SOURCE LINES 36-37
 
 Define some constants, generate a simple lattice and setup your simulation:
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-47
+.. GENERATED FROM PYTHON SOURCE LINES 37-46
 
 .. code-block:: Python
 
@@ -85,11 +84,11 @@ Define some constants, generate a simple lattice and setup your simulation:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 48-49
+.. GENERATED FROM PYTHON SOURCE LINES 47-48
 
 Input the lattice into ``MAD-X``, and match to a desired working point:
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-62
+.. GENERATED FROM PYTHON SOURCE LINES 48-61
 
 .. code-block:: Python
 
@@ -113,13 +112,13 @@ Input the lattice into ``MAD-X``, and match to a desired working point:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 63-66
+.. GENERATED FROM PYTHON SOURCE LINES 62-65
 
 We can then perform tracking on a range of particles. Here the **x_coords**, **px_coords**,
 **y_coords** and **py_coords** become lists of arrays, in which each element has the array of
 a particle's coordinates for each turn.
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-76
+.. GENERATED FROM PYTHON SOURCE LINES 65-75
 
 .. code-block:: Python
 
@@ -140,13 +139,13 @@ a particle's coordinates for each turn.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 77-80
+.. GENERATED FROM PYTHON SOURCE LINES 76-79
 
 Now we can plot these coordinates in phase space, here for the horizontal plane.
 Note that the function automatically calculates the normalized coordinates and
 plots these.
 
-.. GENERATED FROM PYTHON SOURCE LINES 80-91
+.. GENERATED FROM PYTHON SOURCE LINES 79-90
 
 .. code-block:: Python
 
@@ -173,12 +172,12 @@ plots these.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-94
+.. GENERATED FROM PYTHON SOURCE LINES 91-93
 
 Using the `~.plotting.phasespace.plot_courant_snyder_phase_space_colored` function,
 one gets a plot in which each color corresponds to a given particle's trajectory:
 
-.. GENERATED FROM PYTHON SOURCE LINES 94-105
+.. GENERATED FROM PYTHON SOURCE LINES 93-104
 
 .. code-block:: Python
 
@@ -205,11 +204,11 @@ one gets a plot in which each color corresponds to a given particle's trajectory
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-107
+.. GENERATED FROM PYTHON SOURCE LINES 105-106
 
 Let's close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-109
+.. GENERATED FROM PYTHON SOURCE LINES 106-108
 
 .. code-block:: Python
 
@@ -222,7 +221,7 @@ Let's close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 110-117
+.. GENERATED FROM PYTHON SOURCE LINES 109-116
 
 We can see the evolvution of particles through the normalized phase space during
 tracking: each point in a given line correspond to a given turn. In our case,
@@ -232,7 +231,7 @@ significant change, a good solution is to excite a resonance!
 To do so, we will use a similar lattice equipped with a sextupole, which we will
 use to excite a third order resonance.
 
-.. GENERATED FROM PYTHON SOURCE LINES 117-124
+.. GENERATED FROM PYTHON SOURCE LINES 116-123
 
 .. code-block:: Python
 
@@ -250,11 +249,11 @@ use to excite a third order resonance.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 125-126
+.. GENERATED FROM PYTHON SOURCE LINES 124-125
 
 Let's get close to the third order resonance and track particles.
 
-.. GENERATED FROM PYTHON SOURCE LINES 126-146
+.. GENERATED FROM PYTHON SOURCE LINES 125-145
 
 .. code-block:: Python
 
@@ -285,11 +284,11 @@ Let's get close to the third order resonance and track particles.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 147-148
+.. GENERATED FROM PYTHON SOURCE LINES 146-147
 
 Plotting the new phase space, we can clearly see the resonance's islands!
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-159
+.. GENERATED FROM PYTHON SOURCE LINES 147-158
 
 .. code-block:: Python
 
@@ -316,11 +315,11 @@ Plotting the new phase space, we can clearly see the resonance's islands!
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 160-161
+.. GENERATED FROM PYTHON SOURCE LINES 159-160
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-164
+.. GENERATED FROM PYTHON SOURCE LINES 160-163
 
 .. code-block:: Python
 
@@ -334,7 +333,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 165-174
+.. GENERATED FROM PYTHON SOURCE LINES 164-173
 
 .. admonition:: References
 
@@ -349,7 +348,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 26.818 seconds)
+   **Total running time of the script:** (0 minutes 26.978 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_phase_space.py:

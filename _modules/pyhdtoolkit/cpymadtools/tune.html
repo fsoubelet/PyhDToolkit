@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.tune &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.tune &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -518,17 +522,15 @@
 <span class="sd">Module with functions to manipulate ``MAD-X`` functionality around the tune through</span>
 <span class="sd">a `~cpymad.madx.Madx` object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">math</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.collections</span>
 <span class="kn">import</span> <span class="nn">matplotlib.patches</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">tfs</span>
-
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
@@ -536,7 +538,7 @@
 <div class="viewcode-block" id="make_footprint_table">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.make_footprint_table">[docs]</a>
 <span class="k">def</span> <span class="nf">make_footprint_table</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dense</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cleanup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">dense</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">cleanup</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.9.0</span>
@@ -578,12 +580,12 @@
         <span class="n">angle</span> <span class="o">=</span> <span class="mi">15</span> <span class="o">*</span> <span class="n">angle_multiplier</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">/</span> <span class="mi">180</span>
         <span class="k">if</span> <span class="n">angle_multiplier</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
             <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">big</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">small</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">angle_multiplier</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="n">angle_multiplier</span> <span class="o">==</span> <span class="mi">6</span><span class="p">:</span>  <span class="c1"># noqa: PLR2004</span>
             <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">small</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">big</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">madx</span><span class="o">.</span><span class="n">command</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">fx</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">angle</span><span class="p">),</span> <span class="n">fy</span><span class="o">=</span><span class="n">sigma_multiplier</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
         <span class="n">angle_multiplier</span> <span class="o">+=</span> <span class="mf">0.5</span>
-        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">angle_multiplier</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">angle_multiplier</span><span class="p">)</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>  <span class="c1"># noqa: PLR2004</span>
             <span class="n">angle_multiplier</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="n">sigma_multiplier</span> <span class="o">+=</span> <span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">dense</span> <span class="k">else</span> <span class="mf">0.5</span>
 
@@ -596,7 +598,8 @@
             <span class="s2">&quot;Remote MAD-X process crashed, most likely because you did not slice the sequence &quot;</span>
             <span class="s2">&quot;before running DYNAP. Restart and slice before calling this function.&quot;</span>
         <span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;DYNAP command crashed the MAD-X process&quot;</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_crash</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;DYNAP command crashed the MAD-X process&quot;</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">madx_crash</span>
 
     <span class="k">if</span> <span class="n">cleanup</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">platform</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;win32&quot;</span><span class="p">,</span> <span class="s2">&quot;cygwin&quot;</span><span class="p">):</span>
         <span class="c1"># fails on Windows due to its I/O system, since MAD-X still has &quot;control&quot; of the files</span>
@@ -609,19 +612,19 @@
 
     <span class="n">tfs_dframe</span> <span class="o">=</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">(</span>
         <span class="n">data</span><span class="o">=</span><span class="n">madx</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">dynaptune</span><span class="o">.</span><span class="n">dframe</span><span class="p">(),</span>
-        <span class="n">headers</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-            <span class="n">NAME</span><span class="o">=</span><span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span>
-            <span class="n">TYPE</span><span class="o">=</span><span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span>
-            <span class="n">TITLE</span><span class="o">=</span><span class="s2">&quot;FOOTPRINT TABLE&quot;</span><span class="p">,</span>
-            <span class="n">MADX_VERSION</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
-            <span class="n">ORIGIN</span><span class="o">=</span><span class="s2">&quot;pyhdtoolkit.cpymadtools.tune.make_footprint_table() function&quot;</span><span class="p">,</span>
-            <span class="n">ANGLE</span><span class="o">=</span><span class="mi">7</span><span class="p">,</span>  <span class="c1"># default of the function</span>
-            <span class="n">AMPLITUDE</span><span class="o">=</span><span class="n">sigma</span><span class="p">,</span>
-            <span class="n">DSIGMA</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">dense</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">,</span>
-            <span class="n">ANGLE_MEANING</span><span class="o">=</span><span class="s2">&quot;Number of different starting angles used for each starting amplitude&quot;</span><span class="p">,</span>
-            <span class="n">AMPLITUDE_MEANING</span><span class="o">=</span><span class="s2">&quot;Up to which bunch sigma the starting amplitudes were ramped up&quot;</span><span class="p">,</span>
-            <span class="n">DSIGMA_MEANING</span><span class="o">=</span><span class="s2">&quot;Increment value of AMPLITUDE at each new starting amplitude&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span>
+            <span class="s2">&quot;NAME&quot;</span><span class="p">:</span> <span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TYPE&quot;</span><span class="p">:</span> <span class="s2">&quot;DYNAPTUNE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;TITLE&quot;</span><span class="p">:</span> <span class="s2">&quot;FOOTPRINT TABLE&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;MADX_VERSION&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">madx</span><span class="o">.</span><span class="n">version</span><span class="p">)</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span>
+            <span class="s2">&quot;ORIGIN&quot;</span><span class="p">:</span> <span class="s2">&quot;pyhdtoolkit.cpymadtools.tune.make_footprint_table() function&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ANGLE&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>  <span class="c1"># default of the function</span>
+            <span class="s2">&quot;AMPLITUDE&quot;</span><span class="p">:</span> <span class="n">sigma</span><span class="p">,</span>
+            <span class="s2">&quot;DSIGMA&quot;</span><span class="p">:</span> <span class="mi">1</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">dense</span> <span class="k">else</span> <span class="mf">0.5</span><span class="p">,</span>
+            <span class="s2">&quot;ANGLE_MEANING&quot;</span><span class="p">:</span> <span class="s2">&quot;Number of different starting angles used for each starting amplitude&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;AMPLITUDE_MEANING&quot;</span><span class="p">:</span> <span class="s2">&quot;Up to which bunch sigma the starting amplitudes were ramped up&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;DSIGMA_MEANING&quot;</span><span class="p">:</span> <span class="s2">&quot;Increment value of AMPLITUDE at each new starting amplitude&quot;</span><span class="p">,</span>
+        <span class="p">},</span>
     <span class="p">)</span>
     <span class="n">tfs_dframe</span> <span class="o">=</span> <span class="n">tfs_dframe</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
@@ -634,7 +637,7 @@
 
 <div class="viewcode-block" id="get_footprint_lines">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.tune.get_footprint_lines">[docs]</a>
-<span class="k">def</span> <span class="nf">get_footprint_lines</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">get_footprint_lines</span><span class="p">(</span><span class="n">dynap_dframe</span><span class="p">:</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.12.0</span>
 
@@ -712,25 +715,26 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Grouping tune points according to starting angles and amplitudes&quot;</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">amplitude</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-        <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tunx&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tuny&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
-        <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tunx&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
-        <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tuny&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
-    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">tune_grouping_error</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">([</span><span class="n">amplitude</span><span class="p">,</span> <span class="n">angle</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+        <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tunx&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tuny&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tunx&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+        <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">dynap_dframe</span><span class="p">[</span><span class="s2">&quot;tuny&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">angle</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span> <span class="k">as</span> <span class="n">dynap_error</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span>
             <span class="s2">&quot;Cannot group tune points according to starting angles and amplitudes. Try changing &quot;</span>
             <span class="s2">&quot;the &#39;AMPLITUDE&#39; value in the provided TfsDataFrame&#39;s headers.&quot;</span>
         <span class="p">)</span>
-        <span class="k">raise</span> <span class="n">tune_grouping_error</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid AMPLITUDE value in the provided TfsDataFrame headers&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span> <span class="kn">from</span> <span class="nn">dynap_error</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Determining polygon vertices&quot;</span><span class="p">)</span>
-    <span class="n">sx</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">sy</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
-    <span class="n">p1</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:,</span> <span class="p">:]</span>
-    <span class="n">p2</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:]</span>
-    <span class="n">p3</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:]</span>
-    <span class="n">p4</span> <span class="o">=</span> <span class="n">A</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:]</span>
+    <span class="n">sx</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">sy</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:,</span> <span class="p">:]</span>
+    <span class="n">p2</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:]</span>
+    <span class="n">p3</span> <span class="o">=</span> <span class="n">a</span><span class="p">[</span><span class="mi">1</span><span class="p">:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:]</span>
+    <span class="n">p4</span> <span class="o">=</span> <span class="n">a</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span> <span class="o">*</span> <span class="n">sy</span><span class="p">,</span> <span class="mi">2</span><span class="p">)[:]</span>
     <span class="n">polygons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">((</span><span class="n">p1</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">p3</span><span class="p">,</span> <span class="n">p4</span><span class="p">))</span>  <span class="c1"># Stack endpoints to form polygons</span>
     <span class="n">polygons</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">polygons</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>  <span class="c1"># transpose polygons</span>
 
@@ -772,7 +776,7 @@
     <span class="k">return</span> <span class="n">string_rep</span>
 
 
-<span class="k">def</span> <span class="nf">_make_tune_groups</span><span class="p">(</span><span class="n">dynap_string_rep</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
+<span class="k">def</span> <span class="nf">_make_tune_groups</span><span class="p">(</span><span class="n">dynap_string_rep</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>  <span class="c1"># noqa: ARG001</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Creates appropriate tune points groups from the arcane string representation returned by</span>
 <span class="sd">    `~.tune._get_dynap_string_rep` based on starting amplitude and angle for each particle.</span>
@@ -791,7 +795,7 @@
 <span class="sd">        by `~.tune.get_footprint_lines`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Constructing tune points groups based on starting amplitudes and angles&quot;</span><span class="p">)</span>
-    <span class="n">tune_groups</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tune_groups</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">items</span> <span class="o">=</span> <span class="n">dynap_string_rep</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
     <span class="n">amplitude</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">items</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
     <span class="n">current</span> <span class="o">=</span> <span class="mi">2</span>
@@ -810,7 +814,7 @@
 <span class="k">class</span> <span class="nc">_Footprint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;More dark magic from the past here, close your eyes my friends.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tune_groups</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span> <span class="n">amplitude</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tune_groups</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]],</span> <span class="n">amplitude</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">angle</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dsigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span> <span class="o">=</span> <span class="n">tune_groups</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span> <span class="o">=</span> <span class="n">angle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_nampl</span> <span class="o">=</span> <span class="n">amplitude</span>
@@ -819,16 +823,14 @@
     <span class="k">def</span> <span class="nf">get_h_tune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ampl</span><span class="p">,</span> <span class="n">angl</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">angl</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;H&quot;</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="n">angl</span><span class="p">][</span><span class="s2">&quot;H&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="n">angl</span><span class="p">][</span><span class="s2">&quot;H&quot;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">get_v_tune</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ampl</span><span class="p">,</span> <span class="n">angl</span><span class="p">):</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">&lt;=</span> <span class="n">angl</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span><span class="p">:</span>
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">])</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="s2">&quot;V&quot;</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="n">angl</span><span class="p">][</span><span class="s2">&quot;V&quot;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tunes</span><span class="p">[</span><span class="n">ampl</span><span class="p">][</span><span class="n">angl</span><span class="p">][</span><span class="s2">&quot;V&quot;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">get_plottable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
+    <span class="k">def</span> <span class="nf">get_plottable</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">list</span><span class="p">[</span><span class="nb">float</span><span class="p">]]:</span>
         <span class="n">qxs</span><span class="p">,</span> <span class="n">qys</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_nampl</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_maxnangl</span><span class="p">):</span>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.lattice &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.plotting.lattice &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -517,14 +521,11 @@
 
 <span class="sd">Module with functions to create lattice plots through a `~cpymad.madx.Madx` object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.axes</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">matplotlib.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.layout</span> <span class="kn">import</span> <span class="n">_ylim_from_input</span><span class="p">,</span> <span class="n">plot_machine_layout</span>
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.utils</span> <span class="kn">import</span> <span class="p">(</span>
@@ -539,19 +540,19 @@
 <span class="k">def</span> <span class="nf">plot_latwiss</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">plot_dipoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">plot_dipole_k1</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">plot_quadrupoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">plot_bpms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">disp_ylim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">beta_ylim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k0l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k1l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k2l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k3l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">disp_ylim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">beta_ylim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k0l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k1l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k2l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k3l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -580,11 +581,11 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.</span>
-<span class="sd">        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.</span>
+<span class="sd">        title (str | None): if provided, is set as title of the plot. Defaults to `None`.</span>
 <span class="sd">        xoffset (float): An offset applied to the ``S`` coordinate before plotting. This is useful if</span>
 <span class="sd">            you want to center a plot around a specific point or element, which would then become located</span>
 <span class="sd">            at :math:`s = 0`. Beware this offset is applied before applying the *xlimits*. Defaults to 0.</span>
-<span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is</span>
+<span class="sd">        xlimits (tuple[float, float]): will implement xlim (for the ``s`` coordinate) if this is</span>
 <span class="sd">            not ``None``, using the tuple passed.</span>
 <span class="sd">        plot_dipoles (bool): if `True`, dipole patches will be plotted on the layout subplot of</span>
 <span class="sd">            the figure. Defaults to `True`. Dipoles are plotted in blue.</span>
@@ -594,28 +595,28 @@
 <span class="sd">            subplot of the figure. Defaults to `True`. Quadrupoles are plotted in red.</span>
 <span class="sd">        plot_bpms (bool): if `True`, additional patches will be plotted on the layout subplot to</span>
 <span class="sd">            represent Beam Position Monitors. BPMs are plotted in dark grey.</span>
-<span class="sd">        disp_ylim (Tuple[float, float]): vertical axis limits for the dispersion values.</span>
+<span class="sd">        disp_ylim (tuple[float, float]): vertical axis limits for the dispersion values.</span>
 <span class="sd">            Can be given as a single value (float, int) or a tuple (in which case it should be</span>
 <span class="sd">            symmetric). Defaults to (-10, 125).</span>
-<span class="sd">        beta_ylim (Tuple[float, float]): vertical axis limits for the betatron function values.</span>
+<span class="sd">        beta_ylim (tuple[float, float]): vertical axis limits for the betatron function values.</span>
 <span class="sd">            Can be given as a single value (float, int) or a tuple (in which case it should be</span>
 <span class="sd">            symmetric). Defaults to `None`, to be determined by `~matplotlib` based on the</span>
 <span class="sd">            plotted beta values.</span>
-<span class="sd">        k0l_lim (Union[Tuple[float, float], float, int]): vertical axis limits for the ``k0l``</span>
+<span class="sd">        k0l_lim (tuple[float, float] | float): vertical axis limits for the ``k0l``</span>
 <span class="sd">            values used for the height of dipole patches. Can be given as a single value (float,</span>
 <span class="sd">            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,</span>
 <span class="sd">            then the limits will be auto-determined based on the ``k0l`` values of the dipoles in</span>
 <span class="sd">            the plot.</span>
-<span class="sd">        k1l_lim (Union[Tuple[float, float], float, int]): vertical axis limits for the ``k1l``</span>
+<span class="sd">        k1l_lim (tuple[float, float] | float): vertical axis limits for the ``k1l``</span>
 <span class="sd">            values used for the height of quadrupole patches. Can be given as a single value (float,</span>
 <span class="sd">            int) or a tuple (in which case it should be symmetric). If `None` (default) is given,</span>
 <span class="sd">            then the limits will be auto-determined based on the ``k0l`` values of the quadrupoles</span>
 <span class="sd">            in the plot.</span>
-<span class="sd">        k2l_lim (Union[Tuple[float, float], float, int]): if given, sextupole patches will be plotted</span>
+<span class="sd">        k2l_lim (tuple[float, float] | float): if given, sextupole patches will be plotted</span>
 <span class="sd">            on the layout subplot of the figure. If given, acts as vertical axis limits for the k2l</span>
 <span class="sd">            values used for the height of sextupole patches. Can be given as a single value (float,</span>
 <span class="sd">            int) or a tuple (in which case it should be symmetric).</span>
-<span class="sd">        k3l_lim (Union[Tuple[float, float], float, int]): if given, octupole patches will be plotted</span>
+<span class="sd">        k3l_lim (tuple[float, float] | float): if given, octupole patches will be plotted</span>
 <span class="sd">            on the layout subplot of the figure. If given, acts as vertical axis limits for the k3l</span>
 <span class="sd">            values used for the height of octupole patches. Can be given as a single value (float,</span>
 <span class="sd">            int) or a tuple (in which case it should be symmetric).</span>
@@ -717,11 +718,11 @@
 <span class="k">def</span> <span class="nf">plot_machine_survey</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">show_elements</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">high_orders</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axes</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
@@ -732,7 +733,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.</span>
-<span class="sd">        title (Optional[str]): if provided, is set as title of the plot. Defaults to `None`.</span>
+<span class="sd">        title (str | None): if provided, is set as title of the plot. Defaults to `None`.</span>
 <span class="sd">        show_elements (bool): if `True`, will try to plot by differentiating elements.</span>
 <span class="sd">            Defaults to `False`.</span>
 <span class="sd">        high_orders (bool): if `True`, plots sextupoles and octupoles if *show_elements* is `True`,</span>
@@ -770,21 +771,13 @@
             <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Dipoles&quot;</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-            <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QF&quot;</span>
-        <span class="p">)</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-            <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QD&quot;</span>
-        <span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_foc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;blue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QF&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;quad_defoc&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;o&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;QD&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">high_orders</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting high order magnetic elements (up to octupoles)&quot;</span><span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-                <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span>
-            <span class="p">)</span>
-            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span>
-                <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MO&quot;</span>
-            <span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;sextupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MS&quot;</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">z</span><span class="p">,</span> <span class="n">element_dfs</span><span class="p">[</span><span class="s2">&quot;octupoles&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;cyan&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MO&quot;</span><span class="p">)</span>
         <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>

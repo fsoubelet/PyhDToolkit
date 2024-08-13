@@ -10,7 +10,7 @@ This example shows how to use the `~.lhc.misalign_lhc_ir_quadrupoles` function
 to assign magnet errors in the Insertion Region magnets of the LHC.
 
 .. warning::
-    The implementation of this function makes it valid only for LHC IP IRs, which are 
+    The implementation of this function makes it valid only for LHC IP IRs, which are
     1, 2, 5 and 8. Other IRs have different layouts that are incompatible.
 
 .. important::
@@ -27,7 +27,6 @@ to assign magnet errors in the Insertion Region magnets of the LHC.
 # sphinx_gallery_thumbnail_number = 1
 import matplotlib.pyplot as plt
 import numpy as np
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching
@@ -38,7 +37,7 @@ logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
-# Let's start by setting up the LHC in ``MAD-X``, in this case at injection 
+# Let's start by setting up the LHC in ``MAD-X``, in this case at injection
 # optics and energy. To understand the function below have a look at the
 # :ref:`lhc setup example <demo-lhc-setup>`.
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.utils._misc &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.utils._misc &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -518,19 +522,18 @@
 <span class="sd">Private module that provides miscellaneous personnal utility functions.</span>
 
 <span class="sd">.. warning::</span>
-<span class="sd">    The functions in here are intented for personal use, and will most likely </span>
+<span class="sd">    The functions in here are intented for personal use, and will most likely</span>
 <span class="sd">    **not** work on other people&#39;s machines.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">shlex</span>
 
+<span class="kn">import</span> <span class="nn">shlex</span>
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">multiprocessing</span> <span class="kn">import</span> <span class="n">cpu_count</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">cpymad</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
@@ -601,7 +604,9 @@
 
 <div class="viewcode-block" id="add_noise_to_ir_bpms">
 <a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_ir_bpms">[docs]</a>
-<span class="k">def</span> <span class="nf">add_noise_to_ir_bpms</span><span class="p">(</span><span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">max_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stdev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">add_noise_to_ir_bpms</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">max_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stdev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.2.0</span>
 
@@ -645,7 +650,7 @@
 <div class="viewcode-block" id="add_noise_to_arc_bpms">
 <a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.add_noise_to_arc_bpms">[docs]</a>
 <span class="k">def</span> <span class="nf">add_noise_to_arc_bpms</span><span class="p">(</span>
-    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">min_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stdev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">df</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">,</span> <span class="n">min_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">stdev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">columns</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.2.0</span>
@@ -743,13 +748,13 @@
 
 <div class="viewcode-block" id="get_betastar_from_opticsfile">
 <a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils._misc.get_betastar_from_opticsfile">[docs]</a>
-<span class="k">def</span> <span class="nf">get_betastar_from_opticsfile</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">get_betastar_from_opticsfile</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span><span class="p">,</span> <span class="n">check_symmetry</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.16.0</span>
 
 <span class="sd">    Parses the :math:`\\beta^{*}` value from the *opticsfile* content,</span>
-<span class="sd">    which is in the first lines. This contains a check that ensures the betastar</span>
-<span class="sd">    is the same for IP1 and IP5. The values returned are in meters.</span>
+<span class="sd">    which is in the first lines. This contains an optional check to ensure</span>
+<span class="sd">    the betastar is the same for IP1 and IP5. The values returned are in meters.</span>
 
 <span class="sd">    .. note::</span>
 <span class="sd">        For file in ``acc-models-lhc`` make sure to point to the strength file</span>
@@ -776,12 +781,14 @@
 <span class="sd">            # returns 0.3</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">file_lines</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">)</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
-    <span class="n">ip1_x_line</span><span class="p">,</span> <span class="n">ip1_y_line</span><span class="p">,</span> <span class="n">ip5_x_line</span><span class="p">,</span> <span class="n">ip5_y_line</span> <span class="o">=</span> <span class="p">[</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_lines</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;bet&quot;</span><span class="p">)]</span>
+    <span class="n">ip1_x_line</span><span class="p">,</span> <span class="n">ip1_y_line</span><span class="p">,</span> <span class="n">ip5_x_line</span><span class="p">,</span> <span class="n">ip5_y_line</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">file_lines</span> <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;bet&quot;</span><span class="p">))</span>
     <span class="n">betastar_x_ip1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ip1_x_line</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">betastar_y_ip1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ip1_y_line</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">betastar_x_ip5</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ip5_x_line</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
     <span class="n">betastar_y_ip5</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">shlex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">ip5_y_line</span><span class="p">)[</span><span class="mi">2</span><span class="p">])</span>
-    <span class="k">assert</span> <span class="n">betastar_x_ip1</span> <span class="o">==</span> <span class="n">betastar_y_ip1</span> <span class="o">==</span> <span class="n">betastar_x_ip5</span> <span class="o">==</span> <span class="n">betastar_y_ip5</span>
+    <span class="k">if</span> <span class="n">check_symmetry</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">betastar_x_ip1</span> <span class="o">==</span> <span class="n">betastar_y_ip1</span> <span class="o">==</span> <span class="n">betastar_x_ip5</span> <span class="o">==</span> <span class="n">betastar_y_ip5</span><span class="p">):</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The betastar values for IP1 and IP5 are not the same in both planes.&quot;</span>
+        <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">betastar_x_ip1</span>  <span class="c1"># doesn&#39;t matter which plane, they&#39;re all the same</span></div>
 
 </pre></div>

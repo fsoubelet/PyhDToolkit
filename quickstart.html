@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quickstart &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>Quickstart &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
@@ -14,7 +14,7 @@
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=0a86e678" />
 
   
@@ -24,7 +24,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=e0a75244"></script>
+        <script src="_static/documentation_options.js?v=72d88caf"></script>
         <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="_static/clipboard.min.js?v=a7894cd8"></script>
@@ -49,7 +49,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -298,6 +298,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -580,7 +584,7 @@ Let’s say one has initiated their <code class="docutils literal notranslate"><
 <section id="plotting">
 <h3>Plotting<a class="headerlink" href="#plotting" title="Link to this heading"></a></h3>
 <p>The <a class="reference internal" href="api/plotting.html#pyhdtoolkit-plotting"><span class="std std-ref">plotting</span></a> sub-package provides a set of functions to create plots supporting or showcasing  the results of <code class="docutils literal notranslate"><span class="pre">MAD-X</span></code> simulations.
-It also provides convenience plotting utilities and a set of <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.9.1)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a> styles that work well in conjunction with the various plotting APIs.</p>
+It also provides convenience plotting utilities and a set of <a class="reference external" href="https://matplotlib.org/stable/index.html#module-matplotlib" title="(in Matplotlib v3.9.2)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">matplotlib</span></code></a> styles that work well in conjunction with the various plotting APIs.</p>
 <p>Some public apis in <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code> can be used as standalone while others work in the same way as the <code class="xref py py-obj docutils literal notranslate"><span class="pre">cpymadtools</span></code> apis, by being called with a <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> instance as first arguments and then any <code class="xref py py-obj docutils literal notranslate"><span class="pre">args</span></code> and <code class="xref py py-obj docutils literal notranslate"><span class="pre">kwargs</span></code> relevant to plotting.
 In the second case, relevant data for the plotting is directly queried and computed by interacting with the <a class="reference external" href="https://hibtc.github.io/cpymad/automod/cpymad.madx.Madx.html#cpymad.madx.Madx" title="(in cpymad v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Madx</span></code></a> instance.</p>
 <p>Using the <code class="xref py py-obj docutils literal notranslate"><span class="pre">plotting</span></code> apis goes as:</p>

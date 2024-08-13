@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.ptc &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.ptc &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -518,22 +522,25 @@
 <span class="sd">Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a</span>
 <span class="sd">`~cpymad.madx.Madx` object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Sequence</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">tfs</span>
-
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.utils</span> <span class="kn">import</span> <span class="n">get_table_tfs</span>
 
+<span class="n">_MAX_PTC_AMPDET_ORDER</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">_MIN_PTC_AMPDET_ORDER</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+
 
 <div class="viewcode-block" id="get_amplitude_detuning">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_amplitude_detuning">[docs]</a>
 <span class="k">def</span> <span class="nf">get_amplitude_detuning</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.7.0</span>
@@ -563,7 +570,7 @@
 <span class="sd">            Positional only.</span>
 <span class="sd">        order (int): maximum derivative order coefficient (only 0, 1 or 2</span>
 <span class="sd">            implemented in ``PTC``). Defaults to 2.</span>
-<span class="sd">        file (Union[Path, str]): path to output file. Defaults to `None`.</span>
+<span class="sd">        file (Path | str): path to output file. Defaults to `None`.</span>
 <span class="sd">        fringe (bool): boolean flag to include fringe field effects in the</span>
 <span class="sd">            calculation. Defaults to ``False``.</span>
 <span class="sd">        **kwargs: Some parameters for the ``PTC`` universe creation can be given as</span>
@@ -572,7 +579,7 @@
 <span class="sd">            ``PTC_NORMAL`` command. Their default values are listed higher up in this</span>
 <span class="sd">            docstring. Any remaining keyword argument is transmitted to the</span>
 <span class="sd">            ``PTC_NORMAL`` command.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        A `~tfs.frame.TfsDataframe` with the calculated coefficients.</span>
 
@@ -590,9 +597,10 @@
 <span class="sd">                madx, order=3, model=3, exact=True, icase=5, no=6</span>
 <span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;=</span> <span class="mi">3</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;</span> <span class="n">_MAX_PTC_AMPDET_ORDER</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Maximum amplitude detuning order in PTC is 2, but </span><span class="si">{</span><span class="n">order</span><span class="si">:</span><span class="s2">d</span><span class="si">}</span><span class="s2"> was requested&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;PTC amplitude detuning is not implemented for order &gt; 2&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;PTC amplitude detuning is not implemented for order &gt; 2&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Looking for PTC universe parameters in keyword arguments&quot;</span><span class="p">)</span>
     <span class="n">model</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;model&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
@@ -624,7 +632,7 @@
     <span class="c1"># ANH = anharmonicities (ex, ey, deltap), works only with parameters as full strings</span>
     <span class="c1"># could be done nicer with permutations ...</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Selecting anharmonicities&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;=</span> <span class="n">_MIN_PTC_AMPDET_ORDER</span><span class="p">:</span>
         <span class="c1"># madx.select_ptc_normal(&#39;anhx=0, 0, 1&#39;)  # dQx/ddp</span>
         <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 1&#39;)  # dQy/ddp</span>
         <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQx/dex</span>
@@ -632,7 +640,7 @@
         <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=1, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dex</span>
         <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhy=0, 1, 0&quot;</span><span class="p">)</span>  <span class="c1"># dQy/dey</span>
 
-    <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">order</span> <span class="o">&gt;=</span> <span class="n">_MAX_PTC_AMPDET_ORDER</span><span class="p">:</span>
         <span class="c1"># madx.select_ptc_normal(&#39;anhx=0, 0, 2&#39;)  # d^2Qx/ddp^2</span>
         <span class="c1"># madx.select_ptc_normal(&#39;anhy=0, 0, 2&#39;)  # d^2Qy/ddp^2</span>
         <span class="n">madx</span><span class="o">.</span><span class="n">select_ptc_normal</span><span class="p">(</span><span class="s2">&quot;anhx=2, 0, 0&quot;</span><span class="p">)</span>  <span class="c1"># d^2Qx/dex^2</span>
@@ -660,7 +668,7 @@
 <div class="viewcode-block" id="get_rdts">
 <a class="viewcode-back" href="../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.ptc.get_rdts">[docs]</a>
 <span class="k">def</span> <span class="nf">get_rdts</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="n">file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">tfs</span><span class="o">.</span><span class="n">TfsDataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.7.0</span>
@@ -679,7 +687,7 @@
 <span class="sd">        arguments to override them.</span>
 
 <span class="sd">        The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D</span>
-<span class="sd">        calculations (see the </span>
+<span class="sd">        calculations (see the</span>
 <span class="sd">        `MAD-X manual &lt;http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf&gt;`_</span>
 <span class="sd">        for details), and ``normal=True`` to trigger saving the normal form analysis</span>
 <span class="sd">        results in a table called ``NONLIN`` which will then be available through the</span>
@@ -692,7 +700,7 @@
 <span class="sd">            Positional only.</span>
 <span class="sd">        order (int): map order for derivative evaluation of Twiss parameters.</span>
 <span class="sd">            Defaults to 4.</span>
-<span class="sd">        file (Union[Path, str]): path to output file. Default to `None`.</span>
+<span class="sd">        file (Path | str): path to output file. Default to `None`.</span>
 <span class="sd">        fringe (bool): boolean flag to include fringe field effects in the</span>
 <span class="sd">            calculation. Defaults to `False`.</span>
 <span class="sd">        **kwargs: Some parameters for the ``PTC`` universe creation can be given as</span>
@@ -723,7 +731,7 @@
     <span class="n">method</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">nst</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nst&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">exact</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exact&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    
+
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Looking for PTC_TWISS parameters in keyword arguments&quot;</span><span class="p">)</span>
     <span class="n">icase</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;icase&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
     <span class="n">normal</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -758,7 +766,7 @@
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span>
-    <span class="n">file</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Path</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">file</span><span class="p">:</span> <span class="n">Path</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">table</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ptc_twiss&quot;</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
@@ -783,7 +791,7 @@
 <span class="sd">        arguments to override them.</span>
 
 <span class="sd">        The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D</span>
-<span class="sd">        calculations (see the </span>
+<span class="sd">        calculations (see the</span>
 <span class="sd">        `MAD-X manual &lt;http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf&gt;`_</span>
 <span class="sd">        for details), and ``normal=True`` to trigger saving the normal form analysis</span>
 <span class="sd">        results in a table called ``NONLIN`` which will then be available through the</span>
@@ -796,7 +804,7 @@
 <span class="sd">            Positional only.</span>
 <span class="sd">        order (int): map order for derivative evaluation of ``TWISS`` parameters.</span>
 <span class="sd">            Defaults to 4.</span>
-<span class="sd">        file (Union[Path, str]): path to output file. Default to `None`.</span>
+<span class="sd">        file (Path | str): path to output file. Default to `None`.</span>
 <span class="sd">        fringe (bool): boolean flag to include fringe field effects in the calculation.</span>
 <span class="sd">            Defaults to `False`.</span>
 <span class="sd">        table (str): the name of the internal table in which to save the results.</span>
@@ -806,7 +814,7 @@
 <span class="sd">            `icase` and `normal` ones can be given for the ``PTC_TWISS`` command.</span>
 <span class="sd">            Their default values are listed higher up in this docstring. Any remaining</span>
 <span class="sd">            keyword argument is transmitted to the ``PTC_TWISS`` command.</span>
-<span class="sd">            </span>
+
 <span class="sd">    Returns:</span>
 <span class="sd">        A `~tfs.frame.TfsDataFrame` with the calculated ``TWISS`` parameters.</span>
 
@@ -829,7 +837,7 @@
     <span class="n">method</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">nst</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nst&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">exact</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exact&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    
+
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Looking for PTC_TWISS parameters in keyword arguments&quot;</span><span class="p">)</span>
     <span class="n">icase</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;icase&quot;</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
     <span class="n">normal</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;normal&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
@@ -863,14 +871,14 @@
 <span class="k">def</span> <span class="nf">ptc_track_particle</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
-    <span class="n">initial_coordinates</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="n">initial_coordinates</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
     <span class="n">nturns</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
-    <span class="n">sequence</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">observation_points</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">sequence</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">observation_points</span><span class="p">:</span> <span class="n">Sequence</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">onetable</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">fringe</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.12.0</span>
 
@@ -900,11 +908,11 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.</span>
-<span class="sd">        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple</span>
+<span class="sd">        initial_coordinates (tuple[float, float, float, float, float, float]): a tuple</span>
 <span class="sd">            with the ``X, PX, Y, PY, T, PT`` starting coordinates of the particle to</span>
 <span class="sd">            track. Defaults to all 0 if `None` given.</span>
 <span class="sd">        nturns (int): the number of turns to track for.</span>
-<span class="sd">        sequence (Optional[str]): the sequence to use for tracking. If no value is</span>
+<span class="sd">        sequence (str | None): the sequence to use for tracking. If no value is</span>
 <span class="sd">            provided, it is assumed that a sequence is already defined and in use,</span>
 <span class="sd">            and this one will be picked up by ``MAD-X``. Beware of the dangers of</span>
 <span class="sd">            giving a sequence that will be used by ``MAD-X``, see the warning below</span>
@@ -948,8 +956,13 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            tracks_dict = ptc_track_particle(</span>
-<span class="sd">                madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),</span>
-<span class="sd">                model=3, method=6, nst=3, exact=True</span>
+<span class="sd">                madx,</span>
+<span class="sd">                nturns=10,</span>
+<span class="sd">                initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),</span>
+<span class="sd">                model=3,</span>
+<span class="sd">                method=6,</span>
+<span class="sd">                nst=3,</span>
+<span class="sd">                exact=True,</span>
 <span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Performing single particle PTC (thick) tracking&quot;</span><span class="p">)</span>
@@ -961,7 +974,7 @@
     <span class="n">method</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
     <span class="n">nst</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;nst&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
     <span class="n">exact</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;exact&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-    
+
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Looking for PTC_TRACK parameters in keyword arguments&quot;</span><span class="p">)</span>
     <span class="n">element_by_element</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;element_by_element&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
 

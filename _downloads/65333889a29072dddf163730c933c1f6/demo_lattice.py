@@ -13,7 +13,6 @@ In this example, we will showcase the functionality on a simple lattice, and the
 of several parameters to control the plot on the example case of the LHC.
 """
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching

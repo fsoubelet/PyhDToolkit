@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.maths.stats_fitting &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.maths.stats_fitting &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -517,20 +521,18 @@
 
 <span class="sd">Module implementing methods to find the best fit of statistical distributions to data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">warnings</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>  <span class="c1"># noqa: F401 | if omitted, get AttributeError: module &#39;matplotlib&#39; has no attribute &#39;axes&#39;</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">scipy.stats</span> <span class="k">as</span> <span class="nn">st</span>
-
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">matplotlib.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
 
 <span class="c1"># Distributions to check #</span>
-<span class="n">DISTRIBUTIONS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">DISTRIBUTIONS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">st</span><span class="o">.</span><span class="n">chi</span><span class="p">:</span> <span class="s2">&quot;Chi&quot;</span><span class="p">,</span>
     <span class="n">st</span><span class="o">.</span><span class="n">chi2</span><span class="p">:</span> <span class="s2">&quot;Chi-Square&quot;</span><span class="p">,</span>
     <span class="n">st</span><span class="o">.</span><span class="n">expon</span><span class="p">:</span> <span class="s2">&quot;Exponential&quot;</span><span class="p">,</span>
@@ -542,7 +544,7 @@
 
 <div class="viewcode-block" id="set_distributions_dict">
 <a class="viewcode-back" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.set_distributions_dict">[docs]</a>
-<span class="k">def</span> <span class="nf">set_distributions_dict</span><span class="p">(</span><span class="n">dist_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">set_distributions_dict</span><span class="p">(</span><span class="n">dist_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.5.0</span>
 
@@ -551,7 +553,7 @@
 <span class="sd">    function in the :ref:`gallery &lt;demo-distributions-fitting&gt;`.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        dist_dict (Dict[st.rv_continuous, str]): dictionnary with the wanted distributions,</span>
+<span class="sd">        dist_dict (dict[st.rv_continuous, str]): dictionnary with the wanted distributions,</span>
 <span class="sd">            in the format of ``DISTRIBUTIONS``, aka with `scipy.stats` generator objects as</span>
 <span class="sd">            keys, and a string representation of their name as value.</span>
 
@@ -562,12 +564,13 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            import scipy.stats as st</span>
+
 <span class="sd">            tested_dists = {st.chi: &quot;Chi&quot;, st.expon: &quot;Exponential&quot;, st.laplace: &quot;Laplace&quot;}</span>
 <span class="sd">            set_distributions_dict(tested_dists)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># pylint: disable=global-statement</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Setting tested distributions&quot;</span><span class="p">)</span>
-    <span class="k">global</span> <span class="n">DISTRIBUTIONS</span>
+    <span class="k">global</span> <span class="n">DISTRIBUTIONS</span>  <span class="c1"># noqa: PLW0603</span>
     <span class="n">DISTRIBUTIONS</span> <span class="o">=</span> <span class="n">dist_dict</span></div>
 
 
@@ -575,8 +578,8 @@
 <div class="viewcode-block" id="best_fit_distribution">
 <a class="viewcode-back" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.best_fit_distribution">[docs]</a>
 <span class="k">def</span> <span class="nf">best_fit_distribution</span><span class="p">(</span>
-    <span class="n">data</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">bins</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">200</span><span class="p">,</span> <span class="n">ax</span><span class="p">:</span> <span class="n">Axes</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.5.0</span>
 
@@ -621,14 +624,14 @@
                 <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">scale</span> <span class="o">=</span> <span class="n">params</span>
 
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Calculating PDF goodness of fit and error for distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-                <span class="n">pdf</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+                <span class="n">pdf</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
                 <span class="n">sse</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">pdf</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
 
                 <span class="k">try</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">ax</span><span class="p">:</span>
                         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting fitted PDF for distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
                         <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">pdf</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2"> fit&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># noqa: BLE001</span>
                     <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39; failed&quot;</span><span class="p">)</span>
 
                 <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Identifying if distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39; is a better fit than previous tries&quot;</span><span class="p">)</span>
@@ -636,7 +639,7 @@
                     <span class="n">best_distribution</span> <span class="o">=</span> <span class="n">distribution</span>
                     <span class="n">best_params</span> <span class="o">=</span> <span class="n">params</span>
                     <span class="n">best_sse</span> <span class="o">=</span> <span class="n">sse</span>
-        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+        <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>  <span class="c1"># noqa: BLE001</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Trying to fit distribution &#39;</span><span class="si">{</span><span class="n">distname</span><span class="si">}</span><span class="s2">&#39; failed and aborted&quot;</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Found a best fit: &#39;</span><span class="si">{</span><span class="n">DISTRIBUTIONS</span><span class="p">[</span><span class="n">best_distribution</span><span class="p">]</span><span class="si">}</span><span class="s2">&#39; distribution&quot;</span><span class="p">)</span>
@@ -646,7 +649,7 @@
 
 <div class="viewcode-block" id="make_pdf">
 <a class="viewcode-back" href="../../../api/maths.html#pyhdtoolkit.maths.stats_fitting.make_pdf">[docs]</a>
-<span class="k">def</span> <span class="nf">make_pdf</span><span class="p">(</span><span class="n">distribution</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25_000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">make_pdf</span><span class="p">(</span><span class="n">distribution</span><span class="p">:</span> <span class="n">st</span><span class="o">.</span><span class="n">rv_continuous</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">25_000</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.5.0</span>
 
@@ -656,7 +659,7 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        distribution (st.rv_continuous): a `scipy.stats` generator.</span>
-<span class="sd">        params (Tuple[float, ...]): the parameters for this generator given back by the fit.</span>
+<span class="sd">        params (tuple[float, ...]): the parameters for this generator given back by the fit.</span>
 <span class="sd">        size (int): the number of points to evaluate.</span>
 
 <span class="sd">    Returns:</span>
@@ -679,7 +682,7 @@
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Building PDF&quot;</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span>
-    <span class="n">y</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">distribution</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">loc</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">scale</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
 
 </pre></div>

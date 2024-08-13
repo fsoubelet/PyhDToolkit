@@ -24,17 +24,17 @@
 AC Dipole Driven Tracking Spectrum
 ==================================
 
-This example shows how to use the `~.lhc.install_ac_dipole_as_kicker` and 
-`~.track.track_single_particle` function to track a  particle with the 
+This example shows how to use the `~.lhc.install_ac_dipole_as_kicker` and
+`~.track.track_single_particle` function to track a  particle with the
 ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
 
-In this example we will use the LHC lattice to illustrate the ACD tracking 
+In this example we will use the LHC lattice to illustrate the ACD tracking
 workflow when using `~pyhdtoolkit.cpymadtools`.
 
 .. note::
-    This is very similar to the :ref:`free tracking example <demo-free-tracking>` 
-    with the difference that there is special care to take to install the AC Dipole 
-    element. It is recommended to read that tutorial first as this one will focus 
+    This is very similar to the :ref:`free tracking example <demo-free-tracking>`
+    with the difference that there is special care to take to install the AC Dipole
+    element. It is recommended to read that tutorial first as this one will focus
     on the specificities of the AC Dipole setup.
 
 .. important::
@@ -48,14 +48,13 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 
-.. GENERATED FROM PYTHON SOURCE LINES 33-46
+.. GENERATED FROM PYTHON SOURCE LINES 33-45
 
 .. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
     import pandas as pd
-
     from cpymad.madx import Madx
 
     from pyhdtoolkit.cpymadtools import lhc, matching, track
@@ -72,13 +71,13 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 47-50
+.. GENERATED FROM PYTHON SOURCE LINES 46-49
 
 Let's start by setting up the LHC in ``MAD-X``, in this case at top energy.
-To understand the function below have a look at the :ref:`lhc setup example 
+To understand the function below have a look at the :ref:`lhc setup example
 <demo-lhc-setup>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 50-57
+.. GENERATED FROM PYTHON SOURCE LINES 49-56
 
 .. code-block:: Python
 
@@ -96,13 +95,13 @@ To understand the function below have a look at the :ref:`lhc setup example
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 58-61
+.. GENERATED FROM PYTHON SOURCE LINES 57-60
 
 Slicing is necessary in ``MAD-X`` in order to perform tracking, so let's do so.
 We could have asked for the slicing directly in the `~.lhc.prepare_lhc_run3`
 function call too!
 
-.. GENERATED FROM PYTHON SOURCE LINES 61-65
+.. GENERATED FROM PYTHON SOURCE LINES 60-64
 
 .. code-block:: Python
 
@@ -117,7 +116,7 @@ function call too!
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 66-79
+.. GENERATED FROM PYTHON SOURCE LINES 65-78
 
 Before tracking, we need to install the AC dipole element. We need to specify
 the driven tunes, the kick amplitude, and the ramp-up, flat-top and ramp-down
@@ -133,7 +132,7 @@ constaints to stay adiabatic with regards to the emittance (:cite:t:`Tomas:ACDAd
 
 Here we will choose for the settings the same values as we use in operation in the LHC:
 
-.. GENERATED FROM PYTHON SOURCE LINES 79-92
+.. GENERATED FROM PYTHON SOURCE LINES 78-91
 
 .. code-block:: Python
 
@@ -157,12 +156,12 @@ Here we will choose for the settings the same values as we use in operation in t
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 93-95
+.. GENERATED FROM PYTHON SOURCE LINES 92-94
 
 Now we can track a particle. The process is fully similar to what was described
 in the :ref:`free tracking example <demo-free-tracking>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 95-103
+.. GENERATED FROM PYTHON SOURCE LINES 94-102
 
 .. code-block:: Python
 
@@ -181,12 +180,12 @@ in the :ref:`free tracking example <demo-free-tracking>`.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 104-106
+.. GENERATED FROM PYTHON SOURCE LINES 103-105
 
 Let's have a look at the trajectory of the particle at the **BPM.15L2.B1**
 element through the turns, here in the horizontal plane:
 
-.. GENERATED FROM PYTHON SOURCE LINES 106-118
+.. GENERATED FROM PYTHON SOURCE LINES 105-117
 
 .. code-block:: Python
 
@@ -214,7 +213,7 @@ element through the turns, here in the horizontal plane:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-128
+.. GENERATED FROM PYTHON SOURCE LINES 118-127
 
 We can see the AC Dipole did its job: the amplitude of the particle stays
 at 0 for the first 100 turns, then ramps up for 2000 turns, stays at full
@@ -226,7 +225,7 @@ we need to compute the ``np.fft.fft`` on a subset of the tracking data. In our
 case, the flat-top starts at turn :math:`100 + 2000 = 2100`, and ends at turn
 :math:`100 + 2000 + 6600 = 8700`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-135
+.. GENERATED FROM PYTHON SOURCE LINES 127-134
 
 .. code-block:: Python
 
@@ -244,7 +243,7 @@ case, the flat-top starts at turn :math:`100 + 2000 = 2100`, and ends at turn
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 136-148
+.. GENERATED FROM PYTHON SOURCE LINES 135-147
 
 .. tip::
     To get the tunes of the particle, one can find the peak of the spectra. Below
@@ -259,7 +258,7 @@ case, the flat-top starts at turn :math:`100 + 2000 = 2100`, and ends at turn
 One can now plot the spectra, and here we will add two stem lines at the position of the
 determined driven tunes to highlight them.
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-167
+.. GENERATED FROM PYTHON SOURCE LINES 147-166
 
 .. code-block:: Python
 
@@ -294,11 +293,11 @@ determined driven tunes to highlight them.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 168-169
+.. GENERATED FROM PYTHON SOURCE LINES 167-168
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 169-172
+.. GENERATED FROM PYTHON SOURCE LINES 168-171
 
 .. code-block:: Python
 
@@ -312,7 +311,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 173-181
+.. GENERATED FROM PYTHON SOURCE LINES 172-180
 
 .. admonition:: References
 
@@ -326,7 +325,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (1 minutes 5.628 seconds)
+   **Total running time of the script:** (0 minutes 57.090 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_acd_tracking_spectra.py:

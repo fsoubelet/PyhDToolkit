@@ -29,13 +29,12 @@ to visualise the particle beam's enveloppe in your machine.
 
 In this example we will use a very simple lattice, hard-coded below.
 
-.. GENERATED FROM PYTHON SOURCE LINES 14-27
+.. GENERATED FROM PYTHON SOURCE LINES 14-26
 
 .. code-block:: Python
 
     import matplotlib.pyplot as plt
     import numpy as np
-
     from cpymad.madx import Madx
 
     from pyhdtoolkit.plotting.envelope import plot_beam_envelope
@@ -53,11 +52,11 @@ In this example we will use a very simple lattice, hard-coded below.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-30
+.. GENERATED FROM PYTHON SOURCE LINES 28-29
 
 Define relevant constants.
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-55
+.. GENERATED FROM PYTHON SOURCE LINES 29-54
 
 .. code-block:: Python
 
@@ -93,11 +92,11 @@ Define relevant constants.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-57
+.. GENERATED FROM PYTHON SOURCE LINES 55-56
 
 Now let's setup ``MAD-X`` and input a very simple lattice.
 
-.. GENERATED FROM PYTHON SOURCE LINES 57-118
+.. GENERATED FROM PYTHON SOURCE LINES 56-117
 
 .. code-block:: Python
 
@@ -106,7 +105,7 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
     madx.input(
         f"""
     circum = {circumference};
-    n_cells = {n_cells}; ! Number of cells 
+    n_cells = {n_cells}; ! Number of cells
     lcell = {l_cell};
     lq = {l_quad}; ! Length of a quadrupole
     ldip = {l_bend};
@@ -118,14 +117,14 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
     mb: sbend, l=ldip, angle=2.0*pi/(4*n_cells), apertype=ellipse, aperture={{{h_gap_dipole}, {v_gap_dipole}}};
     f = {f_m};
 
-    ! Define quadrupoles as multipoles 
-    qf: multipole, knl:={{0,1/f+qtrim_f}}; 
+    ! Define quadrupoles as multipoles
+    qf: multipole, knl:={{0,1/f+qtrim_f}};
     qd: multipole, knl:={{0,-1/f+qtrim_d}};
-    qf: quadrupole, l=lq, K1:=1/f/lq  + qtrim_f/lq, apertype=ellipse, aperture={{{r_quadrupole}, {r_quadrupole}}}; 
+    qf: quadrupole, l=lq, K1:=1/f/lq  + qtrim_f/lq, apertype=ellipse, aperture={{{r_quadrupole}, {r_quadrupole}}};
     qd: quadrupole, l=lq, K1:=-1/f/lq + qtrim_d/lq, apertype=ellipse, aperture={{{r_quadrupole}, {r_quadrupole}}};
 
     ! Define the sextupoles as multipole
-    ! ATTENTION: must use knl:= and NOT knl= to match later! 
+    ! ATTENTION: must use knl:= and NOT knl= to match later!
     lsex = 0.00001; ! dummy length, only used in the sequence
     msf: multipole, knl:={{0,0,ksf}};
     msd: multipole, knl:={{0,0,ksd}};
@@ -169,12 +168,12 @@ Now let's setup ``MAD-X`` and input a very simple lattice.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 119-121
+.. GENERATED FROM PYTHON SOURCE LINES 118-120
 
 Now let's run an interpolation to be able to see the value of the optics functions
 inside the elements, this gives us higher resolution:
 
-.. GENERATED FROM PYTHON SOURCE LINES 121-127
+.. GENERATED FROM PYTHON SOURCE LINES 120-126
 
 .. code-block:: Python
 
@@ -191,13 +190,13 @@ inside the elements, this gives us higher resolution:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 128-131
+.. GENERATED FROM PYTHON SOURCE LINES 127-130
 
 We can now plot the beam enveloppe for the whole machine. Here notice we use
 the *scale* argument to convert the units to mm, this makes for nicer yticks
 values:
 
-.. GENERATED FROM PYTHON SOURCE LINES 131-147
+.. GENERATED FROM PYTHON SOURCE LINES 130-146
 
 .. code-block:: Python
 
@@ -229,14 +228,14 @@ values:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 148-152
+.. GENERATED FROM PYTHON SOURCE LINES 147-151
 
 Notice how the shading automatically adapts based on the *nsigma* argument.
 In order to have a look at the enveloppe in a specific region, we can give the
 *xlimits* argument. Here we will plot the horizontal enveloppe for the first
 5 cells only.
 
-.. GENERATED FROM PYTHON SOURCE LINES 152-160
+.. GENERATED FROM PYTHON SOURCE LINES 151-159
 
 .. code-block:: Python
 
@@ -260,11 +259,11 @@ In order to have a look at the enveloppe in a specific region, we can give the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 161-162
+.. GENERATED FROM PYTHON SOURCE LINES 160-161
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 162-165
+.. GENERATED FROM PYTHON SOURCE LINES 161-164
 
 .. code-block:: Python
 
@@ -278,7 +277,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 166-172
+.. GENERATED FROM PYTHON SOURCE LINES 165-171
 
 .. admonition:: References
 

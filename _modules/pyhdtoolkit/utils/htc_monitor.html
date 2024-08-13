@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.utils.htc_monitor &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.utils.htc_monitor &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -515,21 +519,19 @@
 <span class="sd">HTCondor Monitoring</span>
 <span class="sd">-------------------</span>
 
-<span class="sd">A module with utility to query the HTCondor queue, process the returned data </span>
+<span class="sd">A module with utility to query the HTCondor queue, process the returned data</span>
 <span class="sd">and display it nicely.</span>
 
 <span class="sd">.. note::</span>
-<span class="sd">    This module is meant to be called as a script, but some of the individual </span>
-<span class="sd">    functionality is made public API and one shoule be able to build a different </span>
+<span class="sd">    This module is meant to be called as a script, but some of the individual</span>
+<span class="sd">    functionality is made public API and one shoule be able to build a different</span>
 <span class="sd">    monitor from the functions in here.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">time</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
-
 <span class="kn">import</span> <span class="nn">pendulum</span>
-
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 <span class="kn">from</span> <span class="nn">rich</span> <span class="kn">import</span> <span class="n">box</span>
 <span class="kn">from</span> <span class="nn">rich.console</span> <span class="kn">import</span> <span class="n">Group</span>
@@ -546,25 +548,40 @@
 <span class="c1"># ----- Data ----- #</span>
 
 <span class="n">TASK_COLUMNS_SETTINGS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;OWNER&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;BATCH_NAME&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;magenta&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;magenta&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;SUBMITTED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;medium_turquoise&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;medium_turquoise&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;DONE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;RUNNING&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;IDLE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;TOTAL&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;JOB_IDS&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;OWNER&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;BATCH_NAME&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;magenta&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;magenta&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;SUBMITTED&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;medium_turquoise&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;medium_turquoise&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;DONE&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;RUNNING&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;IDLE&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;TOTAL&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;JOB_IDS&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
 <span class="p">}</span>
 
 <span class="n">CLUSTER_COLUMNS_SETTINGS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">&quot;SOURCE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;JOBS&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;COMPLETED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;RUNNING&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;IDLE&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;HELD&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold gold1&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold gold1&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;SUSPENDED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold slate_blue1&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold slate_blue1&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
-    <span class="s2">&quot;REMOVED&quot;</span><span class="p">:</span> <span class="nb">dict</span><span class="p">(</span><span class="n">justify</span><span class="o">=</span><span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="n">header_style</span><span class="o">=</span><span class="s2">&quot;bold red3&quot;</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">&quot;bold red3&quot;</span><span class="p">,</span> <span class="n">no_wrap</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="s2">&quot;SOURCE&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;left&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;JOBS&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;COMPLETED&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold green3&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;RUNNING&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold cornflower_blue&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;IDLE&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold dark_orange3&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;HELD&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold gold1&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold gold1&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;SUSPENDED&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold slate_blue1&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold slate_blue1&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+    <span class="s2">&quot;REMOVED&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;justify&quot;</span><span class="p">:</span> <span class="s2">&quot;right&quot;</span><span class="p">,</span> <span class="s2">&quot;header_style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold red3&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">:</span> <span class="s2">&quot;bold red3&quot;</span><span class="p">,</span> <span class="s2">&quot;no_wrap&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
 <span class="p">}</span>
 
 
@@ -584,14 +601,16 @@
     <span class="n">condor_status</span> <span class="o">=</span> <span class="n">raw_result</span><span class="o">.</span><span class="n">decode</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">if</span> <span class="n">return_code</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">condor_status</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">ChildProcessError</span><span class="p">(</span><span class="s2">&quot;Checking htcondor status failed&quot;</span><span class="p">)</span></div>
+
+    <span class="c1"># An issue occured, let&#39;s raise</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Checking htcondor status failed&quot;</span>
+    <span class="k">raise</span> <span class="ne">ChildProcessError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span></div>
 
 
 
 <div class="viewcode-block" id="read_condor_q">
 <a class="viewcode-back" href="../../../api/utils.html#pyhdtoolkit.utils.htc_monitor.read_condor_q">[docs]</a>
-<span class="k">def</span> <span class="nf">read_condor_q</span><span class="p">(</span><span class="n">report</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">],</span> <span class="n">ClusterSummary</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">read_condor_q</span><span class="p">(</span><span class="n">report</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">],</span> <span class="n">ClusterSummary</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.9.0</span>
 
@@ -613,10 +632,10 @@
 <span class="sd">            condor_q_output = get_the_string_as_you_wish(...)</span>
 <span class="sd">            tasks, cluster = read_condor_q(condor_q_output)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">tasks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">next_line_is_task_report</span> <span class="o">=</span> <span class="kc">False</span>
 
-    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">report</span><span class="o">.</span><span class="n">splitlines</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;-- Schedd:&quot;</span><span class="p">):</span>  <span class="c1"># extract scheduler information</span>
             <span class="n">scheduler_id</span> <span class="o">=</span> <span class="n">_process_scheduler_information_line</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
@@ -624,7 +643,7 @@
             <span class="n">next_line_is_task_report</span> <span class="o">=</span> <span class="kc">True</span>
 
         <span class="k">elif</span> <span class="n">next_line_is_task_report</span><span class="p">:</span>  <span class="c1"># extract task report information</span>
-            <span class="k">if</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">line</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>
                 <span class="n">tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">_process_task_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">))</span>
             <span class="k">else</span><span class="p">:</span>  <span class="c1"># an empty line denotes the end of the task report(s)</span>
                 <span class="n">next_line_is_task_report</span> <span class="o">=</span> <span class="kc">False</span>
@@ -635,7 +654,7 @@
                 <span class="n">query_summary</span> <span class="o">=</span> <span class="n">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s2">&quot;query&quot;</span><span class="p">)</span>
             <span class="k">elif</span> <span class="s2">&quot;all users&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>  <span class="c1"># last line</span>
                 <span class="n">full_summary</span> <span class="o">=</span> <span class="n">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="s2">&quot;all users&quot;</span><span class="p">)</span>
-            <span class="k">elif</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="ow">and</span> <span class="n">line</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>  <span class="c1"># user line, whoever the user is</span>
+            <span class="k">elif</span> <span class="n">line</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">):</span>  <span class="c1"># user line, whoever the user is</span>
                 <span class="n">owner_summary</span> <span class="o">=</span> <span class="n">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="n">querying_owner</span><span class="p">)</span>
     <span class="n">cluster_summary</span> <span class="o">=</span> <span class="n">ClusterSummary</span><span class="p">(</span>
         <span class="n">scheduler_id</span><span class="o">=</span><span class="n">scheduler_id</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">query_summary</span><span class="p">,</span> <span class="n">user</span><span class="o">=</span><span class="n">owner_summary</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="n">full_summary</span>
@@ -647,7 +666,7 @@
 <span class="c1"># ----- Output Formating ----- #</span>
 
 
-<span class="k">def</span> <span class="nf">_make_tasks_table</span><span class="p">(</span><span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_make_tasks_table</span><span class="p">(</span><span class="n">tasks</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">HTCTaskSummary</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Table</span><span class="p">:</span>
     <span class="n">table</span> <span class="o">=</span> <span class="n">_default_tasks_table</span><span class="p">()</span>
     <span class="n">date_display_format</span> <span class="o">=</span> <span class="s2">&quot;dddd, D MMM YY at LT (zz)&quot;</span>  <span class="c1"># example: Wednesday, 21 Apr 21 9:04 PM (CEST)</span>
     <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span><span class="p">:</span>
@@ -668,7 +687,7 @@
     <span class="n">table</span> <span class="o">=</span> <span class="n">_default_cluster_table</span><span class="p">()</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">source</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s2">&quot;query&quot;</span><span class="p">,</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;cluster&quot;</span><span class="p">]):</span>
         <span class="n">table</span><span class="o">.</span><span class="n">add_row</span><span class="p">(</span>
-            <span class="s2">&quot;Query&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;All Users&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">owner_name</span><span class="p">),</span>
+            <span class="s2">&quot;Query&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="p">(</span><span class="s2">&quot;All Users&quot;</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">owner_name</span><span class="p">),</span>  <span class="c1"># noqa: PLR2004</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;jobs&quot;</span><span class="p">]),</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;completed&quot;</span><span class="p">]),</span>
             <span class="nb">str</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()[</span><span class="n">source</span><span class="p">][</span><span class="s2">&quot;running&quot;</span><span class="p">]),</span>
@@ -709,7 +728,7 @@
     <span class="p">)</span>
 
 
-<span class="k">def</span> <span class="nf">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseSummary</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_process_cluster_summary_line</span><span class="p">(</span><span class="n">line</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">BaseSummary</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Beware if no jobs are running we can&#39;t have taken querying_owner info from tasks summaries,</span>
 <span class="sd">    so we need to match a wildcard word by giving querying_owner=(\D+). This would add a match to the regex</span>

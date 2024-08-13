@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.cpymadtools.lhc._setup &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.cpymadtools.lhc._setup &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -516,13 +520,16 @@
 
 <span class="sd">The functions below are setup utilities for the ``LHC``, to easily get simulations ready.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.cpymadtools.constants</span> <span class="kn">import</span> <span class="n">LHC_CROSSING_SCHEMES</span>
+
+<span class="n">_BEAM_FOR_B4</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># LHC beam 4 uses lhcb2 sequence</span>
+<span class="n">_RUN2</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">2</span>
 
 <span class="c1"># ----- Setup Utilities ----- #</span>
 
@@ -530,7 +537,7 @@
 <div class="viewcode-block" id="prepare_lhc_run2">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run2">[docs]</a>
 <span class="k">def</span> <span class="nf">prepare_lhc_run2</span><span class="p">(</span>
-    <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6500</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Madx</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
@@ -551,7 +558,7 @@
 <span class="sd">        might change that working point.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        opticsfile (str): the relative string path or a `Path` object to the opticsfile location. This will </span>
+<span class="sd">        opticsfile (str): the relative string path or a `Path` object to the opticsfile location. This will</span>
 <span class="sd">            be used to determine the location of the sequence file, see the admonition above.</span>
 <span class="sd">        beam (int): which beam to set up for. Defaults to beam 1.</span>
 <span class="sd">        use_b4 (bool): if `True`, the lhcb4 sequence file will be used. This is the beam 2 sequence but for tracking</span>
@@ -570,19 +577,23 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            madx = prepare_lhc_run2(</span>
-<span class="sd">                &quot;/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22&quot;, beam=2, stdout=True</span>
+<span class="sd">                &quot;/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22&quot;,</span>
+<span class="sd">                beam=2,</span>
+<span class="sd">                stdout=True,</span>
 <span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="n">_BEAM_FOR_B4</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_run2_sequence_from_opticsfile</span><span class="p">(</span><span class="n">opticsfile</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;lhc_as-built.seq&quot;</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">use_b4</span> <span class="k">else</span> <span class="s2">&quot;lhcb4_as-built.seq&quot;</span>
         <span class="n">seqfile_path</span> <span class="o">=</span> <span class="n">opticsfile</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="n">filename</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">seqfile_path</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Could not find sequence file &#39;</span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&#39; at expected location &#39;</span><span class="si">{</span><span class="n">seqfile_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No sequence file found at &#39;</span><span class="si">{</span><span class="n">seqfile_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;No sequence file found at &#39;</span><span class="si">{</span><span class="n">seqfile_path</span><span class="si">}</span><span class="s2">&#39;&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">seqfile_path</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating Run 2 setup MAD-X instance&quot;</span><span class="p">)</span>
@@ -613,7 +624,7 @@
 <div class="viewcode-block" id="prepare_lhc_run3">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.prepare_lhc_run3">[docs]</a>
 <span class="k">def</span> <span class="nf">prepare_lhc_run3</span><span class="p">(</span>
-    <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6800</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6800</span><span class="p">,</span> <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Madx</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
@@ -652,9 +663,10 @@
 <span class="sd">                &quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;, slicefactor=4, stdout=True</span>
 <span class="sd">            )</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="n">_BEAM_FOR_B4</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Creating Run 3 setup MAD-X instance&quot;</span><span class="p">)</span>
     <span class="n">echo</span><span class="p">,</span> <span class="n">warn</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;echo&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;warn&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
@@ -735,34 +747,43 @@
 <span class="sd">        .. code-block:: python</span>
 
 <span class="sd">            with LHCSetup(run=2, opticsfile=&quot;2018/PROTON/opticsfile.22&quot;, beam=2) as madx:</span>
-<span class="sd">               pass  # do some stuff</span>
+<span class="sd">                pass  # do some stuff</span>
 
 <span class="sd">        Get a Run 3 setup for beam 1, with a sliced sequence and muted output:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            with LHCSetup(run=3, opticsfile=&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;, slicefactor=4, stdout=False) as madx:</span>
-<span class="sd">               pass  # do some stuff</span>
+<span class="sd">            with LHCSetup(</span>
+<span class="sd">                run=3,</span>
+<span class="sd">                opticsfile=&quot;R2022a_A30cmC30cmA10mL200cm.madx&quot;,</span>
+<span class="sd">                slicefactor=4,</span>
+<span class="sd">                stdout=False,</span>
+<span class="sd">            ) as madx:</span>
+<span class="sd">                pass  # do some stuff</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span>
         <span class="n">run</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
-        <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">opticsfile</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="n">beam</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
         <span class="n">use_b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
         <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">6800</span><span class="p">,</span>
-        <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">slicefactor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
     <span class="p">):</span>
-        <span class="k">assert</span> <span class="n">opticsfile</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;An opticsfile must be provided&quot;</span>
-        <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">opticsfile</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  <span class="c1"># don&#39;t want to move arg and mess users code</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;An opticsfile must be provided&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_b4</span> <span class="ow">and</span> <span class="n">beam</span> <span class="o">!=</span> <span class="n">_BEAM_FOR_B4</span><span class="p">:</span>
             <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Cannot use beam 4 sequence file for beam 1&quot;</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">run</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This setup is only possible for Run 2 and Run 3 configurations.&quot;</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="n">run</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;This setup is only possible for Run 2 and Run 3 configurations.&quot;</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">run</span> <span class="o">==</span> <span class="n">_RUN2</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">madx</span> <span class="o">=</span> <span class="n">prepare_lhc_run2</span><span class="p">(</span>
                 <span class="n">opticsfile</span><span class="o">=</span><span class="n">opticsfile</span><span class="p">,</span> <span class="n">beam</span><span class="o">=</span><span class="n">beam</span><span class="p">,</span> <span class="n">use_b4</span><span class="o">=</span><span class="n">use_b4</span><span class="p">,</span> <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span> <span class="n">slicefactor</span><span class="o">=</span><span class="n">slicefactor</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
             <span class="p">)</span>
@@ -788,8 +809,8 @@
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
     <span class="n">energy</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">7000</span><span class="p">,</span>
-    <span class="n">emittance_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
-    <span class="n">emittance_y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
+    <span class="n">nemitt_x</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
+    <span class="n">nemitt_y</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">3.75e-6</span><span class="p">,</span>
     <span class="n">b4</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -799,34 +820,49 @@
 <span class="sd">    Defines beams with default configuratons for ``LHCB1`` and ``LHCB2`` sequences.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.</span>
+<span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
+<span class="sd">            Positional only.</span>
 <span class="sd">        energy (float): beam energy, in [GeV]. Defaults to 6500.</span>
-<span class="sd">        emittance_x (float): horizontal emittance in [m]. Will be used to calculate</span>
-<span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
-<span class="sd">        emittance_y (float): vertical emittance in [m]. Will be used to calculate</span>
-<span class="sd">            geometric emittance which is then fed to the ``BEAM`` command.</span>
+<span class="sd">        nemitt_x (float): normalized horizontal emittance in [m]. Will</span>
+<span class="sd">            be used to calculate geometric emittance which is then fed to</span>
+<span class="sd">            the ``BEAM`` command.</span>
+<span class="sd">        nemitt_y (float): normalized vertical emittance in [m]. Will be</span>
+<span class="sd">            used to calculate geometric emittance which is then fed to</span>
+<span class="sd">            the ``BEAM`` command.</span>
 <span class="sd">        b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,</span>
 <span class="sd">            and will properly set the ``bv`` flag to 1. Defaults to `False`.</span>
-<span class="sd">        **kwargs: Any keyword argument that can be given to the ``MAD-X`` ``BEAM`` command.</span>
+<span class="sd">        **kwargs: Old accepted `emittance_x` and `emittance_y` are looked for and used</span>
+<span class="sd">            if provided. Any other keyword argument is given to the ``MAD-X`` ``BEAM`` command.</span>
 
 <span class="sd">    Examples:</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)</span>
+<span class="sd">            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6)</span>
 
 <span class="sd">        Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set</span>
 <span class="sd">        ``bv`` to 1):</span>
 
 <span class="sd">        .. code-block:: python</span>
 
-<span class="sd">            make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)</span>
+<span class="sd">            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6, b4=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Making default beams for &#39;lhcb1&#39; and &#39;lhbc2&#39; sequences&quot;</span><span class="p">)</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;NRJ&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span>
     <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;brho&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">energy</span> <span class="o">*</span> <span class="mf">1e9</span> <span class="o">/</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="o">.</span><span class="n">clight</span>
-    <span class="n">geometric_emit_x</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emittance_x</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
-    <span class="n">geometric_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">emittance_y</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+
+    <span class="c1"># TODO: remove accepting the old emittance_x and emittance_y args in the future</span>
+    <span class="n">emittance_x</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;emittance_x&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="n">emittance_y</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;emittance_y&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">emittance_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">emittance_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Providing ambiguous &#39;emittance_[xy]&#39; is deprecated, use &#39;nemitt_[xy]&#39; instead&quot;</span><span class="p">)</span>
+        <span class="n">nemitt_x</span> <span class="o">=</span> <span class="n">emittance_x</span> <span class="k">if</span> <span class="n">emittance_x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">nemitt_x</span>  <span class="c1"># prioritize old ones if given</span>
+        <span class="n">nemitt_y</span> <span class="o">=</span> <span class="n">emittance_y</span> <span class="k">if</span> <span class="n">emittance_y</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">nemitt_y</span>  <span class="c1"># prioritize old ones if given</span>
+    <span class="n">geometric_emit_x</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_x&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nemitt_x</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+    <span class="n">geometric_emit_y</span> <span class="o">=</span> <span class="n">madx</span><span class="o">.</span><span class="n">globals</span><span class="p">[</span><span class="s2">&quot;geometric_emit_y&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">nemitt_y</span> <span class="o">/</span> <span class="p">(</span><span class="n">energy</span> <span class="o">/</span> <span class="mf">0.938</span><span class="p">)</span>
+
+    <span class="n">n_part</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;npart&quot;</span><span class="p">,</span> <span class="mf">1.15e11</span><span class="p">)</span>  <span class="c1"># keep default, let user override</span>
+    <span class="n">sigma_e</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;sige&quot;</span><span class="p">,</span> <span class="mf">4.5e-4</span><span class="p">)</span>  <span class="c1"># keep default, let user override</span>
 
     <span class="k">for</span> <span class="n">beam</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span>
         <span class="n">bv</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">beam</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">b4</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
@@ -836,10 +872,10 @@
             <span class="n">particle</span><span class="o">=</span><span class="s2">&quot;proton&quot;</span><span class="p">,</span>
             <span class="n">bv</span><span class="o">=</span><span class="n">bv</span><span class="p">,</span>
             <span class="n">energy</span><span class="o">=</span><span class="n">energy</span><span class="p">,</span>
-            <span class="n">npart</span><span class="o">=</span><span class="mf">1.15e11</span><span class="p">,</span>
+            <span class="n">npart</span><span class="o">=</span><span class="n">n_part</span><span class="p">,</span>
             <span class="n">ex</span><span class="o">=</span><span class="n">geometric_emit_x</span><span class="p">,</span>
             <span class="n">ey</span><span class="o">=</span><span class="n">geometric_emit_y</span><span class="p">,</span>
-            <span class="n">sige</span><span class="o">=</span><span class="mf">4.5e-4</span><span class="p">,</span>
+            <span class="n">sige</span><span class="o">=</span><span class="n">sigma_e</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span></div>
 
@@ -941,7 +977,7 @@
 
 <div class="viewcode-block" id="lhc_orbit_variables">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.lhc_orbit_variables">[docs]</a>
-<span class="k">def</span> <span class="nf">lhc_orbit_variables</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+<span class="k">def</span> <span class="nf">lhc_orbit_variables</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.8.0</span>
 
@@ -1005,7 +1041,7 @@
 
 <div class="viewcode-block" id="setup_lhc_orbit">
 <a class="viewcode-back" href="../../../../api/cpymadtools.html#pyhdtoolkit.cpymadtools.lhc._setup.setup_lhc_orbit">[docs]</a>
-<span class="k">def</span> <span class="nf">setup_lhc_orbit</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;flat&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="k">def</span> <span class="nf">setup_lhc_orbit</span><span class="p">(</span><span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">scheme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;flat&quot;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 0.8.0</span>
 
@@ -1029,9 +1065,10 @@
 
 <span class="sd">            orbit_setup = setup_lhc_orbit(madx, scheme=&quot;lhc_top&quot;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LHC_CROSSING_SCHEMES</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">scheme</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">LHC_CROSSING_SCHEMES</span><span class="p">:</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid scheme parameter, should be one of </span><span class="si">{</span><span class="n">LHC_CROSSING_SCHEMES</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid scheme parameter given&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid scheme parameter given&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Getting orbit variables&quot;</span><span class="p">)</span>
     <span class="n">variables</span><span class="p">,</span> <span class="n">special</span> <span class="o">=</span> <span class="n">lhc_orbit_variables</span><span class="p">()</span>

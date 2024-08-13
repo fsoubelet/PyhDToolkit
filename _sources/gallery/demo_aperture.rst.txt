@@ -24,7 +24,7 @@
 Accelerator Aperture
 ====================
 
-This example shows how to use the `~.plotting.aperture.plot_aperture` and 
+This example shows how to use the `~.plotting.aperture.plot_aperture` and
 `~.plotting.aperture.plot_physical_apertures` functions to visualise the
 available aperture in your machine, with the LHC used for this example.
 
@@ -39,13 +39,12 @@ available aperture in your machine, with the LHC used for this example.
     Here I set the 2022 branch for stability and reproducibility of the documentation
     builds, but you can use any branch you want.
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-37
+.. GENERATED FROM PYTHON SOURCE LINES 24-36
 
 .. code-block:: Python
 
 
     import matplotlib.pyplot as plt
-
     from cpymad.madx import Madx
 
     from pyhdtoolkit.cpymadtools import lhc
@@ -63,13 +62,13 @@ available aperture in your machine, with the LHC used for this example.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-41
+.. GENERATED FROM PYTHON SOURCE LINES 37-40
 
-Let's start by setting up the LHC in ``MAD-X``, in this case at injection 
+Let's start by setting up the LHC in ``MAD-X``, in this case at injection
 optics and energy. To understand the function below have a look at the
 :ref:`lhc setup example <demo-lhc-setup>`.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-48
+.. GENERATED FROM PYTHON SOURCE LINES 40-47
 
 .. code-block:: Python
 
@@ -87,12 +86,12 @@ optics and energy. To understand the function below have a look at the
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 49-51
+.. GENERATED FROM PYTHON SOURCE LINES 48-50
 
 We now call the aperture definitions and tolerances, then task ``MAD-X`` with
 computing the available aperture:
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-58
+.. GENERATED FROM PYTHON SOURCE LINES 50-57
 
 .. code-block:: Python
 
@@ -110,13 +109,13 @@ computing the available aperture:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-62
+.. GENERATED FROM PYTHON SOURCE LINES 58-61
 
 The details for the ``MAD-X`` ``aperture`` command can be found in the manual.
 We can now determine the exact position of the IP5 point and plot the LHC
 injection aperture:
 
-.. GENERATED FROM PYTHON SOURCE LINES 62-66
+.. GENERATED FROM PYTHON SOURCE LINES 61-65
 
 .. code-block:: Python
 
@@ -131,13 +130,13 @@ injection aperture:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 67-70
+.. GENERATED FROM PYTHON SOURCE LINES 66-69
 
 And now we can plot the aperture around IP5 with the `~.plotting.aperture.plot_aperture`
 function. This uses the values in the ``APERTURE`` table of ``MAD-X``, which
 gives aperture information in terms of beam sigma.
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-88
+.. GENERATED FROM PYTHON SOURCE LINES 69-87
 
 .. code-block:: Python
 
@@ -171,13 +170,13 @@ gives aperture information in terms of beam sigma.
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 89-92
+.. GENERATED FROM PYTHON SOURCE LINES 88-91
 
-We can also go for a different type of aperture plot, which tries to give 
+We can also go for a different type of aperture plot, which tries to give
 the elements' real physical apertures, with the `~.plotting.aperture.plot_physical_apertures`
 function:
 
-.. GENERATED FROM PYTHON SOURCE LINES 92-99
+.. GENERATED FROM PYTHON SOURCE LINES 91-98
 
 .. code-block:: Python
 
@@ -200,12 +199,12 @@ function:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 100-102
+.. GENERATED FROM PYTHON SOURCE LINES 99-101
 
 We can give a ``scale`` argument to change the scale of the Y-axis. Let's make
 it in centimeters here:
 
-.. GENERATED FROM PYTHON SOURCE LINES 102-110
+.. GENERATED FROM PYTHON SOURCE LINES 101-109
 
 .. code-block:: Python
 
@@ -229,11 +228,11 @@ it in centimeters here:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 111-112
+.. GENERATED FROM PYTHON SOURCE LINES 110-111
 
 Let's not forget to close the rpc connection to ``MAD-X``:
 
-.. GENERATED FROM PYTHON SOURCE LINES 112-115
+.. GENERATED FROM PYTHON SOURCE LINES 111-114
 
 .. code-block:: Python
 
@@ -247,7 +246,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 116-123
+.. GENERATED FROM PYTHON SOURCE LINES 115-122
 
 .. admonition:: References
 
@@ -260,7 +259,7 @@ Let's not forget to close the rpc connection to ``MAD-X``:
 
 .. rst-class:: sphx-glr-timing
 
-   **Total running time of the script:** (0 minutes 27.858 seconds)
+   **Total running time of the script:** (0 minutes 26.966 seconds)
 
 
 .. _sphx_glr_download_gallery_demo_aperture.py:

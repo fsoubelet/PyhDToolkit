@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.aperture &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.plotting.aperture &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -518,12 +522,10 @@
 <span class="sd">Module with functions to create aperture plots through a `~cpymad.madx.Madx`</span>
 <span class="sd">object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
@@ -536,19 +538,19 @@
 <span class="k">def</span> <span class="nf">plot_aperture</span><span class="p">(</span>
     <span class="n">madx</span><span class="p">:</span> <span class="n">Madx</span><span class="p">,</span>
     <span class="o">/</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">plot_dipoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">plot_dipole_k1</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">plot_quadrupoles</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
     <span class="n">plot_bpms</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
-    <span class="n">aperture_ylim</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k0l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k1l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k2l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">k3l_lim</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">aperture_ylim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k0l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k1l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k2l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">k3l_lim</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">color</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -581,13 +583,13 @@
 <span class="sd">    Args:</span>
 <span class="sd">        madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object.</span>
 <span class="sd">            Positional only.</span>
-<span class="sd">        title (Optional[str]): title of the figure.</span>
+<span class="sd">        title (str | None): title of the figure.</span>
 <span class="sd">        xoffset (float): An offset applied to the ``S`` coordinate before</span>
 <span class="sd">            plotting. This is useful if you want to center a plot around a</span>
 <span class="sd">            specific point or element, which would then become located at</span>
 <span class="sd">            :math:`s = 0`. Beware this offset is applied before applying the</span>
 <span class="sd">            *xlimits*. Defaults to 0.</span>
-<span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the ``s``</span>
+<span class="sd">        xlimits (tuple[float, float]): will implement xlim (for the ``s``</span>
 <span class="sd">            coordinate) if this is not ``None``, using the tuple passed.</span>
 <span class="sd">        plot_dipoles (bool): if `True`, dipole patches will be plotted on</span>
 <span class="sd">            the layout subplot of the figure. Defaults to `True`. Dipoles</span>
@@ -601,27 +603,27 @@
 <span class="sd">        plot_bpms (bool): if `True`, additional patches will be plotted on the</span>
 <span class="sd">            layout subplot to represent Beam Position Monitors. BPMs are</span>
 <span class="sd">            plotted in dark grey.</span>
-<span class="sd">        aperture_ylim (Tuple[float, float]): vertical axis limits for the</span>
+<span class="sd">        aperture_ylim (tuple[float, float]): vertical axis limits for the</span>
 <span class="sd">            aperture values. Defaults to `None`, to be determined by matplotlib</span>
 <span class="sd">            based on the provided values.</span>
-<span class="sd">        k0l_lim (Union[Tuple[float, float], float, int]): vertical axis limits</span>
+<span class="sd">        k0l_lim (tuple[float, float] | float): vertical axis limits</span>
 <span class="sd">            for the ``k0l`` values used for the height of dipole patches. Can</span>
 <span class="sd">            be given as a single value (float, int) or a tuple (in which case</span>
 <span class="sd">            it should be symmetric). If `None` (default) is given, then the</span>
 <span class="sd">            limits will be auto-determined based on the ``k0l`` values of the</span>
 <span class="sd">            dipoles in the plot.</span>
-<span class="sd">        k1l_lim (Union[Tuple[float, float], float, int]): vertical axis limits</span>
+<span class="sd">        k1l_lim (tuple[float, float] | float): vertical axis limits</span>
 <span class="sd">            for the ``k1l`` values used for the height of quadrupole patches.</span>
 <span class="sd">            Can be given as a single value (float, int) or a tuple (in which</span>
 <span class="sd">            case it should be symmetric). If `None` (default) is given, then</span>
 <span class="sd">            the limits will be auto-determined based on the ``k0l`` values of</span>
 <span class="sd">            the quadrupoles in the plot.</span>
-<span class="sd">        k2l_lim (Union[Tuple[float, float], float, int]): if given, sextupole</span>
+<span class="sd">        k2l_lim (tuple[float, float] | float): if given, sextupole</span>
 <span class="sd">            patches will be plotted on the layout subplot of the figure. If</span>
 <span class="sd">            given, acts as vertical axis limits for the k2l values used for</span>
 <span class="sd">            the height of sextupole patches. Can be given as a single value</span>
 <span class="sd">            (float, int) or a tuple (in which case it should be symmetric).</span>
-<span class="sd">        k3l_lim (Union[Tuple[float, float], float, int]): if given, octupole</span>
+<span class="sd">        k3l_lim (tuple[float, float] | float): if given, octupole</span>
 <span class="sd">            patches will be plotted on the layout subplot of the figure. If</span>
 <span class="sd">            given, acts as vertical axis limits for the k3l values used for</span>
 <span class="sd">            the height of octupole patches. Can be given as a single value</span>
@@ -639,7 +641,8 @@
 
 <span class="sd">            plt.figure(figsize=(16, 11))</span>
 <span class="sd">            plot_aperture(</span>
-<span class="sd">                madx, plot_bpms=True,</span>
+<span class="sd">                madx,</span>
+<span class="sd">                plot_bpms=True,</span>
 <span class="sd">                aperture_ylim=(0, 20),</span>
 <span class="sd">                k0l_lim=(-4e-4, 4e-4),</span>
 <span class="sd">                k1l_lim=(-0.08, 0.08),</span>
@@ -683,9 +686,7 @@
     <span class="c1"># Plotting aperture values on remaining two thirds of the figure</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting aperture values&quot;</span><span class="p">)</span>
     <span class="n">aperture_axis</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplot2grid</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">colspan</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">rowspan</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">sharex</span><span class="o">=</span><span class="n">quadrupole_patches_axis</span><span class="p">)</span>
-    <span class="n">aperture_axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span>
-        <span class="n">aperture_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Aperture Limits&quot;</span>
-    <span class="p">)</span>
+    <span class="n">aperture_axis</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">aperture_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Aperture Limits&quot;</span><span class="p">)</span>
     <span class="n">aperture_axis</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">aperture_df</span><span class="o">.</span><span class="n">s</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="p">,</span> <span class="n">aperture_df</span><span class="o">.</span><span class="n">n1</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">interpolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">)</span>
     <span class="n">aperture_axis</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
     <span class="n">aperture_axis</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;$n_</span><span class="si">{1}</span><span class="s2"> \ [\sigma]$&quot;</span><span class="p">)</span>
@@ -709,7 +710,7 @@
     <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -740,7 +741,7 @@
 <span class="sd">            specific point or element, which would then become located</span>
 <span class="sd">            at :math:`s = 0`. Beware this offset is applied before applying</span>
 <span class="sd">            the *xlimits*. Defaults to 0.</span>
-<span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the ``s``</span>
+<span class="sd">        xlimits (tuple[float, float]): will implement xlim (for the ``s``</span>
 <span class="sd">            coordinate) if this is not ``None``, using the tuple passed.</span>
 <span class="sd">            Defaults to ``None``.</span>
 <span class="sd">        **kwargs: any keyword argument that can be given to the ``MAD-X``</span>
@@ -771,7 +772,8 @@
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;plane&#39; argument should be &#39;x&#39;, &#39;horizontal&#39;, &#39;y&#39; or &#39;vertical&#39; not &#39;</span><span class="si">{</span><span class="n">plane</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;plane&#39; argument.&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid &#39;plane&#39; argument.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Plotting real element apertures&quot;</span><span class="p">)</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -798,8 +800,8 @@
 
 
 <span class="k">def</span> <span class="nf">_get_positions_and_real_apertures</span><span class="p">(</span>
-    <span class="n">madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+    <span class="n">madx</span><span class="p">,</span> <span class="o">/</span><span class="p">,</span> <span class="n">plane</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.2.0</span>
 
@@ -824,7 +826,7 @@
 <span class="sd">            specific point or element, which would then become located</span>
 <span class="sd">            at :math:`s = 0`. Beware this offset is applied before applying</span>
 <span class="sd">            the *xlimits*. Defaults to 0.</span>
-<span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the ``s``</span>
+<span class="sd">        xlimits (tuple[float, float]): will implement xlim (for the ``s``</span>
 <span class="sd">            coordinate) if this is not ``None``, using the tuple passed.</span>
 <span class="sd">            Defaults to ``None``.</span>
 <span class="sd">        **kwargs: any keyword argument that can be given to the ``MAD-X``</span>
@@ -862,10 +864,9 @@
     <span class="n">indices</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">indices</span><span class="p">))</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">trace</span><span class="p">(</span><span class="s2">&quot;Extrapolating data at beginning of elements&quot;</span><span class="p">)</span>
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Keep track of exact position in new array with counter</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">indices</span><span class="p">:</span>
+    <span class="c1"># counter keeps track of exact position in new array with counter</span>
+    <span class="k">for</span> <span class="n">counter</span><span class="p">,</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">indices</span><span class="p">):</span>
         <span class="n">new_pos</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">j</span> <span class="o">+</span> <span class="n">counter</span><span class="p">,</span> <span class="p">(</span><span class="n">twiss_df</span><span class="o">.</span><span class="n">s</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">twiss_df</span><span class="o">.</span><span class="n">l</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">]))</span>
-        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 
     <span class="c1"># Replace all zeros with Nan</span>
     <span class="n">apertures</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_aper</span><span class="p">)</span>

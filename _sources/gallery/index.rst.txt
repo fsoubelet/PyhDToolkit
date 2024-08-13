@@ -74,7 +74,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.lattice.plot_machine_survey function to represent your machine geometry in a from-the-top view.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the plot_machine_survey function to represent your machine geometry in a from-the-top view.">
 
 .. only:: html
 
@@ -91,7 +91,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.tune.plot_tune_diagram function  to visualise resonance lines up to certain orders.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the plot_tune_diagram function to visualise resonance lines up to certain orders.">
 
 .. only:: html
 
@@ -108,7 +108,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.crossing.plot_two_lhc_ips_crossings function to visualise the crossing schemes setup at the LHC IRs.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the plot_two_lhc_ips_crossings function to visualise the crossing schemes setup at the LHC IRs.">
 
 .. only:: html
 
@@ -125,7 +125,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.aperture.plot_aperture and  ~.plotting.aperture.plot_physical_apertures functions to visualise the available aperture in your machine, with the LHC used for this example.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the plot_aperture and plot_physical_apertures functions to visualise the available aperture in your machine, with the LHC used for this example.">
 
 .. only:: html
 
@@ -159,7 +159,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.misalign_lhc_ir_quadrupoles function to assign magnet errors in the Insertion Region magnets of the LHC.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the misalign_lhc_ir_quadrupoles function to assign magnet errors in the Insertion Region magnets of the LHC.">
 
 .. only:: html
 
@@ -176,7 +176,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.track.track_single_particle function to track a  particle with the TRACK command of MAD-X, and visualise its coordinates and spectrum.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the track_single_particle function to track a particle with the TRACK command of MAD-X, and visualise its coordinates and spectrum.">
 
 .. only:: html
 
@@ -193,7 +193,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.lattice.plot_latwiss function to represent your machine&#x27;s layout and optics functions in a double-axis plot.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the plot_latwiss function to represent your machine&#x27;s layout and optics functions in a double-axis plot.">
 
 .. only:: html
 
@@ -210,7 +210,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.install_ac_dipole_as_kicker and  ~.track.track_single_particle function to track a  particle with the  TRACK command of MAD-X, and visualise its coordinates and spectrum.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the install_ac_dipole_as_kicker and track_single_particle function to track a  particle with the TRACK command of MAD-X, and visualise its coordinates and spectrum.">
 
 .. only:: html
 
@@ -227,7 +227,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.phasespace.plot_courant_snyder_phase_space and ~.plotting.phasespace.plot_courant_snyder_phase_space_colored functions to visualise the particles&#x27; normalized coordinates&#x27; phase space for your machine.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the plot_courant_snyder_phase_space and plot_courant_snyder_phase_space_colored functions to visualise the particles&#x27; normalized coordinates&#x27; phase space for your machine.">
 
 .. only:: html
 
@@ -244,7 +244,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.plotting.envelope.plot_envelope function to visualise the particle beam&#x27;s enveloppe in your machine.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the plot_envelope function to visualise the particle beam&#x27;s enveloppe in your machine.">
 
 .. only:: html
 
@@ -261,7 +261,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.maths.stats_fitting.best_fit_distribution function to determine which statistical distribution best first a given data set, and plot the results together.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the best_fit_distribution function to determine which statistical distribution best first a given data set, and plot the results together.">
 
 .. only:: html
 
@@ -278,7 +278,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="These examples show how to use the functions in pyhdtoolkit.cpymadtools.lhc._setup managers to easily and quickly set up LHC simulations. These are exported and  available at the level of the pyhdtoolkit.cpymadtools.lhc module.">
+    <div class="sphx-glr-thumbcontainer" tooltip="These examples show how to use the functions in pyhdtoolkit.cpymadtools.lhc._setup managers to easily and quickly set up LHC simulations. These are exported and available at the level of the pyhdtoolkit.cpymadtools.lhc module.">
 
 .. only:: html
 
@@ -295,7 +295,7 @@ Click on any image thumbnail to see the corresponding gallery page with full ima
 
 .. raw:: html
 
-    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the ~.lhc.apply_lhc_rigidity_waist_shift_knob  function to force a waist shift at a given IP and break the symmetry of the  \beta-functions in the Interaction Region. This is done by  over-powering one triplet knob and under-powering the other, by the same powering delta.">
+    <div class="sphx-glr-thumbcontainer" tooltip="This example shows how to use the apply_lhc_rigidity_waist_shift_knob function to force a waist shift at a given IP and break the symmetry of the \beta-functions in the Interaction Region. This is done by over-powering one triplet knob and under-powering the other, by the same powering delta.">
 
 .. only:: html
 

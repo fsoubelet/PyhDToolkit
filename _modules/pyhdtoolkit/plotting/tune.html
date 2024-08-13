@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.tune &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.plotting.tune &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -518,19 +522,17 @@
 <span class="sd">Module with functions to create tune diagram plots.</span>
 <span class="sd">These provide functionality to draw Farey sequences up to a desired order.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
-<span class="kn">import</span> <span class="nn">matplotlib.axes</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">matplotlib.axes</span> <span class="kn">import</span> <span class="n">Axes</span>
 
 <span class="kn">from</span> <span class="nn">pyhdtoolkit.plotting.utils</span> <span class="kn">import</span> <span class="n">maybe_get_ax</span>
 
-<span class="n">ORDER_TO_ALPHA</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">}</span>
-<span class="n">ORDER_TO_RGB</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">ORDER_TO_ALPHA</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">0.65</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">0.55</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="mf">0.35</span><span class="p">}</span>
+<span class="n">ORDER_TO_RGB</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mi">1</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">152</span><span class="p">,</span> <span class="mi">52</span><span class="p">,</span> <span class="mi">48</span><span class="p">])</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span>  <span class="c1"># a brown</span>
     <span class="mi">2</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">57</span><span class="p">,</span> <span class="mi">119</span><span class="p">,</span> <span class="mi">175</span><span class="p">])</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span>  <span class="c1"># a blue</span>
     <span class="mi">3</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">239</span><span class="p">,</span> <span class="mi">133</span><span class="p">,</span> <span class="mi">54</span><span class="p">])</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span>  <span class="c1"># an orange</span>
@@ -538,7 +540,7 @@
     <span class="mi">5</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">197</span><span class="p">,</span> <span class="mi">57</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span>  <span class="c1"># a red</span>
     <span class="mi">6</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">141</span><span class="p">,</span> <span class="mi">107</span><span class="p">,</span> <span class="mi">184</span><span class="p">])</span> <span class="o">/</span> <span class="mi">255</span><span class="p">,</span>  <span class="c1"># a purple</span>
 <span class="p">}</span>
-<span class="n">ORDER_TO_LINESTYLE</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">ORDER_TO_LINESTYLE</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;solid&quot;</span><span class="p">,</span>
     <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;solid&quot;</span><span class="p">,</span>
     <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;solid&quot;</span><span class="p">,</span>
@@ -546,8 +548,8 @@
     <span class="mi">5</span><span class="p">:</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
     <span class="mi">6</span><span class="p">:</span> <span class="s2">&quot;dashed&quot;</span><span class="p">,</span>
 <span class="p">}</span>
-<span class="n">ORDER_TO_LINEWIDTH</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">}</span>
-<span class="n">ORDER_TO_LABEL</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">ORDER_TO_LINEWIDTH</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="mf">1.75</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">4</span><span class="p">:</span> <span class="mf">1.25</span><span class="p">,</span> <span class="mi">5</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">}</span>
+<span class="n">ORDER_TO_LABEL</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;1st order&quot;</span><span class="p">,</span>
     <span class="mi">2</span><span class="p">:</span> <span class="s2">&quot;2nd order&quot;</span><span class="p">,</span>
     <span class="mi">3</span><span class="p">:</span> <span class="s2">&quot;3rd order&quot;</span><span class="p">,</span>
@@ -559,7 +561,7 @@
 
 <div class="viewcode-block" id="farey_sequence">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.farey_sequence">[docs]</a>
-<span class="k">def</span> <span class="nf">farey_sequence</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
+<span class="k">def</span> <span class="nf">farey_sequence</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
@@ -587,12 +589,12 @@
 <div class="viewcode-block" id="plot_tune_diagram">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_tune_diagram">[docs]</a>
 <span class="k">def</span> <span class="nf">plot_tune_diagram</span><span class="p">(</span>
-    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">legend_title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">legend_title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">max_order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span>
     <span class="n">differentiate_orders</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Axes</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
@@ -628,9 +630,10 @@
 <span class="sd">            fig, ax = plt.subplots(figsize=(6, 6))</span>
 <span class="sd">            plot_tune_diagram(ax=ax, max_order=4, differentiate_orders=True)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">max_order</span> <span class="o">&gt;</span> <span class="mi">6</span> <span class="ow">or</span> <span class="n">max_order</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">max_order</span> <span class="o">&gt;</span> <span class="mi">6</span> <span class="ow">or</span> <span class="n">max_order</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>  <span class="c1"># noqa: PLR2004</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s2">&quot;Plotting is not supported outside of 1st-6th order (and not recommended)&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;The &#39;max_order&#39; argument should be between 1 and 6 included&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;The &#39;max_order&#39; argument should be between 1 and 6 included&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting resonance lines up to </span><span class="si">{</span><span class="n">ORDER_TO_LABEL</span><span class="p">[</span><span class="n">max_order</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -659,7 +662,7 @@
 
 <div class="viewcode-block" id="plot_resonance_lines_for_order">
 <a class="viewcode-back" href="../../../api/plotting.html#pyhdtoolkit.plotting.tune.plot_resonance_lines_for_order">[docs]</a>
-<span class="k">def</span> <span class="nf">plot_resonance_lines_for_order</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">axes</span><span class="o">.</span><span class="n">Axes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">plot_resonance_lines_for_order</span><span class="p">(</span><span class="n">order</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">axis</span><span class="p">:</span> <span class="n">Axes</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 

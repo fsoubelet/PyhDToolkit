@@ -13,7 +13,6 @@ function to visualise the crossing schemes setup at the LHC IRs.
     This is very LHC-specific and will not work with other machines.
 """
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
@@ -35,7 +34,7 @@ madx.call("lhc/opticsfile.22")  # collisions optics
 
 ###############################################################################
 # Let's explicitely re-cycle both sequences to avoid having IR1 split at beginning
-# and end of lattice. Note that it is important to re-cycle both sequences from 
+# and end of lattice. Note that it is important to re-cycle both sequences from
 # the same points for the plots later on.
 
 lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")

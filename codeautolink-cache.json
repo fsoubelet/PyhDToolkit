@@ -2,7 +2,7 @@
   "api": [],
   "api/cpymadtools": [
     {
-      "source": "# Say we have set the LHC coupling knobs to 1e-3\ndqmin = get_closest_tune_approach(\n    madx,\n    \"lhc\",                    # will find the knobs automatically\n    sequence=\"lhcb1\",\n    telescopic_squeeze=True,  # influences the knobs definition\n    run3=True,                # influences the knobs definition (LHC Run 3)\n)\n# returns 0.001",
+      "source": "# Say we have set the LHC coupling knobs to 1e-3\ndqmin = get_closest_tune_approach(\n    madx,\n    \"lhc\",  # will find the knobs automatically\n    sequence=\"lhcb1\",\n    telescopic_squeeze=True,  # influences the knobs definition\n    run3=True,  # influences the knobs definition (LHC Run 3)\n)\n# returns 0.001",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -279,7 +279,7 @@
       "doc_lineno": 42
     },
     {
-      "source": "misalign_lhc_ir_quadrupoles(\n    madx, ips=[5],\n    quadrupoles=[7, 8, 9, 10],\n    beam=1,\n    sides=\"RL\",\n    dpsi=\"1E-3 + 8E-4 * TGAUSS(2.5)\",\n)",
+      "source": "misalign_lhc_ir_quadrupoles(\n    madx,\n    ips=[5],\n    quadrupoles=[7, 8, 9, 10],\n    beam=1,\n    sides=\"RL\",\n    dpsi=\"1E-3 + 8E-4 * TGAUSS(2.5)\",\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -301,7 +301,7 @@
       "doc_lineno": 50
     },
     {
-      "source": "misalign_lhc_ir_quadrupoles(\n    madx,\n    ips=[1, 5],\n    quadrupoles=list(range(1, 11)),\n    beam=1,\n    sides=\"RL\",\n    dy=1e-5,  # ok too as cpymad converts this to a string first\n    dpsi=\"1E-3 + 8E-4 * TGAUSS(2.5)\"\n)",
+      "source": "misalign_lhc_ir_quadrupoles(\n    madx,\n    ips=[1, 5],\n    quadrupoles=list(range(1, 11)),\n    beam=1,\n    sides=\"RL\",\n    dy=1e-5,  # ok too as cpymad converts this to a string first\n    dpsi=\"1E-3 + 8E-4 * TGAUSS(2.5)\",\n)",
       "names": [
         {
           "import_components": [
@@ -341,7 +341,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 62
+      "doc_lineno": 63
     },
     {
       "source": "misalign_lhc_triplets(madx, ip=1, sides=\"RL\", dx=\"1E-5 * TGAUSS(2.5)\")",
@@ -1157,7 +1157,7 @@
       "doc_lineno": 25
     },
     {
-      "source": "tune_results = do_kmodulation(madx, ir=1, side=\"right\", steps=100, stepsize=3e-8)",
+      "source": "tune_results = do_kmodulation(\n    madx, ir=1, side=\"right\", steps=100, stepsize=3e-8\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1201,7 +1201,7 @@
       "doc_lineno": 37
     },
     {
-      "source": "with LHCSetup(run=2, opticsfile=\"2018/PROTON/opticsfile.22\", beam=2) as madx:\n   pass  # do some stuff",
+      "source": "with LHCSetup(run=2, opticsfile=\"2018/PROTON/opticsfile.22\", beam=2) as madx:\n    pass  # do some stuff",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1246,7 +1246,7 @@
       "doc_lineno": 46
     },
     {
-      "source": "with LHCSetup(run=3, opticsfile=\"R2022a_A30cmC30cmA10mL200cm.madx\", slicefactor=4, stdout=False) as madx:\n   pass  # do some stuff",
+      "source": "with LHCSetup(\n    run=3,\n    opticsfile=\"R2022a_A30cmC30cmA10mL200cm.madx\",\n    slicefactor=4,\n    stdout=False,\n) as madx:\n    pass  # do some stuff",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1337,7 +1337,7 @@
       "doc_lineno": 11
     },
     {
-      "source": "make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6)",
+      "source": "make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1381,10 +1381,10 @@
           "Examples"
         ]
       },
-      "doc_lineno": 22
+      "doc_lineno": 26
     },
     {
-      "source": "make_lhc_beams(madx, energy=6800, emittance_x=2.5e-6, emittance_y=3e-6, b4=True)",
+      "source": "make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6, b4=True)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1428,7 +1428,7 @@
           "Examples"
         ]
       },
-      "doc_lineno": 29
+      "doc_lineno": 33
     },
     {
       "source": "make_lhc_thin(madx, sequence=\"lhcb1\", slicefactor=4)",
@@ -1479,7 +1479,7 @@
       "doc_lineno": 23
     },
     {
-      "source": "madx = prepare_lhc_run2(\n    \"/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22\", beam=2, stdout=True\n)",
+      "source": "madx = prepare_lhc_run2(\n    \"/afs/cern.ch/eng/lhc/optics/runII/2018/PROTON/opticsfile.22\",\n    beam=2,\n    stdout=True,\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1788,7 +1788,7 @@
       "doc_lineno": 20
     },
     {
-      "source": "matching.match_chromaticities(\n    madx,\n    None,              # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"ksf\", \"ksd\"],  # only chroma knobs\n)",
+      "source": "matching.match_chromaticities(\n    madx,\n    None,  # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"ksf\", \"ksd\"],  # only chroma knobs\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1898,7 +1898,7 @@
       "doc_lineno": 61
     },
     {
-      "source": "matching.match_chromaticities(\n    madx,\n    \"lhc\",                    # will find the knobs automatically\n    sequence=\"lhcb1\",\n    dq1_target=2.0,\n    dq2_target=2.0,\n)",
+      "source": "matching.match_chromaticities(\n    madx,\n    \"lhc\",  # will find the knobs automatically\n    sequence=\"lhcb1\",\n    dq1_target=2.0,\n    dq2_target=2.0,\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -1953,7 +1953,7 @@
       "doc_lineno": 72
     },
     {
-      "source": "matching.match_tunes(\n    madx,\n    None,              # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    q1_target=6.335,\n    q2_target=6.29,\n    varied_knobs=[\"kqf\", \"kqd\"],  # only tune knobs\n)",
+      "source": "matching.match_tunes(\n    madx,\n    None,  # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    q1_target=6.335,\n    q2_target=6.29,\n    varied_knobs=[\"kqf\", \"kqd\"],  # only tune knobs\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -2065,7 +2065,7 @@
       "doc_lineno": 61
     },
     {
-      "source": "matching.match_tunes(\n    madx,\n    \"lhc\",                    # will find the knobs automatically\n    sequence=\"lhcb1\",\n    q1_target=62.31,\n    q2_target=60.32,\n)",
+      "source": "matching.match_tunes(\n    madx,\n    \"lhc\",  # will find the knobs automatically\n    sequence=\"lhcb1\",\n    q1_target=62.31,\n    q2_target=60.32,\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -2121,7 +2121,7 @@
       "doc_lineno": 72
     },
     {
-      "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    None,              # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    q1_target=6.335,\n    q2_target=6.29,\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"kqf\", \"kqd\", \"ksf\", \"ksd\"],\n)",
+      "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    None,  # this is not LHC or HLLHC\n    sequence=\"CAS3\",\n    q1_target=6.335,\n    q2_target=6.29,\n    dq1_target=100,\n    dq2_target=100,\n    varied_knobs=[\"kqf\", \"kqd\", \"ksf\", \"ksd\"],\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -2235,7 +2235,7 @@
       "doc_lineno": 95
     },
     {
-      "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    \"lhc\",                    # will find the knobs automatically\n    sequence=\"lhcb1\",\n    q1_target=62.31,\n    q2_target=60.32,\n    dq1_target=2.0,\n    dq2_target=2.0,\n    run3=True,  # influences the knobs definition\n)",
+      "source": "matching.match_tunes_and_chromaticities(\n    madx,\n    \"lhc\",  # will find the knobs automatically\n    sequence=\"lhcb1\",\n    q1_target=62.31,\n    q2_target=60.32,\n    dq1_target=2.0,\n    dq2_target=2.0,\n    run3=True,  # influences the knobs definition\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -2649,7 +2649,7 @@
       "doc_lineno": 72
     },
     {
-      "source": "tracks_dict = ptc_track_particle(\n    madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),\n    model=3, method=6, nst=3, exact=True\n)",
+      "source": "tracks_dict = ptc_track_particle(\n    madx,\n    nturns=10,\n    initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),\n    model=3,\n    method=6,\n    nst=3,\n    exact=True,\n)",
       "names": [],
       "example": {
         "document": "api/cpymadtools",
@@ -3462,7 +3462,7 @@
       "doc_lineno": 18
     },
     {
-      "source": "import scipy.stats as st\ntested_dists = {st.chi: \"Chi\", st.expon: \"Exponential\", st.laplace: \"Laplace\"}\nset_distributions_dict(tested_dists)",
+      "source": "import scipy.stats as st\n\ntested_dists = {st.chi: \"Chi\", st.expon: \"Exponential\", st.laplace: \"Laplace\"}\nset_distributions_dict(tested_dists)",
       "names": [
         {
           "import_components": [
@@ -3482,8 +3482,8 @@
             "chi"
           ],
           "code_str": "st.chi",
-          "lineno": 2,
-          "end_lineno": 2,
+          "lineno": 3,
+          "end_lineno": 3,
           "context": "none",
           "resolved_location": "scipy.stats.chi"
         },
@@ -3494,8 +3494,8 @@
             "expon"
           ],
           "code_str": "st.expon",
-          "lineno": 2,
-          "end_lineno": 2,
+          "lineno": 3,
+          "end_lineno": 3,
           "context": "none",
           "resolved_location": "scipy.stats.expon"
         },
@@ -3506,8 +3506,8 @@
             "laplace"
           ],
           "code_str": "st.laplace",
-          "lineno": 2,
-          "end_lineno": 2,
+          "lineno": 3,
+          "end_lineno": 3,
           "context": "none",
           "resolved_location": "scipy.stats.laplace"
         }
@@ -3573,7 +3573,7 @@
       "doc_lineno": 24
     },
     {
-      "source": "import numpy as np\nq = np.array([-330,  230,  430, -720,  750, -110,  410, -340, -950, -630])\nget_scaled_values_and_magnitude_string(q)\n# returns (array([-3.3,  2.3,  4.3, -7.2,  7.5, -1.1,  4.1, -3.4, -9.5, -6.3]), '{-2}')",
+      "source": "import numpy as np\n\nq = np.array([-330, 230, 430, -720, 750, -110, 410, -340, -950, -630])\nget_scaled_values_and_magnitude_string(q)\n# returns (array([-3.3,  2.3,  4.3, -7.2,  7.5, -1.1,  4.1, -3.4, -9.5, -6.3]), '{-2}')",
       "names": [
         {
           "import_components": [
@@ -3591,8 +3591,8 @@
             "array"
           ],
           "code_str": "np.array",
-          "lineno": 2,
-          "end_lineno": 2,
+          "lineno": 3,
+          "end_lineno": 3,
           "context": "none",
           "resolved_location": "numpy.array"
         }
@@ -3670,7 +3670,7 @@
   ],
   "api/plotting": [
     {
-      "source": "plt.figure(figsize=(16, 11))\nplot_aperture(\n    madx, plot_bpms=True,\n    aperture_ylim=(0, 20),\n    k0l_lim=(-4e-4, 4e-4),\n    k1l_lim=(-0.08, 0.08),\n    color=\"darkslateblue\",\n)",
+      "source": "plt.figure(figsize=(16, 11))\nplot_aperture(\n    madx,\n    plot_bpms=True,\n    aperture_ylim=(0, 20),\n    k0l_lim=(-4e-4, 4e-4),\n    k1l_lim=(-0.08, 0.08),\n    color=\"darkslateblue\",\n)",
       "names": [],
       "example": {
         "document": "api/plotting",
@@ -3711,7 +3711,7 @@
       "doc_lineno": 53
     },
     {
-      "source": "plot_single_ir_crossing(\n    plt.gca(), b1_df, b2_df, plot_column=\"x\", scaling=1e3, ylabel=\"Orbit X $[mm]$\"\n)",
+      "source": "plot_single_ir_crossing(\n    plt.gca(),\n    b1_df,\n    b2_df,\n    plot_column=\"x\",\n    scaling=1e3,\n    ylabel=\"Orbit X $[mm]$\",\n)",
       "names": [],
       "example": {
         "document": "api/plotting",
@@ -3742,7 +3742,7 @@
       "doc_lineno": 39
     },
     {
-      "source": "plt.figure(figsize=(16, 11))\nplot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)",
+      "source": "plt.figure(figsize=(16, 11))\nplot_two_lhc_ips_crossings(\n    madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False\n)",
       "names": [],
       "example": {
         "document": "api/plotting",
@@ -3910,7 +3910,7 @@
       "doc_lineno": 28
     },
     {
-      "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane=\"Horizontal\")",
+      "source": "fig, ax = plt.subplots(figsize=(10, 9))\nplot_courant_snyder_phase_space_colored(\n    madx, x_coords, px_coords, plane=\"Horizontal\"\n)",
       "names": [],
       "example": {
         "document": "api/plotting",
@@ -4032,7 +4032,7 @@
           "Example"
         ]
       },
-      "doc_lineno": 37
+      "doc_lineno": 34
     },
     {
       "source": "plot_phase_segment(ax, segment_df, b1_model_tfs, plane=\"x\", ip=1)",
@@ -4427,7 +4427,7 @@
       "doc_lineno": 34
     },
     {
-      "source": "import os\nmodified_env = os.environ.copy()\nmodified_env[\"ENV_VAR\"] = \"new_value\"\nCommandLine.run(\"echo $ENV_VAR\", env=modified_env)\n# returns (0, b\"new_value\")",
+      "source": "import os\n\nmodified_env = os.environ.copy()\nmodified_env[\"ENV_VAR\"] = \"new_value\"\nCommandLine.run(\"echo $ENV_VAR\", env=modified_env)\n# returns (0, b\"new_value\")",
       "names": [
         {
           "import_components": [
@@ -4467,7 +4467,7 @@
       "doc_lineno": 13
     },
     {
-      "source": "with timeit(lambda spanned: logger.debug(f\"Did some stuff in {spanned} seconds\")):\n    some_stuff()\n    some_other_stuff()",
+      "source": "with timeit(\n    lambda spanned: logger.debug(f\"Did some stuff in {spanned} seconds\")\n):\n    some_stuff()\n    some_other_stuff()",
       "names": [],
       "example": {
         "document": "api/utils",
@@ -4642,7 +4642,7 @@
       "doc_lineno": 20
     },
     {
-      "source": "from pyhdtoolkit.utils.logging import config_logger, SIMPLE_FORMAT\nconfig_logger(level=\"DEBUG\", format=SIMPLE_FORMAT)",
+      "source": "from pyhdtoolkit.utils.logging import config_logger, SIMPLE_FORMAT\n\nconfig_logger(level=\"DEBUG\", format=SIMPLE_FORMAT)",
       "names": [
         {
           "import_components": [
@@ -4677,8 +4677,8 @@
             "config_logger"
           ],
           "code_str": "config_logger",
-          "lineno": 2,
-          "end_lineno": 2,
+          "lineno": 3,
+          "end_lineno": 3,
           "context": "none",
           "resolved_location": "pyhdtoolkit.utils.logging.config_logger"
         }
@@ -4883,7 +4883,7 @@
       "doc_lineno": 12
     },
     {
-      "source": "ListOperations.average_by(\n  [{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']\n)\n# returns 5.0",
+      "source": "ListOperations.average_by(\n    [{\"n\": 4}, {\"n\": 2}, {\"n\": 8}, {\"n\": 6}], lambda x: x[\"n\"]\n)\n# returns 5.0",
       "names": [],
       "example": {
         "document": "api/utils",
@@ -4912,7 +4912,7 @@
       "doc_lineno": 16
     },
     {
-      "source": "ListOperations.bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])\n# returns [['beep', 'boop', 'bar'], ['foo']]",
+      "source": "ListOperations.bifurcate(\n    [\"beep\", \"boop\", \"foo\", \"bar\"], [True, True, False, True]\n)\n# returns [['beep', 'boop', 'bar'], ['foo']]",
       "names": [],
       "example": {
         "document": "api/utils",
@@ -5835,7 +5835,7 @@
       "doc_lineno": 13
     },
     {
-      "source": "MiscellaneousOperations.map_values(\n    {\"a\": list(range(5)), \"b\": list(range(10)), \"c\": list(range(15))},\n    lambda x: len(x)\n)\n# returns {\"a\": 5, \"b\": 10, \"c\": 15}",
+      "source": "MiscellaneousOperations.map_values(\n    {\"a\": list(range(5)), \"b\": list(range(10)), \"c\": list(range(15))},\n    lambda x: len(x),\n)\n# returns {\"a\": 5, \"b\": 10, \"c\": 15}",
       "names": [
         {
           "import_components": [
@@ -6402,7 +6402,7 @@
       "doc_lineno": 19
     },
     {
-      "source": "NumberOperations.radians_to_degrees(2* math.pi)\n# returns 360",
+      "source": "NumberOperations.radians_to_degrees(2 * math.pi)\n# returns 360",
       "names": [],
       "example": {
         "document": "api/utils",
@@ -7224,7 +7224,7 @@
           "AC Dipole Driven Tracking Spectrum"
         ]
       },
-      "doc_lineno": 254
+      "doc_lineno": 253
     }
   ],
   "gallery/demo_aperture": [],
@@ -7249,7 +7249,7 @@
           "Free Tracking Spectrum"
         ]
       },
-      "doc_lineno": 394
+      "doc_lineno": 392
     }
   ],
   "gallery/demo_tune_diagram": [],
@@ -7304,5 +7304,6 @@
   "releases/v1.3.2": [],
   "releases/v1.4.0": [],
   "releases/v1.5.0": [],
+  "releases/v1.6.0": [],
   "sg_execution_times": []
 }

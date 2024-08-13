@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.styles &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.plotting.styles &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -518,17 +522,16 @@
 <span class="sd">The **style** submodules provide styles to be used with `~matplotlib`, mostly tailored for my use, and for good results with the plotters in `~pyhdtoolkit.plotting`.</span>
 <span class="sd">Feel free to use them anyway, as they might be useful to you when using the `~pyhdtoolkit.plotting` submodules, or to be adapted.</span>
 <span class="sd">&quot;&quot;&quot;</span>
+
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Union</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">paper</span><span class="p">,</span> <span class="n">thesis</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">paper</span><span class="p">,</span> <span class="n">thesis</span>  <span class="c1"># noqa: TID252</span>
 
-<span class="n">PlotSetting</span> <span class="o">=</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">bool</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">]</span>
+<span class="n">PlotSetting</span> <span class="o">=</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">tuple</span>
 
 
 <div class="viewcode-block" id="install_mpl_styles">
@@ -554,7 +557,7 @@
 
 <span class="c1"># This is meant for use in the sphinx-gallery to help with readability</span>
 <span class="c1"># as the default matplotlib settings are a bit small</span>
-<span class="n">_SPHINX_GALLERY_PARAMS</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+<span class="n">_SPHINX_GALLERY_PARAMS</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">&quot;figure.autolayout&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
     <span class="s2">&quot;figure.titlesize&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
     <span class="s2">&quot;axes.titlesize&quot;</span><span class="p">:</span> <span class="mi">28</span><span class="p">,</span>
@@ -565,7 +568,7 @@
 <span class="p">}</span>
 
 
-<span class="k">def</span> <span class="nf">_install_style_file</span><span class="p">(</span><span class="n">style</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">],</span> <span class="n">stylename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">_install_style_file</span><span class="p">(</span><span class="n">style</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PlotSetting</span><span class="p">],</span> <span class="n">stylename</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    .. versionadded:: 1.0.0</span>
 
@@ -576,6 +579,7 @@
 <span class="sd">    .. code-block:: python</span>
 
 <span class="sd">        from matplotlib import pyplot as plt</span>
+
 <span class="sd">        plt.style.use(&quot;style-name&quot;)</span>
 
 <span class="sd">    .. note::</span>
@@ -583,14 +587,14 @@
 <span class="sd">        activated environment&#39;s site-packages data. The file is installed in both places.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        style (Dict[str, PlotSetting]): The style to be written to disk. One of the styles defined</span>
+<span class="sd">        style (dict[str, PlotSetting]): The style to be written to disk. One of the styles defined</span>
 <span class="sd">            in the `~pyhdtoolkit.plotting.styles` submodules.</span>
 <span class="sd">        stylename (str): The name to associate with the style. This is the name that will be used</span>
 <span class="sd">            for the file written to disk, and will have to be `plt.use`d to use the style.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Installing matplotlib style as &#39;</span><span class="si">{</span><span class="n">stylename</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
     <span class="n">style_content</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">option</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">setting</span><span class="si">}</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">option</span><span class="p">,</span> <span class="n">setting</span> <span class="ow">in</span> <span class="n">style</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>
-    <span class="n">mpl_config_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">matplotlib</span><span class="o">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
+    <span class="n">mpl_config_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">mpl</span><span class="o">.</span><span class="n">get_configdir</span><span class="p">())</span> <span class="o">/</span> <span class="s2">&quot;stylelib&quot;</span>
     <span class="n">mpl_env_stylelib</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">style</span><span class="o">.</span><span class="n">core</span><span class="o">.</span><span class="n">BASE_LIBRARY_PATH</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Ensuring matplotlib &#39;stylelib&#39; directory exists&quot;</span><span class="p">)</span>

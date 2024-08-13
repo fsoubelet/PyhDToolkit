@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>pyhdtoolkit.plotting.envelope &mdash; PyhDToolkit 1.5.0 documentation</title>
+  <title>pyhdtoolkit.plotting.envelope &mdash; PyhDToolkit 1.6.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=19f00094" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
@@ -13,7 +13,7 @@
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-binder.css?v=f4aeca0c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
       <link rel="stylesheet" type="text/css" href="../../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=87e54e7c" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/css/custom.css?v=0a86e678" />
 
   
@@ -23,7 +23,7 @@
   
         <script src="../../../_static/jquery.js?v=5d32c60e"></script>
         <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="../../../_static/documentation_options.js?v=e0a75244"></script>
+        <script src="../../../_static/documentation_options.js?v=72d88caf"></script>
         <script src="../../../_static/doctools.js?v=9a2dae69"></script>
         <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
         <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -46,7 +46,7 @@
             
           </a>
               <div class="version">
-                1.5.0
+                1.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
@@ -295,6 +295,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../release.html">Release Notes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-6-0">Version 1.6.0</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.6.0.html">1.6.0</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="../../../release.html#version-1-5-0">Version 1.5.0</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../releases/v1.5.0.html">1.5.0</a></li>
 </ul>
@@ -517,10 +521,8 @@
 
 <span class="sd">Module with functions to create beam enveloppe plots through a `~cpymad.madx.Madx` object.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
 <span class="kn">from</span> <span class="nn">cpymad.madx</span> <span class="kn">import</span> <span class="n">Madx</span>
 <span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
 
@@ -537,7 +539,7 @@
     <span class="n">nsigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
     <span class="n">xoffset</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
-    <span class="n">xlimits</span><span class="p">:</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">xlimits</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
@@ -567,7 +569,7 @@
 <span class="sd">            specific point or element, which would then become located</span>
 <span class="sd">            at :math:`s = 0`. Beware this offset is applied before applying</span>
 <span class="sd">            the *xlimits*. Defaults to 0.</span>
-<span class="sd">        xlimits (Tuple[float, float]): will implement xlim (for the ``s``</span>
+<span class="sd">        xlimits (tuple[float, float]): will implement xlim (for the ``s``</span>
 <span class="sd">            coordinate) if this is not ``None``, using the tuple passed.</span>
 <span class="sd">            Defaults to ``None``.</span>
 <span class="sd">        **kwargs: any keyword argument that can be given to the ``MAD-X``</span>
@@ -598,7 +600,8 @@
     <span class="c1"># pylint: disable=too-many-arguments</span>
     <span class="k">if</span> <span class="n">plane</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;horizontal&quot;</span><span class="p">,</span> <span class="s2">&quot;vertical&quot;</span><span class="p">):</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;&#39;plane&#39; argument should be &#39;x&#39;, &#39;horizontal&#39;, &#39;y&#39; or &#39;vertical&#39; not &#39;</span><span class="si">{</span><span class="n">plane</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
-        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid &#39;plane&#39; argument.&quot;</span><span class="p">)</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="s2">&quot;Invalid &#39;plane&#39; argument.&quot;</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Plotting machine orbit and </span><span class="si">{</span><span class="n">nsigma</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">sigma beam envelope&quot;</span><span class="p">)</span>
     <span class="n">axis</span><span class="p">,</span> <span class="n">kwargs</span> <span class="o">=</span> <span class="n">maybe_get_ax</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -618,9 +621,7 @@
     <span class="n">orbit</span> <span class="o">=</span> <span class="n">twiss_df</span><span class="p">[</span><span class="n">plane_letter</span><span class="p">]</span> <span class="o">*</span> <span class="n">scale</span>  <span class="c1"># with scaling factor, by default 1</span>
 
     <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s2">&quot;Calculating beam enveloppe&quot;</span><span class="p">)</span>
-    <span class="n">one_sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
-        <span class="n">geom_emit</span> <span class="o">*</span> <span class="n">twiss_df</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;bet</span><span class="si">{</span><span class="n">plane_letter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">sige</span> <span class="o">*</span> <span class="n">twiss_df</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;d</span><span class="si">{</span><span class="n">plane_letter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
-    <span class="p">)</span>
+    <span class="n">one_sigma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">geom_emit</span> <span class="o">*</span> <span class="n">twiss_df</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;bet</span><span class="si">{</span><span class="n">plane_letter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">sige</span> <span class="o">*</span> <span class="n">twiss_df</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;d</span><span class="si">{</span><span class="n">plane_letter</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
     <span class="n">enveloppe</span> <span class="o">=</span> <span class="n">nsigma</span> <span class="o">*</span> <span class="n">one_sigma</span> <span class="o">*</span> <span class="n">scale</span>  <span class="c1"># with scaling factor, by default 1</span>
 
     <span class="c1"># Plot a line for the orbit, then fill between orbit + enveloppe and orbit - enveloppe</span>
