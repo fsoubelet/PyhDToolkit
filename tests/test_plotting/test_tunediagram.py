@@ -1,16 +1,17 @@
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
+from matplotlib.text import Text
 
 from pyhdtoolkit.plotting.tune import plot_tune_diagram
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 
 @pytest.mark.parametrize("max_order", [0, 10, -5])
 def test_plot_tune_diagram_fails_on_too_high_order(max_order, caplog):
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="The 'max_order' argument should be between 1 and 6 included"):
         plot_tune_diagram(max_order=max_order)
 
     for record in caplog.records:
@@ -45,4 +46,4 @@ def test_plot_tune_diagram_arguments(figure_title, legend_title, max_order, diff
         differentiate_orders=differentiate,
     )
     assert ax.get_title() == figure_title
-    assert isinstance(ax.legend().get_title(), matplotlib.text.Text)
+    assert isinstance(ax.legend().get_title(), Text)

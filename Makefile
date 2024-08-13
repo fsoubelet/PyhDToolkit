@@ -84,8 +84,8 @@ format:
 	@python -m isort examples && black -l 95 examples
 
 install: format clean
-	@echo "Installing with $(D)pip$(E) in the current environment."
-	@python -m pip install . -v
+	@echo "Installing (editable) with $(D)pip$(E) in the current environment."
+	@python -m pip install --editable . -v
 
 lines: format
 	@tokei .
@@ -113,5 +113,7 @@ alltests:
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
 .DEFAULT:
-	@echo "Make caught an invalid target! See help output below for available targets."
+	@echo "Make caught an invalid target."
+	@echo "See help output below for available targets."
+	@echo ""
 	@make help

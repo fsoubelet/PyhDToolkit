@@ -1,13 +1,12 @@
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.plotting.aperture import plot_aperture, plot_physical_apertures
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})
@@ -91,5 +90,5 @@ def test_plot_physical_apertures_ir5_collision_vertical(_collision_aperture_tole
 def test_plot_physical_apertures_raises_on_wrong_plane():
     madx = Madx(stdout=False)
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'plane' argument."):
         plot_physical_apertures(madx, plane="invalid")

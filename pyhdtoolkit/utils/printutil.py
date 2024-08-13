@@ -7,8 +7,8 @@ Printing Utilities
 A class utility class to allow me printing text in color, bold, etc.
 
 .. warning::
-   This module's functionality is superseeded by the ``rich`` package, and it will be 
-   removed in a future release.
+   This module's functionality is superseeded by the ``rich`` package, and it
+   will be removed in a future release.
 """
 
 END = "\033[0m"

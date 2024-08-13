@@ -6,13 +6,13 @@ Phase Space Plotters
 
 Module with functions to create phase space plots through a `~cpymad.madx.Madx` object.
 """
-import matplotlib
-import matplotlib.axes
-import numpy as np
 
+import numpy as np
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.plotting.utils import maybe_get_ax
@@ -28,9 +28,9 @@ def plot_courant_snyder_phase_space(
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
-    title: str = None,
+    title: str | None = None,
     **kwargs,
-) -> matplotlib.axes.Axes:
+) -> Axes:
     """
     .. versionadded:: 1.0.0
 
@@ -62,7 +62,8 @@ def plot_courant_snyder_phase_space(
     """
     if plane.lower() not in ("horizontal", "vertical"):
         logger.error(f"Plane should be either Horizontal or Vertical but '{plane}' was given")
-        raise ValueError("Invalid plane value")
+        msg = "Invalid 'plane' argument."
+        raise ValueError(msg)
 
     logger.debug("Plotting phase space for normalized Courant-Snyder coordinates")
     axis, kwargs = maybe_get_ax(**kwargs)
@@ -95,9 +96,9 @@ def plot_courant_snyder_phase_space_colored(
     u_coordinates: np.ndarray,
     pu_coordinates: np.ndarray,
     plane: str = "Horizontal",
-    title: str = None,
+    title: str | None = None,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> Figure:
     """
     .. versionadded:: 1.0.0
 
@@ -128,11 +129,14 @@ def plot_courant_snyder_phase_space_colored(
         .. code-block:: python
 
             fig, ax = plt.subplots(figsize=(10, 9))
-            plot_courant_snyder_phase_space_colored(madx, x_coords, px_coords, plane="Horizontal")
+            plot_courant_snyder_phase_space_colored(
+                madx, x_coords, px_coords, plane="Horizontal"
+            )
     """
     if plane.upper() not in ("HORIZONTAL", "VERTICAL"):
         logger.error(f"Plane should be either horizontal or vertical but '{plane}' was given")
-        raise ValueError("Invalid plane value")
+        msg = "Invalid 'plane' argument."
+        raise ValueError(msg)
 
     # Getting a sufficiently long array of colors to use
     colors = int(np.floor(len(u_coordinates) / 100)) * SORTED_COLORS

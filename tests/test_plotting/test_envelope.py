@@ -1,15 +1,14 @@
 import pathlib
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.plotting.envelope import _interpolate_madx, plot_beam_envelope
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
@@ -19,7 +18,7 @@ GUIDO_LATTICE = INPUTS_DIR / "madx" / "guido_lattice.madx"
 def test_plot_enveloppe_raises_on_wrong_plane():
     madx = Madx(stdout=False)
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid 'plane' argument."):
         plot_beam_envelope(madx, "lhcb1", plane="invalid")
 
 @pytest.mark.mpl_image_compare(tolerance=20, style="default", savefig_kwargs={"dpi": 200})

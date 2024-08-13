@@ -6,19 +6,17 @@ Ripken Parameters
 
 Module implementing various calculations based on the :cite:t:`Ripken:optics:1989` optics parameters.
 """
-from typing import Union
 
 import numpy as np
 import tfs
-
 from loguru import logger
 
 # ----- Setup Utilites ----- #
 
 
 def lebedev_beam_size(
-    beta1_: Union[float, np.ndarray], beta2_: Union[float, np.ndarray], geom_emit_x: float, geom_emit_y: float
-) -> Union[float, np.ndarray]:
+    beta1_: float | np.ndarray, beta2_: float | np.ndarray, geom_emit_x: float, geom_emit_y: float
+) -> float | np.ndarray:
     """
     .. versionadded:: 0.8.2
 
@@ -31,8 +29,8 @@ def lebedev_beam_size(
         See the example below.
 
     Args:
-        beta1_ (Union[float, np.ndarray]): value(s) for the beta1x or beta1y Ripken parameter.
-        beta2_ (Union[float, np.ndarray]): value(s) for the beta2x or beta2y Ripken parameter.
+        beta1_ (float | np.ndarray): value(s) for the beta1x or beta1y Ripken parameter.
+        beta2_ (float | np.ndarray): value(s) for the beta2x or beta2y Ripken parameter.
         geom_emit_x (float): geometric emittance of the horizontal plane, in [m].
         geom_emit_y (float): geometric emittante of the vertical plane, in [m].
 
@@ -68,7 +66,7 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     Args:
         coordinates_distribution (np.ndarray): ensemble of coordinates of the particle distributon.
         method (str): the method of calculation to use, either 'std' (using the standard deviation as the
-            beam size) or 'rms' (root mean square).
+            beam size) or 'rms' (root mean square). Case-insensitive.
 
     Returns:
         The computed beam size.
@@ -76,11 +74,12 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     Raises:
         NotImplementedError: If the required *method* is neither std nor rms.
     """
+    if method.lower() not in ("std", "rms"):
+        msg = "Invalid method provided"
+        raise NotImplementedError(msg)
     if method == "std":
         return coordinates_distribution.std()
-    elif method == "rms":
-        return np.sqrt(np.mean(np.square(coordinates_distribution)))
-    raise NotImplementedError("Invalid method provided")
+    return np.sqrt(np.mean(np.square(coordinates_distribution)))  # rms
 
 
 def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y: float) -> tfs.TfsDataFrame:

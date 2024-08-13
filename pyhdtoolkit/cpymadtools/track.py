@@ -7,10 +7,10 @@ Tracking Routines
 Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality through a
 `~cpymad.madx.Madx` object.
 """
-from typing import Dict, Optional, Sequence, Tuple
+
+from collections.abc import Sequence
 
 import pandas as pd
-
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -20,12 +20,12 @@ from loguru import logger
 def track_single_particle(
     madx: Madx,
     /,
-    initial_coordinates: Tuple[float, float, float, float, float, float],
+    initial_coordinates: tuple[float, float, float, float, float, float],
     nturns: int,
-    sequence: Optional[str] = None,
-    observation_points: Sequence[str] = None,
+    sequence: str | None = None,
+    observation_points: Sequence[str] | None = None,
     **kwargs,
-) -> Dict[str, pd.DataFrame]:
+) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 0.8.0
 
@@ -35,10 +35,10 @@ def track_single_particle(
 
     Args:
         madx (cpymad.madx.Madx): an instantiated `~cpymad.madx.Madx` object.
-        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple with the ``X, PX,
+        initial_coordinates (tuple[float, float, float, float, float, float]): a tuple with the ``X, PX,
             Y, PY, T, PT`` starting coordinates of the particle to track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.
-        sequence (Optional[str]): the sequence to use for tracking. If no value is provided, it is assumed
+        sequence (str | None): the sequence to use for tracking. If no value is provided, it is assumed
             that a sequence is already defined and in use, and this one will be picked up by ``MAD-X``.
             Beware of the dangers of giving a sequence that will be used by ``MAD-X``, see the warning below
             for more information.

@@ -24,13 +24,13 @@ def test_oneoct_cas_lattice():
 
 
 def test_tripleterrors_study_reference():
-    tripleterrors_study_reference = LatticeGenerator._generate_tripleterrors_study_reference()
+    tripleterrors_study_reference = LatticeGenerator._generate_tripleterrors_study_reference()  # noqa: SLF001
     assert isinstance(tripleterrors_study_reference, str)
     assert len(tripleterrors_study_reference) == 1617
 
 
 @pytest.mark.parametrize(
-    "randseed, tferror",
+    ("randseed", "tferror"),
     [
         ("", ""),
         ("95", "195"),
@@ -40,7 +40,7 @@ def test_tripleterrors_study_reference():
     ],
 )
 def test_tripleterrors_study_tferror_job(randseed, tferror):
-    tripleterrors_study_tferror_job = LatticeGenerator._generate_tripleterrors_study_tferror_job(
+    tripleterrors_study_tferror_job = LatticeGenerator._generate_tripleterrors_study_tferror_job(  # noqa: SLF001
         rand_seed=randseed, tf_error=tferror
     )
     assert isinstance(tripleterrors_study_tferror_job, str)
@@ -50,7 +50,7 @@ def test_tripleterrors_study_tferror_job(randseed, tferror):
 
 
 @pytest.mark.parametrize(
-    "randseed, mserror",
+    ("randseed", "mserror"),
     [
         ("", ""),
         ("95", "195"),
@@ -60,7 +60,7 @@ def test_tripleterrors_study_tferror_job(randseed, tferror):
     ],
 )
 def test_tripleterrors_study_mserror_job(randseed, mserror):
-    tripleterrors_study_mserror_job = LatticeGenerator._generate_tripleterrors_study_mserror_job(
+    tripleterrors_study_mserror_job = LatticeGenerator._generate_tripleterrors_study_mserror_job(  # noqa: SLF001
         rand_seed=randseed, ms_error=mserror
     )
     assert isinstance(tripleterrors_study_mserror_job, str)

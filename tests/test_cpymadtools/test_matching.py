@@ -1,9 +1,7 @@
 import math
-
 from sys import platform
 
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
@@ -13,8 +11,8 @@ BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
 
 @pytest.mark.skipif(platform.startswith("win"), reason="Windows is very flaky on this.")
-@pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
-@pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
+@pytest.mark.parametrize(("q1_target", "q2_target"), [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
+@pytest.mark.parametrize(("dq1_target", "dq2_target"), [(100, 100), (95, 95), (105, 105)])
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 def test_tune_and_chroma_matching(q1_target, q2_target, dq1_target, dq2_target, telescopic_squeeze):
     """Using my CAS19 project's lattice."""
@@ -54,7 +52,7 @@ def test_tune_and_chroma_matching_fails_on_unknown_accelerator():
 
 
 @pytest.mark.skipif(platform.startswith("win"), reason="Windows is very flaky on this.")
-@pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
+@pytest.mark.parametrize(("q1_target", "q2_target"), [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 def test_tune_only_matching(q1_target, q2_target, telescopic_squeeze):
     """Using my CAS19 project's lattice."""
@@ -76,7 +74,7 @@ def test_tune_only_matching(q1_target, q2_target, telescopic_squeeze):
 
 
 @pytest.mark.skipif(platform.startswith("win"), reason="Windows is very flaky on this.")
-@pytest.mark.parametrize("q1_target, q2_target", [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
+@pytest.mark.parametrize(("q1_target", "q2_target"), [(6.335, 6.29), (6.34, 6.27), (6.38, 6.27)])
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 def test_tune_matching_wrapper(q1_target, q2_target, telescopic_squeeze):
     """Using my CAS19 project's lattice."""
@@ -98,7 +96,7 @@ def test_tune_matching_wrapper(q1_target, q2_target, telescopic_squeeze):
 
 
 @pytest.mark.skipif(platform.startswith("win"), reason="Windows is very flaky on this.")
-@pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
+@pytest.mark.parametrize(("dq1_target", "dq2_target"), [(100, 100), (95, 95), (105, 105)])
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 def test_chroma_only_matching(dq1_target, dq2_target, telescopic_squeeze):
     """Using my CAS19 project's lattice."""
@@ -120,7 +118,7 @@ def test_chroma_only_matching(dq1_target, dq2_target, telescopic_squeeze):
 
 
 @pytest.mark.skipif(platform.startswith("win"), reason="Windows is very flaky on this.")
-@pytest.mark.parametrize("dq1_target, dq2_target", [(100, 100), (95, 95), (105, 105)])
+@pytest.mark.parametrize(("dq1_target", "dq2_target"), [(100, 100), (95, 95), (105, 105)])
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])
 def test_chroma_matching_wrapper(dq1_target, dq2_target, telescopic_squeeze):
     """Using my CAS19 project's lattice."""

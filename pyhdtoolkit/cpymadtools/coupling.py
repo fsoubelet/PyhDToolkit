@@ -8,11 +8,11 @@ Betatron Coupling Utilities
 Module with functions to perform ``MAD-X`` actions through a `~cpymad.madx.Madx` object, that
 retate to betatron coupling in the machine.
 """
-from typing import Dict, Sequence, Tuple
+
+from collections.abc import Sequence
 
 import numpy as np
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 from optics_functions.coupling import check_resonance_relation, closest_tune_approach, coupling_via_cmatrix
@@ -29,12 +29,12 @@ from pyhdtoolkit.cpymadtools.twiss import get_pattern_twiss, get_twiss_tfs
 def get_closest_tune_approach(
     madx: Madx,
     /,
-    accelerator: str = None,
-    sequence: str = None,
-    varied_knobs: Sequence[str] = None,
+    accelerator: str | None = None,
+    sequence: str | None = None,
+    varied_knobs: Sequence[str] | None = None,
     telescopic_squeeze: bool = True,
     run3: bool = False,
-    explicit_targets: Tuple[float, float] = None,
+    explicit_targets: tuple[float, float] | None = None,
     step: float = 1e-7,
     calls: int = 100,
     tolerance: float = 1e-21,
@@ -63,7 +63,7 @@ def get_closest_tune_approach(
         telescopic_squeeze (bool): ``LHC`` specific. If set to `True`, uses the ``(HL)LHC`` knobs for Telescopic
             Squeeze configuration. Defaults to `True` since `v0.9.0`.
         run3 (bool): if set to `True`, uses the `LHC` Run 3 `*_op` knobs. Defaults to `False`.
-        explicit_targets (Tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.
+        explicit_targets (tuple[float, float]): if given, will be used as matching targets for `(Qx, Qy)`.
             Otherwise, the target is determined as the middle of the current fractional tunes. Defaults to
             `None`.
         step (float): step size to use when varying knobs.
@@ -79,10 +79,10 @@ def get_closest_tune_approach(
             # Say we have set the LHC coupling knobs to 1e-3
             dqmin = get_closest_tune_approach(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 telescopic_squeeze=True,  # influences the knobs definition
-                run3=True,                # influences the knobs definition (LHC Run 3)
+                run3=True,  # influences the knobs definition (LHC Run 3)
             )
             # returns 0.001
     """
@@ -98,7 +98,7 @@ def get_closest_tune_approach(
 
     logger.debug("Saving knob values to restore after closest tune approach")
     varied_knobs = varied_knobs or tune_knobs  # if accelerator was given we've extracted this already
-    saved_knobs: Dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
+    saved_knobs: dict[str, float] = {knob: madx.globals[knob] for knob in varied_knobs}
     logger.trace(f"Saved knobs are {saved_knobs}")
 
     if explicit_targets:
@@ -147,8 +147,8 @@ def get_cminus_from_coupling_rdts(
     /,
     patterns: Sequence[str] = [""],
     method: str = "teapot",
-    qx: float = None,
-    qy: float = None,
+    qx: float | None = None,
+    qy: float | None = None,
     filtering: float = 0,
 ) -> float:
     """
@@ -233,7 +233,7 @@ def get_cminus_from_coupling_rdts(
 
 
 def match_no_coupling_through_ripkens(
-    madx: Madx, /, sequence: str = None, location: str = None, vary_knobs: Sequence[str] = None
+    madx: Madx, /, sequence: str | None = None, location: str | None = None, vary_knobs: Sequence[str] | None = None
 ) -> None:
     """
     .. versionadded:: 0.16.0

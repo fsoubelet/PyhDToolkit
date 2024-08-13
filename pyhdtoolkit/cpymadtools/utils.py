@@ -6,12 +6,11 @@ Miscellaneous Utilities
 
 Module with utility functions to do mundane operations with `~cpymad.madx.Madx` objects.
 """
+
 from pathlib import Path
-from typing import List, Union
 
 import pandas as pd
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -20,8 +19,8 @@ def export_madx_table(
     madx: Madx,
     /,
     table_name: str,
-    file_name: Union[Path, str],
-    pattern: str = None,
+    file_name: Path | str,
+    pattern: str | None = None,
     headers_table: str = "SUMM",
     **kwargs,
 ) -> None:
@@ -110,7 +109,7 @@ def get_table_tfs(madx: Madx, /, table_name: str, headers_table: str = "SUMM") -
 # ----- Helpers ----- #
 
 
-def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> List[str]:
+def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> list[str]:
     """
     Returns the list of K-strings for various magnets and orders (``K1L``, ``K2SL`` etc strings).
     Initial implementation credits go to :user:`Joschua Dilly <joschd>`.
@@ -126,7 +125,8 @@ def _get_k_strings(start: int = 0, stop: int = 8, orientation: str = "both") -> 
     """
     if orientation not in ("straight", "skew", "both"):
         logger.error(f"Orientation '{orientation}' is not accepted, should be one of 'straight', 'skew', 'both'.")
-        raise ValueError("Invalid 'orientation' parameter")
+        msg = "Invalid 'orientation' parameter"
+        raise ValueError(msg)
 
     if orientation == "straight":
         orientation = ("",)

@@ -6,7 +6,7 @@
 Accelerator Aperture
 ====================
 
-This example shows how to use the `~.plotting.aperture.plot_aperture` and 
+This example shows how to use the `~.plotting.aperture.plot_aperture` and
 `~.plotting.aperture.plot_physical_apertures` functions to visualise the
 available aperture in your machine, with the LHC used for this example.
 
@@ -23,7 +23,6 @@ available aperture in your machine, with the LHC used for this example.
 """
 
 import matplotlib.pyplot as plt
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
@@ -35,7 +34,7 @@ logging.config_logger(level="error")
 plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
-# Let's start by setting up the LHC in ``MAD-X``, in this case at injection 
+# Let's start by setting up the LHC in ``MAD-X``, in this case at injection
 # optics and energy. To understand the function below have a look at the
 # :ref:`lhc setup example <demo-lhc-setup>`.
 
@@ -86,7 +85,7 @@ plt.show()
 
 
 ###############################################################################
-# We can also go for a different type of aperture plot, which tries to give 
+# We can also go for a different type of aperture plot, which tries to give
 # the elements' real physical apertures, with the `~.plotting.aperture.plot_physical_apertures`
 # function:
 

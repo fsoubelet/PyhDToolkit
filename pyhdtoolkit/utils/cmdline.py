@@ -11,8 +11,7 @@ import errno
 import os
 import signal
 import subprocess
-
-from typing import Mapping, Optional, Tuple
+from collections.abc import Mapping
 
 from loguru import logger
 
@@ -68,8 +67,8 @@ class CommandLine:
 
     @staticmethod
     def run(
-        command: str, shell: bool = True, env: Mapping = None, timeout: float = None
-    ) -> Tuple[Optional[int], bytes]:
+        command: str, shell: bool = True, env: Mapping | None = None, timeout: float | None = None
+    ) -> tuple[int | None, bytes]:
         """
         .. versionadded:: 0.2.0
 
@@ -110,6 +109,7 @@ class CommandLine:
             .. code-block:: python
 
                 import os
+
                 modified_env = os.environ.copy()
                 modified_env["ENV_VAR"] = "new_value"
                 CommandLine.run("echo $ENV_VAR", env=modified_env)

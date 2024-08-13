@@ -5,8 +5,8 @@
 
 The functions below are betatron coupling utilities for the ``LHC``.
 """
-import tfs
 
+import tfs
 from cpymad.madx import Madx
 from loguru import logger
 from optics_functions.coupling import coupling_via_cmatrix

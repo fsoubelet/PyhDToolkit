@@ -6,20 +6,18 @@ Stats Fitting
 
 Module implementing methods to find the best fit of statistical distributions to data.
 """
+
 import warnings
 
-from typing import Dict, Tuple, Union
-
-import matplotlib
 import matplotlib.pyplot as plt  # noqa: F401 | if omitted, get AttributeError: module 'matplotlib' has no attribute 'axes'
 import numpy as np
 import pandas as pd
 import scipy.stats as st
-
 from loguru import logger
+from matplotlib.axes import Axes
 
 # Distributions to check #
-DISTRIBUTIONS: Dict[st.rv_continuous, str] = {
+DISTRIBUTIONS: dict[st.rv_continuous, str] = {
     st.chi: "Chi",
     st.chi2: "Chi-Square",
     st.expon: "Exponential",
@@ -29,7 +27,7 @@ DISTRIBUTIONS: Dict[st.rv_continuous, str] = {
 }
 
 
-def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
+def set_distributions_dict(dist_dict: dict[st.rv_continuous, str]) -> None:
     """
     .. versionadded:: 0.5.0
 
@@ -38,7 +36,7 @@ def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
     function in the :ref:`gallery <demo-distributions-fitting>`.
 
     Args:
-        dist_dict (Dict[st.rv_continuous, str]): dictionnary with the wanted distributions,
+        dist_dict (dict[st.rv_continuous, str]): dictionnary with the wanted distributions,
             in the format of ``DISTRIBUTIONS``, aka with `scipy.stats` generator objects as
             keys, and a string representation of their name as value.
 
@@ -49,18 +47,19 @@ def set_distributions_dict(dist_dict: Dict[st.rv_continuous, str]) -> None:
         .. code-block:: python
 
             import scipy.stats as st
+
             tested_dists = {st.chi: "Chi", st.expon: "Exponential", st.laplace: "Laplace"}
             set_distributions_dict(tested_dists)
     """
     # pylint: disable=global-statement
     logger.debug("Setting tested distributions")
-    global DISTRIBUTIONS
+    global DISTRIBUTIONS  # noqa: PLW0603
     DISTRIBUTIONS = dist_dict
 
 
 def best_fit_distribution(
-    data: Union[pd.Series, np.ndarray], bins: int = 200, ax: matplotlib.axes.Axes = None
-) -> Tuple[st.rv_continuous, Tuple[float, ...]]:
+    data: pd.Series | np.ndarray, bins: int = 200, ax: Axes = None
+) -> tuple[st.rv_continuous, tuple[float, ...]]:
     """
     .. versionadded:: 0.5.0
 
@@ -105,14 +104,14 @@ def best_fit_distribution(
                 *args, loc, scale = params
 
                 logger.debug(f"Calculating PDF goodness of fit and error for distribution '{distname}'")
-                pdf = distribution.pdf(x, loc=loc, scale=scale, *args)
+                pdf = distribution.pdf(x, *args, loc=loc, scale=scale)
                 sse = np.sum(np.power(y - pdf, 2.0))
 
                 try:
                     if ax:
                         logger.debug(f"Plotting fitted PDF for distribution '{distname}'")
                         pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1)
-                except Exception:
+                except Exception:  # noqa: BLE001
                     logger.exception(f"Plotting distribution '{distname}' failed")
 
                 logger.debug(f"Identifying if distribution '{distname}' is a better fit than previous tries")
@@ -120,14 +119,14 @@ def best_fit_distribution(
                     best_distribution = distribution
                     best_params = params
                     best_sse = sse
-        except Exception:
+        except Exception:  # noqa: BLE001
             logger.exception(f"Trying to fit distribution '{distname}' failed and aborted")
 
     logger.info(f"Found a best fit: '{DISTRIBUTIONS[best_distribution]}' distribution")
     return best_distribution, best_params
 
 
-def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: int = 25_000) -> pd.Series:
+def make_pdf(distribution: st.rv_continuous, params: tuple[float, ...], size: int = 25_000) -> pd.Series:
     """
     .. versionadded:: 0.5.0
 
@@ -137,7 +136,7 @@ def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: in
 
     Args:
         distribution (st.rv_continuous): a `scipy.stats` generator.
-        params (Tuple[float, ...]): the parameters for this generator given back by the fit.
+        params (tuple[float, ...]): the parameters for this generator given back by the fit.
         size (int): the number of points to evaluate.
 
     Returns:
@@ -160,5 +159,5 @@ def make_pdf(distribution: st.rv_continuous, params: Tuple[float, ...], size: in
 
     logger.debug("Building PDF")
     x = np.linspace(start, end, size)
-    y = distribution.pdf(x, loc=loc, scale=scale, *args)
+    y = distribution.pdf(x, *args, loc=loc, scale=scale)
     return pd.Series(y, x)

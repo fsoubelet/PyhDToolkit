@@ -5,8 +5,11 @@
 
 The functions below are utilities to install elements or markers in the ``LHC``.
 """
+
 from cpymad.madx import Madx
 from loguru import logger
+
+_MAX_TRACKING_TOP_TURNS: int = 6600
 
 
 def install_ac_dipole_as_kicker(
@@ -93,7 +96,7 @@ def install_ac_dipole_as_kicker(
     logger.warning("This AC Dipole is implemented as a kicker and will not affect TWISS functions!")
     logger.debug("This routine should be done after 'match', 'twiss' and 'makethin' for the appropriate beam")
 
-    if top_turns > 6600:
+    if top_turns > _MAX_TRACKING_TOP_TURNS:
         logger.warning(
             f"Configuring the AC Dipole for {top_turns:d} of driving is fine for MAD-X but is "
             "higher than what the device can do in the (HL)LHC! Beware."
@@ -246,7 +249,7 @@ def add_markers_around_lhc_ip(madx: Madx, /, sequence: str, ip: int, n_markers: 
         be run for the changes to apply. This means the caveats of ``USE``
         apply, for instance the erasing of previously defined errors, orbits
         corrections etc.
-        
+
         Therefore, it is recommended to install the errors and save them with
         the ``ESAVE`` or ``ETABLE`` command, call this function, then
         re-implement the errors with the ``SETERR`` command.

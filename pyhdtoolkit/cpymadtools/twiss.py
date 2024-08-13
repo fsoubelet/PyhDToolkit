@@ -7,10 +7,10 @@ TWISS Routines
 Module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
 `~cpymad.madx.Madx` object.
 """
-from typing import Sequence
+
+from collections.abc import Sequence
 
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -22,7 +22,7 @@ from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS
 def get_pattern_twiss(
     madx: Madx,
     /,
-    columns: Sequence[str] = None,
+    columns: Sequence[str] | None = None,
     patterns: Sequence[str] = [""],
     **kwargs,
 ) -> tfs.TfsDataFrame:

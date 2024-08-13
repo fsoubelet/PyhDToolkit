@@ -1,17 +1,18 @@
 import pathlib
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
 import tfs
+from matplotlib.collections import PatchCollection
 
 from pyhdtoolkit.cpymadtools.lhc import make_lhc_thin, re_cycle_sequence, setup_lhc_orbit
 from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 from pyhdtoolkit.cpymadtools.tune import get_footprint_lines, get_footprint_patches, make_footprint_table
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
@@ -84,7 +85,7 @@ def test_get_footprint_patches(_dynap_tfs_path):
     plt.rcParams.update({"patch.linewidth": 1.5})
     figure, axis = plt.subplots(figsize=(18, 11))
     polygons = get_footprint_patches(dynap_dframe)
-    assert isinstance(polygons, matplotlib.collections.PatchCollection)
+    assert isinstance(polygons, PatchCollection)
 
     axis.add_collection(polygons)
     axis.set_xlim(0.3095, 0.311)
@@ -95,7 +96,7 @@ def test_get_footprint_patches(_dynap_tfs_path):
 def test_get_footprint_patches_raises_wrong_shape(_dynap_tfs_path, caplog):
     dynap_dframe = tfs.read(_dynap_tfs_path)
 
-    with pytest.raises(ValueError):
+    with pytest.raises(ValueError, match="Invalid AMPLITUDE value in the provided TfsDataFrame headers"):
         _ = get_footprint_patches(dynap_dframe)
 
     for record in caplog.records:
@@ -105,11 +106,11 @@ def test_get_footprint_patches_raises_wrong_shape(_dynap_tfs_path, caplog):
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _plottable_footprint_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "plottable_footprint.npz"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _dynap_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "dynap.tfs"

@@ -7,17 +7,16 @@ Plotting Styles
 The **style** submodules provide styles to be used with `~matplotlib`, mostly tailored for my use, and for good results with the plotters in `~pyhdtoolkit.plotting`.
 Feel free to use them anyway, as they might be useful to you when using the `~pyhdtoolkit.plotting` submodules, or to be adapted.
 """
+
 from pathlib import Path
-from typing import Dict, Union
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
-
 from loguru import logger
 
-from . import paper, thesis
+from . import paper, thesis  # noqa: TID252
 
-PlotSetting = Union[float, bool, str, tuple]
+PlotSetting = float | bool | str | tuple
 
 
 def install_mpl_styles() -> None:
@@ -40,7 +39,7 @@ def install_mpl_styles() -> None:
 
 # This is meant for use in the sphinx-gallery to help with readability
 # as the default matplotlib settings are a bit small
-_SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
+_SPHINX_GALLERY_PARAMS: dict[str, PlotSetting] = {
     "figure.autolayout": True,
     "figure.titlesize": 28,
     "axes.titlesize": 28,
@@ -51,7 +50,7 @@ _SPHINX_GALLERY_PARAMS: Dict[str, PlotSetting] = {
 }
 
 
-def _install_style_file(style: Dict[str, PlotSetting], stylename) -> None:
+def _install_style_file(style: dict[str, PlotSetting], stylename) -> None:
     """
     .. versionadded:: 1.0.0
 
@@ -62,6 +61,7 @@ def _install_style_file(style: Dict[str, PlotSetting], stylename) -> None:
     .. code-block:: python
 
         from matplotlib import pyplot as plt
+
         plt.style.use("style-name")
 
     .. note::
@@ -69,14 +69,14 @@ def _install_style_file(style: Dict[str, PlotSetting], stylename) -> None:
         activated environment's site-packages data. The file is installed in both places.
 
     Args:
-        style (Dict[str, PlotSetting]): The style to be written to disk. One of the styles defined
+        style (dict[str, PlotSetting]): The style to be written to disk. One of the styles defined
             in the `~pyhdtoolkit.plotting.styles` submodules.
         stylename (str): The name to associate with the style. This is the name that will be used
             for the file written to disk, and will have to be `plt.use`d to use the style.
     """
     logger.info(f"Installing matplotlib style as '{stylename}'")
     style_content: str = "\n".join(f"{option} : {setting}" for option, setting in style.items())
-    mpl_config_stylelib = Path(matplotlib.get_configdir()) / "stylelib"
+    mpl_config_stylelib = Path(mpl.get_configdir()) / "stylelib"
     mpl_env_stylelib = Path(plt.style.core.BASE_LIBRARY_PATH)
 
     logger.debug("Ensuring matplotlib 'stylelib' directory exists")

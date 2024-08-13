@@ -6,13 +6,12 @@ Segment-by-Segment Coupling
 
 Functions to plot coupling components of Segment-by-Segment results.
 """
-from typing import Tuple
 
-import matplotlib
 import matplotlib.pyplot as plt
 import tfs
-
 from loguru import logger
+from matplotlib.axes import Axes
+from matplotlib.figure import Figure
 from matplotlib.legend import _get_legend_handles_labels
 
 from pyhdtoolkit.plotting.utils import _determine_default_sbs_coupling_ylabel, find_ip_s_from_segment_start
@@ -23,11 +22,11 @@ def plot_rdt_component(
     b2_segment_df: tfs.TfsDataFrame,
     b1_model: tfs.TfsDataFrame = None,
     b2_model: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     rdt: str = "F1001",
     component: str = "ABS",
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> Figure:
     r"""
     .. versionadded:: 0.19.0
 
@@ -36,8 +35,6 @@ def plot_rdt_component(
     :ref:`segment-by-segment plotting <demo-sbs-plotting>` example gallery.
 
     Args:
-        ax (matplotlib.axes.Axes): The `~matplotlib.axes.Axes` to plot on. Will get the current axis if no
-            `~matplotlib.axes.Axes` is given.
         b1_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
             Beam 1 in the given segment.
         b2_segment_df (tfs.TfsDataFrame): A `~tfs.TfsDataFrame` of the segment-by-segment coupling result for
@@ -106,13 +103,13 @@ def plot_full_ip_rdt(
     b2_segment_df: tfs.TfsDataFrame,
     b1_model: tfs.TfsDataFrame = None,
     b2_model: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     rdt: str = "F1001",
-    abs_ylimits: Tuple[float, float] = None,
-    real_ylimits: Tuple[float, float] = None,
-    imag_ylimits: Tuple[float, float] = None,
+    abs_ylimits: tuple[float, float] | None = None,
+    real_ylimits: tuple[float, float] | None = None,
+    imag_ylimits: tuple[float, float] | None = None,
     **kwargs,
-) -> matplotlib.figure.Figure:
+) -> Figure:
     """
     .. versionadded:: 0.19.0
 
@@ -210,13 +207,13 @@ def plot_full_ip_rdt(
 
 
 def _plot_sbs_coupling_rdt_component(
-    ax: matplotlib.axes.Axes,
+    ax: Axes,
     segment_df: tfs.TfsDataFrame,
     model_df: tfs.TfsDataFrame = None,
-    ip: int = None,
+    ip: int | None = None,
     rdt: str = "F1001",
     component: str = "ABS",
-    ylabel: str = None,
+    ylabel: str | None = None,
 ) -> None:
     """
     Plots a component of the given coupling RDT over the segment, optionally highlighting the IP location.

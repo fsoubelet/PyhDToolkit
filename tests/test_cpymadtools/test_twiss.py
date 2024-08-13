@@ -2,7 +2,6 @@ import pathlib
 
 import pytest
 import tfs
-
 from pandas.testing import assert_frame_equal
 
 from pyhdtoolkit.cpymadtools.constants import DEFAULT_TWISS_COLUMNS  # noqa: F401  |  for coverage
@@ -22,6 +21,6 @@ def test_twiss_tfs(_twiss_export, _matched_base_lattice):
 # ---------------------- Private Utilities ---------------------- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _twiss_export() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "twiss_export.tfs"

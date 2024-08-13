@@ -1,3 +1,3 @@
-from . import beam, ripken, twiss
+from . import beam, ripken, twiss  # noqa: TID252
 
-__all__ = [beam, ripken, twiss]
+__all__ = ["beam", "ripken", "twiss"]

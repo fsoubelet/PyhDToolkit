@@ -1,11 +1,10 @@
-VERSION = "1.5.0"
+VERSION = "1.6.0"
 
 
 def version_info() -> str:
     """Debug convenience function to give version, platform and runtime information."""
     import platform
     import sys
-
     from pathlib import Path
 
     info = {

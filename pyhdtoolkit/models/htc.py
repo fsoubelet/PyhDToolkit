@@ -6,7 +6,6 @@ HTCondor Models
 
 Module with ``pydantic`` models to validate and store data obtained by querying the ``HTCondor`` queue.
 """
-from typing import Union
 
 from pendulum import DateTime
 from pydantic import BaseModel, ConfigDict
@@ -47,14 +46,15 @@ class HTCTaskSummary(BaseModel):
 
     Class to encompass and validate a specific job's line in the ``condor_q`` output.
     """
+
     # This is so pydantic accepts pendulum.DateTime as a validated type
     model_config = ConfigDict(arbitrary_types_allowed=True)
 
     owner: str
     batch_name: int
     submitted: DateTime
-    done: Union[int, str]
-    run: Union[int, str]
-    idle: Union[int, str]
+    done: int | str
+    run: int | str
+    idle: int | str
     total: int
     job_ids: str

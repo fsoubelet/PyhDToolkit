@@ -6,9 +6,9 @@
 LHC Rigid Waist Shift
 =====================
 
-This example shows how to use the `~.lhc.apply_lhc_rigidity_waist_shift_knob` 
-function to force a waist shift at a given IP and break the symmetry of the 
-:math:`\\beta`-functions in the Interaction Region. This is done by 
+This example shows how to use the `~.lhc.apply_lhc_rigidity_waist_shift_knob`
+function to force a waist shift at a given IP and break the symmetry of the
+:math:`\\beta`-functions in the Interaction Region. This is done by
 over-powering one triplet knob and under-powering the other, by the same
 powering delta.
 
@@ -16,8 +16,8 @@ In :cite:t:`PRAB:Soubelet:Rigid_Waist_Shift_Method_Local_Coupling_Correction_LHC
 (2023) one can find out about studies and achievements at the LHC done with the Rigid
 Waist Shift.
 
-We will do a comparison of the interaction region situation before and after 
-applying a rigid waist shift, and look in more details at the waist shift 
+We will do a comparison of the interaction region situation before and after
+applying a rigid waist shift, and look in more details at the waist shift
 itself.
 
 .. note::
@@ -36,13 +36,12 @@ itself.
     builds, but you can use any branch you want.
 """
 # sphinx_gallery_thumbnail_number = 3
-from collections import namedtuple
 from multiprocessing import cpu_count
+from typing import NamedTuple
 
 import matplotlib.pyplot as plt
 import numpy as np
 import tfs
-
 from cpymad.madx import Madx
 from joblib import Parallel, delayed
 
@@ -325,28 +324,28 @@ print(f"Markers: {shift}")
 # We can use the above to determine these values for different knob settings.
 # First, let's define some structures and functions.
 
-Waist = namedtuple("Waist", ["x", "y"])
-BetasIP = namedtuple("Betas", ["x", "y"])
-Result = namedtuple("Result", ["waists", "betas"])
+Waist = NamedTuple("Waist", ["x", "y"])
+BetasIP = NamedTuple("Betas", ["x", "y"])
+Result = NamedTuple("Result", ["waists", "betas"])
 
 
 def find_waists(current_twiss: tfs.TfsDataFrame, initial_twiss: tfs.TfsDataFrame) -> Waist:
     initial = initial_twiss.copy()
-    ip_s = current_twiss.S[f"IP1"]
+    ip_s = current_twiss.S["IP1"]
     slimits = (ip_s - 10, ip_s + 10)
 
     around_ip = current_twiss[current_twiss.S.between(*slimits)]
     initial = initial[initial.S.between(*slimits)].copy()
-    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
-    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
+    hor_waist_location = around_ip.S[around_ip.BETX.min() == around_ip.BETX].iloc[0]
+    ver_waist_location = around_ip.S[around_ip.BETY.min() == around_ip.BETY].iloc[0]
     initial = initial_twiss.copy()
-    ip_s = current_twiss.S[f"IP1"]
+    ip_s = current_twiss.S["IP1"]
     slimits = (ip_s - 10, ip_s + 10)
 
     around_ip = current_twiss[current_twiss.S.between(*slimits)]
     initial = initial[initial.S.between(*slimits)].copy()
-    hor_waist_location = around_ip.S[around_ip.BETX == around_ip.BETX.min()].iloc[0]
-    ver_waist_location = around_ip.S[around_ip.BETY == around_ip.BETY.min()].iloc[0]
+    hor_waist_location = around_ip.S[around_ip.BETX.min() == around_ip.BETX].iloc[0]
+    ver_waist_location = around_ip.S[around_ip.BETY.min() == around_ip.BETY].iloc[0]
     return Waist(ip_s - hor_waist_location, ip_s - ver_waist_location)
 
 
@@ -363,7 +362,7 @@ def simulation(knob_value: float) -> Result:
         run=3, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", slicefactor=4, stdout=False
     ) as madx:
         lhc.add_markers_around_lhc_ip(
-            madx, sequence=f"lhcb1", ip=1, n_markers=1000, interval=0.001
+            madx, sequence="lhcb1", ip=1, n_markers=1000, interval=0.001
         )
         ref_twiss = twiss.get_twiss_tfs(madx)
         lhc.apply_lhc_rigidity_waist_shift_knob(madx, knob_value, ir=1)

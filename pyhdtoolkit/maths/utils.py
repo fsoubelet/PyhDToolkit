@@ -6,11 +6,9 @@ Utilities
 
 Module with utility functions used throughout the `~.maths.nonconvex_phase_sync` and `~.maths.stats_fitting` modules.
 """
-from typing import Tuple, Union
 
 import numpy as np
 import pandas as pd
-
 from loguru import logger
 
 # ----- Miscellaneous Utilites ----- #
@@ -50,8 +48,8 @@ def get_magnitude(value: float) -> int:
 
 
 def get_scaled_values_and_magnitude_string(
-    values_array: Union[pd.DataFrame, np.ndarray], force_magnitude: float = None
-) -> Tuple[Union[pd.DataFrame, np.ndarray], str]:
+    values_array: pd.DataFrame | np.ndarray, force_magnitude: float | None = None
+) -> tuple[pd.DataFrame | np.ndarray, str]:
     """
     .. versionadded:: 0.8.2
 
@@ -71,7 +69,8 @@ def get_scaled_values_and_magnitude_string(
         .. code-block:: python
 
             import numpy as np
-            q = np.array([-330,  230,  430, -720,  750, -110,  410, -340, -950, -630])
+
+            q = np.array([-330, 230, 430, -720, 750, -110, 410, -340, -950, -630])
             get_scaled_values_and_magnitude_string(q)
             # returns (array([-3.3,  2.3,  4.3, -7.2,  7.5, -1.1,  4.1, -3.4, -9.5, -6.3]), '{-2}')
     """

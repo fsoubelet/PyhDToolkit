@@ -1,0 +1,26 @@
+.. _release_1.6.0:
+
+1.6.0
+-----
+
+Release `1.6.0` brings a few changes, and a great amount of maintenance fixes to the package.
+
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now accepts the user providing values for `npart` and `sige`. The previously hard-coded values are now used as defaults.
+
+Changes
+~~~~~~~
+
+* The `pyhdtoolkit.cpymadtools.lhc.make_lhc_beams` function now expects `nemitt_[xy]` arguments instead of the previous `emittance_[xy]`. Providing the previous name is still accepted but will raise a warning.
+
+Maintenance
+~~~~~~~~~~~
+
+* A great amount of linting has been done to ensure best practices in every line of code.
+* Switched all relevant type hints to use the latest practices.
+* Fixed the `__all__` exports in the `__init__.py` files.
+* Moved type-hint relevant imports in a `TYPE_CHECKING` block to lighten import times.
+
+See `v1.6.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.6.0>`_ and the `full changes since v1.5.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.5.0...1.6.0>`_.

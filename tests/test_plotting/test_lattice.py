@@ -1,9 +1,8 @@
 import pathlib
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
@@ -12,7 +11,7 @@ from pyhdtoolkit.plotting.lattice import plot_latwiss, plot_machine_survey
 from pyhdtoolkit.plotting.layout import scale_patches
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
@@ -122,7 +121,7 @@ def test_plot_layout_raises_on_wrong_limits_type():
     with Madx(stdout=False) as madx:
         madx.input(BASE_LATTICE)
         plt.figure(figsize=(18, 11))
-        
+
         with pytest.raises(TypeError):
             plot_latwiss(madx, k1l_lim=[8e-2])
 

@@ -174,7 +174,7 @@ data.plot(
     ax=ax,
 )
 param_names = (best_fit_func.shapes + ", loc, scale").split(", ") if best_fit_func.shapes else ["loc", "scale"]
-param_str = ", ".join([f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_params)])
+param_str = ", ".join([f"{k}={v:0.2f}" for k, v in zip(param_names, best_fit_params, strict=False)])
 dist_str = f"{fitting.DISTRIBUTIONS[best_fit_func]}({param_str})"
 
 # Let's add to the plot some info on the fit's peak
@@ -237,11 +237,11 @@ ac = chi_data.plot(
     label="Generated Chi Distribution",
     figsize=(20, 12),
 )
-dataYLim = ac.get_ylim()
+data_ylim = ac.get_ylim()
 
 # Find best fit candidate
 best_fit_func, best_fit_params = fitting.best_fit_distribution(chi_data, 200, ac)
-ac.set_ylim(dataYLim)
+ac.set_ylim(data_ylim)
 ac.set_title("All Fitted Distributions")
 ac.set_ylabel("Normed Hist Counts")
 plt.legend()

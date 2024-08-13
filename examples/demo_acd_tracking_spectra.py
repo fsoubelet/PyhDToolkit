@@ -6,17 +6,17 @@
 AC Dipole Driven Tracking Spectrum
 ==================================
 
-This example shows how to use the `~.lhc.install_ac_dipole_as_kicker` and 
-`~.track.track_single_particle` function to track a  particle with the 
+This example shows how to use the `~.lhc.install_ac_dipole_as_kicker` and
+`~.track.track_single_particle` function to track a  particle with the
 ``TRACK`` command of ``MAD-X``, and visualise its coordinates and spectrum.
 
-In this example we will use the LHC lattice to illustrate the ACD tracking 
+In this example we will use the LHC lattice to illustrate the ACD tracking
 workflow when using `~pyhdtoolkit.cpymadtools`.
 
 .. note::
-    This is very similar to the :ref:`free tracking example <demo-free-tracking>` 
-    with the difference that there is special care to take to install the AC Dipole 
-    element. It is recommended to read that tutorial first as this one will focus 
+    This is very similar to the :ref:`free tracking example <demo-free-tracking>`
+    with the difference that there is special care to take to install the AC Dipole
+    element. It is recommended to read that tutorial first as this one will focus
     on the specificities of the AC Dipole setup.
 
 .. important::
@@ -33,7 +33,6 @@ workflow when using `~pyhdtoolkit.cpymadtools`.
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching, track
@@ -45,7 +44,7 @@ plt.rcParams.update(_SPHINX_GALLERY_PARAMS)  # for readability of this tutorial
 
 ###############################################################################
 # Let's start by setting up the LHC in ``MAD-X``, in this case at top energy.
-# To understand the function below have a look at the :ref:`lhc setup example 
+# To understand the function below have a look at the :ref:`lhc setup example
 # <demo-lhc-setup>`.
 
 madx: Madx = lhc.prepare_lhc_run3(

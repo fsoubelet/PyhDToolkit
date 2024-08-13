@@ -6,16 +6,13 @@ Crossing Scheme Plotters
 
 Module with functions to plot LHC crossing schemes through a `~cpymad.madx.Madx` object.
 """
-from typing import Union
 
-import matplotlib
-import matplotlib.axes
 import matplotlib.pyplot as plt
 import pandas as pd
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
+from matplotlib.axes import Axes
 
 
 def plot_two_lhc_ips_crossings(
@@ -63,7 +60,9 @@ def plot_two_lhc_ips_crossings(
         .. code-block:: python
 
             plt.figure(figsize=(16, 11))
-            plot_two_lhc_ips_crossings(madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False)
+            plot_two_lhc_ips_crossings(
+                madx, first_ip=2, second_ip=8, highlight_mqx_and_mbx=False
+            )
     """
     logger.warning("You should re-call the 'USE' command on your wanted sequence after this plot!")
     # ----- Getting Twiss table dframe for each beam ----- #
@@ -137,14 +136,14 @@ def plot_two_lhc_ips_crossings(
 
 
 def plot_single_ir_crossing(
-    axis: matplotlib.axes.Axes,
+    axis: Axes,
     plot_df_b1: pd.DataFrame,
     plot_df_b2: pd.DataFrame,
     plot_column: str,
     scaling: float = 1,
-    ylabel: str = None,
-    xlabel: str = None,
-    title: str = None,
+    ylabel: str | None = None,
+    xlabel: str | None = None,
+    title: str | None = None,
 ) -> None:
     """
     .. versionadded:: 1.0.0
@@ -171,7 +170,12 @@ def plot_single_ir_crossing(
         .. code-block:: python
 
             plot_single_ir_crossing(
-                plt.gca(), b1_df, b2_df, plot_column="x", scaling=1e3, ylabel="Orbit X $[mm]$"
+                plt.gca(),
+                b1_df,
+                b2_df,
+                plot_column="x",
+                scaling=1e3,
+                ylabel="Orbit X $[mm]$",
             )
     """
     logger.trace(f"Plotting orbit '{plot_column}'")
@@ -186,9 +190,7 @@ def plot_single_ir_crossing(
 # ----- Helpers ----- #
 
 
-def _highlight_mbx_and_mqx(
-    axis: matplotlib.axes.Axes, plot_df: Union[pd.DataFrame, tfs.TfsDataFrame], ip: int, **kwargs
-) -> None:
+def _highlight_mbx_and_mqx(axis: Axes, plot_df: pd.DataFrame | tfs.TfsDataFrame, ip: int, **kwargs) -> None:
     """
     .. versionadded:: 1.0.0
 
@@ -232,9 +234,9 @@ def _highlight_mbx_and_mqx(
     logger.trace("Highlighting MBX and MQX areas on a twin axis")
     patches_axis = axis.twinx()
     patches_axis.get_yaxis().set_visible(False)
-    patches_axis.axvspan(*left_mbx_lim, color="orange", lw=2, alpha=0.2, label="MBX")
-    patches_axis.axvspan(*left_mqx_lim, color="grey", lw=2, alpha=0.2, label="MQX")
+    patches_axis.axvspan(*left_mbx_lim, color="orange", lw=2, alpha=0.2, label="MBX", **kwargs)
+    patches_axis.axvspan(*left_mqx_lim, color="grey", lw=2, alpha=0.2, label="MQX", **kwargs)
     patches_axis.axvline(x=0, color="grey", ls="--", label=f"IP{ip}")
-    patches_axis.axvspan(*right_mqx_lim, color="grey", lw=2, alpha=0.2)  # no label duplication
-    patches_axis.axvspan(*right_mbx_lim, color="orange", lw=2, alpha=0.2)  # no label duplication
+    patches_axis.axvspan(*right_mqx_lim, color="grey", lw=2, alpha=0.2, **kwargs)  # no label duplication
+    patches_axis.axvspan(*right_mbx_lim, color="orange", lw=2, alpha=0.2, **kwargs)  # no label duplication
     patches_axis.legend(loc=4)

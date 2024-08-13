@@ -6,20 +6,24 @@ Plotting Utility Functions
 
 Module with functions to used throught the different `~pyhdtoolkit.plotting` modules.
 """
+
 from __future__ import annotations  # important for Sphinx to generate short type signatures!
 
-import matplotlib
-import matplotlib.axes
-import matplotlib.pyplot as plt
-import matplotlib.transforms as transforms
-import numpy as np
-import pandas as pd
-import tfs
+from typing import TYPE_CHECKING
 
-from cpymad.madx import Madx
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
 from loguru import logger
+from matplotlib import transforms
 from matplotlib.patches import Ellipse
-from numpy.typing import ArrayLike
+
+if TYPE_CHECKING:
+    import pandas as pd
+    from cpymad.madx import Madx
+    from matplotlib.text import Annotation
+    from numpy.typing import ArrayLike
+    from tfs import TfsDataFrame
 
 # ------ General Utilities ----- #
 
@@ -64,7 +68,7 @@ def maybe_get_ax(**kwargs):
     return ax, dict(kwargs)
 
 
-def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.TfsDataFrame, ip: int) -> float:
+def find_ip_s_from_segment_start(segment_df: TfsDataFrame, model_df: TfsDataFrame, ip: int) -> float:
     """
     .. versionadded:: 0.19.0
 
@@ -87,8 +91,8 @@ def find_ip_s_from_segment_start(segment_df: tfs.TfsDataFrame, model_df: tfs.Tfs
     """
     logger.debug(f"Determining location of IP{ip:d} from the start of segment.")
     first_element: str = segment_df.NAME.to_numpy()[0]
-    first_element_s_in_model = model_df[model_df.NAME == first_element].S.to_numpy()[0]
-    ip_s_in_model = model_df[model_df.NAME == f"IP{ip:d}"].S.to_numpy()[0]
+    first_element_s_in_model = model_df[first_element == model_df.NAME].S.to_numpy()[0]
+    ip_s_in_model = model_df[f"IP{ip:d}" == model_df.NAME].S.to_numpy()[0]
 
     # Handle case where IP segment is cut and by end of sequence and the IP is at beginning of machine
     if ip_s_in_model < first_element_s_in_model:
@@ -134,11 +138,11 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
         ip_names = [f"ip{i:d}" for i in range(1, 9)]
         ip_pos = dataframe.loc[ip_names, "s"].to_numpy()
     ip_names = [name.upper() for name in ip_names]  # make sure to uppercase now
-    return dict(zip(ip_names, ip_pos))
+    return dict(zip(ip_names, ip_pos, strict=False))
 
 
 def make_elements_groups(
-    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None
 ) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 1.0.0
@@ -218,7 +222,7 @@ def make_survey_groups(madx: Madx, /) -> dict[str, pd.DataFrame]:
 
 
 def draw_ip_locations(
-    ip_positions: dict[str, float] = None,
+    ip_positions: dict[str, float] | None = None,
     lines: bool = True,
     location: str = "outside",
     **kwargs,
@@ -262,7 +266,7 @@ def draw_ip_locations(
                 logger.debug(f"Drawing name indicator for {ip_name}")
                 # drawing ypos is lower end of ylimits if drawing inside, higher end if drawing outside
                 ypos = ylimits[not inside] + (ylimits[1] + ylimits[0]) * 0.01
-                c = "grey" if inside else matplotlib.rcParams["text.color"]  # match axis ticks color
+                c = "grey" if inside else mpl.rcParams["text.color"]  # match axis ticks color
                 fontsize = plt.rcParams["xtick.labelsize"]  # match the xticks size
                 axis.text(ip_xpos, ypos, ip_name, color=c, ha="center", va="bottom", size=fontsize)
 
@@ -281,7 +285,7 @@ def set_arrow_label(
     arrow_arc_rad: float = -0.2,
     fontsize: int = 20,
     **kwargs,
-) -> matplotlib.text.Annotation:
+) -> Annotation:
     """
     .. versionadded:: 0.6.0
 
@@ -328,8 +332,13 @@ def set_arrow_label(
         color=color,
         va="center",
         ha="center",
-        bbox=dict(boxstyle="round4", fc="w", color=color),
-        arrowprops=dict(arrowstyle="-|>", connectionstyle="arc3,rad=" + str(arrow_arc_rad), fc="w", color=color),
+        bbox={"boxstyle": "round4", "fc": "w", "color": color},
+        arrowprops={
+            "arrowstyle": "-|>",
+            "connectionstyle": "arc3,rad=" + str(arrow_arc_rad),
+            "fc": "w",
+            "color": color,
+        },
         **kwargs,
     )
 
@@ -371,7 +380,8 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
 
     if x.size != y.size:
         logger.error(f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given.")
-        raise ValueError(f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given.")
+        msg = f"x and y must be the same size, but shapes {x.shape} and {y.shape} were given."
+        raise ValueError(msg)
 
     logger.debug("Computing covariance matrix and pearson correlation coefficient")
     covariance_matrix = np.cov(x, y)
@@ -403,7 +413,7 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
 
 
 def _get_twiss_table_with_offsets_and_limits(
-    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] = None, **kwargs
+    madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None, **kwargs
 ) -> pd.DataFrame:
     """
     .. versionadded:: 1.0.0
@@ -426,8 +436,7 @@ def _get_twiss_table_with_offsets_and_limits(
     madx.command.twiss(**kwargs)
     twiss_df = madx.table.twiss.dframe()
     twiss_df.s = twiss_df.s - xoffset
-    twiss_df = twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
-    return twiss_df
+    return twiss_df[twiss_df.s.between(*xlimits)] if xlimits else twiss_df
 
 
 def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
@@ -448,11 +457,17 @@ def _determine_default_sbs_coupling_ylabel(rdt: str, component: str) -> str:
     Example:
         .. code-block:: python
 
-            coupling_label = _determine_default_sbs_coupling_ylabel(rdt="f1001", component="RE")
+            coupling_label = _determine_default_sbs_coupling_ylabel(
+                rdt="f1001", component="RE"
+            )
     """
     logger.debug(f"Determining a default label for the {component.upper()} component of coupling {rdt.upper()}.")
-    assert rdt.upper() in ("F1001", "F1010")
-    assert component.upper() in ("ABS", "RE", "IM")
+    if rdt.upper() not in ("F1001", "F1010"):
+        msg = "Invalid RDT for coupling plot."
+        raise ValueError(msg)
+    if component.upper() not in ("ABS", "RE", "IM"):
+        msg = "Invalid component for coupling RDT."
+        raise ValueError(msg)
 
     if component.upper() == "ABS":
         opening = closing = "|"
@@ -483,17 +498,22 @@ def _determine_default_sbs_phase_ylabel(plane: str) -> str:
             phase_label = _determine_default_sbs_phase_ylabel(plane="X")
     """
     logger.debug(f"Determining a default label for the {plane.upper()} phase plane.")
-    assert plane.upper() in ("X", "Y")
+    if plane.upper() not in ("X", "Y"):
+        msg = "Invalid plane for phase plot."
+        raise ValueError(msg)
 
     beginning = r"\Delta "
     term = r"\phi_{x}" if plane.upper() == "X" else r"\phi_{y}"
     return r"$" + beginning + term + r"$"
 
+
 # ----- Sphinx Gallery Scraper ----- #
+
 
 # To use SVG outputs when scraping matplotlib figures for the sphinx-gallery, see:
 # https://sphinx-gallery.github.io/stable/advanced.html#example-3-matplotlib-with-svg-format
 def _matplotlib_svg_scraper(*args, **kwargs):
     from sphinx_gallery.scrapers import matplotlib_scraper
+
     kwargs.pop("format", None)
     return matplotlib_scraper(*args, format="svg", **kwargs)

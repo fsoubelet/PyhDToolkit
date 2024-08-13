@@ -54,7 +54,7 @@ def test_coupling_ylabel(f1001, f1010, abs_, real, imag):
 
 @pytest.mark.parametrize("rdt", ["invalid", "F1111", "nope"])
 def test_coupling_ylabel_raises_on_invalid_rdt(rdt):
-    with pytest.raises(AssertionError):
+    with pytest.raises(ValueError, match="Invalid RDT for coupling plot."):
         _determine_default_sbs_coupling_ylabel(rdt, "abs")
 
 
@@ -68,8 +68,8 @@ def test_phase_ylabel(plane):
 
 
 @pytest.mark.parametrize("plane", ["a", "Fb1", "nope", "not a plane"])
-def test_phase_ylabel_raises_on_invalid_rdt(plane):
-    with pytest.raises(AssertionError):
+def test_phase_ylabel_raises_on_invalid_plane(plane):
+    with pytest.raises(ValueError, match="Invalid plane for phase plot."):
         _determine_default_sbs_phase_ylabel(plane)
 
 
@@ -104,7 +104,7 @@ def test_ip_locations_with_xlimits(_non_matched_lhc_madx):
 def test_confidence_ellipse_subplots():
     """Confidence ellipse on three correlated datasets in subplots."""
     np.random.seed(0)
-    PARAMETERS = {
+    parameters = {
         "Positive correlation": [[0.85, 0.35], [0.15, -0.65]],
         "Negative correlation": [[0.9, -0.4], [0.1, -0.6]],
         "Weak correlation": [[1, 0], [0, 1]],
@@ -113,7 +113,7 @@ def test_confidence_ellipse_subplots():
     scale = 3, 5
 
     figure, axs = plt.subplots(1, 3, figsize=(9, 3))
-    for ax, (title, dependency) in zip(axs, PARAMETERS.items()):
+    for ax, (title, dependency) in zip(axs, parameters.items(), strict=False):
         x, y = get_correlated_dataset(800, dependency, mu, scale)
         ax.scatter(x, y, s=0.5)
         ax.axvline(c="grey", lw=1)
@@ -164,21 +164,21 @@ def get_correlated_dataset(n, dependency, mu, scale):
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_model_b1() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b1_twiss_elements.dat")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_model_b2() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b2_twiss_elements.dat")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_coupling_b1_ip1() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b1_sbscouple_IP1.out")
 
 
-@pytest.fixture()
+@pytest.fixture
 def sbs_coupling_b2_ip1() -> tfs.TfsDataFrame:
     return tfs.read(SBS_INPUTS / "b2_sbscouple_IP1.out")

@@ -6,6 +6,7 @@ Twiss Optics
 
 Module implementing various calculations based on the ``TWISS`` optics parameters.
 """
+
 import numpy as np
 
 
@@ -33,7 +34,7 @@ def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) ->
 
     Returns:
         The normalized phase-space coordinates from the Courant-Snyder transform.
-    
+
     Example:
         .. code-block:: python
 

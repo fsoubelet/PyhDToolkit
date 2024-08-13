@@ -6,10 +6,8 @@ Beam Enveloppe Plotters
 
 Module with functions to create beam enveloppe plots through a `~cpymad.madx.Madx` object.
 """
-from typing import Tuple
 
 import numpy as np
-
 from cpymad.madx import Madx
 from loguru import logger
 
@@ -24,7 +22,7 @@ def plot_beam_envelope(
     nsigma: float = 1,
     scale: float = 1,
     xoffset: float = 0,
-    xlimits: Tuple[float, float] = None,
+    xlimits: tuple[float, float] | None = None,
     **kwargs,
 ) -> None:
     """
@@ -54,7 +52,7 @@ def plot_beam_envelope(
             specific point or element, which would then become located
             at :math:`s = 0`. Beware this offset is applied before applying
             the *xlimits*. Defaults to 0.
-        xlimits (Tuple[float, float]): will implement xlim (for the ``s``
+        xlimits (tuple[float, float]): will implement xlim (for the ``s``
             coordinate) if this is not ``None``, using the tuple passed.
             Defaults to ``None``.
         **kwargs: any keyword argument that can be given to the ``MAD-X``
@@ -85,7 +83,8 @@ def plot_beam_envelope(
     # pylint: disable=too-many-arguments
     if plane.lower() not in ("x", "y", "horizontal", "vertical"):
         logger.error(f"'plane' argument should be 'x', 'horizontal', 'y' or 'vertical' not '{plane}'")
-        raise ValueError("Invalid 'plane' argument.")
+        msg = "Invalid 'plane' argument."
+        raise ValueError(msg)
 
     logger.debug(f"Plotting machine orbit and {nsigma:.2f}sigma beam envelope")
     axis, kwargs = maybe_get_ax(**kwargs)
@@ -105,9 +104,7 @@ def plot_beam_envelope(
     orbit = twiss_df[plane_letter] * scale  # with scaling factor, by default 1
 
     logger.debug("Calculating beam enveloppe")
-    one_sigma = np.sqrt(
-        geom_emit * twiss_df[f"bet{plane_letter}"] + (sige * twiss_df[f"d{plane_letter}"]) ** 2
-    )
+    one_sigma = np.sqrt(geom_emit * twiss_df[f"bet{plane_letter}"] + (sige * twiss_df[f"d{plane_letter}"]) ** 2)
     enveloppe = nsigma * one_sigma * scale  # with scaling factor, by default 1
 
     # Plot a line for the orbit, then fill between orbit + enveloppe and orbit - enveloppe

@@ -13,12 +13,11 @@ The following are available:
 - ``SINGLE_COLUMN``: For plots to be included in a single column figure environment.
 - ``DOUBLE_COLUMN``: For plots to be included in a full width (double column) figure environment.
 """
-from typing import Dict, Union
 
-PlotSetting = Union[float, bool, str, tuple]
+PlotSetting = float | bool | str | tuple
 
 
-SINGLE_COLUMN: Dict[str, PlotSetting] = {
+SINGLE_COLUMN: dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.3,  # Width of plot lines
     "lines.markersize": 5,  # Marker size, in points
@@ -66,7 +65,7 @@ SINGLE_COLUMN: Dict[str, PlotSetting] = {
     "savefig.format": "pdf",  # Saved figure file format
 }
 
-DOUBLE_COLUMN: Dict[str, PlotSetting] = {
+DOUBLE_COLUMN: dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.7,  # Width of plot lines
     "lines.markersize": 3,

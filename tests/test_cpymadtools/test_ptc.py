@@ -2,7 +2,6 @@ import pathlib
 
 import pytest
 import tfs
-
 from cpymad.madx import Madx
 from pandas import DataFrame
 from pandas.testing import assert_frame_equal
@@ -73,7 +72,7 @@ def test_single_particle_ptc_track(_matched_base_lattice, obs_points):
     assert len(tracks_dict.keys()) == len(obs_points) + 1
     for tracks in tracks_dict.values():
         assert isinstance(tracks, DataFrame)
-        assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
+        assert all(coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e"))
 
 
 def test_single_particle_ptc_track_with_onepass(_matched_base_lattice):
@@ -84,25 +83,25 @@ def test_single_particle_ptc_track_with_onepass(_matched_base_lattice):
 
     assert isinstance(tracks_dict, dict)
     assert len(tracks_dict.keys()) == 1  # should be only one because of ONETABLE option
-    assert "trackone" in tracks_dict.keys()
+    assert "trackone" in tracks_dict
     tracks = tracks_dict["trackone"]
     assert isinstance(tracks, DataFrame)
-    assert all([coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e")])
+    assert all(coordinate in tracks.columns for coordinate in ("x", "px", "y", "py", "t", "pt", "s", "e"))
 
 
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _ampdet_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "ampdet.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _rdts_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "rdts.tfs"
 
 
-@pytest.fixture()
+@pytest.fixture
 def _ptc_twiss_tfs_path() -> pathlib.Path:
     return INPUTS_DIR / "cpymadtools" / "ptc_twiss.tfs"

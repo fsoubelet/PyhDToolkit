@@ -6,7 +6,8 @@ Matching Routines
 
 Module with functions to perform ``MAD-X`` matchings through a `~cpymad.madx.Madx` object.
 """
-from typing import Optional, Sequence
+
+from collections.abc import Sequence
 
 from cpymad.madx import Madx
 from loguru import logger
@@ -19,13 +20,13 @@ from pyhdtoolkit.cpymadtools.lhc import get_lhc_tune_and_chroma_knobs
 def match_tunes_and_chromaticities(
     madx: Madx,
     /,
-    accelerator: str = None,
-    sequence: Optional[str] = None,
-    q1_target: float = None,
-    q2_target: float = None,
-    dq1_target: float = None,
-    dq2_target: float = None,
-    varied_knobs: Sequence[str] = None,
+    accelerator: str | None = None,
+    sequence: str | None = None,
+    q1_target: float | None = None,
+    q2_target: float | None = None,
+    dq1_target: float | None = None,
+    dq2_target: float | None = None,
+    varied_knobs: Sequence[str] | None = None,
     telescopic_squeeze: bool = True,
     run3: bool = False,
     step: float = 1e-7,
@@ -70,7 +71,7 @@ def match_tunes_and_chromaticities(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
+        accelerator (str | None): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
             through ``varied_knobs``.
@@ -101,7 +102,7 @@ def match_tunes_and_chromaticities(
 
             matching.match_tunes_and_chromaticities(
                 madx,
-                None,              # this is not LHC or HLLHC
+                None,  # this is not LHC or HLLHC
                 sequence="CAS3",
                 q1_target=6.335,
                 q2_target=6.29,
@@ -131,7 +132,7 @@ def match_tunes_and_chromaticities(
 
             matching.match_tunes_and_chromaticities(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 q1_target=62.31,
                 q2_target=60.32,
@@ -192,11 +193,11 @@ def match_tunes_and_chromaticities(
 def match_tunes(
     madx: Madx,
     /,
-    accelerator: str = None,
-    sequence: Optional[str] = None,
-    q1_target: float = None,
-    q2_target: float = None,
-    varied_knobs: Sequence[str] = None,
+    accelerator: str | None = None,
+    sequence: str | None = None,
+    q1_target: float | None = None,
+    q2_target: float | None = None,
+    varied_knobs: Sequence[str] | None = None,
     telescopic_squeeze: bool = True,
     run3: bool = False,
     step: float = 1e-7,
@@ -215,7 +216,7 @@ def match_tunes(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
+        accelerator (str | None): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
             through ``varied_knobs``.
@@ -242,7 +243,7 @@ def match_tunes(
 
             matching.match_tunes(
                 madx,
-                None,              # this is not LHC or HLLHC
+                None,  # this is not LHC or HLLHC
                 sequence="CAS3",
                 q1_target=6.335,
                 q2_target=6.29,
@@ -268,7 +269,7 @@ def match_tunes(
 
             matching.match_tunes(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 q1_target=62.31,
                 q2_target=60.32,
@@ -294,11 +295,11 @@ def match_tunes(
 def match_chromaticities(
     madx: Madx,
     /,
-    accelerator: str = None,
-    sequence: Optional[str] = None,
-    dq1_target: float = None,
-    dq2_target: float = None,
-    varied_knobs: Sequence[str] = None,
+    accelerator: str | None = None,
+    sequence: str | None = None,
+    dq1_target: float | None = None,
+    dq2_target: float | None = None,
+    varied_knobs: Sequence[str] | None = None,
     telescopic_squeeze: bool = True,
     run3: bool = False,
     step: float = 1e-7,
@@ -317,7 +318,7 @@ def match_chromaticities(
 
     Args:
         madx (cpymad.madx.Madx): an instanciated `~cpymad.madx.Madx` object. Positional only.
-        accelerator (Optional[str]): name of the accelerator, used to determmine knobs if
+        accelerator (str | None): name of the accelerator, used to determmine knobs if
             *variables* is not given. Automatic determination will only work for ``LHC`` and
             ``HLLHC``. Defaults to `None`, in which case the knobs must be provided explicitly
             through ``varied_knobs``.
@@ -344,7 +345,7 @@ def match_chromaticities(
 
             matching.match_chromaticities(
                 madx,
-                None,              # this is not LHC or HLLHC
+                None,  # this is not LHC or HLLHC
                 sequence="CAS3",
                 dq1_target=100,
                 dq2_target=100,
@@ -370,7 +371,7 @@ def match_chromaticities(
 
             matching.match_chromaticities(
                 madx,
-                "lhc",                    # will find the knobs automatically
+                "lhc",  # will find the knobs automatically
                 sequence="lhcb1",
                 dq1_target=2.0,
                 dq2_target=2.0,

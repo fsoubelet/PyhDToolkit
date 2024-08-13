@@ -15,12 +15,11 @@ The following are available:
 - ``MEDIUM``: For simple plots to be included alone in a LaTeX figure environment (e.g single axis line plots, or scatters with a colorbar like in `~pyhdtoolkit.plotting.tune`).
 - ``LARGE``: For more complex plots to be included alone in a LaTeX figure environment (e.g. multi-axes figures such as in `~pyhdtoolkit.plotting.lattice`).
 """
-from typing import Dict, Union
 
-PlotSetting = Union[float, bool, str, tuple]
+PlotSetting = float | bool | str | tuple
 
 
-SMALL: Dict[str, PlotSetting] = {
+SMALL: dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.3,  # Width of plot lines
     "lines.markersize": 3,  # Marker size, in points
@@ -65,7 +64,7 @@ SMALL: Dict[str, PlotSetting] = {
     "savefig.format": "pdf",  # Saved figure file format
 }
 
-MEDIUM: Dict[str, PlotSetting] = {
+MEDIUM: dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.3,  # Width of plot lines
     "lines.markersize": 5,  # Marker size, in points
@@ -112,7 +111,7 @@ MEDIUM: Dict[str, PlotSetting] = {
     "savefig.format": "pdf",  # Saved figure file format
 }
 
-LARGE: Dict[str, PlotSetting] = {
+LARGE: dict[str, PlotSetting] = {
     # ------ Lines ------ #
     "lines.linewidth": 1.7,  # Width of plot lines
     "lines.markersize": 8,

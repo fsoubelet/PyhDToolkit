@@ -46,14 +46,14 @@ def test_lhc_revolution_frequency():
 
 
 @pytest.mark.parametrize(
-    "alpha_p, result",
+    ("alpha_p", "result"),
     [(0, 2.083077890845299e-08), (1e-5, -9.979169221091548e-06), (-500, 500.0000000208308)],
 )
 def test_eta(alpha_p, result):
     assert Beam(6500, 2.5e-6).eta(alpha_p) == result
 
 
-@pytest.mark.parametrize("alpha_p, result", [(1e-5, 316.2277660168379), (500, 0.044721359549995794)])
+@pytest.mark.parametrize(("alpha_p", "result"), [(1e-5, 316.2277660168379), (500, 0.044721359549995794)])
 def test_gamma_transition(alpha_p, result):
     assert Beam(6500, 2.5e-6).gamma_transition(alpha_p) == result
 
@@ -64,7 +64,7 @@ def test_gamma_transition_raises():
 
 
 @pytest.mark.parametrize(
-    "pc_gev, en_x_m, en_y_m, delta_p, result",
+    ("pc_gev", "en_x_m", "en_y_m", "delta_p", "result"),
     [
         (
             1.9,
@@ -113,16 +113,16 @@ def test_beam_parameters(pc_gev, en_x_m, en_y_m, delta_p, result):
 
 
 def test_beam_size(_fake_coordinates):
-    assert np.allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())
+    assert np.allclose(ripken._beam_size(_fake_coordinates), _fake_coordinates.std())  # noqa: SLF001
     assert np.allclose(
-        ripken._beam_size(_fake_coordinates, method="rms"),
+        ripken._beam_size(_fake_coordinates, method="rms"),  # noqa: SLF001
         np.sqrt(np.mean(np.square(_fake_coordinates))),
     )
 
 
 def test_beam_size_raises(_fake_coordinates):
     with pytest.raises(NotImplementedError):
-        _ = ripken._beam_size(_fake_coordinates, method="not_real")
+        _ = ripken._beam_size(_fake_coordinates, method="not_real")  # noqa: SLF001
 
 
 @pytest.mark.parametrize("beta11", [0.3312])
@@ -152,7 +152,7 @@ def test_add_beam_size_to_df(_non_matched_lhc_madx):
     df["BETA21"] = df.beta21
     df["BETA22"] = df.beta22
 
-    df = ripken._add_beam_size_to_df(df, 1e-6, 1e-6)
+    df = ripken._add_beam_size_to_df(df, 1e-6, 1e-6)  # noqa: SLF001
     assert "SIZE_X" in df.columns
     assert "SIZE_Y" in df.columns
 
@@ -169,6 +169,7 @@ def test_rdt_order_and_type():
 
     with pytest.raises(KeyError):
         rdt_to_order_and_type(8888)
+    with pytest.raises(KeyError):
         rdt_to_order_and_type(1090)
 
 
@@ -186,6 +187,6 @@ def test_rdt_spectrum_line():
 # ----- Fixtures ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _fake_coordinates() -> np.ndarray:
     return np.random.random(size=10_000) / 1e4

@@ -1,11 +1,9 @@
 from functools import partial
-from typing import Tuple
 
-import matplotlib
+import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
@@ -17,7 +15,7 @@ from pyhdtoolkit.plotting.phasespace import (
 )
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
-matplotlib.use("Agg")
+mpl.use("Agg")
 
 BASE_LATTICE = LatticeGenerator.generate_base_cas_lattice()
 
@@ -89,8 +87,7 @@ def test_plot_courant_snyder_phase_space_wrong_plane_input():
         match_cas3(madx)
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
 
-        with pytest.raises(ValueError):
-            fig, ax = plt.subplots()
+        with pytest.raises(ValueError, match="Invalid 'plane' argument."):
             plot_courant_snyder_phase_space(madx, x_coords_stable, px_coords_stable, plane="invalid_plane")
 
 
@@ -100,8 +97,7 @@ def test_plot_courant_snyder_phase_space_colored_wrong_plane_input():
         madx.input(BASE_LATTICE)
         match_cas3(madx)
         x_coords_stable, px_coords_stable = np.array([]), np.array([])  # no need for tracking
-        with pytest.raises(ValueError):
-            fig, ax = plt.subplots()
+        with pytest.raises(ValueError, match="Invalid 'plane' argument."):
             plot_courant_snyder_phase_space_colored(madx, x_coords_stable, px_coords_stable, plane="invalid_plane")
 
 
@@ -119,7 +115,7 @@ match_cas3 = partial(
 )
 
 
-def _perform_tracking_for_coordinates(madx: Madx) -> Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+def _perform_tracking_for_coordinates(madx: Madx) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     """
     Tracks 100 particles on 500 turns.
     This modifies inplace the state of the provided cpymad_instance.

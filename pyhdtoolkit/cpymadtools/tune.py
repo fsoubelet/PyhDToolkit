@@ -7,23 +7,21 @@ Tune Utilities
 Module with functions to manipulate ``MAD-X`` functionality around the tune through
 a `~cpymad.madx.Madx` object.
 """
+
 import math
 import sys
-
 from pathlib import Path
-from typing import Dict, List, Tuple
 
 import matplotlib.collections
 import matplotlib.patches
 import numpy as np
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 
 
 def make_footprint_table(
-    madx: Madx, /, sigma: float = 5, dense: bool = False, file: str = None, cleanup: bool = True, **kwargs
+    madx: Madx, /, sigma: float = 5, dense: bool = False, file: str | None = None, cleanup: bool = True, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.9.0
@@ -65,12 +63,12 @@ def make_footprint_table(
         angle = 15 * angle_multiplier * math.pi / 180
         if angle_multiplier == 0:
             madx.command.start(fx=sigma_multiplier * big, fy=sigma_multiplier * small)
-        elif angle_multiplier == 6:
+        elif angle_multiplier == 6:  # noqa: PLR2004
             madx.command.start(fx=sigma_multiplier * small, fy=sigma_multiplier * big)
         else:
             madx.command.start(fx=sigma_multiplier * math.cos(angle), fy=sigma_multiplier * math.sin(angle))
         angle_multiplier += 0.5
-        if int(angle_multiplier) == 7:
+        if int(angle_multiplier) == 7:  # noqa: PLR2004
             angle_multiplier = 0
             sigma_multiplier += 1 if not dense else 0.5
 
@@ -83,7 +81,8 @@ def make_footprint_table(
             "Remote MAD-X process crashed, most likely because you did not slice the sequence "
             "before running DYNAP. Restart and slice before calling this function."
         )
-        raise RuntimeError("DYNAP command crashed the MAD-X process") from madx_crash
+        msg = "DYNAP command crashed the MAD-X process"
+        raise RuntimeError(msg) from madx_crash
 
     if cleanup and sys.platform not in ("win32", "cygwin"):
         # fails on Windows due to its I/O system, since MAD-X still has "control" of the files
@@ -96,19 +95,19 @@ def make_footprint_table(
 
     tfs_dframe = tfs.TfsDataFrame(
         data=madx.table.dynaptune.dframe(),
-        headers=dict(
-            NAME="DYNAPTUNE",
-            TYPE="DYNAPTUNE",
-            TITLE="FOOTPRINT TABLE",
-            MADX_VERSION=str(madx.version).upper(),
-            ORIGIN="pyhdtoolkit.cpymadtools.tune.make_footprint_table() function",
-            ANGLE=7,  # default of the function
-            AMPLITUDE=sigma,
-            DSIGMA=1 if not dense else 0.5,
-            ANGLE_MEANING="Number of different starting angles used for each starting amplitude",
-            AMPLITUDE_MEANING="Up to which bunch sigma the starting amplitudes were ramped up",
-            DSIGMA_MEANING="Increment value of AMPLITUDE at each new starting amplitude",
-        ),
+        headers={
+            "NAME": "DYNAPTUNE",
+            "TYPE": "DYNAPTUNE",
+            "TITLE": "FOOTPRINT TABLE",
+            "MADX_VERSION": str(madx.version).upper(),
+            "ORIGIN": "pyhdtoolkit.cpymadtools.tune.make_footprint_table() function",
+            "ANGLE": 7,  # default of the function
+            "AMPLITUDE": sigma,
+            "DSIGMA": 1 if not dense else 0.5,
+            "ANGLE_MEANING": "Number of different starting angles used for each starting amplitude",
+            "AMPLITUDE_MEANING": "Up to which bunch sigma the starting amplitudes were ramped up",
+            "DSIGMA_MEANING": "Increment value of AMPLITUDE at each new starting amplitude",
+        },
     )
     tfs_dframe = tfs_dframe.reset_index(drop=True)
 
@@ -118,7 +117,7 @@ def make_footprint_table(
     return tfs_dframe
 
 
-def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> Tuple[np.ndarray, np.ndarray]:
+def get_footprint_lines(dynap_dframe: tfs.TfsDataFrame) -> tuple[np.ndarray, np.ndarray]:
     """
     .. versionadded:: 0.12.0
 
@@ -193,25 +192,26 @@ def get_footprint_patches(dynap_dframe: tfs.TfsDataFrame) -> matplotlib.collecti
 
     logger.debug("Grouping tune points according to starting angles and amplitudes")
     try:
-        A = np.zeros([amplitude, angle, 2])
-        A[0, :, 0] = dynap_dframe["tunx"].to_numpy()[0]
-        A[0, :, 1] = dynap_dframe["tuny"].to_numpy()[0]
-        A[1:, :, 0] = dynap_dframe["tunx"].to_numpy()[1:].reshape(-1, angle)
-        A[1:, :, 1] = dynap_dframe["tuny"].to_numpy()[1:].reshape(-1, angle)
-    except ValueError as tune_grouping_error:
+        a = np.zeros([amplitude, angle, 2])
+        a[0, :, 0] = dynap_dframe["tunx"].to_numpy()[0]
+        a[0, :, 1] = dynap_dframe["tuny"].to_numpy()[0]
+        a[1:, :, 0] = dynap_dframe["tunx"].to_numpy()[1:].reshape(-1, angle)
+        a[1:, :, 1] = dynap_dframe["tuny"].to_numpy()[1:].reshape(-1, angle)
+    except ValueError as dynap_error:
         logger.exception(
             "Cannot group tune points according to starting angles and amplitudes. Try changing "
             "the 'AMPLITUDE' value in the provided TfsDataFrame's headers."
         )
-        raise tune_grouping_error
+        msg = "Invalid AMPLITUDE value in the provided TfsDataFrame headers"
+        raise ValueError(msg) from dynap_error
 
     logger.debug("Determining polygon vertices")
-    sx = A.shape[0] - 1
-    sy = A.shape[1] - 1
-    p1 = A[:-1, :-1, :].reshape(sx * sy, 2)[:, :]
-    p2 = A[1:, :-1, :].reshape(sx * sy, 2)[:]
-    p3 = A[1:, 1:, :].reshape(sx * sy, 2)[:]
-    p4 = A[:-1, 1:, :].reshape(sx * sy, 2)[:]
+    sx = a.shape[0] - 1
+    sy = a.shape[1] - 1
+    p1 = a[:-1, :-1, :].reshape(sx * sy, 2)[:, :]
+    p2 = a[1:, :-1, :].reshape(sx * sy, 2)[:]
+    p3 = a[1:, 1:, :].reshape(sx * sy, 2)[:]
+    p4 = a[:-1, 1:, :].reshape(sx * sy, 2)[:]
     polygons = np.stack((p1, p2, p3, p4))  # Stack endpoints to form polygons
     polygons = np.transpose(polygons, (1, 0, 2))  # transpose polygons
 
@@ -252,7 +252,7 @@ def _get_dynap_string_rep(dynap_dframe: tfs.TfsDataFrame) -> str:
     return string_rep
 
 
-def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[Dict[str, float]]]:
+def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[dict[str, float]]]:  # noqa: ARG001
     """
     Creates appropriate tune points groups from the arcane string representation returned by
     `~.tune._get_dynap_string_rep` based on starting amplitude and angle for each particle.
@@ -271,7 +271,7 @@ def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[D
         by `~.tune.get_footprint_lines`.
     """
     logger.debug("Constructing tune points groups based on starting amplitudes and angles")
-    tune_groups: List[List[Dict[str, float]]] = []
+    tune_groups: list[list[dict[str, float]]] = []
     items = dynap_string_rep.strip().split(",")
     amplitude = int(items[1])
     current = 2
@@ -290,7 +290,7 @@ def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> List[List[D
 class _Footprint:
     """More dark magic from the past here, close your eyes my friends."""
 
-    def __init__(self, tune_groups: List[List[Dict[str, float]]], amplitude: int, angle: int, dsigma: float):
+    def __init__(self, tune_groups: list[list[dict[str, float]]], amplitude: int, angle: int, dsigma: float):
         self._tunes = tune_groups
         self._maxnangl = angle
         self._nampl = amplitude
@@ -299,16 +299,14 @@ class _Footprint:
     def get_h_tune(self, ampl, angl):
         if len(self._tunes[ampl]) <= angl < self._maxnangl:
             return self._tunes[ampl][len(self._tunes[ampl]) - 1]["H"]
-        else:
-            return self._tunes[ampl][angl]["H"]
+        return self._tunes[ampl][angl]["H"]
 
     def get_v_tune(self, ampl, angl):
         if len(self._tunes[ampl]) <= angl < self._maxnangl:
             return self._tunes[ampl][len(self._tunes[ampl]) - 1]["V"]
-        else:
-            return self._tunes[ampl][angl]["V"]
+        return self._tunes[ampl][angl]["V"]
 
-    def get_plottable(self) -> Tuple[List[float], List[float]]:
+    def get_plottable(self) -> tuple[list[float], list[float]]:
         qxs, qys = [], []
         for i in np.arange(0, self._nampl - 1, 2):
             for j in np.arange(self._maxnangl):

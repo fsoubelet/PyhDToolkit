@@ -1,7 +1,6 @@
 import pathlib
 
 import pytest
-
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc
@@ -20,7 +19,7 @@ LHC_B1_APERTOL = INPUTS_DIR / "madx" / "aper_tol.b1.madx"
 # ----- Fixtures for cpymadtools tests ----- #
 
 
-@pytest.fixture()
+@pytest.fixture
 def _matched_base_lattice() -> Madx:
     """Base CAS lattice matched to default working point."""
     with Madx(stdout=False) as madx:
@@ -37,7 +36,7 @@ def _matched_base_lattice() -> Madx:
         yield madx
 
 
-@pytest.fixture()
+@pytest.fixture
 def _bare_lhc_madx() -> Madx:
     """Only loading sequence and optics."""
     with Madx(stdout=False) as madx:
@@ -46,20 +45,20 @@ def _bare_lhc_madx() -> Madx:
         yield madx
 
 
-@pytest.fixture()
+@pytest.fixture
 def _non_matched_lhc_madx() -> Madx:
     """Important properties & beam for lhcb1 declared and in use, NO MATCHING done here."""
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
-        NRJ = madx.globals["NRJ"] = 6500
+        nrj = madx.globals["NRJ"] = 6500
         madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
         geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
         madx.command.beam(
             sequence="lhcb1",
             bv=1,
-            energy=NRJ,
+            energy=nrj,
             particle="proton",
             npart=1.0e10,
             kbunch=1,
@@ -70,20 +69,20 @@ def _non_matched_lhc_madx() -> Madx:
         yield madx
 
 
-@pytest.fixture()
+@pytest.fixture
 def _matched_lhc_madx() -> Madx:
     """Important properties & beam for lhcb1 declared and in use, WITH matching to working point."""
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
         madx.call(str(LHC_OPTICS.absolute()))  # opticsfile.22
 
-        NRJ = madx.globals["NRJ"] = 6500
+        nrj = madx.globals["NRJ"] = 6500
         madx.globals["brho"] = madx.globals["NRJ"] * 1e9 / madx.globals.clight
         geometric_emit = madx.globals["geometric_emit"] = 3.75e-6 / (madx.globals["NRJ"] / 0.938)
         madx.command.beam(
             sequence="lhcb1",
             bv=1,
-            energy=NRJ,
+            energy=nrj,
             particle="proton",
             npart=1.0e10,
             kbunch=1,
@@ -95,7 +94,7 @@ def _matched_lhc_madx() -> Madx:
         yield madx
 
 
-@pytest.fixture()
+@pytest.fixture
 def _cycled_lhc_sequences() -> Madx:
     """Important properties & beam for lhcb1 and lhcb1 declared and in use, WITH matching to working point."""
     with Madx(stdout=False) as madx:
@@ -108,7 +107,7 @@ def _cycled_lhc_sequences() -> Madx:
         yield madx
 
 
-@pytest.fixture()
+@pytest.fixture
 def _injection_aperture_tolerances_lhc_madx() -> Madx:
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
@@ -117,7 +116,7 @@ def _injection_aperture_tolerances_lhc_madx() -> Madx:
         lhc.make_lhc_beams(madx, energy=450)  # injection
         madx.use(sequence="lhcb1")
 
-        madx.call((str(LHC_B1_APERTURE.absolute())))
+        madx.call(str(LHC_B1_APERTURE.absolute()))
         madx.call(str(LHC_B1_APERTOL.absolute()))
 
         madx.command.twiss()
@@ -125,7 +124,7 @@ def _injection_aperture_tolerances_lhc_madx() -> Madx:
         yield madx
 
 
-@pytest.fixture()
+@pytest.fixture
 def _collision_aperture_tolerances_lhc_madx() -> Madx:
     with Madx(stdout=False) as madx:
         madx.call(str(LHC_SEQUENCE.absolute()))
@@ -134,7 +133,7 @@ def _collision_aperture_tolerances_lhc_madx() -> Madx:
         lhc.make_lhc_beams(madx, energy=6500)  # collision
         madx.use(sequence="lhcb1")
 
-        madx.call((str(LHC_B1_APERTURE.absolute())))
+        madx.call(str(LHC_B1_APERTURE.absolute()))
         madx.call(str(LHC_B1_APERTOL.absolute()))
 
         madx.command.twiss()

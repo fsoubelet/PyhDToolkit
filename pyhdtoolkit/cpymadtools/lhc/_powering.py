@@ -5,13 +5,18 @@
 
 The functions below are magnets or knobs powering utilities for the ``LHC``.
 """
-from typing import Dict, List, Sequence
+
+from collections.abc import Sequence
 
 from cpymad.madx import Madx
 from loguru import logger
 
+_BEAM4: int = 4  # LHC beam 4 is special case
+_QUAD_CIRCUIT_HAS_B: int = 7  # Q7 has a .b in the circuit name
+_MAX_IR_QUAD_NUMBER: int = 11  # beyond Q11 are MQTs etc
 
-def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0, ir: int = None) -> None:
+
+def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0, ir: int | None = None) -> None:
     """
     .. versionadded:: 0.15.0
 
@@ -49,7 +54,7 @@ def apply_lhc_colinearity_knob(madx: Madx, /, colinearity_knob_value: float = 0,
     logger.debug(f"Set '{left_knob}' to {madx.globals[left_knob]}")
 
 
-def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: float = 0, ir: int = None) -> None:
+def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: float = 0, ir: int | None = None) -> None:
     """
     .. versionadded:: 0.21.0
 
@@ -89,7 +94,7 @@ def apply_lhc_colinearity_knob_delta(madx: Madx, /, colinearity_knob_delta: floa
 
 
 def apply_lhc_rigidity_waist_shift_knob(
-    madx: Madx, /, rigidty_waist_shift_value: float = 0, ir: int = None, side: str = "left"
+    madx: Madx, /, rigidty_waist_shift_value: float = 0, ir: int | None = None, side: str = "left"
 ) -> None:
     """
     .. versionadded:: 0.15.0
@@ -141,7 +146,8 @@ def apply_lhc_rigidity_waist_shift_knob(
         madx.globals[left_knob] = (1 - rigidty_waist_shift_value * 0.005) * current_left_knob
     else:
         logger.error(f"Given side '{side}' invalid, only 'left' and 'right' are accepted values.")
-        raise ValueError("Invalid value for parameter 'side'.")
+        msg = "Invalid value for parameter 'side'."
+        raise ValueError(msg)
 
     logger.debug(f"Set '{right_knob}' to {madx.globals[right_knob]}")
     logger.debug(f"Set '{left_knob}' to {madx.globals[left_knob]}")
@@ -237,11 +243,12 @@ def power_landau_octupoles(madx: Madx, /, beam: int, mo_current: float, defectiv
         brho = madx.globals.nrj * 1e9 / madx.globals.clight  # clight is MAD-X constant
     except AttributeError as madx_error:
         logger.exception("The global MAD-X variable 'NRJ' should have been set in the optics files but is not defined.")
-        raise EnvironmentError("No 'NRJ' variable found in scripts") from madx_error
+        msg = "No 'NRJ' variable found in scripts"
+        raise AttributeError(msg) from madx_error
 
     logger.debug(f"Powering Landau Octupoles, beam {beam} @ {madx.globals.nrj} GeV with {mo_current} A.")
     strength = mo_current / madx.globals.Imax_MO * madx.globals.Kmax_MO / brho
-    beam = 2 if beam == 4 else beam
+    beam = 2 if beam == _BEAM4 else beam
 
     for arc in _all_lhc_arcs(beam):
         for fd in "FD":
@@ -272,7 +279,7 @@ def deactivate_lhc_arc_sextupoles(madx: Madx, /, beam: int) -> None:
     # KSF2 and KSD1 - Weak sextupoles of sectors 81/12/45/56
     # Rest: Weak sextupoles in sectors 78/23/34/67
     logger.debug(f"Deactivating all arc sextupoles for beam {beam}.")
-    beam = 2 if beam == 4 else beam
+    beam = 2 if beam == _BEAM4 else beam
 
     for arc in _all_lhc_arcs(beam):
         for fd in "FD":
@@ -317,11 +324,12 @@ def vary_independent_ir_quadrupoles(
         or any(quad not in (4, 5, 6, 7, 8, 9, 10, 11, 12, 13) for quad in quad_numbers)
     ):
         logger.error("Either the IP number of the side provided are invalid, not applying any error.")
-        raise ValueError("Invalid 'quad_numbers', 'ip', 'sides' argument")
+        msg = "Invalid 'quad_numbers', 'ip', 'sides' argument"
+        raise ValueError(msg)
 
     logger.debug(f"Preparing a knob involving quadrupoles {quad_numbers}")
     # Each quad has a specific power circuit used for their k1 boundaries
-    power_circuits: Dict[int, str] = {
+    power_circuits: dict[int, str] = {
         4: "mqy",
         5: "mqml",
         6: "mqml",
@@ -338,10 +346,10 @@ def vary_independent_ir_quadrupoles(
         for side in sides:
             logger.debug(f"Sending vary command for Q{quad}{side.upper()}{ip}")
             madx.command.vary(
-                name=f"kq{'t' if quad >= 11 else ''}{'l' if quad == 11 else ''}{quad}.{side}{ip}b{beam}",
+                name=f"kq{'t' if quad >= _MAX_IR_QUAD_NUMBER else ''}{'l' if quad == _MAX_IR_QUAD_NUMBER else ''}{quad}.{side}{ip}b{beam}",
                 step=1e-7,
-                lower=f"-{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
-                upper=f"+{circuit}.{'b' if quad == 7 else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+                lower=f"-{circuit}.{'b' if quad == _QUAD_CIRCUIT_HAS_B else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
+                upper=f"+{circuit}.{'b' if quad == _QUAD_CIRCUIT_HAS_B else ''}{quad}{side}{ip}.b{beam}->kmax/brho",
             )
 
 
@@ -398,7 +406,7 @@ def switch_magnetic_errors(madx: Madx, /, **kwargs) -> None:
 # ----- Helpers ----- #
 
 
-def _all_lhc_arcs(beam: int) -> List[str]:
+def _all_lhc_arcs(beam: int) -> list[str]:
     """
     Generates and returns the names of all LHC arcs for a given beam.
     Initial implementation credits go to :user:`Joschua Dilly <joschd>`.

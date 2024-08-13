@@ -4,7 +4,7 @@
 Operations Utilities
 --------------------
 
-A collection classes with utility functions to perform common / convenient 
+A collection classes with utility functions to perform common / convenient
 operations on the classic Python structures.
 
 .. warning::
@@ -16,9 +16,8 @@ import itertools
 import math
 import random
 import re
-
+from collections.abc import Callable, Sequence
 from functools import reduce
-from typing import Callable, Dict, List, Sequence, Tuple, Union
 
 
 class ListOperations:
@@ -69,14 +68,14 @@ class ListOperations:
             .. code-block:: python
 
               ListOperations.average_by(
-                [{'n': 4}, {'n': 2}, {'n': 8}, {'n': 6}], lambda x: x['n']
+                  [{"n": 4}, {"n": 2}, {"n": 8}, {"n": 6}], lambda x: x["n"]
               )
               # returns 5.0
         """
         return float(sum(map(function, sequence), 0.0) / len(sequence))
 
     @staticmethod
-    def bifurcate(sequence: Sequence, filters: List[bool]) -> Sequence:
+    def bifurcate(sequence: Sequence, filters: list[bool]) -> Sequence:
         """
         .. versionadded:: 0.2.0
 
@@ -87,7 +86,7 @@ class ListOperations:
 
         Args:
             sequence (Sequence): a sequence of elements.
-            filters (List[bool]): a list of booleans.
+            filters (list[bool]): a list of booleans.
 
         Returns:
             A list of two lists, one for each boolean output of the filters.
@@ -95,7 +94,9 @@ class ListOperations:
         Example:
             .. code-block:: python
 
-              ListOperations.bifurcate(['beep', 'boop', 'foo', 'bar'], [True, True, False, True])
+              ListOperations.bifurcate(
+                  ["beep", "boop", "foo", "bar"], [True, True, False, True]
+              )
               # returns [['beep', 'boop', 'bar'], ['foo']]
         """
         return [
@@ -156,7 +157,7 @@ class ListOperations:
         """
         if size > len(sequence):
             return sequence
-        return list(map(lambda x: sequence[x * size : x * size + size], list(range(math.ceil(len(sequence) / size)))))
+        return [sequence[x * size : x * size + size] for x in list(range(math.ceil(len(sequence) / size)))]
 
     @staticmethod
     def deep_flatten(sequence: Sequence) -> list:
@@ -184,7 +185,7 @@ class ListOperations:
         )
 
     @staticmethod
-    def eval_none(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
+    def eval_none(sequence: Sequence, function: Callable = lambda x: bool(x)) -> bool:
         """
         .. versionadded:: 0.2.0
 
@@ -215,7 +216,7 @@ class ListOperations:
         return not any(map(function, sequence))
 
     @staticmethod
-    def eval_some(sequence: Sequence, function: Callable = lambda x: not not x) -> bool:
+    def eval_some(sequence: Sequence, function: Callable = lambda x: bool(x)) -> bool:
         """
         .. versionadded:: 0.2.0
 
@@ -245,7 +246,7 @@ class ListOperations:
         return any(map(function, sequence))
 
     @staticmethod
-    def get_indices(element, sequence: Sequence) -> List[int]:
+    def get_indices(element, sequence: Sequence) -> list[int]:
         """
         .. versionadded:: 0.2.0
 
@@ -267,10 +268,10 @@ class ListOperations:
               ListOperations.get_indices(0, [0, 1, 3, 5, 7, 3, 9, 0, 0, 5, 3, 2])
               # returns [0, 7, 8]
         """
-        return [i for (y, i) in zip(sequence, range(len(sequence))) if element == y]
+        return [i for (y, i) in zip(sequence, range(len(sequence)), strict=False) if element == y]
 
     @staticmethod
-    def group_by(sequence: Sequence, function: Callable) -> Dict[str, list]:
+    def group_by(sequence: Sequence, function: Callable) -> dict[str, list]:
         """
         .. versionadded:: 0.2.0
 
@@ -341,7 +342,7 @@ class ListOperations:
               ListOperations.sample(["a", "b", 1, 2, False])
               # returns 2
         """
-        return sequence[random.randint(0, len(sequence) - 1)]
+        return sequence[random.randint(0, len(sequence) - 1)]  # noqa: S311
 
     @staticmethod
     def sanitize_list(sequence: Sequence) -> list:
@@ -390,7 +391,7 @@ class ListOperations:
         temp_list = copy.deepcopy(sequence)
         amount_to_shuffle = len(temp_list)
         while amount_to_shuffle > 1:
-            rand_index = int(math.floor(random.random() * amount_to_shuffle))
+            rand_index = int(math.floor(random.random() * amount_to_shuffle))  # noqa: S311
             amount_to_shuffle -= 1
             temp_list[rand_index], temp_list[amount_to_shuffle] = (
                 temp_list[amount_to_shuffle],
@@ -495,7 +496,7 @@ class ListOperations:
               # returns [1.2, 2.1]
         """
         _lst_1 = set(map(function, seq_1))
-        return sorted(list(set(seq_1 + [item for item in seq_2 if function(item) not in _lst_1])))
+        return sorted(set(seq_1 + [item for item in seq_2 if function(item) not in _lst_1]))
 
     @staticmethod
     def zipper(*args, fillvalue=None) -> list:
@@ -583,7 +584,7 @@ class MiscellaneousOperations:
 
               MiscellaneousOperations.map_values(
                   {"a": list(range(5)), "b": list(range(10)), "c": list(range(15))},
-                  lambda x: len(x)
+                  lambda x: len(x),
               )
               # returns {"a": 5, "b": 10, "c": 15}
         """
@@ -601,7 +602,7 @@ class NumberOperations:
     """
 
     @staticmethod
-    def clamp_number(num: Union[int, float], a_val: Union[int, float], b_val: Union[int, float]) -> Union[int, float]:
+    def clamp_number(num: float, a_val: float, b_val: float) -> float:
         """
         .. versionadded:: 0.2.0
 
@@ -610,9 +611,9 @@ class NumberOperations:
         nearest number in the range.
 
         Args:
-            num (Union[int, float]): a number (float  / int)
-            a_val (Union[int, float]): a number (float  / int)
-            b_val (Union[int, float]): a number (float  / int)
+            num (float): a number (float  / int)
+            a_val (float): a number (float  / int)
+            b_val (float): a number (float  / int)
 
         Returns:
             A number (float  / int), being the nearest to *num* in the range [*a_val*, *b_val*].
@@ -631,9 +632,7 @@ class NumberOperations:
         return max(min(num, max(a_val, b_val)), min(a_val, b_val))
 
     @staticmethod
-    def degrees_to_radians(
-        deg_value: Union[int, float], decompose: bool = False
-    ) -> Union[Tuple[float, str, str], int, float]:
+    def degrees_to_radians(deg_value: float, decompose: bool = False) -> tuple[float, str, str] | float:
         """
         .. versionadded:: 0.2.0
 
@@ -641,7 +640,7 @@ class NumberOperations:
         to radian formula to convert the provided *deg_value*.
 
         Args:
-            deg_value (Union[int, float]): angle value in degrees.
+            deg_value (float): angle value in degrees.
             decompose (bool): boolean option to return a more verbose result. Defaults to `False`.
 
         Returns:
@@ -663,7 +662,7 @@ class NumberOperations:
         return (deg_value * math.pi) / 180.0
 
     @staticmethod
-    def greatest_common_divisor(sequence: Sequence) -> Union[int, float]:
+    def greatest_common_divisor(sequence: Sequence) -> float:
         """
         .. versionadded:: 0.2.0
 
@@ -691,7 +690,7 @@ class NumberOperations:
         return reduce(math.gcd, sequence)
 
     @staticmethod
-    def is_divisible_by(dividend: Union[int, float], divisor: Union[int, float]) -> bool:
+    def is_divisible_by(dividend: float, divisor: float) -> bool:
         """
         .. versionadded:: 0.2.0
 
@@ -699,8 +698,8 @@ class NumberOperations:
         Uses the modulo operator (`%`) to check if the remainder is equal to 0.
 
         Args:
-            dividend (Union[int, float]): a number.
-            divisor (Union[int, float]): a number.
+            dividend (float): a number.
+            divisor (float): a number.
 
         Returns:
             A boolean stating if *dividend* can be divided by *divisor*.
@@ -749,7 +748,7 @@ class NumberOperations:
         return reduce(lambda x, y: _lcm(x, y), numbers)
 
     @staticmethod
-    def radians_to_degrees(rad_value: Union[int, float]) -> Union[int, float]:
+    def radians_to_degrees(rad_value: float) -> float:
         """
         .. versionadded:: 0.2.0
 
@@ -757,7 +756,7 @@ class NumberOperations:
         to degree formula to convert the provided *rad_value*.
 
         Args:
-            rad_value (Union[int, float]): angle value in degrees.
+            rad_value (float): angle value in degrees.
 
         Returns:
             The angle value in degrees.
@@ -765,7 +764,7 @@ class NumberOperations:
         Examples:
             .. code-block:: python
 
-              NumberOperations.radians_to_degrees(2* math.pi)
+              NumberOperations.radians_to_degrees(2 * math.pi)
               # returns 360
 
             .. code-block:: python

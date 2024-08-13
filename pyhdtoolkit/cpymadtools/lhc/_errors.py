@@ -5,12 +5,15 @@
 
 The functions below are utilities to implement errors in elements of the ``LHC``.
 """
-from typing import Dict, List, Sequence
+
+from collections.abc import Sequence
 
 from cpymad.madx import Madx
 from loguru import logger
 
-LHC_IR_QUADS_PATTERNS: Dict[int, List[str]] = {
+_MAX_TRIPLET_NUMBER: int = 3
+
+LHC_IR_QUADS_PATTERNS: dict[int, list[str]] = {
     1: ["^MQXA.1{side}{ip:d}", "^MQXFA.[AB]1{side}{ip:d}"],  # Q1 LHC, Q1A & Q1B HL-LHC
     2: ["^MQXB.[AB]2{side}{ip:d}", "^MQXB.[AB]2{side}{ip:d}"],  # Q2A & Q2B LHC, Q2A & Q2B HL-LHC
     3: ["^MQXA.3{side}{ip:d}", "^MQXFA.[AB]3{side}{ip:d}"],  # Q3 LHC, Q3A & Q3B HL-LHC
@@ -120,7 +123,8 @@ def misalign_lhc_ir_quadrupoles(
         .. code-block:: python
 
             misalign_lhc_ir_quadrupoles(
-                madx, ips=[5],
+                madx,
+                ips=[5],
                 quadrupoles=[7, 8, 9, 10],
                 beam=1,
                 sides="RL",
@@ -138,18 +142,21 @@ def misalign_lhc_ir_quadrupoles(
                 beam=1,
                 sides="RL",
                 dy=1e-5,  # ok too as cpymad converts this to a string first
-                dpsi="1E-3 + 8E-4 * TGAUSS(2.5)"
+                dpsi="1E-3 + 8E-4 * TGAUSS(2.5)",
             )
     """
     if any(ip not in (1, 2, 5, 8) for ip in ips):
         logger.error("The IP number provided is invalid, not applying any error.")
-        raise ValueError("Invalid 'ips' parameter")
+        msg = "Invalid 'ips' parameter"
+        raise ValueError(msg)
     if beam and beam not in (1, 2, 3, 4):
         logger.error("The beam number provided is invalid, not applying any error.")
-        raise ValueError("Invalid 'beam' parameter")
+        msg = "Invalid 'beam' parameter"
+        raise ValueError(msg)
     if any(side.upper() not in ("R", "L") for side in sides):
         logger.error("The side provided is invalid, not applying any error.")
-        raise ValueError("Invalid 'sides' parameter")
+        msg = "Invalid 'sides' parameter"
+        raise ValueError(msg)
 
     sides = [side.upper() for side in sides]
     logger.debug("Clearing error flag")
@@ -162,7 +169,7 @@ def misalign_lhc_ir_quadrupoles(
             for quad_number in quadrupoles:
                 for quad_pattern in LHC_IR_QUADS_PATTERNS[quad_number]:
                     # Triplets are single aperture and don't need beam information, others do
-                    if quad_number <= 3:
+                    if quad_number <= _MAX_TRIPLET_NUMBER:
                         madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip))
                     else:
                         madx.select(flag="error", pattern=quad_pattern.format(side=side, ip=ip, beam=beam))

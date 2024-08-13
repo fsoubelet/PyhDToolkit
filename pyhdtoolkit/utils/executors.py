@@ -21,8 +21,8 @@ For instance the default value of `m` in `~concurrent.futures.ThreadPoolExecutor
 I think is quite random.
 """
 
+from collections.abc import Callable
 from concurrent import futures
-from typing import Callable, List
 
 from loguru import logger
 
@@ -49,7 +49,7 @@ class MultiProcessor:
     """
 
     @staticmethod
-    def execute_function(func: Callable, func_args: list, n_processes: int) -> List[tuple]:
+    def execute_function(func: Callable, func_args: list, n_processes: int) -> list[tuple]:
         """
         .. versionadded:: 0.2.0
 
@@ -107,7 +107,7 @@ class MultiThreader:
     """
 
     @staticmethod
-    def execute_function(func: Callable, func_args: list, n_threads: int) -> List[tuple]:
+    def execute_function(func: Callable, func_args: list, n_threads: int) -> list[tuple]:
         """
         .. versionadded:: 0.2.0
 

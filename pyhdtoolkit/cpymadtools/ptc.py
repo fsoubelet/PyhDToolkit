@@ -7,20 +7,23 @@ PTC Routines
 Module with functions to manipulate ``MAD-X`` ``PTC`` functionality through a
 `~cpymad.madx.Madx` object.
 """
+
+from collections.abc import Sequence
 from pathlib import Path
-from typing import Dict, Optional, Sequence, Tuple, Union
 
 import pandas as pd
 import tfs
-
 from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.cpymadtools.utils import get_table_tfs
 
+_MAX_PTC_AMPDET_ORDER: int = 2
+_MIN_PTC_AMPDET_ORDER: int = 1
+
 
 def get_amplitude_detuning(
-    madx: Madx, /, order: int = 2, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 2, file: Path | str | None = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -50,7 +53,7 @@ def get_amplitude_detuning(
             Positional only.
         order (int): maximum derivative order coefficient (only 0, 1 or 2
             implemented in ``PTC``). Defaults to 2.
-        file (Union[Path, str]): path to output file. Defaults to `None`.
+        file (Path | str): path to output file. Defaults to `None`.
         fringe (bool): boolean flag to include fringe field effects in the
             calculation. Defaults to ``False``.
         **kwargs: Some parameters for the ``PTC`` universe creation can be given as
@@ -59,7 +62,7 @@ def get_amplitude_detuning(
             ``PTC_NORMAL`` command. Their default values are listed higher up in this
             docstring. Any remaining keyword argument is transmitted to the
             ``PTC_NORMAL`` command.
-    
+
     Returns:
         A `~tfs.frame.TfsDataframe` with the calculated coefficients.
 
@@ -77,9 +80,10 @@ def get_amplitude_detuning(
                 madx, order=3, model=3, exact=True, icase=5, no=6
             )
     """
-    if order >= 3:
+    if order > _MAX_PTC_AMPDET_ORDER:
         logger.error(f"Maximum amplitude detuning order in PTC is 2, but {order:d} was requested")
-        raise NotImplementedError("PTC amplitude detuning is not implemented for order > 2")
+        msg = "PTC amplitude detuning is not implemented for order > 2"
+        raise NotImplementedError(msg)
 
     logger.debug("Looking for PTC universe parameters in keyword arguments")
     model = kwargs.pop("model", 3)
@@ -111,7 +115,7 @@ def get_amplitude_detuning(
     # ANH = anharmonicities (ex, ey, deltap), works only with parameters as full strings
     # could be done nicer with permutations ...
     logger.trace("Selecting anharmonicities")
-    if order >= 1:
+    if order >= _MIN_PTC_AMPDET_ORDER:
         # madx.select_ptc_normal('anhx=0, 0, 1')  # dQx/ddp
         # madx.select_ptc_normal('anhy=0, 0, 1')  # dQy/ddp
         madx.select_ptc_normal("anhx=1, 0, 0")  # dQx/dex
@@ -119,7 +123,7 @@ def get_amplitude_detuning(
         madx.select_ptc_normal("anhy=1, 0, 0")  # dQy/dex
         madx.select_ptc_normal("anhy=0, 1, 0")  # dQy/dey
 
-    if order >= 2:
+    if order >= _MAX_PTC_AMPDET_ORDER:
         # madx.select_ptc_normal('anhx=0, 0, 2')  # d^2Qx/ddp^2
         # madx.select_ptc_normal('anhy=0, 0, 2')  # d^2Qy/ddp^2
         madx.select_ptc_normal("anhx=2, 0, 0")  # d^2Qx/dex^2
@@ -144,7 +148,7 @@ def get_amplitude_detuning(
 
 
 def get_rdts(
-    madx: Madx, /, order: int = 4, file: Union[Path, str] = None, fringe: bool = False, **kwargs
+    madx: Madx, /, order: int = 4, file: Path | str | None = None, fringe: bool = False, **kwargs
 ) -> tfs.TfsDataFrame:
     """
     .. versionadded:: 0.7.0
@@ -163,7 +167,7 @@ def get_rdts(
         arguments to override them.
 
         The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
-        calculations (see the 
+        calculations (see the
         `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
         for details), and ``normal=True`` to trigger saving the normal form analysis
         results in a table called ``NONLIN`` which will then be available through the
@@ -176,7 +180,7 @@ def get_rdts(
             Positional only.
         order (int): map order for derivative evaluation of Twiss parameters.
             Defaults to 4.
-        file (Union[Path, str]): path to output file. Default to `None`.
+        file (Path | str): path to output file. Default to `None`.
         fringe (bool): boolean flag to include fringe field effects in the
             calculation. Defaults to `False`.
         **kwargs: Some parameters for the ``PTC`` universe creation can be given as
@@ -207,7 +211,7 @@ def get_rdts(
     method = kwargs.pop("method", 4)
     nst = kwargs.pop("nst", 3)
     exact = kwargs.pop("exact", True)
-    
+
     logger.debug("Looking for PTC_TWISS parameters in keyword arguments")
     icase = kwargs.pop("icase", 6)
     normal = kwargs.pop("normal", True)
@@ -239,7 +243,7 @@ def ptc_twiss(
     madx: Madx,
     /,
     order: int = 4,
-    file: Union[Path, str] = None,
+    file: Path | str | None = None,
     fringe: bool = False,
     table: str = "ptc_twiss",
     **kwargs,
@@ -264,7 +268,7 @@ def ptc_twiss(
         arguments to override them.
 
         The ``PTC_TWISS`` command is given ``icase=6`` by default to enforce 6D
-        calculations (see the 
+        calculations (see the
         `MAD-X manual <http://madx.web.cern.ch/madx/releases/last-rel/madxuguide.pdf>`_
         for details), and ``normal=True`` to trigger saving the normal form analysis
         results in a table called ``NONLIN`` which will then be available through the
@@ -277,7 +281,7 @@ def ptc_twiss(
             Positional only.
         order (int): map order for derivative evaluation of ``TWISS`` parameters.
             Defaults to 4.
-        file (Union[Path, str]): path to output file. Default to `None`.
+        file (Path | str): path to output file. Default to `None`.
         fringe (bool): boolean flag to include fringe field effects in the calculation.
             Defaults to `False`.
         table (str): the name of the internal table in which to save the results.
@@ -287,7 +291,7 @@ def ptc_twiss(
             `icase` and `normal` ones can be given for the ``PTC_TWISS`` command.
             Their default values are listed higher up in this docstring. Any remaining
             keyword argument is transmitted to the ``PTC_TWISS`` command.
-            
+
     Returns:
         A `~tfs.frame.TfsDataFrame` with the calculated ``TWISS`` parameters.
 
@@ -310,7 +314,7 @@ def ptc_twiss(
     method = kwargs.pop("method", 4)
     nst = kwargs.pop("nst", 3)
     exact = kwargs.pop("exact", True)
-    
+
     logger.debug("Looking for PTC_TWISS parameters in keyword arguments")
     icase = kwargs.pop("icase", 6)
     normal = kwargs.pop("normal", True)
@@ -341,14 +345,14 @@ def ptc_twiss(
 def ptc_track_particle(
     madx: Madx,
     /,
-    initial_coordinates: Tuple[float, float, float, float, float, float],
+    initial_coordinates: tuple[float, float, float, float, float, float],
     nturns: int,
-    sequence: Optional[str] = None,
-    observation_points: Sequence[str] = None,
+    sequence: str | None = None,
+    observation_points: Sequence[str] | None = None,
     onetable: bool = False,
     fringe: bool = False,
     **kwargs,
-) -> Dict[str, pd.DataFrame]:
+) -> dict[str, pd.DataFrame]:
     """
     .. versionadded:: 0.12.0
 
@@ -378,11 +382,11 @@ def ptc_track_particle(
 
     Args:
         madx (cpymad.madx.Madx): an instantiated cpymad.madx.Madx object.
-        initial_coordinates (Tuple[float, float, float, float, float, float]): a tuple
+        initial_coordinates (tuple[float, float, float, float, float, float]): a tuple
             with the ``X, PX, Y, PY, T, PT`` starting coordinates of the particle to
             track. Defaults to all 0 if `None` given.
         nturns (int): the number of turns to track for.
-        sequence (Optional[str]): the sequence to use for tracking. If no value is
+        sequence (str | None): the sequence to use for tracking. If no value is
             provided, it is assumed that a sequence is already defined and in use,
             and this one will be picked up by ``MAD-X``. Beware of the dangers of
             giving a sequence that will be used by ``MAD-X``, see the warning below
@@ -426,8 +430,13 @@ def ptc_track_particle(
         .. code-block:: python
 
             tracks_dict = ptc_track_particle(
-                madx, nturns=10, initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
-                model=3, method=6, nst=3, exact=True
+                madx,
+                nturns=10,
+                initial_coordinates=(2e-4, 0, 1e-4, 0, 0, 0),
+                model=3,
+                method=6,
+                nst=3,
+                exact=True,
             )
     """
     logger.debug("Performing single particle PTC (thick) tracking")
@@ -439,7 +448,7 @@ def ptc_track_particle(
     method = kwargs.pop("method", 4)
     nst = kwargs.pop("nst", 3)
     exact = kwargs.pop("exact", True)
-    
+
     logger.debug("Looking for PTC_TRACK parameters in keyword arguments")
     element_by_element = kwargs.pop("element_by_element", True)
 

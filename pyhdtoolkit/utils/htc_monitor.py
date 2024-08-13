@@ -4,21 +4,19 @@
 HTCondor Monitoring
 -------------------
 
-A module with utility to query the HTCondor queue, process the returned data 
+A module with utility to query the HTCondor queue, process the returned data
 and display it nicely.
 
 .. note::
-    This module is meant to be called as a script, but some of the individual 
-    functionality is made public API and one shoule be able to build a different 
+    This module is meant to be called as a script, but some of the individual
+    functionality is made public API and one shoule be able to build a different
     monitor from the functions in here.
 """
+
 import re
 import time
 
-from typing import List, Tuple
-
 import pendulum
-
 from loguru import logger
 from rich import box
 from rich.console import Group
@@ -35,25 +33,40 @@ config_logger(level="ERROR")
 # ----- Data ----- #
 
 TASK_COLUMNS_SETTINGS = {
-    "OWNER": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
-    "BATCH_NAME": dict(justify="center", header_style="magenta", style="magenta", no_wrap=True),
-    "SUBMITTED": dict(justify="center", header_style="medium_turquoise", style="medium_turquoise", no_wrap=True),
-    "DONE": dict(justify="right", header_style="bold green3", style="bold green3", no_wrap=True),
-    "RUNNING": dict(justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True),
-    "IDLE": dict(justify="right", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
-    "TOTAL": dict(justify="right", style="bold", no_wrap=True),
-    "JOB_IDS": dict(justify="right", no_wrap=True),
+    "OWNER": {"justify": "left", "header_style": "bold", "style": "bold", "no_wrap": True},
+    "BATCH_NAME": {"justify": "center", "header_style": "magenta", "style": "magenta", "no_wrap": True},
+    "SUBMITTED": {
+        "justify": "center",
+        "header_style": "medium_turquoise",
+        "style": "medium_turquoise",
+        "no_wrap": True,
+    },
+    "DONE": {"justify": "right", "header_style": "bold green3", "style": "bold green3", "no_wrap": True},
+    "RUNNING": {
+        "justify": "right",
+        "header_style": "bold cornflower_blue",
+        "style": "bold cornflower_blue",
+        "no_wrap": True,
+    },
+    "IDLE": {"justify": "right", "header_style": "bold dark_orange3", "style": "bold dark_orange3", "no_wrap": True},
+    "TOTAL": {"justify": "right", "style": "bold", "no_wrap": True},
+    "JOB_IDS": {"justify": "right", "no_wrap": True},
 }
 
 CLUSTER_COLUMNS_SETTINGS = {
-    "SOURCE": dict(justify="left", header_style="bold", style="bold", no_wrap=True),
-    "JOBS": dict(justify="right", header_style="bold", style="bold", no_wrap=True),
-    "COMPLETED": dict(justify="right", header_style="bold green3", style="bold green3", no_wrap=True),
-    "RUNNING": dict(justify="right", header_style="bold cornflower_blue", style="bold cornflower_blue", no_wrap=True),
-    "IDLE": dict(justify="right", header_style="bold dark_orange3", style="bold dark_orange3", no_wrap=True),
-    "HELD": dict(justify="right", header_style="bold gold1", style="bold gold1", no_wrap=True),
-    "SUSPENDED": dict(justify="right", header_style="bold slate_blue1", style="bold slate_blue1", no_wrap=True),
-    "REMOVED": dict(justify="right", header_style="bold red3", style="bold red3", no_wrap=True),
+    "SOURCE": {"justify": "left", "header_style": "bold", "style": "bold", "no_wrap": True},
+    "JOBS": {"justify": "right", "header_style": "bold", "style": "bold", "no_wrap": True},
+    "COMPLETED": {"justify": "right", "header_style": "bold green3", "style": "bold green3", "no_wrap": True},
+    "RUNNING": {
+        "justify": "right",
+        "header_style": "bold cornflower_blue",
+        "style": "bold cornflower_blue",
+        "no_wrap": True,
+    },
+    "IDLE": {"justify": "right", "header_style": "bold dark_orange3", "style": "bold dark_orange3", "no_wrap": True},
+    "HELD": {"justify": "right", "header_style": "bold gold1", "style": "bold gold1", "no_wrap": True},
+    "SUSPENDED": {"justify": "right", "header_style": "bold slate_blue1", "style": "bold slate_blue1", "no_wrap": True},
+    "REMOVED": {"justify": "right", "header_style": "bold red3", "style": "bold red3", "no_wrap": True},
 }
 
 
@@ -71,11 +84,13 @@ def query_condor_q() -> str:
     condor_status = raw_result.decode().strip()
     if return_code == 0:
         return condor_status
-    else:
-        raise ChildProcessError("Checking htcondor status failed")
+
+    # An issue occured, let's raise
+    msg = "Checking htcondor status failed"
+    raise ChildProcessError(msg)
 
 
-def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
+def read_condor_q(report: str) -> tuple[list[HTCTaskSummary], ClusterSummary]:
     """
     .. versionadded:: 0.9.0
 
@@ -97,10 +112,10 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
             condor_q_output = get_the_string_as_you_wish(...)
             tasks, cluster = read_condor_q(condor_q_output)
     """
-    tasks: List[HTCTaskSummary] = []
+    tasks: list[HTCTaskSummary] = []
     next_line_is_task_report = False
 
-    for line in report.split("\n"):
+    for line in report.splitlines():
         if line.startswith("-- Schedd:"):  # extract scheduler information
             scheduler_id = _process_scheduler_information_line(line)
 
@@ -108,7 +123,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
             next_line_is_task_report = True
 
         elif next_line_is_task_report:  # extract task report information
-            if line != "\n" and line != "":
+            if line not in ("\n", ""):
                 tasks.append(_process_task_summary_line(line))
             else:  # an empty line denotes the end of the task report(s)
                 next_line_is_task_report = False
@@ -119,7 +134,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
                 query_summary = _process_cluster_summary_line(line, "query")
             elif "all users" in line:  # last line
                 full_summary = _process_cluster_summary_line(line, "all users")
-            elif line != "\n" and line != "":  # user line, whoever the user is
+            elif line not in ("\n", ""):  # user line, whoever the user is
                 owner_summary = _process_cluster_summary_line(line, querying_owner)
     cluster_summary = ClusterSummary(
         scheduler_id=scheduler_id, query=query_summary, user=owner_summary, cluster=full_summary
@@ -130,7 +145,7 @@ def read_condor_q(report: str) -> Tuple[List[HTCTaskSummary], ClusterSummary]:
 # ----- Output Formating ----- #
 
 
-def _make_tasks_table(tasks: List[HTCTaskSummary]) -> Table:
+def _make_tasks_table(tasks: list[HTCTaskSummary]) -> Table:
     table = _default_tasks_table()
     date_display_format = "dddd, D MMM YY at LT (zz)"  # example: Wednesday, 21 Apr 21 9:04 PM (CEST)
     for task in tasks:
@@ -151,7 +166,7 @@ def _make_cluster_table(owner_name: str, cluster: ClusterSummary) -> Table:
     table = _default_cluster_table()
     for i, source in enumerate(["query", "user", "cluster"]):
         table.add_row(
-            "Query" if i == 0 else ("All Users" if i == 2 else owner_name),
+            "Query" if i == 0 else ("All Users" if i == 2 else owner_name),  # noqa: PLR2004
             str(cluster.model_dump()[source]["jobs"]),
             str(cluster.model_dump()[source]["completed"]),
             str(cluster.model_dump()[source]["running"]),
@@ -192,7 +207,7 @@ def _process_task_summary_line(line: str) -> HTCTaskSummary:
     )
 
 
-def _process_cluster_summary_line(line: str, query: str = None) -> BaseSummary:
+def _process_cluster_summary_line(line: str, query: str | None = None) -> BaseSummary:
     r"""
     Beware if no jobs are running we can't have taken querying_owner info from tasks summaries,
     so we need to match a wildcard word by giving querying_owner=(\D+). This would add a match to the regex
