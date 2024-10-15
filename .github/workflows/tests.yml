@@ -4,6 +4,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  UV_SYSTEM_PYTHON: 1  # for uv pip to install in the system python installed by actions/setup-python
+
 on:  # Runs on any push event to any branch except master (the coverage workflow takes care of that)
   push:
     branches-ignore:
@@ -26,11 +29,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: '**/pyproject.toml'
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: pyproject.toml
 
       - name: Install package with test dependencies
-        run: python -m pip install ".[test]"
+        run: uv pip install ".[test]"
 
       - name: Run Tests
         run: make quicktests
@@ -52,11 +59,15 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-          cache: pip
-          cache-dependency-path: '**/pyproject.toml'
 
-      - name: Install package
-        run: python -m pip install ".[test]"
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: pyproject.toml
+
+      - name: Install package with test dependencies
+        run: uv pip install ".[test]"
 
       - name: Get acc-models-lhc
         run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
