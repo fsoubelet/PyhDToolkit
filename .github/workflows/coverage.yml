@@ -5,9 +5,6 @@ defaults:
   run:
     shell: bash
 
-env:
-  UV_SYSTEM_PYTHON: 1  # for uv pip to install in the system python installed by actions/setup-python
-
 on:  # Runs on all push events to master branch and any push related to a pull request
   push:
     branches:
@@ -23,25 +20,24 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.python-version }}
-
       - name: Install uv
         uses: astral-sh/setup-uv@v3
         with:
           enable-cache: true
           cache-dependency-glob: pyproject.toml
 
+      - name: Set up Python ${{ env.python-version }}
+        run: uv python install ${{ env.python-version }}
+
       - name: Install package with test dependencies
-        run: uv pip install ".[test]"
+        run: uv sync --all-extras --dev
 
       - name: Get acc-models-lhc
         run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
 
       - name: Run all tests
-        run: make alltests
+        run: uv run pytest -n auto -v
+        # run: make alltests
 
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v4
