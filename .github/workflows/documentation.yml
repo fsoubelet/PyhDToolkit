@@ -5,9 +5,6 @@ defaults:
   run:
     shell: bash
 
-env:
-  UV_SYSTEM_PYTHON: 1  # for uv pip to install in the system python installed by actions/setup-python
-
 on:  # Runs on any push event in a PR or any push event to master
   pull_request:
   push:
@@ -32,19 +29,17 @@ jobs:
       - name: Install optipng, dvipng and cm-super
         run: sudo apt-get install -y optipng dvipng cm-super
 
-      - name: Set up Python ${{ env.python-version }}
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.python-version }}
-
       - name: Install uv
         uses: astral-sh/setup-uv@v3
         with:
           enable-cache: true
           cache-dependency-glob: pyproject.toml
   
-      - name: Install package with doc dependencies
-        run: uv pip install ".[docs]"
+      - name: Set up Python ${{ env.python-version }}
+        run: uv python install ${{ env.python-version }}
+  
+      - name: Install package with test dependencies
+        run: uv sync --all-extras --dev
 
       - name: Get acc-models-lhc
         run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
@@ -54,7 +49,8 @@ jobs:
 
       - name: Build documentation
         continue-on-error: true
-        run: make docs
+        run: python -m sphinx -v -b html docs doc_build -d doc_build
+        # run: make docs
 
       # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
       - name: Upload build artifacts
