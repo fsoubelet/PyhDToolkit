@@ -18,7 +18,6 @@ from rich.table import Table
 
 from pyhdtoolkit.utils import _misc, deprecated, logging
 from pyhdtoolkit.utils.cmdline import CommandLine
-from pyhdtoolkit.utils.executors import MultiProcessor, MultiThreader
 from pyhdtoolkit.utils.htc_monitor import (
     ClusterSummary,
     HTCTaskSummary,
@@ -414,44 +413,6 @@ class TestMiscellaneousOperations:
     )
     def test_map_values_to_bool(self, obj, func, result):
         assert MiscellaneousOperations.map_values(obj, func) == result
-
-
-class TestMultiProcessorExecutor:
-    @pytest.mark.parametrize(
-        ("function", "inputs", "results"),
-        [
-            (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
-            (_to_str, list(range(6)), [str(e) for e in range(6)]),
-            (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
-        ],
-    )
-    @pytest.mark.parametrize("processes", list(range(1, multiprocessing.cpu_count() + 1)))
-    def test_multiprocessor(self, function, inputs, results, processes):
-        assert MultiProcessor.execute_function(func=function, func_args=inputs, n_processes=processes) == results
-
-    def test_multiprocessing_zero_processes(self):
-        with pytest.raises(ValueError, match="max_workers must be greater than 0"):
-            MultiProcessor.execute_function(func=_square, func_args=list(range(6)), n_processes=0)
-
-
-class TestMultiThreaderExecutor:
-    @pytest.mark.parametrize(
-        ("function", "inputs", "results"),
-        [
-            (_square, list(range(6)), [0, 1, 4, 9, 16, 25]),
-            (_square, [10 * i for i in range(10)], [e**2 for e in [10 * i for i in range(10)]]),
-            (_to_str, list(range(6)), [str(e) for e in range(6)]),
-            (_to_str, [10 * i for i in range(10)], [str(e) for e in [10 * i for i in range(10)]]),
-        ],
-    )
-    @pytest.mark.parametrize("threads", list(range(1, 20)))
-    def test_multithreading(self, function, inputs, results, threads):
-        assert MultiThreader.execute_function(func=function, func_args=inputs, n_threads=threads) == results
-
-    def test_multithreading_zero_threads(self):
-        with pytest.raises(ValueError, match="max_workers must be greater than 0"):
-            MultiThreader.execute_function(func=_square, func_args=list(range(6)), n_threads=0)
 
 
 class TestNumberOperations:
