@@ -9,6 +9,7 @@ Segment-by-Segment Results
 This example shows how to use the modules in `pyhdtoolkit.plotting.sbs` and their various functions
 to easily visualize results of segment-by-segment runs.
 """
+
 # sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
 import tfs

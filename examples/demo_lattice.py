@@ -12,7 +12,9 @@ to represent your machine's layout and optics functions in a double-axis plot.
 In this example, we will showcase the functionality on a simple lattice, and then demonstrate the use
 of several parameters to control the plot on the example case of the LHC.
 """
+
 import matplotlib.pyplot as plt
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools import lhc, matching
@@ -54,7 +56,9 @@ mu_y_cell = madx.table.summ.Q2[0] / n_cells
 title = rf"Base Lattice, $\mu_{{x, cell}}={mu_x_cell:.3f}, \ \mu_{{y, cell}}={mu_y_cell:.3f}$"
 
 plt.figure(figsize=(18, 11))
-plot_latwiss(madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3)
+plot_latwiss(
+    madx, title=title, k0l_lim=(-0.15, 0.15), k1l_lim=(-0.08, 0.08), disp_ylim=(-10, 125), lw=3
+)
 plt.tight_layout()
 plt.show()
 
@@ -77,8 +81,7 @@ madx.exit()
 #     builds, but you can use any branch you want.
 
 lhc_madx: Madx = lhc.prepare_lhc_run3(
-    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx",
-    stdout=False
+    opticsfile="acc-models-lhc/operation/optics/R2022a_A30cmC30cmA10mL200cm.madx", stdout=False
 )
 
 ###############################################################################

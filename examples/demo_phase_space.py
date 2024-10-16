@@ -14,9 +14,11 @@ In this example we will generate a dummy lattice, set its working point and trac
 The transformation to normalized, or Courant-Snyder, coordinates is handled by the plotting
 functions.
 """
+
 # sphinx_gallery_thumbnail_number = 2
 import matplotlib.pyplot as plt
 import numpy as np
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator
@@ -136,7 +138,9 @@ match_tunes_and_chromaticities(
 x_coords_sext, px_coords_sext, y_coords_sext, py_coords_sext = [], [], [], []
 
 for starting_x in initial_x_coordinates:
-    tracks_df = track_single_particle(madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns)
+    tracks_df = track_single_particle(
+        madx, initial_coordinates=(starting_x, 0, 0, 0, 0, 0), nturns=n_turns
+    )
     x_coords_sext.append(tracks_df["observation_point_1"].x.to_numpy())
     y_coords_sext.append(tracks_df["observation_point_1"].y.to_numpy())
     px_coords_sext.append(tracks_df["observation_point_1"].px.to_numpy())
