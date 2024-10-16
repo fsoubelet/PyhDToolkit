@@ -176,6 +176,8 @@ sphinx_gallery_conf = {
     "capture_repr": ("_repr_html_",),
     "compress_images": ("images", "thumbnails", "-o1"),
     "only_warn_on_example_error": True,  # keep the build going if an example fails, important for doc workflow
+    "parallel": 2,  # number of jobs to use to build the gallery
+    "write_computation_times": False,  # do not write time to run example in the output
 }
 
 # Config for the sphinx_panels extension
