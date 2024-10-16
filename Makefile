@@ -33,7 +33,7 @@ help:
 	@echo "  $(R) slowtests $(E)  to run tests involving $(D)pyhdtoolkit.cpymadtools$(E) with $(P)Pytest$(E)."
 
 
-# ----- Dev Tools Targets ----- #
+# ----- Dev Targets ----- #
 
 build:
 	@echo "Re-building wheel and dist"
@@ -96,15 +96,7 @@ lint:
 	@echo "Linting code with $(P)Ruff$(E)."
 	@uvx ruff check pyhdtoolkit
 
-# ----- Tests Targets ----- #
-
-quicktests:  # all tests not involving pyhdtoolkit.cpymadtools
-	@uv run python -m pytest -k "not test_cpymadtools" -n auto -v
-
-slowtests:  # all tests for pyhdtoolkit.cpymadtools
-	@uv run python -m pytest -k "test_cpymadtools" -n auto -v
-
-alltests:
+tests:
 	@uv run python -m pytest -n auto -v
 
 # Catch-all unknow targets without returning an error. This is a POSIX-compliant syntax.
