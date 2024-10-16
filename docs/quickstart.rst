@@ -141,28 +141,24 @@ One can find many examples of the `~pyhdtoolkit.plotting` apis' use in the :ref:
 Utilities
 ^^^^^^^^^
 
-The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up :ref:`logging <utils-logging>`, run external programs through the :ref:`command line <utils-cmdline>`, 
-run your functions through :ref:`useful contexts <utils-contexts>`, easily wrap and :ref:`parallelise <utils-executors>`
-functions, or perform many convenient :ref:`operations <utils-operations>` on miscellaneous Python objects.
+The :ref:`utils <pyhdtoolkit-utils>` module contains useful functions to set up :ref:`logging <utils-logging>`, run external programs through the :ref:`command line <utils-cmdline>`, or to decorate functions through :ref:`useful contexts <utils-contexts>`.
 
 For instance, one can safely run an input at the commandline with:
 
 .. prompt:: python
 
+    # Let's get the status and raw output of condor_q
     from pyhdtoolkit.utils.cmdline import CommandLine
-    CommandLine.run("sleep 5")
+    return_code, raw_result = CommandLine.run("condor_q")
 
-Alternatively one can easily parallelise an I/O-intensive function through multithreading with:
+It is also simple to log the timing of a function, or a whole code block with:
 
 .. prompt:: python
 
-    from pyhdtoolkit.utils.executors import MultiThreader
-    Threader = MultiThreader()
-    results = Threader.execute_function(
-        func=your_io_heavy_function,
-        func_args=list_of_args_for_each_call,
-        n_processes=some_int_up_to_you,
-    )
+    from pyhdtoolkit.utils.contexts import timeit
+    with timeit(lambda x: print(f"Did some stuff in {x} seconds")):
+        some_stuff()
+        some_other_stuff()
 
 .. tip::
     A useful tidbit is the following which sets up the logging level for functions in the package:
