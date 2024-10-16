@@ -38,4 +38,4 @@ jobs:
         run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
 
       - name: Run Tests
-        run: make alltests
+        run: make tests
