@@ -74,7 +74,7 @@ docker:
 
 docs:
 	@echo "Building static pages with $(D)Sphinx$(E)."
-	@python -m sphinx -v -b html docs doc_build -d doc_build
+	@uv run python -m sphinx -v -b html docs doc_build -d doc_build
 
 format:
 	@echo "Formatting code in $(C)docs$(E), $(C)tests$(E) and $(C)pyhdtoolkit$(E)."
