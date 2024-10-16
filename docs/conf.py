@@ -339,7 +339,9 @@ latex_elements["babel"] = r"\usepackage{babel}"
 # Font configuration
 # Fix fontspec converting " into right curly quotes in PDF
 # cf https://github.com/sphinx-doc/sphinx/pull/6888/
-latex_elements["fontenc"] = r"""
+latex_elements[
+    "fontenc"
+] = r"""
 \usepackage{fontspec}
 \defaultfontfeatures[\rmfamily,\sffamily,\ttfamily]{}
 """
@@ -391,7 +393,9 @@ latex_elements["fontpkg"] = fontpkg
 
 
 # Additional stuff for the LaTeX preamble.
-latex_elements["preamble"] = r"""
+latex_elements[
+    "preamble"
+] = r"""
    % Show Parts and Chapters in Table of Contents
    \setcounter{tocdepth}{0}
    % One line per author on title page
