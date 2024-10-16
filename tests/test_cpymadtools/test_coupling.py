@@ -4,6 +4,7 @@ import pathlib
 import numpy as np
 import pytest
 import tfs
+
 from optics_functions.constants import F1001, F1010
 from optics_functions.coupling import split_complex_columns
 from pandas.testing import assert_frame_equal
@@ -19,7 +20,6 @@ from pyhdtoolkit.cpymadtools.matching import match_tunes_and_chromaticities
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR.parent / "inputs"
-
 
 
 @pytest.mark.parametrize("telescopic_squeeze", [False, True])

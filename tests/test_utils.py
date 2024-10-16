@@ -11,6 +11,7 @@ import numpy as np
 import pandas as pd
 import pytest
 import tfs
+
 from loguru import logger
 from numpy.testing import assert_array_equal
 from rich.table import Table
@@ -255,13 +256,7 @@ class TestListOperations:
         assert ListOperations.group_by(array, func) == result
 
     @pytest.mark.parametrize(
-        ("array", "result"),
-        [
-            ([1, 2, 1], True),
-            (list(range(10)), False),
-            ([], False),
-            ([True, True], True)
-        ]
+        ("array", "result"), [([1, 2, 1], True), (list(range(10)), False), ([], False), ([True, True], True)]
     )
     def test_has_duplicates(self, array, result):
         assert ListOperations.has_duplicates(array) is result
@@ -602,7 +597,9 @@ class TestStringOperations:
     def test_is_anagram(self, string1, string2, result):
         assert StringOperations.is_anagram(string1, string2) is result
 
-    @pytest.mark.parametrize(("string1", "string2", "error"), [(1, "", AttributeError), ("string", False, AttributeError)])
+    @pytest.mark.parametrize(
+        ("string1", "string2", "error"), [(1, "", AttributeError), ("string", False, AttributeError)]
+    )
     def test_is_anagram_fails(self, string1, string2, error):
         with pytest.raises(error):
             StringOperations.is_anagram(string1, string2)

@@ -6,9 +6,11 @@ import random
 import numpy as np
 import pytest
 import tfs
+
 from cpymad.madx import Madx
 from pandas.testing import assert_frame_equal
 
+from pyhdtoolkit.cpymadtools.constants import LHC_TRIPLETS_REGEX  # noqa: F401  |  for coverage
 from pyhdtoolkit.cpymadtools.constants import (
     DEFAULT_TWISS_COLUMNS,
     LHC_ANGLE_FLAGS,
@@ -32,7 +34,6 @@ from pyhdtoolkit.cpymadtools.constants import (
     LHC_KSF_KNOBS,
     LHC_KSS_KNOBS,
     LHC_PARALLEL_SEPARATION_FLAGS,
-    LHC_TRIPLETS_REGEX,  # noqa: F401  |  for coverage
 )
 from pyhdtoolkit.cpymadtools.lhc import (
     LHCSetup,
@@ -185,9 +186,7 @@ def test_misalign_lhc_ir_quadrupoles(_non_matched_lhc_madx, ips, sides, quadrupo
 
 def test_misalign_lhc_ir_quadrupoles_specific_value(_non_matched_lhc_madx):
     madx = _non_matched_lhc_madx
-    misalign_lhc_ir_quadrupoles(
-        madx, ips=[1, 5], quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001"
-    )
+    misalign_lhc_ir_quadrupoles(madx, ips=[1, 5], quadrupoles=list(range(1, 11)), beam=1, sides="RL", dy="0.001")
     error_table = madx.table["ir_quads_errors"].dframe()
     assert all(error_table["dy"] == 0.001)
 
@@ -527,9 +526,7 @@ def test_makethin_lhc(_matched_lhc_madx):
     madx = _matched_lhc_madx
     make_lhc_thin(madx, sequence="lhcb1", slicefactor=4)
 
-    tracks_dict = track_single_particle(
-        madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10, sequence="lhcb1"
-    )
+    tracks_dict = track_single_particle(madx, initial_coordinates=(1e-4, 0, 1e-4, 0, 0, 0), nturns=10, sequence="lhcb1")
     assert isinstance(tracks_dict, dict)
     tracks = tracks_dict["observation_point_1"]
     assert len(tracks) == 11  # nturns + 1 because $start coordinates also given by MAD-X
@@ -587,9 +584,7 @@ def test_resetting_lhc_bump_flags(_bare_lhc_madx):
 def test_vary_independent_ir_quads(_non_matched_lhc_madx):
     # still need to find how to test MAD-X has done this, but don't think we can test just a VARY
     madx = _non_matched_lhc_madx
-    vary_independent_ir_quadrupoles(
-        madx, quad_numbers=[4, 5, 6, 7, 8, 9, 10, 11, 12, 13], ip=1, sides=("r", "l")
-    )
+    vary_independent_ir_quadrupoles(madx, quad_numbers=[4, 5, 6, 7, 8, 9, 10, 11, 12, 13], ip=1, sides=("r", "l"))
 
 
 def test_vary_independent_ir_quads_raises_on_wrong_side(_non_matched_lhc_madx, caplog):
@@ -699,9 +694,7 @@ def test_k_modulation(_non_matched_lhc_madx, _reference_kmodulation):
     assert all(var == 0 for var in results.ERRTUNEY)
 
     reference = tfs.read(_reference_kmodulation)
-    assert_frame_equal(
-        results.convert_dtypes(), reference.convert_dtypes()
-    )  # avoid dtype comparison error on 0 cols
+    assert_frame_equal(results.convert_dtypes(), reference.convert_dtypes())  # avoid dtype comparison error on 0 cols
 
 
 @pytest.mark.parametrize("ir", [1, 2, 5, 8])
@@ -786,6 +779,7 @@ def test_get_irs_twiss(ir, _matched_lhc_madx):
 
 # ------------------- Requires acc-models-lhc ------------------- #
 
+
 # Only runs if the acc-models-lhc is accessible at root level
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 @pytest.mark.parametrize("slicefactor", [None, 4])
@@ -808,25 +802,32 @@ def test_lhc_run3_setup_context_manager_fullpath_to_opticsfile():
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_b4_conditions():
-    with pytest.raises(ValueError, match="Cannot use beam 4 sequence file for beam 1"):  # using b4 with beam1 setup crashes  # noqa: SIM117
+    with pytest.raises(
+        ValueError, match="Cannot use beam 4 sequence file for beam 1"
+    ):  # using b4 with beam1 setup crashes  # noqa: SIM117
         with LHCSetup(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True) as madx:  # noqa: F841
             pass
 
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_context_manager_raises_on_wrong_run_value():
-    with pytest.raises(NotImplementedError, match="This setup is only possible for Run 2 and Run 3 configurations."):  # using b4 with beam1 setup crashes  # noqa: SIM117
+    with pytest.raises(
+        NotImplementedError, match="This setup is only possible for Run 2 and Run 3 configurations."
+    ):  # using b4 with beam1 setup crashes  # noqa: SIM117
         with LHCSetup(run=1, opticsfile="R2022a_A30cmC30cmA10mL200cm.madx") as madx:  # noqa: F841
             pass
 
 
 @pytest.mark.skipif(not (TESTS_DIR.parent / "acc-models-lhc").is_dir(), reason="acc-models-lhc not found")
 def test_lhc_run3_setup_raises_on_wrong_b4_conditions():
-    with pytest.raises(ValueError, match="Cannot use beam 4 sequence file for beam 1"):  # using b4 with beam1 setup crashes
+    with pytest.raises(
+        ValueError, match="Cannot use beam 4 sequence file for beam 1"
+    ):  # using b4 with beam1 setup crashes
         _ = prepare_lhc_run3(opticsfile="R2022a_A30cmC30cmA10mL200cm.madx", beam=1, use_b4=True)
 
 
 # ------------------- Run2 Setup Tests ------------------- #
+
 
 @pytest.mark.parametrize("slicefactor", [None, 4])
 def test_lhc_run2_setup_context_manager(_proton_opticsfile, slicefactor):
@@ -839,12 +840,16 @@ def test_lhc_run2_setup_context_manager(_proton_opticsfile, slicefactor):
 
 
 def test_lhc_run2_setup_raises_on_wrong_b4_conditions(_proton_opticsfile):
-    with pytest.raises(ValueError, match="Cannot use beam 4 sequence file for beam 1"):  # using b4 with beam1 setup crashes
+    with pytest.raises(
+        ValueError, match="Cannot use beam 4 sequence file for beam 1"
+    ):  # using b4 with beam1 setup crashes
         _ = prepare_lhc_run2(opticsfile=_proton_opticsfile, beam=1, use_b4=True)
 
 
 def test_lhc_run2_setup_raises_on_absent_sequence_file():
-    with pytest.raises(ValueError, match="No sequence file found at"):  # will not find the sequence file from this opticsfile value
+    with pytest.raises(
+        ValueError, match="No sequence file found at"
+    ):  # will not find the sequence file from this opticsfile value
         _ = prepare_lhc_run2(opticsfile="some/place/here.madx")
 
 

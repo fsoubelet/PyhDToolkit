@@ -1,7 +1,9 @@
 import math
+
 from sys import platform
 
 import pytest
+
 from cpymad.madx import Madx
 
 from pyhdtoolkit.cpymadtools._generators import LatticeGenerator

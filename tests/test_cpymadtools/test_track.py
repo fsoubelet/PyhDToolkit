@@ -1,4 +1,5 @@
 import pytest
+
 from pandas import DataFrame
 
 from pyhdtoolkit.cpymadtools.track import track_single_particle

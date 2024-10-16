@@ -1,6 +1,7 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import pytest
+
 from matplotlib.text import Text
 
 from pyhdtoolkit.plotting.tune import plot_tune_diagram

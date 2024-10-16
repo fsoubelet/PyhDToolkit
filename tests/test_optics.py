@@ -163,7 +163,7 @@ def test_rdt_order_and_type():
     assert rdt_to_order_and_type(1020) == "normal_sextupole"
     assert rdt_to_order_and_type(2002) == "normal_octupole"
     assert rdt_to_order_and_type(1003) == "skew_octupole"
-    assert rdt_to_order_and_type(1004) ==  "normal_decapole"
+    assert rdt_to_order_and_type(1004) == "normal_decapole"
     assert rdt_to_order_and_type(3003) == "skew_dodecapole"
     assert rdt_to_order_and_type(4004) == "normal_hexadecapole"
 
@@ -181,7 +181,6 @@ def test_rdt_spectrum_line():
 
     with pytest.raises(KeyError):
         determine_rdt_line("0220", "Z")
-
 
 
 # ----- Fixtures ----- #
