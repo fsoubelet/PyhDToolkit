@@ -14,23 +14,21 @@ P = \033[95m  # pink
 R = \033[31m  # red
 Y = \033[33m  # yellow
 
-.PHONY : help build clean docker docs format install lines lint typing alltests quicktests slowtests
+.PHONY : help build clean docker docs format install lines lint typing tests
 
 all: install
 
 help:
 	@echo "Please use 'make $(R)<target>$(E)' where $(R)<target>$(E) is one of:"
-	@echo "  $(R) build $(E)      to build wheel and source distribution with $(P)uv$(E)."
-	@echo "  $(R) clean $(E)      to recursively remove build, run and bitecode files/dirs."
-	@echo "  $(R) docker $(E)     to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
-	@echo "  $(R) docs $(E)       to build the documentation for the package with $(P)Sphinx$(E)."
-	@echo "  $(R) format $(E)     to recursively apply PEP8 formatting through the $(P)Black$(E) and $(P)isort$(E) cli tools."
-	@echo "  $(R) install $(E)    to install this package into the current environment (editable install)."
-	@echo "  $(R) lines $(E)      to count lines of code with the $(P)tokei$(E) tool."
-	@echo "  $(R) lint $(E)       to lint the code though $(P)Ruff$(E)."
-	@echo "  $(R) alltests $(E)   to run the full test suite with $(P)pytest$(E)."
-	@echo "  $(R) quicktests $(E) to run tests $(B)not$(E) involving $(D)pyhdtoolkit.cpymadtools$(E) with $(P)Pytest$(E)."
-	@echo "  $(R) slowtests $(E)  to run tests involving $(D)pyhdtoolkit.cpymadtools$(E) with $(P)Pytest$(E)."
+	@echo "  $(R) build $(E)   to build wheel and source distribution with $(P)uv$(E)."
+	@echo "  $(R) clean $(E)   to recursively remove build, run and bitecode files/dirs."
+	@echo "  $(R) docker $(E)  to build a $(P)Docker$(E) container image replicating said environment (and other goodies)."
+	@echo "  $(R) docs $(E)    to build the documentation for the package with $(P)Sphinx$(E)."
+	@echo "  $(R) format $(E)  to recursively apply PEP8 formatting through the $(P)Black$(E) and $(P)isort$(E) cli tools."
+	@echo "  $(R) install $(E) to install this package into the current environment (editable install)."
+	@echo "  $(R) lines $(E)   to count lines of code with the $(P)tokei$(E) tool."
+	@echo "  $(R) lint $(E)    to lint the code though $(P)Ruff$(E)."
+	@echo "  $(R) tests $(E)   to run the test suite with $(P)pytest$(E) (parallelized)."
 
 
 # ----- Dev Targets ----- #
