@@ -17,9 +17,3 @@ Utils
 
 .. .. automodule:: pyhdtoolkit.utils._misc
 ..    :members:
-
-.. automodule:: pyhdtoolkit.utils.operations
-   :members:
-
-.. automodule:: pyhdtoolkit.utils.printutil
-   :members:
