@@ -5,9 +5,9 @@ import warnings
 
 from collections.abc import Callable
 
-from . import cmdline, contexts, executors, htc_monitor, logging, operations, printutil  # noqa: TID252
+from . import cmdline, contexts, htc_monitor, logging, operations, printutil  # noqa: TID252
 
-__all__ = ["cmdline", "contexts", "executors", "htc_monitor", "logging", "operations", "printutil"]
+__all__ = ["cmdline", "contexts", "htc_monitor", "logging", "operations", "printutil"]
 
 # ----- Utility deprecation decorator ----- #
 
