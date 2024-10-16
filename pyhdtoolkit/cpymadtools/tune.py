@@ -10,12 +10,14 @@ a `~cpymad.madx.Madx` object.
 
 import math
 import sys
+
 from pathlib import Path
 
 import matplotlib.collections
 import matplotlib.patches
 import numpy as np
 import tfs
+
 from cpymad.madx import Madx
 from loguru import logger
 

@@ -9,6 +9,7 @@ The functions below are settings query utilities for the ``LHC``.
 from collections.abc import Sequence
 
 import tfs
+
 from cpymad.madx import Madx
 from loguru import logger
 

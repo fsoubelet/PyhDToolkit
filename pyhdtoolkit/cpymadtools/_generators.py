@@ -9,7 +9,6 @@ These lattices are quite simple and are meant to be used in the package's docume
 :ref:`example gallery <gallery>`.
 """
 
-
 # ----- Utlites ----- #
 
 

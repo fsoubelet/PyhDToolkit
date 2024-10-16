@@ -8,6 +8,7 @@ Module with functions to create phase space plots through a `~cpymad.madx.Madx` 
 """
 
 import numpy as np
+
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors

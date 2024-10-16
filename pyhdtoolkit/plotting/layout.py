@@ -10,6 +10,7 @@ object, mostly used in different `~pyhdtoolkit.plotting` modules.
 
 import numpy as np
 import pandas as pd
+
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import patches

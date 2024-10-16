@@ -11,6 +11,7 @@ from pathlib import Path
 
 import pandas as pd
 import tfs
+
 from cpymad.madx import Madx
 from loguru import logger
 

@@ -11,6 +11,7 @@ Module with functions to manipulate ``MAD-X`` ``TRACK`` functionality through a
 from collections.abc import Sequence
 
 import pandas as pd
+
 from cpymad.madx import Madx
 from loguru import logger
 

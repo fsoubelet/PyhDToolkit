@@ -12,6 +12,7 @@ Private module that provides miscellaneous personnal utility functions.
 """
 
 import shlex
+
 from collections.abc import Sequence
 from multiprocessing import cpu_count
 from pathlib import Path
@@ -19,6 +20,7 @@ from pathlib import Path
 import cpymad
 import numpy as np
 import pandas as pd
+
 from cpymad.madx import Madx
 from loguru import logger
 

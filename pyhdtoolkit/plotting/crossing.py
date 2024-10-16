@@ -10,6 +10,7 @@ Module with functions to plot LHC crossing schemes through a `~cpymad.madx.Madx`
 import matplotlib.pyplot as plt
 import pandas as pd
 import tfs
+
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib.axes import Axes

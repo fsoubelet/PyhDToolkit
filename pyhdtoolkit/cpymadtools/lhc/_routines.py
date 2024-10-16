@@ -8,6 +8,7 @@ The functions below are routines mimicking manipulations that would be done in t
 
 import numpy as np
 import tfs
+
 from cpymad.madx import Madx
 from loguru import logger
 

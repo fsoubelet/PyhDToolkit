@@ -11,6 +11,7 @@ These provide functionality to draw Farey sequences up to a desired order.
 from functools import partial
 
 import numpy as np
+
 from loguru import logger
 from matplotlib.axes import Axes
 

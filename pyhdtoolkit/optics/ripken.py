@@ -9,6 +9,7 @@ Module implementing various calculations based on the :cite:t:`Ripken:optics:198
 
 import numpy as np
 import tfs
+
 from loguru import logger
 
 # ----- Setup Utilites ----- #

@@ -8,6 +8,7 @@ Module implementing various functionality for simple beam parameter calculations
 """
 
 import numpy as np
+
 from scipy import constants
 
 from pyhdtoolkit.models.beam import BeamParameters

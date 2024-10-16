@@ -16,6 +16,7 @@ import itertools
 import math
 import random
 import re
+
 from collections.abc import Callable, Sequence
 from functools import reduce
 

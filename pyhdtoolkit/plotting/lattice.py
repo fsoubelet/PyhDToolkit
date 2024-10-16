@@ -8,6 +8,7 @@ Module with functions to create lattice plots through a `~cpymad.madx.Madx` obje
 """
 
 import matplotlib.pyplot as plt
+
 from cpymad.madx import Madx
 from loguru import logger
 from matplotlib.axes import Axes

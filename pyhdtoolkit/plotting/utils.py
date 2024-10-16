@@ -14,12 +14,14 @@ from typing import TYPE_CHECKING
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
+
 from loguru import logger
 from matplotlib import transforms
 from matplotlib.patches import Ellipse
 
 if TYPE_CHECKING:
     import pandas as pd
+
     from cpymad.madx import Madx
     from matplotlib.text import Annotation
     from numpy.typing import ArrayLike

@@ -11,6 +11,7 @@ Module with functions to manipulate ``MAD-X`` ``TWISS`` functionality through a
 from collections.abc import Sequence
 
 import tfs
+
 from cpymad.madx import Madx
 from loguru import logger
 

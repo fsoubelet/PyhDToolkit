@@ -9,6 +9,7 @@ Module with utility functions used throughout the `~.maths.nonconvex_phase_sync`
 
 import numpy as np
 import pandas as pd
+
 from loguru import logger
 
 # ----- Miscellaneous Utilites ----- #
