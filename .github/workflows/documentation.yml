@@ -49,8 +49,7 @@ jobs:
 
       - name: Build documentation
         continue-on-error: true
-        run: python -m sphinx -v -b html docs doc_build -d doc_build
-        # run: make docs
+        run: make docs
 
       # Upload artifacts if in PR so reviewers can have a quick look without building documentation from the branch locally
       - name: Upload build artifacts

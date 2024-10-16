@@ -19,8 +19,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install hatch
-        run: pipx install hatch
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          enable-cache: true
+          cache-dependency-glob: pyproject.toml
+
+      - name: Set up Python ${{ env.python-version }}
+        run: uv python install ${{ env.python-version }}
 
       - name: Build wheels and sdist
         run: make build

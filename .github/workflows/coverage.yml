@@ -36,8 +36,7 @@ jobs:
         run: git clone -b 2022 https://gitlab.cern.ch/acc-models/acc-models-lhc.git --depth 1
 
       - name: Run all tests
-        run: uv run pytest -n auto -v
-        # run: make alltests
+        run: make alltests
 
       - name: Upload Coverage to Codecov
         uses: codecov/codecov-action@v4
