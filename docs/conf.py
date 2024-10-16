@@ -515,7 +515,7 @@ intersphinx_mapping = {
     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
     "matplotlib": ("https://matplotlib.org/stable/", None),
     "scipy": ("https://docs.scipy.org/doc/scipy/", None),
-    "tfs-pandas": ("https://pylhc.github.io/tfs/", None),
+    # "tfs-pandas": ("https://pylhc.github.io/tfs/", None),
     "tfs": ("https://pylhc.github.io/tfs/", None),
     "cpymad": ("https://hibtc.github.io/cpymad/", None),
     "optics_functions": ("https://pylhc.github.io/optics_functions/", None),
