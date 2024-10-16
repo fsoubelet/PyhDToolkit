@@ -15,8 +15,8 @@ Utils
 .. automodule:: pyhdtoolkit.utils.logging
    :members:
 
-.. automodule:: pyhdtoolkit.utils._misc
-   :members:
+.. .. automodule:: pyhdtoolkit.utils._misc
+..    :members:
 
 .. automodule:: pyhdtoolkit.utils.operations
    :members:
