@@ -9,9 +9,6 @@ Utils
 .. automodule:: pyhdtoolkit.utils.contexts
    :members:
 
-.. automodule:: pyhdtoolkit.utils.executors
-   :members:
-
 .. automodule:: pyhdtoolkit.utils.htc_monitor
    :members:
 
