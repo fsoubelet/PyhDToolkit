@@ -20,14 +20,14 @@
     <img alt="Github Actions" src="https://github.com/fsoubelet/PyhDToolkit/workflows/Tests/badge.svg">
   </a>
 
-  <!-- Code Coverage -->
-  <a href="https://codecov.io/gh/fsoubelet/PyhDToolkit">
-    <img src="https://codecov.io/gh/fsoubelet/PyhDToolkit/branch/master/graph/badge.svg?token=6SO90F2MJI"/>
-  </a>
-
   <!-- Docker Image -->
   <a href="https://hub.docker.com/r/fsoubelet/simenv">
     <img alt="Docker Image" src="https://img.shields.io/docker/image-size/fsoubelet/simenv?label=Docker&sort=date">
+  </a>
+
+  <!-- Code Coverage -->
+  <a href="https://codecov.io/gh/fsoubelet/PyhDToolkit">
+    <img src="https://codecov.io/gh/fsoubelet/PyhDToolkit/branch/master/graph/badge.svg?token=6SO90F2MJI"/>
   </a>
 
   <br/>
