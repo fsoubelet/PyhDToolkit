@@ -8,6 +8,7 @@ The functions below are setup utilities for the ``LHC``, to easily get simulatio
 
 from __future__ import annotations
 
+from operator import ne
 from pathlib import Path
 
 from cpymad.madx import Madx
@@ -88,19 +89,19 @@ def prepare_lhc_run2(
     madx.option(echo=echo, warn=warn)
     logger.debug("Calling sequence")
     madx.call(_fullpath(_run2_sequence_from_opticsfile(Path(opticsfile))))
-    make_lhc_beams(madx, energy=energy, b4=use_b4)
+    make_lhc_beams(madx, energy=energy, b4=use_b4, nemitt_x=3.75e-6, nemitt_y=3.75e-6)
 
     if slicefactor:
         logger.debug("A slicefactor was provided, slicing the sequence")
         make_lhc_thin(madx, sequence=f"lhcb{beam:d}", slicefactor=slicefactor)
-        make_lhc_beams(madx, energy=energy, b4=use_b4)
+        make_lhc_beams(madx, energy=energy, b4=use_b4, nemitt_x=3.75e-6, nemitt_y=3.75e-6)
 
     re_cycle_sequence(madx, sequence=f"lhcb{beam:d}", start=f"MSIA.EXIT.B{beam:d}")
 
     logger.debug("Calling optics file from the 'operation/optics' folder")
     madx.call(opticsfile)
 
-    make_lhc_beams(madx, energy=energy, b4=use_b4)
+    make_lhc_beams(madx, energy=energy, b4=use_b4, nemitt_x=3.75e-6, nemitt_y=3.75e-6)
     madx.command.use(sequence=f"lhcb{beam:d}")
     return madx
 
@@ -285,8 +286,8 @@ def make_lhc_beams(
     madx: Madx,
     /,
     energy: float = 7000,
-    nemitt_x: float = 3.75e-6,
-    nemitt_y: float = 3.75e-6,
+    nemitt_x: float = 2.5e-6,
+    nemitt_y: float = 2.5e-6,
     b4: bool = False,
     **kwargs,
 ) -> None:
@@ -301,10 +302,10 @@ def make_lhc_beams(
         energy (float): beam energy, in [GeV]. Defaults to 6500.
         nemitt_x (float): normalized horizontal emittance in [m]. Will
             be used to calculate geometric emittance which is then fed to
-            the ``BEAM`` command.
+            the ``BEAM`` command. Defaults to the Run 3 value of 2.5e-6m.
         nemitt_y (float): normalized vertical emittance in [m]. Will be
             used to calculate geometric emittance which is then fed to
-            the ``BEAM`` command.
+            the ``BEAM`` command. Defaults to the Run 3 value of 2.5e-6m.
         b4 (bool): if `True`, will consider one is using ``lhb4`` to do tracking on beam 2,
             and will properly set the ``bv`` flag to 1. Defaults to `False`.
         **kwargs: Old accepted `emittance_x` and `emittance_y` are looked for and used
@@ -314,14 +315,14 @@ def make_lhc_beams(
 
         .. code-block:: python
 
-            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6)
+            make_lhc_beams(madx, energy=6800, nemitt_x=2.75e-6, nemitt_y=3e-6)
 
         Setting up in a way compatible for tracking of beam 2 (needs to call ``lhcb4`` and set
         ``bv`` to 1):
 
         .. code-block:: python
 
-            make_lhc_beams(madx, energy=6800, nemitt_x=2.5e-6, nemitt_y=3e-6, b4=True)
+            make_lhc_beams(madx, energy=6800, nemitt_x=3e-6, nemitt_y=3e-6, b4=True)
     """
     logger.debug("Making default beams for 'lhcb1' and 'lhbc2' sequences")
     madx.globals["NRJ"] = energy
