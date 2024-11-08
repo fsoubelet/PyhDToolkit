@@ -163,7 +163,7 @@ def make_pdf(distribution: st.rv_continuous, params: tuple[float, ...], size: in
     if args:
         start = distribution.ppf(0.01, *args, loc=loc, scale=scale)
         end = distribution.ppf(0.99, *args, loc=loc, scale=scale)
-    else:
+    else:  # pragma: no cover
         start = distribution.ppf(0.01, loc=loc, scale=scale)
         end = distribution.ppf(0.99, loc=loc, scale=scale)
 
