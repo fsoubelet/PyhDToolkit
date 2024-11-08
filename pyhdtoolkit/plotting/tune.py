@@ -18,6 +18,7 @@ import numpy as np
 from loguru import logger
 
 from pyhdtoolkit.plotting.utils import maybe_get_ax
+from pyhdtoolkit.utils.jit import maybe_jit
 
 if TYPE_CHECKING:
     from matplotlib.axes import Axes
@@ -51,6 +52,7 @@ ORDER_TO_LABEL: dict[int, str] = {
 }
 
 
+@maybe_jit
 def farey_sequence(order: int) -> list[tuple[int, int]]:
     """
     .. versionadded:: 1.0.0
@@ -65,7 +67,6 @@ def farey_sequence(order: int) -> list[tuple[int, int]]:
     Returns:
         The sequence as a `list` of plottable 2D points.
     """
-    logger.trace(f"Computing Farey sequence for order {order}")
     seq = [(0, 1)]
     a, b, c, d = 0, 1, 1, order
     while c <= order:
