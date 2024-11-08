@@ -265,7 +265,7 @@ def plot_physical_apertures(
     logger.debug("Plotting real element apertures")
     axis, kwargs = maybe_get_ax(**kwargs)
 
-    positions, apertures = _get_positions_and_real_apertures(madx, plane, **kwargs)
+    positions, apertures = _get_positions_and_real_apertures(madx, plane, xlimits=xlimits, **kwargs)
     logger.trace(f"Applying scale ({scale}) and offset ({xoffset})")
     positions = positions - xoffset
     apertures = apertures * scale
