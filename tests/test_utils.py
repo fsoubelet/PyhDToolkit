@@ -170,33 +170,36 @@ class TestMisc:
 class TestJIT:
     def test_jit_works(self):
         # I use here the first example from the
-        # numba jit documentation
+        # numba jit documentation with larger array
         x = np.arange(10000).reshape(100, 100)
 
+        # This is the function from the docs
         def go_fast(a: np.ndarray) -> np.ndarray:
             trace = 0.0
             for i in range(a.shape[0]):  # Numba likes loops
                 trace += np.tanh(a[i, i])  # Numba likes NumPy functions
             return a + trace  # Numba likes NumPy broadcasting
 
-        go_fast_numba = maybe_jit(go_fast)
-        go_fast_numba(x)  # first call to compile
+        go_fast_jitted = maybe_jit(go_fast)
+        go_fast_jitted(x)  # first call to compile
 
-        # Do a few times because execution is fast
+        # Determine time for initial function
         start1 = time.time()
-        for _ in range(25):
+        for _ in range(25_000):
             res1 = go_fast(x)
         end1 = time.time()
+        time1 = end1 - start1
 
-        # Do a few times because execution is fast
+        # Determine time for jitted function
         start2 = time.time()
-        for _ in range(25):
-            res2 = go_fast_numba(x)
+        for _ in range(25_000):
+            res2 = go_fast_jitted(x)
         end2 = time.time()
+        time2 = end2 - start2
 
         # Compare results validity and execution time
         assert np.allclose(res1, res2)
-        assert end2 - start2 < end1 - start1
+        assert time2 < time1
 
 
 # ----- Fixtures ----- #
