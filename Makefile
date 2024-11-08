@@ -46,7 +46,7 @@ clean:
 	@echo "Cleaning up sphinx-gallery build artifacts."
 	@rm -rf docs/gallery
 	@rm -rf docs/gen_modules
-	@echo "Cleaning up distutils remains."
+	@echo "Cleaning up package build remains."
 	@rm -rf build
 	@rm -rf dist
 	@rm -rf pyhdtoolkit.egg-info
@@ -58,6 +58,7 @@ clean:
 	@echo "Cleaning up pytest cache & test artifacts."
 	@find . -type d -name '*.pytest_cache' -exec rm -rf {} + -o -type f -name '*.pytest_cache' -exec rm -rf {} +
 	@find . -type f -name 'fc.*' -delete -o -type f -name 'fort.*' -delete
+	@find . -type f -name 'checkpoint_restart.*' -delete -o -type f -name 'internal_mag_pot.*' -delete
 	@echo "Cleaning up mypy cache."
 	@find . -type d -name "*.mypy_cache" -exec rm -rf {} +
 	@echo "Cleaning up coverage reports."
