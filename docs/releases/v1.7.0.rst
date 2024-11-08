@@ -12,22 +12,13 @@ Removals
 * The `pyhdtoolkit.utils.operations` module has been removed, since it was not in used anymore.
 * The `pyhdtoolkit.utils.printutil` module has been removed, since it was not in used anymore.
 
-Enhancements
-~~~~~~~~~~~~
-
-* The.
-
-Changes
-~~~~~~~
-
-* The.
-
 Maintenance
 ~~~~~~~~~~~
 
-* Updated Continuous Integration workflows to switch to `uv`.
+* Updated Continuous Integration workflows to switch to `uv`, speeding up CI runs.
 * Updated the project's support files to switch to `uv`.
 * Updated some configuration parameters to comply with newest versions of documentation build tools.
+* Gated many imports into `TYPE_CHECKING` blocks, which should speedup the import time of the package or its sub-packages.
 * Updated the documentation gallery.
 
 See `v1.7.0 release notes on GitHub <https://github.com/fsoubelet/PyhDToolkit/releases/tag/1.7.0>`_ and the `full changes since v1.6.0 <https://github.com/fsoubelet/PyhDToolkit/compare/1.6.0...1.7.0>`_.
