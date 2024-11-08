@@ -37,11 +37,12 @@ madx.call("lhc/opticsfile.22")  # collisions optics
 ###############################################################################
 # Let's explicitely re-cycle both sequences to avoid having IR1 split at beginning
 # and end of lattice. Note that it is important to re-cycle both sequences from
-# the same points for the plots later on.
+# the same points for the plots later on. Created beams use a normalized emittance
+# of 3.75E-6 m rad as corresponds to the Run 2 config of this opticsfile.
 
 lhc.re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
 lhc.re_cycle_sequence(madx, sequence="lhcb2", start="IP3")
-lhc.make_lhc_beams(madx, energy=6800)  # necessary after re-cycling sequences
+lhc.make_lhc_beams(madx, nemitt_x=3.75e-6, nemitt_y=3.75e-6, energy=6800)  # necessary after re-cycling
 madx.command.use(sequence="lhcb1")
 
 ###############################################################################

@@ -309,6 +309,7 @@ def test_orbit_correction(_bare_lhc_madx):
     madx = _bare_lhc_madx
     re_cycle_sequence(madx, sequence="lhcb1", start="IP3")
     _ = setup_lhc_orbit(madx, scheme="flat")
+    # make_lhc_beams(madx, nemitt_x=3.75e-6, nemitt_y=3.75e-6)  # run 2 values
     make_lhc_beams(madx)
     madx.use(sequence="lhcb1")
     match_tunes_and_chromaticities(madx, "lhc", "lhcb1", 62.31, 60.32, 2.0, 2.0)
