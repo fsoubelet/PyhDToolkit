@@ -317,8 +317,8 @@ def plot_machine_layout(
                 bpm_legend_loc = 8  # all corners are taken, we go bottom center
             elif k2l_lim is not None:
                 bpm_legend_loc = 4  # sextupoles are here but not octupoles, we go bottom left
-            elif k3l_lim is not None:
-                bpm_legend_loc = 3  # octuoles are here but not sextupoles, we go bottom right
+            elif k3l_lim is not None:  # pragma: no cover
+                bpm_legend_loc = 3  # octupoles are here but not sextupoles, we go bottom right
             else:
                 bpm_legend_loc = "best"  # can't easily determine the best position, go automatic and leave to the user
             if plotted_elements > 0:  # If we plotted at least one BPM, we need to plot the legend
