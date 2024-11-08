@@ -116,10 +116,10 @@ def best_fit_distribution(
                 sse = np.sum(np.power(y - pdf, 2.0))
 
                 try:
-                    if ax:
+                    if ax:  # pragma: no cover
                         logger.debug(f"Plotting fitted PDF for distribution '{distname}'")
                         pd.Series(pdf, x).plot(ax=ax, label=f"{distname} fit", alpha=1)
-                except Exception:  # noqa: BLE001
+                except Exception:  # pragma: no cover  # noqa: BLE001
                     logger.exception(f"Plotting distribution '{distname}' failed")
 
                 logger.debug(f"Identifying if distribution '{distname}' is a better fit than previous tries")
@@ -127,7 +127,7 @@ def best_fit_distribution(
                     best_distribution = distribution
                     best_params = params
                     best_sse = sse
-        except Exception:  # noqa: BLE001
+        except Exception:  # noqa: BLE001  # pragma: no cover
             logger.exception(f"Trying to fit distribution '{distname}' failed and aborted")
 
     logger.info(f"Found a best fit: '{DISTRIBUTIONS[best_distribution]}' distribution")
