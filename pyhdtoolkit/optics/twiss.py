@@ -10,7 +10,6 @@ Module implementing various calculations based on the ``TWISS`` optics parameter
 import numpy as np
 
 
-
 def courant_snyder_transform(u_vector: np.ndarray, alpha: float, beta: float) -> np.ndarray:
     r"""
     .. versionadded:: 0.5.0
