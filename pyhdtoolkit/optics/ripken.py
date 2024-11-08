@@ -13,7 +13,7 @@ from typing import TYPE_CHECKING
 
 import numpy as np
 
-from loguru import logger
+from pyhdtoolkit.utils.jit import maybe_jit
 
 if TYPE_CHECKING:
     from tfs import TfsDataFrame
@@ -22,6 +22,7 @@ if TYPE_CHECKING:
 # ----- Setup Utilites ----- #
 
 
+@maybe_jit
 def lebedev_beam_size(
     beta1_: float | np.ndarray, beta2_: float | np.ndarray, geom_emit_x: float, geom_emit_y: float
 ) -> float | np.ndarray:
@@ -59,7 +60,6 @@ def lebedev_beam_size(
                 twiss_tfs.beta12, twiss_tfs.beta22, geom_emit_x, geom_emit_y
             )
     """
-    logger.trace("Computing beam size according to Lebedev formula: sqrt(epsx * b1_^2 + epsy * b2_^2)")
     return np.sqrt(geom_emit_x * beta1_ + geom_emit_y * beta2_)
 
 
