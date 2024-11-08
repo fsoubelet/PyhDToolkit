@@ -12,6 +12,11 @@ Removals
 * The `pyhdtoolkit.utils.operations` module has been removed, since it was not in used anymore.
 * The `pyhdtoolkit.utils.printutil` module has been removed, since it was not in used anymore.
 
+Enhancements
+~~~~~~~~~~~~
+
+* The `pyhdtoolkit.utils` package has a new module, `jit`, with a decorator which will JIT-compile the decorated function if ``numba`` is available in the environment.
+
 Maintenance
 ~~~~~~~~~~~
 
