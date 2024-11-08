@@ -1,8 +1,13 @@
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+import numpy as np
 import pytest
 
-from pyhdtoolkit.plotting.utils import set_arrow_label
+from pyhdtoolkit.plotting.utils import (
+    _determine_default_sbs_coupling_ylabel,
+    draw_confidence_ellipse,
+    set_arrow_label,
+)
 
 # Forcing non-interactive Agg backend so rendering is done similarly across platforms during tests
 mpl.use("Agg")
@@ -24,3 +29,16 @@ def test_set_arrow_label():
         arrow_arc_rad=-0.2,
     )
     return figure
+
+
+def test_confidence_ellipse_fails_on_mismatched_dimensions():
+    x = np.array([1, 2, 3])
+    y = np.array([1, 2, 3, 4])
+
+    with pytest.raises(ValueError, match="x and y must be the same size"):
+        draw_confidence_ellipse(x, y)
+
+
+def test_default_sbs_coupling_label_raises_on_wrong_component():
+    with pytest.raises(ValueError, match="Invalid component for coupling RDT."):
+        _determine_default_sbs_coupling_ylabel(rdt="f1001", component="NONEXISTANT")

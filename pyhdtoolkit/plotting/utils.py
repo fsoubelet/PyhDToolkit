@@ -513,7 +513,7 @@ def _determine_default_sbs_phase_ylabel(plane: str) -> str:
 
 # To use SVG outputs when scraping matplotlib figures for the sphinx-gallery, see:
 # https://sphinx-gallery.github.io/stable/advanced.html#example-3-matplotlib-with-svg-format
-def _matplotlib_svg_scraper(*args, **kwargs):
+def _matplotlib_svg_scraper(*args, **kwargs):  # pragma: no cover
     from sphinx_gallery.scrapers import matplotlib_scraper
 
     kwargs.pop("format", None)
