@@ -7,15 +7,21 @@ Segment-by-Segment Coupling
 Functions to plot coupling components of Segment-by-Segment results.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import matplotlib.pyplot as plt
 import tfs
 
 from loguru import logger
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 from matplotlib.legend import _get_legend_handles_labels
 
 from pyhdtoolkit.plotting.utils import _determine_default_sbs_coupling_ylabel, find_ip_s_from_segment_start
+
+if TYPE_CHECKING:
+    from matplotlib.axes import Axes
+    from matplotlib.figure import Figure
 
 
 def plot_rdt_component(

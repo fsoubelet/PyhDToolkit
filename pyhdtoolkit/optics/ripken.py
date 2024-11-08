@@ -7,10 +7,17 @@ Ripken Parameters
 Module implementing various calculations based on the :cite:t:`Ripken:optics:1989` optics parameters.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import numpy as np
-import tfs
 
 from loguru import logger
+
+if TYPE_CHECKING:
+    from tfs import TfsDataFrame
+
 
 # ----- Setup Utilites ----- #
 
@@ -83,7 +90,7 @@ def _beam_size(coordinates_distribution: np.ndarray, method: str = "std") -> flo
     return np.sqrt(np.mean(np.square(coordinates_distribution)))  # rms
 
 
-def _add_beam_size_to_df(df: tfs.TfsDataFrame, geom_emit_x: float, geom_emit_y: float) -> tfs.TfsDataFrame:
+def _add_beam_size_to_df(df: TfsDataFrame, geom_emit_x: float, geom_emit_y: float) -> TfsDataFrame:
     """
     Adds columns with the horizontal and vertical Lebedev beam sizes to a dataframe
     that already contains Ripken Twiss parameters. Assumes that the geometrical emittance

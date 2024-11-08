@@ -1,11 +1,16 @@
+from __future__ import annotations
+
 import functools
 import inspect
 import traceback
 import warnings
 
-from collections.abc import Callable
+from typing import TYPE_CHECKING
 
 from . import cmdline, contexts, htc_monitor, logging  # noqa: TID252
+
+if TYPE_CHECKING:
+    from collections.abc import Callable
 
 __all__ = ["cmdline", "contexts", "htc_monitor", "logging"]
 

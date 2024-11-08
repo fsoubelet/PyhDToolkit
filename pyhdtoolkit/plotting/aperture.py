@@ -8,15 +8,21 @@ Module with functions to create aperture plots through a `~cpymad.madx.Madx`
 object.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.plotting.layout import plot_machine_layout
 from pyhdtoolkit.plotting.utils import maybe_get_ax
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
 
 
 def plot_aperture(

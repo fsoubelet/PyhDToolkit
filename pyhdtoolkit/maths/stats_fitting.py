@@ -7,7 +7,11 @@ Stats Fitting
 Module implementing methods to find the best fit of statistical distributions to data.
 """
 
+from __future__ import annotations
+
 import warnings
+
+from typing import TYPE_CHECKING
 
 import matplotlib.pyplot as plt  # noqa: F401 | if omitted, get AttributeError: module 'matplotlib' has no attribute 'axes'
 import numpy as np
@@ -15,7 +19,10 @@ import pandas as pd
 import scipy.stats as st
 
 from loguru import logger
-from matplotlib.axes import Axes
+
+if TYPE_CHECKING:
+    from matplotlib.axes import Axes
+
 
 # Distributions to check #
 DISTRIBUTIONS: dict[st.rv_continuous, str] = {

@@ -11,11 +11,13 @@ Private module that provides miscellaneous personnal utility functions.
     **not** work on other people's machines.
 """
 
+from __future__ import annotations
+
 import shlex
 
-from collections.abc import Sequence
 from multiprocessing import cpu_count
 from pathlib import Path
+from typing import TYPE_CHECKING
 
 import cpymad
 import numpy as np
@@ -28,10 +30,13 @@ from pyhdtoolkit import __version__
 from pyhdtoolkit.cpymadtools import lhc
 from pyhdtoolkit.cpymadtools.constants import LHC_IR_BPM_REGEX
 
+if TYPE_CHECKING:
+    from collections.abc import Callable, Sequence
+
 # ----- Constants ----- #
 
-N_CPUS = cpu_count()
-RNG = np.random.default_rng()
+N_CPUS: int = cpu_count()
+RNG: Callable = np.random.default_rng()
 
 
 def log_runtime_versions() -> None:
@@ -46,8 +51,8 @@ def log_runtime_versions() -> None:
             log_runtime_versions()
             # 2022-10-05 15:06:26 | CRITICAL | pyhdtoolkit.utils._misc:39 - Using: pyhdtoolkit 1.0.0rc0 | cpymad 1.10.0  | MAD-X 5.08.01 (2022.02.25)
     """
-    with Madx(stdout=False) as mad:
-        logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {mad.version}")
+    with Madx(stdout=False) as madx:
+        logger.critical(f"Using: pyhdtoolkit {__version__} | cpymad {cpymad.__version__}  | {madx.version}")
 
 
 # ----- DataFrames Utilities ----- #

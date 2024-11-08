@@ -7,12 +7,18 @@ Beam Enveloppe Plotters
 Module with functions to create beam enveloppe plots through a `~cpymad.madx.Madx` object.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import numpy as np
 
-from cpymad.madx import Madx
 from loguru import logger
 
 from pyhdtoolkit.plotting.utils import maybe_get_ax
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
 
 
 def plot_beam_envelope(

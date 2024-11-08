@@ -7,10 +7,16 @@ Utilities
 Module with utility functions used throughout the `~.maths.nonconvex_phase_sync` and `~.maths.stats_fitting` modules.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import numpy as np
-import pandas as pd
 
 from loguru import logger
+
+if TYPE_CHECKING:
+    import pandas as pd
 
 # ----- Miscellaneous Utilites ----- #
 

@@ -8,19 +8,25 @@ Module with functions used to represent a machine' elements in an `~matplotlib.a
 object, mostly used in different `~pyhdtoolkit.plotting` modules.
 """
 
-import numpy as np
-import pandas as pd
+from __future__ import annotations
 
-from cpymad.madx import Madx
+from typing import TYPE_CHECKING
+
+import numpy as np
+
 from loguru import logger
 from matplotlib import patches
-from matplotlib.axes import Axes
 
 from pyhdtoolkit.plotting.utils import (
     _get_twiss_table_with_offsets_and_limits,
     make_elements_groups,
     maybe_get_ax,
 )
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
+    from matplotlib.axes import Axes
+    from pandas import DataFrame
 
 
 def plot_machine_layout(
@@ -354,7 +360,7 @@ def scale_patches(scale: float, ylabel: str, **kwargs) -> None:
 
 def _plot_lattice_series(
     ax: Axes,
-    series: pd.DataFrame,
+    series: DataFrame,
     height: float = 1.0,
     v_offset: float = 0.0,
     color: str = "r",
@@ -425,7 +431,7 @@ def _ylim_from_input(ylim: tuple[float, float] | float, name_for_error: str = "k
     return (ylim, -ylim)
 
 
-def _determine_default_knl_lim(df: pd.DataFrame, col: str, coeff: float) -> tuple[float, float]:
+def _determine_default_knl_lim(df: DataFrame, col: str, coeff: float) -> tuple[float, float]:
     """
     .. versionadded:: 1.0.0
 

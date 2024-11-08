@@ -7,16 +7,21 @@ Command Line Utilities
 Utility class and functions to help run commands and access the command line.
 """
 
+from __future__ import annotations
+
 import errno
 import os
 import signal
 import subprocess
 
-from collections.abc import Mapping
+from typing import TYPE_CHECKING
 
 from loguru import logger
 
 from pyhdtoolkit.utils.contexts import timeit
+
+if TYPE_CHECKING:
+    from collections.abc import Mapping
 
 
 class CommandLine:

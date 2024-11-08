@@ -8,14 +8,20 @@ Module with functions to create tune diagram plots.
 These provide functionality to draw Farey sequences up to a desired order.
 """
 
+from __future__ import annotations
+
 from functools import partial
+from typing import TYPE_CHECKING
 
 import numpy as np
 
 from loguru import logger
-from matplotlib.axes import Axes
 
 from pyhdtoolkit.plotting.utils import maybe_get_ax
+
+if TYPE_CHECKING:
+    from matplotlib.axes import Axes
+
 
 ORDER_TO_ALPHA: dict[int, float] = {1: 1, 2: 0.75, 3: 0.65, 4: 0.55, 5: 0.45, 6: 0.35}
 ORDER_TO_RGB: dict[int, np.ndarray] = {

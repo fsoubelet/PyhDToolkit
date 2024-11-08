@@ -20,11 +20,10 @@ from matplotlib import transforms
 from matplotlib.patches import Ellipse
 
 if TYPE_CHECKING:
-    import pandas as pd
-
     from cpymad.madx import Madx
     from matplotlib.text import Annotation
     from numpy.typing import ArrayLike
+    from pandas import DataFrame
     from tfs import TfsDataFrame
 
 # ------ General Utilities ----- #
@@ -106,7 +105,7 @@ def find_ip_s_from_segment_start(segment_df: TfsDataFrame, model_df: TfsDataFram
     return distance
 
 
-def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
+def get_lhc_ips_positions(dataframe: DataFrame) -> dict[str, float]:
     """
     .. versionadded:: 1.0.0
 
@@ -145,7 +144,7 @@ def get_lhc_ips_positions(dataframe: pd.DataFrame) -> dict[str, float]:
 
 def make_elements_groups(
     madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None
-) -> dict[str, pd.DataFrame]:
+) -> dict[str, DataFrame]:
     """
     .. versionadded:: 1.0.0
 
@@ -184,7 +183,7 @@ def make_elements_groups(
     }
 
 
-def make_survey_groups(madx: Madx, /) -> dict[str, pd.DataFrame]:
+def make_survey_groups(madx: Madx, /) -> dict[str, DataFrame]:
     """
     .. versionadded:: 1.0.0
 
@@ -416,7 +415,7 @@ def draw_confidence_ellipse(x: ArrayLike, y: ArrayLike, n_std: float = 3.0, face
 
 def _get_twiss_table_with_offsets_and_limits(
     madx: Madx, /, xoffset: float = 0, xlimits: tuple[float, float] | None = None, **kwargs
-) -> pd.DataFrame:
+) -> DataFrame:
     """
     .. versionadded:: 1.0.0
 

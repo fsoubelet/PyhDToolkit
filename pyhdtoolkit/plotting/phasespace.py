@@ -7,16 +7,22 @@ Phase Space Plotters
 Module with functions to create phase space plots through a `~cpymad.madx.Madx` object.
 """
 
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
 import numpy as np
 
-from cpymad.madx import Madx
 from loguru import logger
 from matplotlib import colors as mcolors
-from matplotlib.axes import Axes
-from matplotlib.figure import Figure
 
 from pyhdtoolkit.optics.twiss import courant_snyder_transform
 from pyhdtoolkit.plotting.utils import maybe_get_ax
+
+if TYPE_CHECKING:
+    from cpymad.madx import Madx
+    from matplotlib.axes import Axes
+    from matplotlib.figure import Figure
 
 COLORS_DICT = dict(mcolors.BASE_COLORS, **mcolors.CSS4_COLORS)
 BY_HSV = sorted((tuple(mcolors.rgb_to_hsv(mcolors.to_rgba(color)[:3])), name) for name, color in COLORS_DICT.items())

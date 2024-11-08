@@ -7,10 +7,15 @@ Context Utilities
 Provides useful contexts to use functions in.
 """
 
+from __future__ import annotations
+
 import time
 
-from collections.abc import Callable, Iterator
 from contextlib import contextmanager
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from collections.abc import Callable, Iterator
 
 
 @contextmanager
