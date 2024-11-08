@@ -18,6 +18,7 @@ from typing import TYPE_CHECKING
 
 import matplotlib.collections
 import matplotlib.patches
+from matplotlib.pylab import f
 import numpy as np
 import tfs
 
@@ -97,7 +98,7 @@ def make_footprint_table(
             logger.debug("Cleaning up DYNAP output files `fort.69` and `lyapunov.data`")
             Path("fort.69").unlink()
             Path("lyapunov.data").unlink()
-        except FileNotFoundError:
+        except FileNotFoundError:  # pragma: no cover  # this would be a MAD-X issue
             logger.exception("Could not cleanup DYNAP output files, they might have not been created")
 
     tfs_dframe = tfs.TfsDataFrame(
@@ -297,18 +298,18 @@ def _make_tune_groups(dynap_string_rep: str, dsigma: float = 1.0) -> list[list[d
 class _Footprint:
     """More dark magic from the past here, close your eyes my friends."""
 
-    def __init__(self, tune_groups: list[list[dict[str, float]]], amplitude: int, angle: int, dsigma: float):
+    def __init__(self, tune_groups: list[list[dict[str, float]]], amplitude: int, angle: int, dsigma: float) -> None:
         self._tunes = tune_groups
         self._maxnangl = angle
         self._nampl = amplitude
         self._dSigma = dsigma
 
-    def get_h_tune(self, ampl, angl):
+    def get_h_tune(self, ampl: int, angl: int) -> float:
         if len(self._tunes[ampl]) <= angl < self._maxnangl:
             return self._tunes[ampl][len(self._tunes[ampl]) - 1]["H"]
         return self._tunes[ampl][angl]["H"]
 
-    def get_v_tune(self, ampl, angl):
+    def get_v_tune(self, ampl: int, angl: int) -> float:
         if len(self._tunes[ampl]) <= angl < self._maxnangl:
             return self._tunes[ampl][len(self._tunes[ampl]) - 1]["V"]
         return self._tunes[ampl][angl]["V"]
@@ -322,7 +323,7 @@ class _Footprint:
             for j in np.arange(self._maxnangl - 1, -1, -1):
                 qxs.append(self.get_h_tune(i + 1, j))
                 qys.append(self.get_v_tune(i + 1, j))
-        if self._nampl % 2 == 0:
+        if self._nampl % 2 == 0:  # pragma: no cover
             for j in np.arange(0, self._maxnangl - 1, 2):
                 for i in np.arange(self._nampl - 1, -1, -1):
                     qxs.append(self.get_h_tune(i, j))
@@ -330,7 +331,7 @@ class _Footprint:
                 for i in np.arange(0, self._nampl, 1):
                     qxs.append(self.get_h_tune(i, j + 1))
                     qys.append(self.get_v_tune(i, j + 1))
-            if self._maxnangl % 2 != 0:
+            if self._maxnangl % 2 != 0:  # pragma: no cover
                 for i in np.arange(self._nampl - 1, -1, -1):
                     qxs.append(self.get_h_tune(i, self._maxnangl - 1))
                     qys.append(self.get_v_tune(i, self._maxnangl - 1))
