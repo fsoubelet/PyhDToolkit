@@ -10,7 +10,7 @@ Version 1.7.0
     :maxdepth: 2
 
     releases/v1.7.0
-q
+
 Version 1.6.0
 -------------
 
