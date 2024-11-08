@@ -4,6 +4,9 @@ import pickle
 import random
 import subprocess
 import sys
+import time
+
+from tracemalloc import start
 
 import numpy as np
 import pandas as pd
@@ -23,17 +26,10 @@ from pyhdtoolkit.utils.htc_monitor import (
     _make_tasks_table,
     read_condor_q,
 )
+from pyhdtoolkit.utils.jit import maybe_jit
 
 CURRENT_DIR = pathlib.Path(__file__).parent
 INPUTS_DIR = CURRENT_DIR / "inputs"
-
-
-def _square(integer: int) -> int:
-    return integer**2
-
-
-def _to_str(integer: int) -> str:
-    return str(integer)
 
 
 def test_deprecation_decorator():
@@ -171,6 +167,38 @@ class TestMisc:
         arc_noisy = _misc.add_noise_to_arc_bpms(original, min_index=5, stdev=1e-2)
         with pytest.raises(AssertionError):
             pd.testing.assert_frame_equal(original, arc_noisy)
+
+
+class TestJIT:
+    def test_jit_works(self):
+        # I use here the first example from the
+        # numba jit documentation
+        x = np.arange(10000).reshape(100, 100)
+
+        def go_fast(a: np.ndarray) -> np.ndarray:
+            trace = 0.0
+            for i in range(a.shape[0]):  # Numba likes loops
+                trace += np.tanh(a[i, i])  # Numba likes NumPy functions
+            return a + trace  # Numba likes NumPy broadcasting
+
+        go_fast_numba = maybe_jit(go_fast)
+        go_fast_numba(x)  # first call to compile
+
+        # Do a few times because execution is fast
+        start1 = time.time()
+        for _ in range(25):
+            res1 = go_fast(x)
+        end1 = time.time()
+
+        # Do a few times because execution is fast
+        start2 = time.time()
+        for _ in range(25):
+            res2 = go_fast_numba(x)
+        end2 = time.time()
+
+        # Compare results validity and execution time
+        assert np.allclose(res1, res2)
+        assert end2 - start2 < end1 - start1
 
 
 # ----- Fixtures ----- #
